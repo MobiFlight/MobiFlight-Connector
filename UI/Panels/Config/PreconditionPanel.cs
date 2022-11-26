@@ -15,12 +15,10 @@ namespace MobiFlight.UI.Panels.Config
 
         ErrorProvider errorProvider = new ErrorProvider();
 
-        DataSet _dataSetConfig = null;
-        String FilterGuid = null;
-
         private PreconditionList Preconditions = new PreconditionList();
 
-        public Dictionary<string, MobiFlightVariable> Variables { get; private set; }
+        public List<ListItem> Configs { get; private set; } = new List<ListItem>();
+        public List<ListItem> Variables { get; private set; } = new List<ListItem>();
 
         public PreconditionPanel()
         {
@@ -32,6 +30,25 @@ namespace MobiFlight.UI.Panels.Config
             _initPreconditionPanel();
             PreconditionTreeNodeChanged += PreconditionPanel_PreconditionTreeNodeChanged;
             preconditionListTreeView.AfterSelect += PreconditionListTreeView_AfterSelect;
+            preconditionListTreeView.AfterCheck += PreconditionListTreeView_AfterCheck; ;
+            preConditionTypeComboBox.SelectedIndexChanged += FormValueChanged;
+            preconditionConfigComboBox.SelectedIndexChanged += FormValueChanged;
+            preconditionRefOperandComboBox.SelectedIndexChanged += FormValueChanged;
+            preconditionRefValueTextBox.LostFocus += FormValueChanged;
+            preconditionPinSerialComboBox.SelectedIndexChanged += FormValueChanged;
+            preconditionPortComboBox.SelectedIndexChanged += FormValueChanged;
+            preconditionPinComboBox.SelectedIndexChanged += FormValueChanged;
+            preconditionPinValueComboBox.SelectedIndexChanged += FormValueChanged;
+        }
+
+        private void PreconditionListTreeView_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            (e.Node.Tag as Precondition).PreconditionActive = e.Node.Checked;
+        }
+
+        private void FormValueChanged(object sender, EventArgs e)
+        {
+            UpdatePreconditionAfterChange(sender, e);
         }
 
         private void PreconditionListTreeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -39,7 +56,6 @@ namespace MobiFlight.UI.Panels.Config
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
             preconditionSettingsPanel.Enabled = true;
-            ApplyButtonPanel.Visible = true;
             config.PreconditionActive = e.Node.Checked;
 
             switch (config.PreconditionType)
@@ -78,32 +94,22 @@ namespace MobiFlight.UI.Panels.Config
             UpdateNodeLabels();
         }
 
-        public void preparePreconditionPanel(DataSet dataSetConfig, String filterGuid)
+        public void SetAvailableConfigs(List<ListItem> configs)
         {
-            _dataSetConfig = dataSetConfig;
-            FilterGuid = filterGuid;
-            preparePreconditionPanelWithConfigs();
+            Configs = configs;
         }
 
-        private void preparePreconditionPanelWithConfigs()
+        public void SetAvailableVariables(Dictionary<string, MobiFlightVariable> dictionary)
         {
-            DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid <> '" + FilterGuid + "'");
+            if (Variables == null) return;
+            var options = new List<ListItem>();
 
-            // this filters the current config
-            DataView dv = new DataView(_dataSetConfig.Tables["config"]);
-            dv.RowFilter = "guid <> '" + FilterGuid + "'";
-            preconditionConfigComboBox.DataSource = dv;
-            preconditionConfigComboBox.ValueMember = "guid";
-            preconditionConfigComboBox.DisplayMember = "description";
-
-            if (preconditionConfigComboBox.Items.Count == 0)
+            foreach (var variable in dictionary.Values)
             {
-                List<ListItem> preconTypes = GetPreconditionTypeOptions();
-                preConditionTypeComboBox.DataSource = preconTypes;
-                preConditionTypeComboBox.DisplayMember = "Label";
-                preConditionTypeComboBox.ValueMember = "Value";
-                preConditionTypeComboBox.SelectedIndex = 0;
+                options.Add(new ListItem { Label = variable.Name, Value = variable.Name });
             }
+
+            Variables = options;
         }
 
         private static List<ListItem> GetPreconditionTypeOptions()
@@ -119,21 +125,6 @@ namespace MobiFlight.UI.Panels.Config
                 result.Add(new ListItem() { Value = "pin", Label = i18n._tr("LabelPrecondition_ArcazePin") });
             }
             return result;
-        }
-
-        private void preparePreconditionPanelWithVariables()
-        {
-            if (Variables == null) return;
-            var options = new List<ListItem>();
-
-            foreach (var variable in Variables.Values)
-            {
-                options.Add(new ListItem { Label = variable.Name, Value = variable.Name });
-            }
-
-            preconditionConfigComboBox.DataSource = options;
-            preconditionConfigComboBox.ValueMember = "Value";
-            preconditionConfigComboBox.DisplayMember = "Label";
         }
 
         private void _initPreconditionPanel()
@@ -161,7 +152,6 @@ namespace MobiFlight.UI.Panels.Config
             preconditionPinValueComboBox.SelectedIndex = 0;
 
             preconditionSettingsPanel.Enabled = false;
-            ApplyButtonPanel.Visible = false;
         }
 
         public void SetModules(List<ListItem> ModuleList)
@@ -195,17 +185,12 @@ namespace MobiFlight.UI.Panels.Config
                 }
             }
 
-            overridePreconditionCheckBox.Checked = config.Preconditions.ExecuteOnFalse;
-            overridePreconditionTextBox.Text = config.Preconditions.FalseCaseValue;
-
             return true;
         }
 
         public bool syncToConfig(IBaseConfigItem config)
         {
             config.Preconditions = Preconditions;
-            config.Preconditions.ExecuteOnFalse = overridePreconditionCheckBox.Checked;
-            config.Preconditions.FalseCaseValue = overridePreconditionTextBox.Text;
             return true;
         }
 
@@ -222,115 +207,24 @@ namespace MobiFlight.UI.Panels.Config
                 preconditionSettingsGroupBox.Height = preconditionRuleConfigPanel.Height;
                 if (selected == "config")
                 {
-                    preparePreconditionPanelWithConfigs();
-                } else
+                    preconditionConfigComboBox.DataSource = Configs;
+                }
+                else
                 {
-                    preparePreconditionPanelWithVariables();
+                    preconditionConfigComboBox.DataSource = Variables;
                 }
 
+                preconditionConfigComboBox.ValueMember = "Value";
+                preconditionConfigComboBox.DisplayMember = "Label";
             }
-                
+
             else if (preconditionPinPanel.Visible)
             {
                 preconditionSettingsGroupBox.Height = preconditionPinPanel.Height;
             }
-
-            
         }
 
-        private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            if (!(preconditionRuleConfigPanel).Visible)
-            {
-                removeError(preconditionRefValueTextBox);
-                return;
-            }
-
-            if (preconditionRefValueTextBox.Text.Trim() == "")
-            {
-                e.Cancel = true;
-                displayError(preconditionRefValueTextBox, i18n._tr("uiMessageConfigWizard_SelectComparison"));
-            }
-            else
-            {
-                removeError(preconditionRefValueTextBox);
-            }
-        }
-
-        private void preconditionPinSerialComboBox_Validating(object sender, CancelEventArgs e)
-        {
-            if (!(preconditionPinPanel).Visible)
-            {
-                removeError(preconditionRefValueTextBox);
-                return;
-            }
-
-            if (preconditionPinSerialComboBox.Items.Count > 1 && preconditionPinSerialComboBox.Text.Trim() == "-")
-            {
-                e.Cancel = true;
-                ErrorOnValidating?.Invoke(this, new EventArgs());
-
-                preconditionPinSerialComboBox.Focus();
-                displayError(preconditionPinSerialComboBox, i18n._tr("uiMessageConfigWizard_SelectArcaze"));
-            }
-            else
-            {
-                removeError(preconditionPinSerialComboBox);
-            }
-
-        }
-
-        private void preconditionPinComboBox_Validating(object sender, CancelEventArgs e)
-        {
-            if (!(preconditionPinPanel).Visible)
-            {
-                removeError(preconditionPinComboBox);
-                return;
-            }
-
-            if (preconditionPinSerialComboBox.SelectedIndex > 0 && preconditionPinComboBox.SelectedIndex == -1)
-            {
-                e.Cancel = true;
-                ErrorOnValidating?.Invoke(this, new EventArgs());
-
-                displayError(preconditionPinComboBox, i18n._tr("Please_select_a_pin"));
-            }
-            else
-            {
-                removeError(preconditionPinComboBox);
-            }
-        }
-
-        private void preconditionPortComboBox_Validating(object sender, CancelEventArgs e)
-        {
-            if (!(preconditionPinPanel).Visible)
-            {
-                removeError(preconditionPortComboBox);
-                return;
-            }
-
-            if (preconditionPinSerialComboBox.SelectedIndex > 0 && preconditionPortComboBox.SelectedIndex == -1)
-            {
-                e.Cancel = true;
-                ErrorOnValidating?.Invoke(this, new EventArgs());
-                displayError(preconditionPortComboBox, i18n._tr("Please_select_a_port"));
-            }
-            else
-            {
-                removeError(preconditionPortComboBox);
-            }
-        }
-
-
-        private void preconditionListTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            preconditionListTreeView.SelectedNode = e.Node;
-            //if (e.Button != System.Windows.Forms.MouseButtons.Left) return;
-
-            
-        }
-
-        private void preconditionApplyButton_Click(object sender, EventArgs e)
+        private void UpdatePreconditionAfterChange(object sender, EventArgs e)
         {
             // sync the selected node with the current settings from the panels
             TreeNode selectedNode = preconditionListTreeView.SelectedNode;
@@ -343,17 +237,20 @@ namespace MobiFlight.UI.Panels.Config
             {
                 case "variable":
                 case "config":
-                    c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
-                    c.PreconditionOperand = preconditionRefOperandComboBox.Text;
-                    c.PreconditionValue = preconditionRefValueTextBox.Text;
-                    c.PreconditionActive = true;
+                    if (sender == preconditionConfigComboBox)
+                        c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
+                    if (sender == preconditionRefOperandComboBox)
+                        c.PreconditionOperand = preconditionRefOperandComboBox.Text;
+                    if (sender == preconditionRefValueTextBox)
+                        c.PreconditionValue = preconditionRefValueTextBox.Text;
+                    c.PreconditionActive = selectedNode.Checked;
                     break;
 
                 case "pin":
                     c.PreconditionSerial = preconditionPinSerialComboBox.Text;
                     c.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
                     c.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
-                    c.PreconditionActive = true;
+                    c.PreconditionActive = selectedNode.Checked;
                     break;
             }
 
@@ -366,7 +263,7 @@ namespace MobiFlight.UI.Panels.Config
             node.Tag = p;
 
             SetNodeImage(node, p);
-            
+
             aNDToolStripMenuItem.Checked = p.PreconditionLogic == "and";
             oRToolStripMenuItem.Checked = p.PreconditionLogic == "or";
 
@@ -402,11 +299,11 @@ namespace MobiFlight.UI.Panels.Config
                 if (p.PreconditionType == "config")
                 {
                     String replaceString = "[unknown]";
-                    if (_dataSetConfig != null)
+                    if (Configs != null && p.PreconditionRef != null)
                     {
-                        DataRow[] rows = _dataSetConfig.Tables["config"].Select("guid = '" + p.PreconditionRef + "'");
-                        if (rows.Count() == 0) throw new IndexOutOfRangeException(); // an orphaned entry has been found
-                        replaceString = rows[0]["description"] as String;
+                        var config = Configs.Find(c => c.Value == p.PreconditionRef);
+                        if (config == null) throw new IndexOutOfRangeException(); // an orphaned entry has been found
+                        replaceString = config.Label;
                     }
                     label = label.Replace("<Ref:" + p.PreconditionRef + ">", replaceString);
                 }
@@ -431,7 +328,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private bool NodeIsLastNode(TreeNode node)
         {
-            return 
+            return
                 preconditionListTreeView.Nodes.IndexOf(node) == (preconditionListTreeView.Nodes.Count - 1);
         }
 
@@ -519,10 +416,87 @@ namespace MobiFlight.UI.Panels.Config
                     "");
         }
 
-        public void addAvailableVariables(Dictionary<string, MobiFlightVariable> dictionary)
+        private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
         {
-            Variables = dictionary;
+            if (!(preconditionRuleConfigPanel).Visible)
+            {
+                removeError(preconditionRefValueTextBox);
+                return;
+            }
+
+            if (preconditionRefValueTextBox.Text.Trim() == "")
+            {
+                e.Cancel = true;
+                displayError(preconditionRefValueTextBox, i18n._tr("uiMessageConfigWizard_SelectComparison"));
+            }
+            else
+            {
+                removeError(preconditionRefValueTextBox);
+            }
         }
 
+        private void preconditionPinSerialComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (!(preconditionPinPanel).Visible)
+            {
+                removeError(preconditionRefValueTextBox);
+                return;
+            }
+
+            if (preconditionPinSerialComboBox.Items.Count > 1 && preconditionPinSerialComboBox.Text.Trim() == "-")
+            {
+                e.Cancel = true;
+                ErrorOnValidating?.Invoke(this, new EventArgs());
+
+                preconditionPinSerialComboBox.Focus();
+                displayError(preconditionPinSerialComboBox, i18n._tr("uiMessageConfigWizard_SelectArcaze"));
+            }
+            else
+            {
+                removeError(preconditionPinSerialComboBox);
+            }
+
+        }
+
+        private void preconditionPinComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (!(preconditionPinPanel).Visible)
+            {
+                removeError(preconditionPinComboBox);
+                return;
+            }
+
+            if (preconditionPinSerialComboBox.SelectedIndex > 0 && preconditionPinComboBox.SelectedIndex == -1)
+            {
+                e.Cancel = true;
+                ErrorOnValidating?.Invoke(this, new EventArgs());
+
+                displayError(preconditionPinComboBox, i18n._tr("Please_select_a_pin"));
+            }
+            else
+            {
+                removeError(preconditionPinComboBox);
+            }
+        }
+
+        private void preconditionPortComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (!(preconditionPinPanel).Visible)
+            {
+                removeError(preconditionPortComboBox);
+                return;
+            }
+
+            if (preconditionPinSerialComboBox.SelectedIndex > 0 && preconditionPortComboBox.SelectedIndex == -1)
+            {
+                e.Cancel = true;
+                ErrorOnValidating?.Invoke(this, new EventArgs());
+                displayError(preconditionPortComboBox, i18n._tr("Please_select_a_port"));
+            }
+            else
+            {
+                removeError(preconditionPortComboBox);
+            }
+        }
     }
 }

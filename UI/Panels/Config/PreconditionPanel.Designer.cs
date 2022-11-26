@@ -48,10 +48,6 @@
             this.preconditionSelectGroupBox = new System.Windows.Forms.GroupBox();
             this.preConditionTypeComboBox = new System.Windows.Forms.ComboBox();
             this.preconditionTypeLabel = new System.Windows.Forms.Label();
-            this.preconditionSpacerPanel = new System.Windows.Forms.Panel();
-            this.overrideGroupBox = new System.Windows.Forms.GroupBox();
-            this.overridePreconditionTextBox = new System.Windows.Forms.TextBox();
-            this.overridePreconditionCheckBox = new System.Windows.Forms.CheckBox();
             this.preconditionSettingsPanel = new System.Windows.Forms.Panel();
             this.preconditionSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.preconditionPinPanel = new System.Windows.Forms.Panel();
@@ -68,17 +64,13 @@
             this.preconditionConfigRefOperandLabel = new System.Windows.Forms.Label();
             this.preconditionConfigComboBox = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.preconditionApplyButton = new System.Windows.Forms.Button();
-            this.ApplyButtonPanel = new System.Windows.Forms.Panel();
             this.preconditionListgroupBox.SuspendLayout();
             this.preconditionTreeContextMenuStrip.SuspendLayout();
             this.preconditionSelectGroupBox.SuspendLayout();
-            this.overrideGroupBox.SuspendLayout();
             this.preconditionSettingsPanel.SuspendLayout();
             this.preconditionSettingsGroupBox.SuspendLayout();
             this.preconditionPinPanel.SuspendLayout();
             this.preconditionRuleConfigPanel.SuspendLayout();
-            this.ApplyButtonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // preconditionListgroupBox
@@ -99,7 +91,6 @@
             this.preconditionListTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes"))),
             ((System.Windows.Forms.TreeNode)(resources.GetObject("preconditionListTreeView.Nodes1")))});
-            this.preconditionListTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.preconditionListTreeView_NodeMouseClick);
             // 
             // preconditionTreeContextMenuStrip
             // 
@@ -214,30 +205,6 @@
             // 
             resources.ApplyResources(this.preconditionTypeLabel, "preconditionTypeLabel");
             this.preconditionTypeLabel.Name = "preconditionTypeLabel";
-            // 
-            // preconditionSpacerPanel
-            // 
-            resources.ApplyResources(this.preconditionSpacerPanel, "preconditionSpacerPanel");
-            this.preconditionSpacerPanel.Name = "preconditionSpacerPanel";
-            // 
-            // overrideGroupBox
-            // 
-            this.overrideGroupBox.Controls.Add(this.overridePreconditionTextBox);
-            this.overrideGroupBox.Controls.Add(this.overridePreconditionCheckBox);
-            resources.ApplyResources(this.overrideGroupBox, "overrideGroupBox");
-            this.overrideGroupBox.Name = "overrideGroupBox";
-            this.overrideGroupBox.TabStop = false;
-            // 
-            // overridePreconditionTextBox
-            // 
-            resources.ApplyResources(this.overridePreconditionTextBox, "overridePreconditionTextBox");
-            this.overridePreconditionTextBox.Name = "overridePreconditionTextBox";
-            // 
-            // overridePreconditionCheckBox
-            // 
-            resources.ApplyResources(this.overridePreconditionCheckBox, "overridePreconditionCheckBox");
-            this.overridePreconditionCheckBox.Name = "overridePreconditionCheckBox";
-            this.overridePreconditionCheckBox.UseVisualStyleBackColor = true;
             // 
             // preconditionSettingsPanel
             // 
@@ -383,26 +350,10 @@
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
             // 
-            // preconditionApplyButton
-            // 
-            resources.ApplyResources(this.preconditionApplyButton, "preconditionApplyButton");
-            this.preconditionApplyButton.Name = "preconditionApplyButton";
-            this.preconditionApplyButton.UseVisualStyleBackColor = true;
-            this.preconditionApplyButton.Click += new System.EventHandler(this.preconditionApplyButton_Click);
-            // 
-            // ApplyButtonPanel
-            // 
-            this.ApplyButtonPanel.Controls.Add(this.preconditionApplyButton);
-            resources.ApplyResources(this.ApplyButtonPanel, "ApplyButtonPanel");
-            this.ApplyButtonPanel.Name = "ApplyButtonPanel";
-            // 
             // PreconditionPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.preconditionSpacerPanel);
-            this.Controls.Add(this.ApplyButtonPanel);
-            this.Controls.Add(this.overrideGroupBox);
             this.Controls.Add(this.preconditionSettingsPanel);
             this.Controls.Add(this.preconditionListgroupBox);
             this.Controls.Add(this.preconditionTabTextBox);
@@ -410,15 +361,12 @@
             this.preconditionListgroupBox.ResumeLayout(false);
             this.preconditionTreeContextMenuStrip.ResumeLayout(false);
             this.preconditionSelectGroupBox.ResumeLayout(false);
-            this.overrideGroupBox.ResumeLayout(false);
-            this.overrideGroupBox.PerformLayout();
             this.preconditionSettingsPanel.ResumeLayout(false);
             this.preconditionSettingsPanel.PerformLayout();
             this.preconditionSettingsGroupBox.ResumeLayout(false);
             this.preconditionPinPanel.ResumeLayout(false);
             this.preconditionRuleConfigPanel.ResumeLayout(false);
             this.preconditionRuleConfigPanel.PerformLayout();
-            this.ApplyButtonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -432,10 +380,6 @@
         private System.Windows.Forms.GroupBox preconditionSelectGroupBox;
         private System.Windows.Forms.ComboBox preConditionTypeComboBox;
         private System.Windows.Forms.Label preconditionTypeLabel;
-        private System.Windows.Forms.Panel preconditionSpacerPanel;
-        private System.Windows.Forms.GroupBox overrideGroupBox;
-        private System.Windows.Forms.TextBox overridePreconditionTextBox;
-        private System.Windows.Forms.CheckBox overridePreconditionCheckBox;
         private System.Windows.Forms.Panel preconditionSettingsPanel;
         private System.Windows.Forms.GroupBox preconditionSettingsGroupBox;
         private System.Windows.Forms.Panel preconditionPinPanel;
@@ -452,7 +396,6 @@
         private System.Windows.Forms.Label preconditionConfigRefOperandLabel;
         private System.Windows.Forms.ComboBox preconditionConfigComboBox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button preconditionApplyButton;
         private System.Windows.Forms.ImageList preconditionTreeImageList;
         private System.Windows.Forms.ContextMenuStrip preconditionTreeContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addPreconditionToolStripMenuItem;
@@ -464,7 +407,6 @@
         private System.Windows.Forms.ToolStripMenuItem logicSelectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aNDToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oRToolStripMenuItem;
-        private System.Windows.Forms.Panel ApplyButtonPanel;
         private System.Windows.Forms.Label label1;
     }
 }
