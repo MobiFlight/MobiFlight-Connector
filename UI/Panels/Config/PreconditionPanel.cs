@@ -67,7 +67,6 @@ namespace MobiFlight.UI.Panels.Config
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
             preconditionSettingsPanel.Enabled = true;
-            config.PreconditionActive = e.Node.Checked;
 
             switch (config.PreconditionType)
             {
@@ -102,7 +101,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void PreconditionPanel_PreconditionTreeNodeChanged(object sender, EventArgs e)
         {
-            UpdateNodeLabels();
+            UpdateNodeLabelsAndImages();
         }
 
         public void SetAvailableConfigs(List<ListItem> configs)
@@ -196,6 +195,8 @@ namespace MobiFlight.UI.Panels.Config
                 }
             }
 
+            UpdateNodeLabelsAndImages();
+
             return true;
         }
 
@@ -275,8 +276,6 @@ namespace MobiFlight.UI.Panels.Config
             node.Checked = p.PreconditionActive;
             node.Tag = p;
 
-            SetNodeImage(node, p);
-
             aNDToolStripMenuItem.Checked = p.PreconditionLogic == "and";
             oRToolStripMenuItem.Checked = p.PreconditionLogic == "or";
 
@@ -307,7 +306,7 @@ namespace MobiFlight.UI.Panels.Config
             node.SelectedImageKey = node.ImageKey;
         }
 
-        private void UpdateNodeLabels()
+        private void UpdateNodeLabelsAndImages()
         {
             foreach (TreeNode node in preconditionListTreeView.Nodes)
             {
@@ -344,6 +343,8 @@ namespace MobiFlight.UI.Panels.Config
                 {
                     node.Text = node.Text.Replace(" (AND)", "").Replace(" (OR)", "");
                 }
+
+                SetNodeImage(node, p);
             }
         }
 

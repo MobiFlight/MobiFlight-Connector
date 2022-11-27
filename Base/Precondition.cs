@@ -19,14 +19,14 @@ namespace MobiFlight
             get {
                 if (preconditionLabel != null) return preconditionLabel;
                 if (PreconditionType=="config")
-                    return "Config: <Ref:" + PreconditionRef + "> " + PreconditionOperand + " " + PreconditionValue + " <Logic:" + PreconditionLogic + ">";
+                    return $"Config: <Ref:{PreconditionRef}>{PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
                 else if (PreconditionType == "variable")
-                    return "Variable: <Variable:" + PreconditionRef + "> " + PreconditionOperand + " " + PreconditionValue + " <Logic:" + PreconditionLogic + ">";
+                    return $"Variable: <Variable: {PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
                 else if (PreconditionType == "pin")
                 {
-                    return "Pin: <Serial:" + PreconditionSerial + "><Pin:" + PreconditionPin + "> " + PreconditionOperand + " " + PreconditionValue + " <Logic:" + PreconditionLogic + ">";
+                    return $"Pin: <Serial:{PreconditionSerial}><Pin:{PreconditionPin}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
                 }
-                return "<none>";
+                return $"<none><Logic:{PreconditionLogic}>";
             }
             set
             {
@@ -45,7 +45,7 @@ namespace MobiFlight
         public Precondition()
         {
             PreconditionType = "none";
-            PreconditionActive = false;            
+            PreconditionActive = true;            
             PreconditionLogic = "and";
         }
 
