@@ -19,7 +19,7 @@ namespace MobiFlight.Tests
             Precondition o = new Precondition();
             Assert.IsNotNull(o, "Object is null");
             Assert.AreEqual(o.PreconditionType, "none", "Type is not none");
-            Assert.AreEqual(o.PreconditionActive, false, "Active is not false");
+            Assert.AreEqual(o.PreconditionActive, true, "Active is not true");
             Assert.AreEqual(o.PreconditionLogic, "and", "Precondition logic is not and");
         }
 
