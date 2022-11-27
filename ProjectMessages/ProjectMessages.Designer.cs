@@ -162,32 +162,59 @@ namespace MobiFlight.ProjectMessages {
         /// <summary>
         ///   Looks up a localized string similar to Arcaze Pin.
         /// </summary>
-        internal static string LabelPrecondition_ArcazePin {
+        internal static string Label_Precondition_ArcazePin {
             get {
-                return ResourceManager.GetString("LabelPrecondition_ArcazePin", resourceCulture);
+                return ResourceManager.GetString("Label_Precondition_ArcazePin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose config.
+        /// </summary>
+        internal static string Label_Precondition_choose_config {
+            get {
+                return ResourceManager.GetString("Label_Precondition_choose_config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose variable.
+        /// </summary>
+        internal static string Label_Precondition_choose_variable {
+            get {
+                return ResourceManager.GetString("Label_Precondition_choose_variable", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Config item.
         /// </summary>
-        internal static string LabelPrecondition_ConfigItem {
+        internal static string Label_Precondition_ConfigItem {
             get {
-                return ResourceManager.GetString("LabelPrecondition_ConfigItem", resourceCulture);
+                return ResourceManager.GetString("Label_Precondition_ConfigItem", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to none.
         /// </summary>
-        internal static string LabelPrecondition_None {
+        internal static string Label_Precondition_None {
             get {
-                return ResourceManager.GetString("LabelPrecondition_None", resourceCulture);
+                return ResourceManager.GetString("Label_Precondition_None", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are still changes not uploaded to your modules. You will loose these changes if you close the form. Do you really want to continue?.
+        ///   Looks up a localized string similar to MobiFlight Variable.
+        /// </summary>
+        internal static string Label_Precondition_Variable {
+            get {
+                return ResourceManager.GetString("Label_Precondition_Variable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are still changes not uploaded to your modules. You will lose these changes if you close the form. Do you really want to continue?.
         /// </summary>
         internal static string MFModuleConfigChanged {
             get {
