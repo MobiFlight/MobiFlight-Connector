@@ -19,6 +19,7 @@ namespace MobiFlight
         /// <summary>
         /// Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.
         /// </summary>
+        [Obsolete]
         public String BaudRate;
 
         /// <summary>
