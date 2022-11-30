@@ -175,7 +175,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BetaUpdatesGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -274,10 +274,10 @@
     <value>Top</value>
   </data>
   <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 218</value>
+    <value>0, 269</value>
   </data>
   <data name="languageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 87</value>
+    <value>455, 81</value>
   </data>
   <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -445,7 +445,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;debugGroupBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -541,7 +541,7 @@
     <value>230, 3</value>
   </data>
   <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 205</value>
+    <value>222, 160</value>
   </data>
   <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -637,7 +637,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;recentFilesGroupBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="CommunityFeedbackCheckBox.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopLeft</value>
@@ -698,7 +698,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CommunityFeedbackGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -779,7 +779,7 @@
     <value>0, 3, 0, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 141</value>
+    <value>215, 96</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -833,7 +833,7 @@
     <value>3, 3</value>
   </data>
   <data name="ConfigExecutionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 205</value>
+    <value>221, 160</value>
   </data>
   <data name="ConfigExecutionGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -860,7 +860,7 @@
     <value>Fill</value>
   </data>
   <data name="SpeedTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 305</value>
+    <value>0, 350</value>
   </data>
   <data name="SpeedTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -869,7 +869,7 @@
     <value>1</value>
   </data>
   <data name="SpeedTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 211</value>
+    <value>455, 166</value>
   </data>
   <data name="SpeedTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -888,6 +888,60 @@
   </data>
   <data name="SpeedTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="testModeSpeedGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ConfigExecutionGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="autoRetriggerCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 17</value>
+  </data>
+  <data name="autoRetriggerCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Text" xml:space="preserve">
+    <value>Automatically perform retrigger-action with "run"-mode</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.Name" xml:space="preserve">
+    <value>autoRetriggerCheckBox</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.Parent" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 218</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 51</value>
+  </data>
+  <data name="autoRetriggerGoupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Text" xml:space="preserve">
+    <value>Auto-Retrigger</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerGoupBox.Name" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerGoupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerGoupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerGoupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

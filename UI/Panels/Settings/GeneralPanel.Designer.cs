@@ -55,6 +55,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
             this.SpeedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.autoRetriggerGoupBox = new System.Windows.Forms.GroupBox();
+            this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -66,6 +68,7 @@
             this.ConfigExecutionGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
             this.SpeedTableLayoutPanel.SuspendLayout();
+            this.autoRetriggerGoupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // BetaUpdatesGroupBox
@@ -246,12 +249,26 @@
             this.SpeedTableLayoutPanel.Controls.Add(this.ConfigExecutionGroupBox, 0, 0);
             this.SpeedTableLayoutPanel.Name = "SpeedTableLayoutPanel";
             // 
+            // autoRetriggerGoupBox
+            // 
+            this.autoRetriggerGoupBox.Controls.Add(this.autoRetriggerCheckBox);
+            resources.ApplyResources(this.autoRetriggerGoupBox, "autoRetriggerGoupBox");
+            this.autoRetriggerGoupBox.Name = "autoRetriggerGoupBox";
+            this.autoRetriggerGoupBox.TabStop = false;
+            // 
+            // autoRetriggerCheckBox
+            // 
+            resources.ApplyResources(this.autoRetriggerCheckBox, "autoRetriggerCheckBox");
+            this.autoRetriggerCheckBox.Name = "autoRetriggerCheckBox";
+            this.autoRetriggerCheckBox.UseVisualStyleBackColor = true;
+            // 
             // GeneralPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.SpeedTableLayoutPanel);
             this.Controls.Add(this.languageGroupBox);
+            this.Controls.Add(this.autoRetriggerGoupBox);
             this.Controls.Add(this.CommunityFeedbackGroupBox);
             this.Controls.Add(this.BetaUpdatesGroupBox);
             this.Controls.Add(this.debugGroupBox);
@@ -272,6 +289,8 @@
             this.ConfigExecutionGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).EndInit();
             this.SpeedTableLayoutPanel.ResumeLayout(false);
+            this.autoRetriggerGoupBox.ResumeLayout(false);
+            this.autoRetriggerGoupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -304,5 +323,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TrackBar fsuipcPollIntervalTrackBar;
         private System.Windows.Forms.TableLayoutPanel SpeedTableLayoutPanel;
+        private System.Windows.Forms.GroupBox autoRetriggerGoupBox;
+        private System.Windows.Forms.CheckBox autoRetriggerCheckBox;
     }
 }
