@@ -195,6 +195,30 @@ namespace MobiFlight.Tests
             WaitForQueueUpdate();
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},12,4,{mask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+            /*
+             * The following tests still fail
+             * They are edge cases which are not
+             * so important
+             * 
+            value = "........";
+            points = 0;
+            mask = 255;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},,255,{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+            value = "1..2";
+            points = 0;
+            mask = 0 + 4 + 2 + 1;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},1 2,6,{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+            */
         }
 
         [TestMethod()]

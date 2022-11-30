@@ -66,12 +66,10 @@ namespace MobiFlight
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 
-            var strValueParts = value.Split('.');
-            value = String.Join("", strValueParts);
-
-            if (strValueParts.Length > 1)
+            if (value.IndexOf(".") >=0 )
             {
-                points = CalculateCorrectPoints(String.Join(".", strValueParts), mask);
+                points = CalculateCorrectPoints(value, mask);
+                value = value.Replace(".", "");
             }
 
             // clamp and reverse the string
@@ -101,6 +99,7 @@ namespace MobiFlight
         static public byte CalculateCorrectPoints(string value, byte mask)
         {
             byte points = 0;
+            bool lastDigitWasPoint = false;
 
             // we start with the last character in the value string
             int positionInValue = value.Length-1;
@@ -123,7 +122,13 @@ namespace MobiFlight
                     points |= (byte)(1 << digit);
                     
                     // then we stay on the digit one more time
-                    digit--;
+                    // but only if we have not had a decimal point
+                    // on the last digit.
+                    if (!lastDigitWasPoint)
+                        digit--;
+                } else
+                {
+                    lastDigitWasPoint = false;
                 }
 
                 // walk one character to the left
