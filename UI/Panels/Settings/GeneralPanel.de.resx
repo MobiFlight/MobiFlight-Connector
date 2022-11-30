@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="BetaUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>307, 24</value>
+    <value>207, 17</value>
   </data>
   <data name="BetaUpdateCheckBox.Text" xml:space="preserve">
     <value>Ja, ich möchte Beta-Updates erhalten.</value>
@@ -127,14 +127,18 @@
   <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
     <value>Beta Versionen</value>
   </data>
-  <data name="languageGroupBox.Text" xml:space="preserve">
-    <value>Sprache</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
+  <data name="label9.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
   <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 75</value>
+    <value>3, 56</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>707, 34</value>
+    <value>449, 22</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>Eine Änderung der Sprache benötigt einen Neustart von MobiFlight.</value>
@@ -142,24 +146,14 @@
   <data name="languageLabel.Text" xml:space="preserve">
     <value>Sprache von UI ändern:</value>
   </data>
-  <data name="OfflineModeLabel.Text" xml:space="preserve">
-    <value>Wenn aktiv, dann werden die Konfigurationen auch ohne Verbindung zum Flugsimulator ausgeführt. Das kann sinnvoll z.B. für Keyboard Commands 
-sein, wenn der Sim nicht speziell unterstützt ist.</value>
-  </data>
-  <data name="offlineModeCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 24</value>
-  </data>
-  <data name="offlineModeCheckBox.Text" xml:space="preserve">
-    <value>aktiviert</value>
+  <data name="languageGroupBox.Text" xml:space="preserve">
+    <value>Sprache</value>
   </data>
   <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 24</value>
+    <value>63, 17</value>
   </data>
   <data name="logLevelCheckBox.Text" xml:space="preserve">
     <value>aktiviert</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
-    <value>Test Mode Geschwindigkeit</value>
   </data>
   <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
     <value>205, 54</value>
@@ -179,17 +173,17 @@ sein, wenn der Sim nicht speziell unterstützt ist.</value>
   <data name="label6.Text" xml:space="preserve">
     <value>Langsam</value>
   </data>
-  <data name="recentFilesGroupBox.Text" xml:space="preserve">
-    <value>Zuletzt verwendete Dateien</value>
+  <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
+    <value>Test Mode Geschwindigkeit</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Anzahl der angezeigten Dateien in der Liste</value>
   </data>
+  <data name="recentFilesGroupBox.Text" xml:space="preserve">
+    <value>Zuletzt verwendete Dateien</value>
+  </data>
   <data name="CommunityFeedbackCheckBox.Text" xml:space="preserve">
     <value>Ja, ich möchte am Community Feedback Programm teilnehmen und helfen MobiFlight zu verbessern.</value>
-  </data>
-  <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
-    <value>Config Ausführung Speed</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>222, 63</value>
@@ -204,12 +198,24 @@ sein, wenn der Sim nicht speziell unterstützt ist.</value>
     <value>8, 63</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 20</value>
+    <value>50, 13</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Langsam</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>Du kannst die Geschwindigkeit anpassen, z.B. wenn du Lag bei Eingaben hast. Zu schnelle Einstellung kann sich eventuell auf die System-Performance auswirken.</value>
+  </data>
+  <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>BottomLeft</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
+    <value>Config Ausführung Speed</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>284, 17</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Text" xml:space="preserve">
+    <value>Automatisch retrigger-action mit "run"-Mode ausführen.</value>
   </data>
 </root>

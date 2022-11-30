@@ -261,6 +261,7 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
+            OnStartActions();
             timer.Enabled = true;
         }
 
@@ -1461,6 +1462,22 @@ namespace MobiFlight
         public SimConnectCache GetSimConnectCache()
         {
             return simConnectCache;
+        }
+
+
+        private void OnStartActions()
+        {
+            if (Properties.Settings.Default.AutoRetrigger)
+            {
+                var action = new RetriggerInputAction();
+                action.execute(new CacheCollection()
+                {
+                    fsuipcCache = fsuipcCache,
+                    simConnectCache = simConnectCache,
+                    xplaneCache = xplaneCache,
+                    moduleCache = mobiFlightCache
+                }, null, null);
+            }            
         }
     }
 
