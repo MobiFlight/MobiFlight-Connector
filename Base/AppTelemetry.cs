@@ -33,7 +33,11 @@ namespace MobiFlight.Base
         {
             TelemetryConfiguration configuration = TelemetryConfiguration.Active;
             configuration.InstrumentationKey = "712d6bd9-733d-4735-b173-ba30ade778fb";
+#if (!DEBUG)
             configuration.DisableTelemetry = !enabled;
+#else
+            configuration.DisableTelemetry = true;
+#endif
             telemetryClient = new Microsoft.ApplicationInsights.TelemetryClient(configuration);
             telemetryClient.Context.Component.Version = Assembly.GetEntryAssembly().GetName().Version.ToString();
             telemetryClient.Context.Session.Id = Guid.NewGuid().ToString();
