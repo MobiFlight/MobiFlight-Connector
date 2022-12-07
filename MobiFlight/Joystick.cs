@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.SessionState;
+using HidSharp.Utility;
 using SharpDX;
 using SharpDX.DirectInput;
 
@@ -117,23 +118,26 @@ namespace MobiFlight
                 if (IsAxis && Axes.Count < joystick.Capabilities.AxeCount)
                 {
                     String OffsetAxisName = "Unknown";
+                    var FriendlyAxisName = name;
                     try
                     {
                         OffsetAxisName = GetAxisNameForUsage(usage);
+                        FriendlyAxisName = GetFriendlyAxisName(name);
+
                     } catch (ArgumentOutOfRangeException ex)
                     {
-                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name}.", LogSeverity.Error);
+                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label {FriendlyAxisName}.", LogSeverity.Error);
                         continue;
                     }
-                    Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = name, Type = JoystickDeviceType.Axis });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name}.", LogSeverity.Debug);
+                    Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = FriendlyAxisName, Type = JoystickDeviceType.Axis });
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label {FriendlyAxisName}.", LogSeverity.Debug);
 
                 }
                 else if (IsButton)
                 {
-                    String ButtonName = CorrectButtonIndexForButtonName(name, Buttons.Count + 1);
+                    String ButtonName = GetFriendlyButtonName(name, Buttons.Count + 1);
                     Buttons.Add(new JoystickDevice() { Name = ButtonPrefix + (Buttons.Count + 1), Label = ButtonName, Type = JoystickDeviceType.Button });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name}.", LogSeverity.Debug);
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {ButtonName}.", LogSeverity.Debug);
                 }
                 else if (IsPOV)
                 {
@@ -153,9 +157,19 @@ namespace MobiFlight
             }
         }
 
-        protected virtual string CorrectButtonIndexForButtonName(string name, int v)
+        protected string GetFriendlyAxisName(string name)
         {
-            return Regex.Replace(name, @"\d+", v.ToString()).ToString();
+            return MapDeviceNameToLabel(name);
+        }
+
+        protected string GetFriendlyButtonName(string name, int v)
+        {
+            return MapDeviceNameToLabel(Regex.Replace(name, @"\d+", v.ToString()).ToString());
+        }
+
+        protected virtual string MapDeviceNameToLabel(string deviceName)
+        {
+            return deviceName;
         }
 
         public void Connect(IntPtr handle)
@@ -177,7 +191,7 @@ namespace MobiFlight
         {
             List<ListItem> result = new List<ListItem>();
 
-            Buttons.ForEach((item) =>
+            GetButtonsSorted().ForEach((item) =>
             {
                 result.Add(item.ToListItem());
             });
@@ -190,6 +204,16 @@ namespace MobiFlight
                 result.Add(item.ToListItem());
             });
             return result;
+        }
+
+        protected virtual List<JoystickDevice> GetButtonsSorted()
+        {
+            return Buttons;
+        }
+
+        protected virtual List<JoystickDevice> GetAxisSorted()
+        {
+            return Axes;
         }
 
         public List<ListItem> GetAvailableOutputDevices()
@@ -209,6 +233,7 @@ namespace MobiFlight
             try
             {
                 joystick.Poll();
+
                 JoystickState newState = joystick.GetCurrentState();
                 UpdateButtons(newState);
                 UpdateAxis(newState);

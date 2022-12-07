@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 using HidSharp;
+using HidSharp.Utility;
 using SharpDX;
 
 namespace MobiFlight.Joysticks
@@ -78,6 +79,13 @@ namespace MobiFlight.Joysticks
             { "Button 45", "Switch 6 - Down" },
             { "Button 46", "Switch 7 - Up" },
             { "Button 47", "Switch 7 - Down" },
+            // Axis
+            { "Y Axis", "Axis - Lever 1" },
+            { "X Axis", "Axis - Lever 2" },
+            { "Z Rotation", "Axis - Lever 3" },
+            { "Y Rotation", "Axis - Lever 4" },
+            { "X Rotation", "Axis - Lever 5" },
+            { "Z Axis", "Axis - Lever 6" },
         };
 
     public HoneycombBravo(SharpDX.DirectInput.Joystick joystick) : base(joystick)
@@ -88,14 +96,6 @@ namespace MobiFlight.Joysticks
         protected override void EnumerateDevices()
         {
             base.EnumerateDevices();
-            Buttons.Sort((b1, b2) =>
-            {
-                if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
-                if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
-                return -1;
-            }
-            );
-            Axes.Sort((a1, a2) => { return a1.Label.CompareTo(a2.Label); });
         }
 
         static int GetIndexForKey(string key)
@@ -125,15 +125,8 @@ namespace MobiFlight.Joysticks
             Stream.SetFeature(data);
             base.SendData(data);
         }
-        protected override string CorrectButtonIndexForButtonName(string name, int v)
-        {
-            var result = base.CorrectButtonIndexForButtonName(name, v);
-            result = MapButtonToLabel(result);
 
-            return result;
-        }
-
-        static private string MapButtonToLabel(string name)
+        protected override string MapDeviceNameToLabel(string name)
         {
             var result = name;
             
@@ -141,6 +134,32 @@ namespace MobiFlight.Joysticks
                 result = Labels[name];
 
             return result;
+        }
+
+        protected override List<JoystickDevice> GetButtonsSorted()
+        {
+            var buttons = Buttons.ToArray().ToList();
+            buttons.Sort((b1, b2) =>
+            {
+                if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
+                if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
+                return -1;
+            });
+
+            return buttons;
+        }
+
+        protected override List<JoystickDevice> GetAxisSorted()
+        {
+            var axes = Axes.ToArray().ToList();
+            Axes.Sort((b1, b2) =>
+            {
+                if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
+                if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
+                return -1;
+            });
+
+            return axes;
         }
 
         protected override void EnumerateOutputDevices()
