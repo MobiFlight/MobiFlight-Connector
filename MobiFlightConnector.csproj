@@ -252,6 +252,8 @@
     <Compile Include="MobiFlight\Joystick.cs" />
     <Compile Include="MobiFlight\JoystickManager.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="MobiFlight\Joysticks\LabeledJoystick.cs" />
+    <Compile Include="MobiFlight\Joysticks\SaitekAviatorStick.cs" />
     <Compile Include="MobiFlight\Joysticks\HoneycombBravo.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
