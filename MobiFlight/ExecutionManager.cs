@@ -1278,7 +1278,7 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + " => " +e.Value;
             }
 
-            var msgEventLabel = $"{e.Name} => {e.DeviceId} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
+            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
 
             lock (inputCache)
 			{
@@ -1378,11 +1378,18 @@ namespace MobiFlight
 #if SIMCONNECT
                 Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
 
-                tuple.Item1.execute(
-                    cacheCollection,
-                    e,
-                    GetRefs(tuple.Item1.ConfigRefs))
-                    ;
+                try
+                {
+                    tuple.Item1.execute(
+                        cacheCollection,
+                        e,
+                        GetRefs(tuple.Item1.ConfigRefs))
+                        ;
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
+                }
 #endif
 
             }
