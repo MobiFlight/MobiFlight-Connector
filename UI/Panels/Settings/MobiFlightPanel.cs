@@ -252,7 +252,7 @@ namespace MobiFlight.UI.Panels.Settings
             saveToolStripMenuItem.Enabled = saveToolStripButton.Enabled;
 
             // context menu only options
-            resetBoardToolStripMenuItem.Enabled = isMobiFlightBoard;
+            resetBoardToolStripMenuItem.Enabled = module.Board.Info.CanResetBoard;
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
 
