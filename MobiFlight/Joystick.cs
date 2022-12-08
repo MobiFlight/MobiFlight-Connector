@@ -126,11 +126,11 @@ namespace MobiFlight
 
                     } catch (ArgumentOutOfRangeException ex)
                     {
-                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label {FriendlyAxisName}.", LogSeverity.Error);
+                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {FriendlyAxisName}.", LogSeverity.Error);
                         continue;
                     }
                     Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = FriendlyAxisName, Type = JoystickDeviceType.Axis });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label {FriendlyAxisName}.", LogSeverity.Debug);
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label: {FriendlyAxisName}.", LogSeverity.Debug);
 
                 }
                 else if (IsButton)
