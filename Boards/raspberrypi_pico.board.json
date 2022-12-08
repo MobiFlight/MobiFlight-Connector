@@ -15,10 +15,9 @@
     "ForceResetOnFirmwareUpdate": true,
     "MessageSize": 64
   },
-  "HardwareIds": [ "^VID_2E8A&PID_000A" ],
+  "HardwareIds": ["^VID_2E8A&PID_000A"],
   "Info": {
     "CanInstallFirmware": true,
-    "CanResetBoard":  false,
     "FriendlyName": "MobiFlight RaspiPico",
     "LatestFirmwareVersion": "2.2.0",
     "MobiFlightType": "MobiFlight RaspiPico"
