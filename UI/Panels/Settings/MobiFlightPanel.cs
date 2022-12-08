@@ -222,15 +222,20 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
 
+            UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
+        }
+
+        private void UpdateToolbarAndPanelAfterNodeHasChanged(TreeNode moduleNode)
+        {
             MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
             bool isMobiFlightBoard = module.HasMfFirmware();
 
             mobiflightSettingsToolStrip.Enabled = moduleNode.ImageKey != "module-ignored";
-            
+
             // this is the module node
             // set the add device icon enabled
             addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
-            removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (e.Node.Level > 0);
+            removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (moduleNode.Level > 0);
             uploadToolStripButton.Enabled = isMobiFlightBoard && ((moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed"));
             openToolStripButton.Enabled = isMobiFlightBoard;
             saveToolStripButton.Enabled = isMobiFlightBoard && moduleNode.Nodes.Count > 0;
@@ -273,7 +278,7 @@ namespace MobiFlight.UI.Panels.Settings
                 var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
                 if (boards.Count > 0)
                 {
-                    
+
                     foreach (var board in boards)
                     {
                         ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
@@ -284,13 +289,14 @@ namespace MobiFlight.UI.Panels.Settings
                     }
                     UpdateFirmwareToolStripButton.ShowDropDownArrow = true;
                 }
-            } else
+            }
+            else
             {
                 updateFirmwareToolStripMenuItem.Click += this.updateFirmwareToolStripMenuItem_Click;
                 UpdateFirmwareToolStripButton.Click += this.updateFirmwareToolStripMenuItem_Click;
             }
 
-            syncPanelWithSelectedDevice(e.Node);
+            syncPanelWithSelectedDevice(moduleNode);
         }
 
         private ToolStripMenuItem CreateFirmwareUploadMenuItem(MobiFlightModule module, Board board)
@@ -848,6 +854,8 @@ namespace MobiFlight.UI.Panels.Settings
 
                 moduleNode.ImageKey = "Changed";
                 moduleNode.SelectedImageKey = "Changed";
+                moduleNode.Expand();
+                UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
             }
         }
 

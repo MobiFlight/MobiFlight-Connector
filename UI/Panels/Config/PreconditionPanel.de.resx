@@ -122,7 +122,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAG
-        CgAAAk1TRnQBSQFMAgEBAgEAAUwBBgFMAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CgAAAk1TRnQBSQFMAgEBAgEAAVQBBgFUAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABEAMAAQEBAAEgBgABEP8AFwADOwFkA2IB4QJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJl
         AVwB5wJlAVwB5wJlAVwB5wJlAVwB5wJlAVwB5wNiAeEDOgFiCAADOwFkA2IB4QJcAWUB5wJcAWUB5wJc
         AWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wJcAWUB5wNiAeEDOgFiiAACYQFb
@@ -211,14 +211,11 @@
   <data name="preconditionTabTextBox.Text" xml:space="preserve">
     <value>Lege eine Vorbedingung für diese Konfiguration an. Nur wenn die Vorbedingung erfüllt ist, wird die Konfiguration berücksichtigt. Das ist z.B. für ein Multi-Radio sinnvoll.</value>
   </data>
-  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
-    <value>Liste Vorbedingungen</value>
-  </data>
   <data name="preconditionTypeLabel.Text" xml:space="preserve">
     <value>Verwende Typ</value>
   </data>
-  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
-    <value>Einstellungen Vorbedingung</value>
+  <data name="preconditionSelectGroupBox.Text" xml:space="preserve">
+    <value>Liste Vorbedingungen</value>
   </data>
   <data name="preconditionPinValueLabel.Text" xml:space="preserve">
     <value>Wenn Wert</value>
@@ -226,10 +223,7 @@
   <data name="preconditionConfigRefOperandLabel.Text" xml:space="preserve">
     <value>Wenn Wert</value>
   </data>
-  <data name="label11.Text" xml:space="preserve">
-    <value>Wähle Config</value>
-  </data>
-  <data name="preconditionApplyButton.Text" xml:space="preserve">
-    <value>Übernehmen</value>
+  <data name="preconditionSettingsGroupBox.Text" xml:space="preserve">
+    <value>Einstellungen Vorbedingung</value>
   </data>
 </root>

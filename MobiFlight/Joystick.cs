@@ -1,12 +1,7 @@
-﻿using System;
+﻿using SharpDX.DirectInput;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web.SessionState;
-using SharpDX;
-using SharpDX.DirectInput;
 
 namespace MobiFlight
 {
@@ -94,7 +89,7 @@ namespace MobiFlight
             this.joystick = joystick;
         }
 
-        private void EnumerateDevices()
+        protected virtual void EnumerateDevices()
         {
             foreach (DeviceObjectInstance device in this.joystick.GetObjects())
             {
@@ -115,23 +110,26 @@ namespace MobiFlight
                 if (IsAxis && Axes.Count < joystick.Capabilities.AxeCount)
                 {
                     String OffsetAxisName = "Unknown";
+                    var FriendlyAxisName = name;
                     try
                     {
                         OffsetAxisName = GetAxisNameForUsage(usage);
+                        FriendlyAxisName = GetFriendlyAxisName(name);
+
                     } catch (ArgumentOutOfRangeException ex)
                     {
-                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name}.", LogSeverity.Error);
+                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {FriendlyAxisName}.", LogSeverity.Error);
                         continue;
                     }
-                    Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = name, Type = JoystickDeviceType.Axis });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name}.", LogSeverity.Debug);
+                    Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = FriendlyAxisName, Type = JoystickDeviceType.Axis });
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label: {FriendlyAxisName}.", LogSeverity.Debug);
 
                 }
                 else if (IsButton)
                 {
-                    String ButtonName = CorrectButtonIndexForButtonName(name, Buttons.Count + 1);
+                    String ButtonName = GetFriendlyButtonName(name, Buttons.Count + 1);
                     Buttons.Add(new JoystickDevice() { Name = ButtonPrefix + (Buttons.Count + 1), Label = ButtonName, Type = JoystickDeviceType.Button });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name}.", LogSeverity.Debug);
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {ButtonName}.", LogSeverity.Debug);
                 }
                 else if (IsPOV)
                 {
@@ -151,9 +149,19 @@ namespace MobiFlight
             }
         }
 
-        private string CorrectButtonIndexForButtonName(string name, int v)
+        protected string GetFriendlyAxisName(string name)
         {
-            return Regex.Replace(name, @"\d+", v.ToString()).ToString();
+            return MapDeviceNameToLabel(name);
+        }
+
+        protected string GetFriendlyButtonName(string name, int v)
+        {
+            return MapDeviceNameToLabel(Regex.Replace(name, @"\d+", v.ToString()).ToString());
+        }
+
+        protected virtual string MapDeviceNameToLabel(string deviceName)
+        {
+            return deviceName;
         }
 
         public void Connect(IntPtr handle)
@@ -174,7 +182,8 @@ namespace MobiFlight
         public List<ListItem> GetAvailableDevices()
         {
             List<ListItem> result = new List<ListItem>();
-            Buttons.ForEach((item) =>
+
+            GetButtonsSorted().ForEach((item) =>
             {
                 result.Add(item.ToListItem());
             });
@@ -187,6 +196,16 @@ namespace MobiFlight
                 result.Add(item.ToListItem());
             });
             return result;
+        }
+
+        protected virtual List<JoystickDevice> GetButtonsSorted()
+        {
+            return Buttons;
+        }
+
+        protected virtual List<JoystickDevice> GetAxisSorted()
+        {
+            return Axes;
         }
 
         public List<ListItem> GetAvailableOutputDevices()
@@ -206,6 +225,7 @@ namespace MobiFlight
             try
             {
                 joystick.Poll();
+
                 JoystickState newState = joystick.GetCurrentState();
                 UpdateButtons(newState);
                 UpdateAxis(newState);
@@ -243,7 +263,8 @@ namespace MobiFlight
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
                         Name = Name,
-                        DeviceId = POV[index].Label,
+                        DeviceId = POV[index].Name,
+                        DeviceLabel = POV[index].Label,
                         Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
@@ -258,7 +279,8 @@ namespace MobiFlight
                     OnButtonPressed?.Invoke(this, new InputEventArgs()
                     {
                         Name = Name,
-                        DeviceId = POV[index].Label,
+                        DeviceId = POV[index].Name,
+                        DeviceLabel = POV[index].Label,
                         Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.PRESS
@@ -286,7 +308,8 @@ namespace MobiFlight
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
                             Name = Name,
-                            DeviceId = Axes[CurrentAxis].Label,
+                            DeviceId = Axes[CurrentAxis].Name,
+                            DeviceLabel = Axes[CurrentAxis].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.AnalogInput,
                             Value = newValue
@@ -308,7 +331,8 @@ namespace MobiFlight
                         OnButtonPressed?.Invoke(this, new InputEventArgs()
                         {
                             Name = Name,
-                            DeviceId = Buttons[i].Label,
+                            DeviceId = Buttons[i].Name,
+                            DeviceLabel = Buttons[i].Label,
                             Serial = SerialPrefix + joystick.Information.InstanceGuid.ToString(),
                             Type = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1

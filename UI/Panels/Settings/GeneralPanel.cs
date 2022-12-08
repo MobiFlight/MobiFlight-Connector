@@ -87,6 +87,9 @@ namespace MobiFlight.UI.Panels.Settings
 
             // Community Feedback Program
             CommunityFeedbackCheckBox.Checked = Properties.Settings.Default.CommunityFeedback;
+
+            // Auto-retrigger
+            autoRetriggerCheckBox.Checked = Properties.Settings.Default.AutoRetrigger;
         }
 
         public void saveSettings()
@@ -120,6 +123,9 @@ namespace MobiFlight.UI.Panels.Settings
 
             // Community Feedback Program
             Properties.Settings.Default.CommunityFeedback = CommunityFeedbackCheckBox.Checked;
+
+            // Auto-retrigger
+            Properties.Settings.Default.AutoRetrigger = autoRetriggerCheckBox.Checked;
         }
     }
 }
