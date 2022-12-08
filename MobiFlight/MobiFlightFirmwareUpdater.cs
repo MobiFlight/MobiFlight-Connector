@@ -34,13 +34,22 @@ namespace MobiFlight
 
         public static bool Update(MobiFlightModule module)
         {
-            if (module.Board.AvrDudeSettings == null)
+            string FirmwareName;
+
+            if (module.Board.AvrDudeSettings != null)
+            {
+                FirmwareName = module.Board.AvrDudeSettings.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
+            }
+            else if (module.Board.UsbDriveSettings != null)
+            {
+                FirmwareName = module.Board.UsbDriveSettings.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
+            }
+            else
             {
                 Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Error);
                 return false;
             }
 
-            var FirmwareName = module.Board.AvrDudeSettings.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
             return UpdateFirmware(module, FirmwareName);
         }
 
@@ -62,28 +71,38 @@ namespace MobiFlight
             String Port = module.InitUploadAndReturnUploadPort();
             if (module.Connected) module.Disconnect();
 
-            while (!SerialPort.GetPortNames().Contains(Port))
+            try
             {
-                System.Threading.Thread.Sleep(100);
-            }
+                if (module.Board.AvrDudeSettings != null)
+                {
+                    while (!SerialPort.GetPortNames().Contains(Port))
+                    {
+                        System.Threading.Thread.Sleep(100);
+                    }
 
-            if (module.Board.AvrDudeSettings != null)
-            {
-                try {
                     RunAvrDude(Port, module.Board, FirmwareName);
-                    result = true;
-                } catch(Exception e) {
-                    result = false;
+                }
+                else if (module.Board.UsbDriveSettings != null)
+                {
+                    FlashViaUsbDrive(module.Board);
+                }
+                else
+                {
+                    Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Warn);
                 }
 
                 if (module.Board.Connection.DelayAfterFirmwareUpdate > 0)
                 {
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
-            } else
-            {
-                Log.Instance.log($"Firmware update requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no update settings were specified in the board definition file. Module update skipped.", LogSeverity.Error);
+
+                result = true;
             }
+            catch
+            {
+                result = false;
+            }
+
             return result;
         }
 
@@ -136,6 +155,66 @@ namespace MobiFlight
             }
 
             throw new Exception(message);
+        }
+
+        public static void FlashViaUsbDrive(Board board)
+        {
+            String FirmwareName = board.UsbDriveSettings.GetFirmwareName(board.Info.LatestFirmwareVersion);
+            String FullFirmwarePath = $"{FirmwarePath}\\{FirmwareName}";
+            String message = "";
+
+            if (!IsValidFirmwareFilepath(FullFirmwarePath))
+            {
+                message = $"Firmware not found: {FullFirmwarePath}";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            // Find all drives connected to the PC with a volume label that matches the one used to identify the 
+            // drive that's the device to flash. This assumes the first matching drive is the one we want,
+            // since it is extremely unlikely that more than one flashable USB drive will be connected and in a
+            // flashable state at the same time.
+            DriveInfo drive;
+
+            try
+            {
+                drive = DriveInfo.GetDrives().Where(d => d.VolumeLabel == board.UsbDriveSettings.VolumeLabel).First();
+            }
+            catch
+            {
+                message = $"No mounted USB drives named {board.UsbDriveSettings.VolumeLabel} found";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            // Look for the presence of a file on the drive to confirm it is really a drive that supports flashing via
+            // file copy.
+            try
+            {
+                var verificationFile = drive.RootDirectory.GetFiles(board.UsbDriveSettings.VerificationFileName).First();
+            }
+            catch
+            {
+                message = $"A mounted USB drive named {board.UsbDriveSettings.VolumeLabel} was found but verification file {board.UsbDriveSettings.VerificationFileName} was not found.";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new FileNotFoundException(message);
+            }
+
+            // At this point the drive is valid so all that's left is to copy the firmware over. If the file
+            // copy succeeds the connected device will automatically reboot itself so there's no need to
+            // attempt any kind of reconnect after either. Nice!
+            var destination = $"{drive.RootDirectory.FullName}{FirmwareName}";
+            try
+            {
+                Log.Instance.log($"Copying {FullFirmwarePath} to {destination}", LogSeverity.Debug);
+                File.Copy(FullFirmwarePath, destination);
+            }
+            catch (Exception e)
+            {
+                message = $"Unable to copy {FullFirmwarePath} to {destination}: {e.Message}";
+                Log.Instance.log(message, LogSeverity.Error);
+                throw new Exception(message);
+            }
         }
     }
 }
