@@ -89,9 +89,6 @@ namespace MobiFlight
 
         public static void RunAvrDude(String Port, Board board, String FirmwareName) 
         {
-            String ArduinoChip = board.AvrDudeSettings.Device;
-            String Bytes = board.AvrDudeSettings.BaudRate;
-            String C = board.AvrDudeSettings.Programmer;
             String message = "";
 
             if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + FirmwareName))
@@ -107,33 +104,36 @@ namespace MobiFlight
 
             String FullAvrDudePath = $@"{ArduinoIdePath}\{AvrPath}";
 
-            var proc1 = new ProcessStartInfo();
-            string anyCommand = 
-                $@"-C""{FullAvrDudePath}\etc\avrdude.conf"" {verboseLevel} -p{ArduinoChip} -c{C} -P{Port} -b{Bytes} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
-            proc1.UseShellExecute = true;
-            proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
-            proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
-            proc1.Arguments = anyCommand;
-            proc1.WindowStyle = ProcessWindowStyle.Hidden;
-            Log.Instance.log($"{proc1.FileName}.", LogSeverity.Debug);
-            Log.Instance.log($"{anyCommand}.", LogSeverity.Debug);
-            Process p = Process.Start(proc1);
-            if (p.WaitForExit(board.AvrDudeSettings.Timeout))
+            foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
-                Log.Instance.log($"Firmware upload exit code: {p.ExitCode}.", LogSeverity.Debug);
-                // everything OK
-                if (p.ExitCode == 0) return;
-                
-                // process terminated but with an error.
-                message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
-            } else
-            {
-                // we timed out;
-                p.Kill();
-                message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                var proc1 = new ProcessStartInfo();
+                string anyCommand =
+                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf"" {verboseLevel} -x attempts={board.AvrDudeSettings.Attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{Port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
+                proc1.UseShellExecute = true;
+                proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
+                proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
+                proc1.Arguments = anyCommand;
+                proc1.WindowStyle = ProcessWindowStyle.Hidden;
+                Log.Instance.log($"{proc1.FileName} {anyCommand}", LogSeverity.Debug);
+                Process p = Process.Start(proc1);
+                if (p.WaitForExit(board.AvrDudeSettings.Timeout))
+                {
+                    Log.Instance.log($"Firmware upload exit code: {p.ExitCode}.", LogSeverity.Debug);
+                    // everything OK
+                    if (p.ExitCode == 0) return;
+
+                    // process terminated but with an error.
+                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                }
+                else
+                {
+                    // we timed out;
+                    p.Kill();
+                    message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                }
+                Log.Instance.log(message, LogSeverity.Error);
             }
 
-            Log.Instance.log(message, LogSeverity.Error);
             throw new Exception(message);
         }
     }

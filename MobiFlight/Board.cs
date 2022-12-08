@@ -12,9 +12,20 @@ namespace MobiFlight
     public class AvrDudeSettings
     {
         /// <summary>
-        /// Baud rate to use with AvrDude.
+        /// Number of times AvrDude should retry connecting to the device.
         /// </summary>
+        public int Attempts;
+
+        /// <summary>
+        /// Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.
+        /// </summary>
+        [Obsolete]
         public String BaudRate;
+
+        /// <summary>
+        /// All supported baud rates to use with AvrDude.
+        /// </summary>
+        public List<String> BaudRates;
 
         /// <summary>
         /// AvrDude device type for the device.
@@ -91,6 +102,11 @@ namespace MobiFlight
         /// Maximum size of a CmdMessenger message, in bytes.
         /// </summary>
         public int MessageSize;
+
+        /// <summary>
+        /// Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board.
+        /// </summary>
+        public int TimeoutForFirmwareUpdate = 15000;
     }
 
     /// <summary>
@@ -211,6 +227,27 @@ namespace MobiFlight
         /// List of pins supported by the board.
         /// </summary>
         public List<MobiFlightPin> Pins;
+
+        /// <summary>
+        /// Migrates board definitions from older versions to newer versions.
+        /// </summary>
+        public void Migrate()
+        {
+            // Migrate AvrDudeSettings from older versions.
+            if (AvrDudeSettings != null)
+            {
+                // Older versions of boards only specified a single baud rate. Handle the case where
+                // an old file was loaded by migrating the BaudRate value into the BaudRates array.
+                if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
+                {
+                    AvrDudeSettings.BaudRates = new List<string>()
+                {
+                    AvrDudeSettings.BaudRate
+                };
+                }
+
+            }
+        }
 
         public override string ToString()
         {

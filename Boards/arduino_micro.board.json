@@ -1,7 +1,8 @@
 {
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
-    "BaudRate": "57600",
+    "Attempts":  1,
+    "BaudRates": [ "57600" ],
     "Device": "atmega32u4",
     "FirmwareBaseName": "mobiflight_micro",
     "Programmer": "avr109",
