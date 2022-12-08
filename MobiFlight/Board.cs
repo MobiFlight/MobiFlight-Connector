@@ -120,6 +120,11 @@ namespace MobiFlight
         public Boolean CanInstallFirmware;
 
         /// <summary>
+        /// True if the board can be reset to factory default by MobiFlight.
+        /// </summary>
+        public Boolean CanResetBoard;
+
+        /// <summary>
         /// The USB friendly name for the board as specified by the board manufacturer.
         /// </summary>
         public String FriendlyName;

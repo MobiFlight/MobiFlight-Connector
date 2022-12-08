@@ -36,6 +36,7 @@
   ],
   "Info": {
     "CanInstallFirmware": true,
+    "CanResetBoard": true,
     "DelayAfterFirmwareUpdate": 0,
     "LatestFirmwareVersion": "2.3.0",
     "FriendlyName": "Arduino Mega 2560",
