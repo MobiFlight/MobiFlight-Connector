@@ -196,6 +196,38 @@ namespace MobiFlight
         public int MaxSteppers = 0;
     }
 
+    public class UsbDriveSettings
+    {
+        /// <summary>
+        /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.
+        /// </summary>
+        public String FirmwareBaseName;
+
+        /// <summary>
+        /// File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.
+        /// </summary>
+        public String FirmwareExtension;
+
+        /// <summary>
+        /// The name of a file that must be present in the root directory of the USB drive for it to be considered
+        /// a match and able to be flashed.
+        /// </summary>
+        public string VerificationFileName;
+
+        /// <summary>
+        /// Volume label of the USB drive when mounted in Windows.
+        /// </summary>
+        public String VolumeLabel;
+
+        /// </summary>
+        /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
+        /// <returns>The firmware file name using FirmwareBaseName and the specified firmware version.</returns>
+        public string GetFirmwareName(string latestFirmwareVersion)
+        {
+            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}.{FirmwareExtension}";
+        }
+    }
+
     public class Board
     {
         /// <summary>
@@ -227,6 +259,11 @@ namespace MobiFlight
         /// List of pins supported by the board.
         /// </summary>
         public List<MobiFlightPin> Pins;
+
+        /// <summary>
+        /// Settings relating to updating the firmware via a mounted USB drive.
+        /// </summary>
+        public UsbDriveSettings UsbDriveSettings;
 
         /// <summary>
         /// Migrates board definitions from older versions to newer versions.
