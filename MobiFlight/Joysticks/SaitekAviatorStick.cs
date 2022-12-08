@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
-using HidSharp;
-using HidSharp.Utility;
-using SharpDX;
+﻿using System.Collections.Generic;
 
 namespace MobiFlight.Joysticks
 {

@@ -1,15 +1,7 @@
-﻿using System;
+﻿using SharpDX.DirectInput;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Web.SessionState;
-using HidSharp.Utility;
-using SharpDX;
-using SharpDX.DirectInput;
 
 namespace MobiFlight
 {

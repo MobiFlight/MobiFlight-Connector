@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using HidSharp;
+﻿using HidSharp;
+using System.Collections.Generic;
 
 namespace MobiFlight.Joysticks
 {
