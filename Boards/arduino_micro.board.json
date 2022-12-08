@@ -25,6 +25,7 @@
   ],
   "Info": {
     "CanInstallFirmware": true,
+    "CanResetBoard": true,
     "FriendlyName": "Arduino Micro Pro",
     "LatestFirmwareVersion": "2.3.0",
     "MobiFlightType": "MobiFlight Micro"

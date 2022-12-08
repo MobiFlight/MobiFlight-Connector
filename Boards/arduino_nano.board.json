@@ -30,6 +30,7 @@
   ],
   "Info": {
     "CanInstallFirmware": true,
+    "CanResetBoard": true,
     "FriendlyName": "Arduino Nano",
     "LatestFirmwareVersion": "2.3.0",
     "MobiFlightType": "MobiFlight Nano"

@@ -157,6 +157,7 @@
       "type": "object",
       "required": [
         "CanInstallFirmware",
+        "CanResetBoard",
         "FriendlyName",
         "LatestFirmwareVersion",
         "MobiFlightType"
@@ -166,6 +167,12 @@
           "$id": "#root/Info/CanInstallFirmware",
           "title": "Caninstallfirmware",
           "description": "True if the board supports loading firmware via MobiFlight.",
+          "type": "boolean"
+        },
+        "CanResetBoard": {
+          "$id": "#root/Info/CanResetBoard",
+          "title": "CanResetBoard",
+          "description": "True if the board can be reset to factory default by MobiFlight.",
           "type": "boolean"
         },
         "FriendlyName": {
