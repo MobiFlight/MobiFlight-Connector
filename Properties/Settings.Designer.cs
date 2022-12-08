@@ -443,5 +443,17 @@ namespace MobiFlight.Properties {
                 this["IgnoredComPortsList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoRetrigger {
+            get {
+                return ((bool)(this["AutoRetrigger"]));
+            }
+            set {
+                this["AutoRetrigger"] = value;
+            }
+        }
     }
 }

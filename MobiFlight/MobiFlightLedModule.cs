@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
@@ -65,6 +66,12 @@ namespace MobiFlight
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 
+            if (value.IndexOf(".") >=0 )
+            {
+                points = CalculateCorrectPoints(value, mask);
+                value = value.Replace(".", "");
+            }
+
             // clamp and reverse the string
             if (value.Length > 8) value = value.Substring(0, 8);
 
@@ -82,6 +89,40 @@ namespace MobiFlight
 
             // Send command
             CmdMessenger.SendCommand(command);
+        }
+
+        static public byte CalculateCorrectPoints(string value, byte mask)
+        {
+            byte points = 0;
+            
+            // we start with the last character in the value string
+            int positionInValue = value.Length-1;
+
+            // we go over all 8 potential digits
+            for (byte digit=0; digit<8; digit++)
+            {
+                // if the digit is not active, go to the next
+                if (((1 << digit) & mask) == 0)
+                    continue;
+
+                // stop when you ran out of value to display
+                if (positionInValue < 0)
+                    break;
+
+                // when we have a decimal point at the current position
+                if (value[positionInValue]=='.')
+                {
+                    // activate the point at the current digit
+                    points |= (byte)(1 << digit);
+                    
+                    // then we stay on the digit one more time
+                    digit--;
+                }
+
+                // walk one character to the left
+                positionInValue--;
+            }
+            return points;
         }
 
         public void SetBrightness(int subModule, String value)
@@ -147,6 +188,9 @@ namespace MobiFlight
                 digit--;
                 if (((1 << digit) & mask) == 0)
                     continue;
+
+                if (pos == value.Length)
+                    break;
 
                 if (Displays[digit] != value[pos])
                 {

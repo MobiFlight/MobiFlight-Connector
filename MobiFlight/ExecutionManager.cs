@@ -14,6 +14,7 @@ using MobiFlight.OutputConfig;
 using MobiFlight.InputConfig;
 using MobiFlight.xplane;
 using System.Globalization;
+using Newtonsoft.Json.Linq;
 
 namespace MobiFlight
 {
@@ -260,6 +261,7 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
+            OnStartActions();
             timer.Enabled = true;
         }
 
@@ -562,41 +564,18 @@ namespace MobiFlight
                 {
 #if ARCAZE
                     case "pin":
-                        string serial = "";
-                        if (p.PreconditionSerial.Contains("/"))
-                        {
-                            serial = p.PreconditionSerial.Split('/')[1].Trim();
-                        };
+                        string serial = SerialNumber.ExtractSerial(p.PreconditionSerial);
+                        string val = arcazeCache.getValue(serial, p.PreconditionPin, "repeat");
 
-                        string val = arcazeCache.getValue(
-                                        serial,
-                                        p.PreconditionPin,
-                                        "repeat");
-
-                        connectorValue.type = FSUIPCOffsetType.Integer;
-                        connectorValue.Float64 = Int64.Parse(val);
-
-                        tmp = new OutputConfigItem();
-                        tmp.Comparison.Active = true;
-                        tmp.Comparison.Value = p.PreconditionValue;
-                        tmp.Comparison.Operand = "=";
-                        tmp.Comparison.IfValue = "1";
-                        tmp.Comparison.ElseValue = "0";
-
-                        try
-                        {
-
-                            String execResult = tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString();
-                            result = (execResult == tmp.Comparison.IfValue);
-                        }
-                        catch (FormatException ex)
-                        {
-                            Log.Instance.log($"Exception on comparison execution, wrong format: {ex.Message}", LogSeverity.Error);
-                            // maybe it is a text string
-                            // @todo do something in the future here
-                        }
+                        result = p.Evaluate(val, currentValue);
                         break;
 #endif
+                    case "variable":
+                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.PreconditionRef);
+                        if (variableValue == null) break;
+
+                        result = p.Evaluate(variableValue);
+                        break;
                     case "config":
                         // iterate over the config row by row
                         foreach (DataGridViewRow row in dataGridViewConfig.Rows)
@@ -621,45 +600,7 @@ namespace MobiFlight
                             // we cannot compare
                             if (value == "") break;
 
-                            tmp = new OutputConfigItem();
-                            tmp.Comparison.Active = true;
-                            tmp.Comparison.Value = p.PreconditionValue.Replace("$", currentValue.ToString());
-                            if (tmp.Comparison.Value != p.PreconditionValue)
-                            {
-                                var ce = new NCalc.Expression(tmp.Comparison.Value);
-                                try
-                                {
-                                    tmp.Comparison.Value = (ce.Evaluate()).ToString();
-                                }
-                                catch (Exception ex)
-                                {
-                                    //argh!
-                                    Log.Instance.log($"Exception on eval of comparison value: {ex.Message}", LogSeverity.Error);
-                                }
-                            }
-
-                            tmp.Comparison.Operand = p.PreconditionOperand;
-                            tmp.Comparison.IfValue = "1";
-                            tmp.Comparison.ElseValue = "0";
-
-                            connectorValue.type = FSUIPCOffsetType.Float;
-                            if (!Double.TryParse(value, out connectorValue.Float64))
-                            {
-                                // likely to be a string
-                                connectorValue.type = FSUIPCOffsetType.String;
-                                connectorValue.String = value;
-                            }
-
-                            try
-                            {
-                                result = (tmp.Comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString() == "1");
-                            }
-                            catch (FormatException ex)
-                            {
-                                // maybe it is a text string
-                                // @todo do something in the future here
-                                Log.Instance.log($"Exception on comparison execution, wrong format: {ex.Message}", LogSeverity.Error);
-                            }
+                            result = p.Evaluate(value, currentValue);
                             break;
                         }
                         break;
@@ -1337,7 +1278,7 @@ namespace MobiFlight
                 eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + " => " +e.Value;
             }
 
-            var msgEventLabel = $"{e.Name} => {e.DeviceId} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
+            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
 
             lock (inputCache)
 			{
@@ -1437,11 +1378,18 @@ namespace MobiFlight
 #if SIMCONNECT
                 Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
 
-                tuple.Item1.execute(
-                    cacheCollection,
-                    e,
-                    GetRefs(tuple.Item1.ConfigRefs))
-                    ;
+                try
+                {
+                    tuple.Item1.execute(
+                        cacheCollection,
+                        e,
+                        GetRefs(tuple.Item1.ConfigRefs))
+                        ;
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
+                }
 #endif
 
             }
@@ -1521,6 +1469,22 @@ namespace MobiFlight
         public SimConnectCache GetSimConnectCache()
         {
             return simConnectCache;
+        }
+
+
+        private void OnStartActions()
+        {
+            if (Properties.Settings.Default.AutoRetrigger)
+            {
+                var action = new RetriggerInputAction();
+                action.execute(new CacheCollection()
+                {
+                    fsuipcCache = fsuipcCache,
+                    simConnectCache = simConnectCache,
+                    xplaneCache = xplaneCache,
+                    moduleCache = mobiFlightCache
+                }, null, null);
+            }            
         }
     }
 

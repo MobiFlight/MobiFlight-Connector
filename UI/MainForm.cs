@@ -317,8 +317,9 @@ namespace MobiFlight.UI
             runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
+#if (!DEBUG)
             AutoUpdateChecker.CheckForUpdate(false, true);
-
+#endif
             CheckForWasmModuleUpdate();
 
             // Track config loaded event

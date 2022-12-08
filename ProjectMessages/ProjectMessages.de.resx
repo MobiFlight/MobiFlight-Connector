@@ -226,13 +226,13 @@ Möchten Sie die Änderungen jetzt speichern?</value>
   <data name="Please_Choose" xml:space="preserve">
     <value>Bitte wählen</value>
   </data>
-  <data name="LabelPrecondition_ArcazePin" xml:space="preserve">
+  <data name="Label_Precondition_ArcazePin" xml:space="preserve">
     <value>Pin</value>
   </data>
-  <data name="LabelPrecondition_ConfigItem" xml:space="preserve">
+  <data name="Label_Precondition_ConfigItem" xml:space="preserve">
     <value>Config Eintrag</value>
   </data>
-  <data name="LabelPrecondition_None" xml:space="preserve">
+  <data name="Label_Precondition_None" xml:space="preserve">
     <value>Keine</value>
   </data>
   <data name="Please_select_a_pin" xml:space="preserve">
@@ -546,5 +546,14 @@ Please manually flash the boards using "upload firmware" and select the correct 
   </data>
   <data name="uiMessageFirmwareUploadTimeout" xml:space="preserve">
     <value>Das Firmware Upload hat einen Timeout gemeldet. Aktiviere Logging für mehr Informationen.</value>
+  </data>
+  <data name="Label_Precondition_Variable" xml:space="preserve">
+    <value>MobiFlight Variable</value>
+  </data>
+  <data name="Label_Precondition_choose_config" xml:space="preserve">
+    <value>Wähle Config</value>
+  </data>
+  <data name="Label_Precondition_choose_variable" xml:space="preserve">
+    <value>Wähle Variable</value>
   </data>
 </root>

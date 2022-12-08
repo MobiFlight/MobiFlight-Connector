@@ -80,8 +80,15 @@ namespace MobiFlight
                 if (d.InstanceName == "Bravo Throttle Quadrant")
                 {
                     js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
-                } else
+                } else if (d.InstanceName == "Saitek Aviator Stick")
+                {
+                    js = new Joysticks.SaitekAviatorStick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
+                }
+                else
+                {
                     js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
+                }
+                        
 
                 if (!HasAxisOrButtons(js)) continue;
 
