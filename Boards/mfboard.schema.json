@@ -1,23 +1,43 @@
 {
   "definitions": {},
-  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
   "$id": "https://mobiflight.com/mfboard.schema.json",
   "title": "Root",
   "type": "object",
-  "required": ["Connection", "HardwareIds", "Info", "ModuleLimits", "Pins"],
+  "required": [ "Connection", "HardwareIds", "Info", "ModuleLimits", "Pins" ],
   "properties": {
     "AvrDudeSettings": {
       "$id": "#root/AvrDudeSettings",
       "title": "Avrdudesettings",
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
-      "required": ["BaudRate", "Device", "FirmwareBaseName", "Programmer"],
+      "required": [ "Attempts", "BaudRates", "Device", "FirmwareBaseName", "Programmer" ],
       "properties": {
+        "Attempts": {
+          "$id": "#root/AvrDudeSettings/Attempts",
+          "title": "Attempts",
+          "description": "Number of times AvrDude should retry connecting to the device.",
+          "type": "integer"
+        },
         "BaudRate": {
           "$id": "#root/AvrDudeSettings/BaudRate",
           "title": "Baudrate",
-          "description": "Baud rate to use with AvrDude.",
+          "deprecated": true,
+          "description": "Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.",
           "type": "string"
+        },
+        "BaudRates": {
+          "$id": "#root/AvrDude/Settings/BaudRates",
+          "title": " Baudrates",
+          "description": "All supported baud rates to use with AvrDude.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "$id": "#root/BaudRates/items",
+            "title": "Items",
+            "description": "A baud rate for communicating with the device.",
+            "type": "string"
+          }
         },
         "Device": {
           "$id": "#root/AvrDudeSettings/Device",
@@ -107,6 +127,13 @@
           "title": "Messagesize",
           "description": "Maximum size of a CmdMessenger message, in bytes.",
           "type": "integer"
+        },
+        "TimeoutForFirmwareUpdate": {
+          "$id": "#root/Connection/TimeoutForFirmwareUpdate",
+          "title": "Timeoutforfirmwareupdate",
+          "description": "Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board. Default 15000.",
+          "type": "integer",
+          "default":  15000
         }
       }
     },
@@ -176,7 +203,6 @@
         "MaxOutputs",
         "MaxServos",
         "MaxSteppers",
-        "MaxInputShifters",
         "MaxInputMultiplexer"
       ],
       "properties": {
@@ -258,7 +284,7 @@
         "$id": "#root/Pins/items",
         "title": "Items",
         "type": "object",
-        "required": ["isAnalog", "isPWM", "isI2C", "Pin"],
+        "required": [ "isAnalog", "isPWM", "isI2C", "Pin" ],
         "properties": {
           "isAnalog": {
             "$id": "#root/Pins/items/isAnalog",
@@ -282,7 +308,7 @@
             "$id": "#root/Pins/items/Name",
             "title": "Name",
             "description": "Optional display name for the pin.",
-            "examples": ["A1"],
+            "examples": [ "A1" ],
             "type": "string"
           },
           "Pin": {

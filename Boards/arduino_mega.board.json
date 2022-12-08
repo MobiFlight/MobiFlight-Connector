@@ -1,8 +1,9 @@
 {
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
+    "Attempts":  1,
     "Device": "atmega2560",
-    "BaudRate": "115200",
+    "BaudRates": [ "115200" ],
     "Programmer": "wiring",
     "FirmwareBaseName": "mobiflight_mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",

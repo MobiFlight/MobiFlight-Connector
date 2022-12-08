@@ -71,6 +71,7 @@ namespace MobiFlight
                 try
                 {
                     var board = JsonConvert.DeserializeObject<Board>(File.ReadAllText(definitionFile));
+                    board.Migrate();
                     boards.Add(board);
                     Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
                 }
