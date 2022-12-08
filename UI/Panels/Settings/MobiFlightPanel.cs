@@ -222,11 +222,12 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
 
-            UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
+            UpdateToolbarAndPanelAfterNodeHasChanged(e.Node);
         }
 
-        private void UpdateToolbarAndPanelAfterNodeHasChanged(TreeNode moduleNode)
+        private void UpdateToolbarAndPanelAfterNodeHasChanged(TreeNode node)
         {
+            var moduleNode = getModuleNode(node);
             MobiFlightModule module = (moduleNode.Tag as MobiFlightModule);
             bool isMobiFlightBoard = module.HasMfFirmware();
 
@@ -296,7 +297,7 @@ namespace MobiFlight.UI.Panels.Settings
                 UpdateFirmwareToolStripButton.Click += this.updateFirmwareToolStripMenuItem_Click;
             }
 
-            syncPanelWithSelectedDevice(moduleNode);
+            syncPanelWithSelectedDevice(node);
         }
 
         private ToolStripMenuItem CreateFirmwareUploadMenuItem(MobiFlightModule module, Board board)
