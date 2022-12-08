@@ -897,6 +897,9 @@
     <None Include="firmware\mobiflight_micro_2_3_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\mobiflight_nano_2_3_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="firmware\mobiflight_uno_2_3_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
