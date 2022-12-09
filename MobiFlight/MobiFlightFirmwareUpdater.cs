@@ -107,9 +107,9 @@ namespace MobiFlight
             foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
                 var proc1 = new ProcessStartInfo();
-                var attempts = board.AvrDudeSettings.Attempts != null ? $"-x attempts={board.AvrDudeSettings.Attempts}" : "";
+                var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
                 string anyCommand =
-                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf"" {verboseLevel} {attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{Port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
+                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{Port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{FirmwareName}"":i";
                 proc1.UseShellExecute = true;
                 proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
                 proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
