@@ -11,12 +11,12 @@
       "title": "Avrdudesettings",
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
-      "required": [ "Attempts", "BaudRates", "Device", "FirmwareBaseName", "Programmer" ],
+      "required": [ "BaudRates", "Device", "FirmwareBaseName", "Programmer" ],
       "properties": {
         "Attempts": {
           "$id": "#root/AvrDudeSettings/Attempts",
           "title": "Attempts",
-          "description": "Number of times AvrDude should retry connecting to the device.",
+          "description": "Number of times AvrDude should retry connecting to the device. If omitted then -x attempts will not be passed to avrdude.",
           "type": "integer"
         },
         "BaudRate": {
