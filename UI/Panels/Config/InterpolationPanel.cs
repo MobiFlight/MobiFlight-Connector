@@ -49,7 +49,7 @@ namespace MobiFlight.UI.Panels.Config
 
             dt.Rows.Clear();
             
-            foreach (float Key in i.GetValues().Keys)
+            foreach (double Key in i.GetValues().Keys)
             {
                 DataRow row = dt.NewRow();
                 row["Input"] = Key.ToString();
