@@ -1,7 +1,6 @@
 {
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
-    "Attempts":  1,
     "Device": "atmega2560",
     "BaudRates": [ "115200" ],
     "Programmer": "wiring",

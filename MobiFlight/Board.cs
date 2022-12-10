@@ -12,9 +12,9 @@ namespace MobiFlight
     public class AvrDudeSettings
     {
         /// <summary>
-        /// Number of times AvrDude should retry connecting to the device.
+        /// Number of times AvrDude should retry connecting to the device. If null then -x attempts will not be passed to avrdude.
         /// </summary>
-        public int Attempts;
+        public int? Attempts;
 
         /// <summary>
         /// Baud rate to use with AvrDude. Deprecated. Use BaudRates instead.
