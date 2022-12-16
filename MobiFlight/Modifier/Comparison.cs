@@ -89,11 +89,6 @@ namespace MobiFlight.Modifier
 
             Double value = connectorValue.Float64;
             
-            if (!Active)
-            {
-                return result;
-            }
-
             if (Value == "")
             {
                 return result;
