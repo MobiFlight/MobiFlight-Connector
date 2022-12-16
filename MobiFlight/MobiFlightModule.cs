@@ -571,17 +571,28 @@ namespace MobiFlight
         void OnAnalogChange(ReceivedCommand arguments)
         {
             String name = arguments.ReadStringArg();
-            String value = arguments.ReadStringArg();
-            //addLog("Button: " + button + ":" + state);
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = name, 
-                    DeviceLabel = name,
-                    Type = DeviceType.AnalogInput, 
-                    Value = int.Parse(value) 
-                });
+            String strValue = arguments.ReadStringArg();
+            int value;
+
+            try
+            {
+                value = int.Parse(strValue);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Unable to prase analog value {strValue} as an integer: {ex.Message}.", LogSeverity.Error);
+                return;
+            }
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs()
+            {
+                Serial = this.Serial,
+                Name = Name,
+                DeviceId = name,
+                DeviceLabel = name,
+                Type = DeviceType.AnalogInput,
+                Value = value
+            });
         }
 
         // Callback function that prints the Arduino Debug Print to the console
