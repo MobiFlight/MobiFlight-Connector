@@ -38,7 +38,6 @@ namespace MobiFlight.Modifier.Tests
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
-            t.Active = true;
             t.Expression = "$*0.5";
             Assert.AreEqual("0.5", t.ProtectedApply(1, configRefs));
             t.Expression = "$*2";
@@ -54,7 +53,6 @@ namespace MobiFlight.Modifier.Tests
             t.SubStrStart = 1;
             t.SubStrEnd = 5;
             string test = "UnitTest";
-            t.Active = true;
             Assert.AreEqual("nitT", t.ProtectedApply(test));
 
             // if SubStrEnd > length 
