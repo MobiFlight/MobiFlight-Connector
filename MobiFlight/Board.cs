@@ -238,6 +238,7 @@ namespace MobiFlight
             {
                 // Older versions of boards only specified a single baud rate. Handle the case where
                 // an old file was loaded by migrating the BaudRate value into the BaudRates array.
+#pragma warning disable CS0612 // Type or member is obsolete
                 if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
                 {
                     AvrDudeSettings.BaudRates = new List<string>()
@@ -245,6 +246,7 @@ namespace MobiFlight
                     AvrDudeSettings.BaudRate
                 };
                 }
+#pragma warning restore CS0612 // Type or member is obsolete
 
             }
         }
