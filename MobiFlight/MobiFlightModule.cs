@@ -554,17 +554,28 @@ namespace MobiFlight
         void OnButtonChange(ReceivedCommand arguments)
         {
             String button = arguments.ReadStringArg();
-            String state = arguments.ReadStringArg();
-            //addLog("Button: " + button + ":" + state);
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = button, 
-                    DeviceLabel = button,
-                    Type = DeviceType.Button, 
-                    Value = int.Parse(state) 
-                });
+            String strState = arguments.ReadStringArg();
+            int state;
+
+            try
+            {
+                state = int.Parse(strState);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Unable to convert {strState} to an integer: {ex.Message}", LogSeverity.Error);
+                return;
+            }
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs()
+            {
+                Serial = this.Serial,
+                Name = Name,
+                DeviceId = button,
+                DeviceLabel = button,
+                Type = DeviceType.Button,
+                Value = state
+            });
         }
 
         // Callback function that prints the Arduino status to the console
