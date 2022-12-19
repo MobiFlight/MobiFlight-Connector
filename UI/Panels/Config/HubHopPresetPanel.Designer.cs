@@ -69,6 +69,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.DescriptionLabel = new System.Windows.Forms.Label();
             this.ShowExpertSettingsCheckBox = new System.Windows.Forms.CheckBox();
+            this.HintLabelPresetCodeLabel = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.FilterGroupBox.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.FilterVendorPanel.SuspendLayout();
@@ -85,6 +87,7 @@
             this.PresetCodePanel.SuspendLayout();
             this.CodeActionPanel.SuspendLayout();
             this.PresetPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // FilterGroupBox
@@ -95,7 +98,7 @@
             this.FilterGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.FilterGroupBox.Location = new System.Drawing.Point(0, 0);
             this.FilterGroupBox.Name = "FilterGroupBox";
-            this.FilterGroupBox.Size = new System.Drawing.Size(603, 65);
+            this.FilterGroupBox.Size = new System.Drawing.Size(600, 65);
             this.FilterGroupBox.TabIndex = 12;
             this.FilterGroupBox.TabStop = false;
             this.FilterGroupBox.Text = "Filter Preset List";
@@ -114,7 +117,7 @@
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(70, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(597, 46);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 46);
             this.flowLayoutPanel1.TabIndex = 16;
             // 
             // FilterVendorPanel
@@ -267,7 +270,7 @@
             this.PresetGroupBox.Location = new System.Drawing.Point(0, 65);
             this.PresetGroupBox.Name = "PresetGroupBox";
             this.PresetGroupBox.Padding = new System.Windows.Forms.Padding(0, 3, 3, 0);
-            this.PresetGroupBox.Size = new System.Drawing.Size(603, 364);
+            this.PresetGroupBox.Size = new System.Drawing.Size(600, 346);
             this.PresetGroupBox.TabIndex = 13;
             this.PresetGroupBox.TabStop = false;
             this.PresetGroupBox.Text = "Select Preset";
@@ -279,9 +282,9 @@
             this.ExpertSettingsPanel.Controls.Add(this.Msfs2020Panel);
             this.ExpertSettingsPanel.Controls.Add(this.CustomCodePanel);
             this.ExpertSettingsPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ExpertSettingsPanel.Location = new System.Drawing.Point(0, 124);
+            this.ExpertSettingsPanel.Location = new System.Drawing.Point(0, 121);
             this.ExpertSettingsPanel.Name = "ExpertSettingsPanel";
-            this.ExpertSettingsPanel.Size = new System.Drawing.Size(600, 240);
+            this.ExpertSettingsPanel.Size = new System.Drawing.Size(597, 225);
             this.ExpertSettingsPanel.TabIndex = 9;
             // 
             // Msfs2020Panel
@@ -290,9 +293,9 @@
             this.Msfs2020Panel.Controls.Add(this.AVarExamplePanel);
             this.Msfs2020Panel.Controls.Add(this.ExampleLabel);
             this.Msfs2020Panel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Msfs2020Panel.Location = new System.Drawing.Point(0, 140);
+            this.Msfs2020Panel.Location = new System.Drawing.Point(0, 146);
             this.Msfs2020Panel.Name = "Msfs2020Panel";
-            this.Msfs2020Panel.Size = new System.Drawing.Size(600, 100);
+            this.Msfs2020Panel.Size = new System.Drawing.Size(597, 79);
             this.Msfs2020Panel.TabIndex = 9;
             // 
             // LVarExamplePanel
@@ -304,13 +307,13 @@
             this.LVarExamplePanel.Location = new System.Drawing.Point(0, 44);
             this.LVarExamplePanel.Name = "LVarExamplePanel";
             this.LVarExamplePanel.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.LVarExamplePanel.Size = new System.Drawing.Size(600, 26);
+            this.LVarExamplePanel.Size = new System.Drawing.Size(597, 26);
             this.LVarExamplePanel.TabIndex = 9;
             // 
             // LVarListButton
             // 
             this.LVarListButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.LVarListButton.Location = new System.Drawing.Point(487, 0);
+            this.LVarListButton.Location = new System.Drawing.Point(484, 0);
             this.LVarListButton.Name = "LVarListButton";
             this.LVarListButton.Size = new System.Drawing.Size(103, 26);
             this.LVarListButton.TabIndex = 6;
@@ -324,7 +327,7 @@
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
             this.label4.Padding = new System.Windows.Forms.Padding(74, 3, 3, 3);
-            this.label4.Size = new System.Drawing.Size(590, 26);
+            this.label4.Size = new System.Drawing.Size(587, 26);
             this.label4.TabIndex = 5;
             this.label4.Text = "Local Variables (L-Vars) - (L:YourLvarName)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -337,13 +340,13 @@
             this.AVarExamplePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.AVarExamplePanel.Location = new System.Drawing.Point(0, 18);
             this.AVarExamplePanel.Name = "AVarExamplePanel";
-            this.AVarExamplePanel.Size = new System.Drawing.Size(600, 26);
+            this.AVarExamplePanel.Size = new System.Drawing.Size(597, 26);
             this.AVarExamplePanel.TabIndex = 10;
             // 
             // linkLabel1
             // 
             this.linkLabel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.linkLabel1.Location = new System.Drawing.Point(487, 0);
+            this.linkLabel1.Location = new System.Drawing.Point(484, 0);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.linkLabel1.Size = new System.Drawing.Size(113, 26);
@@ -358,7 +361,7 @@
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
             this.label5.Padding = new System.Windows.Forms.Padding(74, 3, 3, 3);
-            this.label5.Size = new System.Drawing.Size(600, 26);
+            this.label5.Size = new System.Drawing.Size(597, 26);
             this.label5.TabIndex = 8;
             this.label5.Text = "Aircraft Variables (A-Vars) - (A:COM ACTIVE FREQUENCY:1, Number)";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -370,7 +373,7 @@
             this.ExampleLabel.Location = new System.Drawing.Point(0, 0);
             this.ExampleLabel.Name = "ExampleLabel";
             this.ExampleLabel.Padding = new System.Windows.Forms.Padding(74, 3, 3, 3);
-            this.ExampleLabel.Size = new System.Drawing.Size(600, 18);
+            this.ExampleLabel.Size = new System.Drawing.Size(597, 18);
             this.ExampleLabel.TabIndex = 4;
             this.ExampleLabel.Text = "Examples:";
             // 
@@ -385,7 +388,7 @@
             this.CustomCodePanel.Location = new System.Drawing.Point(0, 0);
             this.CustomCodePanel.Name = "CustomCodePanel";
             this.CustomCodePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
-            this.CustomCodePanel.Size = new System.Drawing.Size(600, 140);
+            this.CustomCodePanel.Size = new System.Drawing.Size(597, 146);
             this.CustomCodePanel.TabIndex = 11;
             // 
             // ValuePanel
@@ -396,19 +399,19 @@
             this.ValuePanel.Controls.Add(this.ValueLabel);
             this.ValuePanel.Controls.Add(this.HintLabel);
             this.ValuePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ValuePanel.Location = new System.Drawing.Point(0, 57);
+            this.ValuePanel.Location = new System.Drawing.Point(0, 75);
             this.ValuePanel.Name = "ValuePanel";
             this.ValuePanel.Padding = new System.Windows.Forms.Padding(4);
-            this.ValuePanel.Size = new System.Drawing.Size(600, 78);
+            this.ValuePanel.Size = new System.Drawing.Size(597, 66);
             this.ValuePanel.TabIndex = 33;
             // 
             // ValueTextBox
             // 
             this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ValueTextBox.Location = new System.Drawing.Point(75, 26);
+            this.ValueTextBox.Location = new System.Drawing.Point(75, 21);
             this.ValueTextBox.Name = "ValueTextBox";
-            this.ValueTextBox.Size = new System.Drawing.Size(470, 20);
+            this.ValueTextBox.Size = new System.Drawing.Size(461, 20);
             this.ValueTextBox.TabIndex = 5;
             // 
             // ValueLabel
@@ -425,9 +428,9 @@
             this.HintLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.HintLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.HintLabel.Location = new System.Drawing.Point(75, 49);
+            this.HintLabel.Location = new System.Drawing.Point(75, 44);
             this.HintLabel.Name = "HintLabel";
-            this.HintLabel.Size = new System.Drawing.Size(464, 25);
+            this.HintLabel.Size = new System.Drawing.Size(461, 18);
             this.HintLabel.TabIndex = 30;
             this.HintLabel.Text = "Supports variable value ($), input value (@) and placeholders (?,#, etc.)\r\n";
             // 
@@ -435,29 +438,29 @@
             // 
             this.PresetCodePanel.AutoSize = true;
             this.PresetCodePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.PresetCodePanel.Controls.Add(this.SimVarNameTextBox);
-            this.PresetCodePanel.Controls.Add(this.ExpandButton);
+            this.PresetCodePanel.Controls.Add(this.panel1);
+            this.PresetCodePanel.Controls.Add(this.HintLabelPresetCodeLabel);
             this.PresetCodePanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.PresetCodePanel.Location = new System.Drawing.Point(0, 27);
             this.PresetCodePanel.Name = "PresetCodePanel";
-            this.PresetCodePanel.Size = new System.Drawing.Size(600, 30);
+            this.PresetCodePanel.Size = new System.Drawing.Size(597, 48);
             this.PresetCodePanel.TabIndex = 11;
             // 
             // SimVarNameTextBox
             // 
             this.SimVarNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.SimVarNameTextBox.Location = new System.Drawing.Point(75, 6);
+            this.SimVarNameTextBox.Location = new System.Drawing.Point(75, 3);
             this.SimVarNameTextBox.MaxLength = 1024;
             this.SimVarNameTextBox.Multiline = true;
             this.SimVarNameTextBox.Name = "SimVarNameTextBox";
-            this.SimVarNameTextBox.Size = new System.Drawing.Size(464, 21);
+            this.SimVarNameTextBox.Size = new System.Drawing.Size(461, 21);
             this.SimVarNameTextBox.TabIndex = 9;
             // 
             // ExpandButton
             // 
             this.ExpandButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExpandButton.Location = new System.Drawing.Point(545, 5);
+            this.ExpandButton.Location = new System.Drawing.Point(541, 3);
             this.ExpandButton.Name = "ExpandButton";
             this.ExpandButton.Size = new System.Drawing.Size(21, 21);
             this.ExpandButton.TabIndex = 10;
@@ -470,7 +473,7 @@
             this.CodeActionPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.CodeActionPanel.Location = new System.Drawing.Point(0, 0);
             this.CodeActionPanel.Name = "CodeActionPanel";
-            this.CodeActionPanel.Size = new System.Drawing.Size(600, 27);
+            this.CodeActionPanel.Size = new System.Drawing.Size(597, 27);
             this.CodeActionPanel.TabIndex = 10;
             // 
             // CodeTypeComboBox
@@ -496,13 +499,13 @@
             this.PresetPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.PresetPanel.Location = new System.Drawing.Point(0, 16);
             this.PresetPanel.Name = "PresetPanel";
-            this.PresetPanel.Size = new System.Drawing.Size(600, 108);
+            this.PresetPanel.Size = new System.Drawing.Size(597, 105);
             this.PresetPanel.TabIndex = 3;
             // 
             // MatchLabel
             // 
             this.MatchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.MatchLabel.Location = new System.Drawing.Point(428, 3);
+            this.MatchLabel.Location = new System.Drawing.Point(425, 3);
             this.MatchLabel.Name = "MatchLabel";
             this.MatchLabel.Size = new System.Drawing.Size(169, 18);
             this.MatchLabel.TabIndex = 16;
@@ -518,7 +521,7 @@
             this.PresetComboBox.FormattingEnabled = true;
             this.PresetComboBox.Location = new System.Drawing.Point(75, 3);
             this.PresetComboBox.Name = "PresetComboBox";
-            this.PresetComboBox.Size = new System.Drawing.Size(351, 21);
+            this.PresetComboBox.Size = new System.Drawing.Size(348, 21);
             this.PresetComboBox.TabIndex = 7;
             // 
             // label3
@@ -539,7 +542,7 @@
             this.DescriptionLabel.Location = new System.Drawing.Point(75, 43);
             this.DescriptionLabel.Name = "DescriptionLabel";
             this.DescriptionLabel.Padding = new System.Windows.Forms.Padding(5);
-            this.DescriptionLabel.Size = new System.Drawing.Size(459, 39);
+            this.DescriptionLabel.Size = new System.Drawing.Size(464, 39);
             this.DescriptionLabel.TabIndex = 18;
             // 
             // ShowExpertSettingsCheckBox
@@ -552,6 +555,29 @@
             this.ShowExpertSettingsCheckBox.Text = "Show Preset Code";
             this.ShowExpertSettingsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // HintLabelPresetCodeLabel
+            // 
+            this.HintLabelPresetCodeLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.HintLabelPresetCodeLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.HintLabelPresetCodeLabel.Location = new System.Drawing.Point(0, 27);
+            this.HintLabelPresetCodeLabel.Name = "HintLabelPresetCodeLabel";
+            this.HintLabelPresetCodeLabel.Padding = new System.Windows.Forms.Padding(73, 0, 0, 0);
+            this.HintLabelPresetCodeLabel.Size = new System.Drawing.Size(597, 21);
+            this.HintLabelPresetCodeLabel.TabIndex = 31;
+            this.HintLabelPresetCodeLabel.Text = "Supports input value (@) and placeholders ($,#, etc.)";
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.ExpandButton);
+            this.panel1.Controls.Add(this.SimVarNameTextBox);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(597, 27);
+            this.panel1.TabIndex = 32;
+            // 
             // HubHopPresetPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,10 +586,11 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.PresetGroupBox);
             this.Controls.Add(this.FilterGroupBox);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
-            this.MinimumSize = new System.Drawing.Size(603, 0);
+            this.MinimumSize = new System.Drawing.Size(600, 0);
             this.Name = "HubHopPresetPanel";
-            this.Size = new System.Drawing.Size(603, 429);
+            this.Size = new System.Drawing.Size(600, 411);
             this.FilterGroupBox.ResumeLayout(false);
             this.FilterGroupBox.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -591,6 +618,8 @@
             this.CodeActionPanel.ResumeLayout(false);
             this.PresetPanel.ResumeLayout(false);
             this.PresetPanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -639,5 +668,7 @@
         private System.Windows.Forms.TextBox ValueTextBox;
         private System.Windows.Forms.Label ValueLabel;
         private System.Windows.Forms.Label HintLabel;
+        private System.Windows.Forms.Label HintLabelPresetCodeLabel;
+        private System.Windows.Forms.Panel panel1;
     }
 }
