@@ -49,15 +49,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public DisplayPanel()
         {
             InitializeComponent();
-            analogPanel1.OnPanelChanged += (s, e) => {
-                inputActionGroupBox.AutoSize = false;
-                inputActionGroupBox.Height = (s as UserControl).Height + 80 + AnalogInputActionLabel.Height;
-            };
-
-            buttonPanel1.OnPanelChanged += (s, e) => {
-                inputActionGroupBox.AutoSize = false;
-                inputActionGroupBox.Height = (s as UserControl).Height + 80 + ButtonInputActionLabel.Height;
-            };
         }
 
         public void SetConfigRefsDataView(DataView dv, string filterGuid)
@@ -823,6 +814,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             InputActionTypePanel.Visible = OutputTypeIsInputAction();
             inputActionGroupBox.Visible = OutputTypeIsInputAction();
+
+            if (OutputTypeIsInputAction())
+            {
+                InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
+                InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
+            } 
         }
 
         private void InputTypeButtonRadioButton_CheckedChanged(object sender, EventArgs e)

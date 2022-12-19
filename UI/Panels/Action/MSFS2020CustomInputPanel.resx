@@ -128,11 +128,8 @@
   <data name="DescriptionLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="DescriptionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
   <data name="DescriptionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>880, 40</value>
+    <value>600, 26</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="DescriptionLabel.TabIndex" type="System.Int32, mscorlib">
@@ -151,44 +148,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="HintLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="HintLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="HintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 369</value>
-  </data>
-  <data name="HintLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="HintLabel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>105, 0, 0, 0</value>
-  </data>
-  <data name="HintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>880, 38</value>
-  </data>
-  <data name="HintLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="HintLabel.Text" xml:space="preserve">
-    <value>Supports input value (@) and placeholders ($,#, etc.)
-</value>
-  </data>
-  <data name="&gt;&gt;HintLabel.Name" xml:space="preserve">
-    <value>HintLabel</value>
-  </data>
-  <data name="&gt;&gt;HintLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;HintLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;HintLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="hubHopPresetPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -200,7 +160,7 @@
     <value>Top</value>
   </data>
   <data name="hubHopPresetPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 40</value>
+    <value>0, 26</value>
   </data>
   <data name="hubHopPresetPanel1.LVars" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
@@ -211,11 +171,14 @@
         ZW1zBV9zaXplCF92ZXJzaW9uBgAACAgCAAAACQMAAAAAAAAAAAAAABEDAAAAAAAAAAs=
 </value>
   </data>
+  <data name="hubHopPresetPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
+  </data>
   <data name="hubHopPresetPanel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>400, 0</value>
+    <value>267, 0</value>
   </data>
   <data name="hubHopPresetPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>880, 329</value>
+    <value>600, 186</value>
   </data>
   <data name="hubHopPresetPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>30</value>
@@ -224,25 +187,31 @@
     <value>hubHopPresetPanel1</value>
   </data>
   <data name="&gt;&gt;hubHopPresetPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.HubHopPresetPanel, MFConnector, Version=9.2.0.4, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.HubHopPresetPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;hubHopPresetPanel1.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="&gt;&gt;hubHopPresetPanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
+    <value>6, 13</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>600, 200</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>880, 741</value>
+    <value>600, 212</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MSFS2020CustomInputPanel</value>

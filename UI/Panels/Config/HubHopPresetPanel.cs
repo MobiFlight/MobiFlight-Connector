@@ -66,6 +66,7 @@ namespace MobiFlight.UI.Panels.Config
             AVarExamplePanel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
             ExampleLabel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
             ValuePanel.Visible = panelMode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE;
+            HintLabelPresetCodeLabel.Visible = FlightSimType == FlightSimType.MSFS2020;
 
             if (panelMode == HubHopPanelMode.Input)
             {

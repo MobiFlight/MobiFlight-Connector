@@ -20,6 +20,7 @@ namespace MobiFlight.UI.Panels.Action
             hubHopPresetPanel1.Mode = Config.HubHopPanelMode.Input;
             hubHopPresetPanel1.PresetFile = @"Presets\xplane_hubhop_presets.json";
             hubHopPresetPanel1.LoadPresets();
+            Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
         }
         internal void syncFromConfig(InputConfig.XplaneInputAction inputAction)
         {
