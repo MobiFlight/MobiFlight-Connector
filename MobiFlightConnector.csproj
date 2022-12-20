@@ -921,6 +921,9 @@
     <None Include="firmware\reset.arduino_uno_1_0_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="firmware\reset.raspberry_pico_1_0_2.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Presets\msfs2020_simvars.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

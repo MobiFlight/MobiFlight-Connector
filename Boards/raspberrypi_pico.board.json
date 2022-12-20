@@ -18,11 +18,11 @@
   "HardwareIds": ["^VID_2E8A&PID_000A"],
   "Info": {
     "CanInstallFirmware": true,
-    "CanResetBoard": false,
+    "CanResetBoard": true,
     "FriendlyName": "MobiFlight RaspiPico",
     "LatestFirmwareVersion": "2.2.0",
     "MobiFlightType": "MobiFlight RaspiPico",
-    "ResetFirmwareFile": "reset.arduino_raspberrypico_1_0_3.uf2"
+    "ResetFirmwareFile": "reset.raspberry_pico_1_0_2.uf2"
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 16,
