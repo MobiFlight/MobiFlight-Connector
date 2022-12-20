@@ -66,7 +66,7 @@
         "ResetFirmwareFile": {
           "$id": "#root/AvrDudeSettings/ResetFirmwareFile",
           "title": "Resetfirmwarefile",
-          "description": "Firmware filename to reset the board.",
+          "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
         }
       }
@@ -133,7 +133,7 @@
           "title": "Timeoutforfirmwareupdate",
           "description": "Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board. Default 15000.",
           "type": "integer",
-          "default":  15000
+          "default": 15000
         }
       }
     },
@@ -157,6 +157,7 @@
       "type": "object",
       "required": [
         "CanInstallFirmware",
+        "CanResetBoard",
         "FriendlyName",
         "LatestFirmwareVersion",
         "MobiFlightType"
@@ -166,6 +167,12 @@
           "$id": "#root/Info/CanInstallFirmware",
           "title": "Caninstallfirmware",
           "description": "True if the board supports loading firmware via MobiFlight.",
+          "type": "boolean"
+        },
+        "CanResetBoard": {
+          "$id": "#root/Info/CanResetBoard",
+          "title": "CanResetBoard",
+          "description": "True if the board can be reset to factory default by MobiFlight.",
           "type": "boolean"
         },
         "FriendlyName": {
@@ -184,6 +191,12 @@
           "$id": "#root/Info/MobiFlightType",
           "title": "Mobiflighttype",
           "description": "The type of the board as provided by the MobiFlight firmware.",
+          "type": "string"
+        },
+        "ResetFirmwareFile": {
+          "$id": "#root/Info/ResetFirmwareFile",
+          "title": "Resetfirmwarefile",
+          "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
         }
       }
@@ -317,6 +330,39 @@
             "description": "The number for the pin on the board.",
             "type": "integer"
           }
+        }
+      }
+    },
+    "UsbDriveSettings": {
+      "$id": "#root/UsbDriveSettings",
+      "title": "UsbDriveSettings",
+      "type": "object",
+      "description": "Settings for flashing devices via a mounted USB drive.",
+      "required": [ "FirmwareBaseName", "FirmwareExtension", "VerificationFileName", "VolumeLabel" ],
+      "properties": {
+        "BaudRate": {
+          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
+          "title": "FirmwareBaseName",
+          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
+          "type": "string"
+        },
+        "Device": {
+          "$id": "#root/UsbDriveSettings/FirmwareExtension",
+          "title": "FirmwareExtension",
+          "description": "File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
+          "type": "string"
+        },
+        "FirmwareBaseName": {
+          "$id": "#root/UsbDriveSettings/VerificationFileName",
+          "title": "VerificationFileName",
+          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "type": "string"
+        },
+        "Programmer": {
+          "$id": "#root/UsbDriveSettings/VolumeLabel",
+          "title": "VolumeLabel",
+          "description": "Volume label of the USB drive when mounted in Windows.",
+          "type": "string"
         }
       }
     }

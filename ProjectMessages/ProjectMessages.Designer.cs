@@ -1083,7 +1083,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to disable the automatic upload to new arduinos?
+        ///   Looks up a localized string similar to Do you want to disable the automatic upload to new modules?
         ///You can always enable it later again in the settings menu..
         /// </summary>
         internal static string uiMessageUpdateArduinoFwAutoDisableYesNo {
@@ -1093,7 +1093,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Arduino boards found that are compatible with MobiFlight. To be able to use them they require the latest MobiFlight Firmware.
+        ///   Looks up a localized string similar to Modules found that are compatible with MobiFlight. To be able to use them they require the latest MobiFlight Firmware.
         ///
         ///Upload the MobiFlight Firmware now!.
         /// </summary>

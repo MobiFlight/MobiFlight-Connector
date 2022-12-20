@@ -24,6 +24,7 @@ using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace MobiFlight.UI
 {
@@ -332,6 +333,37 @@ namespace MobiFlight.UI
             
         }
 
+        /// <summary>
+        /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
+        /// as opposed to being connected as COM port.
+        /// </summary>
+        /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
+        private static List<MobiFlightModuleInfo> FindConnectedUsbDevices()
+        {
+            var result = new List<MobiFlightModuleInfo>();
+
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                var candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
+
+                if (candidateBoard != null)
+                {
+                    result.Add(new MobiFlightModuleInfo()
+                    {
+                        Board = candidateBoard,
+                        HardwareId = drive.Name,
+                        Name = drive.VolumeLabel,
+                        // It's important that this is the drive letter for the connected USB device. This is
+                        // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                        // port and to skip the COM port toggle before flashing.
+                        Port = drive.RootDirectory.FullName
+                    });
+                }
+            }
+
+            return result;
+        }
+
         void CheckForFirmwareUpdates ()
         {
             MobiFlightCache mfCache = execManager.getMobiFlightModuleCache();
@@ -370,6 +402,9 @@ namespace MobiFlight.UI
                     modulesForFlashing.Add(moduleInfo);
                 }
             }
+
+            // Connected USB devices that are in bootsel mode get added to the firmware flashing list
+            modulesForFlashing.AddRange(FindConnectedUsbDevices());
 
             if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
