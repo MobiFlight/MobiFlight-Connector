@@ -173,7 +173,7 @@ namespace MobiFlight
 
                 if (portName == null)
                 {
-                    Log.Instance.log($"Arduino device has no port information: {hardwareId}.", LogSeverity.Error);
+                    Log.Instance.log($"Device has no port information: {hardwareId}.", LogSeverity.Error);
                     continue;
                 }
 
@@ -197,7 +197,7 @@ namespace MobiFlight
             return result;
         }
 
-        private async  Task<List<MobiFlightModuleInfo>> LookupAllConnectedArduinoModulesAsync()
+        private async  Task<List<MobiFlightModuleInfo>> LookupAllConnectedComModulesAsync()
         {
             Log.Instance.log("Start looking up connected modules.", LogSeverity.Debug);
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
@@ -287,7 +287,7 @@ namespace MobiFlight
             
             if (connectedArduinoModules == null)
             {
-                connectedArduinoModules = await LookupAllConnectedArduinoModulesAsync();
+                connectedArduinoModules = await LookupAllConnectedComModulesAsync();
                 isFirstTimeLookup = true;
             }
 

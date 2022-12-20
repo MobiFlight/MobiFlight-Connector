@@ -66,7 +66,7 @@
         "ResetFirmwareFile": {
           "$id": "#root/AvrDudeSettings/ResetFirmwareFile",
           "title": "Resetfirmwarefile",
-          "description": "Firmware filename to reset the board.",
+          "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
         }
       }
@@ -191,6 +191,12 @@
           "$id": "#root/Info/MobiFlightType",
           "title": "Mobiflighttype",
           "description": "The type of the board as provided by the MobiFlight firmware.",
+          "type": "string"
+        },
+        "ResetFirmwareFile": {
+          "$id": "#root/Info/ResetFirmwareFile",
+          "title": "Resetfirmwarefile",
+          "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
         }
       }

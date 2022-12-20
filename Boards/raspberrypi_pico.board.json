@@ -4,7 +4,8 @@
     "VolumeLabel": "RPI-RP2",
     "VerificationFileName": "INFO_UF2.TXT",
     "FirmwareBaseName": "mobiflight_raspberrypico",
-    "FirmwareExtension": "uf2"
+    "FirmwareExtension": "uf2",
+    "ResetFirmwareFile": "reset.arduino_raspberrypico_1_0_3.uf2"
   },
   "Connection": {
     "ConnectionDelay": 1250,
