@@ -1,0 +1,193 @@
+{
+  "$schema": "./mfboard.schema.json",
+  "AvrDudeSettings": {
+    "BaudRate": "57600",
+    "Device": "atmega32u4",
+    "FirmwareBaseName": "mobiflight_deice",
+    "Programmer": "avr109"
+  },
+  "Connection": {
+    "ConnectionDelay": 1250,
+    "DelayAfterFirmwareUpdate": 1250,
+    "DtrEnable": true,
+    "EEPROMSize": 256,
+    "ExtraConnectionRetry": false,
+    "ForceResetOnFirmwareUpdate": true,
+    "MessageSize": 32
+  },
+  "HardwareIds": [
+    "^VID_1B4F&PID_9206",
+    "^VID_2341&PID_8036",
+    "^VID_2341&PID_8037"
+  ],
+  "Info": {
+    "CanInstallFirmware": true,
+    "FriendlyName": "Arduino Micro Pro",
+    "LatestFirmwareVersion": "0.0.1",
+    "MobiFlightType": "De-ice panel"
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 6,
+    "MaxButtons": 18,
+    "MaxEncoders": 0,
+    "MaxLcdI2C": 0,
+    "MaxLedSegments": 0,
+    "MaxOutputs": 18,
+    "MaxServos": 0,
+    "MaxSteppers": 0,
+    "MaxShifters": 2,
+    "MaxInputShifters":  0
+  },
+  "Pins": [
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 0
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 1
+    },
+    {
+      "isAnalog": false,
+      "isI2C": true,
+      "isPWM": false,
+      "Pin": 2
+    },
+    {
+      "isAnalog": false,
+      "isI2C": true,
+      "isPWM": true,
+      "Pin": 3
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 4
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 5
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 6
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 7
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 8
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 9
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 10
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 11
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 12
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 13
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 14
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 15
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 16
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 17
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 18,
+      "Name": "A0"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 19,
+      "Name": "A1"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 20,
+      "Name": "A2"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 21,
+      "Name": "A3"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 22,
+      "Name": "A4"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 23,
+      "Name": "A5"
+    }
+  ]
+}

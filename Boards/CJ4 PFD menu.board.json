@@ -1,0 +1,221 @@
+{
+  "$schema": "./mfboard.schema.json",
+  "UsbDriveSettings": {
+    "VolumeLabel": "RPI-RP2",
+    "VerificationFileName": "INFO_UF2.TXT",
+    "FirmwareBaseName": "mobiflight_raspberrypico",
+    "FirmwareExtension": "uf2"
+  },
+  "Connection": {
+    "ConnectionDelay": 1250,
+    "DelayAfterFirmwareUpdate": 1250,
+    "DtrEnable": true,
+    "EEPROMSize": 1496,
+    "ExtraConnectionRetry": false,
+    "ForceResetOnFirmwareUpdate": true,
+    "MessageSize": 64
+  },
+  "HardwareIds": [ "^VID_2E8A&PID_000A" ],
+  "Info": {
+    "CanInstallFirmware": true,
+    "FriendlyName": "CJ4 PFD",
+    "LatestFirmwareVersion": "2.3.0",
+    "MobiFlightType": "CJ4 PFD"
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 16,
+    "MaxInputShifters": 4,
+    "MaxButtons": 68,
+    "MaxEncoders": 20,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 4,
+    "MaxOutputs": 40,
+    "MaxServos": 10,
+    "MaxShifters": 4,
+    "MaxSteppers": 10,
+    "MaxInputMultiplexer": 2
+  },
+  "Pins": [
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 0
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 1
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 2
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 3
+    },
+    {
+      "isAnalog": false,
+      "isI2C": true,
+      "isPWM": true,
+      "Pin": 4
+    },
+    {
+      "isAnalog": false,
+      "isI2C": true,
+      "isPWM": true,
+      "Pin": 5
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 6
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 7
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 8
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 9
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 10
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 11
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 12
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 13
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 14
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 15
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 16
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 17
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 18
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 19
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 20
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 21
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 22
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 23
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 24
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 25
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 26
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 27
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 28
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 29
+    }
+  ]
+}
+  

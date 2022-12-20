@@ -1,0 +1,217 @@
+{
+  "$schema": "./mfboard.schema.json",
+  "AvrDudeSettings": {
+    "Device": "atmega328p",
+    "BaudRate": "115200",
+    "Programmer": "arduino",
+    "FirmwareBaseName": "mobiflight_mfd"
+  },
+  "Connection": {
+    "ConnectionDelay": 1750,
+    "DelayAfterFirmwareUpdate": 0,
+    "DtrEnable": true,
+    "EEPROMSize": 256,
+    "ExtraConnectionRetry": true,
+    "ForceResetOnFirmwareUpdate": false,
+    "MessageSize": 32
+  },
+  "HardwareIds": [ "^VID_1B4F&PID_9206" ],
+  "Info": {
+    "CanInstallFirmware": true,
+    "FriendlyName": "CJ4 MFD panel",
+    "LatestFirmwareVersion": "2.3.0",
+    "MobiFlightType": "CJ4 MFD panel"
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 2,
+    "MaxButtons": 70,
+    "MaxEncoders": 2,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 1,
+    "MaxOutputs": 8,
+    "MaxServos": 2,
+    "MaxSteppers": 2
+  },
+  "Pins": [
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 100
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 101
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 102
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 103
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 104
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 105
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 106
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 107
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 108
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 109
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 110
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 111
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 112
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 113
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 114
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 115
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 116
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 117
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 118
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 119
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 120
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 121
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 122
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 123
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 124
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 24
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 8
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 9
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 5
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 10
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 22
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 20
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 21
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 19
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 18
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "Pin": 10
+    }
+  ]
+}
