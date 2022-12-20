@@ -55,21 +55,26 @@ namespace MobiFlight
 
         public static bool Reset(MobiFlightModule module)
         {
-            if (module.Board.AvrDudeSettings == null)
+            if (String.IsNullOrEmpty(module.Board.Info.ResetFirmwareFile))
             {
                 Log.Instance.log($"Firmware reset requested for {module.Board.Info.MobiFlightType} ({module.Port}) however no reset settings were specified in the board definition file. Module reset skipped.", LogSeverity.Error);
                 return false;
             }
 
-            var FirmwareName = module.Board.AvrDudeSettings.ResetFirmwareFile;
-            return UpdateFirmware(module, FirmwareName);
+            return UpdateFirmware(module, module.Board.Info.ResetFirmwareFile);
         }
 
         public static bool UpdateFirmware(MobiFlightModule module, String FirmwareName)
         {
             bool result = false;
-            String Port = module.InitUploadAndReturnUploadPort();
-            if (module.Connected) module.Disconnect();
+            String Port = "";
+
+            // Only COM ports get toggled
+            if (module.Port.StartsWith("COM"))
+            {
+                Port = module.InitUploadAndReturnUploadPort();
+                if (module.Connected) module.Disconnect();
+            }
 
             try
             {
@@ -84,7 +89,7 @@ namespace MobiFlight
                 }
                 else if (module.Board.UsbDriveSettings != null)
                 {
-                    FlashViaUsbDrive(module.Board);
+                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName);
                 }
                 else
                 {
@@ -157,11 +162,11 @@ namespace MobiFlight
             throw new Exception(message);
         }
 
-        public static void FlashViaUsbDrive(Board board)
+        public static void FlashViaUsbDrive(String port, Board board, String firmwareName)
         {
-            String FirmwareName = board.UsbDriveSettings.GetFirmwareName(board.Info.LatestFirmwareVersion);
-            String FullFirmwarePath = $"{FirmwarePath}\\{FirmwareName}";
+            String FullFirmwarePath = $"{FirmwarePath}\\{firmwareName}";
             String message = "";
+            DriveInfo driveInfo;
 
             if (!IsValidFirmwareFilepath(FullFirmwarePath))
             {
@@ -170,28 +175,46 @@ namespace MobiFlight
                 throw new FileNotFoundException(message);
             }
 
-            // Find all drives connected to the PC with a volume label that matches the one used to identify the 
-            // drive that's the device to flash. This assumes the first matching drive is the one we want,
-            // since it is extremely unlikely that more than one flashable USB drive will be connected and in a
-            // flashable state at the same time.
-            DriveInfo drive;
+            // Flashing can be initiated with either a COM port (for devices that weren't in bootsel mode to begin with
+            // and got in that state by having the COM port toggled) or with a drive letter (for devices that were already
+            // in bootsel mode when MobiFlight ran.
+            // For boards that started as a COM port look up what the drive letter is after the port was toggled.
+            if (port.StartsWith("COM"))
+            {
+                // Find all drives connected to the PC with a volume label that matches the one used to identify the 
+                // drive that's the device to flash. This assumes the first matching drive is the one we want,
+                // since it is extremely unlikely that more than one flashable USB drive will be connected and in a
+                // flashable state at the same time.
+                try
+                {
+                    driveInfo = DriveInfo.GetDrives().Where(d => d.VolumeLabel == board.UsbDriveSettings.VolumeLabel).First();
+                }
+                catch
+                {
+                    message = $"No mounted USB drives named {board.UsbDriveSettings.VolumeLabel} found.";
+                    Log.Instance.log(message, LogSeverity.Error);
+                    throw new FileNotFoundException(message);
+                }
+            }
+            // For boards that were already a drive letter just get the drive info based off that.
+            else
+            {
+                try
+                {
+                    driveInfo = new DriveInfo(port);
+                }
+                catch
+                {
+                    message = $"No mounted USB drive letter {port} found.";
+                    Log.Instance.log(message, LogSeverity.Error);
+                    throw new FileNotFoundException(message);
+                }
+            }
 
+            // Look for the presence of a file on the drive to confirm it is really a drive that supports flashing via file copy.
             try
             {
-                drive = DriveInfo.GetDrives().Where(d => d.VolumeLabel == board.UsbDriveSettings.VolumeLabel).First();
-            }
-            catch
-            {
-                message = $"No mounted USB drives named {board.UsbDriveSettings.VolumeLabel} found";
-                Log.Instance.log(message, LogSeverity.Error);
-                throw new FileNotFoundException(message);
-            }
-
-            // Look for the presence of a file on the drive to confirm it is really a drive that supports flashing via
-            // file copy.
-            try
-            {
-                var verificationFile = drive.RootDirectory.GetFiles(board.UsbDriveSettings.VerificationFileName).First();
+                var verificationFile = driveInfo.RootDirectory.GetFiles(board.UsbDriveSettings.VerificationFileName).First();
             }
             catch
             {
@@ -203,7 +226,7 @@ namespace MobiFlight
             // At this point the drive is valid so all that's left is to copy the firmware over. If the file
             // copy succeeds the connected device will automatically reboot itself so there's no need to
             // attempt any kind of reconnect after either. Nice!
-            var destination = $"{drive.RootDirectory.FullName}{FirmwareName}";
+            var destination = $"{driveInfo.RootDirectory.FullName}{firmwareName}";
             try
             {
                 Log.Instance.log($"Copying {FullFirmwarePath} to {destination}", LogSeverity.Debug);

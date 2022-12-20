@@ -48,8 +48,9 @@ namespace MobiFlight
         public int Timeout;
 
         /// <summary>
-        /// Firmware filename to reset the board.
+        /// Firmware filename to reset the board. No longer used. Use Info.ResetFirmwareFile instead.
         /// </summary>
+        [Obsolete]
         public String ResetFirmwareFile;
 
         /// <summary>
@@ -138,6 +139,11 @@ namespace MobiFlight
         /// The type of the board as provided by the MobiFlight firmware.
         /// </summary>
         public String MobiFlightType;
+
+        /// <summary>
+        /// Firmware filename to reset the board.
+        /// </summary>
+        public String ResetFirmwareFile;
     }
 
     /// <summary>
@@ -284,12 +290,17 @@ namespace MobiFlight
                 if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
                 {
                     AvrDudeSettings.BaudRates = new List<string>()
-                {
-                    AvrDudeSettings.BaudRate
-                };
+                    {
+                        AvrDudeSettings.BaudRate
+                    };
                 }
 #pragma warning restore CS0612 // Type or member is obsolete
 
+                // Older versions of boards specified the reset firmware filename in the AvrDudeSettings.
+                if (!String.IsNullOrEmpty(AvrDudeSettings.ResetFirmwareFile) && String.IsNullOrEmpty(Info.ResetFirmwareFile))
+                {
+                    Info.ResetFirmwareFile = AvrDudeSettings.ResetFirmwareFile;
+                }
             }
         }
 
