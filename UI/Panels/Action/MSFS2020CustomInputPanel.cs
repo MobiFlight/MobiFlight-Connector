@@ -19,6 +19,7 @@ namespace MobiFlight.UI.Panels.Action
         {
             InitializeComponent();
             hubHopPresetPanel1.Mode = Config.HubHopPanelMode.Input;
+            hubHopPresetPanel1.FlightSimType = FlightSimType.MSFS2020;
             hubHopPresetPanel1.LoadPresets();
             Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
         }       
