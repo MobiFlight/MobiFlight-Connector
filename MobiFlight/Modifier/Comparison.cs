@@ -12,6 +12,13 @@ namespace MobiFlight.Modifier
 {
     public class Comparison : ModifierBase
     {
+        public const string OPERAND_EQUAL = "=";
+        public const string OPERAND_NOT_EQUAL = "!=";
+        public const string OPERAND_GREATER_THAN = ">";
+        public const string OPERAND_GREATER_THAN_EQUAL = ">=";
+        public const string OPERAND_LESS_THAN = "<";
+        public const string OPERAND_LESS_THAN_EQUAL = "<=";
+
         public string Operand { get; set; }
         public string Value { get; set; }
         public string IfValue { get; set; }
@@ -106,22 +113,22 @@ namespace MobiFlight.Modifier
 
             switch (Operand)
             {
-                case "!=":
+                case OPERAND_NOT_EQUAL:
                     comparisonResult = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
-                case ">":
+                case OPERAND_GREATER_THAN:
                     comparisonResult = (value > comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
-                case ">=":
+                case OPERAND_GREATER_THAN_EQUAL:
                     comparisonResult = (value >= comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
-                case "<=":
+                case OPERAND_LESS_THAN_EQUAL:
                     comparisonResult = (value <= comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
-                case "<":
+                case OPERAND_LESS_THAN:
                     comparisonResult = (value < comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
-                case "=":
+                case OPERAND_EQUAL:
                     comparisonResult = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
                 default:
@@ -180,10 +187,10 @@ namespace MobiFlight.Modifier
 
             switch (Operand)
             {
-                case "!=":
+                case OPERAND_NOT_EQUAL:
                     result = (value != comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
-                case "=":
+                case OPERAND_EQUAL:
                     result = (value == comparisonValue) ? comparisonIfValue : comparisonElseValue;
                     break;
             }

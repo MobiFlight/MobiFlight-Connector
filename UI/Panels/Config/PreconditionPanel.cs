@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -12,6 +10,8 @@ namespace MobiFlight.UI.Panels.Config
     {
         public event EventHandler<EventArgs> PreconditionTreeNodeChanged;
         public event EventHandler<EventArgs> ErrorOnValidating;
+
+        protected bool suspendFormValueChanged = false;
 
         ErrorProvider errorProvider = new ErrorProvider();
 
@@ -60,11 +60,13 @@ namespace MobiFlight.UI.Panels.Config
 
         private void FormValueChanged(object sender, EventArgs e)
         {
+            if (suspendFormValueChanged) return;
             UpdatePreconditionAfterChange(sender, e);
         }
 
         private void PreconditionListTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            suspendFormValueChanged = true;
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
             preconditionSettingsPanel.Enabled = true;
@@ -98,6 +100,7 @@ namespace MobiFlight.UI.Panels.Config
 
             aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
             oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";
+            suspendFormValueChanged = false;
         }
 
         private void PreconditionPanel_PreconditionTreeNodeChanged(object sender, EventArgs e)
@@ -319,7 +322,8 @@ namespace MobiFlight.UI.Panels.Config
                         if (config == null)
                         {
                             isMissing = true;
-                            replaceString = "Config missing!";
+                            replaceString = "[missing]";
+                            Log.Instance.log($"Precondition: config reference missing > {p.PreconditionRef}", LogSeverity.Warn);
                         }
                         else
                             replaceString = config.Label;
@@ -446,6 +450,7 @@ namespace MobiFlight.UI.Panels.Config
                     "");
         }
 
+        #region Validation Events
         private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (!(preconditionRuleConfigPanel).Visible)
@@ -528,5 +533,6 @@ namespace MobiFlight.UI.Panels.Config
                 removeError(preconditionPortComboBox);
             }
         }
+        #endregion
     }
 }
