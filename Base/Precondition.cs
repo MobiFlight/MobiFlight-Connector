@@ -11,6 +11,7 @@ namespace MobiFlight
 {
     public class Precondition : IXmlSerializable, ICloneable
     {
+        public const string OPERAND_DEFAULT = Comparison.OPERAND_EQUAL;
         public const string LOGIC_AND = "and";
         public const string LOGIC_OR = "or";
         
@@ -19,9 +20,9 @@ namespace MobiFlight
             get {
                 if (preconditionLabel != null) return preconditionLabel;
                 if (PreconditionType=="config")
-                    return $"Config: <Ref:{PreconditionRef}>{PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
+                    return $"Config: <Ref:{PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
                 else if (PreconditionType == "variable")
-                    return $"Variable: <Variable: {PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
+                    return $"Variable: <Variable:{PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
                 else if (PreconditionType == "pin")
                 {
                     return $"Pin: <Serial:{PreconditionSerial}><Pin:{PreconditionPin}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
@@ -45,8 +46,9 @@ namespace MobiFlight
         public Precondition()
         {
             PreconditionType = "none";
-            PreconditionActive = true;            
+            PreconditionActive = true;
             PreconditionLogic = "and";
+            PreconditionOperand = "=";
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -72,6 +74,9 @@ namespace MobiFlight
             {
                 PreconditionRef = reader["ref"];
                 PreconditionOperand = reader["operand"];
+                if (PreconditionOperand == "")
+                    PreconditionOperand = OPERAND_DEFAULT;
+
                 PreconditionValue = reader["value"];
             }
             else if (PreconditionType == "pin")

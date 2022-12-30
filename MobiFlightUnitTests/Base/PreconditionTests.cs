@@ -21,6 +21,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.PreconditionType, "none", "Type is not none");
             Assert.AreEqual(o.PreconditionActive, true, "Active is not true");
             Assert.AreEqual(o.PreconditionLogic, "and", "Precondition logic is not and");
+            Assert.AreEqual(o.PreconditionOperand, Precondition.OPERAND_DEFAULT, "Precondition operand is not the OPERAND_DEFAULT");
         }
 
         [TestMethod()]
