@@ -501,8 +501,12 @@ namespace MobiFlight
         {
             String enc = arguments.ReadStringArg();
             String pos = arguments.ReadStringArg();
-            int value;
-            if (!int.TryParse(pos, out value)) return;
+
+            if (!int.TryParse(pos, out int value))
+            {
+                Log.Instance.log($"Unable to convert {pos} to an integer.", LogSeverity.Error);
+                return;
+            }
 
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { 
@@ -519,8 +523,21 @@ namespace MobiFlight
         void OnInputShiftRegisterChange(ReceivedCommand arguments)
         {
             String deviceId = arguments.ReadStringArg();
-            String channel = arguments.ReadStringArg();
-            String state = arguments.ReadStringArg();
+            String strChannel = arguments.ReadStringArg();
+            String strState = arguments.ReadStringArg();
+
+            if (!int.TryParse(strChannel, out int channel))
+            {
+                Log.Instance.log($"Unable to convert {strChannel} to an integer.", LogSeverity.Error);
+                return;
+            }
+
+            if (!int.TryParse(strState, out int state))
+            {
+                Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
+                return;
+            }
+
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { 
                     Serial = this.Serial, 
@@ -528,16 +545,29 @@ namespace MobiFlight
                     DeviceId = deviceId, 
                     DeviceLabel = deviceId, 
                     Type = DeviceType.InputShiftRegister, 
-                    ExtPin = int.Parse(channel), 
-                    Value = int.Parse(state) 
+                    ExtPin = channel, 
+                    Value = state 
                 });
         }
 
         void OnInputMultiplexerChange(ReceivedCommand arguments)
         {
             String deviceId = arguments.ReadStringArg();
-            String channel = arguments.ReadStringArg();
-            String state = arguments.ReadStringArg();
+            String strChannel = arguments.ReadStringArg();
+            String strState = arguments.ReadStringArg();
+
+            if (!int.TryParse(strChannel, out int channel))
+            {
+                Log.Instance.log($"Unable to convert {strChannel} to an integer.", LogSeverity.Error);
+                return;
+            }
+
+            if (!int.TryParse(strState, out int state))
+            {
+                Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
+                return;
+            }
+
             if (OnInputDeviceAction != null)
                 OnInputDeviceAction(this, new InputEventArgs() { 
                     Serial = this.Serial, 
@@ -545,8 +575,8 @@ namespace MobiFlight
                     DeviceId = deviceId, 
                     DeviceLabel = deviceId,
                     Type = DeviceType.InputMultiplexer, 
-                    ExtPin = int.Parse(channel), 
-                    Value = int.Parse(state) 
+                    ExtPin = channel, 
+                    Value = state
                 });
         }
 
@@ -554,34 +584,45 @@ namespace MobiFlight
         void OnButtonChange(ReceivedCommand arguments)
         {
             String button = arguments.ReadStringArg();
-            String state = arguments.ReadStringArg();
-            //addLog("Button: " + button + ":" + state);
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = button, 
-                    DeviceLabel = button,
-                    Type = DeviceType.Button, 
-                    Value = int.Parse(state) 
-                });
+            String strState = arguments.ReadStringArg();
+
+            if (!int.TryParse(strState, out int state)) {
+                Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
+                return;
+            }
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs()
+            {
+                Serial = this.Serial,
+                Name = Name,
+                DeviceId = button,
+                DeviceLabel = button,
+                Type = DeviceType.Button,
+                Value = state
+            });
         }
 
         // Callback function that prints the Arduino status to the console
         void OnAnalogChange(ReceivedCommand arguments)
         {
             String name = arguments.ReadStringArg();
-            String value = arguments.ReadStringArg();
-            //addLog("Button: " + button + ":" + state);
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = name, 
-                    DeviceLabel = name,
-                    Type = DeviceType.AnalogInput, 
-                    Value = int.Parse(value) 
-                });
+            String strValue = arguments.ReadStringArg();
+
+            if (!int.TryParse(strValue, out int value))
+            {
+                Log.Instance.log($"Unable to convert {strValue} to an integer.", LogSeverity.Error);
+                return;
+            }
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs()
+            {
+                Serial = this.Serial,
+                Name = Name,
+                DeviceId = name,
+                DeviceLabel = name,
+                Type = DeviceType.AnalogInput,
+                Value = value
+            });
         }
 
         // Callback function that prints the Arduino Debug Print to the console
