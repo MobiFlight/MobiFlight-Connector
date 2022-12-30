@@ -96,11 +96,6 @@ namespace MobiFlight.Modifier
 
             Double value = connectorValue.Float64;
             
-            if (!Active)
-            {
-                return result;
-            }
-
             if (Value == "")
             {
                 return result;
@@ -175,11 +170,6 @@ namespace MobiFlight.Modifier
         {
             string result = connectorValue.String;
             string value = connectorValue.String;
-
-            if (!Active)
-            {
-                return connectorValue.String;
-            }
 
             string comparisonValue = Value;
             string comparisonIfValue = IfValue;
