@@ -49,7 +49,7 @@
           "$id": "#root/UsbDriveSettings/FirmwareBaseName",
           "title": "FirmwareBaseName",
           "deprecated": true,
-          "description": " Base name for firmware files. Deprecated. Use Info.FirmwareBaseName instead.",
+          "description": "Base name for firmware files. Deprecated. Use Info.FirmwareBaseName instead.",
           "type": "string"
         },
         "Programmer": {
