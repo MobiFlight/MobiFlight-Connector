@@ -485,7 +485,7 @@ namespace MobiFlight
                 try
                 {
                     processedValue = value;
-                    foreach (var modifier in cfg.Modifiers.Items)
+                    foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
                     {
                         processedValue = modifier.Apply(processedValue, configRefs);
                     }

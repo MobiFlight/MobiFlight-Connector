@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -12,6 +10,8 @@ namespace MobiFlight.UI.Panels.Config
     {
         public event EventHandler<EventArgs> PreconditionTreeNodeChanged;
         public event EventHandler<EventArgs> ErrorOnValidating;
+
+        protected bool suspendFormValueChanged = false;
 
         ErrorProvider errorProvider = new ErrorProvider();
 
@@ -48,6 +48,7 @@ namespace MobiFlight.UI.Panels.Config
             treeViewImageList.Images.Add("pin", MobiFlight.Properties.Resources.media_stop);
             treeViewImageList.Images.Add("config", MobiFlight.Properties.Resources.media_stop_red);
             treeViewImageList.Images.Add("variable", MobiFlight.Properties.Resources.module_mobiflight);
+            treeViewImageList.Images.Add("missing", MobiFlight.Properties.Resources.warning);
 
             preconditionListTreeView.ImageList = treeViewImageList;
         }
@@ -59,11 +60,13 @@ namespace MobiFlight.UI.Panels.Config
 
         private void FormValueChanged(object sender, EventArgs e)
         {
+            if (suspendFormValueChanged) return;
             UpdatePreconditionAfterChange(sender, e);
         }
 
         private void PreconditionListTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            suspendFormValueChanged = true;
             Precondition config = (e.Node.Tag as Precondition);
             preConditionTypeComboBox.SelectedValue = config.PreconditionType;
             preconditionSettingsPanel.Enabled = true;
@@ -97,6 +100,7 @@ namespace MobiFlight.UI.Panels.Config
 
             aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
             oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";
+            suspendFormValueChanged = false;
         }
 
         private void PreconditionPanel_PreconditionTreeNodeChanged(object sender, EventArgs e)
@@ -183,16 +187,8 @@ namespace MobiFlight.UI.Panels.Config
                 tmpNode.Text = p.ToString();
                 tmpNode.Tag = p;
                 tmpNode.Checked = p.PreconditionActive;
-                try
-                {
-                    preconditionListTreeView.Nodes.Add(tmpNode);
-                    PreconditionTreeNodeChanged?.Invoke(tmpNode, null);
-                }
-                catch (IndexOutOfRangeException ex)
-                {
-                    Log.Instance.log("An orphaned precondition has been found.", LogSeverity.Error);
-                    continue;
-                }
+                preconditionListTreeView.Nodes.Add(tmpNode);
+                PreconditionTreeNodeChanged?.Invoke(tmpNode, null);
             }
 
             UpdateNodeLabelsAndImages();
@@ -282,7 +278,7 @@ namespace MobiFlight.UI.Panels.Config
             PreconditionTreeNodeChanged?.Invoke(node, EventArgs.Empty);
         }
 
-        private void SetNodeImage(TreeNode node, Precondition p)
+        private void SetNodeImage(TreeNode node, Precondition p, bool referenceIsMissing = false)
         {
             switch (p.PreconditionType)
             {
@@ -303,6 +299,9 @@ namespace MobiFlight.UI.Panels.Config
                     break;
             }
 
+            if (referenceIsMissing)
+                node.ImageKey = "missing";
+
             node.SelectedImageKey = node.ImageKey;
         }
 
@@ -312,20 +311,28 @@ namespace MobiFlight.UI.Panels.Config
             {
                 var p = node.Tag as Precondition;
                 String label = p.PreconditionLabel;
+                var isMissing = false;
+                                   
                 if (p.PreconditionType == "config")
                 {
                     String replaceString = "[unknown]";
                     if (Configs != null && p.PreconditionRef != null)
                     {
                         var config = Configs.Find(c => c.Value == p.PreconditionRef);
-                        if (config == null) throw new IndexOutOfRangeException(); // an orphaned entry has been found
-                        replaceString = config.Label;
+                        if (config == null)
+                        {
+                            isMissing = true;
+                            replaceString = "[missing]";
+                            Log.Instance.log($"Precondition: config reference missing > {p.PreconditionRef}", LogSeverity.Warn);
+                        }
+                        else
+                            replaceString = config.Label;
                     }
-                    label = label.Replace("<Ref:" + p.PreconditionRef + ">", replaceString);
+                    label = label.Replace($"<Ref:{p.PreconditionRef}>", replaceString);
                 }
                 else if (p.PreconditionType == "variable")
                 {
-                    label = label.Replace("<Variable:" + p.PreconditionRef + ">", p.PreconditionRef != null ? p.PreconditionRef : "");
+                    label = label.Replace($"<Variable:{p.PreconditionRef}>", p.PreconditionRef != null ? p.PreconditionRef : "");
                 }
                 else if (p.PreconditionType == "pin")
                 {
@@ -344,7 +351,7 @@ namespace MobiFlight.UI.Panels.Config
                     node.Text = node.Text.Replace(" (AND)", "").Replace(" (OR)", "");
                 }
 
-                SetNodeImage(node, p);
+                SetNodeImage(node, p, isMissing);
             }
         }
 
@@ -443,6 +450,7 @@ namespace MobiFlight.UI.Panels.Config
                     "");
         }
 
+        #region Validation Events
         private void preconditionRefValueTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (!(preconditionRuleConfigPanel).Visible)
@@ -525,5 +533,6 @@ namespace MobiFlight.UI.Panels.Config
                 removeError(preconditionPortComboBox);
             }
         }
+        #endregion
     }
 }

@@ -95,8 +95,6 @@ namespace MobiFlight.Modifier
         {
             string result = value.ToString();
 
-            if (!Active) return result;
-
             // we have to use the US culture because "." must be used as decimal separator
             string exp = Expression.Replace("$", value.ToString());
 
@@ -132,8 +130,6 @@ namespace MobiFlight.Modifier
 
         protected string Apply(string value)
         {
-            if (!Active) return value;
-
             if (SubStrStart > value.Length) return "";
 
             int length = (SubStrEnd - SubStrStart);
