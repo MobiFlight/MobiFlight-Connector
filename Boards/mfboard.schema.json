@@ -45,6 +45,13 @@
           "description": "AvrDude device type for the device.",
           "type": "string"
         },
+        "FirmwareBaseName": {
+          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
+          "title": "FirmwareBaseName",
+          "deprecated": true,
+          "description": " Base name for firmware files. Deprecated. Use Info.FirmwareBaseName instead.",
+          "type": "string"
+        },
         "Programmer": {
           "$id": "#root/AvrDudeSettings/Programmer",
           "title": "Programmer",
@@ -174,13 +181,13 @@
         "FirmwareBaseName": {
           "$id": "#root/UsbDriveSettings/FirmwareBaseName",
           "title": "FirmwareBaseName",
-          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
           "type": "string"
         },
         "FirmwareExtension": {
           "$id": "#root/UsbDriveSettings/FirmwareExtension",
           "title": "FirmwareExtension",
-          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "description": "File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
           "type": "string"
         },
         "FriendlyName": {
