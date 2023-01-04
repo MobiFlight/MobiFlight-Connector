@@ -4,7 +4,6 @@
     "Device": "atmega2560",
     "BaudRates": [ "115200" ],
     "Programmer": "wiring",
-    "FirmwareBaseName": "mobiflight_mega",
     "Timeout": 15000
   },
   "Connection": {
@@ -36,6 +35,8 @@
     "CanInstallFirmware": true,
     "CanResetBoard": true,
     "DelayAfterFirmwareUpdate": 0,
+    "FirmwareBaseName": "mobiflight_mega",
+    "FirmwareExtension": "hex",
     "LatestFirmwareVersion": "2.3.0",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega",

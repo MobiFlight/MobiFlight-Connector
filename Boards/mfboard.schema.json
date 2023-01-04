@@ -11,7 +11,7 @@
       "title": "Avrdudesettings",
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
-      "required": [ "BaudRates", "Device", "FirmwareBaseName", "Programmer" ],
+      "required": [ "BaudRates", "Device", "Programmer" ],
       "properties": {
         "Attempts": {
           "$id": "#root/AvrDudeSettings/Attempts",
@@ -43,12 +43,6 @@
           "$id": "#root/AvrDudeSettings/Device",
           "title": "Device",
           "description": "AvrDude device type for the device.",
-          "type": "string"
-        },
-        "FirmwareBaseName": {
-          "$id": "#root/AvrDudeSettings/FirmwareBaseName",
-          "title": "Firmwarebasename",
-          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.hex.",
           "type": "string"
         },
         "Programmer": {
@@ -158,6 +152,8 @@
       "required": [
         "CanInstallFirmware",
         "CanResetBoard",
+        "FirmwareBaseName",
+        "FirmwareExtension",
         "FriendlyName",
         "LatestFirmwareVersion",
         "MobiFlightType"
@@ -174,6 +170,18 @@
           "title": "CanResetBoard",
           "description": "True if the board can be reset to factory default by MobiFlight.",
           "type": "boolean"
+        },
+        "FirmwareBaseName": {
+          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
+          "title": "FirmwareBaseName",
+          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "type": "string"
+        },
+        "FirmwareExtension": {
+          "$id": "#root/UsbDriveSettings/FirmwareExtension",
+          "title": "FirmwareExtension",
+          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "type": "string"
         },
         "FriendlyName": {
           "$id": "#root/Info/FriendlyName",
@@ -338,27 +346,15 @@
       "title": "UsbDriveSettings",
       "type": "object",
       "description": "Settings for flashing devices via a mounted USB drive.",
-      "required": [ "FirmwareBaseName", "FirmwareExtension", "VerificationFileName", "VolumeLabel" ],
+      "required": [ "VerificationFileName", "VolumeLabel" ],
       "properties": {
-        "BaudRate": {
-          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
-          "title": "FirmwareBaseName",
-          "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
-          "type": "string"
-        },
-        "Device": {
-          "$id": "#root/UsbDriveSettings/FirmwareExtension",
-          "title": "FirmwareExtension",
-          "description": "File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
-          "type": "string"
-        },
-        "FirmwareBaseName": {
+        "Settings": {
           "$id": "#root/UsbDriveSettings/VerificationFileName",
           "title": "VerificationFileName",
-          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered",
+          "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered, a match and able to be flashed.",
           "type": "string"
         },
-        "Programmer": {
+        "VolumeLabel": {
           "$id": "#root/UsbDriveSettings/VolumeLabel",
           "title": "VolumeLabel",
           "description": "Volume label of the USB drive when mounted in Windows.",

@@ -5,7 +5,6 @@
     "Device": "atmega328p",
     "BaudRates": [ "115200", "57600" ],
     "Programmer": "arduino",
-    "FirmwareBaseName": "mobiflight_nano",
     "Timeout": 15000
   },
   "Connection": {
@@ -30,6 +29,8 @@
   "Info": {
     "CanInstallFirmware": true,
     "CanResetBoard": true,
+    "FirmwareBaseName": "mobiflight_nano",
+    "FirmwareExtension": "hex",
     "FriendlyName": "Arduino Nano",
     "LatestFirmwareVersion": "2.3.0",
     "MobiFlightType": "MobiFlight Nano",
