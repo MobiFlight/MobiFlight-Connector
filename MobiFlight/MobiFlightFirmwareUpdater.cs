@@ -38,11 +38,11 @@ namespace MobiFlight
 
             if (module.Board.AvrDudeSettings != null)
             {
-                firmwareName = module.Board.AvrDudeSettings.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
+                firmwareName = module.Board.Info.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
             }
             else if (module.Board.UsbDriveSettings != null)
             {
-                firmwareName = module.Board.UsbDriveSettings.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
+                firmwareName = module.Board.Info.GetFirmwareName(module.Board.Info.LatestFirmwareVersion);
             }
             else
             {

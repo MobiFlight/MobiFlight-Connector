@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Management;
 using System.Xml.Linq;
 using System.Globalization;
+using System.IO;
 
 namespace MobiFlight
 {
@@ -68,6 +69,37 @@ namespace MobiFlight
             {
                 result = result & module.Connected;
             }
+            return result;
+        }
+
+        /// <summary>
+        /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
+        /// as opposed to being connected as COM port.
+        /// </summary>
+        /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
+        public static List<MobiFlightModuleInfo> FindConnectedUsbDevices()
+        {
+            var result = new List<MobiFlightModuleInfo>();
+
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                var candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
+
+                if (candidateBoard != null)
+                {
+                    result.Add(new MobiFlightModuleInfo()
+                    {
+                        Board = candidateBoard,
+                        HardwareId = drive.Name,
+                        Name = drive.VolumeLabel,
+                        // It's important that this is the drive letter for the connected USB device. This is
+                        // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                        // port and to skip the COM port toggle before flashing.
+                        Port = drive.RootDirectory.FullName
+                    });
+                }
+            }
+
             return result;
         }
 
