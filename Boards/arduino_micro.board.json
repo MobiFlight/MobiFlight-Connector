@@ -1,13 +1,11 @@
 {
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
-    "Attempts":  1,
+    "Attempts": 1,
     "BaudRates": [ "57600" ],
     "Device": "atmega32u4",
-    "FirmwareBaseName": "mobiflight_micro",
     "Programmer": "avr109",
-    "Timeout": 15000,
-    "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"
+    "Timeout": 15000
   },
   "Connection": {
     "ConnectionDelay": 1250,
@@ -25,9 +23,13 @@
   ],
   "Info": {
     "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "FirmwareBaseName": "mobiflight_micro",
+    "FirmwareExtension": "hex",
     "FriendlyName": "Arduino Micro Pro",
     "LatestFirmwareVersion": "2.3.0",
-    "MobiFlightType": "MobiFlight Micro"
+    "MobiFlightType": "MobiFlight Micro",
+    "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 5,

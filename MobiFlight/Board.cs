@@ -33,8 +33,9 @@ namespace MobiFlight
         public String Device;
 
         /// <summary>
-        /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.hex.
+        /// Base name for firmware files. Deprecated. Use Info.FirmwareBaseName instead.
         /// </summary>
+        [Obsolete]
         public String FirmwareBaseName;
 
         /// <summary>
@@ -48,19 +49,10 @@ namespace MobiFlight
         public int Timeout;
 
         /// <summary>
-        /// Firmware filename to reset the board.
+        /// Firmware filename to reset the board. No longer used. Use Info.ResetFirmwareFile instead.
         /// </summary>
+        [Obsolete]
         public String ResetFirmwareFile;
-
-        /// <summary>
-        /// Provides the name of the firmware file for a given firmware version.
-        /// </summary>
-        /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
-        /// <returns>The firmware file name using FirmwareBaseName and the specified firmware version.</returns>
-        public string GetFirmwareName(string latestFirmwareVersion)
-        {
-            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}.hex";
-        }
     }
 
     /// <summary>
@@ -120,6 +112,21 @@ namespace MobiFlight
         public Boolean CanInstallFirmware;
 
         /// <summary>
+        /// True if the board can be reset to factory default by MobiFlight.
+        /// </summary>
+        public Boolean CanResetBoard;
+
+        /// <summary>
+        /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.
+        /// </summary>
+        public String FirmwareBaseName;
+
+        /// <summary>
+        /// File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.
+        /// </summary>
+        public String FirmwareExtension;
+
+        /// <summary>
         /// The USB friendly name for the board as specified by the board manufacturer.
         /// </summary>
         public String FriendlyName;
@@ -133,6 +140,21 @@ namespace MobiFlight
         /// The type of the board as provided by the MobiFlight firmware.
         /// </summary>
         public String MobiFlightType;
+
+        /// <summary>
+        /// Firmware filename to reset the board.
+        /// </summary>
+        public String ResetFirmwareFile;
+
+        /// <summary>
+        /// Provides the name of the firmware file for a given firmware version.
+        /// </summary>
+        /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
+        /// <returns>The firmware file name using FirmwareBaseName and the specified firmware version.</returns>
+        public string GetFirmwareName(string latestFirmwareVersion)
+        {
+            return $"{FirmwareBaseName}_{latestFirmwareVersion.Replace('.', '_')}.{FirmwareExtension.TrimStart('.')}";
+        }
     }
 
     /// <summary>
@@ -196,6 +218,20 @@ namespace MobiFlight
         public int MaxSteppers = 0;
     }
 
+    public class UsbDriveSettings
+    {
+        /// <summary>
+        /// The name of a file that must be present in the root directory of the USB drive for it to be considered
+        /// a match and able to be flashed.
+        /// </summary>
+        public string VerificationFileName;
+
+        /// <summary>
+        /// Volume label of the USB drive when mounted in Windows.
+        /// </summary>
+        public String VolumeLabel;
+    }
+
     public class Board
     {
         /// <summary>
@@ -229,8 +265,14 @@ namespace MobiFlight
         public List<MobiFlightPin> Pins;
 
         /// <summary>
+        /// Settings relating to updating the firmware via a mounted USB drive.
+        /// </summary>
+        public UsbDriveSettings UsbDriveSettings;
+
+        /// <summary>
         /// Migrates board definitions from older versions to newer versions.
         /// </summary>
+#pragma warning disable CS0612 // Type or member is obsolete
         public void Migrate()
         {
             // Migrate AvrDudeSettings from older versions.
@@ -238,18 +280,35 @@ namespace MobiFlight
             {
                 // Older versions of boards only specified a single baud rate. Handle the case where
                 // an old file was loaded by migrating the BaudRate value into the BaudRates array.
-#pragma warning disable CS0612 // Type or member is obsolete
                 if (!String.IsNullOrEmpty(AvrDudeSettings.BaudRate) && AvrDudeSettings.BaudRates == null)
                 {
                     AvrDudeSettings.BaudRates = new List<string>()
-                {
-                    AvrDudeSettings.BaudRate
-                };
+                    {
+                        AvrDudeSettings.BaudRate
+                    };
                 }
-#pragma warning restore CS0612 // Type or member is obsolete
 
+                // Older versions of boards specified the reset firmware filename in the AvrDudeSettings.
+                if (!String.IsNullOrEmpty(AvrDudeSettings.ResetFirmwareFile) && String.IsNullOrEmpty(Info.ResetFirmwareFile))
+                {
+                    Info.ResetFirmwareFile = AvrDudeSettings.ResetFirmwareFile;
+                }
+
+                // Older versions of boards specified the firmware base name in the AvrDudeSettings.
+                if (!String.IsNullOrEmpty(AvrDudeSettings.FirmwareBaseName) && String.IsNullOrEmpty(Info.FirmwareBaseName))
+                {
+                    Info.FirmwareBaseName = AvrDudeSettings.FirmwareBaseName;
+                }
+
+                // Older versions of boards didn't specify the firmware extension in the AvrDudeSettings. Assume it is "hex"
+                // if missing which is what was used in the old code for all AVR-based boards.
+                if (!String.IsNullOrEmpty(Info.FirmwareExtension))
+                {
+                    Info.FirmwareExtension = "hex";
+                }
             }
         }
+#pragma warning restore CS0612 // Type or member is obsolete
 
         public override string ToString()
         {
