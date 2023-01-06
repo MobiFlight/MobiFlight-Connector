@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Management;
 using System.Xml.Linq;
 using System.Globalization;
+using System.IO;
 
 namespace MobiFlight
 {
@@ -45,7 +46,7 @@ namespace MobiFlight
         public event EventHandler LookupFinished;
 
 
-        private List<MobiFlightModuleInfo> connectedArduinoModules = null;
+        private List<MobiFlightModuleInfo> connectedComModules = null;
         Boolean isFirstTimeLookup = false;
 
         private bool _lookingUpModules = false;
@@ -71,11 +72,42 @@ namespace MobiFlight
             return result;
         }
 
+        /// <summary>
+        /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
+        /// as opposed to being connected as COM port.
+        /// </summary>
+        /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
+        public static List<MobiFlightModuleInfo> FindConnectedUsbDevices()
+        {
+            var result = new List<MobiFlightModuleInfo>();
+
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                var candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
+
+                if (candidateBoard != null)
+                {
+                    result.Add(new MobiFlightModuleInfo()
+                    {
+                        Board = candidateBoard,
+                        HardwareId = drive.Name,
+                        Name = drive.VolumeLabel,
+                        // It's important that this is the drive letter for the connected USB device. This is
+                        // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                        // port and to skip the COM port toggle before flashing.
+                        Port = drive.RootDirectory.FullName
+                    });
+                }
+            }
+
+            return result;
+        }
+
         public bool updateConnectedModuleName(MobiFlightModule m)
         {
-            if (connectedArduinoModules == null) return false;
+            if (connectedComModules == null) return false;
 
-            foreach (MobiFlightModuleInfo info in connectedArduinoModules)
+            foreach (MobiFlightModuleInfo info in connectedComModules)
             {
                 if (info.Serial != m.Serial) continue;
 
@@ -88,16 +120,16 @@ namespace MobiFlight
 
         public List<MobiFlightModuleInfo> GetDetectedArduinoModules()
         {
-            if (connectedArduinoModules == null)
+            if (connectedComModules == null)
                     return new List<MobiFlightModuleInfo>();
 
-            connectedArduinoModules.Sort(
+            connectedComModules.Sort(
                 (item1, item2) => {
                     if (item1.Type == "Ignored" && item2.Type != "Ignored") return 1;
                     if (item1.Type != "Ignored" && item2.Type == "Ignored") return -1;
                     return item1.Name.CompareTo(item2.Name);
                 });
-            return connectedArduinoModules;
+            return connectedComModules;
         }
 
         public async Task<IEnumerable<MobiFlightModule>> GetModulesAsync()
@@ -173,7 +205,7 @@ namespace MobiFlight
 
                 if (portName == null)
                 {
-                    Log.Instance.log($"Arduino device has no port information: {hardwareId}.", LogSeverity.Error);
+                    Log.Instance.log($"Device has no port information: {hardwareId}.", LogSeverity.Error);
                     continue;
                 }
 
@@ -197,7 +229,7 @@ namespace MobiFlight
             return result;
         }
 
-        private async  Task<List<MobiFlightModuleInfo>> LookupAllConnectedArduinoModulesAsync()
+        private async  Task<List<MobiFlightModuleInfo>> LookupAllConnectedComModulesAsync()
         {
             Log.Instance.log("Start looking up connected modules.", LogSeverity.Debug);
             List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
@@ -246,14 +278,14 @@ namespace MobiFlight
                 tasks.Add(Task.Run(() =>
                 {
                     MobiFlightModule tmp = new MobiFlightModule(port.Name, port.Board);
-                    ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue);
+                    ModuleConnecting?.Invoke(this, "Scanning modules", progressValue);
                     tmp.Connect();
                     MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
                     // Store the hardware ID for later use
                     devInfo.HardwareId = port.HardwareId;
 
                     tmp.Disconnect();
-                    ModuleConnecting?.Invoke(this, "Scanning Arduinos", progressValue + 5);
+                    ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
 
                     result.Add(devInfo);
 
@@ -285,16 +317,16 @@ namespace MobiFlight
                 disconnect(); 
             }
             
-            if (connectedArduinoModules == null)
+            if (connectedComModules == null)
             {
-                connectedArduinoModules = await LookupAllConnectedArduinoModulesAsync();
+                connectedComModules = await LookupAllConnectedComModulesAsync();
                 isFirstTimeLookup = true;
             }
 
             Log.Instance.log("Clearing modules.",LogSeverity.Debug);
             Modules.Clear();
 
-            foreach (MobiFlightModuleInfo devInfo in connectedArduinoModules)
+            foreach (MobiFlightModuleInfo devInfo in connectedComModules)
             {
                 if (!devInfo.HasMfFirmware()) continue;
 
@@ -727,14 +759,14 @@ namespace MobiFlight
 
         public MobiFlightModule RefreshModule(MobiFlightModule module)
         {
-            MobiFlightModuleInfo oldDevInfo = connectedArduinoModules.Find(delegate(MobiFlightModuleInfo devInfo)
+            MobiFlightModuleInfo oldDevInfo = connectedComModules.Find(delegate(MobiFlightModuleInfo devInfo)
             {
                 return devInfo.Port == module.Port;
             }
             );
 
-            if (oldDevInfo != null) connectedArduinoModules.Remove(oldDevInfo);
-            connectedArduinoModules.Add(module.ToMobiFlightModuleInfo());
+            if (oldDevInfo != null) connectedComModules.Remove(oldDevInfo);
+            connectedComModules.Add(module.ToMobiFlightModuleInfo());
 
             if (module.HasMfFirmware())
                 RegisterModule(module, module.ToMobiFlightModuleInfo(), true);

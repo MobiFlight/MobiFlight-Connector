@@ -361,7 +361,7 @@ You have to provide the path to a valid Arduino IDE installation (min 1.0.5).</v
     <value>The value must not be empty.</value>
   </data>
   <data name="uiMessageUpdateArduinoOkCancel" xml:space="preserve">
-    <value>Arduino boards found that are compatible with MobiFlight. To be able to use them they require the latest MobiFlight Firmware.
+    <value>Modules found that are compatible with MobiFlight. To be able to use them they require the latest MobiFlight Firmware.
 
 Upload the MobiFlight Firmware now!</value>
   </data>
@@ -387,7 +387,7 @@ Upload the MobiFlight Firmware now!</value>
     <value>Your Config could not be loaded. Please check for syntax errors.</value>
   </data>
   <data name="uiMessageUpdateArduinoFwAutoDisableYesNo" xml:space="preserve">
-    <value>Do you want to disable the automatic upload to new arduinos?
+    <value>Do you want to disable the automatic upload to new modules?
 You can always enable it later again in the settings menu.</value>
   </data>
   <data name="uiMessageUploadConfigurationFinishedWithError" xml:space="preserve">

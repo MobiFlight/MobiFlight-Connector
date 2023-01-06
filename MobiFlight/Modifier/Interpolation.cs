@@ -88,7 +88,7 @@ namespace MobiFlight.Modifier
         {
             ConnectorValue result = connectorValue.Clone() as ConnectorValue;
 
-            if (!Active || Count == 0) return result;
+            if (Count == 0) return result;
 
             switch (connectorValue.type)
             {
@@ -108,7 +108,7 @@ namespace MobiFlight.Modifier
         public string Apply(string strValue)
         {
             string result = strValue;
-            if (Count > 0 && Active)
+            if (Count > 0)
             {
                 result = Math.Round(Value(float.Parse(strValue)), 0).ToString();
             }

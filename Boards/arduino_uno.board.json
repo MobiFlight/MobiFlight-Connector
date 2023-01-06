@@ -5,9 +5,7 @@
     "Device": "atmega328p",
     "BaudRates": [ "115200" ],
     "Programmer": "arduino",
-    "FirmwareBaseName": "mobiflight_uno",
-    "Timeout": 15000,
-    "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
+    "Timeout": 15000
   },
   "Connection": {
     "ConnectionDelay": 1750,
@@ -29,9 +27,13 @@
   ],
   "Info": {
     "CanInstallFirmware": true,
+    "CanResetBoard": true,
     "FriendlyName": "Arduino Uno",
+    "FirmwareBaseName": "mobiflight_uno",
+    "FirmwareExtension": "hex",
     "LatestFirmwareVersion": "2.3.0",
-    "MobiFlightType": "MobiFlight Uno"
+    "MobiFlightType": "MobiFlight Uno",
+    "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 6,
