@@ -24,38 +24,38 @@ namespace MobiFlight.UI.Panels.Settings.Device
             DRIVER
         }
 
-        public static List<ListItem<StepperPreset>> Presets = new List<ListItem<StepperPreset>>()
+        public static List<ListItem<StepperProfilePreset>> Profiles = new List<ListItem<StepperProfilePreset>>()
         {
-            new ListItem<StepperPreset>()
+            new ListItem<StepperProfilePreset>()
             {
                 Label = "28BYJ - Half-step mode (recommended)",
-                Value = new StepperPreset()
+                Value = new StepperProfilePreset()
                 {
                     id = 0,
                     Mode = StepperMode.HALFSTEP,
                     Speed = 1400,
                     Acceleration = 2800,
-                    BacklashCompensation = 20,
+                    BacklashCompensation = 0,
                     StepsPerRevolution = 4080
                 }
             },
-            new ListItem<StepperPreset>()
+            new ListItem<StepperProfilePreset>()
             {
                 Label = "28BYJ - Full-step mode (classic)",
-                Value = new StepperPreset()
+                Value = new StepperProfilePreset()
                 {
                     id = 1,
                     Mode = StepperMode.FULLSTEP,
                     Speed = 467,
                     Acceleration = 800,
-                    BacklashCompensation = 3,
+                    BacklashCompensation = 15,
                     StepsPerRevolution = 2040
                 }
             },
-            new ListItem<StepperPreset>()
+            new ListItem<StepperProfilePreset>()
             {
                 Label = "x.27 - Half-step mode",
-                Value = new StepperPreset()
+                Value = new StepperProfilePreset()
                 {
                     id = 2,
                     Mode = StepperMode.HALFSTEP,
@@ -65,10 +65,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     StepsPerRevolution = 1100
                 }
             },
-            new ListItem<StepperPreset>()
+            new ListItem<StepperProfilePreset>()
             {
                 Label = "Generic - EasyDriver",
-                Value = new StepperPreset()
+                Value = new StepperProfilePreset()
                 {
                     id = 3,
                     Mode = StepperMode.DRIVER,
@@ -87,7 +87,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             new ListItem<StepperMode>() { Label = "Driver", Value = StepperMode.DRIVER}
         };
 
-        public class StepperPreset {
+        public class StepperProfilePreset {
             public int id { get; set; }
             public StepperMode Mode { get; set; }
             public int StepsPerRevolution { get; set; }
@@ -129,7 +129,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void PresetComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            var preset = PresetComboBox.SelectedValue as StepperPreset;
+            var preset = PresetComboBox.SelectedValue as StepperProfilePreset;
+
             ModeComboBox.SelectedValue = preset.Mode;
             BacklashTextBox.Text = preset.BacklashCompensation.ToString();
             DefaultSpeedTextBox.Text = preset.Speed.ToString();
@@ -140,7 +141,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void InitializePresetComboBox()
         {
             PresetComboBox.Items.Clear();
-            PresetComboBox.DataSource = Presets;
+            PresetComboBox.DataSource = Profiles;
             PresetComboBox.ValueMember = "Value";
             PresetComboBox.DisplayMember = "Label";
         }
@@ -165,24 +166,23 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfNameTextBox.Text = stepper.Name;
             autoZeroCheckBox.Checked = stepper.BtnPin == "0";
 
-            if (stepper.BtnPin != "0")
+            if (stepper.BtnPin != "0") { }
                 ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
 
             // Load the profile first
-            StepperPreset savedPreset = Presets.Find(x => x.Value.id == stepper.Profile).Value;
-
+            StepperProfilePreset savedPreset = Profiles.Find(x => x.Value.id == stepper.Profile).Value;
             PresetComboBox.SelectedValue = savedPreset;
-            ;
+            
             // Then restore potential custom values
             StepperMode saveMode = Modes.Find(x => x.Value == (StepperMode)stepper.Mode).Value;
             ModeComboBox.SelectedValue = saveMode;
 
             deactivateCheckBox.Checked = stepper.Deactivate;
             BacklashTextBox.Text = stepper.Backlash.ToString();
-            DefaultSpeedTextBox.Text = Presets.Find(x => (x.Value.id == stepper.Profile))
+            DefaultSpeedTextBox.Text = Profiles.Find(x => (x.Value.id == stepper.Profile))
                                               .Value.Speed.ToString();
 
-            DefaultAccelerationTextBox.Text = Presets.Find(x => (x.Value.id == stepper.Profile))
+            DefaultAccelerationTextBox.Text = Profiles.Find(x => (x.Value.id == stepper.Profile))
                                                           .Value.Acceleration.ToString();
 
             initialized = true;
@@ -194,7 +194,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             stepper.Mode = (int) ModeComboBox.SelectedValue;
             stepper.Backlash = int.Parse(BacklashTextBox.Text);
             stepper.Deactivate = deactivateCheckBox.Checked;
-            stepper.Profile = (PresetComboBox.SelectedValue as StepperPreset).id;
+            stepper.Profile = (PresetComboBox.SelectedValue as StepperProfilePreset).id;
         }
 
         private void UpdateFreePinsInDropDowns()
@@ -234,6 +234,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
+
             ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)

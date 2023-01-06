@@ -28,14 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StepperPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.CompassModeCheckBox = new System.Windows.Forms.CheckBox();
+            this.inputRevTextBox = new System.Windows.Forms.TextBox();
+            this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
             this.stepperTestValueTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.outputRevTextBox = new System.Windows.Forms.TextBox();
-            this.inputRevTextBox = new System.Windows.Forms.TextBox();
-            this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.stepperAddressesComboBox = new System.Windows.Forms.ComboBox();
@@ -50,23 +52,41 @@
             this.label3 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.ManualCalibrateLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.SpeedResetButton = new System.Windows.Forms.Button();
+            this.AccelerationResetButton = new System.Windows.Forms.Button();
+            this.OutputRevResetButton = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.SpeedTextBox = new System.Windows.Forms.TextBox();
+            this.AccelerationTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label13);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.CompassModeCheckBox);
-            this.groupBox1.Controls.Add(this.stepperTestValueTextBox);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.outputRevTextBox);
             this.groupBox1.Controls.Add(this.inputRevTextBox);
             this.groupBox1.Controls.Add(this.displayPinComoBoxLabel);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
             // 
             // CompassModeCheckBox
             // 
@@ -74,6 +94,18 @@
             this.CompassModeCheckBox.Name = "CompassModeCheckBox";
             this.CompassModeCheckBox.UseVisualStyleBackColor = true;
             this.CompassModeCheckBox.CheckedChanged += new System.EventHandler(this.CompassModeCheckBox_CheckedChanged);
+            // 
+            // inputRevTextBox
+            // 
+            resources.ApplyResources(this.inputRevTextBox, "inputRevTextBox");
+            this.inputRevTextBox.Name = "inputRevTextBox";
+            this.inputRevTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
+            // 
+            // displayPinComoBoxLabel
+            // 
+            resources.ApplyResources(this.displayPinComoBoxLabel, "displayPinComoBoxLabel");
+            this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
+            this.toolTip1.SetToolTip(this.displayPinComoBoxLabel, resources.GetString("displayPinComoBoxLabel.ToolTip"));
             // 
             // stepperTestValueTextBox
             // 
@@ -89,17 +121,7 @@
             // 
             resources.ApplyResources(this.outputRevTextBox, "outputRevTextBox");
             this.outputRevTextBox.Name = "outputRevTextBox";
-            // 
-            // inputRevTextBox
-            // 
-            resources.ApplyResources(this.inputRevTextBox, "inputRevTextBox");
-            this.inputRevTextBox.Name = "inputRevTextBox";
-            this.inputRevTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
-            // 
-            // displayPinComoBoxLabel
-            // 
-            resources.ApplyResources(this.displayPinComoBoxLabel, "displayPinComoBoxLabel");
-            this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
+            this.outputRevTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
             // 
             // panel1
             // 
@@ -198,11 +220,93 @@
             resources.ApplyResources(this.ManualCalibrateLabel, "ManualCalibrateLabel");
             this.ManualCalibrateLabel.Name = "ManualCalibrateLabel";
             // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.SpeedResetButton);
+            this.groupBox3.Controls.Add(this.AccelerationResetButton);
+            this.groupBox3.Controls.Add(this.OutputRevResetButton);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.outputRevTextBox);
+            this.groupBox3.Controls.Add(this.SpeedTextBox);
+            this.groupBox3.Controls.Add(this.AccelerationTextBox);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // SpeedResetButton
+            // 
+            resources.ApplyResources(this.SpeedResetButton, "SpeedResetButton");
+            this.SpeedResetButton.Name = "SpeedResetButton";
+            this.SpeedResetButton.UseVisualStyleBackColor = true;
+            this.SpeedResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // AccelerationResetButton
+            // 
+            resources.ApplyResources(this.AccelerationResetButton, "AccelerationResetButton");
+            this.AccelerationResetButton.Name = "AccelerationResetButton";
+            this.AccelerationResetButton.UseVisualStyleBackColor = true;
+            this.AccelerationResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // OutputRevResetButton
+            // 
+            resources.ApplyResources(this.OutputRevResetButton, "OutputRevResetButton");
+            this.OutputRevResetButton.Name = "OutputRevResetButton";
+            this.OutputRevResetButton.UseVisualStyleBackColor = true;
+            this.OutputRevResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            this.toolTip1.SetToolTip(this.label10, resources.GetString("label10.ToolTip"));
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            this.toolTip1.SetToolTip(this.label11, resources.GetString("label11.ToolTip"));
+            // 
+            // SpeedTextBox
+            // 
+            resources.ApplyResources(this.SpeedTextBox, "SpeedTextBox");
+            this.SpeedTextBox.Name = "SpeedTextBox";
+            this.SpeedTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
+            // 
+            // AccelerationTextBox
+            // 
+            resources.ApplyResources(this.AccelerationTextBox, "AccelerationTextBox");
+            this.AccelerationTextBox.Name = "AccelerationTextBox";
+            this.AccelerationTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.stepperTestValueTextBox);
+            this.groupBox4.Controls.Add(this.label9);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
+            // 
             // StepperPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "StepperPanel";
@@ -212,6 +316,10 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -239,5 +347,18 @@
         public System.Windows.Forms.TextBox stepperTestValueTextBox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox CompassModeCheckBox;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label11;
+        public System.Windows.Forms.TextBox AccelerationTextBox;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.TextBox SpeedTextBox;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button SpeedResetButton;
+        private System.Windows.Forms.Button AccelerationResetButton;
+        private System.Windows.Forms.Button OutputRevResetButton;
+        private System.Windows.Forms.Label label13;
     }
 }

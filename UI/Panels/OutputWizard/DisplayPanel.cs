@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
 
 namespace MobiFlight.UI.Panels.OutputWizard
 {
@@ -192,13 +193,19 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
         {
+            // we have a fresh config, nothing to do.
+            if (config.DisplaySerial == null) return;
+
             String stepperAddress = e.StepperAddress;
             String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
             MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
                                             .GetModuleBySerial(serial)
                                             .GetStepper(stepperAddress);
-            stepperPanel.ShowManualCalibation(!stepper.HasAutoZero);
+
+            stepperPanel.StepperConfig = config.Stepper;
+            stepperPanel.SetStepperProfile(stepper.Profile);
+            stepperPanel.ShowManualCalibration(!stepper.HasAutoZero);
             // sorry for this hack...
         }
 
@@ -234,9 +241,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 serial,
                 config.Stepper.Address,
                 (NextValue).ToString(),
-                Int16.Parse(config.Stepper.OutputRev),
-                Int16.Parse(config.Stepper.OutputRev),
-                config.Stepper.CompassMode
+                config.Stepper.OutputRev,
+                config.Stepper.OutputRev,
+                config.Stepper.CompassMode,
+                0, // using tested default values from the stepper
+                0 // using tested default values from the stepper
             );
 
         }

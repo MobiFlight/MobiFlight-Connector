@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using MobiFlight.Config;
 using CommandMessenger.Transport.Serial;
+using MobiFlight.UI.Panels.Settings.Device;
 
 namespace MobiFlight
 {
@@ -86,7 +87,8 @@ namespace MobiFlight
             AnalogChange,           // 28
             InputShiftRegisterChange, // 29
             InputMultiplexerChange, // 30
-            DebugPrint=0xFF         // 255 for Debug Print from Firmware to log/terminal
+            SetStepperSpeedAccel,   // 31
+            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -332,7 +334,15 @@ namespace MobiFlight
                         break;
                     case DeviceType.Stepper:
                         device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
-                        stepperModules.Add(device.Name, new MobiFlightStepper28BYJ() { CmdMessenger = _cmdMessenger, Name = device.Name, StepperNumber = stepperModules.Count, HasAutoZero = (device as Config.Stepper).BtnPin != "0" });
+                        var profile = MFStepperPanel.Profiles.Find(p => p.Value.id == (device as Config.Stepper).Profile).Value;
+
+                        stepperModules.Add(device.Name, new MobiFlightStepper() { 
+                            CmdMessenger = _cmdMessenger, 
+                            Name = device.Name, 
+                            StepperNumber = stepperModules.Count, 
+                            HasAutoZero = (device as Config.Stepper).BtnPin != "0",
+                            Profile = profile
+                        });
                         break;
                     case DeviceType.Servo:
                         device.Name = GenerateUniqueDeviceName(servoModules.Keys.ToArray(), device.Name);
@@ -733,7 +743,7 @@ namespace MobiFlight
         {
             String key = "STEPPER_" + stepper;
             stepperModules[stepper].Reset();
-            lastValue[key] = "0";
+            lastValue[key] = stepperModules[stepper].Position().ToString();
             return true;
         }
 
@@ -1059,6 +1069,29 @@ namespace MobiFlight
             if (_hasInputShiftRegisters) result.Add(DeviceType.InputShiftRegister);
             if (_hasInputMultiplexer) result.Add(DeviceType.InputMultiplexer);
 
+            return result;
+        }
+
+        public IEnumerable<Config.BaseDevice> GetConnectedOutputDevices()
+        {
+            List<Config.BaseDevice> result = new List<Config.BaseDevice>();
+
+            foreach (Config.BaseDevice dev in Config.Items)
+            {
+                switch (dev.Type)
+                {
+                    case DeviceType.Output:
+                    case DeviceType.LedModule:
+                    case DeviceType.Servo:
+                    case DeviceType.Stepper:
+                    case DeviceType.ShiftRegister:
+                    case DeviceType.LcdDisplay:
+                        result.Add(dev);
+                        break;
+                }
+            }
+
+            result.Sort((a, b) => { return a.Name.CompareTo(b.Name); });
             return result;
         }
 

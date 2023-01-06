@@ -1343,6 +1343,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFStepperPanel.resx">
       <DependentUpon>MFStepperPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFServoPanel.resx">
       <DependentUpon>MFServoPanel.cs</DependentUpon>

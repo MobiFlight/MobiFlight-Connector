@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Management;
 using System.Xml.Linq;
 using System.Globalization;
+using MobiFlight.Config;
 using System.IO;
 
 namespace MobiFlight
@@ -602,7 +603,7 @@ namespace MobiFlight
             }
         }
 
-        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode)
+        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed, Int16 acceleration)
         {
             try
             {
@@ -625,6 +626,10 @@ namespace MobiFlight
                 {
                     module.GetStepper(address).CompassMode = CompassMode;
                 }
+
+                if (speed>0) { module.GetStepper(address).Speed = speed; }
+                if (acceleration > 0) { module.GetStepper(address).Acceleration = acceleration; }
+
                 module.SetStepper(address, iValue, inputRevolutionSteps);
             }
             catch (Exception e)
@@ -834,6 +839,19 @@ namespace MobiFlight
                 }
             }
 
+            return result;
+        }
+
+        public Dictionary<String, List<BaseDevice>> FindAllConnectedSteppers()
+        {
+            var result = new Dictionary<String, List<BaseDevice>>();
+            foreach (var module in Modules.Values)
+            {
+                var stepperList = module.GetConnectedOutputDevices().Where(p => p.Type == DeviceType.Stepper).ToList();
+                if (stepperList.Count == 0) continue;
+                
+                result.Add(module.Name, stepperList);
+            }
             return result;
         }
     }
