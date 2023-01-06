@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
+using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
 
 namespace MobiFlight
 {
@@ -11,12 +12,12 @@ namespace MobiFlight
         public const string TYPE = "Stepper";
 
         protected String _name = "Stepper";
+
         public String Name
         {
             get { return _name; }
             set { _name = value; }
         }
-
 
         private DeviceType _type = DeviceType.Stepper;
         public DeviceType Type
@@ -29,8 +30,36 @@ namespace MobiFlight
         public int StepperNumber { get; set; }
         public int InputRevolutionSteps { get; set; }
         public int OutputRevolutionSteps { get; set; }
+        public StepperProfilePreset Profile { get; set; }
+        protected Int16 _acceleration;
+        public Int16 Acceleration
+        {
+            get { return _acceleration; }
+            set
+            {
+                if (_acceleration != value)
+                {
+                    _acceleration = value;
+                    _updateSpeedAndAcceleration();
+                }
+            }
+        }
+
+        protected Int16 _speed;
+        public Int16 Speed
+        {
+            get { return _speed; }
+            set { 
+                if (_speed != value) {
+                    _speed = value;
+                    _updateSpeedAndAcceleration();
+                } 
+            }
+        }
+
         public bool HasAutoZero { get; set; }
         public bool CompassMode { get; set; }
+
         protected DateTime lastCall;
         protected int lastValue;
         protected int outputValue;
@@ -114,11 +143,28 @@ namespace MobiFlight
 
             // Send command
             CmdMessenger.SendCommand(command);
+
+            // We have set the new zero position
+            // so this has to be updated internally too.
+            lastValue = 0;
         }
 
         public void Stop()
         {
             MoveToPosition(0, true);
+        }
+
+        private void _updateSpeedAndAcceleration()
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetStepperSpeedAccel);
+            command.AddArgument(this.StepperNumber);
+            command.AddArgument(this.Speed);
+            command.AddArgument(this.Acceleration);
+
+            Log.Instance.log($"Command: SetStepperSpeedAccel <{(int)MobiFlightModule.Command.SetStepperSpeedAccel},{StepperNumber},{Speed},{Acceleration};>.", LogSeverity.Debug);
+
+            // Send command
+            CmdMessenger.SendCommand(command);
         }
     }
 }

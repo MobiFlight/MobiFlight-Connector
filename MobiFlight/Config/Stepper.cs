@@ -86,12 +86,13 @@ namespace MobiFlight.Config
                 && this.Mode == other.Mode
                 && this.Backlash == other.Backlash
                 && this.Deactivate == other.Deactivate
+                && this.Profile == other.Profile
                 && this.Type == other.Type;
         }
 
         public override string ToString()
         {
-            return $"{Type}: {Name} Pin1: {Pin1} Pin2: {Pin2} Pin3: {Pin3} Pin4: {Pin4} BtnPin: {BtnPin} Mode:{Mode} Backlash:{Backlash} Deactivate:{Deactivate}";
+            return $"{Type}: {Name} Pin1: {Pin1} Pin2: {Pin2} Pin3: {Pin3} Pin4: {Pin4} BtnPin: {BtnPin} Mode: {Mode} Backlash: {Backlash} Deactivate: {Deactivate} Profile: {Profile}";
         }
     }
 }
