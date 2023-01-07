@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Config.Compatibility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,17 @@ namespace MobiFlight.Config
         public int Profile = 0;
 
         public Stepper() { Name = "Stepper"; _type = DeviceType.Stepper; }
+
+        public Stepper(StepperDeprecatedV2 stepper)
+        {
+            _type   = DeviceType.Stepper;
+            Name    = stepper.Name;
+            Pin1    = stepper.Pin1;
+            Pin2    = stepper.Pin2;
+            Pin3    = stepper.Pin3;
+            Pin4    = stepper.Pin4;
+            BtnPin  = stepper.BtnPin;
+        }
 
         override public String ToInternal()
         {

@@ -233,6 +233,7 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
+    <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
     <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
