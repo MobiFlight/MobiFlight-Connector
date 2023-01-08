@@ -112,6 +112,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             stepperPanel.OnManualCalibrationTriggered += stepperPanel_OnManualCalibrationTriggered;
             stepperPanel.OnSetZeroTriggered += stepperPanel_OnSetZeroTriggered;
             stepperPanel.OnStepperSelected += StepperPanel_OnStepperSelected;
+            // set the default profile for steppers
+            stepperPanel.SetStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
         }
 
         internal void syncFromConfig(OutputConfigItem cfg)
@@ -674,7 +676,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // the module with that serial is currently not connected
                 // so we cannot lookup anything sensible
                 Log.Instance.log($"Trying to show stepper config but module {config.DisplaySerial} is not connected. Using default profile.", LogSeverity.Error);
-                stepperPanel.SetStepperProfile(MFStepperPanel.Profiles[0].Value);
+                stepperPanel.SetStepperProfile(MFStepperPanel.Profiles.Find(p=>p.Value.id == 0).Value);
             }
         }
 
