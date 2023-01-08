@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StepperPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.CompassModeCheckBox = new System.Windows.Forms.CheckBox();
             this.inputRevTextBox = new System.Windows.Forms.TextBox();
@@ -63,7 +64,6 @@
             this.AccelerationTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -82,6 +82,12 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
             // 
             // label12
             // 
@@ -110,6 +116,7 @@
             // 
             resources.ApplyResources(this.stepperTestValueTextBox, "stepperTestValueTextBox");
             this.stepperTestValueTextBox.Name = "stepperTestValueTextBox";
+            this.stepperTestValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
             // 
             // label9
             // 
@@ -121,6 +128,7 @@
             resources.ApplyResources(this.outputRevTextBox, "outputRevTextBox");
             this.outputRevTextBox.Name = "outputRevTextBox";
             this.outputRevTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
+            this.outputRevTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
             // 
             // panel1
             // 
@@ -278,12 +286,14 @@
             resources.ApplyResources(this.SpeedTextBox, "SpeedTextBox");
             this.SpeedTextBox.Name = "SpeedTextBox";
             this.SpeedTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
+            this.SpeedTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
             // 
             // AccelerationTextBox
             // 
             resources.ApplyResources(this.AccelerationTextBox, "AccelerationTextBox");
             this.AccelerationTextBox.Name = "AccelerationTextBox";
             this.AccelerationTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
+            this.AccelerationTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
             // 
             // groupBox4
             // 
@@ -292,12 +302,6 @@
             resources.ApplyResources(this.groupBox4, "groupBox4");
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
-            // 
-            // label13
-            // 
-            resources.ApplyResources(this.label13, "label13");
-            this.label13.Name = "label13";
-            this.toolTip1.SetToolTip(this.label13, resources.GetString("label13.ToolTip"));
             // 
             // StepperPanel
             // 

@@ -207,6 +207,42 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>181, 21</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>249, 13</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>steps per revolution</value>
+  </data>
+  <data name="label13.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="label13.ToolTip" xml:space="preserve">
+    <value>Specify the value for a full rotation in the sim, e.g. altimeter is 1,000</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label12.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -279,6 +315,9 @@
   <data name="inputRevTextBox.Text" xml:space="preserve">
     <value>1000</value>
   </data>
+  <data name="inputRevTextBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
   <data name="&gt;&gt;inputRevTextBox.Name" xml:space="preserve">
     <value>inputRevTextBox</value>
   </data>
@@ -336,6 +375,9 @@
   <data name="stepperTestValueTextBox.Text" xml:space="preserve">
     <value>500</value>
   </data>
+  <data name="stepperTestValueTextBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
   <data name="&gt;&gt;stepperTestValueTextBox.Name" xml:space="preserve">
     <value>stepperTestValueTextBox</value>
   </data>
@@ -386,6 +428,9 @@
   </data>
   <data name="outputRevTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
+  </data>
+  <data name="outputRevTextBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
   </data>
   <data name="&gt;&gt;outputRevTextBox.Name" xml:space="preserve">
     <value>outputRevTextBox</value>
@@ -1129,6 +1174,9 @@
   <data name="SpeedTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>29</value>
   </data>
+  <data name="SpeedTextBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
+  </data>
   <data name="&gt;&gt;SpeedTextBox.Name" xml:space="preserve">
     <value>SpeedTextBox</value>
   </data>
@@ -1149,6 +1197,9 @@
   </data>
   <data name="AccelerationTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>31</value>
+  </data>
+  <data name="AccelerationTextBox.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
   </data>
   <data name="&gt;&gt;AccelerationTextBox.Name" xml:space="preserve">
     <value>AccelerationTextBox</value>
@@ -1214,42 +1265,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="label13.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>181, 21</value>
-  </data>
-  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>249, 13</value>
-  </data>
-  <data name="label13.TabIndex" type="System.Int32, mscorlib">
-    <value>29</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>steps per revolution</value>
-  </data>
-  <data name="label13.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="label13.ToolTip" xml:space="preserve">
-    <value>Specify the value for a full rotation in the sim, e.g. altimeter is 1,000</value>
-  </data>
-  <data name="&gt;&gt;label13.Name" xml:space="preserve">
-    <value>label13</value>
-  </data>
-  <data name="&gt;&gt;label13.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
-  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
