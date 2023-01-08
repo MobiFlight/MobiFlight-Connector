@@ -131,7 +131,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                 }
 
-                if (!ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
+                if (config.DisplayType != null && !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
                     Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
@@ -359,7 +359,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
 
                 // third tab
-                if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                if (config.DisplayType != null && 
+                    !ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
                     Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }

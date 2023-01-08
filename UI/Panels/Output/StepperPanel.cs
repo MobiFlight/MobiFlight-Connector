@@ -218,6 +218,8 @@ namespace MobiFlight.UI.Panels
 
         private void UpdateResetButtonVisibility()
         {
+            if (StepperProfile == null) return;
+
             OutputRevResetButton.Visible = outputRevTextBox.Text != this.StepperProfile.StepsPerRevolution.ToString();
             AccelerationResetButton.Visible = AccelerationTextBox.Text != this.StepperProfile.Acceleration.ToString();
             SpeedResetButton.Visible = SpeedTextBox.Text != this.StepperProfile.Speed.ToString();
