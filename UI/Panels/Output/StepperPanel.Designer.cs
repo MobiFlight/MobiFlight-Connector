@@ -93,7 +93,6 @@
             resources.ApplyResources(this.CompassModeCheckBox, "CompassModeCheckBox");
             this.CompassModeCheckBox.Name = "CompassModeCheckBox";
             this.CompassModeCheckBox.UseVisualStyleBackColor = true;
-            this.CompassModeCheckBox.CheckedChanged += new System.EventHandler(this.CompassModeCheckBox_CheckedChanged);
             // 
             // inputRevTextBox
             // 

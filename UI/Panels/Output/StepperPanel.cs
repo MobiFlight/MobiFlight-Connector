@@ -47,7 +47,10 @@ namespace MobiFlight.UI.Panels
 
             outputRevTextBox.Text = config.Stepper.OutputRev.ToString();
             SpeedTextBox.Text = config.Stepper.Speed.ToString();
-            AccelerationTextBox.Text = StepperProfile.Acceleration.ToString();
+            AccelerationTextBox.Text = config.Stepper.Speed.ToString();
+
+            if (config.Stepper.TestValue != null) stepperTestValueTextBox.Text = config.Stepper.TestValue;
+            CompassModeCheckBox.Checked = config.Stepper.CompassMode;
 
             // use profile defaults if new config
             if (config.Stepper.OutputRev == 0) 
@@ -58,9 +61,6 @@ namespace MobiFlight.UI.Panels
 
             if (config.Stepper.Acceleration == 0)
                 AccelerationTextBox.Text = StepperProfile.Acceleration.ToString();
-
-            if (config.Stepper.TestValue != null) stepperTestValueTextBox.Text = config.Stepper.TestValue;
-            CompassModeCheckBox.Checked = config.Stepper.CompassMode;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -170,11 +170,6 @@ namespace MobiFlight.UI.Panels
                     "");
         }
 
-        private void CompassModeCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void stepperAddressesComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if ((sender as ComboBox).Items.Count == 0) return;
@@ -215,6 +210,8 @@ namespace MobiFlight.UI.Panels
 
         private void StepperSettingsTextBox_TextChanged(object sender, EventArgs e)
         {
+            if (StepperProfile == null) return;
+
             OutputRevResetButton.Visible = outputRevTextBox.Text != this.StepperProfile.StepsPerRevolution.ToString();
             AccelerationResetButton.Visible = AccelerationTextBox.Text != this.StepperProfile.Acceleration.ToString();
             SpeedResetButton.Visible = SpeedTextBox.Text != this.StepperProfile.Speed.ToString();
