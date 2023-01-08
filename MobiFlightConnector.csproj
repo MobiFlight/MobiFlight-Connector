@@ -645,7 +645,6 @@
     <Compile Include="MobiFlight\MobiFlightLedModule.cs" />
     <Compile Include="MobiFlight\MobiFlightModule.cs" />
     <Compile Include="MobiFlight\MobiFlightStepper.cs" />
-    <Compile Include="MobiFlight\MobiFlightStepper28BYJ.cs" />
     <Compile Include="UI\Panels\Device\MFModulePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

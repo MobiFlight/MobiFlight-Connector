@@ -1,8 +1,6 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -41,6 +39,7 @@ namespace MobiFlight.Config
             Pin3    = stepper.Pin3;
             Pin4    = stepper.Pin4;
             BtnPin  = stepper.BtnPin;
+            Profile = 0; // 0 is the fallback profile (Classic 28BYJ)
         }
 
         override public String ToInternal()
@@ -106,5 +105,23 @@ namespace MobiFlight.Config
         {
             return $"{Type}: {Name} Pin1: {Pin1} Pin2: {Pin2} Pin3: {Pin3} Pin4: {Pin4} BtnPin: {BtnPin} Mode: {Mode} Backlash: {Backlash} Deactivate: {Deactivate} Profile: {Profile}";
         }
+    }
+
+    public class StepperProfilePreset
+    {
+        public int id { get; set; }
+        public StepperMode Mode { get; set; }
+        public int StepsPerRevolution { get; set; }
+        public int Speed { get; set; }
+        public int Acceleration { get; set; }
+        public int BacklashCompensation { get; set; }
+        public bool Deactivate { get; set; }
+    }
+
+    public enum StepperMode
+    {
+        FULLSTEP,
+        HALFSTEP,
+        DRIVER
     }
 }

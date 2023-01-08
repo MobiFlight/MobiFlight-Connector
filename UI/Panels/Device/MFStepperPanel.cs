@@ -1,28 +1,16 @@
-﻿using CommandMessenger;
+﻿using MobiFlight.Config;
 using System;
 using System.Collections.Generic;
-using System.Web.Configuration;
-using System.Web.UI.Design.WebControls;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
-using static System.Windows.Forms.Design.AxImporter;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFStepperPanel : UserControl
     {
         private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
-        private MobiFlight.Config.Stepper stepper;
+        private Stepper stepper;
         private bool initialized = false;
         public event EventHandler Changed;
-
-        public enum StepperMode
-        {
-            FULLSTEP,
-            HALFSTEP,
-            DRIVER
-        }
 
         public static List<ListItem<StepperProfilePreset>> Profiles = new List<ListItem<StepperProfilePreset>>()
         {
@@ -31,7 +19,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 Label = "28BYJ - Half-step mode (recommended)",
                 Value = new StepperProfilePreset()
                 {
-                    id = 0,
+                    id = 1,
                     Mode = StepperMode.HALFSTEP,
                     Speed = 1400,
                     Acceleration = 2800,
@@ -44,7 +32,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 Label = "28BYJ - Full-step mode (classic)",
                 Value = new StepperProfilePreset()
                 {
-                    id = 1,
+                    id = 0,
                     Mode = StepperMode.FULLSTEP,
                     Speed = 467,
                     Acceleration = 800,
@@ -86,16 +74,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
             new ListItem<StepperMode>() { Label = "Full-step mode", Value = StepperMode.FULLSTEP },
             new ListItem<StepperMode>() { Label = "Driver", Value = StepperMode.DRIVER}
         };
-
-        public class StepperProfilePreset {
-            public int id { get; set; }
-            public StepperMode Mode { get; set; }
-            public int StepsPerRevolution { get; set; }
-            public int Speed { get; set; }
-            public int Acceleration { get; set; }
-            public int BacklashCompensation { get; set; }
-            public bool Deactivate { get; set; }
-        }
 
         public MFStepperPanel()
         {

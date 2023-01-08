@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandMessenger;
-using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
+﻿using CommandMessenger;
+using MobiFlight.Config;
+using System;
 
 namespace MobiFlight
 {
@@ -76,12 +73,6 @@ namespace MobiFlight
             CompassMode = false;
         }
 
-        private int map(int value, int inputLower, int inputUpper, int outputLower, int outputUpper)
-        {
-            float relVal = (value - inputLower) / (float)(inputUpper - inputLower);
-            return (int)Math.Round((relVal * (outputUpper - outputLower)) + inputLower, 0);
-        }
-
         public void MoveToPosition(int value, bool direction)
         {
             int mappedValue = 0;
@@ -89,7 +80,6 @@ namespace MobiFlight
             {
                 mappedValue = Convert.ToInt32(Math.Ceiling((value / (double)InputRevolutionSteps) * OutputRevolutionSteps));
             }
-            int currentSpeed = 100;
 
             int delta = mappedValue - lastValue;
 

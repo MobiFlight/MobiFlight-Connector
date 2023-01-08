@@ -47,7 +47,7 @@ namespace MobiFlight.UI.Panels
 
             outputRevTextBox.Text = config.Stepper.OutputRev.ToString();
             SpeedTextBox.Text = config.Stepper.Speed.ToString();
-            AccelerationTextBox.Text = config.Stepper.Speed.ToString();
+            AccelerationTextBox.Text = config.Stepper.Acceleration.ToString();
 
             if (config.Stepper.TestValue != null) stepperTestValueTextBox.Text = config.Stepper.TestValue;
             CompassModeCheckBox.Checked = config.Stepper.CompassMode;
@@ -175,6 +175,8 @@ namespace MobiFlight.UI.Panels
             if ((sender as ComboBox).Items.Count == 0) return;
             if (OnStepperSelected != null)
                 OnStepperSelected(sender, new StepperConfigChangedEventArgs() { StepperAddress = stepperAddressesComboBox.SelectedValue.ToString() });
+
+            UpdateResetButtonVisibility();
         }
 
         internal void SetStepperProfile(StepperProfilePreset profilePreset)
@@ -211,7 +213,11 @@ namespace MobiFlight.UI.Panels
         private void StepperSettingsTextBox_TextChanged(object sender, EventArgs e)
         {
             if (StepperProfile == null) return;
+            UpdateResetButtonVisibility();
+        }
 
+        private void UpdateResetButtonVisibility()
+        {
             OutputRevResetButton.Visible = outputRevTextBox.Text != this.StepperProfile.StepsPerRevolution.ToString();
             AccelerationResetButton.Visible = AccelerationTextBox.Text != this.StepperProfile.Acceleration.ToString();
             SpeedResetButton.Visible = SpeedTextBox.Text != this.StepperProfile.Speed.ToString();
