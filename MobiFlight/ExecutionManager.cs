@@ -712,12 +712,17 @@ namespace MobiFlight
                 switch (cfg.DisplayType)
                 {
                     case ArcazeLedDigit.TYPE:
+                        var decimalCount = value.Count(c => c=='.');
 
-
-                        var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count, cfg.LedModule.DisplayLedPaddingChar[0]);
+                        var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count + decimalCount, cfg.LedModule.DisplayLedPaddingChar[0]);
                         var decimalPoints = new List<string>(cfg.LedModule.DisplayLedDecimalPoints);
 
-                        if (cfg.LedModule.DisplayLedPadding) val = value.PadLeft(cfg.LedModule.DisplayLedPadding ? cfg.LedModule.DisplayLedDigits.Count : 0, cfg.LedModule.DisplayLedPaddingChar[0]);
+                        if (cfg.LedModule.DisplayLedPadding)
+                        {
+                            val = value.PadLeft(cfg.LedModule.DisplayLedPadding
+                                    ? cfg.LedModule.DisplayLedDigits.Count + decimalCount
+                                    : 0, cfg.LedModule.DisplayLedPaddingChar[0]);
+                        }
 
                         if (!string.IsNullOrEmpty(cfg.LedModule.DisplayLedBrightnessReference))
                         {
