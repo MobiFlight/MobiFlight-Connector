@@ -1,14 +1,8 @@
-﻿using System;
+﻿using MobiFlight.Config;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight.UI.Panels.Settings.Device;
-using MobiFlight.Config;
-using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
 
 namespace MobiFlight.UI.Panels
 {
@@ -18,7 +12,7 @@ namespace MobiFlight.UI.Panels
         public event EventHandler<StepperConfigChangedEventArgs> OnSetZeroTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnStepperSelected;
         protected StepperProfilePreset StepperProfile;
-        public MobiFlight.OutputConfig.Stepper StepperConfig;
+        public MobiFlight.OutputConfig.Stepper StepperConfig = new OutputConfig.Stepper();
 
         int[] StepValues = { -50, -10, -1, 1, 10, 50 };
         ErrorProvider errorProvider = new ErrorProvider();
