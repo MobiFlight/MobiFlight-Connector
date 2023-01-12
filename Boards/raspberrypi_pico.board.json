@@ -2,7 +2,7 @@
   "$schema": "./mfboard.schema.json",
   "UsbDriveSettings": {
     "VolumeLabel": "RPI-RP2",
-    "VerificationFileName": "INFO_UF2.TXT",
+    "VerificationFileName": "INFO_UF2.TXT"
   },
   "Connection": {
     "ConnectionDelay": 1250,
