@@ -12,7 +12,6 @@ namespace MobiFlight.UI.Panels
         public event EventHandler<StepperConfigChangedEventArgs> OnSetZeroTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnStepperSelected;
         protected StepperProfilePreset StepperProfile;
-        public MobiFlight.OutputConfig.Stepper StepperConfig = new OutputConfig.Stepper();
 
         int[] StepValues = { -50, -10, -1, 1, 10, 50 };
         ErrorProvider errorProvider = new ErrorProvider();
@@ -37,37 +36,25 @@ namespace MobiFlight.UI.Panels
                 Log.Instance.log("Exception on selecting item in Stepper address ComboBox.", LogSeverity.Debug);
             }
 
-            if (config.Stepper.InputRev != null) inputRevTextBox.Text = config.Stepper.InputRev;
-
-            outputRevTextBox.Text = config.Stepper.OutputRev.ToString();
-            SpeedTextBox.Text = config.Stepper.Speed.ToString();
-            AccelerationTextBox.Text = config.Stepper.Acceleration.ToString();
-
-            if (config.Stepper.TestValue != null) stepperTestValueTextBox.Text = config.Stepper.TestValue;
-            CompassModeCheckBox.Checked = config.Stepper.CompassMode;
-
-            // use profile defaults if new config
-            if (config.Stepper.OutputRev == 0) 
-                outputRevTextBox.Text = StepperProfile.StepsPerRevolution.ToString();
-            
-            if (config.Stepper.Speed == 0)
-                SpeedTextBox.Text = StepperProfile.Speed.ToString();
-
-            if (config.Stepper.Acceleration == 0)
-                AccelerationTextBox.Text = StepperProfile.Acceleration.ToString();
+            inputRevTextBox.Text            = config.Stepper.InputRev.ToString();
+            outputRevTextBox.Text           = config.Stepper.OutputRev.ToString();
+            SpeedTextBox.Text               = config.Stepper.Speed.ToString();
+            AccelerationTextBox.Text        = config.Stepper.Acceleration.ToString();
+            stepperTestValueTextBox.Text    = config.Stepper.TestValue.ToString();
+            CompassModeCheckBox.Checked     = config.Stepper.CompassMode;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             if (stepperAddressesComboBox.SelectedValue != null)
             {
-                config.Stepper.Address = stepperAddressesComboBox.SelectedValue.ToString();
-                config.Stepper.InputRev = inputRevTextBox.Text;
-                config.Stepper.OutputRev = Int16.Parse(outputRevTextBox.Text);
-                config.Stepper.TestValue = stepperTestValueTextBox.Text;
-                config.Stepper.CompassMode = CompassModeCheckBox.Checked;
+                config.Stepper.Address      = stepperAddressesComboBox.SelectedValue.ToString();
+                config.Stepper.InputRev     = Int16.Parse(inputRevTextBox.Text);
+                config.Stepper.OutputRev    = Int16.Parse(outputRevTextBox.Text);
+                config.Stepper.TestValue    = Int16.Parse(stepperTestValueTextBox.Text);
+                config.Stepper.CompassMode  = CompassModeCheckBox.Checked;
                 config.Stepper.Acceleration = Int16.Parse(AccelerationTextBox.Text);
-                config.Stepper.Speed = Int16.Parse(SpeedTextBox.Text);
+                config.Stepper.Speed        = Int16.Parse(SpeedTextBox.Text);
             }
             return config;
         }
@@ -176,17 +163,17 @@ namespace MobiFlight.UI.Panels
         internal void SetStepperProfile(StepperProfilePreset profilePreset)
         {
             this.StepperProfile = profilePreset;
-            if (StepperConfig.OutputRev == 0)
+            if (outputRevTextBox.Text == "")
             {
                 outputRevTextBox.Text = this.StepperProfile.StepsPerRevolution.ToString();
             }
 
-            if (StepperConfig.Acceleration == 0)
+            if (AccelerationTextBox.Text == "")
             {
                 AccelerationTextBox.Text = this.StepperProfile.Acceleration.ToString();
             }
 
-            if (StepperConfig.Speed == 0)
+            if (SpeedTextBox.Text == "")
             {
                 SpeedTextBox.Text = this.StepperProfile.Speed.ToString();
             }

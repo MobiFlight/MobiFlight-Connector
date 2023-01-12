@@ -766,7 +766,7 @@ namespace MobiFlight
                             serial,
                             cfg.Stepper.Address,
                             value,
-                            int.Parse(cfg.Stepper.InputRev),
+                            cfg.Stepper.InputRev,
                             cfg.Stepper.OutputRev,
                             cfg.Stepper.CompassMode,
                             cfg.Stepper.Speed,
@@ -1212,7 +1212,7 @@ namespace MobiFlight
             switch (cfg.DisplayType)
             {
                 case MobiFlightStepper.TYPE:
-                    ExecuteDisplay((Int16.Parse(cfg.Stepper.TestValue)).ToString(), cfg);
+                    ExecuteDisplay(cfg.Stepper.TestValue.ToString(), cfg);
                     break;
 
                 case MobiFlightServo.TYPE:

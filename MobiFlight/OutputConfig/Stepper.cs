@@ -12,8 +12,8 @@ namespace MobiFlight.OutputConfig
     {
         public const string Type = "Stepper";
         public String Address { get; set; }
-        public String InputRev { get; set; }
-        public String TestValue { get; set; }
+        public Int16 InputRev { get; set; }
+        public Int16 TestValue { get; set; }
         public Int16 OutputRev { get; set; }
         public bool CompassMode { get; set; }
         public Int16 Acceleration { get; set; }
@@ -22,9 +22,9 @@ namespace MobiFlight.OutputConfig
         public Stepper()
         {
             Address = "";
-            InputRev = "1000";
+            InputRev = 0;
             OutputRev = 0;
-            TestValue = "500";
+            TestValue = 500;
             CompassMode = false;
             Acceleration = 0;
             Speed = 0;
@@ -34,13 +34,10 @@ namespace MobiFlight.OutputConfig
         {
             Stepper clone = new Stepper();
             clone.Address       = (String) Address.Clone();
-            clone.InputRev      = (String) InputRev.Clone();
-
+            clone.InputRev      = InputRev;
             clone.OutputRev     = OutputRev;
-
-            clone.TestValue     = (String) TestValue.Clone();
+            clone.TestValue     = TestValue;
             clone.CompassMode   = CompassMode;
-
             clone.Speed         = Speed;
             clone.Acceleration  = Acceleration;
 
@@ -72,18 +69,21 @@ namespace MobiFlight.OutputConfig
             {
                 Address = reader["stepperAddress"];
             }
+
             if (reader["stepperInputRev"] != null && reader["stepperInputRev"] != "")
             {
-                InputRev = reader["stepperInputRev"];
-                TestValue = reader["stepperInputRev"];
+                InputRev = Int16.Parse(reader["stepperInputRev"]);
+                TestValue = Int16.Parse(reader["stepperInputRev"]);
             }
+
             if (reader["stepperOutputRev"] != null && reader["stepperOutputRev"] != "")
             {
                 OutputRev = Int16.Parse(reader["stepperOutputRev"]);
             }
+
             if (reader["stepperTestValue"] != null && reader["stepperTestValue"] != "")
             {
-                TestValue = reader["stepperTestValue"];
+                TestValue = Int16.Parse(reader["stepperTestValue"]);
             }
 
             if (reader["stepperCompassMode"] != null && reader["stepperCompassMode"] != "")
@@ -105,9 +105,9 @@ namespace MobiFlight.OutputConfig
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("stepperAddress", Address);
-            writer.WriteAttributeString("stepperInputRev", InputRev);
+            writer.WriteAttributeString("stepperInputRev", InputRev.ToString());
             writer.WriteAttributeString("stepperOutputRev", OutputRev.ToString());
-            writer.WriteAttributeString("stepperTestValue", TestValue);
+            writer.WriteAttributeString("stepperTestValue", TestValue.ToString());
             writer.WriteAttributeString("stepperCompassMode", CompassMode.ToString());
             writer.WriteAttributeString("stepperAcceleration", Acceleration.ToString());
             writer.WriteAttributeString("stepperSpeed", Speed.ToString());

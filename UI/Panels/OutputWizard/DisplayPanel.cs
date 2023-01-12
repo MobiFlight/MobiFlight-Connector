@@ -661,7 +661,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             String stepperAddress = e.StepperAddress;
             String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
-            stepperPanel.StepperConfig = config.Stepper;
             try
             {
                 MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
