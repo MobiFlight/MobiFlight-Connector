@@ -656,7 +656,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
         {
             // we have a fresh config, nothing to do.
-            if (config.DisplaySerial == null) return;
+            if (config?.DisplaySerial == null) return;
 
             String stepperAddress = e.StepperAddress;
             String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
