@@ -4,6 +4,7 @@ using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using CommandMessenger;
 using Newtonsoft.Json.Linq;
 using SharpDX.DirectInput;
@@ -68,8 +69,10 @@ namespace MobiFlight
 
             if (value.IndexOf(".") >=0 )
             {
+                var prefix = CalculateCorrectLeadingSpaces(value);
                 points = CalculateCorrectPoints(value, mask);
-                value = value.Replace(".", "");
+                value = ReplacePointsBySpaces(value);
+                value = prefix + value.Replace(".", "");
             }
 
             // clamp and reverse the string
@@ -89,6 +92,26 @@ namespace MobiFlight
 
             // Send command
             CmdMessenger.SendCommand(command);
+        }
+
+        private string ReplacePointsBySpaces(string value)
+        {
+            var regex = new Regex(Regex.Escape(".."));
+            while (value.IndexOf("..")>-1)
+            {
+                value = regex.Replace(value, " .", 1);
+            }
+
+            return value;
+        }
+
+        private string CalculateCorrectLeadingSpaces(string value)
+        {
+            var result = "";
+            if (value.IndexOf('.') == 0)
+                result = " ";
+
+            return result;
         }
 
         static public byte CalculateCorrectPoints(string value, byte mask)
@@ -116,7 +139,10 @@ namespace MobiFlight
                     points |= (byte)(1 << digit);
                     
                     // then we stay on the digit one more time
-                    digit--;
+                    // but only if the next character is not a 
+                    // "." too
+                    if (positionInValue-1 >=0 && value[positionInValue-1]!='.')
+                        digit--;
                 }
 
                 // walk one character to the left
