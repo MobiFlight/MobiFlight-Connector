@@ -23,7 +23,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     Mode = StepperMode.HALFSTEP,
                     Speed = 1400,
                     Acceleration = 2800,
-                    BacklashCompensation = 0,
+                    BacklashCompensation = 24,
                     StepsPerRevolution = 4080
                 }
             },
@@ -36,7 +36,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     Mode = StepperMode.FULLSTEP,
                     Speed = 467,
                     Acceleration = 800,
-                    BacklashCompensation = 15,
+                    BacklashCompensation = 12,
                     StepsPerRevolution = 2040
                 }
             },

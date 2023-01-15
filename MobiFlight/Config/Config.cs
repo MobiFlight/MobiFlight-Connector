@@ -117,7 +117,7 @@ namespace MobiFlight.Config
                         case DeviceType.StepperDeprecatedV1:
                             currentItem = new MobiFlight.Config.Compatibility.StepperDeprecatedV2();
                             currentItem.FromInternal(item + BaseDevice.End);
-                            (currentItem as Stepper).BtnPin = "0"; // set this explicitly to 0 because the default used to be 5.
+                            (currentItem as StepperDeprecatedV2).BtnPin = "0"; // set this explicitly to 0 because the default used to be 5.
                             currentItem = new MobiFlight.Config.Stepper(currentItem as MobiFlight.Config.Compatibility.StepperDeprecatedV2);
                             break;
 

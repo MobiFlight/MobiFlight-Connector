@@ -603,7 +603,7 @@ namespace MobiFlight
             }
         }
 
-        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed, Int16 acceleration)
+        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed = 0, Int16 acceleration = 0)
         {
             try
             {

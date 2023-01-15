@@ -707,9 +707,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 (NextValue).ToString(),
                 config.Stepper.OutputRev,
                 config.Stepper.OutputRev,
-                config.Stepper.CompassMode,
-                0, // using tested default values from the stepper
-                0 // using tested default values from the stepper
+                config.Stepper.CompassMode
             );
 
         }

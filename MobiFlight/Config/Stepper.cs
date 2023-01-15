@@ -39,6 +39,9 @@ namespace MobiFlight.Config
             Pin3    = stepper.Pin3;
             Pin4    = stepper.Pin4;
             BtnPin  = stepper.BtnPin;
+            Mode    = 0;
+            Backlash = 0;
+            Deactivate = false;
             Profile = 0; // 0 is the fallback profile (Classic 28BYJ)
         }
 
