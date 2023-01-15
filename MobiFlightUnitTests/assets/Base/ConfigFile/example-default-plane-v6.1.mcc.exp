@@ -112,7 +112,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="0" operand="=" ifValue="$-10" elseValue="$-10" />
         </modifiers>
-        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" stepperCompassMode="False" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -126,7 +126,7 @@
           <transformation active="False" expression="$*0,768946875" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" stepperCompassMode="False" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -140,7 +140,7 @@
           <transformation active="False" expression="$*0,0078125" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="False" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>

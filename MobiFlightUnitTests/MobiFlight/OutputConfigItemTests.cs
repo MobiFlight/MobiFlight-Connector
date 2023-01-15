@@ -275,9 +275,9 @@ namespace MobiFlight.Tests
             o.Servo.MaxRotationPercent = "176";
 
             o.Stepper.Address = "S22";
-            o.Stepper.InputRev = "1123";
-            o.Stepper.OutputRev = "3212";
-            o.Stepper.TestValue = "212";
+            o.Stepper.InputRev = 1123;
+            o.Stepper.OutputRev = 3212;
+            o.Stepper.TestValue = 212;
             o.Stepper.CompassMode = true;
 
             o.ShiftRegister = new OutputConfig.ShiftRegister()
