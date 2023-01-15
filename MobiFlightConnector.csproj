@@ -897,19 +897,19 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_2_3_0.hex">
+    <None Include="firmware\mobiflight_mega_2_3_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_2_3_0.hex">
+    <None Include="firmware\mobiflight_micro_2_3_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_nano_2_3_0.hex">
+    <None Include="firmware\mobiflight_nano_2_3_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico_2_2_0.uf2">
+    <None Include="firmware\mobiflight_raspberrypico_2_3_1.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_2_3_0.hex">
+    <None Include="firmware\mobiflight_uno_2_3_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
