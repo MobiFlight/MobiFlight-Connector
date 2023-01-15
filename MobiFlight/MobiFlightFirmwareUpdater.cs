@@ -72,7 +72,7 @@ namespace MobiFlight
             // Only COM ports get toggled
             if (module.Port.StartsWith("COM"))
             { 
-                module.InitUploadAndReturnUploadPort();
+                Port = module.InitUploadAndReturnUploadPort();
                 if (module.Connected) module.Disconnect();
             }
 
