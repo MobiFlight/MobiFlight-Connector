@@ -137,6 +137,7 @@ namespace MobiFlight
             // We have set the new zero position
             // so this has to be updated internally too.
             lastValue = 0;
+            outputValue = 0;
         }
 
         public void Stop()

@@ -690,9 +690,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             // TODO: remove this sync to config
             // to prevent overriding accidentaly something
             syncToConfig();
-            int steps = e.Steps;
 
-            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
+            string serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
             MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
                                                     .GetModuleBySerial(serial)
