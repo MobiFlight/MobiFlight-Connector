@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Config;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings.Device
@@ -11,6 +12,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private Stepper stepper;
         private bool initialized = false;
         public event EventHandler Changed;
+
+        protected const int PROFILE_CUSTOM_ID = 255;
 
         public static List<ListItem<StepperProfilePreset>> Profiles = new List<ListItem<StepperProfilePreset>>()
         {
@@ -60,6 +63,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 {
                     id = 3,
                     Mode = StepperMode.DRIVER,
+                    Speed = 400,
+                    Acceleration = 800,
+                    BacklashCompensation = 0,
+                    StepsPerRevolution = 1000
+                }
+            },
+            new ListItem<StepperProfilePreset>()
+            {
+                Label = "Custom Stepper",
+                Value = new StepperProfilePreset()
+                {
+                    id = PROFILE_CUSTOM_ID,
+                    Mode = StepperMode.HALFSTEP,
                     Speed = 400,
                     Acceleration = 800,
                     BacklashCompensation = 0,
@@ -120,11 +136,18 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             var preset = PresetComboBox.SelectedValue as StepperProfilePreset;
 
-            ModeComboBox.SelectedValue = preset.Mode;
-            BacklashTextBox.Text = preset.BacklashCompensation.ToString();
-            DefaultSpeedTextBox.Text = preset.Speed.ToString();
-            DefaultAccelerationTextBox.Text = preset.Acceleration.ToString();
-            deactivateCheckBox.Checked = preset.Deactivate;
+            if (preset.id != PROFILE_CUSTOM_ID)
+            {
+                ModeComboBox.SelectedValue = preset.Mode;
+                BacklashTextBox.Text = preset.BacklashCompensation.ToString();
+                DefaultSpeedTextBox.Text = preset.Speed.ToString();
+                DefaultAccelerationTextBox.Text = preset.Acceleration.ToString();
+                deactivateCheckBox.Checked = preset.Deactivate;
+            }
+
+            // Enable edit fields if Custom Preset is used
+            ModeComboBox.Enabled = preset.id == PROFILE_CUSTOM_ID;
+            BacklashTextBox.Enabled = preset.id == PROFILE_CUSTOM_ID;
         }
 
         private void InitializePresetComboBox()
@@ -181,7 +204,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             stepper.Name = mfNameTextBox.Text;
             stepper.Mode = (int) ModeComboBox.SelectedValue;
-            stepper.Backlash = int.Parse(BacklashTextBox.Text);
+            
+            int backlash;
+            if (int.TryParse(BacklashTextBox.Text, out backlash))
+                stepper.Backlash = backlash;
+
             stepper.Deactivate = deactivateCheckBox.Checked;
             stepper.Profile = (PresetComboBox.SelectedValue as StepperProfilePreset).id;
         }
@@ -235,6 +262,45 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void autoZeroCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             mfBtnPinComboBox.Enabled = !(sender as System.Windows.Forms.CheckBox).Checked;
+        }
+
+        private void BacklashTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            removeError(sender as Control);
+
+            if (!(sender as Control).Parent.Enabled) return;
+
+            String value = (sender as TextBox).Text.Trim();
+            
+            if (value == "")
+            {
+                displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
+                e.Cancel = true;
+                return;
+            }
+
+            Int16 number;
+            if(!Int16.TryParse(value, out number)) {
+                displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
+                e.Cancel = true;
+                return;
+            }
+        }
+
+        private void displayError(Control control, String message)
+        {
+            errorProvider.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
+            errorProvider.SetError(
+                    control,
+                    message);
+            MessageBox.Show(message, i18n._tr("Hint"));
+        }
+
+        private void removeError(Control control)
+        {
+            errorProvider.SetError(
+                    control,
+                    "");
         }
     }
 }
