@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MobiFlight.Config.Compatibility;
+using System;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
     public class Stepper : BaseDevice
     {
-        const ushort _paramCount = 6;
+        const ushort _paramCount = 10;
 
         [XmlAttribute]
         public String Pin1 = "1";
@@ -20,8 +19,31 @@ namespace MobiFlight.Config
         public String Pin4 = "4";
         [XmlAttribute]
         public String BtnPin = "0";
+        [XmlAttribute]
+        public int Mode = 0;
+        [XmlAttribute]
+        public int Backlash = 0;
+        [XmlAttribute]
+        public bool Deactivate = false;
+        [XmlAttribute]
+        public int Profile = 0;
 
         public Stepper() { Name = "Stepper"; _type = DeviceType.Stepper; }
+
+        public Stepper(StepperDeprecatedV2 stepper)
+        {
+            _type   = DeviceType.Stepper;
+            Name    = stepper.Name;
+            Pin1    = stepper.Pin1;
+            Pin2    = stepper.Pin2;
+            Pin3    = stepper.Pin3;
+            Pin4    = stepper.Pin4;
+            BtnPin  = stepper.BtnPin;
+            Mode    = 0;
+            Backlash = 0;
+            Deactivate = false;
+            Profile = 0; // 0 is the fallback profile (Classic 28BYJ)
+        }
 
         override public String ToInternal()
         {
@@ -31,6 +53,10 @@ namespace MobiFlight.Config
                  + Pin3 + Separator
                  + Pin4 + Separator
                  + BtnPin + Separator
+                 + Mode + Separator
+                 + Backlash + Separator
+                 + (Deactivate ? "1" : "0") + Separator
+                 + Profile + Separator
                  + Name + End;
         }
 
@@ -43,12 +69,16 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            Pin1    = paramList[1];
-            Pin2    = paramList[2];
-            Pin3    = paramList[3];
-            Pin4    = paramList[4];
-            BtnPin  = paramList[5];
-            Name    = paramList[6];
+            Pin1        = paramList[1];
+            Pin2        = paramList[2];
+            Pin3        = paramList[3];
+            Pin4        = paramList[4];
+            BtnPin      = paramList[5];
+            Mode        = int.Parse(paramList[6]);
+            Backlash    = int.Parse(paramList[7]);
+            Deactivate  = paramList[8] == "1";
+            Profile     = int.Parse(paramList[9]);
+            Name        = paramList[10];
 
             return true;
         }
@@ -67,12 +97,34 @@ namespace MobiFlight.Config
                 && this.Pin3 == other.Pin3
                 && this.Pin4 == other.Pin4
                 && this.BtnPin == other.BtnPin
+                && this.Mode == other.Mode
+                && this.Backlash == other.Backlash
+                && this.Deactivate == other.Deactivate
+                && this.Profile == other.Profile
                 && this.Type == other.Type;
         }
 
         public override string ToString()
         {
-            return Type + ":" + Name + " Pin1:" + Pin1 + " Pin2:" + Pin2 + " Pin3:" + Pin3 + " Pin4:" + Pin4 + " BtnPin:" + BtnPin;
+            return $"{Type}: {Name} Pin1: {Pin1} Pin2: {Pin2} Pin3: {Pin3} Pin4: {Pin4} BtnPin: {BtnPin} Mode: {Mode} Backlash: {Backlash} Deactivate: {Deactivate} Profile: {Profile}";
         }
+    }
+
+    public class StepperProfilePreset
+    {
+        public int id { get; set; }
+        public StepperMode Mode { get; set; }
+        public int StepsPerRevolution { get; set; }
+        public int Speed { get; set; }
+        public int Acceleration { get; set; }
+        public int BacklashCompensation { get; set; }
+        public bool Deactivate { get; set; }
+    }
+
+    public enum StepperMode
+    {
+        FULLSTEP,
+        HALFSTEP,
+        DRIVER
     }
 }

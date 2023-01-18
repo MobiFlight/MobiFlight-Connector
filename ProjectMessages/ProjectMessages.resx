@@ -556,4 +556,7 @@ Check log for more details.</value>
   <data name="Label_Precondition_choose_variable" xml:space="preserve">
     <value>Choose variable</value>
   </data>
+  <data name="uiMessageValidationMustBeNumber" xml:space="preserve">
+    <value>The value must be a valid number.</value>
+  </data>
 </root>

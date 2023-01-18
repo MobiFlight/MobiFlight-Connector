@@ -207,7 +207,7 @@
             <value x="16000" y="-180" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="C172Left/ SN-33a-cbd" trigger="normal" stepperAddress="TrimPosition" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-180" stepperCompassMode="False" />
+        <display type="Stepper" serial="C172Left/ SN-33a-cbd" trigger="normal" stepperAddress="TrimPosition" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -225,7 +225,7 @@
             <value x="16383" y="-143" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-143" stepperCompassMode="False" />
+        <display type="Stepper" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-143" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>

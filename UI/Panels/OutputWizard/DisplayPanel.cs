@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
 
 namespace MobiFlight.UI.Panels.OutputWizard
 {
@@ -72,6 +74,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayModuleNameComboBox.Items.Clear();
             displayModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
             displayModuleNameComboBox.Items.AddRange(ModuleList.ToArray());
+
             // Pre selct the first module if there is only one in the list.
             if (displayModuleNameComboBox.Items.Count == 2)
                 displayModuleNameComboBox.SelectedIndex = 1;
@@ -109,6 +112,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             stepperPanel.OnManualCalibrationTriggered += stepperPanel_OnManualCalibrationTriggered;
             stepperPanel.OnSetZeroTriggered += stepperPanel_OnSetZeroTriggered;
             stepperPanel.OnStepperSelected += StepperPanel_OnStepperSelected;
+            // set the default profile for steppers
+            stepperPanel.SetStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
         }
 
         internal void syncFromConfig(OutputConfigItem cfg)
@@ -124,14 +129,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 {
                     if (!ComboBoxHelper.SetSelectedItemByValue(displayModuleNameComboBox, config.DisplaySerial))
                     {
-                        // TODO: provide error message
+                        Log.Instance.log($"Trying to show config but {config.DisplaySerial} currently not connected.", LogSeverity.Error);
                     }
                 }
 
-                if (!ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
+                if (config.DisplayType != null && !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     // TODO: provide error message
-                    Log.Instance.log($"Exception on selecting item in {config.DisplayType} ComboBox.", LogSeverity.Error);
+                    Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }
 
                 switch (config.DisplayType)
@@ -142,8 +147,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
 
                     case MobiFlightStepper.TYPE:
-                        // it is not nice but we haev to check what kind of stepper the stepper is
-                        // to show or not show the manual calibration piece.
                         stepperPanel.syncFromConfig(config);
                         break;
 
@@ -190,57 +193,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
             return OutputTypeComboBox.SelectedIndex == 1;
         }
 
-        private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
-        {
-            String stepperAddress = e.StepperAddress;
-            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
-
-            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
-                                            .GetModuleBySerial(serial)
-                                            .GetStepper(stepperAddress);
-            stepperPanel.ShowManualCalibation(!stepper.HasAutoZero);
-            // sorry for this hack...
-        }
-
-        void stepperPanel_OnSetZeroTriggered(object sender, StepperConfigChangedEventArgs e)
-        {
-            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
-            _execManager.getMobiFlightModuleCache().resetStepper(serial, (sender as String));
-        }
-
         internal void SetArcazeSettings(Dictionary<string, string> arcazeFirmware, Dictionary<string, ArcazeModuleSettings> moduleSettings)
         {
             this.arcazeFirmware = arcazeFirmware;
             this.moduleSettings = moduleSettings;
         }
-
-        void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
-        {
-            // TODO: remove this sync to config
-            // to prevent overriding accidentaly something
-            syncToConfig();
-            int steps = e.Steps;
-
-            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
-
-            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
-                                                    .GetModuleBySerial(serial)
-                                                    .GetStepper(config.Stepper.Address);
-
-            int CurrentValue = stepper.Position();
-            int NextValue = (CurrentValue + e.Steps);
-
-            _execManager.getMobiFlightModuleCache().setStepper(
-                serial,
-                config.Stepper.Address,
-                (NextValue).ToString(),
-                Int16.Parse(config.Stepper.OutputRev),
-                Int16.Parse(config.Stepper.OutputRev),
-                config.Stepper.CompassMode
-            );
-
-        }
-
         internal void syncToConfig()
         {
             if (OutputTypeIsDisplay()) 
@@ -404,10 +361,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
 
                 // third tab
-                if (!ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                if (config.DisplayType != null && 
+                    !ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
-                    // TODO: provide error message
-                    Log.Instance.log("Problem setting Display Type ComboBox.", LogSeverity.Error);
+                    Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }
 
             }
@@ -694,6 +651,67 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             displayLedDisplayPanel.SetConnectors(connectors);
         }
+
+        #region Stepper related functions
+        private void StepperPanel_OnStepperSelected(object sender, StepperConfigChangedEventArgs e)
+        {
+            // we have a fresh config, nothing to do.
+            if (config?.DisplaySerial == null) return;
+
+            String stepperAddress = e.StepperAddress;
+            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
+
+            try
+            {
+                MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
+                                                .GetModuleBySerial(serial)
+                                                .GetStepper(stepperAddress);
+
+                stepperPanel.SetStepperProfile(stepper.Profile);
+                stepperPanel.ShowManualCalibration(!stepper.HasAutoZero);
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                // the module with that serial is currently not connected
+                // so we cannot lookup anything sensible
+                Log.Instance.log($"Trying to show stepper config but module {config.DisplaySerial} is not connected. Using default profile.", LogSeverity.Error);
+                stepperPanel.SetStepperProfile(MFStepperPanel.Profiles.Find(p=>p.Value.id == 0).Value);
+            }
+        }
+
+        void stepperPanel_OnSetZeroTriggered(object sender, StepperConfigChangedEventArgs e)
+        {
+            String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
+            _execManager.getMobiFlightModuleCache().resetStepper(serial, (sender as String));
+        }
+
+        void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
+        {
+            // TODO: remove this sync to config
+            // to prevent overriding accidentaly something
+            syncToConfig();
+
+            string serial = SerialNumber.ExtractSerial(config.DisplaySerial);
+
+            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
+                                                    .GetModuleBySerial(serial)
+                                                    .GetStepper(config.Stepper.Address);
+
+            int CurrentValue = stepper.Position();
+            int NextValue = (CurrentValue + e.Steps);
+
+            _execManager.getMobiFlightModuleCache().setStepper(
+                serial,
+                config.Stepper.Address,
+                (NextValue).ToString(),
+                config.Stepper.OutputRev,
+                config.Stepper.OutputRev,
+                config.Stepper.CompassMode
+            );
+
+        }
+
+        #endregion
 
         private void shiftRegistersComboBox_selectedIndexChanged(object sender, EventArgs e)
         {

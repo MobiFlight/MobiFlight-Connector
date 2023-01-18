@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +96,8 @@ namespace MobiFlight.Config.Tests
 
             Assert.AreEqual(1, o.FromInternal("5.0.1.2.3.4.Device:").Items.Count);
 
-            Stepper expected = new Stepper();
+            StepperDeprecatedV2 deprecated = new StepperDeprecatedV2();
+            Stepper expected = new Stepper(deprecated);
             expected.Name = "Device";
             expected.Pin1 = "0";
             expected.Pin2 = "1";
@@ -341,7 +343,7 @@ namespace MobiFlight.Config.Tests
 
             List<String> actual = o.ToInternal(100);
             Assert.AreEqual(1, actual.Count);
-            Assert.AreEqual("9.0.1.2.3.0.Device:", actual.ElementAt(0));
+            Assert.AreEqual("15.0.1.2.3.0.0.0.0.0.Device:", actual.ElementAt(0));
         }
 
         [TestMethod()]
@@ -409,7 +411,7 @@ namespace MobiFlight.Config.Tests
 
             List<String> actual = o.ToInternal(100);
             Assert.AreEqual(1, actual.Count);
-            Assert.AreEqual("9.0.1.2.3.4.Device:", actual.ElementAt(0));
+            Assert.AreEqual("15.0.1.2.3.4.0.0.0.0.Device:", actual.ElementAt(0));
         }
 
         [TestMethod()]
@@ -448,7 +450,6 @@ namespace MobiFlight.Config.Tests
             device5.Pin2 = "1";
             device5.Pin3 = "2";
             device5.Pin4 = "3";
-            device5.BtnPin = "0";
             o.Items.Add(device5);
 
             Servo device6 = new Servo();
@@ -486,11 +487,11 @@ namespace MobiFlight.Config.Tests
                 + "8.0.1.0.Device2:"
                 + "3.0.Device3:"
                 + "4.0.1.2.3.4.Device4:"
-                + "9.0.1.2.3.0.Device5:"
+                + "15.0.1.2.3.0.0.0.0.0.Device5:"
                 + "6.0.Device6:"
                 + "7.0.1.2.Device7:"
                 + "8.0.1.2.Device8:"
-                + "9.0.1.2.3.4.Device9:", actual.ElementAt(0));
+                + "15.0.1.2.3.4.0.0.0.0.Device9:", actual.ElementAt(0));
         }
 
         [TestMethod()]
@@ -529,7 +530,6 @@ namespace MobiFlight.Config.Tests
             device5.Pin2 = "1";
             device5.Pin3 = "2";
             device5.Pin4 = "3";
-            device5.BtnPin = "0";
             o.Items.Add(device5);
 
             Servo device6 = new Servo();
@@ -566,11 +566,11 @@ namespace MobiFlight.Config.Tests
             Assert.AreEqual("8.0.1.0.Device2:", actual.ElementAt(1));
             Assert.AreEqual("3.0.Device3:", actual.ElementAt(2));
             Assert.AreEqual("4.0.1.2.3.4.Device4:", actual.ElementAt(3));
-            Assert.AreEqual("9.0.1.2.3.0.Device5:", actual.ElementAt(4));
+            Assert.AreEqual("15.0.1.2.3.0.0.0.0.0.Device5:", actual.ElementAt(4));
             Assert.AreEqual("6.0.Device6:", actual.ElementAt(5));
             Assert.AreEqual("7.0.1.2.Device7:", actual.ElementAt(6));
             Assert.AreEqual("8.0.1.2.Device8:", actual.ElementAt(7));
-            Assert.AreEqual("9.0.1.2.3.4.Device9:", actual.ElementAt(8));
+            Assert.AreEqual("15.0.1.2.3.4.0.0.0.0.Device9:", actual.ElementAt(8));
         }
     }
 }

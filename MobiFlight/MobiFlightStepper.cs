@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandMessenger;
+﻿using CommandMessenger;
+using MobiFlight.Config;
+using System;
 
 namespace MobiFlight
 {
@@ -11,12 +9,12 @@ namespace MobiFlight
         public const string TYPE = "Stepper";
 
         protected String _name = "Stepper";
+
         public String Name
         {
             get { return _name; }
             set { _name = value; }
         }
-
 
         private DeviceType _type = DeviceType.Stepper;
         public DeviceType Type
@@ -29,8 +27,36 @@ namespace MobiFlight
         public int StepperNumber { get; set; }
         public int InputRevolutionSteps { get; set; }
         public int OutputRevolutionSteps { get; set; }
+        public StepperProfilePreset Profile { get; set; }
+        protected Int16 _acceleration;
+        public Int16 Acceleration
+        {
+            get { return _acceleration; }
+            set
+            {
+                if (_acceleration != value)
+                {
+                    _acceleration = value;
+                    _updateSpeedAndAcceleration();
+                }
+            }
+        }
+
+        protected Int16 _speed;
+        public Int16 Speed
+        {
+            get { return _speed; }
+            set { 
+                if (_speed != value) {
+                    _speed = value;
+                    _updateSpeedAndAcceleration();
+                } 
+            }
+        }
+
         public bool HasAutoZero { get; set; }
         public bool CompassMode { get; set; }
+
         protected DateTime lastCall;
         protected int lastValue;
         protected int outputValue;
@@ -47,12 +73,6 @@ namespace MobiFlight
             CompassMode = false;
         }
 
-        private int map(int value, int inputLower, int inputUpper, int outputLower, int outputUpper)
-        {
-            float relVal = (value - inputLower) / (float)(inputUpper - inputLower);
-            return (int)Math.Round((relVal * (outputUpper - outputLower)) + inputLower, 0);
-        }
-
         public void MoveToPosition(int value, bool direction)
         {
             int mappedValue = 0;
@@ -60,7 +80,6 @@ namespace MobiFlight
             {
                 mappedValue = Convert.ToInt32(Math.Ceiling((value / (double)InputRevolutionSteps) * OutputRevolutionSteps));
             }
-            int currentSpeed = 100;
 
             int delta = mappedValue - lastValue;
 
@@ -114,11 +133,29 @@ namespace MobiFlight
 
             // Send command
             CmdMessenger.SendCommand(command);
+
+            // We have set the new zero position
+            // so this has to be updated internally too.
+            lastValue = 0;
+            outputValue = 0;
         }
 
         public void Stop()
         {
             MoveToPosition(0, true);
+        }
+
+        private void _updateSpeedAndAcceleration()
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetStepperSpeedAccel);
+            command.AddArgument(this.StepperNumber);
+            command.AddArgument(this.Speed);
+            command.AddArgument(this.Acceleration);
+
+            Log.Instance.log($"Command: SetStepperSpeedAccel <{(int)MobiFlightModule.Command.SetStepperSpeedAccel},{StepperNumber},{Speed},{Acceleration};>.", LogSeverity.Debug);
+
+            // Send command
+            CmdMessenger.SendCommand(command);
         }
     }
 }
