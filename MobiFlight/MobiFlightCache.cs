@@ -84,7 +84,25 @@ namespace MobiFlight
 
             foreach (var drive in DriveInfo.GetDrives())
             {
-                var candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
+                // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
+                // when trying to read the volume label when the drive wasn't actually ready.
+                if (!drive.IsReady)
+                {
+                    continue;
+                }
+
+                Board candidateBoard;
+                try 
+                { 
+                    candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
+                }
+                catch (Exception ex)
+                {
+                    // Per the MSDN code sample for the DriveInfo object, Name and DriveType should be valid
+                    // at all times so it's safe to use them in the log message.
+                    Log.Instance.log($"Unable to get volume label for drive {drive.Name} ({drive.DriveType}): {ex.Message}", LogSeverity.Error);
+                    continue;
+                }
 
                 if (candidateBoard != null)
                 {
