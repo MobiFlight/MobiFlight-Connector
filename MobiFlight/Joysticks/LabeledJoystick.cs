@@ -18,12 +18,14 @@ namespace MobiFlight.Joysticks
             return buttons;
         }
 
-        protected override string MapDeviceNameToLabel(string name)
+        public override string MapDeviceNameToLabel(string name)
         {
             var result = name;
 
             if (Labels.ContainsKey(name))
                 result = Labels[name];
+            else
+                result = base.MapDeviceNameToLabel(name);
 
             return result;
         }

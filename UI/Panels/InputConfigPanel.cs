@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.UI.Dialogs;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels
 {
@@ -408,7 +409,8 @@ namespace MobiFlight.UI.Panels
                 if (cfg != null)
                 {
                     if (cfg.ModuleSerial == null) continue;
-                    row["moduleSerial"] = cfg.ModuleSerial.Split('/')[0];
+                    var serialNumber = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+                    row["moduleSerial"] = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
 
                     if (cfg.Name=="") continue;
 
@@ -420,7 +422,18 @@ namespace MobiFlight.UI.Panels
                     else
                     if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
-                    } 
+                    }
+                    else 
+                    if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
+                        var j = ExecutionManager.GetJoystickManager().GetJoystickBySerial(serialNumber);
+                        if (j != null)
+                        {
+                            row["inputName"] = j.MapDeviceNameToLabel(cfg.Name);
+                        } else
+                        {
+                            row["inputName"] = cfg.Name;
+                        }
+                    }
                     else 
                     {
                         row["inputName"] = cfg.Name;
