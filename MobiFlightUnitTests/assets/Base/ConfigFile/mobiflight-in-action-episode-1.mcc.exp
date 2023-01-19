@@ -98,7 +98,7 @@
             <value x="16383" y="-130" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False" />
+        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>

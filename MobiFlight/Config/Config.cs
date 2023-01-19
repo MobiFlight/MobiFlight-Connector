@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Config.Compatibility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,15 +109,22 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                        case DeviceType.StepperDeprecated:
-                            currentItem = new MobiFlight.Config.Stepper();
-                            currentItem.FromInternal(item + BaseDevice.End);
-                            (currentItem as Stepper).BtnPin = "0"; // set this explicitly to 0 because the default used to be 5.
-                            break;
-
                         case DeviceType.Stepper:
                             currentItem = new MobiFlight.Config.Stepper();
                             currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.StepperDeprecatedV1:
+                            currentItem = new MobiFlight.Config.Compatibility.StepperDeprecatedV2();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            (currentItem as StepperDeprecatedV2).BtnPin = "0"; // set this explicitly to 0 because the default used to be 5.
+                            currentItem = new MobiFlight.Config.Stepper(currentItem as MobiFlight.Config.Compatibility.StepperDeprecatedV2);
+                            break;
+
+                        case DeviceType.StepperDeprecatedV2:
+                            currentItem = new MobiFlight.Config.Compatibility.StepperDeprecatedV2();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            currentItem = new MobiFlight.Config.Stepper(currentItem as MobiFlight.Config.Compatibility.StepperDeprecatedV2);
                             break;
 
                         case DeviceType.LedModule:
@@ -150,18 +158,7 @@ namespace MobiFlight.Config
                             }
                             currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
-
                             break;
-
-                        // MultiplexerDriver data is bound to be included (very redundantly) in client devices;
-                        // therefore, even if there is an internal device object, there is no config message
-                        // corresponding to a MultiplexerDriver item.
-                        // If there was, we would do this:
-                        //case DeviceType.MultiplexerDriver:
-                        //    currentItem = new MobiFlight.Config.MultiplexerDriver();
-                        //    currentItem.FromInternal(item + BaseDevice.End);
-                        //    multiplexerDriver = currentItem as MobiFlight.Config.MultiplexerDriver;
-                        //    break;
 
                         case DeviceType.AnalogInput:
                             currentItem = new MobiFlight.Config.AnalogInput();

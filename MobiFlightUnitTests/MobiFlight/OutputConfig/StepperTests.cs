@@ -21,9 +21,9 @@ namespace MobiFlight.OutputConfig.Tests
 
             o.Address = "Address";
             o.CompassMode = true;
-            o.InputRev = "1000";
-            o.OutputRev = "2040";
-            o.TestValue = "1024";
+            o.InputRev = 1000;
+            o.OutputRev = 2040;
+            o.TestValue = 1024;
 
             clone = o.Clone() as Stepper;
             Assert.AreEqual(o.Address, clone.Address);
@@ -42,17 +42,17 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.IsTrue(o1.Equals(o2));
             o1.Address = "Address";
             o1.CompassMode = true;
-            o1.InputRev = "1000";
-            o1.OutputRev = "2040";
-            o1.TestValue = "1024";
+            o1.InputRev = 1000;
+            o1.OutputRev = 2040;
+            o1.TestValue = 1024;
 
             Assert.IsFalse(o1.Equals(o2));
 
             o2.Address = "Address";
             o2.CompassMode = true;
-            o2.InputRev = "1000";
-            o2.OutputRev = "2040";
-            o2.TestValue = "1024";
+            o2.InputRev = 1000;
+            o2.OutputRev = 2040;
+            o2.TestValue = 1024;
 
             Assert.IsTrue(o1.Equals(o2));
         }
@@ -80,9 +80,9 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.AreEqual("Address", o.Address);
             Assert.AreEqual(true, o.CompassMode);
-            Assert.AreEqual("1000", o.InputRev);
-            Assert.AreEqual("2040", o.OutputRev);
-            Assert.AreEqual("1024", o.TestValue);
+            Assert.AreEqual(1000, o.InputRev);
+            Assert.AreEqual(2040, o.OutputRev);
+            Assert.AreEqual(1024, o.TestValue);
         }
 
         [TestMethod()]
@@ -98,9 +98,9 @@ namespace MobiFlight.OutputConfig.Tests
             Stepper o = new Stepper();
             o.Address = "Address";
             o.CompassMode = true;
-            o.InputRev = "1000";
-            o.OutputRev = "2040";
-            o.TestValue = "1024";
+            o.InputRev = 1000;
+            o.OutputRev = 2040;
+            o.TestValue = 1024;
 
             xmlWriter.WriteStartElement("display");
             xmlWriter.WriteAttributeString("type", "Stepper");

@@ -353,7 +353,8 @@ namespace MobiFlight.UI
                     {
                         currentVersion = new Version("0.0.0");
                     }
-                    if (currentVersion.CompareTo(latestVersion) < 0)
+                    if (currentVersion.CompareTo(new Version("0.0.1")) != 0 && // ignore the developer board that has 0.0.1
+                        currentVersion.CompareTo(latestVersion) < 0)
                     {
                         // Update needed!!!
                         modulesForUpdate.Add(module);

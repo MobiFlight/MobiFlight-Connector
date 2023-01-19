@@ -637,7 +637,7 @@
             <value x="40000" y="2690" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="FSX 03/ SN-4fa-532" trigger="normal" stepperAddress="Stepper" stepperInputRev="3600" stepperOutputRev="2040" stepperTestValue="2730" stepperCompassMode="False" />
+        <display type="Stepper" serial="FSX 03/ SN-4fa-532" trigger="normal" stepperAddress="Stepper" stepperInputRev="3600" stepperOutputRev="2040" stepperTestValue="2730" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>

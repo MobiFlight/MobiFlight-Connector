@@ -556,4 +556,8 @@ Please manually flash the boards using "upload firmware" and select the correct 
   <data name="Label_Precondition_choose_variable" xml:space="preserve">
     <value>Wähle Variable</value>
   </data>
+  <data name="uiMessageValidationMustBeNumber" xml:space="preserve">
+    <value>Der Wert muss eine gültige Zahl sein.</value>
+    <comment>The value must be a valid number.</comment>
+  </data>
 </root>

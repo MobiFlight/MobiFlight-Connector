@@ -1185,6 +1185,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The value must be a valid number..
+        /// </summary>
+        internal static string uiMessageValidationMustBeNumber {
+            get {
+                return ResourceManager.GetString("uiMessageValidationMustBeNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value must be a number between {0} and {1}..
         /// </summary>
         internal static string uiMessageValidNumberInRange {
