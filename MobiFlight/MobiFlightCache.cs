@@ -98,9 +98,7 @@ namespace MobiFlight
                 }
                 catch (Exception ex)
                 {
-                    // Per the MSDN code sample for the DriveInfo object, Name and DriveType should be valid
-                    // at all times so it's safe to use them in the log message.
-                    Log.Instance.log($"Unable to get volume label for drive {drive.Name} ({drive.DriveType}): {ex.Message}", LogSeverity.Error);
+                    Log.Instance.log($"Unable to get volume label for drive {drive?.Name} ({drive?.DriveType}): {ex.Message}", LogSeverity.Error);
                     continue;
                 }
 
