@@ -120,6 +120,11 @@ namespace MobiFlight.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            // Check for updates before loading anything else
+#if (!DEBUG)
+            AutoUpdateChecker.CheckForUpdate(false, true);
+#endif
+
             if (Properties.Settings.Default.Started == 0)
             {
                 OnFirstStart();
@@ -131,6 +136,7 @@ namespace MobiFlight.UI
             }
 
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
+
 
             // this is everything that used to be directly in the constructor
             inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
@@ -317,9 +323,6 @@ namespace MobiFlight.UI
             runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
-#if (!DEBUG)
-            AutoUpdateChecker.CheckForUpdate(false, true);
-#endif
             CheckForWasmModuleUpdate();
 
             // Track config loaded event
