@@ -560,4 +560,10 @@ Please manually flash the boards using "upload firmware" and select the correct 
     <value>Der Wert muss eine gültige Zahl sein.</value>
     <comment>The value must be a valid number.</comment>
   </data>
+  <data name="uiMessageResetConfirm" xml:space="preserve">
+    <value>Wollen Sie wirklich die aktuelle Config zurücksetzen?</value>
+  </data>
+  <data name="uiMessageResetHint" xml:space="preserve">
+    <value>Config zurücksetzen</value>
+  </data>
 </root>

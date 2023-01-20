@@ -993,6 +993,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to reset the current Config?.
+        /// </summary>
+        internal static string uiMessageResetConfirm {
+            get {
+                return ResourceManager.GetString("uiMessageResetConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Config.
+        /// </summary>
+        internal static string uiMessageResetHint {
+            get {
+                return ResourceManager.GetString("uiMessageResetHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This change will require a restart of MobiFlight to become effective..
         /// </summary>
         internal static string uiMessageRestartRequired {
