@@ -18,7 +18,7 @@ namespace MobiFlight
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
-        public const String TYPE_NOTSET = "";
+        public const String TYPE_NOTSET = "-";
         public const String TYPE_BUTTON = MobiFlightButton.TYPE;
         public const String TYPE_ENCODER = MobiFlightEncoder.TYPE;
         public const String TYPE_INPUT_SHIFT_REGISTER = MobiFlightInputShiftRegister.TYPE;

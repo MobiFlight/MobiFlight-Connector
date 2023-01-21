@@ -235,7 +235,7 @@
     <config guid="8d4c174f-74d7-4f65-85e4-b2dc164877b6">
       <active>false</active>
       <description>Radio On</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="" name="" type="" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="" name="" type="-" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <preconditions />
         <configrefs />
       </settings>
