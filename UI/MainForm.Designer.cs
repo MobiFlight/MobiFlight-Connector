@@ -61,9 +61,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.inputsTabControl = new System.Windows.Forms.TabControl();
             this.OutputTabPage = new System.Windows.Forms.TabPage();
-            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
             this.InputTabPage = new System.Windows.Forms.TabPage();
-            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -116,7 +114,11 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
+            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
+            this.hubHopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadPresetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -206,6 +208,7 @@
             // extrasToolStripMenuItem
             // 
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hubHopToolStripMenuItem,
             this.mSFS2020ToolStripMenuItem,
             this.orphanedSerialsFinderToolStripMenuItem,
             this.toolStripMenuItem4,
@@ -342,25 +345,12 @@
             resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Name = "OutputTabPage";
             // 
-            // outputConfigPanel
-            // 
-            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
-            this.outputConfigPanel.ExecutionManager = null;
-            this.outputConfigPanel.Name = "outputConfigPanel";
-            // 
             // InputTabPage
             // 
             this.InputTabPage.Controls.Add(this.inputConfigPanel);
             resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Name = "InputTabPage";
             this.InputTabPage.UseVisualStyleBackColor = true;
-            // 
-            // inputConfigPanel
-            // 
-            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
-            this.inputConfigPanel.ExecutionManager = null;
-            this.inputConfigPanel.Name = "inputConfigPanel";
-            this.inputConfigPanel.OutputDataSetConfig = null;
             // 
             // tabPageImageList
             // 
@@ -720,10 +710,36 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
+            // outputConfigPanel
+            // 
+            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
+            this.outputConfigPanel.ExecutionManager = null;
+            this.outputConfigPanel.Name = "outputConfigPanel";
+            // 
+            // inputConfigPanel
+            // 
+            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
+            this.inputConfigPanel.ExecutionManager = null;
+            this.inputConfigPanel.Name = "inputConfigPanel";
+            this.inputConfigPanel.OutputDataSetConfig = null;
+            // 
             // logPanel1
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
+            // 
+            // hubHopToolStripMenuItem
+            // 
+            this.hubHopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downloadPresetsToolStripMenuItem});
+            this.hubHopToolStripMenuItem.Name = "hubHopToolStripMenuItem";
+            resources.ApplyResources(this.hubHopToolStripMenuItem, "hubHopToolStripMenuItem");
+            // 
+            // downloadPresetsToolStripMenuItem
+            // 
+            this.downloadPresetsToolStripMenuItem.Name = "downloadPresetsToolStripMenuItem";
+            resources.ApplyResources(this.downloadPresetsToolStripMenuItem, "downloadPresetsToolStripMenuItem");
+            this.downloadPresetsToolStripMenuItem.Click += new System.EventHandler(this.downloadHubHopPresetsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -857,6 +873,8 @@
         private System.Windows.Forms.ToolStripMenuItem openHubHopWebsiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem releaseNotesToolStripMenuItem;
         private System.Windows.Forms.ImageList tabPageImageList;
+        private System.Windows.Forms.ToolStripMenuItem hubHopToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem downloadPresetsToolStripMenuItem;
     }
 }
 
