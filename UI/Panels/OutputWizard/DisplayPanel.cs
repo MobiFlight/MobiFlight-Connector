@@ -197,11 +197,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
             if (OutputTypeIsDisplay()) 
             {
                 if (displayTypeComboBox.SelectedItem == null) return;
-                if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
 
                 config.DisplayType = (displayTypeComboBox.SelectedItem as ListItem).Value;
                 config.DisplayTrigger = "normal";
                 config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
+
+                if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
 
                 switch (config.DisplayType)
                 {

@@ -92,6 +92,7 @@ namespace MobiFlight
         { 
             return (
                 obj != null && obj is OutputConfigItem &&
+                this.DisplayType == (obj as OutputConfigItem).DisplayType &&
                 this.DisplaySerial == (obj as OutputConfigItem).DisplaySerial &&
                 this.SourceType == (obj as OutputConfigItem).SourceType &&
                 this.FSUIPC.Equals((obj as OutputConfigItem).FSUIPC) &&
