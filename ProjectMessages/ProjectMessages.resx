@@ -559,6 +559,12 @@ Check log for more details.</value>
   <data name="uiMessageValidationMustBeNumber" xml:space="preserve">
     <value>The value must be a valid number.</value>
   </data>
+  <data name="uiMessageHubHopUpdateError" xml:space="preserve">
+    <value>Error on downloading HubHop presets. Please check the Log for more information.</value>
+  </data>
+  <data name="uiMessageHubHopUpdateSuccessful" xml:space="preserve">
+    <value>HubHop presets download was successful.</value>
+  </data>
   <data name="uiMessageResetConfirm" xml:space="preserve">
     <value>Do you really want to uninstall the MobiFlight firmware? All your data will be removed from the board.</value>
   </data>

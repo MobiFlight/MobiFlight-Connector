@@ -560,6 +560,14 @@ Please manually flash the boards using "upload firmware" and select the correct 
     <value>Der Wert muss eine gültige Zahl sein.</value>
     <comment>The value must be a valid number.</comment>
   </data>
+  <data name="uiMessageHubHopUpdateError" xml:space="preserve">
+    <value>Update der HubHop Presets war nicht erfolgreich. Bitte checke das Log für weitere Details.</value>
+    <comment>Error on downloading HubHop presets. Please check the Log for more information.</comment>
+  </data>
+  <data name="uiMessageHubHopUpdateSuccessful" xml:space="preserve">
+    <value>Update der HubHop Presets war erfolgreich.</value>
+    <comment>HubHop presets download was successful.</comment>
+  </data>
   <data name="uiMessageResetConfirm" xml:space="preserve">
     <value>Möchtest Du wirklich die MobiFlight Firmware deinstallieren? Alle Deine Daten werden vom Board gelöscht.</value>
   </data>

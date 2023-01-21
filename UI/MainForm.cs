@@ -1697,8 +1697,6 @@ namespace MobiFlight.UI
 
                     if (updater.InstallWasmEvents())
                     {
-                        Msfs2020HubhopPresetListSingleton.Instance.Clear();
-                        XplaneHubhopPresetListSingleton.Instance.Clear();
                         progressForm.DialogResult = DialogResult.OK;
                     }
                     else
@@ -1717,6 +1715,47 @@ namespace MobiFlight.UI
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else
+            {
+                TimeoutMessageDialog.Show(
+                    i18n._tr("uiMessageWasmEventsInstallationError"),
+                    i18n._tr("uiMessageWasmUpdater"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+
+            progressForm.Dispose();
+        }
+
+        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+            ProgressForm progressForm = new ProgressForm();
+            Control MainForm = this;
+
+            updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
+            var t = new Task(() => {
+                if (updater.DownloadHubHopPresets())
+                {
+                    Msfs2020HubhopPresetListSingleton.Instance.Clear();
+                    XplaneHubhopPresetListSingleton.Instance.Clear();
+                    progressForm.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    progressForm.DialogResult = DialogResult.No;
+                    Log.Instance.log(i18n._tr("uiMessageHubHopUpdateError"), LogSeverity.Error);
+                }
+            }
+            );
+
+            t.Start();
+            if (progressForm.ShowDialog() == DialogResult.OK)
+            {
+                TimeoutMessageDialog.Show(
+                   i18n._tr("uiMessageHubHopUpdateSuccessful"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
             {
                 TimeoutMessageDialog.Show(
                     i18n._tr("uiMessageWasmEventsInstallationError"),
