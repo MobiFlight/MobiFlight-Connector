@@ -561,9 +561,9 @@ Please manually flash the boards using "upload firmware" and select the correct 
     <comment>The value must be a valid number.</comment>
   </data>
   <data name="uiMessageResetConfirm" xml:space="preserve">
-    <value>Wollen Sie wirklich die aktuelle Config zurücksetzen?</value>
+    <value>Möchtest Du wirklich die MobiFlight Firmware deinstallieren? Alle Deine Daten werden vom Board gelöscht.</value>
   </data>
   <data name="uiMessageResetHint" xml:space="preserve">
-    <value>Config zurücksetzen</value>
+    <value>Board zurücksetzen</value>
   </data>
 </root>

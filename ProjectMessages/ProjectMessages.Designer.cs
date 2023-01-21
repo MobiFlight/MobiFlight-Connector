@@ -993,7 +993,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to reset the current Config?.
+        ///   Looks up a localized string similar to Do you really want to uninstall the MobiFlight firmware?  All your data will be removed from the board..
         /// </summary>
         internal static string uiMessageResetConfirm {
             get {
@@ -1002,7 +1002,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset Config.
+        ///   Looks up a localized string similar to Reset Board.
         /// </summary>
         internal static string uiMessageResetHint {
             get {
