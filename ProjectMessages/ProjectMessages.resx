@@ -560,7 +560,7 @@ Check log for more details.</value>
     <value>The value must be a valid number.</value>
   </data>
   <data name="uiMessageResetConfirm" xml:space="preserve">
-    <value>Do you really want to uninstall the MobiFlight firmware?  All your data will be removed from the board.</value>
+    <value>Do you really want to uninstall the MobiFlight firmware? All your data will be removed from the board.</value>
   </data>
   <data name="uiMessageResetHint" xml:space="preserve">
     <value>Reset Board</value>
