@@ -1406,6 +1406,13 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void resetBoardToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show(i18n._tr("uiMessageResetConfirm"),
+                                i18n._tr("uiMessageResetHint"),
+                                MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            {
+                return;
+            }
+
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
             List<MobiFlightModule> modules = new List<MobiFlightModule>();
