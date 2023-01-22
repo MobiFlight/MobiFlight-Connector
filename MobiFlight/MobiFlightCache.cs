@@ -82,15 +82,11 @@ namespace MobiFlight
         {
             var result = new List<MobiFlightModuleInfo>();
 
-            foreach (var drive in DriveInfo.GetDrives())
+            // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
+            // when trying to read the volume label when the drive wasn't actually ready.
+            // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
+            foreach (var drive in DriveInfo.GetDrives().Where(d => (d.DriveType == DriveType.Removable && d.IsReady)))
             {
-                // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
-                // when trying to read the volume label when the drive wasn't actually ready.
-                if (!drive.IsReady)
-                {
-                    continue;
-                }
-
                 Board candidateBoard;
                 try 
                 { 
