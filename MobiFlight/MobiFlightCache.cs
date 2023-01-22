@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using System.Globalization;
 using MobiFlight.Config;
 using System.IO;
+using MobiFlight.Monitors;
 
 namespace MobiFlight
 {
@@ -58,6 +59,25 @@ namespace MobiFlight
         /// </summary>
         Dictionary<string, MobiFlightModule> Modules = new Dictionary<string, MobiFlightModule>();
         Dictionary<string, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+
+        SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
+
+        public MobiFlightCache()
+        {
+            SerialPortMonitor.PortAvailable += SerialPortMonitor_PortAvailable;
+            SerialPortMonitor.PortUnavailable += SerialPortMonitor_PortUnavailable;
+            SerialPortMonitor.Start();
+        }
+
+        private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
+        {
+            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Debug);
+        }
+
+        private void SerialPortMonitor_PortAvailable(object sender, PortDetails e)
+        {
+            Log.Instance.log($"Port detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Debug);
+        }
 
         /// <summary>
         /// indicates the status of the fsuipc connection
@@ -746,7 +766,6 @@ namespace MobiFlight
         {
             // not implemented, don't throw exception either
         }
-
 
         public void Stop()
         {
