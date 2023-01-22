@@ -89,7 +89,7 @@ namespace MobiFlight
             {
                 Board candidateBoard;
                 try 
-                { 
+                {
                     candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
                 }
                 catch (Exception ex)
