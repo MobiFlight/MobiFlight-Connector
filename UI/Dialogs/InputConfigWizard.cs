@@ -472,8 +472,12 @@ namespace MobiFlight.UI.Dialogs
             {
                 // We have a joystick 
                 // which right now is only buttons
-                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
+                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.ButtonPrefix))
+                    currentInputType = DeviceType.Button;
+                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
                     currentInputType = DeviceType.AnalogInput;
+                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.PovPrefix))
+                    currentInputType = DeviceType.Button;
             }
 
             return currentInputType;

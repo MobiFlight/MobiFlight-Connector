@@ -846,6 +846,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         private void OutputTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             DisplayTypePanel.Visible = OutputTypeIsDisplay();
+            groupBoxDisplaySettings.Visible = OutputTypeIsDisplay();
 
             InputActionTypePanel.Visible = OutputTypeIsInputAction();
             inputActionGroupBox.Visible = OutputTypeIsInputAction();
