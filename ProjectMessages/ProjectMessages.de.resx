@@ -574,4 +574,8 @@ Please manually flash the boards using "upload firmware" and select the correct 
   <data name="uiMessageResetHint" xml:space="preserve">
     <value>Board zurücksetzen</value>
   </data>
+  <data name="uiMessageNoXplaneConnection" xml:space="preserve">
+    <value>Keine aktive X-Plane Verbindung</value>
+    <comment>No active X-Plane connection</comment>
+  </data>
 </root>

@@ -571,4 +571,7 @@ Check log for more details.</value>
   <data name="uiMessageResetHint" xml:space="preserve">
     <value>Reset Board</value>
   </data>
+  <data name="uiMessageNoXplaneConnection" xml:space="preserve">
+    <value>No active X-Plane connection</value>
+  </data>
 </root>
