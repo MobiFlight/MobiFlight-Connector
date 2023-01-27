@@ -57,8 +57,8 @@
             // 
             // DlgCancelButton
             // 
-            this.DlgCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             resources.ApplyResources(this.DlgCancelButton, "DlgCancelButton");
+            this.DlgCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.DlgCancelButton.Name = "DlgCancelButton";
             this.DlgCancelButton.UseVisualStyleBackColor = true;
             this.DlgCancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -106,13 +106,13 @@
             // 
             // connectedModulesComboBox
             // 
+            resources.ApplyResources(this.connectedModulesComboBox, "connectedModulesComboBox");
             this.connectedModulesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.connectedModulesComboBox.FormattingEnabled = true;
             this.connectedModulesComboBox.Items.AddRange(new object[] {
             resources.GetString("connectedModulesComboBox.Items"),
             resources.GetString("connectedModulesComboBox.Items1"),
             resources.GetString("connectedModulesComboBox.Items2")});
-            resources.ApplyResources(this.connectedModulesComboBox, "connectedModulesComboBox");
             this.connectedModulesComboBox.Name = "connectedModulesComboBox";
             // 
             // OrphanedSerialsDialog
