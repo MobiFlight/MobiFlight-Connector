@@ -8,6 +8,7 @@ namespace MobiFlight.Config
     public class Stepper : BaseDevice
     {
         const ushort _paramCount = 10;
+        public const string AUTOHOME_NONE = "0";
 
         [XmlAttribute]
         public String Pin1 = "1";
@@ -18,7 +19,7 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String Pin4 = "4";
         [XmlAttribute]
-        public String BtnPin = "0";
+        public String BtnPin = AUTOHOME_NONE;
         [XmlAttribute]
         public int Mode = 0;
         [XmlAttribute]

@@ -108,7 +108,7 @@
             this.mfPin4ComboBox.Name = "mfPin4ComboBox";
             this.mfPin4ComboBox.Size = new System.Drawing.Size(45, 21);
             this.mfPin4ComboBox.TabIndex = 19;
-            this.mfPin4ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.mfPin4ComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // mfPin1Label
             // 
@@ -127,7 +127,7 @@
             this.mfPin1ComboBox.Name = "mfPin1ComboBox";
             this.mfPin1ComboBox.Size = new System.Drawing.Size(45, 21);
             this.mfPin1ComboBox.TabIndex = 15;
-            this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.mfPin1ComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // mfPin3Label
             // 
@@ -146,7 +146,7 @@
             this.mfPin3ComboBox.Name = "mfPin3ComboBox";
             this.mfPin3ComboBox.Size = new System.Drawing.Size(45, 21);
             this.mfPin3ComboBox.TabIndex = 17;
-            this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.mfPin3ComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // mfPin2Label
             // 
@@ -165,7 +165,7 @@
             this.mfPin2ComboBox.Name = "mfPin2ComboBox";
             this.mfPin2ComboBox.Size = new System.Drawing.Size(45, 21);
             this.mfPin2ComboBox.TabIndex = 15;
-            this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.mfPin2ComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // groupBox2
             // 
@@ -184,7 +184,7 @@
             this.mfNameTextBox.Name = "mfNameTextBox";
             this.mfNameTextBox.Size = new System.Drawing.Size(151, 20);
             this.mfNameTextBox.TabIndex = 0;
-            this.mfNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
+            this.mfNameTextBox.TextChanged += new System.EventHandler(this.Value_Changed);
             // 
             // autoZeroPinGroupBox
             // 
@@ -208,7 +208,7 @@
             this.autoZeroCheckBox.TabIndex = 17;
             this.autoZeroCheckBox.Text = "None";
             this.autoZeroCheckBox.UseVisualStyleBackColor = true;
-            this.autoZeroCheckBox.CheckedChanged += new System.EventHandler(this.autoZeroCheckBox_CheckedChanged);
+            this.autoZeroCheckBox.CheckedChanged += new System.EventHandler(this.AutoZeroCheckBox_CheckedChanged);
             // 
             // label2
             // 
@@ -227,7 +227,7 @@
             this.mfBtnPinComboBox.Name = "mfBtnPinComboBox";
             this.mfBtnPinComboBox.Size = new System.Drawing.Size(45, 21);
             this.mfBtnPinComboBox.TabIndex = 15;
-            this.mfBtnPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.mfBtnPinComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // additionalSettingsGroupBox
             // 
@@ -292,7 +292,7 @@
             this.deactivateCheckBox.Text = "Disable stepper when at target position";
             this.stepperPanelToolTip.SetToolTip(this.deactivateCheckBox, "Stop energizing the stepper once it has reached it target position.");
             this.deactivateCheckBox.UseVisualStyleBackColor = true;
-            this.deactivateCheckBox.CheckedChanged += new System.EventHandler(this.value_Changed);
+            this.deactivateCheckBox.CheckedChanged += new System.EventHandler(this.Value_Changed);
             // 
             // backlashPanel
             // 
@@ -324,7 +324,7 @@
             this.BacklashTextBox.Size = new System.Drawing.Size(70, 20);
             this.BacklashTextBox.TabIndex = 1;
             this.BacklashTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.BacklashTextBox.TextChanged += new System.EventHandler(this.value_Changed);
+            this.BacklashTextBox.TextChanged += new System.EventHandler(this.Value_Changed);
             this.BacklashTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.BacklashTextBox_Validating);
             // 
             // panel1
@@ -350,7 +350,7 @@
             this.ModeComboBox.Name = "ModeComboBox";
             this.ModeComboBox.Size = new System.Drawing.Size(153, 21);
             this.ModeComboBox.TabIndex = 18;
-            this.ModeComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.ModeComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // stepperModeLabel
             // 
@@ -389,7 +389,7 @@
             this.PresetComboBox.Name = "PresetComboBox";
             this.PresetComboBox.Size = new System.Drawing.Size(153, 21);
             this.PresetComboBox.TabIndex = 20;
-            this.PresetComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.PresetComboBox.SelectedIndexChanged += new System.EventHandler(this.Value_Changed);
             // 
             // stepperProfileLabel
             // 
