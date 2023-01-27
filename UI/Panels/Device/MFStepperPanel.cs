@@ -176,9 +176,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             UpdateFreePinsInDropDowns();
 
             mfNameTextBox.Text = stepper.Name;
-            autoZeroCheckBox.Checked = stepper.BtnPin == "0";
+            autoZeroCheckBox.Checked = stepper.BtnPin == Stepper.AUTOHOME_NONE;
 
-            if (stepper.BtnPin != "0") { }
+            if (stepper.BtnPin != Stepper.AUTOHOME_NONE)
                 ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
 
             // Load the profile first
@@ -200,7 +200,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             initialized = true;
         }
 
-        private void setNonPinValues()
+        private void SetNonPinValues()
         {
             stepper.Name = mfNameTextBox.Text;
             stepper.Mode = (int) ModeComboBox.SelectedValue;
@@ -223,6 +223,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
             ComboBoxHelper.BindMobiFlightFreePins(mfPin4ComboBox, pinList, stepper.Pin4);
 
             ComboBoxHelper.BindMobiFlightFreePins(mfBtnPinComboBox, pinList, stepper.BtnPin);
+
+            // the mfBtnPinComboBox is special in case "0" is not
+            // available as pin on the board, e.g. Mega.
+            if (mfBtnPinComboBox.SelectedValue == null)
+                mfBtnPinComboBox.SelectedIndex = 0;
+
             initialized = exInitialized;
         }
 
@@ -249,24 +255,36 @@ namespace MobiFlight.UI.Panels.Settings.Device
             initialized = exInitialized;
         }
 
-        private void value_Changed(object sender, EventArgs e)
+        private void Value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
 
             ReassignFreePinsInDropDowns(sender as ComboBox);
-            setNonPinValues();
+
+            SyncAutoHomeCorrectly();
+
+            SetNonPinValues();
             if (Changed != null)
                 Changed(stepper, new EventArgs());
         }
 
-        private void autoZeroCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void SyncAutoHomeCorrectly()
         {
-            mfBtnPinComboBox.Enabled = !(sender as System.Windows.Forms.CheckBox).Checked;
+            if (autoZeroCheckBox.Checked)
+                stepper.BtnPin = Stepper.AUTOHOME_NONE;
+            else
+                stepper.BtnPin = mfBtnPinComboBox.SelectedValue.ToString();
+        }
+
+        private void AutoZeroCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            mfBtnPinComboBox.Enabled = !autoZeroCheckBox.Checked;
+            Value_Changed(mfBtnPinComboBox, new EventArgs());
         }
 
         private void BacklashTextBox_Validating(object sender, CancelEventArgs e)
         {
-            removeError(sender as Control);
+            RemoveError(sender as Control);
 
             if (!(sender as Control).Parent.Enabled) return;
 
@@ -274,20 +292,20 @@ namespace MobiFlight.UI.Panels.Settings.Device
             
             if (value == "")
             {
-                displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
+                DisplayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
                 e.Cancel = true;
                 return;
             }
 
             Int16 number;
             if(!Int16.TryParse(value, out number)) {
-                displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
+                DisplayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
                 e.Cancel = true;
                 return;
             }
         }
 
-        private void displayError(Control control, String message)
+        private void DisplayError(Control control, String message)
         {
             errorProvider.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
             errorProvider.SetError(
@@ -296,7 +314,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             MessageBox.Show(message, i18n._tr("Hint"));
         }
 
-        private void removeError(Control control)
+        private void RemoveError(Control control)
         {
             errorProvider.SetError(
                     control,
