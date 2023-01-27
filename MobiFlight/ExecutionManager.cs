@@ -464,7 +464,7 @@ namespace MobiFlight
                 // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
-                    row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    row.ErrorText = i18n._tr("uiMessageNoXplaneConnection");
                 }
                 // In any other case remove the error message
                 else

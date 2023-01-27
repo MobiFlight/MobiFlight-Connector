@@ -975,6 +975,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No active X-Plane connection.
+        /// </summary>
+        internal static string uiMessageNoXplaneConnection {
+            get {
+                return ResourceManager.GetString("uiMessageNoXplaneConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value must be a number and greater than 0..
         /// </summary>
         internal static string uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0 {
