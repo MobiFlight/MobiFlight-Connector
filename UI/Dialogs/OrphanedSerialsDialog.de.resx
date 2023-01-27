@@ -117,38 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="InfoLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 65</value>
-  </data>
   <data name="InfoLabel.Text" xml:space="preserve">
-    <value>Die aktuelle Konfiguration enthält Verweise zu Modulen, die gerade nicht angeschlossen sind.
-Sie können diese Verweise aktualisieren und angeschlossen Modulen zuweisen.</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="DlgCancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="DlgCancelButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="DlgCancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 3</value>
+    <value>Die geladene Konfiguration enthält Verweise zu Modulen, die nicht angeschlossen sind. Du kannst Verweise aktualisieren und angeschlossen Modulen zuweisen.</value>
   </data>
   <data name="DlgCancelButton.Text" xml:space="preserve">
     <value>Abbrechen</value>
-  </data>
-  <data name="OkButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 3</value>
-  </data>
-  <data name="OkCancelPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 29</value>
-  </data>
-  <data name="orphanedSerialsListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>258, 69</value>
-  </data>
-  <data name="orphanedSerialsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 91</value>
   </data>
   <data name="orphanedSerialsGroupBox.Text" xml:space="preserve">
     <value>Verwaisten Modul-Eintrag auswählen</value>
@@ -156,15 +129,10 @@ Sie können diese Verweise aktualisieren und angeschlossen Modulen zuweisen.</va
   <data name="connectedModulesAssignButton.Text" xml:space="preserve">
     <value>Zuweisen</value>
   </data>
-  <data name="connectedModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>264, 52</value>
-  </data>
   <data name="connectedModulesGroupBox.Text" xml:space="preserve">
     <value>Angeschlossenes Modul auswählen und zuweisen</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>270, 243</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAMAICAAAAEAIAAoEAAANgAAABgYAAABACAAKAkAAF4QAAAQEAAAAQAgACgEAACGGQAAKAAAACAA
