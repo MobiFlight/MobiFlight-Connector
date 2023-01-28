@@ -15,6 +15,7 @@ namespace MobiFlightInstaller
         string install = null;
         string configFile = null;
         string cacheId = "";
+        bool installOnly = false;
 
         public string Install
         {
@@ -35,6 +36,11 @@ namespace MobiFlightInstaller
             get { return expert; }
         }
 
+        public bool InstallOnly
+        {
+            get { return installOnly; }
+        }
+
 
         public string ConfigFile
         {
@@ -52,6 +58,7 @@ namespace MobiFlightInstaller
             check = _hasCfgParam("check", args);
             checkBeta = _hasCfgParam("beta", args);
             expert = _hasCfgParam("expert", args);
+            installOnly = _hasCfgParam("installOnly", args);
 
             configFile = _getCfgParamValue("cfg", args, null);
             cacheId = _getCfgParamValue("cacheId", args, null);

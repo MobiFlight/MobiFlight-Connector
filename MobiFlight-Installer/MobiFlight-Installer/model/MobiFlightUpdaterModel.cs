@@ -27,6 +27,7 @@ namespace MobiFlightInstaller
         public static string InstallerUpdateUrl = ""; // URL to check for installer upgrade, Set to empty to avoid installer autoUpgrade
         public static string InstallerActualVersion = "0.0.0";
         public static int RequestTimeoutInMilliseconds = 5000;
+        public static bool InstallOnly = false;
         
         public static string CacheId = null;
 
@@ -241,7 +242,8 @@ namespace MobiFlightInstaller
             if (!File.Exists(ProcessEXEName))
                 return;
 
-            Process.Start(ProcessEXEName, Args);
+            if (!InstallOnly)
+                Process.Start(ProcessEXEName, Args);
 
             Environment.Exit(0);
         }
