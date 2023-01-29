@@ -1,4 +1,5 @@
 # define name of installer
+Unicode True
 !define APPNAME "MobiFlight Connector"
 OutFile "MobiFlight-Setup.exe"
 
@@ -10,7 +11,6 @@ InstallDir "$LOCALAPPDATA\MobiFlight\${APPNAME}"
  
 # For removing Start Menu shortcut in Windows 7
 RequestExecutionLevel admin
-Unicode True
 
 ; The icon in the top right corner of the installer windows and the desktop icon.
 !define MUI_ICON "..\mobiflight.ico"
@@ -18,6 +18,7 @@ Unicode True
 !define MUI_UNICON "..\mobiflight.ico"
 !define MUI_ABORTWARNING
 ; !insertmacro MUI_PAGE_DIRECTORY
+!define MUI_WELCOMEFINISHPAGE_BITMAP "setup-welcome.bmp"
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_INSTFILES
 
