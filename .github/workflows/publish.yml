@@ -60,6 +60,12 @@ jobs:
       run: (Get-FileHash Release/MobiFlightConnector-${{ github.event.release.tag_name }}.zip -Algorithm SHA1).Hash | Out-File Release/MobiFlightConnector-${{ github.event.release.tag_name }}.sha1 
       shell: pwsh
       
+    - name: Create setup exe
+      uses: joncloud/makensis-action@v4
+      with:
+        script-file: ./Build/setup.nsi
+        arguments: "/V3" 
+      
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
@@ -68,3 +74,4 @@ jobs:
         files: |
           Release/*.zip
           Release/*.sha1
+          Build/MobiFlight-Setup.exe
