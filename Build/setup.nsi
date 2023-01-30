@@ -10,7 +10,7 @@ OutFile "MobiFlight-Setup.exe"
 InstallDir "$LOCALAPPDATA\MobiFlight\${APPNAME}"
  
 # For removing Start Menu shortcut in Windows 7
-RequestExecutionLevel admin
+RequestExecutionLevel user
 
 ; The icon in the top right corner of the installer windows and the desktop icon.
 !define MUI_ICON "..\mobiflight.ico"
@@ -19,6 +19,12 @@ RequestExecutionLevel admin
 !define MUI_ABORTWARNING
 ; !insertmacro MUI_PAGE_DIRECTORY
 !define MUI_WELCOMEFINISHPAGE_BITMAP "setup-welcome.bmp"
+!define MUI_WELCOMEPAGE_TEXT "Setup will guide you through the installation of MobiFlight Connector.$\r$\n\
+$\r$\n\
+You need internet connection to download required packages during installation.$\r$\n\
+$\r$\n\
+Click Install to start the installation."
+
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_INSTFILES
 
@@ -71,11 +77,13 @@ Section "install"
     # point the new shortcut at the program uninstaller
     CreateShortcut "$SMPROGRAMS\${APPNAME}.lnk" "$INSTDIR\MFConnector.exe"
 
-    WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
-    WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$instdir\mobiflight.ico"
-    WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
-    WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoModify" 1
-	WriteRegDWORD HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoRepair" 1
+    WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "Publisher" "MobiFlight"
+    WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayName" "${APPNAME}"
+    WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "DisplayIcon" "$instdir\mobiflight.ico"
+    WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "UninstallString" "$\"$INSTDIR\uninstall.exe$\""
+    WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoModify" 1
+	WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "NoRepair" 1
+    WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" 45000
 SectionEnd
 
 Function un.onInit
@@ -104,6 +112,6 @@ Section "uninstall"
     # Delete all setting files
     RMDir /r $LOCALAPPDATA\MobiFlight
 
-    DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
+    DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
 # uninstaller section end
 SectionEnd
