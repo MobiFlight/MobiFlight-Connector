@@ -239,7 +239,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftGreen" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -253,7 +253,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightGreen" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -267,7 +267,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftRed" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -281,7 +281,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightRed" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -295,7 +295,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseRed" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -309,7 +309,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseGreen" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>

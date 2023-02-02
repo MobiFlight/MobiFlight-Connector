@@ -135,7 +135,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 switch (config.DisplayType)
                 {
-                    case "Pin":
                     case MobiFlightOutput.TYPE:
                         displayPinPanel.syncFromConfig(config);
                         break;
@@ -206,7 +205,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 switch (config.DisplayType)
                 {
-                    case "Pin":
                     case MobiFlightOutput.TYPE:
                         displayPinPanel.syncToConfig(config);
                         break;
@@ -286,8 +284,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
-                
-                if (serial.IndexOf(Joystick.SerialPrefix) == 0)
+                else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                 }
@@ -452,8 +449,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             testSettingsGroupBox.Visible = true;
 
-            if (SelectedItemValue == "Pin" ||
-                SelectedItemValue == MobiFlightOutput.TYPE)
+            if (SelectedItemValue == MobiFlightOutput.TYPE)
             {
                 displayPinPanel.Enabled = panelEnabled;
                 displayPinPanel.Height = displayPanelHeight;
