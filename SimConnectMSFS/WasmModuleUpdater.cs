@@ -27,9 +27,12 @@ namespace MobiFlight.SimConnectMSFS
         public const String WasmEventsSimVarsFolder = @".\presets";
         public const String WasmEventsSimVarsFileName = @"msfs2020_simvars.cip";
 
-        public const String WasmEventHubHHopUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/presets?type=json";
+        public const String WasmEventHubHHopUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/msfs2020/presets?type=json";
         public const String WasmEventsHubHopFolder = @".\presets";
         public const String WasmEventsHubHopFileName = @"msfs2020_hubhop_presets.json";
+
+        public const String WasmEventsXplaneHubHHopUrl = @"https://hubhop-api-mgtm.azure-api.net/api/v1/xplane/presets?type=json";
+        public const String WasmEventsXplaneHubHopFileName = @"xplane_hubhop_presets.json";
 
         public const String WasmModuleName = @"MobiFlightWasmModule.wasm";
         public const String WasmModuleNameOld = @"StandaloneModule.wasm";
@@ -240,22 +243,38 @@ namespace MobiFlight.SimConnectMSFS
             Log.Instance.log("WASM events.txt has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading EventIDs (legacy)";
-            progress.Current = 25;
+            progress.Current = 33;
             DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventsCipUrl), WasmEventsCipFileName, WasmEventsCipFolder)) return false;
             Log.Instance.log("WASM msfs2020_eventids.cip has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading SimVars (legacy)";
-            progress.Current = 50;
+            progress.Current = 66;
             DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventsSimVarsUrl), WasmEventsSimVarsFileName, WasmEventsSimVarsFolder)) return false;
             Log.Instance.log("WASM msfs2020_simvars.cip has been downloaded and installed successfully.", LogSeverity.Debug);
 
-            progress.ProgressMessage = "Downloading HubHop Presets";
-            progress.Current = 75;
+            progress.ProgressMessage = "Downloading done";
+            progress.Current = 100;
+            DownloadAndInstallProgress?.Invoke(this, progress);
+            return true;
+        }
+
+        public bool DownloadHubHopPresets()
+        {
+            ProgressUpdateEvent progress = new ProgressUpdateEvent();
+
+            progress.ProgressMessage = "Downloading HubHop Presets (MSFS2020)";
+            progress.Current = 33;
             DownloadAndInstallProgress?.Invoke(this, progress);
             if (!DownloadSingleFile(new Uri(WasmEventHubHHopUrl), WasmEventsHubHopFileName, WasmEventsHubHopFolder)) return false;
             Log.Instance.log($"WASM {WasmEventsHubHopFileName} has been downloaded and installed successfully.", LogSeverity.Info);
+
+            progress.ProgressMessage = "Downloading HubHop Presets (XPlane)";
+            progress.Current = 66;
+            DownloadAndInstallProgress?.Invoke(this, progress);
+            if (!DownloadSingleFile(new Uri(WasmEventsXplaneHubHHopUrl), WasmEventsXplaneHubHopFileName, WasmEventsHubHopFolder)) return false;
+            Log.Instance.log($"WASM {WasmEventsXplaneHubHopFileName} has been downloaded and installed successfully.", LogSeverity.Info);
 
             progress.ProgressMessage = "Downloading done";
             progress.Current = 100;

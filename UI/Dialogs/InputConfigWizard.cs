@@ -282,23 +282,26 @@ namespace MobiFlight.UI.Dialogs
         {
             config.ModuleSerial = inputModuleNameComboBox.SelectedItem.ToString();
 
-            if (Joystick.IsJoystickSerial(SerialNumber.ExtractSerial(config.ModuleSerial)))
-            {
-                config.Name = (inputTypeComboBox.SelectedItem as ListItem).Value;
-            } else
-            {
-                config.Name = (inputTypeComboBox.SelectedItem as ListItem<BaseDevice>).Value.Name;
-            }  
-
             configRefPanel.syncToConfig(config);
 
             preconditionPanel.syncToConfig(config);
 
             if (config.ModuleSerial == "-") return true;
+            if (inputTypeComboBox.SelectedItem.ToString() != InputConfigItem.TYPE_NOTSET)
+            {
+                if (Joystick.IsJoystickSerial(SerialNumber.ExtractSerial(config.ModuleSerial)))
+                {
+                    config.Name = (inputTypeComboBox.SelectedItem as ListItem).Value;
+                }
+                else
+                {
+                    config.Name = (inputTypeComboBox.SelectedItem as ListItem<BaseDevice>).Value.Name;
+                }
+            }
 
             DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
 
-            if (groupBoxInputSettings.Controls.Count == 0) return false;
+            //if (groupBoxInputSettings.Controls.Count == 0) return false;
 
             switch (currentInputType)
             {
@@ -338,6 +341,11 @@ namespace MobiFlight.UI.Dialogs
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
                     break;
+
+                case DeviceType.NotSet:
+                    config.Type = InputConfigItem.TYPE_NOTSET;
+                    config.Name = InputConfigItem.TYPE_NOTSET;
+                    break;
             }
 
             return true;
@@ -369,20 +377,19 @@ namespace MobiFlight.UI.Dialogs
             ComboBox cb = (sender as ComboBox);
             try
             {
-                // disable test button
-                // in case that no display is selected                
                 String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
                 inputTypeComboBox.Enabled = groupBoxInputSettings.Enabled = (serial != "");
-                // serial is empty if no module is selected (on init of form)
-                //if (serial == "") return;                
 
-                // update the available types depending on the 
-                // type of module
-                
                 inputTypeComboBox.Items.Clear();
                 inputTypeComboBox.ValueMember = "Value";
                 inputTypeComboBox.DisplayMember = "Label";
+
+                inputTypeComboBox.Items.Add(new ListItem<string>() { Label = InputConfigItem.TYPE_NOTSET, Value = InputConfigItem.TYPE_NOTSET});
+                inputTypeComboBox.SelectedIndex = 0;
+
+                if (string.IsNullOrEmpty(serial))
+                    return;
 
                 if (!Joystick.IsJoystickSerial(serial))
                 {
@@ -431,7 +438,6 @@ namespace MobiFlight.UI.Dialogs
                 // third tab
                 if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
                 {
-                    // TODO: provide error message
                     Log.Instance.log($"Problem setting display type ComboBox.", LogSeverity.Error);
                 }
 
@@ -444,7 +450,10 @@ namespace MobiFlight.UI.Dialogs
 
         private DeviceType determineCurrentDeviceType(String serial)
         {
-            DeviceType currentInputType = DeviceType.Button;
+            DeviceType currentInputType = DeviceType.NotSet;
+
+            if (string.IsNullOrEmpty(serial))
+                return currentInputType;
 
             if (!Joystick.IsJoystickSerial(serial)) { 
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
@@ -463,8 +472,12 @@ namespace MobiFlight.UI.Dialogs
             {
                 // We have a joystick 
                 // which right now is only buttons
-                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
+                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.ButtonPrefix))
+                    currentInputType = DeviceType.Button;
+                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
                     currentInputType = DeviceType.AnalogInput;
+                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.PovPrefix))
+                    currentInputType = DeviceType.Button;
             }
 
             return currentInputType;

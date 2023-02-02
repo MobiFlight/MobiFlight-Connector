@@ -126,7 +126,7 @@
     <value>3, 3</value>
   </data>
   <data name="InfoLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 65</value>
+    <value>381, 42</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="InfoLabel.TabIndex" type="System.Int32, mscorlib">
@@ -134,7 +134,7 @@
   </data>
   <data name="InfoLabel.Text" xml:space="preserve">
     <value>The current config file contains module references that are not connected.
-You can assign the orphaned serials to ones that are present at the moment.</value>
+You can update these references with modules present at the moment.</value>
   </data>
   <data name="&gt;&gt;InfoLabel.Name" xml:space="preserve">
     <value>InfoLabel</value>
@@ -148,8 +148,11 @@ You can assign the orphaned serials to ones that are present at the moment.</val
   <data name="&gt;&gt;InfoLabel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="DlgCancelButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="DlgCancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 3</value>
+    <value>303, 3</value>
   </data>
   <data name="DlgCancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -176,7 +179,7 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>Top, Right</value>
   </data>
   <data name="OkButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>109, 3</value>
+    <value>227, 3</value>
   </data>
   <data name="OkButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -203,10 +206,10 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>Bottom</value>
   </data>
   <data name="OkCancelPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 211</value>
+    <value>3, 214</value>
   </data>
   <data name="OkCancelPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 29</value>
+    <value>381, 29</value>
   </data>
   <data name="OkCancelPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -224,7 +227,7 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>2</value>
   </data>
   <data name="orphanedSerialsListBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+    <value>Fill</value>
   </data>
   <data name="orphanedSerialsListBox.Items" xml:space="preserve">
     <value>Module 1 / 0000001101021021</value>
@@ -242,7 +245,7 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>3, 16</value>
   </data>
   <data name="orphanedSerialsListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>257, 69</value>
+    <value>375, 98</value>
   </data>
   <data name="orphanedSerialsListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -263,10 +266,10 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>Fill</value>
   </data>
   <data name="orphanedSerialsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 68</value>
+    <value>3, 45</value>
   </data>
   <data name="orphanedSerialsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 91</value>
+    <value>381, 117</value>
   </data>
   <data name="orphanedSerialsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -286,6 +289,9 @@ You can assign the orphaned serials to ones that are present at the moment.</val
   <data name="&gt;&gt;orphanedSerialsGroupBox.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="connectedModulesAssignButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
   <data name="connectedModulesAssignButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -293,7 +299,7 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>NoControl</value>
   </data>
   <data name="connectedModulesAssignButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 20</value>
+    <value>303, 20</value>
   </data>
   <data name="connectedModulesAssignButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 22</value>
@@ -316,6 +322,9 @@ You can assign the orphaned serials to ones that are present at the moment.</val
   <data name="&gt;&gt;connectedModulesAssignButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="connectedModulesComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="connectedModulesComboBox.Items" xml:space="preserve">
     <value>Arcaze 1 / 2342432131231</value>
   </data>
@@ -329,7 +338,7 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>6, 20</value>
   </data>
   <data name="connectedModulesComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>178, 21</value>
+    <value>296, 21</value>
   </data>
   <data name="connectedModulesComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -350,10 +359,10 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>Bottom</value>
   </data>
   <data name="connectedModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 159</value>
+    <value>3, 162</value>
   </data>
   <data name="connectedModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>263, 52</value>
+    <value>381, 52</value>
   </data>
   <data name="connectedModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -380,7 +389,7 @@ You can assign the orphaned serials to ones that are present at the moment.</val
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>269, 243</value>
+    <value>387, 246</value>
   </data>
   <data name="$this.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>

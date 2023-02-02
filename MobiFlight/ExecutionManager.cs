@@ -464,7 +464,7 @@ namespace MobiFlight
                 // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
-                    row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    row.ErrorText = i18n._tr("uiMessageNoXplaneConnection");
                 }
                 // In any other case remove the error message
                 else
@@ -1306,7 +1306,14 @@ namespace MobiFlight
                         	// item currently created and not saved yet.
                         	if (cfg == null) continue;
                         
-                        	if (cfg.ModuleSerial != null && cfg.ModuleSerial.Contains("/ " + e.Serial) && cfg.Name == e.DeviceId)
+                        	if (cfg.ModuleSerial != null && 
+                                cfg.ModuleSerial.Contains("/ " + e.Serial) && 
+                               (cfg.Name == e.DeviceId || 
+                               // for backward compatibility we have to make this check
+                               // because we used to have the label in the config
+                               // but now we want to store the internal button identifier
+                               // so that the label can change any time without breaking the config
+                               (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.Name == e.DeviceLabel)))
                         	{
                             	// Input shift registers have an additional check to see if the pin that changed matches the pin
                             	// assigned to the row. If not just skip this row. Without this every row that uses the input shift register

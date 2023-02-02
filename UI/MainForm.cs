@@ -120,6 +120,11 @@ namespace MobiFlight.UI
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            // Check for updates before loading anything else
+#if (!DEBUG)
+            AutoUpdateChecker.CheckForUpdate(false, true);
+#endif
+
             if (Properties.Settings.Default.Started == 0)
             {
                 OnFirstStart();
@@ -131,6 +136,7 @@ namespace MobiFlight.UI
             }
 
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
+
 
             // this is everything that used to be directly in the constructor
             inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
@@ -317,9 +323,6 @@ namespace MobiFlight.UI
             runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
-#if (!DEBUG)
-            AutoUpdateChecker.CheckForUpdate(false, true);
-#endif
             CheckForWasmModuleUpdate();
 
             // Track config loaded event
@@ -1694,8 +1697,6 @@ namespace MobiFlight.UI
 
                     if (updater.InstallWasmEvents())
                     {
-                        Msfs2020HubhopPresetListSingleton.Instance.Clear();
-                        XplaneHubhopPresetListSingleton.Instance.Clear();
                         progressForm.DialogResult = DialogResult.OK;
                     }
                     else
@@ -1714,6 +1715,47 @@ namespace MobiFlight.UI
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             } else
+            {
+                TimeoutMessageDialog.Show(
+                    i18n._tr("uiMessageWasmEventsInstallationError"),
+                    i18n._tr("uiMessageWasmUpdater"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+
+            progressForm.Dispose();
+        }
+
+        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            WasmModuleUpdater updater = new WasmModuleUpdater();
+            ProgressForm progressForm = new ProgressForm();
+            Control MainForm = this;
+
+            updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
+            var t = new Task(() => {
+                if (updater.DownloadHubHopPresets())
+                {
+                    Msfs2020HubhopPresetListSingleton.Instance.Clear();
+                    XplaneHubhopPresetListSingleton.Instance.Clear();
+                    progressForm.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    progressForm.DialogResult = DialogResult.No;
+                    Log.Instance.log(i18n._tr("uiMessageHubHopUpdateError"), LogSeverity.Error);
+                }
+            }
+            );
+
+            t.Start();
+            if (progressForm.ShowDialog() == DialogResult.OK)
+            {
+                TimeoutMessageDialog.Show(
+                   i18n._tr("uiMessageHubHopUpdateSuccessful"),
+                   i18n._tr("uiMessageWasmUpdater"),
+                   MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
             {
                 TimeoutMessageDialog.Show(
                     i18n._tr("uiMessageWasmEventsInstallationError"),

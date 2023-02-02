@@ -5,13 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using static MobiFlight.UI.Panels.Settings.Device.MFStepperPanel;
 
 namespace MobiFlight.UI.Panels.OutputWizard
 {
@@ -22,7 +17,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public event EventHandler<EventArgs> DisplayPanelValidatingError;
 
 #if ARCAZE
-        Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
+        Dictionary<String, string> arcazeFirmware = new Dictionary<String, String>();
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
 
@@ -75,7 +70,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayModuleNameComboBox.Items.Add(new ListItem() { Value = "-", Label = "" });
             displayModuleNameComboBox.Items.AddRange(ModuleList.ToArray());
 
-            // Pre selct the first module if there is only one in the list.
+            // Pre select the first module if there is only one in the list.
             if (displayModuleNameComboBox.Items.Count == 2)
                 displayModuleNameComboBox.SelectedIndex = 1;
             else
@@ -135,7 +130,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 if (config.DisplayType != null && !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
-                    // TODO: provide error message
                     Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }
 
@@ -169,11 +163,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             else
             {
-                AnalogInputConfig analogInputConfig = new AnalogInputConfig();
+                var analogInputConfig = new AnalogInputConfig();
                 analogInputConfig.onChange = config.AnalogInputConfig?.onChange;
                 analogPanel1.syncFromConfig(analogInputConfig);
 
-                ButtonInputConfig buttonInputConfig = new ButtonInputConfig();
+                var buttonInputConfig = new ButtonInputConfig();
                 buttonInputConfig.onPress = config.ButtonInputConfig?.onPress;
                 buttonInputConfig.onRelease = config.ButtonInputConfig?.onRelease;
                 buttonPanel1.syncFromConfig(buttonInputConfig);
@@ -208,6 +202,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.DisplayTrigger = "normal";
                 config.DisplaySerial = displayModuleNameComboBox.SelectedItem.ToString();
 
+                if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
 
                 switch (config.DisplayType)
                 {
@@ -264,6 +259,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             // check which extension type is available to current serial
             ComboBox cb = (sender as ComboBox);
             List<ListItem> deviceTypeOptions = new List<ListItem>();
+
             displayTypeComboBox.DataSource = null;
             displayTypeComboBox.Items.Clear();
 
@@ -274,12 +270,23 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
 
-
             try
             {
+
+                // serial is empty if no module is selected (e.g. on init of form)
+                // but we add all available devices to be able to display the 
+                // config even if the module is not currently connected
+                // e.g., when a user shares a config with somebody else.
+                if (serial == "")
+                {
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
+                }
                 
-                // serial is empty if no module is selected (on init of form)
-                //if (serial == "") return;                
                 if (serial.IndexOf(Joystick.SerialPrefix) == 0)
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
@@ -349,6 +356,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                 }
 
+                deviceTypeOptions.Insert(0, new ListItem() { Value = "-", Label = "-" });
+
                 displayTypeComboBox.DataSource = deviceTypeOptions;
                 displayTypeComboBox.ValueMember = "Value";
                 displayTypeComboBox.DisplayMember = "Label";
@@ -382,6 +391,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             try
             {
+                /*if (((sender as ComboBox).SelectedItem as ListItem) == null) return;
+                if (((sender as ComboBox).SelectedItem as ListItem).Value == "-") { return;  }*/
+
                 bool panelEnabled = true;
                 ComboBox cb = displayModuleNameComboBox;
                 String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
@@ -438,6 +450,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             var SelectedItemValue = ((sender as ComboBox).SelectedItem as ListItem)?.Value;
             if (SelectedItemValue == null) return;
 
+            testSettingsGroupBox.Visible = true;
+
             if (SelectedItemValue == "Pin" ||
                 SelectedItemValue == MobiFlightOutput.TYPE)
             {
@@ -480,6 +494,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 displayShiftRegisterPanel.Enabled = panelEnabled;
                 displayShiftRegisterPanel.Height = displayPanelHeight;
+            } else
+            {
+                displayNothingSelectedPanel.Enabled = true;
+                displayNothingSelectedPanel.Height = displayPanelHeight;
+                testSettingsGroupBox.Visible = false;
             }
         }
 
@@ -828,7 +847,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             DisplayTypePanel.Visible = OutputTypeIsDisplay();
             groupBoxDisplaySettings.Visible = OutputTypeIsDisplay();
-            testSettingsGroupBox.Visible = OutputTypeIsDisplay();
 
             InputActionTypePanel.Visible = OutputTypeIsInputAction();
             inputActionGroupBox.Visible = OutputTypeIsInputAction();

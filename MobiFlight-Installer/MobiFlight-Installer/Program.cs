@@ -33,6 +33,7 @@ namespace MobiFlightInstaller
                 Log.Instance.log("Installer start", LogSeverity.Debug);
 
                 CmdLineParams cmdParams = new CmdLineParams(Environment.GetCommandLineArgs());
+                MobiFlightUpdaterModel.InstallOnly = cmdParams.InstallOnly;
 
                 var updateUrl = MobiFlightUpdaterModel.MobiFlightUpdateUrl;
                 if (cmdParams.CacheId != null)

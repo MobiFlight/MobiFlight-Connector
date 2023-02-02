@@ -320,6 +320,10 @@ namespace MobiFlight.Tests
             o2 = _generateConfigItem();
             o2.Servo.MaxRotationPercent = "90";
             Assert.IsFalse(o1.Equals(o2));
+
+            o2 = _generateConfigItem();
+            o2.DisplayType = "nonsense";
+            Assert.IsFalse(o1.Equals(o2));
         }
     }
 }

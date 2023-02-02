@@ -28,6 +28,10 @@ jobs:
       
     - name: Add VSTest to Path
       uses: darenm/Setup-VSTest@v1
+
+    - name: Downgrade NSIS
+      shell: pwsh
+      run: .\Build\downgrade_nsis.ps1
       
     - name: Replace version in AssemblyInfo.cs
       run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ github.event.release.tag_name }}")' | Out-File "Properties/AssemblyInfo.cs"
@@ -60,6 +64,12 @@ jobs:
       run: (Get-FileHash Release/MobiFlightConnector-${{ github.event.release.tag_name }}.zip -Algorithm SHA1).Hash | Out-File Release/MobiFlightConnector-${{ github.event.release.tag_name }}.sha1 
       shell: pwsh
       
+    - name: Create latest setup exe
+      uses: joncloud/makensis-action@v4
+      with:
+        script-file: ./Build/setup.nsi
+        arguments: "/V3" 
+      
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
@@ -68,3 +78,10 @@ jobs:
         files: |
           Release/*.zip
           Release/*.sha1
+
+    - name: store latest setup file
+      uses: actions/upload-artifact@v3
+      with:
+        name: MobiFlight-Setup
+        path: |
+          Build/MobiFlight-Setup.exe

@@ -133,14 +133,14 @@ namespace MobiFlight
                 }
                 else if (IsPOV)
                 {
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (↑)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (↗)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (→)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (↘)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (↓)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (↙)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (←)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name, Label = name + " (↖)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "U", Label = name + " (↑)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "UR", Label = name + " (↗)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "R", Label = name + " (→)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "DR", Label = name + " (↘)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "D", Label = name + " (↓)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "DL", Label = name + " (↙)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "L", Label = name + " (←)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "UL", Label = name + " (↖)", Type = JoystickDeviceType.POV });
                 }
                 else
                 {
@@ -159,9 +159,25 @@ namespace MobiFlight
             return MapDeviceNameToLabel(Regex.Replace(name, @"\d+", v.ToString()).ToString());
         }
 
-        protected virtual string MapDeviceNameToLabel(string deviceName)
+        public virtual string MapDeviceNameToLabel(string deviceName)
         {
-            return deviceName;
+            var result = deviceName;
+
+            if(deviceName.StartsWith(ButtonPrefix))
+            {
+                result = Buttons.Find(b => b.Name == deviceName)?.Label ?? string.Empty;
+            } else if (deviceName.StartsWith(AxisPrefix))
+            {
+                result = Axes.Find(a => a.Name == deviceName)?.Label ?? string.Empty;
+            } else if (deviceName.StartsWith(PovPrefix))
+            {
+                result = POV.Find(p => p.Name == deviceName)?.Label ?? string.Empty;
+            }
+
+            if (result == string.Empty)
+                result = deviceName;
+
+            return result;
         }
 
         public void Connect(IntPtr handle)

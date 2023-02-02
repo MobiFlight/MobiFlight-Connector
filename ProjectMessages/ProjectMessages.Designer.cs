@@ -762,6 +762,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error on downloading HubHop presets. Please check the Log for more information..
+        /// </summary>
+        internal static string uiMessageHubHopUpdateError {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopUpdateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HubHop presets download was successful..
+        /// </summary>
+        internal static string uiMessageHubHopUpdateSuccessful {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopUpdateSuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please check your Arduino IDE installation. The path cannot be used, avrdude has not been found..
         /// </summary>
         internal static string uiMessageInvalidArduinoIdePath {
@@ -957,6 +975,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No active X-Plane connection.
+        /// </summary>
+        internal static string uiMessageNoXplaneConnection {
+            get {
+                return ResourceManager.GetString("uiMessageNoXplaneConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value must be a number and greater than 0..
         /// </summary>
         internal static string uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0 {
@@ -989,6 +1016,24 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageProblemLoadingConfig {
             get {
                 return ResourceManager.GetString("uiMessageProblemLoadingConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to uninstall the MobiFlight firmware? All your data will be removed from the board..
+        /// </summary>
+        internal static string uiMessageResetConfirm {
+            get {
+                return ResourceManager.GetString("uiMessageResetConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset Board.
+        /// </summary>
+        internal static string uiMessageResetHint {
+            get {
+                return ResourceManager.GetString("uiMessageResetHint", resourceCulture);
             }
         }
         
