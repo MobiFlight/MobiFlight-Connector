@@ -186,13 +186,15 @@ namespace MobiFlight
             if (reader.ReadToNextSibling("display"))
             {
                 DisplayType = reader["type"];
-                // preserve backward compatibility
-                if (DisplayType == ArcazeLedDigit.OLDTYPE) DisplayType = ArcazeLedDigit.TYPE;
 
+                // preserve backward compatibility
+                if (DisplayType == "Pin") DisplayType = MobiFlightOutput.TYPE;
+                if (DisplayType == ArcazeLedDigit.OLDTYPE) DisplayType = ArcazeLedDigit.TYPE;
+                
                 DisplaySerial = reader["serial"];
                 DisplayTrigger = reader["trigger"];
 
-                if (DisplayType == MobiFlightOutput.TYPE || DisplayType == "Pin")
+                if (DisplayType == MobiFlightOutput.TYPE)
                 {
                     Pin.ReadXml(reader);
                 }

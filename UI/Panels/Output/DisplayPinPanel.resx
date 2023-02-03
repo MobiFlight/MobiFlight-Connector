@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="displayPortComboBox.Items" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="displayPortComboBox.Items1" xml:space="preserve">
-    <value>7-Segment</value>
-  </data>
-  <data name="displayPortComboBox.Items2" xml:space="preserve">
-    <value>3BCD-8Bit-with-Strobe</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="displayPortComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 3</value>
@@ -485,15 +476,6 @@
   </data>
   <data name="&gt;&gt;pwmPinPanel.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="displayPinComboBox.Items" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="displayPinComboBox.Items1" xml:space="preserve">
-    <value>7-Segment</value>
-  </data>
-  <data name="displayPinComboBox.Items2" xml:space="preserve">
-    <value>3BCD-8Bit-with-Strobe</value>
   </data>
   <data name="displayPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>54, 3</value>

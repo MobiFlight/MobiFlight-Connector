@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplayPanel));
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
             this.InputActionTypePanel = new System.Windows.Forms.Panel();
@@ -46,12 +47,14 @@
             this.displayPinTestButton = new System.Windows.Forms.Button();
             this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
             this.inputActionGroupBox = new System.Windows.Forms.GroupBox();
-            this.buttonPanel1 = new MobiFlight.UI.Panels.Input.ButtonPanel();
-            this.analogPanel1 = new MobiFlight.UI.Panels.Input.AnalogPanel();
             this.AnalogInputActionLabel = new System.Windows.Forms.Label();
             this.ButtonInputActionLabel = new System.Windows.Forms.Label();
             this.OutputDevicePanel = new System.Windows.Forms.Panel();
             this.DisplayPanelTextLabel = new System.Windows.Forms.Label();
+            this.DeviceNotAvailableWarningLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonPanel1 = new MobiFlight.UI.Panels.Input.ButtonPanel();
+            this.analogPanel1 = new MobiFlight.UI.Panels.Input.AnalogPanel();
             this.displayTypeGroupBox.SuspendLayout();
             this.InputActionTypePanel.SuspendLayout();
             this.DisplayTypePanel.SuspendLayout();
@@ -95,6 +98,7 @@
             // 
             // DisplayTypePanel
             // 
+            this.DisplayTypePanel.Controls.Add(this.DeviceNotAvailableWarningLabel);
             this.DisplayTypePanel.Controls.Add(this.arcazeSerialLabel);
             this.DisplayTypePanel.Controls.Add(this.displayModuleNameComboBox);
             this.DisplayTypePanel.Controls.Add(this.displayTypeComboBoxLabel);
@@ -198,16 +202,6 @@
             this.inputActionGroupBox.Name = "inputActionGroupBox";
             this.inputActionGroupBox.TabStop = false;
             // 
-            // buttonPanel1
-            // 
-            resources.ApplyResources(this.buttonPanel1, "buttonPanel1");
-            this.buttonPanel1.Name = "buttonPanel1";
-            // 
-            // analogPanel1
-            // 
-            resources.ApplyResources(this.analogPanel1, "analogPanel1");
-            this.analogPanel1.Name = "analogPanel1";
-            // 
             // AnalogInputActionLabel
             // 
             resources.ApplyResources(this.AnalogInputActionLabel, "AnalogInputActionLabel");
@@ -230,6 +224,22 @@
             // 
             resources.ApplyResources(this.DisplayPanelTextLabel, "DisplayPanelTextLabel");
             this.DisplayPanelTextLabel.Name = "DisplayPanelTextLabel";
+            // 
+            // DeviceNotAvailableWarningLabel
+            // 
+            resources.ApplyResources(this.DeviceNotAvailableWarningLabel, "DeviceNotAvailableWarningLabel");
+            this.DeviceNotAvailableWarningLabel.Name = "DeviceNotAvailableWarningLabel";
+            this.toolTip1.SetToolTip(this.DeviceNotAvailableWarningLabel, resources.GetString("DeviceNotAvailableWarningLabel.ToolTip"));
+            // 
+            // buttonPanel1
+            // 
+            resources.ApplyResources(this.buttonPanel1, "buttonPanel1");
+            this.buttonPanel1.Name = "buttonPanel1";
+            // 
+            // analogPanel1
+            // 
+            resources.ApplyResources(this.analogPanel1, "analogPanel1");
+            this.analogPanel1.Name = "analogPanel1";
             // 
             // DisplayPanel
             // 
@@ -279,5 +289,7 @@
         private Input.ButtonPanel buttonPanel1;
         private System.Windows.Forms.Label AnalogInputActionLabel;
         private System.Windows.Forms.Label ButtonInputActionLabel;
+        private System.Windows.Forms.Label DeviceNotAvailableWarningLabel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

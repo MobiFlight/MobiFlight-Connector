@@ -38,6 +38,7 @@
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.DeviceNotAvailableWarningLabel = new System.Windows.Forms.Label();
             this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
             this.inputModuleNameComboBox = new System.Windows.Forms.ComboBox();
@@ -119,6 +120,7 @@
             // 
             // displayTypeGroupBox
             // 
+            this.displayTypeGroupBox.Controls.Add(this.DeviceNotAvailableWarningLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputPinDropDown);
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputModuleNameComboBox);
@@ -127,6 +129,11 @@
             resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
+            // 
+            // DeviceNotAvailableWarningLabel
+            // 
+            resources.ApplyResources(this.DeviceNotAvailableWarningLabel, "DeviceNotAvailableWarningLabel");
+            this.DeviceNotAvailableWarningLabel.Name = "DeviceNotAvailableWarningLabel";
             // 
             // inputPinDropDown
             // 
@@ -278,5 +285,6 @@
         private Panels.Config.ConfigRefPanel configRefPanel;
         private System.Windows.Forms.ComboBox inputPinDropDown;
         private Panels.Config.PreconditionPanel preconditionPanel;
+        private System.Windows.Forms.Label DeviceNotAvailableWarningLabel;
     }
 }

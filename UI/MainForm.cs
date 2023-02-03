@@ -1372,7 +1372,7 @@ namespace MobiFlight.UI
 
                     if (row["usbArcazePin"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.DisplayType = "Pin";
+                        cfgItem.DisplayType = MobiFlightOutput.TYPE;
                         cfgItem.Pin.DisplayPin = row["usbArcazePin"].ToString();
                     }
 

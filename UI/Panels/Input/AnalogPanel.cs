@@ -17,6 +17,16 @@ namespace MobiFlight.UI.Panels.Input
         InputConfig.AnalogInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
+        public new bool Enabled
+        {
+            get { return onChangeActionTypePanel.Enabled; }
+            set
+            {
+                onChangeActionTypePanel.Enabled = value;
+                onChangeActionConfigPanel.Enabled = value;
+            }
+        }
+
         public AnalogPanel()
         {
             InitializeComponent();

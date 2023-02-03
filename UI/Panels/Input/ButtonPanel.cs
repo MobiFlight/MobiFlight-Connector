@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Config;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace MobiFlight.UI.Panels.Input
 {
@@ -22,6 +23,16 @@ namespace MobiFlight.UI.Panels.Input
         {
             onPressActionTypePanel.OnClipBoardChanged(action);
             onReleaseActionTypePanel.OnClipBoardChanged(action);
+        }
+
+        public new bool Enabled {
+            get { return onPressActionConfigPanel.Enabled;  }
+            set { 
+                onReleaseActionTypePanel.Enabled = value;
+                onPressActionTypePanel.Enabled = value;
+                onPressActionConfigPanel.Enabled = value; 
+                onReleaseActionConfigPanel.Enabled = value;
+            }
         }
         public ButtonPanel()
         {

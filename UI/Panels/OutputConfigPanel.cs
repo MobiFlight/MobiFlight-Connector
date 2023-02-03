@@ -556,8 +556,7 @@ namespace MobiFlight.UI.Panels
                         row["OutputType"] = cfgItem.DisplayType;
 
                         // only exception for the type label
-                        if (cfgItem.DisplayType == "Pin" || 
-                            cfgItem.DisplayType == MobiFlightOutput.TYPE)
+                        if (cfgItem.DisplayType == MobiFlightOutput.TYPE)
                             row["OutputType"] = "LED / Output";
 
                         switch (cfgItem.DisplayType)
@@ -565,7 +564,6 @@ namespace MobiFlight.UI.Panels
                             case MobiFlightLedModule.TYPE:
                                 row["OutputName"] = cfgItem.LedModule.DisplayLedAddress;
                                 break;
-                            case "Pin":
                             case MobiFlightOutput.TYPE:
                                 row["OutputName"] = cfgItem.Pin.DisplayPin;
                                 break;
