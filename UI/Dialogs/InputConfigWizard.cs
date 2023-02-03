@@ -577,7 +577,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
                 }
 
-                DeviceNotAvailableWarningLabel.Visible = (serial == "");
+                DeviceNotAvailableWarningLabel.Visible = (serial == "") && currentInputType != DeviceType.NotSet;
 
                 if (panel != null)
                 {
