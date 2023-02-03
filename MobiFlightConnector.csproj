@@ -131,35 +131,41 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
-    <Reference Include="fsuipcClient, Version=3.2.25.395, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
-      <HintPath>packages\FSUIPCClientDLL.3.2.25\lib\net40\fsuipcClient.dll</HintPath>
+    <Reference Include="fsuipcClient, Version=3.3.3.403, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
+      <HintPath>packages\FSUIPCClientDLL.3.3.3\lib\net462\fsuipcClient.dll</HintPath>
     </Reference>
     <Reference Include="HidSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\HidSharp.2.1.0\lib\net35\HidSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.20.0.103, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.20.0.103, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.2.20.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.2.21.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1370.28, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1370.28\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1370.28, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1370.28\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1370.28, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1370.28\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>packages\protobuf-net.3.1.33\lib\net462\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>packages\protobuf-net.Core.3.1.33\lib\net462\protobuf-net.Core.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
@@ -171,14 +177,17 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
     </Reference>
-    <Reference Include="System.CodeDom, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.CodeDom.6.0.0\lib\net461\System.CodeDom.dll</HintPath>
+    <Reference Include="System.CodeDom, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.CodeDom.7.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Collections.Immutable.7.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.7.0.0\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -1524,15 +1533,15 @@ xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
 del "$(TargetDir)\log.txt"
 del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.20.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
-    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1370.28\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1370.28\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
   </Target>
-  <Import Project="packages\Microsoft.Web.WebView2.1.0.1370.28\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1370.28\build\Microsoft.Web.WebView2.targets')" />
+  <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
