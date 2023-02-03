@@ -448,7 +448,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             testSettingsGroupBox.Visible = true;
 
-            DeviceNotAvailableWarningLabel.Visible = serial == "" && SelectedItemValue != "-";
+            DeviceNotAvailableWarningLabel.Visible = serial == "" && SelectedItemValue != "-" && config != null;
 
             if (SelectedItemValue == MobiFlightOutput.TYPE)
             {
