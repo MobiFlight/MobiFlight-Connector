@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Input;
+using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -246,7 +247,7 @@ namespace MobiFlight.UI.Dialogs
             if (!ComboBoxHelper.SetSelectedItemByValue(inputTypeComboBox, config.Name))
             {
                 // TODO: provide error message
-                Log.Instance.log("Exception on selecting item in display type ComboBox.", LogSeverity.Error);
+                Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.Name}", LogSeverity.Error);
             }
 
             preconditionPanel.syncFromConfig(config);
@@ -379,19 +380,38 @@ namespace MobiFlight.UI.Dialogs
             {
                 String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
 
-                inputTypeComboBox.Enabled = groupBoxInputSettings.Enabled = (serial != "");
-
                 inputTypeComboBox.Items.Clear();
                 inputTypeComboBox.ValueMember = "Value";
                 inputTypeComboBox.DisplayMember = "Label";
 
                 inputTypeComboBox.Items.Add(new ListItem<string>() { Label = InputConfigItem.TYPE_NOTSET, Value = InputConfigItem.TYPE_NOTSET});
                 inputTypeComboBox.SelectedIndex = 0;
+                inputTypeComboBox.Enabled = true;
 
                 if (string.IsNullOrEmpty(serial))
-                    return;
+                {
+                    Config.BaseDevice device = null;
 
-                if (!Joystick.IsJoystickSerial(serial))
+                    if (config.button != null)
+                    {
+                        device = new Config.Button();
+                    } else if (config.encoder!= null)
+                    {
+                        device = new Config.Encoder();
+                    }
+                    else if (config.analog != null)
+                    {
+                        device = new Config.AnalogInput();
+                    }
+
+                    if (device != null)
+                    {
+                        device.Name = config.Name;
+                        inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
+                    }
+                    inputTypeComboBox.Enabled = false;
+                }
+                else if (!Joystick.IsJoystickSerial(serial))
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
@@ -438,7 +458,7 @@ namespace MobiFlight.UI.Dialogs
                 // third tab
                 if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
                 {
-                    Log.Instance.log($"Problem setting display type ComboBox.", LogSeverity.Error);
+                    Log.Instance.log($"Problem setting input type ComboBox. {config.Name}", LogSeverity.Error);
                 }
 
             }
@@ -453,9 +473,13 @@ namespace MobiFlight.UI.Dialogs
             DeviceType currentInputType = DeviceType.NotSet;
 
             if (string.IsNullOrEmpty(serial))
-                return currentInputType;
+            {
+                var device = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>)?.Value as Config.BaseDevice;
 
-            if (!Joystick.IsJoystickSerial(serial)) { 
+                if (device == null || string.IsNullOrEmpty(device?.Name))
+                    return currentInputType;
+                currentInputType = device.Type;
+            } else if (!Joystick.IsJoystickSerial(serial)) { 
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
                 // find the correct input type based on the name
@@ -504,20 +528,29 @@ namespace MobiFlight.UI.Dialogs
                 switch (currentInputType)
                 {
                     case DeviceType.Button:
-                        panel = new Panels.Input.ButtonPanel();
+                        panel = new Panels.Input.ButtonPanel()
+                        {
+                            Enabled = (serial != "")
+                        };
                         (panel as Panels.Input.ButtonPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.button);
                         break;
 
                     case DeviceType.Encoder:
-                        panel = new Panels.Input.EncoderPanel();
+                        panel = new Panels.Input.EncoderPanel()
+                        {
+                            Enabled = (serial != "")
+                        };
                         (panel as Panels.Input.EncoderPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
 
                     case DeviceType.InputShiftRegister:
                         Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputShiftRegister;
-                        panel = new Panels.Input.InputShiftRegisterPanel();
+                        panel = new Panels.Input.InputShiftRegisterPanel()
+                        {
+                            Enabled = (serial != "")
+                        };
                         (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.ExtPin);
                         inputPinDropDown.Visible = true;
@@ -525,18 +558,26 @@ namespace MobiFlight.UI.Dialogs
 
                     case DeviceType.InputMultiplexer:
                         Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputMultiplexer;
-                        panel = new Panels.Input.InputMultiplexerPanel();
+                        panel = new Panels.Input.InputMultiplexerPanel()
+                        {
+                            Enabled = (serial != "")
+                        };
                         (panel as Panels.Input.InputMultiplexerPanel).syncFromConfig(config.inputMultiplexer);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.DataPin);
                         inputPinDropDown.Visible = true;
                         break;
 
                     case DeviceType.AnalogInput:
-                        panel = new Panels.Input.AnalogPanel();
+                        panel = new Panels.Input.AnalogPanel()
+                        {
+                            Enabled = (serial != "")
+                        };
                         (panel as Panels.Input.AnalogPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;
                 }
+
+                DeviceNotAvailableWarningLabel.Visible = (serial == "");
 
                 if (panel != null)
                 {

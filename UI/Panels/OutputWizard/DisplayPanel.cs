@@ -365,7 +365,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (config == null) return;
                 config.DisplaySerial = rawSerial;
 
-
                 // third tab
                 if (config.DisplayType != null && 
                     !ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
@@ -448,6 +447,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             if (SelectedItemValue == null) return;
 
             testSettingsGroupBox.Visible = true;
+
+            DeviceNotAvailableWarningLabel.Visible = serial == "" && SelectedItemValue != "-";
 
             if (SelectedItemValue == MobiFlightOutput.TYPE)
             {

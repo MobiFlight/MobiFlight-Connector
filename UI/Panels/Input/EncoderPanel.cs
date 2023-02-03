@@ -17,7 +17,21 @@ namespace MobiFlight.UI.Panels.Input
     {
         InputConfig.EncoderInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
-
+        public new bool Enabled
+        {
+            get { return onLeftActionTypePanel.Enabled; }
+            set
+            {
+                onLeftActionTypePanel.Enabled = value;
+                onLeftFastActionTypePanel.Enabled = value;
+                onRightActionTypePanel.Enabled = value;
+                onRightFastActionTypePanel.Enabled = value;
+                onLeftActionConfigPanel.Enabled = value;
+                onLeftFastActionConfigPanel.Enabled = value;
+                onRightActionConfigPanel.Enabled = value;
+                onRightFastActionConfigPanel.Enabled = value;
+            }
+        }
 
         private void clipBoardActionChanged(InputAction action)
         {
