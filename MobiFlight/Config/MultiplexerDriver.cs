@@ -31,12 +31,8 @@ namespace MobiFlight.Config
 
         public bool registerClient()
         {
-            bool res = false;
-            if (_initCounter > 0) {
-                _initCounter++;
-                res = true;
-            }
-            return res;
+            _initCounter++;
+            return true;
         }
 
         public bool unregisterClient()
@@ -49,19 +45,17 @@ namespace MobiFlight.Config
             return res;
         }
 
-        public bool Initialize(String[] pinNos)
+        public bool SetPins(String[] pinNos)
         {
             if (pinNos.Length < 4) return false;
             for (var i = 0; i < 4; i++) {
                 if (!byte.TryParse(pinNos[i], out byte result))
                 {
-                    Log.Instance.log($"Unable to convert multiplexer pin number \"{pinNos[i]}\" to a byte.", LogSeverity.Error);
+                    Log.Instance.log($"Unable to convert multiplexer selector pin number \"{pinNos[i]}\" to a byte. Multiplexer driver is probably not correctly initialized.", LogSeverity.Error);
                     return false;
                 }
-                if ((result) < 0) return false;
             }
             Array.Copy(pinNos, PinSx, 4); 
-            if(_initCounter == 0) _initCounter++;
             return true;
         }
 
@@ -109,10 +103,9 @@ namespace MobiFlight.Config
                 pins[1] = paramList[2];
                 pins[2] = paramList[3];
                 pins[3] = paramList[4];
-                res = Initialize(pins);
-            } else {
-                _initCounter++;
+                res = SetPins(pins);
             }
+            registerClient();
 
             return res;
         }
