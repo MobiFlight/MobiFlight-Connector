@@ -33,6 +33,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         MobiFlightCache mobiflightCache;
 
+        // Since we are working on GUI objects, and adding a specific reference to a MultiplexerDriver would be awkward,
+        // we use a match table to associate MultiplexerDrivers and Modules 
         private Dictionary<string, MobiFlight.Config.MultiplexerDriver> moduleMultiplexerDrivers = new Dictionary<string, MobiFlight.Config.MultiplexerDriver>();
 
         public MobiFlightPanel()
@@ -332,8 +334,7 @@ namespace MobiFlight.UI.Panels.Settings
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
 
-                    // MultiplexerDrivers should not appear in the tree, therefore they are stored in a dictionary 
-                    // (by module name) for easy retrieval
+                    // MultiplexerDrivers exist as items in the device list, but they should not appear in the GUI
                     if(device.Type == DeviceType.MultiplexerDriver) {
                         moduleMultiplexerDrivers.Add(moduleNode.Text, device as MobiFlight.Config.MultiplexerDriver);
                     } else {
@@ -436,10 +437,7 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFInputMultiplexerPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
                             break;
 
-                        //case DeviceType.MultiplexerDriver:
-                        //    panel = new MFMultiplexerDriverPanel (dev as MobiFlight.Config.MultiplexerDriver, module.GetPins());
-                        //    (panel as MFMultiplexerDriverPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
-                        //    break;
+                        // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
 
                         // output
                     }
@@ -791,11 +789,20 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
+            // Saves the configuration of the current module to a file
+
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             newConfig.ModuleName = module.Name;
+
+            // These lines are only required if the multiplexerDriver is handled
+            // as a proper device (with its own config line):
+            //var multiplexerDriver = findModuleMultiplexerDriver(false);
+            //if (multiplexerDriver != null) {
+            //    newConfig.Items.Add(multiplexerDriver as MobiFlight.Config.BaseDevice);
+            //}
 
             foreach (TreeNode node in moduleNode.Nodes)
             {
@@ -1024,6 +1031,12 @@ namespace MobiFlight.UI.Panels.Settings
             return device.isMuxClient;
         }
 
+        /// <summary>
+        /// Helper function to return the MultiplexerDriver device belonging to the current module
+        /// Initializes module values if not yet done
+        /// </summary>
+        /// <param name="addIfNotFound">if true, an element will be created if none exists</param>
+        /// <returns>Object if existing, null otherwise</returns>
         private MobiFlight.Config.MultiplexerDriver findModuleMultiplexerDriver(bool addIfNotFound)
         {
             MobiFlight.Config.MultiplexerDriver moduleMultiplexerDriver;

@@ -1325,6 +1325,8 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[3]));
                         break;
 
+                    // If the multiplexerDriver is to be handled as a regular device
+                    // but explicitly defined by its own config line, following 'case' is required:
                     //case DeviceType.MultiplexerDriver:
                     //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[0]));
                     //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[1]));
