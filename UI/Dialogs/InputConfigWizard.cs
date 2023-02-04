@@ -1,19 +1,29 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.Config;
+using MobiFlight.UI.Panels.Input;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using MobiFlight.Base;
-using MobiFlight.Config;
-using MobiFlight.UI.Panels.Input;
-using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI.Dialogs
 {
     public partial class InputConfigWizard : Form
     {
+        struct ButtonStyle
+        {
+            public Color BackColor;
+            public Color ForeColor;
+            public Color BorderColor;
+        }
+
         public event EventHandler PreconditionTreeNodeChanged;
         public event EventHandler SettingsDialogRequested;
+
+        protected bool ScanningForInput = false;
 
         static int lastTabActive = 0;
 
@@ -36,6 +46,9 @@ namespace MobiFlight.UI.Dialogs
         UI.Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new UI.Panels.DisplayLedDisplayPanel();
         UI.Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new UI.Panels.DisplayNothingSelectedPanel();
         UI.Panels.ServoPanel servoPanel = new UI.Panels.ServoPanel();
+
+        ButtonStyle ScanForInputButtonDefaultStyle;
+        Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
 
         bool IsShown = false;
 
@@ -60,6 +73,11 @@ namespace MobiFlight.UI.Dialogs
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
             initConfigRefDropDowns(dataSetConfig, filterGuid);
             _loadPresets();
+
+            // remember the default style of the button
+            ScanForInputButtonDefaultStyle.BackColor = ScanForInputButton.BackColor;
+            ScanForInputButtonDefaultStyle.ForeColor = ScanForInputButton.ForeColor;
+            ScanForInputButtonDefaultStyle.BorderColor = ScanForInputButton.FlatAppearance.BorderColor;
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
@@ -718,7 +736,108 @@ namespace MobiFlight.UI.Dialogs
 
         private void InputConfigWizard_FormClosing(object sender, FormClosingEventArgs e)
         {
+            DeactivateScanForInputMode();
             groupBoxInputSettings.Dispose();
+        }
+
+        private void ScanForInputButton_Click(object sender, EventArgs e)
+        {
+            if (!ScanningForInput)
+            {
+                ActivateScanForInputMode();
+            } else
+            {
+                DeactivateScanForInputMode();
+            }
+        }
+
+        private void ActivateScanForInputMode()
+        {
+            ScanningForInput = true;
+            ScanForInputButton.BackColor = Color.FromArgb(55, 110, 220);
+            ScanForInputButton.ForeColor = Color.White;
+            ScanForInputButton.FlatAppearance.BorderColor = Color.FromArgb(55, 110, 220);
+            ScanForInputButton.Text = "Scanning...";
+            _execManager.getMobiFlightModuleCache().OnButtonPressed += ScanforInput_OnButtonPressed;
+            _execManager.GetJoystickManager().OnButtonPressed += ScanforInput_OnButtonPressed;
+        }
+
+        private void DeactivateScanForInputMode()
+        {
+            ScanningForInput = false;
+            _execManager.getMobiFlightModuleCache().OnButtonPressed -= ScanforInput_OnButtonPressed;
+            _execManager.GetJoystickManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
+
+            ScanForInputButton.BackColor = ScanForInputButtonDefaultStyle.BackColor;
+            ScanForInputButton.ForeColor = ScanForInputButtonDefaultStyle.ForeColor;
+            ScanForInputButton.FlatAppearance.BorderColor = ScanForInputButtonDefaultStyle.BorderColor;
+            ScanForInputButton.Text = "Scan for input";
+
+            ScanForInputThreshold.Clear();
+            // remove focus from button
+            // to make it look like before clicking on it
+            ScanForInputButton.Parent.Focus();
+        }
+
+        // required for correct thread-safe entry
+        // into the ScanforInput_OnButtonPressed method
+        delegate void ScanforInput_OnButtonPressedCallback(object sender, InputEventArgs e);
+
+        private void ScanforInput_OnButtonPressed(object sender, InputEventArgs e)
+        {
+            if (!InputThresholdIsExceeded(e)) return;
+
+            if (inputModuleNameComboBox.InvokeRequired)
+            {
+                inputModuleNameComboBox.BeginInvoke(new ScanforInput_OnButtonPressedCallback(ScanforInput_OnButtonPressed), new object[] { sender, e });
+                return;
+            }
+
+            var module = inputModuleNameComboBox.Items.Cast<ListItem>().Where(i => i.Value.ToString().Contains(e.Serial)).First();
+
+            if (module == null) { return; }
+            inputModuleNameComboBox.SelectedItem = module;
+
+            // try to set the device
+            if (!SerialNumber.IsJoystickSerial(e.Serial))
+            {
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceId);
+                // if multiplexer or inputshiftregister set the sub item too
+                if (e.Type == DeviceType.InputMultiplexer || e.Type == DeviceType.InputShiftRegister)
+                {
+                    ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.ExtPin.ToString());
+                }
+            }
+            else
+            {
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
+            }
+                
+
+            DeactivateScanForInputMode();
+        }
+
+        private bool InputThresholdIsExceeded(InputEventArgs e)
+        {
+            if (SerialNumber.IsJoystickSerial(e.Serial) &&
+                e.DeviceId.Contains(Joystick.AxisPrefix))
+            {
+                if (ScanForInputThreshold.ContainsKey(e.Serial + e.DeviceId))
+                {
+                    if (Math.Abs(e.Value - ScanForInputThreshold[e.Serial + e.DeviceId]) < 500)
+                    {
+                        ScanForInputThreshold[e.Serial + e.DeviceId] = e.Value;
+                        return false;
+                    }
+                }
+                else
+                {
+                    ScanForInputThreshold[e.Serial + e.DeviceId] = e.Value;
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
