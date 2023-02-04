@@ -32,9 +32,7 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
-            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
             this.configRefTabPage = new System.Windows.Forms.TabPage();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
@@ -51,6 +49,9 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.ScanForInputButton = new System.Windows.Forms.Button();
+            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -86,22 +87,12 @@
             this.preconditionTabPage.Name = "preconditionTabPage";
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
-            // preconditionPanel
-            // 
-            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
-            this.preconditionPanel.Name = "preconditionPanel";
-            // 
             // configRefTabPage
             // 
             this.configRefTabPage.Controls.Add(this.configRefPanel);
             resources.ApplyResources(this.configRefTabPage, "configRefTabPage");
             this.configRefTabPage.Name = "configRefTabPage";
             this.configRefTabPage.UseVisualStyleBackColor = true;
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // displayTabPage
             // 
@@ -120,6 +111,7 @@
             // 
             // displayTypeGroupBox
             // 
+            this.displayTypeGroupBox.Controls.Add(this.ScanForInputButton);
             this.displayTypeGroupBox.Controls.Add(this.DeviceNotAvailableWarningLabel);
             this.displayTypeGroupBox.Controls.Add(this.inputPinDropDown);
             this.displayTypeGroupBox.Controls.Add(this.arcazeSerialLabel);
@@ -227,6 +219,23 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // ScanForInputButton
+            // 
+            resources.ApplyResources(this.ScanForInputButton, "ScanForInputButton");
+            this.ScanForInputButton.Name = "ScanForInputButton";
+            this.ScanForInputButton.UseVisualStyleBackColor = true;
+            this.ScanForInputButton.Click += new System.EventHandler(this.ScanForInputButton_Click);
+            // 
+            // preconditionPanel
+            // 
+            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
+            this.preconditionPanel.Name = "preconditionPanel";
+            // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -286,5 +295,6 @@
         private System.Windows.Forms.ComboBox inputPinDropDown;
         private Panels.Config.PreconditionPanel preconditionPanel;
         private System.Windows.Forms.Label DeviceNotAvailableWarningLabel;
+        private System.Windows.Forms.Button ScanForInputButton;
     }
 }

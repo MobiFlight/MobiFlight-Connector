@@ -559,7 +559,7 @@
     <value>6, 374</value>
   </data>
   <data name="compareSpacerPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 277</value>
+    <value>652, 277</value>
   </data>
   <data name="compareSpacerPanel.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -586,7 +586,7 @@
     <value>1, 1, 1, 1</value>
   </data>
   <data name="interpolationPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>598, 130</value>
+    <value>646, 130</value>
   </data>
   <data name="interpolationPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -619,7 +619,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="interpolationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>598, 23</value>
+    <value>646, 23</value>
   </data>
   <data name="interpolationCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -646,7 +646,7 @@
     <value>6, 202</value>
   </data>
   <data name="interpolationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 172</value>
+    <value>652, 172</value>
   </data>
   <data name="interpolationGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -868,7 +868,7 @@
     <value>6, 36</value>
   </data>
   <data name="comparisonSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>592, 96</value>
+    <value>640, 96</value>
   </data>
   <data name="comparisonSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -898,7 +898,7 @@
     <value>6, 19</value>
   </data>
   <data name="comparisonActiveCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>592, 17</value>
+    <value>640, 17</value>
   </data>
   <data name="comparisonActiveCheckBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -928,7 +928,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="comparisonSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 138</value>
+    <value>652, 138</value>
   </data>
   <data name="comparisonSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -961,7 +961,7 @@
     <value>True</value>
   </data>
   <data name="comparisonHintTtextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 58</value>
+    <value>652, 58</value>
   </data>
   <data name="comparisonHintTtextBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -989,7 +989,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>616, 657</value>
+    <value>664, 657</value>
   </data>
   <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1019,7 +1019,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="displayPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 645</value>
+    <value>652, 645</value>
   </data>
   <data name="displayPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1043,7 +1043,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>616, 657</value>
+    <value>664, 657</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1073,7 +1073,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>604, 645</value>
+    <value>652, 645</value>
   </data>
   <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1097,7 +1097,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>616, 657</value>
+    <value>664, 657</value>
   </data>
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
