@@ -155,6 +155,8 @@ namespace MobiFlight.Config
                                 // (in this case InputMultiplexer) will provide them
                                 // Treat the MultiplexerDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
+                            } else {
+                                multiplexerDriver.registerClient();
                             }
                             currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
