@@ -1,8 +1,8 @@
 ﻿{
   "$schema": "./mfhid.schema.json",
   "InstanceName": "Saitek Aviator Stick",
-  "VendorId": 0x06a3,
-  "ProductId": 0x0461,
+  "VendorId": 1699,
+  "ProductId": 1121,
   "Inputs": [
     {
       "Name": "Button 5",
