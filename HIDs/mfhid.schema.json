@@ -1,0 +1,94 @@
+{
+  "definitions": {},
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://mobiflight.com/hid.schema.json",
+  "title": "Root",
+  "type": "object",
+  "required": ["InstanceName"],
+  "properties": {
+    "InstanceName": {
+      "$id": "#root/InstanceName",
+      "title": "InstanceName",
+      "type": "string",
+      "description": "Instance name for the device. This is used to match the definition with a connected device."
+    },
+    "Inputs": {
+      "$id": "#root/Inputs",
+      "title": "Inputs",
+      "description": "List of inputs supported by the device.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/Inputs/items",
+        "title": "Items",
+        "type": "object",
+        "required": ["Name", "Label"],
+        "properties": {
+          "Name": {
+            "$id": "#root/Inputs/items/Name",
+            "title": "Name",
+            "description": "Device's name for the input.",
+            "type": "string"
+          },
+          "Label": {
+            "$id": "#root/Inputs/items/Label",
+            "title": "Label",
+            "description": "Label for the input.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Outputs": {
+      "$id": "#root/Outputs",
+      "title": "Outputs",
+      "description": "List of outputs supported by the device.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/Outputs/items",
+        "title": "Items",
+        "type": "object",
+        "required": ["Name", "Label"],
+        "properties": {
+          "Name": {
+            "$id": "#root/Inputs/items/Name",
+            "title": "Name",
+            "description": "Device's name for the input.",
+            "type": "string"
+          },
+          "Label": {
+            "$id": "#root/Inputs/items/Label",
+            "title": "Label",
+            "description": "Label for the input.",
+            "type": "string"
+          },
+          "Byte": {
+            "$id": "#root/Inputs/items/Byte",
+            "title": "Byte",
+            "description": "Byte location of the output.",
+            "type": "number"
+          },
+          "Bit": {
+            "$id": "#root/Inputs/items/Bit",
+            "title": "Bit",
+            "description": "Bit location within the byte of the output.",
+            "type": "number"
+          }
+        }
+      }
+    },
+    "ProductId": {
+      "$id": "#Root/InstanceName",
+      "title": "InstanceName",
+      "type": "number",
+      "description": "Instance name for the device. This is used to match the definition with a connected device."
+    },
+    "VendorId": {
+      "$id": "#Root/InstanceName",
+      "title": "InstanceName",
+      "type": "number",
+      "description": "Instance name for the device. This is used to match the definition with a connected device."
+    }
+  }
+}
