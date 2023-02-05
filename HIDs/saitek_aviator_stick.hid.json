@@ -1,0 +1,16 @@
+﻿{
+  "InstanceName": "Saitek Aviator Stick",
+  "Inputs": [
+    { "Name": "Button 5", "Label": "Button - T1" },
+    { "Name": "Button 6", "Label": "Button - T2" },
+    { "Name": "Button 7", "Label": "Button - T3" },
+    { "Name": "Button 8", "Label": "Button - T4" },
+    { "Name": "Button 9", "Label": "Button - T5" },
+    { "Name": "Button 10", "Label": "Button - T6" },
+    { "Name": "Button 11", "Label": "Button - T7" },
+    { "Name": "Button 12", "Label": "Button - T8" },
+    { "Name": "Button 13", "Label": "Mode A" },
+    { "Name": "Button 14", "Label": "Mode B" }
+  ],
+  "Outputs": []
+}

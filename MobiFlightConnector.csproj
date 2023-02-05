@@ -262,6 +262,10 @@
     <Compile Include="MobiFlight\Joystick.cs" />
     <Compile Include="MobiFlight\JoystickManager.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidDefinition.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidDefinitions.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidInput.cs" />
+    <Compile Include="MobiFlight\Joysticks\HidOutput.cs" />
     <Compile Include="MobiFlight\Joysticks\LabeledJoystick.cs" />
     <Compile Include="MobiFlight\Joysticks\SaitekAviatorStick.cs" />
     <Compile Include="MobiFlight\Joysticks\HoneycombBravo.cs" />
@@ -931,6 +935,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.raspberry_pico_1_0_2.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="HIDs\honeycomb_bravo.hid.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="HIDs\saitek_aviator_stick.hid.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_simvars.cip">

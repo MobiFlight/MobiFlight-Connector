@@ -12,12 +12,13 @@ namespace MobiFlight
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         Timer PollTimer = new Timer();
-        List<Joystick> joysticks = new List<Joystick>();
+        readonly List<Joystick> joysticks = new List<Joystick>();
 
         public JoystickManager ()
         {
             PollTimer.Interval = 50;
             PollTimer.Tick += PollTimer_Tick;
+            HidDefinitions.Load();
         }
 
         public bool JoysticksConnected()
@@ -34,7 +35,7 @@ namespace MobiFlight
                         js?.Update();
                     }
                 }
-            } catch (InvalidOperationException ex)
+            } catch (InvalidOperationException)
             {
                 // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
             }
@@ -77,12 +78,17 @@ namespace MobiFlight
                 if (!IsSupportedDeviceType(d)) continue;
 
                 MobiFlight.Joystick js;
+
+                // Look up the custom device definition file for the joystick. Currently this is only used for
+                // explicitly supported joysticks.
+                var definition = HidDefinitions.GetHidByInstanceName(d.InstanceName);
+
                 if (d.InstanceName == "Bravo Throttle Quadrant")
                 {
-                    js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
+                    js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
                 } else if (d.InstanceName == "Saitek Aviator Stick")
                 {
-                    js = new Joysticks.SaitekAviatorStick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
+                    js = new Joysticks.SaitekAviatorStick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
                 }
                 else
                 {
