@@ -32,6 +32,12 @@ namespace MobiFlight.Joysticks
 
         protected override void SendData(byte[] data)
         {
+            // Don't try and send data if no outputs are defined.
+            if (Definition.Outputs == null || Definition.Outputs.Count == 0)
+            {
+                return;
+            }
+
             if (!RequiresOutputUpdate) return;
             if (Stream == null)
             {
