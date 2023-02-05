@@ -1,7 +1,11 @@
-﻿using SharpDX.DirectInput;
+﻿using HidSharp;
+using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace MobiFlight
 {
@@ -50,7 +54,8 @@ namespace MobiFlight
         public event ButtonEventHandler OnButtonPressed;
         public event ButtonEventHandler OnAxisChanged;
         public event EventHandler OnDisconnected;
-        private SharpDX.DirectInput.Joystick joystick;
+        private readonly SharpDX.DirectInput.Joystick joystick;
+        private readonly JoystickDefinition definition;
         JoystickState state = null;
         protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
         protected List<JoystickDevice> Axes = new List<JoystickDevice>();
@@ -58,6 +63,9 @@ namespace MobiFlight
         protected List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
         protected bool RequiresOutputUpdate = false;
         public static string[] AxisNames = { "X", "Y", "Z", "RotationX", "RotationY", "RotationZ", "Slider1", "Slider2"};
+        private HidStream Stream;
+        private HidDevice Device;
+
 
         public static bool IsJoystickSerial(string serial)
         {
@@ -84,9 +92,10 @@ namespace MobiFlight
             }
         }
 
-        public Joystick(SharpDX.DirectInput.Joystick joystick)
+        public Joystick(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition)
         {
             this.joystick = joystick;
+            this.definition = definition;
         }
 
         protected virtual void EnumerateDevices()
@@ -95,7 +104,6 @@ namespace MobiFlight
             {
 
                 this.joystick.GetObjectInfoById(device.ObjectId);
-
 
                 int offset = device.Offset;
                 int usage = device.Usage;
@@ -159,11 +167,18 @@ namespace MobiFlight
             return MapDeviceNameToLabel(Regex.Replace(name, @"\d+", v.ToString()).ToString());
         }
 
-        public virtual string MapDeviceNameToLabel(string deviceName)
+        public string MapDeviceNameToLabel(string deviceName)
         {
-            var result = deviceName;
+            // First try and look for a custom label.
+            var input = definition?.FindInputByName(deviceName);
+            if (input != null)
+            {
+                return input.Label;
+            }
 
-            if(deviceName.StartsWith(ButtonPrefix))
+            string result = string.Empty;
+             
+            if (deviceName.StartsWith(ButtonPrefix))
             {
                 result = Buttons.Find(b => b.Name == deviceName)?.Label ?? string.Empty;
             } else if (deviceName.StartsWith(AxisPrefix))
@@ -189,9 +204,11 @@ namespace MobiFlight
             joystick.Acquire();            
         }
 
-        virtual protected void EnumerateOutputDevices()
+        private void EnumerateOutputDevices()
         {
             Lights.Clear();
+            
+            definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Name, Byte = output.Byte, Bit = output.Bit }));
             return;
         }
 
@@ -216,12 +233,41 @@ namespace MobiFlight
 
         protected virtual List<JoystickDevice> GetButtonsSorted()
         {
+            var buttons = Buttons.ToArray().ToList();
+            buttons.Sort(SortByPositionInDefintion);
             return Buttons;
         }
 
         protected virtual List<JoystickDevice> GetAxisSorted()
         {
+            var axes = Axes.ToArray().ToList();
+            Axes.Sort(SortByPositionInDefintion);
+
             return Axes;
+        }
+
+        public int GetIndexForKey(string key)
+        {
+            return definition?.Inputs?.FindIndex(input => input.Name == key) ?? 0;
+        }
+
+        int SortByPositionInDefintion(JoystickDevice b1, JoystickDevice b2)
+        {
+            if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
+            if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
+            return -1;
+        }
+
+
+        private void Connect()
+        {
+            if (Device == null)
+            {
+                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: definition.VendorId, productID: definition.ProductId);
+                if (Device == null) return;
+            }
+
+            Stream = Device.Open();
         }
 
         public List<ListItem> GetAvailableOutputDevices()
@@ -409,6 +455,19 @@ namespace MobiFlight
 
         protected virtual void SendData(byte[] data)
         {
+            // Don't try and send data if no outputs are defined.
+            if (definition?.Outputs == null || definition?.Outputs.Count == 0)
+            {
+                return;
+            }
+
+            if (!RequiresOutputUpdate) return;
+            if (Stream == null)
+            {
+                Connect();
+            };
+            Stream.SetFeature(data);
+
             RequiresOutputUpdate = false;
         }
 

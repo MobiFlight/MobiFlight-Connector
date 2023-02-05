@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class HidOutput
+    public class JoystickOutput
     {
         /// <summary>
         ///  Display name for the output.
