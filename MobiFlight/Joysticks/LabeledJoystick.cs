@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HidSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,13 +7,38 @@ namespace MobiFlight.Joysticks
 {
     public class LabeledJoystick : Joystick
     {
+        HidStream Stream { get; set; }
+        HidDevice Device { get; set; }
+
         protected Dictionary<string, string> Labels = new Dictionary<string, string>();
         readonly public HidDefinition Definition;
 
         public LabeledJoystick(SharpDX.DirectInput.Joystick joystick, HidDefinition definition) : base(joystick) 
         {
             Definition = definition;
-            Definition?.Inputs.ForEach(input => Labels.Add(input.Name, input.Label));
+            Definition?.Inputs?.ForEach(input => Labels.Add(input.Name, input.Label));
+        }
+
+        private void Connect()
+        {
+            if (Device == null)
+            {
+                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: Definition.VendorId, productID: Definition.ProductId);
+                if (Device == null) return;
+            }
+
+            Stream = Device.Open();
+        }
+
+        protected override void SendData(byte[] data)
+        {
+            if (!RequiresOutputUpdate) return;
+            if (Stream == null)
+            {
+                Connect();
+            };
+            Stream.SetFeature(data);
+            base.SendData(data);
         }
 
         protected override List<JoystickDevice> GetButtonsSorted()
@@ -26,13 +52,12 @@ namespace MobiFlight.Joysticks
         protected override void EnumerateOutputDevices()
         {
             base.EnumerateOutputDevices();
-            Definition?.Outputs.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Name, Byte = output.Byte, Bit = output.Bit }));
+            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Name, Byte = output.Byte, Bit = output.Bit }));
         }
 
         public override string MapDeviceNameToLabel(string name)
         {
-            var result = name;
-
+            string result;
             if (Labels.ContainsKey(name))
                 result = Labels[name];
             else

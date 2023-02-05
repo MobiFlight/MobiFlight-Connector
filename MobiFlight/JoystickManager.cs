@@ -11,7 +11,7 @@ namespace MobiFlight
     {
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        Timer PollTimer = new Timer();
+        readonly Timer PollTimer = new Timer();
         readonly List<Joystick> joysticks = new List<Joystick>();
 
         public JoystickManager ()
@@ -79,14 +79,11 @@ namespace MobiFlight
 
                 MobiFlight.Joystick js;
 
-                // Look up the custom device definition file for the joystick. Currently this is only used for
-                // explicitly supported joysticks.
+                // Look up the custom device definition file for the joystick. If it exists then a LabeledJoystick
+                // can get created with nicely named inputs and outputs.
                 var definition = HidDefinitions.GetHidByInstanceName(d.InstanceName);
 
-                if (d.InstanceName == "Bravo Throttle Quadrant")
-                {
-                    js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
-                } else if (d.InstanceName == "Saitek Aviator Stick")
+                if (definition != null)
                 {
                     js = new Joysticks.LabeledJoystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
                 }
