@@ -935,6 +935,9 @@
     <None Include="firmware\reset.raspberry_pico_1_0_2.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="HIDs\honeycomb_alpha.hid.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="HIDs\honeycomb_bravo.hid.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
