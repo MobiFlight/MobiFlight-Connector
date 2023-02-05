@@ -5,12 +5,8 @@ namespace MobiFlight.Joysticks
 {
     internal class HoneycombBravo : LabeledJoystick
     {
-        int VendorId = 0x294B;
-        int ProductId = 0x1901;
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
-
-        readonly HidDefinition Definition;
 
         public HoneycombBravo(SharpDX.DirectInput.Joystick joystick, HidDefinition definition) : base(joystick, definition) {
         }
@@ -19,7 +15,7 @@ namespace MobiFlight.Joysticks
         {
             if (Device == null)
             {
-                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: Definition.VendorId, productID: Definition.ProductId);
                 if (Device == null) return;
             }
 

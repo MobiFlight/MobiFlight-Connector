@@ -1,5 +1,7 @@
 {
   "InstanceName": "Bravo Throttle Quadrant",
+  "VendorId": 0x294B,
+  "ProductId": 0x1901,
   "Inputs": [
     {
       "Name": "Button 17",
@@ -215,13 +217,48 @@
     }
   ],
   "Outputs": [
-    { "Label": "AP Mode - HDG", "Name": "AP.hdg", "Byte": 1, "Bit": 0 },
-    { "Label": "AP Mode - NAV", "Name": "AP.nav", "Byte": 1, "Bit": 1 },
-    { "Label": "AP Mode - APR", "Name": "AP.apr", "Byte": 1, "Bit": 2 },
-    { "Label": "AP Mode - REV", "Name": "AP.rev", "Byte": 1, "Bit": 3 },
-    { "Label": "AP Mode - ALT", "Name": "AP.alt", "Byte": 1, "Bit": 4 },
-    { "Label": "AP Mode - VS", "Name": "AP.vs", "Byte": 1, "Bit": 5 },
-    { "Label": "AP Mode - IAS", "Name": "AP.ias", "Byte": 1, "Bit": 6 },
+    {
+      "Label": "AP Mode - HDG",
+      "Name": "AP.hdg",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "AP Mode - NAV",
+      "Name": "AP.nav",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "AP Mode - APR",
+      "Name": "AP.apr",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "AP Mode - REV",
+      "Name": "AP.rev",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "AP Mode - ALT",
+      "Name": "AP.alt",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "AP Mode - VS",
+      "Name": "AP.vs",
+      "Byte": 1,
+      "Bit": 5
+    },
+    {
+      "Label": "AP Mode - IAS",
+      "Name": "AP.ias",
+      "Byte": 1,
+      "Bit": 6
+    },
     {
       "Label": "AP Mode - On/Off",
       "Name": "AP.autopilot",
@@ -234,7 +271,12 @@
       "Byte": 2,
       "Bit": 0
     },
-    { "Label": "Gear - Left Red", "Name": "Gear.LeftRed", "Byte": 2, "Bit": 1 },
+    {
+      "Label": "Gear - Left Red",
+      "Name": "Gear.LeftRed",
+      "Byte": 2,
+      "Bit": 1
+    },
     {
       "Label": "Gear - Center Green",
       "Name": "Gear.CenterGreen",
@@ -295,14 +337,24 @@
       "Byte": 3,
       "Bit": 3
     },
-    { "Label": "Lights - APU", "Name": "Light.APU", "Byte": 3, "Bit": 4 },
+    {
+      "Label": "Lights - APU",
+      "Name": "Light.APU",
+      "Byte": 3,
+      "Bit": 4
+    },
     {
       "Label": "Lights - Master Caution",
       "Name": "Light.MasterCaution",
       "Byte": 3,
       "Bit": 5
     },
-    { "Label": "Lights - Vacuum", "Name": "Light.Vacuum", "Byte": 3, "Bit": 6 },
+    {
+      "Label": "Lights - Vacuum",
+      "Name": "Light.Vacuum",
+      "Byte": 3,
+      "Bit": 6
+    },
     {
       "Label": "Lights - Low Hyd Pressure",
       "Name": "Light.LowHydPressURE",
@@ -327,6 +379,11 @@
       "Byte": 4,
       "Bit": 2
     },
-    { "Label": "Lights - Door", "Name": "Lights.door", "Byte": 4, "Bit": 3 }
+    {
+      "Label": "Lights - Door",
+      "Name": "Lights.door",
+      "Byte": 4,
+      "Bit": 3
+    }
   ]
 }
