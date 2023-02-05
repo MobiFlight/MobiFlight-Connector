@@ -1,8 +1,8 @@
 {
   "$schema": "./mfhid.schema.json",
   "InstanceName": "Bravo Throttle Quadrant",
-  "VendorId": "0x294B",
-  "ProductId": "0x1901",
+  "VendorId": 10571,
+  "ProductId": 6401,
   "Inputs": [
     {
       "Name": "Button 17",
