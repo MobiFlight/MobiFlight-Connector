@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class HidInput
+    public class JoystickInput
     {
         /// <summary>
         /// Display value for the input.
