@@ -7,7 +7,7 @@ namespace MobiFlight.Joysticks
     public class LabeledJoystick : Joystick
     {
         protected Dictionary<string, string> Labels = new Dictionary<string, string>();
-        readonly private HidDefinition Definition;
+        readonly public HidDefinition Definition;
 
         public LabeledJoystick(SharpDX.DirectInput.Joystick joystick, HidDefinition definition) : base(joystick) 
         {
