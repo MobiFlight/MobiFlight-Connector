@@ -88,7 +88,7 @@ namespace MobiFlight
                     js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
                 } else if (d.InstanceName == "Saitek Aviator Stick")
                 {
-                    js = new Joysticks.SaitekAviatorStick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
+                    js = new Joysticks.LabeledJoystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), definition);
                 }
                 else
                 {

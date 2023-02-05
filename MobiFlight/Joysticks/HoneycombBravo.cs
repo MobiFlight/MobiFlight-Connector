@@ -10,13 +10,9 @@ namespace MobiFlight.Joysticks
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
 
-        HidDefinition Definition { get; set; }
+        readonly HidDefinition Definition;
 
-        public HoneycombBravo(SharpDX.DirectInput.Joystick joystick, HidDefinition definition) : base(joystick) {
-            Definition = definition;
-            Labels = new Dictionary<string, string>();
-
-            definition.Inputs.ForEach(input => Labels.Add(input.Name, input.Label));           
+        public HoneycombBravo(SharpDX.DirectInput.Joystick joystick, HidDefinition definition) : base(joystick, definition) {
         }
 
         public void Connect()
@@ -39,12 +35,6 @@ namespace MobiFlight.Joysticks
             };
             Stream.SetFeature(data);
             base.SendData(data);
-        }
-
-        protected override void EnumerateOutputDevices()
-        {
-            base.EnumerateOutputDevices();
-            Definition.Outputs.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Name, Byte = output.Byte, Bit = output.Bit }));
         }
     }
 }

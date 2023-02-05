@@ -267,7 +267,6 @@
     <Compile Include="MobiFlight\Joysticks\HidInput.cs" />
     <Compile Include="MobiFlight\Joysticks\HidOutput.cs" />
     <Compile Include="MobiFlight\Joysticks\LabeledJoystick.cs" />
-    <Compile Include="MobiFlight\Joysticks\SaitekAviatorStick.cs" />
     <Compile Include="MobiFlight\Joysticks\HoneycombBravo.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
