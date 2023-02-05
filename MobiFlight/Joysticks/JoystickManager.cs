@@ -35,18 +35,18 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// Loads all HID definitions from disk.
+        /// Loads all joystick definitions from disk.
         /// </summary>
         private void LoadDefinitions()
         {
-            foreach (var definitionFile in Directory.GetFiles("HIDs", "*.hid.json"))
+            foreach (var definitionFile in Directory.GetFiles("Joysticks", "*.joystick.json"))
             {
                 try
                 {
-                    var hid = JsonConvert.DeserializeObject<JoystickDefinition>(File.ReadAllText(definitionFile));
-                    hid.Migrate();
-                    Definitions.Add(hid);
-                    Log.Instance.log($"Loaded HID definition for {hid.InstanceName}", LogSeverity.Info);
+                    var joystick = JsonConvert.DeserializeObject<JoystickDefinition>(File.ReadAllText(definitionFile));
+                    joystick.Migrate();
+                    Definitions.Add(joystick);
+                    Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info);
                 }
                 catch (Exception ex)
                 {
