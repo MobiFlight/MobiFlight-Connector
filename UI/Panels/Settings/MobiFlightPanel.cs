@@ -1036,7 +1036,7 @@ namespace MobiFlight.UI.Panels.Settings
         /// Initializes module values if not yet done
         /// </summary>
         /// <param name="addIfNotFound">if true, an element will be created if none exists</param>
-        /// <returns>Object if existing, null otherwise</returns>
+        /// <returns>Object</returns>
         private MobiFlight.Config.MultiplexerDriver findModuleMultiplexerDriver(bool addIfNotFound)
         {
             MobiFlight.Config.MultiplexerDriver moduleMultiplexerDriver;
