@@ -157,9 +157,11 @@ namespace MobiFlight.Config
                                 // the FromInternal() of the client (in this case InputMultiplexer) will provide them.
                                 // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
-                            } else {
-                                multiplexerDriver.registerClient();
+                            //} else {
+                            //    multiplexerDriver.registerClient();
                             }
+                            multiplexerDriver.FromInternal(InputMultiplexer.GetMultiplexerDriverConfig(item + BaseDevice.End));
+
                             currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
