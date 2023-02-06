@@ -134,6 +134,10 @@
     },
     {
       "Name": "Button 30",
+      "Label": "Lever 3 - Reverser"
+    },
+    {
+      "Name": "Button 48",
       "Label": "Lever 4 - Reverser"
     },
     {
