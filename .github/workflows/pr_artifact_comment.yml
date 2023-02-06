@@ -1,0 +1,19 @@
+name: Add artifact links to pull request
+on:
+  workflow_run:
+    workflows: [RunTests]
+    types: [completed]
+
+jobs:
+  artifacts-url-comments:
+    name: Add artifact links to pull request
+    runs-on: windows-2019
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: tonyhallett/artifacts-url-comments@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          prefix: "Build for this pull request:"
+          format: "[MobiFlightConnector.zip]({url})"
+          addTo: pull
