@@ -1,4 +1,4 @@
-name: Add firmware links to pull request
+name: Add artifact links to pull request
 on:
   workflow_run:
     workflows: [RunTests]
