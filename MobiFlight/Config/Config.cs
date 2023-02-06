@@ -153,8 +153,6 @@ namespace MobiFlight.Config
                             if (multiplexerDriver == null) {
                                 // Store it, so another clients will not create a new one
                                 multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
-                                // multiplexerDriver is not yet initialized with pin numbers:
-                                // the FromInternal() of the client (in this case InputMultiplexer) will provide them.
                                 // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
                             //} else {
