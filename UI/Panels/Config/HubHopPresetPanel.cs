@@ -1,4 +1,5 @@
-﻿using MobiFlight.HubHop;
+﻿using MobiFlight.Base;
+using MobiFlight.HubHop;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
@@ -230,7 +231,7 @@ namespace MobiFlight.UI.Panels.Config
                 Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
 
                 config.SimConnectValue.UUID = selectedPreset?.id;
-                config.SimConnectValue.Value = SimVarNameTextBox.Text;
+                config.SimConnectValue.Value = SimVarNameTextBox.Text.ToLF();
             } else if (FlightSimType == FlightSimType.XPLANE)
             {
                 config.XplaneDataRef.Path = SimVarNameTextBox.Text;
@@ -253,7 +254,7 @@ namespace MobiFlight.UI.Panels.Config
                 new InputConfig.MSFS2020CustomInputAction()
                 {
                     PresetId = selectedPreset?.id,
-                    Command = SimVarNameTextBox.Text
+                    Command = SimVarNameTextBox.Text.ToLF()
                 };
             return result;
         }
@@ -301,7 +302,7 @@ namespace MobiFlight.UI.Panels.Config
             // Restore the code
             if (config.SimConnectValue.Value != "") { 
                 SimVarNameTextBox.TextChanged -= SimVarNameTextBox_TextChanged;
-                SimVarNameTextBox.Text = config.SimConnectValue.Value;
+                SimVarNameTextBox.Text = config.SimConnectValue.Value.ToCRLF();
                 SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             }
 
@@ -334,7 +335,7 @@ namespace MobiFlight.UI.Panels.Config
             if (inputAction == null || inputAction.Command == "") return;
 
             // Restore the code
-            SimVarNameTextBox.Text = inputAction.Command;
+            SimVarNameTextBox.Text = inputAction.Command.ToCRLF();
 
             if (inputAction.PresetId != null)
             {
@@ -377,7 +378,7 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             // Restore the code
-            SimVarNameTextBox.Text = OriginalCode;
+            SimVarNameTextBox.Text = OriginalCode.ToCRLF();
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }
 
@@ -435,7 +436,7 @@ namespace MobiFlight.UI.Panels.Config
             Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == selectedItem.id);
             if (selectedPreset == null) return;
             DescriptionLabel.Text = selectedPreset?.description;
-            SimVarNameTextBox.Text = selectedPreset?.code;
+            SimVarNameTextBox.Text = selectedPreset?.code?.ToCRLF();
             
             if (FlightSimType==FlightSimType.XPLANE)
             {

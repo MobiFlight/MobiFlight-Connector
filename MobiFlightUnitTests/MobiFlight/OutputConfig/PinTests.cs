@@ -89,7 +89,7 @@ namespace MobiFlight.OutputConfig.Tests
             o.DisplayPinPWM = true;
 
             xmlWriter.WriteStartElement("display");
-                xmlWriter.WriteAttributeString("type", "Pin");
+                xmlWriter.WriteAttributeString("type", MobiFlightOutput.TYPE);
                 xmlWriter.WriteAttributeString("serial", "DisplaySerial");
                 xmlWriter.WriteAttributeString("trigger", "normal");
                 o.WriteXml(xmlWriter);

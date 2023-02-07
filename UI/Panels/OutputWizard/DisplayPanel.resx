@@ -193,7 +193,7 @@
     <value>3, 100</value>
   </data>
   <data name="InputActionTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 29</value>
+    <value>615, 29</value>
   </data>
   <data name="InputActionTypePanel.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -208,6 +208,39 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;InputActionTypePanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>395, 34</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>217, 18</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.Text" xml:space="preserve">
+    <value>Board not connected, config read-only!</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="DeviceNotAvailableWarningLabel.ToolTip" xml:space="preserve">
+    <value>Board is currently not connected, and the device is not available.</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.Name" xml:space="preserve">
+    <value>DeviceNotAvailableWarningLabel</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.Parent" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -238,7 +271,7 @@
     <value>DisplayTypePanel</value>
   </data>
   <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="displayModuleNameComboBox.Items" xml:space="preserve">
     <value>Modul A</value>
@@ -265,7 +298,7 @@
     <value>DisplayTypePanel</value>
   </data>
   <data name="&gt;&gt;displayModuleNameComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="displayTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -295,7 +328,7 @@
     <value>DisplayTypePanel</value>
   </data>
   <data name="&gt;&gt;displayTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="displayTypeComboBox.Items" xml:space="preserve">
     <value>Pin</value>
@@ -325,7 +358,7 @@
     <value>DisplayTypePanel</value>
   </data>
   <data name="&gt;&gt;displayTypeComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="DisplayTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -334,7 +367,7 @@
     <value>3, 43</value>
   </data>
   <data name="DisplayTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 57</value>
+    <value>615, 57</value>
   </data>
   <data name="DisplayTypePanel.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -415,7 +448,7 @@
     <value>3, 16</value>
   </data>
   <data name="OutputTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 27</value>
+    <value>615, 27</value>
   </data>
   <data name="OutputTypePanel.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -442,7 +475,7 @@
     <value>0, 200</value>
   </data>
   <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 132</value>
+    <value>621, 132</value>
   </data>
   <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -475,7 +508,7 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinTestStopButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>305, 12</value>
+    <value>469, 12</value>
   </data>
   <data name="displayPinTestStopButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 23</value>
@@ -514,7 +547,7 @@
     <value>NoControl</value>
   </data>
   <data name="displayPinTestButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>241, 12</value>
+    <value>405, 12</value>
   </data>
   <data name="displayPinTestButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 23</value>
@@ -547,10 +580,10 @@
     <value>Top</value>
   </data>
   <data name="testSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 137</value>
+    <value>0, 151</value>
   </data>
   <data name="testSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 40</value>
+    <value>621, 40</value>
   </data>
   <data name="testSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -583,7 +616,7 @@
     <value>0, 132</value>
   </data>
   <data name="groupBoxDisplaySettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 5</value>
+    <value>621, 19</value>
   </data>
   <data name="groupBoxDisplaySettings.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -622,7 +655,7 @@
     <value>300, 0</value>
   </data>
   <data name="buttonPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 194</value>
+    <value>615, 180</value>
   </data>
   <data name="buttonPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -655,7 +688,7 @@
     <value>300, 0</value>
   </data>
   <data name="analogPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 194</value>
+    <value>615, 180</value>
   </data>
   <data name="analogPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -685,7 +718,7 @@
     <value>5, 5, 5, 5</value>
   </data>
   <data name="AnalogInputActionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 37</value>
+    <value>615, 37</value>
   </data>
   <data name="AnalogInputActionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -719,7 +752,7 @@ You can reference the current config value with @ (not $).</value>
     <value>5, 5, 5, 5</value>
   </data>
   <data name="ButtonInputActionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>451, 37</value>
+    <value>615, 37</value>
   </data>
   <data name="ButtonInputActionLabel.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
@@ -744,13 +777,13 @@ Value can be "1" or "0" to trigger "OnPress" and "OnRelease" respectively. </val
     <value>Fill</value>
   </data>
   <data name="inputActionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 213</value>
+    <value>0, 227</value>
   </data>
   <data name="inputActionGroupBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>0, 80</value>
   </data>
   <data name="inputActionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 287</value>
+    <value>621, 273</value>
   </data>
   <data name="inputActionGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
@@ -780,7 +813,7 @@ Value can be "1" or "0" to trigger "OnPress" and "OnRelease" respectively. </val
     <value>0, 36</value>
   </data>
   <data name="OutputDevicePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 177</value>
+    <value>621, 191</value>
   </data>
   <data name="OutputDevicePanel.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
@@ -810,7 +843,7 @@ Value can be "1" or "0" to trigger "OnPress" and "OnRelease" respectively. </val
     <value>0, 5, 0, 0</value>
   </data>
   <data name="DisplayPanelTextLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 36</value>
+    <value>621, 36</value>
   </data>
   <data name="DisplayPanelTextLabel.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -837,7 +870,13 @@ Value can be "1" or "0" to trigger "OnPress" and "OnRelease" respectively. </val
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>457, 500</value>
+    <value>621, 500</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>DisplayPanel</value>

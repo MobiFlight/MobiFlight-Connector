@@ -84,7 +84,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Pin" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
+        <display type="Output" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -98,7 +98,7 @@
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="16383" operand="=" ifValue="0" elseValue="" />
         </modifiers>
-        <display type="Pin" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
+        <display type="Output" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>

@@ -139,7 +139,7 @@
     <value>preconditionPanel</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.5.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>
@@ -187,7 +187,7 @@
     <value>5, 5, 5, 5</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>580, 573</value>
+    <value>664, 629</value>
   </data>
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -196,7 +196,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.5.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>configRefTabPage</value>
@@ -208,7 +208,7 @@
     <value>4, 22</value>
   </data>
   <data name="configRefTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>580, 573</value>
+    <value>664, 629</value>
   </data>
   <data name="configRefTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -241,7 +241,7 @@
     <value>3, 111</value>
   </data>
   <data name="groupBoxInputSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>574, 459</value>
+    <value>658, 515</value>
   </data>
   <data name="groupBoxInputSettings.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -260,6 +260,63 @@
   </data>
   <data name="&gt;&gt;groupBoxInputSettings.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="ScanForInputButton.FlatStyle" type="System.Windows.Forms.FlatStyle, System.Windows.Forms">
+    <value>Flat</value>
+  </data>
+  <data name="ScanForInputButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ScanForInputButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>388, 20</value>
+  </data>
+  <data name="ScanForInputButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>85, 21</value>
+  </data>
+  <data name="ScanForInputButton.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="ScanForInputButton.Text" xml:space="preserve">
+    <value>Scan for input</value>
+  </data>
+  <data name="&gt;&gt;ScanForInputButton.Name" xml:space="preserve">
+    <value>ScanForInputButton</value>
+  </data>
+  <data name="&gt;&gt;ScanForInputButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ScanForInputButton.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ScanForInputButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>385, 48</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 18</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="DeviceNotAvailableWarningLabel.Text" xml:space="preserve">
+    <value>Board not connected, config read-only!</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.Name" xml:space="preserve">
+    <value>DeviceNotAvailableWarningLabel</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.Parent" xml:space="preserve">
+    <value>displayTypeGroupBox</value>
+  </data>
+  <data name="&gt;&gt;DeviceNotAvailableWarningLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="inputPinDropDown.Location" type="System.Drawing.Point, System.Drawing">
     <value>334, 45</value>
@@ -280,7 +337,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputPinDropDown.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="arcazeSerialLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -310,7 +367,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;arcazeSerialLabel.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="inputModuleNameComboBox.Items" xml:space="preserve">
     <value>Modul A</value>
@@ -337,7 +394,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputModuleNameComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="inputTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -367,7 +424,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="inputTypeComboBox.Items" xml:space="preserve">
     <value>Pin</value>
@@ -397,7 +454,7 @@
     <value>displayTypeGroupBox</value>
   </data>
   <data name="&gt;&gt;inputTypeComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="displayTypeGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -406,7 +463,7 @@
     <value>3, 36</value>
   </data>
   <data name="displayTypeGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>574, 75</value>
+    <value>658, 75</value>
   </data>
   <data name="displayTypeGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -439,7 +496,7 @@
     <value>True</value>
   </data>
   <data name="displayTabTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>574, 33</value>
+    <value>658, 33</value>
   </data>
   <data name="displayTabTextBox.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -466,7 +523,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>580, 573</value>
+    <value>664, 629</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>

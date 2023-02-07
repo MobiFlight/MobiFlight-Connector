@@ -17,6 +17,17 @@ namespace MobiFlight.UI.Panels.Input
         public event EventHandler<EventArgs> OnPanelChanged;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         InputConfig.InputShiftRegisterConfig _config;
+
+        public new bool Enabled
+        {
+            get { return onPressActionConfigPanel.Enabled; }
+            set
+            {
+                onPressActionConfigPanel.Enabled = value;
+                onReleaseActionConfigPanel.Enabled = value;
+            }
+        }
+
         private void clipBoardActionChanged(InputAction action)
         {
             onPressActionTypePanel.OnClipBoardChanged(action);
