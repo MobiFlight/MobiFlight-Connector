@@ -48,7 +48,7 @@ namespace MobiFlight.UI.Panels
 
         internal void SetSelectedPinsFromString(string pins, string serial)
         {
-            if (serial != null && serial.Contains('/'))
+            if (SerialNumber.IsRawSerial(serial))
             {
                 serial = SerialNumber.ExtractSerial(serial);
             }
