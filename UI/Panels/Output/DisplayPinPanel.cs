@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,7 +91,7 @@ namespace MobiFlight.UI.Panels
             String serial = config.DisplaySerial;
             if (serial != null && serial.Contains('/'))
             {
-                serial = serial.Split('/')[1].Trim();
+                serial = SerialNumber.ExtractSerial(serial);
             }
 
             if (config.Pin.DisplayPin != null && config.Pin.DisplayPin != "")

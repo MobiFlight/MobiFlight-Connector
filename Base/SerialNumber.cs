@@ -34,12 +34,19 @@ namespace MobiFlight.Base
 
         public static bool IsMobiFlightSerial(string serial)
         {
+            if (serial == null || serial == "") return false;
             return (serial.IndexOf("SN") == 0);
         }
 
         public static bool IsJoystickSerial(string serial)
         {
+            if (serial == null || serial == "") return false;
             return (serial.IndexOf(Joystick.SerialPrefix) == 0);
+        }
+
+        public static bool IsRawSerial(string serial)
+        {
+            return (serial != null && serial.Contains(SerialSeparator));
         }
     }
 }
