@@ -213,7 +213,7 @@ namespace MobiFlight.UI.Dialogs
 
                 DisplayModuleList.Add(new ListItem()
                 {
-                    Value = joystick.Name + " / " + joystick.Serial,
+                    Value = $"{joystick.Name} ${SerialNumber.SerialSeparator}${joystick.Serial}",
                     Label = $"{joystick.Name}"
                 });
 

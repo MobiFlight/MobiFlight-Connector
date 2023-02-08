@@ -1,31 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace MobiFlight.Base
 {
     public static class SerialNumber
     {
+        public const string SerialSeparator = "/ ";
+
         public static string ExtractSerial(String s)
         {
+            string[] serialSeparator = { SerialSeparator };
             if (s == null) return "";
 
-            if (!s.Contains("/")) return "";
+            if (!s.Contains(SerialSeparator)) return "";
 
-            return s.Split('/')[1].Trim();
+            var tokens = s.Split(serialSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+            return tokens.Last().Trim();
         }
 
         public static string ExtractDeviceName(String s)
         {
+            string[] serialSeparator = { SerialSeparator };
             if (s == null) return "";
 
-            if (!s.Contains("/")) return "";
+            if (!s.Contains(SerialSeparator)) return "";
 
-            return s.Split('/')[0].Trim();
+            var tokens = s.Split(serialSeparator, StringSplitOptions.None);
+            tokens = tokens.Take(tokens.Length - 1).ToArray();
+
+            return String.Join("", tokens).Trim();
         }
 
         public static bool IsMobiFlightSerial(string serial)
