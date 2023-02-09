@@ -5,17 +5,20 @@
   "title": "Root",
   "type": "object",
   "required": ["InstanceName"],
+  "dependentRequired": {
+    "Outputs": ["VendorId", "ProductId"]
+  },
   "properties": {
     "InstanceName": {
       "$id": "#root/InstanceName",
       "title": "InstanceName",
       "type": "string",
-      "description": "Instance name for the device. This is used to match the definition with a connected device."
+      "description": "Instance name for the device. Required. This is used to match the definition with a connected device."
     },
     "Inputs": {
       "$id": "#root/Inputs",
       "title": "Inputs",
-      "description": "List of inputs supported by the device.",
+      "description": "List of inputs supported by the device. Optional.",
       "type": "array",
       "default": [],
       "items": {
@@ -42,7 +45,7 @@
     "Outputs": {
       "$id": "#root/Outputs",
       "title": "Outputs",
-      "description": "List of outputs supported by the device.",
+      "description": "List of outputs supported by the device. Optional.",
       "type": "array",
       "default": [],
       "items": {
@@ -79,16 +82,16 @@
       }
     },
     "ProductId": {
-      "$id": "#Root/InstanceName",
-      "title": "InstanceName",
+      "$id": "#Root/VendorId",
+      "title": "VendorId",
       "type": "number",
-      "description": "Instance name for the device. This is used to match the definition with a connected device."
+      "description": "The device's USB VendorId. Required if Outputs are provided."
     },
     "VendorId": {
-      "$id": "#Root/InstanceName",
-      "title": "InstanceName",
+      "$id": "#Root/ProductId",
+      "title": "ProductId",
       "type": "number",
-      "description": "Instance name for the device. This is used to match the definition with a connected device."
+      "description": "The device's USB ProductId. Required if Outputs are provided."
     }
   }
 }

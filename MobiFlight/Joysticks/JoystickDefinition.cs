@@ -21,11 +21,11 @@ namespace MobiFlight
         /// </summary>
         public List<JoystickOutput> Outputs;
         /// <summary>
-        /// The device's ProductId.
+        /// The device's USB ProductId. Required if Outputs are provided.
         /// </summary>
         public int ProductId;
         /// <summary>
-        /// The device's VendorId.
+        /// The device's USB VendorId. Required if Outputs are provided.
         /// </summary>
         public int VendorId;
 
