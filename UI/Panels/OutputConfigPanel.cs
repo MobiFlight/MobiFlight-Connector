@@ -1,4 +1,5 @@
-﻿using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.Base;
+using MobiFlight.UI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -551,7 +552,7 @@ namespace MobiFlight.UI.Panels
                     row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
                     if (cfgItem.DisplaySerial != null && cfgItem.DisplaySerial != "-")
                     {
-                        row["arcazeSerial"] = cfgItem.DisplaySerial.ToString().Split('/')[0];
+                        row["arcazeSerial"] = SerialNumber.ExtractDeviceName(cfgItem.DisplaySerial);
                     
                         row["OutputType"] = cfgItem.DisplayType;
 

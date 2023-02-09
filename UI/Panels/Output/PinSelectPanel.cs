@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels
 {
@@ -47,9 +48,9 @@ namespace MobiFlight.UI.Panels
 
         internal void SetSelectedPinsFromString(string pins, string serial)
         {
-            if (serial != null && serial.Contains('/'))
+            if (SerialNumber.IsRawSerial(serial))
             {
-                serial = serial.Split('/')[1].Trim();
+                serial = SerialNumber.ExtractSerial(serial);
             }
 
             var splitPins = pins.Split(POSITION_SEPERATOR);

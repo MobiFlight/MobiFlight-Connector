@@ -28,6 +28,11 @@ namespace MobiFlight.Base.Tests
             result = SerialNumber.ExtractSerial(serial);
             Assert.IsNotNull(result);
             Assert.AreEqual("000393600000", result);
+
+            serial = "MFG Crosswind V2/3 / JS-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.ExtractSerial(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("JS-b0875190-3b89-11ed-8007-444553540000", result);
         }
 
         [TestMethod()]
@@ -47,6 +52,11 @@ namespace MobiFlight.Base.Tests
             result = SerialNumber.ExtractDeviceName(serial);
             Assert.IsNotNull(result);
             Assert.AreEqual("Arcaze v5.36", result);
+
+            serial = "MFG Crosswind V2/3 / JS-b0875190-3b89-11ed-8007-444553540000";
+            result = SerialNumber.ExtractDeviceName(serial);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("MFG Crosswind V2/3", result);
         }
 
         [TestMethod()]

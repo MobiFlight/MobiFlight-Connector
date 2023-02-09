@@ -1095,7 +1095,7 @@ namespace MobiFlight
                 cfg.DisplaySerial!=null && (cfg.DisplaySerial.Contains("/"))
             )
             {
-                lastSerial = cfg.DisplaySerial.Split('/')[1].Trim();
+                lastSerial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
                 lastRow.Selected = false;
                 try
                 {
