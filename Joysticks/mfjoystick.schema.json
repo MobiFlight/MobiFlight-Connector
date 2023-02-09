@@ -30,13 +30,13 @@
           "Name": {
             "$id": "#root/Inputs/items/Name",
             "title": "Name",
-            "description": "Device's name for the input.",
+            "description": "Device's name for the input. Required.",
             "type": "string"
           },
           "Label": {
             "$id": "#root/Inputs/items/Label",
             "title": "Label",
-            "description": "Label for the input.",
+            "description": "Label for the input. Required.",
             "type": "string"
           }
         }
@@ -52,30 +52,30 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": ["Name", "Label"],
+        "required": ["Name", "Label", "Byte", "Bit"],
         "properties": {
           "Name": {
             "$id": "#root/Inputs/items/Name",
             "title": "Name",
-            "description": "Device's name for the input.",
+            "description": "Device's name for the input. Required.",
             "type": "string"
           },
           "Label": {
             "$id": "#root/Inputs/items/Label",
             "title": "Label",
-            "description": "Label for the input.",
+            "description": "Label for the input. Required.",
             "type": "string"
           },
           "Byte": {
             "$id": "#root/Inputs/items/Byte",
             "title": "Byte",
-            "description": "Byte location of the output.",
+            "description": "Byte location of the output. Required.",
             "type": "number"
           },
           "Bit": {
             "$id": "#root/Inputs/items/Bit",
             "title": "Bit",
-            "description": "Bit location within the byte of the output.",
+            "description": "Bit location within the byte of the output. Required.",
             "type": "number"
           }
         }
