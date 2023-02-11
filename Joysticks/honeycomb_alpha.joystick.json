@@ -1,0 +1,153 @@
+﻿{
+  "$schema": "./mfjoystick.schema.json",
+  "Inputs": [
+    {
+      "Name": "Button 1",
+      "Label": "Button - Left Hand - White - Back"
+    },
+    {
+      "Name": "Button 2",
+      "Label": "Button - Left Hand - White - Front"
+    },
+    {
+      "Name": "Button 3",
+      "Label": "Button - Right Hand - White"
+    },
+    {
+      "Name": "Button 4",
+      "Label": "Button - Right Hand - Red"
+    },
+    {
+      "Name": "Button 5",
+      "Label": "Rocker - Left Hand - Left Down"
+    },
+    {
+      "Name": "Button 6",
+      "Label": "Rocker - Left Hand - Left Up"
+    },
+    {
+      "Name": "Button 7",
+      "Label": "Rocker - Left Hand - Right Down"
+    },
+    {
+      "Name": "Button 8",
+      "Label": "Rocker - Left Hand - Right Up"
+    },
+    {
+      "Name": "Button 9",
+      "Label": "Rocker - Right Hand - Upper Left"
+    },
+    {
+      "Name": "Button 10",
+      "Label": "Rocker - Right Hand - Upper Right"
+    },
+    {
+      "Name": "Button 11",
+      "Label": "Rocker - Right Hand - Lower Left"
+    },
+    {
+      "Name": "Button 12",
+      "Label": "Rocker - Right Hand - Lower Right"
+    },
+    {
+      "Name": "Button 13",
+      "Label": "Master ALT - Up"
+    },
+    {
+      "Name": "Button 14",
+      "Label": "Master ALT - Down"
+    },
+    {
+      "Name": "Button 15",
+      "Label": "Master BAT - Up"
+    },
+    {
+      "Name": "Button 16",
+      "Label": "Master BAT - Down"
+    },
+    {
+      "Name": "Button 17",
+      "Label": "Avionics BUS1 - Up"
+    },
+    {
+      "Name": "Button 18",
+      "Label": "Avionics BUS1 - Down"
+    },
+    {
+      "Name": "Button 19",
+      "Label": "Avionics BUS2 - Up"
+    },
+    {
+      "Name": "Button 20",
+      "Label": "Avionics BUS2 - Down"
+    },
+    {
+      "Name": "Button 21",
+      "Label": "Lights - BCN - Up"
+    },
+    {
+      "Name": "Button 22",
+      "Label": "Lights - BCN - Down"
+    },
+    {
+      "Name": "Button 23",
+      "Label": "Lights - LAND - Up"
+    },
+    {
+      "Name": "Button 24",
+      "Label": "Lights - LAND - Down"
+    },
+    {
+      "Name": "Button 25",
+      "Label": "Lights - TAXI - Up"
+    },
+    {
+      "Name": "Button 26",
+      "Label": "Lights - TAXI - Down"
+    },
+    {
+      "Name": "Button 27",
+      "Label": "Lights - NAV - Up"
+    },
+    {
+      "Name": "Button 28",
+      "Label": "Lights - NAV - Down"
+    },
+    {
+      "Name": "Button 29",
+      "Label": "Lights - STROBE - Up"
+    },
+    {
+      "Name": "Button 30",
+      "Label": "Lights - STROBE - Down"
+    },
+    {
+      "Name": "Button 31",
+      "Label": "Magnetos - Off"
+    },
+    {
+      "Name": "Button 32",
+      "Label": "Magnetos - R"
+    },
+    {
+      "Name": "Button 33",
+      "Label": "Magnetos - L"
+    },
+    {
+      "Name": "Button 34",
+      "Label": "Magnetos - BOTH"
+    },
+    {
+      "Name": "Button 35",
+      "Label": "Magnetos - START"
+    },
+    {
+      "Name": "X Axis",
+      "Label": "Axis - Roll"
+    },
+    {
+      "Name": "Y Axis",
+      "Label": "Axis - Pitch"
+    }
+  ]
+}

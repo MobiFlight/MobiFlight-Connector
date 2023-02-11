@@ -1,6 +1,8 @@
-﻿using SharpDX.DirectInput;
+﻿using Newtonsoft.Json;
+using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -9,21 +11,56 @@ namespace MobiFlight
 {
     public class JoystickManager
     {
+        private readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        Timer PollTimer = new Timer();
-        List<Joystick> joysticks = new List<Joystick>();
+        readonly Timer PollTimer = new Timer();
+        readonly List<Joystick> joysticks = new List<Joystick>();
 
         public JoystickManager ()
         {
             PollTimer.Interval = 50;
             PollTimer.Tick += PollTimer_Tick;
+            LoadDefinitions();
+        }
+
+        /// <summary>
+        /// Finds a JoystickDefinition by the device's instance name.
+        /// </summary>
+        /// <param name="instanceName">The instance name of the device.</param>
+        /// <returns>The first definition matching the instanceMae, or null if none found.</returns>
+        private JoystickDefinition GetDefinitionByInstanceName(String instanceName)
+        {
+            return Definitions.Find(definition => definition.InstanceName == instanceName);
+        }
+
+        /// <summary>
+        /// Loads all joystick definitions from disk.
+        /// </summary>
+        private void LoadDefinitions()
+        {
+            foreach (var definitionFile in Directory.GetFiles("Joysticks", "*.joystick.json"))
+            {
+                try
+                {
+                    var joystick = JsonConvert.DeserializeObject<JoystickDefinition>(File.ReadAllText(definitionFile));
+                    joystick.Migrate();
+                    Definitions.Add(joystick);
+                    Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
+                }
+            }
+
         }
 
         public bool JoysticksConnected()
         {
             return joysticks.Count > 0;
         }
+
         private void PollTimer_Tick(object sender, EventArgs e)
         {
             try
@@ -34,7 +71,7 @@ namespace MobiFlight
                         js?.Update();
                     }
                 }
-            } catch (InvalidOperationException ex)
+            } catch (InvalidOperationException)
             {
                 // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
             }
@@ -77,18 +114,8 @@ namespace MobiFlight
                 if (!IsSupportedDeviceType(d)) continue;
 
                 MobiFlight.Joystick js;
-                if (d.InstanceName == "Bravo Throttle Quadrant")
-                {
-                    js = new Joysticks.HoneycombBravo(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
-                } else if (d.InstanceName == "Saitek Aviator Stick")
-                {
-                    js = new Joysticks.SaitekAviatorStick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
-                }
-                else
-                {
-                    js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid));
-                }
-                        
+
+                js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
 
                 if (!HasAxisOrButtons(js)) continue;
 
@@ -150,10 +177,11 @@ namespace MobiFlight
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>();
+            Dictionary<String, int> result = new Dictionary<string, int>
+            {
+                ["Joysticks.Count"] = joysticks.Count()
+            };
 
-            result["Joysticks.Count"] = joysticks.Count();
-            
             foreach (Joystick joystick in joysticks)
             {
                 string key = "Joysticks.Model." + joystick.Name;
