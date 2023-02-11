@@ -119,13 +119,8 @@ namespace MobiFlight.UI.Dialogs
 
             InitializeComponent();
 
-            // if one opens the dialog for a new config
-            // ensure that always the first tab is shown
-            //if (cfg.FSUIPCOffset == InputConfigItem.FSUIPCOffsetNull)
-            //{
-            //    lastTabActive = 0;
-            //}
-            tabControlFsuipc.SelectedIndex = lastTabActive;
+            ActivateCorrectTab(config);
+            
 
             // PRECONDITION PANEL
             preconditionPanel.Init();
@@ -133,6 +128,17 @@ namespace MobiFlight.UI.Dialogs
             {
                 tabControlFsuipc.SelectedTab = preconditionTabPage;
             };
+        }
+
+        private void ActivateCorrectTab(InputConfigItem cfg)
+        {
+            // by default always the first tab is activated
+            // if one opens the dialog for an existing config
+            // we use the lastTabActive
+            if (cfg?.ModuleSerial != null && cfg?.ModuleSerial != SerialNumber.NOT_SET)
+            {
+                tabControlFsuipc.SelectedIndex = lastTabActive;
+            }
         }
 
         private void _loadPresets()
@@ -725,7 +731,6 @@ namespace MobiFlight.UI.Dialogs
 
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // check if running in test mode
             lastTabActive = (sender as TabControl).SelectedIndex;
         }
 

@@ -32,10 +32,13 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
+            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
             this.configRefTabPage = new System.Windows.Forms.TabPage();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
+            this.ScanForInputButton = new System.Windows.Forms.Button();
             this.DeviceNotAvailableWarningLabel = new System.Windows.Forms.Label();
             this.inputPinDropDown = new System.Windows.Forms.ComboBox();
             this.arcazeSerialLabel = new System.Windows.Forms.Label();
@@ -49,9 +52,6 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.ScanForInputButton = new System.Windows.Forms.Button();
-            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
@@ -72,9 +72,9 @@
             // 
             // tabControlFsuipc
             // 
+            this.tabControlFsuipc.Controls.Add(this.displayTabPage);
             this.tabControlFsuipc.Controls.Add(this.preconditionTabPage);
             this.tabControlFsuipc.Controls.Add(this.configRefTabPage);
-            this.tabControlFsuipc.Controls.Add(this.displayTabPage);
             resources.ApplyResources(this.tabControlFsuipc, "tabControlFsuipc");
             this.tabControlFsuipc.Name = "tabControlFsuipc";
             this.tabControlFsuipc.SelectedIndex = 0;
@@ -87,12 +87,22 @@
             this.preconditionTabPage.Name = "preconditionTabPage";
             this.preconditionTabPage.UseVisualStyleBackColor = true;
             // 
+            // preconditionPanel
+            // 
+            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
+            this.preconditionPanel.Name = "preconditionPanel";
+            // 
             // configRefTabPage
             // 
             this.configRefTabPage.Controls.Add(this.configRefPanel);
             resources.ApplyResources(this.configRefTabPage, "configRefTabPage");
             this.configRefTabPage.Name = "configRefTabPage";
             this.configRefTabPage.UseVisualStyleBackColor = true;
+            // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
             // 
             // displayTabPage
             // 
@@ -121,6 +131,13 @@
             resources.ApplyResources(this.displayTypeGroupBox, "displayTypeGroupBox");
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
+            // 
+            // ScanForInputButton
+            // 
+            resources.ApplyResources(this.ScanForInputButton, "ScanForInputButton");
+            this.ScanForInputButton.Name = "ScanForInputButton";
+            this.ScanForInputButton.UseVisualStyleBackColor = true;
+            this.ScanForInputButton.Click += new System.EventHandler(this.ScanForInputButton_Click);
             // 
             // DeviceNotAvailableWarningLabel
             // 
@@ -218,23 +235,6 @@
             // description
             // 
             this.description.ColumnName = "description";
-            // 
-            // ScanForInputButton
-            // 
-            resources.ApplyResources(this.ScanForInputButton, "ScanForInputButton");
-            this.ScanForInputButton.Name = "ScanForInputButton";
-            this.ScanForInputButton.UseVisualStyleBackColor = true;
-            this.ScanForInputButton.Click += new System.EventHandler(this.ScanForInputButton_Click);
-            // 
-            // preconditionPanel
-            // 
-            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
-            this.preconditionPanel.Name = "preconditionPanel";
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // settingsColumn
             // 
