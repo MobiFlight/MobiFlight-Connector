@@ -5,6 +5,7 @@ namespace MobiFlight.Base
 {
     public static class SerialNumber
     {
+        public const string NOT_SET = "-";
         public const string SerialSeparator = "/ ";
 
         public static string ExtractSerial(String s)

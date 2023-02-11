@@ -88,14 +88,8 @@ namespace MobiFlight.UI.Dialogs
 
             InitializeComponent();
             comparisonSettingsPanel.Enabled = false;
-            
-            // if one opens the dialog for a new config
-            // ensure that always the first tab is shown
-            if (cfg.FSUIPC.Offset == OutputConfig.FsuipcOffset.OffsetNull)
-            {
-                lastTabActive = 0;
-            }
-            tabControlFsuipc.SelectedIndex = lastTabActive;
+
+            ActivateCorrectTab(config);
 
             // DISPLAY PANEL
             displayPanel1.Init(_execManager);
@@ -123,6 +117,17 @@ namespace MobiFlight.UI.Dialogs
             // SIMCONNECT SIMVARS PANEL
             simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
             _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
+        }
+
+        private void ActivateCorrectTab(OutputConfigItem cfg)
+        {
+            // by default always the first tab is activated
+            // if one opens the dialog for an existing config
+            // we use the lastTabActive
+            if (cfg?.DisplaySerial != null && cfg?.DisplaySerial != SerialNumber.NOT_SET)
+            {
+                tabControlFsuipc.SelectedIndex = lastTabActive;
+            }
         }
 
         private void SimConnectPanel1_OnGetLVarListRequested(object sender, EventArgs e)
