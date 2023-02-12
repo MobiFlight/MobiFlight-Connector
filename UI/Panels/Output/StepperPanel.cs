@@ -119,7 +119,11 @@ namespace MobiFlight.UI.Panels
 
             try
             {
-                e.Cancel = !(Int16.Parse(value) > 0);
+                // all boxes should only accept
+                // positive numbers,
+                // exception is the test value textbox
+                if (sender != stepperTestValueTextBox)
+                    e.Cancel = !(Int16.Parse(value) > 0);
             }
             catch (Exception ex)
             {
@@ -162,21 +166,16 @@ namespace MobiFlight.UI.Panels
 
         internal void SetStepperProfile(StepperProfilePreset profilePreset)
         {
+            // we assume that it is safe to update the values
+            // when we have a different id
+            if (StepperProfile?.id != profilePreset.id)
+            {
+                outputRevTextBox.Text = profilePreset.StepsPerRevolution.ToString();
+                AccelerationTextBox.Text = profilePreset.Acceleration.ToString();
+                SpeedTextBox.Text = profilePreset.Speed.ToString();
+            }
+
             this.StepperProfile = profilePreset;
-            if (outputRevTextBox.Text == "")
-            {
-                outputRevTextBox.Text = this.StepperProfile.StepsPerRevolution.ToString();
-            }
-
-            if (AccelerationTextBox.Text == "")
-            {
-                AccelerationTextBox.Text = this.StepperProfile.Acceleration.ToString();
-            }
-
-            if (SpeedTextBox.Text == "")
-            {
-                SpeedTextBox.Text = this.StepperProfile.Speed.ToString();
-            }
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
