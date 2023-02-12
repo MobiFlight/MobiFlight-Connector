@@ -187,7 +187,7 @@ namespace MobiFlight.UI.Dialogs
                 arcazeFirmware[module.Serial] = module.Version;
 
                 PreconditionModuleList.Add(new ListItem() {
-                    Value = $"{module.Name}${SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
                     Label = $"{module.Name} ({module.Serial})"
                 });
             }
@@ -196,7 +196,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{module.Name}${SerialNumber.SerialSeparator}{module.Serial}",
+                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
                     Label = $"{module.Name} ({module.Port})"
                 });
             }
@@ -206,7 +206,7 @@ namespace MobiFlight.UI.Dialogs
                 if (joystick.GetAvailableDevices().Count > 0)
                     inputModuleNameComboBox.Items.Add(new ListItem()
                     {
-                        Value = $"{joystick.Name} ${SerialNumber.SerialSeparator}{joystick.Serial}",
+                        Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
                         Label = $"{joystick.Name}"
                     });
             }
@@ -230,8 +230,8 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{module.Name}${SerialNumber.SerialSeparator}{module.Serial}",
-                    Label = $"{module.Name}${SerialNumber.SerialSeparator}({module.Port})"
+                    Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
+                    Label = $"{module.Name}{SerialNumber.SerialSeparator}({module.Port})"
                 });
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
@@ -240,7 +240,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
-                    Value = $"{joystick.Name} ${SerialNumber.SerialSeparator}{joystick.Serial}",
+                    Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
                     Label = $"{joystick.Name}"
                 });
             }
