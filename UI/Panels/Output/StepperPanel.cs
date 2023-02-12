@@ -122,13 +122,17 @@ namespace MobiFlight.UI.Panels
                 // all boxes should only accept
                 // positive numbers,
                 // exception is the test value textbox
+                var v = Int16.Parse(value);
                 if (sender != stepperTestValueTextBox)
-                    e.Cancel = !(Int16.Parse(value) > 0);
+                    e.Cancel = !(v > 0);
             }
             catch (Exception ex)
             {
                 e.Cancel = true;
+                displayError(sender as Control, i18n._tr("uiMessageValidationMustBeNumber"));
+                return;
             }
+
             if (e.Cancel)
             {
                 displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
