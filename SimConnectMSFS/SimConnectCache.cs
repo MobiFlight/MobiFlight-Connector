@@ -223,8 +223,6 @@ namespace MobiFlight.SimConnectMSFS
 
         private void SimConnectCache_OnRecvClientData(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
         {
-            
-
             if (data.dwRequestID != 0)
             {
                 var simData = (ClientDataValue)(data.dwData[0]);
