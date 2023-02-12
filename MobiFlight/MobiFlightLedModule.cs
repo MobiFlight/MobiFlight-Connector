@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms.Design;
 using CommandMessenger;
 using Newtonsoft.Json.Linq;
 using SharpDX.DirectInput;
@@ -114,12 +115,64 @@ namespace MobiFlight
             return result;
         }
 
+        static public byte CalculatePositionInString(string value, byte mask)
+        {
+            // we have to figure it, how many digits are in use
+            var maskLength = Convert.ToString(mask, 2).Count(c => c == '1');
+
+            // we have to find the n-th character
+            // where "n" is the maskLength
+            // but we have to treat decimal points correctly
+            // because they don't occupy a digit
+            // unless two are following each other
+            // we start with the last character in the value string
+            byte positionInValue = 0;
+
+            // we set the last character to .
+            // so that in case we have the first one being a "."
+            // then we allocate a digit for it correctly
+            var lastCharacter = '.';
+
+            // out inital length is 0, because we start on the left
+            var length = 0;
+
+            for (byte i = 0; i != value.Length; i++)
+            {
+                // in case we see a "." but the last character
+                // was something different,
+                // then we don't have to account for this
+                if (value[i] == '.' && lastCharacter != '.')
+                {
+                    // we store the last character
+                    lastCharacter = value[i];
+                    continue;
+                }
+
+                // in all other cases now we count this
+                // character, length can be different from "i"
+                length++;
+
+                // we store the last character
+                lastCharacter = value[i];
+
+                // once we reach the length
+                // we update the positionInValue
+                if (length == maskLength)
+                {
+                    positionInValue = i;
+                    if (i + 1 < value.Length && value[i + 1] == '.')
+                        positionInValue += 1;
+                    break;
+                }
+            }
+
+            return positionInValue;
+        }
+
         static public byte CalculateCorrectPoints(string value, byte mask)
         {
             byte points = 0;
-            
-            // we start with the last character in the value string
-            int positionInValue = value.Length-1;
+            byte positionInValue = CalculatePositionInString(value, mask);
 
             // we go over all 8 potential digits
             for (byte digit=0; digit<8; digit++)
