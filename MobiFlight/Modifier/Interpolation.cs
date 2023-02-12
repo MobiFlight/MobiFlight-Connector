@@ -79,9 +79,6 @@ namespace MobiFlight.Modifier
                     reader.ReadToNextSibling("value");
                 } while (reader.LocalName == "value");
             }
-
-            if (reader.LocalName == "interpolation")
-                reader.Read(); // this closes the interpolation node
         }
 
         public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
