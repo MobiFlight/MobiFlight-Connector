@@ -336,7 +336,7 @@ namespace MobiFlight.UI.Panels.Config
                 }
                 else if (p.PreconditionType == "pin")
                 {
-                    label = label.Replace("<Serial:" + p.PreconditionSerial + ">", p.PreconditionSerial.Split('/')[0]);
+                    label = label.Replace("<Serial:" + p.PreconditionSerial + ">", SerialNumber.ExtractDeviceName(p.PreconditionSerial));
                 }
                 else
                 {
