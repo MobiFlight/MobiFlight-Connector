@@ -114,6 +114,7 @@ namespace MobiFlight
 
                 if (candidateBoard != null)
                 {
+                    Log.Instance.log($"Drive {drive.Name} is a candidate device ({drive.DriveType}): {candidateBoard.Info.FriendlyName}", LogSeverity.Info);
                     result.Add(new MobiFlightModuleInfo()
                     {
                         Board = candidateBoard,
