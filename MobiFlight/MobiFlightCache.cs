@@ -82,20 +82,20 @@ namespace MobiFlight
         {
             var result = new List<MobiFlightModuleInfo>();
 
-            // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
-            // when trying to read the volume label when the drive wasn't actually ready.
-            // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
             foreach (var drive in DriveInfo.GetDrives())
             {
+                // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
                 if (drive.DriveType != DriveType.Removable)
                 {
-                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) isn't a removable drive, skipping.", LogSeverity.Info);
+                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) isn't a removable drive, skipping.", LogSeverity.Debug);
                     continue;
                 }
 
+                // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
+                // when trying to read the volume label when the drive wasn't actually ready.
                 if (!drive.IsReady)
                 {
-                    Log.Instance.log($"Drive {drive.Name} isn't ready, skipping.", LogSeverity.Info);
+                    Log.Instance.log($"Drive {drive.Name} isn't ready, skipping.", LogSeverity.Debug);
                     continue;
                 }
 
@@ -114,7 +114,7 @@ namespace MobiFlight
 
                 if (candidateBoard != null)
                 {
-                    Log.Instance.log($"Drive {drive.Name} is a candidate device ({drive.DriveType}): {candidateBoard.Info.FriendlyName}", LogSeverity.Info);
+                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) is a candidate device: {candidateBoard.Info.FriendlyName}", LogSeverity.Debug);
                     result.Add(new MobiFlightModuleInfo()
                     {
                         Board = candidateBoard,
