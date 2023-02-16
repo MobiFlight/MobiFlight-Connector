@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SimpleSolutions.Usb;
 using System.Xml.Serialization;
+using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels.Settings
 {
@@ -134,8 +135,8 @@ namespace MobiFlight.UI.Panels.Settings
             if (IgnoreArcazeModuleSettingsChangeEvents) return;
 
             ArcazeModuleSettings settingsToSave = null;
-            if (serial.Contains("/"))
-                serial = serial.Split('/')[1].Trim();
+            if (SerialNumber.IsRawSerial(serial))
+                serial = SerialNumber.ExtractSerial(serial);
 
             foreach (ArcazeModuleSettings settings in moduleSettings)
             {
@@ -180,8 +181,8 @@ namespace MobiFlight.UI.Panels.Settings
 
             foreach (ArcazeModuleSettings settings in moduleSettings)
             {
-                if (serial.Contains("/"))
-                    serial = serial.Split('/')[1].Trim();
+                if (SerialNumber.IsRawSerial(serial))
+                    serial = SerialNumber.ExtractSerial(serial);
 
                 if (settings.serial != serial) continue;
 

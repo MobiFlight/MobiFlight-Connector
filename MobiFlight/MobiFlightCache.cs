@@ -247,11 +247,11 @@ namespace MobiFlight
             {
                 // Issue #1122: A corrupted WMI registry caused exceptions when attempting to enumerate connected devices with searcher.Get().
                 // Running "winmgmt /resetrepository" fixed it.
-                Log.Instance.log($"Unable to read connected devices. This is usually caused by a corrupted WMI registry. Run 'winmgmt /resetrepository' from an elevated command line to resolve the issue. (${ex.Message})", LogSeverity.Error);
+                Log.Instance.log($"Unable to read connected devices. This is usually caused by a corrupted WMI registry. Run 'winmgmt /resetrepository' from an elevated command line to resolve the issue. ({ex.Message})", LogSeverity.Error);
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Unable to read connected devices: ${ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Unable to read connected devices: {ex.Message}", LogSeverity.Error);
             }
             return result;
         }
