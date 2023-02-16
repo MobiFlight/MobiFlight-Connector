@@ -122,7 +122,7 @@ namespace MobiFlight
                     try
                     {
                         OffsetAxisName = GetAxisNameForUsage(usage);
-                        FriendlyAxisName = GetFriendlyAxisName(name);
+                        FriendlyAxisName = MapDeviceNameToLabel($"{AxisPrefix}{OffsetAxisName}");
 
                     } catch (ArgumentOutOfRangeException ex)
                     {
@@ -135,7 +135,7 @@ namespace MobiFlight
                 }
                 else if (IsButton)
                 {
-                    String ButtonName = GetFriendlyButtonName(name, Buttons.Count + 1);
+                    String ButtonName = MapDeviceNameToLabel($"{ButtonPrefix}{Buttons.Count + 1}");
                     Buttons.Add(new JoystickDevice() { Name = ButtonPrefix + (Buttons.Count + 1), Label = ButtonName, Type = JoystickDeviceType.Button });
                     Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {ButtonName}.", LogSeverity.Debug);
                 }
@@ -157,20 +157,10 @@ namespace MobiFlight
             }
         }
 
-        protected string GetFriendlyAxisName(string name)
-        {
-            return MapDeviceNameToLabel(name);
-        }
-
-        protected string GetFriendlyButtonName(string name, int v)
-        {
-            return MapDeviceNameToLabel(Regex.Replace(name, @"\d+", v.ToString()).ToString());
-        }
-
         public string MapDeviceNameToLabel(string deviceName)
         {
             // First try and look for a custom label.
-            var input = definition?.FindInputByName(deviceName);
+           var input = definition?.FindInputByName(deviceName);
             if (input != null)
             {
                 return input.Label;
