@@ -48,24 +48,28 @@ namespace MobiFlight
 
     public class Joystick
     {
-        public static string ButtonPrefix = "Button";
-        public static string AxisPrefix = "Axis";
-        public static string PovPrefix = "POV";
-        public static string SerialPrefix = "JS-";
+        public static readonly string ButtonPrefix = "Button";
+        public static readonly string AxisPrefix = "Axis";
+        public static readonly string PovPrefix = "POV";
+        public static readonly string SerialPrefix = "JS-";
+        public static readonly string[] AxisNames = { "X", "Y", "Z", "RotationX", "RotationY", "RotationZ", "Slider1", "Slider2" };
+
         public event ButtonEventHandler OnButtonPressed;
         public event ButtonEventHandler OnAxisChanged;
         public event EventHandler OnDisconnected;
+
+        private readonly List<JoystickDevice> Buttons = new List<JoystickDevice>();
+        private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
+        private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
+        private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
+
         private readonly SharpDX.DirectInput.Joystick joystick;
         private readonly JoystickDefinition definition;
-        JoystickState state = null;
-        protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
-        protected List<JoystickDevice> Axes = new List<JoystickDevice>();
-        protected List<JoystickDevice> POV = new List<JoystickDevice>();
-        protected List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
-        protected bool RequiresOutputUpdate = false;
-        public static string[] AxisNames = { "X", "Y", "Z", "RotationX", "RotationY", "RotationZ", "Slider1", "Slider2"};
-        private HidStream Stream;
+
         private HidDevice Device;
+        private bool RequiresOutputUpdate = false;
+        private JoystickState state = null;
+        private HidStream Stream;
 
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
         {
