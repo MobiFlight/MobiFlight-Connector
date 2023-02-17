@@ -5,388 +5,442 @@
   "ProductId": 6401,
   "Inputs": [
     {
-      "Name": "Button 17",
+      "Id": 17,
+      "Type":  "Button",
       "Label": "Mode - IAS"
     },
     {
-      "Name": "Button 18",
+      "Id": 18,
+      "Type": "Button",
       "Label": "Mode - CRS"
     },
     {
-      "Name": "Button 19",
+      "Id": 19,
+      "Type": "Button",
       "Label": "Mode - HDG"
     },
     {
-      "Name": "Button 20",
+      "Id": 20,
+      "Type": "Button",
       "Label": "Mode - VS"
     },
     {
-      "Name": "Button 21",
+      "Id": 21,
+      "Type": "Button",
       "Label": "Mode - ALT"
     },
     {
-      "Name": "Button 1",
+      "Id": 1,
+      "Type": "Button",
       "Label": "AP - HDG"
     },
     {
-      "Name": "Button 2",
+      "Id": 2,
+      "Type": "Button",
       "Label": "AP - NAV"
     },
     {
-      "Name": "Button 3",
+      "Id": 3,
+      "Type": "Button",
       "Label": "AP - APR"
     },
     {
-      "Name": "Button 4",
+      "Id": 4,
+      "Type": "Button",
       "Label": "AP - REV"
     },
     {
-      "Name": "Button 5",
+      "Id": 5,
+      "Type": "Button",
       "Label": "AP - ALT"
     },
     {
-      "Name": "Button 6",
+      "Id": 6,
+      "Type": "Button",
       "Label": "AP - VS"
     },
     {
-      "Name": "Button 7",
+      "Id": 7,
+      "Type": "Button",
       "Label": "AP - IAS"
     },
     {
-      "Name": "Button 8",
+      "Id": 8,
+      "Type": "Button",
       "Label": "AP - Autopilot"
     },
     {
-      "Name": "Button 13",
+      "Id": 13,
+      "Type": "Button",
       "Label": "Encoder - Right"
     },
     {
-      "Name": "Button 14",
+      "Id": 14,
+      "Type": "Button",
       "Label": "Encoder - Left"
     },
     {
-      "Name": "Button 31",
+      "Id": 31,
+      "Type": "Button",
       "Label": "Gear - Up"
     },
     {
-      "Name": "Button 32",
+      "Id": 32,
+      "Type": "Button",
       "Label": "Gear - Down"
     },
     {
-      "Name": "Button 16",
+      "Id": 16,
+      "Type": "Button",
       "Label": "Flaps - Up"
     },
     {
-      "Name": "Button 15",
+      "Id": 15,
+      "Type": "Button",
       "Label": "Flaps - Down"
     },
     {
-      "Name": "Button 22",
+      "Id": 22,
+      "Type": "Button",
       "Label": "Trim - Nose Down"
     },
     {
-      "Name": "Button 23",
+      "Id": 23,
+      "Type": "Button",
       "Label": "Trim - Nose Up"
     },
     {
-      "Name": "Button 24",
+      "Id": 24,
+      "Type": "Button",
       "Label": "Lever 1 - Detent"
     },
     {
-      "Name": "Button 25",
+      "Id": 25,
+      "Type": "Button",
       "Label": "Lever 2 - Detent"
     },
     {
-      "Name": "Button 26",
+      "Id": 26,
+      "Type": "Button",
       "Label": "Lever 3 - Detent"
     },
     {
-      "Name": "Button 27",
+      "Id": 27,
+      "Type": "Button",
       "Label": "Lever 4 - Detent"
     },
     {
-      "Name": "Button 28",
+      "Id": 28,
+      "Type": "Button",
       "Label": "Lever 5 - Detent"
     },
     {
-      "Name": "Button 33",
+      "Id": 33,
+      "Type": "Button",
       "Label": "Lever 6 - Detent"
     },
     {
-      "Name": "Button 29",
+      "Id": 29,
+      "Type": "Button",
       "Label": "Lever 1 - Button"
     },
     {
-      "Name": "Button 9",
+      "Id": 9,
+      "Type": "Button",
       "Label": "Lever 2 - Button"
     },
     {
-      "Name": "Button 10",
+      "Id": 10,
+      "Type": "Button",
       "Label": "Lever 3 - Button"
     },
     {
-      "Name": "Button 11",
+      "Id": 11,
+      "Type": "Button",
       "Label": "Lever 4 - Button"
     },
     {
-      "Name": "Button 12",
+      "Id": 12,
+      "Type": "Button",
       "Label": "Lever 5 - Button"
     },
     {
-      "Name": "Button 30",
+      "Id": 30,
+      "Type": "Button",
       "Label": "Lever 3 - Reverser"
     },
     {
-      "Name": "Button 48",
+      "Id": 48,
+      "Type": "Button",
       "Label": "Lever 4 - Reverser"
     },
     {
-      "Name": "Button 34",
+      "Id": 34,
+      "Type": "Button",
       "Label": "Switch 1 - Up"
     },
     {
-      "Name": "Button 35",
+      "Id": 35,
+      "Type": "Button",
       "Label": "Switch 1 - Down"
     },
     {
-      "Name": "Button 36",
+      "Id": 36,
+      "Type": "Button",
       "Label": "Switch 2 - Up"
     },
     {
-      "Name": "Button 37",
+      "Id": 37,
+      "Type": "Button",
       "Label": "Switch 2 - Down"
     },
     {
-      "Name": "Button 38",
+      "Id": 38,
+      "Type": "Button",
       "Label": "Switch 3 - Up"
     },
     {
-      "Name": "Button 39",
+      "Id": 39,
+      "Type": "Button",
       "Label": "Switch 3 - Down"
     },
     {
-      "Name": "Button 40",
+      "Id": 40,
+      "Type": "Button",
       "Label": "Switch 4 - Up"
     },
     {
-      "Name": "Button 41",
+      "Id": 41,
+      "Type": "Button",
       "Label": "Switch 4 - Down"
     },
     {
-      "Name": "Button 42",
+      "Id": 42,
+      "Type": "Button",
       "Label": "Switch 5 - Up"
     },
     {
-      "Name": "Button 43",
+      "Id": 43,
+      "Type": "Button",
       "Label": "Switch 5 - Down"
     },
     {
-      "Name": "Button 44",
+      "Id": 44,
+      "Type": "Button",
       "Label": "Switch 6 - Up"
     },
     {
-      "Name": "Button 45",
+      "Id": 45,
+      "Type": "Button",
       "Label": "Switch 6 - Down"
     },
     {
-      "Name": "Button 46",
+      "Id": 46,
+      "Type": "Button",
       "Label": "Switch 7 - Up"
     },
     {
-      "Name": "Button 47",
+      "Id": 47,
+      "Type": "Button",
       "Label": "Switch 7 - Down"
     },
     {
-      "Name": "Y Axis",
+      "Id": 49,
+      "Type": "Axis",
       "Label": "Axis - Lever 1"
     },
     {
-      "Name": "X Axis",
+      "Id": 48,
+      "Type": "Axis",
       "Label": "Axis - Lever 2"
     },
     {
-      "Name": "Z Rotation",
+      "Id": 53,
+      "Type": "Axis",
       "Label": "Axis - Lever 3"
     },
     {
-      "Name": "Y Rotation",
+      "Id": 52,
+      "Type": "Axis",
       "Label": "Axis - Lever 4"
     },
     {
-      "Name": "X Rotation",
+      "Id": 51,
+      "Type": "Axis",
       "Label": "Axis - Lever 5"
     },
     {
-      "Name": "Z Axis",
+      "Id": 50,
+      "Type": "Axis",
       "Label": "Axis - Lever 6"
     }
   ],
   "Outputs": [
     {
       "Label": "AP Mode - HDG",
-      "Name": "AP.hdg",
+      "Id": "AP.hdg",
       "Byte": 1,
       "Bit": 0
     },
     {
       "Label": "AP Mode - NAV",
-      "Name": "AP.nav",
+      "Id": "AP.nav",
       "Byte": 1,
       "Bit": 1
     },
     {
       "Label": "AP Mode - APR",
-      "Name": "AP.apr",
+      "Id": "AP.apr",
       "Byte": 1,
       "Bit": 2
     },
     {
       "Label": "AP Mode - REV",
-      "Name": "AP.rev",
+      "Id": "AP.rev",
       "Byte": 1,
       "Bit": 3
     },
     {
       "Label": "AP Mode - ALT",
-      "Name": "AP.alt",
+      "Id": "AP.alt",
       "Byte": 1,
       "Bit": 4
     },
     {
       "Label": "AP Mode - VS",
-      "Name": "AP.vs",
+      "Id": "AP.vs",
       "Byte": 1,
       "Bit": 5
     },
     {
       "Label": "AP Mode - IAS",
-      "Name": "AP.ias",
+      "Id": "AP.ias",
       "Byte": 1,
       "Bit": 6
     },
     {
       "Label": "AP Mode - On/Off",
-      "Name": "AP.autopilot",
+      "Id": "AP.autopilot",
       "Byte": 1,
       "Bit": 7
     },
     {
       "Label": "Gear - Left Green",
-      "Name": "Gear.LeftGreen",
+      "Id": "Gear.LeftGreen",
       "Byte": 2,
       "Bit": 0
     },
     {
       "Label": "Gear - Left Red",
-      "Name": "Gear.LeftRed",
+      "Id": "Gear.LeftRed",
       "Byte": 2,
       "Bit": 1
     },
     {
       "Label": "Gear - Center Green",
-      "Name": "Gear.CenterGreen",
+      "Id": "Gear.CenterGreen",
       "Byte": 2,
       "Bit": 2
     },
     {
       "Label": "Gear - Center Red",
-      "Name": "Gear.CenterRed",
+      "Id": "Gear.CenterRed",
       "Byte": 2,
       "Bit": 3
     },
     {
       "Label": "Gear - Right Green",
-      "Name": "Gear.RightGreen",
+      "Id": "Gear.RightGreen",
       "Byte": 2,
       "Bit": 4
     },
     {
       "Label": "Gear - Right Red",
-      "Name": "Gear.RightRed",
+      "Id": "Gear.RightRed",
       "Byte": 2,
       "Bit": 5
     },
     {
       "Label": "Lights - Master Warning",
-      "Name": "Light.MasterWarn",
+      "Id": "Light.MasterWarn",
       "Byte": 2,
       "Bit": 6
     },
     {
       "Label": "Lights - Engine Fire",
-      "Name": "Light.EngineFire",
+      "Id": "Light.EngineFire",
       "Byte": 2,
       "Bit": 7
     },
     {
       "Label": "Lights - Low Oil Pressure",
-      "Name": "Light.LowOil",
+      "Id": "Light.LowOil",
       "Byte": 3,
       "Bit": 0
     },
     {
       "Label": "Lights - Low Fuel Pressure",
-      "Name": "Light.LowFuel",
+      "Id": "Light.LowFuel",
       "Byte": 3,
       "Bit": 1
     },
     {
       "Label": "Lights - Anti Ice",
-      "Name": "Light.Antiice",
+      "Id": "Light.Antiice",
       "Byte": 3,
       "Bit": 2
     },
     {
       "Label": "Lights - Starter Engaged",
-      "Name": "Light.Starter",
+      "Id": "Light.Starter",
       "Byte": 3,
       "Bit": 3
     },
     {
       "Label": "Lights - APU",
-      "Name": "Light.APU",
+      "Id": "Light.APU",
       "Byte": 3,
       "Bit": 4
     },
     {
       "Label": "Lights - Master Caution",
-      "Name": "Light.MasterCaution",
+      "Id": "Light.MasterCaution",
       "Byte": 3,
       "Bit": 5
     },
     {
       "Label": "Lights - Vacuum",
-      "Name": "Light.Vacuum",
+      "Id": "Light.Vacuum",
       "Byte": 3,
       "Bit": 6
     },
     {
       "Label": "Lights - Low Hyd Pressure",
-      "Name": "Light.LowHydPressURE",
+      "Id": "Light.LowHydPressURE",
       "Byte": 3,
       "Bit": 7
     },
     {
       "Label": "Lights - Aux Fuel Pump",
-      "Name": "Lights.AuxFuelPump",
+      "Id": "Lights.AuxFuelPump",
       "Byte": 4,
       "Bit": 0
     },
     {
       "Label": "Lights - Parking Brake",
-      "Name": "Lights.ParkingBrake",
+      "Id": "Lights.ParkingBrake",
       "Byte": 4,
       "Bit": 1
     },
     {
       "Label": "Lights - Low Volts",
-      "Name": "Lights.LowVolts",
+      "Id": "Lights.LowVolts",
       "Byte": 4,
       "Bit": 2
     },
     {
       "Label": "Lights - Door",
-      "Name": "Lights.door",
+      "Id": "Lights.door",
       "Byte": 4,
       "Bit": 3
     }

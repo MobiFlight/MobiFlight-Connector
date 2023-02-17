@@ -5,43 +5,53 @@
   "ProductId": 1121,
   "Inputs": [
     {
-      "Name": "Button 5",
+      "Id": 5,
+      "Type":  "Button",
       "Label": "Button - T1"
     },
     {
-      "Name": "Button 6",
+      "Id": 6,
+      "Type": "Button",
       "Label": "Button - T2"
     },
     {
-      "Name": "Button 7",
+      "Id": 7,
+      "Type": "Button",
       "Label": "Button - T3"
     },
     {
-      "Name": "Button 8",
+      "Id": 8,
+      "Type": "Button",
       "Label": "Button - T4"
     },
     {
-      "Name": "Button 9",
+      "Id": 9,
+      "Type": "Button",
       "Label": "Button - T5"
     },
     {
-      "Name": "Button 10",
+      "Id": 10,
+      "Type": "Button",
       "Label": "Button - T6"
     },
     {
-      "Name": "Button 11",
+      "Id": 11,
+      "Type": "Button",
       "Label": "Button - T7"
     },
     {
-      "Name": "Button 12",
+      "Id": 12,
+      "Type": "Button",
       "Label": "Button - T8"
     },
     {
-      "Name": "Button 13",
+      "Id": 13,
+      "Type": "Button",
       "Label": "Mode A"
     },
     {
-      "Name": "Button 14",
+      "Id": 14,
+      "Type": "Button",
       "Label": "Mode B"
     }
   ],

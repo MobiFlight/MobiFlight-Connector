@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Linq;
 
 namespace MobiFlight
@@ -117,27 +118,31 @@ namespace MobiFlight
 
                 if (IsAxis && Axes.Count < joystick.Capabilities.AxeCount)
                 {
-                    String OffsetAxisName = "Unknown";
-                    var FriendlyAxisName = name;
+                    String axisName;
+                    string axisLabel = "Unknown";
                     try
                     {
-                        OffsetAxisName = GetAxisNameForUsage(usage);
-                        FriendlyAxisName = MapDeviceNameToLabel($"{AxisPrefix}{OffsetAxisName}");
+                        var OffsetAxisName = GetAxisNameForUsage(usage);
+                        axisName = $"{AxisPrefix}{OffsetAxisName}";
+                        axisLabel = MapDeviceNameToLabel($"{AxisPrefix}{OffsetAxisName}");
 
-                    } catch (ArgumentOutOfRangeException ex)
+                    } catch (ArgumentOutOfRangeException)
                     {
-                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {FriendlyAxisName}.", LogSeverity.Error);
+                        Log.Instance.log($"Axis can't be mapped: {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {axisLabel}.", LogSeverity.Error);
                         continue;
                     }
-                    Axes.Add(new JoystickDevice() { Name = AxisPrefix + OffsetAxisName, Label = FriendlyAxisName, Type = JoystickDeviceType.Axis });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label: {FriendlyAxisName}.", LogSeverity.Debug);
+                    Axes.Add(new JoystickDevice() { Name = axisName, Label = axisLabel, Type = JoystickDeviceType.Axis });
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label: {axisLabel}.", LogSeverity.Debug);
 
                 }
                 else if (IsButton)
                 {
-                    String ButtonName = MapDeviceNameToLabel($"{ButtonPrefix}{Buttons.Count + 1}");
-                    Buttons.Add(new JoystickDevice() { Name = ButtonPrefix + (Buttons.Count + 1), Label = ButtonName, Type = JoystickDeviceType.Button });
-                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {ButtonName}.", LogSeverity.Debug);
+                    // Use the device.Usage value so this is consistent with how Axes are referenced and avoid ID collisions
+                    // when looking up names in the the .joystick.json file.
+                    var buttonName = $"{ButtonPrefix}{device.Usage}";
+                    var buttonLabel = MapDeviceNameToLabel(buttonName);
+                    Buttons.Add(new JoystickDevice() { Name = buttonName, Label = buttonLabel, Type = JoystickDeviceType.Button });
+                    Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {buttonLabel}.", LogSeverity.Debug);
                 }
                 else if (IsPOV)
                 {
@@ -411,7 +416,7 @@ namespace MobiFlight
             return state != null;
         }
 
-        private String GetAxisNameForUsage(int usage)
+        public static String GetAxisNameForUsage(int usage)
         {
             Dictionary<int, string> UsageMap = new Dictionary<int, string>();
             UsageMap[48] = "X";

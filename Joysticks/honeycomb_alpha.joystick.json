@@ -1,152 +1,190 @@
 ﻿{
   "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "Alpha Flight Controls",
   "Inputs": [
     {
-      "Name": "Button 1",
+      "Id": 1,
+      "Type": "Button",
       "Label": "Button - Left Hand - White - Back"
     },
     {
-      "Name": "Button 2",
+      "Id": 2,
+      "Type": "Button",
       "Label": "Button - Left Hand - White - Front"
     },
     {
-      "Name": "Button 3",
+      "Id": 3,
+      "Type": "Button",
       "Label": "Button - Right Hand - White"
     },
     {
-      "Name": "Button 4",
+      "Id": 4,
+      "Type": "Button",
       "Label": "Button - Right Hand - Red"
     },
     {
-      "Name": "Button 5",
+      "Id": 5,
+      "Type": "Button",
       "Label": "Rocker - Left Hand - Left Down"
     },
     {
-      "Name": "Button 6",
+      "Id": 6,
+      "Type": "Button",
       "Label": "Rocker - Left Hand - Left Up"
     },
     {
-      "Name": "Button 7",
+      "Id": 7,
+      "Type": "Button",
       "Label": "Rocker - Left Hand - Right Down"
     },
     {
-      "Name": "Button 8",
+      "Id": 8,
+      "Type": "Button",
       "Label": "Rocker - Left Hand - Right Up"
     },
     {
-      "Name": "Button 9",
+      "Id": 9,
+      "Type": "Button",
       "Label": "Rocker - Right Hand - Upper Left"
     },
     {
-      "Name": "Button 10",
+      "Id": 10,
+      "Type": "Button",
       "Label": "Rocker - Right Hand - Upper Right"
     },
     {
-      "Name": "Button 11",
+      "Id": 11,
+      "Type": "Button",
       "Label": "Rocker - Right Hand - Lower Left"
     },
     {
-      "Name": "Button 12",
+      "Id": 12,
+      "Type": "Button",
       "Label": "Rocker - Right Hand - Lower Right"
     },
     {
-      "Name": "Button 13",
+      "Id": 13,
+      "Type": "Button",
       "Label": "Master ALT - Up"
     },
     {
-      "Name": "Button 14",
+      "Id": 14,
+      "Type": "Button",
       "Label": "Master ALT - Down"
     },
     {
-      "Name": "Button 15",
+      "Id": 15,
+      "Type": "Button",
       "Label": "Master BAT - Up"
     },
     {
-      "Name": "Button 16",
+      "Id": 16,
+      "Type": "Button",
       "Label": "Master BAT - Down"
     },
     {
-      "Name": "Button 17",
+      "Id": 17,
+      "Type": "Button",
       "Label": "Avionics BUS1 - Up"
     },
     {
-      "Name": "Button 18",
+      "Id": 18,
+      "Type": "Button",
       "Label": "Avionics BUS1 - Down"
     },
     {
-      "Name": "Button 19",
+      "Id": 19,
+      "Type": "Button",
       "Label": "Avionics BUS2 - Up"
     },
     {
-      "Name": "Button 20",
+      "Id": 20,
+      "Type": "Button",
       "Label": "Avionics BUS2 - Down"
     },
     {
-      "Name": "Button 21",
+      "Id": 21,
+      "Type": "Button",
       "Label": "Lights - BCN - Up"
     },
     {
-      "Name": "Button 22",
+      "Id": 22,
+      "Type": "Button",
       "Label": "Lights - BCN - Down"
     },
     {
-      "Name": "Button 23",
+      "Id": 23,
+      "Type": "Button",
       "Label": "Lights - LAND - Up"
     },
     {
-      "Name": "Button 24",
+      "Id": 24,
+      "Type": "Button",
       "Label": "Lights - LAND - Down"
     },
     {
-      "Name": "Button 25",
+      "Id": 25,
+      "Type": "Button",
       "Label": "Lights - TAXI - Up"
     },
     {
-      "Name": "Button 26",
+      "Id": 26,
+      "Type": "Button",
       "Label": "Lights - TAXI - Down"
     },
     {
-      "Name": "Button 27",
+      "Id": 27,
+      "Type": "Button",
       "Label": "Lights - NAV - Up"
     },
     {
-      "Name": "Button 28",
+      "Id": 28,
+      "Type": "Button",
       "Label": "Lights - NAV - Down"
     },
     {
-      "Name": "Button 29",
+      "Id": 29,
+      "Type": "Button",
       "Label": "Lights - STROBE - Up"
     },
     {
-      "Name": "Button 30",
+      "Id": 30,
+      "Type": "Button",
       "Label": "Lights - STROBE - Down"
     },
     {
-      "Name": "Button 31",
+      "Id": 31,
+      "Type": "Button",
       "Label": "Magnetos - Off"
     },
     {
-      "Name": "Button 32",
+      "Id": 32,
+      "Type": "Button",
       "Label": "Magnetos - R"
     },
     {
-      "Name": "Button 33",
+      "Id": 33,
+      "Type": "Button",
       "Label": "Magnetos - L"
     },
     {
-      "Name": "Button 34",
+      "Id": 34,
+      "Type": "Button",
       "Label": "Magnetos - BOTH"
     },
     {
-      "Name": "Button 35",
+      "Id": 35,
+      "Type": "Button",
       "Label": "Magnetos - START"
     },
     {
-      "Name": "X Axis",
+      "Id": 48,
+      "Type": "Axis",
       "Label": "Axis - Roll"
     },
     {
-      "Name": "Y Axis",
+      "Id": 49,
+      "Type": "Axis",
       "Label": "Axis - Pitch"
     }
   ]
