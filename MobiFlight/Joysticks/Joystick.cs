@@ -146,14 +146,14 @@ namespace MobiFlight
                 }
                 else if (IsPOV)
                 {
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "U", Label = name + " (↑)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "UR", Label = name + " (↗)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "R", Label = name + " (→)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "DR", Label = name + " (↘)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "D", Label = name + " (↓)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "DL", Label = name + " (↙)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "L", Label = name + " (←)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = PovPrefix + name + "UL", Label = name + " (↖)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}U", Label = $"{name} (↑)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}UR", Label = $"{name} (↗)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}R", Label = $"{name} (→)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}DR", Label = $"{name} (↘)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}D", Label = $"{name} (↓)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}DL", Label = $"{name} (↙)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}L", Label = $"{name} (←)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}UL", Label = $"{name} (↖)", Type = JoystickDeviceType.POV });
                 }
                 else
                 {
