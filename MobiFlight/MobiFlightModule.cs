@@ -34,61 +34,69 @@ namespace MobiFlight
     // In order to receive, attach a callback function to these events
     public enum DeviceType
     {
-        NotSet,              // 0 
-        Button,              // 1
-        EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
-        Output,              // 3
-        LedModule,           // 4
-        StepperDeprecatedV1, // 5
-        Servo,               // 6
-        LcdDisplay,          // 7
-        Encoder,             // 8
-        StepperDeprecatedV2, // 9
-        ShiftRegister,       // 10
-        AnalogInput,         // 11
-        InputShiftRegister,  // 12
-        MultiplexerDriver,   // 13  Not a proper device, but index required for update events
-        InputMultiplexer, 	 // 14
-        Stepper              // 15
+        NotSet = 0,
+        Button = 1,
+        EncoderSingleDetent = 2,    // (retained for backwards compatibility = use Encoder for new configs)
+        Output = 3,
+        LedModule = 4,
+        StepperDeprecatedV1 = 5,
+        Servo = 6,
+        LcdDisplay = 7,
+        Encoder = 8,
+        StepperDeprecatedV2 = 9,
+        ShiftRegister = 10,
+        AnalogInput = 11,
+        InputShiftRegister = 12,
+        MultiplexerDriver = 13,     // Not a proper device = but index required for update events
+        InputMultiplexer = 14,
+        Stepper = 15,
     }
 
     public class MobiFlightModule : IModule, IOutputModule
     {
         public enum Command
         {
-            InitModule,             // 0
-            SetModule,              // 1
-            SetPin,                 // 2
-            SetStepper,             // 3
-            SetServo,               // 4
-            Status,                 // 5
-            EncoderChange,          // 6
-            ButtonChange,           // 7
-            StepperChange,          // 8
-            GetInfo,                // 9
-            Info,                   // 10
-            SetConfig,              // 11
-            GetConfig,              // 12
-            ResetConfig,            // 13
-            SaveConfig,             // 14
-            ConfigSaved,            // 15
-            ActivateConfig,         // 16
-            ConfigActivated,        // 17
-            SetPowerSavingMode,     // 18
-            SetName,                // 19
-            GenNewSerial,           // 20
-            ResetStepper,           // 21
-            SetZeroStepper,         // 22
-            Retrigger,              // 23
-            ResetBoard,             // 24
-            SetLcdDisplayI2C,       // 25
-            SetModuleBrightness,    // 26
-            SetShiftRegisterPins,   // 27
-            AnalogChange,           // 28
-            InputShiftRegisterChange, // 29
-            InputMultiplexerChange, // 30
-            SetStepperSpeedAccel,   // 31
-            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
+            InitModule = 0,
+            SetModule = 1,
+            SetPin = 2,
+            SetStepper = 3,
+            SetServo = 4,
+            Status = 5,
+            //EncoderChange = 6,
+            //ButtonChange = 7,
+            StepperChange = 8,
+            GetInfo = 9,
+            Info = 10,
+            SetConfig = 11,
+            GetConfig = 12,
+            ResetConfig = 13,
+            SaveConfig = 14,
+            ConfigSaved = 15,
+            ActivateConfig = 16,
+            ConfigActivated = 17,
+            SetPowerSavingMode = 18,
+            SetName = 19,
+            GenNewSerial = 20,
+            ResetStepper = 21,
+            SetZeroStepper = 22,
+            Retrigger = 23,
+            ResetBoard = 24,
+            SetLcdDisplayI2C = 25,
+            SetModuleBrightness = 26,
+            SetShiftRegisterPins = 27,
+            //AnalogChange = 28,
+            //InputShiftRegisterChange = 29,
+            //InputMultiplexerChange = 30,
+            SetStepperSpeedAccel = 31,
+
+            // NoNames_mod (temporary), matching FW PR #219:
+            ButtonChange = 100,
+            EncoderChange = 101,
+            AnalogChange = 102,
+            InputShiftRegisterChange = 103,
+            InputMultiplexerChange = 104,
+
+            DebugPrint = 0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
