@@ -48,9 +48,9 @@ namespace MobiFlight
 
     public class Joystick
     {
-        public static string ButtonPrefix = "Button ";
-        public static string AxisPrefix = "Axis ";
-        public static string PovPrefix = "POV ";
+        public static string ButtonPrefix = "Button";
+        public static string AxisPrefix = "Axis";
+        public static string PovPrefix = "POV";
         public static string SerialPrefix = "JS-";
         public event ButtonEventHandler OnButtonPressed;
         public event ButtonEventHandler OnAxisChanged;
@@ -67,6 +67,17 @@ namespace MobiFlight
         private HidStream Stream;
         private HidDevice Device;
 
+        private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
+        {
+            [48] = "X",
+            [49] = "Y",
+            [50] = "Z",
+            [51] = "RotationX",
+            [52] = "RotationY",
+            [53] = "RotationZ",
+            [54] = "Slider1",
+            [55] = "Slider2"
+        };
 
         public static bool IsJoystickSerial(string serial)
         {
@@ -123,8 +134,8 @@ namespace MobiFlight
                     try
                     {
                         var OffsetAxisName = GetAxisNameForUsage(usage);
-                        axisName = $"{AxisPrefix}{OffsetAxisName}";
-                        axisLabel = MapDeviceNameToLabel($"{AxisPrefix}{OffsetAxisName}");
+                        axisName = $"{AxisPrefix} {OffsetAxisName}";
+                        axisLabel = MapDeviceNameToLabel($"{AxisPrefix} {OffsetAxisName}");
 
                     } catch (ArgumentOutOfRangeException)
                     {
@@ -139,21 +150,21 @@ namespace MobiFlight
                 {
                     // Use the device.Usage value so this is consistent with how Axes are referenced and avoid ID collisions
                     // when looking up names in the the .joystick.json file.
-                    var buttonName = $"{ButtonPrefix}{device.Usage}";
+                    var buttonName = $"{ButtonPrefix} {device.Usage}";
                     var buttonLabel = MapDeviceNameToLabel(buttonName);
                     Buttons.Add(new JoystickDevice() { Name = buttonName, Label = buttonLabel, Type = JoystickDeviceType.Button });
                     Log.Instance.log($"Added {joystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {buttonLabel}.", LogSeverity.Debug);
                 }
                 else if (IsPOV)
                 {
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}U", Label = $"{name} (↑)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}UR", Label = $"{name} (↗)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}R", Label = $"{name} (→)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}DR", Label = $"{name} (↘)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}D", Label = $"{name} (↓)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}DL", Label = $"{name} (↙)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}L", Label = $"{name} (←)", Type = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix}{name}UL", Label = $"{name} (↖)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}U", Label = $"{name} (↑)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UR", Label = $"{name} (↗)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}R", Label = $"{name} (→)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DR", Label = $"{name} (↘)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}D", Label = $"{name} (↓)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DL", Label = $"{name} (↙)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}L", Label = $"{name} (←)", Type = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = JoystickDeviceType.POV });
                 }
                 else
                 {
@@ -400,7 +411,7 @@ namespace MobiFlight
 
         private int GetValueForAxisFromState(int currentAxis, JoystickState state)
         {
-            String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "");
+            String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
             if (RawAxisName.Contains("Slider"))
             {
                 byte index = 0;
@@ -418,16 +429,6 @@ namespace MobiFlight
 
         public static String GetAxisNameForUsage(int usage)
         {
-            Dictionary<int, string> UsageMap = new Dictionary<int, string>();
-            UsageMap[48] = "X";
-            UsageMap[49] = "Y";
-            UsageMap[50] = "Z";
-            UsageMap[51] = "RotationX";
-            UsageMap[52] = "RotationY";
-            UsageMap[53] = "RotationZ";
-            UsageMap[54] = "Slider1";
-            UsageMap[55] = "Slider2";
-
             if (!UsageMap.ContainsKey(usage))
                 throw new ArgumentOutOfRangeException();
             return UsageMap[usage];
