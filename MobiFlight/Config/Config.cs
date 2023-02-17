@@ -211,5 +211,18 @@ namespace MobiFlight.Config
             }
             return this;
         }
+    
+        public BaseDevice FindNthElementOfType(DeviceType type, int count) 
+        {
+            count++;    // need count to be base-1
+            foreach (var item in Items) {
+                if (item.Type == type)
+                    count--;
+                if (count == 0)
+                    return item;
+            }
+            return new BaseDevice() { Name = "" };
+        }
+
     }
 }
