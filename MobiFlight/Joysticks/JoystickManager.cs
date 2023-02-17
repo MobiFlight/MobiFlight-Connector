@@ -102,20 +102,18 @@ namespace MobiFlight
 
         public void Connect(IntPtr Handle)
         {
-            SharpDX.DirectInput.DirectInput di = new SharpDX.DirectInput.DirectInput();
+            var di = new SharpDX.DirectInput.DirectInput();
             joysticks?.Clear();
 
-            List<SharpDX.DirectInput.DeviceInstance> devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
+            var devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
 
-            foreach (DeviceInstance d in devices)
+            foreach (var d in devices)
             {
                 Log.Instance.log($"Found attached DirectInput device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
 
                 if (!IsSupportedDeviceType(d)) continue;
 
-                MobiFlight.Joystick js;
-
-                js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
+                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
 
                 if (!HasAxisOrButtons(js)) continue;
 
@@ -133,7 +131,7 @@ namespace MobiFlight
 
         private void Js_OnDisconnected(object sender, EventArgs e)
         {
-            Joystick js = sender as Joystick;
+            var js = sender as Joystick;
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
             lock (joysticks)
                 joysticks.Remove(js);            
@@ -168,23 +166,19 @@ namespace MobiFlight
 
         internal Joystick GetJoystickBySerial(string serial)
         {
-            Joystick result = null;
-
-            result = joysticks.Find((Joystick js) => { return (js.Serial == serial); });
-
-            return result;
+            return joysticks.Find(js => js.Serial == serial);
         }
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>
+            var result = new Dictionary<string, int>
             {
                 ["Joysticks.Count"] = joysticks.Count()
             };
 
-            foreach (Joystick joystick in joysticks)
+            foreach (var joystick in joysticks)
             {
-                string key = "Joysticks.Model." + joystick.Name;
+                var key = $"Joysticks.Model.{joystick.Name}";
 
                 if (!result.ContainsKey(key)) result[key] = 0;
                 result[key] += 1;
