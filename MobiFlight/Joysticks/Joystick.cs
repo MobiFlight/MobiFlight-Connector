@@ -114,7 +114,7 @@ namespace MobiFlight
             this.definition = definition;
         }
 
-        protected virtual void EnumerateDevices()
+        private void EnumerateDevices()
         {
             foreach (DeviceObjectInstance device in this.joystick.GetObjects())
             {
@@ -241,14 +241,14 @@ namespace MobiFlight
             return result;
         }
 
-        protected virtual List<JoystickDevice> GetButtonsSorted()
+        private List<JoystickDevice> GetButtonsSorted()
         {
             var buttons = Buttons.ToArray().ToList();
             buttons.Sort(SortByPositionInDefintion);
             return Buttons;
         }
 
-        protected virtual List<JoystickDevice> GetAxisSorted()
+        private List<JoystickDevice> GetAxisSorted()
         {
             var axes = Axes.ToArray().ToList();
             Axes.Sort(SortByPositionInDefintion);
@@ -453,7 +453,7 @@ namespace MobiFlight
             }
         }
 
-        protected virtual void SendData(byte[] data)
+        private void SendData(byte[] data)
         {
             // Don't try and send data if no outputs are defined.
             if (definition?.Outputs == null || definition?.Outputs.Count == 0)
@@ -483,7 +483,7 @@ namespace MobiFlight
             SendData(data);
         }
 
-        virtual public void Stop()
+        public void Stop()
         {
             foreach(var light in Lights)
             {
