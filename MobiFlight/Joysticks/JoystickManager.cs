@@ -15,7 +15,7 @@ namespace MobiFlight
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         readonly Timer PollTimer = new Timer();
-        readonly List<Joystick> joysticks = new List<Joystick>();
+        readonly List<MFJoystick> joysticks = new List<MFJoystick>();
 
         public JoystickManager ()
         {
@@ -66,7 +66,7 @@ namespace MobiFlight
             try
             {
                 lock (joysticks) { 
-                    foreach (MobiFlight.Joystick js in joysticks)
+                    foreach (MobiFlight.MFJoystick js in joysticks)
                     {
                         js?.Update();
                     }
@@ -95,7 +95,7 @@ namespace MobiFlight
             }
         }
 
-        public List<MobiFlight.Joystick> GetJoysticks()
+        public List<MobiFlight.MFJoystick> GetJoysticks()
         {
             return joysticks;
         }
@@ -113,7 +113,7 @@ namespace MobiFlight
 
                 if (!IsSupportedDeviceType(d)) continue;
 
-                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
+                var js = new MFJoystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
 
                 if (!HasAxisOrButtons(js)) continue;
 
@@ -131,13 +131,13 @@ namespace MobiFlight
 
         private void Js_OnDisconnected(object sender, EventArgs e)
         {
-            var js = sender as Joystick;
+            var js = sender as MFJoystick;
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
             lock (joysticks)
                 joysticks.Remove(js);            
         }
 
-        private bool HasAxisOrButtons(Joystick js)
+        private bool HasAxisOrButtons(MFJoystick js)
         {
             return
                 js.Capabilities.AxeCount > 0 ||
@@ -164,7 +164,7 @@ namespace MobiFlight
             OnButtonPressed?.Invoke(sender, e);
         }
 
-        internal Joystick GetJoystickBySerial(string serial)
+        internal MFJoystick GetJoystickBySerial(string serial)
         {
             return joysticks.Find(js => js.Serial == serial);
         }

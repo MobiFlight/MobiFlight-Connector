@@ -46,7 +46,7 @@ namespace MobiFlight.UI.Dialogs
                 OutputConfigItem cfg = row["settings"] as OutputConfigItem;
                 if (cfg.DisplaySerial != "" && 
                     cfg.DisplaySerial  != "-" && 
-                    !Joystick.IsJoystickSerial(cfg.DisplaySerial) &&
+                    !MFJoystick.IsJoystickSerial(cfg.DisplaySerial) &&
                     !configSerials.Contains(cfg.DisplaySerial) && 
                     !moduleSerials.Contains(cfg.DisplaySerial))
                 {
@@ -61,7 +61,7 @@ namespace MobiFlight.UI.Dialogs
                 if (cfg != null &&
                     cfg.ModuleSerial != "" &&
                     cfg.ModuleSerial != "-" &&
-                    !Joystick.IsJoystickSerial(cfg.ModuleSerial) &&
+                    !MFJoystick.IsJoystickSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&
                     !moduleSerials.Contains(cfg.ModuleSerial))
                 {

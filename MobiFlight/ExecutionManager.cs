@@ -662,9 +662,9 @@ namespace MobiFlight
                 cfg.DisplayType!="InputAction") 
                 return value.ToString();
 
-            if (serial.IndexOf(Joystick.SerialPrefix)==0)
+            if (serial.IndexOf(MFJoystick.SerialPrefix)==0)
             {
-                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
+                MFJoystick joystick = joystickManager.GetJoystickBySerial(serial);
                 if(joystick != null)
                 {
                     joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
@@ -1313,7 +1313,7 @@ namespace MobiFlight
                                // because we used to have the label in the config
                                // but now we want to store the internal button identifier
                                // so that the label can change any time without breaking the config
-                               (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.Name == e.DeviceLabel)))
+                               (MFJoystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.Name == e.DeviceLabel)))
                         	{
                             	// Input shift registers have an additional check to see if the pin that changed matches the pin
                             	// assigned to the row. If not just skip this row. Without this every row that uses the input shift register
@@ -1453,8 +1453,8 @@ namespace MobiFlight
 
         private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
         {
-            return !Joystick.IsJoystickSerial(Serial) ||
-                    (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
+            return !MFJoystick.IsJoystickSerial(Serial) ||
+                    (MFJoystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
         }
 #endif
 

@@ -284,7 +284,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
-                else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
+                else if (serial.IndexOf(MFJoystick.SerialPrefix) == 0)
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                 }
@@ -423,7 +423,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private bool InitializeJoystickDisplays(ComboBox cb, string serial)
         {
-            Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+            MFJoystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
 
             displayPinPanel.SetModule(null);
             displayPinPanel.displayPinBrightnessPanel.Visible = false;

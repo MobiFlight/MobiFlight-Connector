@@ -424,7 +424,7 @@ namespace MobiFlight.UI.Panels
                         row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
                     }
                     else 
-                    if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
+                    if (MFJoystick.IsJoystickSerial(cfg.ModuleSerial)) {
                         var j = ExecutionManager.GetJoystickManager().GetJoystickBySerial(serialNumber);
                         if (j != null)
                         {
