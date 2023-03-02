@@ -89,7 +89,7 @@ namespace MobiFlight.Base
                 String key = "input." + item.Type;
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix))
                 {
-                    key = key + ".joystick";
+                    key += ".joystick";
                 }
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
@@ -163,9 +163,11 @@ namespace MobiFlight.Base
         public void log(string message, LogSeverity severity)
         {
             String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
-            
-            EventTelemetry myevent = new EventTelemetry();
-            myevent.Name = "log";
+
+            EventTelemetry myevent = new EventTelemetry
+            {
+                Name = "log"
+            };
             myevent.Properties.Add("message", msg);
             myevent.Properties.Add("severity", severity.ToString());
             AppTelemetry.Instance.GetClient().TrackEvent(myevent);                        
