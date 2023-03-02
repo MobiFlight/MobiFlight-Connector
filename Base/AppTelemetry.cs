@@ -31,8 +31,9 @@ namespace MobiFlight.Base
 
         private void InitTelemetryClient()
         {
+            // Issue #1168: Remove the InstrumentationKey from here and move it to the ApplicationInsights.config
+            // file based on the instructions in https://github.com/microsoft/ApplicationInsights-dotnet/issues/2560.
             TelemetryConfiguration configuration = TelemetryConfiguration.Active;
-            configuration.InstrumentationKey = "712d6bd9-733d-4735-b173-ba30ade778fb";
 #if (!DEBUG)
             configuration.DisableTelemetry = !enabled;
 #else
