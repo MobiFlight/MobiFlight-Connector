@@ -230,7 +230,7 @@ namespace MobiFlight
             {
                 result.Add(item.ToListItem());
             });
-            Axes.ForEach((item) =>
+            GetAxisSorted().ForEach((item) =>
             {
                 result.Add(item.ToListItem());
             });
@@ -324,7 +324,7 @@ namespace MobiFlight
             if (StateExists()) oldValue = state.PointOfViewControllers[0];
             int newValue = newState.PointOfViewControllers[0];
 
-            int index = 0;
+            int index;
 
             if (oldValue != newValue)
             {
