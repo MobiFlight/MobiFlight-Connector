@@ -315,6 +315,9 @@ namespace MobiFlight
             analogInputs.Clear();
             shiftRegisters.Clear();
 
+            // Issue #1171: A user reported a crash when MobiFlight attempted to load a board configuration due to
+            // int.TryParse() failing. Add a try/catch to handle any possible bad data that comes from the board
+            // when processing the configuration.
             try
             {
                 foreach (Config.BaseDevice device in Config.Items)
