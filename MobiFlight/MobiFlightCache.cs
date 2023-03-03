@@ -743,7 +743,7 @@ namespace MobiFlight
                 if (!double.TryParse(value, out dValue)) return;
 
                 int iValue = (int)Math.Round(dValue,0);
-                module.setShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
+                module.SetShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
             }
             catch (Exception e)
             {
