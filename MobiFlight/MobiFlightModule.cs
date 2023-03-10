@@ -350,6 +350,12 @@ namespace MobiFlight
                         break;
                     case DeviceType.Output:
                         device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
+                        Int16 pin;
+                        if (!Int16.TryParse((device as Config.Output).Pin, out pin))
+                        {
+                            Log.Instance.log($"Can't parse {(device as Config.Output).Name} Pin: {(device as Config.Output).Pin}", LogSeverity.Error);
+                            break;
+                        }
                         outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
                         break;
                     case DeviceType.LcdDisplay:
