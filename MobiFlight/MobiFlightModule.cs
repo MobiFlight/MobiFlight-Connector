@@ -327,10 +327,26 @@ namespace MobiFlight
                 switch (device.Type)
                 {
                     case DeviceType.LedModule:
-                        int submodules = 1;
-                        int.TryParse((device as Config.LedModule).NumModules, out submodules);
+                        int ledSubmodules = 1;
+
+                        if (!int.TryParse((device as Config.LedModule).NumModules, out ledSubmodules))
+                        {
+                            Log.Instance.log(
+                                $"Can't parse {(device as Config.LedModule).Name} " +
+                                $"NumModules: {(device as Config.LedModule).NumModules}, " +
+                                $"using default {ledSubmodules}", 
+                                LogSeverity.Error);
+                            break;
+                        }
+
                         device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
-                        ledModules.Add(device.Name, new MobiFlightLedModule() { CmdMessenger = _cmdMessenger, Name = device.Name, ModuleNumber = ledModules.Count, SubModules = submodules, Brightness = (device as Config.LedModule).Brightness });
+                        ledModules.Add(device.Name, new MobiFlightLedModule() { 
+                            CmdMessenger = _cmdMessenger, 
+                            Name = device.Name, 
+                            ModuleNumber = ledModules.Count, 
+                            SubModules = ledSubmodules, 
+                            Brightness = (device as Config.LedModule).Brightness 
+                        });
                         break;
                     case DeviceType.Stepper:
                         device.Name = GenerateUniqueDeviceName(stepperModules.Keys.ToArray(), device.Name);
@@ -353,10 +369,16 @@ namespace MobiFlight
                         Int16 pin;
                         if (!Int16.TryParse((device as Config.Output).Pin, out pin))
                         {
-                            Log.Instance.log($"Can't parse {(device as Config.Output).Name} Pin: {(device as Config.Output).Pin}", LogSeverity.Error);
+                            Log.Instance.log(
+                                $"Can't parse {(device as Config.Output).Name} Pin: {(device as Config.Output).Pin}, skipping device.", 
+                                LogSeverity.Error);
                             break;
                         }
-                        outputs.Add(device.Name, new MobiFlightOutput() { CmdMessenger = _cmdMessenger, Name = device.Name, Pin = Int16.Parse((device as Config.Output).Pin) });
+                        outputs.Add(device.Name, new MobiFlightOutput() { 
+                            CmdMessenger = _cmdMessenger, 
+                            Name = device.Name, 
+                            Pin = pin 
+                        });
                         break;
                     case DeviceType.LcdDisplay:
                         device.Name = GenerateUniqueDeviceName(lcdDisplays.Keys.ToArray(), device.Name);
@@ -376,9 +398,19 @@ namespace MobiFlight
                         break;
                     case DeviceType.ShiftRegister:
                         device.Name = GenerateUniqueDeviceName(shiftRegisters.Keys.ToArray(), device.Name);
-                        int.TryParse((device as Config.ShiftRegister).NumModules, out submodules);
+                        int submodules = 1;
+                        if(int.TryParse((device as Config.ShiftRegister).NumModules, out submodules))
+                        {
+                            Log.Instance.log(
+                                $"Can't parse {(device as Config.ShiftRegister).Name} " +
+                                $"NumModules: {(device as Config.ShiftRegister).NumModules}, " +
+                                $"using default {submodules}",
+                                LogSeverity.Error);
+                            break;
+                        }
                         shiftRegisters.Add(device.Name, new MobiFlightShiftRegister() { CmdMessenger = _cmdMessenger, Name = device.Name, NumberOfShifters = submodules, ModuleNumber = shiftRegisters.Count });
                         break;
+
                     case DeviceType.InputShiftRegister:
                         device.Name = GenerateUniqueDeviceName(inputShiftRegisters.Keys.ToArray(), device.Name);
                         inputShiftRegisters.Add(device.Name, new MobiFlightInputShiftRegister() { Name = device.Name });
