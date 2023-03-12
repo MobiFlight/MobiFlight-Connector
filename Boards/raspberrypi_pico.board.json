@@ -25,17 +25,17 @@
     "ResetFirmwareFile": "reset.raspberry_pico_1_0_2.uf2"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 16,
+    "MaxAnalogInputs": 3,
     "MaxInputShifters": 4,
-    "MaxButtons": 68,
-    "MaxEncoders": 20,
+    "MaxButtons": 26,
+    "MaxEncoders": 8,
     "MaxLcdI2C": 2,
     "MaxLedSegments": 4,
-    "MaxOutputs": 40,
-    "MaxServos": 10,
+    "MaxOutputs": 26,
+    "MaxServos": 8,
     "MaxShifters": 4,
-    "MaxSteppers": 10,
-    "MaxInputMultiplexer": 2
+    "MaxSteppers": 6,
+    "MaxInputMultiplexer": 4
   },
   "Pins": [
     {
