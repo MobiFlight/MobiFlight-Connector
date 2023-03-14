@@ -667,7 +667,10 @@ namespace MobiFlight
                 Joystick joystick = joystickManager.GetJoystickBySerial(serial);
                 if(joystick != null)
                 {
-                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, value);
+                    byte state = 0;
+                    if (value != "0") state = 1;
+
+                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
                     joystick.UpdateOutputDeviceStates();
                     joystick.Update();
                 } else
