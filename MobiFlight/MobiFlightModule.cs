@@ -427,9 +427,9 @@ namespace MobiFlight
                             device.Name = GenerateUniqueDeviceName(inputMultiplexers.Keys.ToArray(), device.Name);
                             inputMultiplexers.Add(device.Name, new MobiFlightInputMultiplexer() { Name = device.Name });
                             break;
-                            // The MultiplexerDriver does not belong here (a "MobiFlightMultiplexerDriverS" doesn't even exist) because all I/O devices here
-                            // are only those meant to be linked to a user input event or output data, while MultiplexerDrivers are not addressable
-                            // by the user (and shouldn't show in the UI).
+                            // DeviceType.MultiplexerDriver does not belong here (a "multiplexerDrivers" collection doesn't even exist)
+                            // because all I/O devices here are only those meant to be linked to a user input event or output data,
+                            // while MultiplexerDrivers are not addressable by the user (and shouldn't show in the UI).
                     }
                 }
                 catch (Exception ex)
