@@ -399,8 +399,6 @@ namespace MobiFlight
             foreach(var light in Lights)
             {
                 if (light.Label != name) continue;
-
-                state = (byte)(state > 0 ? 1 : 0);
                 if (light.State == state) continue;
 
                 light.State = state;
