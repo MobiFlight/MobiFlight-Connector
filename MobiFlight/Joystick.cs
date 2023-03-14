@@ -394,8 +394,6 @@ namespace MobiFlight
 
         public void SetOutputDeviceState(string name, byte state)
         {
-            double tempValue;
-
             foreach(var light in Lights)
             {
                 if (light.Label != name) continue;
