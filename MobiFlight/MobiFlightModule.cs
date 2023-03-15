@@ -407,7 +407,7 @@ namespace MobiFlight
                         case DeviceType.ShiftRegister:
                             device.Name = GenerateUniqueDeviceName(shiftRegisters.Keys.ToArray(), device.Name);
                             int submodules = 1;
-                            if (int.TryParse((device as Config.ShiftRegister).NumModules, out submodules))
+                            if (!int.TryParse((device as Config.ShiftRegister).NumModules, out submodules))
                             {
                                 Log.Instance.log(
                                     $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.ShiftRegister).Name}]." +
