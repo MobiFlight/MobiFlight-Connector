@@ -28,6 +28,7 @@ namespace MobiFlight.UI.Panels.Config
         public const byte MINIMUM_SEARCH_STRING_LENGTH = 1;
         public event EventHandler OnGetLVarListRequested;
         private event EventHandler OnLVarsSet;
+        private Timer searchDebounceTimer;
 
         private HubHopPanelMode _mode;
         public HubHopPanelMode Mode { 
@@ -510,7 +511,25 @@ namespace MobiFlight.UI.Panels.Config
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            FilterPresetList();
+            // Cancel any previous timer
+            searchDebounceTimer?.Dispose();
+
+            // Create a new timer with a 300ms delay
+            searchDebounceTimer = new Timer { Interval = 300 };
+
+            // Set the function to be called when the timer elapses
+            searchDebounceTimer.Tick += (s, _) =>
+            {
+                // Stop and dispose of the timer
+                searchDebounceTimer.Stop();
+                searchDebounceTimer.Dispose();
+
+                // Call the function
+                FilterPresetList();
+            };
+
+            // Start the timer
+            searchDebounceTimer.Start();
         }
 
         private void FilterPresetList()
