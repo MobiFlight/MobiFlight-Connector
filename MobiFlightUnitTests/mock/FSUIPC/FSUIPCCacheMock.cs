@@ -10,9 +10,9 @@ namespace MobiFlightUnitTests.mock.FSUIPC
 {
     class FSUIPCCacheMock : FSUIPCCacheInterface
     {
-        public event EventHandler Closed;
-        public event EventHandler Connected;
-        public event EventHandler ConnectionLost;
+        public event EventHandler Closed { add { } remove { } }
+        public event EventHandler Connected { add { } remove { } }
+        public event EventHandler ConnectionLost { add { } remove { } }
 
         public List<FSUIPCMockOffset> Writes = new List<FSUIPCMockOffset>();
         public List<FSUIPCMockOffset> Reads = new List<FSUIPCMockOffset>();

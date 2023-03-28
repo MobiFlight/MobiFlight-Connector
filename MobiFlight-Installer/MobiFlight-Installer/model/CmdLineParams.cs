@@ -100,7 +100,7 @@ namespace MobiFlightInstaller
                     {
                         if (args[pos + 1][0] != '/') result = args[pos + 1];
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // do nothing
                     }
