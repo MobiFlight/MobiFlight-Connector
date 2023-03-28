@@ -82,11 +82,23 @@ namespace MobiFlight
         {
             var result = new List<MobiFlightModuleInfo>();
 
-            // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
-            // when trying to read the volume label when the drive wasn't actually ready.
-            // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
-            foreach (var drive in DriveInfo.GetDrives().Where(d => (d.DriveType == DriveType.Removable && d.IsReady)))
+            foreach (var drive in DriveInfo.GetDrives())
             {
+                // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
+                if (drive.DriveType != DriveType.Removable)
+                {
+                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) isn't a removable drive, skipping.", LogSeverity.Debug);
+                    continue;
+                }
+
+                // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
+                // when trying to read the volume label when the drive wasn't actually ready.
+                if (!drive.IsReady)
+                {
+                    Log.Instance.log($"Drive {drive.Name} isn't ready, skipping.", LogSeverity.Debug);
+                    continue;
+                }
+
                 Board candidateBoard;
                 try 
                 {
@@ -102,6 +114,7 @@ namespace MobiFlight
 
                 if (candidateBoard != null)
                 {
+                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) is a candidate device: {candidateBoard.Info.FriendlyName}", LogSeverity.Debug);
                     result.Add(new MobiFlightModuleInfo()
                     {
                         Board = candidateBoard,
@@ -112,6 +125,10 @@ namespace MobiFlight
                         // port and to skip the COM port toggle before flashing.
                         Port = drive.RootDirectory.FullName
                     });
+                }
+                else
+                {
+                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) was a candidate but no matching board was found for volume label {drive.VolumeLabel}.", LogSeverity.Info);
                 }
             }
 
