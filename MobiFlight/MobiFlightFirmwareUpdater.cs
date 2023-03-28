@@ -180,20 +180,31 @@ namespace MobiFlight
             // For boards that started as a COM port look up what the drive letter is after the port was toggled.
             if (port.StartsWith("COM"))
             {
-                // Find all drives connected to the PC with a volume label that matches the one used to identify the 
-                // drive that's the device to flash. This assumes the first matching drive is the one we want,
-                // since it is extremely unlikely that more than one flashable USB drive will be connected and in a
-                // flashable state at the same time.
-                try
+                // Issue #1155: Re-use the detection logic used at MobiFlight startup for consistency.
+                var boards = MobiFlightCache.FindConnectedUsbDevices();
+
+                if (boards.Count == 0)
                 {
-                    driveInfo = DriveInfo.GetDrives().Where(d => d.VolumeLabel == board.UsbDriveSettings.VolumeLabel).First();
+                    message = "No mounted USB drives found.";
+                    Log.Instance.log(message, LogSeverity.Error);
+                    throw new FileNotFoundException(message);
                 }
-                catch
+
+                // FindConnectedUsbDevices returns a list of MobiFlightModuleInfo objects for all connected
+                // USB devices. What's needed for flashing however is a single USB drive whose volume label
+                // matches the volume lable in the .board.json of the device we toggled the COM port on.
+                // Attempt to find it.
+                var matchingBoard = boards.Where(b => b.Name == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
+
+                if (matchingBoard == null)
                 {
                     message = $"No mounted USB drives named {board.UsbDriveSettings.VolumeLabel} found.";
                     Log.Instance.log(message, LogSeverity.Error);
                     throw new FileNotFoundException(message);
                 }
+
+                // At this point we quite likely have the USB drive we need, and the HardwareId is the drive letter.
+                driveInfo = new DriveInfo(matchingBoard.HardwareId);
             }
             // For boards that were already a drive letter just get the drive info based off that.
             else
