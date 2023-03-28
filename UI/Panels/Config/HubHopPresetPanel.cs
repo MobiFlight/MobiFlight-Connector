@@ -159,8 +159,6 @@ namespace MobiFlight.UI.Panels.Config
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
 
-            ///
-
             CodeTypeComboBox.SelectedValueChanged += (sender, e) =>
             {
                 ValuePanel.Visible = Mode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE && (CodeTypeComboBox.SelectedValue.ToString() == XplaneInputAction.INPUT_TYPE_DATAREF);
