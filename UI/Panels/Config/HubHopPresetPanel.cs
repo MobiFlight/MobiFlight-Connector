@@ -511,24 +511,20 @@ namespace MobiFlight.UI.Panels.Config
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            // Cancel any previous timer
+            FilterPresetListDelayedByMs(300);
+        }
+
+        private void FilterPresetListDelayedByMs(int miliseconds)
+        {
             searchDebounceTimer?.Dispose();
-
-            // Create a new timer with a 300ms delay
-            searchDebounceTimer = new Timer { Interval = 300 };
-
-            // Set the function to be called when the timer elapses
+            searchDebounceTimer = new Timer { Interval = miliseconds };
             searchDebounceTimer.Tick += (s, _) =>
             {
-                // Stop and dispose of the timer
                 searchDebounceTimer.Stop();
                 searchDebounceTimer.Dispose();
 
-                // Call the function
                 FilterPresetList();
             };
-
-            // Start the timer
             searchDebounceTimer.Start();
         }
 
