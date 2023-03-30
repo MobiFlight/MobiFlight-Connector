@@ -38,8 +38,13 @@ namespace MobiFlight.UI.Panels
 
             inputRevTextBox.Text            = config.Stepper.InputRev.ToString();
             outputRevTextBox.Text           = config.Stepper.OutputRev.ToString();
-            SpeedTextBox.Text               = config.Stepper.Speed.ToString();
-            AccelerationTextBox.Text        = config.Stepper.Acceleration.ToString();
+
+            if (config.Stepper.Speed>0)
+                SpeedTextBox.Text               = config.Stepper.Speed.ToString();
+
+            if (config.Stepper.Acceleration>0)
+                AccelerationTextBox.Text        = config.Stepper.Acceleration.ToString();
+
             stepperTestValueTextBox.Text    = config.Stepper.TestValue.ToString();
             CompassModeCheckBox.Checked     = config.Stepper.CompassMode;
         }
