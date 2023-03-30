@@ -180,7 +180,7 @@ namespace MobiFlight
         public string MapDeviceNameToLabel(string deviceName)
         {
             // First try and look for a custom label.
-           var input = Definition?.FindInputByName(deviceName);
+            var input = Definition?.FindInputByName(deviceName);
             if (input != null)
             {
                 return input.Label;
