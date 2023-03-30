@@ -201,7 +201,7 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
-            foreach (MFJoystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 if (joystick.GetAvailableDevices().Count > 0)
                     inputModuleNameComboBox.Items.Add(new ListItem()
@@ -236,7 +236,7 @@ namespace MobiFlight.UI.Dialogs
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
-            foreach (MFJoystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
@@ -314,7 +314,7 @@ namespace MobiFlight.UI.Dialogs
             if (config.ModuleSerial == "-") return true;
             if (inputTypeComboBox.SelectedItem.ToString() != InputConfigItem.TYPE_NOTSET)
             {
-                if (MFJoystick.IsJoystickSerial(SerialNumber.ExtractSerial(config.ModuleSerial)))
+                if (Joystick.IsJoystickSerial(SerialNumber.ExtractSerial(config.ModuleSerial)))
                 {
                     config.Name = (inputTypeComboBox.SelectedItem as ListItem).Value;
                 }
@@ -435,7 +435,7 @@ namespace MobiFlight.UI.Dialogs
                     }
                     inputTypeComboBox.Enabled = false;
                 }
-                else if (!MFJoystick.IsJoystickSerial(serial))
+                else if (!Joystick.IsJoystickSerial(serial))
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
@@ -475,7 +475,7 @@ namespace MobiFlight.UI.Dialogs
                 }
                 // Add all Joysticks
                 else {
-                    MFJoystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+                    Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
                     inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevices().ToArray());
                 }
 
@@ -503,7 +503,7 @@ namespace MobiFlight.UI.Dialogs
                 if (device == null || string.IsNullOrEmpty(device?.Name))
                     return currentInputType;
                 currentInputType = device.Type;
-            } else if (!MFJoystick.IsJoystickSerial(serial)) {
+            } else if (!Joystick.IsJoystickSerial(serial)) {
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
                 // find the correct input type based on the name
@@ -519,11 +519,11 @@ namespace MobiFlight.UI.Dialogs
             } else
             {
                 // We have a joystick 
-                if (inputTypeComboBox.SelectedItem.ToString().Contains(MFJoystick.ButtonPrefix))
+                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.ButtonPrefix))
                     currentInputType = DeviceType.Button;
-                else if (inputTypeComboBox.SelectedItem.ToString().Contains(MFJoystick.AxisPrefix))
+                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
                     currentInputType = DeviceType.AnalogInput;
-                else if (inputTypeComboBox.SelectedItem.ToString().Contains(MFJoystick.PovPrefix))
+                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.PovPrefix))
                     currentInputType = DeviceType.Button;
             }
 
@@ -832,7 +832,7 @@ namespace MobiFlight.UI.Dialogs
             const int AnalogInputThreshold = 20;
 
             if ((SerialNumber.IsJoystickSerial(e.Serial) &&
-                e.DeviceId.Contains(MFJoystick.AxisPrefix)) || e.Type == DeviceType.AnalogInput)
+                e.DeviceId.Contains(Joystick.AxisPrefix)) || e.Type == DeviceType.AnalogInput)
             {
                 if (ScanForInputThreshold.ContainsKey(e.Serial + e.DeviceId))
                 {

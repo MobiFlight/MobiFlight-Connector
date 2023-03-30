@@ -27,7 +27,7 @@ namespace MobiFlight
             {
                 if (this.Type == JoystickDeviceType.Axis)
                 {
-                    var name = $"{Type} {MFJoystick.GetAxisNameForUsage(Id)}";
+                    var name = $"{Type} {Joystick.GetAxisNameForUsage(Id)}";
                     return name;
                 }
 

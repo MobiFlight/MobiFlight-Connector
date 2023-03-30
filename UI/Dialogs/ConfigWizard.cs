@@ -212,7 +212,7 @@ namespace MobiFlight.UI.Dialogs
 
         protected void _AddJoysticks(List<ListItem> DisplayModuleList)
         {
-            foreach (MFJoystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 if (joystick.GetAvailableOutputDevices().Count == 0) continue;
 

@@ -1202,7 +1202,7 @@ namespace MobiFlight.UI
             List<string> serials = new List<string>();
             List<string> NotConnectedJoysticks = new List<string>();
 
-            foreach (MFJoystick j in execManager.GetJoystickManager().GetJoysticks())
+            foreach (Joystick j in execManager.GetJoystickManager().GetJoysticks())
             {
                 serials.Add(j.Name + " / " + j.Serial);
             }
@@ -1212,7 +1212,7 @@ namespace MobiFlight.UI
 
             foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
             {
-                if (item.DisplaySerial.Contains(MFJoystick.SerialPrefix) &&
+                if (item.DisplaySerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.DisplaySerial) &&
                     !NotConnectedJoysticks.Contains(item.DisplaySerial))
                 {
@@ -1222,7 +1222,7 @@ namespace MobiFlight.UI
 
             foreach (InputConfigItem item in configFile.GetInputConfigItems())
             {
-                if (item.ModuleSerial.Contains(MFJoystick.SerialPrefix) &&
+                if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) && 
                     !NotConnectedJoysticks.Contains(item.ModuleSerial)) { 
                     NotConnectedJoysticks.Add(item.ModuleSerial);

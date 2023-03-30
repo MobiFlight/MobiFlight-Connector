@@ -42,7 +42,7 @@ namespace MobiFlight.Base
         public static bool IsJoystickSerial(string serial)
         {
             if (serial == null || serial == "") return false;
-            return (serial.IndexOf(MFJoystick.SerialPrefix) == 0);
+            return (serial.IndexOf(Joystick.SerialPrefix) == 0);
         }
 
         public static bool IsRawSerial(string serial)
