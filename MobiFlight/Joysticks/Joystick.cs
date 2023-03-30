@@ -438,16 +438,14 @@ namespace MobiFlight
             return UsageMap[usage];
         }
 
-        public void SetOutputDeviceState(string name, string value)
+        public void SetOutputDeviceState(string name, byte state)
         {
-            byte state = byte.Parse(value);
-
             foreach(var light in Lights)
             {
                 if (light.Label != name) continue;
                 if (light.State == state) continue;
 
-                light.State = (byte) (state > 0 ? 1 : 0);
+                light.State = state;
                 RequiresOutputUpdate = true;
                 return;
             }

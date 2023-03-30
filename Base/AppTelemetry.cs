@@ -31,8 +31,9 @@ namespace MobiFlight.Base
 
         private void InitTelemetryClient()
         {
+            // Issue #1168: Remove the InstrumentationKey from here and move it to the ApplicationInsights.config
+            // file based on the instructions in https://github.com/microsoft/ApplicationInsights-dotnet/issues/2560.
             TelemetryConfiguration configuration = TelemetryConfiguration.Active;
-            configuration.InstrumentationKey = "712d6bd9-733d-4735-b173-ba30ade778fb";
 #if (!DEBUG)
             configuration.DisableTelemetry = !enabled;
 #else
@@ -88,7 +89,7 @@ namespace MobiFlight.Base
                 String key = "input." + item.Type;
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix))
                 {
-                    key = key + ".joystick";
+                    key += ".joystick";
                 }
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
@@ -162,9 +163,11 @@ namespace MobiFlight.Base
         public void log(string message, LogSeverity severity)
         {
             String msg = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message;
-            
-            EventTelemetry myevent = new EventTelemetry();
-            myevent.Name = "log";
+
+            EventTelemetry myevent = new EventTelemetry
+            {
+                Name = "log"
+            };
             myevent.Properties.Add("message", msg);
             myevent.Properties.Add("severity", severity.ToString());
             AppTelemetry.Instance.GetClient().TrackEvent(myevent);                        

@@ -367,7 +367,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 // third tab
                 if (config.DisplayType != null && 
-                    !ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                    !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }

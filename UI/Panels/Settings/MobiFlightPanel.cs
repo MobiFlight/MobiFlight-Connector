@@ -33,6 +33,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         MobiFlightCache mobiflightCache;
 
+        // Since we are working on GUI objects, and adding a specific reference to a MultiplexerDriver would be awkward,
+        // we use a match table to associate MultiplexerDrivers and Modules 
         private Dictionary<string, MobiFlight.Config.MultiplexerDriver> moduleMultiplexerDrivers = new Dictionary<string, MobiFlight.Config.MultiplexerDriver>();
 
         public MobiFlightPanel()
@@ -332,10 +334,9 @@ namespace MobiFlight.UI.Panels.Settings
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
 
-                    // MultiplexerDrivers should not appear in the tree, therefore they are stored in a dictionary 
-                    // (by module name) for easy retrieval
+                    // MultiplexerDrivers exist as items in the device list, but they should not appear in the GUI
                     if(device.Type == DeviceType.MultiplexerDriver) {
-                        moduleMultiplexerDrivers.Add(moduleInfo.Name, device as MobiFlight.Config.MultiplexerDriver);
+                        moduleMultiplexerDrivers.Add(moduleNode.Text, device as MobiFlight.Config.MultiplexerDriver);
                     } else {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
@@ -436,10 +437,7 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFInputMultiplexerPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
                             break;
 
-                        //case DeviceType.MultiplexerDriver:
-                        //    panel = new MFMultiplexerDriverPanel (dev as MobiFlight.Config.MultiplexerDriver, module.GetPins());
-                        //    (panel as MFMultiplexerDriverPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
-                        //    break;
+                        // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
 
                         // output
                     }
@@ -612,8 +610,8 @@ namespace MobiFlight.UI.Panels.Settings
                         if (statistics[MobiFlightInputMultiplexer.TYPE] == tempModule.Board.ModuleLimits.MaxInputMultiplexer) {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputMultiplexer.TYPE, tempModule.Board.ModuleLimits.MaxInputMultiplexer);
                         }
-                        // getOrAddModuleMultiplexerDriver() takes care of creating the MultiplexerDriver if not done yet:
-                        cfgItem = new MobiFlight.Config.InputMultiplexer(getOrAddModuleMultiplexerDriver(freePinList));
+                        // getModuleMultiplexerDriver() takes care of creating the MultiplexerDriver if not done yet:
+                        cfgItem = new MobiFlight.Config.InputMultiplexer(getModuleMultiplexerDriver(freePinList));
                         (cfgItem as MobiFlight.Config.InputMultiplexer).DataPin = freePinList.ElementAt(0).ToString();
                         break;
 
@@ -791,15 +789,20 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
+            // Saves the configuration of the current module to a file
+
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             newConfig.ModuleName = module.Name;
 
-            foreach (MobiFlight.Config.MultiplexerDriver multiplexerDriver in moduleMultiplexerDrivers.Values) {
-                newConfig.Items.Add(multiplexerDriver as MobiFlight.Config.BaseDevice);
-            }
+            // These lines are only required if the multiplexerDriver is handled
+            // as a proper device (with its own config line):
+            //var multiplexerDriver = findModuleMultiplexerDriver(false);
+            //if (multiplexerDriver != null) {
+            //    newConfig.Items.Add(multiplexerDriver as MobiFlight.Config.BaseDevice);
+            //}
 
             foreach (TreeNode node in moduleNode.Nodes)
             {
@@ -1028,19 +1031,21 @@ namespace MobiFlight.UI.Panels.Settings
             return device.isMuxClient;
         }
 
-        private MobiFlight.Config.MultiplexerDriver getModuleMultiplexerDriver()
+        /// <summary>
+        /// Helper function to return the MultiplexerDriver device belonging to the current module
+        /// Initializes module values if not yet done
+        /// </summary>
+        /// <param name="addIfNotFound">if true, an element will be created if none exists</param>
+        /// <returns>Object</returns>
+        private MobiFlight.Config.MultiplexerDriver findModuleMultiplexerDriver(bool addIfNotFound)
         {
             MobiFlight.Config.MultiplexerDriver moduleMultiplexerDriver;
             
             string moduleName = getModuleNode().Text;
 
-            if (!moduleMultiplexerDrivers.ContainsKey(moduleName)) {
+            if (!moduleMultiplexerDrivers.ContainsKey(moduleName) && addIfNotFound) {
                 // None found: we are adding first client, therefore we must also build a new MultiplexerDriver
                 moduleMultiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
-                // append it to module's configuration first,
-                TreeNode moduleNode = getModuleNode();
-                (moduleNode.Tag as MobiFlightModule).Config.Items.Add(moduleMultiplexerDriver);
-                // then also add it to the GUI list
                 moduleMultiplexerDrivers.Add(moduleName, moduleMultiplexerDriver);
             } else {
                 moduleMultiplexerDriver = moduleMultiplexerDrivers[moduleName];
@@ -1048,14 +1053,9 @@ namespace MobiFlight.UI.Panels.Settings
             return moduleMultiplexerDriver;
         }
 
-        /// <summary>
-        /// Helper function to return the MultiplexerDriver device belonging to the current module
-        /// Initializes module values if not yet done
-        /// </summary>
-        /// <returns>Object if existing, null otherwise</returns>
-        private MobiFlight.Config.MultiplexerDriver getOrAddModuleMultiplexerDriver(List<MobiFlightPin> freePins)
+        private MobiFlight.Config.MultiplexerDriver getModuleMultiplexerDriver(List<MobiFlightPin> freePins)
         {
-            var multiplexerDriver = getModuleMultiplexerDriver();
+            var multiplexerDriver = findModuleMultiplexerDriver(true);
 
             // If multiplexerDriver has no users yet, initialize it
             if (!multiplexerDriver.isInitialized()) {
@@ -1067,10 +1067,9 @@ namespace MobiFlight.UI.Panels.Settings
                     pins[i] = freePins.ElementAt(i).ToString();
                 }
                 freePins.RemoveRange(0, 4);
-                multiplexerDriver.Initialize(pins);     // this also registers (if first client, which we are)
-            } else {
-                multiplexerDriver.registerClient();
+                multiplexerDriver.SetPins(pins);
             }
+            multiplexerDriver.registerClient();
             return multiplexerDriver;
         }
 
@@ -1081,10 +1080,12 @@ namespace MobiFlight.UI.Panels.Settings
         {
             MobiFlight.Config.MultiplexerDriver multiplexerDriver;
             
-            multiplexerDriver = getModuleMultiplexerDriver();
-            multiplexerDriver.unregisterClient();
-            if (!multiplexerDriver.isInitialized()) {
-                moduleMultiplexerDrivers.Remove(getModuleNode().Name);
+            multiplexerDriver = findModuleMultiplexerDriver(false);
+            if(multiplexerDriver != null) {
+                multiplexerDriver.unregisterClient();
+                if (!multiplexerDriver.isInitialized()) {
+                    moduleMultiplexerDrivers.Remove(getModuleNode().Text);
+                }
             }
         }
 

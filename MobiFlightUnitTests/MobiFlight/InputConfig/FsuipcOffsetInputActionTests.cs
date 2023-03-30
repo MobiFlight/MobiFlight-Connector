@@ -161,7 +161,7 @@ namespace MobiFlight.InputConfig.Tests
                 o.execute(cacheCollection, new InputEventArgs() { Value = 359 }, configrefs);
                 Assert.Fail();
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 Assert.AreEqual(0, mock.Writes.Count, "The message count is not as expected");
             }

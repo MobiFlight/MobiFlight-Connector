@@ -21,10 +21,10 @@ namespace MobiFlight
                     result = String;
                     break;
                 case FSUIPCOffsetType.Integer:
-                    result = Float64.ToString();
+                    result = Math.Round(Float64).ToString();
                     break;
                 case FSUIPCOffsetType.Float:
-                    result = Float64.ToString();
+                    result = Float64.ToString("R");
                     break;
                 /*case FSUIPCOffsetType.UnsignedInt:
                     result = Uint64.ToString();

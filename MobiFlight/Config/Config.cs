@@ -61,7 +61,7 @@ namespace MobiFlight.Config
         {
             String[] items = value.Split(BaseDevice.End);
 
-            // Need to set aside the MultiplexerDriver reference (for subsequent devices) when we find it 
+            // Need to set aside the MultiplexerDriver reference (for subsequent client devices) when we find it 
             MobiFlight.Config.MultiplexerDriver multiplexerDriver = null;
 
             foreach (String item in items)
@@ -148,14 +148,18 @@ namespace MobiFlight.Config
                             break;
 
                         case DeviceType.InputMultiplexer:
+                            // If the multiplexerDriver is to be implicitly defined by clients:
                             // Build multiplexerDriver if none found yet 
                             if (multiplexerDriver == null) {
+                                // Store it, so another clients will not create a new one
                                 multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
-                                // multiplexerDriver is not yet init'ed with pin numbers: the FromInternal() of the client
-                                // (in this case InputMultiplexer) will provide them
-                                // Treat the MultiplexerDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
+                                // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
+                            //} else {
+                            //    multiplexerDriver.registerClient();
                             }
+                            multiplexerDriver.FromInternal(InputMultiplexer.GetMultiplexerDriverConfig(item + BaseDevice.End));
+
                             currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
@@ -170,6 +174,18 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        // If the multiplexerDriver is to be explicitly defined by its own config line,
+                        // following 'case' is required:
+
+                        //case DeviceType.MultiplexerDriver:
+                            //if (multiplexerDriver == null) {
+                            //  multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
+                            //  currentItem = multiplexerDriver;
+                            //  currentItem.FromInternal(item + BaseDevice.End);
+	                        //} else {
+	                        //  multiplexerDriver.registerClient();
+                            //}
+                            //break;
                     }
 
                     if (currentItem != null)
