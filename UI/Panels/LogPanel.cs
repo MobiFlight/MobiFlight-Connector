@@ -1,24 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
 {
     public partial class LogPanel : UserControl, ILogAppender
     {
+        private bool IsDrawingSuspended = false;
+        private System.Windows.Forms.Timer CheckDrawingSuspendedTimer = new Timer();
         public LogPanel()
         {
             InitializeComponent();
             listView1.Items.Clear();
             listView1.Resize += ListView1_Resize;
             listView1.DoubleBuffered(true);
+            CheckDrawingSuspendedTimer.Interval = 50;
+            CheckDrawingSuspendedTimer.Tick += CheckDrawingSuspendedTimer_Tick;
+        }
+
+        private void CheckDrawingSuspendedTimer_Tick(object sender, EventArgs e)
+        {
+            if (IsDrawingSuspended)
+            {
+                IsDrawingSuspended = false;
+                listView1.EndUpdate();
+                CheckDrawingSuspendedTimer.Stop();
+            }
         }
 
         private void ListView1_Resize(object sender, EventArgs e)
@@ -29,6 +36,12 @@ namespace MobiFlight.UI.Panels
 
         public void log(string message, LogSeverity severity)
         {
+            if (!IsDrawingSuspended)
+            {
+                IsDrawingSuspended = true;
+                listView1.BeginUpdate();
+                CheckDrawingSuspendedTimer.Start();
+            }
             ListViewItem item = new ListViewItem();
             switch(severity)
             {
