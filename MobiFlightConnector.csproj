@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build"
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
@@ -157,6 +156,9 @@
     <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Midi">
+      <HintPath>lib\Midi.dll</HintPath>
+    </Reference>
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
@@ -268,6 +270,14 @@
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinition.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardDevice.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardDeviceType.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardManager.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiInputDefinition.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiMessageType.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiOutputDefinition.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightInputMultiplexer.cs" />
     <Compile Include="MobiFlight\MobiFlightPin.cs" />
@@ -935,6 +945,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\mfmidiboard.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\mpd218.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\nanokontrol2.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\x_touch_mini.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

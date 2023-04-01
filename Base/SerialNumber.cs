@@ -45,6 +45,12 @@ namespace MobiFlight.Base
             return (serial.IndexOf(Joystick.SerialPrefix) == 0);
         }
 
+        public static bool IsMidiBoardSerial(string serial)
+        {
+            if (string.IsNullOrEmpty(serial)) return false;
+            return (serial.IndexOf(MidiBoard.SerialPrefix) == 0);
+        }
+
         public static bool IsRawSerial(string serial)
         {
             return (serial != null && serial.Contains(SerialSeparator));

@@ -288,6 +288,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 {
                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
                 }
+                else if (serial.IndexOf(MidiBoard.SerialPrefix) == 0)
+                {
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                }
                 // update the available types depending on the 
                 // type of module
                 else if (serial.IndexOf("SN") != 0)
@@ -366,12 +370,11 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 config.DisplaySerial = rawSerial;
 
                 // third tab
-                if (config.DisplayType != null && 
-                    !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
+                if (config.DisplayType != null &&
+                    !ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
                 {
                     Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }
-
             }
             catch (Exception ex)
             {
@@ -408,6 +411,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 {
                     panelEnabled = InitializeJoystickDisplays(cb, serial);
                 }
+                else if (SerialNumber.IsMidiBoardSerial(serial))
+                {
+                    panelEnabled = InitializeMidiBoardDisplays(cb, serial);
+                }
 
                 ShowActiveDisplayPanel(sender, serial, panelEnabled);
             }
@@ -432,6 +439,26 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> outputs = new List<ListItem>();
             foreach (var device in joystick.GetAvailableOutputDevices())
                 outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+
+            displayPinPanel.WideStyle = true;
+            displayPinPanel.EnablePWMSelect(false);
+            displayPinPanel.SetPorts(new List<ListItem>());
+            displayPinPanel.SetPins(outputs);
+
+            return true;
+        }
+
+        private bool InitializeMidiBoardDisplays(ComboBox cb, string serial)
+        {
+            MidiBoard midiBoard = _execManager.GetMidiBoardManager().GetMidiBoardBySerial(serial);
+
+            displayPinPanel.SetModule(null);
+            displayPinPanel.displayPinBrightnessPanel.Visible = false;
+            displayPinPanel.displayPinBrightnessPanel.Enabled = false;
+
+            List<ListItem> outputs = new List<ListItem>();
+            foreach (var device in midiBoard.GetAvailableOutputDevices())
+                outputs.Add(new ListItem() { Value = device.Name, Label = device.Label });
 
             displayPinPanel.WideStyle = true;
             displayPinPanel.EnablePWMSelect(false);
