@@ -17,7 +17,7 @@
           "type": "string",
           "description": "Name of the midi output port, if different from input name. Optional."
         },
-        "EncoderNeutral": {
+        "EncoderNeutralPosition": {
           "type": "integer",
           "description": "Set the encoder neutral position. For example 0 or 64 Optional."
         },

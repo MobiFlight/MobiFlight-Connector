@@ -1,7 +1,7 @@
 {
   "$schema": "./mfmidiboard.schema.json",
   "InstanceName": "X-TOUCH MINI",
-  "EncoderNeutral": 64,
+  "EncoderNeutralPosition": 64,
   "InitialLayer": "A",
   "Inputs": [
     {

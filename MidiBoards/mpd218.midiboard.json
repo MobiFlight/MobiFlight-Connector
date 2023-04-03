@@ -1,7 +1,7 @@
 {
   "$schema": "./mfmidiboard.schema.json",
   "InstanceName": "MPD218",
-  "EncoderNeutral": 0,
+  "EncoderNeutralPosition": 0,
   "Inputs": [
     {
       "Label": "Knob % - Bank A",

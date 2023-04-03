@@ -417,7 +417,7 @@ namespace MobiFlight
 #endif
                 !joystickManager.JoysticksConnected() &&
 
-                !midiBoardManager.MidiBoardsConnected()
+                !midiBoardManager.AreMidiBoardsConnected()
             ) return;
 
             // this is kind of sempahore to prevent multiple execution

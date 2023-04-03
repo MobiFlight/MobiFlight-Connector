@@ -70,7 +70,7 @@ namespace MobiFlight
             this.Definition = def;
             if (def != null)
             {
-                EncoderNeutral = def.EncoderNeutral;
+                EncoderNeutral = def.EncoderNeutralPosition;
                 if (!string.IsNullOrEmpty(def.InitialLayer))
                     ActiveLayer = def.InitialLayer;
             }            

@@ -68,7 +68,7 @@ namespace MobiFlight
         }
 
 
-        private bool IsErrorInDefinition(MidiBoardDefinition def)
+        private List<string> CollectAndLogDefinitionErrors(MidiBoardDefinition def)
         {
             List<string> errorMessages = new List<string>();
             errorMessages.AddRange(CollectErrorsInInputDefinition(def));
@@ -77,7 +77,7 @@ namespace MobiFlight
             {
                 Log.Instance.log($"[{def.InstanceName}]: {error}", LogSeverity.Error);
             }
-            return errorMessages.Count > 0;            
+            return errorMessages;            
         }
 
 
@@ -88,7 +88,7 @@ namespace MobiFlight
                 try
                 {
                     var midiBoardDef = JsonConvert.DeserializeObject<MidiBoardDefinition>(File.ReadAllText(definitionFile));
-                    if (!IsErrorInDefinition(midiBoardDef))
+                    if (CollectAndLogDefinitionErrors(midiBoardDef).Count == 0)
                     {
                         Definitions.Add(midiBoardDef.InstanceName, midiBoardDef);
                         Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info);
@@ -101,7 +101,7 @@ namespace MobiFlight
             }         
         }
 
-        public bool MidiBoardsConnected()
+        public bool AreMidiBoardsConnected()
         {
             return MidiBoards.Count > 0;
         }
@@ -113,14 +113,12 @@ namespace MobiFlight
 
         private void ProcessTimer_Tick(object sender, EventArgs e)
         {    
-            if (BoardsToBeRemoved.Count > 0)
+            foreach (var board in BoardsToBeRemoved)
             {
-                foreach (var board in BoardsToBeRemoved)
-                {
-                    MidiBoards.Remove(board);
-                }
-                BoardsToBeRemoved.Clear();
+                MidiBoards.Remove(board);
             }
+            BoardsToBeRemoved.Clear();
+            
             foreach (var mb in MidiBoards)
             {
                 mb.ProcessMessages();
@@ -194,7 +192,7 @@ namespace MobiFlight
                 ConnectBoard(mb);
             }
 
-            if (MidiBoardsConnected())
+            if (AreMidiBoardsConnected())
             {
                 Connected?.Invoke(this, null);
             }
