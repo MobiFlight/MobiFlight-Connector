@@ -46,24 +46,23 @@ namespace MobiFlight
 
         private List<string> CollectErrorsInOutputDefinition(MidiBoardDefinition def)
         {
-            List<string> errorMessages = new List<string>();
-            if (def.Outputs != null)
+            List<string> errorMessages = new List<string>();              
+            if (def.Outputs == null) return errorMessages;
+            
+            foreach (var item in def.Outputs)
             {
-                foreach (var item in def.Outputs)
+                if (item.LabelIds.Length != item.MessageIds.Length)
+                    errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
+                if (!item.Label.Contains("%"))
+                    errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
+                if (!string.IsNullOrEmpty(item.RelatedInputLabel))
                 {
-                    if (item.LabelIds.Length != item.MessageIds.Length)
-                        errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                    if (!item.Label.Contains("%"))
-                        errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
-                    if (!string.IsNullOrEmpty(item.RelatedInputLabel))
-                    {
-                        if (item.RelatedIds.Length != item.MessageIds.Length)
-                            errorMessages.Add($"{item.Label}: Number of RelatedIds unequal to number of MessageIds");
-                        if (!item.RelatedInputLabel.Contains("%"))
-                            errorMessages.Add($"{item.Label}: RelatedInputLabel does not contain % placeholder.");
-                    }
+                    if (item.RelatedIds.Length != item.MessageIds.Length)
+                        errorMessages.Add($"{item.Label}: Number of RelatedIds unequal to number of MessageIds");
+                    if (!item.RelatedInputLabel.Contains("%"))
+                        errorMessages.Add($"{item.Label}: RelatedInputLabel does not contain % placeholder.");
                 }
-            }
+            }            
             return errorMessages;
         }
 
@@ -128,22 +127,21 @@ namespace MobiFlight
 
         private void UpdateOnAttachedOrRemovedMidiBoards()
         {
-            if (CheckAttachedRemovedCounter >= 40) // Check every 2 seconds  
-            {               
-                if (MidiDevice.InputsCount != MidiBoards.Count)
-                {
-                    Log.Instance.log($"Change in MIDI Board Setup detected.", LogSeverity.Info);
-                    Stop();
-                    foreach (var md in MidiDevice.Inputs)
-                    {
-                        md.Close();
-                    }
-                    MidiBoards.Clear();
-                    Connect();
-                }
-                CheckAttachedRemovedCounter = 0;
-            }
             CheckAttachedRemovedCounter++;
+            // Check every 2 seconds
+            if (CheckAttachedRemovedCounter < 40) return;   
+            
+            CheckAttachedRemovedCounter = 0;
+            if (MidiDevice.InputsCount == MidiBoards.Count) return;
+
+            Log.Instance.log($"Change in MIDI Board Setup detected.", LogSeverity.Info);
+            Stop();
+            foreach (var md in MidiDevice.Inputs)
+            {
+                md.Close();
+            }
+            MidiBoards.Clear();
+            Connect();                      
         }
 
         public void Stop()
