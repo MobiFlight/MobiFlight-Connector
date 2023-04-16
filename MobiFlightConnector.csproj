@@ -953,6 +953,9 @@
     <None Include="MidiBoards\mpd218.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="MidiBoards\mpkminiplay.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MidiBoards\nanokontrol2.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

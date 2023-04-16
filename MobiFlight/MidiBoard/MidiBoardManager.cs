@@ -135,10 +135,9 @@ namespace MobiFlight
             if (MidiDevice.InputsCount == MidiBoards.Count) return;
 
             Log.Instance.log($"Change in MIDI Board Setup detected.", LogSeverity.Info);
-            Stop();
-            foreach (var md in MidiDevice.Inputs)
+            foreach (var mb in MidiBoards)
             {
-                md.Close();
+                mb.Shutdown();
             }
             MidiBoards.Clear();
             Connect();                      
@@ -168,25 +167,42 @@ namespace MobiFlight
 
         public void Connect()
         {
-            // If several midiboards of the same type are connected, windows adds different prefixes to the name.
+            // Midi input and output devices can reliably only be correlated via the name.
+            // Several midi devices of the same type lead to identical names in input and output list.
+            // Strategy:
+            // Enumerate midi input devices, try to find and remove corresponding first output device.
+            // If input device with same type is found again, append _2, _3 and so on to registered name.
+            // Example:
+            // Inputs : "X-TOUCH MINI", "MPD218", "X-TOUCH MINI", "KORGCONTROL"
+            // Outputs: "MS Wavetable Synth", "X-TOUCH MINI", "MPD218", "X-TOUCH MINI"
+            // -> Leads to MidiBoards: "X-TOUCH MINI", "MPD218", "X-TOUCH MINI_2", "KORGCONTROL" 
+            Dictionary<string, int> registeredBoards = new Dictionary<string, int>();
             var inputList = new List<MidiInputDevice>(MidiDevice.Inputs);
             var outputList = new List<MidiOutputDevice>(MidiDevice.Outputs);
             inputList.ForEach(i => { Log.Instance.log($"Found MidiInput: {i.Name}, Index: {i.Index}.", LogSeverity.Debug); });
             outputList.ForEach(o => { Log.Instance.log($"Found MidiOutput: {o.Name}, Index {o.Index}.", LogSeverity.Debug); });
 
-            foreach (var midiInput in inputList) 
-            {                                          
-                MidiBoardDefinition def = null;
-                if (Definitions.ContainsKey(midiInput.Name)) 
-                    def = Definitions[midiInput.Name];
-                
-                string outputName = midiInput.Name;
-                // Input and output channel of midiboard only correlates via its name.
-                if (def != null && !string.IsNullOrEmpty(def.DifferingOutputName))
-                    outputName = def.DifferingOutputName;
-                MidiOutputDevice midiOutput = outputList.Find(o => o.Name == outputName);
+            while (inputList.Count > 0)
+            {
+                MidiInputDevice midiInput = inputList[0];
+                MidiOutputDevice midiOutput = null;                
+                string name = midiInput.Name;                
+                MidiBoardDefinition def = Definitions.ContainsKey(name) ? Definitions[name] : null;
+                string outputName = (def != null && !string.IsNullOrEmpty(def.DifferingOutputName)) ? def.DifferingOutputName : name;
 
-                MidiBoard mb = new MidiBoard(midiInput, midiOutput, def);
+                int index = outputList.FindIndex(o => o.Name == outputName);
+                if (index >= 0)
+                {
+                    midiOutput = outputList[index];
+                    outputList.RemoveAt(index);                   
+                }
+                inputList.RemoveAt(0);
+                if (registeredBoards.ContainsKey(name))     
+                    name = name + $"_{++registeredBoards[name]}";
+                else
+                    registeredBoards[name] = 1;
+                                    
+                MidiBoard mb = new MidiBoard(midiInput, midiOutput, name, def);
                 ConnectBoard(mb);
             }
 

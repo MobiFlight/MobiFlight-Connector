@@ -60,11 +60,11 @@ namespace MobiFlight
         }
 
 
-        public MidiBoard(MidiInputDevice midiInput, MidiOutputDevice midiOutput, MidiBoardDefinition def)
+        public MidiBoard(MidiInputDevice midiInput, MidiOutputDevice midiOutput, string name, MidiBoardDefinition def)
         {                 
             this.MidiInput = midiInput;
             this.MidiOutput = midiOutput;
-            this.name = midiInput.Name;
+            this.name = name;
             // Two boards of the same type get a different postfix to their name in windows
             this.serial = GenerateSerial(name, int.MaxValue).ToString();
             this.Definition = def;
@@ -459,7 +459,7 @@ namespace MobiFlight
 
         public void Stop()
         {
-            foreach(var kvp in Outputs)
+            foreach (var kvp in Outputs)
             {
                 kvp.Value.State = 0;
                 if (kvp.Value.IsActive)
