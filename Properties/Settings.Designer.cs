@@ -551,5 +551,35 @@ namespace MobiFlight.Properties {
                 this["ExcludedJoysticks"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string RemoteConnection
+        {
+            get
+            {
+                return ((string)(this["RemoteConnection"]));
+            }
+            set
+            {
+                this["RemoteConnection"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1:500")]
+        public string RemoteIpAddress
+        {
+            get
+            {
+                return ((string)(this["RemoteIpAddress"]));
+            }
+            set
+            {
+                this["RemoteIpAddress"] = value;
+            }
+        }
     }
 }

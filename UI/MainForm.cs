@@ -682,6 +682,24 @@ namespace MobiFlight.UI
                 logPanel1.Visible = (bool) e.NewValue;
                 logSplitter.Visible = (bool) e.NewValue;
             }
+
+            if (e.SettingName == "RemoteConnection" || e.SettingName == "RemoteIpAddress")
+            {
+                var remoteConnection = Properties.Settings.Default.RemoteConnection;
+                var remoteIpAddress = Properties.Settings.Default.RemoteIpAddress;
+
+                if ((e.SettingName == "RemoteConnection" && e.NewValue.ToString() == FlightSimType.MSFS2020.ToString()) ||
+                    (e.SettingName == "RemoteConnection" && Properties.Settings.Default.RemoteConnection == FlightSimType.MSFS2020.ToString()))
+                {
+                    execManager.GetSimConnectCache().UpdateConfig();
+                }
+
+                if ((e.SettingName == "RemoteConnection" && e.NewValue.ToString() == FlightSimType.XPLANE.ToString()) ||
+                    (e.SettingName == "RemoteConnection" && Properties.Settings.Default.RemoteConnection == FlightSimType.XPLANE.ToString()))
+                {
+                    execManager.GetXplaneCache().UpdateConfig();
+                }
+            }
         }
 
         private void _autoloadConfig()
