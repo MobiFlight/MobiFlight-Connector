@@ -47,9 +47,9 @@
             this.PinSelectContainer = new System.Windows.Forms.Panel();
             this.MultiSelectPinSelectContainer = new System.Windows.Forms.Panel();
             this.PinSelectPanel = new System.Windows.Forms.Panel();
+            this.MultiPinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
             this.LabelPinSelectContainer = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
-            this.MultiPinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
             this.displayPinBrightnessPanel.SuspendLayout();
             this.displayPinBrightnessLabelPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.displayPinBrightnessTrackBar)).BeginInit();
@@ -175,10 +175,15 @@
             // 
             // PinSelectPanel
             // 
+            resources.ApplyResources(this.PinSelectPanel, "PinSelectPanel");
             this.PinSelectPanel.Controls.Add(this.MultiPinSelectPanel);
             this.PinSelectPanel.Controls.Add(this.singlePinSelectFlowLayoutPanel);
-            resources.ApplyResources(this.PinSelectPanel, "PinSelectPanel");
             this.PinSelectPanel.Name = "PinSelectPanel";
+            // 
+            // MultiPinSelectPanel
+            // 
+            resources.ApplyResources(this.MultiPinSelectPanel, "MultiPinSelectPanel");
+            this.MultiPinSelectPanel.Name = "MultiPinSelectPanel";
             // 
             // LabelPinSelectContainer
             // 
@@ -190,11 +195,6 @@
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            // 
-            // MultiPinSelectPanel
-            // 
-            resources.ApplyResources(this.MultiPinSelectPanel, "MultiPinSelectPanel");
-            this.MultiPinSelectPanel.Name = "MultiPinSelectPanel";
             // 
             // DisplayPinPanel
             // 
@@ -217,6 +217,7 @@
             this.MultiSelectPinSelectContainer.ResumeLayout(false);
             this.MultiSelectPinSelectContainer.PerformLayout();
             this.PinSelectPanel.ResumeLayout(false);
+            this.PinSelectPanel.PerformLayout();
             this.LabelPinSelectContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
