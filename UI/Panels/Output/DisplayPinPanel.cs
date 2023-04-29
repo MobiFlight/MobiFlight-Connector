@@ -96,7 +96,8 @@ namespace MobiFlight.UI.Panels
                 string port = "";
                 string pin = config.Pin.DisplayPin;
 
-                if (SerialNumber.IsJoystickSerial(serial))
+                if (SerialNumber.IsJoystickSerial(serial) ||
+                    SerialNumber.IsMidiBoardSerial(serial))                                   
                 {
                     // disable multi-select option
                     _MultiSelectOptions(false);

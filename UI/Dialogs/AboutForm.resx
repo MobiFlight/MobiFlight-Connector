@@ -473,6 +473,33 @@ Copyright 2014-2022 - Sebastian Moebius</value>
   <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="licenseReferenceControl6.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="licenseReferenceControl6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 161</value>
+  </data>
+  <data name="licenseReferenceControl6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 10, 3</value>
+  </data>
+  <data name="licenseReferenceControl6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>315, 24</value>
+  </data>
+  <data name="licenseReferenceControl6.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl6.Name" xml:space="preserve">
+    <value>licenseReferenceControl6</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl6.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl6.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl6.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="licenseReferenceControl5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -492,13 +519,13 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>licenseReferenceControl5</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.4.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="licenseReferenceControl2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -519,13 +546,13 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>licenseReferenceControl2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.4.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="licenseReferenceControl4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -546,13 +573,13 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>licenseReferenceControl4</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.4.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="licenseReferenceControl3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -573,13 +600,13 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>licenseReferenceControl3</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.4.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="licenseReferenceControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -600,13 +627,13 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>licenseReferenceControl1</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.4.0.2, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.Parent" xml:space="preserve">
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -639,7 +666,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -651,7 +678,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 0, 3, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 203</value>
+    <value>321, 218</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -672,7 +699,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>Bottom</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 337</value>
+    <value>0, 352</value>
   </data>
   <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
     <value>321, 29</value>
@@ -699,7 +726,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>321, 366</value>
+    <value>321, 381</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -1190,6 +1190,7 @@ namespace MobiFlight.UI
             // if user has changed something
             _checkForOrphanedSerials( false );
             _checkForOrphanedJoysticks( false );
+            _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
             AppTelemetry.Instance.ConfigLoaded(configFile);
@@ -1204,10 +1205,9 @@ namespace MobiFlight.UI
 
             foreach (Joystick j in execManager.GetJoystickManager().GetJoysticks())
             {
-                serials.Add(j.Name + " / " + j.Serial);
+                serials.Add($"{j.Name} {SerialNumber.SerialSeparator}{j.Serial}");
             }
 
-            if (serials.Count == 0) return;
             if (configFile == null) return;
 
             foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
@@ -1247,6 +1247,56 @@ namespace MobiFlight.UI
             }
         }
 
+        private void _checkForOrphanedMidiBoards(bool showNotNecessaryMessage)
+        {
+            List<string> serials = new List<string>();
+            List<string> NotConnectedMidiBoards = new List<string>();
+
+            foreach (MidiBoard mb in execManager.GetMidiBoardManager().GetMidiBoards())
+            {
+                serials.Add($"{mb.Name} {SerialNumber.SerialSeparator}{mb.Serial}");        
+            }
+
+            if (configFile == null) return;
+
+            foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
+            {
+                if (item.DisplaySerial.Contains(MidiBoard.SerialPrefix) &&
+                    !serials.Contains(item.DisplaySerial) &&
+                    !NotConnectedMidiBoards.Contains(item.DisplaySerial))
+                {
+                    NotConnectedMidiBoards.Add(item.DisplaySerial);
+                }
+            }
+
+            foreach (InputConfigItem item in configFile.GetInputConfigItems())
+            {
+                if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
+                    !serials.Contains(item.ModuleSerial) &&
+                    !NotConnectedMidiBoards.Contains(item.ModuleSerial))
+                {
+                    NotConnectedMidiBoards.Add(item.ModuleSerial);
+                }
+            }
+
+            if (NotConnectedMidiBoards.Count > 0)
+            {
+                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                tmd.HasCancelButton = false;
+                tmd.StartPosition = FormStartPosition.CenterParent;
+                tmd.Message = string.Format(
+                                    i18n._tr("uiMessageNotConnectedMidiBoardsInConfigFound"),
+                                    string.Join("\n", NotConnectedMidiBoards)
+                                    );
+                tmd.Text = i18n._tr("Hint");
+                tmd.ShowDialog();
+            }
+            else if (showNotNecessaryMessage)
+            {
+                TimeoutMessageDialog.Show(i18n._tr("uiMessageNoNotConnectedMidiBoardsInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void _restoreValuesInGridView()
         {
             outputConfigPanel.RestoreValuesInGridView();
@@ -1259,7 +1309,7 @@ namespace MobiFlight.UI
             
             foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
             {
-                serials.Add(moduleInfo.Name + "/ " + moduleInfo.Serial);
+                serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
             }
 
             if (serials.Count == 0) return;

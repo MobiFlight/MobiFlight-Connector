@@ -91,6 +91,10 @@ namespace MobiFlight.Base
                 {
                     key += ".joystick";
                 }
+                if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix))
+                {
+                    key += ".midiboard";
+                }
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 

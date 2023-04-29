@@ -81,6 +81,7 @@ namespace MobiFlight
         readonly MobiFlightCache mobiFlightCache = new MobiFlightCache();
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
+        readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
 
         DataGridView dataGridViewConfig = null;
@@ -138,8 +139,11 @@ namespace MobiFlight
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { joystickManager.Start(); };
+            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
             joystickManager.Connect(handle);
+            midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
+            midiBoardManager.Connect();            
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -273,6 +277,7 @@ namespace MobiFlight
             simConnectCache.Stop();
             xplaneCache.Stop();
             joystickManager.Stop();
+            midiBoardManager.Stop();
             ClearErrorMessages();
         }
 
@@ -353,6 +358,11 @@ namespace MobiFlight
             return joystickManager;
         }
 
+        public MidiBoardManager GetMidiBoardManager()
+        {
+            return midiBoardManager;    
+        }
+
         public List<IModuleInfo> GetAllConnectedModulesInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
@@ -379,6 +389,7 @@ namespace MobiFlight
             simConnectCache.Disconnect();
 #endif
             joystickManager.Shutdown();
+            midiBoardManager.Shutdown();
             this.OnModulesDisconnected?.Invoke(this, new EventArgs());
         }
 
@@ -404,7 +415,9 @@ namespace MobiFlight
                 !mobiFlightCache.isConnected() &&
 
 #endif
-                !joystickManager.JoysticksConnected()
+                !joystickManager.JoysticksConnected() &&
+
+                !midiBoardManager.AreMidiBoardsConnected()
             ) return;
 
             // this is kind of sempahore to prevent multiple execution
@@ -526,6 +539,10 @@ namespace MobiFlight
                 catch(JoystickNotConnectedException jEx)
                 {
                     row.ErrorText = jEx.Message;
+                }
+                catch (MidiBoardNotConnectedException mEx)
+                {
+                    row.ErrorText = mEx.Message;
                 }
                 catch (Exception exc)
                 {
@@ -677,6 +694,21 @@ namespace MobiFlight
                 {
                     var joystickName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
                     throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
+                }
+            }
+            else if (serial.IndexOf(MidiBoard.SerialPrefix) == 0)
+            {
+                MidiBoard midiBoard = midiBoardManager.GetMidiBoardBySerial(serial);
+                if (midiBoard != null)
+                {
+                    byte state = 0;
+                    if (value != "0") state = 1;
+                    midiBoard.SetOutputDeviceState(cfg.Pin.DisplayPin, state);                             
+                }
+                else
+                {
+                    var midiBoardName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
+                    throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
             else if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
@@ -1465,10 +1497,15 @@ namespace MobiFlight
         {
             Dictionary<String, int> result = mobiFlightCache.GetStatistics();
             Dictionary<String, int> resultJoysticks = joystickManager.GetStatistics();
+            Dictionary<String, int> resultMidiBoards = midiBoardManager.GetStatistics();
 
-            foreach(String key in resultJoysticks.Keys)
+            foreach (String key in resultJoysticks.Keys)
             {
                 result[key] = resultJoysticks[key];
+            }
+            foreach (String key in resultMidiBoards.Keys)
+            {
+                result[key] = resultMidiBoards[key];
             }
 
             result["arcazeCache.Enabled"] = 0;

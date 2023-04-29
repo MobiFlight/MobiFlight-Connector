@@ -578,4 +578,32 @@ Please manually flash the boards using "upload firmware" and select the correct 
     <value>Keine aktive X-Plane Verbindung</value>
     <comment>No active X-Plane connection</comment>
   </data>
+  <data name="uiMessageNotConnectedMidiBoardsInConfigFound" xml:space="preserve">
+    <value>Die folgenden Midiboards sind aktuell nicht angeschlossen, werden aber in der Config verwendet:
+
+{0}
+
+Die entsprechenden Konfigurationen funktionieren nicht bis der Midiboard wieder angeschlossen und MobiFlight neu gestartet ist.</value>
+    <comment>The following midiboards are currently not connected but referenced in the config:
+
+{0}
+
+Respective configs won't work until midiboards are connected and you have restarted MobiFlight.</comment>
+  </data>
+  <data name="uiMessageNoNotConnectedMidiBoardsInConfigFound" xml:space="preserve">
+    <value>Keine fehlenden Midiboards gefunden.</value>
+    <comment>There are no missing midiboards found.</comment>
+  </data>
+  <data name="uiMessageMidiBoardInUsageByOtherProcess" xml:space="preserve">
+    <value>Das folgende Midiboard wird gerade von einem anderen Prozess verwendet:
+
+{0}
+
+Dieses Midiboard kann nicht verwendet werden bis die andere Applikation beendet und Mobiflight neu gestartet ist.</value>
+    <comment>The following midiboard is currently in usage by another process:
+
+{0}
+
+That midiboard cannot be used until other application is terminated and MobiFlight is restarted.</comment>
+  </data>
 </root>

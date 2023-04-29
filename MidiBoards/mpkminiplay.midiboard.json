@@ -1,0 +1,62 @@
+{
+  "$schema": "./mfmidiboard.schema.json",
+  "InstanceName": "MPK mini play",
+  "Inputs": [
+    {
+      "Label": "Key %",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72 ]
+    },
+    {
+      "Label": "Joystick %",
+      "LabelIds": [ "X" ],
+      "InputType": "Pitch",
+      "MessageType": "Pitch",
+      "MessageChannel": 1,
+      "MessageIds": [ 1 ]
+    },
+    {
+      "Label": "Joystick %",
+      "LabelIds": [ "Y" ],
+      "InputType": "Pitch",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 16 ]
+    },
+    {
+      "Label": "Pad % - Bank A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 16, 17, 18, 19, 20, 21, 22, 23 ]
+    },
+    {
+      "Label": "Pad % - Bank B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 32, 33, 34, 35, 36, 37, 38, 39 ]
+    },
+    {
+      "Label": "Knob % - Bank A",
+      "LabelIds": [ "1", "2", "3", "4" ],
+      "InputType": "LimitedKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 48, 49, 50, 51 ]
+    },
+    {
+      "Label": "Knob % - Bank B",
+      "LabelIds": [ "1", "2", "3", "4" ],
+      "InputType": "LimitedKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 64, 65, 66, 67 ]
+    }
+  ]
+}

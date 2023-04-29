@@ -413,7 +413,8 @@ namespace MobiFlight.UI.Panels
                 {
                     if (cfg.ModuleSerial == null) continue;
                     var serialNumber = SerialNumber.ExtractSerial(cfg.ModuleSerial);
-                    row["moduleSerial"] = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    var moduleName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    row["moduleSerial"] = moduleName;
 
                     if (cfg.Name=="") continue;
 
@@ -422,12 +423,10 @@ namespace MobiFlight.UI.Panels
                     {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.ExtPin}";
                     }
-                    else
-                    if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
+                    else if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
                     }
-                    else 
-                    if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
+                    else if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
                         var j = ExecutionManager.GetJoystickManager().GetJoystickBySerial(serialNumber);
                         if (j != null)
                         {
@@ -436,6 +435,10 @@ namespace MobiFlight.UI.Panels
                         {
                             row["inputName"] = cfg.Name;
                         }
+                    }
+                    else if (MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial)) {
+                        // Map not by board instance, but by midiboard type. Works also when board is not connected.
+                        row["inputName"] = ExecutionManager.GetMidiBoardManager().MapDeviceNameToLabel(moduleName, cfg.Name);
                     }
                     else 
                     {
