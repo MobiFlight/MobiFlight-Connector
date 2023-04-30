@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels
         {
             InitializeComponent();
             displayPortComboBox.SelectedIndexChanged += displayPortComboBox_SelectedIndexChanged;
+            displayPinComboBox.SelectedIndexChanged += displayPinComboBox_SelectedIndexChanged;
 
             MultiPinSelectPanel.Visible = false;
             singlePinSelectFlowLayoutPanel.Visible = true;
