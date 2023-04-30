@@ -58,6 +58,7 @@
             this.checkedListBox.Name = "checkedListBox";
             this.checkedListBox.Size = new System.Drawing.Size(379, 263);
             this.checkedListBox.TabIndex = 6;
+            this.checkedListBox.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_SelectedIndexChanged);
             // 
             // PinSelectPanel
             // 

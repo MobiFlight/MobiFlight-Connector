@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace MobiFlight.UI.Panels
             InitializeComponent();
             displayPortComboBox.SelectedIndexChanged += displayPortComboBox_SelectedIndexChanged;
             displayPinComboBox.SelectedIndexChanged += displayPinComboBox_SelectedIndexChanged;
+            MultiPinSelectPanel.SelectionChanged += MultiPinSelectPanel_SelectionChanged;
 
             MultiPinSelectPanel.Visible = false;
             singlePinSelectFlowLayoutPanel.Visible = true;
@@ -38,7 +40,6 @@ namespace MobiFlight.UI.Panels
 
         internal void EnablePWMSelect(bool enable)
         {
-            //pwmPinPanel.Visible = Module.getPwmPins().Contains((byte)(item as MobiFlightOutput).Pin);
             pwmPinPanel.Visible = enable;
         }
 
@@ -195,7 +196,17 @@ namespace MobiFlight.UI.Panels
                 singlePinSelectFlowLayoutPanel.Visible = true;
                 PinSelectContainer.Height = singlePinSelectFlowLayoutPanel.Height;
             }
+        }
 
+        private void MultiPinSelectPanel_SelectionChanged(object sender, List<ListItem> selectedPins)
+        {
+            var pwmPins = Module.getPwmPins();
+
+            pwmPinPanel.Enabled = pwmPinPanel.Visible
+                                = selectedPins.All(
+                                    pin => pwmPins.Find(
+                                        pwmPin => pwmPin.Pin == (Module.GetConnectedDevices(pin.Value).First() as MobiFlightOutput).Pin
+                                    ) != null);
         }
     }
 }

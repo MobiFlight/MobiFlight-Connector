@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels
     {
         public const char POSITION_SEPERATOR = '|';
         public bool WideStyle = false;
+        public event EventHandler<List<ListItem>> SelectionChanged;
 
         public PinSelectPanel()
         {
@@ -77,5 +78,16 @@ namespace MobiFlight.UI.Panels
             return pins.ToString();
         }
 
+        private void checkedListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selection = new List<ListItem>();
+
+            foreach (ListItem checkedItem in checkedListBox.CheckedItems)
+            {
+                selection.Add(checkedItem);
+            }
+
+            SelectionChanged?.Invoke(this, selection);
+        }
     }
 }
