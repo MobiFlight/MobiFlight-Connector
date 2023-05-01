@@ -68,7 +68,11 @@ namespace MobiFlight.UI.Panels
             displayPinComboBox.Enabled = pins.Count > 0;
             displayPinComboBox.Width = WideStyle ? displayPinComboBox.MaximumSize.Width : displayPinComboBox.MinimumSize.Width;
 
-
+            if (Module != null && pins.Count > 1)
+            {
+                // this is MobiFlight Outputs
+                _MultiSelectOptions(true);
+            }
             MultiPinSelectPanel?.SetPins(pins);
         }
         private void displayPortComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,7 +109,7 @@ namespace MobiFlight.UI.Panels
                     _MultiSelectOptions(false);
                     pin = config.Pin.DisplayPin;
                 }
-                else if (!SerialNumber.IsMobiFlightSerial(serial))
+                else if (SerialNumber.IsArcazeSerial(serial))
                 {
                     // these are Arcaze Boards.
                     // Arcaze Boards only have "single output"
@@ -114,7 +118,7 @@ namespace MobiFlight.UI.Panels
 
                     // disable multi-select option
                     _MultiSelectOptions(false);
-                } else {
+                } else if (SerialNumber.IsMobiFlightSerial(serial)) {
 
                     // this is MobiFlight Outputs
                     _MultiSelectOptions(true);
