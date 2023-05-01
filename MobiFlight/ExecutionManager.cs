@@ -91,6 +91,7 @@ namespace MobiFlight
         private bool _autoConnectTimerRunning = false;
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
+        readonly BoardMonitor BoardMonitor = new BoardMonitor();
 
         public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
@@ -143,7 +144,27 @@ namespace MobiFlight
             joystickManager.Connect(handle);
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
-            midiBoardManager.Connect();            
+            midiBoardManager.Connect();
+
+            BoardMonitor.PortAvailable += BoardMonitor_BoardConnected;
+            BoardMonitor.PortUnavailable += BoardMonitor_BoardDisconnected;
+            BoardMonitor.BoardDetected += BoardMonitor_DeviceConnected;
+            BoardMonitor.Start();
+        }
+
+        private void BoardMonitor_DeviceConnected(object sender, MobiFlightModuleInfo e)
+        {
+            mobiFlightCache.OnBoardDiscovered(e);
+        }
+
+        private void BoardMonitor_BoardDisconnected(object sender, PortDetails e)
+        {
+            Log.Instance.log($"Board disconnected {e}", LogSeverity.Info);
+        }
+
+        private void BoardMonitor_BoardConnected(object sender, PortDetails e)
+        {
+            Log.Instance.log($"Board connected {e}", LogSeverity.Info);
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -1038,7 +1059,7 @@ namespace MobiFlight
         /// auto connect is only done if current timer is not running since we suppose that an established
         /// connection was already available before the timer was started
         /// </remarks>
-        async void AutoConnectTimer_TickAsync(object sender, EventArgs e)
+        void AutoConnectTimer_TickAsync(object sender, EventArgs e)
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
@@ -1059,7 +1080,7 @@ namespace MobiFlight
                     arcazeCache.connect(); //  _initializeArcaze();
 #endif
 #if MOBIFLIGHT
-                await mobiFlightCache.connectAsync();
+                mobiFlightCache.connectAsync();
 #endif
             }
 

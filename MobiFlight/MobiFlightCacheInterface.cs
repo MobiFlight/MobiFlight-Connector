@@ -8,7 +8,7 @@ namespace MobiFlight
 {
     public interface MobiFlightCacheInterface
     {
-        Task<IEnumerable<MobiFlightModule>> GetModulesAsync();
+        //Task<IEnumerable<MobiFlightModule>> GetModulesAsync();
         IEnumerable<MobiFlightModule> GetModules();
 
         void SetMobiFlightVariable(MobiFlightVariable value);
