@@ -484,13 +484,13 @@
     <value>2, 3, 3, 3</value>
   </data>
   <data name="displayPinComboBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>220, 0</value>
+    <value>235, 0</value>
   </data>
   <data name="displayPinComboBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>47, 0</value>
   </data>
   <data name="displayPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 21</value>
+    <value>137, 21</value>
   </data>
   <data name="displayPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -590,6 +590,9 @@
   </data>
   <data name="MultiPinSelectPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>150, 100</value>
+  </data>
+  <data name="MultiPinSelectPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
   </data>
   <data name="MultiPinSelectPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>194, 101</value>
