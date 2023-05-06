@@ -418,7 +418,7 @@ namespace MobiFlight.UI.Panels.Config
             ComboBoxHelper.SetSelectedItemByValue(SystemComboBox, preset.system);
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             PresetComboBox.SelectedValue = preset.id;
-            DescriptionLabel.Text = preset?.description;
+            DescriptionTextBox.Text = preset?.description?.ToCRLF();
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
@@ -434,7 +434,7 @@ namespace MobiFlight.UI.Panels.Config
 
             Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == selectedItem.id);
             if (selectedPreset == null) return;
-            DescriptionLabel.Text = selectedPreset?.description;
+            DescriptionTextBox.Text = selectedPreset?.description?.ToCRLF();
             SimVarNameTextBox.Text = selectedPreset?.code?.ToCRLF();
             
             if (FlightSimType==FlightSimType.XPLANE)
@@ -449,7 +449,7 @@ namespace MobiFlight.UI.Panels.Config
                 }
             }
 
-            DescriptionLabel.Enabled = selectedItem.id != "-";
+            DescriptionTextBox.Enabled = selectedItem.id != "-";
         }
 
         private void SimVarNameTextBox_TextChanged(object sender, EventArgs e)
