@@ -53,11 +53,12 @@
             "Test 14",
             "Test 15",
             "Test 16"});
-            this.checkedListBox.Location = new System.Drawing.Point(0, 0);
+            this.checkedListBox.Location = new System.Drawing.Point(3, 3);
             this.checkedListBox.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.checkedListBox.Name = "checkedListBox";
-            this.checkedListBox.Size = new System.Drawing.Size(385, 269);
+            this.checkedListBox.Size = new System.Drawing.Size(379, 263);
             this.checkedListBox.TabIndex = 6;
+            this.checkedListBox.SelectedIndexChanged += new System.EventHandler(this.checkedListBox_SelectedIndexChanged);
             // 
             // PinSelectPanel
             // 
@@ -67,6 +68,7 @@
             this.Controls.Add(this.checkedListBox);
             this.MinimumSize = new System.Drawing.Size(225, 162);
             this.Name = "PinSelectPanel";
+            this.Padding = new System.Windows.Forms.Padding(3);
             this.Size = new System.Drawing.Size(385, 269);
             this.ResumeLayout(false);
 

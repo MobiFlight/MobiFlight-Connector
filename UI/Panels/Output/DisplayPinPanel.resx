@@ -484,13 +484,13 @@
     <value>2, 3, 3, 3</value>
   </data>
   <data name="displayPinComboBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>220, 0</value>
+    <value>235, 0</value>
   </data>
   <data name="displayPinComboBox.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>47, 0</value>
   </data>
   <data name="displayPinComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 21</value>
+    <value>137, 21</value>
   </data>
   <data name="displayPinComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -517,7 +517,7 @@
     <value>0, 3, 0, 3</value>
   </data>
   <data name="singlePinSelectFlowLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>494, 28</value>
+    <value>194, 28</value>
   </data>
   <data name="singlePinSelectFlowLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -570,6 +570,72 @@
   <data name="PinSelectContainer.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <data name="PinSelectPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MultiPinSelectPanel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="MultiPinSelectPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="MultiPinSelectPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="MultiPinSelectPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 28</value>
+  </data>
+  <data name="MultiPinSelectPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
+  <data name="MultiPinSelectPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>150, 100</value>
+  </data>
+  <data name="MultiPinSelectPanel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="MultiPinSelectPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 101</value>
+  </data>
+  <data name="MultiPinSelectPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;MultiPinSelectPanel.Name" xml:space="preserve">
+    <value>MultiPinSelectPanel</value>
+  </data>
+  <data name="&gt;&gt;MultiPinSelectPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.PinSelectPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;MultiPinSelectPanel.Parent" xml:space="preserve">
+    <value>PinSelectPanel</value>
+  </data>
+  <data name="&gt;&gt;MultiPinSelectPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="PinSelectPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="PinSelectPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>106, 0</value>
+  </data>
+  <data name="PinSelectPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 129</value>
+  </data>
+  <data name="PinSelectPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;PinSelectPanel.Name" xml:space="preserve">
+    <value>PinSelectPanel</value>
+  </data>
+  <data name="&gt;&gt;PinSelectPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PinSelectPanel.Parent" xml:space="preserve">
+    <value>PinSelectContainer</value>
+  </data>
+  <data name="&gt;&gt;PinSelectPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="MultiSelectPinSelectContainer.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -601,69 +667,6 @@
     <value>PinSelectContainer</value>
   </data>
   <data name="&gt;&gt;MultiSelectPinSelectContainer.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PinSelectPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="MultiPinSelectPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="MultiPinSelectPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="MultiPinSelectPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="MultiPinSelectPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 28</value>
-  </data>
-  <data name="MultiPinSelectPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
-  <data name="MultiPinSelectPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>150, 100</value>
-  </data>
-  <data name="MultiPinSelectPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>494, 101</value>
-  </data>
-  <data name="MultiPinSelectPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;MultiPinSelectPanel.Name" xml:space="preserve">
-    <value>MultiPinSelectPanel</value>
-  </data>
-  <data name="&gt;&gt;MultiPinSelectPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.PinSelectPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;MultiPinSelectPanel.Parent" xml:space="preserve">
-    <value>PinSelectPanel</value>
-  </data>
-  <data name="&gt;&gt;MultiPinSelectPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="PinSelectPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="PinSelectPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>106, 0</value>
-  </data>
-  <data name="PinSelectPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>494, 129</value>
-  </data>
-  <data name="PinSelectPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="&gt;&gt;PinSelectPanel.Name" xml:space="preserve">
-    <value>PinSelectPanel</value>
-  </data>
-  <data name="&gt;&gt;PinSelectPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;PinSelectPanel.Parent" xml:space="preserve">
-    <value>PinSelectContainer</value>
-  </data>
-  <data name="&gt;&gt;PinSelectPanel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">

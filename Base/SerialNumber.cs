@@ -33,6 +33,12 @@ namespace MobiFlight.Base
             return String.Join("", tokens).Trim();
         }
 
+        public static bool IsArcazeSerial(string serial)
+        {
+            if (serial == null || serial == "") return false;
+            return !IsMidiBoardSerial(serial) && !IsMobiFlightSerial(serial) && !IsJoystickSerial(serial);
+        }
+
         public static bool IsMobiFlightSerial(string serial)
         {
             if (serial == null || serial == "") return false;
