@@ -1271,6 +1271,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 module.Connect();
                 newInfo = module.GetInfo() as MobiFlightModuleInfo;
+                module.LoadConfig();
             }
             else
             {
