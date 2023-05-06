@@ -66,11 +66,11 @@
             this.CodeActionPanel = new System.Windows.Forms.Panel();
             this.CodeTypeComboBox = new System.Windows.Forms.ComboBox();
             this.PresetPanel = new System.Windows.Forms.Panel();
+            this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.MatchLabel = new System.Windows.Forms.Label();
             this.PresetComboBox = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ShowExpertSettingsCheckBox = new System.Windows.Forms.CheckBox();
-            this.DescriptionTextBox = new System.Windows.Forms.TextBox();
             this.FilterGroupBox.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.FilterVendorPanel.SuspendLayout();
@@ -107,10 +107,10 @@
             // 
             this.flowLayoutPanel1.AutoSize = true;
             this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.flowLayoutPanel1.Controls.Add(this.TextFilterPanel);
             this.flowLayoutPanel1.Controls.Add(this.FilterVendorPanel);
             this.flowLayoutPanel1.Controls.Add(this.AircraftFilterPanel);
             this.flowLayoutPanel1.Controls.Add(this.SystemFilterPanel);
-            this.flowLayoutPanel1.Controls.Add(this.TextFilterPanel);
             this.flowLayoutPanel1.Controls.Add(this.ResetButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 16);
@@ -124,7 +124,7 @@
             // 
             this.FilterVendorPanel.Controls.Add(this.VendorComboBox);
             this.FilterVendorPanel.Controls.Add(this.VendorLabel);
-            this.FilterVendorPanel.Location = new System.Drawing.Point(72, 2);
+            this.FilterVendorPanel.Location = new System.Drawing.Point(189, 2);
             this.FilterVendorPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 4);
             this.FilterVendorPanel.Name = "FilterVendorPanel";
             this.FilterVendorPanel.Size = new System.Drawing.Size(113, 40);
@@ -157,7 +157,7 @@
             // 
             this.AircraftFilterPanel.Controls.Add(this.AircraftComboBox);
             this.AircraftFilterPanel.Controls.Add(this.AircraftLabel);
-            this.AircraftFilterPanel.Location = new System.Drawing.Point(189, 2);
+            this.AircraftFilterPanel.Location = new System.Drawing.Point(306, 2);
             this.AircraftFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.AircraftFilterPanel.Name = "AircraftFilterPanel";
             this.AircraftFilterPanel.Size = new System.Drawing.Size(113, 40);
@@ -190,7 +190,7 @@
             // 
             this.SystemFilterPanel.Controls.Add(this.SystemComboBox);
             this.SystemFilterPanel.Controls.Add(this.SystemLabel);
-            this.SystemFilterPanel.Location = new System.Drawing.Point(306, 2);
+            this.SystemFilterPanel.Location = new System.Drawing.Point(423, 2);
             this.SystemFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.SystemFilterPanel.Name = "SystemFilterPanel";
             this.SystemFilterPanel.Size = new System.Drawing.Size(113, 40);
@@ -223,7 +223,7 @@
             // 
             this.TextFilterPanel.Controls.Add(this.FilterTextBox);
             this.TextFilterPanel.Controls.Add(this.FilterLabel);
-            this.TextFilterPanel.Location = new System.Drawing.Point(423, 2);
+            this.TextFilterPanel.Location = new System.Drawing.Point(72, 2);
             this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2);
             this.TextFilterPanel.Name = "TextFilterPanel";
             this.TextFilterPanel.Size = new System.Drawing.Size(113, 40);
@@ -252,8 +252,8 @@
             // ResetButton
             // 
             this.ResetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResetButton.Location = new System.Drawing.Point(541, 14);
-            this.ResetButton.Margin = new System.Windows.Forms.Padding(3, 14, 3, 3);
+            this.ResetButton.Location = new System.Drawing.Point(541, 17);
+            this.ResetButton.Margin = new System.Windows.Forms.Padding(3, 17, 3, 3);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Size = new System.Drawing.Size(45, 24);
             this.ResetButton.TabIndex = 15;
@@ -525,6 +525,19 @@
             this.PresetPanel.Size = new System.Drawing.Size(597, 105);
             this.PresetPanel.TabIndex = 3;
             // 
+            // DescriptionTextBox
+            // 
+            this.DescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DescriptionTextBox.BackColor = System.Drawing.SystemColors.Window;
+            this.DescriptionTextBox.Location = new System.Drawing.Point(75, 46);
+            this.DescriptionTextBox.Multiline = true;
+            this.DescriptionTextBox.Name = "DescriptionTextBox";
+            this.DescriptionTextBox.ReadOnly = true;
+            this.DescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.DescriptionTextBox.Size = new System.Drawing.Size(461, 33);
+            this.DescriptionTextBox.TabIndex = 18;
+            // 
             // MatchLabel
             // 
             this.MatchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -566,19 +579,6 @@
             this.ShowExpertSettingsCheckBox.TabIndex = 0;
             this.ShowExpertSettingsCheckBox.Text = "Show Preset Code";
             this.ShowExpertSettingsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // DescriptionTextBox
-            // 
-            this.DescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DescriptionTextBox.BackColor = System.Drawing.SystemColors.Window;
-            this.DescriptionTextBox.Location = new System.Drawing.Point(75, 46);
-            this.DescriptionTextBox.Multiline = true;
-            this.DescriptionTextBox.Name = "DescriptionTextBox";
-            this.DescriptionTextBox.ReadOnly = true;
-            this.DescriptionTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DescriptionTextBox.Size = new System.Drawing.Size(461, 33);
-            this.DescriptionTextBox.TabIndex = 18;
             // 
             // HubHopPresetPanel
             // 
