@@ -127,6 +127,9 @@
   <data name="Description.HeaderText" xml:space="preserve">
     <value>Beschreibung</value>
   </data>
+  <data name="Description.ToolTipText" xml:space="preserve">
+    <value>Der Name oder Beschreibung der Config</value>
+  </data>
   <data name="moduleSerial.HeaderText" xml:space="preserve">
     <value>Modul</value>
   </data>

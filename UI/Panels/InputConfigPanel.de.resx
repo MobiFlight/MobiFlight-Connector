@@ -148,4 +148,31 @@
   <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>161, 98</value>
   </data>
+  <data name="inputActive.HeaderText" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="inputActive.ToolTipText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="inputDescription.HeaderText" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="inputDescription.ToolTipText" xml:space="preserve">
+    <value>Der Name oder Beschreibung der Config</value>
+  </data>
+  <data name="moduleSerial.HeaderText" xml:space="preserve">
+    <value>Modul</value>
+  </data>
+  <data name="moduleSerial.ToolTipText" xml:space="preserve">
+    <value>Das verwendete Board in der Config</value>
+  </data>
+  <data name="inputName.ToolTipText" xml:space="preserve">
+    <value>Das verwendete Gerät in der Config</value>
+  </data>
+  <data name="inputType.HeaderText" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="inputType.ToolTipText" xml:space="preserve">
+    <value>Der Geräte-Typ in der Config</value>
+  </data>
 </root>
