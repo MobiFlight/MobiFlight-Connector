@@ -1526,6 +1526,12 @@ namespace MobiFlight
         }
 
 
+        public Fsuipc2Cache GetFsuipcConnectCache()
+        {
+            return fsuipcCache;
+        }
+
+
         private void OnStartActions()
         {
             if (Properties.Settings.Default.AutoRetrigger)

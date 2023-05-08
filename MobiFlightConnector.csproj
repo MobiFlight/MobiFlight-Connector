@@ -1010,6 +1010,7 @@
     <None Include="Resources\arcaze-changed.png" />
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
+    <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />

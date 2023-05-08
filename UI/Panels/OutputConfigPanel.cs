@@ -724,5 +724,18 @@ namespace MobiFlight.UI.Panels
                 }
             }
         }
+
+        internal List<OutputConfigItem> GetConfigItems()
+        {
+            List<OutputConfigItem> result = new List<OutputConfigItem>();
+
+            foreach (DataRow row in ConfigDataTable.Rows)
+            {
+                OutputConfigItem cfg = row["settings"] as OutputConfigItem;
+                result.Add(cfg);
+            }
+
+            return result;
+        }
     }
 }

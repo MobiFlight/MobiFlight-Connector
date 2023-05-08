@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.Base;
+using System.Xml;
 
 namespace MobiFlight.UI.Panels
 {
@@ -607,6 +608,19 @@ namespace MobiFlight.UI.Panels
                     }
                 }
             }
+        }
+
+        internal List<InputConfigItem> GetConfigItems()
+        {
+            List<InputConfigItem> result = new List<InputConfigItem>();
+
+            foreach (DataRow row in ConfigDataTable.Rows)
+            {
+                InputConfigItem cfg = row["settings"] as InputConfigItem;
+                result.Add(cfg);
+            }
+
+            return result;
         }
     }
 }

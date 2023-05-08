@@ -24,6 +24,7 @@ using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI
 {
@@ -53,6 +54,9 @@ namespace MobiFlight.UI
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Properties.Settings.Default.Language);
             }
         }
+
+        public ConfigFile ConfigFile { get { return configFile; } }
+        public event EventHandler<ConfigFile> ConfigLoaded;
 
         private void InitializeLogging()
         {
@@ -102,6 +106,38 @@ namespace MobiFlight.UI
 
             // configure tracking correctly
             InitializeTracking();
+        }
+
+        private void UpdateSimConnectStatusIcon()
+        {
+            simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+
+            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.SIMCONNECT))
+            {
+                simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
+                return;
+            }
+                
+            if (execManager.GetSimConnectCache().IsConnected())
+            {
+                simConnectToolStripMenuItem.Image = Properties.Resources.check;
+            }
+        }
+
+        private void UpdateFsuipcStatusIcon()
+        {
+            FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
+
+            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.FSUIPC))
+            {
+                FsuipcToolStripMenuItem.Image = Properties.Resources.disabled;
+                return;
+            }
+
+            if (execManager.GetFsuipcConnectCache().IsConnected())
+            {
+                FsuipcToolStripMenuItem.Image = Properties.Resources.check;
+            }
         }
 
         private void InitializeTracking()
@@ -268,6 +304,8 @@ namespace MobiFlight.UI
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
+            UpdateSimConnectStatusIcon();
+            UpdateFsuipcStatusIcon();
         }
 
         private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
@@ -283,6 +321,8 @@ namespace MobiFlight.UI
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
+            UpdateSimConnectStatusIcon();
+            UpdateFsuipcStatusIcon();
         }
 
         private void MainForm_ModuleConnected(object sender, String text, int progress)
@@ -643,11 +683,11 @@ namespace MobiFlight.UI
         {
             if (sender.GetType() == typeof(SimConnectCache))
             {
-                simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+                UpdateSimConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(Fsuipc2Cache))
             {
-                FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
+                UpdateFsuipcStatusIcon();
             }
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
@@ -704,6 +744,9 @@ namespace MobiFlight.UI
 
             noSimRunningToolStripMenuItem.Text = "No sim running.";
             noSimRunningToolStripMenuItem.Image = Properties.Resources.warning;
+
+            UpdateFsuipcStatusIcon();
+            UpdateSimConnectStatusIcon();
         }
 
         /// <summary>
@@ -724,14 +767,20 @@ namespace MobiFlight.UI
                 if ((sender as SimConnectCache).IsSimConnectConnected())
                 {
                     simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS2020)";
-                    simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+                    UpdateSimConnectStatusIcon();
                     Log.Instance.log("Connected to SimConnect (MSFS2020).", LogSeverity.Info);
                 }
 
                 if ((sender as SimConnectCache).IsConnected()) { 
                     simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
                     simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                    simConnectToolStripMenuItem.Enabled = true;
                     Log.Instance.log("Connected to WASM Module (MSFS2020).", LogSeverity.Info);
+
+                    if (!execManager.GetFsuipcConnectCache().IsConnected())
+                    {
+                        UpdateFsuipcStatusIcon();
+                    }
                 }
 
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
@@ -744,6 +793,7 @@ namespace MobiFlight.UI
                 {
                     simConnectToolStripMenuItem.Text = FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString();
                     simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                    simConnectToolStripMenuItem.Enabled = true;
                 }
 
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.XPLANE.ToString());
@@ -771,6 +821,8 @@ namespace MobiFlight.UI
                         break;
                 }
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
+                FsuipcToolStripMenuItem.Image.Tag = "check";
+                FsuipcToolStripMenuItem.Enabled = true;
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), c.FlightSimConnectionMethod.ToString());
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
@@ -802,19 +854,27 @@ namespace MobiFlight.UI
         /// </summary>
         void fsuipcCache_ConnectionLost(object sender, EventArgs e)
         {
+            execManager.Stop();
+
             if (!execManager.SimAvailable())
             {
                 _showError(i18n._tr("uiMessageFsHasBeenStopped"));
-            } else {
-                if (sender.GetType() == typeof(SimConnectCache))
-                {
-                    _showError(i18n._tr("uiMessageSimConnectConnectionLost"));
-                } else
-                {
-                    _showError(i18n._tr("uiMessageFsuipcConnectionLost"));
-                }
-            } //if
-            execManager.Stop();
+                UpdateSimConnectStatusIcon();
+                UpdateFsuipcStatusIcon();
+                return;
+            }
+
+            if (sender.GetType() == typeof(SimConnectCache))
+            {
+                _showError(i18n._tr("uiMessageSimConnectConnectionLost"));
+                UpdateSimConnectStatusIcon();
+            }
+            else
+            {
+                _showError(i18n._tr("uiMessageFsuipcConnectionLost"));
+                if (execManager.GetSimConnectCache().IsConnected())
+                UpdateFsuipcStatusIcon();
+            }
         }
 
         /// <summary>
@@ -1196,6 +1256,8 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.ConfigLoaded(configFile);
             AppTelemetry.Instance.TrackBoardStatistics(execManager);
             AppTelemetry.Instance.TrackSettings();
+
+            ConfigLoaded?.Invoke(this, configFile);
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
@@ -1852,6 +1914,44 @@ namespace MobiFlight.UI
                 OutputTabPage.ImageKey = "mf-output-inactive.png";
                 InputTabPage.ImageKey = "mf-input.png";
             }
+        }
+
+        public static bool ContainsConfigOfSourceType(List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems, SourceType type)
+        {
+            var result = false;
+            if (type == SourceType.SIMCONNECT)
+            {
+                result = outputConfigItems
+                        .Any(x => x?.SourceType == type) ||
+                         inputConfigItems
+                        .Any(x => x.GetInputActionsByType(typeof(MSFS2020CustomInputAction)).Count > 0);
+            }
+            else if (type == SourceType.FSUIPC)
+            {
+                result = outputConfigItems
+                        .Any(x => x?.SourceType == type) ||
+                         inputConfigItems
+                        .Any(x => x?.GetInputActionsByType(typeof(FsuipcOffsetInputAction)).Count > 0 ||
+                                  x?.GetInputActionsByType(typeof(EventIdInputAction)).Count > 0 ||
+                                  x?.GetInputActionsByType(typeof(PmdgEventIdInputAction)).Count > 0 ||
+                                  x?.GetInputActionsByType(typeof(JeehellInputAction)).Count > 0 ||
+                                  x?.GetInputActionsByType(typeof(LuaMacroInputAction)).Count > 0);
+            }
+            else if (type == SourceType.XPLANE)
+            {
+                result = outputConfigItems
+                        .Any(x => x?.SourceType == type) ||
+                         inputConfigItems
+                        .Any(x => x.GetInputActionsByType(typeof(XplaneInputAction)).Count > 0);
+            }
+            else if (type == SourceType.VARIABLE)
+            {
+                result = outputConfigItems
+                        .Any(x => x?.SourceType == type) ||
+                         inputConfigItems
+                        .Any(x => x.GetInputActionsByType(typeof(VariableInputAction)).Count > 0);
+            }
+            return result;
         }
     }
 
