@@ -5,7 +5,7 @@
     "Device": "atmega328p",
     "BaudRates": [ "115200", "57600" ],
     "Programmer": "arduino",
-    "Timeout": 15000
+    "Timeout": 20000
   },
   "Connection": {
     "ConnectionDelay": 1750,
