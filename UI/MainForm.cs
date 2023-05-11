@@ -1095,9 +1095,11 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                SaveFileDialog fd = new SaveFileDialog();
-                fd.FileName = fileName.Replace(".aic", ".mcc");
-                fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
+                SaveFileDialog fd = new SaveFileDialog
+                {
+                    FileName = fileName.Replace(".aic", ".mcc"),
+                    Filter = "MobiFlight Connector Config (*.mcc)|*.mcc"
+                };
                 if (DialogResult.OK != fd.ShowDialog())
                 {
                     return;
