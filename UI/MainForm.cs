@@ -1113,8 +1113,10 @@ namespace MobiFlight.UI
                 String file = System.IO.File.ReadAllText(fileName);
                 if (file.IndexOf("ArcazeUSB.ArcazeConfigItem") != -1)
                 {
-                    SaveFileDialog fd = new SaveFileDialog();
-                    fd.FileName = fileName.Replace(".mcc", "_v6.0.mcc");
+                    SaveFileDialog fd = new SaveFileDialog
+                    {
+                        FileName = fileName.Replace(".mcc", "_v6.0.mcc")
+                    };
 
                     if (MessageBox.Show(i18n._tr("uiMessageMigrateConfigFileV60YesNo"), i18n._tr("Hint"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
