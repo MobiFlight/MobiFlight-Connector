@@ -542,7 +542,7 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-                    _loadConfig(cmdLineParams.ConfigFile);
+                    LoadConfig(cmdLineParams.ConfigFile);
                     return;
                 }                
             }
@@ -560,7 +560,7 @@ namespace MobiFlight.UI
                 foreach (string file in Properties.Settings.Default.RecentFiles)
                 {
                     if (!System.IO.File.Exists(file)) continue;
-                    _loadConfig(file);
+                    LoadConfig(file);
                     break;
                 }
             } //if 
@@ -1015,7 +1015,7 @@ namespace MobiFlight.UI
 
             if (DialogResult.OK == fd.ShowDialog())
             {
-                _loadConfig(fd.FileName);
+                LoadConfig(fd.FileName);
             }   
         }
 
@@ -1026,7 +1026,7 @@ namespace MobiFlight.UI
 
             if (DialogResult.OK == fd.ShowDialog())
             {
-                _loadConfig(fd.FileName, true);
+                LoadConfig(fd.FileName, true);
             }
         }
 
@@ -1074,13 +1074,13 @@ namespace MobiFlight.UI
         /// <param name="e"></param>
         void recentMenuItem_Click(object sender, EventArgs e)
         {
-            _loadConfig((sender as ToolStripMenuItem).Text);            
+            LoadConfig((sender as ToolStripMenuItem).Text);            
         } //recentMenuItem_Click()
 
         /// <summary>
         /// loads the according config given by filename
         /// </summary>        
-        private void _loadConfig(string fileName, bool merge = false)
+        private void LoadConfig(string fileName, bool merge = false)
         {
             if (!System.IO.File.Exists(fileName))
             {
@@ -1095,9 +1095,11 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                SaveFileDialog fd = new SaveFileDialog();
-                fd.FileName = fileName.Replace(".aic", ".mcc");
-                fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
+                SaveFileDialog fd = new SaveFileDialog
+                {
+                    FileName = fileName.Replace(".aic", ".mcc"),
+                    Filter = "MobiFlight Connector Config (*.mcc)|*.mcc"
+                };
                 if (DialogResult.OK != fd.ShowDialog())
                 {
                     return;
@@ -1113,8 +1115,10 @@ namespace MobiFlight.UI
                 String file = System.IO.File.ReadAllText(fileName);
                 if (file.IndexOf("ArcazeUSB.ArcazeConfigItem") != -1)
                 {
-                    SaveFileDialog fd = new SaveFileDialog();
-                    fd.FileName = fileName.Replace(".mcc", "_v6.0.mcc");
+                    SaveFileDialog fd = new SaveFileDialog
+                    {
+                        FileName = fileName.Replace(".mcc", "_v6.0.mcc")
+                    };
 
                     if (MessageBox.Show(i18n._tr("uiMessageMigrateConfigFileV60YesNo"), i18n._tr("Hint"), MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
@@ -1156,11 +1160,17 @@ namespace MobiFlight.UI
                 // refactor!!!
                 inputConfigPanel.InputDataSetConfig.ReadXml(configFile.getInputConfig());
             }
-            catch (InvalidExpressionException ex)
+            catch (InvalidExpressionException)
             {
                 // no inputs configured... old format... just ignore
             }
-            
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Unable to load configuration file: {ex.Message}", LogSeverity.Error);
+                MessageBox.Show(i18n._tr("uiMessageProblemLoadingConfig"), i18n._tr("Hint"));
+                return;
+            }
+
 
             // for backward compatibility 
             // we check if there are rows that need to
