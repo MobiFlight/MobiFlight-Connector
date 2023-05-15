@@ -568,9 +568,10 @@ namespace MobiFlight.Octavi
 
             if((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
             {
-                if(report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV2)
+                //if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV2)
+                if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2)
                 {
-                    shiftState = !shiftState; // FMS1&2 do not have shift modes for now, sorry
+                        shiftState = !shiftState; // FMS1&2 do not have shift modes for now, sorry
                 }
             }
             foreach(uint HIDEvent in HIDEventAssignments.Keys)
