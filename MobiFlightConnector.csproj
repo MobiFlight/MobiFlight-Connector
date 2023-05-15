@@ -269,6 +269,7 @@
     <Compile Include="MobiFlight\Joysticks\JoystickDefinition.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinition.cs" />
@@ -290,6 +291,8 @@
     <Compile Include="MobiFlight\Modifier\Comparison.cs" />
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
+    <Compile Include="MobiFlight\Octavi\OctaviHandler.cs" />
+    <Compile Include="MobiFlight\Octavi\OctaviReport.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
@@ -947,6 +950,7 @@
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\octavi_ifr1.joystick.json" />
     <None Include="MidiBoards\intech_ef44.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

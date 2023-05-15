@@ -58,7 +58,7 @@ namespace MobiFlight
         public event ButtonEventHandler OnAxisChanged;
         public event EventHandler OnDisconnected;
 
-        private readonly List<JoystickDevice> Buttons = new List<JoystickDevice>();
+        protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
         private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
         private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
         private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
@@ -67,7 +67,7 @@ namespace MobiFlight
         private readonly JoystickDefinition Definition;
 
         private HidDevice Device;
-        private bool RequiresOutputUpdate = false;
+        protected bool RequiresOutputUpdate = false;
         private JoystickState State = null;
         private HidStream Stream;
 
@@ -114,7 +114,7 @@ namespace MobiFlight
             this.Definition = definition;
         }
 
-        private void EnumerateDevices()
+        protected virtual void EnumerateDevices()
         {
             foreach (DeviceObjectInstance device in this.DIJoystick.GetObjects())
             {
@@ -214,7 +214,7 @@ namespace MobiFlight
             DIJoystick.Acquire();            
         }
 
-        private void EnumerateOutputDevices()
+        virtual protected void EnumerateOutputDevices()
         {
             Lights.Clear();
             
@@ -290,7 +290,7 @@ namespace MobiFlight
             return result;
         }
 
-        public void Update()
+        public virtual void Update()
         {           
             if (DIJoystick == null) return;
 
@@ -413,6 +413,18 @@ namespace MobiFlight
             }
         }
 
+        protected void PressAButton(int i)
+        {
+            OnButtonPressed?.Invoke(this, new InputEventArgs()
+            {
+                Name = Name,
+                DeviceId = Buttons[i].Name,
+                DeviceLabel = Buttons[i].Label,
+                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
+                Type = DeviceType.Button,
+                Value = 0
+            });
+        }
         private int GetValueForAxisFromState(int currentAxis, JoystickState state)
         {
             String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
@@ -451,7 +463,7 @@ namespace MobiFlight
             }
         }
 
-        private void SendData(byte[] data)
+        protected virtual void SendData(byte[] data)
         {
             // Don't try and send data if no outputs are defined.
             if (Definition?.Outputs == null || Definition?.Outputs.Count == 0)
