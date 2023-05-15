@@ -3,7 +3,7 @@
   "AvrDudeSettings": {
     "Attempts": 1,
     "Device": "atmega328p",
-    "BaudRates": [ "115200", "57600" ],
+    "BaudRates": ["115200", "57600"],
     "Programmer": "arduino",
     "Timeout": 20000
   },
@@ -24,6 +24,7 @@
     "^VID_2341&PID_0001",
     "^VID_1A86&PID_7523",
     "^VID_0403&PID_6001",
+    "^VID_067B&PID_2303",
     "^VID_0403\\+PID_6001\\+.+"
   ],
   "Info": {
