@@ -129,7 +129,15 @@ namespace MobiFlight
                     continue;
                 }
 
-                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                MobiFlight.Joystick js;
+                if (d.InstanceName == "Octavi")
+                {
+                    js = new MobiFlight.Octavi.Octavi(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                }
+                else
+                {
+                    js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                }
 
                 if (!HasAxisOrButtons(js))
                 {
