@@ -6,7 +6,7 @@ namespace MobiFlight
     public class MobiFlightPin
     {
         [XmlAttribute]
-        public byte Pin { get; set; }
+        public uint Pin { get; set; }
         [XmlAttribute]
         public bool isAnalog = false;
         [XmlAttribute]
