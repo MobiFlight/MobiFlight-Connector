@@ -1,4 +1,4 @@
-[![RunTests](https://github.com/MobiFlight/MobiFlight-Connector/actions/workflows/ci.yml/badge.svg)](https://github.com/MobiFlight/MobiFlight-Connector/actions/workflows/ci.yml)
+[![RunTests](https://github.com/Ragot-Pierre/MobiFlight-Connector/actions/workflows/ci.yml/badge.svg)](https://github.com/Ragot-Pierre/MobiFlight-Connector/actions/workflows/ci.yml)
 
 # Readme #
 
