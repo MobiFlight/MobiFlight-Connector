@@ -27,7 +27,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             ComboBoxHelper.BindMobiFlightFreePins(mfPinComboBox, Pins, button.Pin);
 
             this.button = button;
-            mfPinComboBox.SelectedValue = byte.Parse(button.Pin);
+            mfPinComboBox.SelectedValue = uint.Parse(button.Pin);
             textBox1.Text = button.Name;
             ////setValues();
 

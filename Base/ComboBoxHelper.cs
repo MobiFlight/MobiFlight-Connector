@@ -65,8 +65,8 @@ namespace System
             // Deep-clone list as 'Used' list
             List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
             // Mark current pin as free
-            if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
-                UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
+            if (UsablePins.Exists(x => x.Pin == uint.Parse(CurrentPin)))
+                UsablePins.Find(x => x.Pin == uint.Parse(CurrentPin)).Used = false;
 
             if (analogOnly == true)
             {
@@ -79,7 +79,7 @@ namespace System
             comboBox.ValueMember = "Pin";
 
             // Restore the original item selection
-            comboBox.SelectedValue = byte.Parse(CurrentPin);
+            comboBox.SelectedValue = uint.Parse(CurrentPin);
             
             return false;
         }
@@ -91,8 +91,8 @@ namespace System
             //   and the new one as used)
             // - an updated pin list is associated to the ComboBox
             string after = comboBox.SelectedItem.ToString();
-            byte nBefore = byte.Parse(signalPin);
-            byte nAfter = byte.Parse(after);
+            uint nBefore = uint.Parse(signalPin);
+            uint nAfter = uint.Parse(after);
             try {
                 if (signalPin != after) {
                     // Pin 0 is used for the stepper.
