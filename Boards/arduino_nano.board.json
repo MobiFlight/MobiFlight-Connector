@@ -38,7 +38,7 @@
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 6,
+    "MaxAnalogInputs": 8,
     "MaxButtons": 18,
     "MaxEncoders": 9,
     "MaxInputShifters": 2,
@@ -164,6 +164,20 @@
       "isPWM": false,
       "Name": "A5",
       "Pin": 19
+    },
+    {
+      "isAnalog": true,
+      "isI2C": true,
+      "isPWM": false,
+      "Name": "A6",
+      "Pin": 20
+    },
+    {
+      "isAnalog": true,
+      "isI2C": true,
+      "isPWM": false,
+      "Name": "A7",
+      "Pin": 21
     }
   ]
 }
