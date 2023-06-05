@@ -151,7 +151,7 @@ namespace MobiFlight
 
                 // Output and Error text is read asynchronously to avoid known deadlock issues
                 p.OutputDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
-                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Error);
 
                 Log.Instance.log($"{p.StartInfo.FileName} {anyCommand}", LogSeverity.Debug);
 
