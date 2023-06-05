@@ -149,9 +149,10 @@ namespace MobiFlight
                 p.StartInfo.RedirectStandardOutput = true;
                 p.StartInfo.RedirectStandardError = true;
 
-                // Output and Error text is read asynchronously to avoid known deadlock issues
+                // Output and Error text is read asynchronously to avoid known deadlock issues. It appears
+                // all avrdude output is sent to stderr :(
                 p.OutputDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
-                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Error);
+                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
 
                 Log.Instance.log($"{p.StartInfo.FileName} {anyCommand}", LogSeverity.Debug);
 
