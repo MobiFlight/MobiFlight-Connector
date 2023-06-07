@@ -135,12 +135,6 @@
       "Pin": 16
     },
     {
-      "isAnalog": false,
-      "isI2C": false,
-      "isPWM": false,
-      "Pin": 17
-    },
-    {
       "isAnalog": true,
       "isI2C": false,
       "isPWM": false,
