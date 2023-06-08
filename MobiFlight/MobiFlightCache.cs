@@ -178,7 +178,30 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private static List<PortDetails> getSupportedPorts()
+        /// <summary>
+        /// Many Arduinos (mostly Nanos, but also some Megas) have a bad CH340 chip that
+        /// doesn't work properly with Windows 11 drivers after Feburary, 2023. This method
+        /// checks the name returned from the chip to see if it is the garbled name
+        /// from the bad chip and returns true if it is.
+        /// </summary>
+        /// <param name="managementObject">A management object for the detected board</param>
+        /// <returns>True if the chip is a bad CH340 chip</returns>
+        private static bool IsBadCH340(ManagementObject managementObject)
+        {
+            var args = new object[] { new string[] { "DEVPKEY_Device_BusReportedDeviceDesc" }, null };
+            var r = managementObject.InvokeMethod("GetDeviceProperties", args);
+
+            var mbos = (ManagementBaseObject[])args[1];
+            if (mbos.Length == 0) return false;
+
+            var data = mbos[0].Properties.OfType<PropertyData>().FirstOrDefault(p => p.Name == "Data");
+
+            if (data is null) return false;
+
+            return (string)data.Value == "USB2.0-Ser!";
+        }
+
+        private static List<PortDetails> GetSupportedPorts()
         {
             var portNameRegEx = "\\(.*\\)";
             var result = new List<PortDetails>();
@@ -188,7 +211,7 @@ namespace MobiFlight
             try
             {
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE ClassGuid=\"{4d36e978-e325-11ce-bfc1-08002be10318}\"");
-                foreach (ManagementObject queryObj in searcher.Get())
+                foreach (ManagementObject queryObj in searcher.Get().Cast<ManagementObject>())
                 {
                     // At this point we have a list of possibly valid connected devices. Since everything at this point
                     // depends on the VID/PID extract that to start. USB devices seem to consistently have two hardwareID
@@ -250,6 +273,12 @@ namespace MobiFlight
                         continue;
                     }
 
+                    // If the device has a bad CH340 chip then log a warning.
+                    if (IsBadCH340(queryObj))
+                    {
+                        Log.Instance.log($"The device on port {portName} has a known bad CH340 chip and may not work correctly with MobiFlight.", LogSeverity.Error);
+                    }
+
                     result.Add(new PortDetails
                     {
                         Board = board,
@@ -284,7 +313,7 @@ namespace MobiFlight
             _lookingUpModules = true;
             
             List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
-            var supportedPorts = getSupportedPorts();
+            var supportedPorts = GetSupportedPorts();
             List<string> ignoredComPorts = getIgnoredPorts();
             List<string> connectingPorts = new List<string>();
             
