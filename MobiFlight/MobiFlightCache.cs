@@ -178,6 +178,17 @@ namespace MobiFlight
             return Modules.Values;
         }
 
+        private static string GetDeviceProperty(ManagementObject managementObject, string propertyName)
+        {
+            var args = new object[] { new string[] { "DEVPKEY_Device_BusReportedDeviceDesc" }, null };
+            var r = managementObject.InvokeMethod("GetDeviceProperties", args);
+            var mbos = (ManagementBaseObject[])args[1];
+            if (mbos.Length == 0) return "";
+            var data = mbos[0].Properties.OfType<PropertyData>().FirstOrDefault(p => p.Name == "Data");
+
+            return (string)data?.Value ?? "";
+        }
+
         /// <summary>
         /// Many Arduinos (mostly Nanos, but also some Megas) have a bad CH340 chip that
         /// doesn't work properly with Windows 11 drivers after Feburary, 2023. This method
@@ -188,17 +199,29 @@ namespace MobiFlight
         /// <returns>True if the chip is a bad CH340 chip</returns>
         private static bool IsBadCH340(ManagementObject managementObject)
         {
-            var args = new object[] { new string[] { "DEVPKEY_Device_BusReportedDeviceDesc" }, null };
-            var r = managementObject.InvokeMethod("GetDeviceProperties", args);
+            var deviceName = GetDeviceProperty(managementObject, "DEVPKEY_Device_BusReportedDeviceDesc");
 
-            var mbos = (ManagementBaseObject[])args[1];
-            if (mbos.Length == 0) return false;
+            // First check is for the bad name. If it doesn't match then it's not a problem board and
+            // just return false.
+            if (deviceName != "USB2.0-Ser!")
+            {
+                return false;
+            }
 
-            var data = mbos[0].Properties.OfType<PropertyData>().FirstOrDefault(p => p.Name == "Data");
+            // Second test is the version number of the driver. Anything after 3.5.2019.1 is bad.
+            var rawDriverVersion = GetDeviceProperty(managementObject, "DEVPKEY_Device_DriverVersion");
 
-            if (data is null) return false;
+            try
+            {
+                var versionInfo = new Version(rawDriverVersion);
+                var goodDriverVersion = new Version("3.5.2019.1");
 
-            return (string)data.Value == "USB2.0-Ser!";
+                return versionInfo > goodDriverVersion;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static List<PortDetails> GetSupportedPorts()
@@ -276,7 +299,7 @@ namespace MobiFlight
                     // If the device has a bad CH340 chip then log a warning.
                     if (IsBadCH340(queryObj))
                     {
-                        Log.Instance.log($"The device on port {portName} has a known bad CH340 chip and may not work correctly with MobiFlight.", LogSeverity.Error);
+                        Log.Instance.log($"The device on port {portName} has a CH340 chip that will not work with the installed CH340 driver version. Rollback to version 3.5.2019.1 or earlier, otherwise the board will not work with MobiFlight.", LogSeverity.Error);
                     }
 
                     result.Add(new PortDetails
