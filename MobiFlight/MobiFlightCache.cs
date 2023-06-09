@@ -178,14 +178,33 @@ namespace MobiFlight
             return Modules.Values;
         }
 
+        /// <summary>
+        /// Uses WMI to retrieve property data from a ManagementObject.
+        /// </summary>
+        /// <param name="managementObject">The object to retrieve the property from</param>
+        /// <param name="propertyName">The name of the property to retrieve</param>
+        /// <returns>The value of the property or an empty string if the property doesn't exist</returns>
         private static string GetDeviceProperty(ManagementObject managementObject, string propertyName)
         {
-            var args = new object[] { new string[] { "DEVPKEY_Device_BusReportedDeviceDesc" }, null };
-            var r = managementObject.InvokeMethod("GetDeviceProperties", args);
-            var mbos = (ManagementBaseObject[])args[1];
-            if (mbos.Length == 0) return "";
-            var data = mbos[0].Properties.OfType<PropertyData>().FirstOrDefault(p => p.Name == "Data");
+            // The GetDeviceProperties method is a method of Win32_PnPEntity objects, but that's not
+            // a type that's exposed via System.Management. To call the method we need to use
+            // InvokeMethod() instead.
+            // The method takes two parameters, a string array of property names and an out parameter
+            // that will contain an array of ManagementBaseObjects.
+            var args = new object[] { new string[] { propertyName }, null };
+            managementObject.InvokeMethod("GetDeviceProperties", args);
+            
+            // Grab the properties that were returned by the method.
+            var returnedProperties = (ManagementBaseObject[])args[1];
 
+            // It's possible that the property doesn't exist. If so just return an empty string.
+            if (returnedProperties.Length == 0) return "";
+
+            // Attempt to read the data from the returned property. Not all properties will have data so FirstOrDefault()()
+            // is used to handle the case of no data being returned.
+            var data = returnedProperties[0].Properties.OfType<PropertyData>().FirstOrDefault(p => p.Name == "Data");
+
+            // Return the data or an empty string if there was no data.
             return (string)data?.Value ?? "";
         }
 
