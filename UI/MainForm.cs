@@ -25,6 +25,7 @@ using MobiFlight.xplane;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
+using FSUIPC;
 
 namespace MobiFlight.UI
 {
@@ -106,38 +107,6 @@ namespace MobiFlight.UI
 
             // configure tracking correctly
             InitializeTracking();
-        }
-
-        private void UpdateSimConnectStatusIcon()
-        {
-            simConnectToolStripMenuItem.Image = Properties.Resources.warning;
-
-            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.SIMCONNECT))
-            {
-                simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
-                return;
-            }
-                
-            if (execManager.GetSimConnectCache().IsConnected())
-            {
-                simConnectToolStripMenuItem.Image = Properties.Resources.check;
-            }
-        }
-
-        private void UpdateFsuipcStatusIcon()
-        {
-            FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
-
-            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.FSUIPC))
-            {
-                FsuipcToolStripMenuItem.Image = Properties.Resources.disabled;
-                return;
-            }
-
-            if (execManager.GetFsuipcConnectCache().IsConnected())
-            {
-                FsuipcToolStripMenuItem.Image = Properties.Resources.check;
-            }
         }
 
         private void InitializeTracking()
@@ -304,6 +273,7 @@ namespace MobiFlight.UI
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
+            UpdateSimStatusIcon();
             UpdateSimConnectStatusIcon();
             UpdateFsuipcStatusIcon();
         }
@@ -321,6 +291,10 @@ namespace MobiFlight.UI
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
+            if (execManager.SimConnected())
+            {
+                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            }
             UpdateSimConnectStatusIcon();
             UpdateFsuipcStatusIcon();
         }
@@ -791,6 +765,7 @@ namespace MobiFlight.UI
                 noSimRunningToolStripMenuItem.Text = "X-Plane Detected";
                 if ((sender as XplaneCache).IsConnected())
                 {
+                    UpdateSimConnectStatusIcon();
                     simConnectToolStripMenuItem.Text = FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod].ToString();
                     simConnectToolStripMenuItem.Image = Properties.Resources.check;
                     simConnectToolStripMenuItem.Enabled = true;
@@ -1514,6 +1489,63 @@ namespace MobiFlight.UI
             saveToolStripButton.Enabled = false;
         }
 
+        private void UpdateSimConnectStatusIcon()
+        {
+            simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+
+            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.SIMCONNECT) &&
+                !ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.XPLANE))
+            {
+                simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
+                return;
+            }
+                
+            if (FlightSim.FlightSimType == FlightSimType.MSFS2020)
+            {
+                if (execManager.GetSimConnectCache().IsConnected())
+                    simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                else SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+
+            } else if (FlightSim.FlightSimType == FlightSimType.XPLANE)
+            {
+                if (execManager.GetSimConnectCache().IsConnected())
+                    simConnectToolStripMenuItem.Image = Properties.Resources.check;
+                else SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            }
+        }
+
+        private void UpdateFsuipcStatusIcon()
+        {
+            FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
+            FsuipcToolStripMenuItem.Visible = true;
+
+            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.FSUIPC))
+            {
+                FsuipcToolStripMenuItem.Image = Properties.Resources.disabled;
+                if (FlightSim.FlightSimType == FlightSimType.XPLANE)
+                {
+                    FsuipcToolStripMenuItem.Visible = false;
+                }
+
+                return;
+            }
+
+            if (execManager.GetFsuipcConnectCache().IsConnected())
+            {
+                FsuipcToolStripMenuItem.Image = Properties.Resources.check;
+            } else
+            {
+                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            }
+        }
+        private void UpdateSimStatusIcon()
+        {
+            if (execManager.SimConnected())
+            {
+                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+            }
+        }
+
         /// <summary>
         /// triggers the save dialog if user clicks on according buttons
         /// </summary>
@@ -1661,14 +1693,10 @@ namespace MobiFlight.UI
             };
         }
 
-
-
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(i18n._tr("WebsiteUrlHelp"));
         }
-
-
 
         private void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
         {

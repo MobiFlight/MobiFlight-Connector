@@ -1092,7 +1092,7 @@ namespace MobiFlight
                 {
                     if (LastDetectedSim != FlightSimType.NONE) {
                         OnSimUnavailable?.Invoke(LastDetectedSim, null);
-                        LastDetectedSim = FlightSim.FlightSimType;
+                        LastDetectedSim = FlightSimType.NONE;
                     }
                     Log.Instance.log("No Sim running.", LogSeverity.Debug);
                 }
@@ -1529,6 +1529,11 @@ namespace MobiFlight
         public Fsuipc2Cache GetFsuipcConnectCache()
         {
             return fsuipcCache;
+        }
+
+        public XplaneCache GetXlpaneConnectCache()
+        {
+            return xplaneCache;
         }
 
 
