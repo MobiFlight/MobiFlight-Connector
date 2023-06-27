@@ -125,21 +125,41 @@ namespace MobiFlight
             
             //verboseLevel = " -v -v -v -v";
 
-            String FullAvrDudePath = $@"{ArduinoIdePath}\{AvrPath}";
+            // Process() requires an absolute, rather than relative, path when using UseShellExecute = false
+            String FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
 
             foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
-                var proc1 = new ProcessStartInfo();
+                var p = new Process();
+
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
                 string anyCommand =
-                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
-                proc1.UseShellExecute = true;
-                proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
-                proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
-                proc1.Arguments = anyCommand;
-                proc1.WindowStyle = ProcessWindowStyle.Hidden;
-                Log.Instance.log($"{proc1.FileName} {anyCommand}", LogSeverity.Debug);
-                Process p = Process.Start(proc1);
+                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
+
+                // StandardOutput and StandardError can only be captured when UseShellExecute is false
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.WorkingDirectory = FullAvrDudePath;
+                p.StartInfo.FileName = Path.Combine(FullAvrDudePath, "bin", "avrdude");
+                p.StartInfo.Arguments = anyCommand;
+
+                // When UseShellExecute is false the CreateNoWindow flag has to be used to hide the window
+                p.StartInfo.CreateNoWindow = true;
+
+                // Without setting these to true the output won't get captured
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+
+                // Output and Error text is read asynchronously to avoid known deadlock issues. It appears
+                // all avrdude output is sent to stderr :(
+                p.OutputDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+
+                Log.Instance.log($"{p.StartInfo.FileName} {anyCommand}", LogSeverity.Debug);
+
+                p.Start();
+                p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
+
                 if (p.WaitForExit(board.AvrDudeSettings.Timeout))
                 {
                     Log.Instance.log($"Firmware upload exit code: {p.ExitCode}.", LogSeverity.Debug);
@@ -147,13 +167,13 @@ namespace MobiFlight
                     if (p.ExitCode == 0) return;
 
                     // process terminated but with an error.
-                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {p.StartInfo.FileName} {anyCommand}.";
                 }
                 else
                 {
                     // we timed out;
                     p.Kill();
-                    message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                    message = $"avrdude timed out! Something went wrong when flashing with command \n {p.StartInfo.FileName} {anyCommand}.";
                 }
                 Log.Instance.log(message, LogSeverity.Error);
             }
