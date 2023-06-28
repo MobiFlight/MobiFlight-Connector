@@ -122,8 +122,11 @@ namespace MobiFlight.Octavi
             {
                 Connect();
             };
+            data[0] = 11;
+            Stream.Write(data, 0, 2);
             //Stream.SetFeature(data);
-            base.SendData(data);
+            //base.SendData(data);
+            RequiresOutputUpdate = false;
         }
 
         public override void Update()
