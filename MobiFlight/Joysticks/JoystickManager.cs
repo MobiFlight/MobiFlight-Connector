@@ -130,7 +130,7 @@ namespace MobiFlight
                 }
 
                 MobiFlight.Joystick js;
-                if (d.InstanceName == "Octavi")
+                if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     js = new MobiFlight.Octavi.Octavi(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
                 }
