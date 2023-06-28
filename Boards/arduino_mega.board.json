@@ -2,12 +2,12 @@
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
     "Device": "atmega2560",
-    "BaudRates": [ "115200" ],
+    "BaudRates": ["115200"],
     "Programmer": "wiring",
     "Timeout": 15000
   },
   "Connection": {
-    "ConnectionDelay": 1250,
+    "ConnectionDelay": 1750,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
