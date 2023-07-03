@@ -816,6 +816,19 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following midiboard is currently in usage by another process:
+        ///
+        ///{0}
+        ///
+        ///That midiboard cannot be used until other application is terminated and MobiFlight is restarted..
+        /// </summary>
+        internal static string uiMessageMidiBoardInUsageByOtherProcess {
+            get {
+                return ResourceManager.GetString("uiMessageMidiBoardInUsageByOtherProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old config format (&lt; 6.0) found. The config file has to be converted to work correctly. Do you want to use a new filename?.
         /// </summary>
         internal static string uiMessageMigrateConfigFileV60YesNo {
@@ -908,6 +921,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no missing midiboards found..
+        /// </summary>
+        internal static string uiMessageNoNotConnectedMidiBoardsInConfigFound {
+            get {
+                return ResourceManager.GetString("uiMessageNoNotConnectedMidiBoardsInConfigFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no orphaned serials in the current config..
         /// </summary>
         internal static string uiMessageNoOrphanedSerialsFound {
@@ -935,6 +957,19 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageNotConnectedJoysticksInConfigFound {
             get {
                 return ResourceManager.GetString("uiMessageNotConnectedJoysticksInConfigFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following midiboards are currently not connected but referenced in the config:
+        ///
+        ///{0}
+        ///
+        ///Respective configs won&apos;t work until midiboards are connected and you have restarted MobiFlight..
+        /// </summary>
+        internal static string uiMessageNotConnectedMidiBoardsInConfigFound {
+            get {
+                return ResourceManager.GetString("uiMessageNotConnectedMidiBoardsInConfigFound", resourceCulture);
             }
         }
         

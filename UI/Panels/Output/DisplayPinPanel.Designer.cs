@@ -45,8 +45,8 @@
             this.singlePinSelectFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.selectMultiplePinsCheckBox = new System.Windows.Forms.CheckBox();
             this.PinSelectContainer = new System.Windows.Forms.Panel();
-            this.MultiSelectPinSelectContainer = new System.Windows.Forms.Panel();
             this.PinSelectPanel = new System.Windows.Forms.Panel();
+            this.MultiSelectPinSelectContainer = new System.Windows.Forms.Panel();
             this.LabelPinSelectContainer = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.MultiPinSelectPanel = new MobiFlight.UI.Panels.PinSelectPanel();
@@ -57,8 +57,8 @@
             this.pwmPinPanel.SuspendLayout();
             this.singlePinSelectFlowLayoutPanel.SuspendLayout();
             this.PinSelectContainer.SuspendLayout();
-            this.MultiSelectPinSelectContainer.SuspendLayout();
             this.PinSelectPanel.SuspendLayout();
+            this.MultiSelectPinSelectContainer.SuspendLayout();
             this.LabelPinSelectContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -162,23 +162,23 @@
             // PinSelectContainer
             // 
             resources.ApplyResources(this.PinSelectContainer, "PinSelectContainer");
-            this.PinSelectContainer.Controls.Add(this.MultiSelectPinSelectContainer);
             this.PinSelectContainer.Controls.Add(this.PinSelectPanel);
+            this.PinSelectContainer.Controls.Add(this.MultiSelectPinSelectContainer);
             this.PinSelectContainer.Controls.Add(this.LabelPinSelectContainer);
             this.PinSelectContainer.Name = "PinSelectContainer";
+            // 
+            // PinSelectPanel
+            // 
+            resources.ApplyResources(this.PinSelectPanel, "PinSelectPanel");
+            this.PinSelectPanel.Controls.Add(this.MultiPinSelectPanel);
+            this.PinSelectPanel.Controls.Add(this.singlePinSelectFlowLayoutPanel);
+            this.PinSelectPanel.Name = "PinSelectPanel";
             // 
             // MultiSelectPinSelectContainer
             // 
             resources.ApplyResources(this.MultiSelectPinSelectContainer, "MultiSelectPinSelectContainer");
             this.MultiSelectPinSelectContainer.Controls.Add(this.selectMultiplePinsCheckBox);
             this.MultiSelectPinSelectContainer.Name = "MultiSelectPinSelectContainer";
-            // 
-            // PinSelectPanel
-            // 
-            this.PinSelectPanel.Controls.Add(this.MultiPinSelectPanel);
-            this.PinSelectPanel.Controls.Add(this.singlePinSelectFlowLayoutPanel);
-            resources.ApplyResources(this.PinSelectPanel, "PinSelectPanel");
-            this.PinSelectPanel.Name = "PinSelectPanel";
             // 
             // LabelPinSelectContainer
             // 
@@ -214,9 +214,10 @@
             this.singlePinSelectFlowLayoutPanel.ResumeLayout(false);
             this.PinSelectContainer.ResumeLayout(false);
             this.PinSelectContainer.PerformLayout();
+            this.PinSelectPanel.ResumeLayout(false);
+            this.PinSelectPanel.PerformLayout();
             this.MultiSelectPinSelectContainer.ResumeLayout(false);
             this.MultiSelectPinSelectContainer.PerformLayout();
-            this.PinSelectPanel.ResumeLayout(false);
             this.LabelPinSelectContainer.ResumeLayout(false);
             this.ResumeLayout(false);
 

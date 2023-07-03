@@ -392,6 +392,7 @@ namespace MobiFlight
                     ModuleConnecting?.Invoke(this, "Connecting to MobiFlight Modules", progressValue);
                     module.Connect();
                     module.GetInfo();
+                    module.LoadConfig();
                     ModuleConnecting?.Invoke(this, "Connecting to MobiFlight Modules", progressValue);
                 }));
             }

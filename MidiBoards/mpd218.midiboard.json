@@ -1,0 +1,90 @@
+{
+  "$schema": "./mfmidiboard.schema.json",
+  "InstanceName": "MPD218",
+  "EncoderNeutralPosition": 0,
+  "Inputs": [
+    {
+      "Label": "Knob % - Bank A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6" ],
+      "InputType": "EndlessKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 3, 9, 12, 13, 14, 15 ]
+    },
+    {
+      "Label": "Pad % - Bank A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 10,
+      "MessageIds": [ 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51 ]
+    },
+    {
+      "Label": "Knob % - Bank B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6" ],
+      "InputType": "EndlessKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 16, 17, 18, 19, 20, 21 ]
+    },
+    {
+      "Label": "Pad % - Bank B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 10,
+      "MessageIds": [ 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67 ]
+    },
+    {
+      "Label": "Knob % - Bank C",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6" ],
+      "InputType": "EndlessKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 22, 23, 24, 25, 26, 27 ]
+    },
+    {
+      "Label": "Pad % - Bank C",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 10,
+      "MessageIds": [ 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83 ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "LED Pad % - Bank A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "MessageType": "Note",
+      "MessageChannel": 10,
+      "MessageIds": [ 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51 ],
+      "ValueOn": 127,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Pad % - Bank A",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ]
+    },
+    {
+      "Label": "LED Pad % - Bank B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "MessageType": "Note",
+      "MessageChannel": 10,
+      "MessageIds": [ 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67 ],
+      "ValueOn": 127,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Pad % - Bank B",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ]
+    },
+    {
+      "Label": "LED Pad % - Bank C",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "MessageType": "Note",
+      "MessageChannel": 10,
+      "MessageIds": [ 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83 ],
+      "ValueOn": 127,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Pad % - Bank C",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ]
+    }
+  ]
+}

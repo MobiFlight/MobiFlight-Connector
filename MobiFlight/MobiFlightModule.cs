@@ -301,9 +301,9 @@ namespace MobiFlight
                 System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
             }
 
-            //if (!this.Connected) return;
-            //ResetBoard();
-            LoadConfig();
+            // if (!this.Connected) return;
+            // ResetBoard();
+            // LoadConfig();
         }
 
         public void ResetBoard()

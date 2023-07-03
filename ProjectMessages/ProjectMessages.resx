@@ -574,4 +574,21 @@ Check log for more details.</value>
   <data name="uiMessageNoXplaneConnection" xml:space="preserve">
     <value>No active X-Plane connection</value>
   </data>
+  <data name="uiMessageNotConnectedMidiBoardsInConfigFound" xml:space="preserve">
+    <value>The following midiboards are currently not connected but referenced in the config:
+
+{0}
+
+Respective configs won't work until midiboards are connected and you have restarted MobiFlight.</value>
+  </data>
+  <data name="uiMessageNoNotConnectedMidiBoardsInConfigFound" xml:space="preserve">
+    <value>There are no missing midiboards found.</value>
+  </data>
+  <data name="uiMessageMidiBoardInUsageByOtherProcess" xml:space="preserve">
+    <value>The following midiboard is currently in usage by another process:
+
+{0}
+
+That midiboard cannot be used until other application is terminated and MobiFlight is restarted.</value>
+  </data>
 </root>

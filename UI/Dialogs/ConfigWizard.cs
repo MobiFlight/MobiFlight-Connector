@@ -174,6 +174,7 @@ namespace MobiFlight.UI.Dialogs
 
             _AddMobiFlightModules(DisplayModuleList);
             _AddJoysticks(DisplayModuleList);
+            _AddMidiBoards(DisplayModuleList);
 
             displayPanel1.SetArcazeSettings(arcazeFirmware, moduleSettings);
             displayPanel1.SetModules(DisplayModuleList);
@@ -189,7 +190,8 @@ namespace MobiFlight.UI.Dialogs
             var DisplayModuleList = new List<ListItem>();
             
             _AddMobiFlightModules(DisplayModuleList);
-            _AddJoysticks(DisplayModuleList);            
+            _AddJoysticks(DisplayModuleList);
+            _AddMidiBoards(DisplayModuleList);
 
             displayPanel1.SetModules(DisplayModuleList);
         }
@@ -220,6 +222,23 @@ namespace MobiFlight.UI.Dialogs
                 {
                     Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
                     Label = $"{joystick.Name}"
+                });
+
+                // Not yet supported for pins
+                // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
+            }
+        }
+
+        protected void _AddMidiBoards(List<ListItem> DisplayModuleList)
+        {
+            foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
+            {               
+                if (midiBoard.GetAvailableOutputDevices().Count == 0) continue;
+
+                DisplayModuleList.Add(new ListItem()
+                {
+                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Label = $"{midiBoard.Name}"
                 });
 
                 // Not yet supported for pins

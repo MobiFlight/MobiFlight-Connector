@@ -47,6 +47,7 @@ namespace MobiFlight.UI.Dialogs
                 if (cfg.DisplaySerial != "" && 
                     cfg.DisplaySerial  != "-" && 
                     !Joystick.IsJoystickSerial(cfg.DisplaySerial) &&
+                    !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&  
                     !configSerials.Contains(cfg.DisplaySerial) && 
                     !moduleSerials.Contains(cfg.DisplaySerial))
                 {
@@ -62,6 +63,7 @@ namespace MobiFlight.UI.Dialogs
                     cfg.ModuleSerial != "" &&
                     cfg.ModuleSerial != "-" &&
                     !Joystick.IsJoystickSerial(cfg.ModuleSerial) &&
+                    !MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&
                     !moduleSerials.Contains(cfg.ModuleSerial))
                 {

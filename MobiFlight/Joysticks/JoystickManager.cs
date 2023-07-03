@@ -77,7 +77,7 @@ namespace MobiFlight
             }
         }
 
-        public void Start()
+        public void Startup()
         {
             PollTimer.Start();
         }

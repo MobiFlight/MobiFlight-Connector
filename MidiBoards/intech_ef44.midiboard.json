@@ -1,0 +1,30 @@
+{
+  "$schema": "./mfmidiboard.schema.json",
+  "InstanceName": "Intech Studio: AC  ",
+  "Inputs": [
+    {
+      "Label": "Knob %",
+      "LabelIds": [ "1", "2", "3", "4" ],
+      "InputType": "EndlessKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 32, 33, 34, 35 ]
+    },
+    {
+      "Label": "Button %",
+      "LabelIds": [ "1", "2", "3", "4" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 0, 1, 2, 3 ]
+    },
+    {
+      "Label": "Slider %",
+      "LabelIds": [ "1", "2", "3", "4" ],
+      "InputType": "Fader",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 36, 37, 38, 39 ]
+	  }
+  ]
+}
