@@ -681,18 +681,32 @@ namespace MobiFlight.UI.Panels.OutputWizard
             String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
             MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-            List<ListItem> connectors = new List<ListItem>();
 
+            // Build list of chained modules and list of selectable sizes
+            var chained = new List<ListItem>();
+            var entries = new List<ListItem>();
             foreach (IConnectedDevice device in module.GetConnectedDevices())
             {
                 if (device.Type != DeviceType.LedModule) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
+                // Found the device we sought
+                MobiFlightLedModule dev = device as MobiFlightLedModule;
+                for (int i = 0; i < dev.SubModules; i++)
                 {
-                    connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                    chained.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                }
+                var maxdigits = 8;
+                if (dev.Model == MobiFlightLedModule.ModelType.TM1637_4D) { maxdigits = 4; }
+                else 
+                if (dev.Model == MobiFlightLedModule.ModelType.TM1637_6D) { maxdigits = 6; }
+
+                for (int i = 2; i < maxdigits; i++)
+                {
+                    entries.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
                 }
             }
-            displayLedDisplayPanel.SetConnectors(connectors);
+            displayLedDisplayPanel.SetConnectors(chained);
+            displayLedDisplayPanel.SetSizeDigits(entries);
         }
 
         #region Stepper related functions

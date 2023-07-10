@@ -343,11 +343,19 @@ namespace MobiFlight
                             }
 
                             device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
+                            var dev = device as Config.LedModule;
+                            
+                            MobiFlightLedModule.ModelType model = MobiFlightLedModule.ModelType.MAX72xx;
+                            if (dev.ClsPin == LedModule.MODEL_TM1637_4D) model = MobiFlightLedModule.ModelType.TM1637_4D;
+                            else 
+                            if (dev.ClsPin == LedModule.MODEL_TM1637_6D) model = MobiFlightLedModule.ModelType.TM1637_6D;
+                            
                             ledModules.Add(device.Name, new MobiFlightLedModule()
                             {
                                 CmdMessenger = _cmdMessenger,
                                 Name = device.Name,
                                 ModuleNumber = ledModules.Count,
+                                Model = model,
                                 SubModules = ledSubmodules,
                                 Brightness = (device as Config.LedModule).Brightness
                             });
@@ -1255,7 +1263,9 @@ namespace MobiFlight
                 {
                     case DeviceType.LedModule:
                         usedPins.Add(Convert.ToByte((device as LedModule).ClkPin));
-                        usedPins.Add(Convert.ToByte((device as LedModule).ClsPin));
+                        var clsPin = (device as LedModule).ClsPin;
+                        if(clsPin != LedModule.MODEL_TM1637_4D && clsPin != LedModule.MODEL_TM1637_6D)
+                        usedPins.Add(Convert.ToByte(clsPin));
                         usedPins.Add(Convert.ToByte((device as LedModule).DinPin));
                         break;
 
@@ -1340,7 +1350,10 @@ namespace MobiFlight
             }
 
             // Mark all the used pins as used in the result list.
-            usedPins.ForEach(pin => ResultPins.Find(resultPin => resultPin.Pin == pin).Used = true);
+            foreach (byte pinNo in usedPins) {
+                MobiFlightPin pin = ResultPins.Find(resultPin => resultPin.Pin == pinNo);
+                if (pin != null) pin.Used = true;
+            }
 
             if (FreeOnly)
                 ResultPins = ResultPins.FindAll(x => x.Used == false);

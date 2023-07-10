@@ -17,6 +17,13 @@ namespace MobiFlight
     {
         public const string TYPE = "Display Module";
 
+        public enum ModelType
+        {
+            MAX72xx,    // 0 
+            TM1637_4D,  // 1
+            TM1637_6D,  // 2
+        }
+
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
         public int Brightness { get; set; }
@@ -31,6 +38,7 @@ namespace MobiFlight
                 ClearState();
             }
         }
+        public ModelType Model { get; set; }
 
         List<LedModuleState> _state = new List<LedModuleState>();
 
@@ -55,6 +63,7 @@ namespace MobiFlight
         {
             Brightness = 15;
             SubModules = 1;
+            Model = ModelType.MAX72xx;
         }
 
         protected void Initialize()
@@ -66,6 +75,8 @@ namespace MobiFlight
         public void Display(int subModule, String value, byte points, byte mask, bool reverse = false)
         {
             if (!_initialized) Initialize();
+
+            if (subModule > 1 && Model != ModelType.MAX72xx) return;
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 

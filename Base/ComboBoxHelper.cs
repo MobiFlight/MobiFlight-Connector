@@ -64,11 +64,12 @@ namespace System
             if (Pins == null) return false;
             // Deep-clone list as 'Used' list
             List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
-            // Mark current pin as free
-            if (UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin)))
+            // Mark current pin (if any specified) as free
+            if (CurrentPin != "" && UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin))) {
                 UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
+            }
 
-            if (analogOnly == true)
+            if (analogOnly == true) 
             {
                 UsablePins = UsablePins.FindAll(x => x.isAnalog == true);
             }
@@ -78,40 +79,81 @@ namespace System
             comboBox.DisplayMember = "Name";
             comboBox.ValueMember = "Pin";
 
-            // Restore the original item selection
-            comboBox.SelectedValue = byte.Parse(CurrentPin);
+            // Restore the original item selection (if any)
+            if (CurrentPin != "") {
+                var pinNo = byte.Parse(CurrentPin);
+                try {
+                    comboBox.SelectedValue = pinNo;
+                }
+                catch { }
+            }
             
             return false;
         }
-        static public void reassignPin(ComboBox comboBox, List<MobiFlightPin> pinList, ref string signalPin)
+        static public void reassignPin(string newPin, List<MobiFlightPin> pinList, ref string currentPin)
         {
-            // This function updates the config data (signalPin) with the new value read from the ComboBox.
-            // At the same time:
-            // - the assignment flags in the "base" pin list are accordingly updated (the current pin no. is marked as free
-            //   and the new one as used)
-            // - an updated pin list is associated to the ComboBox
-            string after = comboBox.SelectedItem.ToString();
-            byte nBefore = byte.Parse(signalPin);
-            byte nAfter = byte.Parse(after);
+            // This function updates the config data (currentPin) with the new value passed.
+            // The assignment flags in the "base" pin list are accordingly updated
+            // (the current pin is marked as free and the new one as used)
             try {
-                if (signalPin != after) {
-                    // Pin 0 is used for the stepper.
-                    // But Pin 0 is not a correct Pin for the Mega.
-                    if (pinList.Find(x => x.Pin == nBefore)!=null)
-                        pinList.Find(x => x.Pin == nBefore).Used = false;
-                    if (pinList.Find(x => x.Pin == nAfter)!=null)
-                        pinList.Find(x => x.Pin == nAfter).Used = true;
-                }
+                if (currentPin == newPin) return;
+                freePin(pinList, currentPin);
+                // Temporarily assign desired target - will remain this if available
+                string newCurrentPin = newPin;
+                assignPin(pinList, ref newCurrentPin);
+                // If no errors, confirm assignment of the new value in the configuration data
+                currentPin = newCurrentPin;
             }
             catch (Exception ex) {
-                Log.Instance.log($"Pin reassignment from {signalPin} to {after} went wrong: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Pin reassignment from {currentPin} to {newPin} went wrong: {ex.Message}", LogSeverity.Error);
             }
-            // now confirm assignment of the new value in the configuration data
-            signalPin = after;
-            
-            //ComboBoxHelper.BindMobiFlightFreePins(comboBox, pinList, after);
-            // the function above has rebuilt its datasource, therefore the ComboBox selection must be restored:
-            //comboBox.SelectedValue = nAfter;
+
         }
+        static public void freePin(List<MobiFlightPin> pinList, string currentPin)
+        {
+            byte nBefore = byte.Parse(currentPin);
+            try {
+                MobiFlightPin p;
+                p = pinList.Find(x => x.Pin == nBefore);
+                if (p != null) p.Used = false;
+            }
+            catch (Exception ex) {
+                Log.Instance.log($"Release of pin {currentPin} went wrong: {ex.Message}", LogSeverity.Error);
+            }
+        }
+        static public void assignPin(List<MobiFlightPin> pinList, ref string newPin)
+        {
+            // This function tries to reserve the specified pin as newly occupied.
+            // If it is no longer available (or ""), the first free one will be assigned.
+            // If no more pins are available, an empty string is returned.
+            try {
+                MobiFlightPin p = null;
+                if (newPin != "") {
+                    // A desired pin is specified: seek it
+                    byte newPinNo = byte.Parse(newPin);
+                    p = pinList.Find(x => x.Pin == newPinNo);
+                    if (p == null) throw new Exception("Nonexistent pin number");
+                }
+                if (newPin == "" || p.Used) {
+                    // Either no desired pin is specified, or desired pin is not available:
+                    // assign first free one
+                    p = pinList.Find(x => x.Used == false);
+                    // If no pin free, raise error
+                    if(p == null) throw new ArgumentOutOfRangeException();
+                }
+                p.Used = true;
+                newPin = p.Pin.ToString();
+            }
+            catch (ArgumentOutOfRangeException ex) {
+                MessageBox.Show(i18n._tr("uiMessageNotEnoughPinsMessage"),
+                                i18n._tr("uiMessageNotEnoughPinsHint"),
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                newPin = "";
+            }
+            catch (Exception ex) {
+                Log.Instance.log($"Pin assignment to {newPin} went wrong: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
     }
 }
