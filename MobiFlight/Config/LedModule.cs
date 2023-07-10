@@ -8,6 +8,10 @@ namespace MobiFlight.Config
 {
     public class LedModule : BaseDevice
     {
+        public const string MODEL_MAX72xx   = "";
+        public const string MODEL_TM1637_4D = "253";
+        public const string MODEL_TM1637_6D = "254";
+
         const ushort _paramCount = 6;
         [XmlAttribute]
         public String DinPin = "-1";
