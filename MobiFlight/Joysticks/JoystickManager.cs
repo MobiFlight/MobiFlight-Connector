@@ -11,12 +11,22 @@ namespace MobiFlight
 {
     public class JoystickManager
     {
+        private static readonly List<SharpDX.DirectInput.DeviceType> SupportedDeviceTypes = new List<SharpDX.DirectInput.DeviceType>
+        {
+            SharpDX.DirectInput.DeviceType.Joystick,
+            SharpDX.DirectInput.DeviceType.Gamepad,
+            SharpDX.DirectInput.DeviceType.Driving,
+            SharpDX.DirectInput.DeviceType.Flight,
+            SharpDX.DirectInput.DeviceType.FirstPerson,
+            SharpDX.DirectInput.DeviceType.Supplemental
+        };
+
         private readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         readonly Timer PollTimer = new Timer();
         readonly List<Joystick> joysticks = new List<Joystick>();
-
+       
         public JoystickManager ()
         {
             PollTimer.Interval = 50;
@@ -111,11 +121,19 @@ namespace MobiFlight
             {
                 Log.Instance.log($"Found attached DirectInput device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
 
-                if (!IsSupportedDeviceType(d)) continue;
+                if (!SupportedDeviceTypes.Contains(d.Type))
+                {
+                    Log.Instance.log($"Skipping unsupported device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
+                    continue;
+                }
 
-                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
+                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
 
-                if (!HasAxisOrButtons(js)) continue;
+                if (!HasAxisOrButtons(js))
+                {
+                    Log.Instance.log($"Skipping device with no buttons or axis: {d.InstanceName}.", LogSeverity.Debug);
+                    continue;
+                }
 
                 Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
                 js.Connect(Handle); 
@@ -142,17 +160,6 @@ namespace MobiFlight
             return
                 js.Capabilities.AxeCount > 0 ||
                 js.Capabilities.ButtonCount > 0;
-        }
-
-        private bool IsSupportedDeviceType(DeviceInstance d)
-        {
-            return
-                d.Type == SharpDX.DirectInput.DeviceType.Joystick ||
-                d.Type == SharpDX.DirectInput.DeviceType.Gamepad ||
-                d.Type == SharpDX.DirectInput.DeviceType.Flight ||
-                d.Type == SharpDX.DirectInput.DeviceType.Supplemental ||
-                d.Type == SharpDX.DirectInput.DeviceType.FirstPerson ||
-                d.Type == SharpDX.DirectInput.DeviceType.Driving;
         }
 
         private void Js_OnAxisChanged(object sender, InputEventArgs e)
