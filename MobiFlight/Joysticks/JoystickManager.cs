@@ -11,11 +11,11 @@ namespace MobiFlight
 {
     public class JoystickManager
     {
-        private static readonly List<SharpDX.DirectInput.DeviceType> SupportedDeviceTypes = new List<SharpDX.DirectInput.DeviceType>
+        private static readonly SharpDX.DirectInput.DeviceType[] SupportedDeviceTypes =
         {
             SharpDX.DirectInput.DeviceType.Joystick,
             SharpDX.DirectInput.DeviceType.Gamepad,
-            SharpDX.DirectInput.DeviceType.Driving,
+//            SharpDX.DirectInput.DeviceType.Driving,
             SharpDX.DirectInput.DeviceType.Flight,
             SharpDX.DirectInput.DeviceType.FirstPerson,
             SharpDX.DirectInput.DeviceType.Supplemental
