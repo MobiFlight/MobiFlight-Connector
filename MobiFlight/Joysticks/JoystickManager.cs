@@ -151,7 +151,8 @@ namespace MobiFlight
                 d.Type == SharpDX.DirectInput.DeviceType.Gamepad ||
                 d.Type == SharpDX.DirectInput.DeviceType.Flight ||
                 d.Type == SharpDX.DirectInput.DeviceType.Supplemental ||
-                d.Type == SharpDX.DirectInput.DeviceType.FirstPerson;
+                d.Type == SharpDX.DirectInput.DeviceType.FirstPerson ||
+                d.Type == SharpDX.DirectInput.DeviceType.Driving;
         }
 
         private void Js_OnAxisChanged(object sender, InputEventArgs e)

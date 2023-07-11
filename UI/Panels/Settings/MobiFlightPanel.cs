@@ -239,7 +239,7 @@ namespace MobiFlight.UI.Panels.Settings
             // set the add device icon enabled
             addDeviceToolStripDropDownButton.Enabled = isMobiFlightBoard;
             removeDeviceToolStripButton.Enabled = isMobiFlightBoard & (node.Level > 0);
-            uploadToolStripButton.Enabled = isMobiFlightBoard && ((moduleNode.Nodes.Count > 0) || (moduleNode.ImageKey == "Changed"));
+            uploadToolStripButton.Enabled = isMobiFlightBoard && moduleNode.ImageKey == "Changed";
             openToolStripButton.Enabled = isMobiFlightBoard;
             saveToolStripButton.Enabled = isMobiFlightBoard && moduleNode.Nodes.Count > 0;
 
