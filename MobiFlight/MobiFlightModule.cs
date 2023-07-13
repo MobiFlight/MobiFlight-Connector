@@ -722,12 +722,12 @@ namespace MobiFlight
             return true;
         }
 
-        public bool SetDisplay(string name, int module, byte points, byte mask, string value)
+        public bool SetDisplay(string name, int module, byte points, byte mask, string value, bool reverse)
         {
             if (KeepAliveNeeded())
                 ledModules[name].ClearState();
 
-            ledModules[name].Display(module, value, points, mask);
+            ledModules[name].Display(module, value, points, mask, reverse);
             return true;
         }
 

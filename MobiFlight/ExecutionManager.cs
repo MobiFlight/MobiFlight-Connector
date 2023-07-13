@@ -771,14 +771,7 @@ namespace MobiFlight
                                 );
                         }
 
-                        if (cfg.LedModule.DisplayLedReverseDigits)
-                        {
-                            val = new string(val.ToCharArray().Reverse().ToArray());
-                            for (int i = 0; i != decimalPoints.Count; i++)
-                            {
-                                decimalPoints[i] = (cfg.LedModule.DisplayLedDigits.Count - int.Parse(decimalPoints[i]) - 1).ToString();
-                            };
-                        }
+                        var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
                         mobiFlightCache.setDisplay(
                             serial,
@@ -786,7 +779,8 @@ namespace MobiFlight
                             cfg.LedModule.DisplayLedConnector,
                             cfg.LedModule.DisplayLedDigits,
                             decimalPoints,
-                            val);
+                            val,
+                            reverse);
 
                         break;
 
