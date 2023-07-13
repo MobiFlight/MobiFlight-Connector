@@ -92,6 +92,7 @@ namespace MobiFlight
             Log.Instance.log($"Command: SetModule <{(int)MobiFlightModule.Command.SetModule},{this.ModuleNumber},{subModule},{value},{points},{mask};>.", LogSeverity.Debug);
 
             // Send command
+            System.Threading.Thread.Sleep(1);
             CmdMessenger.SendCommand(command);
         }
 
