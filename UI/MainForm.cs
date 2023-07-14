@@ -170,7 +170,11 @@ namespace MobiFlight.UI
 
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
-            noSimRunningToolStripMenuItem.Image = Properties.Resources.warning;
+            moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+
+            SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+            SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
@@ -294,10 +298,7 @@ namespace MobiFlight.UI
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
-            if (execManager.SimConnected())
-            {
-                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
-            }
+            UpdateSimStatusIcon();
             UpdateSimConnectStatusIcon();
             UpdateXplaneDirectConnectStatusIcon();
             UpdateFsuipcStatusIcon();
@@ -684,49 +685,50 @@ namespace MobiFlight.UI
             switch (flightSim)
             {
                 case FlightSimType.MSFS2020:
-                    noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
-                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    SimProcessDetectedToolStripMenuItem.Text = "MSFS2020 Detected";
+                    SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
                 case FlightSimType.FS9:
-                    noSimRunningToolStripMenuItem.Text = "FS2004 Detected";
-                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    SimProcessDetectedToolStripMenuItem.Text = "FS2004 Detected";
+                    SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
                 case FlightSimType.FSX:
-                    noSimRunningToolStripMenuItem.Text = "FSX Detected";
-                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    SimProcessDetectedToolStripMenuItem.Text = "FSX Detected";
+                    SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
                 case FlightSimType.P3D:
-                    noSimRunningToolStripMenuItem.Text = "P3D Detected";
-                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    SimProcessDetectedToolStripMenuItem.Text = "P3D Detected";
+                    SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
                 case FlightSimType.XPLANE:
-                    noSimRunningToolStripMenuItem.Text = "X-Plane Detected";
-                    noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+                    SimProcessDetectedToolStripMenuItem.Text = "X-Plane Detected";
+                    SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
                 case FlightSimType.UNKNOWN:
-                    noSimRunningToolStripMenuItem.Text = "Unkown Detected";
-                    noSimRunningToolStripMenuItem.Image = Properties.Resources.module_unknown;
+                    SimProcessDetectedToolStripMenuItem.Text = "Unkown Detected";
+                    SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.module_unknown;
                     break;
 
                 default:
-                    noSimRunningToolStripMenuItem.Text = "Undefined";
+                    SimProcessDetectedToolStripMenuItem.Text = "Undefined";
                     break;
             }
-            noSimRunningToolStripMenuItem.Image = Properties.Resources.check;
+            SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
         }
 
         private void ExecManager_OnSimUnavailable(object sender, EventArgs e)
         {
             FlightSimType flightSim = (FlightSimType)sender;
 
-            noSimRunningToolStripMenuItem.Text = "No sim running.";
-            noSimRunningToolStripMenuItem.Image = Properties.Resources.warning;
+            SimProcessDetectedToolStripMenuItem.Text = "No sim running.";
+            SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;
 
+            UpdateSimStatusIcon();
             UpdateFsuipcStatusIcon();
             UpdateSimConnectStatusIcon();
             UpdateXplaneDirectConnectStatusIcon();
@@ -753,12 +755,11 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
-                noSimRunningToolStripMenuItem.Text = "MSFS2020 Detected";
+                SimProcessDetectedToolStripMenuItem.Text = "MSFS2020 Detected";
 
                 if ((sender as SimConnectCache).IsSimConnectConnected())
                 {
                     simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS2020)";
-                    UpdateSimConnectStatusIcon();
                     Log.Instance.log("Connected to SimConnect (MSFS2020).", LogSeverity.Info);
                 }
 
@@ -774,12 +775,14 @@ namespace MobiFlight.UI
                     }
                 }
 
+                UpdateSimConnectStatusIcon();
+
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.SIMCONNECT.ToString());
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod]}].", LogSeverity.Info);
             }
             else if (sender.GetType() == typeof(XplaneCache) && FlightSim.FlightSimType == FlightSimType.XPLANE)
             {
-                noSimRunningToolStripMenuItem.Text = "X-Plane Detected";
+                SimProcessDetectedToolStripMenuItem.Text = "X-Plane Detected";
                 if ((sender as XplaneCache).IsConnected())
                 {
                     UpdateXplaneDirectConnectStatusIcon();
@@ -1514,6 +1517,7 @@ namespace MobiFlight.UI
             {
                 simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
                 simConnectToolStripMenuItem.Visible = false;
+                UpdateSeparatorInStatusMenu();
                 return;
             }
 
@@ -1521,6 +1525,11 @@ namespace MobiFlight.UI
                 simConnectToolStripMenuItem.Image = Properties.Resources.check;
             else 
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+        }
+
+        private void UpdateSeparatorInStatusMenu()
+        {
+            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Visible || xPlaneDirectToolStripMenuItem.Visible || FsuipcToolStripMenuItem.Visible;
         }
 
         private void UpdateXplaneDirectConnectStatusIcon()
