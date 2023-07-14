@@ -119,6 +119,7 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
+            this.xPlaneDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -643,7 +644,8 @@
             this.noSimRunningToolStripMenuItem,
             this.toolStripMenuItem5,
             this.FsuipcToolStripMenuItem,
-            this.simConnectToolStripMenuItem});
+            this.simConnectToolStripMenuItem,
+            this.xPlaneDirectToolStripMenuItem});
             resources.ApplyResources(this.toolStripDropDownButton1, "toolStripDropDownButton1");
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             // 
@@ -740,6 +742,11 @@
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
+            // 
+            // xPlaneDirectToolStripMenuItem
+            // 
+            this.xPlaneDirectToolStripMenuItem.Name = "xPlaneDirectToolStripMenuItem";
+            resources.ApplyResources(this.xPlaneDirectToolStripMenuItem, "xPlaneDirectToolStripMenuItem");
             // 
             // MainForm
             // 
@@ -875,6 +882,7 @@
         private System.Windows.Forms.ImageList tabPageImageList;
         private System.Windows.Forms.ToolStripMenuItem hubHopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadPresetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;
     }
 }
 
