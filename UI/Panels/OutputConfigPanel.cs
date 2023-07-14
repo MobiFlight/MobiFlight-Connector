@@ -33,6 +33,7 @@ namespace MobiFlight.UI.Panels
             
             configDataTable.RowChanged += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
+            configDataTable.TableCleared += new DataTableClearEventHandler((o,a)=> { SettingsChanged?.Invoke(this, null); });
 
             Helper.DoubleBufferedDGV(dataGridViewConfig, true);
         }
