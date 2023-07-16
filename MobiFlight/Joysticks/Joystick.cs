@@ -63,7 +63,7 @@ namespace MobiFlight
         private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
         private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
-        private readonly SharpDX.DirectInput.Joystick DIJoystick;
+        protected readonly SharpDX.DirectInput.Joystick DIJoystick;
         private readonly JoystickDefinition Definition;
 
         private HidDevice Device;
@@ -82,6 +82,17 @@ namespace MobiFlight
             [54] = "Slider1",
             [55] = "Slider2"
         };
+
+        /// <summary>
+        /// This allows to raise OnButtonPressed from derived classes
+        /// https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/events/how-to-raise-base-class-events-in-derived-classes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TriggerButtonPressed(object sender, InputEventArgs e)
+        {
+            OnButtonPressed?.Invoke(sender, e);
+        }
 
         public static bool IsJoystickSerial(string serial)
         {
@@ -413,18 +424,6 @@ namespace MobiFlight
             }
         }
 
-        protected void PressAButton(int i)
-        {
-            OnButtonPressed?.Invoke(this, new InputEventArgs()
-            {
-                Name = Name,
-                DeviceId = Buttons[i].Name,
-                DeviceLabel = Buttons[i].Label,
-                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                Type = DeviceType.Button,
-                Value = 0
-            });
-        }
         private int GetValueForAxisFromState(int currentAxis, JoystickState state)
         {
             String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();

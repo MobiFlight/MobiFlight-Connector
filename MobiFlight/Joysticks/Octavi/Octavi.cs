@@ -1,5 +1,6 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
+using SharpDX.DirectInput;
 using System.Collections.Generic;
 
 namespace MobiFlight.Joysticks.Octavi
@@ -121,6 +122,19 @@ namespace MobiFlight.Joysticks.Octavi
             RequiresOutputUpdate = false;
         }
 
+        protected void TriggerButtonPress(int i)
+        {
+            TriggerButtonPressed(this, new InputEventArgs()
+            {
+                Name = Name,
+                DeviceId = Buttons[i].Name,
+                DeviceLabel = Buttons[i].Label,
+                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
+                Type = DeviceType.Button,
+                Value = 0
+            });
+        }
+
         public override void Update()
         {
             byte[] streambuffer = null;
@@ -139,7 +153,7 @@ namespace MobiFlight.Joysticks.Octavi
                 OctaviReport OReport = new OctaviReport();
                 OReport.parseReport(inputReportBuffer);
                 List<int> btnz = octaviHandler.toButton(OReport);
-                foreach(int i in btnz) PressAButton(i);
+                foreach(int i in btnz) TriggerButtonPress(i);
             }
             if(n>1)
             {
@@ -152,11 +166,11 @@ namespace MobiFlight.Joysticks.Octavi
 
                 if (innerknob < 0)
                 {
-                    PressAButton(0);
+                    TriggerButtonPress(0);
                 }
                 else if (innerknob > 0)
                 {
-                    PressAButton(1);
+                    TriggerButtonPress(1);
                 }
             }
 
