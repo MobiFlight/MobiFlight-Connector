@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.Joysticks.Octavi;
+using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
@@ -129,7 +130,20 @@ namespace MobiFlight
                     continue;
                 }
 
-                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                MobiFlight.Joystick js;
+                if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
+                {
+                    js = new Octavi(
+                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), 
+                            // statically set this to Octavi
+                            // until we might support (Octavi|IFR1) or similar
+                            GetDefinitionByInstanceName("Octavi")
+                         );
+                }
+                else
+                {
+                    js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                }
 
                 if (!HasAxisOrButtons(js))
                 {

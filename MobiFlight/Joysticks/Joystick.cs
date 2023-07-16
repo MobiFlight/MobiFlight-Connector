@@ -58,16 +58,16 @@ namespace MobiFlight
         public event ButtonEventHandler OnAxisChanged;
         public event EventHandler OnDisconnected;
 
-        private readonly List<JoystickDevice> Buttons = new List<JoystickDevice>();
+        protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
         private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
         private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
         private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
-        private readonly SharpDX.DirectInput.Joystick DIJoystick;
+        protected readonly SharpDX.DirectInput.Joystick DIJoystick;
         private readonly JoystickDefinition Definition;
 
         private HidDevice Device;
-        private bool RequiresOutputUpdate = false;
+        protected bool RequiresOutputUpdate = false;
         private JoystickState State = null;
         private HidStream Stream;
 
@@ -82,6 +82,17 @@ namespace MobiFlight
             [54] = "Slider1",
             [55] = "Slider2"
         };
+
+        /// <summary>
+        /// This allows to raise OnButtonPressed from derived classes
+        /// https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/events/how-to-raise-base-class-events-in-derived-classes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void TriggerButtonPressed(object sender, InputEventArgs e)
+        {
+            OnButtonPressed?.Invoke(sender, e);
+        }
 
         public static bool IsJoystickSerial(string serial)
         {
@@ -114,7 +125,7 @@ namespace MobiFlight
             this.Definition = definition;
         }
 
-        private void EnumerateDevices()
+        protected virtual void EnumerateDevices()
         {
             foreach (DeviceObjectInstance device in this.DIJoystick.GetObjects())
             {
@@ -214,7 +225,7 @@ namespace MobiFlight
             DIJoystick.Acquire();            
         }
 
-        private void EnumerateOutputDevices()
+        virtual protected void EnumerateOutputDevices()
         {
             Lights.Clear();
             
@@ -290,7 +301,7 @@ namespace MobiFlight
             return result;
         }
 
-        public void Update()
+        public virtual void Update()
         {           
             if (DIJoystick == null) return;
 
@@ -451,7 +462,7 @@ namespace MobiFlight
             }
         }
 
-        private void SendData(byte[] data)
+        protected virtual void SendData(byte[] data)
         {
             // Don't try and send data if no outputs are defined.
             if (Definition?.Outputs == null || Definition?.Outputs.Count == 0)
