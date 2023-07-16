@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace MobiFlight.Octavi
+namespace MobiFlight.Joysticks.Octavi
 {
     internal class OctaviHandler
     {

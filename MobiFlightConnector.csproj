@@ -269,7 +269,7 @@
     <Compile Include="MobiFlight\Joysticks\JoystickDefinition.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
-    <Compile Include="MobiFlight\Joysticks\Octavi.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinition.cs" />
@@ -291,8 +291,8 @@
     <Compile Include="MobiFlight\Modifier\Comparison.cs" />
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
-    <Compile Include="MobiFlight\Octavi\OctaviHandler.cs" />
-    <Compile Include="MobiFlight\Octavi\OctaviReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />

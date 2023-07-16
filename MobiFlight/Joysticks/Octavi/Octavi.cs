@@ -1,14 +1,8 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
-using MobiFlight.Octavi;
-using SharpDX.DirectInput;
-using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Security.Cryptography;
-using System.Windows.Forms;
 
-namespace MobiFlight.Octavi
+namespace MobiFlight.Joysticks.Octavi
 {
     internal class Octavi : Joystick
     {

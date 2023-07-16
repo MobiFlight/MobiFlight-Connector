@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MobiFlight.Octavi
+namespace MobiFlight.Joysticks.Octavi
 {
     internal class OctaviReport
     {
