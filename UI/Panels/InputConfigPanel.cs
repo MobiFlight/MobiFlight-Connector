@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.Base;
+using System.Xml;
 
 namespace MobiFlight.UI.Panels
 {
@@ -41,6 +42,7 @@ namespace MobiFlight.UI.Panels
 
             inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
             inputsDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
+            inputsDataTable.TableCleared += new DataTableClearEventHandler((o, a) => { SettingsChanged?.Invoke(this, null); });
 
             inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             inputsDataGridView.Columns["inputEditButtonColumn"].DefaultCellStyle.NullValue = "...";
@@ -607,6 +609,19 @@ namespace MobiFlight.UI.Panels
                     }
                 }
             }
+        }
+
+        internal List<InputConfigItem> GetConfigItems()
+        {
+            List<InputConfigItem> result = new List<InputConfigItem>();
+
+            foreach (DataRow row in ConfigDataTable.Rows)
+            {
+                InputConfigItem cfg = row["settings"] as InputConfigItem;
+                result.Add(cfg);
+            }
+
+            return result;
         }
     }
 }

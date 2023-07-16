@@ -42,6 +42,8 @@
             this.recentDocsToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hubHopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.downloadPresetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +63,9 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.inputsTabControl = new System.Windows.Forms.TabControl();
             this.OutputTabPage = new System.Windows.Forms.TabPage();
+            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
             this.InputTabPage = new System.Windows.Forms.TabPage();
+            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -99,10 +103,11 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SimConnectionIconStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.noSimRunningToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.SimProcessDetectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.FsuipcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.xPlaneDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -114,11 +119,7 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
-            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.hubHopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadPresetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -215,6 +216,19 @@
             this.settingsToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
+            // 
+            // hubHopToolStripMenuItem
+            // 
+            this.hubHopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.downloadPresetsToolStripMenuItem});
+            this.hubHopToolStripMenuItem.Name = "hubHopToolStripMenuItem";
+            resources.ApplyResources(this.hubHopToolStripMenuItem, "hubHopToolStripMenuItem");
+            // 
+            // downloadPresetsToolStripMenuItem
+            // 
+            this.downloadPresetsToolStripMenuItem.Name = "downloadPresetsToolStripMenuItem";
+            resources.ApplyResources(this.downloadPresetsToolStripMenuItem, "downloadPresetsToolStripMenuItem");
+            this.downloadPresetsToolStripMenuItem.Click += new System.EventHandler(this.downloadHubHopPresetsToolStripMenuItem_Click);
             // 
             // mSFS2020ToolStripMenuItem
             // 
@@ -345,12 +359,25 @@
             resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Name = "OutputTabPage";
             // 
+            // outputConfigPanel
+            // 
+            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
+            this.outputConfigPanel.ExecutionManager = null;
+            this.outputConfigPanel.Name = "outputConfigPanel";
+            // 
             // InputTabPage
             // 
             this.InputTabPage.Controls.Add(this.inputConfigPanel);
             resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Name = "InputTabPage";
             this.InputTabPage.UseVisualStyleBackColor = true;
+            // 
+            // inputConfigPanel
+            // 
+            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
+            this.inputConfigPanel.ExecutionManager = null;
+            this.inputConfigPanel.Name = "inputConfigPanel";
+            this.inputConfigPanel.OutputDataSetConfig = null;
             // 
             // tabPageImageList
             // 
@@ -614,22 +641,23 @@
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.noSimRunningToolStripMenuItem,
-            this.toolStripMenuItem5,
+            this.SimProcessDetectedToolStripMenuItem,
+            this.separatorToolStripMenuItem,
             this.FsuipcToolStripMenuItem,
-            this.simConnectToolStripMenuItem});
+            this.simConnectToolStripMenuItem,
+            this.xPlaneDirectToolStripMenuItem});
             resources.ApplyResources(this.toolStripDropDownButton1, "toolStripDropDownButton1");
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             // 
-            // noSimRunningToolStripMenuItem
+            // SimProcessDetectedToolStripMenuItem
             // 
-            this.noSimRunningToolStripMenuItem.Name = "noSimRunningToolStripMenuItem";
-            resources.ApplyResources(this.noSimRunningToolStripMenuItem, "noSimRunningToolStripMenuItem");
+            this.SimProcessDetectedToolStripMenuItem.Name = "SimProcessDetectedToolStripMenuItem";
+            resources.ApplyResources(this.SimProcessDetectedToolStripMenuItem, "SimProcessDetectedToolStripMenuItem");
             // 
-            // toolStripMenuItem5
+            // separatorToolStripMenuItem
             // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
+            this.separatorToolStripMenuItem.Name = "separatorToolStripMenuItem";
+            resources.ApplyResources(this.separatorToolStripMenuItem, "separatorToolStripMenuItem");
             // 
             // FsuipcToolStripMenuItem
             // 
@@ -640,6 +668,11 @@
             // 
             this.simConnectToolStripMenuItem.Name = "simConnectToolStripMenuItem";
             resources.ApplyResources(this.simConnectToolStripMenuItem, "simConnectToolStripMenuItem");
+            // 
+            // xPlaneDirectToolStripMenuItem
+            // 
+            this.xPlaneDirectToolStripMenuItem.Name = "xPlaneDirectToolStripMenuItem";
+            resources.ApplyResources(this.xPlaneDirectToolStripMenuItem, "xPlaneDirectToolStripMenuItem");
             // 
             // toolStripStatusLabel4
             // 
@@ -710,36 +743,10 @@
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
             // 
-            // outputConfigPanel
-            // 
-            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
-            this.outputConfigPanel.ExecutionManager = null;
-            this.outputConfigPanel.Name = "outputConfigPanel";
-            // 
-            // inputConfigPanel
-            // 
-            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
-            this.inputConfigPanel.ExecutionManager = null;
-            this.inputConfigPanel.Name = "inputConfigPanel";
-            this.inputConfigPanel.OutputDataSetConfig = null;
-            // 
             // logPanel1
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
-            // 
-            // hubHopToolStripMenuItem
-            // 
-            this.hubHopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.downloadPresetsToolStripMenuItem});
-            this.hubHopToolStripMenuItem.Name = "hubHopToolStripMenuItem";
-            resources.ApplyResources(this.hubHopToolStripMenuItem, "hubHopToolStripMenuItem");
-            // 
-            // downloadPresetsToolStripMenuItem
-            // 
-            this.downloadPresetsToolStripMenuItem.Name = "downloadPresetsToolStripMenuItem";
-            resources.ApplyResources(this.downloadPresetsToolStripMenuItem, "downloadPresetsToolStripMenuItem");
-            this.downloadPresetsToolStripMenuItem.Click += new System.EventHandler(this.downloadHubHopPresetsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -861,8 +868,8 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem FsuipcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simConnectToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem noSimRunningToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem SimProcessDetectedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
         private System.Windows.Forms.ToolStripButton YouTubeToolStripButton;
@@ -875,6 +882,7 @@
         private System.Windows.Forms.ImageList tabPageImageList;
         private System.Windows.Forms.ToolStripMenuItem hubHopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadPresetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;
     }
 }
 

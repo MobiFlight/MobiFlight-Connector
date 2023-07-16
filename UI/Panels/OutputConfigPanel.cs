@@ -33,6 +33,7 @@ namespace MobiFlight.UI.Panels
             
             configDataTable.RowChanged += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
+            configDataTable.TableCleared += new DataTableClearEventHandler((o,a)=> { SettingsChanged?.Invoke(this, null); });
 
             Helper.DoubleBufferedDGV(dataGridViewConfig, true);
         }
@@ -723,6 +724,19 @@ namespace MobiFlight.UI.Panels
                         row.Selected = true;
                 }
             }
+        }
+
+        internal List<OutputConfigItem> GetConfigItems()
+        {
+            List<OutputConfigItem> result = new List<OutputConfigItem>();
+
+            foreach (DataRow row in ConfigDataTable.Rows)
+            {
+                OutputConfigItem cfg = row["settings"] as OutputConfigItem;
+                result.Add(cfg);
+            }
+
+            return result;
         }
     }
 }
