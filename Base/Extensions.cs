@@ -29,5 +29,18 @@ namespace MobiFlight.Base
             // mixed lines are treated correctly
             return value.Replace("\r\n", "\n");
         }
+
+        public static byte Reverse(this byte value)
+        {
+            byte result = 0;
+            for(var i=0;i<8;i++)
+            {
+                if((1<<i & value) != 0)
+                {
+                    result |= (byte)(1<<(7-i));
+                }
+            }
+            return (byte) result;
+        }
     }
 }
