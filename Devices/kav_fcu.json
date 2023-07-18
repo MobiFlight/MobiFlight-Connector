@@ -1,0 +1,34 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Config": {
+    "Type": "KAV_FCU",
+    "Pins": [
+      "Data",
+      "CS",
+      "CLK"
+    ],
+    "isI2C": false
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Set Speed Mode",
+      "description" : "$ will be displayed as speed value"
+    },
+    {
+      "id": 1,
+      "label": "Set Mach Mode",
+      "description": "$ will be displayed as mach value"
+    },
+    {
+      "id": 2,
+      "label": "Show Heading Value",
+      "description": "$ will be displayed as mach value"
+    },
+    {
+      "id": 3,
+      "label": "SPD Mode",
+      "description": "$ will be displayed as mach value"
+    }
+  ]
+}

@@ -51,7 +51,8 @@ namespace MobiFlight
         MultiplexerDriver,   // 13  Not a proper device, but index required for update events
         InputMultiplexer, 	 // 14
         Stepper,             // 15
-        LedModule
+        LedModule,           // 16
+        CustomDevice         // 17        
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -90,6 +91,7 @@ namespace MobiFlight
             InputShiftRegisterChange, // 29
             InputMultiplexerChange, // 30
             SetStepperSpeedAccel,   // 31
+            SetCustomDevice,        // 32
             DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
