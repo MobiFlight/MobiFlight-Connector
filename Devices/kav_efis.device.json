@@ -1,8 +1,12 @@
 {
   "$schema": "./mfdevice.schema.json",
-  "Label": "Kav's EFIS LCD",
-  "Type": "KAV_EFIS",
-  "Author" : "Jak Kav",
+  "Info": {
+    "Label": "Kav's EFIS LCD",
+    "Type": "KAV_EFIS",
+    "Author": "Jak Kav",
+    "URL": "https://github.com",
+    "Version" : "1.0.0"
+  },
   "Config": {
     "Pins": [
       "Data",

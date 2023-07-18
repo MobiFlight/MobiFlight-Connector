@@ -22,6 +22,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(ShiftRegister))]
         [XmlElement(typeof(InputMultiplexer))]
         [XmlElement(typeof(MultiplexerDriver))]
+        [XmlElement(typeof(CustomDevice))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -178,6 +179,11 @@ namespace MobiFlight.Config
 
                         case DeviceType.ShiftRegister:
                             currentItem = new MobiFlight.Config.ShiftRegister();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        case DeviceType.CustomDevice:
+                            currentItem = new MobiFlight.Config.CustomDevice();
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 

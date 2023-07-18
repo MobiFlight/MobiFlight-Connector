@@ -226,6 +226,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightShiftRegister> shiftRegisters = new Dictionary<string, MobiFlightShiftRegister>();
         Dictionary<String, MobiFlightInputShiftRegister> inputShiftRegisters = new Dictionary<string, MobiFlightInputShiftRegister>();
         Dictionary<String, MobiFlightInputMultiplexer> inputMultiplexers = new Dictionary<string, MobiFlightInputMultiplexer>();
+        Dictionary<String, MobiFlightCustomDevice> customDevices = new Dictionary<string, MobiFlightCustomDevice>();
 
         Dictionary<String, int> buttonValues = new Dictionary<String, int>();
 
@@ -323,6 +324,7 @@ namespace MobiFlight
             inputMultiplexers.Clear();
             analogInputs.Clear();
             shiftRegisters.Clear();
+            customDevices.Clear();
 
             
             foreach (Config.BaseDevice device in Config.Items)
@@ -434,9 +436,14 @@ namespace MobiFlight
                             device.Name = GenerateUniqueDeviceName(inputMultiplexers.Keys.ToArray(), device.Name);
                             inputMultiplexers.Add(device.Name, new MobiFlightInputMultiplexer() { Name = device.Name });
                             break;
-                            // DeviceType.MultiplexerDriver does not belong here (a "multiplexerDrivers" collection doesn't even exist)
-                            // because all I/O devices here are only those meant to be linked to a user input event or output data,
-                            // while MultiplexerDrivers are not addressable by the user (and shouldn't show in the UI).
+                        // DeviceType.MultiplexerDriver does not belong here (a "multiplexerDrivers" collection doesn't even exist)
+                        // because all I/O devices here are only those meant to be linked to a user input event or output data,
+                        // while MultiplexerDrivers are not addressable by the user (and shouldn't show in the UI).
+
+                        case DeviceType.CustomDevice:
+                            device.Name = GenerateUniqueDeviceName(customDevices.Keys.ToArray(), device.Name);
+                            customDevices.Add(device.Name, new MobiFlightCustomDevice() { Name = device.Name });
+                            break;
                     }
                 }
                 catch (Exception ex)
@@ -1024,6 +1031,7 @@ namespace MobiFlight
             result[MobiFlightAnalogInput.TYPE] = analogInputs.Count;
             result[MobiFlightInputShiftRegister.TYPE] = inputShiftRegisters.Count;
             result[MobiFlightInputMultiplexer.TYPE] = inputMultiplexers.Count;
+            result[MobiFlightCustomDevice.TYPE] = customDevices.Count;
 
             return result;
         }
@@ -1334,6 +1342,15 @@ namespace MobiFlight
                         usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[1]));
                         usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[2]));
                         usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[3]));
+                        break;
+
+                    case DeviceType.CustomDevice:
+                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin1));
+                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin2));
+                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin3));
+                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin4));
+                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin5));
+                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin6));
                         break;
 
                     // If the multiplexerDriver is to be handled as a regular device

@@ -1,4 +1,5 @@
-﻿using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.Config;
+using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -437,9 +438,14 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFInputMultiplexerPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
                             break;
 
-                        // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
+                        case DeviceType.CustomDevice:
+                            panel = new MFCustomDevice(dev as MobiFlight.Config.CustomDevice, module.GetPins());
+                            (panel as MFCustomDevice).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
 
-                        // output
+                            // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
+
+                            // output
                     }
                 }
 
@@ -663,6 +669,27 @@ namespace MobiFlight.UI.Panels.Settings
 
                     default:
                         // do nothing
+                        if (customDevicesToolStripMenuItem.DropDownItems.Contains(sender as ToolStripItem) ||
+                            addCustomDevicesToolStripMenuItem.DropDownItems.Contains(sender as ToolStripItem))
+                        {
+                            if (statistics[MobiFlightCustomDevice.TYPE] == tempModule.Board.ModuleLimits.MaxCustomDevices)
+                            {
+                                throw new MaximumDeviceNumberReachedMobiFlightException(
+                                    MobiFlightCustomDevice.TYPE, tempModule.Board.ModuleLimits.MaxCustomDevices);
+                            }
+                            cfgItem = new MobiFlight.Config.CustomDevice();
+                            cfgItem.Name = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Label;
+                            (cfgItem as MobiFlight.Config.CustomDevice).Config = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Type;
+                            (cfgItem as MobiFlight.Config.CustomDevice).Pin1 = freePinList.ElementAt(0).ToString();
+                            (cfgItem as MobiFlight.Config.CustomDevice).Pin2 = freePinList.ElementAt(1).ToString();
+                            (cfgItem as MobiFlight.Config.CustomDevice).Pin3 = freePinList.ElementAt(2).ToString();
+                            (cfgItem as MobiFlight.Config.CustomDevice).Pin4 = freePinList.ElementAt(2).ToString();
+                            (cfgItem as MobiFlight.Config.CustomDevice).Pin5 = freePinList.ElementAt(2).ToString();
+                            (cfgItem as MobiFlight.Config.CustomDevice).Pin6 = freePinList.ElementAt(2).ToString();
+
+                            break;
+                        }
+
                         return;
                 }
 
@@ -1422,6 +1449,30 @@ namespace MobiFlight.UI.Panels.Settings
             ResetModules(modules);
         }
 
-        
+        private void addDeviceToolStripDropDownButton_DropDownOpening(object sender, EventArgs e)
+        {
+            var devices = CustomDevices.CustomDeviceDefinitions.GetAll();
+            customDevicesToolStripMenuItem.Enabled = devices.Count > 0;
+            addCustomDevicesToolStripMenuItem.Enabled = devices.Count > 0;
+
+            customDevicesToolStripMenuItem.DropDownItems.Clear();
+            addCustomDevicesToolStripMenuItem.DropDownItems.Clear();
+            foreach (var device in devices)
+            {
+                var menuItem = new ToolStripMenuItem() { Tag = device, Text = device.Info.Label };
+                menuItem.Click += addDeviceTypeToolStripMenuItem_Click;
+
+                if (sender == addDeviceToolStripDropDownButton)
+                    customDevicesToolStripMenuItem.DropDownItems.Add(menuItem);
+                else
+                    addCustomDevicesToolStripMenuItem.DropDownItems.Add(menuItem);
+            }
+        }
+
+        private void customDevicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // here
+            // addDeviceTypeToolStripMenuItem_Click()
+        }
     }
 }

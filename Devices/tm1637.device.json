@@ -1,0 +1,39 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Fictional Custom Device",
+    "Type": "MF_TEST",
+    "Author": "Sebastian",
+    "URL": "https://github.com",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [
+      "Pin1",
+      "Pin2"
+    ],
+    "isI2C": false
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Set Speed Mode",
+      "description": "$ will be displayed as speed value"
+    },
+    {
+      "id": 1,
+      "label": "Set Mach Mode",
+      "description": "$ will be displayed as mach value"
+    },
+    {
+      "id": 2,
+      "label": "Show Heading Value",
+      "description": "$ will be displayed as mach value"
+    },
+    {
+      "id": 3,
+      "label": "SPD Mode",
+      "description": "$ will be displayed as mach value"
+    }
+  ]
+}

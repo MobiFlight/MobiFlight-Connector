@@ -1,7 +1,13 @@
 {
   "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "TM1637 Display",
+    "Type": "TM1637",
+    "Author": "GioCC",
+    "URL": "https://github.com",
+    "Version": "1.0.0"
+  },
   "Config": {
-    "Type": "KAV_FCU",
     "Pins": [
       "Data",
       "CS",
@@ -13,7 +19,7 @@
     {
       "id": 0,
       "label": "Set Speed Mode",
-      "description" : "$ will be displayed as speed value"
+      "description": "$ will be displayed as speed value"
     },
     {
       "id": 1,

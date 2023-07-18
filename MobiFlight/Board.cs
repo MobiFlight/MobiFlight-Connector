@@ -216,6 +216,11 @@ namespace MobiFlight
         /// Maximum number of steppers supported by the board.
         /// </summary>
         public int MaxSteppers = 0;
+
+        /// <summary>
+        /// Maximum number of custom devices supported by the board.
+        /// </summary>
+        public int MaxCustomDevices = 0;
     }
 
     public class UsbDriveSettings
