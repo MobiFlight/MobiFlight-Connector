@@ -11,9 +11,8 @@ namespace MobiFlight.OutputConfig
     public class CustomDevice : IXmlSerializable, ICloneable
     {
         public const string Type = "CustomDevice";
-
         public String DeviceType { get; set; }
-        public String Address { get; set; }
+        public String Name { get; set; }
         public String MessageType { get; set; }
         public String Value { get; set; } = "";
 
@@ -26,7 +25,7 @@ namespace MobiFlight.OutputConfig
             return (
                 obj != null && obj is CustomDevice &&
                 this.DeviceType == (obj as CustomDevice).DeviceType &&
-                this.Address == (obj as CustomDevice).Address &&
+                this.Name == (obj as CustomDevice).Name &&
                 this.Value == (obj as CustomDevice).Value
             );
         }
@@ -35,7 +34,7 @@ namespace MobiFlight.OutputConfig
         {
             CustomDevice clone = new CustomDevice();
             clone.DeviceType = this.DeviceType;
-            clone.Address = Address;
+            clone.Name = Name;
             clone.Value = this.Value;
 
             return clone;
@@ -55,7 +54,7 @@ namespace MobiFlight.OutputConfig
 
             if (reader["address"] != null && reader["address"] != "")
             {
-                Address = reader["address"].ToString();
+                Name = reader["address"].ToString();
             }
 
             if (reader["messageType"] != null && reader["messageType"] != "")
@@ -72,7 +71,7 @@ namespace MobiFlight.OutputConfig
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("deviceType", DeviceType);
-            writer.WriteAttributeString("address", Address);
+            writer.WriteAttributeString("address", Name);
             writer.WriteAttributeString("messageType", MessageType);
             writer.WriteAttributeString("value", Value);
         }

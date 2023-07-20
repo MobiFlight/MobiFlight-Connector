@@ -379,7 +379,7 @@ namespace MobiFlight.UI.Panels.Settings
                     // It's a Device entry
                     MobiFlightModule module = getVirtualModuleFromTree();
 
-                    MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
+                    var dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                     switch (dev.Type)
                     {
                         case DeviceType.LedModule:
@@ -439,8 +439,8 @@ namespace MobiFlight.UI.Panels.Settings
                             break;
 
                         case DeviceType.CustomDevice:
-                            panel = new MFCustomDevice(dev as MobiFlight.Config.CustomDevice, module.GetPins());
-                            (panel as MFCustomDevice).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            panel = new MFCustomDevicePanel(dev as MobiFlight.Config.CustomDevice, module.GetPins());
+                            (panel as MFCustomDevicePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 
                             // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
@@ -677,15 +677,26 @@ namespace MobiFlight.UI.Panels.Settings
                                 throw new MaximumDeviceNumberReachedMobiFlightException(
                                     MobiFlightCustomDevice.TYPE, tempModule.Board.ModuleLimits.MaxCustomDevices);
                             }
-                            cfgItem = new MobiFlight.Config.CustomDevice();
-                            cfgItem.Name = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Label;
-                            (cfgItem as MobiFlight.Config.CustomDevice).Config = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Type;
-                            (cfgItem as MobiFlight.Config.CustomDevice).Pin1 = freePinList.ElementAt(0).ToString();
-                            (cfgItem as MobiFlight.Config.CustomDevice).Pin2 = freePinList.ElementAt(1).ToString();
-                            (cfgItem as MobiFlight.Config.CustomDevice).Pin3 = freePinList.ElementAt(2).ToString();
-                            (cfgItem as MobiFlight.Config.CustomDevice).Pin4 = freePinList.ElementAt(2).ToString();
-                            (cfgItem as MobiFlight.Config.CustomDevice).Pin5 = freePinList.ElementAt(2).ToString();
-                            (cfgItem as MobiFlight.Config.CustomDevice).Pin6 = freePinList.ElementAt(2).ToString();
+                            cfgItem = new MobiFlight.Config.CustomDevice()
+                            {
+                                Name = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Label,
+                                CustomType = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Type
+                            };
+
+                            var customDevice = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
+
+                            if(customDevice.Config.Pins.Count()>=1)
+                                (cfgItem as MobiFlight.Config.CustomDevice).Pin1 = freePinList.ElementAt(0).ToString();
+                            if (customDevice.Config.Pins.Count() >= 2)
+                                (cfgItem as MobiFlight.Config.CustomDevice).Pin2 = freePinList.ElementAt(1).ToString();
+                            if (customDevice.Config.Pins.Count() >= 3)
+                                (cfgItem as MobiFlight.Config.CustomDevice).Pin3 = freePinList.ElementAt(2).ToString();
+                            if (customDevice.Config.Pins.Count() >= 4)
+                                (cfgItem as MobiFlight.Config.CustomDevice).Pin4 = freePinList.ElementAt(3).ToString();
+                            if (customDevice.Config.Pins.Count() >= 5)
+                                (cfgItem as MobiFlight.Config.CustomDevice).Pin5 = freePinList.ElementAt(4).ToString();
+                            if (customDevice.Config.Pins.Count() >= 6)
+                                (cfgItem as MobiFlight.Config.CustomDevice).Pin6 = freePinList.ElementAt(5).ToString();
 
                             break;
                         }

@@ -586,6 +586,9 @@ namespace MobiFlight.UI.Panels
                             case MobiFlightShiftRegister.TYPE:
                                 row["OutputName"] = cfgItem.ShiftRegister.ToString();
                                 break;
+                            case MobiFlightCustomDevice.TYPE:
+                                row["OutputName"] = cfgItem.CustomDevice.ToString();
+                                break;
 
                         }
                     } else if(cfgItem.DisplayType=="InputAction")

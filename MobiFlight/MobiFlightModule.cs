@@ -442,7 +442,12 @@ namespace MobiFlight
 
                         case DeviceType.CustomDevice:
                             device.Name = GenerateUniqueDeviceName(customDevices.Keys.ToArray(), device.Name);
-                            customDevices.Add(device.Name, new MobiFlightCustomDevice() { Name = device.Name });
+                            customDevices.Add(device.Name, new MobiFlightCustomDevice() {
+                                    CmdMessenger = _cmdMessenger,
+                                    DeviceNumber = customDevices.Count,
+                                    Name = device.Name,
+                                    CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Config.CustomDevice).CustomType)
+                            });
                             break;
                     }
                 }
@@ -856,6 +861,20 @@ namespace MobiFlight
             return true;
         }
 
+        internal bool setCustomDevice(string deviceName, string messageType, string value)
+        {
+            String key = "CustomDevice_" + deviceName + messageType;
+            String cachedValue = value;
+
+            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+                lastValue[key] == cachedValue) return false;
+
+            lastValue[key] = cachedValue;
+
+            customDevices[deviceName].Display(messageType, value);
+            return true;
+        }
+
         public bool Retrigger()
         {
             bool isOk = true;
@@ -1014,6 +1033,11 @@ namespace MobiFlight
                 result.Add(shiftRegister);
             }
 
+            foreach (MobiFlightCustomDevice customDevice in customDevices.Values)
+            {
+                result.Add(customDevice);
+            }
+
             return result;
         }
 
@@ -1093,6 +1117,7 @@ namespace MobiFlight
             if (servoModules.Count > 0) result.Add(DeviceType.Servo);
             if (lcdDisplays.Count > 0) result.Add(DeviceType.LcdDisplay);
             if (shiftRegisters.Count > 0) result.Add(DeviceType.ShiftRegister);
+            if (customDevices.Count > 0) result.Add(DeviceType.CustomDevice);
 
             return result;
         }
@@ -1152,6 +1177,7 @@ namespace MobiFlight
                     case DeviceType.Stepper:
                     case DeviceType.ShiftRegister:
                     case DeviceType.LcdDisplay:
+                    case DeviceType.CustomDevice:
                         result.Add(dev);
                         break;
                 }
@@ -1345,12 +1371,23 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.CustomDevice:
-                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin1));
-                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin2));
-                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin3));
-                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin4));
-                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin5));
-                        usedPins.Add(Convert.ToByte((device as CustomDevice).Pin6));
+                        if ((device as CustomDevice).Pin1 != null && (device as CustomDevice).Pin1 != "")
+                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin1));
+
+                        if ((device as CustomDevice).Pin2 != null && (device as CustomDevice).Pin2 != "")
+                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin2));
+
+                        if ((device as CustomDevice).Pin3 != null && (device as CustomDevice).Pin3 != "")
+                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin3));
+
+                        if ((device as CustomDevice).Pin4 != null && (device as CustomDevice).Pin4 != "")
+                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin4));
+
+                        if ((device as CustomDevice).Pin5 != null && (device as CustomDevice).Pin5 != "")
+                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin5));
+
+                        if ((device as CustomDevice).Pin6 != null && (device as CustomDevice).Pin6 != "")
+                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin6));
                         break;
 
                     // If the multiplexerDriver is to be handled as a regular device

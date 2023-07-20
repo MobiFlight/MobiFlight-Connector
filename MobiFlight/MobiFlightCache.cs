@@ -769,7 +769,27 @@ namespace MobiFlight
                 throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_WriteShiftRegisterOutput"), e);
             }
         }
-      
+
+        public void setCustomDevice(string serial, OutputConfig.CustomDevice deviceConfig, string value, List<ConfigRefValue> replacements)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                module.setCustomDevice(deviceConfig.Name, deviceConfig.MessageType, value);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SetCustomDevice"), e);
+            }
+        }
+
         public void Flush()
         {
             // not implemented, don't throw exception either

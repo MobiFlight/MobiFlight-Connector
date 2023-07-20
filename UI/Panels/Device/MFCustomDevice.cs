@@ -1,38 +1,30 @@
-﻿using System;
+﻿using MobiFlight.CustomDevices;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight.CustomDevices;
-using System.Web.Routing;
-using SharpDX.DirectInput;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
-    public partial class MFCustomDevice : UserControl
+    public partial class MFCustomDevicePanel : UserControl
     {
 
         private MobiFlight.Config.CustomDevice device;
-        private Board MobiFlightBoard;
         private bool initialized = false;
         
         public event EventHandler Changed;
 
-        public MFCustomDevice()
+        public MFCustomDevicePanel()
         {
             InitializeComponent();
             mfPinComboBox.Items.Clear();
         }
 
-        public MFCustomDevice(MobiFlight.Config.CustomDevice device, List<MobiFlightPin> Pins/*, Board MobiFlightBoard*/): this()
+        public MFCustomDevicePanel(MobiFlight.Config.CustomDevice device, List<MobiFlightPin> Pins): this()
         {
             this.device = device;
-            /*this.MobiFlightBoard = MobiFlightBoard;*/
 
-            var deviceDefinition = CustomDeviceDefinitions.GetDeviceByType(device.Config);
+            var deviceDefinition = CustomDeviceDefinitions.GetDeviceByType(device.CustomType);
             var i = 0;
             var comboBoxes = new Dictionary<ComboBox, String>() {
                 { mfPinComboBox, device.Pin1},

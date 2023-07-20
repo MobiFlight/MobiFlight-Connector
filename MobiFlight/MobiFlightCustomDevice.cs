@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms.Design;
 using CommandMessenger;
 using MobiFlight.Base;
+using MobiFlight.CustomDevices;
 using Newtonsoft.Json.Linq;
 using SharpDX.DirectInput;
 
@@ -15,7 +16,7 @@ namespace MobiFlight
 {
     public class MobiFlightCustomDevice : IConnectedDevice
     {
-        public const string TYPE = "Custom Device";
+        public const string TYPE = "CustomDevice";
 
         public CmdMessenger CmdMessenger { get; set; }
 
@@ -35,6 +36,7 @@ namespace MobiFlight
         }
 
         public int DeviceNumber { get; set; }
+        public CustomDevices.CustomDevice CustomDevice { get; set; }
 
         protected bool _initialized = false;
 
@@ -49,7 +51,7 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(int MessageType, String value)
+        public void Display(string MessageType, string value)
         {
             if (!_initialized) Initialize();
 

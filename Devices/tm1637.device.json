@@ -1,16 +1,16 @@
 {
   "$schema": "./mfdevice.schema.json",
   "Info": {
-    "Label": "Fictional Custom Device",
-    "Type": "MF_TEST",
-    "Author": "Sebastian",
+    "Label": "TM1637 Display",
+    "Type": "TM1637",
+    "Author": "GioCC",
     "URL": "https://github.com",
     "Version": "1.0.0"
   },
   "Config": {
     "Pins": [
-      "Pin1",
-      "Pin2"
+      "DIO",
+      "CLK"
     ],
     "isI2C": false
   },

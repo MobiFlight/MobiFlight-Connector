@@ -125,6 +125,9 @@
   <data name="groupBox1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
+  <data name="label5.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -133,7 +136,7 @@
     <value>69, 5</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 18</value>
+    <value>107, 18</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -201,6 +204,9 @@
   <data name="&gt;&gt;panel6.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label4.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -208,7 +214,7 @@
     <value>69, 5</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 18</value>
+    <value>107, 18</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -276,6 +282,9 @@
   <data name="&gt;&gt;panel5.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -283,7 +292,7 @@
     <value>69, 5</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 18</value>
+    <value>107, 18</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -351,6 +360,9 @@
   <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="label2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -358,7 +370,7 @@
     <value>69, 5</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 18</value>
+    <value>107, 18</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -426,6 +438,9 @@
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="label1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -433,7 +448,7 @@
     <value>69, 5</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 18</value>
+    <value>107, 18</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -501,6 +516,9 @@
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="mfPinLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="mfPinLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -508,7 +526,7 @@
     <value>69, 5</value>
   </data>
   <data name="mfPinLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 18</value>
+    <value>107, 18</value>
   </data>
   <data name="mfPinLabel.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>

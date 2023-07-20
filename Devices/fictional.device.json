@@ -1,40 +1,31 @@
 {
   "$schema": "./mfdevice.schema.json",
   "Info": {
-    "Label": "TM1637 Display",
-    "Type": "TM1637",
-    "Author": "GioCC",
+    "Label": "Fictional device",
+    "Type": "MF_TEST",
+    "Author": "Sebastian",
     "URL": "https://github.com",
     "Version": "1.0.0"
   },
   "Config": {
     "Pins": [
-      "Data",
-      "CS",
-      "CLK"
+      "Awesome Data Pin",
+      "Cool Control Pin",
+      "Usless Pin",
+      "Nonsense Pin"
     ],
     "isI2C": false
   },
   "MessageTypes": [
     {
       "id": 0,
-      "label": "Set Speed Mode",
-      "description": "$ will be displayed as speed value"
+      "label": "Set Backlight",
+      "description": "0 => Off, 1 => On"
     },
     {
       "id": 1,
-      "label": "Set Mach Mode",
-      "description": "$ will be displayed as mach value"
-    },
-    {
-      "id": 2,
-      "label": "Show Heading Value",
-      "description": "$ will be displayed as mach value"
-    },
-    {
-      "id": 3,
-      "label": "SPD Mode",
-      "description": "$ will be displayed as mach value"
+      "label": "Display Value",
+      "description": "$ will be displayed on the device"
     }
   ]
 }

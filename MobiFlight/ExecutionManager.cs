@@ -859,6 +859,15 @@ namespace MobiFlight
                         }
                         break;
 
+                    case OutputConfig.CustomDevice.Type:
+                        mobiFlightCache.setCustomDevice(
+                            serial,
+                            cfg.CustomDevice,
+                            value,
+                            GetRefs(cfg.ConfigRefs)
+                            );
+                        break;
+
                     case "InputAction":
                         int iValue = 0;
                         int.TryParse(value, out iValue);

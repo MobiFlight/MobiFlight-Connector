@@ -71,6 +71,11 @@ namespace MobiFlight.CustomDevices
         /// Volume label of the USB drive when mounted in Windows.
         /// </summary>
         public String Description;
+
+        public override string ToString()
+        {
+            return $"{Id}";
+        }
     }
 
     public class CustomDevice
