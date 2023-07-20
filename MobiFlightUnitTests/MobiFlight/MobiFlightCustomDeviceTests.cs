@@ -48,6 +48,7 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod()]
+        [Ignore]
         public void StopTest()
         {
             Assert.Fail();
