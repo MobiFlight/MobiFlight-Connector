@@ -19,42 +19,13 @@ namespace MobiFlight
         public const string TYPE = "CustomDevice";
 
         public CmdMessenger CmdMessenger { get; set; }
-
-
-        private String _name = "Custom Device";
-        public String Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        
-        private DeviceType _type = DeviceType.CustomDevice;
-        public DeviceType Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
-
+        public string Name { get; set; } = "Custom Device";
+        public DeviceType Type { get; set; } = DeviceType.CustomDevice;
         public int DeviceNumber { get; set; }
         public CustomDevices.CustomDevice CustomDevice { get; set; }
 
-        protected bool _initialized = false;
-
-        public MobiFlightCustomDevice()
-        {
-            
-        }
-
-        protected void Initialize()
-        {
-            if (_initialized) return;
-            _initialized = true;
-        }
-
         public void Display(string MessageType, string value)
         {
-            if (!_initialized) Initialize();
-
             var command = new SendCommand((int)MobiFlightModule.Command.SetCustomDevice);
 
             command.AddArgument(DeviceNumber);
