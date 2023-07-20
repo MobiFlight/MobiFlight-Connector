@@ -47,7 +47,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.mfPinLabel = new System.Windows.Forms.Label();
-            this.mfPinComboBox = new System.Windows.Forms.ComboBox();
+            this.comboBox0 = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
@@ -170,7 +170,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.mfPinLabel);
-            this.panel1.Controls.Add(this.mfPinComboBox);
+            this.panel1.Controls.Add(this.comboBox0);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
@@ -179,13 +179,12 @@
             resources.ApplyResources(this.mfPinLabel, "mfPinLabel");
             this.mfPinLabel.Name = "mfPinLabel";
             // 
-            // mfPinComboBox
+            // comboBox0
             // 
-            this.mfPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.mfPinComboBox.FormattingEnabled = true;
-            resources.ApplyResources(this.mfPinComboBox, "mfPinComboBox");
-            this.mfPinComboBox.Name = "mfPinComboBox";
-            this.mfPinComboBox.SelectedIndexChanged += new System.EventHandler(this.value_Changed);
+            this.comboBox0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox0.FormattingEnabled = true;
+            resources.ApplyResources(this.comboBox0, "comboBox0");
+            this.comboBox0.Name = "comboBox0";
             // 
             // groupBox2
             // 
@@ -200,13 +199,13 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
-            // MFCustomDevice
+            // MFCustomDevicePanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Name = "MFCustomDevice";
+            this.Name = "MFCustomDevicePanel";
             this.groupBox1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -243,6 +242,6 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label mfPinLabel;
-        private System.Windows.Forms.ComboBox mfPinComboBox;
+        private System.Windows.Forms.ComboBox comboBox0;
     }
 }

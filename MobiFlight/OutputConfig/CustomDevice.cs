@@ -11,10 +11,10 @@ namespace MobiFlight.OutputConfig
     public class CustomDevice : IXmlSerializable, ICloneable
     {
         public const string Type = "CustomDevice";
-        public String DeviceType { get; set; }
-        public String Name { get; set; }
+        public String CustomType { get; set; }
+        public String CustomName { get; set; }
         public String MessageType { get; set; }
-        public String Value { get; set; } = "";
+        public String Value { get; set; }
 
         public CustomDevice()
         {
@@ -24,8 +24,9 @@ namespace MobiFlight.OutputConfig
         {
             return (
                 obj != null && obj is CustomDevice &&
-                this.DeviceType == (obj as CustomDevice).DeviceType &&
-                this.Name == (obj as CustomDevice).Name &&
+                this.CustomType == (obj as CustomDevice).CustomType &&
+                this.CustomName == (obj as CustomDevice).CustomName &&
+                this.MessageType == (obj as CustomDevice).MessageType &&
                 this.Value == (obj as CustomDevice).Value
             );
         }
@@ -33,8 +34,9 @@ namespace MobiFlight.OutputConfig
         public object Clone()
         {
             CustomDevice clone = new CustomDevice();
-            clone.DeviceType = this.DeviceType;
-            clone.Name = Name;
+            clone.CustomType = this.CustomType;
+            clone.CustomName = CustomName;
+            clone.MessageType = MessageType;
             clone.Value = this.Value;
 
             return clone;
@@ -47,14 +49,14 @@ namespace MobiFlight.OutputConfig
 
         public void ReadXml(XmlReader reader)
         {
-            if (reader["deviceType"] != null && reader["deviceType"] != "")
+            if (reader["customType"] != null && reader["customType"] != "")
             {
-                DeviceType = reader["deviceType"].ToString();
+                CustomType = reader["customType"].ToString();
             }
 
-            if (reader["address"] != null && reader["address"] != "")
+            if (reader["customName"] != null && reader["customName"] != "")
             {
-                Name = reader["address"].ToString();
+                CustomName = reader["customName"].ToString();
             }
 
             if (reader["messageType"] != null && reader["messageType"] != "")
@@ -70,8 +72,8 @@ namespace MobiFlight.OutputConfig
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("deviceType", DeviceType);
-            writer.WriteAttributeString("address", Name);
+            writer.WriteAttributeString("customType", CustomType);
+            writer.WriteAttributeString("customName", CustomName);
             writer.WriteAttributeString("messageType", MessageType);
             writer.WriteAttributeString("value", Value);
         }

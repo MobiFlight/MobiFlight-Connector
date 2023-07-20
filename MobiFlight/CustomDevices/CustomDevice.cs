@@ -12,63 +12,65 @@ namespace MobiFlight.CustomDevices
     public class Info
     {
         /// <summary>
-        /// True if the board supports loading firmware via MobiFlight.
+        /// The label of the custom device in the UI.
         /// </summary>
         public String Label;
 
         /// <summary>
-        /// True if the board can be reset to factory default by MobiFlight.
+        /// A unique identifier for the device.
         /// </summary>
         public String Type;
 
         /// <summary>
-        /// Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.
+        /// The author of this custom device.
         /// </summary>
         public String Author;
 
         /// <summary>
-        /// File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.
+        /// The URL of the custom device. Ideally a github repository.
         /// </summary>
         public String URL;
 
         /// <summary>
-        /// The USB friendly name for the board as specified by the board manufacturer.
+        /// The version of this custom device
         /// </summary>
         public String Version;
     }
 
     /// <summary>
-    /// Maximum number of each type of module supported by the board.
+    /// Config properties of this custom device used in the device settings panel.
     /// </summary>
     public class Config
     {
         /// <summary>
-        /// Maximum number of analog inputs supported by the board.
+        /// A an array of pins required for connecting the custom device.
         /// </summary>
         public List<String> Pins;
 
-        
+
         /// <summary>
-        /// Maximum number of custom devices supported by the board.
+        /// Indicates whether it uses i2c address or pins.
         /// </summary>
         public bool isI2C = false;
     }
 
+    /// <summary>
+    /// A message type to distinguish commands
+    /// </summary>
     public class MessageType
     {
         /// <summary>
-        /// The name of a file that must be present in the root directory of the USB drive for it to be considered
-        /// a match and able to be flashed.
+        /// The identifier for the message type. Unique in the scope of the device.
         /// </summary>
         public string Id;
 
         /// <summary>
-        /// Volume label of the USB drive when mounted in Windows.
+        /// The label for the message type which is used in the config wizard UI.
         /// </summary>
         public String Label;
 
         /// <summary>
-        /// Volume label of the USB drive when mounted in Windows.
+        /// The description for the message type and instructions how to use it.
         /// </summary>
         public String Description;
 
@@ -81,7 +83,7 @@ namespace MobiFlight.CustomDevices
     public class CustomDevice
     {
         /// <summary>
-        /// Settings related to updating the firmware via AvrDude.
+        /// General device information properties.
         /// </summary>
         public Info Info;
 
@@ -91,7 +93,7 @@ namespace MobiFlight.CustomDevices
         public Config Config;
 
         /// <summary>
-        /// A list of regular expressions of USB hardware IDs that use this board definition.
+        /// List of MessageTypes supported by the device.
         /// </summary>
         public List<MessageType> MessageTypes = new List<MessageType>();
 

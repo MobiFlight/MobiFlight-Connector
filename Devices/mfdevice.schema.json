@@ -64,13 +64,13 @@
         "Pins": {
           "$id": "#root/Config/Pins",
           "title": "Pins",
-          "description": "Maximum number of analog inputs supported by the board.",
+          "description": "A an array of pins required for connecting the custom device.",
           "type": "array"
         },
         "isI2C": {
           "$id": "#root/Config/isI2C",
           "title": "isI2C",
-          "description": "Indicates whether it uses i2c address or pins",
+          "description": "Indicates whether it uses i2c address or pins.",
           "type": "boolean"
         }
       }
@@ -90,7 +90,7 @@
           "Id": {
             "$id": "#root/Pins/items/Id",
             "title": "Id",
-            "description": "The identifier for the message type",
+            "description": "The identifier for the message type. Unique in the scope of the device.",
             "type": "integer"
           },
           "Label": {

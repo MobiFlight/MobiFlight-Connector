@@ -85,7 +85,7 @@
             resources.GetString("addressesComboBox.Items2")});
             resources.ApplyResources(this.customDeviceNamesComboBox, "addressesComboBox");
             this.customDeviceNamesComboBox.Name = "addressesComboBox";
-            this.customDeviceNamesComboBox.SelectedValueChanged += new System.EventHandler(this.addressesComboBox_SelectedValueChanged);
+            this.customDeviceNamesComboBox.SelectedValueChanged += new System.EventHandler(this.customDeviceNameComboBox_SelectedValueChanged);
             // 
             // CustomDevicePanel
             // 

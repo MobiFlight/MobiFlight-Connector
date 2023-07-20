@@ -18,24 +18,8 @@ namespace MobiFlight.UI.Panels
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        public void SetSelectedAddress(string value)
-        {
-            MessageTypeComboBox.SelectedValue = value;
-        }
-
         public void SetCustomDeviceNames(List<ListItem<MobiFlightCustomDevice>> pins)
         {
-            //addressesComboBox.SelectedValueChanged -= addressesComboBox_SelectedValueChanged;
             customDeviceNamesComboBox.ValueMember = "Value"; 
             customDeviceNamesComboBox.DisplayMember = "Label";
             customDeviceNamesComboBox.DataSource = pins;
@@ -45,31 +29,28 @@ namespace MobiFlight.UI.Panels
                 customDeviceNamesComboBox.SelectedIndex = 0;
 
             customDeviceNamesComboBox.Enabled = pins.Count > 0;
-
-            //addressesComboBox.SelectedValueChanged += addressesComboBox_SelectedValueChanged;
         }
 
         public void syncFromConfig(OutputConfigItem config)
         {
-            if (!ComboBoxHelper.SetSelectedItem(customDeviceNamesComboBox, config.CustomDevice.Name))
+            if (!ComboBoxHelper.SetSelectedItem(customDeviceNamesComboBox, config.CustomDevice.CustomName))
             {
-                // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }
 
             if (!ComboBoxHelper.SetSelectedItemByValue(MessageTypeComboBox, config.CustomDevice.MessageType))
             {
-                // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }
-
+            
+            valueTextBox.Text = config.CustomDevice.Value;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             if (customDeviceNamesComboBox.SelectedValue != null)
             {
-                config.CustomDevice.Name = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString ();
+                config.CustomDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString ();
             }
 
             if (MessageTypeComboBox.SelectedValue != null)
@@ -77,10 +58,12 @@ namespace MobiFlight.UI.Panels
                 config.CustomDevice.MessageType = (MessageTypeComboBox.SelectedValue as CustomDevices.MessageType).Id;
             }
 
+            config.CustomDevice.Value = valueTextBox.Text;
+
             return config;
         }
 
-        private void addressesComboBox_SelectedValueChanged(object sender, EventArgs e)
+        private void customDeviceNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             var messages = new List<ListItem<CustomDevices.MessageType>>();
             var customDevice = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice);

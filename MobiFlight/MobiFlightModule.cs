@@ -1371,23 +1371,7 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.CustomDevice:
-                        if ((device as CustomDevice).Pin1 != null && (device as CustomDevice).Pin1 != "")
-                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin1));
-
-                        if ((device as CustomDevice).Pin2 != null && (device as CustomDevice).Pin2 != "")
-                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin2));
-
-                        if ((device as CustomDevice).Pin3 != null && (device as CustomDevice).Pin3 != "")
-                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin3));
-
-                        if ((device as CustomDevice).Pin4 != null && (device as CustomDevice).Pin4 != "")
-                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin4));
-
-                        if ((device as CustomDevice).Pin5 != null && (device as CustomDevice).Pin5 != "")
-                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin5));
-
-                        if ((device as CustomDevice).Pin6 != null && (device as CustomDevice).Pin6 != "")
-                            usedPins.Add(Convert.ToByte((device as CustomDevice).Pin6));
+                        (device as CustomDevice).VirtualPins.ForEach(p => usedPins.Add(Convert.ToByte((p))));
                         break;
 
                     // If the multiplexerDriver is to be handled as a regular device

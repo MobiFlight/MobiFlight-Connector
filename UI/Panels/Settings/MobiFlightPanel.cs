@@ -685,18 +685,10 @@ namespace MobiFlight.UI.Panels.Settings
 
                             var customDevice = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
 
-                            if(customDevice.Config.Pins.Count()>=1)
-                                (cfgItem as MobiFlight.Config.CustomDevice).Pin1 = freePinList.ElementAt(0).ToString();
-                            if (customDevice.Config.Pins.Count() >= 2)
-                                (cfgItem as MobiFlight.Config.CustomDevice).Pin2 = freePinList.ElementAt(1).ToString();
-                            if (customDevice.Config.Pins.Count() >= 3)
-                                (cfgItem as MobiFlight.Config.CustomDevice).Pin3 = freePinList.ElementAt(2).ToString();
-                            if (customDevice.Config.Pins.Count() >= 4)
-                                (cfgItem as MobiFlight.Config.CustomDevice).Pin4 = freePinList.ElementAt(3).ToString();
-                            if (customDevice.Config.Pins.Count() >= 5)
-                                (cfgItem as MobiFlight.Config.CustomDevice).Pin5 = freePinList.ElementAt(4).ToString();
-                            if (customDevice.Config.Pins.Count() >= 6)
-                                (cfgItem as MobiFlight.Config.CustomDevice).Pin6 = freePinList.ElementAt(5).ToString();
+                            for (var i=0; i<customDevice.Config.Pins.Count(); i++)
+                            {
+                                (cfgItem as MobiFlight.Config.CustomDevice).VirtualPins[i] = freePinList.ElementAt(i).ToString();
+                            }
 
                             break;
                         }

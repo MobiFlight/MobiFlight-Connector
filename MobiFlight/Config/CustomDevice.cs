@@ -16,28 +16,20 @@ namespace MobiFlight.Config
         [XmlAttribute]
         public String Config = "";
 
-        /* Virtual pins */
-        public String Pin1 = "";
-        public String Pin2 = "";
-        public String Pin3 = "";
-        public String Pin4 = "";
-        public String Pin5 = "";
-        public String Pin6 = "";
-
-
-        public CustomDevice() { Name = "Custom Device"; _type = DeviceType.CustomDevice; }
+        /* 
+         * Virtual pins 
+         * 
+         * => pins with empty strings are ignored
+         */
+        public List<string> VirtualPins = new List<string>();
+        public CustomDevice() { 
+            Name = "Custom Device"; 
+            _type = DeviceType.CustomDevice; 
+        }
 
         override public String ToInternal()
         {
-            var pinList = new List<string> { };
-            if (Pin1 != "") pinList.Add(Pin1);
-            if (Pin2 != "") pinList.Add(Pin2);
-            if (Pin3 != "") pinList.Add(Pin3);
-            if (Pin4 != "") pinList.Add(Pin4);
-            if (Pin5 != "") pinList.Add(Pin5);
-            if (Pin6 != "") pinList.Add(Pin6);
-
-            var joinedPins = String.Join("|", pinList);
+            var joinedPins = String.Join("|", VirtualPins);
             
             return base.ToInternal() + Separator
                  + CustomType + Separator
@@ -60,13 +52,7 @@ namespace MobiFlight.Config
             Config = paramList[3];
             Name = paramList[4];
 
-            var pinArr = Pins.Split('|');
-            if (pinArr.Count() >= 1) Pin1 = pinArr[0];
-            if (pinArr.Count() >= 2) Pin2 = pinArr[1];
-            if (pinArr.Count() >= 3) Pin3 = pinArr[2];
-            if (pinArr.Count() >= 4) Pin4 = pinArr[3];
-            if (pinArr.Count() >= 5) Pin5 = pinArr[4];
-            if (pinArr.Count() >= 6) Pin2 = pinArr[5];
+            VirtualPins = Pins.Split('|').ToList();
 
             return true;
         }

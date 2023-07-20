@@ -76,7 +76,7 @@ namespace MobiFlight.UI.Panels
             shiftRegistersComboBox.Enabled = ports.Count > 0;
         }
 
-        internal OutputConfigItem SyncToConfig(OutputConfigItem config)
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             config.ShiftRegister.Address = shiftRegistersComboBox.SelectedValue as String;
 

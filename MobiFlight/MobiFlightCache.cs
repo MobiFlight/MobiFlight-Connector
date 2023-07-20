@@ -770,26 +770,7 @@ namespace MobiFlight
             }
         }
 
-        public void setCustomDevice(string serial, OutputConfig.CustomDevice deviceConfig, string value, List<ConfigRefValue> replacements)
-        {
-            if (serial == null)
-            {
-                throw new ConfigErrorException("ConfigErrorException_SerialNull");
-            };
-
-            try
-            {
-                if (!Modules.ContainsKey(serial)) return;
-
-                MobiFlightModule module = Modules[serial];
-                module.setCustomDevice(deviceConfig.Name, deviceConfig.MessageType, value);
-            }
-            catch (Exception e)
-            {
-                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SetCustomDevice"), e);
-            }
-        }
-
+        
         public void Flush()
         {
             // not implemented, don't throw exception either
@@ -919,6 +900,26 @@ namespace MobiFlight
                 result.Add(module.Name, stepperList);
             }
             return result;
+        }
+
+        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value, List<ConfigRefValue> configRefValues)
+        {
+            if (serial == null)
+            {
+                throw new ConfigErrorException("ConfigErrorException_SerialNull");
+            };
+
+            try
+            {
+                if (!Modules.ContainsKey(serial)) return;
+
+                MobiFlightModule module = Modules[serial];
+                module.setCustomDevice(deviceConfig.CustomName, deviceConfig.MessageType, value);
+            }
+            catch (Exception e)
+            {
+                throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SetCustomDevice"), e);
+            }
         }
     }
 }

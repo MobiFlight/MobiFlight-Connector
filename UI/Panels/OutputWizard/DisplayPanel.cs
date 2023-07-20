@@ -233,7 +233,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
 
                     case MobiFlightShiftRegister.TYPE:
-                        displayShiftRegisterPanel.SyncToConfig(config);
+                        displayShiftRegisterPanel.syncToConfig(config);
                         break;
 
                     case MobiFlightCustomDevice.TYPE:

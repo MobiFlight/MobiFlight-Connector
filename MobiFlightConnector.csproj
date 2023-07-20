@@ -463,12 +463,6 @@
     <Compile Include="UI\Panels\Config\XplaneDataRefPanel.Designer.cs">
       <DependentUpon>XplaneDataRefPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Device\CustomPanels\MFCustomDevicePin.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Device\CustomPanels\MFCustomDevicePin.Designer.cs">
-      <DependentUpon>MFCustomDevicePin.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\Device\MFAnalogPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1273,9 +1267,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\XplaneDataRefPanel.resx">
       <DependentUpon>XplaneDataRefPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\CustomPanels\MFCustomDevicePin.resx">
-      <DependentUpon>MFCustomDevicePin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.de.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
