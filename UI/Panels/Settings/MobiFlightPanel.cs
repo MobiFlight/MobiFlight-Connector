@@ -684,10 +684,11 @@ namespace MobiFlight.UI.Panels.Settings
                             };
 
                             var customDevice = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
+                            (cfgItem as MobiFlight.Config.CustomDevice).VirtualPins.Clear();
 
                             for (var i=0; i<customDevice.Config.Pins.Count(); i++)
                             {
-                                (cfgItem as MobiFlight.Config.CustomDevice).VirtualPins[i] = freePinList.ElementAt(i).ToString();
+                                (cfgItem as MobiFlight.Config.CustomDevice).VirtualPins.Add(freePinList.ElementAt(i).ToString());
                             }
 
                             break;
