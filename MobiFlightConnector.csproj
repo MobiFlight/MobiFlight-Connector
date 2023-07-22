@@ -481,6 +481,12 @@
     <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanelPin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanelPin.Designer.cs">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Device\MFInputMultiplexerPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -499,11 +505,11 @@
     <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.Designer.cs">
       <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFCustomDevice.cs">
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Device\MFCustomDevice.Designer.cs">
-      <DependentUpon>MFCustomDevice.cs</DependentUpon>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanel.Designer.cs">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -1274,6 +1280,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanelPin.de.resx">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanelPin.resx">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.de.resx">
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1300,11 +1312,11 @@
     <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.de.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevice.de.resx">
-      <DependentUpon>MFCustomDevice.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanel.de.resx">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevice.resx">
-      <DependentUpon>MFCustomDevice.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanel.resx">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>

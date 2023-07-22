@@ -12,7 +12,13 @@
       "Awesome Data Pin",
       "Cool Control Pin",
       "Usless Pin",
-      "Nonsense Pin"
+      "Nonsense Pin",
+      "Another Pin",
+      "And one more",
+      "Crazy Pin",
+      "King Pin",
+      "Pin Pin Pin",
+      "10th Pin"
     ],
     "isI2C": false
   },

@@ -13,21 +13,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private bool initialized = false;
         
         public event EventHandler Changed;
-        private List<ComboBox> _comboboxList = new List<ComboBox>();
 
         public MFCustomDevicePanel()
         {
             InitializeComponent();
-            comboBox0.Items.Clear();
-            _comboboxList = new List<ComboBox>() {
-                { comboBox0},
-                { comboBox1 },
-                { comboBox2 },
-                { comboBox3 },
-                { comboBox4 },
-                { comboBox5 }
-            };
-            _comboboxList.ForEach(cb => cb.SelectedIndexChanged += value_Changed);
+            groupBox1.Controls.Clear();
         }
 
         public MFCustomDevicePanel(MobiFlight.Config.CustomDevice device, List<MobiFlightPin> Pins): this()
@@ -37,24 +27,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
             var deviceDefinition = CustomDeviceDefinitions.GetDeviceByType(device.CustomType);
             var i = 0;
 
-            _comboboxList.ForEach(cb => cb.Parent.Visible = false);
-
             foreach (var pin in deviceDefinition.Config.Pins)
             {
                 if (i == deviceDefinition.Config.Pins.Count) break;
-                var currentComboBox = _comboboxList[i];
-                ((currentComboBox.Parent).Controls[0] as Label).Text = deviceDefinition.Config.Pins[i];
-                updateComboBox(currentComboBox, Pins, device.VirtualPins[i]);
+
+                var currentComboBox = new MFCustomDevicePanelPin(deviceDefinition.Config.Pins[i], Pins, device.VirtualPins[i]);
+                currentComboBox.Changed += value_Changed;
+                currentComboBox.Dock = DockStyle.Bottom;
+                groupBox1.Controls.Add(currentComboBox);
                 i++;
             }
 
             textBox1.Text = device.Name;
             initialized = true;
-        }
-
-        private void updateComboBox(ComboBox comboBox, List<MobiFlightPin> Pins, string pin) {
-            ComboBoxHelper.BindMobiFlightFreePins(comboBox, Pins, pin);
-            (comboBox.Parent).Visible = true;
         }
 
         private void value_Changed(object sender, EventArgs e)
@@ -70,7 +55,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {   
             for(var i=0; i<device.VirtualPins.Count; i++)
             {
-                device.VirtualPins[i] = _comboboxList[i].SelectedItem.ToString();
+                device.VirtualPins[i] = (groupBox1.Controls[i] as MFCustomDevicePanelPin).SelectedPin().ToString();
             }
             
             device.Name = textBox1.Text;
