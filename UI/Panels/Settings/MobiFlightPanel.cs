@@ -668,7 +668,6 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
 
                     default:
-                        // do nothing
                         if (customDevicesToolStripMenuItem.DropDownItems.Contains(sender as ToolStripItem) ||
                             addCustomDevicesToolStripMenuItem.DropDownItems.Contains(sender as ToolStripItem))
                         {

@@ -1057,6 +1057,15 @@ namespace MobiFlight
             result[MobiFlightInputMultiplexer.TYPE] = inputMultiplexers.Count;
             result[MobiFlightCustomDevice.TYPE] = customDevices.Count;
 
+            foreach(var device in customDevices.Values)
+            {
+                var customDeviceType = device.CustomDevice.Info.Type;
+                var statisticsKey = $"CustomDevice.{customDeviceType}";
+                if (!result.ContainsKey(statisticsKey))
+                    result[statisticsKey] = 0;
+                result[statisticsKey]++;
+            }
+
             return result;
         }
 
