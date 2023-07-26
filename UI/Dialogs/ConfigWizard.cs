@@ -256,35 +256,14 @@ namespace MobiFlight.UI.Dialogs
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
 
             _syncFsuipcTabFromConfig(config);
-
-            _syncComparisonTabFromConfig(config);
             
             displayPanel1.syncFromConfig(config);
+
+            modifierPanel1.fromConfig(config);
 
             preconditionPanel.syncFromConfig(config);
             
             return true;
-        }
-
-        private void _syncComparisonTabFromConfig(OutputConfigItem config)
-        {
-            // second tab
-            comparisonActiveCheckBox.Checked = config.Comparison.Active;
-            comparisonValueTextBox.Text = config.Comparison.Value;
-
-            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.Comparison.Operand))
-            {
-                // TODO: provide error message
-                Log.Instance.log($"Exception on selecting item in Comparison ComboBox.", LogSeverity.Error);
-            }
-            comparisonIfValueTextBox.Text = config.Comparison.IfValue;
-            comparisonElseValueTextBox.Text = config.Comparison.ElseValue;
-
-            if (config.Interpolation!=null)
-            {
-                interpolationCheckBox.Checked = config.Interpolation.Active;
-                interpolationPanel1.syncFromConfig(config.Interpolation);
-            }
         }
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
@@ -324,31 +303,12 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.syncToConfig(config);
 
-            // refactor!!!
-            comparisonPanel_syncToConfig();
-
-            if(interpolationPanel1.Save) {
-                // backward compatibility until we have refactored the 
-                // multipliers in the UI
-                if (config.Interpolation == null) { config.Interpolation = new Modifier.Interpolation(); }
-                config.Interpolation.Active = interpolationCheckBox.Checked;
-                interpolationPanel1.syncToConfig(config.Interpolation);
-            }
+            modifierPanel1.toConfig(config);
 
             displayPanel1.syncToConfig();
             preconditionPanel.syncToConfig(config);
 
             return true;
-        }
-
-        private void comparisonPanel_syncToConfig()
-        {
-            // comparison panel
-            config.Comparison.Active = comparisonActiveCheckBox.Checked;
-            config.Comparison.Value = comparisonValueTextBox.Text;
-            config.Comparison.Operand = comparisonOperandComboBox.Text;
-            config.Comparison.IfValue = comparisonIfValueTextBox.Text;
-            config.Comparison.ElseValue = comparisonElseValueTextBox.Text;
         }
 
         private void button1_Click(object sender, EventArgs e)

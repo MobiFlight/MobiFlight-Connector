@@ -515,6 +515,30 @@
     <Compile Include="UI\Panels\LogPanel.Designer.cs">
       <DependentUpon>LogPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Modifier\ComparisonModifier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ComparisonModifier.Designer.cs">
+      <DependentUpon>ComparisonModifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifier.Designer.cs">
+      <DependentUpon>InterpolationModifier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ModifierControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ModifierControl.Designer.cs">
+      <DependentUpon>ModifierControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\TransformModifier.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\TransformModifier.Designer.cs">
+      <DependentUpon>TransformModifier.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\OutputConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -526,6 +550,12 @@
     </Compile>
     <Compile Include="UI\Panels\OutputWizard\DisplayPanel.Designer.cs">
       <DependentUpon>DisplayPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\OutputWizard\ModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\OutputWizard\ModifierPanel.Designer.cs">
+      <DependentUpon>ModifierPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Output\PinSelectPanel.cs">
       <SubType>UserControl</SubType>
@@ -1203,6 +1233,18 @@
     <EmbeddedResource Include="UI\Panels\LogPanel.resx">
       <DependentUpon>LogPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\ComparisonModifier.resx">
+      <DependentUpon>ComparisonModifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifier.resx">
+      <DependentUpon>InterpolationModifier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\ModifierControl.resx">
+      <DependentUpon>ModifierControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\TransformModifier.resx">
+      <DependentUpon>TransformModifier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.de.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1221,6 +1263,9 @@
     <EmbeddedResource Include="UI\Panels\OutputWizard\DisplayPanel.resx">
       <DependentUpon>DisplayPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\OutputWizard\ModifierPanel.resx">
+      <DependentUpon>ModifierPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayLedDisplayPanel.de.resx">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>

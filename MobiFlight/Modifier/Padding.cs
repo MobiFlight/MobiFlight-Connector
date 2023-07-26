@@ -29,7 +29,6 @@ namespace MobiFlight.Modifier
                     Direction = direction;
                 }
             }
-                
             
             if (reader["length"] != null)
                 Length = int.Parse(reader["length"]);

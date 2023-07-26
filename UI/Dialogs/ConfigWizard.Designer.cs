@@ -48,6 +48,7 @@
             this.OffsetTypeXplaneRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.compareSpacerPanel = new System.Windows.Forms.Panel();
+            this.modifierPanel1 = new MobiFlight.UI.Panels.OutputWizard.ModifierPanel();
             this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
             this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
             this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
@@ -80,6 +81,7 @@
             this.FsuipcSettingsPanel.SuspendLayout();
             this.OffsetTypePanel.SuspendLayout();
             this.compareTabPage.SuspendLayout();
+            this.compareSpacerPanel.SuspendLayout();
             this.interpolationGroupBox.SuspendLayout();
             this.comparisonSettingsGroupBox.SuspendLayout();
             this.comparisonSettingsPanel.SuspendLayout();
@@ -223,8 +225,14 @@
             // 
             // compareSpacerPanel
             // 
+            this.compareSpacerPanel.Controls.Add(this.modifierPanel1);
             resources.ApplyResources(this.compareSpacerPanel, "compareSpacerPanel");
             this.compareSpacerPanel.Name = "compareSpacerPanel";
+            // 
+            // modifierPanel1
+            // 
+            resources.ApplyResources(this.modifierPanel1, "modifierPanel1");
+            this.modifierPanel1.Name = "modifierPanel1";
             // 
             // interpolationGroupBox
             // 
@@ -422,6 +430,7 @@
             this.OffsetTypePanel.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
             this.compareTabPage.PerformLayout();
+            this.compareSpacerPanel.ResumeLayout(false);
             this.interpolationGroupBox.ResumeLayout(false);
             this.interpolationGroupBox.PerformLayout();
             this.comparisonSettingsGroupBox.ResumeLayout(false);
@@ -484,5 +493,6 @@
         private Panels.OutputWizard.DisplayPanel displayPanel1;
         private System.Windows.Forms.RadioButton OffsetTypeXplaneRadioButton;
         private Panels.Config.XplaneDataRefPanel xplaneDataRefPanel1;
+        private Panels.OutputWizard.ModifierPanel modifierPanel1;
     }
 }
