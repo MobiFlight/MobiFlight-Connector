@@ -293,6 +293,7 @@
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
+    <Compile Include="MobiFlight\Modifier\Padding.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />

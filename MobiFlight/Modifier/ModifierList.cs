@@ -167,6 +167,12 @@ namespace MobiFlight.Modifier
                         i.ReadXml(reader);
                         modifiers.Add(i);
                         break;
+
+                    case "padding":
+                        var p = new Padding();
+                        p.ReadXml(reader);
+                        modifiers.Add(p);
+                        break;
                 }
             } while (reader.LocalName != "modifiers");
         }
