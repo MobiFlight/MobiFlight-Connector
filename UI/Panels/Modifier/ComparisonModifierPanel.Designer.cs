@@ -1,6 +1,6 @@
 ﻿namespace MobiFlight.UI.Panels.Modifier
 {
-    partial class ComparisonModifier
+    partial class ComparisonModifierPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
             this.comparisonValueTextBox = new System.Windows.Forms.TextBox();
             this.comparisonElseValueTextBox = new System.Windows.Forms.TextBox();
@@ -37,26 +36,12 @@
             this.label7 = new System.Windows.Forms.Label();
             this.comparisonOperandComboBox = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.comparisonActiveCheckBox = new System.Windows.Forms.CheckBox();
-            this.comparisonSettingsGroupBox.SuspendLayout();
             this.comparisonSettingsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // comparisonSettingsGroupBox
-            // 
-            this.comparisonSettingsGroupBox.Controls.Add(this.comparisonSettingsPanel);
-            this.comparisonSettingsGroupBox.Controls.Add(this.comparisonActiveCheckBox);
-            this.comparisonSettingsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comparisonSettingsGroupBox.Location = new System.Drawing.Point(0, 0);
-            this.comparisonSettingsGroupBox.Name = "comparisonSettingsGroupBox";
-            this.comparisonSettingsGroupBox.Padding = new System.Windows.Forms.Padding(6);
-            this.comparisonSettingsGroupBox.Size = new System.Drawing.Size(294, 138);
-            this.comparisonSettingsGroupBox.TabIndex = 9;
-            this.comparisonSettingsGroupBox.TabStop = false;
-            this.comparisonSettingsGroupBox.Text = "Comparison Settings";
-            // 
             // comparisonSettingsPanel
             // 
+            this.comparisonSettingsPanel.AutoSize = true;
             this.comparisonSettingsPanel.Controls.Add(this.comparisonValueTextBox);
             this.comparisonSettingsPanel.Controls.Add(this.comparisonElseValueTextBox);
             this.comparisonSettingsPanel.Controls.Add(this.label8);
@@ -65,14 +50,14 @@
             this.comparisonSettingsPanel.Controls.Add(this.comparisonOperandComboBox);
             this.comparisonSettingsPanel.Controls.Add(this.label6);
             this.comparisonSettingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comparisonSettingsPanel.Location = new System.Drawing.Point(6, 36);
+            this.comparisonSettingsPanel.Location = new System.Drawing.Point(0, 0);
             this.comparisonSettingsPanel.Name = "comparisonSettingsPanel";
-            this.comparisonSettingsPanel.Size = new System.Drawing.Size(282, 96);
+            this.comparisonSettingsPanel.Size = new System.Drawing.Size(400, 84);
             this.comparisonSettingsPanel.TabIndex = 9;
             // 
             // comparisonValueTextBox
             // 
-            this.comparisonValueTextBox.Location = new System.Drawing.Point(171, 10);
+            this.comparisonValueTextBox.Location = new System.Drawing.Point(171, 7);
             this.comparisonValueTextBox.Name = "comparisonValueTextBox";
             this.comparisonValueTextBox.Size = new System.Drawing.Size(100, 20);
             this.comparisonValueTextBox.TabIndex = 16;
@@ -121,9 +106,8 @@
             ">=",
             "<=",
             "<",
-            "!=",
-            ""});
-            this.comparisonOperandComboBox.Location = new System.Drawing.Point(126, 10);
+            "!="});
+            this.comparisonOperandComboBox.Location = new System.Drawing.Point(126, 6);
             this.comparisonOperandComboBox.Name = "comparisonOperandComboBox";
             this.comparisonOperandComboBox.Size = new System.Drawing.Size(39, 21);
             this.comparisonOperandComboBox.TabIndex = 14;
@@ -132,42 +116,31 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(32, 13);
+            this.label6.Location = new System.Drawing.Point(32, 9);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 13);
             this.label6.TabIndex = 13;
             this.label6.Text = "If current value is";
             // 
-            // comparisonActiveCheckBox
-            // 
-            this.comparisonActiveCheckBox.AutoSize = true;
-            this.comparisonActiveCheckBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.comparisonActiveCheckBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.comparisonActiveCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.comparisonActiveCheckBox.Name = "comparisonActiveCheckBox";
-            this.comparisonActiveCheckBox.Size = new System.Drawing.Size(282, 17);
-            this.comparisonActiveCheckBox.TabIndex = 8;
-            this.comparisonActiveCheckBox.Text = "Apply comparison to modify the current value";
-            this.comparisonActiveCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ComparisonModifier
+            // ComparisonModifierPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.comparisonSettingsGroupBox);
-            this.Name = "ComparisonModifier";
-            this.Size = new System.Drawing.Size(294, 278);
-            this.comparisonSettingsGroupBox.ResumeLayout(false);
-            this.comparisonSettingsGroupBox.PerformLayout();
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.comparisonSettingsPanel);
+            this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(400, 0);
+            this.Name = "ComparisonModifierPanel";
+            this.Size = new System.Drawing.Size(400, 84);
             this.comparisonSettingsPanel.ResumeLayout(false);
             this.comparisonSettingsPanel.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox comparisonSettingsGroupBox;
         private System.Windows.Forms.Panel comparisonSettingsPanel;
         private System.Windows.Forms.TextBox comparisonValueTextBox;
         private System.Windows.Forms.TextBox comparisonElseValueTextBox;
@@ -176,6 +149,5 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comparisonOperandComboBox;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox comparisonActiveCheckBox;
     }
 }

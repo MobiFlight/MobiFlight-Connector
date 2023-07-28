@@ -515,17 +515,23 @@
     <Compile Include="UI\Panels\LogPanel.Designer.cs">
       <DependentUpon>LogPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Modifier\ComparisonModifier.cs">
+    <Compile Include="UI\Panels\Modifier\BlinkModifierPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Modifier\ComparisonModifier.Designer.cs">
-      <DependentUpon>ComparisonModifier.cs</DependentUpon>
+    <Compile Include="UI\Panels\Modifier\BlinkModifierPanel.Designer.cs">
+      <DependentUpon>BlinkModifierPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Modifier\InterpolationModifier.cs">
+    <Compile Include="UI\Panels\Modifier\ComparisonModifierPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Modifier\InterpolationModifier.Designer.cs">
-      <DependentUpon>InterpolationModifier.cs</DependentUpon>
+    <Compile Include="UI\Panels\Modifier\ComparisonModifierPanel.Designer.cs">
+      <DependentUpon>ComparisonModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifierPanel.Designer.cs">
+      <DependentUpon>InterpolationModifierPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Modifier\ModifierControl.cs">
       <SubType>UserControl</SubType>
@@ -533,11 +539,17 @@
     <Compile Include="UI\Panels\Modifier\ModifierControl.Designer.cs">
       <DependentUpon>ModifierControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Modifier\TransformModifier.cs">
+    <Compile Include="UI\Panels\Modifier\PaddingModifierPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Modifier\TransformModifier.Designer.cs">
-      <DependentUpon>TransformModifier.cs</DependentUpon>
+    <Compile Include="UI\Panels\Modifier\PaddingModifierPanel.Designer.cs">
+      <DependentUpon>PaddingModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\TransformModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\TransformModifierPanel.Designer.cs">
+      <DependentUpon>TransformModifierPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\OutputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -1233,17 +1245,23 @@
     <EmbeddedResource Include="UI\Panels\LogPanel.resx">
       <DependentUpon>LogPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Modifier\ComparisonModifier.resx">
-      <DependentUpon>ComparisonModifier.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Modifier\BlinkModifierPanel.resx">
+      <DependentUpon>BlinkModifierPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifier.resx">
-      <DependentUpon>InterpolationModifier.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Modifier\ComparisonModifierPanel.resx">
+      <DependentUpon>ComparisonModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifierPanel.resx">
+      <DependentUpon>InterpolationModifierPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\ModifierControl.resx">
       <DependentUpon>ModifierControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Modifier\TransformModifier.resx">
-      <DependentUpon>TransformModifier.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Modifier\PaddingModifierPanel.resx">
+      <DependentUpon>PaddingModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\TransformModifierPanel.resx">
+      <DependentUpon>TransformModifierPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.de.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>

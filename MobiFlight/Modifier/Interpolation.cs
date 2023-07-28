@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -190,6 +191,10 @@ namespace MobiFlight.Modifier
                 Count == (obj as Interpolation).Count &&
                 Active == (obj as Interpolation).Active &&
                 entriesAreSame;
+        }
+        public override string ToSummaryLabel()
+        {
+            return $"Interpolation: {Values.Count} values with Min {Min} and Max {Max}";
         }
     }
 

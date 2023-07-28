@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Modifier;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace MobiFlight.OutputConfig
         public long Mask { get; set; }
 
         public bool BcdMode { get; set; }
+        public Transformation Transform { get; set; }
 
         public FsuipcOffset()
         {

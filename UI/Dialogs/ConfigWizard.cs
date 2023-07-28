@@ -87,7 +87,6 @@ namespace MobiFlight.UI.Dialogs
             originalConfig = cfg.Clone() as OutputConfigItem;
 
             InitializeComponent();
-            comparisonSettingsPanel.Enabled = false;
 
             ActivateCorrectTab(config);
 
@@ -338,11 +337,6 @@ namespace MobiFlight.UI.Dialogs
             _validatingHexFields(sender, e, 4);            
         }
 
-        private void comparisonActiveCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            comparisonSettingsPanel.Enabled = (sender as CheckBox).Checked;
-        }
-
         private void ConfigWizard_Load(object sender, EventArgs e)
         {
             _syncConfigToForm(config);
@@ -398,13 +392,6 @@ namespace MobiFlight.UI.Dialogs
             // check if running in test mode
             lastTabActive = (sender as TabControl).SelectedIndex;
             _testModeStop();
-        }
-        
-        private void interpolationCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            interpolationPanel1.Enabled = (sender as CheckBox).Checked;
-            if ((sender as CheckBox).Checked)
-                interpolationPanel1.Save = true;
         }
 
         private void OffsetTypeFsuipRadioButton_CheckedChanged(object sender, EventArgs e)

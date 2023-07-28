@@ -28,184 +28,194 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModifierPanel));
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.modifierControl6 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
-            this.modifierControl5 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
-            this.modifierControl4 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
-            this.modifierControl3 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
-            this.modifierControl2 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
-            this.modifierControl1 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.components = new System.ComponentModel.Container();
             this.modifierListPanel = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.transformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.interpolationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paddingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBoxModifier = new System.Windows.Forms.GroupBox();
+            this.modifierControl1 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
             this.modifierListPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            this.groupBoxModifier.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.modifierListPanel);
-            this.panel1.Controls.Add(this.toolStrip1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(219, 427);
-            this.panel1.TabIndex = 0;
-            // 
-            // modifierControl6
-            // 
-            this.modifierControl6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.modifierControl6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl6.Location = new System.Drawing.Point(0, 0);
-            this.modifierControl6.Name = "modifierControl6";
-            this.modifierControl6.Size = new System.Drawing.Size(219, 24);
-            this.modifierControl6.TabIndex = 6;
-            // 
-            // modifierControl5
-            // 
-            this.modifierControl5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.modifierControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl5.Location = new System.Drawing.Point(0, 24);
-            this.modifierControl5.Name = "modifierControl5";
-            this.modifierControl5.Size = new System.Drawing.Size(219, 24);
-            this.modifierControl5.TabIndex = 5;
-            // 
-            // modifierControl4
-            // 
-            this.modifierControl4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.modifierControl4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl4.Location = new System.Drawing.Point(0, 48);
-            this.modifierControl4.Name = "modifierControl4";
-            this.modifierControl4.Size = new System.Drawing.Size(219, 24);
-            this.modifierControl4.TabIndex = 4;
-            // 
-            // modifierControl3
-            // 
-            this.modifierControl3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.modifierControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl3.Location = new System.Drawing.Point(0, 72);
-            this.modifierControl3.Name = "modifierControl3";
-            this.modifierControl3.Size = new System.Drawing.Size(219, 24);
-            this.modifierControl3.TabIndex = 3;
-            // 
-            // modifierControl2
-            // 
-            this.modifierControl2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.modifierControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl2.Location = new System.Drawing.Point(0, 96);
-            this.modifierControl2.Name = "modifierControl2";
-            this.modifierControl2.Size = new System.Drawing.Size(219, 24);
-            this.modifierControl2.TabIndex = 2;
-            // 
-            // modifierControl1
-            // 
-            this.modifierControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.modifierControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl1.Location = new System.Drawing.Point(0, 120);
-            this.modifierControl1.Name = "modifierControl1";
-            this.modifierControl1.Size = new System.Drawing.Size(219, 24);
-            this.modifierControl1.TabIndex = 1;
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton3,
-            this.toolStripButton2,
-            this.toolStripButton4});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 402);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(219, 25);
-            this.toolStrip1.TabIndex = 0;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Image = global::MobiFlight.Properties.Resources.star_yellow_add;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(49, 22);
-            this.toolStripButton1.Text = "Add";
-            // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.Image = global::MobiFlight.Properties.Resources.star_yellow_delete;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(70, 22);
-            this.toolStripButton3.Text = "Remove";
-            // 
-            // toolStripButton2
-            // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(26, 22);
-            this.toolStripButton2.Text = "Up";
-            // 
-            // toolStripButton4
-            // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton4.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton4.Image")));
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(42, 22);
-            this.toolStripButton4.Text = "Down";
             // 
             // modifierListPanel
             // 
+            this.modifierListPanel.AutoScroll = true;
+            this.modifierListPanel.AutoSize = true;
+            this.modifierListPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.modifierListPanel.Controls.Add(this.modifierControl1);
-            this.modifierListPanel.Controls.Add(this.modifierControl2);
-            this.modifierListPanel.Controls.Add(this.modifierControl3);
-            this.modifierListPanel.Controls.Add(this.modifierControl4);
-            this.modifierListPanel.Controls.Add(this.modifierControl5);
-            this.modifierListPanel.Controls.Add(this.modifierControl6);
             this.modifierListPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.modifierListPanel.Location = new System.Drawing.Point(0, 0);
             this.modifierListPanel.Name = "modifierListPanel";
-            this.modifierListPanel.Size = new System.Drawing.Size(219, 402);
+            this.modifierListPanel.Padding = new System.Windows.Forms.Padding(3);
+            this.modifierListPanel.Size = new System.Drawing.Size(494, 368);
             this.modifierListPanel.TabIndex = 7;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.Controls.Add(this.modifierListPanel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 56);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(494, 368);
+            this.panel1.TabIndex = 7;
+            // 
+            // panel2
+            // 
+            this.panel2.AutoSize = true;
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(3, 16);
+            this.panel2.Name = "panel2";
+            this.panel2.Padding = new System.Windows.Forms.Padding(3);
+            this.panel2.Size = new System.Drawing.Size(494, 40);
+            this.panel2.TabIndex = 12;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.transformToolStripMenuItem,
+            this.compareToolStripMenuItem,
+            this.interpolationToolStripMenuItem,
+            this.blinkToolStripMenuItem,
+            this.paddingToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(143, 114);
+            // 
+            // transformToolStripMenuItem
+            // 
+            this.transformToolStripMenuItem.Name = "transformToolStripMenuItem";
+            this.transformToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.transformToolStripMenuItem.Text = "Transform";
+            this.transformToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
+            // 
+            // compareToolStripMenuItem
+            // 
+            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.compareToolStripMenuItem.Text = "Compare";
+            this.compareToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
+            // 
+            // interpolationToolStripMenuItem
+            // 
+            this.interpolationToolStripMenuItem.Name = "interpolationToolStripMenuItem";
+            this.interpolationToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.interpolationToolStripMenuItem.Text = "Interpolation";
+            this.interpolationToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
+            // 
+            // blinkToolStripMenuItem
+            // 
+            this.blinkToolStripMenuItem.Name = "blinkToolStripMenuItem";
+            this.blinkToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.blinkToolStripMenuItem.Text = "Blink";
+            this.blinkToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
+            // 
+            // paddingToolStripMenuItem
+            // 
+            this.paddingToolStripMenuItem.Name = "paddingToolStripMenuItem";
+            this.paddingToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.paddingToolStripMenuItem.Text = "Padding";
+            this.paddingToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(391, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Add Modifier";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(3, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(382, 32);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Modifiers transform your values to new values. Each output is passed on to the ne" +
+    "xt modifier as input.";
+            // 
+            // groupBoxModifier
+            // 
+            this.groupBoxModifier.Controls.Add(this.panel1);
+            this.groupBoxModifier.Controls.Add(this.panel2);
+            this.groupBoxModifier.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxModifier.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxModifier.Name = "groupBoxModifier";
+            this.groupBoxModifier.Size = new System.Drawing.Size(500, 427);
+            this.groupBoxModifier.TabIndex = 6;
+            this.groupBoxModifier.TabStop = false;
+            this.groupBoxModifier.Text = "Modifier";
+            // 
+            // modifierControl1
+            // 
+            this.modifierControl1.AutoSize = true;
+            this.modifierControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.modifierControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modifierControl1.First = false;
+            this.modifierControl1.Last = false;
+            this.modifierControl1.Location = new System.Drawing.Point(3, 3);
+            this.modifierControl1.MinimumSize = new System.Drawing.Size(400, 2);
+            this.modifierControl1.Modifier = null;
+            this.modifierControl1.Name = "modifierControl1";
+            this.modifierControl1.Selected = false;
+            this.modifierControl1.Size = new System.Drawing.Size(488, 26);
+            this.modifierControl1.TabIndex = 0;
             // 
             // ModifierPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.groupBoxModifier);
+            this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(2);
+            this.MinimumSize = new System.Drawing.Size(500, 0);
             this.Name = "ModifierPanel";
-            this.Size = new System.Drawing.Size(480, 427);
+            this.Size = new System.Drawing.Size(500, 427);
+            this.modifierListPanel.ResumeLayout(false);
+            this.modifierListPanel.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
-            this.modifierListPanel.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBoxModifier.ResumeLayout(false);
+            this.groupBoxModifier.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripButton toolStripButton3;
-        private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private Modifier.ModifierControl modifierControl6;
-        private Modifier.ModifierControl modifierControl5;
-        private Modifier.ModifierControl modifierControl4;
-        private Modifier.ModifierControl modifierControl3;
-        private Modifier.ModifierControl modifierControl2;
-        private Modifier.ModifierControl modifierControl1;
         private System.Windows.Forms.Panel modifierListPanel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem transformToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem interpolationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem blinkToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem paddingToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBoxModifier;
+        private Modifier.ModifierControl modifierControl1;
     }
 }

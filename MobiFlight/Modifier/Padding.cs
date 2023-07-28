@@ -119,5 +119,10 @@ namespace MobiFlight.Modifier
 
             return value;
         }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Padding Char: \"{Character}\", Length: {Length}, Direction: {Direction.ToString()}";
+        }
     }
 }

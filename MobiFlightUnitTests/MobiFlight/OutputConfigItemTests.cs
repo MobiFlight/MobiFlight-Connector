@@ -232,11 +232,11 @@ namespace MobiFlight.Tests
 
             o.FSUIPC.Offset = 0x1234;
             o.FSUIPC.Mask = 0xFFFF;
-            o.Transform = new Transformation();
-            o.Transform.Active = true;
-            o.Transform.Expression = "$+123";
-            o.Transform.SubStrEnd = 11;
-            o.Transform.SubStrStart = 9;
+            o.FSUIPC.Transform = new Transformation();
+            o.FSUIPC.Transform.Active = true;
+            o.FSUIPC.Transform.Expression = "$+123";
+            o.FSUIPC.Transform.SubStrEnd = 11;
+            o.FSUIPC.Transform.SubStrStart = 9;
 
             o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
             o.FSUIPC.Size = 2;
@@ -262,9 +262,9 @@ namespace MobiFlight.Tests
             o.LedModule.DisplayLedDecimalPoints = new List<string>() { "3", "4" };
             o.LedModule.DisplayLedBrightnessReference = "CF057791-E133-4638-A99E-FEF9B187C4DB"; // testing with true as default is false
             o.BcdPins = new List<string>() { "Moop" };
-            o.Interpolation = new Interpolation();
+/*            o.Interpolation = new Interpolation();
             o.Interpolation.Active = true;
-            o.Interpolation.Add(123, 456);
+            o.Interpolation.Add(123, 456);*/
 
             o.Preconditions = new PreconditionList();
             o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND" });

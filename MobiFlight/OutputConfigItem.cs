@@ -52,19 +52,19 @@ namespace MobiFlight
         // Legacy access to Transformation, Comparison and Interpolation
         public Modifier.Transformation Transform { 
             get { return Modifiers.Transformation; }
-            set { Modifiers.Transformation = value; }
+            /*set { Modifiers.Transformation = value; }*/
         }
 
         public Modifier.Comparison Comparison
         {
             get { return Modifiers.Comparison; }
-            set { Modifiers.Comparison = value; }
+            /*set { Modifiers.Comparison = value; }*/
         }
 
         public Modifier.Interpolation Interpolation
         {
             get { return Modifiers.Interpolation; }
-            set { Modifiers.Interpolation = value; }
+            /*set { Modifiers.Interpolation = value; }*/
         }
 
         public OutputConfigItem()
@@ -398,8 +398,8 @@ namespace MobiFlight
             clone.XplaneDataRef             = this.XplaneDataRef.Clone() as XplaneDataRef;
 
 
-            clone.Transform                 = this.Transform.Clone() as Transformation;
-            clone.Comparison                = this.Comparison.Clone() as Comparison;
+            //clone.Transform                 = this.Transform.Clone() as Transformation;
+            //clone.Comparison                = this.Comparison.Clone() as Comparison;
 
             clone.DisplayType               = this.DisplayType;
             clone.DisplaySerial             = this.DisplaySerial;

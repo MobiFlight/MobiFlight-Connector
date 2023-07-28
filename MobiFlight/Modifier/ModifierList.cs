@@ -30,7 +30,7 @@ namespace MobiFlight.Modifier
                 modifiers.Add(t);
                 return t;
             }
-
+/*
             set
             {
                 for (int i = 0; i < modifiers.Count; i++)
@@ -40,7 +40,7 @@ namespace MobiFlight.Modifier
                     modifiers[i] = value;
                     return;
                 }
-            }
+            }*/
         }
 
         public Comparison Comparison
@@ -59,7 +59,7 @@ namespace MobiFlight.Modifier
                 return c;
             }
 
-            set
+/*            set
             {
                 for (int i = 0; i < modifiers.Count; i++)
                 {
@@ -68,7 +68,7 @@ namespace MobiFlight.Modifier
                     modifiers[i] = value;
                     return;
                 }
-            }
+            }*/
         }
 
         public Interpolation Interpolation
@@ -86,7 +86,7 @@ namespace MobiFlight.Modifier
                 modifiers.Add(i);
                 return i;
             }
-
+/*
             set
             {
                 for (int i = 0; i < modifiers.Count; i++)
@@ -98,7 +98,7 @@ namespace MobiFlight.Modifier
                 }
 
                 modifiers.Add(value);
-            }
+            }*/
         }
 
         /// <summary>

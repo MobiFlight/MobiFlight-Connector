@@ -23,6 +23,8 @@ namespace MobiFlight.Modifier
 
         public abstract object Clone();
 
+        public abstract string ToSummaryLabel();
+
         public abstract ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs);
     }
 }

@@ -50,7 +50,6 @@ namespace MobiFlight.Modifier
             Clone.Active = Active;
             Clone.BlinkValue = BlinkValue;
             Clone.OnOffSequence = OnOffSequence.ToArray().ToList();
-            Clone.OffDurationInMs = OffDurationInMs;
             return Clone;
         }
 
@@ -60,8 +59,7 @@ namespace MobiFlight.Modifier
                 obj != null && obj is Blink &&
                 this.Active == (obj as Blink).Active &&
                 this.BlinkValue == (obj as Blink).BlinkValue &&
-                this.OnOffSequence == (obj as Blink).OnOffSequence &&
-                this.OffDurationInMs == (obj as Blink).OffDurationInMs;
+                this.OnOffSequence == (obj as Blink).OnOffSequence;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
@@ -112,6 +110,11 @@ namespace MobiFlight.Modifier
             }
 
             return result;
+        }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Blink value: \"{BlinkValue}\", ON-OFF-Sequence: {String.Join((", "), OnOffSequence.Select(s => s+" ms"))}";
         }
     }
 }
