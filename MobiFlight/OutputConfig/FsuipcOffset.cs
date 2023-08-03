@@ -19,7 +19,6 @@ namespace MobiFlight.OutputConfig
         public long Mask { get; set; }
 
         public bool BcdMode { get; set; }
-        public Transformation Transform { get; set; }
 
         public FsuipcOffset()
         {

@@ -1462,21 +1462,21 @@ namespace MobiFlight.UI
                     // comparison
                     if (row["comparison"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.Comparison.Active = true;
-                        cfgItem.Comparison.Operand = row["comparison"].ToString();
+                        cfgItem.Modifiers.Comparison.Active = true;
+                        cfgItem.Modifiers.Comparison.Operand = row["comparison"].ToString();
                     }
 
                     if (row["comparisonValue"].GetType() != typeof(System.DBNull))
                     {
-                        cfgItem.Comparison.Value = row["comparisonValue"].ToString();
+                        cfgItem.Modifiers.Comparison.Value = row["comparisonValue"].ToString();
                     }
 
                     if (row["converter"].GetType() != typeof(System.DBNull))
                     {
                         if (row["converter"].ToString() == "Boolean")
                         {
-                            cfgItem.Comparison.IfValue = "1";
-                            cfgItem.Comparison.ElseValue = "0";
+                            cfgItem.Modifiers.Comparison.IfValue = "1";
+                            cfgItem.Modifiers.Comparison.ElseValue = "0";
                         }
                     }
 

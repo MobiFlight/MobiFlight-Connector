@@ -1,13 +1,7 @@
 ﻿using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Modifier
@@ -24,6 +18,7 @@ namespace MobiFlight.UI.Panels.Modifier
         public event EventHandler ModifierMovedUp;
         public event EventHandler ModifierMovedDown;
         public event EventHandler ModifierRemoved;
+        public Timer HighlightTimer = new Timer();
 
         private bool selected;
         Color OriginalColor;
@@ -49,6 +44,7 @@ namespace MobiFlight.UI.Panels.Modifier
                 isFirst = value;
                 buttonUp.Enabled = !value;
                 if (value) buttonUp.Text = "";
+                else buttonUp.Text = "▲";
             }
         }
 
@@ -60,7 +56,8 @@ namespace MobiFlight.UI.Panels.Modifier
             {
                 isLast = value;
                 buttonDown.Enabled = !value;
-                if(value) buttonDown.Text = "";
+                if (value) buttonDown.Text = "";
+                else buttonDown.Text = "▼";
             }
         }
 
@@ -73,7 +70,6 @@ namespace MobiFlight.UI.Panels.Modifier
         public ModifierControl()
         {
             InitializeComponent();
-            OriginalColor = BackColor;
             Selected = false;
 
             foreach (var c in new List<Control>(){ labelModifier, labelModifierType, button1, buttonUp, buttonDown})
@@ -81,6 +77,13 @@ namespace MobiFlight.UI.Panels.Modifier
                 c.MouseEnter += ModifierControl_MouseEnter;
                 c.MouseLeave += ModifierControl_MouseLeave;
             }
+
+            HighlightTimer.Interval = 750;
+            HighlightTimer.Tick += (s, e) =>
+            {
+                HighlightTimer.Stop();
+                BackColor = OriginalColor;
+            };
         }
 
         private Control CreatePanel(Type modifierType)
@@ -103,6 +106,27 @@ namespace MobiFlight.UI.Panels.Modifier
             return null;
         }
 
+
+        private Color CreateColor(Type modifierType)
+        {
+            if (modifierType == typeof(Transformation))
+                return Color.Aqua;
+
+            if (modifierType == typeof(Comparison))
+                return Color.Red;
+
+            if (modifierType == typeof(Interpolation))
+                return Color.Green;
+
+            if (modifierType == typeof(MobiFlight.Modifier.Padding))
+                return Color.Orange;
+
+            if (modifierType == typeof(Blink))
+                return Color.Pink;
+
+            return Color.White;
+        }
+
         public void fromConfig(ModifierBase modifier)
         {
             Modifier = modifier;
@@ -111,6 +135,7 @@ namespace MobiFlight.UI.Panels.Modifier
             labelModifier.Text = modifier.ToSummaryLabel();
             checkBoxActive.Checked = modifier.Active;
             panelDetails.Controls.Clear();
+            panelColor.BackColor = CreateColor(modifier.GetType());
 
             var panel = CreatePanel(modifier.GetType());
 
@@ -138,12 +163,12 @@ namespace MobiFlight.UI.Panels.Modifier
 
         private void ModifierControl_MouseEnter(object sender, EventArgs e)
         {
-            OriginalColor = BackColor;
             BackColor = Color.AliceBlue;
         }
 
         private void ModifierControl_MouseLeave(object sender, EventArgs e)
         {
+            if (HighlightTimer.Enabled) return;
             BackColor = OriginalColor;
         }
 
@@ -154,11 +179,13 @@ namespace MobiFlight.UI.Panels.Modifier
 
         private void buttonUp_Click(object sender, EventArgs e)
         {
+            HighlightTimer.Start();
             ModifierMovedUp?.Invoke(this, EventArgs.Empty);
         }
 
         private void buttonDown_Click(object sender, EventArgs e)
         {
+            HighlightTimer.Start();
             ModifierMovedDown?.Invoke(this, EventArgs.Empty);
         }
 
@@ -170,6 +197,12 @@ namespace MobiFlight.UI.Panels.Modifier
         private void checkBoxActive_CheckedChanged(object sender, EventArgs e)
         {
             Modifier.Active = checkBoxActive.Checked;
+        }
+
+        private void buttonDown_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (BackColor != Color.AliceBlue) OriginalColor = BackColor;
+            BackColor = Color.LightSkyBlue;
         }
     }
 }

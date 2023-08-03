@@ -48,6 +48,7 @@ namespace MobiFlight.Modifier
             get
             {
                 if (modifiers.Count == 0) { InitModifiersForBackwardCompatibility(); }
+
                 foreach (ModifierBase modifier in modifiers)
                 {
                     if (modifier is Comparison)
@@ -76,6 +77,7 @@ namespace MobiFlight.Modifier
             get
             {
                 if (modifiers.Count == 0) { InitModifiersForBackwardCompatibility(); }
+
                 foreach (ModifierBase modifier in modifiers)
                 {
                     if (modifier is Interpolation)

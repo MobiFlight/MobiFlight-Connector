@@ -63,21 +63,21 @@ namespace MobiFlight.UI.Panels.Config
                 )
             {
                 TransformationCheckBox.Checked = false;
-                SubstringTransformationCheckBox.Checked = config.Transform.Active;
+                SubstringTransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
             }
             else
             {
-                TransformationCheckBox.Checked = config.Transform.Active;
+                TransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
                 SubstringTransformationCheckBox.Checked = false;
                 
             }
 
-            TransformTextBox.Text = config.Transform.Expression;
+            TransformTextBox.Text = config.Modifiers.Transformation.Expression;
             fsuipcValueTextBox.Text = config.Value;
 
             // substring panel
-            SubStringFromTextBox.Text = config.Transform.SubStrStart.ToString();
-            SubStringToTextBox.Text = config.Transform.SubStrEnd.ToString();
+            SubStringFromTextBox.Text = config.Modifiers.Transformation.SubStrStart.ToString();
+            SubStringToTextBox.Text = config.Modifiers.Transformation.SubStrEnd.ToString();
         }
 
         internal void syncToConfig(OutputConfigItem config)
@@ -87,20 +87,20 @@ namespace MobiFlight.UI.Panels.Config
 
                 )
             {
-                config.Transform.Active = SubstringTransformationCheckBox.Checked;
+                config.Modifiers.Transformation.Active = SubstringTransformationCheckBox.Checked;
             }
             else
             {
-                config.Transform.Active = TransformationCheckBox.Checked;
+                config.Modifiers.Transformation.Active = TransformationCheckBox.Checked;
             }
 
             // TODO: refactor this conditional stuff.
-            config.Transform.Expression = TransformTextBox.Text;
+            config.Modifiers.Transformation.Expression = TransformTextBox.Text;
             
             if (SubStringFromTextBox.Text != "")
-                config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
+                config.Modifiers.Transformation.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
             if (SubStringToTextBox.Text != "")
-                config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
+                config.Modifiers.Transformation.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             config.Value = fsuipcValueTextBox.Text;
         }
 

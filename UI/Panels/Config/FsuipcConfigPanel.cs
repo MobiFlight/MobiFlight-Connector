@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Forms;
+using MobiFlight.Modifier;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -258,19 +259,19 @@ namespace MobiFlight.UI.Panels.Config
 
             // multiplier
             if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String) {
-                TransformationCheckBox.Checked = config.FSUIPC.Transform.Active;
+                TransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
                 SubstringTransformationCheckBox.Checked = false;
             } else {
                 TransformationCheckBox.Checked = false;
-                SubstringTransformationCheckBox.Checked = config.FSUIPC.Transform.Active;
+                SubstringTransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
             }
-            fsuipcMultiplyTextBox.Text = config.FSUIPC.Transform.Expression;
+            fsuipcMultiplyTextBox.Text = config.Modifiers.Transformation.Expression;
             fsuipcBcdModeCheckBox.Checked = config.FSUIPC.BcdMode;
             fsuipcValueTextBox.Text = config.Value;
 
             // substring panel
-            SubStringFromTextBox.Text = config.FSUIPC.Transform.SubStrStart.ToString();
-            SubStringToTextBox.Text = config.FSUIPC.Transform.SubStrEnd.ToString();
+            SubStringFromTextBox.Text = config.Modifiers.Transformation.SubStrStart.ToString();
+            SubStringToTextBox.Text = config.Modifiers.Transformation.SubStrEnd.ToString();
 
             foreach (DataRow row in presetDataTable.Rows)
             {
@@ -295,22 +296,22 @@ namespace MobiFlight.UI.Panels.Config
                 // the mask has only meaning for values other than strings
                 config.FSUIPC.Mask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
                 config.FSUIPC.Size = Byte.Parse(fsuipcSizeComboBox.Text);
-                config.FSUIPC.Transform.Active = TransformationCheckBox.Checked;
+                config.Modifiers.Transformation.Active = TransformationCheckBox.Checked;
             }
             else
             {
                 // by default we set the string length to 255
                 // because we don't offer an option for the string length yet
                 config.FSUIPC.Size = 255;
-                config.FSUIPC.Transform.Active = SubstringTransformationCheckBox.Checked;
+                config.Modifiers.Transformation.Active = SubstringTransformationCheckBox.Checked;
             }
 
-            config.FSUIPC.Transform.Expression = fsuipcMultiplyTextBox.Text;
+            config.Modifiers.Transformation.Expression = fsuipcMultiplyTextBox.Text;
             
             if (SubStringFromTextBox.Text!="")
-                config.FSUIPC.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
+                config.Modifiers.Transformation.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
             if (SubStringToTextBox.Text != "")
-                config.FSUIPC.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
+                config.Modifiers.Transformation.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             
             config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             config.Value = fsuipcValueTextBox.Text;
