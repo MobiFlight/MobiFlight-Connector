@@ -32,6 +32,7 @@ namespace MobiFlight.UI.Panels.Config
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransformOptionsGroup));
             this.fsuipcMoreOptionsGroupBox = new System.Windows.Forms.GroupBox();
             this.ValuePanel = new System.Windows.Forms.Panel();
+            this.ValuePlaceholderLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.fsuipcValueTextBox = new System.Windows.Forms.TextBox();
             this.SubstringPanel = new System.Windows.Forms.Panel();
@@ -42,7 +43,6 @@ namespace MobiFlight.UI.Panels.Config
             this.MultiplyPanel = new System.Windows.Forms.Panel();
             this.TransformationCheckBox = new System.Windows.Forms.CheckBox();
             this.TransformTextBox = new System.Windows.Forms.TextBox();
-            this.ValuePlaceholderLabel = new System.Windows.Forms.Label();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
             this.ValuePanel.SuspendLayout();
             this.SubstringPanel.SuspendLayout();
@@ -65,6 +65,11 @@ namespace MobiFlight.UI.Panels.Config
             this.ValuePanel.Controls.Add(this.label5);
             this.ValuePanel.Controls.Add(this.fsuipcValueTextBox);
             this.ValuePanel.Name = "ValuePanel";
+            // 
+            // ValuePlaceholderLabel
+            // 
+            resources.ApplyResources(this.ValuePlaceholderLabel, "ValuePlaceholderLabel");
+            this.ValuePlaceholderLabel.Name = "ValuePlaceholderLabel";
             // 
             // label5
             // 
@@ -128,11 +133,6 @@ namespace MobiFlight.UI.Panels.Config
             // 
             resources.ApplyResources(this.TransformTextBox, "TransformTextBox");
             this.TransformTextBox.Name = "TransformTextBox";
-            // 
-            // ValuePlaceholderLabel
-            // 
-            resources.ApplyResources(this.ValuePlaceholderLabel, "ValuePlaceholderLabel");
-            this.ValuePlaceholderLabel.Name = "ValuePlaceholderLabel";
             // 
             // TransformOptionsGroup
             // 

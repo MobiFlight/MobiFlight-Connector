@@ -80,6 +80,35 @@ namespace MobiFlight.UI.Panels.Config
             SubStringToTextBox.Text = config.Modifiers.Transformation.SubStrEnd.ToString();
         }
 
+        internal void syncFromConfig(IFsuipcConfigItem config)
+        {
+            if (config == null)
+            {
+                // this happens when casting badly
+                return;
+            }
+
+            // multiplier
+            if (config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
+            {
+                TransformationCheckBox.Checked = false;
+                SubstringTransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
+            }
+            else
+            {
+                TransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
+                SubstringTransformationCheckBox.Checked = false;
+
+            }
+
+            TransformTextBox.Text = config.Modifiers.Transformation.Expression;
+            fsuipcValueTextBox.Text = config.Value;
+
+            // substring panel
+            SubStringFromTextBox.Text = config.Modifiers.Transformation.SubStrStart.ToString();
+            SubStringToTextBox.Text = config.Modifiers.Transformation.SubStrEnd.ToString();
+        }
+
         internal void syncToConfig(OutputConfigItem config)
         {
             if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
@@ -97,6 +126,27 @@ namespace MobiFlight.UI.Panels.Config
             // TODO: refactor this conditional stuff.
             config.Modifiers.Transformation.Expression = TransformTextBox.Text;
             
+            if (SubStringFromTextBox.Text != "")
+                config.Modifiers.Transformation.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
+            if (SubStringToTextBox.Text != "")
+                config.Modifiers.Transformation.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
+            config.Value = fsuipcValueTextBox.Text;
+        }
+
+        internal void syncToConfig(IFsuipcConfigItem config)
+        {
+            if (config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
+            {
+                config.Modifiers.Transformation.Active = SubstringTransformationCheckBox.Checked;
+            }
+            else
+            {
+                config.Modifiers.Transformation.Active = TransformationCheckBox.Checked;
+            }
+
+            // TODO: refactor this conditional stuff.
+            config.Modifiers.Transformation.Expression = TransformTextBox.Text;
+
             if (SubStringFromTextBox.Text != "")
                 config.Modifiers.Transformation.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
             if (SubStringToTextBox.Text != "")
