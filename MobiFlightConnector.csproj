@@ -294,6 +294,7 @@
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
     <Compile Include="MobiFlight\Modifier\Padding.cs" />
+    <Compile Include="MobiFlight\Modifier\Substring.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
@@ -544,6 +545,12 @@
     </Compile>
     <Compile Include="UI\Panels\Modifier\PaddingModifierPanel.Designer.cs">
       <DependentUpon>PaddingModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\SubstringModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\SubstringModifierPanel.Designer.cs">
+      <DependentUpon>SubstringModifierPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Modifier\TransformModifierPanel.cs">
       <SubType>UserControl</SubType>
@@ -1259,6 +1266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\PaddingModifierPanel.resx">
       <DependentUpon>PaddingModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\SubstringModifierPanel.resx">
+      <DependentUpon>SubstringModifierPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\TransformModifierPanel.resx">
       <DependentUpon>TransformModifierPanel.cs</DependentUpon>

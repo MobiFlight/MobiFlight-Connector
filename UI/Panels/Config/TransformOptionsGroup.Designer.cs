@@ -42,6 +42,7 @@ namespace MobiFlight.UI.Panels.Config
             this.MultiplyPanel = new System.Windows.Forms.Panel();
             this.TransformationCheckBox = new System.Windows.Forms.CheckBox();
             this.TransformTextBox = new System.Windows.Forms.TextBox();
+            this.ValuePlaceholderLabel = new System.Windows.Forms.Label();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
             this.ValuePanel.SuspendLayout();
             this.SubstringPanel.SuspendLayout();
@@ -57,12 +58,13 @@ namespace MobiFlight.UI.Panels.Config
             this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
             this.fsuipcMoreOptionsGroupBox.TabStop = false;
             // 
-            // valuePanel
+            // ValuePanel
             // 
-            resources.ApplyResources(this.ValuePanel, "valuePanel");
+            resources.ApplyResources(this.ValuePanel, "ValuePanel");
+            this.ValuePanel.Controls.Add(this.ValuePlaceholderLabel);
             this.ValuePanel.Controls.Add(this.label5);
             this.ValuePanel.Controls.Add(this.fsuipcValueTextBox);
-            this.ValuePanel.Name = "valuePanel";
+            this.ValuePanel.Name = "ValuePanel";
             // 
             // label5
             // 
@@ -106,12 +108,12 @@ namespace MobiFlight.UI.Panels.Config
             resources.ApplyResources(this.SubStringFromTextBox, "SubStringFromTextBox");
             this.SubStringFromTextBox.Name = "SubStringFromTextBox";
             // 
-            // multiplyPanel
+            // MultiplyPanel
             // 
-            resources.ApplyResources(this.MultiplyPanel, "multiplyPanel");
+            resources.ApplyResources(this.MultiplyPanel, "MultiplyPanel");
             this.MultiplyPanel.Controls.Add(this.TransformationCheckBox);
             this.MultiplyPanel.Controls.Add(this.TransformTextBox);
-            this.MultiplyPanel.Name = "multiplyPanel";
+            this.MultiplyPanel.Name = "MultiplyPanel";
             // 
             // TransformationCheckBox
             // 
@@ -122,10 +124,15 @@ namespace MobiFlight.UI.Panels.Config
             this.TransformationCheckBox.UseVisualStyleBackColor = true;
             this.TransformationCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // fsuipcMultiplyTextBox
+            // TransformTextBox
             // 
-            resources.ApplyResources(this.TransformTextBox, "fsuipcMultiplyTextBox");
-            this.TransformTextBox.Name = "fsuipcMultiplyTextBox";
+            resources.ApplyResources(this.TransformTextBox, "TransformTextBox");
+            this.TransformTextBox.Name = "TransformTextBox";
+            // 
+            // ValuePlaceholderLabel
+            // 
+            resources.ApplyResources(this.ValuePlaceholderLabel, "ValuePlaceholderLabel");
+            this.ValuePlaceholderLabel.Name = "ValuePlaceholderLabel";
             // 
             // TransformOptionsGroup
             // 
@@ -160,5 +167,6 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.Panel MultiplyPanel;
         private System.Windows.Forms.CheckBox TransformationCheckBox;
         private System.Windows.Forms.TextBox TransformTextBox;
+        private System.Windows.Forms.Label ValuePlaceholderLabel;
     }
 }

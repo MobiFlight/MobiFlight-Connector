@@ -24,7 +24,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(o.FSUIPC.Size, 1, "FSUIPCSize not correct");
             Assert.AreEqual(o.FSUIPC.BcdMode, false, "Not correct");
             Assert.AreEqual(o.Value, "", "Value not correct");
-            Assert.IsNotNull(o.Transform, "Transform not initialized");
+            Assert.IsNotNull(o.Modifiers.Transformation, "Transform not initialized");
         }
 
         [TestMethod()]
@@ -40,7 +40,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(o.FSUIPC.OffsetType, c.FSUIPC.OffsetType, "FSUIPCOffsetType are not the same");
             Assert.AreEqual(o.FSUIPC.Size, c.FSUIPC.Size, "FSUIPCSize are not the same");
             Assert.AreEqual(o.Value, c.Value, "Value are not the same");
-            Assert.AreEqual(o.Transform.Expression, c.Transform.Expression, "Value are not the same");
+            Assert.AreEqual(o.Modifiers.Transformation.Expression, c.Modifiers.Transformation.Expression, "Value are not the same");
         }
 
         private FsuipcOffsetInputAction generateTestObject()
@@ -52,7 +52,7 @@ namespace MobiFlight.InputConfig.Tests
             o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
             o.FSUIPC.Size = 2;
             o.Value = "$+1";
-            o.Transform.Expression = "$*1";
+            o.Modifiers.Transformation.Expression = "$*1";
             return o;
         }
 
