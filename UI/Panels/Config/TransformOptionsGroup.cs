@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class TransformOptionsGroup : UserControl
     {
+        public event EventHandler ModifyTabLink;
         protected Boolean PanelMode = true;
 
         public TransformOptionsGroup()
@@ -38,11 +39,6 @@ namespace MobiFlight.UI.Panels.Config
             MultiplyPanel.Visible = visible;
         }
 
-        public void ShowSubStringPanel(bool visible)
-        {
-            SubstringPanel.Visible = visible;
-        }
-
         public void ShowValuePanel(bool visible)
         {
             ValuePanel.Visible = visible;
@@ -56,28 +52,7 @@ namespace MobiFlight.UI.Panels.Config
                 return;
             }
 
-            // multiplier
-            if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-             || (config.SourceType == SourceType.VARIABLE && config.MobiFlightVariable.TYPE == "string")
-                
-                )
-            {
-                TransformationCheckBox.Checked = false;
-                SubstringTransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
-            }
-            else
-            {
-                TransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
-                SubstringTransformationCheckBox.Checked = false;
-                
-            }
-
-            TransformTextBox.Text = config.Modifiers.Transformation.Expression;
             fsuipcValueTextBox.Text = config.Value;
-
-            // substring panel
-            SubStringFromTextBox.Text = config.Modifiers.Transformation.SubStrStart.ToString();
-            SubStringToTextBox.Text = config.Modifiers.Transformation.SubStrEnd.ToString();
         }
 
         internal void syncFromConfig(IFsuipcConfigItem config)
@@ -87,76 +62,22 @@ namespace MobiFlight.UI.Panels.Config
                 // this happens when casting badly
                 return;
             }
-
-            // multiplier
-            if (config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-            {
-                TransformationCheckBox.Checked = false;
-                SubstringTransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
-            }
-            else
-            {
-                TransformationCheckBox.Checked = config.Modifiers.Transformation.Active;
-                SubstringTransformationCheckBox.Checked = false;
-
-            }
-
-            TransformTextBox.Text = config.Modifiers.Transformation.Expression;
             fsuipcValueTextBox.Text = config.Value;
-
-            // substring panel
-            SubStringFromTextBox.Text = config.Modifiers.Transformation.SubStrStart.ToString();
-            SubStringToTextBox.Text = config.Modifiers.Transformation.SubStrEnd.ToString();
         }
 
         internal void syncToConfig(OutputConfigItem config)
         {
-            if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-             || (config.SourceType == SourceType.VARIABLE && config.MobiFlightVariable.TYPE == "string")
-
-                )
-            {
-                config.Modifiers.Transformation.Active = SubstringTransformationCheckBox.Checked;
-            }
-            else
-            {
-                config.Modifiers.Transformation.Active = TransformationCheckBox.Checked;
-            }
-
-            // TODO: refactor this conditional stuff.
-            config.Modifiers.Transformation.Expression = TransformTextBox.Text;
-            
-            if (SubStringFromTextBox.Text != "")
-                config.Modifiers.Transformation.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
-            if (SubStringToTextBox.Text != "")
-                config.Modifiers.Transformation.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             config.Value = fsuipcValueTextBox.Text;
         }
 
         internal void syncToConfig(IFsuipcConfigItem config)
         {
-            if (config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-            {
-                config.Modifiers.Transformation.Active = SubstringTransformationCheckBox.Checked;
-            }
-            else
-            {
-                config.Modifiers.Transformation.Active = TransformationCheckBox.Checked;
-            }
-
-            // TODO: refactor this conditional stuff.
-            config.Modifiers.Transformation.Expression = TransformTextBox.Text;
-
-            if (SubStringFromTextBox.Text != "")
-                config.Modifiers.Transformation.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
-            if (SubStringToTextBox.Text != "")
-                config.Modifiers.Transformation.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             config.Value = fsuipcValueTextBox.Text;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
-            TransformTextBox.Enabled = (sender as CheckBox).Checked;
+            ModifyTabLink?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -217,7 +217,7 @@
     <value>Top</value>
   </data>
   <data name="ValuePanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 65</value>
+    <value>3, 41</value>
   </data>
   <data name="ValuePanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>344, 62</value>
@@ -237,199 +237,76 @@
   <data name="&gt;&gt;ValuePanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="SubstringPanel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 4</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 0, 0</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 18</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>21</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.Text" xml:space="preserve">
-    <value>Substring from</value>
-  </data>
-  <data name="SubstringTransformationCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.Name" xml:space="preserve">
-    <value>SubstringTransformationCheckBox</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubstringTransformationCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="SubStringToTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>189, 2</value>
-  </data>
-  <data name="SubStringToTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>52, 20</value>
-  </data>
-  <data name="SubStringToTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.Name" xml:space="preserve">
-    <value>SubStringToTextBox</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubStringToTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SubStringToLabel.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="SubStringToLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="SubStringToLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 5</value>
-  </data>
-  <data name="SubStringToLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>26, 13</value>
-  </data>
-  <data name="SubStringToLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>19</value>
-  </data>
-  <data name="SubStringToLabel.Text" xml:space="preserve">
-    <value>to</value>
-  </data>
-  <data name="SubStringToLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.Name" xml:space="preserve">
-    <value>SubStringToLabel</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubStringToLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="SubStringFromTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 2</value>
-  </data>
-  <data name="SubStringFromTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>49, 20</value>
-  </data>
-  <data name="SubStringFromTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.Name" xml:space="preserve">
-    <value>SubStringFromTextBox</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.Parent" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubStringFromTextBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="SubstringPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="SubstringPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 40</value>
-  </data>
-  <data name="SubstringPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 25</value>
-  </data>
-  <data name="SubstringPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.Name" xml:space="preserve">
-    <value>SubstringPanel</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.Parent" xml:space="preserve">
-    <value>fsuipcMoreOptionsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;SubstringPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="MultiplyPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="MultiplyPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="TransformationCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="TransformationCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="TransformationCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>102, 18</value>
-  </data>
-  <data name="TransformationCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="TransformationCheckBox.Text" xml:space="preserve">
-    <value>Transform</value>
-  </data>
-  <data name="TransformationCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="label2.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;TransformationCheckBox.Name" xml:space="preserve">
-    <value>TransformationCheckBox</value>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;TransformationCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>166, 3</value>
   </data>
-  <data name="&gt;&gt;TransformationCheckBox.Parent" xml:space="preserve">
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 22</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Modify-Tab</value>
+  </data>
+  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
     <value>MultiplyPanel</value>
   </data>
-  <data name="&gt;&gt;TransformationCheckBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="TransformTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
+  <data name="label1.ImageAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="TransformTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>110, 1</value>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="TransformTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>228, 20</value>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>50, 3</value>
   </data>
-  <data name="TransformTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>13</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>183, 22</value>
   </data>
-  <data name="&gt;&gt;TransformTextBox.Name" xml:space="preserve">
-    <value>TransformTextBox</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
   </data>
-  <data name="&gt;&gt;TransformTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Transform has moved to </value>
   </data>
-  <data name="&gt;&gt;TransformTextBox.Parent" xml:space="preserve">
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>MultiplyPanel</value>
   </data>
-  <data name="&gt;&gt;TransformTextBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="MultiplyPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -438,8 +315,11 @@
   <data name="MultiplyPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
   </data>
+  <data name="MultiplyPanel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>0, 20</value>
+  </data>
   <data name="MultiplyPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>344, 24</value>
+    <value>344, 25</value>
   </data>
   <data name="MultiplyPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -454,7 +334,7 @@
     <value>fsuipcMoreOptionsGroupBox</value>
   </data>
   <data name="&gt;&gt;MultiplyPanel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -463,7 +343,7 @@
     <value>0, 0</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 130</value>
+    <value>350, 106</value>
   </data>
   <data name="fsuipcMoreOptionsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
@@ -499,7 +379,7 @@
     <value>350, 0</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 130</value>
+    <value>350, 106</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>TransformOptionsGroup</value>

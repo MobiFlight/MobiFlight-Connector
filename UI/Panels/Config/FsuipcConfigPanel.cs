@@ -15,6 +15,7 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class FsuipcConfigPanel : UserControl
     {
+        public event EventHandler ModifyTabLink;
         public String PresetFile { get; set; }
         ErrorProvider errorProvider = new ErrorProvider();
         protected Boolean OutputPanelMode = true;
@@ -28,6 +29,9 @@ namespace MobiFlight.UI.Panels.Config
             PresetFile = Properties.Settings.Default.PresetFileOutputs;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
+            transformOptionsGroup1.ModifyTabLink += (s, e) => { 
+                ModifyTabLink?.Invoke(this, e);
+            };
         }
 
         public void setMode(bool isOutputPanel)
@@ -169,7 +173,6 @@ namespace MobiFlight.UI.Panels.Config
             fsuipcSizeComboBox.Visible = true;
             maskAndBcdPanel.Visible = true;
             transformOptionsGroup1.ShowMultiplyPanel(true && OutputPanelMode);
-            transformOptionsGroup1.ShowSubStringPanel(false && OutputPanelMode);
 
             if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Integer.ToString())
             {
@@ -212,10 +215,7 @@ namespace MobiFlight.UI.Panels.Config
                 maskAndBcdPanel.Visible = false;
 
                 // multiply doesn't make sense for strings
-                transformOptionsGroup1.ShowMultiplyPanel(false && OutputPanelMode);
-
-                // show the string stuff instead
-                transformOptionsGroup1.ShowSubStringPanel(true && OutputPanelMode);
+                transformOptionsGroup1.ShowMultiplyPanel(true && OutputPanelMode);
             }
         }
 

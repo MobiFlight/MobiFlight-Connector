@@ -1,17 +1,20 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
 {
 
     public partial class SimConnectPanel : UserControl
     {
- 
+        public event EventHandler ModifyTabLink;
         public SimConnectPanel()
         {
             InitializeComponent();
 
             transformOptionsGroup1.setMode(true);
-            transformOptionsGroup1.ShowSubStringPanel(false);
+            transformOptionsGroup1.ModifyTabLink += (s, e) => {
+                ModifyTabLink?.Invoke(this, e);
+            };
 
             HubHopPresetPanel.Mode = Config.HubHopPanelMode.Output;
             HubHopPresetPanel.FlightSimType = FlightSimType.MSFS2020;

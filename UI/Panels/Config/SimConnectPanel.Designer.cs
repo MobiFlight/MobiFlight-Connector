@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
-            this.label2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.label2.Padding = new System.Windows.Forms.Padding(3);
             this.label2.Size = new System.Drawing.Size(598, 26);
             this.label2.TabIndex = 2;
             this.label2.Text = "Define the sim variable name that you would like to read from MSFS2020.";
@@ -64,11 +64,13 @@ namespace MobiFlight.UI.Panels.Config
             // transformOptionsGroup1
             // 
             this.transformOptionsGroup1.AutoSize = true;
+            this.transformOptionsGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Top;
             this.transformOptionsGroup1.Location = new System.Drawing.Point(3, 228);
             this.transformOptionsGroup1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.transformOptionsGroup1.MinimumSize = new System.Drawing.Size(350, 0);
             this.transformOptionsGroup1.Name = "transformOptionsGroup1";
-            this.transformOptionsGroup1.Size = new System.Drawing.Size(598, 93);
+            this.transformOptionsGroup1.Size = new System.Drawing.Size(598, 101);
             this.transformOptionsGroup1.TabIndex = 7;
             // 
             // HubHopPresetPanel
@@ -79,7 +81,7 @@ namespace MobiFlight.UI.Panels.Config
             this.HubHopPresetPanel.FlightSimType = MobiFlight.FlightSimType.NONE;
             this.HubHopPresetPanel.Location = new System.Drawing.Point(3, 42);
             this.HubHopPresetPanel.LVars = ((System.Collections.Generic.List<string>)(resources.GetObject("HubHopPresetPanel.LVars")));
-            this.HubHopPresetPanel.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.HubHopPresetPanel.Margin = new System.Windows.Forms.Padding(1);
             this.HubHopPresetPanel.MinimumSize = new System.Drawing.Size(603, 0);
             this.HubHopPresetPanel.Mode = MobiFlight.UI.Panels.Config.HubHopPanelMode.Output;
             this.HubHopPresetPanel.Name = "HubHopPresetPanel";

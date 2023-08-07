@@ -12,11 +12,15 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class XplaneDataRefPanel : UserControl
     {
+        public event EventHandler ModifyTabLink;
         public XplaneDataRefPanel()
         {
             InitializeComponent();
             transformOptionsGroup1.setMode(true);
-            transformOptionsGroup1.ShowSubStringPanel(false);
+            transformOptionsGroup1.ModifyTabLink += (s, e) => {
+                ModifyTabLink?.Invoke(this, e);
+            };
+
             hubHopPresetPanel1.PresetFile = @"Presets\xplane_hubhop_presets.json";
             hubHopPresetPanel1.Mode = HubHopPanelMode.Output;
             hubHopPresetPanel1.FlightSimType = FlightSimType.XPLANE;

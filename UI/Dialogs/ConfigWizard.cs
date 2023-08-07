@@ -116,6 +116,16 @@ namespace MobiFlight.UI.Dialogs
             // SIMCONNECT SIMVARS PANEL
             simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
             _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
+
+            fsuipcConfigPanel.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+        }
+
+        private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)
+        {
+            tabControlFsuipc.SelectedTab = compareTabPage;
         }
 
         private void ActivateCorrectTab(OutputConfigItem cfg)
