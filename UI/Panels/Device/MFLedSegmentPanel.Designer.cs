@@ -188,13 +188,9 @@
             // 
             this.mfDisplayTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfDisplayTypeComboBox.FormattingEnabled = true;
-            this.mfDisplayTypeComboBox.Items.AddRange(new object[] {
-            resources.GetString("mfDisplayTypeComboBox.Items"),
-            resources.GetString("mfDisplayTypeComboBox.Items1"),
-            resources.GetString("mfDisplayTypeComboBox.Items2")});
             resources.ApplyResources(this.mfDisplayTypeComboBox, "mfDisplayTypeComboBox");
             this.mfDisplayTypeComboBox.Name = "mfDisplayTypeComboBox";
-            this.mfDisplayTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.mfDisplayTypeComboBox_SelectedIndexChanged);
+            this.mfDisplayTypeComboBox.SelectedValueChanged += new System.EventHandler(this.mfDisplayTypeComboBox_SelectedValueChanged);
             // 
             // MFLedSegmentPanel
             // 

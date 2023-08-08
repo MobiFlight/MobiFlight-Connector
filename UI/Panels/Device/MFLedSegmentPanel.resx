@@ -681,15 +681,6 @@
   <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="mfDisplayTypeComboBox.Items" xml:space="preserve">
-    <value>MAX72xx</value>
-  </data>
-  <data name="mfDisplayTypeComboBox.Items1" xml:space="preserve">
-    <value>TM1637-4Digit</value>
-  </data>
-  <data name="mfDisplayTypeComboBox.Items2" xml:space="preserve">
-    <value>TM1637-6Digit</value>
-  </data>
   <data name="mfDisplayTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 27</value>
   </data>
