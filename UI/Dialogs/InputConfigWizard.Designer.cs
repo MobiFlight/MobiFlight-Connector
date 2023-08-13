@@ -31,10 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputConfigWizard));
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
-            this.preconditionTabPage = new System.Windows.Forms.TabPage();
-            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
-            this.configRefTabPage = new System.Windows.Forms.TabPage();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.groupBoxInputSettings = new System.Windows.Forms.GroupBox();
             this.displayTypeGroupBox = new System.Windows.Forms.GroupBox();
@@ -46,19 +42,23 @@
             this.inputTypeComboBoxLabel = new System.Windows.Forms.Label();
             this.inputTypeComboBox = new System.Windows.Forms.ComboBox();
             this.displayTabTextBox = new System.Windows.Forms.TextBox();
+            this.preconditionTabPage = new System.Windows.Forms.TabPage();
+            this.configRefTabPage = new System.Windows.Forms.TabPage();
             this.ButtonPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
+            this.preconditionPanel = new MobiFlight.UI.Panels.Config.PreconditionPanel();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.settingsColumn = new System.Data.DataColumn();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
-            this.preconditionTabPage.SuspendLayout();
-            this.configRefTabPage.SuspendLayout();
             this.displayTabPage.SuspendLayout();
             this.displayTypeGroupBox.SuspendLayout();
+            this.preconditionTabPage.SuspendLayout();
+            this.configRefTabPage.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
@@ -79,30 +79,6 @@
             this.tabControlFsuipc.Name = "tabControlFsuipc";
             this.tabControlFsuipc.SelectedIndex = 0;
             this.tabControlFsuipc.SelectedIndexChanged += new System.EventHandler(this.tabControlFsuipc_SelectedIndexChanged);
-            // 
-            // preconditionTabPage
-            // 
-            this.preconditionTabPage.Controls.Add(this.preconditionPanel);
-            resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
-            this.preconditionTabPage.Name = "preconditionTabPage";
-            this.preconditionTabPage.UseVisualStyleBackColor = true;
-            // 
-            // preconditionPanel
-            // 
-            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
-            this.preconditionPanel.Name = "preconditionPanel";
-            // 
-            // configRefTabPage
-            // 
-            this.configRefTabPage.Controls.Add(this.configRefPanel);
-            resources.ApplyResources(this.configRefTabPage, "configRefTabPage");
-            this.configRefTabPage.Name = "configRefTabPage";
-            this.configRefTabPage.UseVisualStyleBackColor = true;
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // displayTabPage
             // 
@@ -179,10 +155,6 @@
             this.inputTypeComboBox.DisplayMember = "Name";
             this.inputTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.inputTypeComboBox.FormattingEnabled = true;
-            this.inputTypeComboBox.Items.AddRange(new object[] {
-            resources.GetString("inputTypeComboBox.Items"),
-            resources.GetString("inputTypeComboBox.Items1"),
-            resources.GetString("inputTypeComboBox.Items2")});
             resources.ApplyResources(this.inputTypeComboBox, "inputTypeComboBox");
             this.inputTypeComboBox.Name = "inputTypeComboBox";
             this.inputTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.inputTypeComboBox_SelectedIndexChanged);
@@ -196,6 +168,20 @@
             this.displayTabTextBox.Name = "displayTabTextBox";
             this.displayTabTextBox.ReadOnly = true;
             this.displayTabTextBox.TabStop = false;
+            // 
+            // preconditionTabPage
+            // 
+            this.preconditionTabPage.Controls.Add(this.preconditionPanel);
+            resources.ApplyResources(this.preconditionTabPage, "preconditionTabPage");
+            this.preconditionTabPage.Name = "preconditionTabPage";
+            this.preconditionTabPage.UseVisualStyleBackColor = true;
+            // 
+            // configRefTabPage
+            // 
+            this.configRefTabPage.Controls.Add(this.configRefPanel);
+            resources.ApplyResources(this.configRefTabPage, "configRefTabPage");
+            this.configRefTabPage.Name = "configRefTabPage";
+            this.configRefTabPage.UseVisualStyleBackColor = true;
             // 
             // ButtonPanel
             // 
@@ -236,6 +222,16 @@
             // 
             this.description.ColumnName = "description";
             // 
+            // preconditionPanel
+            // 
+            resources.ApplyResources(this.preconditionPanel, "preconditionPanel");
+            this.preconditionPanel.Name = "preconditionPanel";
+            // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
@@ -258,11 +254,11 @@
             this.Shown += new System.EventHandler(this.InputConfigWizard_Shown);
             this.MainPanel.ResumeLayout(false);
             this.tabControlFsuipc.ResumeLayout(false);
-            this.preconditionTabPage.ResumeLayout(false);
-            this.configRefTabPage.ResumeLayout(false);
             this.displayTabPage.ResumeLayout(false);
             this.displayTabPage.PerformLayout();
             this.displayTypeGroupBox.ResumeLayout(false);
+            this.preconditionTabPage.ResumeLayout(false);
+            this.configRefTabPage.ResumeLayout(false);
             this.ButtonPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();

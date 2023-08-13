@@ -1,21 +1,16 @@
-﻿using System;
+﻿using MobiFlight.Config;
+using System;
 using System.Collections.Generic;
 
 namespace MobiFlight
 {
-    public class MidiBoardDevice
+    public class MidiBoardDevice : IBaseDevice
     {
-        public String Name;
-        public String Label;
+        public DeviceType Type { get; set; }
+        public String Name { get; set; }
+        public String Label { get; set; }
         public String Layer;
-        public DeviceType Type;
         public List<MidiBoardOutputDevice> RelatedOutputDevices = new List<MidiBoardOutputDevice>();
-
-        // Used to find MidiBoardDevice for corresponding config
-        public override string ToString()
-        {
-            return Name;
-        }
     }
 
     public class MidiBoardOutputDevice : MidiBoardDevice
