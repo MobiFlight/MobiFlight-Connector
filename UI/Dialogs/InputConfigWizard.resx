@@ -318,15 +318,6 @@
   <data name="&gt;&gt;inputTypeComboBoxLabel.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="inputTypeComboBox.Items" xml:space="preserve">
-    <value>Pin</value>
-  </data>
-  <data name="inputTypeComboBox.Items1" xml:space="preserve">
-    <value>Display Module</value>
-  </data>
-  <data name="inputTypeComboBox.Items2" xml:space="preserve">
-    <value>BCD4056</value>
-  </data>
   <data name="inputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>98, 45</value>
   </data>
@@ -830,6 +821,9 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

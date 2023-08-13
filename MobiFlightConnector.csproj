@@ -247,6 +247,7 @@
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
+    <Compile Include="MobiFlight\Config\IBaseDevice.cs" />
     <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
     <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
@@ -264,6 +265,8 @@
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickDevice.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickDeviceType.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickManager.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinition.cs" />

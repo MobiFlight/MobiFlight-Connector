@@ -5,11 +5,9 @@ using System.Text;
 
 namespace MobiFlight.Config
 {
-    public interface IConfigItem
+    public interface IConfigItem : IBaseDevice
     {
         bool FromInternal(String value);
-        DeviceType Type { get; }
-        String Name { get; }
         bool isMuxClient { get; }
         String ToInternal();
     }

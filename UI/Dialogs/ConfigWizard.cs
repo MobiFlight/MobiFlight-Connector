@@ -1,16 +1,9 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
-using MobiFlight.Base;
-using MobiFlight.UI.Forms;
-using MobiFlight.UI.Panels.Config;
-using MobiFlight.UI.Panels.OutputWizard;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -216,7 +209,7 @@ namespace MobiFlight.UI.Dialogs
         {
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                if (joystick.GetAvailableOutputDevices().Count == 0) continue;
+                if (joystick.GetAvailableOutputDevicesAsListItems().Count == 0) continue;
 
                 DisplayModuleList.Add(new ListItem()
                 {

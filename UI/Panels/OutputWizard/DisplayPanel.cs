@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace MobiFlight.UI.Panels.OutputWizard
 {
@@ -368,10 +367,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // before config is loaded
                 if (config == null) return;
                 config.DisplaySerial = rawSerial;
-
+            
                 // third tab
                 if (config.DisplayType != null &&
-                    !ComboBoxHelper.SetSelectedItem(displayTypeComboBox, config.DisplayType))
+                    !ComboBoxHelper.SetSelectedItemByValue(displayTypeComboBox, config.DisplayType))
                 {
                     Log.Instance.log($"Trying to show config but display type {config.DisplayType} not present.", LogSeverity.Error);
                 }
@@ -437,7 +436,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayPinPanel.displayPinBrightnessPanel.Enabled = false;
 
             List<ListItem> outputs = new List<ListItem>();
-            foreach (var device in joystick.GetAvailableOutputDevices())
+            foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
                 outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
 
             displayPinPanel.WideStyle = true;
