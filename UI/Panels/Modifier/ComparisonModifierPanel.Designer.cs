@@ -52,49 +52,49 @@
             this.comparisonSettingsPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comparisonSettingsPanel.Location = new System.Drawing.Point(0, 0);
             this.comparisonSettingsPanel.Name = "comparisonSettingsPanel";
-            this.comparisonSettingsPanel.Size = new System.Drawing.Size(400, 84);
+            this.comparisonSettingsPanel.Size = new System.Drawing.Size(400, 49);
             this.comparisonSettingsPanel.TabIndex = 9;
             // 
             // comparisonValueTextBox
             // 
-            this.comparisonValueTextBox.Location = new System.Drawing.Point(171, 7);
+            this.comparisonValueTextBox.Location = new System.Drawing.Point(142, 4);
             this.comparisonValueTextBox.Name = "comparisonValueTextBox";
             this.comparisonValueTextBox.Size = new System.Drawing.Size(100, 20);
             this.comparisonValueTextBox.TabIndex = 16;
             // 
             // comparisonElseValueTextBox
             // 
-            this.comparisonElseValueTextBox.Location = new System.Drawing.Point(171, 61);
+            this.comparisonElseValueTextBox.Location = new System.Drawing.Point(295, 26);
             this.comparisonElseValueTextBox.Name = "comparisonElseValueTextBox";
             this.comparisonElseValueTextBox.Size = new System.Drawing.Size(100, 20);
             this.comparisonElseValueTextBox.TabIndex = 19;
             // 
             // label8
             // 
-            this.label8.AutoSize = true;
             this.label8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label8.Location = new System.Drawing.Point(104, 64);
+            this.label8.Location = new System.Drawing.Point(226, 29);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(63, 13);
             this.label8.TabIndex = 18;
-            this.label8.Text = "else set it to";
+            this.label8.Text = "else";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comparisonIfValueTextBox
             // 
-            this.comparisonIfValueTextBox.Location = new System.Drawing.Point(171, 35);
+            this.comparisonIfValueTextBox.Location = new System.Drawing.Point(295, 4);
             this.comparisonIfValueTextBox.Name = "comparisonIfValueTextBox";
             this.comparisonIfValueTextBox.Size = new System.Drawing.Size(100, 20);
             this.comparisonIfValueTextBox.TabIndex = 17;
             // 
             // label7
             // 
-            this.label7.AutoSize = true;
             this.label7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label7.Location = new System.Drawing.Point(126, 38);
+            this.label7.Location = new System.Drawing.Point(248, 7);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 15;
             this.label7.Text = "set it to";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // comparisonOperandComboBox
             // 
@@ -107,7 +107,7 @@
             "<=",
             "<",
             "!="});
-            this.comparisonOperandComboBox.Location = new System.Drawing.Point(126, 6);
+            this.comparisonOperandComboBox.Location = new System.Drawing.Point(97, 3);
             this.comparisonOperandComboBox.Name = "comparisonOperandComboBox";
             this.comparisonOperandComboBox.Size = new System.Drawing.Size(39, 21);
             this.comparisonOperandComboBox.TabIndex = 14;
@@ -116,7 +116,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label6.Location = new System.Drawing.Point(32, 9);
+            this.label6.Location = new System.Drawing.Point(3, 6);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(88, 13);
             this.label6.TabIndex = 13;
@@ -132,7 +132,7 @@
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 0);
             this.Name = "ComparisonModifierPanel";
-            this.Size = new System.Drawing.Size(400, 84);
+            this.Size = new System.Drawing.Size(400, 49);
             this.comparisonSettingsPanel.ResumeLayout(false);
             this.comparisonSettingsPanel.PerformLayout();
             this.ResumeLayout(false);

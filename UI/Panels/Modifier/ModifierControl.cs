@@ -150,6 +150,7 @@ namespace MobiFlight.UI.Panels.Modifier
         private void Panel_ModifierChanged(object sender, EventArgs e)
         {
             _modifier = (sender as IModifierConfigPanel)?.toConfig();
+            ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public ModifierBase toConfig() { 

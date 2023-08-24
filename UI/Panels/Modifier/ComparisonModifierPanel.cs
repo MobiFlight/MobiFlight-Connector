@@ -27,9 +27,6 @@ namespace MobiFlight.UI.Panels.Modifier
 
             comparisonElseValueTextBox.TextChanged += control_Leave;
             comparisonElseValueTextBox.Leave += control_Leave;
-
-            //comparisonActiveCheckBox.CheckedChanged += control_Leave;
-            //comparisonActiveCheckBox.Leave += control_Leave;
         }
 
         public void fromConfig(ModifierBase c)
@@ -37,9 +34,6 @@ namespace MobiFlight.UI.Panels.Modifier
             var config = c as Comparison;
             if (config == null) return;
 
-
-            // second tab
-            // comparisonActiveCheckBox.Checked = config.Active;
             comparisonValueTextBox.Text = (config as Comparison).Value;
 
             if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.Operand))
@@ -66,7 +60,7 @@ namespace MobiFlight.UI.Panels.Modifier
 
         private void control_Leave(object sender, EventArgs e)
         {
-            ModifierChanged?.Invoke(this, EventArgs.Empty);
+                ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

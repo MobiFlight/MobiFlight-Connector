@@ -522,6 +522,12 @@
     <Compile Include="UI\Panels\Modifier\BlinkModifierPanel.Designer.cs">
       <DependentUpon>BlinkModifierPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Modifier\BlinkModifier\BlinkSequencePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\BlinkModifier\BlinkSequencePanel.Designer.cs">
+      <DependentUpon>BlinkSequencePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Modifier\ComparisonModifierPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1254,6 +1260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\BlinkModifierPanel.resx">
       <DependentUpon>BlinkModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\BlinkModifier\BlinkSequencePanel.resx">
+      <DependentUpon>BlinkSequencePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\ComparisonModifierPanel.resx">
       <DependentUpon>ComparisonModifierPanel.cs</DependentUpon>

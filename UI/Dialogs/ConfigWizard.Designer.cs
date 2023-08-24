@@ -32,8 +32,6 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
-            this.referencesGroupBox = new System.Windows.Forms.GroupBox();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.variablePanel1 = new MobiFlight.UI.Panels.Config.VariablePanel();
             this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
@@ -48,6 +46,8 @@
             this.OffsetTypeXplaneRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.modifierPanel1 = new MobiFlight.UI.Panels.OutputWizard.ModifierPanel();
+            this.referencesGroupBox = new System.Windows.Forms.GroupBox();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.displayPanel1 = new MobiFlight.UI.Panels.OutputWizard.DisplayPanel();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
@@ -62,10 +62,10 @@
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
-            this.referencesGroupBox.SuspendLayout();
             this.FsuipcSettingsPanel.SuspendLayout();
             this.OffsetTypePanel.SuspendLayout();
             this.compareTabPage.SuspendLayout();
+            this.referencesGroupBox.SuspendLayout();
             this.displayTabPage.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
@@ -100,18 +100,6 @@
             resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
-            // 
-            // referencesGroupBox
-            // 
-            this.referencesGroupBox.Controls.Add(this.configRefPanel);
-            resources.ApplyResources(this.referencesGroupBox, "referencesGroupBox");
-            this.referencesGroupBox.Name = "referencesGroupBox";
-            this.referencesGroupBox.TabStop = false;
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // xplaneDataRefPanel1
             // 
@@ -206,6 +194,18 @@
             resources.ApplyResources(this.modifierPanel1, "modifierPanel1");
             this.modifierPanel1.Name = "modifierPanel1";
             // 
+            // referencesGroupBox
+            // 
+            this.referencesGroupBox.Controls.Add(this.configRefPanel);
+            resources.ApplyResources(this.referencesGroupBox, "referencesGroupBox");
+            this.referencesGroupBox.Name = "referencesGroupBox";
+            this.referencesGroupBox.TabStop = false;
+            // 
+            // configRefPanel
+            // 
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
+            // 
             // displayTabPage
             // 
             this.displayTabPage.Controls.Add(this.displayPanel1);
@@ -292,11 +292,11 @@
             this.tabControlFsuipc.ResumeLayout(false);
             this.fsuipcTabPage.ResumeLayout(false);
             this.fsuipcTabPage.PerformLayout();
-            this.referencesGroupBox.ResumeLayout(false);
             this.FsuipcSettingsPanel.ResumeLayout(false);
             this.OffsetTypePanel.ResumeLayout(false);
             this.OffsetTypePanel.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
+            this.referencesGroupBox.ResumeLayout(false);
             this.displayTabPage.ResumeLayout(false);
             this.preconditionTabPage.ResumeLayout(false);
             this.ButtonPanel.ResumeLayout(false);

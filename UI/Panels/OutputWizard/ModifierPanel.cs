@@ -1,18 +1,15 @@
-﻿using MobiFlight.Config;
-using MobiFlight.Modifier;
+﻿using MobiFlight.Modifier;
 using MobiFlight.UI.Panels.Modifier;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Web.UI.WebControls;
 using System.Windows.Forms;
-using System.Xaml;
 
 namespace MobiFlight.UI.Panels.OutputWizard
 {
     public partial class ModifierPanel : UserControl
     {
-        ModifierList modifierList;
+        ModifierList modifierList = new ModifierList();
 
         public ModifierPanel()
         {
@@ -23,11 +20,26 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public void Init()
         {
             modifierListPanel.Controls.Clear();
+            List<ListItem> list = new List<ListItem>() {
+                new ListItem() { Value = FSUIPCOffsetType.Float.ToString(), Label = "Number" },
+                new ListItem() { Value = FSUIPCOffsetType.String.ToString(), Label = "String" },
+            };
+            comboBoxTestValueType.DataSource = list;
+            comboBoxTestValueType.ValueMember = "Value";
+            comboBoxTestValueType.DisplayMember = "Label";
+            comboBoxTestValueType.SelectedIndex = 0;
         }
 
         public void fromConfig(OutputConfigItem config)
         {
-            modifierList = config.Modifiers;
+            modifierList = config.Modifiers.Clone() as ModifierList;
+            UpdateControls();
+        }
+
+        public void UpdateModifier(ModifierBase modifier)
+        {
+            modifierList.Items?.Clear();
+            modifierList.Items.Add(modifier);
             UpdateControls();
         }
 
@@ -53,6 +65,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             panel.ModifierMovedDown += Panel_ModifierMovedDown;
             panel.ModifierMovedUp += Panel_ModifierMovedUp;
             panel.ModifierRemoved += Panel_ModifierRemoved;
+            panel.ModifierChanged += Panel_ModifierChanged;
             panel.Dock = DockStyle.Top;
             panel.Last = (i == modifierList.Items.Count - 1);
             panel.First = (i == 0);
@@ -67,6 +80,17 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 controlList.SetChildIndex(panel, 0);
             }
             modifierListPanel.ResumeLayout();
+        }
+
+        private void Panel_ModifierChanged(object sender, EventArgs e)
+        {
+            // sender is the panel
+            if (sender as ModifierControl == null) return;
+            ModifierControl panel = (ModifierControl)sender;
+
+            var index = modifierListPanel.Controls.GetChildIndex(panel);
+            var count = modifierList.Items.Count;
+            modifierList.Items[count - index - 1] = panel.Modifier;
         }
 
         private void UpdateArrows()
@@ -157,6 +181,31 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             contextMenuStrip1.ShowImageMargin = false;
             contextMenuStrip1.Show(button1, new Point(0, button1.Height));
+        }
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            var result = new ConnectorValue();
+            if (comboBoxTestValueType.SelectedItem == null) return;
+
+            string type = (comboBoxTestValueType.SelectedItem as ListItem).Value;
+
+            if (type == FSUIPCOffsetType.Float.ToString())
+            {
+                if (!double.TryParse(textBoxTestValue.Text, out result.Float64))
+                {
+                    return;
+                };
+                result.type = FSUIPCOffsetType.Float;
+            } else if (type == FSUIPCOffsetType.String.ToString())
+            {
+                result.type = FSUIPCOffsetType.String;
+                result.String = textBoxTestValue.Text;
+            }
+
+            modifierList.Items.ForEach(item => { result = item.Apply(result, new List<ConfigRefValue>()); });
+
+            labelTestResultValue.Text = result.ToString();
         }
     }
 }

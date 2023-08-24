@@ -68,6 +68,7 @@ namespace MobiFlight.Modifier
             if (FirstExecutionTime == 0) FirstExecutionTime = DateTime.Now.Ticks;
 
             var Now = DateTime.Now.Ticks - FirstExecutionTime;
+            if (Now == 0) Now = 1;
             Now /= 10000;
             Now %= (OnOffSequence.Sum());
 

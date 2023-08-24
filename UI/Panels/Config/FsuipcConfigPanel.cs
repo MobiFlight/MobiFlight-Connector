@@ -16,9 +16,20 @@ namespace MobiFlight.UI.Panels.Config
     public partial class FsuipcConfigPanel : UserControl
     {
         public event EventHandler ModifyTabLink;
+        public event EventHandler ModifierChanged;
         public String PresetFile { get; set; }
         ErrorProvider errorProvider = new ErrorProvider();
         protected Boolean OutputPanelMode = true;
+
+        private Transformation _modifier = null;
+        public Transformation Modifier
+        {
+            get { return _modifier; }
+            set { 
+                _modifier = value;
+                ModifierChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
         public FsuipcConfigPanel()
         {
@@ -255,6 +266,11 @@ namespace MobiFlight.UI.Panels.Config
 
             transformOptionsGroup1.syncFromConfig(config);
 
+            if (config.Modifiers.Items.Count > 0 && config.Modifiers.Transformation != null)
+            {
+                Modifier = config.Modifiers.Transformation;
+            }
+
             foreach (DataRow row in presetDataTable.Rows)
             {
                 if ((row["settings"] as IFsuipcConfigItem).FSUIPC.Offset == config.FSUIPC.Offset &&
@@ -291,6 +307,11 @@ namespace MobiFlight.UI.Panels.Config
 
             config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             transformOptionsGroup1.syncToConfig(config);
+
+            if (Modifier!=null)
+            {
+                config.Modifiers.Items.Add(Modifier);
+            }
         }
 
         internal InputConfig.InputAction ToConfig()
