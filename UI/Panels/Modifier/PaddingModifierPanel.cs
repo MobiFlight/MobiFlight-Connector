@@ -62,7 +62,7 @@ namespace MobiFlight.UI.Panels.Modifier
             {
                 Active = true,
                 Direction = (Padding.PaddingDirection)comboBox1.SelectedValue,
-                Character = textBoxCharacter.Text[0],
+                Character = textBoxCharacter.Text.Length > 0 ? textBoxCharacter.Text[0] : '0',
                 Length = length
             };
         }
