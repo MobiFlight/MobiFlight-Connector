@@ -56,8 +56,7 @@ namespace MobiFlight.UI.Panels.Modifier
         }
 
         public ModifierBase toConfig () {
-            int length = 5;
-            int.TryParse(textBoxLength.Text, out length);
+            int.TryParse(textBoxLength.Text, out int length);
 
             return new Padding()
             {
