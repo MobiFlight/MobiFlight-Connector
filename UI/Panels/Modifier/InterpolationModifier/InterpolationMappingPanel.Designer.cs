@@ -69,10 +69,10 @@
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(217, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 21);
+            this.button1.Size = new System.Drawing.Size(21, 21);
             this.button1.TabIndex = 11;
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = true;

@@ -37,7 +37,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(3, 6);
+            this.label1.Location = new System.Drawing.Point(3, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 1;
@@ -47,7 +47,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(125, 6);
+            this.label2.Location = new System.Drawing.Point(81, 2);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(113, 13);
             this.label2.TabIndex = 3;
@@ -55,7 +55,8 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(350, 0);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(350, 15);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(47, 24);
             this.button1.TabIndex = 7;
@@ -68,16 +69,16 @@
             this.panelSequences.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSequences.AutoSize = true;
-            this.panelSequences.Location = new System.Drawing.Point(128, 26);
+            this.panelSequences.Location = new System.Drawing.Point(84, 15);
             this.panelSequences.MinimumSize = new System.Drawing.Size(200, 0);
             this.panelSequences.Name = "panelSequences";
-            this.panelSequences.Size = new System.Drawing.Size(269, 27);
+            this.panelSequences.Size = new System.Drawing.Size(260, 24);
             this.panelSequences.TabIndex = 8;
             // 
             // comboBoxBlinkValue
             // 
             this.comboBoxBlinkValue.FormattingEnabled = true;
-            this.comboBoxBlinkValue.Location = new System.Drawing.Point(6, 28);
+            this.comboBoxBlinkValue.Location = new System.Drawing.Point(6, 18);
             this.comboBoxBlinkValue.Name = "comboBoxBlinkValue";
             this.comboBoxBlinkValue.Size = new System.Drawing.Size(72, 21);
             this.comboBoxBlinkValue.TabIndex = 9;
@@ -96,7 +97,7 @@
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 0);
             this.Name = "BlinkModifierPanel";
-            this.Size = new System.Drawing.Size(400, 56);
+            this.Size = new System.Drawing.Size(400, 42);
             this.ResumeLayout(false);
             this.PerformLayout();
 

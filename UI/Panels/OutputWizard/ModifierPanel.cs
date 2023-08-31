@@ -203,7 +203,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 result.String = textBoxTestValue.Text;
             }
 
-            modifierList.Items.ForEach(item => { result = item.Apply(result, new List<ConfigRefValue>()); });
+            modifierList.Items.FindAll(m=>m.Active).ForEach(item => { result = item.Apply(result, new List<ConfigRefValue>()); });
 
             labelTestResultValue.Text = result.ToString();
         }

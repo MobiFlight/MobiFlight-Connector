@@ -54,7 +54,7 @@
             // 
             // textBoxLength
             // 
-            this.textBoxLength.Location = new System.Drawing.Point(62, 26);
+            this.textBoxLength.Location = new System.Drawing.Point(173, 3);
             this.textBoxLength.Name = "textBoxLength";
             this.textBoxLength.Size = new System.Drawing.Size(45, 20);
             this.textBoxLength.TabIndex = 3;
@@ -62,7 +62,7 @@
             // labelLength
             // 
             this.labelLength.AutoSize = true;
-            this.labelLength.Location = new System.Drawing.Point(16, 29);
+            this.labelLength.Location = new System.Drawing.Point(127, 6);
             this.labelLength.Name = "labelLength";
             this.labelLength.Size = new System.Drawing.Size(40, 13);
             this.labelLength.TabIndex = 2;
@@ -71,7 +71,7 @@
             // labelDirection
             // 
             this.labelDirection.AutoSize = true;
-            this.labelDirection.Location = new System.Drawing.Point(7, 53);
+            this.labelDirection.Location = new System.Drawing.Point(233, 6);
             this.labelDirection.Name = "labelDirection";
             this.labelDirection.Size = new System.Drawing.Size(49, 13);
             this.labelDirection.TabIndex = 4;
@@ -81,12 +81,12 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(62, 50);
+            this.comboBox1.Location = new System.Drawing.Point(288, 3);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(92, 21);
             this.comboBox1.TabIndex = 5;
             // 
-            // PaddingModifier
+            // PaddingModifierPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -100,8 +100,8 @@
             this.Controls.Add(this.labelCharacter);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 0);
-            this.Name = "PaddingModifier";
-            this.Size = new System.Drawing.Size(400, 74);
+            this.Name = "PaddingModifierPanel";
+            this.Size = new System.Drawing.Size(400, 27);
             this.ResumeLayout(false);
             this.PerformLayout();
 

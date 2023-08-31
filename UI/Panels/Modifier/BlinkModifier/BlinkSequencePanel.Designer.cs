@@ -37,7 +37,7 @@
             // 
             // textBoxOffTime
             // 
-            this.textBoxOffTime.Location = new System.Drawing.Point(125, 3);
+            this.textBoxOffTime.Location = new System.Drawing.Point(121, 2);
             this.textBoxOffTime.Name = "textBoxOffTime";
             this.textBoxOffTime.Size = new System.Drawing.Size(47, 20);
             this.textBoxOffTime.TabIndex = 10;
@@ -45,7 +45,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(98, 6);
+            this.label4.Location = new System.Drawing.Point(94, 5);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(21, 13);
             this.label4.TabIndex = 9;
@@ -54,7 +54,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 6);
+            this.label3.Location = new System.Drawing.Point(3, 5);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 8;
@@ -62,17 +62,17 @@
             // 
             // textBoxOnTime
             // 
-            this.textBoxOnTime.Location = new System.Drawing.Point(30, 3);
+            this.textBoxOnTime.Location = new System.Drawing.Point(30, 2);
             this.textBoxOnTime.Name = "textBoxOnTime";
             this.textBoxOnTime.Size = new System.Drawing.Size(47, 20);
             this.textBoxOnTime.TabIndex = 7;
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(187, 2);
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(174, 1);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(23, 21);
+            this.button1.Size = new System.Drawing.Size(21, 21);
             this.button1.TabIndex = 11;
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxOnTime);
             this.Name = "BlinkSequencePanel";
-            this.Size = new System.Drawing.Size(213, 25);
+            this.Size = new System.Drawing.Size(201, 25);
             this.ResumeLayout(false);
             this.PerformLayout();
 

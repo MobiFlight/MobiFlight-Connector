@@ -61,7 +61,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelModifier.AutoEllipsis = true;
             this.labelModifier.Location = new System.Drawing.Point(183, 0);
-            this.labelModifier.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.labelModifier.Margin = new System.Windows.Forms.Padding(3);
             this.labelModifier.Name = "labelModifier";
             this.labelModifier.Padding = new System.Windows.Forms.Padding(3, 1, 3, 3);
             this.labelModifier.Size = new System.Drawing.Size(69, 26);
@@ -118,19 +118,21 @@
             this.panelDetails.AutoSize = true;
             this.panelDetails.Controls.Add(this.interpolationModifier1);
             this.panelDetails.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelDetails.Location = new System.Drawing.Point(0, 26);
+            this.panelDetails.Location = new System.Drawing.Point(0, 24);
             this.panelDetails.Name = "panelDetails";
             this.panelDetails.Padding = new System.Windows.Forms.Padding(185, 0, 0, 0);
-            this.panelDetails.Size = new System.Drawing.Size(400, 173);
+            this.panelDetails.Size = new System.Drawing.Size(400, 71);
             this.panelDetails.TabIndex = 1;
             // 
             // interpolationModifier1
             // 
+            this.interpolationModifier1.AutoSize = true;
+            this.interpolationModifier1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.interpolationModifier1.Dock = System.Windows.Forms.DockStyle.Top;
             this.interpolationModifier1.Location = new System.Drawing.Point(185, 0);
             this.interpolationModifier1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.interpolationModifier1.Name = "interpolationModifier1";
-            this.interpolationModifier1.Size = new System.Drawing.Size(215, 173);
+            this.interpolationModifier1.Size = new System.Drawing.Size(215, 71);
             this.interpolationModifier1.TabIndex = 0;
             // 
             // panel1
@@ -146,7 +148,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(400, 26);
+            this.panel1.Size = new System.Drawing.Size(400, 24);
             this.panel1.TabIndex = 1;
             // 
             // panelColor
@@ -162,7 +164,7 @@
             this.labelModifierType.AutoEllipsis = true;
             this.labelModifierType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelModifierType.Location = new System.Drawing.Point(72, 0);
-            this.labelModifierType.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.labelModifierType.Margin = new System.Windows.Forms.Padding(3);
             this.labelModifierType.Name = "labelModifierType";
             this.labelModifierType.Padding = new System.Windows.Forms.Padding(3, 1, 3, 3);
             this.labelModifierType.Size = new System.Drawing.Size(117, 26);
@@ -187,7 +189,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 199);
+            this.panel2.Location = new System.Drawing.Point(0, 95);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(400, 1);
             this.panel2.TabIndex = 7;
@@ -204,9 +206,10 @@
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 2);
             this.Name = "ModifierControl";
-            this.Size = new System.Drawing.Size(400, 200);
+            this.Size = new System.Drawing.Size(400, 96);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ModifierControl_MouseUp);
             this.panelDetails.ResumeLayout(false);
+            this.panelDetails.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

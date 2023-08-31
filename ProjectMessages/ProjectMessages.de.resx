@@ -606,4 +606,7 @@ Dieses Midiboard kann nicht verwendet werden bis die andere Applikation beendet 
 
 That midiboard cannot be used until other application is terminated and MobiFlight is restarted.</comment>
   </data>
+  <data name="WebsiteHelpNcalc" xml:space="preserve">
+    <value>https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html</value>
+  </data>
 </root>

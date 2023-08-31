@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -38,6 +39,11 @@ namespace MobiFlight.UI.Panels.Modifier
             {
                 Expression = expressionTextBox.Text
             };
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.Start(i18n._tr("WebsiteHelpNcalc"));
         }
     }
 }
