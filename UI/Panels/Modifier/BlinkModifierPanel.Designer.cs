@@ -28,19 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxBlinkValue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panelSequences = new System.Windows.Forms.Panel();
+            this.comboBoxBlinkValue = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // textBoxBlinkValue
-            // 
-            this.textBoxBlinkValue.Location = new System.Drawing.Point(10, 26);
-            this.textBoxBlinkValue.Name = "textBoxBlinkValue";
-            this.textBoxBlinkValue.Size = new System.Drawing.Size(41, 20);
-            this.textBoxBlinkValue.TabIndex = 0;
             // 
             // label1
             // 
@@ -62,7 +55,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(350, 3);
+            this.button1.Location = new System.Drawing.Point(350, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(47, 24);
             this.button1.TabIndex = 7;
@@ -72,12 +65,22 @@
             // 
             // panelSequences
             // 
+            this.panelSequences.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelSequences.AutoSize = true;
-            this.panelSequences.Location = new System.Drawing.Point(128, 23);
+            this.panelSequences.Location = new System.Drawing.Point(128, 26);
             this.panelSequences.MinimumSize = new System.Drawing.Size(200, 0);
             this.panelSequences.Name = "panelSequences";
-            this.panelSequences.Size = new System.Drawing.Size(200, 30);
+            this.panelSequences.Size = new System.Drawing.Size(269, 27);
             this.panelSequences.TabIndex = 8;
+            // 
+            // comboBoxBlinkValue
+            // 
+            this.comboBoxBlinkValue.FormattingEnabled = true;
+            this.comboBoxBlinkValue.Location = new System.Drawing.Point(6, 28);
+            this.comboBoxBlinkValue.Name = "comboBoxBlinkValue";
+            this.comboBoxBlinkValue.Size = new System.Drawing.Size(72, 21);
+            this.comboBoxBlinkValue.TabIndex = 9;
             // 
             // BlinkModifierPanel
             // 
@@ -85,11 +88,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.comboBoxBlinkValue);
             this.Controls.Add(this.panelSequences);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxBlinkValue);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 0);
             this.Name = "BlinkModifierPanel";
@@ -100,11 +103,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBoxBlinkValue;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panelSequences;
+        private System.Windows.Forms.ComboBox comboBoxBlinkValue;
     }
 }

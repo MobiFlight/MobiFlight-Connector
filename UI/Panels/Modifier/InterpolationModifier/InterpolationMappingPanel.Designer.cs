@@ -1,6 +1,6 @@
-﻿namespace MobiFlight.UI.Panels.Modifier.BlinkModifier
+﻿namespace MobiFlight.UI.Panels.Modifier.InterpolationModifier
 {
-    partial class BlinkSequencePanel
+    partial class InterpolationMappingPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,49 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxOffTime = new System.Windows.Forms.TextBox();
+            this.textBoxToValue = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxOnTime = new System.Windows.Forms.TextBox();
+            this.textBoxFromValue = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBoxOffTime
+            // textBoxToValue
             // 
-            this.textBoxOffTime.Location = new System.Drawing.Point(125, 3);
-            this.textBoxOffTime.Name = "textBoxOffTime";
-            this.textBoxOffTime.Size = new System.Drawing.Size(47, 20);
-            this.textBoxOffTime.TabIndex = 10;
+            this.textBoxToValue.Location = new System.Drawing.Point(144, 3);
+            this.textBoxToValue.Name = "textBoxToValue";
+            this.textBoxToValue.Size = new System.Drawing.Size(67, 20);
+            this.textBoxToValue.TabIndex = 10;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(98, 6);
+            this.label4.Location = new System.Drawing.Point(118, 6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 13);
+            this.label4.Size = new System.Drawing.Size(20, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "Off";
+            this.label4.Text = "To";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(21, 13);
+            this.label3.Size = new System.Drawing.Size(30, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "On";
+            this.label3.Text = "From";
             // 
-            // textBoxOnTime
+            // textBoxFromValue
             // 
-            this.textBoxOnTime.Location = new System.Drawing.Point(30, 3);
-            this.textBoxOnTime.Name = "textBoxOnTime";
-            this.textBoxOnTime.Size = new System.Drawing.Size(47, 20);
-            this.textBoxOnTime.TabIndex = 7;
+            this.textBoxFromValue.Location = new System.Drawing.Point(39, 3);
+            this.textBoxFromValue.Name = "textBoxFromValue";
+            this.textBoxFromValue.Size = new System.Drawing.Size(67, 20);
+            this.textBoxFromValue.TabIndex = 7;
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(187, 2);
+            this.button1.Location = new System.Drawing.Point(217, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(23, 21);
             this.button1.TabIndex = 11;
@@ -78,17 +78,17 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // BlinkSequencePanel
+            // InterpolationMappingPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBoxOffTime);
+            this.Controls.Add(this.textBoxToValue);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxOnTime);
-            this.Name = "BlinkSequencePanel";
-            this.Size = new System.Drawing.Size(213, 25);
+            this.Controls.Add(this.textBoxFromValue);
+            this.Name = "InterpolationMappingPanel";
+            this.Size = new System.Drawing.Size(243, 25);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -96,10 +96,10 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxOffTime;
+        private System.Windows.Forms.TextBox textBoxToValue;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxOnTime;
+        private System.Windows.Forms.TextBox textBoxFromValue;
         private System.Windows.Forms.Button button1;
     }
 }

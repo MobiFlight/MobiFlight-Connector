@@ -540,6 +540,12 @@
     <Compile Include="UI\Panels\Modifier\InterpolationModifierPanel.Designer.cs">
       <DependentUpon>InterpolationModifierPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifier\InterpolationMappingPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifier\InterpolationMappingPanel.Designer.cs">
+      <DependentUpon>InterpolationMappingPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Modifier\ModifierControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1269,6 +1275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifierPanel.resx">
       <DependentUpon>InterpolationModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifier\InterpolationMappingPanel.resx">
+      <DependentUpon>InterpolationMappingPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\ModifierControl.resx">
       <DependentUpon>ModifierControl.cs</DependentUpon>

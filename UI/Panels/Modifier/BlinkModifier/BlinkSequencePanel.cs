@@ -14,9 +14,18 @@ namespace MobiFlight.UI.Panels.Modifier.BlinkModifier
 {
     public partial class BlinkSequencePanel : UserControl
     {
+        public event EventHandler ModifierChanged;
+
         public BlinkSequencePanel()
         {
             InitializeComponent();
+            textBoxOnTime.Leave += TextBox_Leave;
+            textBoxOffTime.Leave += TextBox_Leave;
+        }
+
+        private void TextBox_Leave(object sender, EventArgs e)
+        {
+            ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void fromConfig(Tuple<int, int> sequence)

@@ -20,8 +20,17 @@ namespace MobiFlight.UI.Panels.Modifier
         public BlinkModifierPanel()
         {
             InitializeComponent();
-            // textBoxBlinkValue.TextChanged += control_Leave;
-            // textBoxOnOffSequence.Leave += control_Leave;
+            var blankOptions = new List<ListItem>()
+            {
+                new ListItem() { Label = "[Space]", Value = " " },
+                new ListItem() { Label = "0", Value = "0" },
+                new ListItem() { Label = "1", Value = "1" },
+            };
+
+            comboBoxBlinkValue.DataSource = blankOptions;
+            comboBoxBlinkValue.ValueMember = "Value";
+            comboBoxBlinkValue.DisplayMember = "Label";
+
         }
 
         public void fromConfig(ModifierBase c)
@@ -32,15 +41,34 @@ namespace MobiFlight.UI.Panels.Modifier
 
             panelSequences.Controls.Clear();
 
+            if (config.OnOffSequence.Count == 0)
+            {
+                config.OnOffSequence.Add(500);
+                config.OnOffSequence.Add(500);
+            }
+
             for(var i=0; i!= config.OnOffSequence.Count; i++)
             {
                 var t = new Tuple<int, int>(config.OnOffSequence[i], i + 1 != config.OnOffSequence.Count ? config.OnOffSequence[i + 1] : 0);
                 var p = new BlinkSequencePanel();
                 p.fromConfig(t);
                 p.Dock = DockStyle.Bottom;
+                p.ModifierChanged += control_Leave;
                 panelSequences.Controls.Add(p);
                 i++;
-            } 
+            }
+
+            if (!ComboBoxHelper.SetSelectedItemByValue(comboBoxBlinkValue, config.BlinkValue))
+            {
+                var list = (comboBoxBlinkValue.DataSource as List<ListItem>);
+                list.Add(new ListItem() { Label = config.BlinkValue, Value = config.BlinkValue });
+                comboBoxBlinkValue.DataSource = null;
+                comboBoxBlinkValue.DataSource = list;
+                comboBoxBlinkValue.ValueMember = "Value";
+                comboBoxBlinkValue.DisplayMember = "Label";
+                comboBoxBlinkValue.SelectedItem = config.BlinkValue;
+                ComboBoxHelper.SetSelectedItemByValue(comboBoxBlinkValue, config.BlinkValue);
+            };
         }
 
         public ModifierBase toConfig()
@@ -57,7 +85,7 @@ namespace MobiFlight.UI.Panels.Modifier
             return new Blink()
             {
                 Active = true,
-                BlinkValue = textBoxBlinkValue.Text,
+                BlinkValue = (comboBoxBlinkValue.SelectedItem as ListItem).Value,
                 OnOffSequence = onOffSequence
             };
         }
@@ -72,6 +100,7 @@ namespace MobiFlight.UI.Panels.Modifier
             var p = new BlinkSequencePanel();
             p.fromConfig(t);
             p.Dock = DockStyle.Bottom;
+            p.ModifierChanged += control_Leave;
             panelSequences.Controls.Add(p);
         }
     }

@@ -196,6 +196,16 @@ namespace MobiFlight.Modifier
         {
             return $"Interpolation: {Values.Count} values with Min {Min} and Max {Max}";
         }
+
+        public Tuple<double, double> NextItem()
+        {
+            var secondLastKey = Values.Keys.ElementAt(Values.Keys.Count - 2);
+            var lastKey = Values.Keys.ElementAt(Values.Keys.Count - 1);
+            var secondLastValue = Values[secondLastKey];
+            var lastValue = Values[lastKey];
+
+            return new Tuple<double, double>(lastKey-secondLastKey+lastKey, lastValue-secondLastValue+lastValue);
+        }
     }
 
     [Serializable]

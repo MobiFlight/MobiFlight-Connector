@@ -70,7 +70,7 @@ namespace MobiFlight.Modifier
             var Now = DateTime.Now.Ticks - FirstExecutionTime;
             if (Now == 0) Now = 1;
             Now /= 10000;
-            Now %= (OnOffSequence.Sum());
+            Now %= (OnOffSequence.Sum() > 0 ? OnOffSequence.Sum() : 1000);
 
             bool IsOn = true;
 

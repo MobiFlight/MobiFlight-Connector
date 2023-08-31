@@ -110,19 +110,25 @@ namespace MobiFlight.UI.Panels.Modifier
         private Color CreateColor(Type modifierType)
         {
             if (modifierType == typeof(Transformation))
-                return Color.Aqua;
+                return Color.FromArgb(0,0,0);
 
             if (modifierType == typeof(Comparison))
-                return Color.Red;
+                return Color.FromArgb(230, 159, 0);
 
             if (modifierType == typeof(Interpolation))
-                return Color.Green;
+                return Color.FromArgb(86, 180, 233);
 
             if (modifierType == typeof(MobiFlight.Modifier.Padding))
-                return Color.Orange;
+                return Color.FromArgb(0, 158, 115);
 
             if (modifierType == typeof(Blink))
-                return Color.Pink;
+                return Color.FromArgb(240, 228, 66);
+
+
+            // more colors for the future 
+            // Color.FromArgb(0, 114, 178)
+            // Color.FromArgb(213, 94, 0)
+            // Color.FromArgb(204, 121, 167)
 
             return Color.White;
         }
