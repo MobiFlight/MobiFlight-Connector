@@ -23,25 +23,19 @@ namespace MobiFlight.UI.Panels.Config
         public void setMode(bool isOutputPanel)
         {
             PanelMode = isOutputPanel;
-            // the transform field only is visible
-            // if we are dealing with outputs
-            MultiplyPanel.Visible = PanelMode;
 
             // and the value panel vice versa
             // only if we deal with inputs
             ValuePanel.Visible = !PanelMode;
+            fsuipcMoreOptionsGroupBox.Visible = !PanelMode;
 
             AutoSize = isOutputPanel;
-        }
-
-        public void ShowMultiplyPanel(bool visible)
-        {
-            MultiplyPanel.Visible = visible;
         }
 
         public void ShowValuePanel(bool visible)
         {
             ValuePanel.Visible = visible;
+            fsuipcMoreOptionsGroupBox.Visible = visible;
         }
 
         internal void syncFromConfig(OutputConfigItem config)

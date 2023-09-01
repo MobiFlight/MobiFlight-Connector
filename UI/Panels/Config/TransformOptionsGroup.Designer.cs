@@ -35,21 +35,14 @@ namespace MobiFlight.UI.Panels.Config
             this.ValuePlaceholderLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.fsuipcValueTextBox = new System.Windows.Forms.TextBox();
-            this.MultiplyPanel = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.fsuipcMoreOptionsGroupBox.SuspendLayout();
             this.ValuePanel.SuspendLayout();
-            this.MultiplyPanel.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // fsuipcMoreOptionsGroupBox
             // 
             resources.ApplyResources(this.fsuipcMoreOptionsGroupBox, "fsuipcMoreOptionsGroupBox");
             this.fsuipcMoreOptionsGroupBox.Controls.Add(this.ValuePanel);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.MultiplyPanel);
             this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
             this.fsuipcMoreOptionsGroupBox.TabStop = false;
             // 
@@ -76,31 +69,6 @@ namespace MobiFlight.UI.Panels.Config
             resources.ApplyResources(this.fsuipcValueTextBox, "fsuipcValueTextBox");
             this.fsuipcValueTextBox.Name = "fsuipcValueTextBox";
             // 
-            // MultiplyPanel
-            // 
-            resources.ApplyResources(this.MultiplyPanel, "MultiplyPanel");
-            this.MultiplyPanel.Controls.Add(this.flowLayoutPanel1);
-            this.MultiplyPanel.Name = "MultiplyPanel";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label2.Name = "label2";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // label1
-            // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.label1);
-            this.flowLayoutPanel1.Controls.Add(this.label2);
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            // 
             // TransformOptionsGroup
             // 
             resources.ApplyResources(this, "$this");
@@ -111,9 +79,6 @@ namespace MobiFlight.UI.Panels.Config
             this.fsuipcMoreOptionsGroupBox.PerformLayout();
             this.ValuePanel.ResumeLayout(false);
             this.ValuePanel.PerformLayout();
-            this.MultiplyPanel.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,10 +90,6 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.Panel ValuePanel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox fsuipcValueTextBox;
-        private System.Windows.Forms.Panel MultiplyPanel;
         private System.Windows.Forms.Label ValuePlaceholderLabel;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

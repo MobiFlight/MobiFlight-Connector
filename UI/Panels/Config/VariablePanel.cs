@@ -80,7 +80,6 @@ namespace MobiFlight.UI.Panels.Config
 
         private void TypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            transformOptionsGroup1.ShowMultiplyPanel(MobiFlightVariable.TYPE_NUMBER == (sender as ComboBox).SelectedValue.ToString());
         }
 
         private void NameTextBox_SelectedValueChanged(object sender, EventArgs e)

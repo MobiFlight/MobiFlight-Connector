@@ -32,7 +32,6 @@ namespace MobiFlight.UI.Panels.Config
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimConnectPanel));
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
             this.HubHopPresetPanel = new MobiFlight.UI.Panels.Config.HubHopPresetPanel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +49,6 @@ namespace MobiFlight.UI.Panels.Config
             // groupBox1
             // 
             this.groupBox1.AutoSize = true;
-            this.groupBox1.Controls.Add(this.transformOptionsGroup1);
             this.groupBox1.Controls.Add(this.HubHopPresetPanel);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -60,18 +58,6 @@ namespace MobiFlight.UI.Panels.Config
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MSFS2020 (WASM)";
-            // 
-            // transformOptionsGroup1
-            // 
-            this.transformOptionsGroup1.AutoSize = true;
-            this.transformOptionsGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.transformOptionsGroup1.Location = new System.Drawing.Point(3, 228);
-            this.transformOptionsGroup1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.transformOptionsGroup1.MinimumSize = new System.Drawing.Size(350, 0);
-            this.transformOptionsGroup1.Name = "transformOptionsGroup1";
-            this.transformOptionsGroup1.Size = new System.Drawing.Size(598, 101);
-            this.transformOptionsGroup1.TabIndex = 7;
             // 
             // HubHopPresetPanel
             // 
@@ -108,7 +94,6 @@ namespace MobiFlight.UI.Panels.Config
         #endregion
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private TransformOptionsGroup transformOptionsGroup1;
         public HubHopPresetPanel HubHopPresetPanel;
     }
 }

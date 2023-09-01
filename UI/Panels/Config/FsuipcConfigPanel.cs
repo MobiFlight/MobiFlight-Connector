@@ -183,7 +183,6 @@ namespace MobiFlight.UI.Panels.Config
             fsuipcSizeComboBox.Enabled = true;
             fsuipcSizeComboBox.Visible = true;
             maskAndBcdPanel.Visible = true;
-            transformOptionsGroup1.ShowMultiplyPanel(true && OutputPanelMode);
 
             if ((fsuipcOffsetTypeComboBox.SelectedItem as ListItem).Value == FSUIPCOffsetType.Integer.ToString())
             {
@@ -224,9 +223,6 @@ namespace MobiFlight.UI.Panels.Config
 
                 // mask doesn't make sense for strings
                 maskAndBcdPanel.Visible = false;
-
-                // multiply doesn't make sense for strings
-                transformOptionsGroup1.ShowMultiplyPanel(true && OutputPanelMode);
             }
         }
 
