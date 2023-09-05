@@ -20,14 +20,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public void Init()
         {
             modifierListPanel.Controls.Clear();
-            List<ListItem> list = new List<ListItem>() {
-                new ListItem() { Value = FSUIPCOffsetType.Float.ToString(), Label = "Number" },
-                new ListItem() { Value = FSUIPCOffsetType.String.ToString(), Label = "String" },
-            };
-            comboBoxTestValueType.DataSource = list;
-            comboBoxTestValueType.ValueMember = "Value";
-            comboBoxTestValueType.DisplayMember = "Label";
-            comboBoxTestValueType.SelectedIndex = 0;
         }
 
         public void fromConfig(OutputConfigItem config)
@@ -185,27 +177,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
-            var result = new ConnectorValue();
-            if (comboBoxTestValueType.SelectedItem == null) return;
-
-            string type = (comboBoxTestValueType.SelectedItem as ListItem).Value;
-
-            if (type == FSUIPCOffsetType.Float.ToString())
-            {
-                if (!double.TryParse(textBoxTestValue.Text, out result.Float64))
-                {
-                    return;
-                };
-                result.type = FSUIPCOffsetType.Float;
-            } else if (type == FSUIPCOffsetType.String.ToString())
-            {
-                result.type = FSUIPCOffsetType.String;
-                result.String = textBoxTestValue.Text;
-            }
-
-            modifierList.Items.FindAll(m=>m.Active).ForEach(item => { result = item.Apply(result, new List<ConfigRefValue>()); });
-
-            labelTestResultValue.Text = result.ToString();
+            
         }
     }
 }

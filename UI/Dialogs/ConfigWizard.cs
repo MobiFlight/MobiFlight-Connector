@@ -122,6 +122,29 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+
+
+            testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
+            testValuePanel1.TestModeEnd += TestValuePanel_TestModeEnd;
+        }
+
+        private void TestValuePanel_TestModeEnd(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TestValuePanel_TestModeStart(object sender, ConnectorValue value)
+        {
+            _syncFormToConfig();
+
+            try
+            {
+                _execManager.ExecuteTestOn(config, value);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Error starting test mode: {e.Message}", LogSeverity.Error);
+            }
         }
 
         private void FsuipcConfigPanel_ModifierChanged(object sender, EventArgs e)

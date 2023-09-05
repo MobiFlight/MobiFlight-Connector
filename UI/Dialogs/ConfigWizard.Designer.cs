@@ -59,6 +59,7 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.testValuePanel1 = new MobiFlight.UI.Panels.Config.TestValuePanel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
@@ -126,6 +127,7 @@
             // fsuipcConfigPanel
             // 
             resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
+            this.fsuipcConfigPanel.Modifier = null;
             this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
             this.fsuipcConfigPanel.PresetFile = "";
             // 
@@ -275,12 +277,18 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // testValuePanel1
+            // 
+            resources.ApplyResources(this.testValuePanel1, "testValuePanel1");
+            this.testValuePanel1.Name = "testValuePanel1";
+            // 
             // ConfigWizard
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.Controls.Add(this.MainPanel);
+            this.Controls.Add(this.testValuePanel1);
             this.Controls.Add(this.ButtonPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -339,5 +347,6 @@
         private System.Windows.Forms.RadioButton OffsetTypeXplaneRadioButton;
         private Panels.Config.XplaneDataRefPanel xplaneDataRefPanel1;
         private Panels.OutputWizard.ModifierPanel modifierPanel1;
+        private Panels.Config.TestValuePanel testValuePanel1;
     }
 }

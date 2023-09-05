@@ -438,6 +438,12 @@
     <Compile Include="UI\Panels\Config\PreconditionPanel.Designer.cs">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\TestValuePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TestValuePanel.Designer.cs">
+      <DependentUpon>TestValuePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Config\VariablePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1193,6 +1199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TestValuePanel.resx">
+      <DependentUpon>TestValuePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.de.resx">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>

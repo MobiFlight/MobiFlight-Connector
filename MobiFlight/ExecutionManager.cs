@@ -1234,7 +1234,7 @@ namespace MobiFlight
             }
         }
 
-        public void ExecuteTestOn(OutputConfigItem cfg)
+        public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
             if (cfg.DisplayType == null) return;
 
