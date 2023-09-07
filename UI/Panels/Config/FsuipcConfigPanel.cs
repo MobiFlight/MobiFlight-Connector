@@ -262,10 +262,10 @@ namespace MobiFlight.UI.Panels.Config
 
             transformOptionsGroup1.syncFromConfig(config);
 
-            if (config.Modifiers.Items.Count > 0 && config.Modifiers.Transformation != null)
+            /*if (config.Modifiers.Items.Count > 0 && config.Modifiers.Transformation != null)
             {
                 Modifier = config.Modifiers.Transformation;
-            }
+            }*/
 
             foreach (DataRow row in presetDataTable.Rows)
             {
@@ -304,10 +304,10 @@ namespace MobiFlight.UI.Panels.Config
             config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             transformOptionsGroup1.syncToConfig(config);
 
-            if (Modifier!=null)
+            /*if (Modifier!=null)
             {
                 config.Modifiers.Items.Add(Modifier);
-            }
+            }*/
         }
 
         internal InputConfig.InputAction ToConfig()

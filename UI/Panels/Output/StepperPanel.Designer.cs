@@ -36,8 +36,6 @@
             this.CompassModeCheckBox = new System.Windows.Forms.CheckBox();
             this.inputRevTextBox = new System.Windows.Forms.TextBox();
             this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
-            this.stepperTestValueTextBox = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.outputRevTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,14 +60,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.SpeedTextBox = new System.Windows.Forms.TextBox();
             this.AccelerationTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -111,17 +107,6 @@
             resources.ApplyResources(this.displayPinComoBoxLabel, "displayPinComoBoxLabel");
             this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
             this.toolTip1.SetToolTip(this.displayPinComoBoxLabel, resources.GetString("displayPinComoBoxLabel.ToolTip"));
-            // 
-            // stepperTestValueTextBox
-            // 
-            resources.ApplyResources(this.stepperTestValueTextBox, "stepperTestValueTextBox");
-            this.stepperTestValueTextBox.Name = "stepperTestValueTextBox";
-            this.stepperTestValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
             // 
             // outputRevTextBox
             // 
@@ -295,19 +280,10 @@
             this.AccelerationTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
             this.AccelerationTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.stepperTestValueTextBox);
-            this.groupBox4.Controls.Add(this.label9);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
-            // 
             // StepperPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -321,8 +297,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -347,8 +321,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label ManualCalibrateLabel;
-        public System.Windows.Forms.TextBox stepperTestValueTextBox;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox CompassModeCheckBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label1;
@@ -357,7 +329,6 @@
         public System.Windows.Forms.TextBox AccelerationTextBox;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox SpeedTextBox;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button SpeedResetButton;
         private System.Windows.Forms.Button AccelerationResetButton;

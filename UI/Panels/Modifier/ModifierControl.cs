@@ -204,6 +204,7 @@ namespace MobiFlight.UI.Panels.Modifier
         private void checkBoxActive_CheckedChanged(object sender, EventArgs e)
         {
             Modifier.Active = checkBoxActive.Checked;
+            ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void buttonDown_MouseDown(object sender, MouseEventArgs e)

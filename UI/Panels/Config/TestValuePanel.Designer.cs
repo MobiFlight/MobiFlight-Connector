@@ -35,19 +35,21 @@
             this.labelTestResult = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTestValue = new System.Windows.Forms.TextBox();
-            this.buttonTest = new System.Windows.Forms.Button();
+            this.displayPinTestStopButton = new System.Windows.Forms.Button();
+            this.displayPinTestButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.displayPinTestStopButton);
+            this.groupBox1.Controls.Add(this.displayPinTestButton);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.comboBoxTestValueType);
             this.groupBox1.Controls.Add(this.labelTestResultValue);
             this.groupBox1.Controls.Add(this.labelTestResult);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxTestValue);
-            this.groupBox1.Controls.Add(this.buttonTest);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
@@ -117,20 +119,41 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTestValue.Location = new System.Drawing.Point(181, 18);
             this.textBoxTestValue.Name = "textBoxTestValue";
-            this.textBoxTestValue.Size = new System.Drawing.Size(125, 20);
+            this.textBoxTestValue.Size = new System.Drawing.Size(75, 20);
             this.textBoxTestValue.TabIndex = 14;
             // 
-            // buttonTest
+            // displayPinTestStopButton
             // 
-            this.buttonTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTest.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonTest.Location = new System.Drawing.Point(312, 16);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(60, 23);
-            this.buttonTest.TabIndex = 13;
-            this.buttonTest.Text = "Test";
-            this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            this.displayPinTestStopButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.displayPinTestStopButton.Enabled = false;
+            this.displayPinTestStopButton.Image = global::MobiFlight.Properties.Resources.media_stop;
+            this.displayPinTestStopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.displayPinTestStopButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.displayPinTestStopButton.Location = new System.Drawing.Point(326, 16);
+            this.displayPinTestStopButton.Name = "displayPinTestStopButton";
+            this.displayPinTestStopButton.Size = new System.Drawing.Size(58, 23);
+            this.displayPinTestStopButton.TabIndex = 21;
+            this.displayPinTestStopButton.Text = "Stop";
+            this.displayPinTestStopButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.displayPinTestStopButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.displayPinTestStopButton.UseVisualStyleBackColor = true;
+            this.displayPinTestStopButton.Click += new System.EventHandler(this.displayPinTestStopButton_Click);
+            // 
+            // displayPinTestButton
+            // 
+            this.displayPinTestButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.displayPinTestButton.Image = global::MobiFlight.Properties.Resources.media_play;
+            this.displayPinTestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.displayPinTestButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.displayPinTestButton.Location = new System.Drawing.Point(262, 16);
+            this.displayPinTestButton.Name = "displayPinTestButton";
+            this.displayPinTestButton.Size = new System.Drawing.Size(58, 23);
+            this.displayPinTestButton.TabIndex = 20;
+            this.displayPinTestButton.Text = "Test";
+            this.displayPinTestButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.displayPinTestButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.displayPinTestButton.UseVisualStyleBackColor = true;
+            this.displayPinTestButton.Click += new System.EventHandler(this.displayPinTestButton_Click);
             // 
             // TestValuePanel
             // 
@@ -155,6 +178,7 @@
         private System.Windows.Forms.Label labelTestResult;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxTestValue;
-        private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.Button displayPinTestStopButton;
+        private System.Windows.Forms.Button displayPinTestButton;
     }
 }

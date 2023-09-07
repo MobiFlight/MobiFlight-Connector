@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.modifierListPanel = new System.Windows.Forms.Panel();
-            this.modifierControl1 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -42,19 +41,12 @@
             this.blinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paddingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxModifier = new System.Windows.Forms.GroupBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.comboBoxTestValueType = new System.Windows.Forms.ComboBox();
-            this.labelTestResultValue = new System.Windows.Forms.Label();
-            this.labelTestResult = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxTestValue = new System.Windows.Forms.TextBox();
-            this.buttonTest = new System.Windows.Forms.Button();
+            this.modifierControl1 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
             this.modifierListPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBoxModifier.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // modifierListPanel
@@ -69,21 +61,6 @@
             this.modifierListPanel.Padding = new System.Windows.Forms.Padding(3);
             this.modifierListPanel.Size = new System.Drawing.Size(494, 368);
             this.modifierListPanel.TabIndex = 7;
-            // 
-            // modifierControl1
-            // 
-            this.modifierControl1.AutoSize = true;
-            this.modifierControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.modifierControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.modifierControl1.First = false;
-            this.modifierControl1.Last = false;
-            this.modifierControl1.Location = new System.Drawing.Point(3, 3);
-            this.modifierControl1.MinimumSize = new System.Drawing.Size(400, 2);
-            this.modifierControl1.Modifier = null;
-            this.modifierControl1.Name = "modifierControl1";
-            this.modifierControl1.Selected = false;
-            this.modifierControl1.Size = new System.Drawing.Size(488, 27);
-            this.modifierControl1.TabIndex = 0;
             // 
             // panel1
             // 
@@ -179,7 +156,6 @@
             // 
             // groupBoxModifier
             // 
-            this.groupBoxModifier.Controls.Add(this.panel3);
             this.groupBoxModifier.Controls.Add(this.panel1);
             this.groupBoxModifier.Controls.Add(this.panel2);
             this.groupBoxModifier.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -190,80 +166,20 @@
             this.groupBoxModifier.TabStop = false;
             this.groupBoxModifier.Text = "Modifier";
             // 
-            // panel3
+            // modifierControl1
             // 
-            this.panel3.Controls.Add(this.comboBoxTestValueType);
-            this.panel3.Controls.Add(this.labelTestResultValue);
-            this.panel3.Controls.Add(this.labelTestResult);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.textBoxTestValue);
-            this.panel3.Controls.Add(this.buttonTest);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(3, 392);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(494, 32);
-            this.panel3.TabIndex = 12;
-            // 
-            // comboBoxTestValueType
-            // 
-            this.comboBoxTestValueType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTestValueType.FormattingEnabled = true;
-            this.comboBoxTestValueType.Items.AddRange(new object[] {
-            "Number",
-            "String"});
-            this.comboBoxTestValueType.Location = new System.Drawing.Point(84, 7);
-            this.comboBoxTestValueType.Name = "comboBoxTestValueType";
-            this.comboBoxTestValueType.Size = new System.Drawing.Size(71, 21);
-            this.comboBoxTestValueType.TabIndex = 12;
-            // 
-            // labelTestResultValue
-            // 
-            this.labelTestResultValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTestResultValue.Location = new System.Drawing.Point(411, 5);
-            this.labelTestResultValue.Name = "labelTestResultValue";
-            this.labelTestResultValue.Size = new System.Drawing.Size(80, 23);
-            this.labelTestResultValue.TabIndex = 11;
-            this.labelTestResultValue.Text = "#######";
-            this.labelTestResultValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelTestResult
-            // 
-            this.labelTestResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTestResult.Location = new System.Drawing.Point(356, 5);
-            this.labelTestResult.Name = "labelTestResult";
-            this.labelTestResult.Size = new System.Drawing.Size(49, 23);
-            this.labelTestResult.TabIndex = 10;
-            this.labelTestResult.Text = "Result";
-            this.labelTestResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(6, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 23);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Test value";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // textBoxTestValue
-            // 
-            this.textBoxTestValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTestValue.Location = new System.Drawing.Point(161, 7);
-            this.textBoxTestValue.Name = "textBoxTestValue";
-            this.textBoxTestValue.Size = new System.Drawing.Size(105, 20);
-            this.textBoxTestValue.TabIndex = 8;
-            // 
-            // buttonTest
-            // 
-            this.buttonTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTest.Location = new System.Drawing.Point(272, 5);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(78, 23);
-            this.buttonTest.TabIndex = 7;
-            this.buttonTest.Text = "Test";
-            this.buttonTest.UseVisualStyleBackColor = true;
-            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            this.modifierControl1.AutoSize = true;
+            this.modifierControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.modifierControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.modifierControl1.First = false;
+            this.modifierControl1.Last = false;
+            this.modifierControl1.Location = new System.Drawing.Point(3, 3);
+            this.modifierControl1.MinimumSize = new System.Drawing.Size(400, 2);
+            this.modifierControl1.Modifier = null;
+            this.modifierControl1.Name = "modifierControl1";
+            this.modifierControl1.Selected = false;
+            this.modifierControl1.Size = new System.Drawing.Size(488, 25);
+            this.modifierControl1.TabIndex = 0;
             // 
             // ModifierPanel
             // 
@@ -283,8 +199,6 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBoxModifier.ResumeLayout(false);
             this.groupBoxModifier.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -303,12 +217,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBoxModifier;
         private Modifier.ModifierControl modifierControl1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox comboBoxTestValueType;
-        private System.Windows.Forms.Label labelTestResultValue;
-        private System.Windows.Forms.Label labelTestResult;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxTestValue;
-        private System.Windows.Forms.Button buttonTest;
     }
 }

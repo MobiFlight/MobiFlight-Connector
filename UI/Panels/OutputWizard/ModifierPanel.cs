@@ -174,10 +174,5 @@ namespace MobiFlight.UI.Panels.OutputWizard
             contextMenuStrip1.ShowImageMargin = false;
             contextMenuStrip1.Show(button1, new Point(0, button1.Height));
         }
-
-        private void buttonTest_Click(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

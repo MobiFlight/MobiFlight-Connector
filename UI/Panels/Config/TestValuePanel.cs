@@ -14,7 +14,9 @@ namespace MobiFlight.UI.Panels.Config
     public partial class TestValuePanel : UserControl
     {
         public event EventHandler<ConnectorValue> TestModeStart;
+        public event EventHandler<EventArgs> TestModeStop;
         public event EventHandler TestModeEnd;
+        public string Result { get { return labelTestResultValue.Text; } set { labelTestResultValue.Text = value; } }
 
         public TestValuePanel()
         {
@@ -30,7 +32,7 @@ namespace MobiFlight.UI.Panels.Config
             comboBoxTestValueType.SelectedIndex = 0;
         }
 
-        private void buttonTest_Click(object sender, EventArgs e)
+        private void displayPinTestButton_Click(object sender, EventArgs e)
         {
             var result = new ConnectorValue();
             if (comboBoxTestValueType.SelectedItem == null) return;
@@ -52,6 +54,19 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             TestModeStart?.Invoke(this, result);
+            displayPinTestStopButton.Enabled = true;
+            displayPinTestButton.Enabled = false;
+        }
+
+        private void displayPinTestStopButton_Click(object sender, EventArgs e)
+        {
+            // check if running in test mode otherwise simply return
+            if (!displayPinTestStopButton.Enabled) return;
+
+            displayPinTestStopButton.Enabled = false;
+            displayPinTestButton.Enabled = true;
+
+            TestModeStop?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -1241,19 +1241,20 @@ namespace MobiFlight
             switch (cfg.DisplayType)
             {
                 case MobiFlightStepper.TYPE:
-                    ExecuteDisplay(cfg.Stepper.TestValue.ToString(), cfg);
+                    ExecuteDisplay(value.ToString() != "" ? value.ToString() : cfg.Stepper.TestValue.ToString(), cfg);
                     break;
 
                 case MobiFlightServo.TYPE:
-                    ExecuteDisplay(cfg.Servo.Max, cfg);
+                    ExecuteDisplay(value.ToString() != "" ? value.ToString() : cfg.Servo.Max, cfg);
                     break;
 
+                case ArcazeLedDigit.TYPE:
                 case OutputConfig.LcdDisplay.Type:
-                    ExecuteDisplay("1234567890", cfg);
+                    ExecuteDisplay(value.ToString() != "" ? value.ToString() : "1234567890", cfg);
                     break;
                 
                 case MobiFlightShiftRegister.TYPE:
-                    ExecuteDisplay("1", cfg);
+                    ExecuteDisplay(value.ToString() != "" ? value.ToString() : "1", cfg);
                     break;
 
                 case "InputAction":
@@ -1261,7 +1262,7 @@ namespace MobiFlight
                     break;
 
                 default:
-                    ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "255", cfg);
+                    ExecuteDisplay(value.ToString() != "" ? value.ToString() : "255", cfg);
                     break;
             }
         }

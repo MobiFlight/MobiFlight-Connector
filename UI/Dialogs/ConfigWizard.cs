@@ -8,9 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.Base;
+using MobiFlight.Properties;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Config;
 using MobiFlight.UI.Panels.OutputWizard;
+using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -25,6 +27,8 @@ namespace MobiFlight.UI.Dialogs
         OutputConfigItem originalConfig = null;
         ErrorProvider errorProvider = new ErrorProvider();
         DataSet _dataSetConfig = null;
+        Timer TestTimer = new Timer();
+        ConnectorValue TestValue = null;
 
 #if ARCAZE
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
@@ -92,8 +96,6 @@ namespace MobiFlight.UI.Dialogs
 
             // DISPLAY PANEL
             displayPanel1.Init(_execManager);
-            displayPanel1.TestModeStartRequested += (sender, args) => { _testModeStart(); };
-            displayPanel1.TestModeStopRequested += (sender, args) => { _testModeStop(); };
             displayPanel1.DisplayPanelValidatingError += (sender, args) =>
             {
                 tabControlFsuipc.SelectedTab = displayTabPage;
@@ -125,21 +127,34 @@ namespace MobiFlight.UI.Dialogs
 
 
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
-            testValuePanel1.TestModeEnd += TestValuePanel_TestModeEnd;
+            testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
+            TestTimer.Interval = Settings.Default.TestTimerInterval;
+            TestTimer.Tick += TestTimer_Tick;
+        }
+
+        private void TestTimer_Tick(object sender, EventArgs e)
+        {
+            var value = TestValue.Clone() as ConnectorValue;
+            if (value != null)
+                config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
+            testValuePanel1.Result = value.ToString();
+
+            _execManager.ExecuteTestOn(config, value);
         }
 
         private void TestValuePanel_TestModeEnd(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            _testModeStop();
         }
 
         private void TestValuePanel_TestModeStart(object sender, ConnectorValue value)
         {
             _syncFormToConfig();
-
             try
             {
-                _execManager.ExecuteTestOn(config, value);
+                modifierPanel1.toConfig(config);
+                TestValue = value;
+                TestTimer.Start();
             }
             catch (Exception e)
             {
@@ -430,7 +445,7 @@ namespace MobiFlight.UI.Dialogs
         {
             // check if running in test mode
             lastTabActive = (sender as TabControl).SelectedIndex;
-            _testModeStop();
+            // _testModeStop();
         }
 
         private void OffsetTypeFsuipRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -468,6 +483,7 @@ namespace MobiFlight.UI.Dialogs
         {
             try
             {
+                TestTimer.Stop();
                 _execManager.ExecuteTestOff(config);
             }
             catch (Exception e)

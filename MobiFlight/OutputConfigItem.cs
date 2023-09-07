@@ -31,6 +31,8 @@ namespace MobiFlight
 
         public XplaneDataRef        XplaneDataRef               { get; set; }
 		public string               Value                       { get; set; }	
+
+        public ConnectorValue       TestValue                   { get; set; }
         public ModifierList         Modifiers                   { get; set; }
 		public string               DisplayType                 { get; set; }
 		public string               DisplaySerial               { get; set; }
@@ -56,6 +58,7 @@ namespace MobiFlight
             SimConnectValue = new SimConnectValue();
             MobiFlightVariable = new MobiFlightVariable();
             XplaneDataRef = new XplaneDataRef();
+            TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Pin = new OutputConfig.Pin();
             LedModule = new OutputConfig.LedModule();
@@ -81,6 +84,8 @@ namespace MobiFlight
                 this.SimConnectValue.Equals((obj as OutputConfigItem).SimConnectValue) &&
                 this.XplaneDataRef.Equals((obj as OutputConfigItem).XplaneDataRef) &&
                 this.MobiFlightVariable.Equals((obj as OutputConfigItem).MobiFlightVariable) &&
+                //===
+                this.TestValue.Equals((obj as OutputConfigItem).TestValue) &&
                 //===
                 this.Modifiers.Equals((obj as OutputConfigItem).Modifiers) &&
                 //===
@@ -148,6 +153,26 @@ namespace MobiFlight
                         Modifiers.Transformation.Active = true;
                         // we have to replace the decimal in case "," is used (german style)
                         Modifiers.Transformation.Expression = "$*" + multiplier.ToString().Replace(',', '.');
+                    }
+                }
+                reader.Read();
+            }
+
+            if (reader.LocalName == "test")
+            {
+                if (reader["type"] != null)
+                {
+                    if (reader["type"] == FSUIPCOffsetType.String.ToString())
+                    {
+                        TestValue.type = FSUIPCOffsetType.String;
+                        TestValue.String = reader["value"];
+                    }
+                    else
+                    {
+                        if (!Double.TryParse(reader["value"], out TestValue.Float64))
+                        {
+                            Log.Instance.log("Error reading config.", LogSeverity.Error);
+                        };
                     }
                 }
                 reader.Read();
@@ -310,6 +335,11 @@ namespace MobiFlight
                     this.XplaneDataRef.WriteXml(writer);
                 else
                     this.SimConnectValue.WriteXml(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("test");
+                writer.WriteAttributeString("type", TestValue.type.ToString());
+                writer.WriteAttributeString("value", TestValue.ToString());
             writer.WriteEndElement();
 
             Modifiers.WriteXml(writer);
