@@ -445,6 +445,7 @@ namespace MobiFlight
             clone.AnalogInputConfig         = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
 
             clone.Modifiers                 = this.Modifiers.Clone() as ModifierList;
+            clone.TestValue                 = this.TestValue.Clone() as ConnectorValue;
             return clone;
         }
     }

@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.labelCharacter = new System.Windows.Forms.Label();
-            this.textBoxCharacter = new System.Windows.Forms.TextBox();
             this.textBoxLength = new System.Windows.Forms.TextBox();
             this.labelLength = new System.Windows.Forms.Label();
             this.labelDirection = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBoxCharacter = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelCharacter
@@ -45,16 +45,9 @@
             this.labelCharacter.TabIndex = 0;
             this.labelCharacter.Text = "Character";
             // 
-            // textBoxCharacter
-            // 
-            this.textBoxCharacter.Location = new System.Drawing.Point(62, 3);
-            this.textBoxCharacter.Name = "textBoxCharacter";
-            this.textBoxCharacter.Size = new System.Drawing.Size(45, 20);
-            this.textBoxCharacter.TabIndex = 1;
-            // 
             // textBoxLength
             // 
-            this.textBoxLength.Location = new System.Drawing.Point(173, 3);
+            this.textBoxLength.Location = new System.Drawing.Point(180, 3);
             this.textBoxLength.Name = "textBoxLength";
             this.textBoxLength.Size = new System.Drawing.Size(45, 20);
             this.textBoxLength.TabIndex = 3;
@@ -62,7 +55,7 @@
             // labelLength
             // 
             this.labelLength.AutoSize = true;
-            this.labelLength.Location = new System.Drawing.Point(127, 6);
+            this.labelLength.Location = new System.Drawing.Point(140, 6);
             this.labelLength.Name = "labelLength";
             this.labelLength.Size = new System.Drawing.Size(40, 13);
             this.labelLength.TabIndex = 2;
@@ -71,7 +64,7 @@
             // labelDirection
             // 
             this.labelDirection.AutoSize = true;
-            this.labelDirection.Location = new System.Drawing.Point(233, 6);
+            this.labelDirection.Location = new System.Drawing.Point(237, 6);
             this.labelDirection.Name = "labelDirection";
             this.labelDirection.Size = new System.Drawing.Size(49, 13);
             this.labelDirection.TabIndex = 4;
@@ -81,10 +74,18 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(288, 3);
+            this.comboBox1.Location = new System.Drawing.Point(288, 2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(92, 21);
             this.comboBox1.TabIndex = 5;
+            // 
+            // comboBoxBlinkValue
+            // 
+            this.comboBoxCharacter.FormattingEnabled = true;
+            this.comboBoxCharacter.Location = new System.Drawing.Point(58, 3);
+            this.comboBoxCharacter.Name = "comboBoxBlinkValue";
+            this.comboBoxCharacter.Size = new System.Drawing.Size(72, 21);
+            this.comboBoxCharacter.TabIndex = 10;
             // 
             // PaddingModifierPanel
             // 
@@ -92,11 +93,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.Controls.Add(this.comboBoxCharacter);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.labelDirection);
             this.Controls.Add(this.textBoxLength);
             this.Controls.Add(this.labelLength);
-            this.Controls.Add(this.textBoxCharacter);
             this.Controls.Add(this.labelCharacter);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 0);
@@ -110,10 +111,10 @@
         #endregion
 
         private System.Windows.Forms.Label labelCharacter;
-        private System.Windows.Forms.TextBox textBoxCharacter;
         private System.Windows.Forms.TextBox textBoxLength;
         private System.Windows.Forms.Label labelLength;
         private System.Windows.Forms.Label labelDirection;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBoxCharacter;
     }
 }

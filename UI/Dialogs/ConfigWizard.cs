@@ -113,7 +113,7 @@ namespace MobiFlight.UI.Dialogs
 
             // FSUIPC PANEL
             fsuipcConfigPanel.setMode(true);
-            fsuipcConfigPanel.syncFromConfig(cfg);
+            // fsuipcConfigPanel.syncFromConfig(cfg);
 
             // SIMCONNECT SIMVARS PANEL
             simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
@@ -125,7 +125,7 @@ namespace MobiFlight.UI.Dialogs
             xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
 
-
+            testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
             testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
             TestTimer.Interval = Settings.Default.TestTimerInterval;
@@ -174,9 +174,9 @@ namespace MobiFlight.UI.Dialogs
 
         private void ActivateCorrectTab(OutputConfigItem cfg)
         {
-            // by default always the first tab is activated
-            // if one opens the dialog for an existing config
-            // we use the lastTabActive
+            // by default always the first tab is activated.
+            // if one opens the dialog for an existing config,
+            // then we use the lastTabActive
             if (cfg?.DisplaySerial != null && cfg?.DisplaySerial != SerialNumber.NOT_SET)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
@@ -315,7 +315,9 @@ namespace MobiFlight.UI.Dialogs
             modifierPanel1.fromConfig(config);
 
             preconditionPanel.syncFromConfig(config);
-            
+
+            testValuePanel1.FromConfig(config);
+
             return true;
         }
 
@@ -360,6 +362,8 @@ namespace MobiFlight.UI.Dialogs
 
             displayPanel1.syncToConfig();
             preconditionPanel.syncToConfig(config);
+
+            testValuePanel1.ToConfig(config);
 
             return true;
         }

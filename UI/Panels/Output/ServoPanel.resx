@@ -123,10 +123,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="displayPinComoBoxLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 27</value>
+    <value>6, 30</value>
   </data>
   <data name="displayPinComoBoxLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>96, 17</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="displayPinComoBoxLabel.TabIndex" type="System.Int32, mscorlib">
@@ -151,7 +151,7 @@
     <value>8</value>
   </data>
   <data name="minValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 24</value>
+    <value>108, 27</value>
   </data>
   <data name="minValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 20</value>
@@ -175,7 +175,7 @@
     <value>7</value>
   </data>
   <data name="maxValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 46</value>
+    <value>108, 53</value>
   </data>
   <data name="maxValueTextBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 20</value>
@@ -202,10 +202,10 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 49</value>
+    <value>6, 56</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>96, 17</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -235,7 +235,7 @@
     <value>6, 4</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>96, 17</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -268,7 +268,7 @@
     <value>3BCD-8Bit-with-Strobe</value>
   </data>
   <data name="servoAddressesComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 0</value>
+    <value>108, 0</value>
   </data>
   <data name="servoAddressesComboBox.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>122, 0</value>
@@ -298,10 +298,10 @@
     <value>NoControl</value>
   </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 71</value>
+    <value>6, 82</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
+    <value>96, 13</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -325,7 +325,7 @@
     <value>2</value>
   </data>
   <data name="maxRotationPercentNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>94, 68</value>
+    <value>108, 79</value>
   </data>
   <data name="maxRotationPercentNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 20</value>
@@ -349,7 +349,7 @@
     <value>NoControl</value>
   </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>153, 71</value>
+    <value>167, 82</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
     <value>43, 13</value>
@@ -381,8 +381,17 @@
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
+  <data name="$this.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>300, 0</value>
+  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>255, 93</value>
+    <value>300, 102</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>ServoPanel</value>

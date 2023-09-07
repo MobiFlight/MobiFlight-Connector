@@ -38,10 +38,10 @@ namespace MobiFlight.UI.Panels
             // 
             // registerLabel
             // 
-            this.registerLabel.Location = new System.Drawing.Point(0, 6);
+            this.registerLabel.Location = new System.Drawing.Point(7, 4);
             this.registerLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.registerLabel.Name = "registerLabel";
-            this.registerLabel.Size = new System.Drawing.Size(92, 18);
+            this.registerLabel.Size = new System.Drawing.Size(96, 18);
             this.registerLabel.TabIndex = 0;
             this.registerLabel.Text = "Shift Register";
             this.registerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -67,7 +67,7 @@ namespace MobiFlight.UI.Panels
             "D",
             "E",
             "F"});
-            this.shiftRegistersComboBox.Location = new System.Drawing.Point(101, 7);
+            this.shiftRegistersComboBox.Location = new System.Drawing.Point(108, 4);
             this.shiftRegistersComboBox.MaximumSize = new System.Drawing.Size(134, 0);
             this.shiftRegistersComboBox.MinimumSize = new System.Drawing.Size(35, 0);
             this.shiftRegistersComboBox.Name = "shiftRegistersComboBox";
@@ -82,15 +82,15 @@ namespace MobiFlight.UI.Panels
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(371, 36);
+            this.panel1.Size = new System.Drawing.Size(566, 29);
             this.panel1.TabIndex = 68;
             // 
             // displayPinPanel
             // 
             this.displayPinPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.displayPinPanel.Location = new System.Drawing.Point(0, 36);
+            this.displayPinPanel.Location = new System.Drawing.Point(0, 29);
             this.displayPinPanel.Name = "displayPinPanel";
-            this.displayPinPanel.Size = new System.Drawing.Size(371, 238);
+            this.displayPinPanel.Size = new System.Drawing.Size(566, 245);
             this.displayPinPanel.TabIndex = 67;
             // 
             // DisplayShiftRegisterPanel
@@ -102,7 +102,7 @@ namespace MobiFlight.UI.Panels
             this.Controls.Add(this.panel1);
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "DisplayShiftRegisterPanel";
-            this.Size = new System.Drawing.Size(371, 274);
+            this.Size = new System.Drawing.Size(566, 274);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

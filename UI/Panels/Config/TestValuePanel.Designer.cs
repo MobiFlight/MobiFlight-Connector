@@ -62,7 +62,7 @@
             // label3
             // 
             this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(135, 16);
+            this.label3.Location = new System.Drawing.Point(125, 16);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 23);
             this.label3.TabIndex = 19;
@@ -76,7 +76,7 @@
             this.comboBoxTestValueType.Items.AddRange(new object[] {
             "Number",
             "String"});
-            this.comboBoxTestValueType.Location = new System.Drawing.Point(58, 18);
+            this.comboBoxTestValueType.Location = new System.Drawing.Point(48, 18);
             this.comboBoxTestValueType.Name = "comboBoxTestValueType";
             this.comboBoxTestValueType.Size = new System.Drawing.Size(71, 21);
             this.comboBoxTestValueType.TabIndex = 18;
@@ -108,7 +108,7 @@
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.label2.Location = new System.Drawing.Point(10, 16);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 23);
+            this.label2.Size = new System.Drawing.Size(32, 23);
             this.label2.TabIndex = 15;
             this.label2.Text = "Type";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -117,7 +117,7 @@
             // 
             this.textBoxTestValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTestValue.Location = new System.Drawing.Point(181, 18);
+            this.textBoxTestValue.Location = new System.Drawing.Point(171, 18);
             this.textBoxTestValue.Name = "textBoxTestValue";
             this.textBoxTestValue.Size = new System.Drawing.Size(75, 20);
             this.textBoxTestValue.TabIndex = 14;
@@ -129,7 +129,7 @@
             this.displayPinTestStopButton.Image = global::MobiFlight.Properties.Resources.media_stop;
             this.displayPinTestStopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.displayPinTestStopButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinTestStopButton.Location = new System.Drawing.Point(326, 16);
+            this.displayPinTestStopButton.Location = new System.Drawing.Point(316, 16);
             this.displayPinTestStopButton.Name = "displayPinTestStopButton";
             this.displayPinTestStopButton.Size = new System.Drawing.Size(58, 23);
             this.displayPinTestStopButton.TabIndex = 21;
@@ -145,7 +145,7 @@
             this.displayPinTestButton.Image = global::MobiFlight.Properties.Resources.media_play;
             this.displayPinTestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.displayPinTestButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinTestButton.Location = new System.Drawing.Point(262, 16);
+            this.displayPinTestButton.Location = new System.Drawing.Point(252, 16);
             this.displayPinTestButton.Name = "displayPinTestButton";
             this.displayPinTestButton.Size = new System.Drawing.Size(58, 23);
             this.displayPinTestButton.TabIndex = 20;

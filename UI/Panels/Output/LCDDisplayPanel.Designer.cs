@@ -50,10 +50,10 @@
             // 
             // panel3
             // 
-            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.DisplayComboBox);
             this.panel3.Controls.Add(this.panel4);
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
             // label1
@@ -63,8 +63,9 @@
             // 
             // DisplayComboBox
             // 
-            resources.ApplyResources(this.DisplayComboBox, "DisplayComboBox");
+            this.DisplayComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DisplayComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.DisplayComboBox, "DisplayComboBox");
             this.DisplayComboBox.Name = "DisplayComboBox";
             this.DisplayComboBox.SelectedIndexChanged += new System.EventHandler(this.DisplayComboBox_SelectedIndexChanged);
             // 
@@ -75,10 +76,10 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // panel2
@@ -103,9 +104,9 @@
             // 
             // lcdDisplayTextBox
             // 
-            resources.ApplyResources(this.lcdDisplayTextBox, "lcdDisplayTextBox");
             this.lcdDisplayTextBox.BackColor = System.Drawing.Color.RoyalBlue;
             this.lcdDisplayTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            resources.ApplyResources(this.lcdDisplayTextBox, "lcdDisplayTextBox");
             this.lcdDisplayTextBox.ForeColor = System.Drawing.Color.White;
             this.lcdDisplayTextBox.Name = "lcdDisplayTextBox";
             this.lcdDisplayTextBox.TextChanged += new System.EventHandler(this.lcdDisplayTextBox_TextChanged);
@@ -134,8 +135,8 @@
             this.Controls.Add(this.label4);
             this.Name = "LCDDisplayPanel";
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -143,6 +144,7 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

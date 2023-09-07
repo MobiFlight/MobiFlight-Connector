@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Modifier;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,16 +35,26 @@ namespace MobiFlight.UI.Panels.Config
 
         private void displayPinTestButton_Click(object sender, EventArgs e)
         {
-            var result = new ConnectorValue();
+            
             if (comboBoxTestValueType.SelectedItem == null) return;
 
+            var result = CreateConnectorValue();
+
+            TestModeStart?.Invoke(this, result);
+            displayPinTestStopButton.Enabled = true;
+            displayPinTestButton.Enabled = false;
+        }
+
+        private ConnectorValue CreateConnectorValue()
+        {
+            var result = new ConnectorValue();
             string type = (comboBoxTestValueType.SelectedItem as ListItem).Value;
 
             if (type == FSUIPCOffsetType.Float.ToString())
             {
                 if (!double.TryParse(textBoxTestValue.Text, out result.Float64))
                 {
-                    return;
+                    return result;
                 };
                 result.type = FSUIPCOffsetType.Float;
             }
@@ -53,9 +64,7 @@ namespace MobiFlight.UI.Panels.Config
                 result.String = textBoxTestValue.Text;
             }
 
-            TestModeStart?.Invoke(this, result);
-            displayPinTestStopButton.Enabled = true;
-            displayPinTestButton.Enabled = false;
+            return result;
         }
 
         private void displayPinTestStopButton_Click(object sender, EventArgs e)
@@ -67,6 +76,20 @@ namespace MobiFlight.UI.Panels.Config
             displayPinTestButton.Enabled = true;
 
             TestModeStop?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void FromConfig(OutputConfigItem config)
+        {
+            if (config == null) return;
+            if (!ComboBoxHelper.SetSelectedItemByValue(comboBoxTestValueType, config.TestValue.type.ToString())) {
+
+            }
+            textBoxTestValue.Text = config.TestValue.ToString();
+        }
+
+        internal void ToConfig(OutputConfigItem config)
+        {
+            config.TestValue = CreateConnectorValue();
         }
     }
 }
