@@ -31,6 +31,8 @@ namespace MobiFlight.UI.Panels.Modifier
             comboBoxBlinkValue.ValueMember = "Value";
             comboBoxBlinkValue.DisplayMember = "Label";
 
+            comboBoxBlinkValue.SelectedIndexChanged += value_Changed;
+            comboBoxBlinkValue.TextChanged += value_Changed;
         }
 
         public void fromConfig(ModifierBase c)
@@ -53,7 +55,7 @@ namespace MobiFlight.UI.Panels.Modifier
                 var p = new BlinkSequencePanel();
                 p.fromConfig(t);
                 p.Dock = DockStyle.Bottom;
-                p.ModifierChanged += control_Leave;
+                p.ModifierChanged += value_Changed;
                 panelSequences.Controls.Add(p);
                 i++;
             }
@@ -89,7 +91,7 @@ namespace MobiFlight.UI.Panels.Modifier
                 OnOffSequence = onOffSequence
             };
         }
-        private void control_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -100,7 +102,7 @@ namespace MobiFlight.UI.Panels.Modifier
             var p = new BlinkSequencePanel();
             p.fromConfig(t);
             p.Dock = DockStyle.Bottom;
-            p.ModifierChanged += control_Leave;
+            p.ModifierChanged += value_Changed;
             panelSequences.Controls.Add(p);
         }
     }

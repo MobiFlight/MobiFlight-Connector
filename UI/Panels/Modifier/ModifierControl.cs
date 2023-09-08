@@ -156,6 +156,7 @@ namespace MobiFlight.UI.Panels.Modifier
         private void Panel_ModifierChanged(object sender, EventArgs e)
         {
             _modifier = (sender as IModifierConfigPanel)?.toConfig();
+            _modifier.Active = checkBoxActive.Checked;
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -177,11 +178,6 @@ namespace MobiFlight.UI.Panels.Modifier
         {
             if (HighlightTimer.Enabled) return;
             BackColor = OriginalColor;
-        }
-
-        private void control_Leave(object sender, EventArgs e)
-        {
-            ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void buttonUp_Click(object sender, EventArgs e)

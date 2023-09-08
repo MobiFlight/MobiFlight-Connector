@@ -89,7 +89,6 @@
             this.labelTestResultValue.Name = "labelTestResultValue";
             this.labelTestResultValue.Size = new System.Drawing.Size(75, 23);
             this.labelTestResultValue.TabIndex = 17;
-            this.labelTestResultValue.Text = "#######";
             this.labelTestResultValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelTestResult
@@ -100,7 +99,7 @@
             this.labelTestResult.Name = "labelTestResult";
             this.labelTestResult.Size = new System.Drawing.Size(49, 23);
             this.labelTestResult.TabIndex = 16;
-            this.labelTestResult.Text = "Result";
+            this.labelTestResult.Text = "Result:";
             this.labelTestResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2

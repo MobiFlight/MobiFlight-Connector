@@ -15,6 +15,7 @@ using MobiFlight.InputConfig;
 using MobiFlight.xplane;
 using System.Globalization;
 using Newtonsoft.Json.Linq;
+using FSUIPC;
 
 namespace MobiFlight
 {

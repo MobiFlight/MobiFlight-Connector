@@ -34,12 +34,11 @@
             this.buttonDown = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panelDetails = new System.Windows.Forms.Panel();
-            this.interpolationModifier1 = new MobiFlight.UI.Panels.Modifier.InterpolationModifierPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelColor = new System.Windows.Forms.Panel();
             this.labelModifierType = new System.Windows.Forms.Label();
-            this.checkBoxLog = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.interpolationModifier1 = new MobiFlight.UI.Panels.Modifier.InterpolationModifierPanel();
             this.panelDetails.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -124,24 +123,12 @@
             this.panelDetails.Size = new System.Drawing.Size(400, 71);
             this.panelDetails.TabIndex = 1;
             // 
-            // interpolationModifier1
-            // 
-            this.interpolationModifier1.AutoSize = true;
-            this.interpolationModifier1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.interpolationModifier1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.interpolationModifier1.Location = new System.Drawing.Point(185, 0);
-            this.interpolationModifier1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.interpolationModifier1.Name = "interpolationModifier1";
-            this.interpolationModifier1.Size = new System.Drawing.Size(215, 71);
-            this.interpolationModifier1.TabIndex = 0;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.panelColor);
             this.panel1.Controls.Add(this.labelModifierType);
             this.panel1.Controls.Add(this.labelModifier);
             this.panel1.Controls.Add(this.checkBoxActive);
-            this.panel1.Controls.Add(this.checkBoxLog);
             this.panel1.Controls.Add(this.buttonUp);
             this.panel1.Controls.Add(this.buttonDown);
             this.panel1.Controls.Add(this.button1);
@@ -173,18 +160,6 @@
             this.labelModifierType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelModifierType.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ModifierControl_MouseUp);
             // 
-            // checkBoxLog
-            // 
-            this.checkBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxLog.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxLog.Location = new System.Drawing.Point(258, 0);
-            this.checkBoxLog.Name = "checkBoxLog";
-            this.checkBoxLog.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.checkBoxLog.Size = new System.Drawing.Size(48, 26);
-            this.checkBoxLog.TabIndex = 7;
-            this.checkBoxLog.Text = "log";
-            this.checkBoxLog.UseVisualStyleBackColor = true;
-            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
@@ -193,6 +168,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(400, 1);
             this.panel2.TabIndex = 7;
+            // 
+            // interpolationModifier1
+            // 
+            this.interpolationModifier1.AutoSize = true;
+            this.interpolationModifier1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.interpolationModifier1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.interpolationModifier1.Location = new System.Drawing.Point(185, 0);
+            this.interpolationModifier1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.interpolationModifier1.Name = "interpolationModifier1";
+            this.interpolationModifier1.Size = new System.Drawing.Size(215, 71);
+            this.interpolationModifier1.TabIndex = 0;
             // 
             // ModifierControl
             // 
@@ -227,7 +213,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelModifierType;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.CheckBox checkBoxLog;
         private System.Windows.Forms.Panel panelColor;
     }
 }

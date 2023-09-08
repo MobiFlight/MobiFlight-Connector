@@ -21,6 +21,8 @@ namespace MobiFlight.UI.Panels.Modifier.BlinkModifier
             InitializeComponent();
             textBoxOnTime.Leave += TextBox_Leave;
             textBoxOffTime.Leave += TextBox_Leave;
+            textBoxOnTime.TextChanged += TextBox_Leave;
+            textBoxOffTime.TextChanged += TextBox_Leave;
         }
 
         private void TextBox_Leave(object sender, EventArgs e)

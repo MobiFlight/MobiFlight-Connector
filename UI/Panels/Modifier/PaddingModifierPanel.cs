@@ -20,12 +20,12 @@ namespace MobiFlight.UI.Panels.Modifier
         public PaddingModifierPanel()
         {
             InitializeComponent();
-
-            comboBox1.Leave += control_Leave;
-            comboBoxCharacter.Leave += control_Leave;
-            comboBoxCharacter.Leave += control_Leave;
-            textBoxLength.Leave += control_Leave;
-            textBoxLength.TextChanged += control_Leave;
+            comboBox1.SelectedIndexChanged += value_Changed;
+            comboBox1.Leave += value_Changed;
+            comboBoxCharacter.Leave += value_Changed;
+            comboBoxCharacter.Leave += value_Changed;
+            textBoxLength.Leave += value_Changed;
+            textBoxLength.TextChanged += value_Changed;
 
             comboBox1.Items.Clear();
             var items = new List<ListItem<Padding.PaddingDirection>>() {
@@ -96,7 +96,7 @@ namespace MobiFlight.UI.Panels.Modifier
             };
         }
 
-        private void control_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }

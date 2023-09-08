@@ -28,7 +28,6 @@ namespace MobiFlight.UI.Dialogs
         ErrorProvider errorProvider = new ErrorProvider();
         DataSet _dataSetConfig = null;
         Timer TestTimer = new Timer();
-        ConnectorValue TestValue = null;
 
 #if ARCAZE
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
@@ -128,15 +127,30 @@ namespace MobiFlight.UI.Dialogs
             testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
             testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
+            testValuePanel1.TestValueChanged += ModifierPanel1_ModifierChanged;
             TestTimer.Interval = Settings.Default.TestTimerInterval;
             TestTimer.Tick += TestTimer_Tick;
+            modifierPanel1.ModifierChanged += ModifierPanel1_ModifierChanged;
+        }
+
+        private void ModifierPanel1_ModifierChanged(object sender, EventArgs e)
+        {
+            testValuePanel1.ToConfig(config);
+            modifierPanel1.toConfig(config);
         }
 
         private void TestTimer_Tick(object sender, EventArgs e)
         {
-            var value = TestValue.Clone() as ConnectorValue;
-            if (value != null)
-                config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
+            var value = config.TestValue.Clone() as ConnectorValue;
+            try
+            {
+                if (value != null)
+                    config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
+            } catch (Exception ex)
+            {
+                // ShowError? Or don't do anything?
+            }
+            
             testValuePanel1.Result = value.ToString();
 
             _execManager.ExecuteTestOn(config, value);
@@ -153,7 +167,6 @@ namespace MobiFlight.UI.Dialogs
             try
             {
                 modifierPanel1.toConfig(config);
-                TestValue = value;
                 TestTimer.Start();
             }
             catch (Exception e)

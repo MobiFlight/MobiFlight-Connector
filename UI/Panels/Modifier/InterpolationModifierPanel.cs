@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Modifier
                 var p = new InterpolationMappingPanel();
                 p.fromConfig(t);
                 p.Dock = DockStyle.Bottom;
-                p.Leave += control_Leave;
+                p.Leave += value_Changed;
                 p.ShowDeleteButton = !(i < 2);
                 i++;
                 panelSequences.Controls.Add(p);
@@ -64,7 +64,7 @@ namespace MobiFlight.UI.Panels.Modifier
             return config;
         }
 
-        private void control_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -75,7 +75,7 @@ namespace MobiFlight.UI.Panels.Modifier
             var p = new InterpolationMappingPanel();
             p.fromConfig(t.NextItem());
             p.Dock = DockStyle.Bottom;
-            p.Leave += control_Leave;
+            p.Leave += value_Changed;
             panelSequences.Controls.Add(p);
         }
     }

@@ -9,6 +9,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
 {
     public partial class ModifierPanel : UserControl
     {
+        public event EventHandler ModifierChanged;
+
         ModifierList modifierList = new ModifierList();
 
         public ModifierPanel()
@@ -83,6 +85,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             var index = modifierListPanel.Controls.GetChildIndex(panel);
             var count = modifierList.Items.Count;
             modifierList.Items[count - index - 1] = panel.Modifier;
+
+            //ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private void UpdateArrows()

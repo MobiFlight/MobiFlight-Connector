@@ -19,11 +19,11 @@ namespace MobiFlight.UI.Panels.Modifier
         public TransformModifierPanel()
         {
             InitializeComponent();
-            expressionTextBox.Leave += control_Leave;
-            expressionTextBox.TextChanged += control_Leave;
+            expressionTextBox.Leave += value_Changed;
+            expressionTextBox.TextChanged += value_Changed;
         }
 
-        private void control_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }

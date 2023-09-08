@@ -22,11 +22,11 @@ namespace MobiFlight.UI.Panels.Modifier.InterpolationModifier
         public InterpolationMappingPanel()
         {
             InitializeComponent();
-            textBoxFromValue.Leave += TextBox_Leave;
-            textBoxToValue.Leave += TextBox_Leave;
+            textBoxFromValue.Leave += value_Changed;
+            textBoxToValue.Leave += value_Changed;
         }
 
-        private void TextBox_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }

@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels.Config
         public event EventHandler<ConnectorValue> TestModeStart;
         public event EventHandler<EventArgs> TestModeStop;
         public event EventHandler TestModeEnd;
+        public event EventHandler TestValueChanged;
         public string Result { get { return labelTestResultValue.Text; } set { labelTestResultValue.Text = value; } }
 
         public TestValuePanel()
@@ -31,6 +32,7 @@ namespace MobiFlight.UI.Panels.Config
             comboBoxTestValueType.ValueMember = "Value";
             comboBoxTestValueType.DisplayMember = "Label";
             comboBoxTestValueType.SelectedIndex = 0;
+            textBoxTestValue.TextChanged += (s, e) => { TestValueChanged?.Invoke(s, e); };
         }
 
         private void displayPinTestButton_Click(object sender, EventArgs e)

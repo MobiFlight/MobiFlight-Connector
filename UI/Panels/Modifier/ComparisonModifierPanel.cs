@@ -19,14 +19,18 @@ namespace MobiFlight.UI.Panels.Modifier
         public ComparisonModifierPanel()
         {
             InitializeComponent();
-            comparisonValueTextBox.TextChanged += control_Leave;
-            comparisonValueTextBox.Leave += control_Leave;
+            comparisonValueTextBox.TextChanged += value_Changed;
+            comparisonValueTextBox.Leave += value_Changed;
 
-            comparisonIfValueTextBox.TextChanged += control_Leave;
-            comparisonIfValueTextBox.Leave += control_Leave;
+            comparisonIfValueTextBox.TextChanged += value_Changed;
+            comparisonIfValueTextBox.Leave += value_Changed;
 
-            comparisonElseValueTextBox.TextChanged += control_Leave;
-            comparisonElseValueTextBox.Leave += control_Leave;
+            comparisonElseValueTextBox.TextChanged += value_Changed;
+            comparisonElseValueTextBox.Leave += value_Changed;
+
+            comparisonOperandComboBox.TextChanged += value_Changed;
+            comparisonOperandComboBox.Leave += value_Changed;
+            comparisonOperandComboBox.SelectedIndexChanged += value_Changed;
         }
 
         public void fromConfig(ModifierBase c)
@@ -58,7 +62,7 @@ namespace MobiFlight.UI.Panels.Modifier
             return config;
         }
 
-        private void control_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
                 ModifierChanged?.Invoke(this, EventArgs.Empty);
         }

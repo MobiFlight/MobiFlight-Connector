@@ -20,12 +20,12 @@ namespace MobiFlight.UI.Panels.Modifier
             InitializeComponent();
             foreach(var control in new List<Control>() { SubStringToTextBox, SubStringFromTextBox} )
             {
-                control.Leave += control_Leave;
-                control.TextChanged += control_Leave;
+                control.Leave += value_Changed;
+                control.TextChanged += value_Changed;
             }
         }
 
-        private void control_Leave(object sender, EventArgs e)
+        private void value_Changed(object sender, EventArgs e)
         {
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
