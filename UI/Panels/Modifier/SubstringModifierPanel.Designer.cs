@@ -28,41 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SubstringPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.SubStringToTextBox = new System.Windows.Forms.TextBox();
             this.SubStringToLabel = new System.Windows.Forms.Label();
             this.SubStringFromTextBox = new System.Windows.Forms.TextBox();
-            this.SubstringPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // SubstringPanel
-            // 
-            this.SubstringPanel.AutoSize = true;
-            this.SubstringPanel.Controls.Add(this.label2);
-            this.SubstringPanel.Controls.Add(this.SubStringToTextBox);
-            this.SubstringPanel.Controls.Add(this.SubStringToLabel);
-            this.SubstringPanel.Controls.Add(this.SubStringFromTextBox);
-            this.SubstringPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.SubstringPanel.Location = new System.Drawing.Point(0, 0);
-            this.SubstringPanel.Name = "SubstringPanel";
-            this.SubstringPanel.Size = new System.Drawing.Size(400, 25);
-            this.SubstringPanel.TabIndex = 17;
             // 
             // label2
             // 
             this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(3, 5);
+            this.label2.Location = new System.Drawing.Point(3, 4);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(124, 13);
+            this.label2.Size = new System.Drawing.Size(123, 13);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Substring from character";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label2.Text = "Substring from position";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // SubStringToTextBox
             // 
-            this.SubStringToTextBox.Location = new System.Drawing.Point(212, 2);
+            this.SubStringToTextBox.Location = new System.Drawing.Point(219, 1);
             this.SubStringToTextBox.Name = "SubStringToTextBox";
             this.SubStringToTextBox.Size = new System.Drawing.Size(52, 20);
             this.SubStringToTextBox.TabIndex = 20;
@@ -71,7 +56,7 @@
             // 
             this.SubStringToLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.SubStringToLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.SubStringToLabel.Location = new System.Drawing.Point(185, 5);
+            this.SubStringToLabel.Location = new System.Drawing.Point(187, 4);
             this.SubStringToLabel.Name = "SubStringToLabel";
             this.SubStringToLabel.Size = new System.Drawing.Size(26, 13);
             this.SubStringToLabel.TabIndex = 19;
@@ -80,7 +65,7 @@
             // 
             // SubStringFromTextBox
             // 
-            this.SubStringFromTextBox.Location = new System.Drawing.Point(133, 2);
+            this.SubStringFromTextBox.Location = new System.Drawing.Point(132, 1);
             this.SubStringFromTextBox.Name = "SubStringFromTextBox";
             this.SubStringFromTextBox.Size = new System.Drawing.Size(49, 20);
             this.SubStringFromTextBox.TabIndex = 17;
@@ -91,21 +76,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.Controls.Add(this.SubstringPanel);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.SubStringToTextBox);
+            this.Controls.Add(this.SubStringToLabel);
+            this.Controls.Add(this.SubStringFromTextBox);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(400, 0);
             this.Name = "SubstringModifierPanel";
-            this.Size = new System.Drawing.Size(400, 25);
-            this.SubstringPanel.ResumeLayout(false);
-            this.SubstringPanel.PerformLayout();
+            this.Size = new System.Drawing.Size(400, 24);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel SubstringPanel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox SubStringToTextBox;
         private System.Windows.Forms.Label SubStringToLabel;

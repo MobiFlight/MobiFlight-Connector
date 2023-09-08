@@ -29,17 +29,6 @@ namespace MobiFlight.Modifier
                 modifiers.Add(t);
                 return t;
             }
-/*
-            set
-            {
-                for (int i = 0; i < modifiers.Count; i++)
-                {
-                    if (!(modifiers[i] is Transformation)) continue;
-
-                    modifiers[i] = value;
-                    return;
-                }
-            }*/
         }
 
         public Comparison Comparison
@@ -56,17 +45,6 @@ namespace MobiFlight.Modifier
                 modifiers.Add(c);
                 return c;
             }
-
-/*            set
-            {
-                for (int i = 0; i < modifiers.Count; i++)
-                {
-                    if (!(modifiers[i] is Comparison)) continue;
-
-                    modifiers[i] = value;
-                    return;
-                }
-            }*/
         }
 
         public Interpolation Interpolation
@@ -83,40 +61,6 @@ namespace MobiFlight.Modifier
                 modifiers.Add(i);
                 return i;
             }
-/*
-            set
-            {
-                for (int i = 0; i < modifiers.Count; i++)
-                {
-                    if (!(modifiers[i] is Interpolation)) continue;
-
-                    modifiers[i] = value;
-                    return;
-                }
-
-                modifiers.Add(value);
-            }*/
-        }
-
-        /// <summary>
-        /// This method serves only for backward compatibliy
-        /// The old config logic was always executing in this order
-        ///  1. Transformation
-        ///  2. Comparison
-        ///  3. Interpolation
-        ///  
-        /// So if we access any of the "old" direct properties
-        /// and no modifiers have been registered yet, we simply
-        /// add these default modifiers to the list
-        /// 
-        /// Once the config got saved with the new format, 
-        /// this does not matter anymore
-        /// </summary>
-        private void InitModifiersForBackwardCompatibility()
-        {
-            modifiers.Add(new Transformation());
-            modifiers.Add(new Comparison());
-            modifiers.Add(new Interpolation());
         }
 
         public override bool Equals(object obj)
@@ -169,6 +113,12 @@ namespace MobiFlight.Modifier
                         var p = new Padding();
                         p.ReadXml(reader);
                         modifiers.Add(p);
+                        break;
+
+                    case "substring":
+                        var s = new Substring();
+                        s.ReadXml(reader);
+                        modifiers.Add(s);
                         break;
                 }
             } while (reader.LocalName != "modifiers");

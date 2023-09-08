@@ -163,7 +163,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void TestValuePanel_TestModeEnd(object sender, EventArgs e)
         {
-            _testModeStop();
+            _testModeStop(false);
         }
 
         private void TestValuePanel_TestModeStart(object sender, ConnectorValue value)
@@ -388,7 +388,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _testModeStop();
+            _testModeStop(true);
             try {
                 if (!ValidateChildren())
                 {
@@ -404,7 +404,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            _testModeStop();
+            _testModeStop(true);
             DialogResult = DialogResult.Cancel;
         }
 
@@ -466,12 +466,12 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.Dispose();
         }
 
-        private void _testModeStop()
+        private void _testModeStop(bool DialogClose = false)
         {
             try
             {
                 TestTimer.Stop();
-                _execManager.ExecuteTestOff(config);
+                _execManager.ExecuteTestOff(config, DialogClose);
             }
             catch (Exception e)
             {

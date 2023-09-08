@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Web;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Modifier
@@ -103,6 +104,9 @@ namespace MobiFlight.UI.Panels.Modifier
             if (modifierType == typeof(Blink))
                 return new BlinkModifierPanel();
 
+            if (modifierType == typeof(Substring))
+                return new SubstringModifierPanel();
+
             return null;
         }
 
@@ -124,9 +128,10 @@ namespace MobiFlight.UI.Panels.Modifier
             if (modifierType == typeof(Blink))
                 return Color.FromArgb(240, 228, 66);
 
+            if (modifierType == typeof(Substring))
+                return Color.FromArgb(0, 114, 178);
 
             // more colors for the future 
-            // Color.FromArgb(0, 114, 178)
             // Color.FromArgb(213, 94, 0)
             // Color.FromArgb(204, 121, 167)
 

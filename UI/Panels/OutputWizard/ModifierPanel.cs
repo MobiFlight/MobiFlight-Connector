@@ -166,6 +166,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 modifier = new MobiFlight.Modifier.Padding();
             }
+            else if (sender == substringToolStripMenuItem)
+            {
+                modifier = new MobiFlight.Modifier.Substring();
+            }
 
             modifier.Active = true;
             modifierList.Items.Add(modifier);

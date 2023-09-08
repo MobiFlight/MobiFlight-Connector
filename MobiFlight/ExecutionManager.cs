@@ -1138,7 +1138,7 @@ namespace MobiFlight
                 lastRow.Selected = false;
                 try
                 {
-                    ExecuteTestOff(cfg);
+                    ExecuteTestOff(cfg, true);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1212,9 +1212,10 @@ namespace MobiFlight
         }
 
 
-        public void ExecuteTestOff(OutputConfigItem cfg)
+        public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
-            ConfigItemInTestMode = null;
+            if (ResetConfigItemInTest)
+                ConfigItemInTestMode = null;
 
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
             

@@ -42,6 +42,7 @@
             this.paddingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxModifier = new System.Windows.Forms.GroupBox();
             this.modifierControl1 = new MobiFlight.UI.Panels.Modifier.ModifierControl();
+            this.substringToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifierListPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -115,42 +116,43 @@
             this.compareToolStripMenuItem,
             this.interpolationToolStripMenuItem,
             this.blinkToolStripMenuItem,
-            this.paddingToolStripMenuItem});
+            this.paddingToolStripMenuItem,
+            this.substringToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(143, 114);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 158);
             // 
             // transformToolStripMenuItem
             // 
             this.transformToolStripMenuItem.Name = "transformToolStripMenuItem";
-            this.transformToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.transformToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.transformToolStripMenuItem.Text = "Transform";
             this.transformToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
             // 
             // compareToolStripMenuItem
             // 
             this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
-            this.compareToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.compareToolStripMenuItem.Text = "Compare";
             this.compareToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
             // 
             // interpolationToolStripMenuItem
             // 
             this.interpolationToolStripMenuItem.Name = "interpolationToolStripMenuItem";
-            this.interpolationToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.interpolationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.interpolationToolStripMenuItem.Text = "Interpolation";
             this.interpolationToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
             // 
             // blinkToolStripMenuItem
             // 
             this.blinkToolStripMenuItem.Name = "blinkToolStripMenuItem";
-            this.blinkToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.blinkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.blinkToolStripMenuItem.Text = "Blink";
             this.blinkToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
             // 
             // paddingToolStripMenuItem
             // 
             this.paddingToolStripMenuItem.Name = "paddingToolStripMenuItem";
-            this.paddingToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.paddingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.paddingToolStripMenuItem.Text = "Padding";
             this.paddingToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
             // 
@@ -180,6 +182,13 @@
             this.modifierControl1.Selected = false;
             this.modifierControl1.Size = new System.Drawing.Size(488, 25);
             this.modifierControl1.TabIndex = 0;
+            // 
+            // substringToolStripMenuItem
+            // 
+            this.substringToolStripMenuItem.Name = "substringToolStripMenuItem";
+            this.substringToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.substringToolStripMenuItem.Text = "Substring";
+            this.substringToolStripMenuItem.Click += new System.EventHandler(this.modifierToolStripMenuItem_Click);
             // 
             // ModifierPanel
             // 
@@ -217,5 +226,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBoxModifier;
         private Modifier.ModifierControl modifierControl1;
+        private System.Windows.Forms.ToolStripMenuItem substringToolStripMenuItem;
     }
 }
