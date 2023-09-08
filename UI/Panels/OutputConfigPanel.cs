@@ -107,7 +107,8 @@ namespace MobiFlight.UI.Panels
                 case "EditButtonColumn":
                 case "OutputName":
                 case "OutputType":
-                    bool isNew = dataGridViewConfig.Rows[e.RowIndex].IsNewRow;
+                    var Row = dataGridViewConfig.Rows[e.RowIndex];
+                    bool isNew = Row.IsNewRow;
                     if (isNew)
                     {
                         MessageBox.Show(i18n._tr("uiMessageConfigLineNotSavedYet"),
@@ -116,7 +117,7 @@ namespace MobiFlight.UI.Panels
                     } //if
 
                     OutputConfigItem cfg;
-                    DataRow row = null;
+                    DataRow DataRow = null;
                     bool create = false;
                     if (isNew)
                     {
@@ -124,19 +125,19 @@ namespace MobiFlight.UI.Panels
                     }
                     else
                     {
-                        row = (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
+                        DataRow = (Row.DataBoundItem as DataRowView).Row;
 
                         // the row had been saved but no config object has been created
                         // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"].GetType() == typeof(System.DBNull))
+                        if (DataRow["settings"].GetType() == typeof(System.DBNull))
                         {
-                            (dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] = new OutputConfigItem();
+                            DataRow["settings"] = new OutputConfigItem();
                         }
 
-                        cfg = ((dataGridViewConfig.Rows[e.RowIndex].DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+                        cfg = DataRow["settings"] as OutputConfigItem;
                     }
                     EditConfigWithWizard(
-                             row,
+                             DataRow,
                              cfg,
                              create);
 
@@ -496,6 +497,8 @@ namespace MobiFlight.UI.Panels
 
                 // do something special
                 if (wizard.ConfigHasChanged()) {
+                    cfg = wizard.Config;
+                    dataRow["settings"] = cfg;
                     SettingsChanged?.Invoke(cfg, null);
                     RestoreValuesInGridView();
                 }

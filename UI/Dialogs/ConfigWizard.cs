@@ -28,6 +28,8 @@ namespace MobiFlight.UI.Dialogs
         ErrorProvider errorProvider = new ErrorProvider();
         DataSet _dataSetConfig = null;
         Timer TestTimer = new Timer();
+        String CurrentGuid = null;
+        public OutputConfigItem Config { get { return config; } }
 
 #if ARCAZE
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
@@ -51,6 +53,9 @@ namespace MobiFlight.UI.Dialogs
             initWithoutArcazeCache();
 #endif
             var list = dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
+
+            // store the current guid
+            CurrentGuid = filterGuid;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
@@ -76,10 +81,10 @@ namespace MobiFlight.UI.Dialogs
             return !originalConfig.Equals(config);
         }
 
-        protected void Init(ExecutionManager mainForm, OutputConfigItem cfg)
+        protected void Init(ExecutionManager executionManager, OutputConfigItem cfg)
         {
-            this._execManager = mainForm;
-            config = cfg;
+            this._execManager = executionManager;
+            config = cfg.Clone() as OutputConfigItem;
 
             // Until with have the preconditions completely refactored,
             // add an empty precondition in case the current cfg doesn't have one
@@ -87,7 +92,7 @@ namespace MobiFlight.UI.Dialogs
             if (cfg.Preconditions.Count == 0) 
                 cfg.Preconditions.Add(new Precondition());
 
-            originalConfig = cfg.Clone() as OutputConfigItem;
+            originalConfig = cfg;
 
             InitializeComponent();
 
@@ -153,7 +158,7 @@ namespace MobiFlight.UI.Dialogs
             
             testValuePanel1.Result = value.ToString();
 
-            _execManager.ExecuteTestOn(config, value);
+            _execManager.ExecuteTestOn(config, CurrentGuid, value);
         }
 
         private void TestValuePanel_TestModeEnd(object sender, EventArgs e)
@@ -403,29 +408,9 @@ namespace MobiFlight.UI.Dialogs
             DialogResult = DialogResult.Cancel;
         }
 
-        private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            _validatingHexFields(sender, e, 4);            
-        }
-
         private void ConfigWizard_Load(object sender, EventArgs e)
         {
             _syncConfigToForm(config);
-        }
-        
-        private void fsuipcMultiplyTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            try
-            {
-                float.Parse((sender as TextBox).Text);
-                removeError(sender as Control);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Error);
-                displayError(sender as Control, i18n._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
-                e.Cancel = true;
-            }
         }
         
         private void _validatingHexFields(object sender, CancelEventArgs e, int length)
@@ -462,7 +447,6 @@ namespace MobiFlight.UI.Dialogs
         {
             // check if running in test mode
             lastTabActive = (sender as TabControl).SelectedIndex;
-            // _testModeStop();
         }
 
         private void OffsetTypeFsuipRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -480,20 +464,6 @@ namespace MobiFlight.UI.Dialogs
             // to be able to clean up hubHopPreset Instances
             // to prevent memory leak.
             simConnectPanel1.Dispose();
-        }
-
-        private void _testModeStart()
-        {
-            _syncFormToConfig();
-
-            try
-            {
-                _execManager.ExecuteTestOn(config);
-            }
-            catch (Exception e)
-            {
-                Log.Instance.log($"Error starting test mode: {e.Message}", LogSeverity.Error);
-            }
         }
 
         private void _testModeStop()

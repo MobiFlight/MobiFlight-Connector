@@ -93,6 +93,8 @@ namespace MobiFlight
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
+        string ConfigItemInTestMode = null;
+
         public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
             this.dataGridViewConfig = dataGridViewConfig;
@@ -461,6 +463,13 @@ namespace MobiFlight
                     // this can happen if a user activates (checkbox) a newly created config
                     continue;
                 }
+
+                // Don't execute a config that we are currently manually testing.
+                var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
+                if (ConfigItemInTestMode!=null && ConfigItemInTestMode == currentGuid)
+                {
+                    continue;
+                } 
 
                 // If not connected to FSUIPC show an error message
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
@@ -1182,7 +1191,8 @@ namespace MobiFlight
 
                 try
                 {
-                    ExecuteTestOn(cfg);
+                    var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
+                    ExecuteTestOn(cfg, currentGuid, null);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1204,7 +1214,10 @@ namespace MobiFlight
 
         public void ExecuteTestOff(OutputConfigItem cfg)
         {
+            ConfigItemInTestMode = null;
+
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
+            
             if (offCfg.DisplayType == null) return;
 
             switch (offCfg.DisplayType)
@@ -1235,8 +1248,10 @@ namespace MobiFlight
             }
         }
 
-        public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
+        public void ExecuteTestOn(OutputConfigItem cfg, string configGuid, ConnectorValue value = null)
         {
+            ConfigItemInTestMode = configGuid;
+
             if (cfg.DisplayType == null) return;
 
             switch (cfg.DisplayType)
