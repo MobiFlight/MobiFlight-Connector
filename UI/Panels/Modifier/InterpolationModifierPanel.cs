@@ -49,6 +49,8 @@ namespace MobiFlight.UI.Panels.Modifier
                 i++;
                 panelSequences.Controls.Add(p);
             }
+
+            ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public ModifierBase toConfig()

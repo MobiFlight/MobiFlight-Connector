@@ -12,7 +12,7 @@ namespace MobiFlight.Modifier
     public class Blink : ModifierBase
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
-        public string BlinkValue = "";
+        public string BlinkValue = "0";
         public List<int> OnOffSequence = new List<int>();
         public int OffDurationInMs = 500;
         public long FirstExecutionTime = 0;

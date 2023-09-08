@@ -38,10 +38,13 @@ namespace MobiFlight.UI.Panels.Modifier
 
         public ModifierBase toConfig()
         {
+            if (!int.TryParse(SubStringFromTextBox.Text, out int startPosition)) return new Substring();
+            if (!int.TryParse(SubStringToTextBox.Text,out int endPosition)) return new Substring();
+
             return new Substring()
             {
-                Start = int.Parse(SubStringFromTextBox.Text),
-                End = int.Parse(SubStringToTextBox.Text)
+                Start = startPosition,
+                End = endPosition
             };
         }
     }

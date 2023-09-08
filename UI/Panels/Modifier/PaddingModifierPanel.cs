@@ -2,12 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Padding = MobiFlight.Modifier.Padding;
 
@@ -23,7 +17,8 @@ namespace MobiFlight.UI.Panels.Modifier
             comboBox1.SelectedIndexChanged += value_Changed;
             comboBox1.Leave += value_Changed;
             comboBoxCharacter.Leave += value_Changed;
-            comboBoxCharacter.Leave += value_Changed;
+            comboBoxCharacter.SelectedIndexChanged += value_Changed;
+            comboBoxCharacter.TextChanged += value_Changed;
             textBoxLength.Leave += value_Changed;
             textBoxLength.TextChanged += value_Changed;
 
@@ -82,15 +77,19 @@ namespace MobiFlight.UI.Panels.Modifier
         public ModifierBase toConfig () {
             int.TryParse(textBoxLength.Text, out int length);
 
-            var character = comboBoxCharacter.Text;
+            var character = comboBoxCharacter.Text != "" ? comboBoxCharacter.Text : "0";
             if ((comboBoxCharacter.SelectedItem as ListItem)?.Value != null) {
                 character = ((comboBoxCharacter.SelectedItem as ListItem).Value)[0].ToString();
             }
+            
+            var direction = MobiFlight.Modifier.Padding.PaddingDirection.Left;
+            if (comboBox1.SelectedValue != null)
+                direction = (MobiFlight.Modifier.Padding.PaddingDirection)comboBox1?.SelectedValue;
 
             return new Padding()
             {
                 Active = true,
-                Direction = (Padding.PaddingDirection)comboBox1.SelectedValue,
+                Direction = direction,
                 Character = character[0],
                 Length = length
             };

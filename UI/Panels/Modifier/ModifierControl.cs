@@ -148,8 +148,8 @@ namespace MobiFlight.UI.Panels.Modifier
             if (panel == null) return;
 
             panel.Dock = DockStyle.Top;
-            (panel as IModifierConfigPanel).fromConfig(modifier);
             (panel as IModifierConfigPanel).ModifierChanged += Panel_ModifierChanged;
+            (panel as IModifierConfigPanel).fromConfig(modifier);
             panelDetails.Controls.Add(panel);
         }
 
@@ -157,6 +157,7 @@ namespace MobiFlight.UI.Panels.Modifier
         {
             _modifier = (sender as IModifierConfigPanel)?.toConfig();
             _modifier.Active = checkBoxActive.Checked;
+            labelModifier.Text = _modifier.ToSummaryLabel();
             ModifierChanged?.Invoke(this, EventArgs.Empty);
         }
 

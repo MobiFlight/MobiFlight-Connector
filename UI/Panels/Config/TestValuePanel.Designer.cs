@@ -51,10 +51,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxTestValue);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(6, 3);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(508, 46);
+            this.groupBox1.Size = new System.Drawing.Size(634, 46);
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test current settings";
@@ -76,7 +76,8 @@
             this.comboBoxTestValueType.Items.AddRange(new object[] {
             "Number",
             "String"});
-            this.comboBoxTestValueType.Location = new System.Drawing.Point(48, 18);
+            this.comboBoxTestValueType.Location = new System.Drawing.Point(45, 18);
+            this.comboBoxTestValueType.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.comboBoxTestValueType.Name = "comboBoxTestValueType";
             this.comboBoxTestValueType.Size = new System.Drawing.Size(71, 21);
             this.comboBoxTestValueType.TabIndex = 18;
@@ -84,10 +85,11 @@
             // labelTestResultValue
             // 
             this.labelTestResultValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTestResultValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTestResultValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelTestResultValue.Location = new System.Drawing.Point(430, 16);
+            this.labelTestResultValue.Location = new System.Drawing.Point(485, 17);
             this.labelTestResultValue.Name = "labelTestResultValue";
-            this.labelTestResultValue.Size = new System.Drawing.Size(75, 23);
+            this.labelTestResultValue.Size = new System.Drawing.Size(143, 23);
             this.labelTestResultValue.TabIndex = 17;
             this.labelTestResultValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -95,7 +97,7 @@
             // 
             this.labelTestResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTestResult.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelTestResult.Location = new System.Drawing.Point(378, 16);
+            this.labelTestResult.Location = new System.Drawing.Point(433, 17);
             this.labelTestResult.Name = "labelTestResult";
             this.labelTestResult.Size = new System.Drawing.Size(49, 23);
             this.labelTestResult.TabIndex = 16;
@@ -118,7 +120,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTestValue.Location = new System.Drawing.Point(171, 18);
             this.textBoxTestValue.Name = "textBoxTestValue";
-            this.textBoxTestValue.Size = new System.Drawing.Size(75, 20);
+            this.textBoxTestValue.Size = new System.Drawing.Size(128, 20);
             this.textBoxTestValue.TabIndex = 14;
             // 
             // displayPinTestStopButton
@@ -128,7 +130,7 @@
             this.displayPinTestStopButton.Image = global::MobiFlight.Properties.Resources.media_stop;
             this.displayPinTestStopButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.displayPinTestStopButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinTestStopButton.Location = new System.Drawing.Point(316, 16);
+            this.displayPinTestStopButton.Location = new System.Drawing.Point(369, 17);
             this.displayPinTestStopButton.Name = "displayPinTestStopButton";
             this.displayPinTestStopButton.Size = new System.Drawing.Size(58, 23);
             this.displayPinTestStopButton.TabIndex = 21;
@@ -144,7 +146,7 @@
             this.displayPinTestButton.Image = global::MobiFlight.Properties.Resources.media_play;
             this.displayPinTestButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.displayPinTestButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.displayPinTestButton.Location = new System.Drawing.Point(252, 16);
+            this.displayPinTestButton.Location = new System.Drawing.Point(305, 17);
             this.displayPinTestButton.Name = "displayPinTestButton";
             this.displayPinTestButton.Size = new System.Drawing.Size(58, 23);
             this.displayPinTestButton.TabIndex = 20;
@@ -160,8 +162,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
             this.Name = "TestValuePanel";
-            this.Padding = new System.Windows.Forms.Padding(3);
-            this.Size = new System.Drawing.Size(514, 52);
+            this.Padding = new System.Windows.Forms.Padding(6, 3, 6, 3);
+            this.Size = new System.Drawing.Size(646, 52);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

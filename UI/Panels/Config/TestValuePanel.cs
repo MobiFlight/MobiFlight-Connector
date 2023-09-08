@@ -18,7 +18,7 @@ namespace MobiFlight.UI.Panels.Config
         public event EventHandler<EventArgs> TestModeStop;
         public event EventHandler TestModeEnd;
         public event EventHandler TestValueChanged;
-        public string Result { get { return labelTestResultValue.Text; } set { labelTestResultValue.Text = value; } }
+        public string Result { get { return labelTestResultValue.Text; } set { labelTestResultValue.Text = $"'{value}'"; } }
 
         public TestValuePanel()
         {
@@ -33,6 +33,8 @@ namespace MobiFlight.UI.Panels.Config
             comboBoxTestValueType.DisplayMember = "Label";
             comboBoxTestValueType.SelectedIndex = 0;
             textBoxTestValue.TextChanged += (s, e) => { TestValueChanged?.Invoke(s, e); };
+
+            labelTestResult.Enabled = labelTestResultValue.Enabled = false;
         }
 
         private void displayPinTestButton_Click(object sender, EventArgs e)
@@ -45,6 +47,7 @@ namespace MobiFlight.UI.Panels.Config
             TestModeStart?.Invoke(this, result);
             displayPinTestStopButton.Enabled = true;
             displayPinTestButton.Enabled = false;
+            labelTestResult.Enabled = labelTestResultValue.Enabled = true;
         }
 
         private ConnectorValue CreateConnectorValue()
@@ -76,7 +79,7 @@ namespace MobiFlight.UI.Panels.Config
 
             displayPinTestStopButton.Enabled = false;
             displayPinTestButton.Enabled = true;
-
+            labelTestResult.Enabled = labelTestResultValue.Enabled = false;
             TestModeStop?.Invoke(this, EventArgs.Empty);
         }
 

@@ -22,9 +22,9 @@ namespace MobiFlight.UI.Panels.Modifier
             InitializeComponent();
             var blankOptions = new List<ListItem>()
             {
-                new ListItem() { Label = "[Space]", Value = " " },
                 new ListItem() { Label = "0", Value = "0" },
                 new ListItem() { Label = "1", Value = "1" },
+                new ListItem() { Label = "[Space]", Value = " " },
             };
 
             comboBoxBlinkValue.DataSource = blankOptions;
@@ -84,10 +84,14 @@ namespace MobiFlight.UI.Panels.Modifier
                 onOffSequence.Add(sequence.Item2);
             }
 
+            var BlinkValue = comboBoxBlinkValue.Text;
+            if (comboBoxBlinkValue.SelectedItem != null)
+                BlinkValue = (comboBoxBlinkValue.SelectedItem as ListItem).Value;
+
             return new Blink()
             {
                 Active = true,
-                BlinkValue = (comboBoxBlinkValue.SelectedItem as ListItem).Value,
+                BlinkValue = BlinkValue,
                 OnOffSequence = onOffSequence
             };
         }
