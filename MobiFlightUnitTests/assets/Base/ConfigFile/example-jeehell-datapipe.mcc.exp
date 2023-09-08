@@ -6,8 +6,8 @@
       <description>Jeehell HDG/TRK</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C3" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="---" />
         </modifiers>
         <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
@@ -20,8 +20,8 @@
       <description>Jeehell V/S</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="129" operand="!=" ifValue="if($&lt;=80,$,$-256)" elseValue="-----" />
         </modifiers>
         <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
@@ -34,8 +34,8 @@
       <description>Jeehell SPD</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C1" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="---" />
         </modifiers>
         <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
@@ -48,6 +48,7 @@
       <description>Jeehell ALT</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C5" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$*100" substrStart="0" substrEnd="7" />
           <comparison active="True" value="129" operand="!=" ifValue="$" elseValue="-----" />
@@ -62,8 +63,8 @@
       <description>Jeehell CPT QNH</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73C8" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="Std" />
         </modifiers>
         <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />
@@ -76,8 +77,8 @@
       <description>Jeehell FO QNH</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x73CA" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="Std" />
         </modifiers>
         <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />

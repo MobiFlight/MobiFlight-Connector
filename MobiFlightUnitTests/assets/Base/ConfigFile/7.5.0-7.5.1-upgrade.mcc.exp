@@ -6,6 +6,7 @@
       <description>GEAR NOSE rt</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6570" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -20,6 +21,7 @@
       <description>GEAR NOSE gn</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6573" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -34,6 +36,7 @@
       <description>GEAR RIGHT rt</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6571" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -48,6 +51,7 @@
       <description>GEAR RIGHT gn</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6574" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -62,6 +66,7 @@
       <description>GEAR LEFT rt</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6572" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -76,6 +81,7 @@
       <description>GEAR LEFT gn</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6575" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -90,6 +96,7 @@
       <description>PARKING BRAKE rt</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x65A7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -104,6 +111,7 @@
       <description>AUTOBRAKE DISARM ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6564" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -118,6 +126,7 @@
       <description>ANTI-SKID INOP ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6563" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -132,6 +141,7 @@
       <description>LE FLAPS TRANSIT ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6565" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -146,6 +156,7 @@
       <description>LE FLAPS EXT gn</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6566" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -160,6 +171,7 @@
       <description>SPEEDBRAKE ARMED gn</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6558" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -174,6 +186,7 @@
       <description>SPEED BRAKE DO NOT ARM ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6559" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -188,6 +201,7 @@
       <description>AP PRST ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6C0C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -202,6 +216,7 @@
       <description>AP PRST rt</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6550" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -216,6 +231,7 @@
       <description>AT PRST ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6C0E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -230,6 +246,7 @@
       <description>AT PRST rt</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6552" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -244,6 +261,7 @@
       <description>FMC PRST ge2</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6554" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -258,6 +276,7 @@
       <description>FLT CONT 6P CP</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6508" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -272,6 +291,7 @@
       <description>IRS 6P CP</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6509" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -286,6 +306,7 @@
       <description>FUEL 6P CP</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -300,6 +321,7 @@
       <description>ELEC 6P CP</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -314,6 +336,7 @@
       <description>APU 6P CP</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -328,6 +351,7 @@
       <description>OVHT DET 6P CP</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -342,6 +366,7 @@
       <description>MASTER CAUTION ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6506" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -356,6 +381,7 @@
       <description>STAB OUT OF TRIM ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x655B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -370,6 +396,7 @@
       <description>BELOW GS</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x654A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -384,6 +411,7 @@
       <description>OUTER MARKER bl</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BB0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -398,6 +426,7 @@
       <description>MIDDLE MARKER ge</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BAE" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -412,6 +441,7 @@
       <description>COM 1 sby</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -426,6 +456,7 @@
       <description>COM 1 act</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -440,6 +471,7 @@
       <description>COM 2 sby</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -454,6 +486,7 @@
       <description>COM 2 act</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x3118" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -468,6 +501,7 @@
       <description>NAV 1 sby</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -482,6 +516,7 @@
       <description>NAV 1 act</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -496,6 +531,7 @@
       <description>NAV 2 sby</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x3120" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -510,6 +546,7 @@
       <description>NAV 2 act</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0352" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -524,6 +561,7 @@
       <description>DME 1</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0300" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -538,6 +576,7 @@
       <description>DME 2</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0306" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -552,6 +591,7 @@
       <description>ADF 1 ###</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x034C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -566,6 +606,7 @@
       <description>ADF 1 #---</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0xFF00" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -580,6 +621,7 @@
       <description>ADF 1 .#</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0x00FF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -594,6 +636,7 @@
       <description>XPDR D1+2</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFF00" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$/100" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -608,6 +651,7 @@
       <description>XPDR D3+4</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0x00FF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -622,6 +666,7 @@
       <description>Stepper FLAPS</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6568" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="True" expression="$*1000" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -647,6 +692,7 @@
       <description>QNH</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x34A0" offsetType="Float" size="8" mask="0xFFFFFFFFFFFFFFFF" bcdMode="True" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$/16" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -661,6 +707,7 @@
       <description>FO ANTI ICE</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -675,6 +722,7 @@
       <description>FO HYD</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x650F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -689,6 +737,7 @@
       <description>FO DOORS</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6510" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -703,6 +752,7 @@
       <description>FO ENG</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6511" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -717,6 +767,7 @@
       <description>FO OVERHEAD</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6512" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -731,6 +782,7 @@
       <description>FO AIR COND</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6513" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
@@ -745,6 +797,7 @@
       <description>EXEC LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x6599" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -759,6 +812,7 @@
       <description>DISPLAY1 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -773,6 +827,7 @@
       <description>DISPLAY2 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -787,6 +842,7 @@
       <description>FAIL1 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -803,6 +859,7 @@
       <description>FAIL2 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -817,6 +874,7 @@
       <description>MSG1 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -831,6 +889,7 @@
       <description>MSG2 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x659F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -845,6 +904,7 @@
       <description>OFST1 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x65A1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -859,6 +919,7 @@
       <description>OFST2 LED</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x65A1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
@@ -873,6 +934,7 @@
       <description>INNER MARKER ws</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="FSUIPC" offset="0x0BAC" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />

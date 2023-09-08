@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms.VisualStyles;
 
 namespace MobiFlight
 {
@@ -44,6 +45,14 @@ namespace MobiFlight
             c.String = this.String;
 
             return c;
+        }
+
+        public bool Equals(ConnectorValue other)
+        {
+            return
+                type == other.type &&
+                Float64 == other.Float64 &&
+                String == other.String;
         }
     }
 }

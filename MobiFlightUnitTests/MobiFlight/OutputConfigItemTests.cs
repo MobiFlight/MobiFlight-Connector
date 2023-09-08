@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -261,9 +262,10 @@ namespace MobiFlight.Tests
             o.LedModule.DisplayLedDecimalPoints = new List<string>() { "3", "4" };
             o.LedModule.DisplayLedBrightnessReference = "CF057791-E133-4638-A99E-FEF9B187C4DB"; // testing with true as default is false
             o.BcdPins = new List<string>() { "Moop" };
-/*            o.Interpolation = new Interpolation();
-            o.Interpolation.Active = true;
-            o.Interpolation.Add(123, 456);*/
+
+            var i = new Interpolation() { Active = true };
+            i.Add(123, 456);
+            o.Modifiers.Items.Add(i);
 
             o.Preconditions = new PreconditionList();
             o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND" });

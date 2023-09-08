@@ -185,9 +185,7 @@ namespace MobiFlight
             {
                 // backward compatibility when we have comparison
                 // as a single node instead of modifiers
-                var comparison = new Comparison();
-                comparison.ReadXml(reader);
-                Modifiers.Items.Add(comparison);
+                Modifiers.Comparison.ReadXml(reader);
             }
 
             if (reader.ReadToNextSibling("display"))
