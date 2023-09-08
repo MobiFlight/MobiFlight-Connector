@@ -14,7 +14,7 @@ namespace MobiFlight.InputConfig
         new public const String Label = "FSUIPC - Offset";
         public FsuipcOffset FSUIPC { get; set; }
         public String Value { get; set; }
-        public Transformation Transform { get; set; }
+        public ModifierList Modifiers { get; set; }
 
         public const String TYPE = "FsuipcOffsetInputAction";
 
@@ -22,7 +22,7 @@ namespace MobiFlight.InputConfig
         {
             FSUIPC = new FsuipcOffset();
             Value = "";
-            Transform = new Transformation();
+            Modifiers = new ModifierList();
         }
 
         override public object Clone()
@@ -30,7 +30,7 @@ namespace MobiFlight.InputConfig
             FsuipcOffsetInputAction clone = new FsuipcOffsetInputAction();
             clone.FSUIPC = this.FSUIPC.Clone() as FsuipcOffset;
             clone.Value = this.Value;
-            clone.Transform = (Transformation) this.Transform.Clone();
+            clone.Modifiers = (ModifierList) this.Modifiers.Clone();
             return clone;
         }
 
@@ -60,7 +60,9 @@ namespace MobiFlight.InputConfig
                 // read to the end not needed
                 if (reader.LocalName == "transformation")
                 {
-                    Transform.ReadXml(reader);
+                    var transformation = new Transformation();
+                    transformation.ReadXml(reader);
+                    Modifiers.Items.Add(transformation);
                 }
             }
             reader.Read();
@@ -191,7 +193,7 @@ namespace MobiFlight.InputConfig
             return obj != null && obj is FsuipcOffsetInputAction &&
                 FSUIPC.Equals((obj as FsuipcOffsetInputAction).FSUIPC) &&
                 Value == (obj as FsuipcOffsetInputAction).Value &&
-                Transform.Equals((obj as FsuipcOffsetInputAction).Transform);
+                Modifiers.Equals((obj as FsuipcOffsetInputAction).Modifiers);
         }
     }
 }

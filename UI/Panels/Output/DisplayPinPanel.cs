@@ -136,7 +136,7 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
 
                 if (displayPinComboBox.Items.Count == 0) {
-                    displayPinComboBox.Items.Add(pin);
+                    displayPinComboBox.DataSource = new List<ListItem>() { new ListItem() { Label = pin, Value = pin } };
                 }
 
                 if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }

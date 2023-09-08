@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MobiFlight.OutputConfig;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -136,6 +138,11 @@ namespace MobiFlight.Modifier
             if (SubStrEnd > value.Length) length = value.Length - SubStrStart;
 
             return value.Substring(SubStrStart, length);
+        }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Expression: {Expression}";
         }
     }
 }

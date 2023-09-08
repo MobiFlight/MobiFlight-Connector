@@ -21,7 +21,7 @@ namespace MobiFlight.Modifier.Tests
             Assert.IsNotNull(o, "Object is null");
             Assert.AreEqual(false, o.Active, "Active not true");
             Assert.AreEqual("", o.Value, "Value not empty");
-            Assert.AreEqual("", o.Operand, "Operand not empty");
+            Assert.AreEqual(Comparison.OPERAND_EQUAL, o.Operand, "Operand not empty");
             Assert.AreEqual("", o.IfValue, "IfValue not empty");
             Assert.AreEqual("", o.ElseValue, "ElseValue not empty");
         }

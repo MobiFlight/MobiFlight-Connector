@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -45,15 +46,15 @@ namespace MobiFlight.Tests
             Assert.AreEqual(oci.FSUIPC.Size, 2);
             Assert.AreEqual(oci.FSUIPC.Mask, 0xFFFF);
             Assert.AreEqual(oci.FSUIPC.BcdMode, true);
-            Assert.AreEqual(oci.Transform.Expression, "$+123");
+            Assert.AreEqual(oci.Modifiers.Transformation.Expression, "$+123");
 
             // read backward compatible
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.2.xml");
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(oci.Transform.Active, true);
-            Assert.AreEqual(oci.Transform.Expression, "$*123");
+            Assert.AreEqual(oci.Modifiers.Transformation.Active, true);
+            Assert.AreEqual(oci.Modifiers.Transformation.Expression, "$*123");
             Assert.AreEqual(oci.LedModule.DisplayLedBrightnessReference, "CF057791-E133-4638-A99E-FEF9B187C4DB");
 
             // read problem with missing configrefs
@@ -69,16 +70,16 @@ namespace MobiFlight.Tests
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(true, oci.Interpolation.Active, "Interpolation is supposed to be active");
-            Assert.AreEqual(5, oci.Interpolation.Count);
+            Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "Interpolation is supposed to be active");
+            Assert.AreEqual(5, oci.Modifiers.Interpolation.Count);
 
             // read problem with interpolation OUTSIDE of display node
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.5.xml");
             sr = new StringReader(s);
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(true, oci.Interpolation.Active, "Interpolation is supposed to be active");
-            Assert.AreEqual(5, oci.Interpolation.Count);
+            Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "Interpolation is supposed to be active");
+            Assert.AreEqual(5, oci.Modifiers.Interpolation.Count);
 
             // read buttoninputaction
             // read problem with interpolation OUTSIDE of display node
@@ -137,8 +138,8 @@ namespace MobiFlight.Tests
             oci = new OutputConfigItem();
             oci.ReadXml(xmlReader);
             Assert.AreEqual("Display Module", oci.DisplayType, "Display Type not Display Module");
-            Assert.AreEqual(true, oci.Interpolation.Active, "AnalogInputConfig.onPress null");
-            Assert.AreEqual(5, oci.Interpolation.Count, "Interpolation Count is not 5");
+            Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
+            Assert.AreEqual(5, oci.Modifiers.Interpolation.Count, "Interpolation Count is not 5");
         }
 
         [TestMethod()]
@@ -172,15 +173,15 @@ namespace MobiFlight.Tests
             OutputConfigItem c = (OutputConfigItem)o.Clone();
             Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "clone: FSUIPCOffset not the same");
             Assert.AreEqual(o.FSUIPC.Mask, c.FSUIPC.Mask, " clone: FSUIPCMask not the same");
-            Assert.AreEqual(o.Transform.Expression, c.Transform.Expression, "clone: FSUIPCOffsetType not the same");
+            Assert.AreEqual(o.Modifiers.Transformation.Expression, c.Modifiers.Transformation.Expression, "clone: FSUIPCOffsetType not the same");
             Assert.AreEqual(o.FSUIPC.OffsetType, c.FSUIPC.OffsetType, "clone: FSUIPCOffsetType not the same");
             Assert.AreEqual(o.FSUIPC.Size, c.FSUIPC.Size, "clone: FSUIPCSize not the same");
             Assert.AreEqual(o.FSUIPC.BcdMode, c.FSUIPC.BcdMode, "clone: FSUIPCBcdMode not the same");
-            Assert.AreEqual(o.Comparison.Active, c.Comparison.Active, "clone: ComparisonActive not the same");
-            Assert.AreEqual(o.Comparison.Operand, c.Comparison.Operand, "clone: ComparisonOperand not the same");
-            Assert.AreEqual(o.Comparison.Value, c.Comparison.Value, "clone: ComparisonValue not the same");
-            Assert.AreEqual(o.Comparison.IfValue, c.Comparison.IfValue, "clone: ComparisonIfValue not the same");
-            Assert.AreEqual(o.Comparison.ElseValue, c.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
+            Assert.AreEqual(o.Modifiers.Comparison.Active, c.Modifiers.Comparison.Active, "clone: ComparisonActive not the same");
+            Assert.AreEqual(o.Modifiers.Comparison.Operand, c.Modifiers.Comparison.Operand, "clone: ComparisonOperand not the same");
+            Assert.AreEqual(o.Modifiers.Comparison.Value, c.Modifiers.Comparison.Value, "clone: ComparisonValue not the same");
+            Assert.AreEqual(o.Modifiers.Comparison.IfValue, c.Modifiers.Comparison.IfValue, "clone: ComparisonIfValue not the same");
+            Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
 
             Assert.AreEqual(o.Pin.DisplayPin, c.Pin.DisplayPin, "clone: DisplayPin not the same");
             Assert.AreEqual(o.DisplayType, c.DisplayType, "clone: DisplayType not the same");
@@ -215,8 +216,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.ShiftRegister.Pin, c.ShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
 
             //o. = new Interpolation();
-            Assert.AreEqual(o.Interpolation.Active, c.Interpolation.Active, "clone: Interpolation.Active is not the same.");
-            Assert.AreEqual(o.Interpolation.Count, c.Interpolation.Count, "clone: Interpolation.Count not the same");
+            Assert.AreEqual(o.Modifiers.Interpolation.Active, c.Modifiers.Interpolation.Active, "clone: Interpolation.Active is not the same.");
+            Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation.Count not the same");
 
 
             Assert.AreEqual(o.Preconditions.Count, c.Preconditions.Count, "clone: Preconditions.Count not the same");
@@ -232,20 +233,19 @@ namespace MobiFlight.Tests
 
             o.FSUIPC.Offset = 0x1234;
             o.FSUIPC.Mask = 0xFFFF;
-            o.Transform = new Transformation();
-            o.Transform.Active = true;
-            o.Transform.Expression = "$+123";
-            o.Transform.SubStrEnd = 11;
-            o.Transform.SubStrStart = 9;
+            o.Modifiers.Transformation.Active = true;
+            o.Modifiers.Transformation.Expression = "$+123";
+            o.Modifiers.Transformation.SubStrEnd = 11;
+            o.Modifiers.Transformation.SubStrStart = 9;
 
             o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
             o.FSUIPC.Size = 2;
             o.FSUIPC.BcdMode = true;
-            o.Comparison.Active = true;
-            o.Comparison.Operand = ">";
-            o.Comparison.Value = "1";
-            o.Comparison.IfValue = "2";
-            o.Comparison.ElseValue = "3";
+            o.Modifiers.Comparison.Active = true;
+            o.Modifiers.Comparison.Operand = ">";
+            o.Modifiers.Comparison.Value = "1";
+            o.Modifiers.Comparison.IfValue = "2";
+            o.Modifiers.Comparison.ElseValue = "3";
 
             o.DisplayType = MobiFlight.DeviceType.Stepper.ToString("F");
             o.DisplaySerial = "Ser123";
@@ -262,9 +262,10 @@ namespace MobiFlight.Tests
             o.LedModule.DisplayLedDecimalPoints = new List<string>() { "3", "4" };
             o.LedModule.DisplayLedBrightnessReference = "CF057791-E133-4638-A99E-FEF9B187C4DB"; // testing with true as default is false
             o.BcdPins = new List<string>() { "Moop" };
-            o.Interpolation = new Interpolation();
-            o.Interpolation.Active = true;
-            o.Interpolation.Add(123, 456);
+
+            var i = new Interpolation() { Active = true };
+            i.Add(123, 456);
+            o.Modifiers.Items.Add(i);
 
             o.Preconditions = new PreconditionList();
             o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND" });

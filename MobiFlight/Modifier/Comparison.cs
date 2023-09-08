@@ -27,7 +27,7 @@ namespace MobiFlight.Modifier
         public Comparison() 
         {
             Active = false;
-            Operand = "";
+            Operand = OPERAND_EQUAL;
             Value = "";
             IfValue = "";
             ElseValue = "";
@@ -185,6 +185,11 @@ namespace MobiFlight.Modifier
             }
 
             return result;
+        }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Compare: If current value {Operand} {Value} then {IfValue} else {ElseValue}";
         }
     }
 }

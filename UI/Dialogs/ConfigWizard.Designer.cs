@@ -32,8 +32,6 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
-            this.referencesGroupBox = new System.Windows.Forms.GroupBox();
-            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.variablePanel1 = new MobiFlight.UI.Panels.Config.VariablePanel();
             this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
@@ -47,21 +45,9 @@
             this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeXplaneRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
-            this.compareSpacerPanel = new System.Windows.Forms.Panel();
-            this.interpolationGroupBox = new System.Windows.Forms.GroupBox();
-            this.interpolationPanel1 = new MobiFlight.UI.Panels.Config.InterpolationPanel();
-            this.interpolationCheckBox = new System.Windows.Forms.CheckBox();
-            this.comparisonSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.comparisonSettingsPanel = new System.Windows.Forms.Panel();
-            this.comparisonValueTextBox = new System.Windows.Forms.TextBox();
-            this.comparisonElseValueTextBox = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comparisonIfValueTextBox = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comparisonOperandComboBox = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comparisonActiveCheckBox = new System.Windows.Forms.CheckBox();
-            this.comparisonHintTtextBox = new System.Windows.Forms.TextBox();
+            this.modifierPanel1 = new MobiFlight.UI.Panels.OutputWizard.ModifierPanel();
+            this.referencesGroupBox = new System.Windows.Forms.GroupBox();
+            this.configRefPanel = new MobiFlight.UI.Panels.Config.ConfigRefPanel();
             this.displayTabPage = new System.Windows.Forms.TabPage();
             this.displayPanel1 = new MobiFlight.UI.Panels.OutputWizard.DisplayPanel();
             this.preconditionTabPage = new System.Windows.Forms.TabPage();
@@ -73,16 +59,14 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.testValuePanel1 = new MobiFlight.UI.Panels.Config.TestValuePanel();
             this.MainPanel.SuspendLayout();
             this.tabControlFsuipc.SuspendLayout();
             this.fsuipcTabPage.SuspendLayout();
-            this.referencesGroupBox.SuspendLayout();
             this.FsuipcSettingsPanel.SuspendLayout();
             this.OffsetTypePanel.SuspendLayout();
             this.compareTabPage.SuspendLayout();
-            this.interpolationGroupBox.SuspendLayout();
-            this.comparisonSettingsGroupBox.SuspendLayout();
-            this.comparisonSettingsPanel.SuspendLayout();
+            this.referencesGroupBox.SuspendLayout();
             this.displayTabPage.SuspendLayout();
             this.preconditionTabPage.SuspendLayout();
             this.ButtonPanel.SuspendLayout();
@@ -109,7 +93,6 @@
             // 
             // fsuipcTabPage
             // 
-            this.fsuipcTabPage.Controls.Add(this.referencesGroupBox);
             this.fsuipcTabPage.Controls.Add(this.xplaneDataRefPanel1);
             this.fsuipcTabPage.Controls.Add(this.variablePanel1);
             this.fsuipcTabPage.Controls.Add(this.simConnectPanel1);
@@ -118,18 +101,6 @@
             resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
-            // 
-            // referencesGroupBox
-            // 
-            this.referencesGroupBox.Controls.Add(this.configRefPanel);
-            resources.ApplyResources(this.referencesGroupBox, "referencesGroupBox");
-            this.referencesGroupBox.Name = "referencesGroupBox";
-            this.referencesGroupBox.TabStop = false;
-            // 
-            // configRefPanel
-            // 
-            resources.ApplyResources(this.configRefPanel, "configRefPanel");
-            this.configRefPanel.Name = "configRefPanel";
             // 
             // xplaneDataRefPanel1
             // 
@@ -156,6 +127,7 @@
             // fsuipcConfigPanel
             // 
             resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
+            this.fsuipcConfigPanel.Modifier = null;
             this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
             this.fsuipcConfigPanel.PresetFile = "";
             // 
@@ -213,122 +185,28 @@
             // 
             // compareTabPage
             // 
-            this.compareTabPage.Controls.Add(this.compareSpacerPanel);
-            this.compareTabPage.Controls.Add(this.interpolationGroupBox);
-            this.compareTabPage.Controls.Add(this.comparisonSettingsGroupBox);
-            this.compareTabPage.Controls.Add(this.comparisonHintTtextBox);
+            this.compareTabPage.Controls.Add(this.modifierPanel1);
+            this.compareTabPage.Controls.Add(this.referencesGroupBox);
             resources.ApplyResources(this.compareTabPage, "compareTabPage");
             this.compareTabPage.Name = "compareTabPage";
             this.compareTabPage.UseVisualStyleBackColor = true;
             // 
-            // compareSpacerPanel
+            // modifierPanel1
             // 
-            resources.ApplyResources(this.compareSpacerPanel, "compareSpacerPanel");
-            this.compareSpacerPanel.Name = "compareSpacerPanel";
+            resources.ApplyResources(this.modifierPanel1, "modifierPanel1");
+            this.modifierPanel1.Name = "modifierPanel1";
             // 
-            // interpolationGroupBox
+            // referencesGroupBox
             // 
-            this.interpolationGroupBox.Controls.Add(this.interpolationPanel1);
-            this.interpolationGroupBox.Controls.Add(this.interpolationCheckBox);
-            resources.ApplyResources(this.interpolationGroupBox, "interpolationGroupBox");
-            this.interpolationGroupBox.Name = "interpolationGroupBox";
-            this.interpolationGroupBox.TabStop = false;
+            this.referencesGroupBox.Controls.Add(this.configRefPanel);
+            resources.ApplyResources(this.referencesGroupBox, "referencesGroupBox");
+            this.referencesGroupBox.Name = "referencesGroupBox";
+            this.referencesGroupBox.TabStop = false;
             // 
-            // interpolationPanel1
+            // configRefPanel
             // 
-            resources.ApplyResources(this.interpolationPanel1, "interpolationPanel1");
-            this.interpolationPanel1.Name = "interpolationPanel1";
-            this.interpolationPanel1.Save = false;
-            // 
-            // interpolationCheckBox
-            // 
-            resources.ApplyResources(this.interpolationCheckBox, "interpolationCheckBox");
-            this.interpolationCheckBox.Checked = true;
-            this.interpolationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.interpolationCheckBox.Name = "interpolationCheckBox";
-            this.interpolationCheckBox.UseVisualStyleBackColor = true;
-            this.interpolationCheckBox.CheckedChanged += new System.EventHandler(this.interpolationCheckBox_CheckedChanged);
-            // 
-            // comparisonSettingsGroupBox
-            // 
-            this.comparisonSettingsGroupBox.Controls.Add(this.comparisonSettingsPanel);
-            this.comparisonSettingsGroupBox.Controls.Add(this.comparisonActiveCheckBox);
-            resources.ApplyResources(this.comparisonSettingsGroupBox, "comparisonSettingsGroupBox");
-            this.comparisonSettingsGroupBox.Name = "comparisonSettingsGroupBox";
-            this.comparisonSettingsGroupBox.TabStop = false;
-            // 
-            // comparisonSettingsPanel
-            // 
-            this.comparisonSettingsPanel.Controls.Add(this.comparisonValueTextBox);
-            this.comparisonSettingsPanel.Controls.Add(this.comparisonElseValueTextBox);
-            this.comparisonSettingsPanel.Controls.Add(this.label8);
-            this.comparisonSettingsPanel.Controls.Add(this.comparisonIfValueTextBox);
-            this.comparisonSettingsPanel.Controls.Add(this.label7);
-            this.comparisonSettingsPanel.Controls.Add(this.comparisonOperandComboBox);
-            this.comparisonSettingsPanel.Controls.Add(this.label6);
-            resources.ApplyResources(this.comparisonSettingsPanel, "comparisonSettingsPanel");
-            this.comparisonSettingsPanel.Name = "comparisonSettingsPanel";
-            // 
-            // comparisonValueTextBox
-            // 
-            resources.ApplyResources(this.comparisonValueTextBox, "comparisonValueTextBox");
-            this.comparisonValueTextBox.Name = "comparisonValueTextBox";
-            // 
-            // comparisonElseValueTextBox
-            // 
-            resources.ApplyResources(this.comparisonElseValueTextBox, "comparisonElseValueTextBox");
-            this.comparisonElseValueTextBox.Name = "comparisonElseValueTextBox";
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // comparisonIfValueTextBox
-            // 
-            resources.ApplyResources(this.comparisonIfValueTextBox, "comparisonIfValueTextBox");
-            this.comparisonIfValueTextBox.Name = "comparisonIfValueTextBox";
-            // 
-            // label7
-            // 
-            resources.ApplyResources(this.label7, "label7");
-            this.label7.Name = "label7";
-            // 
-            // comparisonOperandComboBox
-            // 
-            this.comparisonOperandComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comparisonOperandComboBox.FormattingEnabled = true;
-            this.comparisonOperandComboBox.Items.AddRange(new object[] {
-            resources.GetString("comparisonOperandComboBox.Items"),
-            resources.GetString("comparisonOperandComboBox.Items1"),
-            resources.GetString("comparisonOperandComboBox.Items2"),
-            resources.GetString("comparisonOperandComboBox.Items3"),
-            resources.GetString("comparisonOperandComboBox.Items4"),
-            resources.GetString("comparisonOperandComboBox.Items5"),
-            resources.GetString("comparisonOperandComboBox.Items6")});
-            resources.ApplyResources(this.comparisonOperandComboBox, "comparisonOperandComboBox");
-            this.comparisonOperandComboBox.Name = "comparisonOperandComboBox";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
-            // 
-            // comparisonActiveCheckBox
-            // 
-            resources.ApplyResources(this.comparisonActiveCheckBox, "comparisonActiveCheckBox");
-            this.comparisonActiveCheckBox.Name = "comparisonActiveCheckBox";
-            this.comparisonActiveCheckBox.UseVisualStyleBackColor = true;
-            this.comparisonActiveCheckBox.CheckedChanged += new System.EventHandler(this.comparisonActiveCheckBox_CheckedChanged);
-            // 
-            // comparisonHintTtextBox
-            // 
-            this.comparisonHintTtextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.comparisonHintTtextBox.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.comparisonHintTtextBox, "comparisonHintTtextBox");
-            this.comparisonHintTtextBox.Name = "comparisonHintTtextBox";
-            this.comparisonHintTtextBox.ReadOnly = true;
-            this.comparisonHintTtextBox.TabStop = false;
+            resources.ApplyResources(this.configRefPanel, "configRefPanel");
+            this.configRefPanel.Name = "configRefPanel";
             // 
             // displayTabPage
             // 
@@ -399,12 +277,18 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // testValuePanel1
+            // 
+            resources.ApplyResources(this.testValuePanel1, "testValuePanel1");
+            this.testValuePanel1.Name = "testValuePanel1";
+            // 
             // ConfigWizard
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.Controls.Add(this.MainPanel);
+            this.Controls.Add(this.testValuePanel1);
             this.Controls.Add(this.ButtonPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -416,18 +300,11 @@
             this.tabControlFsuipc.ResumeLayout(false);
             this.fsuipcTabPage.ResumeLayout(false);
             this.fsuipcTabPage.PerformLayout();
-            this.referencesGroupBox.ResumeLayout(false);
             this.FsuipcSettingsPanel.ResumeLayout(false);
             this.OffsetTypePanel.ResumeLayout(false);
             this.OffsetTypePanel.PerformLayout();
             this.compareTabPage.ResumeLayout(false);
-            this.compareTabPage.PerformLayout();
-            this.interpolationGroupBox.ResumeLayout(false);
-            this.interpolationGroupBox.PerformLayout();
-            this.comparisonSettingsGroupBox.ResumeLayout(false);
-            this.comparisonSettingsGroupBox.PerformLayout();
-            this.comparisonSettingsPanel.ResumeLayout(false);
-            this.comparisonSettingsPanel.PerformLayout();
+            this.referencesGroupBox.ResumeLayout(false);
             this.displayTabPage.ResumeLayout(false);
             this.preconditionTabPage.ResumeLayout(false);
             this.ButtonPanel.ResumeLayout(false);
@@ -446,28 +323,13 @@
         private System.Windows.Forms.TabControl tabControlFsuipc;
         private System.Windows.Forms.TabPage fsuipcTabPage;
         private System.Windows.Forms.TabPage compareTabPage;
-        private System.Windows.Forms.GroupBox comparisonSettingsGroupBox;
-        private System.Windows.Forms.CheckBox comparisonActiveCheckBox;
-        private System.Windows.Forms.TextBox comparisonHintTtextBox;
         private System.Windows.Forms.TabPage displayTabPage;
-        private System.Windows.Forms.Panel comparisonSettingsPanel;
-        private System.Windows.Forms.TextBox comparisonValueTextBox;
-        private System.Windows.Forms.TextBox comparisonElseValueTextBox;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox comparisonIfValueTextBox;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox comparisonOperandComboBox;
-        private System.Windows.Forms.Label label6;
         private System.Data.DataSet presetsDataSet;
         private System.Data.DataTable presetDataTable;
         private System.Data.DataColumn description;
         private System.Data.DataColumn settingsColumn;
         //private System.Windows.Forms.Panel displayBcdPanel;
         private System.Windows.Forms.TabPage preconditionTabPage;
-        private System.Windows.Forms.Panel compareSpacerPanel;
-        private System.Windows.Forms.GroupBox interpolationGroupBox;
-        private UI.Panels.Config.InterpolationPanel interpolationPanel1;
-        private System.Windows.Forms.CheckBox interpolationCheckBox;
         private UI.Panels.Config.FsuipcConfigPanel fsuipcConfigPanel;
         private System.Windows.Forms.GroupBox referencesGroupBox;
         private UI.Panels.Config.ConfigRefPanel configRefPanel;
@@ -484,5 +346,7 @@
         private Panels.OutputWizard.DisplayPanel displayPanel1;
         private System.Windows.Forms.RadioButton OffsetTypeXplaneRadioButton;
         private Panels.Config.XplaneDataRefPanel xplaneDataRefPanel1;
+        private Panels.OutputWizard.ModifierPanel modifierPanel1;
+        private Panels.Config.TestValuePanel testValuePanel1;
     }
 }

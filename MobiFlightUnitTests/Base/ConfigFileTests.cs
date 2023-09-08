@@ -129,6 +129,9 @@ namespace MobiFlight.Tests
             Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
             System.IO.File.Delete(inFileTemp);
 
+            // the files are partially from this project
+            // and also the example files are copied over
+            // from the examples folder (Main project)
             foreach (string file in System.IO.Directory.GetFiles(@"assets\Base\ConfigFile\", "*.mcc")) {
                 OutputConfig.Clear();
                 InputConfig.Clear();

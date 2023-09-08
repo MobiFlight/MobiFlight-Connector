@@ -12,8 +12,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
 {
     public partial class DisplayPanel : UserControl
     {
-        public event EventHandler<EventArgs> TestModeStopRequested;
-        public event EventHandler<EventArgs> TestModeStartRequested;
         public event EventHandler<EventArgs> DisplayPanelValidatingError;
 
 #if ARCAZE
@@ -266,8 +264,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             String rawSerial = cb.SelectedItem.ToString();
             String serial = SerialNumber.ExtractSerial(rawSerial);
 
-            displayTypeComboBox.Enabled = groupBoxDisplaySettings.Enabled = testSettingsGroupBox.Enabled = (serial != "");
-
             try
             {
 
@@ -473,8 +469,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             var SelectedItemValue = ((sender as ComboBox).SelectedItem as ListItem)?.Value;
             if (SelectedItemValue == null) return;
 
-            testSettingsGroupBox.Visible = true;
-
             DeviceNotAvailableWarningLabel.Visible = serial == "" && SelectedItemValue != "-" && config != null;
 
             if (SelectedItemValue == MobiFlightOutput.TYPE)
@@ -522,7 +516,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 displayNothingSelectedPanel.Enabled = true;
                 displayNothingSelectedPanel.Height = displayPanelHeight;
-                testSettingsGroupBox.Visible = false;
             }
         }
 
@@ -828,28 +821,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"] as CheckBox).Checked = false;
                 }
             }
-        }
-
-        private void displayPinTestButton_Click(object sender, EventArgs e)
-        {
-            TestModeStartRequested?.Invoke(this, EventArgs.Empty);
-            displayPinTestStopButton.Enabled = true;
-            displayPinTestButton.Enabled = false;
-            displayTypeGroupBox.Enabled = false;
-            groupBoxDisplaySettings.Enabled = false;
-        }
-
-        private void displayPinTestStopButton_Click(object sender, EventArgs e)
-        {
-            // check if running in test mode otherwise simply return
-            if (!displayPinTestStopButton.Enabled) return;
-
-            displayPinTestStopButton.Enabled = false;
-            displayPinTestButton.Enabled = true;
-            displayTypeGroupBox.Enabled = true;
-            groupBoxDisplaySettings.Enabled = true;
-
-            TestModeStopRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void displayError(Control control, String message)

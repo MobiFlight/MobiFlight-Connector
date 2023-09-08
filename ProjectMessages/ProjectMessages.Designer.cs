@@ -1382,6 +1382,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html.
+        /// </summary>
+        internal static string WebsiteHelpNcalc {
+            get {
+                return ResourceManager.GetString("WebsiteHelpNcalc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to https://www.mobiflight.com/en/documentation/software.html.
         /// </summary>
         internal static string WebsiteUrlHelp {
