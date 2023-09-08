@@ -301,7 +301,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 else
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-                    foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
+                    foreach (DeviceType devType in module?.GetConnectedOutputDeviceTypes())
                     {
                         switch (devType)
                         {
@@ -535,8 +535,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> lcdDisplays = new List<ListItem>();
             List<ListItem> shiftRegisters = new List<ListItem>();
 
-
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            foreach (IConnectedDevice device in module?.GetConnectedDevices())
             {
                 switch (device.Type)
                 {
@@ -676,7 +675,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             List<ListItem> connectors = new List<ListItem>();
 
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            foreach (IConnectedDevice device in module?.GetConnectedDevices())
             {
                 if (device.Type != DeviceType.LedModule) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
@@ -699,9 +698,17 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             try
             {
-                MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
-                                                .GetModuleBySerial(serial)
-                                                .GetStepper(stepperAddress);
+                MobiFlightModule module = _execManager.getMobiFlightModuleCache()
+                                                      .GetModuleBySerial(serial);
+
+                if (module == null) {
+                    // we want to execute the catch block below
+                    // GetModuleBySerial used to throw this exception
+                    // see #1157
+                    throw new IndexOutOfRangeException(); 
+                }
+
+                MobiFlightStepper stepper = module.GetStepper(stepperAddress);
 
                 stepperPanel.SetStepperProfile(stepper.Profile);
                 stepperPanel.ShowManualCalibration(!stepper.HasAutoZero);
@@ -729,9 +736,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             string serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
-            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
-                                                    .GetModuleBySerial(serial)
-                                                    .GetStepper(config.Stepper.Address);
+            MobiFlightModule module = _execManager.getMobiFlightModuleCache()
+                                                    .GetModuleBySerial(serial);
+
+            if (module == null) return;
+
+            MobiFlightStepper stepper = module.GetStepper(config.Stepper.Address);
 
             int CurrentValue = stepper.Position();
             int NextValue = (CurrentValue + e.Steps);
@@ -757,7 +767,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             bool pwmSupport = false;
 
             int numModules = 0;
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            foreach (IConnectedDevice device in module?.GetConnectedDevices())
             {
                 if (device.Type != DeviceType.ShiftRegister) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;

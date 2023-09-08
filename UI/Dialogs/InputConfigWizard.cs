@@ -477,7 +477,7 @@ namespace MobiFlight.UI.Dialogs
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-                    foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                    foreach (Config.BaseDevice device in module?.GetConnectedInputDevices())
                     {
                         switch (device.Type)
                         {
@@ -562,7 +562,7 @@ namespace MobiFlight.UI.Dialogs
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
                 // find the correct input type based on the name
-                foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                foreach (Config.BaseDevice device in module?.GetConnectedInputDevices())
                 {
                     if ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>) == null)
                         break;
@@ -673,7 +673,7 @@ namespace MobiFlight.UI.Dialogs
 
             List<ListItem> connectors = new List<ListItem>();
 
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            foreach (IConnectedDevice device in module?.GetConnectedDevices())
             {
                 if (device.Type != DeviceType.LedModule) continue;
                 if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
