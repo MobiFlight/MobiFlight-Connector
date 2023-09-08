@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Web;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Modifier

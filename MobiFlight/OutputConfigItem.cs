@@ -11,6 +11,7 @@ using MobiFlight.Config;
 using MobiFlight.InputConfig;
 using MobiFlight.xplane;
 using MobiFlight.Modifier;
+using System.Web.UI;
 
 namespace MobiFlight
 {
@@ -259,6 +260,9 @@ namespace MobiFlight
                     var interpolation = new Interpolation();
                     interpolation.ReadXml(reader);
                     Modifiers.Items.Add(interpolation);
+
+                    if (reader.LocalName == "interpolation")
+                        reader.Read();
                     
                     if (reader.LocalName == "display")
                         reader.ReadEndElement(); // this closes the display node
@@ -280,6 +284,9 @@ namespace MobiFlight
                 var interpolation = new Interpolation();
                 interpolation.ReadXml(reader);
                 Modifiers.Items.Add(interpolation);
+
+                if (reader.LocalName == "interpolation")
+                    reader.Read();
 
                 if (reader.LocalName == "display" && reader.NodeType == XmlNodeType.EndElement)
                     reader.Read(); // this closes the display node
