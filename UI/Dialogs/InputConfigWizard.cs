@@ -477,20 +477,23 @@ namespace MobiFlight.UI.Dialogs
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-                    foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                    if (module != null)
                     {
-                        switch (device.Type)
+                        foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                         {
-                            case DeviceType.Button:
-                            case DeviceType.AnalogInput:
-                            case DeviceType.Encoder:
-                            case DeviceType.InputShiftRegister:
-                            case DeviceType.InputMultiplexer:
-                                inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
-                                break;
+                            switch (device.Type)
+                            {
+                                case DeviceType.Button:
+                                case DeviceType.AnalogInput:
+                                case DeviceType.Encoder:
+                                case DeviceType.InputShiftRegister:
+                                case DeviceType.InputMultiplexer:
+                                    inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
+                                    break;
+                            }
                         }
                     }
-
+                    
                     if (inputTypeComboBox.Items.Count == 0 && this.IsShown)
                     {
                         if (MessageBox.Show(
@@ -561,15 +564,18 @@ namespace MobiFlight.UI.Dialogs
             {
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-                // find the correct input type based on the name
-                foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                if (module != null)
                 {
-                    if ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>) == null)
-                        break;
-                    if (device.Name != ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.BaseDevice)?.Name) continue;
+                    // find the correct input type based on the name
+                    foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                    {
+                        if ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>) == null)
+                            break;
+                        if (device.Name != ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.BaseDevice)?.Name) continue;
 
-                    currentInputType = device.Type;
-                    break;
+                        currentInputType = device.Type;
+                        break;
+                    }
                 }
             }
 
@@ -673,14 +679,19 @@ namespace MobiFlight.UI.Dialogs
 
             List<ListItem> connectors = new List<ListItem>();
 
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            if (module != null)
             {
-                if (device.Type != DeviceType.LedModule) continue;
-                if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++) {
-                    connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                foreach (IConnectedDevice device in module.GetConnectedDevices())
+                {
+                    if (device.Type != DeviceType.LedModule) continue;
+                    if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
+                    for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
+                    {
+                        connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                    }
                 }
             }
+            
             displayLedDisplayPanel.SetConnectors(connectors);
         }
 

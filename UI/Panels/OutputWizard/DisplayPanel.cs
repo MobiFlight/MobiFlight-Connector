@@ -300,35 +300,39 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // type of module
                 else
                 {
-                    MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-                    foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
-                    {
-                        switch (devType)
+                    MobiFlightModule module = _execManager.getMobiFlightModuleCache()
+                                                          .GetModuleBySerial(serial);
+
+                    if (module != null) { 
+                        foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
                         {
-                            case DeviceType.LedModule:
-                                deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
-                                break;
+                            switch (devType)
+                            {
+                                case DeviceType.LedModule:
+                                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                                    break;
 
-                            case DeviceType.Output:
-                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
-                                //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
-                                break;
+                                case DeviceType.Output:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                                    //displayTypeComboBox.Items.Add(ArcazeBcd4056.TYPE);
+                                    break;
 
-                            case DeviceType.Servo:
-                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
-                                break;
+                                case DeviceType.Servo:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightServo.TYPE, Label = MobiFlightServo.TYPE });
+                                    break;
 
-                            case DeviceType.Stepper:
-                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
-                                break;
+                                case DeviceType.Stepper:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightStepper.TYPE, Label = MobiFlightStepper.TYPE });
+                                    break;
 
-                            case DeviceType.LcdDisplay:
-                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
-                                break;
+                                case DeviceType.LcdDisplay:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
+                                    break;
 
-                            case DeviceType.ShiftRegister:
-                                deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
-                                break;
+                                case DeviceType.ShiftRegister:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
+                                    break;
+                            }
                         }
                     }
 
@@ -535,39 +539,42 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> lcdDisplays = new List<ListItem>();
             List<ListItem> shiftRegisters = new List<ListItem>();
 
-
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            if (module!=null)
             {
-                switch (device.Type)
+                foreach (IConnectedDevice device in module.GetConnectedDevices())
                 {
-                    case DeviceType.LedModule:
-                        ledSegments.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                        break;
+                    switch (device.Type)
+                    {
+                        case DeviceType.LedModule:
+                            ledSegments.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                            break;
 
-                    case DeviceType.Output:
-                        outputs.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                        break;
+                        case DeviceType.Output:
+                            outputs.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                            break;
 
-                    case DeviceType.Servo:
-                        servos.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                        break;
+                        case DeviceType.Servo:
+                            servos.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                            break;
 
-                    case DeviceType.Stepper:
-                        stepper.Add(new ListItem() { Value = device.Name, Label = device.Name });
-                        break;
+                        case DeviceType.Stepper:
+                            stepper.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                            break;
 
-                    case DeviceType.LcdDisplay:
-                        int Cols = (device as MobiFlightLcdDisplay).Cols;
-                        int Lines = (device as MobiFlightLcdDisplay).Lines;
-                        lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
-                        break;
+                        case DeviceType.LcdDisplay:
+                            int Cols = (device as MobiFlightLcdDisplay).Cols;
+                            int Lines = (device as MobiFlightLcdDisplay).Lines;
+                            lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
+                            break;
 
-                    case DeviceType.ShiftRegister:
-                        shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });
+                        case DeviceType.ShiftRegister:
+                            shiftRegisters.Add(new ListItem() { Value = device.Name, Label = device.Name });
 
-                        break;
+                            break;
+                    }
                 }
             }
+            
             displayPinPanel.WideStyle = true;
             displayPinPanel.SetPorts(new List<ListItem>());
             displayPinPanel.SetPins(outputs);
@@ -676,15 +683,19 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             List<ListItem> connectors = new List<ListItem>();
 
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            if (module != null)
             {
-                if (device.Type != DeviceType.LedModule) continue;
-                if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
+                foreach (IConnectedDevice device in module.GetConnectedDevices())
                 {
-                    connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                    if (device.Type != DeviceType.LedModule) continue;
+                    if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
+                    for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
+                    {
+                        connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                    }
                 }
             }
+            
             displayLedDisplayPanel.SetConnectors(connectors);
         }
 
@@ -699,9 +710,17 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             try
             {
-                MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
-                                                .GetModuleBySerial(serial)
-                                                .GetStepper(stepperAddress);
+                MobiFlightModule module = _execManager.getMobiFlightModuleCache()
+                                                      .GetModuleBySerial(serial);
+
+                if (module == null) {
+                    // we want to execute the catch block below
+                    // GetModuleBySerial used to throw this exception
+                    // see #1157
+                    throw new IndexOutOfRangeException(); 
+                }
+
+                MobiFlightStepper stepper = module.GetStepper(stepperAddress);
 
                 stepperPanel.SetStepperProfile(stepper.Profile);
                 stepperPanel.ShowManualCalibration(!stepper.HasAutoZero);
@@ -729,9 +748,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             string serial = SerialNumber.ExtractSerial(config.DisplaySerial);
 
-            MobiFlightStepper stepper = _execManager.getMobiFlightModuleCache()
-                                                    .GetModuleBySerial(serial)
-                                                    .GetStepper(config.Stepper.Address);
+            MobiFlightModule module = _execManager.getMobiFlightModuleCache()
+                                                    .GetModuleBySerial(serial);
+
+            if (module == null) return;
+
+            MobiFlightStepper stepper = module.GetStepper(config.Stepper.Address);
 
             int CurrentValue = stepper.Position();
             int NextValue = (CurrentValue + e.Steps);
@@ -757,12 +779,17 @@ namespace MobiFlight.UI.Panels.OutputWizard
             bool pwmSupport = false;
 
             int numModules = 0;
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+
+            if(module!= null)
             {
-                if (device.Type != DeviceType.ShiftRegister) continue;
-                if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
+                foreach (IConnectedDevice device in module.GetConnectedDevices())
+                {
+                    if (device.Type != DeviceType.ShiftRegister) continue;
+                    if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
+                    numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
+                }
             }
+            
             displayShiftRegisterPanel.SetNumModules(numModules);
         }
 
