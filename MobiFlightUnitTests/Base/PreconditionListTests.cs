@@ -86,6 +86,18 @@ namespace MobiFlight.Base.Tests
             xmlReader.ReadToDescendant("preconditions");
             o.ReadXml(xmlReader);
 
+            Assert.AreEqual(o.Count, 0);
+
+            o = new PreconditionList();
+            s = System.IO.File.ReadAllText(@"assets\Base\PreconditionList\ReadXmlTest.2.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = System.Xml.XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("preconditions");
+            o.ReadXml(xmlReader);
+
             Assert.AreEqual(o.Count, 2);
             Assert.AreEqual(o.ExecuteOnFalse, false);
             Assert.AreEqual(o.FalseCaseValue, "");
