@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.displayPinTestStopButton = new System.Windows.Forms.Button();
+            this.displayPinTestButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxTestValueType = new System.Windows.Forms.ComboBox();
             this.labelTestResultValue = new System.Windows.Forms.Label();
             this.labelTestResult = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxTestValue = new System.Windows.Forms.TextBox();
-            this.displayPinTestStopButton = new System.Windows.Forms.Button();
-            this.displayPinTestButton = new System.Windows.Forms.Button();
+            this.toolTipResultLabel = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,70 +60,6 @@
             this.groupBox1.TabIndex = 20;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Test current settings";
-            // 
-            // label3
-            // 
-            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label3.Location = new System.Drawing.Point(125, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 23);
-            this.label3.TabIndex = 19;
-            this.label3.Text = "Value";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // comboBoxTestValueType
-            // 
-            this.comboBoxTestValueType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTestValueType.FormattingEnabled = true;
-            this.comboBoxTestValueType.Items.AddRange(new object[] {
-            "Number",
-            "String"});
-            this.comboBoxTestValueType.Location = new System.Drawing.Point(45, 18);
-            this.comboBoxTestValueType.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
-            this.comboBoxTestValueType.Name = "comboBoxTestValueType";
-            this.comboBoxTestValueType.Size = new System.Drawing.Size(71, 21);
-            this.comboBoxTestValueType.TabIndex = 18;
-            // 
-            // labelTestResultValue
-            // 
-            this.labelTestResultValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTestResultValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTestResultValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelTestResultValue.Location = new System.Drawing.Point(485, 17);
-            this.labelTestResultValue.Name = "labelTestResultValue";
-            this.labelTestResultValue.Size = new System.Drawing.Size(143, 23);
-            this.labelTestResultValue.TabIndex = 17;
-            this.labelTestResultValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // labelTestResult
-            // 
-            this.labelTestResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelTestResult.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.labelTestResult.Location = new System.Drawing.Point(433, 17);
-            this.labelTestResult.Name = "labelTestResult";
-            this.labelTestResult.Size = new System.Drawing.Size(49, 23);
-            this.labelTestResult.TabIndex = 16;
-            this.labelTestResult.Text = "Result:";
-            this.labelTestResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label2
-            // 
-            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label2.Location = new System.Drawing.Point(10, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 23);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Type";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBoxTestValue
-            // 
-            this.textBoxTestValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTestValue.Location = new System.Drawing.Point(171, 18);
-            this.textBoxTestValue.Name = "textBoxTestValue";
-            this.textBoxTestValue.Size = new System.Drawing.Size(128, 20);
-            this.textBoxTestValue.TabIndex = 14;
             // 
             // displayPinTestStopButton
             // 
@@ -156,6 +94,74 @@
             this.displayPinTestButton.UseVisualStyleBackColor = true;
             this.displayPinTestButton.Click += new System.EventHandler(this.displayPinTestButton_Click);
             // 
+            // label3
+            // 
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(125, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(40, 23);
+            this.label3.TabIndex = 19;
+            this.label3.Text = "Value";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // comboBoxTestValueType
+            // 
+            this.comboBoxTestValueType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTestValueType.FormattingEnabled = true;
+            this.comboBoxTestValueType.Items.AddRange(new object[] {
+            "Number",
+            "String"});
+            this.comboBoxTestValueType.Location = new System.Drawing.Point(45, 18);
+            this.comboBoxTestValueType.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
+            this.comboBoxTestValueType.Name = "comboBoxTestValueType";
+            this.comboBoxTestValueType.Size = new System.Drawing.Size(71, 21);
+            this.comboBoxTestValueType.TabIndex = 18;
+            // 
+            // labelTestResultValue
+            // 
+            this.labelTestResultValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTestResultValue.AutoEllipsis = true;
+            this.labelTestResultValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTestResultValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelTestResultValue.Location = new System.Drawing.Point(485, 17);
+            this.labelTestResultValue.Margin = new System.Windows.Forms.Padding(0);
+            this.labelTestResultValue.Name = "labelTestResultValue";
+            this.labelTestResultValue.Padding = new System.Windows.Forms.Padding(0, 4, 0, 4);
+            this.labelTestResultValue.Size = new System.Drawing.Size(143, 23);
+            this.labelTestResultValue.TabIndex = 17;
+            this.labelTestResultValue.Text = "asd42342342342342342";
+            this.labelTestResultValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelTestResult
+            // 
+            this.labelTestResult.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTestResult.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.labelTestResult.Location = new System.Drawing.Point(433, 17);
+            this.labelTestResult.Name = "labelTestResult";
+            this.labelTestResult.Size = new System.Drawing.Size(49, 23);
+            this.labelTestResult.TabIndex = 16;
+            this.labelTestResult.Text = "Result:";
+            this.labelTestResult.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label2.Location = new System.Drawing.Point(10, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(32, 23);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Type";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxTestValue
+            // 
+            this.textBoxTestValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTestValue.Location = new System.Drawing.Point(171, 18);
+            this.textBoxTestValue.Name = "textBoxTestValue";
+            this.textBoxTestValue.Size = new System.Drawing.Size(128, 20);
+            this.textBoxTestValue.TabIndex = 14;
+            // 
             // TestValuePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,5 +187,6 @@
         private System.Windows.Forms.TextBox textBoxTestValue;
         private System.Windows.Forms.Button displayPinTestStopButton;
         private System.Windows.Forms.Button displayPinTestButton;
+        private System.Windows.Forms.ToolTip toolTipResultLabel;
     }
 }

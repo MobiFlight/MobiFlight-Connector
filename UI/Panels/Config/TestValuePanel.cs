@@ -18,7 +18,10 @@ namespace MobiFlight.UI.Panels.Config
         public event EventHandler<EventArgs> TestModeStop;
         public event EventHandler TestModeEnd;
         public event EventHandler TestValueChanged;
-        public string Result { get { return labelTestResultValue.Text; } set { labelTestResultValue.Text = $"'{value}'"; } }
+        public string Result { get { return labelTestResultValue.Text; } set { 
+                toolTipResultLabel.SetToolTip(labelTestResultValue, value);
+                labelTestResultValue.Text = $"'{value}'"; } 
+        }
 
         public TestValuePanel()
         {
