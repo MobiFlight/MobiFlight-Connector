@@ -15,6 +15,7 @@ env:
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x86
   BUILD_PROJECT: MobiFlightUnitTests
+  VERSION: "0.0.${{ github.event.number }}.${{ github.run_number }}"
 
 jobs:
   build:
@@ -34,7 +35,7 @@ jobs:
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
     - name: Replace version in AssemblyInfo.cs
-      run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("0.0.0.${{ github.run_number }}")' | Out-File "Properties/AssemblyInfo.cs"
+      run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "Properties/AssemblyInfo.cs"
       shell: pwsh
       
     - name: Dump AssemblyInfo.cs
@@ -55,4 +56,4 @@ jobs:
       with:
         name: MobiFlightConnector
         path: |
-          Release/MobiFlightConnector-*.zip
+          Release/MobiFlightConnector-${{ env.VERSION }}.zip
