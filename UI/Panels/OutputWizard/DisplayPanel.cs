@@ -588,7 +588,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             servoPanel.SetAdresses(servos);
 
-            stepperPanel.SetAdresses(stepper);
+            stepperPanel.SetAddresses(stepper);
 
             displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged -= shiftRegistersComboBox_selectedIndexChanged;
             displayShiftRegisterPanel.shiftRegistersComboBox.SelectedIndexChanged += new EventHandler(shiftRegistersComboBox_selectedIndexChanged);

@@ -11,6 +11,7 @@ namespace MobiFlight.UI.Panels
         public event EventHandler<ManualCalibrationTriggeredEventArgs> OnManualCalibrationTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnSetZeroTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnStepperSelected;
+        
         protected StepperProfilePreset StepperProfile;
 
         int[] StepValues = { -50, -10, -1, 1, 10, 50 };
@@ -67,7 +68,7 @@ namespace MobiFlight.UI.Panels
             stepperAddressesComboBox.SelectedValue = value;
         }
 
-        public void SetAdresses(List<ListItem> pins)
+        public void SetAddresses(List<ListItem> pins)
         {
             stepperAddressesComboBox.DataSource = new List<ListItem>(pins);
             stepperAddressesComboBox.DisplayMember = "Label";
@@ -84,25 +85,55 @@ namespace MobiFlight.UI.Panels
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (OnManualCalibrationTriggered != null)
-            {
-                ManualCalibrationTriggeredEventArgs eventArgs = new ManualCalibrationTriggeredEventArgs();
-                eventArgs.StepperAddress = stepperAddressesComboBox.SelectedValue.ToString();
-                eventArgs.Steps = StepValues[trackBar1.Value];
-
-                OnManualCalibrationTriggered(this, eventArgs);
-            }
+            TriggerManualCalibration();
         }
 
+        private void TriggerManualCalibration()
+        {
+            if (OnManualCalibrationTriggered == null)
+                return;
+            
+            var eventArgs = new ManualCalibrationTriggeredEventArgs
+                {
+                    StepperAddress = stepperAddressesComboBox.SelectedValue.ToString(),
+                    Steps = StepValues[trackBar1.Value]
+                };
+
+             OnManualCalibrationTriggered(this, eventArgs);
+            
+        }
+        
         private void button2_Click(object sender, EventArgs e)
         {
-            OnSetZeroTriggered?.Invoke(stepperAddressesComboBox.SelectedValue,
-                                   new StepperConfigChangedEventArgs()
-                                   {
-                                       StepperAddress = stepperAddressesComboBox.SelectedValue.ToString()
-                                   });
+            SetZero();
         }
 
+        private void SetZero()
+        {
+            OnSetZeroTriggered?.Invoke(stepperAddressesComboBox.SelectedValue,
+                new StepperConfigChangedEventArgs()
+                {
+                    StepperAddress = stepperAddressesComboBox.SelectedValue.ToString()
+                });
+        }
+        
+        private void enter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)Keys.Return:
+                case (char)Keys.D0:
+                case (char)Keys.NumPad0:
+                    SetZero();
+                    break;
+                
+                case (char)Keys.Space:
+                    TriggerManualCalibration();
+                    break;
+            }
+        }
+        
+        
         private void inputRevTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (!(sender as Control).Parent.Enabled) return;
@@ -145,7 +176,7 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void displayError(Control control, String message)
+        private void displayError(Control control, string message)
         {
             errorProvider.SetError(
                     control,
@@ -162,7 +193,7 @@ namespace MobiFlight.UI.Panels
 
         private void stepperAddressesComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if ((sender as ComboBox).Items.Count == 0) return;
+            if (((ComboBox)sender).Items.Count == 0) return;
             if (OnStepperSelected != null)
                 OnStepperSelected(sender, new StepperConfigChangedEventArgs() { StepperAddress = stepperAddressesComboBox.SelectedValue.ToString() });
 
@@ -218,6 +249,6 @@ namespace MobiFlight.UI.Panels
 
     public class StepperConfigChangedEventArgs : EventArgs
     {
-        public String StepperAddress { get; set; }
+        public string StepperAddress { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MobiFlight.UI.Panels
+﻿using System.Windows.Forms;
+
+namespace MobiFlight.UI.Panels
 {
     partial class StepperPanel
     {
@@ -22,9 +24,9 @@
 
         #region Vom Komponenten-Designer generierter Code
 
-        /// <summary> 
-        /// Erforderliche Methode für die Designerunterstützung. 
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -131,10 +133,7 @@
             // 
             this.stepperAddressesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.stepperAddressesComboBox.FormattingEnabled = true;
-            this.stepperAddressesComboBox.Items.AddRange(new object[] {
-            resources.GetString("stepperAddressesComboBox.Items"),
-            resources.GetString("stepperAddressesComboBox.Items1"),
-            resources.GetString("stepperAddressesComboBox.Items2")});
+            this.stepperAddressesComboBox.Items.AddRange(new object[] { resources.GetString("stepperAddressesComboBox.Items"), resources.GetString("stepperAddressesComboBox.Items1"), resources.GetString("stepperAddressesComboBox.Items2") });
             resources.ApplyResources(this.stepperAddressesComboBox, "stepperAddressesComboBox");
             this.stepperAddressesComboBox.Name = "stepperAddressesComboBox";
             // 
@@ -206,6 +205,7 @@
             this.trackBar1.Maximum = 5;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Value = 1;
+            this.trackBar1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enter_KeyPress);
             // 
             // ManualCalibrateLabel
             // 
@@ -298,7 +298,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
