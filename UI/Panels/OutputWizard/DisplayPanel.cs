@@ -106,7 +106,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             stepperPanel.OnSetZeroTriggered += stepperPanel_OnSetZeroTriggered;
             stepperPanel.OnStepperSelected += StepperPanel_OnStepperSelected;
             // set the default profile for steppers
-            stepperPanel.SetStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
+            stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
         }
 
         internal void syncFromConfig(OutputConfigItem cfg)
@@ -138,7 +138,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
 
                     case MobiFlightStepper.TYPE:
-                        stepperPanel.SyncFromConfig(config);
+                        stepperPanel.syncFromConfig(config);
                         break;
 
                     case MobiFlightLedModule.TYPE:
@@ -210,7 +210,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     case MobiFlightStepper.TYPE:
                         // it is not nice but we haev to check what kind of stepper the stepper is
                         // to show or not show the manual calibration piece.
-                        stepperPanel.SyncToConfig(config);
+                        stepperPanel.syncToConfig(config);
                         break;
 
                     case MobiFlightLedModule.TYPE:
@@ -722,7 +722,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                 MobiFlightStepper stepper = module.GetStepper(stepperAddress);
 
-                stepperPanel.SetStepperProfile(stepper.Profile);
+                stepperPanel.setStepperProfile(stepper.Profile);
                 stepperPanel.ShowManualCalibration(!stepper.HasAutoZero);
             }
             catch (IndexOutOfRangeException ex)
@@ -730,7 +730,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // the module with that serial is currently not connected
                 // so we cannot lookup anything sensible
                 Log.Instance.log($"Trying to show stepper config but module {config.DisplaySerial} is not connected. Using default profile.", LogSeverity.Error);
-                stepperPanel.SetStepperProfile(MFStepperPanel.Profiles.Find(p=>p.Value.id == 0).Value);
+                stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p=>p.Value.id == 0).Value);
             }
         }
 
