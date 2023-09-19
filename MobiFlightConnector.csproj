@@ -1690,7 +1690,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4)</PostBuildEvent>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir))</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"
