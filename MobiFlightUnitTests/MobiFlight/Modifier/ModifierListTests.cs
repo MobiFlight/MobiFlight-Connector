@@ -51,13 +51,36 @@ namespace MobiFlight.Modifier.Tests
         [TestMethod()]
         public void WriteXmlTest()
         {
-            Assert.Fail();
+            StringWriter sw = new StringWriter();
+
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Encoding = System.Text.Encoding.UTF8;
+            settings.Indent = true;
+            System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
+
+            var o = new ModifierList();
+            xmlWriter.WriteStartElement("settings");
+            o.WriteXml(xmlWriter);
+            xmlWriter.WriteEndElement();
+            xmlWriter.Flush();
+            string s = sw.ToString();
+
+            var o1 = new ModifierList();
+            StringReader sr = new StringReader(s);
+            XmlReaderSettings readerSettings = new XmlReaderSettings();
+            readerSettings.IgnoreWhitespace = true;
+            var xmlReader = System.Xml.XmlReader.Create(sr, readerSettings);
+            xmlReader.ReadToDescendant("modifiers");
+            o1.ReadXml(xmlReader);
+            Assert.AreEqual(o, o1, "They should be equal");
         }
 
         [TestMethod()]
         public void CloneTest()
         {
-            Assert.Fail();
+            var modifierList = new ModifierList();
+            var modifierList2 = modifierList.Clone() as ModifierList;
+            Assert.AreEqual(modifierList, modifierList2);
         }
     }
 }
