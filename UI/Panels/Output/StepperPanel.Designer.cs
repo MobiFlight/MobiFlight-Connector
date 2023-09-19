@@ -43,6 +43,7 @@ namespace MobiFlight.UI.Panels
             this.label2 = new System.Windows.Forms.Label();
             this.stepperAddressesComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -139,6 +140,7 @@ namespace MobiFlight.UI.Panels
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.label8);
@@ -153,10 +155,17 @@ namespace MobiFlight.UI.Panels
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
+            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -164,6 +173,7 @@ namespace MobiFlight.UI.Panels
             // 
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
+            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -299,6 +309,8 @@ namespace MobiFlight.UI.Panels
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label9;
 
         #endregion
 

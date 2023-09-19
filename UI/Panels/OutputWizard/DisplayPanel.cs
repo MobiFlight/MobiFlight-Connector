@@ -138,7 +138,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         break;
 
                     case MobiFlightStepper.TYPE:
-                        stepperPanel.syncFromConfig(config);
+                        stepperPanel.SyncFromConfig(config);
                         break;
 
                     case MobiFlightLedModule.TYPE:
@@ -210,7 +210,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     case MobiFlightStepper.TYPE:
                         // it is not nice but we haev to check what kind of stepper the stepper is
                         // to show or not show the manual calibration piece.
-                        stepperPanel.syncToConfig(config);
+                        stepperPanel.SyncToConfig(config);
                         break;
 
                     case MobiFlightLedModule.TYPE:
