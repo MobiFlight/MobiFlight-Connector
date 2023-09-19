@@ -21,6 +21,7 @@ namespace MobiFlight.UI.Panels
 
             displayPinPanel.SetPorts(new List<ListItem>());
             displayPinPanel.WideStyle = true;
+            displayPinPanel.EnablePWMSelect(false);
         }
 
         internal void SyncFromConfig(OutputConfigItem config)
