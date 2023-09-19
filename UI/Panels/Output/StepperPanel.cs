@@ -12,9 +12,9 @@ namespace MobiFlight.UI.Panels
         public event EventHandler<StepperConfigChangedEventArgs> OnSetZeroTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnStepperSelected;
 
-        private StepperProfilePreset stepperProfile;
+        protected StepperProfilePreset StepperProfile;
 
-        int[] stepValues = { -50, -10, -1, 1, 10, 50 };
+        int[] StepValues = { -50, -10, -1, 1, 10, 50 };
         ErrorProvider errorProvider = new ErrorProvider();
 
         public StepperPanel()
@@ -23,13 +23,13 @@ namespace MobiFlight.UI.Panels
             stepperAddressesComboBox.SelectedValueChanged += stepperAddressesComboBox_SelectedValueChanged;
         }
 
-        public void ShowManualCalibration(bool state)
+        public void ShowManualCalibration(Boolean state)
         {
             groupBox2.Enabled = state;
             trackBar1.Focus();
         }
 
-        internal void SyncFromConfig(OutputConfigItem config)
+        internal void syncFromConfig(OutputConfigItem config)
         {
             // stepper initialization
             if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.Stepper.Address))
@@ -50,7 +50,7 @@ namespace MobiFlight.UI.Panels
             CompassModeCheckBox.Checked         = config.Stepper.CompassMode;
         }
 
-        internal OutputConfigItem SyncToConfig(OutputConfigItem config)
+        internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             if (stepperAddressesComboBox.SelectedValue != null)
             {
@@ -92,7 +92,7 @@ namespace MobiFlight.UI.Panels
             var eventArgs = new ManualCalibrationTriggeredEventArgs
                 {
                     StepperAddress = stepperAddressesComboBox.SelectedValue.ToString(),
-                    Steps = stepValues[trackBar1.Value]
+                    Steps = StepValues[trackBar1.Value]
                 };
 
              OnManualCalibrationTriggered(this, eventArgs);
@@ -134,19 +134,19 @@ namespace MobiFlight.UI.Panels
         
         private void inputRevTextBox_Validating(object sender, CancelEventArgs e)
         {
-            if (!((Control)sender).Parent.Enabled) return;
+            if (!(sender as Control).Parent.Enabled) return;
 
-            var value = ((TextBox)sender).Text.Trim();
+            String value = ((TextBox)sender).Text.Trim();
 
             if (value == "") e.Cancel = true;
             if (e.Cancel)
             {
-                DisplayError((Control)sender, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
+                displayError((Control)sender, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
                 return;
             }
             else
             {
-                RemoveError((Control)sender);
+                removeError((Control)sender);
             }
 
             try
@@ -159,22 +159,22 @@ namespace MobiFlight.UI.Panels
             catch (Exception ex)
             {
                 e.Cancel = true;
-                DisplayError((Control)sender, i18n._tr("uiMessageValidationMustBeNumber"));
+                displayError((Control)sender, i18n._tr("uiMessageValidationMustBeNumber"));
                 return;
             }
 
             if (e.Cancel)
             {
-                DisplayError((Control)sender, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
+                displayError((Control)sender, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
                 return;
             }
             else
             {
-                RemoveError((Control)sender);
+                removeError((Control)sender);
             }
         }
 
-        private void DisplayError(Control control, string message)
+        private void displayError(Control control, String message)
         {
             errorProvider.SetError(
                     control,
@@ -182,7 +182,7 @@ namespace MobiFlight.UI.Panels
             MessageBox.Show(message, i18n._tr("Hint"));
         }
 
-        private void RemoveError(Control control)
+        private void removeError(Control control)
         {
             errorProvider.SetError(
                     control,
@@ -191,52 +191,52 @@ namespace MobiFlight.UI.Panels
 
         private void stepperAddressesComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (((ComboBox)sender).Items.Count == 0) return;
+            if ((sender as ComboBox).Items.Count == 0) return;
             if (OnStepperSelected != null)
                 OnStepperSelected(sender, new StepperConfigChangedEventArgs() { StepperAddress = stepperAddressesComboBox.SelectedValue.ToString() });
 
             UpdateResetButtonVisibility();
         }
 
-        internal void SetStepperProfile(StepperProfilePreset profilePreset)
+        internal void setStepperProfile(StepperProfilePreset profilePreset)
         {
             // we assume that it is safe to update the values
             // when we have a different id
-            if (stepperProfile?.id != profilePreset.id)
+            if (StepperProfile?.id != profilePreset.id)
             {
                 outputRevTextBox.Text = profilePreset.StepsPerRevolution.ToString();
                 AccelerationTextBox.Text = profilePreset.Acceleration.ToString();
                 SpeedTextBox.Text = profilePreset.Speed.ToString();
             }
 
-            this.stepperProfile = profilePreset;
+            this.StepperProfile = profilePreset;
         }
 
         private void ResetButton_Click(object sender, EventArgs e)
         {
             if (sender == OutputRevResetButton)
             {
-                outputRevTextBox.Text = this.stepperProfile.StepsPerRevolution.ToString();
+                outputRevTextBox.Text = this.StepperProfile.StepsPerRevolution.ToString();
             }
             else if (sender == SpeedResetButton)
-                SpeedTextBox.Text = this.stepperProfile.Speed.ToString();
+                SpeedTextBox.Text = this.StepperProfile.Speed.ToString();
             else if (sender == AccelerationResetButton)
-                AccelerationTextBox.Text = this.stepperProfile.Acceleration.ToString();
+                AccelerationTextBox.Text = this.StepperProfile.Acceleration.ToString();
         }
 
         private void StepperSettingsTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (stepperProfile == null) return;
+            if (StepperProfile == null) return;
             UpdateResetButtonVisibility();
         }
 
         private void UpdateResetButtonVisibility()
         {
-            if (stepperProfile == null) return;
+            if (StepperProfile == null) return;
 
-            OutputRevResetButton.Visible = outputRevTextBox.Text != this.stepperProfile.StepsPerRevolution.ToString();
-            AccelerationResetButton.Visible = AccelerationTextBox.Text != this.stepperProfile.Acceleration.ToString();
-            SpeedResetButton.Visible = SpeedTextBox.Text != this.stepperProfile.Speed.ToString();
+            OutputRevResetButton.Visible = outputRevTextBox.Text != this.StepperProfile.StepsPerRevolution.ToString();
+            AccelerationResetButton.Visible = AccelerationTextBox.Text != this.StepperProfile.Acceleration.ToString();
+            SpeedResetButton.Visible = SpeedTextBox.Text != this.StepperProfile.Speed.ToString();
         }
 
         
@@ -249,6 +249,6 @@ namespace MobiFlight.UI.Panels
 
     public class StepperConfigChangedEventArgs : EventArgs
     {
-        public string StepperAddress { get; set; }
+        public String StepperAddress { get; set; }
     }
 }
