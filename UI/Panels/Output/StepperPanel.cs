@@ -136,17 +136,17 @@ namespace MobiFlight.UI.Panels
         {
             if (!(sender as Control).Parent.Enabled) return;
 
-            String value = ((TextBox)sender).Text.Trim();
+            String value = (sender as TextBox).Text.Trim();
 
             if (value == "") e.Cancel = true;
             if (e.Cancel)
             {
-                displayError((Control)sender, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
+                displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustNonEmpty"));
                 return;
             }
             else
             {
-                removeError((Control)sender);
+                removeError(sender as Control);
             }
 
             try
@@ -159,18 +159,18 @@ namespace MobiFlight.UI.Panels
             catch (Exception ex)
             {
                 e.Cancel = true;
-                displayError((Control)sender, i18n._tr("uiMessageValidationMustBeNumber"));
+                displayError(sender as Control, i18n._tr("uiMessageValidationMustBeNumber"));
                 return;
             }
 
             if (e.Cancel)
             {
-                displayError((Control)sender, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
+                displayError(sender as Control, i18n._tr("uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0"));
                 return;
             }
             else
             {
-                removeError((Control)sender);
+                removeError(sender as Control);
             }
         }
 
