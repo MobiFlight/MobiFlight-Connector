@@ -1421,7 +1421,11 @@ namespace MobiFlight
 
                 DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
 
-                if (!(bool)row["active"]) continue;
+                if (!(bool)row["active"])
+                {
+                    Log.Instance.log($"{msgEventLabel} => skipping \"{row["description"]}\", config not active.", LogSeverity.Warn);
+                    continue;
+                }
 
                 // if there are preconditions check and skip if necessary
                 if (tuple.Item1.Preconditions.Count > 0)
