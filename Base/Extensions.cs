@@ -42,5 +42,19 @@ namespace MobiFlight.Base
             }
             return (byte) result;
         }
+
+
+        public static byte HammingWeight(this byte value)
+        {
+            byte sum = 0;
+
+            while (value > 0)
+            {
+                sum += (byte)(value & 0x01);
+                value >>= 1;
+            }
+
+            return sum;
+        }
     }
 }

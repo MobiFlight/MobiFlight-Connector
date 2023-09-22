@@ -78,7 +78,8 @@ namespace MobiFlight
             }
 
             // clamp and reverse the string
-            if (value.Length > 8) value = value.Substring(0, 8);
+            var maxLength = Math.Min(mask.HammingWeight(), (byte) 8);
+            if (value.Length > maxLength) value = value.Substring(0, maxLength);
 
             if (reverse)
             {
