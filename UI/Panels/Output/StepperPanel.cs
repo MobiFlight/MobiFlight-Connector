@@ -33,7 +33,7 @@ namespace MobiFlight.UI.Panels
             if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.Stepper.Address))
             {
                 // TODO: provide error message
-                Log.Instance.log("Exception on selecting item in Stepper address ComboBox.", LogSeverity.Debug);
+                Log.Instance.log($"Exception on selecting item {config.Stepper.Address} in Stepper address ComboBox.", LogSeverity.Debug);
             }
 
             inputRevTextBox.Text            = config.Stepper.InputRev.ToString();
