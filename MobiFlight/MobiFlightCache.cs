@@ -507,6 +507,7 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = GetModuleBySerial(serial);
+                if (module == null) return;
 
                 if (name != null && name.Contains("|")) {
                     var pins = name.Split('|');
@@ -829,8 +830,8 @@ namespace MobiFlight
         public MobiFlightModule GetModuleBySerial(string serial)
         {
             if (Modules.ContainsKey(serial)) return Modules[serial];
-            
-            throw new IndexOutOfRangeException();
+
+            return null;
         }
 
         internal MobiFlightModule GetModule(MobiFlightModuleInfo moduleInfo)

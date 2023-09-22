@@ -21,6 +21,7 @@ namespace MobiFlight.UI.Panels
 
             displayPinPanel.SetPorts(new List<ListItem>());
             displayPinPanel.WideStyle = true;
+            displayPinPanel.EnablePWMSelect(false);
         }
 
         internal void SyncFromConfig(OutputConfigItem config)
@@ -28,9 +29,9 @@ namespace MobiFlight.UI.Panels
             // pre-select display stuff
             if (config.ShiftRegister != null && config.ShiftRegister.Address != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.Address.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.Address))
                 {
-                    Log.Instance.log("Exception on selecting item in Shift Register ComboBox.", LogSeverity.Error);
+                    Log.Instance.log($"Exception on selecting item {config.ShiftRegister.Address} in Shift Register ComboBox.", LogSeverity.Error);
                 }
             }
 

@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels.Config
 {
     public partial class TransformOptionsGroup : UserControl
     {
+        public event EventHandler ModifyTabLink;
         protected Boolean PanelMode = true;
 
         public TransformOptionsGroup()
@@ -22,30 +23,19 @@ namespace MobiFlight.UI.Panels.Config
         public void setMode(bool isOutputPanel)
         {
             PanelMode = isOutputPanel;
-            // the transform field only is visible
-            // if we are dealing with outputs
-            MultiplyPanel.Visible = PanelMode;
 
             // and the value panel vice versa
             // only if we deal with inputs
             ValuePanel.Visible = !PanelMode;
+            fsuipcMoreOptionsGroupBox.Visible = !PanelMode;
 
             AutoSize = isOutputPanel;
-        }
-
-        public void ShowMultiplyPanel(bool visible)
-        {
-            MultiplyPanel.Visible = visible;
-        }
-
-        public void ShowSubStringPanel(bool visible)
-        {
-            SubstringPanel.Visible = visible;
         }
 
         public void ShowValuePanel(bool visible)
         {
             ValuePanel.Visible = visible;
+            fsuipcMoreOptionsGroupBox.Visible = visible;
         }
 
         internal void syncFromConfig(OutputConfigItem config)
@@ -56,57 +46,32 @@ namespace MobiFlight.UI.Panels.Config
                 return;
             }
 
-            // multiplier
-            if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-             || (config.SourceType == SourceType.VARIABLE && config.MobiFlightVariable.TYPE == "string")
-                
-                )
-            {
-                TransformationCheckBox.Checked = false;
-                SubstringTransformationCheckBox.Checked = config.Transform.Active;
-            }
-            else
-            {
-                TransformationCheckBox.Checked = config.Transform.Active;
-                SubstringTransformationCheckBox.Checked = false;
-                
-            }
-
-            TransformTextBox.Text = config.Transform.Expression;
             fsuipcValueTextBox.Text = config.Value;
+        }
 
-            // substring panel
-            SubStringFromTextBox.Text = config.Transform.SubStrStart.ToString();
-            SubStringToTextBox.Text = config.Transform.SubStrEnd.ToString();
+        internal void syncFromConfig(IFsuipcConfigItem config)
+        {
+            if (config == null)
+            {
+                // this happens when casting badly
+                return;
+            }
+            fsuipcValueTextBox.Text = config.Value;
         }
 
         internal void syncToConfig(OutputConfigItem config)
         {
-            if ((config.SourceType == SourceType.FSUIPC && config.FSUIPC.OffsetType == FSUIPCOffsetType.String)
-             || (config.SourceType == SourceType.VARIABLE && config.MobiFlightVariable.TYPE == "string")
-
-                )
-            {
-                config.Transform.Active = SubstringTransformationCheckBox.Checked;
-            }
-            else
-            {
-                config.Transform.Active = TransformationCheckBox.Checked;
-            }
-
-            // TODO: refactor this conditional stuff.
-            config.Transform.Expression = TransformTextBox.Text;
-            
-            if (SubStringFromTextBox.Text != "")
-                config.Transform.SubStrStart = Byte.Parse(SubStringFromTextBox.Text);
-            if (SubStringToTextBox.Text != "")
-                config.Transform.SubStrEnd = Byte.Parse(SubStringToTextBox.Text);
             config.Value = fsuipcValueTextBox.Text;
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        internal void syncToConfig(IFsuipcConfigItem config)
         {
-            TransformTextBox.Enabled = (sender as CheckBox).Checked;
+            config.Value = fsuipcValueTextBox.Text;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            ModifyTabLink?.Invoke(this, EventArgs.Empty);
         }
     }
 }

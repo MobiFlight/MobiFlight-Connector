@@ -136,7 +136,7 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
 
                 if (displayPinComboBox.Items.Count == 0) {
-                    displayPinComboBox.Items.Add(pin);
+                    displayPinComboBox.DataSource = new List<ListItem>() { new ListItem() { Label = pin, Value = pin } };
                 }
 
                 if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
@@ -175,15 +175,15 @@ namespace MobiFlight.UI.Panels
 
         private void displayPinComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Module != null)
+            if (Module == null) return;
+
+            String pin = (sender as ComboBox).SelectedItem.ToString();
+            foreach (var item in Module.GetConnectedDevices(pin))
             {
-                String pin = (sender as ComboBox).SelectedItem.ToString();
-                foreach (var item in Module.GetConnectedDevices(pin))
-                {
-                    pwmPinPanel.Enabled = pwmPinPanel.Visible = Module.getPwmPins()
-                                                .Find(x => x.Pin == (byte)(item as MobiFlightOutput).Pin) != null;
-                    return;
-                }
+                pwmPinPanel.Enabled = pwmPinPanel.Visible 
+                                    = Module.getPwmPins()
+                                            .Find(x => x.Pin == (byte)(item as MobiFlightOutput).Pin) != null;
+                return;
             }
         }
 
@@ -204,8 +204,11 @@ namespace MobiFlight.UI.Panels
 
         private void MultiPinSelectPanel_SelectionChanged(object sender, List<ListItem> selectedPins)
         {
-            var pwmPins = Module.getPwmPins();
+            pwmPinPanel.Enabled = false;
 
+            if (Module == null) return;
+
+            var pwmPins = Module.getPwmPins();
             pwmPinPanel.Enabled = pwmPinPanel.Visible
                                 = selectedPins.All(
                                     pin => pwmPins.Find(

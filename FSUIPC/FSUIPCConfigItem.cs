@@ -12,7 +12,7 @@ namespace MobiFlight.FSUIPC
         public FSUIPCConfigItem()
         {
             FSUIPC = new FsuipcOffset();
-            Transform = new Transformation();
+            Modifiers = new ModifierList();
         }
         public FsuipcOffset FSUIPC
         {
@@ -20,7 +20,7 @@ namespace MobiFlight.FSUIPC
             set;
         }
 
-        public Transformation Transform
+        public ModifierList Modifiers
         {
             get;
             set;

@@ -8,9 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
 using MobiFlight.Base;
+using MobiFlight.Properties;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Config;
 using MobiFlight.UI.Panels.OutputWizard;
+using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -25,6 +27,9 @@ namespace MobiFlight.UI.Dialogs
         OutputConfigItem originalConfig = null;
         ErrorProvider errorProvider = new ErrorProvider();
         DataSet _dataSetConfig = null;
+        Timer TestTimer = new Timer();
+        String CurrentGuid = null;
+        public OutputConfigItem Config { get { return config; } }
 
 #if ARCAZE
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
@@ -48,6 +53,9 @@ namespace MobiFlight.UI.Dialogs
             initWithoutArcazeCache();
 #endif
             var list = dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
+
+            // store the current guid
+            CurrentGuid = filterGuid;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
@@ -73,10 +81,10 @@ namespace MobiFlight.UI.Dialogs
             return !originalConfig.Equals(config);
         }
 
-        protected void Init(ExecutionManager mainForm, OutputConfigItem cfg)
+        protected void Init(ExecutionManager executionManager, OutputConfigItem cfg)
         {
-            this._execManager = mainForm;
-            config = cfg;
+            this._execManager = executionManager;
+            config = cfg.Clone() as OutputConfigItem;
 
             // Until with have the preconditions completely refactored,
             // add an empty precondition in case the current cfg doesn't have one
@@ -84,17 +92,14 @@ namespace MobiFlight.UI.Dialogs
             if (cfg.Preconditions.Count == 0) 
                 cfg.Preconditions.Add(new Precondition());
 
-            originalConfig = cfg.Clone() as OutputConfigItem;
+            originalConfig = cfg;
 
             InitializeComponent();
-            comparisonSettingsPanel.Enabled = false;
 
             ActivateCorrectTab(config);
 
             // DISPLAY PANEL
             displayPanel1.Init(_execManager);
-            displayPanel1.TestModeStartRequested += (sender, args) => { _testModeStart(); };
-            displayPanel1.TestModeStopRequested += (sender, args) => { _testModeStop(); };
             displayPanel1.DisplayPanelValidatingError += (sender, args) =>
             {
                 tabControlFsuipc.SelectedTab = displayTabPage;
@@ -112,18 +117,84 @@ namespace MobiFlight.UI.Dialogs
 
             // FSUIPC PANEL
             fsuipcConfigPanel.setMode(true);
-            fsuipcConfigPanel.syncFromConfig(cfg);
+            // fsuipcConfigPanel.syncFromConfig(cfg);
 
             // SIMCONNECT SIMVARS PANEL
             simConnectPanel1.HubHopPresetPanel.OnGetLVarListRequested += SimConnectPanel1_OnGetLVarListRequested;
             _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
+
+            fsuipcConfigPanel.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            fsuipcConfigPanel.ModifierChanged += FsuipcConfigPanel_ModifierChanged;
+            simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+
+            testValuePanel1.FromConfig(config);
+            testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
+            testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
+            testValuePanel1.TestValueChanged += ModifierPanel1_ModifierChanged;
+            TestTimer.Interval = Settings.Default.TestTimerInterval;
+            TestTimer.Tick += TestTimer_Tick;
+            modifierPanel1.ModifierChanged += ModifierPanel1_ModifierChanged;
+        }
+
+        private void ModifierPanel1_ModifierChanged(object sender, EventArgs e)
+        {
+            testValuePanel1.ToConfig(config);
+            modifierPanel1.toConfig(config);
+        }
+
+        private void TestTimer_Tick(object sender, EventArgs e)
+        {
+            var value = config.TestValue.Clone() as ConnectorValue;
+            try
+            {
+                if (value != null)
+                    config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
+            } catch (Exception ex)
+            {
+                // ShowError? Or don't do anything?
+            }
+            
+            testValuePanel1.Result = value.ToString();
+
+            _execManager.ExecuteTestOn(config, CurrentGuid, value);
+        }
+
+        private void TestValuePanel_TestModeEnd(object sender, EventArgs e)
+        {
+            _testModeStop(false);
+        }
+
+        private void TestValuePanel_TestModeStart(object sender, ConnectorValue value)
+        {
+            _syncFormToConfig();
+            try
+            {
+                modifierPanel1.toConfig(config);
+                TestTimer.Start();
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Error starting test mode: {e.Message}", LogSeverity.Error);
+            }
+        }
+
+        private void FsuipcConfigPanel_ModifierChanged(object sender, EventArgs e)
+        {
+            modifierPanel1.UpdateModifier(fsuipcConfigPanel.Modifier);
+        }
+
+        private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)
+        {
+            tabControlFsuipc.SelectedTab = compareTabPage;
         }
 
         private void ActivateCorrectTab(OutputConfigItem cfg)
         {
-            // by default always the first tab is activated
-            // if one opens the dialog for an existing config
-            // we use the lastTabActive
+            // by default always the first tab is activated.
+            // if one opens the dialog for an existing config,
+            // then we use the lastTabActive
             if (cfg?.DisplaySerial != null && cfg?.DisplaySerial != SerialNumber.NOT_SET)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
@@ -256,35 +327,16 @@ namespace MobiFlight.UI.Dialogs
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
 
             _syncFsuipcTabFromConfig(config);
-
-            _syncComparisonTabFromConfig(config);
             
             displayPanel1.syncFromConfig(config);
 
+            modifierPanel1.fromConfig(config);
+
             preconditionPanel.syncFromConfig(config);
-            
+
+            testValuePanel1.FromConfig(config);
+
             return true;
-        }
-
-        private void _syncComparisonTabFromConfig(OutputConfigItem config)
-        {
-            // second tab
-            comparisonActiveCheckBox.Checked = config.Comparison.Active;
-            comparisonValueTextBox.Text = config.Comparison.Value;
-
-            if (!ComboBoxHelper.SetSelectedItem(comparisonOperandComboBox, config.Comparison.Operand))
-            {
-                // TODO: provide error message
-                Log.Instance.log($"Exception on selecting item in Comparison ComboBox.", LogSeverity.Error);
-            }
-            comparisonIfValueTextBox.Text = config.Comparison.IfValue;
-            comparisonElseValueTextBox.Text = config.Comparison.ElseValue;
-
-            if (config.Interpolation!=null)
-            {
-                interpolationCheckBox.Checked = config.Interpolation.Active;
-                interpolationPanel1.syncFromConfig(config.Interpolation);
-            }
         }
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
@@ -324,36 +376,19 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.syncToConfig(config);
 
-            // refactor!!!
-            comparisonPanel_syncToConfig();
-
-            if(interpolationPanel1.Save) {
-                // backward compatibility until we have refactored the 
-                // multipliers in the UI
-                if (config.Interpolation == null) { config.Interpolation = new Modifier.Interpolation(); }
-                config.Interpolation.Active = interpolationCheckBox.Checked;
-                interpolationPanel1.syncToConfig(config.Interpolation);
-            }
+            modifierPanel1.toConfig(config);
 
             displayPanel1.syncToConfig();
             preconditionPanel.syncToConfig(config);
 
-            return true;
-        }
+            testValuePanel1.ToConfig(config);
 
-        private void comparisonPanel_syncToConfig()
-        {
-            // comparison panel
-            config.Comparison.Active = comparisonActiveCheckBox.Checked;
-            config.Comparison.Value = comparisonValueTextBox.Text;
-            config.Comparison.Operand = comparisonOperandComboBox.Text;
-            config.Comparison.IfValue = comparisonIfValueTextBox.Text;
-            config.Comparison.ElseValue = comparisonElseValueTextBox.Text;
+            return true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _testModeStop();
+            _testModeStop(true);
             try {
                 if (!ValidateChildren())
                 {
@@ -369,38 +404,13 @@ namespace MobiFlight.UI.Dialogs
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            _testModeStop();
+            _testModeStop(true);
             DialogResult = DialogResult.Cancel;
-        }
-
-        private void fsuipcOffsetTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            _validatingHexFields(sender, e, 4);            
-        }
-
-        private void comparisonActiveCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            comparisonSettingsPanel.Enabled = (sender as CheckBox).Checked;
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
         {
             _syncConfigToForm(config);
-        }
-        
-        private void fsuipcMultiplyTextBox_Validating(object sender, CancelEventArgs e)
-        {
-            try
-            {
-                float.Parse((sender as TextBox).Text);
-                removeError(sender as Control);
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Error);
-                displayError(sender as Control, i18n._tr("uiMessageFsuipcConfigPanelMultiplyWrongFormat"));
-                e.Cancel = true;
-            }
         }
         
         private void _validatingHexFields(object sender, CancelEventArgs e, int length)
@@ -437,14 +447,6 @@ namespace MobiFlight.UI.Dialogs
         {
             // check if running in test mode
             lastTabActive = (sender as TabControl).SelectedIndex;
-            _testModeStop();
-        }
-        
-        private void interpolationCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            interpolationPanel1.Enabled = (sender as CheckBox).Checked;
-            if ((sender as CheckBox).Checked)
-                interpolationPanel1.Save = true;
         }
 
         private void OffsetTypeFsuipRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -464,25 +466,12 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.Dispose();
         }
 
-        private void _testModeStart()
-        {
-            _syncFormToConfig();
-
-            try
-            {
-                _execManager.ExecuteTestOn(config);
-            }
-            catch (Exception e)
-            {
-                Log.Instance.log($"Error starting test mode: {e.Message}", LogSeverity.Error);
-            }
-        }
-
-        private void _testModeStop()
+        private void _testModeStop(bool DialogClose = false)
         {
             try
             {
-                _execManager.ExecuteTestOff(config);
+                TestTimer.Stop();
+                _execManager.ExecuteTestOff(config, DialogClose);
             }
             catch (Exception e)
             {

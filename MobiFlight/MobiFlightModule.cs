@@ -830,7 +830,7 @@ namespace MobiFlight
         {
             if (!stepperModules.ContainsKey(stepper))
             {
-                throw new ArgumentOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
 
             return stepperModules[stepper];

@@ -33,7 +33,7 @@ namespace MobiFlight.UI.Panels
             if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.Stepper.Address))
             {
                 // TODO: provide error message
-                Log.Instance.log("Exception on selecting item in Stepper address ComboBox.", LogSeverity.Debug);
+                Log.Instance.log($"Exception on selecting item {config.Stepper.Address} in Stepper address ComboBox.", LogSeverity.Debug);
             }
 
             inputRevTextBox.Text            = config.Stepper.InputRev.ToString();
@@ -45,7 +45,6 @@ namespace MobiFlight.UI.Panels
             if (config.Stepper.Acceleration>0)
                 AccelerationTextBox.Text        = config.Stepper.Acceleration.ToString();
 
-            stepperTestValueTextBox.Text    = config.Stepper.TestValue.ToString();
             CompassModeCheckBox.Checked     = config.Stepper.CompassMode;
         }
 
@@ -56,7 +55,6 @@ namespace MobiFlight.UI.Panels
                 config.Stepper.Address      = stepperAddressesComboBox.SelectedValue.ToString();
                 config.Stepper.InputRev     = Int16.Parse(inputRevTextBox.Text);
                 config.Stepper.OutputRev    = Int16.Parse(outputRevTextBox.Text);
-                config.Stepper.TestValue    = Int16.Parse(stepperTestValueTextBox.Text);
                 config.Stepper.CompassMode  = CompassModeCheckBox.Checked;
                 config.Stepper.Acceleration = Int16.Parse(AccelerationTextBox.Text);
                 config.Stepper.Speed        = Int16.Parse(SpeedTextBox.Text);
@@ -126,10 +124,8 @@ namespace MobiFlight.UI.Panels
             {
                 // all boxes should only accept
                 // positive numbers,
-                // exception is the test value textbox
                 var v = Int16.Parse(value);
-                if (sender != stepperTestValueTextBox)
-                    e.Cancel = !(v > 0);
+                e.Cancel = !(v > 0);
             }
             catch (Exception ex)
             {

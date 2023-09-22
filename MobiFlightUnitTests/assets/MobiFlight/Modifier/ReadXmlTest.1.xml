@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<MobiflightConnector>
+	<outputs>
+		<config guid="08a7e927-7dfb-4d3d-8f9f-fd70ff3bd2e2">
+			<active>false</active>
+			<description>COM1 Standby</description>
+			<settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+				<source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
+				<test type="Float" value="1" />
+				<modifiers />
+				<display type="Display Module" serial="TestBoard1/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+				<preconditions>
+					<precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
+					<precondition type="pin" active="true" serial="Overhead_1/ 000512500000" pin="B01" operand="" value="1" logic="and" />
+				</preconditions>
+				<configrefs />
+			</settings>
+		</config>
+	</outputs>
+</MobiflightConnector>
