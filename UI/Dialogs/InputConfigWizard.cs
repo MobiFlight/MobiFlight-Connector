@@ -286,7 +286,7 @@ namespace MobiFlight.UI.Dialogs
             }
 
             // second tab
-            if (config.Name!=null && !ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
+            if (!ComboBoxHelper.SetSelectedItemByValue(inputTypeComboBox, config.Name))
             {
                 // TODO: provide error message
                 Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.Name}", LogSeverity.Error);
@@ -516,7 +516,7 @@ namespace MobiFlight.UI.Dialogs
                 }
 
                 // third tab
-                if (config.Name != null && !ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
+                if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
                 {
                     Log.Instance.log($"Problem setting input type ComboBox. {config.Name}", LogSeverity.Error);
                 }
