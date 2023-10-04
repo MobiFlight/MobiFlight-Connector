@@ -44,9 +44,12 @@ namespace MobiFlight.SimConnectMSFS
 
     public enum SIMCONNECT_CLIENT_DATA_ID
     {
-        MOBIFLIGHT_LVARS,
-        MOBIFLIGHT_CMD,
-        MOBIFLIGHT_RESPONSE
+        MOBIFLIGHT_LVARS = 0,
+        MOBIFLIGHT_CMD = 1,
+        MOBIFLIGHT_RESPONSE = 2,
+        RUNTIME_LVARS = 3,
+        RUNTIME_CMD = 4,
+        RUNTIME_RESPONSE = 5
     }
 
     public enum SIMCONNECT_REQUEST_ID

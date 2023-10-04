@@ -307,6 +307,7 @@
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleClientData.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
