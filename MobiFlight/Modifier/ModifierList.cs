@@ -126,6 +126,14 @@ namespace MobiFlight.Modifier
                         break;
                 }
             } while (reader.LocalName != "modifiers");
+
+            // are still on the closing tag
+            if (reader.LocalName == "modifiers" && reader.NodeType == XmlNodeType.EndElement)
+            {
+                // advance to the next node
+                reader.Read();
+                return;
+            }
         }
 
         public void WriteXml(XmlWriter writer)
