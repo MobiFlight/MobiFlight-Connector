@@ -187,9 +187,10 @@ namespace MobiFlight
                 // backward compatibility when we have comparison
                 // as a single node instead of modifiers
                 Modifiers.Comparison.ReadXml(reader);
+                reader.Read();
             }
 
-            if (reader.ReadToNextSibling("display"))
+            if (reader.LocalName == "display")
             {
                 DisplayType = reader["type"];
 
