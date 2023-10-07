@@ -287,7 +287,7 @@ namespace MobiFlight.UI.Dialogs
         {
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                if (joystick.GetAvailableOutputDevices().Count == 0) continue;
+                if (joystick.GetAvailableOutputDevicesAsListItems().Count == 0) continue;
 
                 DisplayModuleList.Add(new ListItem()
                 {
