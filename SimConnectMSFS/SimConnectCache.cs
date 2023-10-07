@@ -166,18 +166,23 @@ namespace MobiFlight.SimConnectMSFS
 
             try
             {
-                // The constructor is similar to SimConnect_Open in the native API
-                m_oSimConnect = new SimConnect("Simconnect - Simvar test", _handle, WM_USER_SIMCONNECT, null, 0);
+                if (m_oSimConnect == null)
+                {
+                    // The constructor is similar to SimConnect_Open in the native API
+                    m_oSimConnect = new SimConnect("Simconnect - MobiFlight", _handle, WM_USER_SIMCONNECT, null, 0);
 
-                // Listen to connect and quit msgs
-                m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
-                m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
+                    // Listen to connect and quit msgs
+                    m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
+                    m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
 
-                // Listen to exceptions
-                m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
+                    // Listen to exceptions
+                    m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
+                    Log.Instance.log("SimConnect (MSFS2020) instantiated", LogSeverity.Debug);
+                }
             }
             catch (COMException ex)
             {
+                m_oSimConnect = null;
                 return false;
             }
 
@@ -251,8 +256,11 @@ namespace MobiFlight.SimConnectMSFS
 
                 if (simData.Data == "MF.Pong")
                 {
-                    // Next add runtime client                    
-                    WasmModuleClient.AddAdditionalClient(m_oSimConnect, WasmRuntimeClientData.NAME, WasmInitClientData);
+                    if (!_wasmConnected)
+                    {
+                        // Next add runtime client                    
+                        WasmModuleClient.AddAdditionalClient(m_oSimConnect, WasmRuntimeClientData.NAME, WasmInitClientData);
+                    }
                 }
                 // Runtime client was added
                 else if (simData.Data.Contains(WasmRuntimeClientData.NAME))
