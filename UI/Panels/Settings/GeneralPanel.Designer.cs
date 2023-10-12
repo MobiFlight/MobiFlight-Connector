@@ -57,6 +57,7 @@
             this.SpeedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.autoRetriggerGoupBox = new System.Windows.Forms.GroupBox();
             this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
+            this.minimizeOnAutoRunCheckbox = new System.Windows.Forms.CheckBox();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -251,6 +252,7 @@
             // 
             // autoRetriggerGoupBox
             // 
+            this.autoRetriggerGoupBox.Controls.Add(this.minimizeOnAutoRunCheckbox);
             this.autoRetriggerGoupBox.Controls.Add(this.autoRetriggerCheckBox);
             resources.ApplyResources(this.autoRetriggerGoupBox, "autoRetriggerGoupBox");
             this.autoRetriggerGoupBox.Name = "autoRetriggerGoupBox";
@@ -261,6 +263,12 @@
             resources.ApplyResources(this.autoRetriggerCheckBox, "autoRetriggerCheckBox");
             this.autoRetriggerCheckBox.Name = "autoRetriggerCheckBox";
             this.autoRetriggerCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // minimizeOnAutoRunCheckbox
+            // 
+            resources.ApplyResources(this.minimizeOnAutoRunCheckbox, "minimizeOnAutoRunCheckbox");
+            this.minimizeOnAutoRunCheckbox.Name = "minimizeOnAutoRunCheckbox";
+            this.minimizeOnAutoRunCheckbox.UseVisualStyleBackColor = true;
             // 
             // GeneralPanel
             // 
@@ -325,5 +333,6 @@
         private System.Windows.Forms.TableLayoutPanel SpeedTableLayoutPanel;
         private System.Windows.Forms.GroupBox autoRetriggerGoupBox;
         private System.Windows.Forms.CheckBox autoRetriggerCheckBox;
+        private System.Windows.Forms.CheckBox minimizeOnAutoRunCheckbox;
     }
 }

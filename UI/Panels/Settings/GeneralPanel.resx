@@ -274,10 +274,10 @@
     <value>Top</value>
   </data>
   <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 269</value>
+    <value>0, 285</value>
   </data>
   <data name="languageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 81</value>
+    <value>455, 77</value>
   </data>
   <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -541,7 +541,7 @@
     <value>230, 3</value>
   </data>
   <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 160</value>
+    <value>222, 123</value>
   </data>
   <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -779,7 +779,7 @@
     <value>0, 3, 0, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 96</value>
+    <value>215, 59</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -833,7 +833,7 @@
     <value>3, 3</value>
   </data>
   <data name="ConfigExecutionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 160</value>
+    <value>221, 123</value>
   </data>
   <data name="ConfigExecutionGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -860,7 +860,7 @@
     <value>Fill</value>
   </data>
   <data name="SpeedTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 350</value>
+    <value>0, 362</value>
   </data>
   <data name="SpeedTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -869,7 +869,7 @@
     <value>1</value>
   </data>
   <data name="SpeedTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 166</value>
+    <value>455, 129</value>
   </data>
   <data name="SpeedTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -888,6 +888,33 @@
   </data>
   <data name="SpeedTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="testModeSpeedGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ConfigExecutionGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 42</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 17</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Text" xml:space="preserve">
+    <value>Minimize to system tray on AutoRun</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Name" xml:space="preserve">
+    <value>minimizeOnAutoRunCheckbox</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Parent" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="autoRetriggerCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -914,7 +941,7 @@
     <value>autoRetriggerGoupBox</value>
   </data>
   <data name="&gt;&gt;autoRetriggerCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="autoRetriggerGoupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -923,13 +950,13 @@
     <value>0, 218</value>
   </data>
   <data name="autoRetriggerGoupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 51</value>
+    <value>455, 67</value>
   </data>
   <data name="autoRetriggerGoupBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="autoRetriggerGoupBox.Text" xml:space="preserve">
-    <value>Auto-Retrigger</value>
+    <value>Run options</value>
   </data>
   <data name="&gt;&gt;autoRetriggerGoupBox.Name" xml:space="preserve">
     <value>autoRetriggerGoupBox</value>
@@ -950,7 +977,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 516</value>
+    <value>455, 491</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>GeneralPanel</value>
