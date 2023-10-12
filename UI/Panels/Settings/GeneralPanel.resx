@@ -160,7 +160,7 @@
     <value>455, 53</value>
   </data>
   <data name="BetaUpdatesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>2</value>
   </data>
   <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
     <value>Beta Versions</value>
@@ -226,7 +226,7 @@
     <value>147, 21</value>
   </data>
   <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
     <value>languageComboBox</value>
@@ -280,7 +280,7 @@
     <value>455, 77</value>
   </data>
   <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>5</value>
   </data>
   <data name="languageGroupBox.Text" xml:space="preserve">
     <value>Language</value>
@@ -430,7 +430,7 @@
     <value>455, 57</value>
   </data>
   <data name="debugGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>1</value>
   </data>
   <data name="debugGroupBox.Text" xml:space="preserve">
     <value>Logging</value>
@@ -544,7 +544,7 @@
     <value>222, 123</value>
   </data>
   <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>1</value>
   </data>
   <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
     <value>Test mode speed</value>
@@ -571,7 +571,7 @@
     <value>220, 18</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>0</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Set the number of files shown in the list to</value>
@@ -598,7 +598,7 @@
     <value>38, 20</value>
   </data>
   <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
     <value>recentFilesNumericUpDown</value>
@@ -622,7 +622,7 @@
     <value>455, 51</value>
   </data>
   <data name="recentFilesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>0</value>
   </data>
   <data name="recentFilesGroupBox.Text" xml:space="preserve">
     <value>Recent files</value>
@@ -652,7 +652,7 @@
     <value>467, 31</value>
   </data>
   <data name="CommunityFeedbackCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="CommunityFeedbackCheckBox.Text" xml:space="preserve">
     <value>Yes, I want to participate in Community Feedback Program and help to improve MobiFlight.
@@ -683,7 +683,7 @@
     <value>455, 57</value>
   </data>
   <data name="CommunityFeedbackGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>3</value>
   </data>
   <data name="CommunityFeedbackGroupBox.Text" xml:space="preserve">
     <value>Community Feedback Program</value>
@@ -812,7 +812,7 @@
     <value>215, 45</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
     <value>fsuipcPollIntervalTrackBar</value>
@@ -836,7 +836,7 @@
     <value>221, 123</value>
   </data>
   <data name="ConfigExecutionGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>0</value>
   </data>
   <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
     <value>Config Execution Speed</value>
@@ -872,7 +872,7 @@
     <value>455, 129</value>
   </data>
   <data name="SpeedTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;SpeedTableLayoutPanel.Name" xml:space="preserve">
     <value>SpeedTableLayoutPanel</value>
@@ -953,7 +953,7 @@
     <value>455, 67</value>
   </data>
   <data name="autoRetriggerGoupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="autoRetriggerGoupBox.Text" xml:space="preserve">
     <value>Run options</value>

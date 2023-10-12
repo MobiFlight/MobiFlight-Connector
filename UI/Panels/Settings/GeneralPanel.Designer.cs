@@ -56,8 +56,8 @@
             this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
             this.SpeedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.autoRetriggerGoupBox = new System.Windows.Forms.GroupBox();
-            this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
             this.minimizeOnAutoRunCheckbox = new System.Windows.Forms.CheckBox();
+            this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -258,17 +258,17 @@
             this.autoRetriggerGoupBox.Name = "autoRetriggerGoupBox";
             this.autoRetriggerGoupBox.TabStop = false;
             // 
-            // autoRetriggerCheckBox
-            // 
-            resources.ApplyResources(this.autoRetriggerCheckBox, "autoRetriggerCheckBox");
-            this.autoRetriggerCheckBox.Name = "autoRetriggerCheckBox";
-            this.autoRetriggerCheckBox.UseVisualStyleBackColor = true;
-            // 
             // minimizeOnAutoRunCheckbox
             // 
             resources.ApplyResources(this.minimizeOnAutoRunCheckbox, "minimizeOnAutoRunCheckbox");
             this.minimizeOnAutoRunCheckbox.Name = "minimizeOnAutoRunCheckbox";
             this.minimizeOnAutoRunCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // autoRetriggerCheckBox
+            // 
+            resources.ApplyResources(this.autoRetriggerCheckBox, "autoRetriggerCheckBox");
+            this.autoRetriggerCheckBox.Name = "autoRetriggerCheckBox";
+            this.autoRetriggerCheckBox.UseVisualStyleBackColor = true;
             // 
             // GeneralPanel
             // 
