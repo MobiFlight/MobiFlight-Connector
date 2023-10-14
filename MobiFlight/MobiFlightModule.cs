@@ -34,61 +34,69 @@ namespace MobiFlight
     // In order to receive, attach a callback function to these events
     public enum DeviceType
     {
-        NotSet,              // 0 
-        Button,              // 1
-        EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
-        Output,              // 3
-        LedModule,           // 4
-        StepperDeprecatedV1, // 5
-        Servo,               // 6
-        LcdDisplay,          // 7
-        Encoder,             // 8
-        StepperDeprecatedV2, // 9
-        ShiftRegister,       // 10
-        AnalogInput,         // 11
-        InputShiftRegister,  // 12
-        MultiplexerDriver,   // 13  Not a proper device, but index required for update events
-        InputMultiplexer, 	 // 14
-        Stepper              // 15
+        NotSet = 0,
+        Button = 1,
+        EncoderSingleDetent = 2,    // (retained for backwards compatibility = use Encoder for new configs)
+        Output = 3,
+        LedModule = 4,
+        StepperDeprecatedV1 = 5,
+        Servo = 6,
+        LcdDisplay = 7,
+        Encoder = 8,
+        StepperDeprecatedV2 = 9,
+        ShiftRegister = 10,
+        AnalogInput = 11,
+        InputShiftRegister = 12,
+        MultiplexerDriver = 13,     // Not a proper device = but index required for update events
+        InputMultiplexer = 14,
+        Stepper = 15,
     }
 
     public class MobiFlightModule : IModule, IOutputModule
     {
         public enum Command
         {
-            InitModule,             // 0
-            SetModule,              // 1
-            SetPin,                 // 2
-            SetStepper,             // 3
-            SetServo,               // 4
-            Status,                 // 5
-            EncoderChange,          // 6
-            ButtonChange,           // 7
-            StepperChange,          // 8
-            GetInfo,                // 9
-            Info,                   // 10
-            SetConfig,              // 11
-            GetConfig,              // 12
-            ResetConfig,            // 13
-            SaveConfig,             // 14
-            ConfigSaved,            // 15
-            ActivateConfig,         // 16
-            ConfigActivated,        // 17
-            SetPowerSavingMode,     // 18
-            SetName,                // 19
-            GenNewSerial,           // 20
-            ResetStepper,           // 21
-            SetZeroStepper,         // 22
-            Retrigger,              // 23
-            ResetBoard,             // 24
-            SetLcdDisplayI2C,       // 25
-            SetModuleBrightness,    // 26
-            SetShiftRegisterPins,   // 27
-            AnalogChange,           // 28
-            InputShiftRegisterChange, // 29
-            InputMultiplexerChange, // 30
-            SetStepperSpeedAccel,   // 31
-            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
+            InitModule = 0,
+            SetModule = 1,
+            SetPin = 2,
+            SetStepper = 3,
+            SetServo = 4,
+            Status = 5,
+            //EncoderChange = 6,
+            //ButtonChange = 7,
+            StepperChange = 8,
+            GetInfo = 9,
+            Info = 10,
+            SetConfig = 11,
+            GetConfig = 12,
+            ResetConfig = 13,
+            SaveConfig = 14,
+            ConfigSaved = 15,
+            ActivateConfig = 16,
+            ConfigActivated = 17,
+            SetPowerSavingMode = 18,
+            SetName = 19,
+            GenNewSerial = 20,
+            ResetStepper = 21,
+            SetZeroStepper = 22,
+            Retrigger = 23,
+            ResetBoard = 24,
+            SetLcdDisplayI2C = 25,
+            SetModuleBrightness = 26,
+            SetShiftRegisterPins = 27,
+            //AnalogChange = 28,
+            //InputShiftRegisterChange = 29,
+            //InputMultiplexerChange = 30,
+            SetStepperSpeedAccel = 31,
+
+            // NoNames_mod (temporary), matching FW PR #219:
+            ButtonChange = 100,
+            EncoderChange = 101,
+            AnalogChange = 102,
+            InputShiftRegisterChange = 103,
+            InputMultiplexerChange = 104,
+
+            DebugPrint = 0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
@@ -561,8 +569,13 @@ namespace MobiFlight
         // Callback function that prints the Arduino status to the console
         void OnEncoderChange(ReceivedCommand arguments)
         {
-            String enc = arguments.ReadStringArg();
+            String deviceID = arguments.ReadStringArg();
             String pos = arguments.ReadStringArg();
+
+            if (!int.TryParse(deviceID, out int deviceNr)) {
+                Log.Instance.log($"Unable to convert encoder ID '{deviceID}' to an integer.", LogSeverity.Error);
+                return;
+            }
 
             if (!int.TryParse(pos, out int value))
             {
@@ -570,23 +583,30 @@ namespace MobiFlight
                 return;
             }
 
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = enc, 
-                    DeviceLabel = enc, 
-                    Type = DeviceType.Encoder, 
-                    Value = value 
-                });
+            var label = Config.FindNthElementOfType(DeviceType.Encoder, deviceNr).Name;
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs() 
+            { 
+                Serial = this.Serial, 
+                Name = this.Name, 
+                DeviceId = deviceID, 
+                DeviceLabel = label, 
+                Type = DeviceType.Encoder, 
+                Value = value 
+            });
             //addLog("Enc: " + enc + ":" + pos);
         }
 
         void OnInputShiftRegisterChange(ReceivedCommand arguments)
         {
-            String deviceId = arguments.ReadStringArg();
+            String deviceID = arguments.ReadStringArg();
             String strChannel = arguments.ReadStringArg();
             String strState = arguments.ReadStringArg();
+
+            if (!int.TryParse(deviceID, out int deviceNr)) {
+                Log.Instance.log($"Unable to convert shift reg. nr. '{deviceID}' to an integer.", LogSeverity.Error);
+                return;
+            }
 
             if (!int.TryParse(strChannel, out int channel))
             {
@@ -600,23 +620,30 @@ namespace MobiFlight
                 return;
             }
 
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = deviceId, 
-                    DeviceLabel = deviceId, 
-                    Type = DeviceType.InputShiftRegister, 
-                    ExtPin = channel, 
-                    Value = state 
-                });
+            var label = Config.FindNthElementOfType(DeviceType.InputShiftRegister, deviceNr).Name;
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs() 
+            { 
+                Serial = this.Serial, 
+                Name = this.Name, 
+                DeviceId = deviceID, 
+                DeviceLabel = label, 
+                Type = DeviceType.InputShiftRegister, 
+                ExtPin = channel, 
+                Value = state 
+            });
         }
 
         void OnInputMultiplexerChange(ReceivedCommand arguments)
         {
-            String deviceId = arguments.ReadStringArg();
+            String deviceID = arguments.ReadStringArg();
             String strChannel = arguments.ReadStringArg();
             String strState = arguments.ReadStringArg();
+
+            if (!int.TryParse(deviceID, out int deviceNr)) {
+                Log.Instance.log($"Unable to convert multiplexer input ID {deviceID} to an integer.", LogSeverity.Error);
+                return;
+            }
 
             if (!int.TryParse(strChannel, out int channel))
             {
@@ -630,35 +657,44 @@ namespace MobiFlight
                 return;
             }
 
-            if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = deviceId, 
-                    DeviceLabel = deviceId,
-                    Type = DeviceType.InputMultiplexer, 
-                    ExtPin = channel, 
-                    Value = state
-                });
+            var label = Config.FindNthElementOfType(DeviceType.InputMultiplexer, deviceNr).Name;
+
+            OnInputDeviceAction?.Invoke(this, new InputEventArgs() 
+            { 
+                Serial = this.Serial, 
+                Name = this.Name, 
+                DeviceId = deviceID, 
+                DeviceLabel = label,
+                Type = DeviceType.InputMultiplexer, 
+                ExtPin = channel, 
+                Value = state
+            });
         }
 
         // Callback function that prints the Arduino status to the console
         void OnButtonChange(ReceivedCommand arguments)
         {
-            String button = arguments.ReadStringArg();
+            String buttonID = arguments.ReadStringArg();
             String strState = arguments.ReadStringArg();
 
-            if (!int.TryParse(strState, out int state)) {
-                Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
+            if (!int.TryParse(buttonID, out int buttonNr)) {
+                Log.Instance.log($"Unable to convert button ID '{buttonID}' to an integer.", LogSeverity.Error);
                 return;
             }
+
+            if (!int.TryParse(strState, out int state)) {
+                Log.Instance.log($"Unable to convert state '{strState}' to an integer.", LogSeverity.Error);
+                return;
+            }
+
+            var label = Config.FindNthElementOfType(DeviceType.Button, buttonNr).Name;
 
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Serial = this.Serial,
-                Name = Name,
-                DeviceId = button,
-                DeviceLabel = button,
+                Name = this.Name,
+                DeviceId = buttonID,
+                DeviceLabel = label,
                 Type = DeviceType.Button,
                 Value = state
             });
@@ -667,8 +703,13 @@ namespace MobiFlight
         // Callback function that prints the Arduino status to the console
         void OnAnalogChange(ReceivedCommand arguments)
         {
-            String name = arguments.ReadStringArg();
+            String analogInputID = arguments.ReadStringArg();
             String strValue = arguments.ReadStringArg();
+
+            if (!int.TryParse(analogInputID, out int analogInputNr)) {
+                Log.Instance.log($"Unable to convert analog input ID '{analogInputID}' to an integer.", LogSeverity.Error);
+                return;
+            }
 
             if (!int.TryParse(strValue, out int value))
             {
@@ -676,12 +717,14 @@ namespace MobiFlight
                 return;
             }
 
+            var label = Config.FindNthElementOfType(DeviceType.Encoder, analogInputNr).Name;
+
             OnInputDeviceAction?.Invoke(this, new InputEventArgs()
             {
                 Serial = this.Serial,
-                Name = Name,
-                DeviceId = name,
-                DeviceLabel = name,
+                Name = this.Name,
+                DeviceId = analogInputID,
+                DeviceLabel = label,
                 Type = DeviceType.AnalogInput,
                 Value = value
             });
