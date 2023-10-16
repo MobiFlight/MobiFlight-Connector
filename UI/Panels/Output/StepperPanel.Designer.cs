@@ -1,4 +1,6 @@
-﻿namespace MobiFlight.UI.Panels
+﻿using System.Windows.Forms;
+
+namespace MobiFlight.UI.Panels
 {
     partial class StepperPanel
     {
@@ -22,9 +24,9 @@
 
         #region Vom Komponenten-Designer generierter Code
 
-        /// <summary> 
-        /// Erforderliche Methode für die Designerunterstützung. 
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -41,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.stepperAddressesComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -131,15 +134,13 @@
             // 
             this.stepperAddressesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.stepperAddressesComboBox.FormattingEnabled = true;
-            this.stepperAddressesComboBox.Items.AddRange(new object[] {
-            resources.GetString("stepperAddressesComboBox.Items"),
-            resources.GetString("stepperAddressesComboBox.Items1"),
-            resources.GetString("stepperAddressesComboBox.Items2")});
+            this.stepperAddressesComboBox.Items.AddRange(new object[] { resources.GetString("stepperAddressesComboBox.Items"), resources.GetString("stepperAddressesComboBox.Items1"), resources.GetString("stepperAddressesComboBox.Items2") });
             resources.ApplyResources(this.stepperAddressesComboBox, "stepperAddressesComboBox");
             this.stepperAddressesComboBox.Name = "stepperAddressesComboBox";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.label8);
@@ -154,10 +155,17 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
+            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -165,6 +173,7 @@
             // 
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
+            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -206,6 +215,7 @@
             this.trackBar1.Maximum = 5;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Value = 1;
+            this.trackBar1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enter_KeyPress);
             // 
             // ManualCalibrateLabel
             // 
@@ -298,8 +308,9 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Label label9;
 
         #endregion
 
