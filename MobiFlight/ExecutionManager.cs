@@ -33,6 +33,7 @@ namespace MobiFlight
         public event EventHandler OnSimCacheClosed;
         public event EventHandler OnSimCacheConnected;
         public event EventHandler OnSimCacheConnectionLost;
+        public event EventHandler<string> OnSimAircraftChanged;
 
         public event EventHandler OnModulesConnected;
         public event EventHandler OnModulesDisconnected;
@@ -109,6 +110,7 @@ namespace MobiFlight
             simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
+            simConnectCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 #endif
 
             xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
@@ -147,6 +149,11 @@ namespace MobiFlight
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
             midiBoardManager.Connect();            
+        }
+
+        private void sim_AirCraftChanged(object sender, string e)
+        {
+            OnSimAircraftChanged?.Invoke(sender, e);
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()

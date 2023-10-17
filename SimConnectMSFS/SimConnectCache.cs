@@ -1,16 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using HidSharp.Utility;
 using Microsoft.FlightSimulator.SimConnect;
 
 namespace MobiFlight.SimConnectMSFS
 {
+    enum DATA_DEFINE_ID
+    {
+        DEFINITION_1,
+    };
+
+    enum DATA_REQUEST_ID
+    {
+        REQUEST_1,
+    };
+
+    // String properties must be packed inside of a struct
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+    struct StringData
+    {
+        // this is how you declare a fixed size string
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+        public String sValue;
+
+        // other definitions can be added to this struct
+        // ...
+    };
+
     public class SimConnectCache : SimConnectCacheInterface
     {
         public event EventHandler Closed;
         public event EventHandler Connected;
         public event EventHandler ConnectionLost;
         public event EventHandler LVarListUpdated;
+        public event EventHandler<String> AircraftChanged;
 
         private uint MaxClientDataDefinition = 0;
 
@@ -173,6 +197,13 @@ namespace MobiFlight.SimConnectMSFS
                 m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
                 m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
 
+                // Now the sim is running, request information on the user aircraft
+                m_oSimConnect.OnRecvSimobjectData += new SimConnect.RecvSimobjectDataEventHandler(SimConnect_RecvSimobjectData);
+                // Register aircraft name
+                m_oSimConnect.AddToDataDefinition((DATA_DEFINE_ID)3, "Title", null, SIMCONNECT_DATATYPE.STRING128, 0, SimConnect.SIMCONNECT_UNUSED);
+                m_oSimConnect.RequestDataOnSimObject((DATA_REQUEST_ID) 3, (DATA_DEFINE_ID) 3, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, SIMCONNECT_DATA_REQUEST_FLAG.CHANGED, 0, 0, 0);
+                m_oSimConnect.RegisterDataDefineStruct<StringData>((DATA_DEFINE_ID)3);
+                
                 // Listen to exceptions
                 m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
             }
@@ -182,6 +213,12 @@ namespace MobiFlight.SimConnectMSFS
             }
 
             return true;
+        }
+
+        private void SimConnect_RecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)
+        {
+            var title = (StringData) data.dwData[0];
+            AircraftChanged?.Invoke(this, title.sValue);
         }
 
         private void SimConnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
@@ -201,7 +238,7 @@ namespace MobiFlight.SimConnectMSFS
 
             // initialize init client
             InitializeClientDataAreas(sender, WasmInitClientData);
-
+            
             Connected?.Invoke(this, null);
 
             WasmModuleClient.Ping(sender, WasmInitClientData);

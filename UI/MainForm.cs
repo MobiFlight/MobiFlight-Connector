@@ -26,6 +26,7 @@ using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using FSUIPC;
+using Newtonsoft.Json;
 
 namespace MobiFlight.UI
 {
@@ -47,6 +48,8 @@ namespace MobiFlight.UI
 
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
+
+        private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
         private void InitializeUILanguage()
         {
@@ -86,6 +89,26 @@ namespace MobiFlight.UI
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
+            UpdateAutoLoadConfig();
+            RestoreAutoLoadConfig();
+        }
+
+        private void RestoreAutoLoadConfig()
+        {
+            AutoLoadConfigs = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties.Settings.Default.AutoLoadLinkedConfigList);
+            if (AutoLoadConfigs == null)
+                AutoLoadConfigs = new Dictionary<string, string>();
+;       }
+
+        private void SaveAutoLoadConfig()
+        {
+            Properties.Settings.Default.AutoLoadLinkedConfigList = JsonConvert.SerializeObject(AutoLoadConfigs);
+        }
+
+        private void UpdateAutoLoadConfig()
+        {
+            autoloadToggleToolStripMenuItem.Checked = Properties.Settings.Default.AutoLoadLinkedConfig;
+            
         }
 
         public MainForm()
@@ -159,6 +182,7 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
+            execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
 //#if ARCAZE
             execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
@@ -222,6 +246,26 @@ namespace MobiFlight.UI
 
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
+        }
+
+        private void ExecManager_OnSimAircraftChanged(object sender, string e)
+        {
+            toolStripAircraftDropDownButton.Text = e;
+            toolStripAircraftDropDownButton.DropDown.Enabled = true;
+
+            if (!Properties.Settings.Default.AutoLoadLinkedConfig) return;
+
+            var aircraftName = e;
+            var key = $"{FlightSim.FlightSimType}:{aircraftName}";
+
+            if (!AutoLoadConfigs.ContainsKey(key)) return;
+
+            var filename = AutoLoadConfigs[key];
+
+            if (currentFileName == filename) return;
+
+            Log.Instance.log($"Auto loading config for {e}", LogSeverity.Info);
+            LoadConfig(filename);
         }
 
         private void OnRepeatedStart()
@@ -2022,6 +2066,29 @@ namespace MobiFlight.UI
                         .Any(x => x?.GetInputActionsByType(typeof(VariableInputAction)).Count > 0);
             }
             return result;
+        }
+
+        private void autoloadToggleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.AutoLoadLinkedConfig = !Properties.Settings.Default.AutoLoadLinkedConfig;
+            UpdateAutoLoadConfig();
+        }
+
+        private void linkCurrentConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aircraftName = toolStripAircraftDropDownButton.Text ?? string.Empty;
+            var key = $"{FlightSim.FlightSimType}:{aircraftName}";
+
+            AutoLoadConfigs[key] = currentFileName;
+            SaveAutoLoadConfig();
+        }
+
+        private void unlinkConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aircraftName = toolStripAircraftDropDownButton.Text ?? string.Empty;
+            var key = $"{FlightSim.FlightSimType}:{aircraftName}";
+            if (!AutoLoadConfigs.Remove(key)) return;
+            SaveAutoLoadConfig();
         }
     }
 
