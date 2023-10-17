@@ -156,7 +156,6 @@
             // 
             // mfIntensityTrackBar
             // 
-            this.mfIntensityTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             resources.ApplyResources(this.mfIntensityTrackBar, "mfIntensityTrackBar");
             this.mfIntensityTrackBar.Maximum = 15;
             this.mfIntensityTrackBar.Minimum = 1;
