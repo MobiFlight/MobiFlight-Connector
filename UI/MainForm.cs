@@ -103,12 +103,13 @@ namespace MobiFlight.UI
         private void SaveAutoLoadConfig()
         {
             Properties.Settings.Default.AutoLoadLinkedConfigList = JsonConvert.SerializeObject(AutoLoadConfigs);
+            Properties.Settings.Default.Save();
         }
 
         private void UpdateAutoLoadConfig()
         {
             autoloadToggleToolStripMenuItem.Checked = Properties.Settings.Default.AutoLoadLinkedConfig;
-            
+            ConfigLoaded += UpdateAutoLoadAfterConfigLoaded;
         }
 
         public MainForm()
@@ -261,8 +262,6 @@ namespace MobiFlight.UI
             if (!AutoLoadConfigs.ContainsKey(key)) return;
 
             var filename = AutoLoadConfigs[key];
-
-            if (currentFileName == filename) return;
 
             Log.Instance.log($"Auto loading config for {e}", LogSeverity.Info);
             LoadConfig(filename);
@@ -2080,15 +2079,62 @@ namespace MobiFlight.UI
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
             AutoLoadConfigs[key] = currentFileName;
+
             SaveAutoLoadConfig();
+            UpdateAutoLoadMenu();
         }
 
         private void unlinkConfigToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var aircraftName = toolStripAircraftDropDownButton.Text ?? string.Empty;
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
+            toolStripAircraftDropDownButton.Image = null;
+
             if (!AutoLoadConfigs.Remove(key)) return;
+            
             SaveAutoLoadConfig();
+            UpdateAutoLoadMenu();
+        }
+
+
+        private void UpdateAutoLoadAfterConfigLoaded(object sender, ConfigFile e)
+        {
+            UpdateAutoLoadMenu();
+        }
+
+        private void UpdateAutoLoadMenu()
+        {
+            var aircraftName = toolStripAircraftDropDownButton.Text;
+            var key = $"{FlightSim.FlightSimType}:{aircraftName}";
+
+            toolStripAircraftDropDownButton.Image = null;
+
+            linkCurrentConfigToolStripMenuItem.Enabled = true;
+            openLinkedConfigToolStripMenuItem.Enabled = false;
+            removeLinkConfigToolStripMenuItem.Enabled = false;
+
+            if (!AutoLoadConfigs.ContainsKey(key)) return;
+
+            var linkedFile = AutoLoadConfigs[key];
+
+            removeLinkConfigToolStripMenuItem.Enabled = true;
+            openLinkedConfigToolStripMenuItem.Enabled = true;
+
+            if (linkedFile != currentFileName) return;
+
+            linkCurrentConfigToolStripMenuItem.Enabled = false;
+            openLinkedConfigToolStripMenuItem.Enabled = false;
+            toolStripAircraftDropDownButton.Image = Properties.Resources.check;
+        }
+
+        private void openLinkedConfigToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aircraftName = toolStripAircraftDropDownButton.Text;
+            var key = $"{FlightSim.FlightSimType}:{aircraftName}";
+            if (!AutoLoadConfigs.ContainsKey(key)) return;
+
+            var linkedFile = AutoLoadConfigs[key];
+            LoadConfig(linkedFile);
         }
     }
 
