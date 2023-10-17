@@ -1260,8 +1260,11 @@
   <data name="&gt;&gt;displayLedReverseDigitsCheckBox.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="displayLedGroupFlowLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
   <data name="displayLedGroupFlowLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 39</value>
+    <value>0, 35</value>
   </data>
   <data name="displayLedGroupFlowLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -1396,7 +1399,7 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="BrightnessReferenceHintLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 82</value>
+    <value>104, 94</value>
   </data>
   <data name="BrightnessReferenceHintLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>222, 60</value>
@@ -1451,11 +1454,14 @@ Zero (0) turns the display off, e.g. cold &amp;&amp; dark without power. 15 is f
   <data name="&gt;&gt;ReverseDigitsLabel.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 152</value>
+    <value>0, 143</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>339, 147</value>
+    <value>339, 159</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>74</value>
