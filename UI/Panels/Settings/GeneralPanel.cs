@@ -88,8 +88,9 @@ namespace MobiFlight.UI.Panels.Settings
             // Community Feedback Program
             CommunityFeedbackCheckBox.Checked = Properties.Settings.Default.CommunityFeedback;
 
-            // Auto-retrigger
+            // Run options
             autoRetriggerCheckBox.Checked = Properties.Settings.Default.AutoRetrigger;
+            minimizeOnAutoRunCheckbox.Checked = Properties.Settings.Default.MinimizeOnAutoRun;
         }
 
         public void saveSettings()
@@ -124,8 +125,9 @@ namespace MobiFlight.UI.Panels.Settings
             // Community Feedback Program
             Properties.Settings.Default.CommunityFeedback = CommunityFeedbackCheckBox.Checked;
 
-            // Auto-retrigger
+            // Run options
             Properties.Settings.Default.AutoRetrigger = autoRetriggerCheckBox.Checked;
+            Properties.Settings.Default.MinimizeOnAutoRun = minimizeOnAutoRunCheckbox.Checked;
         }
     }
 }
