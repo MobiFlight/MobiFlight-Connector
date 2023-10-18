@@ -2119,6 +2119,7 @@ namespace MobiFlight.UI
 
             removeLinkConfigToolStripMenuItem.Enabled = true;
             openLinkedConfigToolStripMenuItem.Enabled = true;
+            openLinkFilenameToolStripMenuItem.Text = linkedFile;
 
             if (linkedFile != currentFileName) return;
 
