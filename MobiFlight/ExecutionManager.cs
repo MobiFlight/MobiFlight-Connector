@@ -104,6 +104,7 @@ namespace MobiFlight
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
+            fsuipcCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if SIMCONNECT
             simConnectCache.SetHandle(handle);
@@ -1086,16 +1087,30 @@ namespace MobiFlight
                         OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
                     }
 
-                    Log.Instance.log("AutoConnect sim.", LogSeverity.Debug);
-
                     if (!fsuipcCache.IsConnected())
+                    {
+                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
+                        {
+                            // we don't want to spam the log
+                            // in case we have an active connection
+                            // through a different type
+                            Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
+                        }
+                            
                         fsuipcCache.Connect();
+                    }
 #if SIMCONNECT
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
+                    {
+                        Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
                         simConnectCache.Connect();
+                    }
 #endif
                     if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
+                    {
+                        Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
                         xplaneCache.Connect();
+                    }
                     // we return here to prevent the disabling of the timer
                     // so that autostart-feature can work properly
                     _autoConnectTimerRunning = false;
