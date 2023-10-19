@@ -63,19 +63,29 @@ namespace MobiFlight.xplane
         public void CheckForAircraftName()
         {
             if (!_connected) return;
+            // just start the connector
+            Connector?.Start();
+            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[0]", Frequency = 1, Value = 0 }, 1, (e, v) =>
+            {
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name[0] = {v}", LogSeverity.Debug);
+                UpdateAircraftSubscription();
+            });
+            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[2]", Frequency = 1, Value = 0 }, 1, (e, v) =>
+            {
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name[2] = {v}", LogSeverity.Debug);
+                UpdateAircraftSubscription();
+            });
+        }
+
+        private void UpdateAircraftSubscription()
+        {
             var datarefAircraftName = new StringDataRefElement();
             datarefAircraftName.DataRef = "sim/aircraft/view/acf_ui_name";
             datarefAircraftName.Frequency = 1;
             datarefAircraftName.Value = string.Empty;
             datarefAircraftName.StringLenght = 64;
 
-            // just start the connector
-            Connector?.Start();
-            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[0]", Frequency = 1, Value = 0 }, 1, (e, v) =>
-            {
-                Log.Instance.log($"sim/aircraft/view/acf_ui_name[0] = {v}", LogSeverity.Debug);
-            });
-
+            Connector.Unsubscribe(datarefAircraftName.DataRef);
             Connector.Subscribe(datarefAircraftName, 1, (e1, v1) =>
             {
                 if (_detectedAircraft == v1) return;
