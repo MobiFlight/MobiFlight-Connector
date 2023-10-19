@@ -892,7 +892,10 @@ namespace MobiFlight.UI
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
                 execManager.Start();
-                minimizeMainForm(true);
+                if (Properties.Settings.Default.MinimizeOnAutoRun)
+                {
+                    minimizeMainForm(true);
+                }
             }
         }
 

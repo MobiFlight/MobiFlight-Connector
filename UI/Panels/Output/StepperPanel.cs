@@ -11,6 +11,7 @@ namespace MobiFlight.UI.Panels
         public event EventHandler<ManualCalibrationTriggeredEventArgs> OnManualCalibrationTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnSetZeroTriggered;
         public event EventHandler<StepperConfigChangedEventArgs> OnStepperSelected;
+
         protected StepperProfilePreset StepperProfile;
 
         int[] StepValues = { -50, -10, -1, 1, 10, 50 };
@@ -25,6 +26,7 @@ namespace MobiFlight.UI.Panels
         public void ShowManualCalibration(Boolean state)
         {
             groupBox2.Enabled = state;
+            trackBar1.Focus();
         }
 
         internal void syncFromConfig(OutputConfigItem config)
@@ -36,8 +38,8 @@ namespace MobiFlight.UI.Panels
                 Log.Instance.log($"Exception on selecting item {config.Stepper.Address} in Stepper address ComboBox.", LogSeverity.Debug);
             }
 
-            inputRevTextBox.Text            = config.Stepper.InputRev.ToString();
-            outputRevTextBox.Text           = config.Stepper.OutputRev.ToString();
+            inputRevTextBox.Text                = config.Stepper.InputRev.ToString();
+            outputRevTextBox.Text               = config.Stepper.OutputRev.ToString();
 
             if (config.Stepper.Speed>0)
                 SpeedTextBox.Text               = config.Stepper.Speed.ToString();
@@ -45,7 +47,7 @@ namespace MobiFlight.UI.Panels
             if (config.Stepper.Acceleration>0)
                 AccelerationTextBox.Text        = config.Stepper.Acceleration.ToString();
 
-            CompassModeCheckBox.Checked     = config.Stepper.CompassMode;
+            CompassModeCheckBox.Checked         = config.Stepper.CompassMode;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -62,12 +64,7 @@ namespace MobiFlight.UI.Panels
             return config;
         }
 
-        public void SetSelectedAddress(string value)
-        {
-            stepperAddressesComboBox.SelectedValue = value;
-        }
-
-        public void SetAdresses(List<ListItem> pins)
+        public void SetAddresses(List<ListItem> pins)
         {
             stepperAddressesComboBox.DataSource = new List<ListItem>(pins);
             stepperAddressesComboBox.DisplayMember = "Label";
@@ -84,25 +81,57 @@ namespace MobiFlight.UI.Panels
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (OnManualCalibrationTriggered != null)
-            {
-                ManualCalibrationTriggeredEventArgs eventArgs = new ManualCalibrationTriggeredEventArgs();
-                eventArgs.StepperAddress = stepperAddressesComboBox.SelectedValue.ToString();
-                eventArgs.Steps = StepValues[trackBar1.Value];
-
-                OnManualCalibrationTriggered(this, eventArgs);
-            }
+            TriggerManualCalibration();
         }
 
+        private void TriggerManualCalibration()
+        {
+            if (OnManualCalibrationTriggered == null)
+                return;
+            
+            var eventArgs = new ManualCalibrationTriggeredEventArgs
+                {
+                    StepperAddress = stepperAddressesComboBox.SelectedValue.ToString(),
+                    Steps = StepValues[trackBar1.Value]
+                };
+
+             OnManualCalibrationTriggered(this, eventArgs);
+             button2.Enabled=true;
+            
+        }
+        
         private void button2_Click(object sender, EventArgs e)
         {
-            OnSetZeroTriggered?.Invoke(stepperAddressesComboBox.SelectedValue,
-                                   new StepperConfigChangedEventArgs()
-                                   {
-                                       StepperAddress = stepperAddressesComboBox.SelectedValue.ToString()
-                                   });
+            SetZero();
         }
 
+        private void SetZero()
+        {
+            OnSetZeroTriggered?.Invoke(stepperAddressesComboBox.SelectedValue,
+                new StepperConfigChangedEventArgs()
+                {
+                    StepperAddress = stepperAddressesComboBox.SelectedValue.ToString()
+                });
+            button2.Enabled=false;
+        }
+        
+        private void enter_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)Keys.Return:
+                case (char)Keys.D0:
+                case (char)Keys.NumPad0:
+                    SetZero();
+                    break;
+                
+                case (char)Keys.Space:
+                    TriggerManualCalibration();
+                    break;
+            }
+        }
+        
+        
         private void inputRevTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (!(sender as Control).Parent.Enabled) return;
@@ -169,7 +198,7 @@ namespace MobiFlight.UI.Panels
             UpdateResetButtonVisibility();
         }
 
-        internal void SetStepperProfile(StepperProfilePreset profilePreset)
+        internal void setStepperProfile(StepperProfilePreset profilePreset)
         {
             // we assume that it is safe to update the values
             // when we have a different id
@@ -209,6 +238,8 @@ namespace MobiFlight.UI.Panels
             AccelerationResetButton.Visible = AccelerationTextBox.Text != this.StepperProfile.Acceleration.ToString();
             SpeedResetButton.Visible = SpeedTextBox.Text != this.StepperProfile.Speed.ToString();
         }
+
+        
     }
 
     public class ManualCalibrationTriggeredEventArgs : StepperConfigChangedEventArgs

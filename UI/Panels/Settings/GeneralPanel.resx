@@ -117,137 +117,425 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BetaUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.Parent" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="BetaUpdateCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="logLevelCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="BetaUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 17</value>
+  <data name="languageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 77</value>
   </data>
-  <data name="BetaUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>258, 17</value>
+  <data name="fsuipcPollIntervalTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
   </data>
-  <data name="BetaUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
   </data>
-  <data name="BetaUpdateCheckBox.Text" xml:space="preserve">
-    <value>Yes, I would like to receive beta version updates.</value>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 13</value>
   </data>
-  <data name="&gt;&gt;BetaUpdateCheckBox.Name" xml:space="preserve">
-    <value>BetaUpdateCheckBox</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdateCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdateCheckBox.Parent" xml:space="preserve">
-    <value>BetaUpdatesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdateCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="BetaUpdatesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="BetaUpdatesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 108</value>
-  </data>
-  <data name="BetaUpdatesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 53</value>
-  </data>
-  <data name="BetaUpdatesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
-  </data>
-  <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
-    <value>Beta Versions</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdatesGroupBox.Name" xml:space="preserve">
-    <value>BetaUpdatesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdatesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdatesGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;BetaUpdatesGroupBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8pt</value>
-  </data>
-  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
-    <value>96, 49</value>
-  </data>
-  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 16</value>
-  </data>
-  <data name="label9.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>It requires a restart of MobiFlight if you change the language.</value>
-  </data>
-  <data name="&gt;&gt;label9.Name" xml:space="preserve">
-    <value>label9</value>
-  </data>
-  <data name="&gt;&gt;label9.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>languageGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="languageComboBox.Items" xml:space="preserve">
-    <value>System Default</value>
-  </data>
-  <data name="languageComboBox.Items1" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="languageComboBox.Items2" xml:space="preserve">
-    <value>Deutsch</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Set the number of files shown in the list to</value>
   </data>
   <data name="languageComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>173, 22</value>
   </data>
-  <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 21</value>
+  <data name="&gt;&gt;languageLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>230, 3</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>341, 20</value>
+  </data>
+  <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerGoupBox.Name" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
+  </data>
+  <data name="autoRetriggerCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.Name" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 67</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>222, 123</value>
+  </data>
+  <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 51</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 41</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;SpeedTableLayoutPanel.Name" xml:space="preserve">
+    <value>SpeedTableLayoutPanel</value>
+  </data>
+  <data name="testModeSpeedGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Name" xml:space="preserve">
+    <value>logLevelComboBox</value>
+  </data>
+  <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 285</value>
+  </data>
+  <data name="logLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 21</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 42</value>
+  </data>
+  <data name="languageComboBox.Items2" xml:space="preserve">
+    <value>Deutsch</value>
+  </data>
+  <data name="languageComboBox.Items1" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>Very Fast</value>
+  </data>
+  <data name="autoRetriggerGoupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="testModeSpeedTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="BetaUpdateCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="BetaUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 17</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>99, 41</value>
+  </data>
+  <data name="languageComboBox.Items" xml:space="preserve">
+    <value>System Default</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.Name" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="SpeedTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="logLevelComboBox.Items2" xml:space="preserve">
+    <value>Warn</value>
+  </data>
+  <data name="&gt;&gt;recentFilesGroupBox.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 491</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logLevelCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Name" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
+  </data>
+  <data name="logLevelLabel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
-    <value>languageComboBox</value>
+  <data name="&gt;&gt;logLevelLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
+    <value>Config Execution Speed</value>
+  </data>
+  <data name="testModeSpeedTrackBar.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="CommunityFeedbackCheckBox.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopLeft</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>GeneralPanel</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.Text" xml:space="preserve">
+    <value>Log Joystick Axis</value>
+  </data>
+  <data name="BetaUpdateCheckBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
+    <value>271, 23</value>
+  </data>
+  <data name="&gt;&gt;ConfigExecutionGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CommunityFeedbackGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 57</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label9.Location" type="System.Drawing.Point, System.Drawing">
+    <value>96, 49</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>215, 45</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;LogJoystickAxisCheckBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Text" xml:space="preserve">
+    <value>Automatically perform retrigger-action with "run"-mode</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 53</value>
+  </data>
+  <data name="&gt;&gt;logLevelLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="logLevelLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Parent" xml:space="preserve">
+    <value>recentFilesGroupBox</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Very Fast</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Parent" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
+  </data>
+  <data name="recentFilesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Text" xml:space="preserve">
+    <value>Minimize to system tray on AutoRun</value>
   </data>
   <data name="&gt;&gt;languageComboBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;languageComboBox.Parent" xml:space="preserve">
-    <value>languageGroupBox</value>
+  <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 17</value>
   </data>
-  <data name="&gt;&gt;languageComboBox.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;logLevelComboBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="languageLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="logLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>222, 18</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Name" xml:space="preserve">
+    <value>logLevelCheckBox</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 24</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logLevelLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>134, 13</value>
+  </data>
+  <data name="debugGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="CommunityFeedbackGroupBox.Text" xml:space="preserve">
+    <value>Community Feedback Program</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 18</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Name" xml:space="preserve">
+    <value>languageLabel</value>
+  </data>
+  <data name="&gt;&gt;recentFilesNumericUpDown.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
   </data>
   <data name="languageLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 24</value>
   </data>
-  <data name="languageLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>162, 13</value>
+  <data name="&gt;&gt;BetaUpdateCheckBox.Name" xml:space="preserve">
+    <value>BetaUpdateCheckBox</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.Name" xml:space="preserve">
+    <value>BetaUpdatesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;ConfigExecutionGroupBox.Parent" xml:space="preserve">
+    <value>SpeedTableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>216, 45</value>
+  </data>
+  <data name="SpeedTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 129</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Text" xml:space="preserve">
+    <value>Run options</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.Name" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="logLevelComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;logLevelCheckBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="CommunityFeedbackCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 123</value>
+  </data>
+  <data name="logLevelComboBox.Items1" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="CommunityFeedbackCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="debugGroupBox.Text" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedTrackBar.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="languageLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -255,707 +543,446 @@
   <data name="languageLabel.Text" xml:space="preserve">
     <value>Change the language of the UI:</value>
   </data>
-  <data name="languageLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;languageLabel.Name" xml:space="preserve">
-    <value>languageLabel</value>
-  </data>
-  <data name="&gt;&gt;languageLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;languageLabel.Parent" xml:space="preserve">
-    <value>languageGroupBox</value>
-  </data>
-  <data name="&gt;&gt;languageLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="languageGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 269</value>
+  <data name="SpeedTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
   </data>
-  <data name="languageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 81</value>
+  <data name="fsuipcPollIntervalTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
   </data>
-  <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+  <data name="BetaUpdatesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 108</value>
   </data>
-  <data name="languageGroupBox.Text" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="&gt;&gt;languageGroupBox.Name" xml:space="preserve">
-    <value>languageGroupBox</value>
-  </data>
-  <data name="&gt;&gt;languageGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;languageGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;languageGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="LogJoystickAxisCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="LogJoystickAxisCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="LogJoystickAxisCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>341, 20</value>
-  </data>
-  <data name="LogJoystickAxisCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 17</value>
-  </data>
-  <data name="LogJoystickAxisCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="LogJoystickAxisCheckBox.Text" xml:space="preserve">
-    <value>Log Joystick Axis</value>
-  </data>
-  <data name="&gt;&gt;LogJoystickAxisCheckBox.Name" xml:space="preserve">
-    <value>LogJoystickAxisCheckBox</value>
-  </data>
-  <data name="&gt;&gt;LogJoystickAxisCheckBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;autoRetriggerCheckBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;LogJoystickAxisCheckBox.Parent" xml:space="preserve">
-    <value>debugGroupBox</value>
-  </data>
-  <data name="&gt;&gt;LogJoystickAxisCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="logLevelComboBox.Items" xml:space="preserve">
-    <value>Debug</value>
-  </data>
-  <data name="logLevelComboBox.Items1" xml:space="preserve">
-    <value>Info</value>
-  </data>
-  <data name="logLevelComboBox.Items2" xml:space="preserve">
-    <value>Warn</value>
-  </data>
-  <data name="logLevelComboBox.Items3" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="logLevelComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>222, 18</value>
-  </data>
-  <data name="logLevelComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 21</value>
-  </data>
-  <data name="logLevelComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;logLevelComboBox.Name" xml:space="preserve">
-    <value>logLevelComboBox</value>
-  </data>
-  <data name="&gt;&gt;logLevelComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logLevelComboBox.Parent" xml:space="preserve">
-    <value>debugGroupBox</value>
-  </data>
-  <data name="&gt;&gt;logLevelComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="logLevelLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="logLevelLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 21</value>
-  </data>
-  <data name="logLevelLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 13</value>
-  </data>
-  <data name="logLevelLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="logLevelLabel.Text" xml:space="preserve">
-    <value>Log Level</value>
-  </data>
-  <data name="logLevelLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;logLevelLabel.Name" xml:space="preserve">
-    <value>logLevelLabel</value>
-  </data>
-  <data name="&gt;&gt;logLevelLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logLevelLabel.Parent" xml:space="preserve">
-    <value>debugGroupBox</value>
-  </data>
-  <data name="&gt;&gt;logLevelLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 16</value>
   </data>
   <data name="logLevelCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="logLevelCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;languageComboBox.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="SpeedTableLayoutPanel.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="languageLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
-  </data>
-  <data name="logLevelCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 20</value>
-  </data>
-  <data name="logLevelCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 17</value>
-  </data>
-  <data name="logLevelCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="logLevelCheckBox.Text" xml:space="preserve">
-    <value>enabled</value>
-  </data>
-  <data name="&gt;&gt;logLevelCheckBox.Name" xml:space="preserve">
-    <value>logLevelCheckBox</value>
-  </data>
-  <data name="&gt;&gt;logLevelCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;logLevelCheckBox.Parent" xml:space="preserve">
-    <value>debugGroupBox</value>
-  </data>
-  <data name="&gt;&gt;logLevelCheckBox.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <data name="debugGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="debugGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 51</value>
-  </data>
-  <data name="debugGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 57</value>
-  </data>
-  <data name="debugGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
-  </data>
-  <data name="debugGroupBox.Text" xml:space="preserve">
-    <value>Logging</value>
-  </data>
-  <data name="&gt;&gt;debugGroupBox.Name" xml:space="preserve">
-    <value>debugGroupBox</value>
-  </data>
-  <data name="&gt;&gt;debugGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;debugGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;debugGroupBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 41</value>
-  </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 13</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Very Fast</value>
-  </data>
-  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
-  </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
-  </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>testModeSpeedGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 41</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 13</value>
-  </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Slow</value>
-  </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
-  </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>testModeSpeedGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="testModeSpeedTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="testModeSpeedTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="testModeSpeedTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="testModeSpeedTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 45</value>
-  </data>
-  <data name="testModeSpeedTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedTrackBar.Name" xml:space="preserve">
-    <value>testModeSpeedTrackBar</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedTrackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedTrackBar.Parent" xml:space="preserve">
-    <value>testModeSpeedGroupBox</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedTrackBar.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 3</value>
-  </data>
-  <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 160</value>
-  </data>
-  <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
+    <value>languageComboBox</value>
   </data>
   <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
     <value>Test mode speed</value>
   </data>
-  <data name="&gt;&gt;testModeSpeedGroupBox.Name" xml:space="preserve">
-    <value>testModeSpeedGroupBox</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedGroupBox.Parent" xml:space="preserve">
-    <value>SpeedTableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;testModeSpeedGroupBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 24</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 18</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Set the number of files shown in the list to</value>
+  <data name="debugGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 57</value>
   </data>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="SpeedTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 362</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>recentFilesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="recentFilesNumericUpDown.Location" type="System.Drawing.Point, System.Drawing">
-    <value>271, 23</value>
+  <data name="logLevelLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 21</value>
   </data>
   <data name="recentFilesNumericUpDown.Size" type="System.Drawing.Size, System.Drawing">
     <value>38, 20</value>
   </data>
-  <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="autoRetriggerCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
-    <value>recentFilesNumericUpDown</value>
+  <data name="minimizeOnAutoRunCheckbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 17</value>
   </data>
-  <data name="&gt;&gt;recentFilesNumericUpDown.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;recentFilesNumericUpDown.Parent" xml:space="preserve">
+  <data name="autoRetriggerCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageLabel.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="languageLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>162, 13</value>
+  </data>
+  <data name="label9.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8pt</value>
+  </data>
+  <data name="logLevelLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="CommunityFeedbackGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 161</value>
+  </data>
+  <data name="&gt;&gt;label9.Parent" xml:space="preserve">
+    <value>languageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 13</value>
+  </data>
+  <data name="&gt;&gt;ConfigExecutionGroupBox.Name" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackGroupBox.Name" xml:space="preserve">
+    <value>CommunityFeedbackGroupBox</value>
+  </data>
+  <data name="BetaUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>258, 17</value>
+  </data>
+  <data name="&gt;&gt;LogJoystickAxisCheckBox.Name" xml:space="preserve">
+    <value>LogJoystickAxisCheckBox</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.Parent" xml:space="preserve">
+    <value>SpeedTableLayoutPanel</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
     <value>recentFilesGroupBox</value>
   </data>
-  <data name="&gt;&gt;recentFilesNumericUpDown.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="logLevelCheckBox.Text" xml:space="preserve">
+    <value>enabled</value>
   </data>
-  <data name="recentFilesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="recentFilesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 51</value>
-  </data>
-  <data name="recentFilesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="recentFilesGroupBox.Text" xml:space="preserve">
     <value>Recent files</value>
   </data>
-  <data name="&gt;&gt;recentFilesGroupBox.Name" xml:space="preserve">
-    <value>recentFilesGroupBox</value>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;recentFilesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;recentFilesGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;languageGroupBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;recentFilesGroupBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>testModeSpeedGroupBox</value>
   </data>
-  <data name="CommunityFeedbackCheckBox.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="recentFilesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackCheckBox.Name" xml:space="preserve">
+    <value>CommunityFeedbackCheckBox</value>
+  </data>
+  <data name="&gt;&gt;debugGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="ConfigExecutionGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="logLevelComboBox.Items" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 17</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CommunityFeedbackGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="SpeedTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
+    <value>Beta Versions</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="CommunityFeedbackCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopLeft</value>
   </data>
-  <data name="CommunityFeedbackCheckBox.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="&gt;&gt;SpeedTableLayoutPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="testModeSpeedTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 41</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 61</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdatesGroupBox.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerGoupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;languageGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="&gt;&gt;testModeSpeedGroupBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="logLevelComboBox.Items3" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="&gt;&gt;ConfigExecutionGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>152, 41</value>
+  </data>
+  <data name="CommunityFeedbackGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;SpeedTableLayoutPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="BetaUpdatesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="autoRetriggerCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>278, 17</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="CommunityFeedbackCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 19</value>
+  <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="CommunityFeedbackCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>467, 31</value>
+  <data name="SpeedTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>It requires a restart of MobiFlight if you change the language.</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="languageGroupBox.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="label9.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="&gt;&gt;languageComboBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;LogJoystickAxisCheckBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BetaUpdateCheckBox.Text" xml:space="preserve">
+    <value>Yes, I would like to receive beta version updates.</value>
+  </data>
+  <data name="logLevelCheckBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 20</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="logLevelLabel.Text" xml:space="preserve">
+    <value>Log Level</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>215, 59</value>
+  </data>
+  <data name="autoRetriggerGoupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 218</value>
+  </data>
+  <data name="SpeedTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="testModeSpeedGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ConfigExecutionGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="&gt;&gt;BetaUpdateCheckBox.Parent" xml:space="preserve">
+    <value>BetaUpdatesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
+    <value>fsuipcPollIntervalTrackBar</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BetaUpdateCheckBox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="CommunityFeedbackCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="CommunityFeedbackCheckBox.Text" xml:space="preserve">
     <value>Yes, I want to participate in Community Feedback Program and help to improve MobiFlight.
 </value>
   </data>
-  <data name="CommunityFeedbackCheckBox.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopLeft</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackCheckBox.Name" xml:space="preserve">
-    <value>CommunityFeedbackCheckBox</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackCheckBox.Parent" xml:space="preserve">
-    <value>CommunityFeedbackGroupBox</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="CommunityFeedbackGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="CommunityFeedbackGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 161</value>
-  </data>
-  <data name="CommunityFeedbackGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 57</value>
-  </data>
-  <data name="CommunityFeedbackGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
-  <data name="CommunityFeedbackGroupBox.Text" xml:space="preserve">
-    <value>Community Feedback Program</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackGroupBox.Name" xml:space="preserve">
-    <value>CommunityFeedbackGroupBox</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;CommunityFeedbackGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 41</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 13</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Very Fast</value>
-  </data>
-  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 41</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 13</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Slow</value>
-  </data>
-  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
+  <data name="CommunityFeedbackCheckBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>467, 31</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="&gt;&gt;autoRetriggerGoupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="&gt;&gt;recentFilesGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 61</value>
+  <data name="&gt;&gt;testModeSpeedTrackBar.Name" xml:space="preserve">
+    <value>testModeSpeedTrackBar</value>
   </data>
-  <data name="label5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
+  <data name="languageLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 96</value>
+  <data name="&gt;&gt;LogJoystickAxisCheckBox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+  <data name="debugGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 51</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
     <value>You can control the execution speed, e.g., if you experience some lag in your input. Very fast settings might impact performance.</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
   </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+  <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 45</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
-    <value>fsuipcPollIntervalTrackBar</value>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
   </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Parent" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
+  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
   </data>
-  <data name="&gt;&gt;fsuipcPollIntervalTrackBar.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="ConfigExecutionGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="ConfigExecutionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="ConfigExecutionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 160</value>
-  </data>
-  <data name="ConfigExecutionGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
-    <value>Config Execution Speed</value>
-  </data>
-  <data name="&gt;&gt;ConfigExecutionGroupBox.Name" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;ConfigExecutionGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ConfigExecutionGroupBox.Parent" xml:space="preserve">
-    <value>SpeedTableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;ConfigExecutionGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 350</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.RowCount" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 166</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;SpeedTableLayoutPanel.Name" xml:space="preserve">
-    <value>SpeedTableLayoutPanel</value>
-  </data>
-  <data name="&gt;&gt;SpeedTableLayoutPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Name" xml:space="preserve">
+    <value>minimizeOnAutoRunCheckbox</value>
   </data>
   <data name="&gt;&gt;SpeedTableLayoutPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;SpeedTableLayoutPanel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="SpeedTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="testModeSpeedGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ConfigExecutionGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="autoRetriggerCheckBox.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="autoRetriggerCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 19</value>
-  </data>
-  <data name="autoRetriggerCheckBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>278, 17</value>
-  </data>
-  <data name="autoRetriggerCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="autoRetriggerCheckBox.Text" xml:space="preserve">
-    <value>Automatically perform retrigger-action with "run"-mode</value>
-  </data>
-  <data name="&gt;&gt;autoRetriggerCheckBox.Name" xml:space="preserve">
-    <value>autoRetriggerCheckBox</value>
-  </data>
-  <data name="&gt;&gt;autoRetriggerCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoRetriggerCheckBox.Parent" xml:space="preserve">
-    <value>autoRetriggerGoupBox</value>
-  </data>
-  <data name="&gt;&gt;autoRetriggerCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="autoRetriggerGoupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="autoRetriggerGoupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 218</value>
-  </data>
-  <data name="autoRetriggerGoupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 51</value>
-  </data>
-  <data name="autoRetriggerGoupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="autoRetriggerGoupBox.Text" xml:space="preserve">
-    <value>Auto-Retrigger</value>
-  </data>
-  <data name="&gt;&gt;autoRetriggerGoupBox.Name" xml:space="preserve">
-    <value>autoRetriggerGoupBox</value>
+  <data name="&gt;&gt;logLevelLabel.Name" xml:space="preserve">
+    <value>logLevelLabel</value>
   </data>
   <data name="&gt;&gt;autoRetriggerGoupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;autoRetriggerGoupBox.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
+    <value>recentFilesNumericUpDown</value>
   </data>
-  <data name="&gt;&gt;autoRetriggerGoupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 0, 0</value>
+  </data>
+  <data name="&gt;&gt;logLevelComboBox.Parent" xml:space="preserve">
+    <value>debugGroupBox</value>
+  </data>
+  <data name="&gt;&gt;autoRetriggerCheckBox.Name" xml:space="preserve">
+    <value>autoRetriggerCheckBox</value>
+  </data>
+  <data name="&gt;&gt;label9.Name" xml:space="preserve">
+    <value>label9</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 13</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="recentFilesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;CommunityFeedbackCheckBox.Parent" xml:space="preserve">
+    <value>CommunityFeedbackGroupBox</value>
+  </data>
+  <data name="languageComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 21</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 516</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>GeneralPanel</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

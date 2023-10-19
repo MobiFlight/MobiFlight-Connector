@@ -477,6 +477,13 @@ namespace MobiFlight.Properties {
             }
             set {
                 this["AutoLoadLinkedConfigList"] = value;
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MinimizeOnAutoRun {
+            get {
+                return ((bool)(this["MinimizeOnAutoRun"]));
+            }
+            set {
+                this["MinimizeOnAutoRun"] = value;
             }
         }
     }

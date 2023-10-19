@@ -180,25 +180,31 @@ namespace MobiFlight.SimConnectMSFS
 
             try
             {
-                // The constructor is similar to SimConnect_Open in the native API
-                m_oSimConnect = new SimConnect("Simconnect - Simvar test", _handle, WM_USER_SIMCONNECT, null, 0);
+                if (m_oSimConnect == null)
+                {
+                    // The constructor is similar to SimConnect_Open in the native API
+                    m_oSimConnect = new SimConnect("Simconnect - MobiFlight", _handle, WM_USER_SIMCONNECT, null, 0);
 
-                // Listen to connect and quit msgs
-                m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
-                m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
+                    // Listen to connect and quit msgs
+                    m_oSimConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(SimConnect_OnRecvOpen);
+                    m_oSimConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(SimConnect_OnRecvQuit);
 
-                // Now the sim is running, request information on the user aircraft
-                m_oSimConnect.OnRecvSimobjectData += new SimConnect.RecvSimobjectDataEventHandler(SimConnect_RecvSimobjectData);
-                // Register aircraft name
-                m_oSimConnect.AddToDataDefinition(SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, "Title", null, SIMCONNECT_DATATYPE.STRING128, 0, SimConnect.SIMCONNECT_UNUSED);
-                m_oSimConnect.RequestDataOnSimObject((SIMCONNECT_REQUEST_ID) SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, SIMCONNECT_DATA_REQUEST_FLAG.CHANGED, 0, 0, 0);
-                m_oSimConnect.RegisterDataDefineStruct<StringData>(SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME);
-                
-                // Listen to exceptions
-                m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
+                    // Now the sim is running, request information on the user aircraft
+                    m_oSimConnect.OnRecvSimobjectData += new SimConnect.RecvSimobjectDataEventHandler(SimConnect_RecvSimobjectData);
+                    // Register aircraft name
+                    m_oSimConnect.AddToDataDefinition(SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, "Title", null, SIMCONNECT_DATATYPE.STRING128, 0, SimConnect.SIMCONNECT_UNUSED);
+                    m_oSimConnect.RequestDataOnSimObject((SIMCONNECT_REQUEST_ID) SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, SIMCONNECT_DATA_REQUEST_FLAG.CHANGED, 0, 0, 0);
+                    m_oSimConnect.RegisterDataDefineStruct<StringData>(SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME);
+
+                    // Listen to exceptions
+                    m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
+                    // Listen to exceptions
+                    Log.Instance.log("SimConnect (MSFS2020) instantiated", LogSeverity.Debug);
+                }
             }
             catch (COMException ex)
             {
+                m_oSimConnect = null;
                 return false;
             }
 
@@ -278,8 +284,11 @@ namespace MobiFlight.SimConnectMSFS
 
                 if (simData.Data == "MF.Pong")
                 {
-                    // Next add runtime client                    
-                    WasmModuleClient.AddAdditionalClient(m_oSimConnect, WasmRuntimeClientData.NAME, WasmInitClientData);
+                    if (!_wasmConnected)
+                    {
+                        // Next add runtime client                    
+                        WasmModuleClient.AddAdditionalClient(m_oSimConnect, WasmRuntimeClientData.NAME, WasmInitClientData);
+                    }
                 }
                 // Runtime client was added
                 else if (simData.Data.Contains(WasmRuntimeClientData.NAME))
