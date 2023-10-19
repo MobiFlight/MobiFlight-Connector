@@ -116,6 +116,7 @@ namespace MobiFlight.UI
         {
             Properties.Settings.Default.AutoLoadLinkedConfigList = JsonConvert.SerializeObject(AutoLoadConfigs);
             Properties.Settings.Default.Save();
+            UpdateAutoLoadMenu();
         }
 
         private void UpdateAutoLoadConfig()
@@ -2132,6 +2133,7 @@ namespace MobiFlight.UI
             removeLinkConfigToolStripMenuItem.Enabled = true;
             openLinkedConfigToolStripMenuItem.Enabled = true;
             openLinkFilenameToolStripMenuItem.Text = linkedFile;
+            toolStripAircraftDropDownButton.Image = Properties.Resources.warning;
 
             if (linkedFile != CurrentFileName) return;
 
