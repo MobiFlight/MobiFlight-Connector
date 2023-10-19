@@ -154,7 +154,7 @@ namespace MobiFlight
 
         private void sim_AirCraftChanged(object sender, string e)
         {
-            Log.Instance.log($"Aircraft change detected: [{e}]", LogSeverity.Info);
+            Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
             OnSimAircraftChanged?.Invoke(sender, e);
         }
 
