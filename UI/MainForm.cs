@@ -51,6 +51,17 @@ namespace MobiFlight.UI
 
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
 
+        public event EventHandler<string> CurrentFilenameChanged;
+
+        public string CurrentFileName {
+            get { return currentFileName; }
+            set { 
+                if (currentFileName == value) return;
+                currentFileName = value;
+                CurrentFilenameChanged?.Invoke(this, value);
+            } 
+        }
+
         private void InitializeUILanguage()
         {
             if (Properties.Settings.Default.Language != "")
@@ -91,6 +102,7 @@ namespace MobiFlight.UI
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
+            CurrentFilenameChanged += (s, e) => { UpdateAutoLoadMenu(); };
         }
 
         private void RestoreAutoLoadConfig()
@@ -109,7 +121,6 @@ namespace MobiFlight.UI
         private void UpdateAutoLoadConfig()
         {
             autoloadToggleToolStripMenuItem.Checked = Properties.Settings.Default.AutoLoadLinkedConfig;
-            ConfigLoaded += UpdateAutoLoadAfterConfigLoaded;
         }
 
         public MainForm()
@@ -252,12 +263,17 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnSimAircraftChanged(object sender, string e)
         {
-            toolStripAircraftDropDownButton.Text = e;
+            var aircraftName = e;
+
+            if (aircraftName == "")
+            {
+                aircraftName = i18n._tr("uiLabelNoAircraftDetected.");
+            }
+            toolStripAircraftDropDownButton.Text = aircraftName;
             toolStripAircraftDropDownButton.DropDown.Enabled = true;
 
             if (!Properties.Settings.Default.AutoLoadLinkedConfig) return;
 
-            var aircraftName = e;
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
             if (!AutoLoadConfigs.ContainsKey(key)) return;
@@ -1277,7 +1293,7 @@ namespace MobiFlight.UI
 
             if (!merge)
             {
-                currentFileName = fileName;
+                CurrentFileName = fileName;
                 _setFilenameInTitle(fileName);
                 _storeAsRecentFile(fileName);
 
@@ -1554,7 +1570,7 @@ namespace MobiFlight.UI
 
             ConfigFile configFile = new ConfigFile(fileName);
             configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
-            currentFileName=fileName;
+            CurrentFileName = fileName;
             _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
             _setFilenameInTitle(fileName);
@@ -1666,7 +1682,7 @@ namespace MobiFlight.UI
                        MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 execManager.Stop();
-                currentFileName = null;
+                CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
                 outputConfigPanel.ConfigDataTable.Clear();
                 inputConfigPanel.ConfigDataTable.Clear();
@@ -1679,9 +1695,9 @@ namespace MobiFlight.UI
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // if filename of loaded file is known use it
-            if (currentFileName != null)
+            if (CurrentFileName != null)
             {
-                _saveConfig(currentFileName);
+                _saveConfig(CurrentFileName);
                 return;
             }
             // otherwise trigger normal open file dialog
@@ -1773,8 +1789,8 @@ namespace MobiFlight.UI
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 // only cancel closing if not saved before
-                // which is indicated by empty currentFileName
-                e.Cancel = (currentFileName == null);
+                // which is indicated by empty CurrentFilename
+                e.Cancel = (CurrentFileName == null);
                 saveToolStripButton_Click(saveToolStripButton, new EventArgs());                
             };
         }
@@ -2079,10 +2095,9 @@ namespace MobiFlight.UI
             var aircraftName = toolStripAircraftDropDownButton.Text ?? string.Empty;
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
-            AutoLoadConfigs[key] = currentFileName;
+            AutoLoadConfigs[key] = CurrentFileName;
 
             SaveAutoLoadConfig();
-            UpdateAutoLoadMenu();
         }
 
         private void unlinkConfigToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2094,13 +2109,6 @@ namespace MobiFlight.UI
             if (!AutoLoadConfigs.Remove(key)) return;
             
             SaveAutoLoadConfig();
-            UpdateAutoLoadMenu();
-        }
-
-
-        private void UpdateAutoLoadAfterConfigLoaded(object sender, ConfigFile e)
-        {
-            UpdateAutoLoadMenu();
         }
 
         private void UpdateAutoLoadMenu()
@@ -2110,7 +2118,7 @@ namespace MobiFlight.UI
 
             toolStripAircraftDropDownButton.Image = null;
 
-            linkCurrentConfigToolStripMenuItem.Enabled = true;
+            linkCurrentConfigToolStripMenuItem.Enabled = (CurrentFileName != null);
             openLinkedConfigToolStripMenuItem.Enabled = false;
             removeLinkConfigToolStripMenuItem.Enabled = false;
 
@@ -2122,7 +2130,7 @@ namespace MobiFlight.UI
             openLinkedConfigToolStripMenuItem.Enabled = true;
             openLinkFilenameToolStripMenuItem.Text = linkedFile;
 
-            if (linkedFile != currentFileName) return;
+            if (linkedFile != CurrentFileName) return;
 
             linkCurrentConfigToolStripMenuItem.Enabled = false;
             openLinkedConfigToolStripMenuItem.Enabled = false;

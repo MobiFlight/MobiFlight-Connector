@@ -385,6 +385,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Aircraft detected..
+        /// </summary>
+        internal static string uiLabelNoAircraftDetected_ {
+            get {
+                return ResourceManager.GetString("uiLabelNoAircraftDetected.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application is now running in the background..
         /// </summary>
         internal static string uiMessageApplicationIsRunningInBackgroundMode {
