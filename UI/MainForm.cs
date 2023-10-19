@@ -197,6 +197,7 @@ namespace MobiFlight.UI
 
             moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            toolStripAircraftDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
             SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;

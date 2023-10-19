@@ -116,6 +116,7 @@ namespace MobiFlight
             xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             xplaneCache.Connected += new EventHandler(simConnect_Connected);
             xplaneCache.Closed += new EventHandler(simConnect_Closed);
+            xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
             arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
@@ -153,6 +154,7 @@ namespace MobiFlight
 
         private void sim_AirCraftChanged(object sender, string e)
         {
+            Log.Instance.log($"Aircraft change detected: [{e}]", LogSeverity.Info);
             OnSimAircraftChanged?.Invoke(sender, e);
         }
 
