@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using MobiFlight.Config;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
     public partial class MFLedSegmentPanel : UserControl
     {
-        private MobiFlight.Config.LedModule ledModule;
+        private LedModule ledModule;
         private List<MobiFlightPin> pinList;    // COMPLETE list of pins (includes status)
         private bool initialized = false;
         string currentMode;
-        private string exMAXClsPin = "";
+        private string OldMaxClsPin = "";
 
         public event EventHandler Changed;
 
@@ -29,7 +25,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
         }
 
-        public MFLedSegmentPanel(MobiFlight.Config.LedModule ledModule, List<MobiFlightPin> Pins) : this()
+        public MFLedSegmentPanel(LedModule ledModule, List<MobiFlightPin> Pins) : this()
         {
             pinList = Pins; // Keep pin list stored
                             // Since the panel is synced whenever a new device is selected, the free/used list won't change
@@ -42,17 +38,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
 
             initialized = true;
-
-            currentMode = ledModule.ClsPin;
-            switch (currentMode) {
-                case MobiFlight.Config.LedModule.MODEL_TM1637_4D:
-                case MobiFlight.Config.LedModule.MODEL_TM1637_6D:
-                    mfDisplayTypeComboBox.SelectedValue = ledModule.ClsPin;
-                    break;
-                default:
-                    mfDisplayTypeComboBox.SelectedValue = MobiFlight.Config.LedModule.MODEL_MAX72xx;
-                    break;
-            }
+            mfDisplayTypeComboBox.SelectedValue = ledModule.ModelType;
 
             UpdateFreePinsInDropDowns();
 
@@ -62,10 +48,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             mfDisplayTypeComboBox.Items.Clear();
 
-            List<ListItem> languageOptions = new List<ListItem>();
-            languageOptions.Add(new ListItem() { Value = MobiFlight.Config.LedModule.MODEL_MAX72xx, Label = "MAX72xx" });
-            languageOptions.Add(new ListItem() { Value = MobiFlight.Config.LedModule.MODEL_TM1637_4D, Label = "TM1637 - 4Digit" });
-            languageOptions.Add(new ListItem() { Value = MobiFlight.Config.LedModule.MODEL_TM1637_6D, Label = "TM1637 - 6Digit" });
+            List<ListItem> languageOptions = new List<ListItem>
+            {
+                new ListItem() { Value = LedModule.MODEL_TYPE_MAX72xx, Label = "MAX72xx" },
+                new ListItem() { Value = LedModule.MODEL_TYPE_TM1637_4DIGIT, Label = "TM1637 - 4Digit" },
+                new ListItem() { Value = LedModule.MODEL_TYPE_TM1637_6DIGIT, Label = "TM1637 - 6Digit" }
+            };
             mfDisplayTypeComboBox.DataSource = languageOptions;
             mfDisplayTypeComboBox.DisplayMember = "Label";
             mfDisplayTypeComboBox.ValueMember = "Value";
@@ -74,8 +62,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private bool isMax()
         { 
-            //return mfDisplayTypeComboBox.SelectedIndex == 0; 
-            return mfDisplayTypeComboBox.SelectedValue.ToString() == MobiFlight.Config.LedModule.MODEL_MAX72xx; 
+            return mfDisplayTypeComboBox.SelectedValue.ToString() == LedModule.MODEL_TYPE_MAX72xx; 
         }
         private void setNonPinValues()
         {
@@ -85,30 +72,33 @@ namespace MobiFlight.UI.Panels.Settings.Device
         }
         private void setMAXMode(String mode) // bool MAXmode)
         {
-            var MAXmode = (mode == MobiFlight.Config.LedModule.MODEL_MAX72xx);
-            mfPin2ComboBox.Visible = MAXmode;
+            ledModule.ModelType = mode;
+
+            var MAXmode = (mode == LedModule.MODEL_TYPE_MAX72xx);
+
+            mfPin2ComboBox.Visible       = MAXmode;
             mfNumModulesComboBox.Visible = MAXmode;
-            mfPin2Label.Visible = MAXmode;
+            mfPin2Label.Visible          = MAXmode;
             numberOfModulesLabel.Visible = MAXmode;
-            label3.Visible = MAXmode;
+            label3.Visible               = MAXmode;
         }
         private void changeMAXMode(String mode)
         {
             setMAXMode(mode);
-            if (mode == MobiFlight.Config.LedModule.MODEL_MAX72xx) {
+            if (mode == LedModule.MODEL_TYPE_MAX72xx) {
                 // First try and see if the "old" pin is still available, otherwise assign the first free one
-                ledModule.ClsPin = exMAXClsPin;
+                ledModule.ClsPin = OldMaxClsPin;
                 ComboBoxHelper.assignPin(pinList, ref ledModule.ClsPin);
                 UpdateFreePinsInDropDowns();
             } else {
-                if(currentMode == MobiFlight.Config.LedModule.MODEL_MAX72xx) exMAXClsPin = ledModule.ClsPin;
+                if(currentMode == LedModule.MODEL_TYPE_MAX72xx) OldMaxClsPin = ledModule.ClsPin;
                 // "freePin()" is the first half part only of "ReassignFreePinsInDropDowns()"
-                ComboBoxHelper.freePin(pinList, ledModule.ClsPin);
+                if (ledModule.ClsPin != "") {
+                    ComboBoxHelper.freePin(pinList, ledModule.ClsPin);
+                }
                 // Make sure to use a neutral value
-                ledModule.ClsPin = "";
+                ledModule.ClsPin = "0";
                 UpdateFreePinsInDropDowns();
-                // Now replace it with the special marker
-                ledModule.ClsPin = mode;
             }
             currentMode = mode;
             if (Changed != null)

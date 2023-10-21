@@ -38,7 +38,7 @@ namespace MobiFlight
         Button,              // 1
         EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
         Output,              // 3
-        LedModule,           // 4
+        LedModuleDeprecated, // 4
         StepperDeprecatedV1, // 5
         Servo,               // 6
         LcdDisplay,          // 7
@@ -49,7 +49,8 @@ namespace MobiFlight
         InputShiftRegister,  // 12
         MultiplexerDriver,   // 13  Not a proper device, but index required for update events
         InputMultiplexer, 	 // 14
-        Stepper              // 15
+        Stepper,             // 15
+        LedModule
     }
 
     public class MobiFlightModule : IModule, IOutputModule
@@ -345,17 +346,12 @@ namespace MobiFlight
                             device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                             var dev = device as Config.LedModule;
                             
-                            MobiFlightLedModule.ModelType model = MobiFlightLedModule.ModelType.MAX72xx;
-                            if (dev.ClsPin == LedModule.MODEL_TM1637_4D) model = MobiFlightLedModule.ModelType.TM1637_4D;
-                            else 
-                            if (dev.ClsPin == LedModule.MODEL_TM1637_6D) model = MobiFlightLedModule.ModelType.TM1637_6D;
-                            
                             ledModules.Add(device.Name, new MobiFlightLedModule()
                             {
                                 CmdMessenger = _cmdMessenger,
                                 Name = device.Name,
                                 ModuleNumber = ledModules.Count,
-                                Model = model,
+                                ModelType = dev.ModelType,
                                 SubModules = ledSubmodules,
                                 Brightness = (device as Config.LedModule).Brightness
                             });
@@ -1263,9 +1259,11 @@ namespace MobiFlight
                 {
                     case DeviceType.LedModule:
                         usedPins.Add(Convert.ToByte((device as LedModule).ClkPin));
-                        var clsPin = (device as LedModule).ClsPin;
-                        if(clsPin != LedModule.MODEL_TM1637_4D && clsPin != LedModule.MODEL_TM1637_6D)
-                        usedPins.Add(Convert.ToByte(clsPin));
+                        if ((device as LedModule).ModelType == LedModule.MODEL_TYPE_MAX72xx)
+                        {
+                            if ((device as LedModule).ClsPin != "")
+                                usedPins.Add(Convert.ToByte((device as LedModule).ClsPin));
+                        }
                         usedPins.Add(Convert.ToByte((device as LedModule).DinPin));
                         break;
 

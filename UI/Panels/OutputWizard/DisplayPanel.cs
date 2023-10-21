@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.Config;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -6,7 +7,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace MobiFlight.UI.Panels.OutputWizard
 {
@@ -698,9 +698,10 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         chained.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
                     }
                     var maxdigits = 8;
-                    if (dev.Model == MobiFlightLedModule.ModelType.TM1637_4D) { maxdigits = 4; }
+
+                    if (dev.ModelType == LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
                     else 
-                    if (dev.Model == MobiFlightLedModule.ModelType.TM1637_6D) { maxdigits = 6; }
+                    if (dev.ModelType == LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
 
                     for (int i = 2; i < maxdigits; i++)
                     {

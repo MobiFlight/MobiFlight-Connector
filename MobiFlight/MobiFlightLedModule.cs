@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms.Design;
-using CommandMessenger;
+﻿using CommandMessenger;
 using MobiFlight.Base;
-using Newtonsoft.Json.Linq;
-using SharpDX.DirectInput;
+using MobiFlight.Config;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MobiFlight
 {
     public class MobiFlightLedModule : IConnectedDevice
     {
         public const string TYPE = "Display Module";
-
-        public enum ModelType
-        {
-            MAX72xx,    // 0 
-            TM1637_4D,  // 1
-            TM1637_6D,  // 2
-        }
 
         public CmdMessenger CmdMessenger { get; set; }
         public int ModuleNumber { get; set; }
@@ -38,7 +26,7 @@ namespace MobiFlight
                 ClearState();
             }
         }
-        public ModelType Model { get; set; }
+        public string ModelType { get; set; }
 
         List<LedModuleState> _state = new List<LedModuleState>();
 
@@ -63,7 +51,7 @@ namespace MobiFlight
         {
             Brightness = 15;
             SubModules = 1;
-            Model = ModelType.MAX72xx;
+            ModelType = LedModule.MODEL_TYPE_MAX72xx;
         }
 
         protected void Initialize()
@@ -76,7 +64,7 @@ namespace MobiFlight
         {
             if (!_initialized) Initialize();
 
-            if (subModule > 1 && Model != ModelType.MAX72xx) return;
+            if (subModule > 1 && ModelType != LedModule.MODEL_TYPE_MAX72xx) return;
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 
