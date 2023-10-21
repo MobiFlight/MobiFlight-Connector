@@ -33,6 +33,7 @@ namespace MobiFlight
         public event EventHandler OnSimCacheClosed;
         public event EventHandler OnSimCacheConnected;
         public event EventHandler OnSimCacheConnectionLost;
+        public event EventHandler<string> OnSimAircraftChanged;
 
         public event EventHandler OnModulesConnected;
         public event EventHandler OnModulesDisconnected;
@@ -103,17 +104,20 @@ namespace MobiFlight
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
+            fsuipcCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if SIMCONNECT
             simConnectCache.SetHandle(handle);
             simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
+            simConnectCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 #endif
 
             xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             xplaneCache.Connected += new EventHandler(simConnect_Connected);
             xplaneCache.Closed += new EventHandler(simConnect_Closed);
+            xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
             arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
@@ -147,6 +151,12 @@ namespace MobiFlight
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
             midiBoardManager.Connect();            
+        }
+
+        private void sim_AirCraftChanged(object sender, string e)
+        {
+            Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
+            OnSimAircraftChanged?.Invoke(sender, e);
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -1077,16 +1087,30 @@ namespace MobiFlight
                         OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
                     }
 
-                    Log.Instance.log("AutoConnect sim.", LogSeverity.Debug);
-
                     if (!fsuipcCache.IsConnected())
+                    {
+                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
+                        {
+                            // we don't want to spam the log
+                            // in case we have an active connection
+                            // through a different type
+                            Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
+                        }
+                            
                         fsuipcCache.Connect();
+                    }
 #if SIMCONNECT
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
+                    {
+                        Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
                         simConnectCache.Connect();
+                    }
 #endif
                     if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
+                    {
+                        Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
                         xplaneCache.Connect();
+                    }
                     // we return here to prevent the disabling of the timer
                     // so that autostart-feature can work properly
                     _autoConnectTimerRunning = false;

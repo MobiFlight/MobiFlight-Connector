@@ -609,4 +609,8 @@ That midiboard cannot be used until other application is terminated and MobiFlig
   <data name="WebsiteHelpNcalc" xml:space="preserve">
     <value>https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html</value>
   </data>
+  <data name="uiLabelNoAircraftDetected." xml:space="preserve">
+    <value>Kein Flugzeug detektiert.</value>
+    <comment>No Aircraft detected.</comment>
+  </data>
 </root>
