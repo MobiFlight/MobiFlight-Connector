@@ -383,6 +383,7 @@ namespace MobiFlight.UI.Panels.Settings
                     {
                         case DeviceType.LedModule:
                             panel = new MFLedSegmentPanel(dev as MobiFlight.Config.LedModule, module.GetPins());
+                            (panel as MFLedSegmentPanel).SupportsTM1637 = module.HasFirmwareFeature(FirmwareFeature.LedModuleTypeTM1637);
                             (panel as MFLedSegmentPanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
                             break;
 

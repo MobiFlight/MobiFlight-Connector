@@ -12,6 +12,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private bool initialized = false;
         string currentMode;
         private string OldMaxClsPin = "";
+        public bool SupportsTM1637 { get; set; } = false;
 
         public event EventHandler Changed;
 
@@ -145,12 +146,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void mfDisplayTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             if (!initialized) return;
+            
             string newMode = (sender as ComboBox).SelectedValue.ToString();
-            if (!initialized) {
-                setMAXMode(newMode);
-            } else {
-                changeMAXMode(newMode);
+
+            if (newMode != LedModule.MODEL_TYPE_MAX72xx && !SupportsTM1637)
+            {
+                MessageBox.Show(i18n._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), i18n._tr("Hint"));
+                mfDisplayTypeComboBox.SelectedValue = LedModule.MODEL_TYPE_MAX72xx;
+                return;
             }
+
+            changeMAXMode(newMode);
+            
+            Changed?.Invoke(ledModule, new EventArgs());
         }
     }
 }
