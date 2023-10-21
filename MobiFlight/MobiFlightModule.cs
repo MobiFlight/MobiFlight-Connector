@@ -251,9 +251,9 @@ namespace MobiFlight
 
         public MobiFlightModule(MobiFlightModuleInfo moduleInfo)
         {
-            Name = "Default";
-            Version = null; // this is simply unknown, in case of an unflashed Arduino
-            Serial = null; // this is simply unknown, in case of an unflashed Arduino
+            Name = moduleInfo.Name ?? "Default";
+            Version = moduleInfo.Version;
+            Serial = moduleInfo.Serial;
             _comPort = moduleInfo.Port;
             Board = moduleInfo.Board;
             HardwareId = moduleInfo.HardwareId;

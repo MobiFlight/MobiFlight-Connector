@@ -1004,7 +1004,6 @@ namespace MobiFlight.UI.Panels.Settings
             if (moduleNode == null) return null;
 
             MobiFlightModule module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
-            
             // Generate config
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             foreach (TreeNode node in moduleNode.Nodes)
@@ -1278,6 +1277,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 module.Version = null;
                 module.Name = module.Board.Info.FriendlyName;
+                module.Serial = null;
                 newInfo = module.ToMobiFlightModuleInfo();
             }
 
@@ -1292,7 +1292,7 @@ namespace MobiFlight.UI.Panels.Settings
             // If the board definition file is correct but the firmware failed to flash and the result is
             // a bare module with no MobiFlight firmware on it then the serial number will be null
             // and the module should not be refreshed.
-            if (String.IsNullOrEmpty(newInfo.Serial))
+            if (IsUpdate && String.IsNullOrEmpty(newInfo.Serial))
             {
                 return;
             }
