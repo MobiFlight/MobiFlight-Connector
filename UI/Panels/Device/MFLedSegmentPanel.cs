@@ -19,11 +19,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
         public MFLedSegmentPanel()
         {
             InitializeComponent();
+            UpdateTrackBarBackgroundColor();
             InitializeDisplayTypeComboBox();
             mfPin1ComboBox.Items.Clear();
             mfPin2ComboBox.Items.Clear();
             mfPin3ComboBox.Items.Clear();
-            if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
         }
 
         public MFLedSegmentPanel(LedModule ledModule, List<MobiFlightPin> Pins, bool supportsTM1637) : this()
@@ -43,7 +43,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
             mfDisplayTypeComboBox.SelectedValue = ledModule.ModelType;
 
             UpdateFreePinsInDropDowns();
-
         }
 
         private void InitializeDisplayTypeComboBox()
@@ -52,14 +51,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             List<ListItem> languageOptions = new List<ListItem>
             {
-                new ListItem() { Value = LedModule.MODEL_TYPE_MAX72xx, Label = "MAX72xx" },
-                new ListItem() { Value = LedModule.MODEL_TYPE_TM1637_4DIGIT, Label = "TM1637 - 4Digit" },
-                new ListItem() { Value = LedModule.MODEL_TYPE_TM1637_6DIGIT, Label = "TM1637 - 6Digit" }
+                new ListItem() { Value = LedModule.MODEL_TYPE_MAX72xx, Label = "MAX7219 / MAX7221" },
+                new ListItem() { Value = LedModule.MODEL_TYPE_TM1637_4DIGIT, Label = "TM1637 - 4 digits" },
+                new ListItem() { Value = LedModule.MODEL_TYPE_TM1637_6DIGIT, Label = "TM1637 - 6 digits" }
             };
             mfDisplayTypeComboBox.DataSource = languageOptions;
             mfDisplayTypeComboBox.DisplayMember = "Label";
             mfDisplayTypeComboBox.ValueMember = "Value";
             mfDisplayTypeComboBox.SelectedIndex = 0;
+        }
+
+        public void UpdateTrackBarBackgroundColor()
+        {
+            mfIntensityTrackBar.BackColor = System.Drawing.Color.FromArgb(255,249,249,249);
         }
 
         private bool isMax()
