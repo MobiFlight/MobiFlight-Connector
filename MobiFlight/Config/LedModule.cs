@@ -28,7 +28,7 @@ namespace MobiFlight.Config
 
         public LedModule(LedModuleDeprecated module)
         {
-            Name = "LedModule"; 
+            Name = module.Name; 
             _type = DeviceType.LedModule;
             ModelType = MODEL_TYPE_MAX72xx;
             DinPin = module.DinPin;
