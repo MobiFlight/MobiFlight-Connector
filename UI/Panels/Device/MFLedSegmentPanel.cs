@@ -26,7 +26,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (Parent != null) mfIntensityTrackBar.BackColor = Parent.BackColor;
         }
 
-        public MFLedSegmentPanel(LedModule ledModule, List<MobiFlightPin> Pins) : this()
+        public MFLedSegmentPanel(LedModule ledModule, List<MobiFlightPin> Pins, bool supportsTM1637) : this()
         {
             pinList = Pins; // Keep pin list stored
                             // Since the panel is synced whenever a new device is selected, the free/used list won't change
@@ -36,6 +36,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             this.ledModule = ledModule;
             textBox1.Text = ledModule.Name;
             mfIntensityTrackBar.Value = ledModule.Brightness;
+            SupportsTM1637 = supportsTM1637;
             ComboBoxHelper.SetSelectedItem(mfNumModulesComboBox, ledModule.NumModules);
 
             initialized = true;
