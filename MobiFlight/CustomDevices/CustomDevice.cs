@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace MobiFlight.CustomDevices
         public String URL;
 
         /// <summary>
-        /// The version of this custom device
+        /// The version of this custom device.
         /// </summary>
         public String Version;
     }
@@ -40,15 +41,29 @@ namespace MobiFlight.CustomDevices
     public class ConfigI2C
     {
         /// <summary>
-        /// A an array of pins required for connecting the custom device.
+        /// Indicates whether it uses i2c address or pins.
         /// </summary>
         public bool Enabled = false;
 
 
         /// <summary>
-        /// Indicates whether it uses i2c address or pins.
+        /// A list of supported addresses for this device.
         /// </summary>
         public List<String> Addresses;
+    }
+
+    public class ConfigCustom
+    {
+        /// <summary>
+        /// Indicates whether it uses a custom config string.
+        /// </summary>
+        public bool Enabled = false;
+
+
+        /// <summary>
+        /// A list of supported addresses for this device.
+        /// </summary>
+        public string Value;
     }
 
     /// <summary>
@@ -63,9 +78,14 @@ namespace MobiFlight.CustomDevices
 
 
         /// <summary>
-        /// Indicates whether it uses i2c address or pins.
+        /// Contains more information if device supports i2c.
         /// </summary>
-        public ConfigI2C I2C;
+        public ConfigI2C I2C = new ConfigI2C();
+
+        /// <summary>
+        /// Contains more information for custom config
+        /// </summary>
+        public ConfigCustom Custom = new ConfigCustom();
     }
 
     /// <summary>

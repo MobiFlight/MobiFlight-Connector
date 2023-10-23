@@ -76,7 +76,8 @@
               "$id": "#root/Config/I2C/Enabled",
               "title": "Enabled",
               "description": "Indicates whether this custom devices uses I2C addresses.",
-              "type": "boolean"
+              "type": "boolean",
+              "default": false
             },
             "Addresses": {
               "$id": "#root/Config/I2C/Addresses",
@@ -84,6 +85,27 @@
               "description": "A an array of available I2C addresses in Hex-Format.",
               "type": "array",
               "default": []
+            }
+          }
+        },
+        "Custom": {
+          "$id": "#root/Config/Custom",
+          "title": "I2C",
+          "type": "object",
+          "properties": {
+            "Enabled": {
+              "$id": "#root/Config/Custom/Enabled",
+              "title": "Enabled",
+              "description": "Device supports a custom string for configuration.",
+              "type": "boolean",
+              "default": false
+            },
+            "Value": {
+              "$id": "#root/Config/Custom/Value",
+              "title": "Value",
+              "description": "The default value of the csutom string config.",
+              "type": "string",
+              "default": ""
             }
           }
         }

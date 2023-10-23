@@ -29,57 +29,75 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFCustomDevicePanel));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.mfCustomDevicePanelPin1 = new MobiFlight.UI.Panels.Settings.Device.MFCustomDevicePanelPin();
+            this.groupBoxPinSettings = new System.Windows.Forms.GroupBox();
+            this.groupBoxAdditionalConfig = new System.Windows.Forms.GroupBox();
+            this.textBoxAdditionalConfig = new System.Windows.Forms.TextBox();
+            this.groupBoxName = new System.Windows.Forms.GroupBox();
+            this.textBoxName = new System.Windows.Forms.TextBox();
             this.mfCustomDevicePanelPin2 = new MobiFlight.UI.Panels.Settings.Device.MFCustomDevicePanelPin();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.mfCustomDevicePanelPin1 = new MobiFlight.UI.Panels.Settings.Device.MFCustomDevicePanelPin();
+            this.groupBoxPinSettings.SuspendLayout();
+            this.groupBoxAdditionalConfig.SuspendLayout();
+            this.groupBoxName.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // groupBoxPinSettings
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.mfCustomDevicePanelPin2);
-            this.groupBox1.Controls.Add(this.mfCustomDevicePanelPin1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            resources.ApplyResources(this.groupBoxPinSettings, "groupBoxPinSettings");
+            this.groupBoxPinSettings.Controls.Add(this.mfCustomDevicePanelPin2);
+            this.groupBoxPinSettings.Controls.Add(this.mfCustomDevicePanelPin1);
+            this.groupBoxPinSettings.Name = "groupBoxPinSettings";
+            this.groupBoxPinSettings.TabStop = false;
             // 
-            // groupBox2
+            // groupBoxAdditionalConfig
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            this.groupBoxAdditionalConfig.Controls.Add(this.textBoxAdditionalConfig);
+            resources.ApplyResources(this.groupBoxAdditionalConfig, "groupBoxAdditionalConfig");
+            this.groupBoxAdditionalConfig.Name = "groupBoxAdditionalConfig";
+            this.groupBoxAdditionalConfig.TabStop = false;
             // 
-            // textBox1
+            // textBoxAdditionalConfig
             // 
-            resources.ApplyResources(this.textBox1, "textBox1");
-            this.textBox1.Name = "textBox1";
-            this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
+            resources.ApplyResources(this.textBoxAdditionalConfig, "textBoxAdditionalConfig");
+            this.textBoxAdditionalConfig.Name = "textBoxAdditionalConfig";
+            this.textBoxAdditionalConfig.TextChanged += new System.EventHandler(this.value_Changed);
             // 
-            // mfCustomDevicePanelPin1
+            // groupBoxName
             // 
-            resources.ApplyResources(this.mfCustomDevicePanelPin1, "mfCustomDevicePanelPin1");
-            this.mfCustomDevicePanelPin1.Name = "mfCustomDevicePanelPin1";
+            this.groupBoxName.Controls.Add(this.textBoxName);
+            resources.ApplyResources(this.groupBoxName, "groupBoxName");
+            this.groupBoxName.Name = "groupBoxName";
+            this.groupBoxName.TabStop = false;
+            // 
+            // textBoxName
+            // 
+            resources.ApplyResources(this.textBoxName, "textBoxName");
+            this.textBoxName.Name = "textBoxName";
             // 
             // mfCustomDevicePanelPin2
             // 
             resources.ApplyResources(this.mfCustomDevicePanelPin2, "mfCustomDevicePanelPin2");
             this.mfCustomDevicePanelPin2.Name = "mfCustomDevicePanelPin2";
             // 
+            // mfCustomDevicePanelPin1
+            // 
+            resources.ApplyResources(this.mfCustomDevicePanelPin1, "mfCustomDevicePanelPin1");
+            this.mfCustomDevicePanelPin1.Name = "mfCustomDevicePanelPin1";
+            // 
             // MFCustomDevicePanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxName);
+            this.Controls.Add(this.groupBoxAdditionalConfig);
+            this.Controls.Add(this.groupBoxPinSettings);
             this.Name = "MFCustomDevicePanel";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBoxPinSettings.ResumeLayout(false);
+            this.groupBoxPinSettings.PerformLayout();
+            this.groupBoxAdditionalConfig.ResumeLayout(false);
+            this.groupBoxAdditionalConfig.PerformLayout();
+            this.groupBoxName.ResumeLayout(false);
+            this.groupBoxName.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -87,10 +105,12 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.GroupBox groupBoxPinSettings;
+        private System.Windows.Forms.GroupBox groupBoxAdditionalConfig;
+        private System.Windows.Forms.TextBox textBoxAdditionalConfig;
         private MFCustomDevicePanelPin mfCustomDevicePanelPin2;
         private MFCustomDevicePanelPin mfCustomDevicePanelPin1;
+        private System.Windows.Forms.GroupBox groupBoxName;
+        private System.Windows.Forms.TextBox textBoxName;
     }
 }

@@ -17,7 +17,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         public MFCustomDevicePanel()
         {
             InitializeComponent();
-            groupBox1.Controls.Clear();
+            groupBoxPinSettings.Controls.Clear();
         }
 
         public MFCustomDevicePanel(MobiFlight.Config.CustomDevice device, List<MobiFlightPin> Pins): this()
@@ -51,11 +51,22 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 );
                 currentComboBox.Changed += value_Changed;
                 currentComboBox.Dock = DockStyle.Bottom;
-                groupBox1.Controls.Add(currentComboBox);
+                groupBoxPinSettings.Controls.Add(currentComboBox);
                 i++;
             }
 
-            textBox1.Text = device.Name;
+            textBoxName.Text = device.Name;
+            textBoxName.TextChanged += value_Changed;
+
+            groupBoxAdditionalConfig.Visible = false;
+
+            if (deviceDefinition.Config.Custom.Enabled)
+            {
+                textBoxAdditionalConfig.TextChanged += value_Changed;
+                textBoxAdditionalConfig.Text = device.Config;
+                groupBoxAdditionalConfig.Visible = true;
+            }
+
             initialized = true;
         }
 
@@ -72,10 +83,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {   
             for(var i=0; i<device.ConfiguredPins.Count; i++)
             {
-                device.ConfiguredPins[i] = (groupBox1.Controls[i] as MFCustomDevicePanelPin).SelectedPin().ToString();
+                device.ConfiguredPins[i] = (groupBoxPinSettings.Controls[i] as MFCustomDevicePanelPin).SelectedPin().ToString();
             }
             
-            device.Name = textBox1.Text;
+            device.Name = textBoxName.Text;
+            device.Config = textBoxAdditionalConfig.Text;
         }
     }
 }

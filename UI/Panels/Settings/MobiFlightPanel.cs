@@ -664,6 +664,11 @@ namespace MobiFlight.UI.Panels.Settings
                             var customDeviceConfig = (cfgItem as MobiFlight.Config.CustomDevice);
                             customDeviceConfig.ConfiguredPins.Clear();
 
+                            if (customDeviceInfo.Config.Custom.Enabled)
+                            {
+                                customDeviceConfig.Config = customDeviceInfo.Config.Custom.Value;
+                            }
+
                             if (customDeviceInfo.Config.I2C?.Enabled ?? false)
                             {
                                 CheckIfI2CPinsAreAvailable(tempModule);
@@ -674,6 +679,7 @@ namespace MobiFlight.UI.Panels.Settings
                                 customDeviceConfig.ConfiguredPins.Add(address.ToString());
                                 break;
                             }
+
                                 
                             for (var i=0; i<customDeviceInfo.Config.Pins.Count(); i++)
                             {
