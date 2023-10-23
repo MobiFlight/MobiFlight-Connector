@@ -1,7 +1,7 @@
 {
   "$schema": "./mfdevice.schema.json",
   "Info": {
-    "Label": "Fictional I2C device",
+    "Label": "Custom I2C",
     "Type": "MF_TEST_I2C",
     "Author": "Sebastian",
     "URL": "https://github.com",
@@ -9,11 +9,16 @@
   },
   "Config": {
     "Pins": [
-      "0x27",
-      "0x28",
-      "0x29"
+      
     ],
-    "isI2C": true
+    "I2C": {
+      "Enabled": true,
+      "Addresses": [
+        "0x27",
+        "0x28",
+        "0x29"
+      ]
+    }
   },
   "MessageTypes": [
     {

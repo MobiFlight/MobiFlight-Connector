@@ -37,6 +37,20 @@ namespace MobiFlight.CustomDevices
         public String Version;
     }
 
+    public class ConfigI2C
+    {
+        /// <summary>
+        /// A an array of pins required for connecting the custom device.
+        /// </summary>
+        public bool Enabled = false;
+
+
+        /// <summary>
+        /// Indicates whether it uses i2c address or pins.
+        /// </summary>
+        public List<String> Addresses;
+    }
+
     /// <summary>
     /// Config properties of this custom device used in the device settings panel.
     /// </summary>
@@ -51,7 +65,7 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// Indicates whether it uses i2c address or pins.
         /// </summary>
-        public bool isI2C = false;
+        public ConfigI2C I2C;
     }
 
     /// <summary>

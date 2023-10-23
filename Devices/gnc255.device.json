@@ -14,8 +14,7 @@
       "CS",
       "D/C",
       "Reset"
-    ],
-    "isI2C": false
+    ]
   },
   "MessageTypes": [
     {

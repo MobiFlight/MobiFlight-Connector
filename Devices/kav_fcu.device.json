@@ -12,8 +12,7 @@
       "Data",
       "CS",
       "CLK"
-    ],
-    "isI2C": false
+    ]
   },
   "MessageTypes": [
     {

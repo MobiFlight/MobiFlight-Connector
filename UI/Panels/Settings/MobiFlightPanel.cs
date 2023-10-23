@@ -664,13 +664,13 @@ namespace MobiFlight.UI.Panels.Settings
                             var customDeviceConfig = (cfgItem as MobiFlight.Config.CustomDevice);
                             customDeviceConfig.ConfiguredPins.Clear();
 
-                            if (customDeviceInfo.Config.isI2C)
+                            if (customDeviceInfo.Config.I2C?.Enabled ?? false)
                             {
                                 CheckIfI2CPinsAreAvailable(tempModule);
 
                                 // For i2c the Pins contain the available address options.
                                 // We take the first one for initializing the defined Virtual Pins
-                                var address = byte.Parse(customDeviceInfo.Config.Pins[0].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);                                
+                                var address = byte.Parse(customDeviceInfo.Config.I2C.Addresses[0].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);                                
                                 customDeviceConfig.ConfiguredPins.Add(address.ToString());
                                 break;
                             }
@@ -789,7 +789,7 @@ namespace MobiFlight.UI.Panels.Settings
                         String.Format(i18n._tr("uiMessageDeviceNameContainsInvalidCharsOrTooLong"),
                                       invalidCharacterList,
                                       MobiFlightModule.MaxDeviceNameLength.ToString()));
-                UniqueName = UniqueName.Substring(0, UniqueName.Length - 1);
+                UniqueName = UniqueName.Substring(0, MobiFlightModule.MaxDeviceNameLength);
 
                 if (BaseDeviceHasChanged)
                     (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;

@@ -27,11 +27,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
             var deviceDefinition = CustomDeviceDefinitions.GetDeviceByType(device.CustomType);
             var PinsI2C = new List<MobiFlightPin>();
             var labels = deviceDefinition.Config.Pins;
+            var i2cEnabled = deviceDefinition.Config.I2C?.Enabled ?? false;
 
-            if (deviceDefinition.Config.isI2C)
+            if (i2cEnabled)
             {
                 labels = new List<string>() { "Address" };
-                deviceDefinition.Config.Pins.ForEach(p => PinsI2C.Add(new MobiFlightPin() { 
+                deviceDefinition.Config.I2C.Addresses.ForEach(p => PinsI2C.Add(new MobiFlightPin() { 
                     Name = p, 
                     isI2C = true, 
                     Pin = byte.Parse(p.Replace("0x",""), System.Globalization.NumberStyles.AllowHexSpecifier) 
@@ -41,11 +42,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             var i = 0;
             foreach (var pin in labels)
             {
-                if (i == deviceDefinition.Config.Pins.Count) break;
+                if (!i2cEnabled && i == deviceDefinition.Config.Pins.Count) break;
 
                 var currentComboBox = new MFCustomDevicePanelPin(
-                    pin, 
-                    deviceDefinition.Config.isI2C ? PinsI2C : Pins,
+                    pin,
+                    i2cEnabled ? PinsI2C : Pins,
                     device.ConfiguredPins[i]
                 );
                 currentComboBox.Changed += value_Changed;

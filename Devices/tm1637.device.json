@@ -11,8 +11,7 @@
     "Pins": [
       "DIO",
       "CLK"
-    ],
-    "isI2C": false
+    ]
   },
   "MessageTypes": [
     {
