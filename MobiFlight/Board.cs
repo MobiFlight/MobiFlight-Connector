@@ -147,6 +147,11 @@ namespace MobiFlight
         public String ResetFirmwareFile;
 
         /// <summary>
+        /// A list of supported custom device types by this board.
+        /// </summary>
+        public List<String> CustomDeviceTypes = new List<string>();
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>

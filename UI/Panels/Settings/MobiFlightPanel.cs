@@ -1478,12 +1478,17 @@ namespace MobiFlight.UI.Panels.Settings
         private void addDeviceToolStripDropDownButton_DropDownOpening(object sender, EventArgs e)
         {
             var devices = CustomDevices.CustomDeviceDefinitions.GetAll();
-            customDevicesToolStripMenuItem.Enabled = devices.Count > 0;
-            addCustomDevicesToolStripMenuItem.Enabled = devices.Count > 0;
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+
+            var filteredDevices = devices.FindAll(d => { return module.Board.Info.CustomDeviceTypes.Find(c => c == d.Info.Type) != null; });
+
+            customDevicesToolStripMenuItem.Enabled = filteredDevices.Count > 0;
+            addCustomDevicesToolStripMenuItem.Enabled = filteredDevices.Count > 0;
 
             customDevicesToolStripMenuItem.DropDownItems.Clear();
             addCustomDevicesToolStripMenuItem.DropDownItems.Clear();
-            foreach (var device in devices)
+            foreach (var device in filteredDevices)
             {
                 var menuItem = new ToolStripMenuItem() { Tag = device, Text = device.Info.Label };
                 menuItem.Click += addDeviceTypeToolStripMenuItem_Click;
