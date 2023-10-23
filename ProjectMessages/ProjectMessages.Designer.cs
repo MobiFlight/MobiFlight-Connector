@@ -1109,7 +1109,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the current firmware first..
+        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the latest firmware now!.
         /// </summary>
         internal static string uiMessageSettingsDialogFirmwareVersionTooLowException {
             get {

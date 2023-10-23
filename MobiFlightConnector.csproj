@@ -1010,7 +1010,9 @@
     <None Include="Devices\fictional.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Devices\mobiflight.genericI2C.device.json" />
+    <None Include="Devices\mobiflight.genericI2C.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Devices\tm1637.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

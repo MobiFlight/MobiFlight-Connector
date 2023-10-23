@@ -323,7 +323,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
     <value>Du hast die aktuellste Version {0}. Kein Update notwendig.</value>
   </data>
   <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
-    <value>Die Firmware auf diesem Board unterstützt die Funktion noch nicht. Update auf die aktuellste Firmware zuerst!</value>
+    <value>Die Firmware auf diesem Board unterstützt die Funktion noch nicht. Update jetzt auf die aktuellste Firmware!</value>
   </data>
   <data name="uiMessageDeviceNameContainsInvalidCharsOrTooLong" xml:space="preserve">
     <value>Ungültiger Name oder zu lang (max. {1} Zeichen). Die folgenden Buchstaben können nicht verwendet werden:

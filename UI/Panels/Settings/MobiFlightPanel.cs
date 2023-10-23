@@ -653,6 +653,13 @@ namespace MobiFlight.UI.Panels.Settings
                                     MobiFlightCustomDevice.TYPE, tempModule.Board.ModuleLimits.MaxCustomDevices);
                             }
 
+                            
+                            if (!tempModule.HasFirmwareFeature(FirmwareFeature.CustomDevices))
+                            {
+                                MessageBox.Show(i18n._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), i18n._tr("Hint"));
+                                return;
+                            }
+
                             var customDeviceInfo = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
 
                             cfgItem = new MobiFlight.Config.CustomDevice()
@@ -1480,7 +1487,7 @@ namespace MobiFlight.UI.Panels.Settings
             var devices = CustomDevices.CustomDeviceDefinitions.GetAll();
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
-
+            
             var filteredDevices = devices.FindAll(d => { return module.Board.Info.CustomDeviceTypes.Find(c => c == d.Info.Type) != null; });
 
             customDevicesToolStripMenuItem.Enabled = filteredDevices.Count > 0;
