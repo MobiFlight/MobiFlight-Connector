@@ -731,9 +731,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     }
                     var maxdigits = 8;
 
-                    if (dev.ModelType == LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
+                    if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
                     else 
-                    if (dev.ModelType == LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
+                    if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
 
                     for (int i = 2; i < maxdigits; i++)
                     {
