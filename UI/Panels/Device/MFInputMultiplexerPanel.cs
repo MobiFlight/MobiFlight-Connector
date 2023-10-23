@@ -105,7 +105,9 @@ namespace MobiFlight.UI.Panels.Settings
 
             // First update the one that is changed
             // Here, the config data (inputMultiplexer.DataPin) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref inputMultiplexer.DataPin); }
+            if (comboBox == mfPin1ComboBox) { 
+                ComboBoxHelper.reassignPin(mfPin1ComboBox.SelectedItem.ToString(), pinList, ref inputMultiplexer.DataPin); 
+            }
             UpdateFreePinsInDropDowns();
 
             initialized = exInitialized;

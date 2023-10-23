@@ -1,8 +1,6 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -131,6 +129,13 @@ namespace MobiFlight.Config
                         case DeviceType.LedModule:
                             currentItem = new MobiFlight.Config.LedModule();
                             currentItem.FromInternal(item + BaseDevice.End);
+                            break;
+
+                        // backward compatibility
+                        case DeviceType.LedModuleDeprecated:
+                            currentItem = new MobiFlight.Config.LedModuleDeprecated();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            currentItem = new MobiFlight.Config.LedModule(currentItem as MobiFlight.Config.LedModuleDeprecated);
                             break;
 
                         case DeviceType.LcdDisplay:
