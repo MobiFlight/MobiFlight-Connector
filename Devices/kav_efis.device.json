@@ -2,10 +2,10 @@
   "$schema": "./mfdevice.schema.json",
   "Info": {
     "Label": "Kav's EFIS LCD",
-    "Type": "KAV_EFIS",
+    "Type": "KAV_LCD_EFIS",
     "Author": "Jak Kav",
-    "URL": "https://github.com",
-    "Version" : "1.0.0"
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+    "Version": "1.0.0"
   },
   "Config": {
     "Pins": [
@@ -32,3 +32,4 @@
     }
   ]
 }
+  

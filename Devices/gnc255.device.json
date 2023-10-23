@@ -4,7 +4,7 @@
     "Label": "Garmin GNC 255",
     "Type": "GNC255",
     "Author": "Sebastian",
-    "URL": "https://github.com",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/GNC255",
     "Version": "1.0.0"
   },
   "Config": {

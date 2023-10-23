@@ -4,7 +4,7 @@
     "Label": "TM1637 Display",
     "Type": "TM1637",
     "Author": "GioCC",
-    "URL": "https://github.com",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/TM1637",
     "Version": "1.0.0"
   },
   "Config": {
