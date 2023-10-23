@@ -651,29 +651,33 @@ namespace MobiFlight.UI.Panels.Settings
                             {
                                 throw new MaximumDeviceNumberReachedMobiFlightException(
                                     MobiFlightCustomDevice.TYPE, tempModule.Board.ModuleLimits.MaxCustomDevices);
-                            } 
-                            
+                            }
+
+                            var customDeviceInfo = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
+
                             cfgItem = new MobiFlight.Config.CustomDevice()
                             {
-                                Name = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Label,
-                                CustomType = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Type
+                                Name = (customDeviceInfo).Info.Label,
+                                CustomType = (customDeviceInfo).Info.Type
                             };
 
-                            var customDevice = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
                             var customDeviceConfig = (cfgItem as MobiFlight.Config.CustomDevice);
-                            customDeviceConfig.VirtualPins.Clear();
+                            customDeviceConfig.ConfiguredPins.Clear();
 
-                            if (customDevice.Config.isI2C)
+                            if (customDeviceInfo.Config.isI2C)
                             {
-                                // this will throw an exception if not.
                                 CheckIfI2CPinsAreAvailable(tempModule);
-                                customDeviceConfig.VirtualPins.Add(byte.Parse(customDevice.Config.Pins[0].Replace("0x",""), System.Globalization.NumberStyles.HexNumber).ToString());
+
+                                // For i2c the Pins contain the available address options.
+                                // We take the first one for initializing the defined Virtual Pins
+                                var address = byte.Parse(customDeviceInfo.Config.Pins[0].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);                                
+                                customDeviceConfig.ConfiguredPins.Add(address.ToString());
                                 break;
                             }
                                 
-                            for (var i=0; i<customDevice.Config.Pins.Count(); i++)
+                            for (var i=0; i<customDeviceInfo.Config.Pins.Count(); i++)
                             {
-                                customDeviceConfig.VirtualPins.Add(freePinList.ElementAt(i).ToString());
+                                customDeviceConfig.ConfiguredPins.Add(freePinList.ElementAt(i).ToString());
                             }
 
                             break;

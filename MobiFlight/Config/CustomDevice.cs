@@ -17,11 +17,18 @@ namespace MobiFlight.Config
         public String Config = "";
 
         /* 
-         * Virtual pins 
+         * Configured pins 
+         * 
+         * This property contains all the pins that have been selected
+         * by the user. The number can be arbitrary and depends on the
+         * defined number of required pins by the custom device
+         * 
+         * @see: MobiFlight.Config.CustomDevice.Pins
          * 
          * => pins with empty strings are ignored
          */
-        public List<string> VirtualPins = new List<string>();
+        public List<string> ConfiguredPins = new List<string>();
+
         public CustomDevice() { 
             Name = "Custom Device"; 
             _type = DeviceType.CustomDevice; 
@@ -29,7 +36,7 @@ namespace MobiFlight.Config
 
         override public String ToInternal()
         {
-            var joinedPins = String.Join("|", VirtualPins);
+            var joinedPins = String.Join("|", ConfiguredPins);
             
             return base.ToInternal() + Separator
                  + CustomType + Separator
@@ -52,7 +59,7 @@ namespace MobiFlight.Config
             Config = paramList[3];
             Name = paramList[4];
 
-            VirtualPins = Pins.Split('|').ToList();
+            ConfiguredPins = Pins.Split('|').ToList();
 
             return true;
         }

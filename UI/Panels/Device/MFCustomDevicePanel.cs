@@ -46,7 +46,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 var currentComboBox = new MFCustomDevicePanelPin(
                     pin, 
                     deviceDefinition.Config.isI2C ? PinsI2C : Pins,
-                    device.VirtualPins[i]
+                    device.ConfiguredPins[i]
                 );
                 currentComboBox.Changed += value_Changed;
                 currentComboBox.Dock = DockStyle.Bottom;
@@ -69,9 +69,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         private void setValues()
         {   
-            for(var i=0; i<device.VirtualPins.Count; i++)
+            for(var i=0; i<device.ConfiguredPins.Count; i++)
             {
-                device.VirtualPins[i] = (groupBox1.Controls[i] as MFCustomDevicePanelPin).SelectedPin().ToString();
+                device.ConfiguredPins[i] = (groupBox1.Controls[i] as MFCustomDevicePanelPin).SelectedPin().ToString();
             }
             
             device.Name = textBox1.Text;

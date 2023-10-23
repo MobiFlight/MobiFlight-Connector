@@ -1380,7 +1380,7 @@ namespace MobiFlight
                         break;
 
                     case DeviceType.CustomDevice:
-                        (device as CustomDevice).VirtualPins.ForEach(p => usedPins.Add(Convert.ToByte((p))));
+                        (device as CustomDevice).ConfiguredPins.ForEach(p => usedPins.Add(Convert.ToByte((p))));
                         break;
 
                     // If the multiplexerDriver is to be handled as a regular device
