@@ -530,7 +530,6 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.Board.ModuleLimits.MaxServos);
                         }
-
                         cfgItem = new MobiFlight.Config.Servo();
                         (cfgItem as MobiFlight.Config.Servo).DataPin = freePinList.ElementAt(0).Pin.ToString();
                         break;
@@ -540,7 +539,6 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.Board.ModuleLimits.MaxSteppers);
                         }
-
                         cfgItem = new MobiFlight.Config.Stepper();
                         (cfgItem as MobiFlight.Config.Stepper).Pin1 = freePinList.ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Stepper).Pin2 = freePinList.ElementAt(1).Pin.ToString();
@@ -628,29 +626,7 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
                         }
 
-                        // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
-                        // so throw an error.
-                        var availableI2Cpins = tempModule.Board.Pins.FindAll(x => x.isI2C);
-
-                        if (!(availableI2Cpins?.Any() ?? false))
-                        {
-                            throw new I2CPinsNotDefinedException(MobiFlightLcdDisplay.TYPE);
-                        }
-
-                        // Fix for issue #900. Check for any I2C pins that might already be in use by
-                        // other modules configured for the device.
-                        var pinsInUse = getVirtualModuleFromTree().GetPins(false, true).Where(x => x.Used);
-
-                        // Check and see if any I2C pins are in use. This only looks for the first I2C pin that's
-                        // in use since that's sufficient to throw an error and tell the user what to do. Trying to
-                        // write an error message that works for one or more in use I2C pins is way more trouble
-                        // than it's worth.
-                        var firstInUseI2CPin = availableI2Cpins.Find(x => pinsInUse?.Contains(x) ?? false);
-
-                        if (firstInUseI2CPin != null)
-                        {
-                            throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, firstInUseI2CPin);
-                        }
+                        CheckIfI2CPinsAreAvailable(tempModule);
 
                         cfgItem = new MobiFlight.Config.LcdDisplay();
                         break;
@@ -675,7 +651,8 @@ namespace MobiFlight.UI.Panels.Settings
                             {
                                 throw new MaximumDeviceNumberReachedMobiFlightException(
                                     MobiFlightCustomDevice.TYPE, tempModule.Board.ModuleLimits.MaxCustomDevices);
-                            }
+                            } 
+                            
                             cfgItem = new MobiFlight.Config.CustomDevice()
                             {
                                 Name = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice).Info.Label,
@@ -683,11 +660,20 @@ namespace MobiFlight.UI.Panels.Settings
                             };
 
                             var customDevice = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
-                            (cfgItem as MobiFlight.Config.CustomDevice).VirtualPins.Clear();
+                            var customDeviceConfig = (cfgItem as MobiFlight.Config.CustomDevice);
+                            customDeviceConfig.VirtualPins.Clear();
 
+                            if (customDevice.Config.isI2C)
+                            {
+                                // this will throw an exception if not.
+                                CheckIfI2CPinsAreAvailable(tempModule);
+                                customDeviceConfig.VirtualPins.Add(byte.Parse(customDevice.Config.Pins[0].Replace("0x",""), System.Globalization.NumberStyles.HexNumber).ToString());
+                                break;
+                            }
+                                
                             for (var i=0; i<customDevice.Config.Pins.Count(); i++)
                             {
-                                (cfgItem as MobiFlight.Config.CustomDevice).VirtualPins.Add(freePinList.ElementAt(i).ToString());
+                                customDeviceConfig.VirtualPins.Add(freePinList.ElementAt(i).ToString());
                             }
 
                             break;
@@ -727,7 +713,34 @@ namespace MobiFlight.UI.Panels.Settings
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
+        private void CheckIfI2CPinsAreAvailable(MobiFlightModule tempModule)
+        {
+            // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
+            // so throw an error.
+            var availableI2Cpins = tempModule.Board.Pins.FindAll(x => x.isI2C);
+
+            if (!(availableI2Cpins?.Any() ?? false))
+            {
+                throw new I2CPinsNotDefinedException(MobiFlightLcdDisplay.TYPE);
+            }
+
+            // Fix for issue #900. Check for any I2C pins that might already be in use by
+            // other modules configured for the device.
+            var pinsInUse = getVirtualModuleFromTree().GetPins(false, true).Where(x => x.Used);
+
+            // Check and see if any I2C pins are in use. This only looks for the first I2C pin that's
+            // in use since that's sufficient to throw an error and tell the user what to do. Trying to
+            // write an error message that works for one or more in use I2C pins is way more trouble
+            // than it's worth.
+            var firstInUseI2CPin = availableI2Cpins.Find(x => pinsInUse?.Contains(x) ?? false);
+
+            if (firstInUseI2CPin != null)
+            {
+                throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, firstInUseI2CPin);
+            }
+        }
+
         /// <summary>
         /// Move selection to the first device in the TreeView that is a
         /// Multiplexer client (if any)

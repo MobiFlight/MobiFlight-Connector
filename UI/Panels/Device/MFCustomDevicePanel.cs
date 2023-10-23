@@ -25,13 +25,29 @@ namespace MobiFlight.UI.Panels.Settings.Device
             this.device = device;
 
             var deviceDefinition = CustomDeviceDefinitions.GetDeviceByType(device.CustomType);
-            var i = 0;
+            var PinsI2C = new List<MobiFlightPin>();
+            var labels = deviceDefinition.Config.Pins;
 
-            foreach (var pin in deviceDefinition.Config.Pins)
+            if (deviceDefinition.Config.isI2C)
+            {
+                labels = new List<string>() { "Address" };
+                deviceDefinition.Config.Pins.ForEach(p => PinsI2C.Add(new MobiFlightPin() { 
+                    Name = p, 
+                    isI2C = true, 
+                    Pin = byte.Parse(p.Replace("0x",""), System.Globalization.NumberStyles.AllowHexSpecifier) 
+                }));                
+            }
+
+            var i = 0;
+            foreach (var pin in labels)
             {
                 if (i == deviceDefinition.Config.Pins.Count) break;
 
-                var currentComboBox = new MFCustomDevicePanelPin(deviceDefinition.Config.Pins[i], Pins, device.VirtualPins[i]);
+                var currentComboBox = new MFCustomDevicePanelPin(
+                    pin, 
+                    deviceDefinition.Config.isI2C ? PinsI2C : Pins,
+                    device.VirtualPins[i]
+                );
                 currentComboBox.Changed += value_Changed;
                 currentComboBox.Dock = DockStyle.Bottom;
                 groupBox1.Controls.Add(currentComboBox);

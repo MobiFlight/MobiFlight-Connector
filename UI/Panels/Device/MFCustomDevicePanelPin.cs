@@ -23,10 +23,14 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         public MFCustomDevicePanelPin(String Label, List<MobiFlightPin> Pins, string pin): this()
         {
+            if (pin == null) pin = Pins[0].Pin.ToString();
+
             ComboBoxHelper.BindMobiFlightFreePins(comboBox0, Pins, pin);
+            
             pinLabel.Text = Label;
             initialized = true;
         }
+
         public byte SelectedPin()
         {
             return (byte)comboBox0.SelectedValue;
