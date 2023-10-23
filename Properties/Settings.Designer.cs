@@ -471,17 +471,15 @@ namespace MobiFlight.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AutoLoadLinkedConfigList
-        {
-            get
-            {
+        public string AutoLoadLinkedConfigList {
+            get {
                 return ((string)(this["AutoLoadLinkedConfigList"]));
             }
-            set
-            {
+            set {
                 this["AutoLoadLinkedConfigList"] = value;
             }
         }
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
