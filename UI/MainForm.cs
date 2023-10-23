@@ -103,6 +103,12 @@ namespace MobiFlight.UI
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
             CurrentFilenameChanged += (s, e) => { UpdateAutoLoadMenu(); };
+
+            // we trigger this once:
+            // because on a full fresh start
+            // there are no recent files which
+            // could lead to a filename change
+            UpdateAutoLoadMenu();
         }
 
         private void RestoreAutoLoadConfig()
