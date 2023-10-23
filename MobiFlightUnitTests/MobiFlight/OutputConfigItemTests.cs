@@ -215,6 +215,12 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.ShiftRegister.Address, c.ShiftRegister.Address, "clone: ShiftRegister.Address not the same");
             Assert.AreEqual(o.ShiftRegister.Pin, c.ShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
 
+            // Custom Device
+            Assert.AreEqual(o.CustomDevice.CustomType, c.CustomDevice.CustomType, "clone: CustomDevice.CustomType not the same");
+            Assert.AreEqual(o.CustomDevice.CustomName, c.CustomDevice.CustomName, "clone: CustomDevice.CustomName not the same");
+            Assert.AreEqual(o.CustomDevice.MessageType, c.CustomDevice.MessageType, "clone: CustomDevice.MessageType not the same");
+            Assert.AreEqual(o.CustomDevice.Value, c.CustomDevice.Value, "clone: CustomDevice.Value not the same");
+
             //o. = new Interpolation();
             Assert.AreEqual(o.Modifiers.Interpolation.Active, c.Modifiers.Interpolation.Active, "clone: Interpolation.Active is not the same.");
             Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation.Count not the same");
@@ -324,6 +330,10 @@ namespace MobiFlight.Tests
 
             o2 = _generateConfigItem();
             o2.DisplayType = "nonsense";
+            Assert.IsFalse(o1.Equals(o2));
+
+            o2 = _generateConfigItem();
+            o2.CustomDevice.Value = "Test value will fail";
             Assert.IsFalse(o1.Equals(o2));
         }
     }

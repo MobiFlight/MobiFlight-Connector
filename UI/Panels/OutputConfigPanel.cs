@@ -566,6 +566,9 @@ namespace MobiFlight.UI.Panels
                         if (cfgItem.DisplayType == MobiFlightOutput.TYPE)
                             row["OutputType"] = "LED / Output";
 
+                        if (cfgItem.DisplayType == MobiFlightCustomDevice.TYPE)
+                            row["OutputType"] = cfgItem.CustomDevice.CustomType;
+
                         switch (cfgItem.DisplayType)
                         {
                             case MobiFlightLedModule.TYPE:
@@ -585,6 +588,9 @@ namespace MobiFlight.UI.Panels
                                 break;
                             case MobiFlightShiftRegister.TYPE:
                                 row["OutputName"] = cfgItem.ShiftRegister.ToString();
+                                break;
+                            case MobiFlightCustomDevice.TYPE:
+                                row["OutputName"] = cfgItem.CustomDevice.CustomName;
                                 break;
 
                         }

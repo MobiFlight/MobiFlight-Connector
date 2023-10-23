@@ -141,6 +141,9 @@ namespace MobiFlight.UI
             // Initialize the board configurations
             BoardDefinitions.Load();
 
+            // Initialize the custom device configurations
+            CustomDevices.CustomDeviceDefinitions.Load();
+
             // configure tracking correctly
             InitializeTracking();
         }

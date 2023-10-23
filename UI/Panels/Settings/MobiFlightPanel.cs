@@ -1,4 +1,5 @@
-﻿using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.Config;
+using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -378,7 +379,7 @@ namespace MobiFlight.UI.Panels.Settings
                     // It's a Device entry
                     MobiFlightModule module = getVirtualModuleFromTree();
 
-                    MobiFlight.Config.BaseDevice dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
+                    var dev = (selectedNode.Tag as MobiFlight.Config.BaseDevice);
                     switch (dev.Type)
                     {
                         case DeviceType.LedModule:
@@ -437,9 +438,14 @@ namespace MobiFlight.UI.Panels.Settings
                             (panel as MFInputMultiplexerPanel).MoveToFirstMux += new EventHandler(mfMoveToFirstMuxClient);
                             break;
 
-                        // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
+                        case DeviceType.CustomDevice:
+                            panel = new MFCustomDevicePanel(dev as MobiFlight.Config.CustomDevice, module.GetPins());
+                            (panel as MFCustomDevicePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                            break;
 
-                        // output
+                            // DeviceType.MultiplexerDriver has no user panel (its parameters are defined in clients' panels
+
+                            // output
                     }
                 }
 
@@ -524,7 +530,6 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.Board.ModuleLimits.MaxServos);
                         }
-
                         cfgItem = new MobiFlight.Config.Servo();
                         (cfgItem as MobiFlight.Config.Servo).DataPin = freePinList.ElementAt(0).Pin.ToString();
                         break;
@@ -534,7 +539,6 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.Board.ModuleLimits.MaxSteppers);
                         }
-
                         cfgItem = new MobiFlight.Config.Stepper();
                         (cfgItem as MobiFlight.Config.Stepper).Pin1 = freePinList.ElementAt(0).Pin.ToString();
                         (cfgItem as MobiFlight.Config.Stepper).Pin2 = freePinList.ElementAt(1).Pin.ToString();
@@ -622,29 +626,7 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLcdDisplay.TYPE, tempModule.Board.ModuleLimits.MaxLcdI2C);
                         }
 
-                        // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
-                        // so throw an error.
-                        var availableI2Cpins = tempModule.Board.Pins.FindAll(x => x.isI2C);
-
-                        if (!(availableI2Cpins?.Any() ?? false))
-                        {
-                            throw new I2CPinsNotDefinedException(MobiFlightLcdDisplay.TYPE);
-                        }
-
-                        // Fix for issue #900. Check for any I2C pins that might already be in use by
-                        // other modules configured for the device.
-                        var pinsInUse = getVirtualModuleFromTree().GetPins(false, true).Where(x => x.Used);
-
-                        // Check and see if any I2C pins are in use. This only looks for the first I2C pin that's
-                        // in use since that's sufficient to throw an error and tell the user what to do. Trying to
-                        // write an error message that works for one or more in use I2C pins is way more trouble
-                        // than it's worth.
-                        var firstInUseI2CPin = availableI2Cpins.Find(x => pinsInUse?.Contains(x) ?? false);
-
-                        if (firstInUseI2CPin != null)
-                        {
-                            throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, firstInUseI2CPin);
-                        }
+                        CheckIfI2CPinsAreAvailable(tempModule);
 
                         cfgItem = new MobiFlight.Config.LcdDisplay();
                         break;
@@ -662,7 +644,58 @@ namespace MobiFlight.UI.Panels.Settings
                         break;
 
                     default:
-                        // do nothing
+                        if (customDevicesToolStripMenuItem.DropDownItems.Contains(sender as ToolStripItem) ||
+                            addCustomDevicesToolStripMenuItem.DropDownItems.Contains(sender as ToolStripItem))
+                        {
+                            if (statistics[MobiFlightCustomDevice.TYPE] == tempModule.Board.ModuleLimits.MaxCustomDevices)
+                            {
+                                throw new MaximumDeviceNumberReachedMobiFlightException(
+                                    MobiFlightCustomDevice.TYPE, tempModule.Board.ModuleLimits.MaxCustomDevices);
+                            }
+
+                            
+                            if (!tempModule.HasFirmwareFeature(FirmwareFeature.CustomDevices))
+                            {
+                                MessageBox.Show(i18n._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), i18n._tr("Hint"));
+                                return;
+                            }
+
+                            var customDeviceInfo = ((sender as ToolStripItem).Tag as CustomDevices.CustomDevice);
+
+                            cfgItem = new MobiFlight.Config.CustomDevice()
+                            {
+                                Name = (customDeviceInfo).Info.Label,
+                                CustomType = (customDeviceInfo).Info.Type
+                            };
+
+                            var customDeviceConfig = (cfgItem as MobiFlight.Config.CustomDevice);
+                            customDeviceConfig.ConfiguredPins.Clear();
+
+                            if (customDeviceInfo.Config.Custom.Enabled)
+                            {
+                                customDeviceConfig.Config = customDeviceInfo.Config.Custom.Value;
+                            }
+
+                            if (customDeviceInfo.Config.I2C?.Enabled ?? false)
+                            {
+                                CheckIfI2CPinsAreAvailable(tempModule);
+
+                                // For i2c the Pins contain the available address options.
+                                // We take the first one for initializing the defined Virtual Pins
+                                var address = byte.Parse(customDeviceInfo.Config.I2C.Addresses[0].Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);                                
+                                customDeviceConfig.ConfiguredPins.Add(address.ToString());
+                                break;
+                            }
+
+                                
+                            for (var i=0; i<customDeviceInfo.Config.Pins.Count(); i++)
+                            {
+                                customDeviceConfig.ConfiguredPins.Add(freePinList.ElementAt(i).ToString());
+                            }
+
+                            break;
+                        }
+
                         return;
                 }
 
@@ -697,7 +730,34 @@ namespace MobiFlight.UI.Panels.Settings
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        
+
+        private void CheckIfI2CPinsAreAvailable(MobiFlightModule tempModule)
+        {
+            // Check and see if any I2CPins exist in the board definition file. If not then there's no way to add an LCD device
+            // so throw an error.
+            var availableI2Cpins = tempModule.Board.Pins.FindAll(x => x.isI2C);
+
+            if (!(availableI2Cpins?.Any() ?? false))
+            {
+                throw new I2CPinsNotDefinedException(MobiFlightLcdDisplay.TYPE);
+            }
+
+            // Fix for issue #900. Check for any I2C pins that might already be in use by
+            // other modules configured for the device.
+            var pinsInUse = getVirtualModuleFromTree().GetPins(false, true).Where(x => x.Used);
+
+            // Check and see if any I2C pins are in use. This only looks for the first I2C pin that's
+            // in use since that's sufficient to throw an error and tell the user what to do. Trying to
+            // write an error message that works for one or more in use I2C pins is way more trouble
+            // than it's worth.
+            var firstInUseI2CPin = availableI2Cpins.Find(x => pinsInUse?.Contains(x) ?? false);
+
+            if (firstInUseI2CPin != null)
+            {
+                throw new I2CPinInUseException(MobiFlightLcdDisplay.TYPE, firstInUseI2CPin);
+            }
+        }
+
         /// <summary>
         /// Move selection to the first device in the TreeView that is a
         /// Multiplexer client (if any)
@@ -742,7 +802,7 @@ namespace MobiFlight.UI.Panels.Settings
                         String.Format(i18n._tr("uiMessageDeviceNameContainsInvalidCharsOrTooLong"),
                                       invalidCharacterList,
                                       MobiFlightModule.MaxDeviceNameLength.ToString()));
-                UniqueName = UniqueName.Substring(0, UniqueName.Length - 1);
+                UniqueName = UniqueName.Substring(0, MobiFlightModule.MaxDeviceNameLength);
 
                 if (BaseDeviceHasChanged)
                     (sender as MobiFlight.Config.BaseDevice).Name = UniqueName;
@@ -1422,6 +1482,35 @@ namespace MobiFlight.UI.Panels.Settings
             ResetModules(modules);
         }
 
-        
+        private void addDeviceToolStripDropDownButton_DropDownOpening(object sender, EventArgs e)
+        {
+            var devices = CustomDevices.CustomDeviceDefinitions.GetAll();
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            
+            var filteredDevices = devices.FindAll(d => { return module.Board.Info.CustomDeviceTypes.Find(c => c == d.Info.Type) != null; });
+
+            customDevicesToolStripMenuItem.Enabled = filteredDevices.Count > 0;
+            addCustomDevicesToolStripMenuItem.Enabled = filteredDevices.Count > 0;
+
+            customDevicesToolStripMenuItem.DropDownItems.Clear();
+            addCustomDevicesToolStripMenuItem.DropDownItems.Clear();
+            foreach (var device in filteredDevices)
+            {
+                var menuItem = new ToolStripMenuItem() { Tag = device, Text = device.Info.Label };
+                menuItem.Click += addDeviceTypeToolStripMenuItem_Click;
+
+                if (sender == addDeviceToolStripDropDownButton)
+                    customDevicesToolStripMenuItem.DropDownItems.Add(menuItem);
+                else
+                    addCustomDevicesToolStripMenuItem.DropDownItems.Add(menuItem);
+            }
+        }
+
+        private void customDevicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // here
+            // addDeviceTypeToolStripMenuItem_Click()
+        }
     }
 }

@@ -163,7 +163,8 @@
         "FirmwareExtension",
         "FriendlyName",
         "LatestFirmwareVersion",
-        "MobiFlightType"
+        "MobiFlightType",
+        "CustomDeviceType"
       ],
       "properties": {
         "CanInstallFirmware": {
@@ -207,6 +208,13 @@
           "title": "Mobiflighttype",
           "description": "The type of the board as provided by the MobiFlight firmware.",
           "type": "string"
+        },
+        "CustomDeviceType": {
+          "$id": "#root/Info/CustomDeviceType",
+          "title": "CustomDeviceType",
+          "description": "A an array of supported custom device types by this board.",
+          "type": "array",
+          "default": []
         },
         "ResetFirmwareFile": {
           "$id": "#root/Info/ResetFirmwareFile",

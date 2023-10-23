@@ -1,0 +1,36 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Fictional device",
+    "Type": "MF_TEST",
+    "Author": "Sebastian",
+    "URL": "https://github.com",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [
+      "Awesome Data Pin",
+      "Cool Control Pin",
+      "Usless Pin",
+      "Nonsense Pin",
+      "Another Pin",
+      "And one more",
+      "Crazy Pin",
+      "King Pin",
+      "Pin Pin Pin",
+      "10th Pin"
+    ]
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Set Backlight",
+      "description": "0 => Off, 1 => On"
+    },
+    {
+      "id": 1,
+      "label": "Display Value",
+      "description": "$ will be displayed on the device"
+    }
+  ]
+}

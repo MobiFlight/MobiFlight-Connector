@@ -1,0 +1,35 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Kav's EFIS LCD",
+    "Type": "KAV_LCD_EFIS",
+    "Author": "Jak Kav",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [
+      "Data",
+      "CS",
+      "CLK"
+    ]
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Show QNH Value",
+      "description": "$ will be displayed as QNH value"
+    },
+    {
+      "id": 1,
+      "label": "Show QFE Value",
+      "description": "$ will be displayed as QFE value"
+    },
+    {
+      "id": 2,
+      "label": "Show STD",
+      "description": "0 = True, 1 = False"
+    }
+  ]
+}
+  
