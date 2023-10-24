@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Resources;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Xml.Serialization;
 #if ARCAZE
-using SimpleSolutions.Usb;
 #endif
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
@@ -20,15 +15,11 @@ using MobiFlight.UI.Forms;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
-using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
-using FSUIPC;
 using Newtonsoft.Json;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI
 {
