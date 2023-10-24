@@ -111,25 +111,6 @@ namespace MobiFlight.UI
             UpdateAutoLoadMenu();
         }
 
-        private void RestoreAutoLoadConfig()
-        {
-            AutoLoadConfigs = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties.Settings.Default.AutoLoadLinkedConfigList);
-            if (AutoLoadConfigs == null)
-                AutoLoadConfigs = new Dictionary<string, string>();
-;       }
-
-        private void SaveAutoLoadConfig()
-        {
-            Properties.Settings.Default.AutoLoadLinkedConfigList = JsonConvert.SerializeObject(AutoLoadConfigs);
-            Properties.Settings.Default.Save();
-            UpdateAutoLoadMenu();
-        }
-
-        private void UpdateAutoLoadConfig()
-        {
-            autoloadToggleToolStripMenuItem.Checked = Properties.Settings.Default.AutoLoadLinkedConfig;
-        }
-
         public MainForm()
         {
             // this shall happen before anything else
@@ -349,10 +330,16 @@ namespace MobiFlight.UI
         private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
+            UpdateAllConnectionIcons();
+        }
+
+        private void UpdateAllConnectionIcons()
+        {
             UpdateSimStatusIcon();
             UpdateSimConnectStatusIcon();
             UpdateXplaneDirectConnectStatusIcon();
             UpdateFsuipcStatusIcon();
+            UpdateSeparatorInStatusMenu();
         }
 
         private void ConfigPanel_SettingsDialogRequested(object sender, EventArgs e)
@@ -368,10 +355,7 @@ namespace MobiFlight.UI
         private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
         {
             saveToolStripButton.Enabled = true;
-            UpdateSimStatusIcon();
-            UpdateSimConnectStatusIcon();
-            UpdateXplaneDirectConnectStatusIcon();
-            UpdateFsuipcStatusIcon();
+            UpdateAllConnectionIcons();
         }
 
         private void MainForm_ModuleConnected(object sender, String text, int progress)
@@ -413,6 +397,8 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
             CheckForWasmModuleUpdate();
+
+            UpdateAllConnectionIcons();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart(); 
@@ -743,6 +729,8 @@ namespace MobiFlight.UI
                 UpdateFsuipcStatusIcon();
             }
 
+            UpdateSeparatorInStatusMenu();
+
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
 
             runToolStripButton.Enabled = RunIsAvailable();
@@ -798,10 +786,7 @@ namespace MobiFlight.UI
             SimProcessDetectedToolStripMenuItem.Text = "No sim running.";
             SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;
 
-            UpdateSimStatusIcon();
-            UpdateFsuipcStatusIcon();
-            UpdateSimConnectStatusIcon();
-            UpdateXplaneDirectConnectStatusIcon();
+            UpdateAllConnectionIcons();
         }
 
         /// <summary>
@@ -892,6 +877,8 @@ namespace MobiFlight.UI
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
             }
+
+            UpdateSeparatorInStatusMenu();
         }
 
         /// <summary>
@@ -919,9 +906,7 @@ namespace MobiFlight.UI
             if (!execManager.SimAvailable())
             {
                 _showError(i18n._tr("uiMessageFsHasBeenStopped"));
-                UpdateSimConnectStatusIcon();
-                UpdateFsuipcStatusIcon();
-                UpdateXplaneDirectConnectStatusIcon();
+                UpdateAllConnectionIcons();
                 return;
             }
 
@@ -941,6 +926,8 @@ namespace MobiFlight.UI
                 if (execManager.GetSimConnectCache().IsConnected())
                 UpdateFsuipcStatusIcon();
             }
+
+            UpdateSeparatorInStatusMenu();
         }
 
         /// <summary>
@@ -1594,12 +1581,14 @@ namespace MobiFlight.UI
         {
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Visible = true;
+            simConnectToolStripMenuItem.Enabled = true;
             simConnectToolStripMenuItem.ToolTipText = "Some configs are using MSFS2020 presets -> WASM module required";
 
             if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.SIMCONNECT))
             {
                 simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
                 simConnectToolStripMenuItem.Visible = false;
+                simConnectToolStripMenuItem.Enabled = false;
                 UpdateSeparatorInStatusMenu();
                 return;
             }
@@ -1608,23 +1597,28 @@ namespace MobiFlight.UI
                 simConnectToolStripMenuItem.Image = Properties.Resources.check;
             else 
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+
+            UpdateSeparatorInStatusMenu();
         }
 
         private void UpdateSeparatorInStatusMenu()
         {
-            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Visible || xPlaneDirectToolStripMenuItem.Visible || FsuipcToolStripMenuItem.Visible;
+            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Enabled || xPlaneDirectToolStripMenuItem.Enabled|| FsuipcToolStripMenuItem.Enabled;
         }
 
         private void UpdateXplaneDirectConnectStatusIcon()
         {
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             xPlaneDirectToolStripMenuItem.Visible = true;
+            xPlaneDirectToolStripMenuItem.Enabled = true;
             xPlaneDirectToolStripMenuItem.ToolTipText = "Some configs are using XPlane DataRefs/Commands -> XPlane direct required";
 
             if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.XPLANE))
             {
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.disabled;
                 xPlaneDirectToolStripMenuItem.Visible = false;
+                xPlaneDirectToolStripMenuItem.Enabled = false;
+                UpdateSeparatorInStatusMenu();
                 return;
             }
 
@@ -1632,19 +1626,23 @@ namespace MobiFlight.UI
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.check;
             else 
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+
+            UpdateSeparatorInStatusMenu();
         }
 
         private void UpdateFsuipcStatusIcon()
         {
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             FsuipcToolStripMenuItem.Visible = true;
+            FsuipcToolStripMenuItem.Enabled = true;
             FsuipcToolStripMenuItem.ToolTipText = "Some configs are using FSUIPC -> FSUIPC required";
 
             if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.FSUIPC))
             {
                 FsuipcToolStripMenuItem.Image = Properties.Resources.disabled;
                 FsuipcToolStripMenuItem.Visible = false;
-
+                FsuipcToolStripMenuItem.Enabled = false;
+                UpdateSeparatorInStatusMenu();
                 return;
             }
 
@@ -1652,6 +1650,8 @@ namespace MobiFlight.UI
                 FsuipcToolStripMenuItem.Image = Properties.Resources.check;
             else
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
+
+            UpdateSeparatorInStatusMenu();
         }
         private void UpdateSimStatusIcon()
         {
@@ -2095,6 +2095,27 @@ namespace MobiFlight.UI
                         .Any(x => x?.GetInputActionsByType(typeof(VariableInputAction)).Count > 0);
             }
             return result;
+        }
+
+
+        private void RestoreAutoLoadConfig()
+        {
+            AutoLoadConfigs = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties.Settings.Default.AutoLoadLinkedConfigList);
+            if (AutoLoadConfigs == null)
+                AutoLoadConfigs = new Dictionary<string, string>();
+            ;
+        }
+
+        private void SaveAutoLoadConfig()
+        {
+            Properties.Settings.Default.AutoLoadLinkedConfigList = JsonConvert.SerializeObject(AutoLoadConfigs);
+            Properties.Settings.Default.Save();
+            UpdateAutoLoadMenu();
+        }
+
+        private void UpdateAutoLoadConfig()
+        {
+            autoloadToggleToolStripMenuItem.Checked = Properties.Settings.Default.AutoLoadLinkedConfig;
         }
 
         private void autoloadToggleToolStripMenuItem_Click(object sender, EventArgs e)
