@@ -6,7 +6,7 @@ namespace MobiFlight.Config
 {
     public class LedModule : BaseDevice
     {
-        public const string MODEL_TYPE_MAX72xx   = "1";
+        public const string MODEL_TYPE_MAX72xx   = "0";
         public const string MODEL_TYPE_TM1637_4DIGIT = "253";
         public const string MODEL_TYPE_TM1637_6DIGIT = "254";
 
