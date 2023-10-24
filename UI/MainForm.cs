@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Resources;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Xml.Serialization;
 #if ARCAZE
-using SimpleSolutions.Usb;
 #endif
 using System.Runtime.InteropServices;
 using MobiFlight.FSUIPC;
@@ -20,18 +15,18 @@ using MobiFlight.UI.Forms;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
-using Microsoft.ApplicationInsights.DataContracts;
 using MobiFlight.xplane;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
-using FSUIPC;
 using Newtonsoft.Json;
 
 namespace MobiFlight.UI
 {
     public partial class MainForm : Form
     {
+        delegate void UpdateAircraftCallback(string aircraftName);
+
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
@@ -252,14 +247,25 @@ namespace MobiFlight.UI
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
 
-        private void ExecManager_OnSimAircraftChanged(object sender, string e)
+        private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
-            var aircraftName = e;
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new UpdateAircraftCallback(UpdateAircraft), new object[] { aircraftName });
+            }
+            else
+            {
+                UpdateAircraft(aircraftName);
+            }
+        }
 
+        private void UpdateAircraft(String aircraftName)
+        {
             if (aircraftName == "")
             {
                 aircraftName = i18n._tr("uiLabelNoAircraftDetected.");
             }
+
             toolStripAircraftDropDownButton.Text = aircraftName;
             toolStripAircraftDropDownButton.DropDown.Enabled = true;
 
@@ -271,7 +277,9 @@ namespace MobiFlight.UI
 
             var filename = AutoLoadConfigs[key];
 
-            Log.Instance.log($"Auto loading config for {e}", LogSeverity.Info);
+            if (currentFileName == filename) return;
+
+            Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
             LoadConfig(filename);
         }
 
