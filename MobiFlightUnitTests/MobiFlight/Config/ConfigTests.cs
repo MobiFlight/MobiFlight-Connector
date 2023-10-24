@@ -76,7 +76,7 @@ namespace MobiFlight.Config.Tests
         {
             Config o = new Config();
 
-            Assert.AreEqual(1, o.FromInternal("16.1.0.1.2.3.4.Device:").Items.Count);
+            Assert.AreEqual(1, o.FromInternal("16.0.0.1.2.3.4.Device:").Items.Count);
 
             LedModule expected = new LedModule();
             expected.Name = "Device";
@@ -325,7 +325,7 @@ namespace MobiFlight.Config.Tests
 
             List<String> actual = o.ToInternal(100);
             Assert.AreEqual(1, actual.Count);
-            Assert.AreEqual("16.1.0.1.2.3.4.Device:", actual.ElementAt(0));
+            Assert.AreEqual("16.0.0.1.2.3.4.Device:", actual.ElementAt(0));
         }
 
         [TestMethod()]
@@ -488,7 +488,7 @@ namespace MobiFlight.Config.Tests
                 "1.0.Device1:"
                 + "8.0.1.0.Device2:"
                 + "3.0.Device3:"
-                + $"{(int)DeviceType.LedModule}.1.0.1.2.3.4.Device4:"
+                + $"{(int)DeviceType.LedModule}.0.0.1.2.3.4.Device4:"
                 + "15.0.1.2.3.0.0.0.0.0.Device5:"
                 + "6.0.Device6:"
                 + "7.0.1.2.Device7:"
@@ -567,7 +567,7 @@ namespace MobiFlight.Config.Tests
             Assert.AreEqual("1.0.Device1:", actual.ElementAt(0));
             Assert.AreEqual("8.0.1.0.Device2:", actual.ElementAt(1));
             Assert.AreEqual("3.0.Device3:", actual.ElementAt(2));
-            Assert.AreEqual($"{(int)DeviceType.LedModule}.1.0.1.2.3.4.Device4:", actual.ElementAt(3));
+            Assert.AreEqual($"{(int)DeviceType.LedModule}.0.0.1.2.3.4.Device4:", actual.ElementAt(3));
             Assert.AreEqual("15.0.1.2.3.0.0.0.0.0.Device5:", actual.ElementAt(4));
             Assert.AreEqual("6.0.Device6:", actual.ElementAt(5));
             Assert.AreEqual("7.0.1.2.Device7:", actual.ElementAt(6));
