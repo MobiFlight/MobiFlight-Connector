@@ -154,7 +154,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             
             string newMode = (sender as ComboBox).SelectedValue.ToString();
 
-            if (newMode != LedModule.MODEL_TYPE_MAX72xx && !SupportsTM1637)
+            if ((newMode == LedModule.MODEL_TYPE_TM1637_4DIGIT || newMode == LedModule.MODEL_TYPE_TM1637_6DIGIT) && !SupportsTM1637)
             {
                 MessageBox.Show(i18n._tr("uiMessageSettingsDialogFirmwareVersionTooLowException"), i18n._tr("Hint"));
                 mfDisplayTypeComboBox.SelectedValue = LedModule.MODEL_TYPE_MAX72xx;
