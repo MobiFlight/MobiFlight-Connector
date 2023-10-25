@@ -1,21 +1,14 @@
+using MobiFlight.Base;
+using MobiFlight.FSUIPC;
+using MobiFlight.InputConfig;
+using MobiFlight.SimConnectMSFS;
+using MobiFlight.xplane;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Data;
 using System.Drawing;
-using MobiFlight;
-using MobiFlight.FSUIPC;
-using MobiFlight.Base;
-using MobiFlight.SimConnectMSFS;
-using MobiFlight.Config;
-using MobiFlight.OutputConfig;
-using MobiFlight.InputConfig;
-using MobiFlight.xplane;
-using System.Globalization;
-using Newtonsoft.Json.Linq;
-using FSUIPC;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -1455,24 +1448,24 @@ namespace MobiFlight
                     continue;
                 }
 
-                // if there are preconditions check and skip if necessary
-                if (tuple.Item1.Preconditions.Count > 0)
-                {
-                    if (!CheckPrecondition(tuple.Item1, currentValue))
-                    {
-                        tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                        continue;
-                    }
-                    else
-                    {
-                        tuple.Item2.ErrorText = "";
-                    }
-                }
-#if SIMCONNECT
-                Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
-
                 try
                 {
+                    // if there are preconditions check and skip if necessary
+                    if (tuple.Item1.Preconditions.Count > 0)
+                    {
+                        if (!CheckPrecondition(tuple.Item1, currentValue))
+                        {
+                            tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            tuple.Item2.ErrorText = "";
+                        }
+                    }
+
+                    Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
+                
                     tuple.Item1.execute(
                         cacheCollection,
                         e,
@@ -1483,8 +1476,6 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
                 }
-#endif
-
             }
 
             //fsuipcCache.ForceUpdate();
