@@ -20,7 +20,7 @@ changelog:
     - title: Documentation 📚
       labels:
         - documentation
-    - title: Development 📚
+    - title: Development 💻
       labels:
         - development    
     - title: Other Changes ⚡
