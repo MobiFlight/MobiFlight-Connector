@@ -284,6 +284,14 @@ namespace MobiFlight.UI
                 return;
             }
 
+            if (saveToolStripButton.Enabled && MessageBox.Show(
+                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
+                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
+                       MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+            }
+
             // we only really load the config if it is different from 
             // the current one.
             // the orphaned serials dialog would pop up multiple times
@@ -1145,10 +1153,16 @@ namespace MobiFlight.UI
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
 
+            if (saveToolStripButton.Enabled && MessageBox.Show(
+                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
+                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
+                       MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
             if (DialogResult.OK == fd.ShowDialog())
             {
                 LoadConfig(fd.FileName);
             }   
+        }
         }
 
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1206,6 +1220,15 @@ namespace MobiFlight.UI
         /// <param name="e"></param>
         void recentMenuItem_Click(object sender, EventArgs e)
         {
+            if (saveToolStripButton.Enabled && MessageBox.Show(
+                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
+                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
+                       MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                // only cancel closing if not saved before
+                // which is indicated by empty CurrentFilename
+                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+            };
             LoadConfig((sender as ToolStripMenuItem).Text);            
         } //recentMenuItem_Click()
 
