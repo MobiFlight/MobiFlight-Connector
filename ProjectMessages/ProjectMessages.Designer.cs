@@ -385,7 +385,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Aircraft detected..
+        ///   Looks up a localized string similar to No aircraft detected.
         /// </summary>
         internal static string uiLabelNoAircraftDetected_ {
             get {
