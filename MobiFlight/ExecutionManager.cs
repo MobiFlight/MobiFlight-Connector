@@ -532,28 +532,28 @@ namespace MobiFlight
 
                 row.Cells["arcazeValueColumn"].Value = processedValue.ToString();
 
-                // check preconditions
-                if (!CheckPrecondition(cfg, processedValue))
+                try
                 {
-                    if (!cfg.Preconditions.ExecuteOnFalse)
+                    // check preconditions
+                    if (!CheckPrecondition(cfg, processedValue))
                     {
-                        row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                        continue;
+                        if (!cfg.Preconditions.ExecuteOnFalse)
+                        {
+                            row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            processedValue.type = FSUIPCOffsetType.String;
+                            processedValue.String = cfg.Preconditions.FalseCaseValue;
+                        }
                     }
                     else
                     {
-                        processedValue.type = FSUIPCOffsetType.String;
-                        processedValue.String = cfg.Preconditions.FalseCaseValue;
+                        if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
+                            row.ErrorText = "";
                     }
-                }
-                else
-                {
-                    if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
-                        row.ErrorText = "";
-                }
-
-                try
-                {
+                
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
                 catch(JoystickNotConnectedException jEx)
