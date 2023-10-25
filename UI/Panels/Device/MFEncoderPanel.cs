@@ -76,7 +76,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(encoder, new EventArgs());

@@ -260,7 +260,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             if (!initialized) return;
 
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
 
             SyncAutoHomeCorrectly();
 
