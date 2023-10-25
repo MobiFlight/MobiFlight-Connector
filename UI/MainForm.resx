@@ -8034,7 +8034,7 @@
     <value>0</value>
   </data>
   <data name="toolStripAircraftDropDownButton.Text" xml:space="preserve">
-    <value>No Aircraft detected.</value>
+    <value>No aircraft detected</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
     <value>toolStripSeparator3</value>
