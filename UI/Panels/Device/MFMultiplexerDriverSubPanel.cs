@@ -106,8 +106,10 @@ namespace MobiFlight.UI.Panels.Settings
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            //setValues();
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
+
             if (Changed != null)
                 Changed(multiplexerDriver, new EventArgs());
         }
