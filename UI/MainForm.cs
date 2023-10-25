@@ -279,12 +279,6 @@ namespace MobiFlight.UI
                 return;
             }
 
-            if (!AutoLoadConfigs.ContainsKey(key))
-            {
-                UpdateAutoLoadMenu();
-                return;
-            }
-
             var filename = AutoLoadConfigs[key];
 
             if (CurrentFileName == filename)
