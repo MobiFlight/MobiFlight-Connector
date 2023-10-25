@@ -277,8 +277,19 @@ namespace MobiFlight.UI
 
             var filename = AutoLoadConfigs[key];
 
-            if (currentFileName == filename) return;
+            if (CurrentFileName == filename)
+            {
+                // we still have to update the menu correctly.
+                UpdateAutoLoadMenu();
+                return;
+            }
 
+            // we only really load the config if it is different from 
+            // the current one.
+            // the orphaned serials dialog would pop up multiple times
+            // especially because we get two events sometimes:
+            //      one coming from FSUIPC and
+            //      one coming from SimConnect
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
             LoadConfig(filename);
         }
