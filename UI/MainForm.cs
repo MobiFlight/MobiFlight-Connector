@@ -273,7 +273,11 @@ namespace MobiFlight.UI
 
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
-            if (!AutoLoadConfigs.ContainsKey(key)) return;
+            if (!AutoLoadConfigs.ContainsKey(key))
+            {
+                UpdateAutoLoadMenu();
+                return;
+            }
 
             if (!AutoLoadConfigs.ContainsKey(key))
             {
