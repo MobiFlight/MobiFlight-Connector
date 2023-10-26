@@ -2,7 +2,6 @@ changelog:
   exclude:
     labels:
       - ignore-for-release-notes
-      - bug-beta
     authors:
       - MobiFlight-Admin
   categories:
@@ -15,9 +14,15 @@ changelog:
     - title: Bug Fixes 🐛
       labels:
         - bug
+    - title: Bug Fixes (BETA) 🐛
+      labels:
+        - bug_beta
     - title: Documentation 📚
       labels:
         - documentation
+    - title: Development 💻
+      labels:
+        - development    
     - title: Other Changes ⚡
       labels:
         - "*"
