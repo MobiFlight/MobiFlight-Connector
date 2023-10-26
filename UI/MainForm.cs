@@ -1162,11 +1162,13 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+            }
+
             if (DialogResult.OK == fd.ShowDialog())
             {
                 LoadConfig(fd.FileName);
-            }   
-        }
+            }
         }
 
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1229,8 +1231,6 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                // only cancel closing if not saved before
-                // which is indicated by empty CurrentFilename
                 saveToolStripButton_Click(saveToolStripButton, new EventArgs());
             };
             LoadConfig((sender as ToolStripMenuItem).Text);            
