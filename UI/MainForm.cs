@@ -50,11 +50,11 @@ namespace MobiFlight.UI
 
         public string CurrentFileName {
             get { return currentFileName; }
-            set { 
+            set {
                 if (currentFileName == value) return;
                 currentFileName = value;
                 CurrentFilenameChanged?.Invoke(this, value);
-            } 
+            }
         }
 
         private void InitializeUILanguage()
@@ -181,11 +181,11 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
-//#if ARCAZE
+            //#if ARCAZE
             execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
             execManager.OnModuleConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
-//#endif
+            //#endif
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
@@ -269,11 +269,10 @@ namespace MobiFlight.UI
             toolStripAircraftDropDownButton.Text = aircraftName;
             toolStripAircraftDropDownButton.DropDown.Enabled = true;
 
-            if (!Properties.Settings.Default.AutoLoadLinkedConfig) return;
-
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
-            if (!AutoLoadConfigs.ContainsKey(key))
+            if (!Properties.Settings.Default.AutoLoadLinkedConfig ||
+                !AutoLoadConfigs.ContainsKey(key))
             {
                 UpdateAutoLoadMenu();
                 return;
@@ -281,6 +280,12 @@ namespace MobiFlight.UI
 
             var filename = AutoLoadConfigs[key];
 
+            // we only really load the config if it is different from 
+            // the current one.
+            // the orphaned serials dialog would pop up multiple times
+            // especially because we get two events sometimes:
+            //      one coming from FSUIPC and
+            //      one coming from SimConnect
             if (CurrentFileName == filename)
             {
                 // we still have to update the menu correctly.
@@ -296,12 +301,6 @@ namespace MobiFlight.UI
                 saveToolStripButton_Click(saveToolStripButton, new EventArgs());
             }
 
-            // we only really load the config if it is different from 
-            // the current one.
-            // the orphaned serials dialog would pop up multiple times
-            // especially because we get two events sometimes:
-            //      one coming from FSUIPC and
-            //      one coming from SimConnect
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
             LoadConfig(filename);
         }
@@ -2225,6 +2224,15 @@ namespace MobiFlight.UI
             if (!AutoLoadConfigs.ContainsKey(key)) return;
 
             var linkedFile = AutoLoadConfigs[key];
+
+            if (saveToolStripButton.Enabled && MessageBox.Show(
+                       i18n._tr("uiMessageConfirmDiscardUnsaved"),
+                       i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
+                       MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+            };
+
             LoadConfig(linkedFile);
         }
     }
