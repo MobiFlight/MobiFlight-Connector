@@ -1049,7 +1049,7 @@ namespace MobiFlight
         /// auto connect is only done if current timer is not running since we suppose that an established
         /// connection was already available before the timer was started
         /// </remarks>
-        async void AutoConnectTimer_TickAsync(object sender, EventArgs e)
+        void AutoConnectTimer_TickAsync(object sender, EventArgs e)
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
@@ -1070,7 +1070,7 @@ namespace MobiFlight
                     arcazeCache.connect(); //  _initializeArcaze();
 #endif
 #if MOBIFLIGHT
-                await mobiFlightCache.connectAsync();
+                // await mobiFlightCache.connectAsync();
 #endif
             }
 

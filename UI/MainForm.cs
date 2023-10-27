@@ -390,6 +390,11 @@ namespace MobiFlight.UI
 
         private void MainForm_ModuleConnected(object sender, String text, int progress)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new ModuleConnectEventHandler(MainForm_ModuleConnected), new object[] { sender, text, progress });
+                return;
+            }
             startupPanel.UpdateStatusText(text);
             if (startupPanel.GetProgressBar() < progress + 10)
                 startupPanel.UpdateProgressBar(progress + 10);
@@ -407,6 +412,12 @@ namespace MobiFlight.UI
 
         void ExecManager_OnModuleLookupFinished(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ExecManager_OnModuleLookupFinished), new object[] { sender, e });
+                return;
+            }
+
             startupPanel.UpdateStatusText("Checking for Firmware Updates...");
             startupPanel.UpdateProgressBar(70);
             CheckForFirmwareUpdates();
@@ -709,6 +720,11 @@ namespace MobiFlight.UI
 #endif
         void ArcazeCache_ConnectionLost(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ArcazeCache_ConnectionLost), new object[] { sender, e });
+                return;
+            }
             //_disconnectArcaze();
             _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
         }
@@ -718,6 +734,11 @@ namespace MobiFlight.UI
         /// </summary>
         void ArcazeCache_Closed(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ArcazeCache_Closed), new object[] { sender, e });
+                return;
+            }
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 
@@ -726,6 +747,11 @@ namespace MobiFlight.UI
         /// </summary>
         void ArcazeCache_Connected(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ArcazeCache_Connected), new object[] { sender, e });
+                return;
+            }
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
@@ -965,6 +991,12 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Started(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                Invoke(new EventHandler(timer_Started), new object[] { sender, e });
+                return;
+            }
+
             runToolStripButton.Enabled  = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
@@ -976,6 +1008,12 @@ namespace MobiFlight.UI
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
+            if(InvokeRequired)
+            {
+                Invoke(new EventHandler(timer_Stopped), new object[] { sender, e});
+                return;
+            }
+
             runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = false;

@@ -296,10 +296,13 @@
     <Compile Include="MobiFlight\Modifier\Comparison.cs" />
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
+    <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
     <Compile Include="MobiFlight\Modifier\Padding.cs" />
     <Compile Include="MobiFlight\Modifier\Substring.cs" />
+    <Compile Include="MobiFlight\Monitors\SerialPortMonitor.cs" />
+    <Compile Include="MobiFlight\Monitors\UsbDeviceMonitor.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
