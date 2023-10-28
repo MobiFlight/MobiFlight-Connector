@@ -18,7 +18,7 @@ namespace MobiFlight.UpdateChecker
             String trackingParams = hash + "-" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
 
             var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            string CommandToSend = "/check /version " + CurVersion.ToString() + " /cacheId " + trackingParams;
+            var CommandToSend = $"/check /version {CurVersion} /cacheId {trackingParams}";
 
             // Issue 1365: Don't check for updates if the build came from a pull request. These builds are
             // identified by the major version being 0.
