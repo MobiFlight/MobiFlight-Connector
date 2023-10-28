@@ -1,5 +1,4 @@
-﻿using MobiFlight.Config;
-using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -7,8 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Configuration;
-using System.Web.UI.Design.WebControls;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -16,6 +13,8 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MobiFlightPanel : UserControl
     {
+        delegate void UpdateRemovedModuleDelegate(MobiFlightModuleInfo mobiFlightModuleInfo);
+
         public event EventHandler OnBeforeFirmwareUpdate;
         public event EventHandler OnAfterFirmwareUpdate;
         public event EventHandler AllFirmwareUploadsFinished;
@@ -102,37 +101,7 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedArduinoModules())
                 {
-                    TreeNode node = new TreeNode();
-                    node = mfModulesTreeView_initNode(module, node);
-                    if (!module.HasMfFirmware())
-                    {
-                        node.SelectedImageKey = node.ImageKey = "module-arduino";
-                        if (module.Type=="Ignored")
-                        {
-                            node.SelectedImageKey = node.ImageKey = "module-ignored";
-                        }
-                    }
-                    else
-                    {
-                        Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
-
-                        Version currentVersion;
-                        try
-                        {
-                            currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
-                        }
-                        catch (Exception ex)
-                        {
-                            currentVersion = new Version("0.0.0");
-                        }
-                        if (currentVersion.CompareTo(latestVersion) < 0)
-                        {
-                            node.SelectedImageKey = node.ImageKey = "module-update";
-                            node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");
-                        }
-                    }
-
-                    mfModulesTreeView.Nodes.Add(node);
+                    AddModuleAsNodeToTreeView(module);
                 }
             }
             catch (IndexOutOfRangeException ex)
@@ -157,6 +126,41 @@ namespace MobiFlight.UI.Panels.Settings
             IgnoreComPortsCheckBox.Checked = Properties.Settings.Default.IgnoreComPorts;
             IgnoredComPortsTextBox.Text = Properties.Settings.Default.IgnoredComPortsList;
 #endif
+        }
+
+        private void AddModuleAsNodeToTreeView(MobiFlightModuleInfo module)
+        {
+            TreeNode node = new TreeNode();
+            node = mfModulesTreeView_initNode(module, node);
+            if (!module.HasMfFirmware())
+            {
+                node.SelectedImageKey = node.ImageKey = "module-arduino";
+                if (module.Type == "Ignored")
+                {
+                    node.SelectedImageKey = node.ImageKey = "module-ignored";
+                }
+            }
+            else
+            {
+                Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
+
+                Version currentVersion;
+                try
+                {
+                    currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
+                }
+                catch (Exception ex)
+                {
+                    currentVersion = new Version("0.0.0");
+                }
+                if (currentVersion.CompareTo(latestVersion) < 0)
+                {
+                    node.SelectedImageKey = node.ImageKey = "module-update";
+                    node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");
+                }
+            }
+
+            mfModulesTreeView.Nodes.Add(node);
         }
 
         public void SaveSettings()
@@ -1520,6 +1524,35 @@ namespace MobiFlight.UI.Panels.Settings
         {
             // here
             // addDeviceTypeToolStripMenuItem_Click()
+        }
+
+        internal void UpdateNewlyConnectedModule(MobiFlightModuleInfo mobiFlightModuleInfo)
+        {
+            if (InvokeRequired)
+            {
+                System.Action safeCall = delegate { UpdateNewlyConnectedModule(mobiFlightModuleInfo); };
+                Invoke(safeCall);
+                return;
+            }
+
+            TreeNode moduleNode;
+            AddModuleAsNodeToTreeView(mobiFlightModuleInfo);
+        }
+
+        internal void UpdateRemovedModule(MobiFlightModuleInfo mobiFlightModuleInfo)
+        {
+            if (InvokeRequired) {
+                System.Action safeCall = delegate { UpdateRemovedModule(mobiFlightModuleInfo); };
+                Invoke(safeCall);
+                return;
+            }
+            // Update the corresponding TreeView Item
+            //// Find the parent node that matches the Port
+            TreeNode moduleNode = findNodeByPort(mobiFlightModuleInfo.Port);
+
+            if (moduleNode == null) return;
+
+            mfModulesTreeView.Nodes.Remove(moduleNode);
         }
     }
 }

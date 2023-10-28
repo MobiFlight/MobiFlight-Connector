@@ -115,13 +115,14 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
             arcazeCache.Closed += new EventHandler(ModuleCache_Closed);
+            arcazeCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
             arcazeCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
             mobiFlightCache.OnAvailable += new EventHandler(ModuleCache_Available);
             mobiFlightCache.Closed += new EventHandler(ModuleCache_Closed);
-            mobiFlightCache.ModuleConnected += new EventHandler(MobiFlightCache_ModuleConnected);
+            mobiFlightCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
             mobiFlightCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
 
@@ -148,7 +149,7 @@ namespace MobiFlight
             mobiFlightCache.Start();
         }
 
-        private void MobiFlightCache_ModuleConnected(object sender, EventArgs e)
+        private void ModuleCache_ModuleConnected(object sender, EventArgs e)
         {
             TestModeStop();
             Stop();

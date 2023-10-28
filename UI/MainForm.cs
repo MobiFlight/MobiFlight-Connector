@@ -558,6 +558,9 @@ namespace MobiFlight.UI
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
+            execManager.OnModuleConnected += dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
+
             switch(SelectedTab)
             {
                 case "mobiFlightTabPage":
@@ -735,7 +738,7 @@ namespace MobiFlight.UI
             }
             // _disconnectArcaze();
             UpdateStatusBarModuleInformation();
-            _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
+            // _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
         }
 
         /// <summary>

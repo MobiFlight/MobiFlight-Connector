@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SimpleSolutions.Usb;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SimpleSolutions.Usb;
-using MobiFlight;
 using System.Xml.Serialization;
 
 namespace MobiFlight
@@ -16,13 +14,17 @@ namespace MobiFlight
         /// </summary>
         public event EventHandler Closed;
         /// <summary>
-        /// Gets raised whenever connection is established
+        /// Gets raised when the cache becomes available
         /// </summary>
         public event EventHandler OnAvailable;
         /// <summary>
-        /// Gets raised whenever connection is lost
+        /// Gets raised whenever device has been removed
         /// </summary>
         public event EventHandler ModuleRemoved;
+        /// <summary>
+        /// Gets raised whenever device has been connected
+        /// </summary>
+        public event EventHandler ModuleConnected;
 
         const int MAX_DEVICE_NUM    = 5;
 
@@ -52,6 +54,12 @@ namespace MobiFlight
 
         public ArcazeCache() {
             arcazeHid.DeviceRemoved += ArcazeHid_DeviceRemoved;
+            arcazeHid.DeviceReceived += ArcazeHid_DeviceReceived;
+        }
+
+        private void ArcazeHid_DeviceReceived(object sender, HidEventArgs e)
+        {
+            ModuleConnected?.Invoke(e.DeviceInfo, new EventArgs());
         }
 
         private void ArcazeHid_DeviceRemoved(object sender, HidEventArgs e)

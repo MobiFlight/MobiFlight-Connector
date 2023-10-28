@@ -137,8 +137,9 @@ namespace MobiFlight
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
             if (result.HasMfFirmware()) { 
                 OnMobiFlightBoardDetected(result);
-                ModuleConnected?.Invoke(this, new EventArgs());
             }
+
+            ModuleConnected?.Invoke(result, new EventArgs());
 
             var currentModuleCount = Modules.Count;
             var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(1000))
@@ -279,18 +280,28 @@ namespace MobiFlight
             return ports;
         }
 
+        /// <summary>
+        /// When a MobiFlightModule is reset - then we remove it from the Modules list.
+        /// It cannot be used with MobiFlight features anymore.
+        /// 
+        /// It is still maintained in the connectedComModules-list so that we could
+        /// upload the firmware again.
+        /// 
+        /// The devInfo in that case is the old device info, it allows us to look it up.
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="devInfo"></param>
         public void UnregisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo)
         {
             Log.Instance.log($"Unregistering module {m.Name}:{m.Port}.", LogSeverity.Debug);
-
-            foreach(var module in Modules.Values)
+            
+            if (Modules.ContainsKey(devInfo.Serial))
             {
-                if(module.Port == m.Port)
-                {
-                    Modules.Remove(devInfo.Serial);
-                    return;
-                }       
+                Modules.Remove(devInfo.Serial);
+                return;
             }
+            
+            Log.Instance.log($"Unregistering module {m.Name}:{m.Port} failed.", LogSeverity.Debug);
         }
 
         private void RegisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo, bool replace = false)

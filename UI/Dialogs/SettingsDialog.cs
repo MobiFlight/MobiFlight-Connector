@@ -197,5 +197,18 @@ namespace MobiFlight.UI.Dialogs
         {
             TabPage current = tabControl1.SelectedTab;
         }
+
+        internal void UpdateConnectedModule(object sender, EventArgs e)
+        {
+            if (!(sender is MobiFlightModule)) return;
+
+            var info = (sender as MobiFlightModule).ToMobiFlightModuleInfo();
+            mobiFlightPanel.UpdateNewlyConnectedModule(info);
+        }
+
+        internal void UpdateRemovedModule(object sender, EventArgs e)
+        {
+            mobiFlightPanel.UpdateRemovedModule(sender as MobiFlightModuleInfo);
+        }
     }
 }
