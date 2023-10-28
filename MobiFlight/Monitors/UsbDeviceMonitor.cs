@@ -20,7 +20,6 @@ namespace MobiFlight.Monitors
                 // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
                 if (drive.DriveType != DriveType.Removable)
                 {
-                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) isn't a removable drive, skipping.", LogSeverity.Debug);
                     continue;
                 }
 
