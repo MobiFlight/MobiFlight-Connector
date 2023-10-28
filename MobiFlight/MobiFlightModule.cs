@@ -514,10 +514,9 @@ namespace MobiFlight
         public String InitUploadAndReturnUploadPort()
         {
             String result = _comPort;
-
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
-
             Disconnect();
+
             if (Board.Connection.ForceResetOnFirmwareUpdate)
             {
                 SerialTransport tmpSerial = new SerialTransport()
@@ -536,6 +535,7 @@ namespace MobiFlight
                     result = connectedPorts2.Except(connectedPorts).Last();
                 }
             };
+
             return result;
         }
 

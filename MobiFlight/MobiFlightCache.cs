@@ -118,7 +118,7 @@ namespace MobiFlight
 
             Task<MobiFlightModule> task = Task.Run(() =>
             {
-                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
+                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board) { Name = portDetails.Board.Info.FriendlyName };
                 module.Connect();
                 
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
@@ -677,7 +677,7 @@ namespace MobiFlight
 
         public MobiFlightModule RefreshModule(MobiFlightModule module)
         {
-            MobiFlightModuleInfo oldDevInfo = connectedComModules.Find(delegate(MobiFlightModuleInfo devInfo)
+            MobiFlightModuleInfo oldDevInfo = connectedComModules.Find(delegate (MobiFlightModuleInfo devInfo)
             {
                 return devInfo.Port == module.Port;
             }
@@ -689,7 +689,7 @@ namespace MobiFlight
             if (module.HasMfFirmware())
                 RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
             else
-                UnregisterModule(module, module.ToMobiFlightModuleInfo());
+                UnregisterModule(module, oldDevInfo);
 
             return module;
         }
@@ -786,6 +786,18 @@ namespace MobiFlight
             {
                 throw new MobiFlight.ArcazeCommandExecutionException(i18n._tr("ConfigErrorException_SetCustomDevice"), e);
             }
+        }
+
+        public void ResumeModuleScan()
+        {
+            SerialPortMonitor.Start();
+            UsbDeviceMonitor.Start();
+        }
+
+        public void PauseModuleScan()
+        {
+            SerialPortMonitor.Stop();
+            UsbDeviceMonitor.Stop();
         }
     }
 }

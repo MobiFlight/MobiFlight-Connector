@@ -114,7 +114,6 @@ namespace MobiFlight.UI.Forms
             }
 
             OnBeforeFirmwareUpdate?.Invoke(module, null);
-            module.Disconnect();
 
             MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
             MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;

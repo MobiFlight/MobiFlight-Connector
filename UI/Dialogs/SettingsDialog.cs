@@ -65,8 +65,17 @@ namespace MobiFlight.UI.Dialogs
 
 #if MOBIFLIGHT
             mobiFlightPanel.Init(execManager.getMobiFlightModuleCache());
-            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { execManager.AutoConnectStop(); };
-            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => { execManager.AutoConnectStart(); };
+            
+            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { 
+                execManager.AutoConnectStop();
+                execManager.getMobiFlightModuleCache().PauseModuleScan();
+            };
+
+            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => {
+                execManager.getMobiFlightModuleCache().ResumeModuleScan();
+                execManager.AutoConnectStart(); 
+            };
+
             mobiFlightPanel.OnModuleConfigChanged += (object sender, EventArgs e) => { ; };
 #endif
 

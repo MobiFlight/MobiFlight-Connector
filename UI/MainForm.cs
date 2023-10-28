@@ -607,11 +607,6 @@ namespace MobiFlight.UI
             AutoUpdateChecker.CheckForUpdate(true);
         }
 
-        private void startAutoConnectThreadSafe()
-        {
-            execManager.AutoConnectStart();
-        }
-
         void execManager_OnTestModeException(object sender, EventArgs e)
         {
             stopTestToolStripButton_Click(null, null);

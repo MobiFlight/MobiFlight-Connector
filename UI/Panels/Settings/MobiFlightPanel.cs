@@ -18,6 +18,7 @@ namespace MobiFlight.UI.Panels.Settings
     {
         public event EventHandler OnBeforeFirmwareUpdate;
         public event EventHandler OnAfterFirmwareUpdate;
+        public event EventHandler AllFirmwareUploadsFinished;
         public event EventHandler OnModuleConfigChanged;
 
         Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new Forms.FirmwareUpdateProcess();
@@ -1310,16 +1311,22 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void FirmwareUpdateProcessForm_OnFinished(List<MobiFlightModule> modules)
         {
+            if (InvokeRequired) throw new Exception();
+
             OnFirmwareUpdateOrResetFinished(modules, true);
+            AllFirmwareUploadsFinished?.Invoke(modules, EventArgs.Empty);
         }
 
         private void FirmwareResetProcessForm_OnFinished(List<MobiFlightModule> modules)
         {
+            if (InvokeRequired) throw new Exception();
             OnFirmwareUpdateOrResetFinished(modules, false);
+            AllFirmwareUploadsFinished?.Invoke(modules, EventArgs.Empty);
         }
 
         private void FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate(object sender, EventArgs e)
         {
+            if (InvokeRequired) throw new Exception();
             OnBeforeFirmwareUpdate?.Invoke(sender, e);
         }
 
@@ -1340,6 +1347,8 @@ namespace MobiFlight.UI.Panels.Settings
                 newInfo = module.ToMobiFlightModuleInfo();
             }
 
+            OnAfterFirmwareUpdate?.Invoke(module, null);
+
             // If the update fails for some reason, e.g. the board definition file was missing the settings for the
             // update, then module will be null.
             if (module == null)
@@ -1358,8 +1367,6 @@ namespace MobiFlight.UI.Panels.Settings
 
             mobiflightCache.RefreshModule(module);
 
-            OnAfterFirmwareUpdate?.Invoke(module, null);
-
             // Update the corresponding TreeView Item
             //// Find the parent node that matches the Port
             TreeNode moduleNode = findNodeByPort(module.Port);
@@ -1375,12 +1382,14 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
         {
+            if (InvokeRequired) throw new Exception();
             MobiFlightModule module = (MobiFlightModule)sender;
             OnAfterFirmwareUpdateOrReset(module, true);
         }
 
         private void FirmwareUpdateProcessForm_OnAfterFirmwareReset(object sender, EventArgs e)
         {
+            if (InvokeRequired) throw new Exception();
             MobiFlightModule module = (MobiFlightModule)sender;
             OnAfterFirmwareUpdateOrReset(module, false);
         }
