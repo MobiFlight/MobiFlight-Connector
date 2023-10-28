@@ -403,24 +403,6 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An Arcaze module has been removed..
-        /// </summary>
-        internal static string uiMessageAraceUSBHasBeenRemoved {
-            get {
-                return ResourceManager.GetString("uiMessageAraceUSBHasBeenRemoved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection to the arcaze module got lost.
-        /// </summary>
-        internal static string uiMessageArcazeConnectionLost {
-            get {
-                return ResourceManager.GetString("uiMessageArcazeConnectionLost", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The config file passed as parameter does not exist..
         /// </summary>
         internal static string uiMessageCmdParamConfigFileDoesNotExist {
@@ -861,6 +843,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageModuleFound {
             get {
                 return ResourceManager.GetString("uiMessageModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The board &quot;{0}&quot; ({1}) disconnected..
+        /// </summary>
+        internal static string uiMessageModuleRemoved {
+            get {
+                return ResourceManager.GetString("uiMessageModuleRemoved", resourceCulture);
             }
         }
         

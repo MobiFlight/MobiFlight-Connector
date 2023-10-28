@@ -740,7 +740,7 @@ namespace MobiFlight.UI
             }
             // _disconnectArcaze();
             UpdateStatusBarModuleInformation();
-            _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
+            _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
         }
 
         /// <summary>
