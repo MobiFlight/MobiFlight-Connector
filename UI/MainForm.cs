@@ -725,7 +725,8 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(ArcazeCache_ConnectionLost), new object[] { sender, e });
                 return;
             }
-            //_disconnectArcaze();
+            // _disconnectArcaze();
+            fillComboBoxesWithArcazeModules();
             _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
         }
 
@@ -739,6 +740,7 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(ArcazeCache_Closed), new object[] { sender, e });
                 return;
             }
+            fillComboBoxesWithArcazeModules();
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 

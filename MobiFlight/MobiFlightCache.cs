@@ -14,6 +14,7 @@ using MobiFlight.Config;
 using System.IO;
 using MobiFlight.Monitors;
 using SharpDX;
+using System.Net.Configuration;
 
 namespace MobiFlight
 {
@@ -78,6 +79,18 @@ namespace MobiFlight
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {
             Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Debug);
+            var disconnectedModule = connectedComModules.Find(m => m.Port == e.Name);
+
+            if (disconnectedModule == null) return;
+
+            if (disconnectedModule.HasMfFirmware())
+            {
+                var module = Modules.Values.ToList().Find(m => m.Port == e.Name);
+                module.Disconnect();
+                Modules.Remove(module.Serial);
+            }
+            connectedComModules.Remove(disconnectedModule);
+            ConnectionLost?.Invoke(disconnectedModule, EventArgs.Empty);
         }
 
         private async void SerialPortMonitor_PortAvailable(object sender, PortDetails portDetails)
