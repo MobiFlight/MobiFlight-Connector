@@ -99,7 +99,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             try
             {
-                foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedArduinoModules())
+                foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedCompatibleModules())
                 {
                     AddModuleAsNodeToTreeView(module);
                 }

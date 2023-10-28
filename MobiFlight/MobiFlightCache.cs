@@ -49,7 +49,7 @@ namespace MobiFlight
         public event EventHandler LookupFinished;
 
 
-        private List<MobiFlightModuleInfo> connectedComModules = new List<MobiFlightModuleInfo>();
+        private List<MobiFlightModuleInfo> AvailableComModules = new List<MobiFlightModuleInfo>();
         Boolean isFirstTimeLookup = true;
 
         private bool _lookingUpModules = false;
@@ -79,9 +79,12 @@ namespace MobiFlight
             UsbDeviceMonitor.PortUnavailable += UsbDeviceMonitor_PortUnavailable;
             UsbDeviceMonitor.Start();
 
+            // This timeout ensures that the LookupFinished is event called
+            // even if we have no modules connected 
+            // the event is needed so that the startup can finish
             Task.Delay(TimeSpan.FromMilliseconds(5000))
                 .ContinueWith(_ => { 
-                    if (0 == Modules.Count) {
+                    if (0 == AvailableComModules.Count) {
                         isFirstTimeLookup = false;
                         LookupFinished?.Invoke(this, new EventArgs());
                         Log.Instance.log($"End looking up connected modules. No modules found.", LogSeverity.Debug);
@@ -92,7 +95,7 @@ namespace MobiFlight
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {
             Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Debug);
-            var disconnectedModule = connectedComModules.Find(m => m.Port == e.Name);
+            var disconnectedModule = AvailableComModules.Find(m => m.Port == e.Name);
 
             if (disconnectedModule == null) return;
 
@@ -102,7 +105,7 @@ namespace MobiFlight
                 module.Disconnect();
                 Modules.Remove(module.Serial);
             }
-            connectedComModules.Remove(disconnectedModule);
+            AvailableComModules.Remove(disconnectedModule);
             ModuleRemoved?.Invoke(disconnectedModule, EventArgs.Empty);
         }
 
@@ -141,16 +144,16 @@ namespace MobiFlight
 
             ModuleConnected?.Invoke(result, new EventArgs());
 
-            var currentModuleCount = Modules.Count;
-            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(1000))
-                      .ContinueWith(_ => { return currentModuleCount == Modules.Count; });
+            var currentModuleCount = AvailableComModules.Count;
+            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(3000))
+                      .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; });
 
             if (!allModulesDetected || !isFirstTimeLookup) return;
 
-            isFirstTimeLookup = false; 
+            isFirstTimeLookup = false;
+            
+            Log.Instance.log($"End looking up connected modules. {AvailableComModules.Count} found.", LogSeverity.Debug);
             LookupFinished?.Invoke(this, new EventArgs());
-
-            Log.Instance.log($"End looking up connected modules. {Modules.Count} found.", LogSeverity.Debug);
         }
 
         private void OnIgnoredPortDetected(object sender, PortDetails portDetails)
@@ -165,7 +168,7 @@ namespace MobiFlight
                 HardwareId = portDetails.HardwareId
             };
 
-            connectedComModules.Add(ignoredPort);
+            AvailableComModules.Add(ignoredPort);
         }
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)
@@ -176,8 +179,8 @@ namespace MobiFlight
 
         private void OnCompatibleBoardDetected(MobiFlightModuleInfo result)
         {
-            int progressValue = (connectedComModules.Count + 1 * 25) / SerialPortMonitor.DetectedPorts.Count + 1;
-            connectedComModules.Add(result);
+            int progressValue = (AvailableComModules.Count + 1 * 25) / SerialPortMonitor.DetectedPorts.Count + 1;
+            AvailableComModules.Add(result);
 
             // refactor - get rid of this event
             ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
@@ -236,9 +239,9 @@ namespace MobiFlight
 
         public bool updateConnectedModuleName(MobiFlightModule m)
         {
-            if (connectedComModules == null) return false;
+            if (AvailableComModules == null) return false;
 
-            foreach (MobiFlightModuleInfo info in connectedComModules)
+            foreach (MobiFlightModuleInfo info in AvailableComModules)
             {
                 if (info.Serial != m.Serial) continue;
 
@@ -249,18 +252,18 @@ namespace MobiFlight
             return true;
         }
 
-        public List<MobiFlightModuleInfo> GetDetectedArduinoModules()
+        public List<MobiFlightModuleInfo> GetDetectedCompatibleModules()
         {
-            if (connectedComModules.Count() == 0)
+            if (AvailableComModules.Count() == 0)
                     return new List<MobiFlightModuleInfo>();
 
-            connectedComModules.Sort(
+            AvailableComModules.Sort(
                 (item1, item2) => {
                     if (item1.Type == "Ignored" && item2.Type != "Ignored") return 1;
                     if (item1.Type != "Ignored" && item2.Type == "Ignored") return -1;
                     return item1.Name.CompareTo(item2.Name);
                 });
-            return connectedComModules;
+            return AvailableComModules;
         }
 
         public IEnumerable<MobiFlightModule> GetModules()
@@ -667,7 +670,7 @@ namespace MobiFlight
         public IEnumerable<IModuleInfo> getModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
-            foreach (MobiFlightModuleInfo moduleInfo in GetDetectedArduinoModules())
+            foreach (MobiFlightModuleInfo moduleInfo in GetDetectedCompatibleModules())
             {
                 if (moduleInfo.HasMfFirmware())
                     result.Add(moduleInfo);
@@ -688,14 +691,14 @@ namespace MobiFlight
 
         public MobiFlightModule RefreshModule(MobiFlightModule module)
         {
-            MobiFlightModuleInfo oldDevInfo = connectedComModules.Find(delegate (MobiFlightModuleInfo devInfo)
+            MobiFlightModuleInfo oldDevInfo = AvailableComModules.Find(delegate (MobiFlightModuleInfo devInfo)
             {
                 return devInfo.Port == module.Port;
             }
             );
 
-            if (oldDevInfo != null) connectedComModules.Remove(oldDevInfo);
-            connectedComModules.Add(module.ToMobiFlightModuleInfo());
+            if (oldDevInfo != null) AvailableComModules.Remove(oldDevInfo);
+            AvailableComModules.Add(module.ToMobiFlightModuleInfo());
 
             if (module.HasMfFirmware())
                 RegisterModule(module, module.ToMobiFlightModuleInfo(), true);

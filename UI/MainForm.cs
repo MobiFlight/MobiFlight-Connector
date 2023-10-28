@@ -456,7 +456,7 @@ namespace MobiFlight.UI
         {
             MobiFlightCache mfCache = execManager.getMobiFlightModuleCache();
 
-            List<MobiFlightModuleInfo> modules = mfCache.GetDetectedArduinoModules();
+            List<MobiFlightModuleInfo> modules = mfCache.GetDetectedCompatibleModules();
             List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
             List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
 
