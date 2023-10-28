@@ -28,9 +28,9 @@ namespace MobiFlight
         public event EventHandler OnSimCacheConnectionLost;
         public event EventHandler<string> OnSimAircraftChanged;
 
+        public event EventHandler OnModuleRemoved;
         public event EventHandler OnModulesConnected;
         public event EventHandler OnModulesDisconnected;
-        /* public event EventHandler OnModuleRemoved; */
         public event EventHandler OnModuleConnectionLost;
         public event EventHandler OnModuleLookupFinished;
 
@@ -113,13 +113,13 @@ namespace MobiFlight
             xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
-            arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
+            arcazeCache.Connected += new EventHandler(ModuleCache_Connected);
             arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
             arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
             arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
-            mobiFlightCache.Connected += new EventHandler(ArcazeCache_Connected);
+            mobiFlightCache.Connected += new EventHandler(ModuleCache_Connected);
             mobiFlightCache.Closed += new EventHandler(ArcazeCache_Closed);
             mobiFlightCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
@@ -143,7 +143,8 @@ namespace MobiFlight
             joystickManager.Connect(handle);
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
-            midiBoardManager.Connect();            
+            midiBoardManager.Connect();
+            mobiFlightCache.Start();
         }
 
         private void sim_AirCraftChanged(object sender, string e)
@@ -1035,7 +1036,7 @@ namespace MobiFlight
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Connected(object sender, EventArgs e)
+        void ModuleCache_Connected(object sender, EventArgs e)
         {
             TestModeStop();
             Stop();

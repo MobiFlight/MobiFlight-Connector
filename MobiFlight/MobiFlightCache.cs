@@ -1,11 +1,15 @@
-﻿using MobiFlight.Config;
+﻿using HidSharp.Utility;
+using MobiFlight.Config;
 using MobiFlight.Monitors;
+using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -42,7 +46,7 @@ namespace MobiFlight
 
 
         private List<MobiFlightModuleInfo> connectedComModules = new List<MobiFlightModuleInfo>();
-        Boolean isFirstTimeLookup = false;
+        Boolean isFirstTimeLookup = true;
 
         private bool _lookingUpModules = false;
 
@@ -55,8 +59,13 @@ namespace MobiFlight
 
         SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
         UsbDeviceMonitor UsbDeviceMonitor = new UsbDeviceMonitor();
+        int progressValue = 0;
 
         public MobiFlightCache()
+        {
+        }
+
+        public void Start()
         {
             SerialPortMonitor.PortAvailable += SerialPortMonitor_PortAvailable;
             SerialPortMonitor.PortUnavailable += SerialPortMonitor_PortUnavailable;
@@ -65,6 +74,15 @@ namespace MobiFlight
             UsbDeviceMonitor.PortAvailable += UsbDeviceMonitor_PortAvailable;
             UsbDeviceMonitor.PortUnavailable += UsbDeviceMonitor_PortUnavailable;
             UsbDeviceMonitor.Start();
+
+            Task.Delay(TimeSpan.FromMilliseconds(5000))
+                .ContinueWith(_ => { 
+                    if (0 == Modules.Count) {
+                        isFirstTimeLookup = false;
+                        LookupFinished?.Invoke(this, new EventArgs());
+                        Log.Instance.log($"End looking up connected modules. No modules found.", LogSeverity.Debug);
+                    } 
+                });
         }
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
@@ -87,6 +105,12 @@ namespace MobiFlight
         private async void SerialPortMonitor_PortAvailable(object sender, PortDetails portDetails)
         {
             Log.Instance.log($"Port detected: {portDetails.Name} {portDetails.Board.Info.FriendlyName}", LogSeverity.Debug);
+
+            List<string> ignoredComPorts = getIgnoredPorts();
+            if (ignoredComPorts.Contains(portDetails.Name))
+            {
+                OnIgnoredPortDetected(sender, portDetails);
+            }
 
             Task<MobiFlightModule> task = Task.Run(() =>
             {
@@ -111,19 +135,45 @@ namespace MobiFlight
                 OnMobiFlightBoardDetected(result); 
             }
 
+            Connected?.Invoke(result, new EventArgs());
+            var currentModuleCount = Modules.Count;
+            var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(1000))
+                      .ContinueWith(_ => { return currentModuleCount == Modules.Count; });
+
+            if (!allModulesDetected || !isFirstTimeLookup) return;
+
+            isFirstTimeLookup = false; 
             LookupFinished?.Invoke(this, new EventArgs());
+            Log.Instance.log($"End looking up connected modules. {Modules.Count} found.", LogSeverity.Debug);
+        }
+
+        private void OnIgnoredPortDetected(object sender, PortDetails portDetails)
+        {
+            Log.Instance.log($"Skipping {portDetails.Name} since it is in the list of ports to ignore.", LogSeverity.Info);
+            var ignoredPort = new MobiFlightModuleInfo()
+            {
+                Port = portDetails.Name,
+                Type = "Ignored",
+                Name = $"Ignored Device at Port {portDetails.Name}",
+                Board = portDetails.Board,
+                HardwareId = portDetails.HardwareId
+            };
+
+            connectedComModules.Add(ignoredPort);
         }
 
         private void OnMobiFlightBoardDetected(MobiFlightModule module)
         {
-            RegisterModule(module, module.ToMobiFlightModuleInfo());
             module.LoadConfig();
+            RegisterModule(module, module.ToMobiFlightModuleInfo());
             this.Connected(this, new EventArgs());
         }
 
         private void OnCompatibleBoardDetected(MobiFlightModuleInfo result)
         {
+            int progressValue = (connectedComModules.Count + 1 * 25) / SerialPortMonitor.DetectedPorts.Count + 1;
             connectedComModules.Add(result);
+            ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
         }
 
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
@@ -158,57 +208,22 @@ namespace MobiFlight
         public static List<MobiFlightModuleInfo> FindConnectedUsbDevices()
         {
             var result = new List<MobiFlightModuleInfo>();
-
-            foreach (var drive in DriveInfo.GetDrives())
+            var usbDeviceMonitor = new UsbDeviceMonitor();
+            usbDeviceMonitor.Start();
+            usbDeviceMonitor.DetectedPorts.ForEach(p =>
             {
-                // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
-                if (drive.DriveType != DriveType.Removable)
+                result.Add(new MobiFlightModuleInfo()
                 {
-                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) isn't a removable drive, skipping.", LogSeverity.Debug);
-                    continue;
-                }
-
-                // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
-                // when trying to read the volume label when the drive wasn't actually ready.
-                if (!drive.IsReady)
-                {
-                    Log.Instance.log($"Drive {drive.Name} isn't ready, skipping.", LogSeverity.Debug);
-                    continue;
-                }
-
-                Board candidateBoard;
-                try 
-                {
-                    candidateBoard = BoardDefinitions.GetBoardByUsbVolumeLabel(drive.VolumeLabel);
-                }
-                catch (Exception ex)
-                {
-                    // Per the MSDN code sample for the DriveInfo object, Name and DriveType should be valid
-                    // at all times so it's safe to use them in the log message.
-                    Log.Instance.log($"Unable to get volume label for drive {drive.Name} ({drive.DriveType}): {ex.Message}", LogSeverity.Error);
-                    continue;
-                }
-
-                if (candidateBoard != null)
-                {
-                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) is a candidate device: {candidateBoard.Info.FriendlyName}", LogSeverity.Debug);
-                    result.Add(new MobiFlightModuleInfo()
-                    {
-                        Board = candidateBoard,
-                        HardwareId = drive.Name,
-                        Name = drive.VolumeLabel,
-                        // It's important that this is the drive letter for the connected USB device. This is
-                        // used elsewhere in the flashing code to know that it wasn't connected via a COM
-                        // port and to skip the COM port toggle before flashing.
-                        Port = drive.RootDirectory.FullName
-                    });
-                }
-                else
-                {
-                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) was a candidate but no matching board was found for volume label {drive.VolumeLabel}.", LogSeverity.Info);
-                }
-            }
-
+                    Board = p.Board,
+                    HardwareId = p.HardwareId,
+                    Name = p.Name,
+                    // It's important that this is the drive letter for the connected USB device. This is
+                    // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                    // port and to skip the COM port toggle before flashing.
+                    Port = (p as UsbPortDetails)?.Path
+                }); ;
+            });
+            usbDeviceMonitor.Stop();
             return result;
         }
 
@@ -241,90 +256,11 @@ namespace MobiFlight
             return connectedComModules;
         }
 
-        /*public async Task<IEnumerable<MobiFlightModule>> GetModulesAsync()
-        {
-            if (!isConnected())
-                await connectAsync();
-            return Modules.Values;
-        }*/
-
         public IEnumerable<MobiFlightModule> GetModules()
         {
             if (!isConnected())
                 return new List<MobiFlightModule>();
             return Modules.Values;
-        }
-
-        private async Task<List<MobiFlightModuleInfo>> LookupAllConnectedComModulesAsync()
-        {
-            Log.Instance.log("Start looking up connected modules.", LogSeverity.Debug);
-            List<MobiFlightModuleInfo> result = new List<MobiFlightModuleInfo>();
-            string[] connectedPorts = SerialPort.GetPortNames();
-
-            if (_lookingUpModules) return result;
-            _lookingUpModules = true;
-            
-            List<Task<MobiFlightModuleInfo>> tasks = new List<Task<MobiFlightModuleInfo>>();
-            var supportedPorts = new List<PortDetails>(); //getSupportedPorts();
-            List<string> ignoredComPorts = getIgnoredPorts();
-            List<string> connectingPorts = new List<string>();
-            
-            for (var i = 0; i != supportedPorts.Count; i++)
-            {
-                var port = supportedPorts.ElementAt(i);
-                int progressValue = (i * 25) / supportedPorts.Count;
-
-                if (!connectedPorts.Contains(port.Name))
-                {
-                    Log.Instance.log($"Port not connected {port.Name}.", LogSeverity.Debug);
-                    continue;
-                }
-                if (connectingPorts.Contains(port.Name))
-                {
-                    Log.Instance.log($"Port already connecting {port.Name}.", LogSeverity.Debug);
-                    continue;
-                }
-                if (ignoredComPorts.Contains(port.Name))
-                {
-                    Log.Instance.log($"Skipping {port.Name} since it is in the list of ports to ignore.", LogSeverity.Info);
-                    result.Add(new MobiFlightModuleInfo()
-                    {
-                        Port = port.Name,
-                        Type = "Ignored",
-                        Name = $"Ignored Device at Port {port.Name}",
-                        Board = port.Board,
-                        HardwareId = port.HardwareId                        
-                    });
-                    continue;
-                }
-
-
-                connectingPorts.Add(port.Name);
-
-                tasks.Add(Task.Run(() =>
-                {
-                    MobiFlightModule tmp = new MobiFlightModule(port.Name, port.Board);
-                    ModuleConnecting?.Invoke(this, "Scanning modules", progressValue);
-                    tmp.Connect();
-                    MobiFlightModuleInfo devInfo = tmp.GetInfo() as MobiFlightModuleInfo;
-                    // Store the hardware ID for later use
-                    devInfo.HardwareId = port.HardwareId;
-
-                    tmp.Disconnect();
-                    ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
-
-                    result.Add(devInfo);
-
-                    return devInfo;
-                }));
-            }
-
-            var infos = await Task.WhenAll(tasks);
-  
-            Log.Instance.log($"End looking up connected modules.", LogSeverity.Debug);
-
-            _lookingUpModules = false;
-            return result;
         }
 
         private List<string> getIgnoredPorts()
@@ -336,66 +272,6 @@ namespace MobiFlight
             }
             return ports;
         }
-
-        /*public async Task<bool> connectAsync(bool force=false)
-        {
-            return true;
-
-            *//*if (isConnected() && force) { 
-                disconnect(); 
-            }
-            
-            if (connectedComModules == null)
-            {
-                connectedComModules = await LookupAllConnectedComModulesAsync();
-                isFirstTimeLookup = true;
-            }
-
-            Log.Instance.log("Clearing modules.",LogSeverity.Debug);
-            Modules.Clear();
-
-            foreach (MobiFlightModuleInfo devInfo in connectedComModules)
-            {
-                if (!devInfo.HasMfFirmware()) continue;
-
-                MobiFlightModule m = new MobiFlightModule(devInfo);
-                RegisterModule(m, devInfo);
-            }
-
-            List<Task> connectTasks = new List<Task>();
-
-            var i = 0;
-
-            // Connect to all attached modules            
-            foreach (MobiFlightModule module in Modules.Values)
-            {
-                int progressValue = (i * 50) / Modules.Values.Count;
-                connectTasks.Add(Task.Run(() =>
-                {
-                    ModuleConnecting?.Invoke(this, "Connecting to MobiFlight Modules", progressValue);
-                    module.Connect();
-                    module.GetInfo();
-                    module.LoadConfig();
-                    ModuleConnecting?.Invoke(this, "Connecting to MobiFlight Modules", progressValue);
-                }));
-            }
-
-            await Task.WhenAll(connectTasks);
-
-            if (isFirstTimeLookup) {
-                isFirstTimeLookup = false;
-                LookupFinished?.Invoke(this, new EventArgs());
-            }
-
-            if (isConnected())
-            {
-                if (Connected != null)
-                    this.Connected(this, new EventArgs());
-                return true;
-            }
-
-            return false;*//*
-        }*/
 
         public void UnregisterModule(MobiFlightModule m, MobiFlightModuleInfo devInfo)
         {
@@ -467,6 +343,8 @@ namespace MobiFlight
 
                 Closed(this, new EventArgs());
             }
+            SerialPortMonitor.Stop();
+            UsbDeviceMonitor.Stop();
             return !isConnected();
         }
 

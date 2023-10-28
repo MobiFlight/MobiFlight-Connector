@@ -181,15 +181,12 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
-            //#if ARCAZE
+
             execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
             execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
             execManager.OnModuleConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
-            //#endif
             execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
-
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
-
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
             moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -754,7 +751,6 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(ArcazeCache_Connected), new object[] { sender, e });
                 return;
             }
-            ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             fillComboBoxesWithArcazeModules();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
         }
@@ -1048,6 +1044,7 @@ namespace MobiFlight.UI
             // remove the items from all comboboxes
             // and set default items
             bool modulesFound = false;
+            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
 #if ARCAZE
@@ -1072,6 +1069,7 @@ namespace MobiFlight.UI
             if (modulesFound)
             {
                 moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");
+                ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             }
             // only enable button if modules are available            
             return (modulesFound);
