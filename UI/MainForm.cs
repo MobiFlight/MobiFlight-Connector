@@ -20,6 +20,7 @@ using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
+using Microsoft.ApplicationInsights.DataContracts;
 
 namespace MobiFlight.UI
 {
@@ -170,9 +171,10 @@ namespace MobiFlight.UI
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
             execManager = new ExecutionManager(outputConfigPanel.DataGridViewConfig, inputConfigPanel.InputsDataGridView, this.Handle);
-            execManager.OnExecute += new EventHandler(timer_Tick);
-            execManager.OnStopped += new EventHandler(timer_Stopped);
-            execManager.OnStarted += new EventHandler(timer_Started);
+            execManager.OnExecute += new EventHandler(ExecManager_Executed);
+            execManager.OnStopped += new EventHandler(ExecManager_Stopped);
+            execManager.OnStarted += new EventHandler(ExecManager_Started);
+            execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
@@ -182,10 +184,12 @@ namespace MobiFlight.UI
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
 
-            execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
-            execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
-            execManager.OnModuleConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
-            execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
+            // working hypothesis: we don't need this at all.
+            // execManager.OnModuleCacheAvailable += new EventHandler(ModuleCache_Available);
+
+            execManager.OnModuleConnected += new EventHandler(Module_Connected);
+            execManager.OnModuleRemoved += new EventHandler(Module_Removed);
+            execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
             execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
@@ -243,7 +247,6 @@ namespace MobiFlight.UI
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
-
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
             if (this.InvokeRequired)
@@ -407,11 +410,11 @@ namespace MobiFlight.UI
             Properties.Settings.Default.Save();
         } //Form1_FormClosed
 
-        void ExecManager_OnModuleLookupFinished(object sender, EventArgs e)
+        void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new EventHandler(ExecManager_OnModuleLookupFinished), new object[] { sender, e });
+                this.Invoke(new EventHandler(ExecManager_OnInitialModuleLookupFinished), new object[] { sender, e });
                 return;
             }
 
@@ -437,6 +440,8 @@ namespace MobiFlight.UI
             CheckForWasmModuleUpdate();
 
             UpdateAllConnectionIcons();
+
+            UpdateStatusBarModuleInformation();
 
             // Track config loaded event
             AppTelemetry.Instance.TrackStart(); 
@@ -715,43 +720,55 @@ namespace MobiFlight.UI
             execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
         }
 #endif
-        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
+
+        private void Module_Connected(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new EventHandler(ArcazeCache_ConnectionLost), new object[] { sender, e });
+                this.Invoke(new EventHandler(ModuleCache_Available), new object[] { sender, e });
+                return;
+            }
+            UpdateStatusBarModuleInformation();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
+        }
+
+        void Module_Removed(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(Module_Removed), new object[] { sender, e });
                 return;
             }
             // _disconnectArcaze();
-            fillComboBoxesWithArcazeModules();
+            UpdateStatusBarModuleInformation();
             _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Closed(object sender, EventArgs e)
+        void ExecManager_OnShutdown(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new EventHandler(ArcazeCache_Closed), new object[] { sender, e });
+                this.Invoke(new EventHandler(ExecManager_OnShutdown), new object[] { sender, e });
                 return;
             }
-            fillComboBoxesWithArcazeModules();
+            UpdateStatusBarModuleInformation();
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Connected(object sender, EventArgs e)
+        void ModuleCache_Available(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new EventHandler(ArcazeCache_Connected), new object[] { sender, e });
+                this.Invoke(new EventHandler(ModuleCache_Available), new object[] { sender, e });
                 return;
             }
-            fillComboBoxesWithArcazeModules();
+            UpdateStatusBarModuleInformation();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
         }
 
@@ -987,11 +1004,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// handler which sets the states of UI elements when timer gets started
         /// </summary>
-        void timer_Started(object sender, EventArgs e)
+        void ExecManager_Started(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                Invoke(new EventHandler(timer_Started), new object[] { sender, e });
+                Invoke(new EventHandler(ExecManager_Started), new object[] { sender, e });
                 return;
             }
 
@@ -1004,11 +1021,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// handler which sets the states of UI elements when timer gets stopped
         /// </summary>
-        void timer_Stopped(object sender, EventArgs e)
+        void ExecManager_Stopped(object sender, EventArgs e)
         {
             if(InvokeRequired)
             {
-                Invoke(new EventHandler(timer_Stopped), new object[] { sender, e});
+                Invoke(new EventHandler(ExecManager_Stopped), new object[] { sender, e});
                 return;
             }
 
@@ -1020,13 +1037,13 @@ namespace MobiFlight.UI
 
         private bool TestRunIsAvailable()
         {
-            return execManager.ModulesConnected() && !execManager.TestModeIsStarted() && !execManager.IsStarted();
+            return execManager.ModulesAvailable() && !execManager.TestModeIsStarted() && !execManager.IsStarted();
         }
 
         /// <summary>
         /// Timer eventhandler
         /// </summary>        
-        void timer_Tick(object sender, EventArgs e)
+        void ExecManager_Executed(object sender, EventArgs e)
         {
             toolStripStatusLabel.Text += ".";
             if (toolStripStatusLabel.Text.Length > (10 + i18n._tr("Running").Length))
@@ -1039,7 +1056,7 @@ namespace MobiFlight.UI
         /// gathers infos about the connected modules and stores information in different objects
         /// </summary>
         /// <returns>returns true if there are modules present</returns>
-        private bool fillComboBoxesWithArcazeModules()
+        private bool UpdateStatusBarModuleInformation()
         {
             // remove the items from all comboboxes
             // and set default items

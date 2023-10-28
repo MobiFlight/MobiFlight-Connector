@@ -30,11 +30,15 @@ namespace MobiFlight
         /// <summary>
         /// Gets raised whenever connection is established
         /// </summary>
-        public event EventHandler Connected;
+        public event EventHandler OnAvailable;
+        /// <summary>
+        /// Gets raised whenever a new mobiflight module has connected
+        /// </summary>
+        public event EventHandler ModuleConnected;
         /// <summary>
         /// Gets raised whenever connection is lost
         /// </summary>
-        public event EventHandler ConnectionLost;
+        public event EventHandler ModuleRemoved;
         /// <summary>
         /// Gets raised whenever connection is established
         /// </summary>
@@ -99,7 +103,7 @@ namespace MobiFlight
                 Modules.Remove(module.Serial);
             }
             connectedComModules.Remove(disconnectedModule);
-            ConnectionLost?.Invoke(disconnectedModule, EventArgs.Empty);
+            ModuleRemoved?.Invoke(disconnectedModule, EventArgs.Empty);
         }
 
         private async void SerialPortMonitor_PortAvailable(object sender, PortDetails portDetails)
@@ -132,10 +136,10 @@ namespace MobiFlight
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
             if (result.HasMfFirmware()) { 
-                OnMobiFlightBoardDetected(result); 
+                OnMobiFlightBoardDetected(result);
+                ModuleConnected?.Invoke(this, new EventArgs());
             }
 
-            Connected?.Invoke(result, new EventArgs());
             var currentModuleCount = Modules.Count;
             var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(1000))
                       .ContinueWith(_ => { return currentModuleCount == Modules.Count; });
@@ -144,6 +148,7 @@ namespace MobiFlight
 
             isFirstTimeLookup = false; 
             LookupFinished?.Invoke(this, new EventArgs());
+
             Log.Instance.log($"End looking up connected modules. {Modules.Count} found.", LogSeverity.Debug);
         }
 
@@ -166,13 +171,14 @@ namespace MobiFlight
         {
             module.LoadConfig();
             RegisterModule(module, module.ToMobiFlightModuleInfo());
-            this.Connected(this, new EventArgs());
         }
 
         private void OnCompatibleBoardDetected(MobiFlightModuleInfo result)
         {
             int progressValue = (connectedComModules.Count + 1 * 25) / SerialPortMonitor.DetectedPorts.Count + 1;
             connectedComModules.Add(result);
+
+            // refactor - get rid of this event
             ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
         }
 
@@ -187,15 +193,15 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// indicates the status of the fsuipc connection
+        /// indicates the status of the modules
         /// </summary>
-        /// <returns>true if connected, false if not</returns>
-        public bool isConnected()
+        /// <returns>true if all modules are connected, false otherwise</returns>
+        public bool Available()
         {
             bool result = (Modules.Count > 0);
             foreach (MobiFlightModule module in Modules.Values)
             {
-                result = result & module.Connected;
+                result &= module.Connected;
             }
             return result;
         }
@@ -258,7 +264,7 @@ namespace MobiFlight
 
         public IEnumerable<MobiFlightModule> GetModules()
         {
-            if (!isConnected())
+            if (!Available())
                 return new List<MobiFlightModule>();
             return Modules.Values;
         }
@@ -328,13 +334,13 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// disconnects all modules
+        /// Disconnects all serial connections and stops all threads for safe shutdown.
         /// </summary>
         /// <returns>returns true if all modules were disconnected properly</returns>    
-        public bool disconnect()
+        public bool Shutdown()
         {
             Log.Instance.log("Disconnecting all modules.", LogSeverity.Debug);
-            if (isConnected())
+            if (Available())
             {
                 foreach (MobiFlightModule module in Modules.Values)
                 {
@@ -345,7 +351,7 @@ namespace MobiFlight
             }
             SerialPortMonitor.Stop();
             UsbDeviceMonitor.Stop();
-            return !isConnected();
+            return !Available();
         }
 
         /// <summary>

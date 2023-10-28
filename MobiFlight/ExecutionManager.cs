@@ -28,11 +28,11 @@ namespace MobiFlight
         public event EventHandler OnSimCacheConnectionLost;
         public event EventHandler<string> OnSimAircraftChanged;
 
+        public event EventHandler OnModuleConnected;
         public event EventHandler OnModuleRemoved;
-        public event EventHandler OnModulesConnected;
-        public event EventHandler OnModulesDisconnected;
-        public event EventHandler OnModuleConnectionLost;
-        public event EventHandler OnModuleLookupFinished;
+        public event EventHandler OnModuleCacheAvailable;
+        public event EventHandler OnShutdown;
+        public event EventHandler OnInitialModuleLookupFinished;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -113,15 +113,16 @@ namespace MobiFlight
             xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
-            arcazeCache.Connected += new EventHandler(ModuleCache_Connected);
-            arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
-            arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
+            arcazeCache.Closed += new EventHandler(ModuleCache_Closed);
+            arcazeCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
-            mobiFlightCache.Connected += new EventHandler(ModuleCache_Connected);
-            mobiFlightCache.Closed += new EventHandler(ArcazeCache_Closed);
-            mobiFlightCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            mobiFlightCache.OnAvailable += new EventHandler(ModuleCache_Available);
+            mobiFlightCache.Closed += new EventHandler(ModuleCache_Closed);
+            mobiFlightCache.ModuleConnected += new EventHandler(MobiFlightCache_ModuleConnected);
+            mobiFlightCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
 
             timer.Tick += new EventHandler(timer_Tick);
@@ -145,6 +146,13 @@ namespace MobiFlight
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
             midiBoardManager.Connect();
             mobiFlightCache.Start();
+        }
+
+        private void MobiFlightCache_ModuleConnected(object sender, EventArgs e)
+        {
+            TestModeStop();
+            Stop();
+            this.OnModuleConnected?.Invoke(sender, e);
         }
 
         private void sim_AirCraftChanged(object sender, string e)
@@ -231,7 +239,7 @@ namespace MobiFlight
 
         void mobiFlightCache_LookupFinished(object sender, EventArgs e)
         {
-            OnModuleLookupFinished?.Invoke(sender, e);
+            OnInitialModuleLookupFinished?.Invoke(sender, e);
         }
 
         public void SetPollInterval(int value)
@@ -255,16 +263,14 @@ namespace MobiFlight
                 ;
         }
 
-        public bool ModulesConnected()
+        public bool ModulesAvailable()
         {
 #if MOBIFLIGHT
             return
 #if ARCAZE
-                arcazeCache.isConnected() ||
+                arcazeCache.Available() ||
 #endif
-                mobiFlightCache.isConnected();
-#else
-            return arcazeCache.isConnected();
+                mobiFlightCache.Available();
 #endif
         }
 
@@ -380,15 +386,18 @@ namespace MobiFlight
             return result;
         }
 
+        /// <summary>
+        /// Shuts down all managers and caches and stops all threads for safe shutdown.
+        /// </summary>
         public void Shutdown()
         {
             autoConnectTimer.Stop();
 #if ARCAZE
-            arcazeCache.disconnect();
+            arcazeCache.Shutdown();
 #endif
 
 #if MOBIFLIGHT
-            mobiFlightCache.disconnect();
+            mobiFlightCache.Shutdown();
 #endif
             fsuipcCache.Disconnect();
 
@@ -397,7 +406,7 @@ namespace MobiFlight
 #endif
             joystickManager.Shutdown();
             midiBoardManager.Shutdown();
-            this.OnModulesDisconnected?.Invoke(this, new EventArgs());
+            this.OnShutdown?.Invoke(this, new EventArgs());
         }
 
 #if ARCAZE
@@ -405,7 +414,7 @@ namespace MobiFlight
         {
 
             arcazeCache.updateModuleSettings(arcazeSettings);
-            arcazeCache.disconnect();
+            arcazeCache.Shutdown();
         }
 #endif
 
@@ -416,10 +425,10 @@ namespace MobiFlight
         {
             if (
 #if ARCAZE
-                !arcazeCache.isConnected() &&
+                !arcazeCache.Available() &&
 #endif
 #if MOBIFLIGHT
-                !mobiFlightCache.isConnected() &&
+                !mobiFlightCache.Available() &&
 
 #endif
                 !joystickManager.JoysticksConnected() &&
@@ -1017,30 +1026,30 @@ namespace MobiFlight
             }
         } //timer_Tick()
 
-        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
+        void ModuleCache_ModuleRemoved(object sender, EventArgs e)
         {
             //_disconnectArcaze();
-            this.OnModuleConnectionLost(sender, e);
+            this.OnModuleRemoved(sender, e);
             Stop();
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Closed(object sender, EventArgs e)
+        void ModuleCache_Closed(object sender, EventArgs e)
         {
             TestModeStop();
-            this.OnModulesDisconnected?.Invoke(sender, e);
+            this.OnShutdown?.Invoke(sender, e);
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ModuleCache_Connected(object sender, EventArgs e)
+        void ModuleCache_Available(object sender, EventArgs e)
         {
             TestModeStop();
             Stop();
-            this.OnModulesConnected?.Invoke(sender, e);
+            this.OnModuleCacheAvailable?.Invoke(sender, e);
         }
 
         /// <summary>
@@ -1058,10 +1067,10 @@ namespace MobiFlight
 
             if (
 #if ARCAZE
-                !arcazeCache.isConnected() &&
+                !arcazeCache.Available() &&
 #endif
 #if MOBIFLIGHT
-                !mobiFlightCache.isConnected()
+                !mobiFlightCache.Available()
 #endif
                 )
             {
