@@ -17,6 +17,13 @@ namespace MobiFlight.Monitors
             
             foreach (var drive in DriveInfo.GetDrives())
             {
+                // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
+                if (drive.DriveType != DriveType.Removable)
+                {
+                    Log.Instance.log($"Drive {drive.Name} ({drive.DriveType}) isn't a removable drive, skipping.", LogSeverity.Debug);
+                    continue;
+                }
+
                 // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
                 // when trying to read the volume label when the drive wasn't actually ready.
                 if (!drive.IsReady)

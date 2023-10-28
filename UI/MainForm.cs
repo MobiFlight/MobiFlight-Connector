@@ -20,7 +20,6 @@ using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
-using Microsoft.ApplicationInsights.DataContracts;
 
 namespace MobiFlight.UI
 {

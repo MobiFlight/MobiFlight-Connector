@@ -25,9 +25,7 @@ namespace MobiFlight.UI.Forms
         List<MobiFlightModule> FailedModules = new List<MobiFlightModule>();
 
         public int TotalModuleCount { get; set; }
-
         private int NumberOfModulesForFirmwareUpdate = 0;
-        private bool UpdateResult = true;
 
         public FirmwareUpdateProcess()
         {
