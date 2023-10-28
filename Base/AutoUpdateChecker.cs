@@ -18,7 +18,6 @@ namespace MobiFlight.UpdateChecker
             var trackingParams = $"{hash}-{Properties.Settings.Default.CacheId}-{Properties.Settings.Default.Started}";
 
             var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
-            var CommandToSend = $"/check /version {CurVersion} /cacheId {trackingParams}";
 
             // Issue 1365: Don't check for updates if the build came from a pull request. These builds are
             // identified by the major version being 0.
@@ -27,6 +26,8 @@ namespace MobiFlight.UpdateChecker
                 Log.Instance.log("Skipping update check since this is an unreleased build.", LogSeverity.Info);
                 return;
             }
+
+            var CommandToSend = $"/check /version {CurVersion} /cacheId {trackingParams}";
 
             if (Properties.Settings.Default.BetaUpdates)
             {
