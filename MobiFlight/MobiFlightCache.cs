@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO.Ports;
-using Microsoft.Win32;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Management;
-using System.Xml.Linq;
-using System.Globalization;
-using MobiFlight.Config;
-using System.IO;
+﻿using MobiFlight.Config;
 using MobiFlight.Monitors;
-using SharpDX;
-using System.Net.Configuration;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Ports;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MobiFlight
 {

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CommandMessenger;
+using CommandMessenger.Transport.Serial;
+using MobiFlight.Config;
+using MobiFlight.UI.Panels.Settings.Device;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO.Ports;
-using CommandMessenger;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using MobiFlight.Config;
-using CommandMessenger.Transport.Serial;
-using MobiFlight.UI.Panels.Settings.Device;
 
 namespace MobiFlight
 {
