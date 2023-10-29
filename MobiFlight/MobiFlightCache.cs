@@ -1,15 +1,10 @@
-﻿using HidSharp.Utility;
-using MobiFlight.Config;
+﻿using MobiFlight.Config;
 using MobiFlight.Monitors;
-using SharpDX;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
-using System.IO.Ports;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -49,17 +44,19 @@ namespace MobiFlight
         public event EventHandler LookupFinished;
 
 
-        private List<MobiFlightModuleInfo> AvailableComModules = new List<MobiFlightModuleInfo>();
+        private volatile List<MobiFlightModuleInfo> AvailableComModules = new List<MobiFlightModuleInfo>();
         Boolean isFirstTimeLookup = true;
 
         private bool _lookingUpModules = false;
 
         DateTime servoTime = DateTime.Now;
         /// <summary>
-        /// list of known modules
+        /// list of known modules.
+        /// 
+        /// volatile for better cross thread access
         /// </summary>
-        Dictionary<string, MobiFlightModule> Modules = new Dictionary<string, MobiFlightModule>();
-        Dictionary<string, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+        ConcurrentDictionary<string, MobiFlightModule> Modules = new ConcurrentDictionary<string, MobiFlightModule>();
+        ConcurrentDictionary<string, MobiFlightVariable> variables = new ConcurrentDictionary<string, MobiFlightVariable>();
 
         SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
         UsbDeviceMonitor UsbDeviceMonitor = new UsbDeviceMonitor();
@@ -103,7 +100,7 @@ namespace MobiFlight
             {
                 var module = Modules.Values.ToList().Find(m => m.Port == e.Name);
                 module.Disconnect();
-                Modules.Remove(module.Serial);
+                Modules.TryRemove(module.Serial, out MobiFlightModule removedModule);
             }
             AvailableComModules.Remove(disconnectedModule);
             ModuleRemoved?.Invoke(disconnectedModule, EventArgs.Empty);
@@ -180,8 +177,8 @@ namespace MobiFlight
         private void OnCompatibleBoardDetected(MobiFlightModuleInfo result)
         {
             int progressValue = (AvailableComModules.Count + 1 * 25) / SerialPortMonitor.DetectedPorts.Count + 1;
-            AvailableComModules.Add(result);
-
+                AvailableComModules.Add(result);
+            
             // refactor - get rid of this event
             ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
         }
@@ -300,7 +297,7 @@ namespace MobiFlight
             
             if (Modules.ContainsKey(devInfo.Serial))
             {
-                Modules.Remove(devInfo.Serial);
+                Modules.TryRemove(devInfo.Serial, out MobiFlightModule removedModule);
                 return;
             }
             
@@ -333,9 +330,9 @@ namespace MobiFlight
                     return;
                 }
             } else
-            {                
-                Modules.Add(devInfo.Serial, m);
-            }
+            {      
+                    Modules.TryAdd(devInfo.Serial, m);
+                }
 
             // add the handler
             m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
@@ -661,9 +658,9 @@ namespace MobiFlight
         {
             foreach (MobiFlightModule module in Modules.Values)
             {
-                module.Stop();   
+                module.Stop();
             }
-
+            
             variables.Clear();
         }
         
@@ -699,7 +696,7 @@ namespace MobiFlight
 
             if (oldDevInfo != null) AvailableComModules.Remove(oldDevInfo);
             AvailableComModules.Add(module.ToMobiFlightModuleInfo());
-
+            
             if (module.HasMfFirmware())
                 RegisterModule(module, module.ToMobiFlightModuleInfo(), true);
             else

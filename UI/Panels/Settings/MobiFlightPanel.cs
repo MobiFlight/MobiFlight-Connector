@@ -159,7 +159,7 @@ namespace MobiFlight.UI.Panels.Settings
                     node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");
                 }
             }
-
+            
             mfModulesTreeView.Nodes.Add(node);
         }
 
@@ -1528,10 +1528,10 @@ namespace MobiFlight.UI.Panels.Settings
 
         internal void UpdateNewlyConnectedModule(MobiFlightModuleInfo mobiFlightModuleInfo)
         {
-            if (InvokeRequired)
+            if (mfModulesTreeView.InvokeRequired)
             {
                 System.Action safeCall = delegate { UpdateNewlyConnectedModule(mobiFlightModuleInfo); };
-                Invoke(safeCall);
+                mfModulesTreeView.Invoke(safeCall);
                 return;
             }
 
@@ -1541,9 +1541,9 @@ namespace MobiFlight.UI.Panels.Settings
 
         internal void UpdateRemovedModule(MobiFlightModuleInfo mobiFlightModuleInfo)
         {
-            if (InvokeRequired) {
+            if (mfModulesTreeView.InvokeRequired) {
                 System.Action safeCall = delegate { UpdateRemovedModule(mobiFlightModuleInfo); };
-                Invoke(safeCall);
+                mfModulesTreeView.Invoke(safeCall);
                 return;
             }
             // Update the corresponding TreeView Item
@@ -1551,6 +1551,7 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode moduleNode = findNodeByPort(mobiFlightModuleInfo.Port);
 
             if (moduleNode == null) return;
+
 
             mfModulesTreeView.Nodes.Remove(moduleNode);
         }
