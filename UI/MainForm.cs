@@ -738,6 +738,8 @@ namespace MobiFlight.UI
             }
             // _disconnectArcaze();
             UpdateStatusBarModuleInformation();
+
+            // Todo: Show this error outside of the context of firmware update
             // _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
         }
 

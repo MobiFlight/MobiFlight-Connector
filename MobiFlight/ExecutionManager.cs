@@ -1148,7 +1148,7 @@ namespace MobiFlight
         /// <param name="sender"></param>
         /// <param name="args"></param>
         void testModeTimer_Tick(object sender, EventArgs args)
-        {
+        {            
             DataGridViewRow lastRow = dataGridViewConfig.Rows[(testModeIndex - 1 + dataGridViewConfig.RowCount) % dataGridViewConfig.RowCount];
 
             string serial = "";
