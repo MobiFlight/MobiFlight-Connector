@@ -148,7 +148,7 @@ namespace MobiFlight.UI
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
-            AutoUpdateChecker.CheckForUpdate(false, true);
+            AutoUpdateChecker.CheckForUpdate(true);
 #endif
 
             if (Properties.Settings.Default.Started == 0)
@@ -592,7 +592,7 @@ namespace MobiFlight.UI
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoUpdateChecker.CheckForUpdate(true);
+            AutoUpdateChecker.CheckForUpdate();
         }
 
         private void startAutoConnectThreadSafe()
