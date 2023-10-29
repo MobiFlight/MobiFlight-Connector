@@ -148,7 +148,7 @@ namespace MobiFlight.UI
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
-            AutoUpdateChecker.CheckForUpdate(false, true);
+            AutoUpdateChecker.CheckForUpdate(true);
 #endif
 
             if (Properties.Settings.Default.Started == 0)

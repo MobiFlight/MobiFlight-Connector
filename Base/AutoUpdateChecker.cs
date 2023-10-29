@@ -9,9 +9,9 @@ namespace MobiFlight.UpdateChecker
 {
     static class AutoUpdateChecker
     {
-        static string mobiFlightInstaller = "MobiFlight-Installer.exe";
-        static int UpdateCheckTimeoutInMs = 5000;
-        public static void CheckForUpdate(bool force = false, bool silent = false)
+        static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
+        static readonly int UpdateCheckTimeoutInMs = 5000;
+        public static void CheckForUpdate(bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
