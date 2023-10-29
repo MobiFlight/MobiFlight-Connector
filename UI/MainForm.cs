@@ -592,7 +592,7 @@ namespace MobiFlight.UI
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AutoUpdateChecker.CheckForUpdate(true);
+            AutoUpdateChecker.CheckForUpdate();
         }
 
         private void startAutoConnectThreadSafe()
