@@ -32,6 +32,8 @@ namespace MobiFlight.UI.Panels.Settings
         public MobiFlightModuleInfo PreselectedMobiFlightBoard { get; internal set; }
         public bool MFModuleConfigChanged { get { return _IsModified(); } }
 
+        private TreeNode PlaceholderNode = new TreeNode();
+
         MobiFlightCache mobiflightCache;
 
         // Since we are working on GUI objects, and adding a specific reference to a MultiplexerDriver would be awkward,
@@ -113,11 +115,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (mfModulesTreeView.Nodes.Count == 0)
             {
-                TreeNode NewNode = new TreeNode();
-                NewNode.Text = i18n._tr("none");
-                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arduino";
-                mfModulesTreeView.Nodes.Add(NewNode);
-                mfModulesTreeView.Enabled = false;
+                ShowPlaceholderNode();
             }
 
             mfModulesTreeView.Select();
@@ -128,9 +126,28 @@ namespace MobiFlight.UI.Panels.Settings
 #endif
         }
 
+        private void ShowPlaceholderNode()
+        {
+            PlaceholderNode.SelectedImageKey = PlaceholderNode.ImageKey = "module-arduino";            
+            PlaceholderNode.Text = i18n._tr("none");
+            mfModulesTreeView.Nodes.Add(PlaceholderNode);
+            mfModulesTreeView.Enabled = false;
+
+            // this is needed if the modules disconnected
+            // dynamically, otherwise the old panel would
+            // still stay visible.
+            mfSettingsPanel.Controls.Clear();
+        }
+
+        private void HidePlaceholderNode()
+        {
+            mfModulesTreeView.Nodes.Remove(PlaceholderNode);
+            mfModulesTreeView.Enabled = true;
+        }
+
         private void AddModuleAsNodeToTreeView(MobiFlightModuleInfo module)
         {
-            TreeNode node = new TreeNode();
+            var node = new TreeNode();
             node = mfModulesTreeView_initNode(module, node);
             if (!module.HasMfFirmware())
             {
@@ -161,6 +178,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
             
             mfModulesTreeView.Nodes.Add(node);
+            HidePlaceholderNode();
         }
 
         public void SaveSettings()
@@ -1552,8 +1570,11 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (moduleNode == null) return;
 
-
             mfModulesTreeView.Nodes.Remove(moduleNode);
+            if (mfModulesTreeView.Nodes.Count == 0)
+            {
+                ShowPlaceholderNode();
+            }
         }
     }
 }
