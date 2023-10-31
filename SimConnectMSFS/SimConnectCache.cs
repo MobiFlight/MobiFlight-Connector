@@ -277,61 +277,70 @@ namespace MobiFlight.SimConnectMSFS
 
         private void SimConnectCache_OnRecvClientData(SimConnect sender, SIMCONNECT_RECV_CLIENT_DATA data)
         {
-            // Init Client Callback
-            if (data.dwRequestID == (uint)WasmInitClientData.DATA_DEFINITION_ID)
+            try
             {
-                var simData = (ResponseString)(data.dwData[0]);
-
-                if (simData.Data == "MF.Pong")
+                // Init Client Callback
+                if (data.dwRequestID == (uint)WasmInitClientData.DATA_DEFINITION_ID)
                 {
-                    if (!_wasmConnected)
+                    var simData = (ResponseString)(data.dwData[0]);
+
+                    if (simData.Data == "MF.Pong")
                     {
-                        // Next add runtime client                    
-                        WasmModuleClient.AddAdditionalClient(m_oSimConnect, WasmRuntimeClientData.NAME, WasmInitClientData);
+                        if (!_wasmConnected)
+                        {
+                            // Next add runtime client                    
+                            WasmModuleClient.AddAdditionalClient(m_oSimConnect, WasmRuntimeClientData.NAME, WasmInitClientData);
+                        }
+                    }
+                    // Runtime client was added
+                    else if (simData.Data.Contains(WasmRuntimeClientData.NAME))
+                    {
+                        InitializeClientDataAreas(m_oSimConnect, WasmRuntimeClientData);
+                        _wasmConnected = true;
+                        Connected?.Invoke(this, null);
                     }
                 }
-                // Runtime client was added
-                else if (simData.Data.Contains(WasmRuntimeClientData.NAME))
+                // Runtime Client Callback
+                else if (data.dwRequestID == (uint)WasmRuntimeClientData.DATA_DEFINITION_ID)
                 {
-                    InitializeClientDataAreas(m_oSimConnect, WasmRuntimeClientData);
-                    _wasmConnected = true;
-                    Connected?.Invoke(this, null);
-                }
-            }
-            // Runtime Client Callback
-            else if (data.dwRequestID == (uint)WasmRuntimeClientData.DATA_DEFINITION_ID)
-            {
-                var simData = (ResponseString)(data.dwData[0]);
+                    var simData = (ResponseString)(data.dwData[0]);
 
-                if (simData.Data == "MF.LVars.List.Start")
-                {
-                    ResponseStatus = "LVars.List.Receiving";
-                    LVars.Clear();
-                }
-                else if (simData.Data == "MF.LVars.List.End")
-                {
-                    ResponseStatus = "LVars.List.Completed";
-                    LVarListUpdated?.Invoke(LVars, new EventArgs());
-                }
-                else if (ResponseStatus == "LVars.List.Receiving")
-                {
-                    LVars.Add(simData.Data);
-                }
+                    if (simData.Data == "MF.LVars.List.Start")
+                    {
+                        ResponseStatus = "LVars.List.Receiving";
+                        LVars.Clear();
+                    }
+                    else if (simData.Data == "MF.LVars.List.End")
+                    {
+                        ResponseStatus = "LVars.List.Completed";
+                        LVarListUpdated?.Invoke(LVars, new EventArgs());
+                    }
+                    else if (ResponseStatus == "LVars.List.Receiving")
+                    {
+                        LVars.Add(simData.Data);
+                    }
 
 #if DEBUG
-                // this only for debug compilation
-                // it slows down the client immensly.
-                Log.Instance.log($"Received {simData.Data}.", LogSeverity.Debug);
+                    // this only for debug compilation
+                    // it slows down the client immensly.
+                    Log.Instance.log($"Received {simData.Data}.", LogSeverity.Debug);
 #endif
 
+                }
+                // SimVar value callback
+                else
+                {
+                    var simData = (ClientDataValue)(data.dwData[0]);
+                    var simVarIndex = (int)(data.dwRequestID) - SIMVAR_DATA_DEFINITION_OFFSET;
+
+                    if (SimVars.Count <= simVarIndex || simVarIndex < 0) return;
+                    SimVars[simVarIndex].Data = simData.data;
+                }
             }
-            // SimVar value callback
-            else
+            catch (Exception ex) 
             {
-                var simData = (ClientDataValue)(data.dwData[0]);
-                if (SimVars.Count < ((int)(data.dwRequestID) - SIMVAR_DATA_DEFINITION_OFFSET - 1)) 
-                    return;
-                SimVars[(int)(data.dwRequestID) - SIMVAR_DATA_DEFINITION_OFFSET].Data = simData.data;
+                Log.Instance.log($"Exception in SimConnect Callback: {ex.Message}", LogSeverity.Error);
+                throw; // Exception is caught in SimConnect
             }
         }
 
