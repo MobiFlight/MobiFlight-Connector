@@ -46,6 +46,8 @@
             this.analogDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.addCustomDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.uploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,8 +83,11 @@
             this.analogDeviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addInputShiftRegisterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addInputMultiplexerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.customDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
             this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
             this.IgnoredComPortsLabel = new System.Windows.Forms.Label();
@@ -91,7 +96,6 @@
             this.FwAutoInstallCheckBox = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.CompatibleBoardScanToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -156,9 +160,12 @@
             this.encoderToolStripMenuItem,
             this.analogDeviceToolStripMenuItem,
             this.inputShiftRegisterToolStripMenuItem,
-            this.inputMultiplexerToolStripMenuItem});
+            this.inputMultiplexerToolStripMenuItem,
+            this.toolStripMenuItem7,
+            this.addCustomDevicesToolStripMenuItem});
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
             resources.ApplyResources(this.addToolStripMenuItem, "addToolStripMenuItem");
+            this.addToolStripMenuItem.DropDownOpening += new System.EventHandler(this.addDeviceToolStripDropDownButton_DropDownOpening);
             // 
             // ledOutputToolStripMenuItem
             // 
@@ -230,6 +237,16 @@
             this.inputMultiplexerToolStripMenuItem.Name = "inputMultiplexerToolStripMenuItem";
             resources.ApplyResources(this.inputMultiplexerToolStripMenuItem, "inputMultiplexerToolStripMenuItem");
             this.inputMultiplexerToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            resources.ApplyResources(this.toolStripMenuItem7, "toolStripMenuItem7");
+            // 
+            // addCustomDevicesToolStripMenuItem
+            // 
+            this.addCustomDevicesToolStripMenuItem.Name = "addCustomDevicesToolStripMenuItem";
+            resources.ApplyResources(this.addCustomDevicesToolStripMenuItem, "addCustomDevicesToolStripMenuItem");
             // 
             // removeToolStripMenuItem
             // 
@@ -382,10 +399,13 @@
             this.addButtonToolStripMenuItem,
             this.analogDeviceToolStripMenuItem1,
             this.addInputShiftRegisterToolStripMenuItem,
-            this.addInputMultiplexerToolStripMenuItem});
+            this.addInputMultiplexerToolStripMenuItem,
+            this.toolStripMenuItem6,
+            this.customDevicesToolStripMenuItem});
             this.addDeviceToolStripDropDownButton.Image = global::MobiFlight.Properties.Resources.star_yellow_add;
             resources.ApplyResources(this.addDeviceToolStripDropDownButton, "addDeviceToolStripDropDownButton");
             this.addDeviceToolStripDropDownButton.Name = "addDeviceToolStripDropDownButton";
+            this.addDeviceToolStripDropDownButton.DropDownOpening += new System.EventHandler(this.addDeviceToolStripDropDownButton_DropDownOpening);
             // 
             // addOutputToolStripMenuItem
             // 
@@ -458,6 +478,16 @@
             resources.ApplyResources(this.addInputMultiplexerToolStripMenuItem, "addInputMultiplexerToolStripMenuItem");
             this.addInputMultiplexerToolStripMenuItem.Click += new System.EventHandler(this.addDeviceTypeToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            resources.ApplyResources(this.toolStripMenuItem6, "toolStripMenuItem6");
+            // 
+            // customDevicesToolStripMenuItem
+            // 
+            this.customDevicesToolStripMenuItem.Name = "customDevicesToolStripMenuItem";
+            resources.ApplyResources(this.customDevicesToolStripMenuItem, "customDevicesToolStripMenuItem");
+            // 
             // removeDeviceToolStripButton
             // 
             this.removeDeviceToolStripButton.Image = global::MobiFlight.Properties.Resources.star_yellow_delete;
@@ -469,6 +499,12 @@
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
+            // UpdateFirmwareToolStripButton
+            // 
+            this.UpdateFirmwareToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            resources.ApplyResources(this.UpdateFirmwareToolStripButton, "UpdateFirmwareToolStripButton");
+            this.UpdateFirmwareToolStripButton.Name = "UpdateFirmwareToolStripButton";
             // 
             // mobiflightSettingsLabel
             // 
@@ -512,12 +548,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // UpdateFirmwareToolStripButton
-            // 
-            this.UpdateFirmwareToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            resources.ApplyResources(this.UpdateFirmwareToolStripButton, "UpdateFirmwareToolStripButton");
-            this.UpdateFirmwareToolStripButton.Name = "UpdateFirmwareToolStripButton";
             // 
             // MobiFlightPanel
             // 
@@ -604,5 +634,9 @@
         private System.Windows.Forms.ToolStripMenuItem dontIgnoreCOMPortToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetBoardToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton UpdateFirmwareToolStripButton;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem customDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem addCustomDevicesToolStripMenuItem;
     }
 }

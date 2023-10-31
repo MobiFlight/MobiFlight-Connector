@@ -329,7 +329,7 @@ You should configure them now.</value>
     <value>Nice! You updated successfully from {1} to {2}.</value>
   </data>
   <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
-    <value>The current firmware does not support this function. Please update to the current firmware first.</value>
+    <value>The current firmware does not support this function. Please update to the latest firmware now!</value>
   </data>
   <data name="uiMessageDeviceNameContainsInvalidCharsOrTooLong" xml:space="preserve">
     <value>The name for the device is not valid or too long (max. {1} characters). Don't use the following characters:
@@ -593,5 +593,8 @@ That midiboard cannot be used until other application is terminated and MobiFlig
   </data>
   <data name="WebsiteHelpNcalc" xml:space="preserve">
     <value>https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html</value>
+  </data>
+  <data name="uiLabelNoAircraftDetected." xml:space="preserve">
+    <value>No aircraft detected</value>
   </data>
 </root>

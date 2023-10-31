@@ -1,0 +1,39 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Custom I2C",
+    "Type": "MF_TEST_I2C",
+    "Author": "Sebastian",
+    "URL": "https://github.com",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [
+
+    ],
+    "I2C": {
+      "Enabled": true,
+      "Addresses": [
+        "0x27",
+        "0x28",
+        "0x29"
+      ]
+    },
+    "Custom": {
+      "Enabled": true,
+      "Value": "dummy"
+    }
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Set Backlight",
+      "description": "0 => Off, 1 => On"
+    },
+    {
+      "id": 1,
+      "label": "Display Value",
+      "description": "$ will be displayed on the device"
+    }
+  ]
+}

@@ -147,6 +147,11 @@ namespace MobiFlight
         public String ResetFirmwareFile;
 
         /// <summary>
+        /// A list of supported custom device types by this board.
+        /// </summary>
+        public List<String> CustomDeviceTypes = new List<string>();
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
@@ -216,6 +221,11 @@ namespace MobiFlight
         /// Maximum number of steppers supported by the board.
         /// </summary>
         public int MaxSteppers = 0;
+
+        /// <summary>
+        /// Maximum number of custom devices supported by the board.
+        /// </summary>
+        public int MaxCustomDevices = 0;
     }
 
     public class UsbDriveSettings

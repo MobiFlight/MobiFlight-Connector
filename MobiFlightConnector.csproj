@@ -246,14 +246,18 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
+    <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Config\IBaseDevice.cs" />
     <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
+    <Compile Include="MobiFlight\Config\CustomDevice.cs" />
     <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
+    <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
+    <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
@@ -284,6 +288,7 @@
     <Compile Include="MobiFlight\MidiBoard\MidiOutputDefinition.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightInputMultiplexer.cs" />
+    <Compile Include="MobiFlight\MobiFlightCustomDevice.cs" />
     <Compile Include="MobiFlight\MobiFlightPin.cs" />
     <Compile Include="MobiFlight\MobiFlightInputShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
@@ -299,6 +304,7 @@
     <Compile Include="MobiFlight\Modifier\Padding.cs" />
     <Compile Include="MobiFlight\Modifier\Substring.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
@@ -478,6 +484,12 @@
     <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanelPin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanelPin.Designer.cs">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Device\MFInputMultiplexerPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -495,6 +507,12 @@
     </Compile>
     <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.Designer.cs">
       <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanel.Designer.cs">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -609,6 +627,12 @@
     </Compile>
     <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\CustomDevicePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\CustomDevicePanel.Designer.cs">
+      <DependentUpon>CustomDevicePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
       <SubType>UserControl</SubType>
@@ -977,6 +1001,30 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
+    <None Include="Devices\fictional-i2c.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\gnc255.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\kav_efis.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\fictional.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\mobiflight.genericI2C.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\tm1637.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\kav_fcu.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\mfdevice.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -995,19 +1043,19 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_2_4_1.hex">
+    <None Include="firmware\mobiflight_mega_2_4_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_2_4_1.hex">
+    <None Include="firmware\mobiflight_micro_2_4_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_nano_2_4_1.hex">
+    <None Include="firmware\mobiflight_nano_2_4_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico_2_4_1.uf2">
+    <None Include="firmware\mobiflight_raspberrypico_2_4_2.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_2_4_1.hex">
+    <None Include="firmware\mobiflight_uno_2_4_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
@@ -1142,6 +1190,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ConfigUploadProgress.resx">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
@@ -1243,6 +1292,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanelPin.de.resx">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanelPin.resx">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.de.resx">
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1268,6 +1323,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.de.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanel.de.resx">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanel.resx">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
@@ -1353,11 +1414,18 @@
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\CustomDevicePanel.de.resx">
+      <DependentUpon>CustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\CustomDevicePanel.resx">
+      <DependentUpon>CustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.de.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.de.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
@@ -1496,6 +1564,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFButtonPanel.de.resx">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>

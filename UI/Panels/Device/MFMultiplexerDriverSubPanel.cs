@@ -84,13 +84,11 @@ namespace MobiFlight.UI.Panels.Settings
 
             // First update the one that is changed
             // Here, the config data (multiplexerDriver.PinSx[]) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfPinS0ComboBox) { ComboBoxHelper.reassignPin(mfPinS0ComboBox, pinList, ref this.multiplexerDriver.PinSx[0]); }
-            else
-            if (comboBox == mfPinS1ComboBox) { ComboBoxHelper.reassignPin(mfPinS1ComboBox, pinList, ref this.multiplexerDriver.PinSx[1]); }
-            else
-            if (comboBox == mfPinS2ComboBox) { ComboBoxHelper.reassignPin(mfPinS2ComboBox, pinList, ref this.multiplexerDriver.PinSx[2]); }
-            else
-            if (comboBox == mfPinS3ComboBox) { ComboBoxHelper.reassignPin(mfPinS3ComboBox, pinList, ref this.multiplexerDriver.PinSx[3]); }
+            var newPin = comboBox.SelectedItem.ToString();
+            if (comboBox == mfPinS0ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref this.multiplexerDriver.PinSx[0]); } else
+            if (comboBox == mfPinS1ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref this.multiplexerDriver.PinSx[1]); } else
+            if (comboBox == mfPinS2ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref this.multiplexerDriver.PinSx[2]); } else
+            if (comboBox == mfPinS3ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref this.multiplexerDriver.PinSx[3]); }
             // then the others are updated too 
             UpdateFreePinsInDropDowns();
 
@@ -108,8 +106,10 @@ namespace MobiFlight.UI.Panels.Settings
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            //setValues();
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
+
             if (Changed != null)
                 Changed(multiplexerDriver, new EventArgs());
         }

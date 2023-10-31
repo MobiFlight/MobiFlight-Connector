@@ -1,0 +1,149 @@
+{
+  "definitions": {},
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://mobiflight.com/mfdevice.schema.json",
+  "title": "Root",
+  "type": "object",
+  "required": [ "Info", "Config", "MessageTypes" ],
+  "properties": {
+    "Info": {
+      "$id": "#root/Info",
+      "title": "Info",
+      "description": "General device information properties.",
+      "type": "object",
+      "required": [
+        "Label",
+        "Type",
+        "Author",
+        "URL",
+        "Version"
+      ],
+      "properties": {
+        "Label": {
+          "$id": "#root/Info/Label",
+          "title": "Label",
+          "description": "The label of the custom device in the UI.",
+          "type": "string"
+        },
+        "Type": {
+          "$id": "#root/Info/Type",
+          "title": "Type",
+          "description": "A unique identifier for the device.",
+          "type": "string"
+        },
+        "Author": {
+          "$id": "#root/Info/Author",
+          "title": "Author",
+          "description": "The author of this custom device.",
+          "type": "string"
+        },
+        "URL": {
+          "$id": "#root/Info/URL",
+          "title": "URL",
+          "description": "The URL of the custom device. Ideally a github repository.",
+          "type": "string"
+        },
+        "Version": {
+          "$id": "#root/Info/Version",
+          "title": "Version",
+          "description": "The version of this custom device",
+          "type": "string"
+        }
+      }
+    },
+    "Config": {
+      "$id": "#root/Config",
+      "title": "Config",
+      "description": "Config properties of this custom device used in the device settings panel.",
+      "type": "object",
+      "required": [
+        "Pins"
+      ],
+      "properties": {
+        "Pins": {
+          "$id": "#root/Config/Pins",
+          "title": "Pins",
+          "description": "A an array of pins required for connecting the custom device.",
+          "type": "array",
+          "default": []
+        },
+        "I2C": {
+          "$id": "#root/Config/I2C",
+          "title": "I2C",
+          "type": "object",
+          "properties": {
+            "Enabled": {
+              "$id": "#root/Config/I2C/Enabled",
+              "title": "Enabled",
+              "description": "Indicates whether this custom devices uses I2C addresses.",
+              "type": "boolean",
+              "default": false
+            },
+            "Addresses": {
+              "$id": "#root/Config/I2C/Addresses",
+              "title": "Addresses",
+              "description": "A an array of available I2C addresses in Hex-Format.",
+              "type": "array",
+              "default": []
+            }
+          }
+        },
+        "Custom": {
+          "$id": "#root/Config/Custom",
+          "title": "I2C",
+          "type": "object",
+          "properties": {
+            "Enabled": {
+              "$id": "#root/Config/Custom/Enabled",
+              "title": "Enabled",
+              "description": "Device supports a custom string for configuration.",
+              "type": "boolean",
+              "default": false
+            },
+            "Value": {
+              "$id": "#root/Config/Custom/Value",
+              "title": "Value",
+              "description": "The default value of the csutom string config.",
+              "type": "string",
+              "default": ""
+            }
+          }
+        }
+      }
+    },
+    "MessageTypes": {
+      "$id": "#root/MessageTypes",
+      "title": "MessageTypes",
+      "description": "List of MessageTypes supported by the device.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/MessageTypes/items",
+        "title": "MessageType",
+        "type": "object",
+        "required": [ "Id", "Label", "Description" ],
+        "properties": {
+          "Id": {
+            "$id": "#root/Pins/items/Id",
+            "title": "Id",
+            "description": "The identifier for the message type. Unique in the scope of the device.",
+            "type": "integer"
+          },
+          "Label": {
+            "$id": "#root/Pins/items/Label",
+            "title": "Label",
+            "description": "The label for the message type which is used in the config wizard UI.",
+            "examples": [ "A1", "LOAD", "CLK" ],
+            "type": "string"
+          },
+          "Description": {
+            "$id": "#root/Pins/items/Description",
+            "title": "Description",
+            "description": "The description for the message type and instructions how to use it",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

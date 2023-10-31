@@ -108,6 +108,14 @@
             this.FsuipcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xPlaneDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripAircraftDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.linkCurrentConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openLinkedConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openLinkFilenameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeLinkConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.autoloadToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -589,6 +597,8 @@
             this.toolStripStatusLabel3,
             this.SimConnectionIconStatusToolStripStatusLabel,
             this.toolStripDropDownButton1,
+            this.toolStripStatusLabel1,
+            this.toolStripAircraftDropDownButton,
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel});
             this.statusStrip2.Name = "statusStrip2";
@@ -673,6 +683,64 @@
             // 
             this.xPlaneDirectToolStripMenuItem.Name = "xPlaneDirectToolStripMenuItem";
             resources.ApplyResources(this.xPlaneDirectToolStripMenuItem, "xPlaneDirectToolStripMenuItem");
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            resources.ApplyResources(this.toolStripStatusLabel1, "toolStripStatusLabel1");
+            // 
+            // toolStripAircraftDropDownButton
+            // 
+            this.toolStripAircraftDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.linkCurrentConfigToolStripMenuItem,
+            this.openLinkedConfigToolStripMenuItem,
+            this.removeLinkConfigToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.autoloadToggleToolStripMenuItem});
+            resources.ApplyResources(this.toolStripAircraftDropDownButton, "toolStripAircraftDropDownButton");
+            this.toolStripAircraftDropDownButton.Name = "toolStripAircraftDropDownButton";
+            this.toolStripAircraftDropDownButton.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
+            // 
+            // linkCurrentConfigToolStripMenuItem
+            // 
+            this.linkCurrentConfigToolStripMenuItem.Name = "linkCurrentConfigToolStripMenuItem";
+            resources.ApplyResources(this.linkCurrentConfigToolStripMenuItem, "linkCurrentConfigToolStripMenuItem");
+            this.linkCurrentConfigToolStripMenuItem.Click += new System.EventHandler(this.linkCurrentConfigToolStripMenuItem_Click);
+            // 
+            // openLinkedConfigToolStripMenuItem
+            // 
+            this.openLinkedConfigToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openLinkFilenameToolStripMenuItem});
+            this.openLinkedConfigToolStripMenuItem.Name = "openLinkedConfigToolStripMenuItem";
+            resources.ApplyResources(this.openLinkedConfigToolStripMenuItem, "openLinkedConfigToolStripMenuItem");
+            // 
+            // openLinkFilenameToolStripMenuItem
+            // 
+            this.openLinkFilenameToolStripMenuItem.Name = "openLinkFilenameToolStripMenuItem";
+            resources.ApplyResources(this.openLinkFilenameToolStripMenuItem, "openLinkFilenameToolStripMenuItem");
+            this.openLinkFilenameToolStripMenuItem.Click += new System.EventHandler(this.openLinkedConfigToolStripMenuItem_Click);
+            // 
+            // removeLinkConfigToolStripMenuItem
+            // 
+            this.removeLinkConfigToolStripMenuItem.Name = "removeLinkConfigToolStripMenuItem";
+            resources.ApplyResources(this.removeLinkConfigToolStripMenuItem, "removeLinkConfigToolStripMenuItem");
+            this.removeLinkConfigToolStripMenuItem.Click += new System.EventHandler(this.unlinkConfigToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            resources.ApplyResources(this.toolStripMenuItem5, "toolStripMenuItem5");
+            // 
+            // autoloadToggleToolStripMenuItem
+            // 
+            this.autoloadToggleToolStripMenuItem.Checked = true;
+            this.autoloadToggleToolStripMenuItem.CheckOnClick = true;
+            this.autoloadToggleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autoloadToggleToolStripMenuItem.Name = "autoloadToggleToolStripMenuItem";
+            resources.ApplyResources(this.autoloadToggleToolStripMenuItem, "autoloadToggleToolStripMenuItem");
+            this.autoloadToggleToolStripMenuItem.Click += new System.EventHandler(this.autoloadToggleToolStripMenuItem_Click);
             // 
             // toolStripStatusLabel4
             // 
@@ -883,6 +951,14 @@
         private System.Windows.Forms.ToolStripMenuItem hubHopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadPresetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripAircraftDropDownButton;
+        private System.Windows.Forms.ToolStripMenuItem removeLinkConfigToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem autoloadToggleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem linkCurrentConfigToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openLinkedConfigToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem openLinkFilenameToolStripMenuItem;
     }
 }
 

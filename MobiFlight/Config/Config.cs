@@ -1,8 +1,6 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -24,6 +22,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(ShiftRegister))]
         [XmlElement(typeof(InputMultiplexer))]
         [XmlElement(typeof(MultiplexerDriver))]
+        [XmlElement(typeof(CustomDevice))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -133,6 +132,13 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        // backward compatibility
+                        case DeviceType.LedModuleDeprecated:
+                            currentItem = new MobiFlight.Config.LedModuleDeprecated();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            currentItem = new MobiFlight.Config.LedModule(currentItem as MobiFlight.Config.LedModuleDeprecated);
+                            break;
+
                         case DeviceType.LcdDisplay:
                             currentItem = new MobiFlight.Config.LcdDisplay();
                             currentItem.FromInternal(item + BaseDevice.End);
@@ -157,8 +163,6 @@ namespace MobiFlight.Config
                                 multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
                                 // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
-                                //} else {
-                                //    multiplexerDriver.registerClient();
                             }
                             multiplexerDriver.FromInternal(InputMultiplexer.GetMultiplexerDriverConfig(item + BaseDevice.End));
 
@@ -176,18 +180,10 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                            // If the multiplexerDriver is to be explicitly defined by its own config line,
-                            // following 'case' is required:
-
-                            //case DeviceType.MultiplexerDriver:
-                            //if (multiplexerDriver == null) {
-                            //  multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
-                            //  currentItem = multiplexerDriver;
-                            //  currentItem.FromInternal(item + BaseDevice.End);
-                            //} else {
-                            //  multiplexerDriver.registerClient();
-                            //}
-                            //break;
+                        case DeviceType.CustomDevice:
+                            currentItem = new MobiFlight.Config.CustomDevice();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
                     }
 
                     if (currentItem != null)

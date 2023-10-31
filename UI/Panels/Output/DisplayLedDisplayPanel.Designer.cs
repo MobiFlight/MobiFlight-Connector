@@ -144,7 +144,6 @@
             // 
             // displayLedDecimalPointFlowLayoutPanel
             // 
-            resources.ApplyResources(this.displayLedDecimalPointFlowLayoutPanel, "displayLedDecimalPointFlowLayoutPanel");
             this.displayLedDecimalPointFlowLayoutPanel.Controls.Add(this.displayLedDecimalPoint7CheckBox);
             this.displayLedDecimalPointFlowLayoutPanel.Controls.Add(this.displayLedDecimalPoint6CheckBox);
             this.displayLedDecimalPointFlowLayoutPanel.Controls.Add(this.displayLedDecimalPoint5CheckBox);
@@ -153,6 +152,7 @@
             this.displayLedDecimalPointFlowLayoutPanel.Controls.Add(this.displayLedDecimalPoint2CheckBox);
             this.displayLedDecimalPointFlowLayoutPanel.Controls.Add(this.displayLedDecimalPoint1CheckBox);
             this.displayLedDecimalPointFlowLayoutPanel.Controls.Add(this.displayLedDecimalPoint0CheckBox);
+            resources.ApplyResources(this.displayLedDecimalPointFlowLayoutPanel, "displayLedDecimalPointFlowLayoutPanel");
             this.displayLedDecimalPointFlowLayoutPanel.Name = "displayLedDecimalPointFlowLayoutPanel";
             // 
             // displayLedDecimalPoint4CheckBox
@@ -199,7 +199,6 @@
             // 
             // displayLedDigitFlowLayoutPanel
             // 
-            resources.ApplyResources(this.displayLedDigitFlowLayoutPanel, "displayLedDigitFlowLayoutPanel");
             this.displayLedDigitFlowLayoutPanel.Controls.Add(this.displayLedDigit7CheckBox);
             this.displayLedDigitFlowLayoutPanel.Controls.Add(this.displayLedDigit6CheckBox);
             this.displayLedDigitFlowLayoutPanel.Controls.Add(this.displayLedDigit5CheckBox);
@@ -208,11 +207,11 @@
             this.displayLedDigitFlowLayoutPanel.Controls.Add(this.displayLedDigit2CheckBox);
             this.displayLedDigitFlowLayoutPanel.Controls.Add(this.displayLedDigit1CheckBox);
             this.displayLedDigitFlowLayoutPanel.Controls.Add(this.displayLedDigit0CheckBox);
+            resources.ApplyResources(this.displayLedDigitFlowLayoutPanel, "displayLedDigitFlowLayoutPanel");
             this.displayLedDigitFlowLayoutPanel.Name = "displayLedDigitFlowLayoutPanel";
             // 
             // displayLedModuleSizeComboBox
             // 
-            resources.ApplyResources(this.displayLedModuleSizeComboBox, "displayLedModuleSizeComboBox");
             this.displayLedModuleSizeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayLedModuleSizeComboBox.FormattingEnabled = true;
             this.displayLedModuleSizeComboBox.Items.AddRange(new object[] {
@@ -222,6 +221,7 @@
             resources.GetString("displayLedModuleSizeComboBox.Items3"),
             resources.GetString("displayLedModuleSizeComboBox.Items4"),
             resources.GetString("displayLedModuleSizeComboBox.Items5")});
+            resources.ApplyResources(this.displayLedModuleSizeComboBox, "displayLedModuleSizeComboBox");
             this.displayLedModuleSizeComboBox.Name = "displayLedModuleSizeComboBox";
             this.displayLedModuleSizeComboBox.SelectedIndexChanged += new System.EventHandler(this.DisplayLedModuleSize_SelectedIndexChanged);
             // 
@@ -288,15 +288,14 @@
             // 
             // flowLayoutPanel1
             // 
-            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Controls.Add(this.displayLedAddressComboBox);
             this.flowLayoutPanel1.Controls.Add(this.label9);
             this.flowLayoutPanel1.Controls.Add(this.displayLedConnectorComboBox);
+            resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // displayLedAddressComboBox
             // 
-            resources.ApplyResources(this.displayLedAddressComboBox, "displayLedAddressComboBox");
             this.displayLedAddressComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayLedAddressComboBox.FormattingEnabled = true;
             this.displayLedAddressComboBox.Items.AddRange(new object[] {
@@ -316,6 +315,7 @@
             resources.GetString("displayLedAddressComboBox.Items13"),
             resources.GetString("displayLedAddressComboBox.Items14"),
             resources.GetString("displayLedAddressComboBox.Items15")});
+            resources.ApplyResources(this.displayLedAddressComboBox, "displayLedAddressComboBox");
             this.displayLedAddressComboBox.Name = "displayLedAddressComboBox";
             // 
             // label9
@@ -325,22 +325,22 @@
             // 
             // displayLedConnectorComboBox
             // 
-            resources.ApplyResources(this.displayLedConnectorComboBox, "displayLedConnectorComboBox");
             this.displayLedConnectorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.displayLedConnectorComboBox.FormattingEnabled = true;
             this.displayLedConnectorComboBox.Items.AddRange(new object[] {
             resources.GetString("displayLedConnectorComboBox.Items"),
             resources.GetString("displayLedConnectorComboBox.Items1")});
+            resources.ApplyResources(this.displayLedConnectorComboBox, "displayLedConnectorComboBox");
             this.displayLedConnectorComboBox.Name = "displayLedConnectorComboBox";
             // 
             // PaddingCharComboBox
             // 
-            resources.ApplyResources(this.PaddingCharComboBox, "PaddingCharComboBox");
             this.PaddingCharComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PaddingCharComboBox.FormattingEnabled = true;
             this.PaddingCharComboBox.Items.AddRange(new object[] {
             resources.GetString("PaddingCharComboBox.Items"),
             resources.GetString("PaddingCharComboBox.Items1")});
+            resources.ApplyResources(this.PaddingCharComboBox, "PaddingCharComboBox");
             this.PaddingCharComboBox.Name = "PaddingCharComboBox";
             // 
             // displayLedReverseDigitsCheckBox
@@ -351,7 +351,6 @@
             // 
             // displayLedGroupFlowLayoutPanel
             // 
-            resources.ApplyResources(this.displayLedGroupFlowLayoutPanel, "displayLedGroupFlowLayoutPanel");
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDigitFlowLayoutPanel);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.label5);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDecimalPointLabel);
@@ -368,6 +367,7 @@
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel1);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedDisplayLabel0);
             this.displayLedGroupFlowLayoutPanel.Controls.Add(this.displayLedPaddingCheckBox);
+            resources.ApplyResources(this.displayLedGroupFlowLayoutPanel, "displayLedGroupFlowLayoutPanel");
             this.displayLedGroupFlowLayoutPanel.Name = "displayLedGroupFlowLayoutPanel";
             this.displayLedGroupFlowLayoutPanel.TabStop = false;
             // 
@@ -391,13 +391,13 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.ReverseDigitHintLabel);
             this.groupBox1.Controls.Add(this.BrightnessReferenceHintLabel);
             this.groupBox1.Controls.Add(this.ReverseDigitsLabel);
             this.groupBox1.Controls.Add(this.displayLedReverseDigitsCheckBox);
             this.groupBox1.Controls.Add(this.brightnessDropDown);
             this.groupBox1.Controls.Add(this.BrigthnessReferenceLabel);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -418,9 +418,9 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Controls.Add(this.ledDisplayComboBoxLabel);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // DisplayLedDisplayPanel

@@ -385,6 +385,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No aircraft detected.
+        /// </summary>
+        internal static string uiLabelNoAircraftDetected_ {
+            get {
+                return ResourceManager.GetString("uiLabelNoAircraftDetected.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application is now running in the background..
         /// </summary>
         internal static string uiMessageApplicationIsRunningInBackgroundMode {
@@ -1100,7 +1109,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the current firmware first..
+        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the latest firmware now!.
         /// </summary>
         internal static string uiMessageSettingsDialogFirmwareVersionTooLowException {
             get {

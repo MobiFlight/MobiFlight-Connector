@@ -59,7 +59,9 @@ namespace MobiFlight.SimConnectMSFS
 
     public enum SIMCONNECT_DEFINE_ID
     {
-        Dummy = 0
+        INIT_CLIENT = 0,
+        RUNTIME_CLIENT = 1,
+        AIRCRAFT_NAME = 2
     }
 
     public enum SIMCONNECT_NOTIFICATION_GROUP_ID

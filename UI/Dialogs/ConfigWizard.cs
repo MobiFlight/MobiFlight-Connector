@@ -147,10 +147,13 @@ namespace MobiFlight.UI.Dialogs
         private void TestTimer_Tick(object sender, EventArgs e)
         {
             var value = config.TestValue.Clone() as ConnectorValue;
+            if (value == null) value = new ConnectorValue();
+
             try
             {
-                if (value != null)
-                    config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
+                // Apply all modifiers to the test value
+                // so that the test value yields the final value
+                config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
             } catch (Exception ex)
             {
                 // ShowError? Or don't do anything?

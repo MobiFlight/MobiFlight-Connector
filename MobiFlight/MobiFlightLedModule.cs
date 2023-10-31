@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms.Design;
-using CommandMessenger;
+﻿using CommandMessenger;
 using MobiFlight.Base;
-using Newtonsoft.Json.Linq;
-using SharpDX.DirectInput;
+using MobiFlight.Config;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MobiFlight
 {
@@ -31,6 +26,7 @@ namespace MobiFlight
                 ClearState();
             }
         }
+        public string ModelType { get; set; }
 
         List<LedModuleState> _state = new List<LedModuleState>();
 
@@ -55,6 +51,7 @@ namespace MobiFlight
         {
             Brightness = 15;
             SubModules = 1;
+            ModelType = LedModule.MODEL_TYPE_MAX72xx;
         }
 
         protected void Initialize()
@@ -66,6 +63,8 @@ namespace MobiFlight
         public void Display(int subModule, String value, byte points, byte mask, bool reverse = false)
         {
             if (!_initialized) Initialize();
+
+            if (subModule > 1 && ModelType != LedModule.MODEL_TYPE_MAX72xx) return;
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 
