@@ -96,7 +96,11 @@ namespace MobiFlight.UI.Panels.Settings
             addDeviceToolStripDropDownButton.Enabled = false;
             removeDeviceToolStripButton.Enabled = false;
 
-            mfModulesTreeView.Nodes.Clear();
+            lock(mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Clear();
+            }
+            
             moduleMultiplexerDrivers.Clear();
 
             try
@@ -141,7 +145,11 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void HidePlaceholderNode()
         {
-            mfModulesTreeView.Nodes.Remove(PlaceholderNode);
+            lock(mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Remove(PlaceholderNode);
+            }
+            
             mfModulesTreeView.Enabled = true;
         }
 
@@ -177,8 +185,12 @@ namespace MobiFlight.UI.Panels.Settings
                 }
             }
             
-            mfModulesTreeView.Nodes.Add(node);
-            HidePlaceholderNode();
+            lock(mfModulesTreeView)
+            {
+                mfModulesTreeView.Nodes.Add(node);
+                HidePlaceholderNode();
+            }
+            
         }
 
         public void SaveSettings()
@@ -958,8 +970,11 @@ namespace MobiFlight.UI.Panels.Settings
             if (node.Level == 0) return;    // removing a device, not a module
 
             TreeNode ModuleNode = getModuleNode();
-
-            mfModulesTreeView.Nodes.Remove(node);
+            
+            lock (mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Remove(node);
+            }
             
             // if we're removing a device that uses the multiplexer driver (currently InputMultiplexer only),
             // check if any other device uses it, and otherwise make sure to remove that too 
@@ -1559,6 +1574,7 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             TreeNode moduleNode;
+            
             AddModuleAsNodeToTreeView(mobiFlightModuleInfo);
         }
 
@@ -1575,7 +1591,11 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (moduleNode == null) return;
 
-            mfModulesTreeView.Nodes.Remove(moduleNode);
+            lock (mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Remove(moduleNode);
+            }
+            
             if (mfModulesTreeView.Nodes.Count == 0)
             {
                 ShowPlaceholderNode();
