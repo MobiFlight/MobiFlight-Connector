@@ -112,6 +112,7 @@
         <button>
           <onPress type="EventIdInputAction" eventId="66079" param="0" />
           <onRelease />
+          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -124,6 +125,7 @@
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="0" />
           <onRelease />
+          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />

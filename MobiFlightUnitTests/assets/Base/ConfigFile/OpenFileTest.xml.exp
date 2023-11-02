@@ -64,6 +64,7 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
+          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -80,6 +81,7 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="0" />
           </onRelease>
+          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
