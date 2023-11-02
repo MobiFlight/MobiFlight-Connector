@@ -92,8 +92,10 @@ namespace MobiFlight
             }
 
             // cache hit
-            if (_state[subModule] == null || !_state[subModule].DisplayRequiresUpdate(value, points, mask))
-                return;
+            lock(_state) { 
+                if (_state[subModule] == null || !_state[subModule].DisplayRequiresUpdate(value, points, mask))
+                    return;
+            }
 
             command.AddArgument(this.ModuleNumber);
             command.AddArgument(subModule);            
