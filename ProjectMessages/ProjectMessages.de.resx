@@ -611,4 +611,11 @@ That midiboard cannot be used until other application is terminated and MobiFlig
     <value>Kein Flugzeug detektiert.</value>
     <comment>No aircraft detected</comment>
   </data>
+  <data name="uiLabelModuleTYPE_COMPATIBLE" xml:space="preserve">
+    <value>Kompatibel</value>
+  </data>
+  <data name="uiLabelModuleNAME_UNKNOWN" xml:space="preserve">
+    <value>Kompatibles Modul</value>
+    <comment>Compatible board</comment>
+  </data>
 </root>

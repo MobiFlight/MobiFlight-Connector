@@ -594,4 +594,10 @@ That midiboard cannot be used until other application is terminated and MobiFlig
   <data name="uiLabelNoAircraftDetected." xml:space="preserve">
     <value>No aircraft detected</value>
   </data>
+  <data name="uiLabelModuleTYPE_COMPATIBLE" xml:space="preserve">
+    <value>Compatible</value>
+  </data>
+  <data name="uiLabelModuleNAME_UNKNOWN" xml:space="preserve">
+    <value>Compatible module</value>
+  </data>
 </root>

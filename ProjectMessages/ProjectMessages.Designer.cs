@@ -385,6 +385,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compatible module.
+        /// </summary>
+        internal static string uiLabelModuleNAME_UNKNOWN {
+            get {
+                return ResourceManager.GetString("uiLabelModuleNAME_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible.
+        /// </summary>
+        internal static string uiLabelModuleTYPE_COMPATIBLE {
+            get {
+                return ResourceManager.GetString("uiLabelModuleTYPE_COMPATIBLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No aircraft detected.
         /// </summary>
         internal static string uiLabelNoAircraftDetected_ {

@@ -343,6 +343,11 @@ namespace MobiFlight.UI.Panels.Settings
         private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo moduleInfo, TreeNode moduleNode)
         {
             moduleNode.Text = moduleInfo.Name;
+            if (moduleInfo.Name == MobiFlightModule.TYPE_UNKNOWN)
+            {
+                moduleNode.Text = i18n._tr("uiLabelModuleNAME_UNKNOWN");
+            }
+
             if (moduleInfo.HasMfFirmware())
             {
                 moduleNode.SelectedImageKey = moduleNode.ImageKey = "module";
