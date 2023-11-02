@@ -121,7 +121,7 @@ namespace MobiFlight
                         Log.Instance.log($"Axis can't be mapped: {DIJoystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {axisLabel}.", LogSeverity.Error);
                         continue;
                     }
-                    Axes.Add(new JoystickDevice() { Name = axisName, Label = axisLabel, Type = DeviceType.AnalogInput });
+                    Axes.Add(new JoystickDevice() { Name = axisName, Label = axisLabel, Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis});
                     Log.Instance.log($"Added {DIJoystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label: {axisLabel}.", LogSeverity.Debug);
 
                 }
@@ -131,19 +131,19 @@ namespace MobiFlight
                     // when looking up names in the the .joystick.json file.
                     var buttonName = $"{ButtonPrefix} {device.Usage}";
                     var buttonLabel = MapDeviceNameToLabel(buttonName);
-                    Buttons.Add(new JoystickDevice() { Name = buttonName, Label = buttonLabel, Type = DeviceType.Button });
+                    Buttons.Add(new JoystickDevice() { Name = buttonName, Label = buttonLabel, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
                     Log.Instance.log($"Added {DIJoystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {buttonLabel}.", LogSeverity.Debug);
                 }
                 else if (IsPOV)
                 {
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}U", Label = $"{name} (↑)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UR", Label = $"{name} (↗)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}R", Label = $"{name} (→)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DR", Label = $"{name} (↘)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}D", Label = $"{name} (↓)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DL", Label = $"{name} (↙)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}L", Label = $"{name} (←)", Type = DeviceType.Button });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}U", Label = $"{name} (↑)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UR", Label = $"{name} (↗)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}R", Label = $"{name} (→)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DR", Label = $"{name} (↘)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}D", Label = $"{name} (↓)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DL", Label = $"{name} (↙)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}L", Label = $"{name} (←)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
                 }
                 else
                 {

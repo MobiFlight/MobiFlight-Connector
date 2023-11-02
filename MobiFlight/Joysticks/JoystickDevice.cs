@@ -9,6 +9,8 @@ namespace MobiFlight
         public String Name { get; set; }
         public String Label { get; set; }
 
+        public JoystickDeviceType JoystickDeviceType { get; set; }
+
         public ListItem<IBaseDevice> ToListItem()
         {
             return new ListItem<IBaseDevice>() { Label = Label, Value = this };
