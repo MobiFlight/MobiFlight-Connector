@@ -3,6 +3,7 @@ using MobiFlight.Monitors;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -114,6 +115,12 @@ namespace MobiFlight
             if (ignoredComPorts.Contains(portDetails.Name))
             {
                 OnIgnoredPortDetected(sender, portDetails);
+
+                // in case all ports are connected
+                // we have to check here
+                // so that the startup can finish.
+                await CheckIfLookUpFinished();
+                return;
             }
 
             Task<MobiFlightModule> task = Task.Run(() =>
@@ -142,16 +149,23 @@ namespace MobiFlight
 
             ModuleConnected?.Invoke(result, new EventArgs());
 
+            await CheckIfLookUpFinished();
+        }
+
+        private async Task<bool> CheckIfLookUpFinished()
+        {
             var currentModuleCount = AvailableComModules.Count;
             var allModulesDetected = await Task.Delay(TimeSpan.FromMilliseconds(3000))
                       .ContinueWith(_ => { return currentModuleCount == AvailableComModules.Count; });
 
-            if (!allModulesDetected || !isFirstTimeLookup) return;
-
-            isFirstTimeLookup = false;
+            if (!allModulesDetected || !isFirstTimeLookup) return false;
             
+            isFirstTimeLookup = false;
+
             Log.Instance.log($"End looking up connected modules. {AvailableComModules.Count} found.", LogSeverity.Debug);
             LookupFinished?.Invoke(this, new EventArgs());
+
+            return true;
         }
 
         private void OnIgnoredPortDetected(object sender, PortDetails portDetails)
