@@ -181,7 +181,7 @@ namespace MobiFlight.Joysticks.Octavi
         {
             foreach (string entry in octaviHandler.OctaviButtonList)
             {
-                    Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = JoystickDeviceType.Button });
+                    Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
             }
         }
     }

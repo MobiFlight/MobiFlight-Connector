@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MobiFlight;
+using MobiFlight.Config;
 
 namespace System
 {
@@ -46,6 +47,20 @@ namespace System
             foreach (object item in comboBox.Items)
             {
                 if ((item.ToString()) == value)
+                {
+                    comboBox.SelectedItem = item;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        
+        static public bool SetSelectedDeviceByDeviceName(ComboBox comboBox, string name)
+        {
+            foreach (ListItem<IBaseDevice> item in comboBox.Items)
+            {
+                if (item.Value?.Name == name)
                 {
                     comboBox.SelectedItem = item;
                     return true;
