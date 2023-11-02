@@ -188,7 +188,6 @@ namespace MobiFlight.UI
             execManager.OnModuleRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
-            execManager.getMobiFlightModuleCache().CompatibleBoardConnected += Module_CompatibleBoardConnected;
 
             moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -383,36 +382,6 @@ namespace MobiFlight.UI
         {
             saveToolStripButton.Enabled = true;
             UpdateAllConnectionIcons();
-        }
-
-        private void Module_CompatibleBoardConnected(object sender, String text, int progress)
-        {
-            if (InvokeRequired)
-            {
-                this.Invoke(new ModuleConnectEventHandler(Module_CompatibleBoardConnected), new object[] { sender, text, progress });
-                return;
-            }
-
-
-            // During initial lookup we are showing the panel
-            // and we would like to display some progress information
-            if (!InitialLookupFinished)
-            {
-                startupPanel.UpdateStatusText(text);
-                if (startupPanel.GetProgressBar() < progress + 10)
-                    startupPanel.UpdateProgressBar(progress + 10);
-
-                return;
-            }
-
-            // In case of discovering boards after startup
-            // Now we are treating this information differently
-            var module = (sender as MobiFlightModuleInfo);
-
-            if (module?.FirmwareInstallPossible() ?? false)
-            {
-                PerformFirmwareInstallProcess(module);
-            }
         }
 
         /// <summary>
@@ -746,7 +715,7 @@ namespace MobiFlight.UI
 #endif
 
         private void Module_Connected(object sender, EventArgs e)
-        {
+        {   
             if (InvokeRequired)
             {
                 this.Invoke(new EventHandler(ModuleCache_Available), new object[] { sender, e });
@@ -755,15 +724,30 @@ namespace MobiFlight.UI
             UpdateStatusBarModuleInformation();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
-            // During the lookup we collect all boards
-            // and perform a parallel update
-            if (!InitialLookupFinished) return;
+            // During initial lookup we are showing the panel
+            // and we would like to display some progress information
+            if (!InitialLookupFinished)
+            {
+                startupPanel.UpdateStatusText("Scanning for boards.");
+                var progress = startupPanel.GetProgressBar();
+                var progressIncrement = (75 - progress) / 2;
+                startupPanel.UpdateProgressBar(progress + progressIncrement);
 
+                return;
+            }
 
-            // But after inital lookup, we intiate
-            // the update right here
-            var module = sender as MobiFlightModule;
-            if (module?.FirmwareRequiresUpdate() ?? false) return;
+            var module = (sender as MobiFlightModule);
+
+            // This board is not flashed yet
+            if (module?.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
+            {
+                PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
+                return;
+            } 
+
+            // The board already has MF firmware
+            if (!module?.FirmwareRequiresUpdate() ?? false) return;
+
 
             PerformFirmwareUpdateProcess(module);
         }

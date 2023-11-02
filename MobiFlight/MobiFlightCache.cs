@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace MobiFlight
 {
     public delegate void ButtonEventHandler(object sender, InputEventArgs e);
-    public delegate void ModuleConnectEventHandler(object sender, String status, int progress);
 
     public class MobiFlightCache : MobiFlightCacheInterface, ModuleCacheInterface
     {    
@@ -35,10 +34,6 @@ namespace MobiFlight
         /// Gets raised whenever connection is lost
         /// </summary>
         public event EventHandler ModuleRemoved;
-        /// <summary>
-        /// Gets raised whenever connection is established
-        /// </summary>
-        public event ModuleConnectEventHandler CompatibleBoardConnected;
         /// <summary>
         /// Gets raised whenever the initial scan for modules is done
         /// </summary>
@@ -100,8 +95,11 @@ namespace MobiFlight
             if (disconnectedModule.HasMfFirmware())
             {
                 var module = Modules.Values.ToList().Find(m => m.Port == e.Name);
-                module.Disconnect();
-                Modules.TryRemove(module.Serial, out MobiFlightModule removedModule);
+                if (module != null)
+                {
+                    module.Disconnect();
+                    Modules.TryRemove(module.Serial, out MobiFlightModule removedModule);
+                }
             }
             AvailableComModules.Remove(disconnectedModule);
             ModuleRemoved?.Invoke(disconnectedModule, EventArgs.Empty);
@@ -191,11 +189,7 @@ namespace MobiFlight
 
         private void OnCompatibleBoardDetected(MobiFlightModuleInfo result)
         {
-            int progressValue = (AvailableComModules.Count + 1 * 25) / SerialPortMonitor.DetectedPorts.Count + 1;
-                AvailableComModules.Add(result);
-            
-            // refactor - get rid of this event
-            CompatibleBoardConnected?.Invoke(this, "Scanning modules", progressValue + 5);
+            AvailableComModules.Add(result);
         }
 
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
