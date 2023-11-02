@@ -1409,5 +1409,10 @@ namespace MobiFlight
 
             return ResultPins;
         }
+
+        internal bool FirmwareRequiresUpdate()
+        {
+            return ToMobiFlightModuleInfo().FirmwareRequiresUpdate();
+        }
     }
 }

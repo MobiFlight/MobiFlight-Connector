@@ -37,7 +37,7 @@ namespace MobiFlight
         /// <summary>
         /// Gets raised whenever connection is established
         /// </summary>
-        public event ModuleConnectEventHandler ModuleConnecting;
+        public event ModuleConnectEventHandler CompatibleBoardConnected;
         /// <summary>
         /// Gets raised whenever the initial scan for modules is done
         /// </summary>
@@ -118,7 +118,7 @@ namespace MobiFlight
 
             Task<MobiFlightModule> task = Task.Run(() =>
             {
-                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board) { Name = portDetails.Board.Info.FriendlyName };
+                MobiFlightModule module = new MobiFlightModule(portDetails.Name, portDetails.Board);
                 module.Connect();
                 
                 MobiFlightModuleInfo devInfo = module.GetInfo() as MobiFlightModuleInfo;
@@ -135,6 +135,7 @@ namespace MobiFlight
             var result = await task;
 
             OnCompatibleBoardDetected(result.ToMobiFlightModuleInfo());
+
             if (result.HasMfFirmware()) { 
                 OnMobiFlightBoardDetected(result);
             }
@@ -180,7 +181,7 @@ namespace MobiFlight
                 AvailableComModules.Add(result);
             
             // refactor - get rid of this event
-            ModuleConnecting?.Invoke(this, "Scanning modules", progressValue + 5);
+            CompatibleBoardConnected?.Invoke(this, "Scanning modules", progressValue + 5);
         }
 
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)

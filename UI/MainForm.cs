@@ -25,7 +25,9 @@ namespace MobiFlight.UI
 {
     public partial class MainForm : Form
     {
-        delegate void UpdateAircraftCallback(string aircraftName);
+        private delegate void UpdateAircraftCallback(string aircraftName);
+        private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
+        private delegate void VoidDelegate();
 
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
@@ -36,16 +38,9 @@ namespace MobiFlight.UI
         /// </summary>
         private string currentFileName = null;
         private ConfigFile configFile = null;
-
         private CmdLineParams cmdLineParams;
-
         private ExecutionManager execManager;
-
-        private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
-        private delegate void VoidDelegate();
-
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
-
         public event EventHandler<string> CurrentFilenameChanged;
 
         public string CurrentFileName {
@@ -66,6 +61,9 @@ namespace MobiFlight.UI
         }
 
         public ConfigFile ConfigFile { get { return configFile; } }
+
+        public bool InitialLookupFinished { get; private set; } = false;
+
         public event EventHandler<ConfigFile> ConfigLoaded;
 
         private void InitializeLogging()
@@ -190,7 +188,7 @@ namespace MobiFlight.UI
             execManager.OnModuleRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
-            execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
+            execManager.getMobiFlightModuleCache().CompatibleBoardConnected += Module_CompatibleBoardConnected;
 
             moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -387,16 +385,34 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
         }
 
-        private void MainForm_ModuleConnected(object sender, String text, int progress)
+        private void Module_CompatibleBoardConnected(object sender, String text, int progress)
         {
             if (InvokeRequired)
             {
-                this.Invoke(new ModuleConnectEventHandler(MainForm_ModuleConnected), new object[] { sender, text, progress });
+                this.Invoke(new ModuleConnectEventHandler(Module_CompatibleBoardConnected), new object[] { sender, text, progress });
                 return;
             }
-            startupPanel.UpdateStatusText(text);
-            if (startupPanel.GetProgressBar() < progress + 10)
-                startupPanel.UpdateProgressBar(progress + 10);
+
+
+            // During initial lookup we are showing the panel
+            // and we would like to display some progress information
+            if (!InitialLookupFinished)
+            {
+                startupPanel.UpdateStatusText(text);
+                if (startupPanel.GetProgressBar() < progress + 10)
+                    startupPanel.UpdateProgressBar(progress + 10);
+
+                return;
+            }
+
+            // In case of discovering boards after startup
+            // Now we are treating this information differently
+            var module = (sender as MobiFlightModuleInfo);
+
+            if (module?.FirmwareInstallPossible() ?? false)
+            {
+                PerformFirmwareInstallProcess(module);
+            }
         }
 
         /// <summary>
@@ -443,7 +459,9 @@ namespace MobiFlight.UI
             UpdateStatusBarModuleInformation();
 
             // Track config loaded event
-            AppTelemetry.Instance.TrackStart(); 
+            AppTelemetry.Instance.TrackStart();
+
+            InitialLookupFinished = true;
         }
 
         private void CheckForWasmModuleUpdate()
@@ -464,17 +482,7 @@ namespace MobiFlight.UI
             {
                 if (module.Board.Info.CanInstallFirmware)
                 {
-                    Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
-                    Version currentVersion;
-                    try { 
-                        currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
-                    }
-                    catch (Exception ex)
-                    {
-                        currentVersion = new Version("0.0.0");
-                    }
-                    if (currentVersion.CompareTo(new Version("0.0.1")) != 0 && // ignore the developer board that has 0.0.1
-                        currentVersion.CompareTo(latestVersion) < 0)
+                    if (module.FirmwareRequiresUpdate())
                     {
                         // Update needed!!!
                         modulesForUpdate.Add(module);
@@ -486,7 +494,7 @@ namespace MobiFlight.UI
             {
                 if (moduleInfo.Type == "Ignored") continue;
 
-                if (moduleInfo.Board.Info.CanInstallFirmware && !moduleInfo.HasMfFirmware())
+                if (moduleInfo.FirmwareInstallPossible())
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }
@@ -510,48 +518,67 @@ namespace MobiFlight.UI
 
             if (modulesForUpdate.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.DefaultDialogResult = DialogResult.Cancel;
-                tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
-                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
-                
-                if (tmd.ShowDialog() == DialogResult.OK)
-                {
-                    if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
-                    {
-                    }
-                };
+                PerformFirmwareUpdateProcess(modulesForUpdate);
             }
 
             // this is only for non mobiflight boards
             if (Properties.Settings.Default.FwAutoUpdateCheck && modulesForFlashing.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                PerformFirmwareInstallProcess(modulesForFlashing);
+            }
+        }
+
+        private void PerformFirmwareInstallProcess(MobiFlightModuleInfo module)
+        {
+            PerformFirmwareInstallProcess(new List<MobiFlightModuleInfo>() { module });
+        }
+        private void PerformFirmwareInstallProcess(List<MobiFlightModuleInfo> modulesForFlashing)
+        {
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
+            tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
+                {
+                }
+            }
+            else
+            {
                 tmd.StartPosition = FormStartPosition.CenterParent;
                 tmd.DefaultDialogResult = DialogResult.Cancel;
-                tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
-                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+                tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
+                tmd.Text = i18n._tr("Hint");
 
                 if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
-                    {
-                    }
-                }
-                else
-                {
-                    tmd.StartPosition = FormStartPosition.CenterParent;
-                    tmd.DefaultDialogResult = DialogResult.Cancel;
-                    tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
-                    tmd.Text = i18n._tr("Hint");
-
-                    if (tmd.ShowDialog() == DialogResult.OK)
-                    {
-                        Properties.Settings.Default.FwAutoUpdateCheck = false;
-                    };
-                }
+                    Properties.Settings.Default.FwAutoUpdateCheck = false;
+                };
             }
+        }
+
+        private void PerformFirmwareUpdateProcess(MobiFlightModule module)
+        {
+            PerformFirmwareUpdateProcess(new List<MobiFlightModule>() { module });
+        }
+
+        private void PerformFirmwareUpdateProcess(List<MobiFlightModule> modulesForUpdate)
+        {
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
+            tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
+                {
+                }
+            };
         }
 
         private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
@@ -727,6 +754,18 @@ namespace MobiFlight.UI
             }
             UpdateStatusBarModuleInformation();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
+
+            // During the lookup we collect all boards
+            // and perform a parallel update
+            if (!InitialLookupFinished) return;
+
+
+            // But after inital lookup, we intiate
+            // the update right here
+            var module = sender as MobiFlightModule;
+            if (module?.FirmwareRequiresUpdate() ?? false) return;
+
+            PerformFirmwareUpdateProcess(module);
         }
 
         void Module_Removed(object sender, EventArgs e)
