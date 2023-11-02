@@ -62,6 +62,10 @@ namespace MobiFlight
 
         public void Display(int subModule, String value, byte points, byte mask, bool reverse = false)
         {
+            try
+            {
+
+            
             if (!_initialized) Initialize();
 
             if (subModule > 1 && ModelType != LedModule.MODEL_TYPE_MAX72xx) return;
@@ -102,6 +106,10 @@ namespace MobiFlight
             // Send command
             System.Threading.Thread.Sleep(1);
             CmdMessenger.SendCommand(command);
+            }
+            catch(Exception ex) {
+                Log.Instance.log($"Exception {ex.Message}", LogSeverity.Debug);
+            }
         }
 
         private string ReplacePointsBySpaces(string value)
@@ -251,10 +259,14 @@ namespace MobiFlight
 
         public void ClearState()
         {
-            _state.Clear();
-            for (int i = 0; i < SubModules; i++)
+            // we can have cross-thread issues during startup
+            lock (_state)
             {
-                _state.Add(new LedModuleState());
+                _state.Clear();
+                for (int i = 0; i < SubModules; i++)
+                {
+                    _state.Add(new LedModuleState());
+                }
             }
         }
     }
