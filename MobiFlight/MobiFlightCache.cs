@@ -49,7 +49,7 @@ namespace MobiFlight
         /// <summary>
         /// list of known modules.
         /// 
-        /// volatile for better cross thread access
+        /// ConcurrentDictionary for better thread-safety
         /// </summary>
         ConcurrentDictionary<string, MobiFlightModule> Modules = new ConcurrentDictionary<string, MobiFlightModule>();
         ConcurrentDictionary<string, MobiFlightVariable> variables = new ConcurrentDictionary<string, MobiFlightVariable>();

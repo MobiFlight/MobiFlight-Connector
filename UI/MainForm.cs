@@ -718,7 +718,7 @@ namespace MobiFlight.UI
         {   
             if (InvokeRequired)
             {
-                this.Invoke(new EventHandler(ModuleCache_Available), new object[] { sender, e });
+                this.Invoke(new EventHandler(Module_Connected), new object[] { sender, e });
                 return;
             }
             UpdateStatusBarModuleInformation();
