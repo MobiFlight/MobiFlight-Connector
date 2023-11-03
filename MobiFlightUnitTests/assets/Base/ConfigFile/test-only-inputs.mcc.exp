@@ -5,7 +5,7 @@
     <config guid="f1dda453-af4b-4e44-b88e-6cdb575abb50">
       <active>false</active>
       <description>MasterBattery ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="MasterBattery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="MasterBattery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="1" />
@@ -21,7 +21,7 @@
     <config guid="805dc057-4e6b-44ea-ab63-aa460c2079ba">
       <active>false</active>
       <description>Generator ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Generator" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Generator" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />
@@ -37,7 +37,7 @@
     <config guid="53c85f5f-1af4-4610-84f7-80f68c68fc29">
       <active>false</active>
       <description>Fuel Pump ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="FuelPump" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="FuelPump" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />
@@ -53,7 +53,7 @@
     <config guid="bf3d9161-df8a-4449-a6b8-73fe0cf6b4be">
       <active>false</active>
       <description>Beacon ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Beacon" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Beacon" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" bcdMode="False" inputValue="1" />
@@ -69,7 +69,7 @@
     <config guid="11f6de8b-1ca0-491f-92f1-16ebec5747a2">
       <active>false</active>
       <description>LangingLight ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Landing" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Landing" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" bcdMode="False" inputValue="1" />
@@ -85,7 +85,7 @@
     <config guid="8629e0ca-b3c6-48ee-a346-5aea8230ec07">
       <active>false</active>
       <description>Taxi Light ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Taxi" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Taxi" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" bcdMode="False" inputValue="1" />
@@ -101,7 +101,7 @@
     <config guid="3719bd6b-8b00-47d4-a6bc-e078b6f4c20d">
       <active>false</active>
       <description>Nav Position Light </description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="NavLight" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="NavLight" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" bcdMode="False" inputValue="1" />
@@ -117,7 +117,7 @@
     <config guid="6d332180-8663-430e-b241-db73a514cb36">
       <active>false</active>
       <description>Strobe Light ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Strobe" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Strobe" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" bcdMode="False" inputValue="1" />
@@ -133,7 +133,7 @@
     <config guid="8f87d39c-22fd-4a0e-8c12-cd6024bcb6d8">
       <active>false</active>
       <description>Pitot Heat ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Strobe" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Strobe" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="1" />
@@ -149,7 +149,7 @@
     <config guid="54ec7574-d953-45ad-9e44-f647385b277d">
       <active>false</active>
       <description>Avionics Master ON/OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Pitot" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Pitot" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="1" />
@@ -165,12 +165,11 @@
     <config guid="cdfcadaf-b9f7-431e-8c54-a8b2fa81251f">
       <active>false</active>
       <description>Engine Starter START</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter START" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter START" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="4" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -179,12 +178,11 @@
     <config guid="67b2ed56-07e6-44e0-8b79-8852da4620ea">
       <active>false</active>
       <description>Engine Starter BOTH (1+2)</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter BOTH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter BOTH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="3" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -193,12 +191,11 @@
     <config guid="3169ccc9-3c5f-4f4a-9fad-c1fb03365458">
       <active>false</active>
       <description>Engine Starter Left</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="2" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -207,12 +204,11 @@
     <config guid="ebb949ee-50bd-4f9f-b4a5-72365ee05397">
       <active>false</active>
       <description>Engine Starter Right</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="1" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -221,12 +217,11 @@
     <config guid="04332969-0818-4d89-8a8c-829f25fd5092">
       <active>false</active>
       <description>Engine Starter OFF</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter Off" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Starter Off" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="0" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -235,7 +230,7 @@
     <config guid="8d4c174f-74d7-4f65-85e4-b2dc164877b6">
       <active>false</active>
       <description>Radio On</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="" name="" type="-" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="" name="" type="-" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <preconditions />
         <configrefs />
       </settings>
@@ -243,7 +238,7 @@
     <config guid="eaf94969-44cc-466a-b105-618576366a10">
       <active>true</active>
       <description>Com1 STBY</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;3697,$+100,$-1800)" />
@@ -264,7 +259,7 @@
     <config guid="00613069-876d-465e-92d6-3a9b5b99854a">
       <active>false</active>
       <description>Com1 STBY KHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&lt;3697,if($%5==0,$+2,$+3),1800)" />
@@ -285,7 +280,7 @@
     <config guid="60e1375e-e6c0-44b9-8376-3d19cf8012db">
       <active>false</active>
       <description>Nav1 Stby MHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;=900,$-100,$+900)" />
@@ -305,7 +300,7 @@
     <config guid="7d411c2b-6656-48cd-a70d-924dff0c0b10">
       <active>false</active>
       <description>Nav1 Stby KHz</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" inputValue="if($&gt;=800,$-5,1795)" />
@@ -325,12 +320,11 @@
     <config guid="50636809-c002-4908-9d38-639024325c1b">
       <active>false</active>
       <description>Nav1 MHZ Sel</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1EncoderBtn" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1EncoderBtn" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="if($==1,0,1)" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -339,12 +333,11 @@
     <config guid="4f20728d-8ce4-4f56-9f80-41e27be3de13">
       <active>false</active>
       <description>COM1 MHZ Sel</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlpsButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlpsButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="if($==1,0,1)" />
           </onPress>
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -353,10 +346,9 @@
     <config guid="da72ce40-ca56-499f-8922-07c377c3589e">
       <active>false</active>
       <description>Nav1 Switch (Event ID)</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1 Switch" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="Nav1 Switch" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66448" param="0" />
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -365,10 +357,9 @@
     <config guid="2440b2d8-66d5-431f-b91f-9784213677af">
       <active>true</active>
       <description>COM1 Switch (Event ID)</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="RedPushButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="RedPushButton" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66372" param="0" />
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -377,7 +368,7 @@
     <config guid="561240b6-0465-427e-bfbb-e3a177ffcd6e">
       <active>false</active>
       <description>Autopilot - Heading</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=8.0.2.1, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="TestBoard/ SN-849-180" name="EncoderAlps" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="$-Round(65536/360,0)" />

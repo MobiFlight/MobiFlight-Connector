@@ -22,6 +22,8 @@ namespace MobiFlight
         public int Value { get; set; }
 
         public String StrValue { get; set; }
+
+        public readonly DateTime Time = DateTime.Now;
     }
 
     public class FirmwareFeature

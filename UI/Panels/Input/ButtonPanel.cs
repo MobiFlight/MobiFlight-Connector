@@ -10,6 +10,7 @@ using MobiFlight;
 using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Config;
 using System.Windows.Forms.DataVisualization.Charting;
+using MobiFlight.UI.Panels.Action;
 
 namespace MobiFlight.UI.Panels.Input
 {
@@ -23,15 +24,18 @@ namespace MobiFlight.UI.Panels.Input
         {
             onPressActionTypePanel.OnClipBoardChanged(action);
             onReleaseActionTypePanel.OnClipBoardChanged(action);
+            onLongReleaseActionTypePanel.OnClipBoardChanged(action);
         }
 
         public new bool Enabled {
             get { return onPressActionConfigPanel.Enabled;  }
             set { 
                 onReleaseActionTypePanel.Enabled = value;
+                onLongReleaseActionTypePanel.Enabled = value;
                 onPressActionTypePanel.Enabled = value;
                 onPressActionConfigPanel.Enabled = value; 
-                onReleaseActionConfigPanel.Enabled = value;
+                onReleaseActionConfigPanel.Enabled = value;    
+                onLongRelActionConfigPanel.Enabled = value;
             }
         }
         public ButtonPanel()
@@ -39,10 +43,10 @@ namespace MobiFlight.UI.Panels.Input
             InitializeComponent();
             onPressActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
             onReleaseActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
-
+            onLongReleaseActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onPressActionTypePanel_ActionTypeChanged);
 
             List<ActionTypePanel> panels = new List<ActionTypePanel>() { 
-                onPressActionTypePanel, onReleaseActionTypePanel
+                onPressActionTypePanel, onReleaseActionTypePanel, onLongReleaseActionTypePanel
             };
             panels.ForEach(action =>
             {
@@ -76,6 +80,10 @@ namespace MobiFlight.UI.Panels.Input
             {
                 Clipboard.Instance.InputAction = config.onRelease;
             }
+            if ((sender as ActionTypePanel) == onLongReleaseActionTypePanel)
+            {
+                Clipboard.Instance.InputAction = config.onLongRelease;
+            }
         }
 
         private void Action_PasteButtonPressed(object sender, EventArgs e)
@@ -85,6 +93,7 @@ namespace MobiFlight.UI.Panels.Input
             (sender as ActionTypePanel).syncFromConfig(Clipboard.Instance.InputAction);
 
             bool isPress = (sender as ActionTypePanel) == onPressActionTypePanel;
+            bool isRelease = (sender as ActionTypePanel) == onReleaseActionTypePanel;
 
             InputConfig.ButtonInputConfig config = new ButtonInputConfig();
             if (isPress)
@@ -92,10 +101,15 @@ namespace MobiFlight.UI.Panels.Input
                 owner = onPressActionConfigPanel; 
                 config.onPress = Clipboard.Instance.InputAction;
             }
-            else
+            else if (isRelease)
             {
                 owner = onReleaseActionConfigPanel;
                 config.onRelease = Clipboard.Instance.InputAction;
+            }
+            else
+            {
+                owner = onLongRelActionConfigPanel;
+                config.onLongRelease = Clipboard.Instance.InputAction;
             }
 
             String value = null;
@@ -114,10 +128,10 @@ namespace MobiFlight.UI.Panels.Input
             else if (type == "MobiFlight.InputConfig.VariableInputAction") value = MobiFlight.InputConfig.VariableInputAction.Label;
             else if (type == "MobiFlight.InputConfig.XplaneInputAction") value = MobiFlight.InputConfig.XplaneInputAction.Label;
 
-            UpdatePanelWithAction(owner, config, value, isPress);
+            UpdatePanelWithAction(owner, config, value, isPress, isRelease);
         }
 
-        private void UpdatePanelWithAction(Panel owner, ButtonInputConfig config, string value, bool isOnPress)
+        private void UpdatePanelWithAction(Panel owner, ButtonInputConfig config, string value, bool isOnPress, bool isOnRelease)
         {
             this.SuspendLayout();
             Control panel = null;
@@ -128,11 +142,12 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new Panels.Config.FsuipcConfigPanel();
                     (panel as Panels.Config.FsuipcConfigPanel).setMode(false);
 
-
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onPress as FsuipcOffsetInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onRelease as FsuipcOffsetInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as Panels.Config.FsuipcConfigPanel).syncFromConfig(config.onLongRelease as FsuipcOffsetInputAction);
 
                     break;
 
@@ -140,8 +155,10 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.KeyboardInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.KeyboardInputPanel).syncFromConfig(config.onPress as KeyInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.KeyboardInputPanel).syncFromConfig(config.onRelease as KeyInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.KeyboardInputPanel).syncFromConfig(config.onLongRelease as KeyInputAction);
 
                     break;
 
@@ -149,8 +166,10 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.EventIdInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.EventIdInputPanel).syncFromConfig(config.onPress as EventIdInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.EventIdInputPanel).syncFromConfig(config.onRelease as EventIdInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.EventIdInputPanel).syncFromConfig(config.onLongRelease as EventIdInputAction);
 
                     break;
 
@@ -159,8 +178,10 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel).syncFromConfig(config.onPress as PmdgEventIdInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel).syncFromConfig(config.onRelease as PmdgEventIdInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel).syncFromConfig(config.onLongRelease as PmdgEventIdInputAction);
 
                     break;
 
@@ -168,8 +189,10 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.JeehellInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.JeehellInputPanel).syncFromConfig(config.onPress as JeehellInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.JeehellInputPanel).syncFromConfig(config.onRelease as JeehellInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.JeehellInputPanel).syncFromConfig(config.onLongRelease as JeehellInputAction);
 
                     break;
 
@@ -177,16 +200,20 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.VJoyInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.VJoyInputPanel).syncFromConfig(config.onPress as VJoyInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.VJoyInputPanel).syncFromConfig(config.onRelease as VJoyInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.VJoyInputPanel).syncFromConfig(config.onLongRelease as VJoyInputAction);
                     break;
 
                 case MobiFlight.InputConfig.LuaMacroInputAction.Label:
                     panel = new MobiFlight.UI.Panels.Action.LuaMacroInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.LuaMacroInputPanel).syncFromConfig(config.onPress as LuaMacroInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.LuaMacroInputPanel).syncFromConfig(config.onRelease as LuaMacroInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.LuaMacroInputPanel).syncFromConfig(config.onLongRelease as LuaMacroInputAction);
 
                     break;
 
@@ -194,8 +221,10 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.RetriggerInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.RetriggerInputPanel).syncFromConfig(config.onPress as RetriggerInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.RetriggerInputPanel).syncFromConfig(config.onRelease as RetriggerInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.RetriggerInputPanel).syncFromConfig(config.onLongRelease as RetriggerInputAction);
 
                     break;
 
@@ -204,8 +233,10 @@ namespace MobiFlight.UI.Panels.Input
                     (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).SetVariableReferences(Variables);
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).syncFromConfig(config.onPress as VariableInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).syncFromConfig(config.onRelease as VariableInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.VariableInputPanel).syncFromConfig(config.onLongRelease as VariableInputAction);
 
                     break;
 
@@ -219,12 +250,19 @@ namespace MobiFlight.UI.Panels.Input
                         else if (config.onPress is MSFS2020EventIdInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(config.onPress as MSFS2020EventIdInputAction);
                     }
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                     {
                         if (config.onRelease is MSFS2020CustomInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(config.onRelease as MSFS2020CustomInputAction);
                         else if (config.onRelease is MSFS2020EventIdInputAction)
                             (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(config.onRelease as MSFS2020EventIdInputAction);
+                    }
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                    {
+                        if (config.onLongRelease is MSFS2020CustomInputAction)
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(config.onLongRelease as MSFS2020CustomInputAction);
+                        else if (config.onLongRelease is MSFS2020EventIdInputAction)
+                            (panel as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).syncFromConfig(config.onLongRelease as MSFS2020EventIdInputAction);
                     }
 
                     break;
@@ -233,8 +271,10 @@ namespace MobiFlight.UI.Panels.Input
                     panel = new MobiFlight.UI.Panels.Action.XplaneInputPanel();
                     if (isOnPress && config != null && config.onPress != null)
                         (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(config.onPress as XplaneInputAction);
-                    else if (!isOnPress && config != null && config.onRelease != null)
+                    else if (isOnRelease && config != null && config.onRelease != null)
                         (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(config.onRelease as XplaneInputAction);
+                    else if (!isOnRelease && config != null && config.onLongRelease != null)
+                        (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(config.onLongRelease as XplaneInputAction);
 
                     break;
             }
@@ -260,10 +300,21 @@ namespace MobiFlight.UI.Panels.Input
         {
             Panel owner = onPressActionConfigPanel;
             bool isOnPress = (sender as MobiFlight.UI.Panels.Config.ActionTypePanel) == onPressActionTypePanel;
+            bool isOnRelease = (sender as MobiFlight.UI.Panels.Config.ActionTypePanel) == onReleaseActionTypePanel;
+            if (isOnPress)
+            {
+                owner = onPressActionConfigPanel;
+            }
+            else if (isOnRelease)
+            {
+                owner = onReleaseActionConfigPanel;
+            }
+            else
+            {
+                owner = onLongRelActionConfigPanel;
+            }
 
-            if (!isOnPress) owner = onReleaseActionConfigPanel;
-
-            UpdatePanelWithAction(owner, _config, value, isOnPress);
+            UpdatePanelWithAction(owner, _config, value, isOnPress, isOnRelease);
         }
 
         public void syncFromConfig(InputConfig.ButtonInputConfig config)
@@ -280,6 +331,11 @@ namespace MobiFlight.UI.Panels.Input
             if (_config.onRelease != null)
             {
                 onReleaseActionTypePanel.syncFromConfig(_config.onRelease);
+            }
+
+            if (_config.onLongRelease != null)
+            {
+                onLongReleaseActionTypePanel.syncFromConfig(_config.onLongRelease);
             }
         }
 
@@ -398,6 +454,65 @@ namespace MobiFlight.UI.Panels.Input
 
                     default:
                         config.onRelease = null;
+                        break;
+                }
+            }
+            
+            if (onLongReleaseActionTypePanel.ActionTypeComboBox.SelectedItem != null)
+            {
+                switch (onLongReleaseActionTypePanel.ActionTypeComboBox.SelectedItem.ToString())
+                {
+                    
+                    case MobiFlight.InputConfig.FsuipcOffsetInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Config.FsuipcConfigPanel).ToConfig();
+                        break;
+
+                    case InputConfig.KeyInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.KeyboardInputPanel).ToConfig();
+                        break;
+                      
+                    case MobiFlight.InputConfig.EventIdInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.EventIdInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.PmdgEventIdInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.PmdgEventIdInputPanel).ToConfig();
+                        break;
+
+                    case InputConfig.JeehellInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.JeehellInputPanel).ToConfig();
+                        break;
+
+                    case InputConfig.VJoyInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VJoyInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.LuaMacroInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.LuaMacroInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.RetriggerInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.RetriggerInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.MSFS2020EventIdInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020InputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.MSFS2020CustomInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.MSFS2020CustomInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.VariableInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.VariableInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.XplaneInputAction.Label:
+                        config.onLongRelease = (onLongRelActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.XplaneInputPanel).ToConfig();
+                        break;
+
+                    default:
+                        config.onLongRelease = null;
                         break;
                 }
             }

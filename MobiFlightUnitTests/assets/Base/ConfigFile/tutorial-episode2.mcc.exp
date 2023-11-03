@@ -139,7 +139,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-0f5-0ef" name="GearUp" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="0" />
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -151,7 +150,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="MobiFlight Mega/ SN-0f5-0ef" name="GearDown" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="0" />
-          <onRelease />
         </button>
         <preconditions />
         <configrefs />
