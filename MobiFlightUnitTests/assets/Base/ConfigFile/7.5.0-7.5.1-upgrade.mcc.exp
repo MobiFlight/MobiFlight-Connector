@@ -952,8 +952,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE RT0" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -965,8 +963,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="1" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -978,8 +974,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="2" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -991,8 +985,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="3" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1004,8 +996,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE 3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="4" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1017,8 +1007,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AUTOBRAKE MAX" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70092" param="5" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1031,7 +1019,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="69974" param="0" />
           <onRelease type="EventIdInputAction" eventId="69974" param="1" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1044,7 +1031,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="69974" param="2" />
           <onRelease type="EventIdInputAction" eventId="69974" param="1" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1057,7 +1043,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="69980" param="1" />
           <onRelease type="EventIdInputAction" eventId="69080" param="0" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1069,8 +1054,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AP PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69971" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1082,8 +1065,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="AT PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69972" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1095,8 +1076,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 01/ SN-b59-4d4" name="FMC PRST SW" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69973" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1109,7 +1088,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="69978" param="2" />
           <onRelease type="EventIdInputAction" eventId="69978" param="1" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1122,7 +1100,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="69978" param="0" />
           <onRelease type="EventIdInputAction" eventId="69978" param="1" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1135,7 +1112,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="536870912" />
           <onRelease type="EventIdInputAction" eventId="74183" param="-2147483648" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1148,7 +1124,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="66079" param="-2147483648" />
           <onRelease type="EventIdInputAction" eventId="74183" param="536870912" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1161,7 +1136,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="65752" param="1" />
           <onRelease type="EventIdInputAction" eventId="65752" param="0" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1257,8 +1231,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 1 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70353" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1298,8 +1270,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="COM 2 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70469" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1339,8 +1309,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 1 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70361" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1380,8 +1348,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX02/ SN-cef-d2a" name="NAV 2 TRANSFER SWITCH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70477" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1393,8 +1359,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_OUTBD_PFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1406,8 +1370,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SELNORM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="1" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1419,8 +1381,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ENG PRI" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="2" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1432,8 +1392,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_PFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="3" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1445,8 +1403,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_MFD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69967" param="4" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1458,8 +1414,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ENG_PRI" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69968" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1471,8 +1425,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_NORM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69968" param="1" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1484,8 +1436,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="DU_SEL_ND" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="69968" param="2" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1497,8 +1447,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1510,8 +1458,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="1" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1523,8 +1469,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_AUTO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="2" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1536,8 +1480,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="N1_SEL_BOTH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70098" param="3" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1563,8 +1505,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_AUTO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="1" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1576,8 +1516,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_V1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="2" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1589,8 +1527,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_VR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="3" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1602,8 +1538,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_WT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="4" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1615,8 +1549,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_VREF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="5" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1628,8 +1560,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_DELTA" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="6" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1641,8 +1571,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FSX 03/ SN-4fa-532" name="SPD_REF_SET" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70096" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1669,7 +1597,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="70100" param="0" />
           <onRelease type="EventIdInputAction" eventId="70100" param="1" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1682,7 +1609,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="70100" param="2" />
           <onRelease type="EventIdInputAction" eventId="70100" param="1" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1695,7 +1621,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="70094" param="1" />
           <onRelease type="EventIdInputAction" eventId="70094" param="0" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1708,7 +1633,6 @@
         <button>
           <onPress type="EventIdInputAction" eventId="70095" param="1" />
           <onRelease type="EventIdInputAction" eventId="70095" param="0" />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1748,8 +1672,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70166" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1761,8 +1683,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70167" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1774,8 +1694,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70168" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1787,8 +1705,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70169" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1800,8 +1716,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70170" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1813,8 +1727,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="L6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70171" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1826,8 +1738,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70172" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1839,8 +1749,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70173" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1852,8 +1760,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70174" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1865,8 +1771,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70175" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1878,8 +1782,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70176" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1891,8 +1793,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70177" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1904,8 +1804,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="INIT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70178" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1917,8 +1815,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="RTE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70179" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1930,8 +1826,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="CLB" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70180" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1943,8 +1837,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="CRZ" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70181" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1956,8 +1848,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DES" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70182" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1969,8 +1859,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="MENU" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70183" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1982,8 +1870,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="LEGS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70184" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -1995,8 +1881,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="DEP_ARR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70185" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2008,8 +1892,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="HOLD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70186" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2021,8 +1903,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="PROG" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70187" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2034,8 +1914,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="EXEC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70188" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2047,8 +1925,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="N1LIM" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70189" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2060,8 +1936,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="FIX" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70190" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2073,8 +1947,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="PREV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70191" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2086,8 +1958,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="NEXT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70192" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2099,8 +1969,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70193" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2112,8 +1980,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70194" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2125,8 +1991,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="3" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70195" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2138,8 +2002,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70196" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2151,8 +2013,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="5" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70197" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2164,8 +2024,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="6" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70198" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2177,8 +2035,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="7" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70199" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2190,8 +2046,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="8" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70200" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2203,8 +2057,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="9" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70201" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2216,8 +2068,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DOT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70202" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2229,8 +2079,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="0" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70203" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2242,8 +2090,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="PLUS MINUS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70204" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2255,8 +2101,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="A" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70205" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2268,8 +2112,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="B" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70206" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2281,8 +2123,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="C" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70207" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2294,8 +2134,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="D" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70208" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2307,8 +2145,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="E" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70209" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2320,8 +2156,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC2/ SN-db3-033" name="F" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70210" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2333,8 +2167,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="G" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70211" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2346,8 +2178,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="H" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70212" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2359,8 +2189,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="I" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70213" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2372,8 +2200,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="J" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70214" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2385,8 +2211,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="K" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70215" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2398,8 +2222,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="L" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70216" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2411,8 +2233,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="M" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70217" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2424,8 +2244,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="N" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70218" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2437,8 +2255,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="O" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70219" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2450,8 +2266,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="P" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70220" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2463,8 +2277,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Q" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70221" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2476,8 +2288,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="R" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70222" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2489,8 +2299,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="S" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70223" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2502,8 +2310,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="T" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70224" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2515,8 +2321,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="U" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70225" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2528,8 +2332,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="V" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70226" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2541,8 +2343,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="W" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70227" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2554,8 +2354,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="X" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70228" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2567,8 +2365,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Y" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70229" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2580,8 +2376,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="Z" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70230" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2593,8 +2387,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="SPACE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70231" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2606,8 +2398,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="DEL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70232" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2619,8 +2409,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="SLASH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70233" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -2632,8 +2420,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="FMC1/ SN-811-64f" name="CLR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="70234" param="536870912" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />

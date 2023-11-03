@@ -327,7 +327,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x281C" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -344,7 +343,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x3B78" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -361,7 +359,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x3104" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -378,7 +375,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0002" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -395,7 +391,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="1" mask="0x0004" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -412,7 +407,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0008" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -429,7 +423,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0001" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -446,7 +439,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0D0C" offsetType="Integer" size="2" mask="0x0010" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -463,7 +455,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x029C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -480,7 +471,6 @@
           <onRelease type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x2E80" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="0" />
           </onRelease>
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -494,8 +484,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="4" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -509,8 +497,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="3" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -524,8 +510,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="2" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -539,8 +523,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="1" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -554,8 +536,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x0892" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" inputValue="0" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -657,8 +637,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="if($==1,0,1)" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -672,8 +650,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" inputValue="if($==1,0,1)" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -687,8 +663,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="66448" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -702,8 +676,6 @@
           <onPress type="FsuipcOffsetInputAction">
             <source type="FSUIPC" offset="0x3110" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" inputValue="66372" />
           </onPress>
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -799,8 +771,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="GearUp" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66079" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />
@@ -812,8 +782,6 @@
       <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null" serial="C172RadioStack/ SN-c2b-a22" name="GearDown" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="EventIdInputAction" eventId="66080" param="0" />
-          <onRelease />
-          <onLongRelease />
         </button>
         <preconditions />
         <configrefs />

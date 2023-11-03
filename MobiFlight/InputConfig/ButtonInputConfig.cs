@@ -10,7 +10,6 @@ namespace MobiFlight.InputConfig
         public InputAction onRelease;
         public InputAction onLongRelease;
 
-
         public object Clone()
         {
             ButtonInputConfig clone = new ButtonInputConfig();
@@ -70,17 +69,31 @@ namespace MobiFlight.InputConfig
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteStartElement("onPress");
-            if (onPress != null) onPress.WriteXml(writer);
-            writer.WriteEndElement();
+            if (onPress != null)
+            {
+                writer.WriteStartElement("onPress");
+                onPress.WriteXml(writer);
+                writer.WriteEndElement();
+            }
 
-            writer.WriteStartElement("onRelease");
-            if (onRelease != null) onRelease.WriteXml(writer);
-            writer.WriteEndElement();
+            if (onRelease != null)
+            {
+                writer.WriteStartElement("onRelease");
+                onRelease.WriteXml(writer);
+                writer.WriteEndElement();
+            }
 
-            writer.WriteStartElement("onLongRelease");
-            if (onLongRelease != null) onLongRelease.WriteXml(writer);
-            writer.WriteEndElement();
+            if (onLongRelease != null)
+            {
+                writer.WriteStartElement("onLongRelease");
+                onLongRelease.WriteXml(writer);
+                writer.WriteEndElement();
+            }
+        }
+
+        private bool IsLongReleaseButOnlyReleaseDefined(MobiFlightButton.InputEvent inputEvent)
+        {
+            return (inputEvent == MobiFlightButton.InputEvent.LONG_RELEASE) && (onLongRelease == null) && (onRelease != null);
         }
 
         internal void execute(CacheCollection cacheCollection, 
@@ -92,20 +105,13 @@ namespace MobiFlight.InputConfig
             {
                 onPress.execute(cacheCollection, args, configRefs);
             }
-            else if (inputEvent == MobiFlightButton.InputEvent.RELEASE && onRelease != null)
+            else if (inputEvent == MobiFlightButton.InputEvent.RELEASE && onRelease != null && IsLongReleaseButOnlyReleaseDefined(inputEvent))
             {
                 onRelease.execute(cacheCollection, args, configRefs);
             }
-            else if (inputEvent == MobiFlightButton.InputEvent.LONG_RELEASE)                
+            else if (inputEvent == MobiFlightButton.InputEvent.LONG_RELEASE && onLongRelease != null)                
             {
-                if (onLongRelease != null)
-                {
-                    onLongRelease.execute(cacheCollection, args, configRefs);
-                }
-                else if (onRelease != null)
-                {
-                    onRelease.execute(cacheCollection, args, configRefs);
-                }                
+                onLongRelease.execute(cacheCollection, args, configRefs);             
             }
         }
 
