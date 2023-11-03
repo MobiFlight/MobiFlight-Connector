@@ -52,6 +52,62 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
             Assert.AreEqual(127, (o.onRelease as JeehellInputAction).EventId, "EventId not the same");
             Assert.AreEqual("(A:EXTERNAL POWER AVAILABLE:1, Bool)", (o.onLongRelease as MSFS2020CustomInputAction).Command, "Command not the same");
+       
+            o = new ButtonInputConfig();
+            s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.2.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("button");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(null, o.onRelease, "onRelease not null");
+            Assert.AreEqual(null, o.onLongRelease, "onLongRelease not null");
+
+            o = new ButtonInputConfig();
+            s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.3.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("button");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(null, o.onRelease, "onRelease not null");
+            Assert.AreEqual(null, o.onLongRelease, "onLongRelease not null");
+
+            o = new ButtonInputConfig();
+            s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.4.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("button");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
+            Assert.AreEqual(null, o.onRelease, "onRelease not null");
+            Assert.AreEqual("c1cb32b4-fd35-41ab-8ff7-c407bd407998", (o.onLongRelease as MSFS2020CustomInputAction).PresetId, "PresetId not the same");
+
+            o = new ButtonInputConfig();
+            s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.5.xml");
+            sr = new StringReader(s);
+            settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+
+            xmlReader = XmlReader.Create(sr, settings);
+            xmlReader.ReadToDescendant("button");
+            o.ReadXml(xmlReader);
+
+            Assert.AreEqual(null, o.onPress, "onPress not null");
+            Assert.AreEqual(null, o.onRelease, "onRelease not null");
+            Assert.AreEqual(null, o.onLongRelease, "onLongRelease not null");
         }
 
         [TestMethod()]
