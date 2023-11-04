@@ -13,7 +13,7 @@ using MobiFlight.Modifier;
 
 namespace MobiFlight.UI.Panels.Config
 {
-    public partial class FsuipcConfigPanel : UserControl
+    public partial class FsuipcConfigPanel : UserControl, IPanelConfigSync
     {
         public event EventHandler ModifyTabLink;
         public event EventHandler ModifierChanged;
@@ -226,20 +226,21 @@ namespace MobiFlight.UI.Panels.Config
             }
         }
 
-        internal void syncFromConfig(IFsuipcConfigItem config)
+        public void syncFromConfig(object config)
         {
-            if (config == null)
+            IFsuipcConfigItem conf = config as IFsuipcConfigItem;
+            if (conf == null)
             {
                 // this happens when casting badly
                 return;
             }
             // first tab                        
-            fsuipcOffsetTextBox.Text = "0x" + config.FSUIPC.Offset.ToString("X4");
+            fsuipcOffsetTextBox.Text = "0x" + conf.FSUIPC.Offset.ToString("X4");
 
             // preselect fsuipc offset type
             try
             {
-                fsuipcOffsetTypeComboBox.SelectedValue = config.FSUIPC.OffsetType.ToString();
+                fsuipcOffsetTypeComboBox.SelectedValue = conf.FSUIPC.OffsetType.ToString();
             }
             catch (Exception ex)
             {
@@ -247,7 +248,7 @@ namespace MobiFlight.UI.Panels.Config
                 Log.Instance.log($"Exception on FSUIPCOffsetType.ToString: {ex.Message}", LogSeverity.Error);
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, config.FSUIPC.Size.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, conf.FSUIPC.Size.ToString()))
             {
                 // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in ComboBox.", LogSeverity.Error);
@@ -255,12 +256,12 @@ namespace MobiFlight.UI.Panels.Config
 
             // mask
             fsuipcMaskTextBox.Text = "0xFF";
-            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String)
-                fsuipcMaskTextBox.Text = "0x" + config.FSUIPC.Mask.ToString("X" + config.FSUIPC.Size.ToString());
+            if (conf.FSUIPC.OffsetType != FSUIPCOffsetType.String)
+                fsuipcMaskTextBox.Text = "0x" + conf.FSUIPC.Mask.ToString("X" + conf.FSUIPC.Size.ToString());
             
-            fsuipcBcdModeCheckBox.Checked = config.FSUIPC.BcdMode;
+            fsuipcBcdModeCheckBox.Checked = conf.FSUIPC.BcdMode;
 
-            transformOptionsGroup1.syncFromConfig(config);
+            transformOptionsGroup1.syncFromConfig(conf);
 
             /*if (config.Modifiers.Items.Count > 0 && config.Modifiers.Transformation != null)
             {
@@ -269,11 +270,11 @@ namespace MobiFlight.UI.Panels.Config
 
             foreach (DataRow row in presetDataTable.Rows)
             {
-                if ((row["settings"] as IFsuipcConfigItem).FSUIPC.Offset == config.FSUIPC.Offset &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.OffsetType == config.FSUIPC.OffsetType &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Size == config.FSUIPC.Size &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Mask == config.FSUIPC.Mask &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.BcdMode == config.FSUIPC.BcdMode
+                if ((row["settings"] as IFsuipcConfigItem).FSUIPC.Offset == conf.FSUIPC.Offset &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.OffsetType == conf.FSUIPC.OffsetType &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Size == conf.FSUIPC.Size &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Mask == conf.FSUIPC.Mask &&
+                    (row["settings"] as IFsuipcConfigItem).FSUIPC.BcdMode == conf.FSUIPC.BcdMode
                     ) {
                     fsuipcPresetComboBox.Text = row["description"].ToString();
                     break;
@@ -310,9 +311,9 @@ namespace MobiFlight.UI.Panels.Config
             }*/
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.FsuipcOffsetInputAction config = new FsuipcOffsetInputAction();
+            FsuipcOffsetInputAction config = new FsuipcOffsetInputAction();
             syncToConfig(config);
 
             return config;

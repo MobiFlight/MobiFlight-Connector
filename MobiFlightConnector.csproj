@@ -442,6 +442,8 @@
     <Compile Include="UI\Panels\Config\HubHopPresetPanel.Designer.cs">
       <DependentUpon>HubHopPresetPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\InputActionMapping.cs" />
+    <Compile Include="UI\Panels\Config\IPanelConfigSync.cs" />
     <Compile Include="UI\Panels\Config\PreconditionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

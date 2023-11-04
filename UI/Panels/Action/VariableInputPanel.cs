@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Config;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class VariableInputPanel : UserControl
+    public partial class VariableInputPanel : UserControl, IPanelConfigSync
     {
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
@@ -67,9 +68,10 @@ namespace MobiFlight.UI.Panels.Action
             ValueTextBox.Text = Variable.Expression;
         }
 
-        internal void syncFromConfig(InputConfig.VariableInputAction inputAction)
+        public void syncFromConfig(object config)
         {
-            if (inputAction == null) inputAction = new InputConfig.VariableInputAction();
+            VariableInputAction inputAction = config as VariableInputAction;
+            if (inputAction == null) inputAction = new VariableInputAction();
 
             // this can happen when we are 
             // copy & paste an input actions
@@ -93,9 +95,9 @@ namespace MobiFlight.UI.Panels.Action
             ValueTextBox.Text = inputAction.Variable.Expression;
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputAction ToConfig()
         {
-            MobiFlight.InputConfig.VariableInputAction result = new InputConfig.VariableInputAction();
+            VariableInputAction result = new VariableInputAction();
             result.Variable.TYPE = TypeComboBox.SelectedValue.ToString();
             result.Variable.Name = NameTextBox.Text;
             result.Variable.Expression = ValueTextBox.Text;
