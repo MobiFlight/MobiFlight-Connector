@@ -78,6 +78,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
             mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.port_deactivated);
+            mfTreeViewImageList.Images.Add("module-pico", MobiFlight.Properties.Resources.module_pico);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
         }
 
@@ -160,25 +161,20 @@ namespace MobiFlight.UI.Panels.Settings
             if (!module.HasMfFirmware())
             {
                 node.SelectedImageKey = node.ImageKey = "module-arduino";
-                if (module.Type == "Ignored")
+                switch (module.Type)
                 {
-                    node.SelectedImageKey = node.ImageKey = "module-ignored";
+                    case "MobiFlight RaspiPico":
+                        node.SelectedImageKey = node.ImageKey = "module-pico";
+                        break;
+
+                    case "Ignored":
+                        node.SelectedImageKey = node.ImageKey = "module-ignored";
+                        break;
                 }
             }
             else
-            {
-                Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
-
-                Version currentVersion;
-                try
-                {
-                    currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
-                }
-                catch (Exception ex)
-                {
-                    currentVersion = new Version("0.0.0");
-                }
-                if (currentVersion.CompareTo(latestVersion) < 0)
+            {                
+                if (module.FirmwareRequiresUpdate())
                 {
                     node.SelectedImageKey = node.ImageKey = "module-update";
                     node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");

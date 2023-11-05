@@ -383,6 +383,16 @@ namespace MobiFlight.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap module_pico {
+            get {
+                object obj = ResourceManager.GetObject("module_pico", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap module_unknown {
             get {
                 object obj = ResourceManager.GetObject("module_unknown", resourceCulture);

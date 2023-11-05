@@ -1520,6 +1520,7 @@
     <None Include="Resources\module-mobiflight-update.png" />
     <None Include="Resources\mux_driver.bmp" />
     <None Include="Resources\mux-driver.png" />
+    <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />
     <Content Include="Resources\servo.png" />
