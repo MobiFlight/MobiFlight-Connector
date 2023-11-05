@@ -24,10 +24,10 @@ namespace MobiFlight.Monitors
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            ScanPorts();
+            Scan();
         }
 
-        virtual protected void ScanPorts() { 
+        virtual protected void Scan() { 
             throw new NotImplementedException();
         }
 

@@ -11,7 +11,7 @@ namespace MobiFlight.Monitors
         /// as opposed to being connected as COM port.
         /// </summary>
         /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
-        override protected void ScanPorts()
+        override protected void Scan()
         {
             var result = new List<PortDetails>();
             

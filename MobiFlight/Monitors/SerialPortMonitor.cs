@@ -8,7 +8,7 @@ namespace MobiFlight.Monitors
 {
     public class SerialPortMonitor : DeviceMonitor
     {
-        override protected void ScanPorts()
+        override protected void Scan()
         {
             var portNameRegEx = "\\(.*\\)";
             var result = new List<PortDetails>();
