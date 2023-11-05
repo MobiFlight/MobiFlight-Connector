@@ -65,8 +65,17 @@ namespace MobiFlight.UI.Dialogs
 
 #if MOBIFLIGHT
             mobiFlightPanel.Init(execManager.getMobiFlightModuleCache());
-            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { execManager.AutoConnectStop(); };
-            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => { execManager.AutoConnectStart(); };
+            
+            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { 
+                execManager.AutoConnectStop();
+                execManager.getMobiFlightModuleCache().PauseModuleScan();
+            };
+
+            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => {
+                execManager.getMobiFlightModuleCache().ResumeModuleScan();
+                execManager.AutoConnectStart(); 
+            };
+
             mobiFlightPanel.OnModuleConfigChanged += (object sender, EventArgs e) => { ; };
 #endif
 
@@ -187,6 +196,19 @@ namespace MobiFlight.UI.Dialogs
         private void SettingsDialog_Load(object sender, EventArgs e)
         {
             TabPage current = tabControl1.SelectedTab;
+        }
+
+        internal void UpdateConnectedModule(object sender, EventArgs e)
+        {
+            if (!(sender is MobiFlightModule)) return;
+
+            var info = (sender as MobiFlightModule).ToMobiFlightModuleInfo();
+            mobiFlightPanel.UpdateNewlyConnectedModule(info);
+        }
+
+        internal void UpdateRemovedModule(object sender, EventArgs e)
+        {
+            mobiFlightPanel.UpdateRemovedModule(sender as MobiFlightModuleInfo);
         }
     }
 }

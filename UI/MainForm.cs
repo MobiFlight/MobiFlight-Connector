@@ -25,7 +25,9 @@ namespace MobiFlight.UI
 {
     public partial class MainForm : Form
     {
-        delegate void UpdateAircraftCallback(string aircraftName);
+        private delegate void UpdateAircraftCallback(string aircraftName);
+        private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
+        private delegate void VoidDelegate();
 
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
@@ -36,16 +38,9 @@ namespace MobiFlight.UI
         /// </summary>
         private string currentFileName = null;
         private ConfigFile configFile = null;
-
         private CmdLineParams cmdLineParams;
-
         private ExecutionManager execManager;
-
-        private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
-        private delegate void VoidDelegate();
-
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
-
         public event EventHandler<string> CurrentFilenameChanged;
 
         public string CurrentFileName {
@@ -66,6 +61,10 @@ namespace MobiFlight.UI
         }
 
         public ConfigFile ConfigFile { get { return configFile; } }
+
+        public bool InitialLookupFinished { get; private set; } = false;
+        public bool SettingsDialogActive { get; private set; }
+
         public event EventHandler<ConfigFile> ConfigLoaded;
 
         private void InitializeLogging()
@@ -170,9 +169,10 @@ namespace MobiFlight.UI
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
             execManager = new ExecutionManager(outputConfigPanel.DataGridViewConfig, inputConfigPanel.InputsDataGridView, this.Handle);
-            execManager.OnExecute += new EventHandler(timer_Tick);
-            execManager.OnStopped += new EventHandler(timer_Stopped);
-            execManager.OnStarted += new EventHandler(timer_Started);
+            execManager.OnExecute += new EventHandler(ExecManager_Executed);
+            execManager.OnStopped += new EventHandler(ExecManager_Stopped);
+            execManager.OnStarted += new EventHandler(ExecManager_Started);
+            execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
@@ -181,16 +181,14 @@ namespace MobiFlight.UI
             execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
-            //#if ARCAZE
-            execManager.OnModulesConnected += new EventHandler(ArcazeCache_Connected);
-            execManager.OnModulesDisconnected += new EventHandler(ArcazeCache_Closed);
-            execManager.OnModuleConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
-            //#endif
-            execManager.OnModuleLookupFinished += new EventHandler(ExecManager_OnModuleLookupFinished);
 
+            // working hypothesis: we don't need this at all.
+            // execManager.OnModuleCacheAvailable += new EventHandler(ModuleCache_Available);
+
+            execManager.OnModuleConnected += new EventHandler(Module_Connected);
+            execManager.OnModuleRemoved += new EventHandler(Module_Removed);
+            execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
-
-            execManager.getMobiFlightModuleCache().ModuleConnecting += MainForm_ModuleConnected;
 
             moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -246,7 +244,6 @@ namespace MobiFlight.UI
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
-
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
             if (this.InvokeRequired)
@@ -388,13 +385,6 @@ namespace MobiFlight.UI
             UpdateAllConnectionIcons();
         }
 
-        private void MainForm_ModuleConnected(object sender, String text, int progress)
-        {
-            startupPanel.UpdateStatusText(text);
-            if (startupPanel.GetProgressBar() < progress + 10)
-                startupPanel.UpdateProgressBar(progress + 10);
-        }
-
         /// <summary>
         /// properly disconnects all connections to FSUIPC and Arcaze
         /// </summary>
@@ -405,8 +395,14 @@ namespace MobiFlight.UI
             Properties.Settings.Default.Save();
         } //Form1_FormClosed
 
-        void ExecManager_OnModuleLookupFinished(object sender, EventArgs e)
+        void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ExecManager_OnInitialModuleLookupFinished), new object[] { sender, e });
+                return;
+            }
+
             startupPanel.UpdateStatusText("Checking for Firmware Updates...");
             startupPanel.UpdateProgressBar(70);
             CheckForFirmwareUpdates();
@@ -430,8 +426,12 @@ namespace MobiFlight.UI
 
             UpdateAllConnectionIcons();
 
+            UpdateStatusBarModuleInformation();
+
             // Track config loaded event
-            AppTelemetry.Instance.TrackStart(); 
+            AppTelemetry.Instance.TrackStart();
+
+            InitialLookupFinished = true;
         }
 
         private void CheckForWasmModuleUpdate()
@@ -444,7 +444,7 @@ namespace MobiFlight.UI
         {
             MobiFlightCache mfCache = execManager.getMobiFlightModuleCache();
 
-            List<MobiFlightModuleInfo> modules = mfCache.GetDetectedArduinoModules();
+            List<MobiFlightModuleInfo> modules = mfCache.GetDetectedCompatibleModules();
             List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
             List<MobiFlightModuleInfo> modulesForFlashing = new List<MobiFlightModuleInfo>();
 
@@ -452,17 +452,7 @@ namespace MobiFlight.UI
             {
                 if (module.Board.Info.CanInstallFirmware)
                 {
-                    Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
-                    Version currentVersion;
-                    try { 
-                        currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
-                    }
-                    catch (Exception ex)
-                    {
-                        currentVersion = new Version("0.0.0");
-                    }
-                    if (currentVersion.CompareTo(new Version("0.0.1")) != 0 && // ignore the developer board that has 0.0.1
-                        currentVersion.CompareTo(latestVersion) < 0)
+                    if (module.FirmwareRequiresUpdate())
                     {
                         // Update needed!!!
                         modulesForUpdate.Add(module);
@@ -474,7 +464,7 @@ namespace MobiFlight.UI
             {
                 if (moduleInfo.Type == "Ignored") continue;
 
-                if (moduleInfo.Board.Info.CanInstallFirmware && !moduleInfo.HasMfFirmware())
+                if (moduleInfo.FirmwareInstallPossible())
                 {
                     modulesForFlashing.Add(moduleInfo);
                 }
@@ -498,54 +488,76 @@ namespace MobiFlight.UI
 
             if (modulesForUpdate.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.DefaultDialogResult = DialogResult.Cancel;
-                tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
-                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
-                
-                if (tmd.ShowDialog() == DialogResult.OK)
-                {
-                    if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
-                    {
-                    }
-                };
+                PerformFirmwareUpdateProcess(modulesForUpdate);
             }
 
             // this is only for non mobiflight boards
             if (Properties.Settings.Default.FwAutoUpdateCheck && modulesForFlashing.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+                PerformFirmwareInstallProcess(modulesForFlashing);
+            }
+        }
+
+        private void PerformFirmwareInstallProcess(MobiFlightModuleInfo module)
+        {
+            PerformFirmwareInstallProcess(new List<MobiFlightModuleInfo>() { module });
+        }
+        private void PerformFirmwareInstallProcess(List<MobiFlightModuleInfo> modulesForFlashing)
+        {
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
+            tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
+                {
+                }
+            }
+            else
+            {
                 tmd.StartPosition = FormStartPosition.CenterParent;
                 tmd.DefaultDialogResult = DialogResult.Cancel;
-                tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
-                tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+                tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
+                tmd.Text = i18n._tr("Hint");
 
                 if (tmd.ShowDialog() == DialogResult.OK)
                 {
-                    if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
-                    {
-                    }
-                }
-                else
-                {
-                    tmd.StartPosition = FormStartPosition.CenterParent;
-                    tmd.DefaultDialogResult = DialogResult.Cancel;
-                    tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
-                    tmd.Text = i18n._tr("Hint");
-
-                    if (tmd.ShowDialog() == DialogResult.OK)
-                    {
-                        Properties.Settings.Default.FwAutoUpdateCheck = false;
-                    };
-                }
+                    Properties.Settings.Default.FwAutoUpdateCheck = false;
+                };
             }
+        }
+
+        private void PerformFirmwareUpdateProcess(MobiFlightModule module)
+        {
+            PerformFirmwareUpdateProcess(new List<MobiFlightModule>() { module });
+        }
+
+        private void PerformFirmwareUpdateProcess(List<MobiFlightModule> modulesForUpdate)
+        {
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
+            tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
+                {
+                }
+            };
         }
 
         private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
+            execManager.OnModuleConnected += dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
+
             switch(SelectedTab)
             {
                 case "mobiFlightTabPage":
@@ -563,7 +575,13 @@ namespace MobiFlight.UI
 
             if (BoardsForUpdate != null)
                 dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
-            return dlg.ShowDialog();
+
+            SettingsDialogActive = true;
+            var dialogResult = dlg.ShowDialog();
+            execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
+            SettingsDialogActive = false;
+            return dialogResult;
         }
 
         // this performs the update of the existing user settings 
@@ -593,11 +611,6 @@ namespace MobiFlight.UI
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AutoUpdateChecker.CheckForUpdate();
-        }
-
-        private void startAutoConnectThreadSafe()
-        {
-            execManager.AutoConnectStart();
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)
@@ -707,27 +720,92 @@ namespace MobiFlight.UI
             execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
         }
 #endif
-        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
+
+        private void Module_Connected(object sender, EventArgs e)
+        {   
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(Module_Connected), new object[] { sender, e });
+                return;
+            }
+            UpdateStatusBarModuleInformation();
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
+
+            // During initial lookup we are showing the panel
+            // and we would like to display some progress information
+            if (!InitialLookupFinished)
+            {
+                startupPanel.UpdateStatusText("Scanning for boards.");
+                var progress = startupPanel.GetProgressBar();
+                var progressIncrement = (75 - progress) / 2;
+                startupPanel.UpdateProgressBar(progress + progressIncrement);
+
+                return;
+            }
+
+            var module = (sender as MobiFlightModule);
+            if (module == null) return;
+
+            // When we open the settings dialog
+            // many of these module connected events
+            // are on purpose because we are 
+            // flashing & resetting modules
+            // in such cases we don't want the auto-detect feature
+            if (SettingsDialogActive) return;
+
+            // This board is not flashed yet
+            if (module.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
+            {
+                PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
+                return;
+            } 
+
+            // The board already has MF firmware
+            if (!module.FirmwareRequiresUpdate()) return;
+
+
+            PerformFirmwareUpdateProcess(module);
+        }
+
+        void Module_Removed(object sender, EventArgs e)
         {
-            //_disconnectArcaze();
-            _showError(i18n._tr("uiMessageArcazeConnectionLost"));            
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(Module_Removed), new object[] { sender, e });
+                return;
+            }
+            // _disconnectArcaze();
+            UpdateStatusBarModuleInformation();
+
+            // Todo: Show this error outside of the context of firmware update
+            // _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Closed(object sender, EventArgs e)
+        void ExecManager_OnShutdown(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ExecManager_OnShutdown), new object[] { sender, e });
+                return;
+            }
+            UpdateStatusBarModuleInformation();
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Connected(object sender, EventArgs e)
+        void ModuleCache_Available(object sender, EventArgs e)
         {
-            ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
-            fillComboBoxesWithArcazeModules();
+            if (InvokeRequired)
+            {
+                this.Invoke(new EventHandler(ModuleCache_Available), new object[] { sender, e });
+                return;
+            }
+            UpdateStatusBarModuleInformation();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
         }
 
@@ -963,8 +1041,14 @@ namespace MobiFlight.UI
         /// <summary>
         /// handler which sets the states of UI elements when timer gets started
         /// </summary>
-        void timer_Started(object sender, EventArgs e)
+        void ExecManager_Started(object sender, EventArgs e)
         {
+            if (InvokeRequired)
+            {
+                Invoke(new EventHandler(ExecManager_Started), new object[] { sender, e });
+                return;
+            }
+
             runToolStripButton.Enabled  = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
@@ -974,8 +1058,14 @@ namespace MobiFlight.UI
         /// <summary>
         /// handler which sets the states of UI elements when timer gets stopped
         /// </summary>
-        void timer_Stopped(object sender, EventArgs e)
+        void ExecManager_Stopped(object sender, EventArgs e)
         {
+            if(InvokeRequired)
+            {
+                Invoke(new EventHandler(ExecManager_Stopped), new object[] { sender, e});
+                return;
+            }
+
             runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = false;
@@ -984,13 +1074,13 @@ namespace MobiFlight.UI
 
         private bool TestRunIsAvailable()
         {
-            return execManager.ModulesConnected() && !execManager.TestModeIsStarted() && !execManager.IsStarted();
+            return execManager.ModulesAvailable() && !execManager.TestModeIsStarted() && !execManager.IsStarted();
         }
 
         /// <summary>
         /// Timer eventhandler
         /// </summary>        
-        void timer_Tick(object sender, EventArgs e)
+        void ExecManager_Executed(object sender, EventArgs e)
         {
             toolStripStatusLabel.Text += ".";
             if (toolStripStatusLabel.Text.Length > (10 + i18n._tr("Running").Length))
@@ -1003,11 +1093,12 @@ namespace MobiFlight.UI
         /// gathers infos about the connected modules and stores information in different objects
         /// </summary>
         /// <returns>returns true if there are modules present</returns>
-        private bool fillComboBoxesWithArcazeModules()
+        private bool UpdateStatusBarModuleInformation()
         {
             // remove the items from all comboboxes
             // and set default items
             bool modulesFound = false;
+            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
 #if ARCAZE
@@ -1032,6 +1123,7 @@ namespace MobiFlight.UI
             if (modulesFound)
             {
                 moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");
+                ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
             }
             // only enable button if modules are available            
             return (modulesFound);

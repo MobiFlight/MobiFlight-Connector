@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.moduleNameTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -39,6 +40,7 @@
             this.PortLabel = new System.Windows.Forms.Label();
             this.FirmwareValueLabel = new System.Windows.Forms.Label();
             this.FirmwareLabel = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +51,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(185, 48);
+            this.groupBox2.Size = new System.Drawing.Size(183, 48);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Name";
@@ -76,19 +78,21 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 48);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(185, 100);
+            this.groupBox1.Size = new System.Drawing.Size(183, 105);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Information";
             // 
             // TypeValueLabel
             // 
-            this.TypeValueLabel.AutoSize = true;
+            this.TypeValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TypeValueLabel.Location = new System.Drawing.Point(73, 74);
             this.TypeValueLabel.Name = "TypeValueLabel";
-            this.TypeValueLabel.Size = new System.Drawing.Size(85, 13);
+            this.TypeValueLabel.Size = new System.Drawing.Size(96, 24);
             this.TypeValueLabel.TabIndex = 7;
             this.TypeValueLabel.Text = "MobiFlight Mega";
+            this.toolTip1.SetToolTip(this.TypeValueLabel, "Test");
             // 
             // TypeLabel
             // 
@@ -101,10 +105,11 @@
             // 
             // SerialValueLabel
             // 
-            this.SerialValueLabel.AutoSize = true;
+            this.SerialValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SerialValueLabel.Location = new System.Drawing.Point(73, 56);
             this.SerialValueLabel.Name = "SerialValueLabel";
-            this.SerialValueLabel.Size = new System.Drawing.Size(57, 13);
+            this.SerialValueLabel.Size = new System.Drawing.Size(96, 13);
             this.SerialValueLabel.TabIndex = 5;
             this.SerialValueLabel.Text = "S-N / XXX";
             // 
@@ -119,10 +124,11 @@
             // 
             // PortValueLabel
             // 
-            this.PortValueLabel.AutoSize = true;
+            this.PortValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PortValueLabel.Location = new System.Drawing.Point(73, 38);
             this.PortValueLabel.Name = "PortValueLabel";
-            this.PortValueLabel.Size = new System.Drawing.Size(35, 13);
+            this.PortValueLabel.Size = new System.Drawing.Size(96, 13);
             this.PortValueLabel.TabIndex = 3;
             this.PortValueLabel.Text = "ComX";
             // 
@@ -137,10 +143,11 @@
             // 
             // FirmwareValueLabel
             // 
-            this.FirmwareValueLabel.AutoSize = true;
+            this.FirmwareValueLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.FirmwareValueLabel.Location = new System.Drawing.Point(73, 20);
             this.FirmwareValueLabel.Name = "FirmwareValueLabel";
-            this.FirmwareValueLabel.Size = new System.Drawing.Size(28, 13);
+            this.FirmwareValueLabel.Size = new System.Drawing.Size(96, 13);
             this.FirmwareValueLabel.TabIndex = 1;
             this.FirmwareValueLabel.Text = "x.x.x";
             // 
@@ -161,7 +168,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Name = "MFModulePanel";
-            this.Size = new System.Drawing.Size(185, 241);
+            this.Size = new System.Drawing.Size(183, 241);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -183,6 +190,6 @@
         private System.Windows.Forms.Label PortLabel;
         private System.Windows.Forms.Label TypeValueLabel;
         private System.Windows.Forms.Label TypeLabel;
-
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

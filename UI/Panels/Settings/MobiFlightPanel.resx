@@ -298,7 +298,7 @@
     <value>459, 17</value>
   </metadata>
   <data name="mfTreeViewImageList.ImageSize" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
+    <value>20, 20</value>
   </data>
   <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
@@ -387,60 +387,6 @@
   <data name="mobiflightSettingsToolStrip.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Bottom</value>
   </data>
-  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 315</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 2, 0</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>565, 25</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="mobiflightSettingsToolStrip.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.Name" xml:space="preserve">
-    <value>mobiflightSettingsToolStrip</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
-    <value>mfConfiguredModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;mobiflightSettingsToolStrip.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 31</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>571, 343</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
-    <value>Configured modules</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
-    <value>mfConfiguredModulesGroupBox</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="uploadToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
@@ -473,15 +419,6 @@
   </data>
   <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
     <value>6, 25</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
-  </data>
-  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
-    <value>Add device</value>
   </data>
   <data name="addOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 22</value>
@@ -567,6 +504,15 @@
   <data name="customDevicesToolStripMenuItem.Text" xml:space="preserve">
     <value>Custom Devices</value>
   </data>
+  <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+    <value>Magenta</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>95, 22</value>
+  </data>
+  <data name="addDeviceToolStripDropDownButton.Text" xml:space="preserve">
+    <value>Add device</value>
+  </data>
   <data name="removeDeviceToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
@@ -603,6 +549,60 @@
   <data name="UpdateFirmwareToolStripButton.Text" xml:space="preserve">
     <value>Update firmware</value>
   </data>
+  <data name="mobiflightSettingsToolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 315</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 2, 0</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>565, 25</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="mobiflightSettingsToolStrip.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Name" xml:space="preserve">
+    <value>mobiflightSettingsToolStrip</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.Parent" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mobiflightSettingsToolStrip.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 31</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>571, 343</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="mfConfiguredModulesGroupBox.Text" xml:space="preserve">
+    <value>Configured modules</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Name" xml:space="preserve">
+    <value>mfConfiguredModulesGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;mfConfiguredModulesGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="mobiflightSettingsLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -633,89 +633,14 @@
   <data name="&gt;&gt;mobiflightSettingsLabel.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="&gt;&gt;IgnoredComPortsLabel.Name" xml:space="preserve">
-    <value>IgnoredComPortsLabel</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsLabel.Parent" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsTextBox.Name" xml:space="preserve">
-    <value>IgnoredComPortsTextBox</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsTextBox.Parent" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;IgnoredComPortsTextBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;IgnoreComPortsCheckBox.Name" xml:space="preserve">
-    <value>IgnoreComPortsCheckBox</value>
-  </data>
-  <data name="&gt;&gt;IgnoreComPortsCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IgnoreComPortsCheckBox.Parent" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;IgnoreComPortsCheckBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;FwAutoInstallCheckBox.Name" xml:space="preserve">
-    <value>FwAutoInstallCheckBox</value>
-  </data>
-  <data name="&gt;&gt;FwAutoInstallCheckBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;FwAutoInstallCheckBox.Parent" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;FwAutoInstallCheckBox.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Bottom</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 374</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 10, 3, 3</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>571, 117</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
-    <value>Additional Settings</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
-    <value>firmwareSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="IgnoredComPortsLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
   <data name="IgnoredComPortsLabel.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="IgnoredComPortsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="IgnoredComPortsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>33, 86</value>
@@ -768,9 +693,6 @@
   <data name="&gt;&gt;IgnoredComPortsTextBox.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="CompatibleBoardScanToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1057, 17</value>
-  </metadata>
   <data name="IgnoreComPortsCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -793,8 +715,11 @@
     <value>4</value>
   </data>
   <data name="IgnoreComPortsCheckBox.Text" xml:space="preserve">
-    <value>Ignore the following COM ports on start</value>
+    <value>Ignore the following COM ports</value>
   </data>
+  <metadata name="CompatibleBoardScanToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1057, 17</value>
+  </metadata>
   <data name="IgnoreComPortsCheckBox.ToolTip" xml:space="preserve">
     <value>When enabled MobiFlight will not try to connect to the COM ports from the list</value>
   </data>
@@ -832,10 +757,10 @@
     <value>3</value>
   </data>
   <data name="FwAutoInstallCheckBox.Text" xml:space="preserve">
-    <value>Scan for compatible boards on start</value>
+    <value>Scan for compatible boards and upload latest firmware</value>
   </data>
   <data name="FwAutoInstallCheckBox.ToolTip" xml:space="preserve">
-    <value>When enabled MobiFlight asks to upload the firmware if it finds a compatible board on startup.</value>
+    <value>When enabled MobiFlight asks to upload the latest firmware if it finds a compatible board.</value>
   </data>
   <data name="&gt;&gt;FwAutoInstallCheckBox.Name" xml:space="preserve">
     <value>FwAutoInstallCheckBox</value>
@@ -848,6 +773,36 @@
   </data>
   <data name="&gt;&gt;FwAutoInstallCheckBox.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 374</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 10, 3, 3</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>571, 117</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="firmwareSettingsGroupBox.Text" xml:space="preserve">
+    <value>Additional Settings</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Name" xml:space="preserve">
+    <value>firmwareSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;firmwareSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>878, 17</value>
@@ -1044,17 +999,41 @@
   <data name="&gt;&gt;mfTreeViewImageList.Type" xml:space="preserve">
     <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
-    <value>uploadToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
     <value>toolStripSeparator1</value>
   </data>
   <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
+    <value>toolStripSeparator2</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
+    <value>toolStripSeparator4</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
+    <value>errorProvider1</value>
+  </data>
+  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CompatibleBoardScanToolTip.Name" xml:space="preserve">
+    <value>CompatibleBoardScanToolTip</value>
+  </data>
+  <data name="&gt;&gt;CompatibleBoardScanToolTip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Name" xml:space="preserve">
+    <value>uploadToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;uploadToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
     <value>saveToolStripButton</value>
@@ -1067,12 +1046,6 @@
   </data>
   <data name="&gt;&gt;openToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;addDeviceToolStripDropDownButton.Name" xml:space="preserve">
     <value>addDeviceToolStripDropDownButton</value>
@@ -1170,29 +1143,11 @@
   <data name="&gt;&gt;removeDeviceToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStripSeparator4.Name" xml:space="preserve">
-    <value>toolStripSeparator4</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;UpdateFirmwareToolStripButton.Name" xml:space="preserve">
     <value>UpdateFirmwareToolStripButton</value>
   </data>
   <data name="&gt;&gt;UpdateFirmwareToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
-    <value>errorProvider1</value>
-  </data>
-  <data name="&gt;&gt;errorProvider1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ErrorProvider, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;CompatibleBoardScanToolTip.Name" xml:space="preserve">
-    <value>CompatibleBoardScanToolTip</value>
-  </data>
-  <data name="&gt;&gt;CompatibleBoardScanToolTip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MobiFlightPanel</value>
@@ -1200,7 +1155,4 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="CompatibleBoardScanToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1057, 17</value>
-  </metadata>
 </root>

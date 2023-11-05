@@ -26,7 +26,7 @@
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_micro",
     "FirmwareExtension": "hex",
-    "FriendlyName": "Arduino Micro Pro",
+    "FriendlyName": "Arduino Pro Micro",
     "LatestFirmwareVersion": "2.4.2",
     "MobiFlightType": "MobiFlight Micro",
     "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"

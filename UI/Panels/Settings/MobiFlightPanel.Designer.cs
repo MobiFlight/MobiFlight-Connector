@@ -65,11 +65,20 @@
             this.mfTreeViewImageList = new System.Windows.Forms.ImageList(this.components);
             this.mfSettingsPanel = new System.Windows.Forms.Panel();
             this.mobiflightSettingsToolStrip = new System.Windows.Forms.ToolStrip();
-            this.uploadToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
+            this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.IgnoredComPortsLabel = new System.Windows.Forms.Label();
+            this.IgnoredComPortsTextBox = new System.Windows.Forms.TextBox();
+            this.IgnoreComPortsCheckBox = new System.Windows.Forms.CheckBox();
+            this.FwAutoInstallCheckBox = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.CompatibleBoardScanToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.uploadToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.addDeviceToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.addOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addLedModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,16 +95,7 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.customDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDeviceToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.UpdateFirmwareToolStripButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.mobiflightSettingsLabel = new System.Windows.Forms.Label();
-            this.firmwareSettingsGroupBox = new System.Windows.Forms.GroupBox();
-            this.IgnoredComPortsLabel = new System.Windows.Forms.Label();
-            this.IgnoredComPortsTextBox = new System.Windows.Forms.TextBox();
-            this.IgnoreComPortsCheckBox = new System.Windows.Forms.CheckBox();
-            this.FwAutoInstallCheckBox = new System.Windows.Forms.CheckBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.CompatibleBoardScanToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.mfConfiguredModulesGroupBox.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.mobiflightSettingsToolStrip.SuspendLayout();
@@ -117,6 +117,7 @@
             this.mfModulesTreeView.ContextMenuStrip = this.mfModuleSettingsContextMenuStrip;
             resources.ApplyResources(this.mfModulesTreeView, "mfModulesTreeView");
             this.mfModulesTreeView.ImageList = this.mfTreeViewImageList;
+            this.mfModulesTreeView.ItemHeight = 24;
             this.mfModulesTreeView.Name = "mfModulesTreeView";
             this.mfModulesTreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             ((System.Windows.Forms.TreeNode)(resources.GetObject("mfModulesTreeView.Nodes"))),
@@ -330,7 +331,7 @@
             // 
             // mfTreeViewImageList
             // 
-            this.mfTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.mfTreeViewImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth16Bit;
             resources.ApplyResources(this.mfTreeViewImageList, "mfTreeViewImageList");
             this.mfTreeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
@@ -354,17 +355,70 @@
             this.UpdateFirmwareToolStripButton});
             this.mobiflightSettingsToolStrip.Name = "mobiflightSettingsToolStrip";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
+            // 
+            // mobiflightSettingsLabel
+            // 
+            resources.ApplyResources(this.mobiflightSettingsLabel, "mobiflightSettingsLabel");
+            this.mobiflightSettingsLabel.Name = "mobiflightSettingsLabel";
+            // 
+            // firmwareSettingsGroupBox
+            // 
+            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoredComPortsLabel);
+            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoredComPortsTextBox);
+            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoreComPortsCheckBox);
+            this.firmwareSettingsGroupBox.Controls.Add(this.FwAutoInstallCheckBox);
+            resources.ApplyResources(this.firmwareSettingsGroupBox, "firmwareSettingsGroupBox");
+            this.firmwareSettingsGroupBox.Name = "firmwareSettingsGroupBox";
+            this.firmwareSettingsGroupBox.TabStop = false;
+            // 
+            // IgnoredComPortsLabel
+            // 
+            resources.ApplyResources(this.IgnoredComPortsLabel, "IgnoredComPortsLabel");
+            this.IgnoredComPortsLabel.Name = "IgnoredComPortsLabel";
+            // 
+            // IgnoredComPortsTextBox
+            // 
+            resources.ApplyResources(this.IgnoredComPortsTextBox, "IgnoredComPortsTextBox");
+            this.IgnoredComPortsTextBox.Name = "IgnoredComPortsTextBox";
+            // 
+            // IgnoreComPortsCheckBox
+            // 
+            resources.ApplyResources(this.IgnoreComPortsCheckBox, "IgnoreComPortsCheckBox");
+            this.IgnoreComPortsCheckBox.Name = "IgnoreComPortsCheckBox";
+            this.CompatibleBoardScanToolTip.SetToolTip(this.IgnoreComPortsCheckBox, resources.GetString("IgnoreComPortsCheckBox.ToolTip"));
+            this.IgnoreComPortsCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // FwAutoInstallCheckBox
+            // 
+            resources.ApplyResources(this.FwAutoInstallCheckBox, "FwAutoInstallCheckBox");
+            this.FwAutoInstallCheckBox.Name = "FwAutoInstallCheckBox";
+            this.CompatibleBoardScanToolTip.SetToolTip(this.FwAutoInstallCheckBox, resources.GetString("FwAutoInstallCheckBox.ToolTip"));
+            this.FwAutoInstallCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // uploadToolStripButton
             // 
             this.uploadToolStripButton.Image = global::MobiFlight.Properties.Resources.export1;
             resources.ApplyResources(this.uploadToolStripButton, "uploadToolStripButton");
             this.uploadToolStripButton.Name = "uploadToolStripButton";
             this.uploadToolStripButton.Click += new System.EventHandler(this.uploadToolStripButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // saveToolStripButton
             // 
@@ -379,11 +433,6 @@
             resources.ApplyResources(this.openToolStripButton, "openToolStripButton");
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // addDeviceToolStripDropDownButton
             // 
@@ -495,59 +544,11 @@
             this.removeDeviceToolStripButton.Name = "removeDeviceToolStripButton";
             this.removeDeviceToolStripButton.Click += new System.EventHandler(this.removeDeviceToolStripButton_Click);
             // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
-            // 
             // UpdateFirmwareToolStripButton
             // 
             this.UpdateFirmwareToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             resources.ApplyResources(this.UpdateFirmwareToolStripButton, "UpdateFirmwareToolStripButton");
             this.UpdateFirmwareToolStripButton.Name = "UpdateFirmwareToolStripButton";
-            // 
-            // mobiflightSettingsLabel
-            // 
-            resources.ApplyResources(this.mobiflightSettingsLabel, "mobiflightSettingsLabel");
-            this.mobiflightSettingsLabel.Name = "mobiflightSettingsLabel";
-            // 
-            // firmwareSettingsGroupBox
-            // 
-            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoredComPortsLabel);
-            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoredComPortsTextBox);
-            this.firmwareSettingsGroupBox.Controls.Add(this.IgnoreComPortsCheckBox);
-            this.firmwareSettingsGroupBox.Controls.Add(this.FwAutoInstallCheckBox);
-            resources.ApplyResources(this.firmwareSettingsGroupBox, "firmwareSettingsGroupBox");
-            this.firmwareSettingsGroupBox.Name = "firmwareSettingsGroupBox";
-            this.firmwareSettingsGroupBox.TabStop = false;
-            // 
-            // IgnoredComPortsLabel
-            // 
-            resources.ApplyResources(this.IgnoredComPortsLabel, "IgnoredComPortsLabel");
-            this.IgnoredComPortsLabel.Name = "IgnoredComPortsLabel";
-            // 
-            // IgnoredComPortsTextBox
-            // 
-            resources.ApplyResources(this.IgnoredComPortsTextBox, "IgnoredComPortsTextBox");
-            this.IgnoredComPortsTextBox.Name = "IgnoredComPortsTextBox";
-            // 
-            // IgnoreComPortsCheckBox
-            // 
-            resources.ApplyResources(this.IgnoreComPortsCheckBox, "IgnoreComPortsCheckBox");
-            this.IgnoreComPortsCheckBox.Name = "IgnoreComPortsCheckBox";
-            this.CompatibleBoardScanToolTip.SetToolTip(this.IgnoreComPortsCheckBox, resources.GetString("IgnoreComPortsCheckBox.ToolTip"));
-            this.IgnoreComPortsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // FwAutoInstallCheckBox
-            // 
-            resources.ApplyResources(this.FwAutoInstallCheckBox, "FwAutoInstallCheckBox");
-            this.FwAutoInstallCheckBox.Name = "FwAutoInstallCheckBox";
-            this.CompatibleBoardScanToolTip.SetToolTip(this.FwAutoInstallCheckBox, resources.GetString("FwAutoInstallCheckBox.ToolTip"));
-            this.FwAutoInstallCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
             // 
             // MobiFlightPanel
             // 

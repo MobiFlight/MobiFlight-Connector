@@ -1,13 +1,13 @@
-﻿using System;
+﻿using CommandMessenger;
+using CommandMessenger.Transport.Serial;
+using MobiFlight.Config;
+using MobiFlight.UI.Panels.Settings.Device;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO.Ports;
-using CommandMessenger;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
-using MobiFlight.Config;
-using CommandMessenger.Transport.Serial;
-using MobiFlight.UI.Panels.Settings.Device;
 
 namespace MobiFlight
 {
@@ -98,6 +98,9 @@ namespace MobiFlight
             DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
+        public const string TYPE_COMPATIBLE = "Compatible";
+        public const string TYPE_UNKNOWN = "Unknown";
+
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
         /// <summary>
         /// Gets raised whenever a button is pressed
@@ -139,11 +142,17 @@ namespace MobiFlight
             {
                 if (HasMfFirmware())
                 {
-                    return Board.Info.MobiFlightType;
+                    return Board?.Info?.MobiFlightType ?? TYPE_UNKNOWN;
                 }
                 else
                 {
-                    return Board?.Info.FriendlyName ?? "Unknown";
+                    var boards = BoardDefinitions.GetBoardsByHardwareId(HardwareId ?? "");
+                    var type = Board?.Info.FriendlyName ?? TYPE_UNKNOWN;
+                    if (boards.Count > 1)
+                    {
+                        type = TYPE_COMPATIBLE;
+                    }
+                    return type;
                 }
             }
         }
@@ -248,7 +257,7 @@ namespace MobiFlight
 
         public MobiFlightModule(String port, Board board)
         {
-            Name = "Default";
+            Name = "Unknown";
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
             _comPort = port;
@@ -257,7 +266,7 @@ namespace MobiFlight
 
         public MobiFlightModule(MobiFlightModuleInfo moduleInfo)
         {
-            Name = moduleInfo.Name ?? "Default";
+            Name = moduleInfo.Name ?? "Unknown";
             Version = moduleInfo.Version;
             Serial = moduleInfo.Serial;
             _comPort = moduleInfo.Port;
@@ -516,10 +525,9 @@ namespace MobiFlight
         public String InitUploadAndReturnUploadPort()
         {
             String result = _comPort;
-
             List<String> connectedPorts = SerialPort.GetPortNames().ToList();
-
             Disconnect();
+
             if (Board.Connection.ForceResetOnFirmwareUpdate)
             {
                 SerialTransport tmpSerial = new SerialTransport()
@@ -538,6 +546,7 @@ namespace MobiFlight
                     result = connectedPorts2.Except(connectedPorts).Last();
                 }
             };
+
             return result;
         }
 
@@ -893,7 +902,7 @@ namespace MobiFlight
         {
             MobiFlightModuleInfo devInfo = new MobiFlightModuleInfo()
             {
-                Name = "Unknown",
+                Name = Name,
                 Type = Type,
                 Port = _comPort,
             };
@@ -1410,6 +1419,11 @@ namespace MobiFlight
                 ResultPins = ResultPins.FindAll(x => x.Used == false);
 
             return ResultPins;
+        }
+
+        public bool FirmwareRequiresUpdate()
+        {
+            return ToMobiFlightModuleInfo().FirmwareRequiresUpdate();
         }
     }
 }

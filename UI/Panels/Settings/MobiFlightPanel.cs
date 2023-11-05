@@ -1,5 +1,4 @@
-﻿using MobiFlight.Config;
-using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -7,8 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Configuration;
-using System.Web.UI.Design.WebControls;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -16,8 +13,11 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class MobiFlightPanel : UserControl
     {
+        delegate void UpdateRemovedModuleDelegate(MobiFlightModuleInfo mobiFlightModuleInfo);
+
         public event EventHandler OnBeforeFirmwareUpdate;
         public event EventHandler OnAfterFirmwareUpdate;
+        public event EventHandler AllFirmwareUploadsFinished;
         public event EventHandler OnModuleConfigChanged;
 
         Forms.FirmwareUpdateProcess FirmwareUpdateProcessForm = new Forms.FirmwareUpdateProcess();
@@ -31,6 +31,8 @@ namespace MobiFlight.UI.Panels.Settings
         public List<MobiFlightModule> modulesForUpdate = new List<MobiFlightModule>();
         public MobiFlightModuleInfo PreselectedMobiFlightBoard { get; internal set; }
         public bool MFModuleConfigChanged { get { return _IsModified(); } }
+
+        private TreeNode PlaceholderNode = new TreeNode();
 
         MobiFlightCache mobiflightCache;
 
@@ -76,6 +78,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
             mfTreeViewImageList.Images.Add("new-arcaze", MobiFlight.Properties.Resources.arcaze_new);
             mfTreeViewImageList.Images.Add("module-ignored", MobiFlight.Properties.Resources.port_deactivated);
+            mfTreeViewImageList.Images.Add("module-pico", MobiFlight.Properties.Resources.module_pico);
             //mfModulesTreeView.ImageList = mfTreeViewImageList;
         }
 
@@ -94,44 +97,18 @@ namespace MobiFlight.UI.Panels.Settings
             addDeviceToolStripDropDownButton.Enabled = false;
             removeDeviceToolStripButton.Enabled = false;
 
-            mfModulesTreeView.Nodes.Clear();
+            lock(mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Clear();
+            }
+            
             moduleMultiplexerDrivers.Clear();
 
             try
             {
-                foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedArduinoModules())
+                foreach (MobiFlightModuleInfo module in mobiflightCache.GetDetectedCompatibleModules())
                 {
-                    TreeNode node = new TreeNode();
-                    node = mfModulesTreeView_initNode(module, node);
-                    if (!module.HasMfFirmware())
-                    {
-                        node.SelectedImageKey = node.ImageKey = "module-arduino";
-                        if (module.Type=="Ignored")
-                        {
-                            node.SelectedImageKey = node.ImageKey = "module-ignored";
-                        }
-                    }
-                    else
-                    {
-                        Version latestVersion = new Version(module.Board.Info.LatestFirmwareVersion);
-
-                        Version currentVersion;
-                        try
-                        {
-                            currentVersion = new Version(module.Version != null ? module.Version : "0.0.0");
-                        }
-                        catch (Exception ex)
-                        {
-                            currentVersion = new Version("0.0.0");
-                        }
-                        if (currentVersion.CompareTo(latestVersion) < 0)
-                        {
-                            node.SelectedImageKey = node.ImageKey = "module-update";
-                            node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");
-                        }
-                    }
-
-                    mfModulesTreeView.Nodes.Add(node);
+                    AddModuleAsNodeToTreeView(module);
                 }
             }
             catch (IndexOutOfRangeException ex)
@@ -143,11 +120,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (mfModulesTreeView.Nodes.Count == 0)
             {
-                TreeNode NewNode = new TreeNode();
-                NewNode.Text = i18n._tr("none");
-                NewNode.SelectedImageKey = NewNode.ImageKey = "module-arduino";
-                mfModulesTreeView.Nodes.Add(NewNode);
-                mfModulesTreeView.Enabled = false;
+                ShowPlaceholderNode();
             }
 
             mfModulesTreeView.Select();
@@ -156,6 +129,64 @@ namespace MobiFlight.UI.Panels.Settings
             IgnoreComPortsCheckBox.Checked = Properties.Settings.Default.IgnoreComPorts;
             IgnoredComPortsTextBox.Text = Properties.Settings.Default.IgnoredComPortsList;
 #endif
+        }
+
+        private void ShowPlaceholderNode()
+        {
+            PlaceholderNode.SelectedImageKey = PlaceholderNode.ImageKey = "module-arduino";            
+            PlaceholderNode.Text = i18n._tr("none");
+            mfModulesTreeView.Nodes.Add(PlaceholderNode);
+            mfModulesTreeView.Enabled = false;
+
+            // this is needed if the modules disconnected
+            // dynamically, otherwise the old panel would
+            // still stay visible.
+            mfSettingsPanel.Controls.Clear();
+        }
+
+        private void HidePlaceholderNode()
+        {
+            lock(mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Remove(PlaceholderNode);
+            }
+            
+            mfModulesTreeView.Enabled = true;
+        }
+
+        private void AddModuleAsNodeToTreeView(MobiFlightModuleInfo module)
+        {
+            var node = new TreeNode();
+            node = mfModulesTreeView_initNode(module, node);
+            if (!module.HasMfFirmware())
+            {
+                node.SelectedImageKey = node.ImageKey = "module-arduino";
+                switch (module.Type)
+                {
+                    case "Raspberry Pico":
+                        node.SelectedImageKey = node.ImageKey = "module-pico";
+                        break;
+
+                    case "Ignored":
+                        node.SelectedImageKey = node.ImageKey = "module-ignored";
+                        break;
+                }
+            }
+            else
+            {                
+                if (module.FirmwareRequiresUpdate())
+                {
+                    node.SelectedImageKey = node.ImageKey = "module-update";
+                    node.ToolTipText = i18n._tr("uiMessageSettingsDlgOldFirmware");
+                }
+            }
+            
+            lock(mfModulesTreeView)
+            {
+                mfModulesTreeView.Nodes.Add(node);
+                HidePlaceholderNode();
+            }
+            
         }
 
         public void SaveSettings()
@@ -225,7 +256,16 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
 
-            UpdateToolbarAndPanelAfterNodeHasChanged(e.Node);
+            try
+            {
+                UpdateToolbarAndPanelAfterNodeHasChanged(e.Node);
+            } catch (Exception ex)
+            {
+                // I added this catch because I saw cross-thread exception
+                // but could not really figure out the reason
+                Log.Instance.log(ex.Message, LogSeverity.Warn);
+            }
+            
         }
 
         private void UpdateToolbarAndPanelAfterNodeHasChanged(TreeNode node)
@@ -255,7 +295,7 @@ namespace MobiFlight.UI.Panels.Settings
             saveToolStripMenuItem.Enabled = saveToolStripButton.Enabled;
 
             // context menu only options
-            resetBoardToolStripMenuItem.Enabled = module.Board.Info.CanResetBoard;
+            resetBoardToolStripMenuItem.Enabled = isMobiFlightBoard && module.Board.Info.CanResetBoard;
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
 
@@ -280,6 +320,16 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 // TODO: Show an option to upload the VID PID compatible firmwares
                 var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
+
+                // we don't have ambiguous boards
+                // but we have a device like the pico
+                if (boards.Count == 0 && module.Board.UsbDriveSettings != null) 
+                {
+                    // at the moment we don't support
+                    // alternatives for the USB type device
+                    boards.Add(module.Board);
+                }
+
                 if (boards.Count > 0)
                 {
 
@@ -320,6 +370,15 @@ namespace MobiFlight.UI.Panels.Settings
         private TreeNode mfModulesTreeView_initNode(MobiFlightModuleInfo moduleInfo, TreeNode moduleNode)
         {
             moduleNode.Text = moduleInfo.Name;
+            if (moduleInfo.Name == MobiFlightModule.TYPE_UNKNOWN)
+            {
+                if (moduleInfo.Type!=MobiFlightModule.TYPE_UNKNOWN)
+                {
+                    moduleNode.Text = moduleInfo.Type;
+                } else
+                    moduleNode.Text = i18n._tr("uiLabelModuleNAME_UNKNOWN");
+            }
+
             if (moduleInfo.HasMfFirmware())
             {
                 moduleNode.SelectedImageKey = moduleNode.ImageKey = "module";
@@ -930,8 +989,11 @@ namespace MobiFlight.UI.Panels.Settings
             if (node.Level == 0) return;    // removing a device, not a module
 
             TreeNode ModuleNode = getModuleNode();
-
-            mfModulesTreeView.Nodes.Remove(node);
+            
+            lock (mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Remove(node);
+            }
             
             // if we're removing a device that uses the multiplexer driver (currently InputMultiplexer only),
             // check if any other device uses it, and otherwise make sure to remove that too 
@@ -1310,16 +1372,22 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void FirmwareUpdateProcessForm_OnFinished(List<MobiFlightModule> modules)
         {
+            if (InvokeRequired) throw new Exception();
+
             OnFirmwareUpdateOrResetFinished(modules, true);
+            AllFirmwareUploadsFinished?.Invoke(modules, EventArgs.Empty);
         }
 
         private void FirmwareResetProcessForm_OnFinished(List<MobiFlightModule> modules)
         {
+            if (InvokeRequired) throw new Exception();
             OnFirmwareUpdateOrResetFinished(modules, false);
+            AllFirmwareUploadsFinished?.Invoke(modules, EventArgs.Empty);
         }
 
         private void FirmwareUpdateProcessForm_OnBeforeFirmwareUpdate(object sender, EventArgs e)
         {
+            if (InvokeRequired) throw new Exception();
             OnBeforeFirmwareUpdate?.Invoke(sender, e);
         }
 
@@ -1340,6 +1408,8 @@ namespace MobiFlight.UI.Panels.Settings
                 newInfo = module.ToMobiFlightModuleInfo();
             }
 
+            OnAfterFirmwareUpdate?.Invoke(module, null);
+
             // If the update fails for some reason, e.g. the board definition file was missing the settings for the
             // update, then module will be null.
             if (module == null)
@@ -1358,8 +1428,6 @@ namespace MobiFlight.UI.Panels.Settings
 
             mobiflightCache.RefreshModule(module);
 
-            OnAfterFirmwareUpdate?.Invoke(module, null);
-
             // Update the corresponding TreeView Item
             //// Find the parent node that matches the Port
             TreeNode moduleNode = findNodeByPort(module.Port);
@@ -1375,12 +1443,14 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void FirmwareUpdateProcessForm_OnAfterFirmwareUpdate(object sender, EventArgs e)
         {
+            if (InvokeRequired) throw new Exception();
             MobiFlightModule module = (MobiFlightModule)sender;
             OnAfterFirmwareUpdateOrReset(module, true);
         }
 
         private void FirmwareUpdateProcessForm_OnAfterFirmwareReset(object sender, EventArgs e)
         {
+            if (InvokeRequired) throw new Exception();
             MobiFlightModule module = (MobiFlightModule)sender;
             OnAfterFirmwareUpdateOrReset(module, false);
         }
@@ -1511,6 +1581,45 @@ namespace MobiFlight.UI.Panels.Settings
         {
             // here
             // addDeviceTypeToolStripMenuItem_Click()
+        }
+
+        internal void UpdateNewlyConnectedModule(MobiFlightModuleInfo mobiFlightModuleInfo)
+        {
+            if (mfModulesTreeView.InvokeRequired)
+            {
+                System.Action safeCall = delegate { UpdateNewlyConnectedModule(mobiFlightModuleInfo); };
+                mfModulesTreeView.Invoke(safeCall);
+                return;
+            }
+
+            Log.Instance.log($"New module: {mobiFlightModuleInfo.Name} {mobiFlightModuleInfo.Port}", LogSeverity.Debug);
+            AddModuleAsNodeToTreeView(mobiFlightModuleInfo);
+        }
+
+        internal void UpdateRemovedModule(MobiFlightModuleInfo mobiFlightModuleInfo)
+        {
+            if (mfModulesTreeView.InvokeRequired) {
+                System.Action safeCall = delegate { UpdateRemovedModule(mobiFlightModuleInfo); };
+                mfModulesTreeView.Invoke(safeCall);
+                return;
+            }
+            // Update the corresponding TreeView Item
+            //// Find the parent node that matches the Port
+            TreeNode moduleNode = findNodeByPort(mobiFlightModuleInfo.Port);
+
+            Log.Instance.log($"Removing module: {mobiFlightModuleInfo.Name} {mobiFlightModuleInfo.Port}", LogSeverity.Debug);
+
+            if (moduleNode == null) return;
+
+            lock (mfModulesTreeView.Nodes)
+            {
+                mfModulesTreeView.Nodes.Remove(moduleNode);
+            }
+            
+            if (mfModulesTreeView.Nodes.Count == 0)
+            {
+                ShowPlaceholderNode();
+            }
         }
     }
 }

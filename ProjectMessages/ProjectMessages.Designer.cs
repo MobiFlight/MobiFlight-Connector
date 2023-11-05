@@ -385,6 +385,24 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compatible module.
+        /// </summary>
+        internal static string uiLabelModuleNAME_UNKNOWN {
+            get {
+                return ResourceManager.GetString("uiLabelModuleNAME_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible.
+        /// </summary>
+        internal static string uiLabelModuleTYPE_COMPATIBLE {
+            get {
+                return ResourceManager.GetString("uiLabelModuleTYPE_COMPATIBLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No aircraft detected.
         /// </summary>
         internal static string uiLabelNoAircraftDetected_ {
@@ -399,24 +417,6 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageApplicationIsRunningInBackgroundMode {
             get {
                 return ResourceManager.GetString("uiMessageApplicationIsRunningInBackgroundMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An Arcaze module has been removed..
-        /// </summary>
-        internal static string uiMessageAraceUSBHasBeenRemoved {
-            get {
-                return ResourceManager.GetString("uiMessageAraceUSBHasBeenRemoved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection to the arcaze module got lost.
-        /// </summary>
-        internal static string uiMessageArcazeConnectionLost {
-            get {
-                return ResourceManager.GetString("uiMessageArcazeConnectionLost", resourceCulture);
             }
         }
         
@@ -861,6 +861,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageModuleFound {
             get {
                 return ResourceManager.GetString("uiMessageModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The board &quot;{0}&quot; ({1}) disconnected..
+        /// </summary>
+        internal static string uiMessageModuleRemoved {
+            get {
+                return ResourceManager.GetString("uiMessageModuleRemoved", resourceCulture);
             }
         }
         

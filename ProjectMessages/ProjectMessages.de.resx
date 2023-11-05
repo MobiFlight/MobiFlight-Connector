@@ -136,9 +136,6 @@
     <value>FSUIPC ist verbunden.</value>
     <comment>Displayed in status</comment>
   </data>
-  <data name="uiMessageAraceUSBHasBeenRemoved" xml:space="preserve">
-    <value>Ein Arcaze Modul wurde entfernt.</value>
-  </data>
   <data name="uiMessageNoModuleFound" xml:space="preserve">
     <value>Keine Module gefunden</value>
   </data>
@@ -154,8 +151,9 @@
   <data name="Hint" xml:space="preserve">
     <value>Hinweis</value>
   </data>
-  <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
-    <value>Die Verbindung mit einem Arcaze Modul wurde unterbrochen.</value>
+  <data name="uiMessageModuleRemoved" xml:space="preserve">
+    <value>Das Board "{0}" ({1}) wurde entfernt</value>
+    <comment>The board "{0}" ({1}) disconnected.</comment>
   </data>
   <data name="uiMessageMFConnectorInterfaceActive" xml:space="preserve">
     <value>MFConnector noch aktiv</value>
@@ -612,5 +610,12 @@ That midiboard cannot be used until other application is terminated and MobiFlig
   <data name="uiLabelNoAircraftDetected." xml:space="preserve">
     <value>Kein Flugzeug detektiert.</value>
     <comment>No aircraft detected</comment>
+  </data>
+  <data name="uiLabelModuleTYPE_COMPATIBLE" xml:space="preserve">
+    <value>Kompatibel</value>
+  </data>
+  <data name="uiLabelModuleNAME_UNKNOWN" xml:space="preserve">
+    <value>Kompatibles Modul</value>
+    <comment>Compatible board</comment>
   </data>
 </root>

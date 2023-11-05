@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace MobiFlight
 {
@@ -67,12 +64,12 @@ namespace MobiFlight
         public static bool UpdateFirmware(MobiFlightModule module, String FirmwareName)
         {
             bool result = false;
-            String Port = "";
+            string UploadPort = string.Empty;
             
             // Only COM ports get toggled
             if (module.Port.StartsWith("COM"))
             { 
-                Port = module.InitUploadAndReturnUploadPort();
+                UploadPort = module.InitUploadAndReturnUploadPort();
                 if (module.Connected) module.Disconnect();
             }
 
@@ -80,12 +77,12 @@ namespace MobiFlight
             {
                 if (module.Board.AvrDudeSettings != null)
                 {
-                    while (!SerialPort.GetPortNames().Contains(Port))
+                    while (!SerialPort.GetPortNames().Contains(UploadPort))
                     {
                         System.Threading.Thread.Sleep(100);
                     }
 
-                    RunAvrDude(Port, module.Board, FirmwareName);
+                    RunAvrDude(UploadPort, module.Board, FirmwareName);
                 }
                 else if (module.Board.UsbDriveSettings != null)
                 {
@@ -214,7 +211,7 @@ namespace MobiFlight
                 // USB devices. What's needed for flashing however is a single USB drive whose volume label
                 // matches the volume lable in the .board.json of the device we toggled the COM port on.
                 // Attempt to find it.
-                var matchingBoard = boards.Where(b => b.Name == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
+                var matchingBoard = boards.Where(b => b.HardwareId == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
 
                 if (matchingBoard == null)
                 {
@@ -224,7 +221,7 @@ namespace MobiFlight
                 }
 
                 // At this point we quite likely have the USB drive we need, and the HardwareId is the drive letter.
-                driveInfo = new DriveInfo(matchingBoard.HardwareId);
+                driveInfo = new DriveInfo(matchingBoard.Port);
             }
             // For boards that were already a drive letter just get the drive info based off that.
             else

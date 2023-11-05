@@ -299,10 +299,13 @@
     <Compile Include="MobiFlight\Modifier\Comparison.cs" />
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
+    <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
     <Compile Include="MobiFlight\Modifier\Padding.cs" />
     <Compile Include="MobiFlight\Modifier\Substring.cs" />
+    <Compile Include="MobiFlight\Monitors\SerialPortMonitor.cs" />
+    <Compile Include="MobiFlight\Monitors\UsbDeviceMonitor.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
@@ -1520,6 +1523,7 @@
     <None Include="Resources\module-mobiflight-update.png" />
     <None Include="Resources\mux_driver.bmp" />
     <None Include="Resources\mux-driver.png" />
+    <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />
     <Content Include="Resources\servo.png" />
