@@ -78,6 +78,7 @@
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />
+    <Compile Include="MobiFlight\MobiFlightModuleInfoTests.cs" />
     <Compile Include="MobiFlight\Modifier\InterpolationTests.cs" />
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />

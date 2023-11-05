@@ -28,7 +28,7 @@ namespace MobiFlight
 
         public bool FirmwareInstallPossible()
         {
-            return Board.Info.CanInstallFirmware && !HasMfFirmware();
+            return (Board?.Info?.CanInstallFirmware ?? false) && !HasMfFirmware();
         }
         internal bool FirmwareRequiresUpdate()
         {

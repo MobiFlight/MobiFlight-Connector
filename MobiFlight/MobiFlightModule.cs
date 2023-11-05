@@ -1419,7 +1419,7 @@ namespace MobiFlight
             return ResultPins;
         }
 
-        internal bool FirmwareRequiresUpdate()
+        public bool FirmwareRequiresUpdate()
         {
             return ToMobiFlightModuleInfo().FirmwareRequiresUpdate();
         }

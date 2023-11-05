@@ -327,5 +327,23 @@ namespace MobiFlight.Tests
         {
             Assert.Fail();
         }
+
+        [TestMethod()]
+        public void FirmwareRequiresUpdateTest()
+        {
+            BoardDefinitions.Load();
+            var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            var o = new MobiFlightModule("COM1", board);
+            o.Version = "1.0.0";
+            Assert.IsTrue(o.FirmwareRequiresUpdate(), "Firmware version requires update.");
+
+            o.Version = "999.0.0";
+            Assert.IsFalse(o.FirmwareRequiresUpdate(), "Firmware version does NOT require update.");
+
+            // special case
+            // Dev Build
+            o.Version = "0.0.1";
+            Assert.IsFalse(o.FirmwareRequiresUpdate(), "Firmware version does NOT require update. Dev Build 0.0.1");
+        }
     }
 }
