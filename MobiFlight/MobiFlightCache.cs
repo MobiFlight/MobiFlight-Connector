@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Config;
 using MobiFlight.Monitors;
+using SharpDX;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -200,6 +201,23 @@ namespace MobiFlight
         private void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
         {
             Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Debug);
+            var result = new MobiFlightModuleInfo()
+            {
+                Type = e.Board.Info.FriendlyName,
+                Board = e.Board,
+                HardwareId = e.HardwareId,
+                Name = e.Name,
+                // It's important that this is the drive letter for the connected USB device. This is
+                // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                // port and to skip the COM port toggle before flashing.
+                Port = (e as UsbPortDetails)?.Path
+            };
+
+            // When in USB mode... we can only be a compatible board
+            // and we don't have to check for MobiFlight board
+            // because all MobiFlight boards are using COM ports 
+            OnCompatibleBoardDetected(result);
+            ModuleConnected?.Invoke(result, new EventArgs());
         }
 
         /// <summary>

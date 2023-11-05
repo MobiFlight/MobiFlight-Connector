@@ -991,7 +991,7 @@ namespace MobiFlight
         /// </summary>
         void timer_Started(object sender, EventArgs e)
         {
-            this.OnStarted(this, new EventArgs());
+            OnStarted?.Invoke(this, new EventArgs());
         } //timer_Started()
 
         /// <summary>
@@ -1006,7 +1006,7 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
 
-            this.OnStopped(this, new EventArgs());
+            OnStopped?.Invoke(this, new EventArgs());
         } //timer_Stopped
 
         /// <summary>
