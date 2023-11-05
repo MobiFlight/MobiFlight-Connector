@@ -140,7 +140,7 @@ namespace MobiFlight
             {
                 if (HasMfFirmware())
                 {
-                    return Board.Info.MobiFlightType;
+                    return Board?.Info?.MobiFlightType ?? TYPE_UNKNOWN;
                 }
                 else
                 {
