@@ -372,7 +372,11 @@ namespace MobiFlight.UI.Panels.Settings
             moduleNode.Text = moduleInfo.Name;
             if (moduleInfo.Name == MobiFlightModule.TYPE_UNKNOWN)
             {
-                moduleNode.Text = i18n._tr("uiLabelModuleNAME_UNKNOWN");
+                if (moduleInfo.Type!=MobiFlightModule.TYPE_UNKNOWN)
+                {
+                    moduleNode.Text = moduleInfo.Type;
+                } else
+                    moduleNode.Text = i18n._tr("uiLabelModuleNAME_UNKNOWN");
             }
 
             if (moduleInfo.HasMfFirmware())
