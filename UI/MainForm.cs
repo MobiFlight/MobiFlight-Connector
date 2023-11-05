@@ -63,6 +63,7 @@ namespace MobiFlight.UI
         public ConfigFile ConfigFile { get { return configFile; } }
 
         public bool InitialLookupFinished { get; private set; } = false;
+        public bool SettingsDialogActive { get; private set; }
 
         public event EventHandler<ConfigFile> ConfigLoaded;
 
@@ -574,7 +575,13 @@ namespace MobiFlight.UI
 
             if (BoardsForUpdate != null)
                 dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
-            return dlg.ShowDialog();
+
+            SettingsDialogActive = true;
+            var dialogResult = dlg.ShowDialog();
+            execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
+            SettingsDialogActive = false;
+            return dialogResult;
         }
 
         // this performs the update of the existing user settings 
@@ -737,16 +744,24 @@ namespace MobiFlight.UI
             }
 
             var module = (sender as MobiFlightModule);
+            if (module == null) return;
+
+            // When we open the settings dialog
+            // many of these module connected events
+            // are on purpose because we are 
+            // flashing & resetting modules
+            // in such cases we don't want the auto-detect feature
+            if (SettingsDialogActive) return;
 
             // This board is not flashed yet
-            if (module?.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
+            if (module.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
             {
                 PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
                 return;
             } 
 
             // The board already has MF firmware
-            if (!module?.FirmwareRequiresUpdate() ?? false) return;
+            if (!module.FirmwareRequiresUpdate()) return;
 
 
             PerformFirmwareUpdateProcess(module);

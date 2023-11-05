@@ -211,7 +211,7 @@ namespace MobiFlight
                 // USB devices. What's needed for flashing however is a single USB drive whose volume label
                 // matches the volume lable in the .board.json of the device we toggled the COM port on.
                 // Attempt to find it.
-                var matchingBoard = boards.Where(b => b.Name == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
+                var matchingBoard = boards.Where(b => b.HardwareId == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
 
                 if (matchingBoard == null)
                 {
@@ -221,7 +221,7 @@ namespace MobiFlight
                 }
 
                 // At this point we quite likely have the USB drive we need, and the HardwareId is the drive letter.
-                driveInfo = new DriveInfo(matchingBoard.HardwareId);
+                driveInfo = new DriveInfo(matchingBoard.Port);
             }
             // For boards that were already a drive letter just get the drive info based off that.
             else

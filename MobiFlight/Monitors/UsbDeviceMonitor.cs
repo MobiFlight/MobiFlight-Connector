@@ -48,8 +48,8 @@ namespace MobiFlight.Monitors
                     result.Add(new UsbPortDetails()
                     {
                         Board = candidateBoard,
-                        HardwareId = drive.Name,
-                        Name = drive.VolumeLabel,
+                        HardwareId = drive.VolumeLabel,
+                        Name = drive.Name,
                         // It's important that this is the drive letter for the connected USB device. This is
                         // used elsewhere in the flashing code to know that it wasn't connected via a COM
                         // port and to skip the COM port toggle before flashing.

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -196,17 +197,18 @@ namespace MobiFlight
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
         {
             Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Debug);
+            SerialPortMonitor_PortUnavailable(sender, e);
         }
 
         private void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
         {
             Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Debug);
-            var result = new MobiFlightModuleInfo()
+            var info = new MobiFlightModuleInfo()
             {
                 Type = e.Board.Info.FriendlyName,
                 Board = e.Board,
                 HardwareId = e.HardwareId,
-                Name = e.Name,
+                Name = e.Board.Info.FriendlyName,
                 // It's important that this is the drive letter for the connected USB device. This is
                 // used elsewhere in the flashing code to know that it wasn't connected via a COM
                 // port and to skip the COM port toggle before flashing.
@@ -216,7 +218,8 @@ namespace MobiFlight
             // When in USB mode... we can only be a compatible board
             // and we don't have to check for MobiFlight board
             // because all MobiFlight boards are using COM ports 
-            OnCompatibleBoardDetected(result);
+            OnCompatibleBoardDetected(info);
+            var result = new MobiFlightModule(info);
             ModuleConnected?.Invoke(result, new EventArgs());
         }
 
@@ -244,20 +247,29 @@ namespace MobiFlight
             var result = new List<MobiFlightModuleInfo>();
             var usbDeviceMonitor = new UsbDeviceMonitor();
             usbDeviceMonitor.Start();
-            usbDeviceMonitor.DetectedPorts.ForEach(p =>
-            {
-                result.Add(new MobiFlightModuleInfo()
-                {
-                    Board = p.Board,
-                    HardwareId = p.HardwareId,
-                    Name = p.Name,
-                    // It's important that this is the drive letter for the connected USB device. This is
-                    // used elsewhere in the flashing code to know that it wasn't connected via a COM
-                    // port and to skip the COM port toggle before flashing.
-                    Port = (p as UsbPortDetails)?.Path
-                }); ;
-            });
+            var task = Task
+                // we need to wait for the timer to trigger
+                .Delay(TimeSpan.FromMilliseconds(2000))
+                .ContinueWith(_ => usbDeviceMonitor.DetectedPorts
+                    .ForEach(p =>
+                    {
+                        result.Add(new MobiFlightModuleInfo()
+                        {
+                            Type = p.Board.Info.FriendlyName,
+                            Board = p.Board,
+                            HardwareId = p.HardwareId,
+                            Name = p.Board.Info.FriendlyName,
+                            // It's important that this is the drive letter for the connected USB device. This is
+                            // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                            // port and to skip the COM port toggle before flashing.
+                            Port = (p as UsbPortDetails)?.Path
+                        });
+                    })
+                );
+            
+            task.Wait();
             usbDeviceMonitor.Stop();
+
             return result;
         }
 

@@ -19,7 +19,7 @@
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_raspberrypico",
     "FirmwareExtension": "uf2",
-    "FriendlyName": "MobiFlight RaspiPico",
+    "FriendlyName": "Raspberry Pico",
     "LatestFirmwareVersion": "2.4.2",
     "MobiFlightType": "MobiFlight RaspiPico",
     "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2"

@@ -163,7 +163,7 @@ namespace MobiFlight.UI.Panels.Settings
                 node.SelectedImageKey = node.ImageKey = "module-arduino";
                 switch (module.Type)
                 {
-                    case "MobiFlight RaspiPico":
+                    case "Raspberry Pico":
                         node.SelectedImageKey = node.ImageKey = "module-pico";
                         break;
 
@@ -256,7 +256,16 @@ namespace MobiFlight.UI.Panels.Settings
             mfSettingsPanel.Controls.Clear();
             if (moduleNode.Tag == null) return;
 
-            UpdateToolbarAndPanelAfterNodeHasChanged(e.Node);
+            try
+            {
+                UpdateToolbarAndPanelAfterNodeHasChanged(e.Node);
+            } catch (Exception ex)
+            {
+                // I added this catch because I saw cross-thread exception
+                // but could not really figure out the reason
+                Log.Instance.log(ex.Message, LogSeverity.Warn);
+            }
+            
         }
 
         private void UpdateToolbarAndPanelAfterNodeHasChanged(TreeNode node)
@@ -286,7 +295,7 @@ namespace MobiFlight.UI.Panels.Settings
             saveToolStripMenuItem.Enabled = saveToolStripButton.Enabled;
 
             // context menu only options
-            resetBoardToolStripMenuItem.Enabled = module.Board.Info.CanResetBoard;
+            resetBoardToolStripMenuItem.Enabled = isMobiFlightBoard && module.Board.Info.CanResetBoard;
             regenerateSerialToolStripMenuItem.Enabled = isMobiFlightBoard;
             reloadConfigToolStripMenuItem.Enabled = isMobiFlightBoard;
 
@@ -311,6 +320,16 @@ namespace MobiFlight.UI.Panels.Settings
             {
                 // TODO: Show an option to upload the VID PID compatible firmwares
                 var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
+
+                // we don't have ambiguous boards
+                // but we have a device like the pico
+                if (boards.Count == 0 && module.Board.UsbDriveSettings != null) 
+                {
+                    // at the moment we don't support
+                    // alternatives for the USB type device
+                    boards.Add(module.Board);
+                }
+
                 if (boards.Count > 0)
                 {
 
@@ -1569,8 +1588,7 @@ namespace MobiFlight.UI.Panels.Settings
                 return;
             }
 
-            TreeNode moduleNode;
-            
+            Log.Instance.log($"New module: {mobiFlightModuleInfo.Name} {mobiFlightModuleInfo.Port}", LogSeverity.Debug);
             AddModuleAsNodeToTreeView(mobiFlightModuleInfo);
         }
 
@@ -1584,6 +1602,8 @@ namespace MobiFlight.UI.Panels.Settings
             // Update the corresponding TreeView Item
             //// Find the parent node that matches the Port
             TreeNode moduleNode = findNodeByPort(mobiFlightModuleInfo.Port);
+
+            Log.Instance.log($"Removing module: {mobiFlightModuleInfo.Name} {mobiFlightModuleInfo.Port}", LogSeverity.Debug);
 
             if (moduleNode == null) return;
 
