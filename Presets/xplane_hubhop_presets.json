@@ -138475,5 +138475,21 @@
     "description": "",
     "version": 3,
     "id": "7ac16a03-9fa8-43eb-bb04-de9b62191100"
+  },
+  {
+    "vendor": "PMDG",
+    "aircraft": "B737-700",
+    "system": "Lights",
+    "label": "Main Panel L Brt Poti",
+    "code": "@ 3.41 / 0 max 300 min  (L:switch_328_73X) - 9 div s1\r\n:1 \r\nl1 0 > if{ 32807 (>K:ROTOR_BRAKE) l1 -- s1 g1 }\r\nl1 0 < if{ 32808 (>K:ROTOR_BRAKE) l1 ++ s1 g1 }",
+    "presetType": "Input (Potentiometer)",
+    "codeType": "",
+    "status": "Updated",
+    "createdDate": "2023-11-02T21:25:05.799Z",
+    "author": "Jaime Leon",
+    "updatedBy": "Pancho3209",
+    "description": " L Brt Poti - Intended for Potentiometer",
+    "version": 3,
+    "id": "7d6cbbdd-adda-4dd8-8f17-f4c8b421772f"
   }
 ]
