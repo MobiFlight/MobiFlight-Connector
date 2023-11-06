@@ -32,7 +32,7 @@
     "FriendlyName": "Arduino Uno",
     "FirmwareBaseName": "mobiflight_uno",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.2",
+    "LatestFirmwareVersion": "2.4.3",
     "MobiFlightType": "MobiFlight Uno",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },

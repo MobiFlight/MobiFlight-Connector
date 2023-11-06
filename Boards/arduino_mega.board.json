@@ -37,7 +37,7 @@
     "DelayAfterFirmwareUpdate": 0,
     "FirmwareBaseName": "mobiflight_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.2",
+    "LatestFirmwareVersion": "2.4.3",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex"
