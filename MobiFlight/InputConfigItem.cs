@@ -36,9 +36,6 @@ namespace MobiFlight
         public PreconditionList Preconditions { get; set; }
         public ConfigRefList ConfigRefs { get; set; }
 
-        private InputEventArgs PreviousInputEvent;
-        private const int DELAY_LONG_RELEASE = 350; //ms
-
         public InputConfigItem()
         {
             Preconditions = new PreconditionList();
@@ -269,30 +266,15 @@ namespace MobiFlight
             return clone;
         }
 
-        private void CheckAndAdaptForLongButtonRelease(InputEventArgs current, InputEventArgs previous)
-        {
-            var inputEvent = (MobiFlightButton.InputEvent)current.Value;
-            TimeSpan timeSpanToPreviousInput = current.Time - previous.Time;
-
-            if (inputEvent == MobiFlightButton.InputEvent.RELEASE && 
-               (timeSpanToPreviousInput > TimeSpan.FromMilliseconds(DELAY_LONG_RELEASE)))
-            {
-                current.Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE;     
-                Log.Instance.log($"{current.Name} => {current.DeviceLabel}  => Execute as LONG_RELEASE", LogSeverity.Info);
-            }         
-        }
-
         internal void execute(
             CacheCollection cacheCollection,
             InputEventArgs e,
             List<ConfigRefValue> configRefs)
         {
-            if (PreviousInputEvent == null) PreviousInputEvent = e;
             switch (Type)
             {
                 case TYPE_BUTTON:
-                    if (button != null)
-                        CheckAndAdaptForLongButtonRelease(e, PreviousInputEvent);
+                    if (button != null)                
                         button.execute(cacheCollection, e, configRefs);
                     break;
                 case TYPE_ENCODER:
@@ -314,8 +296,7 @@ namespace MobiFlight
                     if (analog != null)
                         analog.execute(cacheCollection, e, configRefs);
                     break;
-            }
-            PreviousInputEvent = e;
+            }            
         }
 
         public Dictionary<String, int> GetStatistics()

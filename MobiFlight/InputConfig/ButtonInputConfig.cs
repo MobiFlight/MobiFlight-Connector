@@ -10,6 +10,9 @@ namespace MobiFlight.InputConfig
         public InputAction onRelease;
         public InputAction onLongRelease;
 
+        private InputEventArgs PreviousInputEvent;
+        private const int DELAY_LONG_RELEASE = 350; //ms
+
         public object Clone()
         {
             ButtonInputConfig clone = new ButtonInputConfig();
@@ -91,21 +94,33 @@ namespace MobiFlight.InputConfig
             }
         }
 
-        private bool IsLongReleaseButOnlyReleaseDefined(MobiFlightButton.InputEvent inputEvent)
+        private void CheckAndAdaptForLongButtonRelease(InputEventArgs current, InputEventArgs previous)
         {
-            return (inputEvent == MobiFlightButton.InputEvent.LONG_RELEASE) && (onLongRelease == null) && (onRelease != null);
+            var inputEvent = (MobiFlightButton.InputEvent)current.Value;
+            TimeSpan timeSpanToPreviousInput = current.Time - previous.Time;
+
+            if (onLongRelease != null &&
+                inputEvent == MobiFlightButton.InputEvent.RELEASE &&
+                timeSpanToPreviousInput > TimeSpan.FromMilliseconds(DELAY_LONG_RELEASE))
+            {
+                current.Value = (int)MobiFlightButton.InputEvent.LONG_RELEASE;
+                Log.Instance.log($"{current.Name} => {current.DeviceLabel}  => Execute as LONG_RELEASE", LogSeverity.Info);
+            }
         }
 
         internal void execute(CacheCollection cacheCollection, 
                               InputEventArgs args, 
                               List<ConfigRefValue> configRefs)
         {
+            if (PreviousInputEvent == null) PreviousInputEvent = args;
+            CheckAndAdaptForLongButtonRelease(args, PreviousInputEvent);
+
             var inputEvent = (MobiFlightButton.InputEvent)args.Value;
             if (inputEvent == MobiFlightButton.InputEvent.PRESS && onPress != null)
             {
                 onPress.execute(cacheCollection, args, configRefs);
             }
-            else if (inputEvent == MobiFlightButton.InputEvent.RELEASE && onRelease != null && IsLongReleaseButOnlyReleaseDefined(inputEvent))
+            else if (inputEvent == MobiFlightButton.InputEvent.RELEASE && onRelease != null)
             {
                 onRelease.execute(cacheCollection, args, configRefs);
             }
@@ -113,6 +128,7 @@ namespace MobiFlight.InputConfig
             {
                 onLongRelease.execute(cacheCollection, args, configRefs);             
             }
+            PreviousInputEvent = args;
         }
 
         public Dictionary<String, int> GetStatistics()
