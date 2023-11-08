@@ -13,8 +13,8 @@ namespace MobiFlight
         {
             PRESS = 0,
             RELEASE = 1,
-            REPEAT = 2,
-            LONG_RELEASE = 3
+            LONG_RELEASE = 2,
+            LONG_PRESS = 3
         }
 
         public string Name { get; set; }
@@ -33,9 +33,6 @@ namespace MobiFlight
                     eventAction = InputEvent.RELEASE.ToString();
                     break;
 
-                case (int)InputEvent.REPEAT:
-                    eventAction = InputEvent.REPEAT.ToString();
-                    break;
                 case (int)InputEvent.LONG_RELEASE:
                     eventAction = InputEvent.LONG_RELEASE.ToString();
                     break;

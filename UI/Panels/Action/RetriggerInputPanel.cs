@@ -6,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.UI.Panels.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class RetriggerInputPanel : UserControl
+    public partial class RetriggerInputPanel : UserControl, IPanelConfigSync
     {
         public RetriggerInputPanel()
         {
@@ -21,14 +23,15 @@ namespace MobiFlight.UI.Panels.Action
             bool isLoaded = true;
         }
         
-        internal void syncFromConfig(InputConfig.RetriggerInputAction inputAction)
+        public void syncFromConfig(object config)
         {
+            RetriggerInputAction inputAction = config as RetriggerInputAction;
             if (inputAction == null) return;
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.RetriggerInputAction result = new InputConfig.RetriggerInputAction();
+            RetriggerInputAction result = new RetriggerInputAction();
             return result;
         }
 

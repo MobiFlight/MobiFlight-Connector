@@ -565,7 +565,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputShiftRegister:
-                        Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputShiftRegister;
+                        Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel()
                         {
                             Enabled = (serial != "")
@@ -576,7 +576,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputMultiplexer:
-                        Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputMultiplexer;
+                        Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputMultiplexer;
                         panel = new Panels.Input.InputMultiplexerPanel()
                         {
                             Enabled = (serial != "")

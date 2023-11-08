@@ -6,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.UI.Panels.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class KeyboardInputPanel : UserControl
+    public partial class KeyboardInputPanel : UserControl, IPanelConfigSync
     {
         int isRecording = 0;
         bool CtrlPressed = false;
@@ -60,10 +62,11 @@ namespace MobiFlight.UI.Panels.Action
         {
         }
 
-        internal void syncFromConfig(InputConfig.KeyInputAction keyInputAction)
+        public void syncFromConfig(object config)
         {
+            KeyInputAction keyInputAction = config as KeyInputAction;
             if (keyInputAction == null) return;
-
+            
             KeysConverter kc = new KeysConverter();
             CurrentKey = keyInputAction.Key;
             CtrlPressed = keyInputAction.Control;
@@ -72,9 +75,9 @@ namespace MobiFlight.UI.Panels.Action
             UpdateTextBox();
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.KeyInputAction config = new InputConfig.KeyInputAction();
+            KeyInputAction config = new KeyInputAction();
             config.Key = CurrentKey;
             config.Shift = ShiftPressed;
             config.Control = CtrlPressed;

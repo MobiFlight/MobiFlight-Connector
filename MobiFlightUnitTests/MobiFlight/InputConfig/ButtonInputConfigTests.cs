@@ -16,16 +16,21 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
-            Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelase is not correct");
+            Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelease is not correct");
             Assert.AreEqual((o.onLongRelease as MSFS2020CustomInputAction).PresetId, (c.onLongRelease as MSFS2020CustomInputAction).PresetId, "OnLongRelase is not correct");
+            Assert.AreEqual((o.onLongPress as XplaneInputAction).Path, (c.onLongPress as XplaneInputAction).Path, "OnLongPress is not correct");
+            Assert.AreEqual(o.LongPressDelay, c.LongPressDelay, "LongPressDelay is not correct");
         }
 
         private ButtonInputConfig generateTestObject()
-        {
+        {            
             ButtonInputConfig o = new ButtonInputConfig();
             o.onPress = new EventIdInputAction() { EventId = 12345 };
             o.onRelease = new JeehellInputAction() { EventId = 127, Param = "123" };
-            o.onLongRelease = new MSFS2020CustomInputAction() { Command = "(A:EXTERNAL POWER AVAILABLE:1, Bool)", PresetId = "c1cb32b4-fd35-41ab-8ff7-c407bd407998" }; 
+            o.onLongRelease = new MSFS2020CustomInputAction() { Command = "(A:EXTERNAL POWER AVAILABLE:1, Bool)", PresetId = "c1cb32b4-fd35-41ab-8ff7-c407bd407998" };
+            o.onLongPress = new XplaneInputAction() { Expression = "", InputType = "Command", Path = "sim/autopilot/autothrottle_toggle" };
+            o.RepeatDelay = 1000;
+            o.LongPressDelay = 2000;
             return o;
         }
 
@@ -52,7 +57,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(12345, (o.onPress as EventIdInputAction).EventId, "EventId not the same");
             Assert.AreEqual(127, (o.onRelease as JeehellInputAction).EventId, "EventId not the same");
             Assert.AreEqual("(A:EXTERNAL POWER AVAILABLE:1, Bool)", (o.onLongRelease as MSFS2020CustomInputAction).Command, "Command not the same");
-       
+
             o = new ButtonInputConfig();
             s = File.ReadAllText(@"assets\MobiFlight\InputConfig\ButtonInputConfig\ReadXmlTest.2.xml");
             sr = new StringReader(s);

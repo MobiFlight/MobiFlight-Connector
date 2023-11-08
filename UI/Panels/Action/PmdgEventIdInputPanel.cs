@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Config;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class PmdgEventIdInputPanel : UserControl
+    public partial class PmdgEventIdInputPanel : UserControl, IPanelConfigSync
     {
         static PmdgEventIdInputAction.PmdgAircraftType lastUsedType = PmdgEventIdInputAction.PmdgAircraftType.B737;
         public String PresetFile { get; set; }
@@ -126,9 +127,11 @@ namespace MobiFlight.UI.Panels.Action
             fsuipcPresetUseButton.Enabled = isLoaded;
         }
         
-        internal void syncFromConfig(InputConfig.PmdgEventIdInputAction eventIdInputAction)
+        public void syncFromConfig(object config)
         {
+            PmdgEventIdInputAction eventIdInputAction = config as PmdgEventIdInputAction;
             if (eventIdInputAction == null) return;
+            
             eventIdTextBox.Text = eventIdInputAction.EventId.ToString();
 
             if (lastUsedType!=eventIdInputAction.AircraftType)
@@ -157,9 +160,9 @@ namespace MobiFlight.UI.Panels.Action
             }
         }
 
-        internal InputConfig.PmdgEventIdInputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.PmdgEventIdInputAction result = new InputConfig.PmdgEventIdInputAction();
+            PmdgEventIdInputAction result = new PmdgEventIdInputAction();
             result.EventId = Int32.Parse(eventIdTextBox.Text);
             result.Param = customParamTextBox.Text;
             result.AircraftType = lastUsedType;
