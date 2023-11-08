@@ -82,7 +82,7 @@
             // 
             // comparisonValueTextBox
             // 
-            this.comparisonValueTextBox.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comparisonValueTextBox.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comparisonValueTextBox.Location = new System.Drawing.Point(51, 19);
             this.comparisonValueTextBox.Name = "comparisonValueTextBox";
             this.comparisonValueTextBox.Size = new System.Drawing.Size(100, 20);
@@ -90,7 +90,7 @@
             // 
             // comparisonElseValueTextBox
             // 
-            this.comparisonElseValueTextBox.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comparisonElseValueTextBox.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comparisonElseValueTextBox.Location = new System.Drawing.Point(286, 19);
             this.comparisonElseValueTextBox.Name = "comparisonElseValueTextBox";
             this.comparisonElseValueTextBox.Size = new System.Drawing.Size(100, 20);
@@ -109,7 +109,7 @@
             // 
             // comparisonIfValueTextBox
             // 
-            this.comparisonIfValueTextBox.Font = new System.Drawing.Font("Cascadia Code", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comparisonIfValueTextBox.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comparisonIfValueTextBox.Location = new System.Drawing.Point(169, 19);
             this.comparisonIfValueTextBox.Name = "comparisonIfValueTextBox";
             this.comparisonIfValueTextBox.Size = new System.Drawing.Size(100, 20);
