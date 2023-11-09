@@ -984,6 +984,8 @@
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
     <None Include="ApplicationInsights.config" />
+    <None Include="Boards\custom_devices_all_mega.board.json.inactive" />
+    <None Include="Boards\custom_devices_all_pico.board.json.inactive" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -996,30 +998,31 @@
     <None Include="Boards\arduino_uno.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Boards\kav_efis_fcu_mega.board.json" />
+    <None Include="Boards\kav_efis_fcu_pico.board.json.inactive" />
     <None Include="Boards\mfboard.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Boards\mobiflight_genericI2C_mega.board.json.inactive" />
+    <None Include="Boards\mobiflight_genericI2C_raspberry_pico.board.json.inactive" />
+    <None Include="Boards\mobiflight_GNC255_mega.board.json.inactive" />
+    <None Include="Boards\mobiflight_GNC255_pico.board.json.inactive" />
+    <None Include="Boards\mobiflight_tm1637_mega.board.json.inactive" />
+    <None Include="Boards\mobiflight_tm1637_raspberry_pico.board.json.inactive" />
     <None Include="Boards\raspberrypi_pico.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
-    <None Include="Devices\fictional-i2c.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Devices\gnc255.device.json">
+    <None Include="Devices\mobiflight.4tm1637.device.json" />
+    <None Include="Devices\mobiflight.6tm1637.device.json" />
+    <None Include="Devices\mobiflight.gnc255.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Devices\kav_efis.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Devices\fictional.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Devices\mobiflight.genericI2C.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Devices\tm1637.device.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Devices\kav_fcu.device.json">

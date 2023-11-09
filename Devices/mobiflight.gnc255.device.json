@@ -2,7 +2,7 @@
   "$schema": "./mfdevice.schema.json",
   "Info": {
     "Label": "Garmin GNC 255",
-    "Type": "GNC255",
+    "Type": "MOBIFLIGHT_GNC255",
     "Author": "Sebastian",
     "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/GNC255",
     "Version": "1.0.0"
