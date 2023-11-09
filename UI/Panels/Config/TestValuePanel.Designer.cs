@@ -121,7 +121,7 @@
             // 
             this.labelTestResultValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTestResultValue.AutoEllipsis = true;
-            this.labelTestResultValue.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTestResultValue.Font = new System.Drawing.Font("Cascadia Mono", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTestResultValue.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.labelTestResultValue.Location = new System.Drawing.Point(485, 17);
             this.labelTestResultValue.Margin = new System.Windows.Forms.Padding(0);
@@ -157,6 +157,7 @@
             // 
             this.textBoxTestValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTestValue.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTestValue.Location = new System.Drawing.Point(171, 18);
             this.textBoxTestValue.Name = "textBoxTestValue";
             this.textBoxTestValue.Size = new System.Drawing.Size(128, 20);

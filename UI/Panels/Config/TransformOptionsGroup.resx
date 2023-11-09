@@ -192,6 +192,9 @@
   <data name="fsuipcValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="fsuipcValueTextBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Cascadia Mono, 8.25pt</value>
+  </data>
   <data name="fsuipcValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>110, 2</value>
   </data>
