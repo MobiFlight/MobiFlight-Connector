@@ -525,18 +525,6 @@
     <Compile Include="UI\Panels\InputConfigPanel.Designer.cs">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Input\InputMultiplexerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputMultiplexerPanel.Designer.cs">
-      <DependentUpon>InputMultiplexerPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.Designer.cs">
-      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\Input\AnalogPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1343,14 +1331,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Input\InputMultiplexerPanel.resx">
-      <DependentUpon>InputMultiplexerPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Input\InputShiftRegisterPanel.resx">
-      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\AnalogPanel.resx">
       <DependentUpon>AnalogPanel.cs</DependentUpon>

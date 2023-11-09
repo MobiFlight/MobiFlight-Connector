@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -14,18 +15,20 @@ namespace MobiFlight.InputConfig
         private InputEventArgs LastOnPressEvent;
         private CacheCollection LastOnPressCacheCollection;        
         private List<ConfigRefValue> LastOnPressConfigRefs;
-
+        private object LastOnPressLock = new object();
+        
         public int LongReleaseDelay = 350; //ms
         public int LongPressDelay = 350;
         public int RepeatDelay = 0;
 
-        private System.Windows.Forms.Timer LongPressTimer = new System.Windows.Forms.Timer();
-        private System.Windows.Forms.Timer RepeatTimer = new System.Windows.Forms.Timer();
+        private Timer LongPressTimer = new Timer();
+        private Timer RepeatTimer = new Timer();
 
         public ButtonInputConfig()
-        {           
-            LongPressTimer.Tick += LongPressDelayTimer_Tick;
-            RepeatTimer.Tick += RepeatTimer_Tick;
+        {
+            RepeatTimer.AutoReset = true;
+            LongPressTimer.Elapsed += LongPressTimer_Elapsed;            
+            RepeatTimer.Elapsed += RepeatTimer_Elapsed;
         }
 
         public object Clone()
@@ -177,22 +180,22 @@ namespace MobiFlight.InputConfig
 
         private void ExecuteOnLongPressAction()
         {
-            InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
-            args.Value = (int)MobiFlightButton.InputEvent.LONG_PRESS;
-            Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute LONG_PRESS", LogSeverity.Info);
-            onLongPress.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
+            lock (LastOnPressLock)
+            {
+                InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
+                args.Value = (int)MobiFlightButton.InputEvent.LONG_PRESS;
+                Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute LONG_PRESS", LogSeverity.Info);
+                onLongPress.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
+            }            
         }
 
-        private void RepeatTimer_Tick(object sender, EventArgs e)
+        private void RepeatTimer_Elapsed(object sender, EventArgs e)
         {
             ExecuteOnLongPressAction();
         }
 
-        private void LongPressDelayTimer_Tick(object sender, EventArgs e)
+        private void ExecuteRepeatLongPress()
         {
-            ExecuteOnLongPressAction();
-            LongPressTimer.Stop();
-
             if (RepeatDelay > 0)
             {
                 RepeatTimer.Interval = RepeatDelay;
@@ -200,17 +203,24 @@ namespace MobiFlight.InputConfig
             }
         }
 
-        private void StartTimer()
+        private void LongPressTimer_Elapsed(object sender, EventArgs e)
+        {
+            ExecuteOnLongPressAction();
+            LongPressTimer.Stop();
+            ExecuteRepeatLongPress();
+        }
+
+        private void ExecuteLongPressWithTimer()
         {
             if (LongPressDelay > 0)
-            {
+            {                
                 LongPressTimer.Interval = LongPressDelay;
                 LongPressTimer.Start();
             }
-            else if (RepeatDelay > 0)
+            else
             {
-                RepeatTimer.Interval = RepeatDelay;
-                RepeatTimer.Start();
+                ExecuteOnLongPressAction();
+                ExecuteRepeatLongPress();
             }
         }
 
@@ -244,18 +254,19 @@ namespace MobiFlight.InputConfig
                                           InputEventArgs args,
                                           List<ConfigRefValue> configRefs)
         {
-            LastOnPressEvent = args;
-            LastOnPressCacheCollection = cacheCollection;
-            LastOnPressConfigRefs = configRefs;
-
-            if (onPress != null)
+            lock (LastOnPressLock)
             {
-                onPress.execute(cacheCollection, args, configRefs);
+                LastOnPressEvent = args;
+                LastOnPressCacheCollection = cacheCollection;
+                LastOnPressConfigRefs = configRefs;
+                if (onPress != null)
+                {
+                    onPress.execute(cacheCollection, args, configRefs);
+                }
             }
             if (onLongPress != null)
-            {
-                // LongPress will be executed after timer tick.
-                StartTimer();
+            {               
+                ExecuteLongPressWithTimer();
             }
         }
 
