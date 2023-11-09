@@ -209,9 +209,9 @@
           "description": "The type of the board as provided by the MobiFlight firmware.",
           "type": "string"
         },
-        "CustomDeviceType": {
-          "$id": "#root/Info/CustomDeviceType",
-          "title": "CustomDeviceType",
+        "CustomDeviceTypes": {
+          "$id": "#root/Info/CustomDeviceTypes",
+          "title": "CustomDeviceTypes",
           "description": "A an array of supported custom device types by this board.",
           "type": "array",
           "default": []
