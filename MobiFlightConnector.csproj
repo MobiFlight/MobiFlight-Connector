@@ -41,6 +41,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
@@ -155,11 +156,14 @@
     <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Midi">
+      <HintPath>lib\Midi.dll</HintPath>
+    </Reference>
     <Reference Include="NCalc">
       <HintPath>lib\NCalc.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>packages\protobuf-net.3.1.33\lib\net462\protobuf-net.dll</HintPath>
@@ -175,7 +179,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.CodeDom, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.CodeDom.7.0.0\lib\net462\System.CodeDom.dll</HintPath>
@@ -242,13 +246,18 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
+    <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
+    <Compile Include="MobiFlight\Config\IBaseDevice.cs" />
     <Compile Include="MobiFlight\Config\InputMultiplexer.cs" />
+    <Compile Include="MobiFlight\Config\CustomDevice.cs" />
     <Compile Include="MobiFlight\Config\MultiplexerDriver.cs" />
     <Compile Include="MobiFlight\Config\InputShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\ShiftRegister.cs" />
     <Compile Include="MobiFlight\Config\IConfigRefConfigItem.cs" />
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
+    <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
+    <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
@@ -259,15 +268,27 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
-    <Compile Include="MobiFlight\Joystick.cs" />
-    <Compile Include="MobiFlight\JoystickManager.cs" />
+    <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickDevice.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickDeviceType.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickManager.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020EventIdInputAction.cs" />
-    <Compile Include="MobiFlight\Joysticks\LabeledJoystick.cs" />
-    <Compile Include="MobiFlight\Joysticks\SaitekAviatorStick.cs" />
-    <Compile Include="MobiFlight\Joysticks\HoneycombBravo.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickDefinition.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinition.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardDevice.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardDeviceType.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiBoardManager.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiInputDefinition.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiMessageType.cs" />
+    <Compile Include="MobiFlight\MidiBoard\MidiOutputDefinition.cs" />
     <Compile Include="MobiFlight\MobiFlightAnalogInput.cs" />
     <Compile Include="MobiFlight\MobiFlightInputMultiplexer.cs" />
+    <Compile Include="MobiFlight\MobiFlightCustomDevice.cs" />
     <Compile Include="MobiFlight\MobiFlightPin.cs" />
     <Compile Include="MobiFlight\MobiFlightInputShiftRegister.cs" />
     <Compile Include="MobiFlight\MobiFlightShiftRegister.cs" />
@@ -278,7 +299,15 @@
     <Compile Include="MobiFlight\Modifier\Comparison.cs" />
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
+    <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
+    <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
+    <Compile Include="MobiFlight\Modifier\Padding.cs" />
+    <Compile Include="MobiFlight\Modifier\Substring.cs" />
+    <Compile Include="MobiFlight\Monitors\SerialPortMonitor.cs" />
+    <Compile Include="MobiFlight\Monitors\UsbDeviceMonitor.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
+    <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
@@ -290,6 +319,7 @@
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
+    <Compile Include="SimConnectMSFS\WasmModuleClientData.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleUpdater.cs" />
     <Compile Include="UI\Dialogs\AboutForm.cs">
       <SubType>Form</SubType>
@@ -421,6 +451,12 @@
     <Compile Include="UI\Panels\Config\PreconditionPanel.Designer.cs">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\TestValuePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\TestValuePanel.Designer.cs">
+      <DependentUpon>TestValuePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Config\VariablePanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -451,6 +487,12 @@
     <Compile Include="UI\Panels\Config\TransformOptionsGroup.Designer.cs">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanelPin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanelPin.Designer.cs">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Device\MFInputMultiplexerPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -468,6 +510,12 @@
     </Compile>
     <Compile Include="UI\Panels\Device\MFInputShiftRegisterPanel.Designer.cs">
       <DependentUpon>MFInputShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Device\MFCustomDevicePanel.Designer.cs">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -499,6 +547,60 @@
     <Compile Include="UI\Panels\LogPanel.Designer.cs">
       <DependentUpon>LogPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Modifier\BlinkModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\BlinkModifierPanel.Designer.cs">
+      <DependentUpon>BlinkModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\BlinkModifier\BlinkSequencePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\BlinkModifier\BlinkSequencePanel.Designer.cs">
+      <DependentUpon>BlinkSequencePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ComparisonModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ComparisonModifierPanel.Designer.cs">
+      <DependentUpon>ComparisonModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifierPanel.Designer.cs">
+      <DependentUpon>InterpolationModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifier\InterpolationMappingPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\InterpolationModifier\InterpolationMappingPanel.Designer.cs">
+      <DependentUpon>InterpolationMappingPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ModifierControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\ModifierControl.Designer.cs">
+      <DependentUpon>ModifierControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\PaddingModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\PaddingModifierPanel.Designer.cs">
+      <DependentUpon>PaddingModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\SubstringModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\SubstringModifierPanel.Designer.cs">
+      <DependentUpon>SubstringModifierPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\TransformModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Modifier\TransformModifierPanel.Designer.cs">
+      <DependentUpon>TransformModifierPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\OutputConfigPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -511,6 +613,12 @@
     <Compile Include="UI\Panels\OutputWizard\DisplayPanel.Designer.cs">
       <DependentUpon>DisplayPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\OutputWizard\ModifierPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\OutputWizard\ModifierPanel.Designer.cs">
+      <DependentUpon>ModifierPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Output\PinSelectPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -522,6 +630,12 @@
     </Compile>
     <Compile Include="UI\Panels\Output\DisplayShiftRegisterPanel.Designer.cs">
       <DependentUpon>DisplayShiftRegisterPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Output\CustomDevicePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Output\CustomDevicePanel.Designer.cs">
+      <DependentUpon>CustomDevicePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\ArcazePanel.cs">
       <SubType>UserControl</SubType>
@@ -882,12 +996,38 @@
     <None Include="Boards\arduino_uno.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Boards\mfboard.schema.json" />
+    <None Include="Boards\mfboard.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Boards\raspberrypi_pico.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
+    <None Include="Devices\fictional-i2c.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\gnc255.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\kav_efis.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\fictional.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\mobiflight.genericI2C.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\tm1637.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\kav_fcu.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Devices\mfdevice.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="examples\example-default-plane-v6.1.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -906,21 +1046,21 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="firmware\mobiflight_mega_2_4_0.hex">
+    <None Include="firmware\mobiflight_mega_2_4_3.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="firmware\mobiflight_micro_2_4_0.hex">
+    </None>
+    <None Include="firmware\mobiflight_micro_2_4_3.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="firmware\mobiflight_nano_2_4_0.hex">
+    </None>
+    <None Include="firmware\mobiflight_nano_2_4_3.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="firmware\mobiflight_raspberrypico_2_4_0.uf2">
+    </None>
+    <None Include="firmware\mobiflight_raspberrypico_2_4_3.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="firmware\mobiflight_uno_2_4_0.hex">
+    </None>
+    <None Include="firmware\mobiflight_uno_2_4_3.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -930,7 +1070,56 @@
     <None Include="firmware\reset.arduino_uno_1_0_2.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\reset.raspberry_pico_1_0_2.uf2">
+    <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\octavi.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\BoardEditorConfigs\mpd218\mpd218mobi.mpd218">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\BoardEditorConfigs\nanokontrol2\nanoKontrol2Mobi.nktrl2_data">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\BoardEditorConfigs\xtouchmini\LayerA.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\BoardEditorConfigs\xtouchmini\LayerB.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\intech_ef44.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\mfmidiboard.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\mpd218.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\mpkminiplay.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\nanokontrol2.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\x_touch_mini.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Joysticks\honeycomb_alpha.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\honeycomb_bravo.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\mfjoystick.schema.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\saitek_aviator_stick.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Presets\msfs2020_simvars.cip">
@@ -939,7 +1128,6 @@
     <None Include="Presets\msfs2020_eventids.cip">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="packages.config" />
     <None Include="Presets\msfs2020_eventids_user.cip.inactive">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -969,6 +1157,7 @@
     <None Include="Resources\arcaze-changed.png" />
     <Content Include="mobiflight.ico" />
     <Content Include="Resources\button.png" />
+    <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
     <Content Include="Resources\encoder.png" />
     <Content Include="Resources\led.png" />
@@ -1004,6 +1193,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ArduinoIdePathForm.resx">
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ConfigUploadProgress.resx">
       <DependentUpon>ConfigUploadProgress.cs</DependentUpon>
@@ -1081,6 +1271,9 @@
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\TestValuePanel.resx">
+      <DependentUpon>TestValuePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\TransformOptionsGroup.de.resx">
       <DependentUpon>TransformOptionsGroup.cs</DependentUpon>
     </EmbeddedResource>
@@ -1101,6 +1294,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFAnalogPanel.resx">
       <DependentUpon>MFAnalogPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanelPin.de.resx">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanelPin.resx">
+      <DependentUpon>MFCustomDevicePanelPin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.de.resx">
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
@@ -1128,6 +1327,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.de.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanel.de.resx">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFCustomDevicePanel.resx">
+      <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1151,6 +1356,33 @@
     <EmbeddedResource Include="UI\Panels\LogPanel.resx">
       <DependentUpon>LogPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\BlinkModifierPanel.resx">
+      <DependentUpon>BlinkModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\BlinkModifier\BlinkSequencePanel.resx">
+      <DependentUpon>BlinkSequencePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\ComparisonModifierPanel.resx">
+      <DependentUpon>ComparisonModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifierPanel.resx">
+      <DependentUpon>InterpolationModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\InterpolationModifier\InterpolationMappingPanel.resx">
+      <DependentUpon>InterpolationMappingPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\ModifierControl.resx">
+      <DependentUpon>ModifierControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\PaddingModifierPanel.resx">
+      <DependentUpon>PaddingModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\SubstringModifierPanel.resx">
+      <DependentUpon>SubstringModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Modifier\TransformModifierPanel.resx">
+      <DependentUpon>TransformModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputConfigPanel.de.resx">
       <DependentUpon>OutputConfigPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1170,6 +1402,9 @@
       <DependentUpon>DisplayPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\OutputWizard\ModifierPanel.resx">
+      <DependentUpon>ModifierPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayLedDisplayPanel.de.resx">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1182,11 +1417,18 @@
     <EmbeddedResource Include="UI\Panels\Output\DisplayPinPanel.de.resx">
       <DependentUpon>DisplayPinPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\CustomDevicePanel.de.resx">
+      <DependentUpon>CustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Output\CustomDevicePanel.resx">
+      <DependentUpon>CustomDevicePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.de.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\ArcazePanel.resx">
       <DependentUpon>ArcazePanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\GeneralPanel.de.resx">
       <DependentUpon>GeneralPanel.cs</DependentUpon>
@@ -1281,6 +1523,7 @@
     <None Include="Resources\module-mobiflight-update.png" />
     <None Include="Resources\mux_driver.bmp" />
     <None Include="Resources\mux-driver.png" />
+    <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />
     <Content Include="Resources\servo.png" />
@@ -1325,6 +1568,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\FirmwareUpdateProcess.resx">
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFButtonPanel.de.resx">
       <DependentUpon>MFButtonPanel.cs</DependentUpon>
@@ -1523,7 +1767,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if "$(ConfigurationName)" == "Release" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir) 7.1.4)</PostBuildEvent>
+    <PostBuildEvent>if "$(ConfigurationName)" == "Release" ($(ProjectDir)Build\release.bat $(TargetDir) $(SolutionDir))</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>xcopy /R /Y "$(ProjectDir)Lib\vJoyInterface.dll" "$(TargetDir)"

@@ -28,6 +28,7 @@ namespace MobiFlight.UI.Panels.Config
         public const byte MINIMUM_SEARCH_STRING_LENGTH = 1;
         public event EventHandler OnGetLVarListRequested;
         private event EventHandler OnLVarsSet;
+        private Timer searchDebounceTimer;
 
         private HubHopPanelMode _mode;
         public HubHopPanelMode Mode { 
@@ -157,8 +158,6 @@ namespace MobiFlight.UI.Panels.Config
 
             SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             FilterTextBox.TextChanged += textBox1_TextChanged;
-
-            ///
 
             CodeTypeComboBox.SelectedValueChanged += (sender, e) =>
             {
@@ -419,7 +418,7 @@ namespace MobiFlight.UI.Panels.Config
             ComboBoxHelper.SetSelectedItemByValue(SystemComboBox, preset.system);
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             PresetComboBox.SelectedValue = preset.id;
-            DescriptionLabel.Text = preset?.description;
+            DescriptionTextBox.Text = preset?.description?.ToCRLF();
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
 
@@ -435,7 +434,7 @@ namespace MobiFlight.UI.Panels.Config
 
             Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == selectedItem.id);
             if (selectedPreset == null) return;
-            DescriptionLabel.Text = selectedPreset?.description;
+            DescriptionTextBox.Text = selectedPreset?.description?.ToCRLF();
             SimVarNameTextBox.Text = selectedPreset?.code?.ToCRLF();
             
             if (FlightSimType==FlightSimType.XPLANE)
@@ -450,7 +449,7 @@ namespace MobiFlight.UI.Panels.Config
                 }
             }
 
-            DescriptionLabel.Enabled = selectedItem.id != "-";
+            DescriptionTextBox.Enabled = selectedItem.id != "-";
         }
 
         private void SimVarNameTextBox_TextChanged(object sender, EventArgs e)
@@ -510,7 +509,21 @@ namespace MobiFlight.UI.Panels.Config
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            FilterPresetList();
+            FilterPresetListDelayedByMs(300);
+        }
+
+        private void FilterPresetListDelayedByMs(int miliseconds)
+        {
+            searchDebounceTimer?.Dispose();
+            searchDebounceTimer = new Timer { Interval = miliseconds };
+            searchDebounceTimer.Tick += (s, _) =>
+            {
+                searchDebounceTimer.Stop();
+                searchDebounceTimer.Dispose();
+
+                FilterPresetList();
+            };
+            searchDebounceTimer.Start();
         }
 
         private void FilterPresetList()

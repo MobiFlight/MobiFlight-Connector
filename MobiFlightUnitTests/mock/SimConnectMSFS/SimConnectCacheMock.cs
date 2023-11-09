@@ -12,9 +12,9 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
         public List<String> Writes = new List<String>();
         public List<String> Reads = new List<String>();
 
-        public event EventHandler Closed;
-        public event EventHandler Connected;
-        public event EventHandler ConnectionLost;
+        public event EventHandler Closed { add { } remove { } }
+        public event EventHandler Connected { add { } remove { } }
+        public event EventHandler ConnectionLost { add { } remove { } }
 
         public void Clear()
         {
@@ -130,7 +130,7 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
 
     class FSUIPCMockOffset
     {
-        public int Offset;
-        public String Value;
+        public int Offset = 0;
+        public String Value = null;
     }
 }

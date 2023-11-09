@@ -1,4 +1,6 @@
-﻿namespace MobiFlight.UI.Panels
+﻿using System.Windows.Forms;
+
+namespace MobiFlight.UI.Panels
 {
     partial class StepperPanel
     {
@@ -22,9 +24,9 @@
 
         #region Vom Komponenten-Designer generierter Code
 
-        /// <summary> 
-        /// Erforderliche Methode für die Designerunterstützung. 
-        /// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -36,13 +38,12 @@
             this.CompassModeCheckBox = new System.Windows.Forms.CheckBox();
             this.inputRevTextBox = new System.Windows.Forms.TextBox();
             this.displayPinComoBoxLabel = new System.Windows.Forms.Label();
-            this.stepperTestValueTextBox = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.outputRevTextBox = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.stepperAddressesComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -62,14 +63,12 @@
             this.label11 = new System.Windows.Forms.Label();
             this.SpeedTextBox = new System.Windows.Forms.TextBox();
             this.AccelerationTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -112,17 +111,6 @@
             this.displayPinComoBoxLabel.Name = "displayPinComoBoxLabel";
             this.toolTip1.SetToolTip(this.displayPinComoBoxLabel, resources.GetString("displayPinComoBoxLabel.ToolTip"));
             // 
-            // stepperTestValueTextBox
-            // 
-            resources.ApplyResources(this.stepperTestValueTextBox, "stepperTestValueTextBox");
-            this.stepperTestValueTextBox.Name = "stepperTestValueTextBox";
-            this.stepperTestValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
             // outputRevTextBox
             // 
             resources.ApplyResources(this.outputRevTextBox, "outputRevTextBox");
@@ -146,15 +134,13 @@
             // 
             this.stepperAddressesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.stepperAddressesComboBox.FormattingEnabled = true;
-            this.stepperAddressesComboBox.Items.AddRange(new object[] {
-            resources.GetString("stepperAddressesComboBox.Items"),
-            resources.GetString("stepperAddressesComboBox.Items1"),
-            resources.GetString("stepperAddressesComboBox.Items2")});
+            this.stepperAddressesComboBox.Items.AddRange(new object[] { resources.GetString("stepperAddressesComboBox.Items"), resources.GetString("stepperAddressesComboBox.Items1"), resources.GetString("stepperAddressesComboBox.Items2") });
             resources.ApplyResources(this.stepperAddressesComboBox, "stepperAddressesComboBox");
             this.stepperAddressesComboBox.Name = "stepperAddressesComboBox";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.button2);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.label8);
@@ -169,10 +155,17 @@
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
             // button2
             // 
+            this.button2.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.button2, "button2");
             this.button2.Name = "button2";
+            this.toolTip1.SetToolTip(this.button2, resources.GetString("button2.ToolTip"));
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -180,6 +173,7 @@
             // 
             resources.ApplyResources(this.button1, "button1");
             this.button1.Name = "button1";
+            this.toolTip1.SetToolTip(this.button1, resources.GetString("button1.ToolTip"));
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -221,6 +215,7 @@
             this.trackBar1.Maximum = 5;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Value = 1;
+            this.trackBar1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enter_KeyPress);
             // 
             // ManualCalibrateLabel
             // 
@@ -295,19 +290,10 @@
             this.AccelerationTextBox.TextChanged += new System.EventHandler(this.StepperSettingsTextBox_TextChanged);
             this.AccelerationTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.inputRevTextBox_Validating);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.stepperTestValueTextBox);
-            this.groupBox4.Controls.Add(this.label9);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
-            // 
             // StepperPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -321,11 +307,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.Label label9;
 
         #endregion
 
@@ -347,8 +332,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label ManualCalibrateLabel;
-        public System.Windows.Forms.TextBox stepperTestValueTextBox;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox CompassModeCheckBox;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label1;
@@ -357,7 +340,6 @@
         public System.Windows.Forms.TextBox AccelerationTextBox;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox SpeedTextBox;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button SpeedResetButton;
         private System.Windows.Forms.Button AccelerationResetButton;

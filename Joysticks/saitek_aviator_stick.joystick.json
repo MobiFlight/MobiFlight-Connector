@@ -1,0 +1,59 @@
+﻿{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "Saitek Aviator Stick",
+  "VendorId": 1699,
+  "ProductId": 1121,
+  "Inputs": [
+    {
+      "Id": 5,
+      "Type":  "Button",
+      "Label": "Button - T1"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Button - T2"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Button - T3"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Button - T4"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Button - T5"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Button - T6"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Button - T7"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Button - T8"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Mode A"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Mode B"
+    }
+  ],
+  "Outputs": []
+}

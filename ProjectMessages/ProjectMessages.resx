@@ -136,9 +136,6 @@
     <value>FSUIPC is connected.</value>
     <comment>Displayed in status</comment>
   </data>
-  <data name="uiMessageAraceUSBHasBeenRemoved" xml:space="preserve">
-    <value>An Arcaze module has been removed.</value>
-  </data>
   <data name="uiMessageNoModuleFound" xml:space="preserve">
     <value>No modules found</value>
   </data>
@@ -154,8 +151,8 @@
   <data name="Hint" xml:space="preserve">
     <value>Hint</value>
   </data>
-  <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
-    <value>The connection to the arcaze module got lost</value>
+  <data name="uiMessageModuleRemoved" xml:space="preserve">
+    <value>The board "{0}" ({1}) disconnected.</value>
   </data>
   <data name="uiMessageMFConnectorInterfaceActive" xml:space="preserve">
     <value>MFConnector still active</value>
@@ -329,7 +326,7 @@ You should configure them now.</value>
     <value>Nice! You updated successfully from {1} to {2}.</value>
   </data>
   <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
-    <value>The current firmware does not support this function. Please update to the current firmware first.</value>
+    <value>The current firmware does not support this function. Please update to the latest firmware now!</value>
   </data>
   <data name="uiMessageDeviceNameContainsInvalidCharsOrTooLong" xml:space="preserve">
     <value>The name for the device is not valid or too long (max. {1} characters). Don't use the following characters:
@@ -573,5 +570,34 @@ Check log for more details.</value>
   </data>
   <data name="uiMessageNoXplaneConnection" xml:space="preserve">
     <value>No active X-Plane connection</value>
+  </data>
+  <data name="uiMessageNotConnectedMidiBoardsInConfigFound" xml:space="preserve">
+    <value>The following midiboards are currently not connected but referenced in the config:
+
+{0}
+
+Respective configs won't work until midiboards are connected and you have restarted MobiFlight.</value>
+  </data>
+  <data name="uiMessageNoNotConnectedMidiBoardsInConfigFound" xml:space="preserve">
+    <value>There are no missing midiboards found.</value>
+  </data>
+  <data name="uiMessageMidiBoardInUsageByOtherProcess" xml:space="preserve">
+    <value>The following midiboard is currently in usage by another process:
+
+{0}
+
+That midiboard cannot be used until other application is terminated and MobiFlight is restarted.</value>
+  </data>
+  <data name="WebsiteHelpNcalc" xml:space="preserve">
+    <value>https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html</value>
+  </data>
+  <data name="uiLabelNoAircraftDetected." xml:space="preserve">
+    <value>No aircraft detected</value>
+  </data>
+  <data name="uiLabelModuleTYPE_COMPATIBLE" xml:space="preserve">
+    <value>Compatible</value>
+  </data>
+  <data name="uiLabelModuleNAME_UNKNOWN" xml:space="preserve">
+    <value>Compatible module</value>
   </data>
 </root>

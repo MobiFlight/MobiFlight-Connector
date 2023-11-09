@@ -1,0 +1,104 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Kav's FCU LCD",
+    "Type": "KAV_LCD_FCU",
+    "Author": "Jak Kav",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [
+      "Data",
+      "CS",
+      "CLK"
+    ]
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Show Speed Value",
+      "description": "$ will be displayed as Speed value"
+    },
+    {
+      "id": 1,
+      "label": "Show Mach Value",
+      "description": "$ will be displayed as Mach value"
+    },
+    {
+      "id": 2,
+      "label": "Show Heading Value",
+      "description": "$ will be displayed as Heading value"
+    },
+    {
+      "id": 3,
+      "label": "Show Altitude",
+      "description": "$ will be displayed as Altitude"
+    },
+    {
+      "id": 4,
+      "label": "Show Vertical",
+      "description": "$ will be displayed as Vertical"
+    },
+    {
+      "id": 5,
+      "label": "Show FPA",
+      "description": "$ will be displayed as FPA"
+    },
+    {
+      "id": 6,
+      "label": "Show speed dashes",
+      "description": "1 = speed dashes will be shown"
+    },
+    {
+      "id": 7,
+      "label": "Show heading dashes",
+      "description": "1 = heading dashes will be shown"
+    },
+    {
+      "id": 8,
+      "label": "Show altitude dashes",
+      "description": "1 = altitude dashes will be shown"
+    },
+    {
+      "id": 9,
+      "label": "Show vertical speed dashes",
+      "description": "1 = vertical speed dashes will be shown"
+    },
+    {
+      "id": 10,
+      "label": "Show speed dot",
+      "description": "1 = speed dot will be shown, 0 = not shown"
+    },
+    {
+      "id": 11,
+      "label": "Show heading dot",
+      "description": "1 = heading dot will be shown, 0 = not shown"
+    },
+    {
+      "id": 12,
+      "label": "Show altitude dot",
+      "description": "1 = altitude dot will be shown, 0 = not shown"
+    },
+    {
+      "id": 13,
+      "label": "Toggle Trk/Hdg Mode",
+      "description": "0 = set heading mode, 1 = set Track Mode"
+    },
+    {
+      "id": 14,
+      "label": "Set Speed Label",
+      "description": "1 = set speed label, 0 = clear speed label"
+    },
+    {
+      "id": 15,
+      "label": "Set Mach Label",
+      "description": "1 = set mach label, 0 = clear mach label"
+    },
+    {
+      "id": 16,
+      "label": "Set Speed only",
+      "description": "$ will be displayed as Speed"
+    }
+  ]
+}

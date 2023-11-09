@@ -120,8 +120,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 // with this mode Pin1 and Pin3 are the same
                 // with this mode Pin2 and Pin4 are the same
-                ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref stepper.Pin3);
-                ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref stepper.Pin4);
+                ComboBoxHelper.reassignPin(mfPin1ComboBox.SelectedItem.ToString(), pinList, ref stepper.Pin3);
+                ComboBoxHelper.reassignPin(mfPin2ComboBox.SelectedItem.ToString(), pinList, ref stepper.Pin4);
             } else if (stepper.Pin3 == stepper.Pin1 && stepper.Pin4 == stepper.Pin2) {
                 // we are switching back from an Easy Driver config
                 // so we have to assign two available pins
@@ -237,18 +237,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
             bool exInitialized = initialized;
             initialized = false;    // inhibit value_Changed events
 
+            var newPin = comboBox.SelectedItem.ToString();
             // First update the one that is changed
             // Here, the config data (stepper.XXXPin) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref stepper.Pin1); }
-            if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref stepper.Pin2); }
+            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.Pin1); } else
+            if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.Pin2); }
 
             if ((StepperMode)ModeComboBox.SelectedValue != StepperMode.DRIVER)
             {
-                if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref stepper.Pin3); }
-                if (comboBox == mfPin4ComboBox) { ComboBoxHelper.reassignPin(mfPin4ComboBox, pinList, ref stepper.Pin4); }
+                if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.Pin3); } else
+                if (comboBox == mfPin4ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.Pin4); }
             }
             
-            if (comboBox == mfBtnPinComboBox) { ComboBoxHelper.reassignPin(mfBtnPinComboBox, pinList, ref stepper.BtnPin); }
+            if (comboBox == mfBtnPinComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.BtnPin); }
             // then the others are updated too 
             UpdateFreePinsInDropDowns();
 
@@ -259,7 +260,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             if (!initialized) return;
 
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
 
             SyncAutoHomeCorrectly();
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms.VisualStyles;
 
 namespace MobiFlight
 {
@@ -21,10 +22,10 @@ namespace MobiFlight
                     result = String;
                     break;
                 case FSUIPCOffsetType.Integer:
-                    result = Float64.ToString();
+                    result = Math.Round(Float64).ToString();
                     break;
                 case FSUIPCOffsetType.Float:
-                    result = Float64.ToString();
+                    result = Float64.ToString("R");
                     break;
                 /*case FSUIPCOffsetType.UnsignedInt:
                     result = Uint64.ToString();
@@ -44,6 +45,14 @@ namespace MobiFlight
             c.String = this.String;
 
             return c;
+        }
+
+        public bool Equals(ConnectorValue other)
+        {
+            return
+                type == other.type &&
+                Float64 == other.Float64 &&
+                String == other.String;
         }
     }
 }

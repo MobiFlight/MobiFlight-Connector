@@ -1,0 +1,191 @@
+﻿{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "Alpha Flight Controls",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Button - Left Hand - White - Back"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Button - Left Hand - White - Front"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Button - Right Hand - White"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Button - Right Hand - Red"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Rocker - Left Hand - Left Down"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Rocker - Left Hand - Left Up"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Rocker - Left Hand - Right Down"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Rocker - Left Hand - Right Up"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Rocker - Right Hand - Upper Left"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Rocker - Right Hand - Upper Right"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Rocker - Right Hand - Lower Left"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Rocker - Right Hand - Lower Right"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Master ALT - Up"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Master ALT - Down"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Master BAT - Up"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Master BAT - Down"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Avionics BUS1 - Up"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Avionics BUS1 - Down"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Avionics BUS2 - Up"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "Avionics BUS2 - Down"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Lights - BCN - Up"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Lights - BCN - Down"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "Lights - LAND - Up"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "Lights - LAND - Down"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "Lights - TAXI - Up"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "Lights - TAXI - Down"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "Lights - NAV - Up"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "Lights - NAV - Down"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "Lights - STROBE - Up"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "Lights - STROBE - Down"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "Magnetos - Off"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Magnetos - R"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Magnetos - L"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Magnetos - BOTH"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Magnetos - START"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Axis - Roll"
+    },
+    {
+      "Id": 49,
+      "Type": "Axis",
+      "Label": "Axis - Pitch"
+    }
+  ]
+}

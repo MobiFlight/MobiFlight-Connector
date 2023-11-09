@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -79,9 +80,6 @@ namespace MobiFlight.Modifier
                     reader.ReadToNextSibling("value");
                 } while (reader.LocalName == "value");
             }
-
-            if (reader.LocalName == "interpolation")
-                reader.Read(); // this closes the interpolation node
         }
 
         public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
@@ -190,6 +188,20 @@ namespace MobiFlight.Modifier
                 Count == (obj as Interpolation).Count &&
                 Active == (obj as Interpolation).Active &&
                 entriesAreSame;
+        }
+        public override string ToSummaryLabel()
+        {
+            return $"Interpolation: {Values.Count} values with Min {Min} and Max {Max}";
+        }
+
+        public Tuple<double, double> NextItem()
+        {
+            var secondLastKey = Values.Keys.ElementAt(Values.Keys.Count - 2);
+            var lastKey = Values.Keys.ElementAt(Values.Keys.Count - 1);
+            var secondLastValue = Values[secondLastKey];
+            var lastValue = Values[lastKey];
+
+            return new Tuple<double, double>(lastKey-secondLastKey+lastKey, lastValue-secondLastValue+lastValue);
         }
     }
 

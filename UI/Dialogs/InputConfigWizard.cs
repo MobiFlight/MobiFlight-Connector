@@ -203,12 +203,21 @@ namespace MobiFlight.UI.Dialogs
 
             foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
-                if (joystick.GetAvailableDevices().Count > 0)
+                if (joystick.GetAvailableDevicesAsListItems().Count > 0)
                     inputModuleNameComboBox.Items.Add(new ListItem()
                     {
                         Value = $"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}",
                         Label = $"{joystick.Name}"
                     });
+            }
+
+            foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
+            {                
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Label = $"{midiBoard.Name}"
+                });
             }
 
             preconditionPanel.SetModules(PreconditionModuleList);
@@ -245,6 +254,15 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
+            foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
+            {               
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
+                    Label = $"{midiBoard.Name}"
+                });
+            }
+
             preconditionPanel.SetModules(PreconditionModuleList);
         }
 
@@ -268,7 +286,7 @@ namespace MobiFlight.UI.Dialogs
             }
 
             // second tab
-            if (!ComboBoxHelper.SetSelectedItemByValue(inputTypeComboBox, config.Name))
+            if (config.Name != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.Name))
             {
                 // TODO: provide error message
                 Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.Name}", LogSeverity.Error);
@@ -312,17 +330,10 @@ namespace MobiFlight.UI.Dialogs
             preconditionPanel.syncToConfig(config);
 
             if (config.ModuleSerial == "-") return true;
-            if (inputTypeComboBox.SelectedItem.ToString() != InputConfigItem.TYPE_NOTSET)
-            {
-                if (Joystick.IsJoystickSerial(SerialNumber.ExtractSerial(config.ModuleSerial)))
-                {
-                    config.Name = (inputTypeComboBox.SelectedItem as ListItem).Value;
-                }
-                else
-                {
-                    config.Name = (inputTypeComboBox.SelectedItem as ListItem<BaseDevice>).Value.Name;
-                }
-            }
+
+            IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
+            if (device.Label != InputConfigItem.TYPE_NOTSET)
+                config.Name = device.Name;
 
             DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
 
@@ -408,7 +419,8 @@ namespace MobiFlight.UI.Dialogs
                 inputTypeComboBox.ValueMember = "Value";
                 inputTypeComboBox.DisplayMember = "Label";
 
-                inputTypeComboBox.Items.Add(new ListItem<string>() { Label = InputConfigItem.TYPE_NOTSET, Value = InputConfigItem.TYPE_NOTSET });
+                IBaseDevice emptyDevice = new BaseDevice() { Name = InputConfigItem.TYPE_NOTSET };
+                inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = InputConfigItem.TYPE_NOTSET, Value = emptyDevice });
                 inputTypeComboBox.SelectedIndex = 0;
                 inputTypeComboBox.Enabled = true;
 
@@ -431,25 +443,44 @@ namespace MobiFlight.UI.Dialogs
                     if (device != null)
                     {
                         device.Name = config.Name;
-                        inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
+                        inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
                     }
                     inputTypeComboBox.Enabled = false;
                 }
-                else if (!Joystick.IsJoystickSerial(serial))
+                // Add all Joysticks
+                else if (Joystick.IsJoystickSerial(serial))
+                { 
+                    Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+                    inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevicesAsListItems().ToArray());
+                }
+                // Add all MidiBoards
+                else if (MidiBoard.IsMidiBoardSerial(serial))
+                {
+                    MidiBoard midiBoard = _execManager.GetMidiBoardManager().GetMidiBoardBySerial(serial);
+                    var devices = midiBoard.GetAvailableDevices();
+                    foreach (var device in devices)
+                    {
+                        inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
+                    }
+                }
+                else
                 {
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
 
-                    foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
+                    if (module != null)
                     {
-                        switch (device.Type)
+                        foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
                         {
-                            case DeviceType.Button:
-                            case DeviceType.AnalogInput:
-                            case DeviceType.Encoder:
-                            case DeviceType.InputShiftRegister:
-                            case DeviceType.InputMultiplexer:
-                                inputTypeComboBox.Items.Add(new ListItem<Config.BaseDevice>() { Label = device.Name, Value = device });
-                                break;
+                            switch (device.Type)
+                            {
+                                case DeviceType.Button:
+                                case DeviceType.AnalogInput:
+                                case DeviceType.Encoder:
+                                case DeviceType.InputShiftRegister:
+                                case DeviceType.InputMultiplexer:
+                                    inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Name, Value = device });
+                                    break;
+                            }
                         }
                     }
 
@@ -473,18 +504,12 @@ namespace MobiFlight.UI.Dialogs
                         }
                     }
                 }
-                // Add all Joysticks
-                else {
-                    Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
-                    inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevices().ToArray());
-                }
 
                 // third tab
-                if (!ComboBoxHelper.SetSelectedItem(inputTypeComboBox, config.Name))
+                if (config.Name != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.Name))
                 {
                     Log.Instance.log($"Problem setting input type ComboBox. {config.Name}", LogSeverity.Error);
                 }
-
             }
             catch (Exception ex)
             {
@@ -494,41 +519,11 @@ namespace MobiFlight.UI.Dialogs
 
         private DeviceType determineCurrentDeviceType(String serial)
         {
-            DeviceType currentInputType = DeviceType.NotSet;
-
-            if (string.IsNullOrEmpty(serial))
-            {
-                var device = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>)?.Value as Config.BaseDevice;
-
-                if (device == null || string.IsNullOrEmpty(device?.Name))
-                    return currentInputType;
-                currentInputType = device.Type;
-            } else if (!Joystick.IsJoystickSerial(serial)) {
-                MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-
-                // find the correct input type based on the name
-                foreach (Config.BaseDevice device in module.GetConnectedInputDevices())
-                {
-                    if ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>) == null)
-                        break;
-                    if (device.Name != ((inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.BaseDevice)?.Name) continue;
-
-                    currentInputType = device.Type;
-                    break;
-                }
-            } else
-            {
-                // We have a joystick 
-                // which right now is only buttons
-                if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.ButtonPrefix))
-                    currentInputType = DeviceType.Button;
-                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.AxisPrefix))
-                    currentInputType = DeviceType.AnalogInput;
-                else if (inputTypeComboBox.SelectedItem.ToString().Contains(Joystick.PovPrefix))
-                    currentInputType = DeviceType.Button;
-            }
-
-            return currentInputType;
+            IBaseDevice device = (inputTypeComboBox.SelectedItem as ListItem<IBaseDevice>)?.Value;
+            if (device != null && !string.IsNullOrEmpty(device?.Name))
+                return device.Type;
+            else
+                return DeviceType.NotSet;
         }
 
         private void inputTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -570,7 +565,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputShiftRegister:
-                        Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputShiftRegister;
+                        Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputShiftRegister;
                         panel = new Panels.Input.InputShiftRegisterPanel()
                         {
                             Enabled = (serial != "")
@@ -581,7 +576,7 @@ namespace MobiFlight.UI.Dialogs
                         break;
 
                     case DeviceType.InputMultiplexer:
-                        Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.BaseDevice>).Value as Config.InputMultiplexer;
+                        Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputMultiplexer;
                         panel = new Panels.Input.InputMultiplexerPanel()
                         {
                             Enabled = (serial != "")
@@ -628,14 +623,19 @@ namespace MobiFlight.UI.Dialogs
 
             List<ListItem> connectors = new List<ListItem>();
 
-            foreach (IConnectedDevice device in module.GetConnectedDevices())
+            if (module != null)
             {
-                if (device.Type != DeviceType.LedModule) continue;
-                if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++) {
-                    connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                foreach (IConnectedDevice device in module.GetConnectedDevices())
+                {
+                    if (device.Type != DeviceType.LedModule) continue;
+                    if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
+                    for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
+                    {
+                        connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
+                    }
                 }
             }
+            
             displayLedDisplayPanel.SetConnectors(connectors);
         }
 
@@ -765,6 +765,7 @@ namespace MobiFlight.UI.Dialogs
             ScanForInputButton.Text = "Scanning...";
             _execManager.getMobiFlightModuleCache().OnButtonPressed += ScanforInput_OnButtonPressed;
             _execManager.GetJoystickManager().OnButtonPressed += ScanforInput_OnButtonPressed;
+            _execManager.GetMidiBoardManager().OnButtonPressed += ScanforInput_OnButtonPressed;
         }
 
         private void DeactivateScanForInputMode()
@@ -772,6 +773,7 @@ namespace MobiFlight.UI.Dialogs
             ScanningForInput = false;
             _execManager.getMobiFlightModuleCache().OnButtonPressed -= ScanforInput_OnButtonPressed;
             _execManager.GetJoystickManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
+            _execManager.GetMidiBoardManager().OnButtonPressed -= ScanforInput_OnButtonPressed;
 
             ScanForInputButton.BackColor = ScanForInputButtonDefaultStyle.BackColor;
             ScanForInputButton.ForeColor = ScanForInputButtonDefaultStyle.ForeColor;
@@ -810,19 +812,33 @@ namespace MobiFlight.UI.Dialogs
             inputModuleNameComboBox.SelectedItem = module;
 
             // try to set the device
-            if (!SerialNumber.IsJoystickSerial(e.Serial))
+            if (SerialNumber.IsJoystickSerial(e.Serial))
+            {
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
+            }
+            else if (SerialNumber.IsMidiBoardSerial(e.Serial))
+            {
+                // Add item to device list if not yet there
+                if (!inputTypeComboBox.Items.OfType<ListItem<MidiBoardDevice>>().Any(i => i.Value.Name == e.DeviceId))
+                { 
+                    MidiBoardDevice mbd = new MidiBoardDevice();
+                    mbd.Label = e.DeviceLabel;  
+                    mbd.Name = e.DeviceId;
+                    mbd.Type = DeviceType.Button;
+                    inputTypeComboBox.Items.Add(new ListItem<MidiBoardDevice> { Label = mbd.Label, Value = mbd });
+                }                        
+                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
+            }
+            else
             {
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceId);
                 // if multiplexer or inputshiftregister set the sub item too
                 if (e.Type == DeviceType.InputMultiplexer || e.Type == DeviceType.InputShiftRegister)
                 {
                     ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.ExtPin.ToString());
-                }
+                }                
             }
-            else
-            {
-                ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
-            }
+                
 
             DeactivateScanForInputMode();
         }

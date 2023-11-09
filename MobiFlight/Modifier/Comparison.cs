@@ -27,7 +27,7 @@ namespace MobiFlight.Modifier
         public Comparison() 
         {
             Active = false;
-            Operand = "";
+            Operand = OPERAND_EQUAL;
             Value = "";
             IfValue = "";
             ElseValue = "";
@@ -152,7 +152,6 @@ namespace MobiFlight.Modifier
             try
             {
                 result.Float64 = Double.Parse(comparisonResult);
-                result.type = FSUIPCOffsetType.Float;
                 if (result.Float64.ToString()!=comparisonResult.ToString())
                 {
                     result.String = comparisonResult;
@@ -186,6 +185,11 @@ namespace MobiFlight.Modifier
             }
 
             return result;
+        }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Compare: If current value {Operand} {Value} then {IfValue} else {ElseValue}";
         }
     }
 }

@@ -26,13 +26,13 @@
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_micro",
     "FirmwareExtension": "hex",
-    "FriendlyName": "Arduino Micro Pro",
-    "LatestFirmwareVersion": "2.4.0",
+    "FriendlyName": "Arduino Pro Micro",
+    "LatestFirmwareVersion": "2.4.3",
     "MobiFlightType": "MobiFlight Micro",
     "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 5,
+    "MaxAnalogInputs": 9,
     "MaxButtons": 18,
     "MaxEncoders": 9,
     "MaxInputShifters": 2,
@@ -73,7 +73,8 @@
       "isAnalog": true,
       "isI2C": false,
       "isPWM": false,
-      "Pin": 4
+      "Pin": 4,
+      "Name": "A6"
     },
     {
       "isAnalog": false,
@@ -85,7 +86,8 @@
       "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
-      "Pin": 6
+      "Pin": 6,
+      "Name": "A7"
     },
     {
       "isAnalog": false,
@@ -97,19 +99,22 @@
       "isAnalog": true,
       "isI2C": false,
       "isPWM": false,
-      "Pin": 8
+      "Pin": 8,
+      "Name": "A8"
     },
     {
       "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
-      "Pin": 9
+      "Pin": 9,
+      "Name": "A9"
     },
     {
-      "isAnalog": false,
+      "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
-      "Pin": 10
+      "Pin": 10,
+      "Name": "A10"
     },
     {
       "isAnalog": false,
@@ -128,12 +133,6 @@
       "isI2C": false,
       "isPWM": false,
       "Pin": 16
-    },
-    {
-      "isAnalog": false,
-      "isI2C": false,
-      "isPWM": false,
-      "Pin": 17
     },
     {
       "isAnalog": true,

@@ -1,0 +1,48 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "Octavi",
+  "VendorId": 1240,
+  "ProductId": 59094,
+  "Inputs": [
+
+  ],
+  "Outputs": [
+    {
+      "Label": "AP Master",
+      "Id": "AP.AP",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "AP HDG",
+      "Id": "AP.HDG",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "AP NAV",
+      "Id": "AP.NAV",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "AP APR",
+      "Id": "AP.APR",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "AP ALT",
+      "Id": "AP.ALT",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "AP VS",
+      "Id": "AP.VS",
+      "Byte": 1,
+      "Bit": 5
+    },
+	
+  ]
+}

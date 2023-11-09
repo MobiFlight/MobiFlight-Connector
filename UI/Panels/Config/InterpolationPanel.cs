@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.Modifier;
+using MobiFlight.UI.Panels.Modifier;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -76,7 +77,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            try
+           /* try
             {
                 //if ((e.RowIndex + 1) == (sender as DataGridView).Rows.Count) return;
                 if (e.FormattedValue.ToString() == "") return;
@@ -90,7 +91,7 @@ namespace MobiFlight.UI.Panels.Config
                 (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ErrorText = i18n._tr("uiMessageConfigWizardInterpolationOnlyNumbersPlease");
                 (sender as DataGridView).Rows[e.RowIndex].Cells[e.ColumnIndex].ToolTipText = i18n._tr("uiMessageConfigWizardInterpolationOnlyNumbersPlease");
                 e.Cancel = true;
-            }
+            }*/
         }
         
         private void dataGridView1_CellContentClick(object sender, System.Windows.Forms.DataGridViewCellEventArgs e)
@@ -98,7 +99,7 @@ namespace MobiFlight.UI.Panels.Config
             if (e.RowIndex >= 0) 
             {
                 System.Windows.Forms.DataGridView datagridview1 = (sender as DataGridView);
-                removeButton.Enabled = (!datagridview1.Rows[e.RowIndex].IsNewRow && datagridview1.Rows.Count > 3);
+                removeButton.Enabled = (!datagridview1.Rows[e.RowIndex].IsNewRow && datagridview1.Rows.Count > 2);
             }
 
             dataGridView1.BeginEdit(false);

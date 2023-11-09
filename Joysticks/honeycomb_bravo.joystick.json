@@ -1,0 +1,448 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "Bravo Throttle Quadrant",
+  "VendorId": 10571,
+  "ProductId": 6401,
+  "Inputs": [
+    {
+      "Id": 17,
+      "Type":  "Button",
+      "Label": "Mode - IAS"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Mode - CRS"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Mode - HDG"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "Mode - VS"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Mode - ALT"
+    },
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "AP - HDG"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "AP - NAV"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "AP - APR"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "AP - REV"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "AP - ALT"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "AP - VS"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "AP - IAS"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "AP - Autopilot"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Encoder - Right"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Encoder - Left"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "Gear - Up"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Gear - Down"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Flaps - Up"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Flaps - Down"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Trim - Nose Down"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "Trim - Nose Up"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "Lever 1 - Detent"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "Lever 2 - Detent"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "Lever 3 - Detent"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "Lever 4 - Detent"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "Lever 5 - Detent"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Lever 6 - Detent"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "Lever 1 - Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Lever 2 - Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Lever 3 - Button"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Lever 4 - Button"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Lever 5 - Button"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "Lever 3 - Reverser"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "Lever 4 - Reverser"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Switch 1 - Up"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Switch 1 - Down"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "Switch 2 - Up"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "Switch 2 - Down"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "Switch 3 - Up"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "Switch 3 - Down"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "Switch 4 - Up"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "Switch 4 - Down"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "Switch 5 - Up"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "Switch 5 - Down"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "Switch 6 - Up"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "Switch 6 - Down"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "Switch 7 - Up"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "Switch 7 - Down"
+    },
+    {
+      "Id": 49,
+      "Type": "Axis",
+      "Label": "Axis - Lever 1"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Axis - Lever 2"
+    },
+    {
+      "Id": 53,
+      "Type": "Axis",
+      "Label": "Axis - Lever 3"
+    },
+    {
+      "Id": 52,
+      "Type": "Axis",
+      "Label": "Axis - Lever 4"
+    },
+    {
+      "Id": 51,
+      "Type": "Axis",
+      "Label": "Axis - Lever 5"
+    },
+    {
+      "Id": 50,
+      "Type": "Axis",
+      "Label": "Axis - Lever 6"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "AP Mode - HDG",
+      "Id": "AP.hdg",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "AP Mode - NAV",
+      "Id": "AP.nav",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "AP Mode - APR",
+      "Id": "AP.apr",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "AP Mode - REV",
+      "Id": "AP.rev",
+      "Byte": 1,
+      "Bit": 3
+    },
+    {
+      "Label": "AP Mode - ALT",
+      "Id": "AP.alt",
+      "Byte": 1,
+      "Bit": 4
+    },
+    {
+      "Label": "AP Mode - VS",
+      "Id": "AP.vs",
+      "Byte": 1,
+      "Bit": 5
+    },
+    {
+      "Label": "AP Mode - IAS",
+      "Id": "AP.ias",
+      "Byte": 1,
+      "Bit": 6
+    },
+    {
+      "Label": "AP Mode - On/Off",
+      "Id": "AP.autopilot",
+      "Byte": 1,
+      "Bit": 7
+    },
+    {
+      "Label": "Gear - Left Green",
+      "Id": "Gear.LeftGreen",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear - Left Red",
+      "Id": "Gear.LeftRed",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "Gear - Center Green",
+      "Id": "Gear.CenterGreen",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "Gear - Center Red",
+      "Id": "Gear.CenterRed",
+      "Byte": 2,
+      "Bit": 3
+    },
+    {
+      "Label": "Gear - Right Green",
+      "Id": "Gear.RightGreen",
+      "Byte": 2,
+      "Bit": 4
+    },
+    {
+      "Label": "Gear - Right Red",
+      "Id": "Gear.RightRed",
+      "Byte": 2,
+      "Bit": 5
+    },
+    {
+      "Label": "Lights - Master Warning",
+      "Id": "Light.MasterWarn",
+      "Byte": 2,
+      "Bit": 6
+    },
+    {
+      "Label": "Lights - Engine Fire",
+      "Id": "Light.EngineFire",
+      "Byte": 2,
+      "Bit": 7
+    },
+    {
+      "Label": "Lights - Low Oil Pressure",
+      "Id": "Light.LowOil",
+      "Byte": 3,
+      "Bit": 0
+    },
+    {
+      "Label": "Lights - Low Fuel Pressure",
+      "Id": "Light.LowFuel",
+      "Byte": 3,
+      "Bit": 1
+    },
+    {
+      "Label": "Lights - Anti Ice",
+      "Id": "Light.Antiice",
+      "Byte": 3,
+      "Bit": 2
+    },
+    {
+      "Label": "Lights - Starter Engaged",
+      "Id": "Light.Starter",
+      "Byte": 3,
+      "Bit": 3
+    },
+    {
+      "Label": "Lights - APU",
+      "Id": "Light.APU",
+      "Byte": 3,
+      "Bit": 4
+    },
+    {
+      "Label": "Lights - Master Caution",
+      "Id": "Light.MasterCaution",
+      "Byte": 3,
+      "Bit": 5
+    },
+    {
+      "Label": "Lights - Vacuum",
+      "Id": "Light.Vacuum",
+      "Byte": 3,
+      "Bit": 6
+    },
+    {
+      "Label": "Lights - Low Hyd Pressure",
+      "Id": "Light.LowHydPressURE",
+      "Byte": 3,
+      "Bit": 7
+    },
+    {
+      "Label": "Lights - Aux Fuel Pump",
+      "Id": "Lights.AuxFuelPump",
+      "Byte": 4,
+      "Bit": 0
+    },
+    {
+      "Label": "Lights - Parking Brake",
+      "Id": "Lights.ParkingBrake",
+      "Byte": 4,
+      "Bit": 1
+    },
+    {
+      "Label": "Lights - Low Volts",
+      "Id": "Lights.LowVolts",
+      "Byte": 4,
+      "Bit": 2
+    },
+    {
+      "Label": "Lights - Door",
+      "Id": "Lights.door",
+      "Byte": 4,
+      "Bit": 3
+    }
+  ]
+}

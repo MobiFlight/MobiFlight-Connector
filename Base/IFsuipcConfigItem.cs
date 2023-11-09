@@ -12,6 +12,7 @@ namespace MobiFlight
     {
         FsuipcOffset FSUIPC { get; set; }
         string Value { get; set; }
-        Transformation Transform { get; set; }
+
+        ModifierList Modifiers { get; set; }
     }
 }

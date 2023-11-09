@@ -385,29 +385,38 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compatible module.
+        /// </summary>
+        internal static string uiLabelModuleNAME_UNKNOWN {
+            get {
+                return ResourceManager.GetString("uiLabelModuleNAME_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible.
+        /// </summary>
+        internal static string uiLabelModuleTYPE_COMPATIBLE {
+            get {
+                return ResourceManager.GetString("uiLabelModuleTYPE_COMPATIBLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No aircraft detected.
+        /// </summary>
+        internal static string uiLabelNoAircraftDetected_ {
+            get {
+                return ResourceManager.GetString("uiLabelNoAircraftDetected.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application is now running in the background..
         /// </summary>
         internal static string uiMessageApplicationIsRunningInBackgroundMode {
             get {
                 return ResourceManager.GetString("uiMessageApplicationIsRunningInBackgroundMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An Arcaze module has been removed..
-        /// </summary>
-        internal static string uiMessageAraceUSBHasBeenRemoved {
-            get {
-                return ResourceManager.GetString("uiMessageAraceUSBHasBeenRemoved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection to the arcaze module got lost.
-        /// </summary>
-        internal static string uiMessageArcazeConnectionLost {
-            get {
-                return ResourceManager.GetString("uiMessageArcazeConnectionLost", resourceCulture);
             }
         }
         
@@ -816,6 +825,19 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following midiboard is currently in usage by another process:
+        ///
+        ///{0}
+        ///
+        ///That midiboard cannot be used until other application is terminated and MobiFlight is restarted..
+        /// </summary>
+        internal static string uiMessageMidiBoardInUsageByOtherProcess {
+            get {
+                return ResourceManager.GetString("uiMessageMidiBoardInUsageByOtherProcess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Old config format (&lt; 6.0) found. The config file has to be converted to work correctly. Do you want to use a new filename?.
         /// </summary>
         internal static string uiMessageMigrateConfigFileV60YesNo {
@@ -839,6 +861,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageModuleFound {
             get {
                 return ResourceManager.GetString("uiMessageModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The board &quot;{0}&quot; ({1}) disconnected..
+        /// </summary>
+        internal static string uiMessageModuleRemoved {
+            get {
+                return ResourceManager.GetString("uiMessageModuleRemoved", resourceCulture);
             }
         }
         
@@ -908,6 +939,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no missing midiboards found..
+        /// </summary>
+        internal static string uiMessageNoNotConnectedMidiBoardsInConfigFound {
+            get {
+                return ResourceManager.GetString("uiMessageNoNotConnectedMidiBoardsInConfigFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no orphaned serials in the current config..
         /// </summary>
         internal static string uiMessageNoOrphanedSerialsFound {
@@ -935,6 +975,19 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageNotConnectedJoysticksInConfigFound {
             get {
                 return ResourceManager.GetString("uiMessageNotConnectedJoysticksInConfigFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following midiboards are currently not connected but referenced in the config:
+        ///
+        ///{0}
+        ///
+        ///Respective configs won&apos;t work until midiboards are connected and you have restarted MobiFlight..
+        /// </summary>
+        internal static string uiMessageNotConnectedMidiBoardsInConfigFound {
+            get {
+                return ResourceManager.GetString("uiMessageNotConnectedMidiBoardsInConfigFound", resourceCulture);
             }
         }
         
@@ -1065,7 +1118,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the current firmware first..
+        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the latest firmware now!.
         /// </summary>
         internal static string uiMessageSettingsDialogFirmwareVersionTooLowException {
             get {
@@ -1343,6 +1396,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiSettingsMobiFlightChangeRequiresRestart {
             get {
                 return ResourceManager.GetString("uiSettingsMobiFlightChangeRequiresRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html.
+        /// </summary>
+        internal static string WebsiteHelpNcalc {
+            get {
+                return ResourceManager.GetString("WebsiteHelpNcalc", resourceCulture);
             }
         }
         

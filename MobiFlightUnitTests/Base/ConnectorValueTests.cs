@@ -20,7 +20,7 @@ namespace MobiFlight.Tests
             o.String = "TestString";
 
             o.type = FSUIPCOffsetType.Float;
-            Assert.AreEqual(Double.MaxValue.ToString(), o.ToString());
+            Assert.AreEqual(Double.MaxValue.ToString("R"), o.ToString());
 
             o.type = FSUIPCOffsetType.Integer;
             Assert.AreEqual(Double.MaxValue.ToString(), o.ToString());

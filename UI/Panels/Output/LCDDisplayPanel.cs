@@ -40,10 +40,10 @@ namespace MobiFlight.UI.Panels
             // preselect display stuff
             if (config.LcdDisplay.Address != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.LcdDisplay.Address.ToString()))
+                if (!ComboBoxHelper.SetSelectedItem(DisplayComboBox, config.LcdDisplay.Address))
                 {
                     // TODO: provide error message
-                    Log.Instance.log("Exception on selecting item in LCD address ComboBox.", LogSeverity.Error);
+                    Log.Instance.log($"Exception on selecting item {config.LcdDisplay.Address} in LCD address ComboBox.", LogSeverity.Error);
                 }
             }
             if (config.LcdDisplay.Lines.Count > 0)

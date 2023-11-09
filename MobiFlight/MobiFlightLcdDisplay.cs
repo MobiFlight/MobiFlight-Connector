@@ -44,17 +44,6 @@ namespace MobiFlight
         protected void Initialize()
         {
             if (_initialized) return;
-
-            // Create command
-            /*
-            var command = new SendCommand((int)MobiFlightModule.Command.InitModule);
-            command.AddArgument(this.ModuleNumber);
-            command.AddArgument(this.Brightness);
-
-            // Send command
-            CmdMessenger.SendCommand(command);
-            */
-
             _initialized = true;
         }
 

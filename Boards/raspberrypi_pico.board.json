@@ -13,29 +13,29 @@
     "ForceResetOnFirmwareUpdate": true,
     "MessageSize": 64
   },
-  "HardwareIds": [ "^VID_2E8A&PID_000A" ],
+  "HardwareIds": ["^VID_2E8A&PID_000A"],
   "Info": {
     "CanInstallFirmware": true,
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_raspberrypico",
     "FirmwareExtension": "uf2",
-    "FriendlyName": "MobiFlight RaspiPico",
-    "LatestFirmwareVersion": "2.4.0",
+    "FriendlyName": "Raspberry Pico",
+    "LatestFirmwareVersion": "2.4.3",
     "MobiFlightType": "MobiFlight RaspiPico",
-    "ResetFirmwareFile": "reset.raspberry_pico_1_0_2.uf2"
+    "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 16,
+    "MaxAnalogInputs": 3,
     "MaxInputShifters": 4,
-    "MaxButtons": 68,
-    "MaxEncoders": 20,
+    "MaxButtons": 26,
+    "MaxEncoders": 8,
     "MaxLcdI2C": 2,
     "MaxLedSegments": 4,
-    "MaxOutputs": 40,
-    "MaxServos": 10,
+    "MaxOutputs": 26,
+    "MaxServos": 8,
     "MaxShifters": 4,
-    "MaxSteppers": 10,
-    "MaxInputMultiplexer": 2
+    "MaxSteppers": 6,
+    "MaxInputMultiplexer": 4
   },
   "Pins": [
     {

@@ -481,3 +481,7 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 /Build/mobiflight-setup.exe
+
+# Midi library
+!midi.pdb
+/wwwroot

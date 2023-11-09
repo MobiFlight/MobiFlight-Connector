@@ -1,0 +1,101 @@
+{
+  "$schema": "./mfmidiboard.schema.json",
+  "InstanceName": "nanoKONTROL2 1 SLIDER/KNOB",
+  "DifferingOutputName": "nanoKONTROL2 1 CTRL",
+  "Inputs": [
+    {
+      "Label": "Knob %",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "LimitedKnob",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 16, 17, 18, 19, 20, 21, 22, 23 ]
+    },
+    {
+      "Label": "Button S%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 32, 33, 34, 35, 36, 37, 38, 39 ]
+    },
+    {
+      "Label": "Button M%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 48, 49, 50, 51, 52, 53, 54, 55 ]
+    },
+    {
+      "Label": "Button R%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
+    },
+    {
+      "Label": "Slider %",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Fader",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+    },
+    {
+      "Label": "Button %",
+      "LabelIds": [ "Cycle", "Backward", "Forward", "Stop", "Play", "Record" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 46, 43, 44, 42, 41, 45 ]
+    },
+    {
+      "Label": "Button %",
+      "LabelIds": [ "Prev Track", "Next Track", "Set Marker", "Prev Marker", "Next Marker" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 58, 59, 60, 61, 62 ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "LED Button S%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 32, 33, 34, 35, 36, 37, 38, 39 ],
+      "ValueOn": 127,
+      "ValueOff": 0
+    },
+    {
+      "Label": "LED Button M%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 48, 49, 50, 51, 52, 53, 54, 55 ],
+      "ValueOn": 127,
+      "ValueOff": 0
+    },
+    {
+      "Label": "LED Button R%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 64, 65, 66, 67, 68, 69, 70, 71 ],
+      "ValueOn": 127,
+      "ValueOff": 0
+    },
+    {
+      "Label": "LED Button %",
+      "LabelIds": [ "Cycle", "Backward", "Forward", "Stop", "Play", "Record" ],
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 46, 43, 44, 42, 41, 45 ],
+      "ValueOn": 127,
+      "ValueOff": 0
+    }
+  ]
+}

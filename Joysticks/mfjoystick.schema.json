@@ -1,0 +1,104 @@
+{
+  "definitions": {},
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://mobiflight.com/hid.schema.json",
+  "title": "Root",
+  "type": "object",
+  "required": ["InstanceName"],
+  "dependentRequired": {
+    "Outputs": ["VendorId", "ProductId"]
+  },
+  "properties": {
+    "InstanceName": {
+      "$id": "#root/InstanceName",
+      "title": "InstanceName",
+      "type": "string",
+      "description": "Instance name for the device. Required. This is used to match the definition with a connected device."
+    },
+    "Inputs": {
+      "$id": "#root/Inputs",
+      "title": "Inputs",
+      "description": "List of inputs supported by the device. Optional.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/Inputs/items",
+        "title": "Items",
+        "type": "object",
+        "required": [ "Id", "Label", "Type"],
+        "properties": {
+          "Name": {
+            "$id": "#root/Inputs/items/Id",
+            "title": "Id",
+            "description": "The input's unique identifier on the joystick. Required.",
+            "type": "string"
+          },
+          "Label": {
+            "$id": "#root/Inputs/items/Label",
+            "title": "Label",
+            "description": "Friendly label for the input. Required.",
+            "type": "string"
+          },
+          "Type": {
+            "$id": "#root/Inputs/items/Type",
+            "title": "Type",
+            "description": "The input's type. Supported values: Button, Axis.",
+            "type": "string",
+            "enum": [ "Button", "Axis" ]
+          }
+        }
+      }
+    },
+    "Outputs": {
+      "$id": "#root/Outputs",
+      "title": "Outputs",
+      "description": "List of outputs supported by the device. Optional.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/Outputs/items",
+        "title": "Items",
+        "type": "object",
+        "required": ["Name", "Label", "Byte", "Bit"],
+        "properties": {
+          "Name": {
+            "$id": "#root/Inputs/items/Name",
+            "title": "Name",
+            "description": "Device's name for the input. Required.",
+            "type": "string"
+          },
+          "Label": {
+            "$id": "#root/Inputs/items/Label",
+            "title": "Label",
+            "description": "Label for the input. Required.",
+            "type": "string"
+          },
+          "Byte": {
+            "$id": "#root/Inputs/items/Byte",
+            "title": "Byte",
+            "description": "Byte location of the output. Required.",
+            "type": "number"
+          },
+          "Bit": {
+            "$id": "#root/Inputs/items/Bit",
+            "title": "Bit",
+            "description": "Bit location within the byte of the output. Required.",
+            "type": "number"
+          }
+        }
+      }
+    },
+    "ProductId": {
+      "$id": "#Root/VendorId",
+      "title": "VendorId",
+      "type": "number",
+      "description": "The device's USB VendorId. Required if Outputs are provided."
+    },
+    "VendorId": {
+      "$id": "#Root/ProductId",
+      "title": "ProductId",
+      "type": "number",
+      "description": "The device's USB ProductId. Required if Outputs are provided."
+    }
+  }
+}

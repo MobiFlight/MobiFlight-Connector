@@ -1,0 +1,46 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Garmin GNC 255",
+    "Type": "GNC255",
+    "Author": "Sebastian",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/GNC255",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [
+      "CLK",
+      "Data",
+      "CS",
+      "D/C",
+      "Reset"
+    ]
+  },
+  "MessageTypes": [
+    {
+      "id": 1,
+      "label": "Set Active Frequency",
+      "description": "$ will be displayed on the device as Active Frequency"
+    },
+    {
+      "id": 2,
+      "label": "Set Standby Frequency",
+      "description": "$ will be displayed on the device as Standby Frequency"
+    },
+    {
+      "id": 3,
+      "label": "Set Active Label",
+      "description": "$ will be displayed on the device below Active Frequency, e.g. active station ICAO code"
+    },
+    {
+      "id": 4,
+      "label": "Set Standby Label",
+      "description": "$ will be displayed on the device below Standby Frequency, e.g. standby station ICAO code"
+    },
+    {
+      "id": 5,
+      "label": "Set Mode",
+      "description": "0 -> COM Mode, 1 -> NAV Mode"
+    }
+  ]
+}

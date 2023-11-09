@@ -9,16 +9,25 @@ namespace MobiFlight.UpdateChecker
 {
     static class AutoUpdateChecker
     {
-        static string mobiFlightInstaller = "MobiFlight-Installer.exe";
-        static int UpdateCheckTimeoutInMs = 5000;
-        public static void CheckForUpdate(bool force = false, bool silent = false)
+        static readonly string mobiFlightInstaller = "MobiFlight-Installer.exe";
+        static readonly int UpdateCheckTimeoutInMs = 5000;
+        public static void CheckForUpdate(bool silent = false)
         {
             String hash = (Environment.UserName + Environment.MachineName).GetHashCode().ToString();
             if (Properties.Settings.Default.CacheId == "0") Properties.Settings.Default.CacheId = Guid.NewGuid().ToString();
-            String trackingParams = hash + "-" + Properties.Settings.Default.CacheId + "-" + Properties.Settings.Default.Started;
+            var trackingParams = $"{hash}-{Properties.Settings.Default.CacheId}-{Properties.Settings.Default.Started}";
 
-            string CurVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string CommandToSend = "/check /version " + CurVersion + " /cacheId " + trackingParams;
+            var CurVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+            // Issue 1365: Don't check for updates if the build came from a pull request. These builds are
+            // identified by the major version being 0.
+            if (CurVersion.Major == 0)
+            {
+                Log.Instance.log("Skipping update check since this is an unreleased build.", LogSeverity.Info);
+                return;
+            }
+
+            var CommandToSend = $"/check /version {CurVersion} /cacheId {trackingParams}";
 
             if (Properties.Settings.Default.BetaUpdates)
             {

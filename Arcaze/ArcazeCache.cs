@@ -1,9 +1,7 @@
-﻿using System;
+﻿using SimpleSolutions.Usb;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using SimpleSolutions.Usb;
-using MobiFlight;
 using System.Xml.Serialization;
 
 namespace MobiFlight
@@ -16,13 +14,17 @@ namespace MobiFlight
         /// </summary>
         public event EventHandler Closed;
         /// <summary>
-        /// Gets raised whenever connection is established
+        /// Gets raised when the cache becomes available
         /// </summary>
-        public event EventHandler Connected;
+        public event EventHandler OnAvailable;
         /// <summary>
-        /// Gets raised whenever connection is lost
+        /// Gets raised whenever device has been removed
         /// </summary>
-        public event EventHandler ConnectionLost;
+        public event EventHandler ModuleRemoved;
+        /// <summary>
+        /// Gets raised whenever device has been connected
+        /// </summary>
+        public event EventHandler ModuleConnected;
 
         const int MAX_DEVICE_NUM    = 5;
 
@@ -50,6 +52,21 @@ namespace MobiFlight
         private Dictionary<string, ArcazeLedDisplayConfig> ledDisplays = new Dictionary<string, ArcazeLedDisplayConfig>();
         private bool _initialized;
 
+        public ArcazeCache() {
+            arcazeHid.DeviceRemoved += ArcazeHid_DeviceRemoved;
+            arcazeHid.DeviceReceived += ArcazeHid_DeviceReceived;
+        }
+
+        private void ArcazeHid_DeviceReceived(object sender, HidEventArgs e)
+        {
+            ModuleConnected?.Invoke(e.DeviceInfo, new EventArgs());
+        }
+
+        private void ArcazeHid_DeviceRemoved(object sender, HidEventArgs e)
+        {
+            ModuleRemoved?.Invoke(e.DeviceInfo, new EventArgs());
+        }
+
         public void updateModuleSettings(Dictionary<string, ArcazeModuleSettings> arcazeSettings)
         {
             this.arcazeSettings = arcazeSettings;            
@@ -59,7 +76,7 @@ namespace MobiFlight
         /// indicates the status of the module connection
         /// </summary>
         /// <returns>true if connected, false if not</returns>
-        public bool isConnected()
+        public bool Available()
         {
             bool result = (Modules.Count > 0);
 
@@ -70,15 +87,6 @@ namespace MobiFlight
                 result = result & module.Connected;
             }
             return result;
-
-            /*
-            bool result = (attachedArcaze.Count > 0);
-            foreach (DeviceInfoAndCache dev in attachedArcaze)
-            {
-                result = result & dev.m_arcazeHid.Info.Connected;
-            }
-            return result;            
-             */
         }
 
         /// <summary>
@@ -89,9 +97,9 @@ namespace MobiFlight
         {
             if (!Enabled) return false;
 
-            if (isConnected() && force)
+            if (Available() && force)
             {
-                disconnect();
+                Shutdown();
             }
             
             if (!_initialized) _initialize();
@@ -101,23 +109,13 @@ namespace MobiFlight
                 module.Connect();
             }
 
-            if (isConnected())
+            if (Available())
             {
-                this.Connected(this, new EventArgs());
+                this.OnAvailable(this, new EventArgs());
                 return true;
             }
 
             return false;
-        }
-
-        void m_arcazeHid_DeviceRemoved(object sender, HidEventArgs e)
-        {
-            this.ConnectionLost(this, new EventArgs());
-        }
-
-        void m_arcazeHid_OurDeviceRemoved(object sender, HidEventArgs e)
-        {
-            this.ConnectionLost(this, new EventArgs());
         }
 
         /// <summary>
@@ -135,14 +133,14 @@ namespace MobiFlight
         } //_initializeArcaze()
 
         /// <summary>
-        /// disconnects all arcaze modules
+        /// disconnects all arcaze modules and the connection to the ArcazeHid driver
         /// </summary>
         /// <returns>returns true if all modules were disconnected properly</returns>    
-        public bool disconnect()
+        public bool Shutdown()
         {
             if (!Enabled) return true;
 
-            if (isConnected())
+            if (Available())
             {
                 foreach (DeviceInfoAndCache dev in attachedArcaze)
                 {
@@ -152,7 +150,7 @@ namespace MobiFlight
                 _initialized = false;
                 Closed(this, new EventArgs());
             }
-            return !isConnected();
+            return !Available();
         }
 
         public void Clear()

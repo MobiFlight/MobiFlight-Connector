@@ -21,7 +21,7 @@ namespace MobiFlight.Modifier.Tests
             Assert.IsNotNull(o, "Object is null");
             Assert.AreEqual(false, o.Active, "Active not true");
             Assert.AreEqual("", o.Value, "Value not empty");
-            Assert.AreEqual("", o.Operand, "Operand not empty");
+            Assert.AreEqual(Comparison.OPERAND_EQUAL, o.Operand, "Operand not empty");
             Assert.AreEqual("", o.IfValue, "IfValue not empty");
             Assert.AreEqual("", o.ElseValue, "ElseValue not empty");
         }
@@ -118,10 +118,13 @@ namespace MobiFlight.Modifier.Tests
 
             Assert.AreEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
             Assert.AreNotEqual(2, c.Apply(value, new List<ConfigRefValue>()).Float64);
+            Assert.AreEqual(FSUIPCOffsetType.Integer, c.Apply(value, new List<ConfigRefValue>()).type);
 
+            value.type = FSUIPCOffsetType.Float;
             value.Float64 = 1;
             Assert.AreEqual(2, c.Apply(value, new List<ConfigRefValue>()).Float64);
             Assert.AreNotEqual(1, c.Apply(value, new List<ConfigRefValue>()).Float64);
+            Assert.AreEqual(FSUIPCOffsetType.Float, c.Apply(value, new List<ConfigRefValue>()).type);
 
 
             c.Active = true;
@@ -133,7 +136,7 @@ namespace MobiFlight.Modifier.Tests
             value.type = FSUIPCOffsetType.Integer;
             value.Float64 = 0;
 
-            Assert.AreEqual(FSUIPCOffsetType.Float, c.Apply(value, new List<ConfigRefValue>()).type);
+            Assert.AreEqual(FSUIPCOffsetType.Integer, c.Apply(value, new List<ConfigRefValue>()).type);
             Assert.AreEqual("0", c.Apply(value, new List<ConfigRefValue>()).Float64.ToString());
 
             c.Active = true;

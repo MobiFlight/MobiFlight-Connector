@@ -33,6 +33,12 @@ namespace MobiFlight.Base
             return String.Join("", tokens).Trim();
         }
 
+        public static bool IsArcazeSerial(string serial)
+        {
+            if (serial == null || serial == "") return false;
+            return !IsMidiBoardSerial(serial) && !IsMobiFlightSerial(serial) && !IsJoystickSerial(serial);
+        }
+
         public static bool IsMobiFlightSerial(string serial)
         {
             if (serial == null || serial == "") return false;
@@ -43,6 +49,12 @@ namespace MobiFlight.Base
         {
             if (serial == null || serial == "") return false;
             return (serial.IndexOf(Joystick.SerialPrefix) == 0);
+        }
+
+        public static bool IsMidiBoardSerial(string serial)
+        {
+            if (string.IsNullOrEmpty(serial)) return false;
+            return (serial.IndexOf(MidiBoard.SerialPrefix) == 0);
         }
 
         public static bool IsRawSerial(string serial)

@@ -12,7 +12,7 @@ namespace MobiFlight.Modifier
     public class Blink : ModifierBase
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
-        public string BlinkValue = "";
+        public string BlinkValue = "0";
         public List<int> OnOffSequence = new List<int>();
         public int OffDurationInMs = 500;
         public long FirstExecutionTime = 0;
@@ -50,7 +50,6 @@ namespace MobiFlight.Modifier
             Clone.Active = Active;
             Clone.BlinkValue = BlinkValue;
             Clone.OnOffSequence = OnOffSequence.ToArray().ToList();
-            Clone.OffDurationInMs = OffDurationInMs;
             return Clone;
         }
 
@@ -60,8 +59,7 @@ namespace MobiFlight.Modifier
                 obj != null && obj is Blink &&
                 this.Active == (obj as Blink).Active &&
                 this.BlinkValue == (obj as Blink).BlinkValue &&
-                this.OnOffSequence == (obj as Blink).OnOffSequence &&
-                this.OffDurationInMs == (obj as Blink).OffDurationInMs;
+                this.OnOffSequence == (obj as Blink).OnOffSequence;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
@@ -70,8 +68,9 @@ namespace MobiFlight.Modifier
             if (FirstExecutionTime == 0) FirstExecutionTime = DateTime.Now.Ticks;
 
             var Now = DateTime.Now.Ticks - FirstExecutionTime;
+            if (Now == 0) Now = 1;
             Now /= 10000;
-            Now %= (OnOffSequence.Sum());
+            Now %= (OnOffSequence.Sum() > 0 ? OnOffSequence.Sum() : 1000);
 
             bool IsOn = true;
 
@@ -112,6 +111,11 @@ namespace MobiFlight.Modifier
             }
 
             return result;
+        }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Blink value: \"{BlinkValue}\", ON-OFF-Sequence: {String.Join((", "), OnOffSequence.Select(s => s+" ms"))}";
         }
     }
 }

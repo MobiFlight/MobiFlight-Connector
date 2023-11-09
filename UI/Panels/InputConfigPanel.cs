@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.UI.Dialogs;
 using MobiFlight.Base;
+using System.Xml;
 
 namespace MobiFlight.UI.Panels
 {
@@ -41,6 +42,7 @@ namespace MobiFlight.UI.Panels
 
             inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
             inputsDataTable.RowDeleted += new DataRowChangeEventHandler(configDataTable_RowChanged);
+            inputsDataTable.TableCleared += new DataTableClearEventHandler((o, a) => { SettingsChanged?.Invoke(this, null); });
 
             inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             inputsDataGridView.Columns["inputEditButtonColumn"].DefaultCellStyle.NullValue = "...";
@@ -116,10 +118,11 @@ namespace MobiFlight.UI.Panels
                     } //if
 
                     InputConfigItem cfg;
-                    DataRow row = null;
                     bool create = false;
+                    DataRow row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView)?.Row;
 
-                    row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView).Row;
+                    if (row == null) 
+                        break;
 
                     // the row had been saved but no config object has been created
                     // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
@@ -202,7 +205,9 @@ namespace MobiFlight.UI.Panels
                 // duplicate it
                 // duplicate row 
                 // link to new config item 
-                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
+                if (currentRow == null) continue;
+
                 DataRow newRow = inputsDataTable.NewRow();
 
                 foreach (DataColumn col in inputsDataTable.Columns)
@@ -357,7 +362,7 @@ namespace MobiFlight.UI.Panels
                 // handle clicks on header cells or row-header cells
                 if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
 
-                if ((inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"] != null)
+                if ((inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView)?.Row["description"] != null)
                 {
                     bool Active = (bool)(inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["active"];
                     String Description = (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row["description"].ToString();
@@ -410,7 +415,8 @@ namespace MobiFlight.UI.Panels
                 {
                     if (cfg.ModuleSerial == null) continue;
                     var serialNumber = SerialNumber.ExtractSerial(cfg.ModuleSerial);
-                    row["moduleSerial"] = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    var moduleName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
+                    row["moduleSerial"] = moduleName;
 
                     if (cfg.Name=="") continue;
 
@@ -419,12 +425,10 @@ namespace MobiFlight.UI.Panels
                     {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.ExtPin}";
                     }
-                    else
-                    if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
+                    else if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
                     }
-                    else 
-                    if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
+                    else if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
                         var j = ExecutionManager.GetJoystickManager().GetJoystickBySerial(serialNumber);
                         if (j != null)
                         {
@@ -433,6 +437,10 @@ namespace MobiFlight.UI.Panels
                         {
                             row["inputName"] = cfg.Name;
                         }
+                    }
+                    else if (MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial)) {
+                        // Map not by board instance, but by midiboard type. Works also when board is not connected.
+                        row["inputName"] = ExecutionManager.GetMidiBoardManager().MapDeviceNameToLabel(moduleName, cfg.Name);
                     }
                     else 
                     {
@@ -492,7 +500,9 @@ namespace MobiFlight.UI.Panels
                 // ignore new rows since they cannot be copied nor deleted
                 if (row.IsNewRow) continue;
 
-                DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
+                if (currentRow == null) continue;
+
                 bool Active = (bool) currentRow["active"];
                 String Description = currentRow["description"] as String;
                 InputConfigItem cfg = currentRow["settings"] as InputConfigItem;
@@ -593,12 +603,25 @@ namespace MobiFlight.UI.Panels
                     SelectedGuids.Clear();
                     foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
                     {
-                        DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
+                        DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
                         if (currentRow != null)
                             SelectedGuids.Add(currentRow["guid"].ToString());
                     }
                 }
             }
+        }
+
+        internal List<InputConfigItem> GetConfigItems()
+        {
+            List<InputConfigItem> result = new List<InputConfigItem>();
+
+            foreach (DataRow row in ConfigDataTable.Rows)
+            {
+                InputConfigItem cfg = row["settings"] as InputConfigItem;
+                result.Add(cfg);
+            }
+
+            return result;
         }
     }
 }

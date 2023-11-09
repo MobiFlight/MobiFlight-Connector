@@ -3,7 +3,7 @@
   "AvrDudeSettings": {
     "Attempts": 1,
     "Device": "atmega328p",
-    "BaudRates": [ "115200" ],
+    "BaudRates": ["115200"],
     "Programmer": "arduino",
     "Timeout": 15000
   },
@@ -17,6 +17,7 @@
     "MessageSize": 64
   },
   "HardwareIds": [
+    "^VID_10C4&PID_EA60",
     "^VID_2341&PID_0043",
     "^VID_2A03&PID_0043",
     "^VID_2341&PID_0243",
@@ -31,7 +32,7 @@
     "FriendlyName": "Arduino Uno",
     "FirmwareBaseName": "mobiflight_uno",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.0",
+    "LatestFirmwareVersion": "2.4.3",
     "MobiFlightType": "MobiFlight Uno",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },

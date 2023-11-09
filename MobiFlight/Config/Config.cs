@@ -1,8 +1,6 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -24,6 +22,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(ShiftRegister))]
         [XmlElement(typeof(InputMultiplexer))]
         [XmlElement(typeof(MultiplexerDriver))]
+        [XmlElement(typeof(CustomDevice))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -44,8 +43,9 @@ namespace MobiFlight.Config
                 // Its data is embedded (redundantly) in mux client devices
 
                 String current = item.ToInternal();
-                
-                if ((message.Length + current.Length) > MaxMessageLength && message.Length > 0) {
+
+                if ((message.Length + current.Length) > MaxMessageLength && message.Length > 0)
+                {
                     result.Add(message);
                     message = "";
                 }
@@ -61,7 +61,7 @@ namespace MobiFlight.Config
         {
             String[] items = value.Split(BaseDevice.End);
 
-            // Need to set aside the MultiplexerDriver reference (for subsequent devices) when we find it 
+            // Need to set aside the MultiplexerDriver reference (for subsequent client devices) when we find it 
             MobiFlight.Config.MultiplexerDriver multiplexerDriver = null;
 
             foreach (String item in items)
@@ -132,6 +132,13 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        // backward compatibility
+                        case DeviceType.LedModuleDeprecated:
+                            currentItem = new MobiFlight.Config.LedModuleDeprecated();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            currentItem = new MobiFlight.Config.LedModule(currentItem as MobiFlight.Config.LedModuleDeprecated);
+                            break;
+
                         case DeviceType.LcdDisplay:
                             currentItem = new MobiFlight.Config.LcdDisplay();
                             currentItem.FromInternal(item + BaseDevice.End);
@@ -148,14 +155,17 @@ namespace MobiFlight.Config
                             break;
 
                         case DeviceType.InputMultiplexer:
+                            // If the multiplexerDriver is to be implicitly defined by clients:
                             // Build multiplexerDriver if none found yet 
-                            if (multiplexerDriver == null) {
+                            if (multiplexerDriver == null)
+                            {
+                                // Store it, so another clients will not create a new one
                                 multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
-                                // multiplexerDriver is not yet init'ed with pin numbers: the FromInternal() of the client
-                                // (in this case InputMultiplexer) will provide them
-                                // Treat the MultiplexerDriver as a regular device (add it to the items list), except it won't be shown in the GUI tree.
+                                // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
                             }
+                            multiplexerDriver.FromInternal(InputMultiplexer.GetMultiplexerDriverConfig(item + BaseDevice.End));
+
                             currentItem = new MobiFlight.Config.InputMultiplexer(multiplexerDriver);
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
@@ -170,6 +180,10 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        case DeviceType.CustomDevice:
+                            currentItem = new MobiFlight.Config.CustomDevice();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
                     }
 
                     if (currentItem != null)
@@ -188,6 +202,13 @@ namespace MobiFlight.Config
                 {
                     if (throwException)
                         throw new FormatException("Config not valid. Type not valid", ex);
+                    else
+                        return this;
+                }
+                catch (Exception ex)
+                {
+                    if (throwException)
+                        throw new Exception("Config not valid.", ex);
                     else
                         return this;
                 }

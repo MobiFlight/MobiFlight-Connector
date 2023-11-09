@@ -1,0 +1,134 @@
+{
+  "$schema": "./mfmidiboard.schema.json",
+  "InstanceName": "X-TOUCH MINI",
+  "EncoderNeutralPosition": 64,
+  "InitialLayer": "A",
+  "Inputs": [
+    {
+      "Label": "Button % - Layer A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "Layer": "A",
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 11,
+      "MessageIds": [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 ]
+    },
+    {
+      "Label": "Button Encoder % - Layer A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "Layer": "A",
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 11,
+      "MessageIds": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+    },
+    {
+      "Label": "Encoder % - Layer A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "Layer": "A",
+      "InputType": "EndlessKnob",
+      "MessageType": "CC",
+      "MessageChannel": 11,
+      "MessageIds": [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+    },
+    {
+      "Label": "Fader % - Layer A",
+      "LabelIds": [ "1" ],
+      "Layer": "A",
+      "InputType": "Fader",
+      "MessageType": "CC",
+      "MessageChannel": 11,
+      "MessageIds": [ 0 ]
+    },
+    {
+      "Label": "Button % - Layer B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "Layer": "B",
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 11,
+      "MessageIds": [ 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47 ]
+    },
+    {
+      "Label": "Button Encoder % - Layer B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "Layer": "B",
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 11,
+      "MessageIds": [ 24, 25, 26, 27, 28, 29, 30, 31 ]
+    },
+    {
+      "Label": "Encoder % - Layer B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "Layer": "B",
+      "InputType": "EndlessKnob",
+      "MessageType": "CC",
+      "MessageChannel": 11,
+      "MessageIds": [ 11, 12, 13, 14, 15, 16, 17, 18 ]
+    },
+    {
+      "Label": "Fader % - Layer B",
+      "LabelIds": [ "1" ],
+      "Layer": "B",
+      "InputType": "Fader",
+      "MessageType": "CC",
+      "MessageChannel": 11,
+      "MessageIds": [ 10 ]
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "LED Button % - Layer A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "Layer": "A",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ],
+      "ValueOn": 1,
+      "ValueBlinkOn": 2,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Button % - Layer A",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ]
+    },
+    {
+      "Label": "LED Ring Encoder % - Layer A",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "Layer": "A",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 9, 10, 11, 12, 13, 14, 15, 16 ],
+      "ValueOn": 27,
+      "ValueBlinkOn": 28,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Encoder % - Layer A",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ]
+    },
+    {
+      "Label": "LED Button % - Layer B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ],
+      "Layer": "B",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ],
+      "ValueOn": 1,
+      "ValueBlinkOn": 2,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Button % - Layer B",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" ]
+    },
+    {
+      "Label": "LED Ring Encoder % - Layer B",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "Layer": "B",
+      "MessageType": "CC",
+      "MessageChannel": 1,
+      "MessageIds": [ 9, 10, 11, 12, 13, 14, 15, 16 ],
+      "ValueOn": 27,
+      "ValueBlinkOn": 28,
+      "ValueOff": 0,
+      "RelatedInputLabel": "Encoder % - Layer B",
+      "RelatedIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ]
+    }
+  ]
+}

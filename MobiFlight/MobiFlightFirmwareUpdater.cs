@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace MobiFlight
 {
@@ -67,12 +64,12 @@ namespace MobiFlight
         public static bool UpdateFirmware(MobiFlightModule module, String FirmwareName)
         {
             bool result = false;
-            String Port = "";
+            string UploadPort = string.Empty;
             
             // Only COM ports get toggled
             if (module.Port.StartsWith("COM"))
             { 
-                Port = module.InitUploadAndReturnUploadPort();
+                UploadPort = module.InitUploadAndReturnUploadPort();
                 if (module.Connected) module.Disconnect();
             }
 
@@ -80,12 +77,12 @@ namespace MobiFlight
             {
                 if (module.Board.AvrDudeSettings != null)
                 {
-                    while (!SerialPort.GetPortNames().Contains(Port))
+                    while (!SerialPort.GetPortNames().Contains(UploadPort))
                     {
                         System.Threading.Thread.Sleep(100);
                     }
 
-                    RunAvrDude(Port, module.Board, FirmwareName);
+                    RunAvrDude(UploadPort, module.Board, FirmwareName);
                 }
                 else if (module.Board.UsbDriveSettings != null)
                 {
@@ -125,21 +122,41 @@ namespace MobiFlight
             
             //verboseLevel = " -v -v -v -v";
 
-            String FullAvrDudePath = $@"{ArduinoIdePath}\{AvrPath}";
+            // Process() requires an absolute, rather than relative, path when using UseShellExecute = false
+            String FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
 
             foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
-                var proc1 = new ProcessStartInfo();
+                var p = new Process();
+
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
                 string anyCommand =
-                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
-                proc1.UseShellExecute = true;
-                proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
-                proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
-                proc1.Arguments = anyCommand;
-                proc1.WindowStyle = ProcessWindowStyle.Hidden;
-                Log.Instance.log($"{proc1.FileName} {anyCommand}", LogSeverity.Debug);
-                Process p = Process.Start(proc1);
+                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
+
+                // StandardOutput and StandardError can only be captured when UseShellExecute is false
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.WorkingDirectory = FullAvrDudePath;
+                p.StartInfo.FileName = Path.Combine(FullAvrDudePath, "bin", "avrdude");
+                p.StartInfo.Arguments = anyCommand;
+
+                // When UseShellExecute is false the CreateNoWindow flag has to be used to hide the window
+                p.StartInfo.CreateNoWindow = true;
+
+                // Without setting these to true the output won't get captured
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+
+                // Output and Error text is read asynchronously to avoid known deadlock issues. It appears
+                // all avrdude output is sent to stderr :(
+                p.OutputDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+
+                Log.Instance.log($"{p.StartInfo.FileName} {anyCommand}", LogSeverity.Debug);
+
+                p.Start();
+                p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
+
                 if (p.WaitForExit(board.AvrDudeSettings.Timeout))
                 {
                     Log.Instance.log($"Firmware upload exit code: {p.ExitCode}.", LogSeverity.Debug);
@@ -147,13 +164,13 @@ namespace MobiFlight
                     if (p.ExitCode == 0) return;
 
                     // process terminated but with an error.
-                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {p.StartInfo.FileName} {anyCommand}.";
                 }
                 else
                 {
                     // we timed out;
                     p.Kill();
-                    message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                    message = $"avrdude timed out! Something went wrong when flashing with command \n {p.StartInfo.FileName} {anyCommand}.";
                 }
                 Log.Instance.log(message, LogSeverity.Error);
             }
@@ -180,20 +197,31 @@ namespace MobiFlight
             // For boards that started as a COM port look up what the drive letter is after the port was toggled.
             if (port.StartsWith("COM"))
             {
-                // Find all drives connected to the PC with a volume label that matches the one used to identify the 
-                // drive that's the device to flash. This assumes the first matching drive is the one we want,
-                // since it is extremely unlikely that more than one flashable USB drive will be connected and in a
-                // flashable state at the same time.
-                try
+                // Issue #1155: Re-use the detection logic used at MobiFlight startup for consistency.
+                var boards = MobiFlightCache.FindConnectedUsbDevices();
+
+                if (boards.Count == 0)
                 {
-                    driveInfo = DriveInfo.GetDrives().Where(d => d.VolumeLabel == board.UsbDriveSettings.VolumeLabel).First();
+                    message = "No mounted USB drives found.";
+                    Log.Instance.log(message, LogSeverity.Error);
+                    throw new FileNotFoundException(message);
                 }
-                catch
+
+                // FindConnectedUsbDevices returns a list of MobiFlightModuleInfo objects for all connected
+                // USB devices. What's needed for flashing however is a single USB drive whose volume label
+                // matches the volume lable in the .board.json of the device we toggled the COM port on.
+                // Attempt to find it.
+                var matchingBoard = boards.Where(b => b.HardwareId == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
+
+                if (matchingBoard == null)
                 {
                     message = $"No mounted USB drives named {board.UsbDriveSettings.VolumeLabel} found.";
                     Log.Instance.log(message, LogSeverity.Error);
                     throw new FileNotFoundException(message);
                 }
+
+                // At this point we quite likely have the USB drive we need, and the HardwareId is the drive letter.
+                driveInfo = new DriveInfo(matchingBoard.Port);
             }
             // For boards that were already a drive letter just get the drive info based off that.
             else

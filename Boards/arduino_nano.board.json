@@ -3,9 +3,9 @@
   "AvrDudeSettings": {
     "Attempts": 1,
     "Device": "atmega328p",
-    "BaudRates": [ "115200", "57600" ],
+    "BaudRates": ["115200", "57600"],
     "Programmer": "arduino",
-    "Timeout": 15000
+    "Timeout": 20000
   },
   "Connection": {
     "ConnectionDelay": 1750,
@@ -24,6 +24,7 @@
     "^VID_2341&PID_0001",
     "^VID_1A86&PID_7523",
     "^VID_0403&PID_6001",
+    "^VID_067B&PID_2303",
     "^VID_0403\\+PID_6001\\+.+"
   ],
   "Info": {
@@ -32,12 +33,12 @@
     "FirmwareBaseName": "mobiflight_nano",
     "FirmwareExtension": "hex",
     "FriendlyName": "Arduino Nano",
-    "LatestFirmwareVersion": "2.4.0",
+    "LatestFirmwareVersion": "2.4.3",
     "MobiFlightType": "MobiFlight Nano",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 6,
+    "MaxAnalogInputs": 8,
     "MaxButtons": 18,
     "MaxEncoders": 9,
     "MaxInputShifters": 2,
@@ -163,6 +164,20 @@
       "isPWM": false,
       "Name": "A5",
       "Pin": 19
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A6",
+      "Pin": 20
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A7",
+      "Pin": 21
     }
   ]
 }

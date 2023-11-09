@@ -62,9 +62,10 @@ namespace MobiFlight.UI.Panels.Settings
 
             // First update the one that is changed
             // Here, the config data (shiftRegister.XXXPin) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(mfPin1ComboBox, pinList, ref shiftRegister.LatchPin); } else
-            if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(mfPin2ComboBox, pinList, ref shiftRegister.ClockPin); } else
-            if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(mfPin3ComboBox, pinList, ref shiftRegister.DataPin); }
+            var newPin = comboBox.SelectedItem.ToString();
+            if (comboBox == mfPin1ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref shiftRegister.LatchPin); } else
+            if (comboBox == mfPin2ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref shiftRegister.ClockPin); } else
+            if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref shiftRegister.DataPin); }
             // then the others are updated too 
             UpdateFreePinsInDropDowns();
 
@@ -74,7 +75,8 @@ namespace MobiFlight.UI.Panels.Settings
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(shiftRegister, new EventArgs());

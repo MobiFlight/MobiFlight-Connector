@@ -61,8 +61,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             // First update the one that is changed
             // Here, the config data (encoder.XXXPin) is updated with the new value read from the changed ComboBox;
-            if (comboBox == mfLeftPinComboBox) { ComboBoxHelper.reassignPin(mfLeftPinComboBox, pinList, ref encoder.PinLeft); } else
-            if (comboBox == mfRightPinComboBox) { ComboBoxHelper.reassignPin(mfRightPinComboBox, pinList, ref encoder.PinRight); }
+            if (comboBox == mfLeftPinComboBox) { 
+                ComboBoxHelper.reassignPin(mfLeftPinComboBox.SelectedItem.ToString(), pinList, ref encoder.PinLeft); 
+            } else
+            if (comboBox == mfRightPinComboBox) {
+                ComboBoxHelper.reassignPin(mfRightPinComboBox.SelectedItem.ToString(), pinList, ref encoder.PinRight); 
+            }
             // then the others are updated too 
             UpdateFreePinsInDropDowns();
 
@@ -72,7 +76,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void value_Changed(object sender, EventArgs e)
         {
             if (!initialized) return;
-            ReassignFreePinsInDropDowns(sender as ComboBox);
+            if (sender is ComboBox)
+                ReassignFreePinsInDropDowns(sender as ComboBox);
             setNonPinValues();
             if (Changed != null)
                 Changed(encoder, new EventArgs());

@@ -12,7 +12,7 @@ namespace MobiFlight.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -453,6 +453,42 @@ namespace MobiFlight.Properties {
             }
             set {
                 this["AutoRetrigger"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AutoLoadLinkedConfig {
+            get {
+                return ((bool)(this["AutoLoadLinkedConfig"]));
+            }
+            set {
+                this["AutoLoadLinkedConfig"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AutoLoadLinkedConfigList {
+            get {
+                return ((string)(this["AutoLoadLinkedConfigList"]));
+            }
+            set {
+                this["AutoLoadLinkedConfigList"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool MinimizeOnAutoRun {
+            get {
+                return ((bool)(this["MinimizeOnAutoRun"]));
+            }
+            set {
+                this["MinimizeOnAutoRun"] = value;
             }
         }
     }

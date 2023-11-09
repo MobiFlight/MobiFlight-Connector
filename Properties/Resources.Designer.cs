@@ -163,6 +163,16 @@ namespace MobiFlight.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap disabled {
+            get {
+                object obj = ResourceManager.GetObject("disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap disk_blue {
             get {
                 object obj = ResourceManager.GetObject("disk_blue", resourceCulture);
@@ -366,6 +376,16 @@ namespace MobiFlight.Properties {
         internal static System.Drawing.Bitmap module_mobiflight_update {
             get {
                 object obj = ResourceManager.GetObject("module_mobiflight_update", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap module_pico {
+            get {
+                object obj = ResourceManager.GetObject("module_pico", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

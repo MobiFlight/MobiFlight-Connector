@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Data;
 using System.IO;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight
 {
