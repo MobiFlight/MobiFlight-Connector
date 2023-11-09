@@ -129,13 +129,16 @@ namespace MobiFlight.UI.Panels.Input
                 }
 
                 // Sync data from config for inputAction
-                InputAction inputAction = config.GetInputActionByName(inputActionName);
-                if (config != null && inputAction != null)
+                if (config != null)
                 {
-                    // Here always the current active inputAction is given as an argument.
-                    // When switching, the inputAction probably is of wrong type. That case is handled in each InputPanel.
-                    ((IPanelConfigSync)panel).syncFromConfig(inputAction);
-                }
+                    InputAction inputAction = config.GetInputActionByName(inputActionName);
+                    if (inputAction != null)
+                    {
+                        // Here always the current active inputAction is given as an argument.
+                        // When switching, the inputAction probably is of wrong type. That case is handled in each InputPanel.
+                        ((IPanelConfigSync)panel).syncFromConfig(inputAction);
+                    }
+                }                
 
                 panel.Padding = new Padding(2, 0, 2, 0);
                 panel.Dock = DockStyle.Top;
@@ -189,17 +192,17 @@ namespace MobiFlight.UI.Panels.Input
         {
             if (!string.IsNullOrEmpty(longPressDelayTextBox.Text))
             {
-                _config.LongPressDelay = int.Parse(longPressDelayTextBox.Text);
+                config.LongPressDelay = int.Parse(longPressDelayTextBox.Text);
             }
 
             if (!string.IsNullOrEmpty(repeatTextBox.Text))
             {
-                _config.RepeatDelay = int.Parse(repeatTextBox.Text);
+                config.RepeatDelay = int.Parse(repeatTextBox.Text);
             }
 
             if (!string.IsNullOrEmpty(longReleaseTextBox.Text))
             {
-                _config.LongReleaseDelay = int.Parse(longReleaseTextBox.Text);
+                config.LongReleaseDelay = int.Parse(longReleaseTextBox.Text);
             }
 
             // Iterate through all ActionTypePanels and set config
