@@ -98,6 +98,7 @@ namespace MobiFlight
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
 
+                Log.Instance.log($"Firmware update for {module.Board.Info.MobiFlightType} ({module.Port}) completed successfully", LogSeverity.Info);
                 result = true;
             }
             catch
