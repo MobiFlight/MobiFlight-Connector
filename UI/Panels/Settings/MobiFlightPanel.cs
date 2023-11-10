@@ -1062,7 +1062,7 @@ namespace MobiFlight.UI.Panels.Settings
                 module.LoadConfig();
                 form.Progress = 100;
 
-                mobiflightCache.updateConnectedModuleName(module);
+                mobiflightCache.UpdateConnectedModuleName(module);
             })).ContinueWith(new Action<Task>(task =>
             {
                 // Close modal dialog

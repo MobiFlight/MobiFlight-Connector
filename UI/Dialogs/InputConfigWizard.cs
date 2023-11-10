@@ -192,7 +192,7 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
-            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
+            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
@@ -235,7 +235,7 @@ namespace MobiFlight.UI.Dialogs
             inputModuleNameComboBox.DisplayMember = "Label";
             inputModuleNameComboBox.ValueMember = "Value";
 
-            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
+            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {

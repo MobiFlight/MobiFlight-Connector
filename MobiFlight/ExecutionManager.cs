@@ -383,7 +383,7 @@ namespace MobiFlight
 #if ARCAZE
             result.AddRange(arcazeCache.getModuleInfo());
 #endif
-            result.AddRange(mobiFlightCache.getModuleInfo());
+            result.AddRange(mobiFlightCache.GetModuleInfo());
             return result;
         }
 
@@ -787,7 +787,7 @@ namespace MobiFlight
                         {
                             string refValue = FindValueForRef(cfg.LedModule.DisplayLedBrightnessReference);
 
-                            mobiFlightCache.setDisplayBrightness(
+                            mobiFlightCache.SetDisplayBrightness(
                                 serial,
                                 cfg.LedModule.DisplayLedAddress,
                                 cfg.LedModule.DisplayLedConnector,
@@ -797,7 +797,7 @@ namespace MobiFlight
 
                         var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
-                        mobiFlightCache.setDisplay(
+                        mobiFlightCache.SetDisplay(
                             serial,
                             cfg.LedModule.DisplayLedAddress,
                             cfg.LedModule.DisplayLedConnector,
@@ -815,7 +815,7 @@ namespace MobiFlight
                     //    break;
 
                     case MobiFlightStepper.TYPE:
-                        mobiFlightCache.setStepper(
+                        mobiFlightCache.SetStepper(
                             serial,
                             cfg.Stepper.Address,
                             value,
@@ -828,7 +828,7 @@ namespace MobiFlight
                         break;
 
                     case MobiFlightServo.TYPE:
-                        mobiFlightCache.setServo(
+                        mobiFlightCache.SetServo(
                             serial,
                             cfg.Servo.Address,
                             value,
@@ -839,7 +839,7 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.LcdDisplay.Type:
-                        mobiFlightCache.setLcdDisplay(
+                        mobiFlightCache.SetLcdDisplay(
                             serial,
                             cfg.LcdDisplay,
                             value,
@@ -855,7 +855,7 @@ namespace MobiFlight
                             if (outputValueShiftRegister != "0" && !cfg.Pin.DisplayPinPWM)
                                 outputValueShiftRegister = cfg.Pin.DisplayPinBrightness.ToString();
                           
-                            mobiFlightCache.setShiftRegisterOutput(
+                            mobiFlightCache.SetShiftRegisterOutput(
                                 serial,
                                 cfg.ShiftRegister.Address,
                                 cfg.ShiftRegister.Pin,
@@ -864,7 +864,7 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.CustomDevice.Type:
-                        mobiFlightCache.Set(serial, cfg.CustomDevice, value, GetRefs(cfg.ConfigRefs));
+                        mobiFlightCache.Set(serial, cfg.CustomDevice, value);
                         break;
 
                     case "InputAction":
@@ -908,7 +908,7 @@ namespace MobiFlight
                         if (outputValue != "0" && !cfg.Pin.DisplayPinPWM)
                             outputValue = cfg.Pin.DisplayPinBrightness.ToString();
 
-                        mobiFlightCache.setValue(serial,
+                        mobiFlightCache.SetValue(serial,
                             cfg.Pin.DisplayPin,
                             outputValue);
                         break;

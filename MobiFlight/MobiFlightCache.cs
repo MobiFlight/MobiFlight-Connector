@@ -42,23 +42,21 @@ namespace MobiFlight
         public event EventHandler LookupFinished;
 
 
+#pragma warning disable IDE0044 // Add readonly modifier.
         private volatile List<MobiFlightModuleInfo> AvailableComModules = new List<MobiFlightModuleInfo>();
+#pragma warning restore IDE0044 // Add readonly modifier
         Boolean isFirstTimeLookup = true;
 
-        private bool _lookingUpModules = false;
-
-        DateTime servoTime = DateTime.Now;
         /// <summary>
         /// list of known modules.
         /// 
         /// ConcurrentDictionary for better thread-safety
         /// </summary>
-        ConcurrentDictionary<string, MobiFlightModule> Modules = new ConcurrentDictionary<string, MobiFlightModule>();
-        ConcurrentDictionary<string, MobiFlightVariable> variables = new ConcurrentDictionary<string, MobiFlightVariable>();
+        readonly ConcurrentDictionary<string, MobiFlightModule> Modules = new ConcurrentDictionary<string, MobiFlightModule>();
+        readonly ConcurrentDictionary<string, MobiFlightVariable> variables = new ConcurrentDictionary<string, MobiFlightVariable>();
 
-        SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
-        UsbDeviceMonitor UsbDeviceMonitor = new UsbDeviceMonitor();
-        int progressValue = 0;
+        readonly SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
+        readonly UsbDeviceMonitor UsbDeviceMonitor = new UsbDeviceMonitor();
 
         public MobiFlightCache()
         {
@@ -111,7 +109,7 @@ namespace MobiFlight
         {
             Log.Instance.log($"Port detected: {portDetails.Name} {portDetails.Board.Info.FriendlyName}", LogSeverity.Debug);
 
-            List<string> ignoredComPorts = getIgnoredPorts();
+            List<string> ignoredComPorts = GetIgnoredPorts();
             if (ignoredComPorts.Contains(portDetails.Name))
             {
                 OnIgnoredPortDetected(sender, portDetails);
@@ -168,7 +166,7 @@ namespace MobiFlight
             return true;
         }
 
-        private void OnIgnoredPortDetected(object sender, PortDetails portDetails)
+        private void OnIgnoredPortDetected(object _, PortDetails portDetails)
         {
             Log.Instance.log($"Skipping {portDetails.Name} since it is in the list of ports to ignore.", LogSeverity.Info);
             var ignoredPort = new MobiFlightModuleInfo()
@@ -273,7 +271,7 @@ namespace MobiFlight
             return result;
         }
 
-        public bool updateConnectedModuleName(MobiFlightModule m)
+        public bool UpdateConnectedModuleName(MobiFlightModule m)
         {
             if (AvailableComModules == null) return false;
 
@@ -309,7 +307,7 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private List<string> getIgnoredPorts()
+        private List<string> GetIgnoredPorts()
         {
             List<String> ports = new List<string>();
             if (Properties.Settings.Default.IgnoreComPorts)
@@ -336,7 +334,7 @@ namespace MobiFlight
             
             if (Modules.ContainsKey(devInfo.Serial))
             {
-                Modules.TryRemove(devInfo.Serial, out MobiFlightModule removedModule);
+                Modules.TryRemove(devInfo.Serial, out _);
                 return;
             }
             
@@ -360,7 +358,7 @@ namespace MobiFlight
                 if (replace)
                 {
                     // remove the existing handler
-                    Modules[devInfo.Serial].OnInputDeviceAction -= new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
+                    Modules[devInfo.Serial].OnInputDeviceAction -= new MobiFlightModule.InputDeviceEventHandler(Module_OnButtonPressed);
                     Modules[devInfo.Serial] = m;                
                 }
                 else
@@ -374,13 +372,12 @@ namespace MobiFlight
                 }
 
             // add the handler
-            m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
+            m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(Module_OnButtonPressed);
         }
 
-        public void module_OnButtonPressed(object sender, InputEventArgs e)
+        public void Module_OnButtonPressed(object sender, InputEventArgs e)
         {
-            if (OnButtonPressed != null)
-                OnButtonPressed(sender, e);
+            OnButtonPressed?.Invoke(sender, e);
         }
 
         /// <summary>
@@ -410,7 +407,7 @@ namespace MobiFlight
         /// <param name="serial">the device's serial</param>
         /// <param name="name">the port letter and pin number, e.g. A01</param>
         /// <param name="value">the value to be used</param>
-        public void setValue(string serial, string name, string value)
+        public void SetValue(string serial, string name, string value)
         {
             if (serial == null)
             {
@@ -468,7 +465,7 @@ namespace MobiFlight
         /// <param name="digits"></param>
         /// <param name="decimalPoints"></param>
         /// <param name="value"></param>
-        public void setDisplay(string serial, string address, byte connector, List<string> digits, List<string> decimalPoints, string value, bool reverse)
+        public void SetDisplay(string serial, string address, byte connector, List<string> digits, List<string> decimalPoints, string value, bool reverse)
         {
             if (serial == null)
             {
@@ -504,7 +501,7 @@ namespace MobiFlight
             }
         }
 
-        public void setDisplayBrightness(string serial, string address, byte connector, string value)
+        public void SetDisplayBrightness(string serial, string address, byte connector, string value)
         {
             if (serial == null)
             {
@@ -535,26 +532,15 @@ namespace MobiFlight
             }
         }
 
-        private string GetValueForReference(string reference, List<ConfigRefValue> referenceList)
-        {
-            if (referenceList == null)
-            {
-                return null;
-            }
-            var found = referenceList.Find(x => x.ConfigRef.Ref.Equals(reference));
-            return found?.Value;
-        }
-
-        public void setServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
+        public void SetServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
         {
             try
             {
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                double dValue;
-                
-                if (!double.TryParse(value, out dValue)) return;
+
+                if (!double.TryParse(value, out double dValue)) return;
 
                 int iValue = (int)dValue;
 
@@ -566,7 +552,7 @@ namespace MobiFlight
             }
         }
 
-        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed = 0, Int16 acceleration = 0)
+        public void SetStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed = 0, Int16 acceleration = 0)
         {
             try
             {
@@ -574,8 +560,7 @@ namespace MobiFlight
 
                 MobiFlightModule module = Modules[serial];
 
-                double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                if (!double.TryParse(value, out double dValue)) return;
 
                 int iValue = (int)dValue;
 
@@ -601,7 +586,7 @@ namespace MobiFlight
             }
         }
 
-        public void resetStepper(string serial, string address)
+        public void ResetStepper(string serial, string address)
         {
             try
             {
@@ -621,7 +606,7 @@ namespace MobiFlight
         /// <param name="LcdConfig"></param>
         /// <param name="value"></param>
         /// <param name="replacements"></param>
-        public void setLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<ConfigRefValue> replacements)
+        public void SetLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<ConfigRefValue> replacements)
         {
             if (serial == null)
             {
@@ -658,7 +643,7 @@ namespace MobiFlight
             }
         }
 
-        public void setShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
+        public void SetShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
         {
             if (serial == null)
             {
@@ -675,8 +660,7 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                if (!double.TryParse(value, out double dValue)) return;
 
                 int iValue = (int)Math.Round(dValue,0);
                 module.setShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
@@ -703,7 +687,7 @@ namespace MobiFlight
             variables.Clear();
         }
         
-        public IEnumerable<IModuleInfo> getModuleInfo()
+        public IEnumerable<IModuleInfo> GetModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
             foreach (MobiFlightModuleInfo moduleInfo in GetDetectedCompatibleModules())
@@ -785,11 +769,12 @@ namespace MobiFlight
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>();
+            Dictionary<String, int> result = new Dictionary<string, int>
+            {
+                ["Modules.Count"] = Modules.Values.Count()
+            };
 
-            result["Modules.Count"] = Modules.Values.Count();
-
-            foreach(MobiFlightModule module in Modules.Values)
+            foreach (MobiFlightModule module in Modules.Values)
             {
                 String key = "Modules." + module.Type;
                 if (!result.ContainsKey(key)) result[key] = 0;
@@ -818,7 +803,7 @@ namespace MobiFlight
             return result;
         }
 
-        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value, List<ConfigRefValue> configRefValues)
+        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
         {
             if (serial == null)
             {
