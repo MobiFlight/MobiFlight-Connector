@@ -217,7 +217,7 @@ namespace MobiFlight
         public const int MessageSizeReductionValue = 10;
 
         const int KeepAliveIntervalInMinutes = 1; // 5 Minutes
-        DateTime lastUpdate = new DateTime();
+        DateTime lastKeepAlive = new DateTime();
 
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
@@ -1241,12 +1241,12 @@ namespace MobiFlight
 
         public void KeepAlive()
         {
-            if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) >= DateTime.UtcNow)
+            if (lastKeepAlive.AddMinutes(KeepAliveIntervalInMinutes) >= DateTime.UtcNow)
             {
                 return;
             }
 
-            lastUpdate = DateTime.UtcNow;
+            lastKeepAlive = DateTime.UtcNow;
             Log.Instance.log($"Preventing power save mode for {this.Name} ({this.Port})", LogSeverity.Debug);
             // Send the power save wakeup command. No timeout is used so this will still work with older firmware
             // that doesn't respond to the SetPowerSavingMode command.
