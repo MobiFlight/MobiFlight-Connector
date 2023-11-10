@@ -47,7 +47,7 @@ namespace MobiFlight
 
         private bool _lookingUpModules = false;
 
-        const int KeepAwakeIntervalInMinutes = 1; // 5 Minutes
+        const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
         DateTime lastKeepAwake = DateTime.MinValue; // Initialize to the earliest possible date so the first keep awake test will always cause a wakeup event
 
         DateTime servoTime = DateTime.Now;
