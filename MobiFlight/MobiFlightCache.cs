@@ -91,7 +91,7 @@ namespace MobiFlight
                 });
         }
         
-        // Calls the KeepAwake() method on all connected modules
+        // Calls SetPowerSaveMode(false) on all connected modules
         public void KeepConnectedModulesAwake()
         {
             // lastKeepAwake is initialized to the earliest possible DateTime so the first
