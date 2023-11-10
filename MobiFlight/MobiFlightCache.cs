@@ -86,6 +86,15 @@ namespace MobiFlight
                     } 
                 });
         }
+        
+        // Calls the KeepAlive() method on all connected modules
+        public void KeepAlive()
+        {
+            foreach (var module in Modules)
+            {
+                module.Value.KeepAlive();
+            }
+        }
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {

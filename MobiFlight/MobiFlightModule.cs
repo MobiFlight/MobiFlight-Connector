@@ -216,7 +216,7 @@ namespace MobiFlight
         public const int CommandTimeout = 2500;
         public const int MessageSizeReductionValue = 10;
 
-        const int KeepAliveIntervalInMinutes = 5; // 5 Minutes
+        const int KeepAliveIntervalInMinutes = 1; // 5 Minutes
         DateTime lastUpdate = new DateTime();
 
         public bool RunLoop { get; set; }
@@ -725,7 +725,7 @@ namespace MobiFlight
             String value1 = arguments.ReadStringArg();
             String value2 = arguments.ReadStringArg();
             String value3 = arguments.ReadStringArg();
-            Log.Instance.log($"{this.Name}.debug: Firmware -> {value1} {value2} {value3}.", LogSeverity.Debug);
+            Log.Instance.log($"{this.Name}.debug: Firmware -> {value1} {value2} {value3}", LogSeverity.Debug);
         }
 
         /// <summary>
@@ -741,7 +741,7 @@ namespace MobiFlight
             // unnecessary communication with Arcaze USB
             String key = port + pin;
 
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+            if (lastValue.ContainsKey(key) &&
                 lastValue[key] == value.ToString()) return false;
 
             lastValue[key] = value.ToString();
@@ -755,18 +755,12 @@ namespace MobiFlight
 
         public bool SetDisplay(string name, int module, byte points, byte mask, string value, bool reverse)
         {
-            if (KeepAliveNeeded())
-                ledModules[name].ClearState();
-
             ledModules[name].Display(module, value, points, mask, reverse);
             return true;
         }
 
         public bool SetDisplayBrightness(string name, int module, string value)
         {
-            if (KeepAliveNeeded())
-                ledModules[name].ClearState();
-
             ledModules[name].SetBrightness(module, value);
             return true;
         }
@@ -780,7 +774,7 @@ namespace MobiFlight
             int iLastValue;
             if (lastValue.ContainsKey(key))
             {
-                if (!KeepAliveNeeded() && lastValue[key] == value.ToString()) return false;
+                if (lastValue[key] == value.ToString()) return false;
                 iLastValue = int.Parse(lastValue[key]);
             }
             else
@@ -803,7 +797,7 @@ namespace MobiFlight
             int iLastValue;
             if (lastValue.ContainsKey(key))
             {
-                if (!KeepAliveNeeded() && lastValue[key] == value.ToString()) return false;
+                if (lastValue[key] == value.ToString()) return false;
                 iLastValue = int.Parse(lastValue[key]);
             }
             else
@@ -834,7 +828,7 @@ namespace MobiFlight
             String key = "LCD_" + address;
             String cachedValue = value;
 
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+            if (lastValue.ContainsKey(key) &&
                 lastValue[key] == cachedValue) return false;
 
             lastValue[key] = cachedValue;
@@ -864,7 +858,7 @@ namespace MobiFlight
             String key = "ShiftReg_" + moduleID + outputPin;
             String cachedValue = value;
 
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+            if (lastValue.ContainsKey(key) &&
                 lastValue[key] == cachedValue) return false;
 
             lastValue[key] = cachedValue;
@@ -878,7 +872,7 @@ namespace MobiFlight
             String key = "CustomDevice_" + deviceName + messageType;
             String cachedValue = value;
 
-            if (!KeepAliveNeeded() && lastValue.ContainsKey(key) &&
+            if (lastValue.ContainsKey(key) &&
                 lastValue[key] == cachedValue) return false;
 
             lastValue[key] = cachedValue;
@@ -1245,16 +1239,19 @@ namespace MobiFlight
 
         }
 
-        protected bool KeepAliveNeeded()
+        public void KeepAlive()
         {
-            if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) < DateTime.UtcNow)
+            if (lastUpdate.AddMinutes(KeepAliveIntervalInMinutes) >= DateTime.UtcNow)
             {
-                lastUpdate = DateTime.UtcNow;
-                Log.Instance.log("Preventing entering EnergySaving mode: KeepAlive!", LogSeverity.Debug);
-                return true;
+                return;
             }
 
-            return false;
+            lastUpdate = DateTime.UtcNow;
+            Log.Instance.log($"Preventing power save mode for {this.Name} ({this.Port})", LogSeverity.Debug);
+            // Send the power save wakeup command. No timeout is used so this will still work with older firmware
+            // that doesn't respond to the SetPowerSavingMode command.
+            SendCommand command = new SendCommand((int)MobiFlightModule.Command.SetPowerSavingMode, 0, 0);
+            this._cmdMessenger.SendCommand(command);
         }
 
         public bool GenerateNewSerial()
