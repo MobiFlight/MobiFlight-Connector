@@ -91,13 +91,15 @@ namespace MobiFlight
                 });
         }
         
-        // Calls SetPowerSaveMode(false) on all connected modules
-        public void KeepConnectedModulesAwake()
+        // Calls SetPowerSaveMode(false) on all connected modules. If the
+        // force parameter is set to true then all modules will be sent the
+        // command even if the keep awake interval hasn't passed yet.
+        public void KeepConnectedModulesAwake(bool force = false)
         {
             // lastKeepAwake is initialized to the earliest possible DateTime so the first
             // time this method is called this test will fail and the modules will be forced
             // to set their power save mode to off.
-            if (lastKeepAwake.AddMinutes(KeepAwakeIntervalInMinutes) >= DateTime.UtcNow)
+            if (!force && lastKeepAwake.AddMinutes(KeepAwakeIntervalInMinutes) >= DateTime.UtcNow)
             {
                 return;
             }

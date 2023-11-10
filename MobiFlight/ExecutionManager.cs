@@ -992,6 +992,9 @@ namespace MobiFlight
         void timer_Started(object sender, EventArgs e)
         {
             OnStarted?.Invoke(this, new EventArgs());
+
+            // Force all the modules awake whenver run is activated
+            mobiFlightCache.KeepConnectedModulesAwake(true);
         } //timer_Started()
 
         /// <summary>
