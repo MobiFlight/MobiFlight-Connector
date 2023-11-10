@@ -216,9 +216,6 @@ namespace MobiFlight
         public const int CommandTimeout = 2500;
         public const int MessageSizeReductionValue = 10;
 
-        const int KeepAliveIntervalInMinutes = 1; // 5 Minutes
-        DateTime lastKeepAlive = new DateTime();
-
         public bool RunLoop { get; set; }
         private SerialTransport _transportLayer;
         //private SerialPortManager _transportLayer;
@@ -1239,18 +1236,14 @@ namespace MobiFlight
 
         }
 
-        public void KeepAlive()
+        // Sets the connected module's power save mode. True turns power save on,
+        // false turns power save off.
+        public void SetPowerSaveMode(bool mode)
         {
-            if (lastKeepAlive.AddMinutes(KeepAliveIntervalInMinutes) >= DateTime.UtcNow)
-            {
-                return;
-            }
-
-            lastKeepAlive = DateTime.UtcNow;
-            Log.Instance.log($"Preventing power save mode for {this.Name} ({this.Port})", LogSeverity.Debug);
+            Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
             // Send the power save wakeup command. No timeout is used so this will still work with older firmware
             // that doesn't respond to the SetPowerSavingMode command.
-            SendCommand command = new SendCommand((int)MobiFlightModule.Command.SetPowerSavingMode, 0, 0);
+            SendCommand command = new SendCommand((int)MobiFlightModule.Command.SetPowerSavingMode, mode ? 1 : 0, 0);
             this._cmdMessenger.SendCommand(command);
         }
 

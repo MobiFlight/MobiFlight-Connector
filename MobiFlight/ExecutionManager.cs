@@ -1017,7 +1017,7 @@ namespace MobiFlight
             try
             {
                 ExecuteConfig();
-                mobiFlightCache.KeepAlive();
+                mobiFlightCache.KeepConnectedModulesAwake();
                 this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)

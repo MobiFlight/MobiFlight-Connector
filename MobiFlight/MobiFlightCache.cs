@@ -47,7 +47,11 @@ namespace MobiFlight
 
         private bool _lookingUpModules = false;
 
+        const int KeepAwakeIntervalInMinutes = 1; // 5 Minutes
+        DateTime lastKeepAwake = DateTime.MinValue; // Initialize to the earliest possible date so the first keep awake test will always cause a wakeup event
+
         DateTime servoTime = DateTime.Now;
+
         /// <summary>
         /// list of known modules.
         /// 
@@ -87,13 +91,23 @@ namespace MobiFlight
                 });
         }
         
-        // Calls the KeepAlive() method on all connected modules
-        public void KeepAlive()
+        // Calls the KeepAwake() method on all connected modules
+        public void KeepConnectedModulesAwake()
         {
+            // lastKeepAwake is initialized to the earliest possible DateTime so the first
+            // time this method is called this test will fail and the modules will be forced
+            // to set their power save mode to off.
+            if (lastKeepAwake.AddMinutes(KeepAwakeIntervalInMinutes) >= DateTime.UtcNow)
+            {
+                return;
+            }
+
             foreach (var module in Modules)
             {
-                module.Value.KeepAlive();
+                module.Value.SetPowerSaveMode(false);
             }
+
+            lastKeepAwake = DateTime.UtcNow;
         }
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
