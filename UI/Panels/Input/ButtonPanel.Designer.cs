@@ -197,7 +197,7 @@
             // msLongPressLabel
             // 
             this.msLongPressLabel.AutoSize = true;
-            this.msLongPressLabel.Location = new System.Drawing.Point(403, 18);
+            this.msLongPressLabel.Location = new System.Drawing.Point(398, 18);
             this.msLongPressLabel.Name = "msLongPressLabel";
             this.msLongPressLabel.Size = new System.Drawing.Size(30, 20);
             this.msLongPressLabel.TabIndex = 4;
@@ -205,7 +205,7 @@
             // 
             // repeatTextBox
             // 
-            this.repeatTextBox.Location = new System.Drawing.Point(348, 15);
+            this.repeatTextBox.Location = new System.Drawing.Point(344, 15);
             this.repeatTextBox.Name = "repeatTextBox";
             this.repeatTextBox.Size = new System.Drawing.Size(51, 26);
             this.repeatTextBox.TabIndex = 3;
@@ -216,7 +216,7 @@
             // repeatLabel
             // 
             this.repeatLabel.AutoSize = true;
-            this.repeatLabel.Location = new System.Drawing.Point(217, 18);
+            this.repeatLabel.Location = new System.Drawing.Point(213, 18);
             this.repeatLabel.Name = "repeatLabel";
             this.repeatLabel.Size = new System.Drawing.Size(125, 20);
             this.repeatLabel.TabIndex = 2;

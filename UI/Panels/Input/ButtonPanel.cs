@@ -35,6 +35,9 @@ namespace MobiFlight.UI.Panels.Input
                     actionTypePanel.Enabled = value;
                     ActionTypePanelsToOwnerPanels[actionTypePanel].Enabled = value;
                 }
+                longPressDelayTextBox.Enabled = value;
+                longReleaseTextBox.Enabled = value;
+                repeatTextBox.Enabled = value;
             }
         }
         public ButtonPanel()
