@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -17,7 +18,11 @@ namespace MobiFlight.UI.Panels
         private int lastClickedRow = -1;
         private List<String> SelectedGuids = new List<String>();
         //private DataTable configDataTable;
-        
+
+        private Rectangle RectangleMouseDown;
+        private int RowIndexMouseDown;
+        private int RowIndexDrop;
+
         public OutputConfigPanel()
         {
             InitializeComponent();
@@ -746,6 +751,58 @@ namespace MobiFlight.UI.Panels
             }
 
             return result;
+        }
+
+        private void dataGridViewConfig_MouseDown(object sender, MouseEventArgs e)
+        {
+            RowIndexMouseDown = dataGridViewConfig.HitTest(e.X, e.Y).RowIndex;
+            if (RowIndexMouseDown != -1)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
+                RectangleMouseDown = new Rectangle(location, dragSize);
+            }
+            else
+            {
+                // Reset if not on datagrid
+                RectangleMouseDown = Rectangle.Empty;
+            }
+        }
+
+        private void dataGridViewConfig_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons.Left == (e.Button & MouseButtons.Left))
+            {
+                // When mouse leaves the rectangle, start drag and drop
+                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
+                {
+                    dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void dataGridViewConfig_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void dataGridViewConfig_DragDrop(object sender, DragEventArgs e)
+        {
+            Point clientPoint = dataGridViewConfig.PointToClient(new Point(e.X, e.Y));
+            RowIndexDrop = dataGridViewConfig.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+            // If move operation, remove row at start position and insert at drop position
+            if (e.Effect == DragDropEffects.Move && RowIndexDrop != -1)
+            {
+                DataRow rowToRemove = (DataRow)e.Data.GetData(typeof(DataRow));
+                DataRow rowToInsert = configDataTable.NewRow();
+                rowToInsert.ItemArray = rowToRemove.ItemArray; // needs to be cloned
+                dataGridViewConfig.ClearSelection();
+                configDataTable.Rows.Remove(rowToRemove);
+                configDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);
+                dataGridViewConfig.Rows[RowIndexDrop].Selected = true;  
+                dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[RowIndexDrop].Cells["description"];           
+            }
         }
     }
 }

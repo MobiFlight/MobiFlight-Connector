@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.UI.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
-using MobiFlight.UI.Dialogs;
-using MobiFlight.Base;
-using System.Xml;
 
 namespace MobiFlight.UI.Panels
 {
@@ -20,6 +16,10 @@ namespace MobiFlight.UI.Panels
 
         private int lastClickedRow = -1;
         private List<String> SelectedGuids = new List<String>();
+
+        private Rectangle RectangleMouseDown;
+        private int RowIndexMouseDown;
+        private int RowIndexDrop;
 
         private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
@@ -622,6 +622,58 @@ namespace MobiFlight.UI.Panels
             }
 
             return result;
+        }
+
+        private void inputsDataGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            RowIndexMouseDown = inputsDataGridView.HitTest(e.X, e.Y).RowIndex;
+            if (RowIndexMouseDown != -1)
+            {
+                Size dragSize = SystemInformation.DragSize;
+                Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
+                RectangleMouseDown = new Rectangle(location, dragSize);
+            }
+            else
+            {
+                // Reset if not on datagrid
+                RectangleMouseDown = Rectangle.Empty;
+            }
+        }
+
+        private void inputsDataGridView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons.Left == (e.Button & MouseButtons.Left))
+            {
+                // When mouse leaves the rectangle, start drag and drop
+                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
+                {
+                    inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);
+                }
+            }
+        }
+
+        private void inputsDataGridView_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void inputsDataGridView_DragDrop(object sender, DragEventArgs e)
+        {
+            Point clientPoint = inputsDataGridView.PointToClient(new Point(e.X, e.Y));
+            RowIndexDrop = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+
+            // If move operation, remove row at start position and insert at drop position
+            if (e.Effect == DragDropEffects.Move && RowIndexDrop != -1)
+            {
+                DataRow rowToRemove = (DataRow)e.Data.GetData(typeof(DataRow));
+                DataRow rowToInsert = inputsDataTable.NewRow();
+                rowToInsert.ItemArray = rowToRemove.ItemArray; // needs to be cloned
+                inputsDataGridView.ClearSelection();
+                inputsDataTable.Rows.Remove(rowToRemove);
+                inputsDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);
+                inputsDataGridView.Rows[RowIndexDrop].Selected = true;                           
+                inputsDataGridView.CurrentCell = inputsDataGridView.Rows[RowIndexDrop].Cells["inputDescription"];
+            }
         }
     }
 }
