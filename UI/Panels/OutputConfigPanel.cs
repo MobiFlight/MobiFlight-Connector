@@ -786,6 +786,22 @@ namespace MobiFlight.UI.Panels
         private void dataGridViewConfig_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
+
+            // Autoscroll
+            Point topPoint = new Point(dataGridViewConfig.Location.X, dataGridViewConfig.Location.Y);
+            if ((e.Y <= PointToScreen(topPoint).Y + 40) && (dataGridViewConfig.FirstDisplayedScrollingRowIndex > 0))
+            {
+                // Scroll up
+                dataGridViewConfig.FirstDisplayedScrollingRowIndex -= 1;
+            }
+
+            Point bottomPoint = new Point(dataGridViewConfig.Location.X + dataGridViewConfig.Width,
+                                          dataGridViewConfig.Location.Y + dataGridViewConfig.Height);
+            if (e.Y >= PointToScreen(bottomPoint).Y - 10)
+            {
+                // Scroll down
+                dataGridViewConfig.FirstDisplayedScrollingRowIndex += 1;
+            }
         }
 
         private void dataGridViewConfig_DragDrop(object sender, DragEventArgs e)
