@@ -756,7 +756,9 @@ namespace MobiFlight.UI.Panels
         private void dataGridViewConfig_MouseDown(object sender, MouseEventArgs e)
         {
             RowIndexMouseDown = dataGridViewConfig.HitTest(e.X, e.Y).RowIndex;
-            if (RowIndexMouseDown != -1)
+
+            // Handle row "Double-click...." which has no underlying data
+            if (RowIndexMouseDown != -1 && (configDataTable.Rows.Count >= (RowIndexMouseDown + 1)))
             {
                 Size dragSize = SystemInformation.DragSize;
                 Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
