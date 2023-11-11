@@ -426,18 +426,27 @@ namespace MobiFlight.UI.Dialogs
 
                 if (string.IsNullOrEmpty(serial))
                 {
-                    Config.BaseDevice device = null;
+                    BaseDevice device = null;
 
                     if (config.button != null)
                     {
                         device = new Config.Button();
-                    } else if (config.encoder != null)
+                    }
+                    else if (config.encoder != null)
                     {
-                        device = new Config.Encoder();
+                        device = new Encoder();
                     }
                     else if (config.analog != null)
                     {
-                        device = new Config.AnalogInput();
+                        device = new AnalogInput();
+                    }
+                    else if (config.inputShiftRegister != null)
+                    {
+                        device = new InputShiftRegister();
+                    }
+                    else if (config.inputMultiplexer != null)
+                    {
+                        device = new InputMultiplexer();
                     }
 
                     if (device != null)
