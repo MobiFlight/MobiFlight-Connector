@@ -756,60 +756,38 @@ namespace MobiFlight.UI.Panels
             return result;
         }
 
+        private void ChangeRowBackgroundColor(int rowIndex, Color color)
+        {
+            if (rowIndex > -1)
+            {
+                foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex].Cells)
+                {
+                    cell.Style.BackColor = color;
+                }
+            }
+        }
+        
         private void AddDragTargetHighlight(int rowIndex)
         {
-            foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex].Cells)
-            {
-                cell.Style.BackColor = Color.LightGray;
-            }
+            ChangeRowBackgroundColor(rowIndex, Color.LightGray);
 
             if (rowIndex > 0 && rowIndex < (dataGridViewConfig.Rows.Count - 1))
             {
-                if (rowIndex > RowIndexMouseDown)
-                {
-                    foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex + 1].Cells)
-                    {
-                        cell.Style.BackColor = Color.LightGray;
-                    }
-                }
-                else
-                {
-                    foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex - 1].Cells)
-                    {
-                        cell.Style.BackColor = Color.LightGray;
-                    }
-                }
+                int rowAdjust = rowIndex > RowIndexMouseDown ? 1 : -1;
+                ChangeRowBackgroundColor(rowIndex + rowAdjust, Color.LightGray);
             }
             RowCurrentDragHighlight = rowIndex;
         }
 
         private void RemoveDragTargetHighlight()
         {
-            if (RowCurrentDragHighlight > -1)
-            {
-                foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight].Cells)
-                {
-                    cell.Style.BackColor = Color.Empty;
-                }
+            ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
 
-                if (RowCurrentDragHighlight > 0 && RowCurrentDragHighlight < (dataGridViewConfig.Rows.Count - 1))
-                {
-                    if (RowCurrentDragHighlight > RowIndexMouseDown)
-                    {
-                        foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight + 1].Cells)
-                        {
-                            cell.Style.BackColor = Color.Empty;
-                        }
-                    }
-                    else
-                    {
-                        foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight - 1].Cells)
-                        {
-                            cell.Style.BackColor = Color.Empty;
-                        }
-                    }
-                }
-            }
+            if (RowCurrentDragHighlight > 0 && RowCurrentDragHighlight < (dataGridViewConfig.Rows.Count - 1))
+            {
+                int rowAdjust = RowCurrentDragHighlight > RowIndexMouseDown ? 1 : -1;
+                ChangeRowBackgroundColor(RowCurrentDragHighlight + rowAdjust, Color.Empty);
+            }            
         }
 
         private void dataGridViewConfig_MouseDown(object sender, MouseEventArgs e)
@@ -824,8 +802,7 @@ namespace MobiFlight.UI.Panels
                 dragSize.Height = dragSize.Height * 5;
                 Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
                 RectangleMouseDown = new Rectangle(location, dragSize);
-                DataGridTopLeftPoint.X = dataGridViewConfig.Location.X;
-                DataGridTopLeftPoint.Y = dataGridViewConfig.Location.Y;
+                DataGridTopLeftPoint = dataGridViewConfig.Location;           
                 DataGridBottomRightPoint.X = dataGridViewConfig.Location.X + dataGridViewConfig.Width;
                 DataGridBottomRightPoint.Y = dataGridViewConfig.Location.Y + dataGridViewConfig.Height;                
             }
@@ -865,13 +842,16 @@ namespace MobiFlight.UI.Panels
                 AddDragTargetHighlight(currentRow);
             }
 
-            // Autoscroll   
-            if ((e.Y <= PointToScreen(DataGridTopLeftPoint).Y + 40) && (dataGridViewConfig.FirstDisplayedScrollingRowIndex > 0))
+            // Autoscroll
+            int autoScrollMargin = 20;
+            int headerHeight = dataGridViewConfig.ColumnHeadersHeight;
+            if ((e.Y <= PointToScreen(DataGridTopLeftPoint).Y + headerHeight + autoScrollMargin) && 
+                (dataGridViewConfig.FirstDisplayedScrollingRowIndex > 0))
             {
                 // Scroll up
                 dataGridViewConfig.FirstDisplayedScrollingRowIndex -= 1;
             }
-            if (e.Y >= PointToScreen(DataGridBottomRightPoint).Y - 10)
+            if (e.Y >= PointToScreen(DataGridBottomRightPoint).Y - autoScrollMargin)
             {
                 // Scroll down
                 dataGridViewConfig.FirstDisplayedScrollingRowIndex += 1;
@@ -903,7 +883,7 @@ namespace MobiFlight.UI.Panels
             // Sets the custom cursor based upon the effect.
             e.UseDefaultCursors = false;
             if ((e.Effect & DragDropEffects.Move) == DragDropEffects.Move)
-                Cursor.Current = Cursors.Hand;
+                Cursor.Current = Cursors.HSplit;
             else
                 Cursor.Current = Cursors.Default;
         }

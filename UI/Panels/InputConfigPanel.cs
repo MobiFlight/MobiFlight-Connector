@@ -701,13 +701,16 @@ namespace MobiFlight.UI.Panels
                 AddDragTargetHighlight(currentRow); 
             }
 
-            // Autoscroll   
-            if ( (e.Y <= PointToScreen(DataGridTopLeftPoint).Y + 40) && (inputsDataGridView.FirstDisplayedScrollingRowIndex > 0))
+            // Autoscroll
+            int autoScrollMargin = 20;
+            int headerHeight = inputsDataGridView.ColumnHeadersHeight;
+            if ((e.Y <= PointToScreen(DataGridTopLeftPoint).Y + headerHeight + autoScrollMargin) &&
+                (inputsDataGridView.FirstDisplayedScrollingRowIndex > 0))             
             {
                 // Scroll up
                 inputsDataGridView.FirstDisplayedScrollingRowIndex -= 1;
             }
-            if (e.Y >= PointToScreen(DataGridBottomRightPoint).Y - 10)
+            if (e.Y >= PointToScreen(DataGridBottomRightPoint).Y - autoScrollMargin)
             {
                 // Scroll down
                 inputsDataGridView.FirstDisplayedScrollingRowIndex += 1;
