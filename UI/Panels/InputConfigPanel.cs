@@ -632,7 +632,7 @@ namespace MobiFlight.UI.Panels
         {
             foreach (DataGridViewCell cell in inputsDataGridView.Rows[rowIndex].Cells)
             {
-                cell.Style.BackColor = Color.LightSkyBlue;
+                cell.Style.BackColor = Color.LightGray;
             }
             RowCurrentDragHighlight = rowIndex;
         }
@@ -683,6 +683,7 @@ namespace MobiFlight.UI.Panels
                     inputsDataGridView.ClearSelection();
                     inputsDataGridView.Rows[RowIndexMouseDown].Selected = true;
                     inputsDataGridView.CurrentCell = inputsDataGridView.Rows[RowIndexMouseDown].Cells["inputDescription"];
+                    // Start drag and drop
                     inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);           
                 }
             }

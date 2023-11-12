@@ -760,7 +760,25 @@ namespace MobiFlight.UI.Panels
         {
             foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex].Cells)
             {
-                cell.Style.BackColor = Color.LightSkyBlue;
+                cell.Style.BackColor = Color.LightGray;
+            }
+
+            if (rowIndex > 0 && rowIndex < (dataGridViewConfig.Rows.Count - 1))
+            {
+                if (rowIndex > RowIndexMouseDown)
+                {
+                    foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex + 1].Cells)
+                    {
+                        cell.Style.BackColor = Color.LightGray;
+                    }
+                }
+                else
+                {
+                    foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex - 1].Cells)
+                    {
+                        cell.Style.BackColor = Color.LightGray;
+                    }
+                }
             }
             RowCurrentDragHighlight = rowIndex;
         }
@@ -772,6 +790,24 @@ namespace MobiFlight.UI.Panels
                 foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight].Cells)
                 {
                     cell.Style.BackColor = Color.Empty;
+                }
+
+                if (RowCurrentDragHighlight > 0 && RowCurrentDragHighlight < (dataGridViewConfig.Rows.Count - 1))
+                {
+                    if (RowCurrentDragHighlight > RowIndexMouseDown)
+                    {
+                        foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight + 1].Cells)
+                        {
+                            cell.Style.BackColor = Color.Empty;
+                        }
+                    }
+                    else
+                    {
+                        foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight - 1].Cells)
+                        {
+                            cell.Style.BackColor = Color.Empty;
+                        }
+                    }
                 }
             }
         }
@@ -811,7 +847,7 @@ namespace MobiFlight.UI.Panels
                     dataGridViewConfig.ClearSelection();
                     dataGridViewConfig.Rows[RowIndexMouseDown].Selected = true;
                     dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[RowIndexMouseDown].Cells["description"];
-                    // Start drag and drop
+                    // Start drag and drop               
                     dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);                    
                 }
             }
