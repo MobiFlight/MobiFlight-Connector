@@ -57,12 +57,12 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg747radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg777radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.pmdg737radioButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetUseButton);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 
@@ -105,7 +105,6 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.customParamTextBox);
             this.groupBox1.Controls.Add(this.customParamLabel);
@@ -113,6 +112,7 @@
             this.groupBox1.Controls.Add(this.eventIdTextBox);
             this.groupBox1.Controls.Add(this.EventIdLabel);
             this.groupBox1.Controls.Add(this.paramLabel);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -150,10 +150,10 @@
             // 
             // PmdgEventIdInputPanel
             // 
-            resources.ApplyResources(this, "$this");
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "PmdgEventIdInputPanel";
+            resources.ApplyResources(this, "$this");
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             this.fsuipcLoadPresetGroupBox.PerformLayout();
             this.groupBox1.ResumeLayout(false);

@@ -40,12 +40,12 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label5);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label2);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.MacroNameTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 

@@ -154,6 +154,9 @@
   <data name="ValueTextBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
+  <data name="ValueTextBox.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Cascadia Mono, 8.25pt</value>
+  </data>
   <data name="ValueTextBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>61, 66</value>
   </data>
