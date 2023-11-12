@@ -111,6 +111,15 @@ namespace MobiFlight
 
             lastKeepAwake = DateTime.UtcNow;
         }
+        
+        // Calls SetPowerSaveMode(true) on all connected modules.
+        public void ActivateConnectedModulePowerSave()
+        {
+            foreach (var module in Modules)
+            {
+                module.Value.SetPowerSaveMode(true);
+            }
+        }
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {

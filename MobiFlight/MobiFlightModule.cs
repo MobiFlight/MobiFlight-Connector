@@ -1243,7 +1243,8 @@ namespace MobiFlight
             Log.Instance.log($"Setting power save for {this.Name} ({this.Port}) to {mode}", LogSeverity.Debug);
             // Send the power save wakeup command. No timeout is used so this will still work with older firmware
             // that doesn't respond to the SetPowerSavingMode command.
-            SendCommand command = new SendCommand((int)MobiFlightModule.Command.SetPowerSavingMode, mode ? 1 : 0, 0);
+            SendCommand command = new SendCommand((int)MobiFlightModule.Command.SetPowerSavingMode);
+            command.AddArgument(mode);
             this._cmdMessenger.SendCommand(command);
         }
 

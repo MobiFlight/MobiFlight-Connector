@@ -1008,6 +1008,7 @@ namespace MobiFlight
 #endif
             inputCache.Clear();
             inputActionExecutionCache.Clear();
+            mobiFlightCache.ActivateConnectedModulePowerSave();
 
             OnStopped?.Invoke(this, new EventArgs());
         } //timer_Stopped
