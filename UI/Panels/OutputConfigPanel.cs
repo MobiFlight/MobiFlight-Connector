@@ -19,9 +19,12 @@ namespace MobiFlight.UI.Panels
         private List<String> SelectedGuids = new List<String>();
         //private DataTable configDataTable;
 
+        private Point DataGridTopLeftPoint = new Point();
+        private Point DataGridBottomRightPoint = new Point();
         private Rectangle RectangleMouseDown;
         private int RowIndexMouseDown;
         private int RowIndexDrop;
+        private int RowCurrentDragHighlight;
 
         public OutputConfigPanel()
         {
@@ -753,6 +756,26 @@ namespace MobiFlight.UI.Panels
             return result;
         }
 
+        private void AddDragTargetHighlight(int rowIndex)
+        {
+            foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex].Cells)
+            {
+                cell.Style.BackColor = Color.LightSkyBlue;
+            }
+            RowCurrentDragHighlight = rowIndex;
+        }
+
+        private void RemoveDragTargetHighlight()
+        {
+            if (RowCurrentDragHighlight > -1)
+            {
+                foreach (DataGridViewCell cell in dataGridViewConfig.Rows[RowCurrentDragHighlight].Cells)
+                {
+                    cell.Style.BackColor = Color.Empty;
+                }
+            }
+        }
+
         private void dataGridViewConfig_MouseDown(object sender, MouseEventArgs e)
         {
             RowIndexMouseDown = dataGridViewConfig.HitTest(e.X, e.Y).RowIndex;
@@ -761,8 +784,14 @@ namespace MobiFlight.UI.Panels
             if (RowIndexMouseDown != -1 && (configDataTable.Rows.Count >= (RowIndexMouseDown + 1)))
             {
                 Size dragSize = SystemInformation.DragSize;
+                dragSize.Width = dragSize.Width * 5;
+                dragSize.Height = dragSize.Height * 5;
                 Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
                 RectangleMouseDown = new Rectangle(location, dragSize);
+                DataGridTopLeftPoint.X = dataGridViewConfig.Location.X;
+                DataGridTopLeftPoint.Y = dataGridViewConfig.Location.Y;
+                DataGridBottomRightPoint.X = dataGridViewConfig.Location.X + dataGridViewConfig.Width;
+                DataGridBottomRightPoint.Y = dataGridViewConfig.Location.Y + dataGridViewConfig.Height;                
             }
             else
             {
@@ -778,7 +807,12 @@ namespace MobiFlight.UI.Panels
                 // When mouse leaves the rectangle, start drag and drop
                 if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
                 {
-                    dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);
+                    // Only select Row which is to be moved, needed because of active multiselect
+                    dataGridViewConfig.ClearSelection();
+                    dataGridViewConfig.Rows[RowIndexMouseDown].Selected = true;
+                    dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[RowIndexMouseDown].Cells["description"];
+                    // Start drag and drop
+                    dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);                    
                 }
             }
         }
@@ -786,18 +820,22 @@ namespace MobiFlight.UI.Panels
         private void dataGridViewConfig_DragOver(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
+            Point clientPoint = dataGridViewConfig.PointToClient(new Point(e.X, e.Y));
+            int currentRow = dataGridViewConfig.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
 
-            // Autoscroll
-            Point topPoint = new Point(dataGridViewConfig.Location.X, dataGridViewConfig.Location.Y);
-            if ((e.Y <= PointToScreen(topPoint).Y + 40) && (dataGridViewConfig.FirstDisplayedScrollingRowIndex > 0))
+            if (currentRow > -1 && currentRow != RowCurrentDragHighlight)
+            {
+                RemoveDragTargetHighlight();
+                AddDragTargetHighlight(currentRow);
+            }
+
+            // Autoscroll   
+            if ((e.Y <= PointToScreen(DataGridTopLeftPoint).Y + 40) && (dataGridViewConfig.FirstDisplayedScrollingRowIndex > 0))
             {
                 // Scroll up
                 dataGridViewConfig.FirstDisplayedScrollingRowIndex -= 1;
             }
-
-            Point bottomPoint = new Point(dataGridViewConfig.Location.X + dataGridViewConfig.Width,
-                                          dataGridViewConfig.Location.Y + dataGridViewConfig.Height);
-            if (e.Y >= PointToScreen(bottomPoint).Y - 10)
+            if (e.Y >= PointToScreen(DataGridBottomRightPoint).Y - 10)
             {
                 // Scroll down
                 dataGridViewConfig.FirstDisplayedScrollingRowIndex += 1;
@@ -816,10 +854,29 @@ namespace MobiFlight.UI.Panels
                 DataRow rowToInsert = configDataTable.NewRow();
                 rowToInsert.ItemArray = rowToRemove.ItemArray; // needs to be cloned
                 dataGridViewConfig.ClearSelection();
-                configDataTable.Rows.Remove(rowToRemove);
-                configDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);
-                dataGridViewConfig.Rows[RowIndexDrop].Selected = true;  
-                dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[RowIndexDrop].Cells["description"];           
+                EditedItem = null; // safety measure, otherwise on some circumstances exception can be provoked 
+                configDataTable.Rows.Remove(rowToRemove);               
+                configDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);                               
+                int newIndex = configDataTable.Rows.IndexOf(rowToInsert);
+                dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[newIndex].Cells["description"];
+            }
+        }
+
+        private void dataGridViewConfig_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            // Sets the custom cursor based upon the effect.
+            e.UseDefaultCursors = false;
+            if ((e.Effect & DragDropEffects.Move) == DragDropEffects.Move)
+                Cursor.Current = Cursors.Hand;
+            else
+                Cursor.Current = Cursors.Default;
+        }
+
+        private void dataGridViewConfig_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+            if (e.Action == DragAction.Cancel || e.Action == DragAction.Drop)
+            {
+                RemoveDragTargetHighlight();                
             }
         }
     }

@@ -151,6 +151,8 @@
             this.dataGridViewConfig.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewConfig_EditingControlShowing);
             this.dataGridViewConfig.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewConfig_DragDrop);
             this.dataGridViewConfig.DragOver += new System.Windows.Forms.DragEventHandler(this.dataGridViewConfig_DragOver);
+            this.dataGridViewConfig.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.dataGridViewConfig_GiveFeedback);
+            this.dataGridViewConfig.QueryContinueDrag += new System.Windows.Forms.QueryContinueDragEventHandler(this.dataGridViewConfig_QueryContinueDrag);
             this.dataGridViewConfig.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataGridViewConfig_KeyUp);
             this.dataGridViewConfig.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridViewConfig_MouseDown);
             this.dataGridViewConfig.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridViewConfig_MouseMove);
