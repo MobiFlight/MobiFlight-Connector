@@ -1524,6 +1524,17 @@
     <None Include="Resources\module-mobiflight-update.png" />
     <None Include="Resources\mux_driver.bmp" />
     <None Include="Resources\mux-driver.png" />
+    <None Include="Resources\mobiflight_icon_in_analog.png" />
+    <None Include="Resources\mobiflight_icon_in_button.png" />
+    <None Include="Resources\mobiflight_icon_in_encoder.png" />
+    <None Include="Resources\mobiflight_icon_in_multiplexer.png" />
+    <None Include="Resources\mobiflight_icon_in_shifter.png" />
+    <None Include="Resources\mobiflight_icon_out_7segment.png" />
+    <None Include="Resources\mobiflight_icon_out_lcd.png" />
+    <None Include="Resources\mobiflight_icon_out_led.png" />
+    <None Include="Resources\mobiflight_icon_out_servo.png" />
+    <None Include="Resources\mobiflight_icon_out_shifter.png" />
+    <None Include="Resources\mobiflight_icon_out_stepper.png" />
     <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />

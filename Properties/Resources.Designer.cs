@@ -123,16 +123,6 @@ namespace MobiFlight.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap button {
-            get {
-                object obj = ResourceManager.GetObject("button", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap cd {
             get {
                 object obj = ResourceManager.GetObject("cd", resourceCulture);
@@ -223,16 +213,6 @@ namespace MobiFlight.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap encoder {
-            get {
-                object obj = ResourceManager.GetObject("encoder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap export1 {
             get {
                 object obj = ResourceManager.GetObject("export1", resourceCulture);
@@ -256,26 +236,6 @@ namespace MobiFlight.Properties {
         internal static System.Drawing.Bitmap folder1 {
             get {
                 object obj = ResourceManager.GetObject("folder1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap led {
-            get {
-                object obj = ResourceManager.GetObject("led", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap led7 {
-            get {
-                object obj = ResourceManager.GetObject("led7", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -336,6 +296,116 @@ namespace MobiFlight.Properties {
         internal static System.Drawing.Bitmap media_stop_red {
             get {
                 object obj = ResourceManager.GetObject("media_stop_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_in_analog {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_in_analog", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_in_button {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_in_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_in_encoder {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_in_encoder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_in_multiplexer {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_in_multiplexer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_in_shifter {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_in_shifter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_out_7segment {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_out_7segment", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_out_lcd {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_out_lcd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_out_led {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_out_led", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_out_servo {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_out_servo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_out_shifter {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_out_shifter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mobiflight_icon_out_stepper {
+            get {
+                object obj = ResourceManager.GetObject("mobiflight_icon_out_stepper", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -413,29 +483,9 @@ namespace MobiFlight.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap output {
-            get {
-                object obj = ResourceManager.GetObject("output", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap port_deactivated {
             get {
                 object obj = ResourceManager.GetObject("port_deactivated", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap servo {
-            get {
-                object obj = ResourceManager.GetObject("servo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -476,16 +526,6 @@ namespace MobiFlight.Properties {
         internal static System.Drawing.Bitmap star_yellow_new {
             get {
                 object obj = ResourceManager.GetObject("star_yellow_new", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap stepper {
-            get {
-                object obj = ResourceManager.GetObject("stepper", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
