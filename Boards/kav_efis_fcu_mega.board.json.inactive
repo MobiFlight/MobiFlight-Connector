@@ -37,7 +37,7 @@
     "DelayAfterFirmwareUpdate": 0,
     "FirmwareBaseName": "kav_efis_fcu_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.3",
+    "LatestFirmwareVersion": "2.4.4",
     "FriendlyName": "Kav FCU/EFIS Mega",
     "MobiFlightType": "Kav FCU/EFIS Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
