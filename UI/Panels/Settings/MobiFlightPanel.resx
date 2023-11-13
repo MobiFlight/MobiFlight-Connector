@@ -278,7 +278,7 @@
     <value>Don't ignore COM port</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 270</value>
+    <value>197, 292</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
     <value>mfModuleSettingsContextMenuStrip</value>
@@ -465,17 +465,17 @@
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>199, 6</value>
   </data>
-  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
-  </data>
-  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encoder</value>
-  </data>
   <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 22</value>
   </data>
   <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
     <value>Button</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
   </data>
   <data name="analogDeviceToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 22</value>
