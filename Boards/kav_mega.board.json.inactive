@@ -42,8 +42,8 @@
     "MobiFlightType": "Kav FCU/EFIS Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
-      "KAV_LCD_EFIS",
-      "KAV_LCD_FCU"
+      "KAV_EFIS",
+      "KAV_FCU"
     ]  
   },
   "ModuleLimits": {
