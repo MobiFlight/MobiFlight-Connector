@@ -769,7 +769,7 @@ namespace MobiFlight
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>
+            var result = new Dictionary<string, int>
             {
                 ["Modules.Count"] = Modules.Values.Count()
             };
