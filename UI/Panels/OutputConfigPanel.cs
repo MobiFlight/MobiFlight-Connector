@@ -891,7 +891,7 @@ namespace MobiFlight.UI.Panels
                 // once when it changes from default
                 if (Cursor.Current == Cursors.Default)
                 {
-                    int offsetX = CalculateCorrectCursorOffset(Cursor.Current);
+                    int offsetX = CalculateCorrectCursorOffset();
 
                     // This creates the bitmap of the row and creates assigns it as the new cursor
                     Cursor.Current = CreateCursor(dataGridViewConfig.Rows[RowIndexMouseDown]);
@@ -906,7 +906,7 @@ namespace MobiFlight.UI.Panels
                 Cursor.Current = Cursors.Default;
         }
 
-        private int CalculateCorrectCursorOffset(Cursor cursor)
+        private int CalculateCorrectCursorOffset()
         {
             // Transform cursor position from screen coords to control coords
             var localCoords = PointToClient(Cursor.Position);
