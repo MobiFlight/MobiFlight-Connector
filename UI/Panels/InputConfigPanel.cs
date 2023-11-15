@@ -627,25 +627,39 @@ namespace MobiFlight.UI.Panels
             return result;
         }
 
+        private void ChangeRowBackgroundColor(int rowIndex, Color color)
+        {
+            if (rowIndex > -1)
+            {
+                foreach (DataGridViewCell cell in inputsDataGridView.Rows[rowIndex].Cells)
+                {
+                    cell.Style.BackColor = color;
+                    cell.Style.Padding = new Padding(0, 0, 0, 0);
+                }
+            }
+        }
 
         private void AddDragTargetHighlight(int rowIndex)
         {
-            foreach (DataGridViewCell cell in inputsDataGridView.Rows[rowIndex].Cells)
+            ChangeRowBackgroundColor(rowIndex, Color.LightGray);
+
+            if (rowIndex > 0 && rowIndex < (inputsDataGridView.Rows.Count - 1))
             {
-                cell.Style.BackColor = Color.LightGray;
+                int rowAdjust = rowIndex > RowIndexMouseDown ? 1 : -1;
+                ChangeRowBackgroundColor(rowIndex + rowAdjust, Color.LightGray);
             }
             RowCurrentDragHighlight = rowIndex;
         }
 
         private void RemoveDragTargetHighlight()
         {
-            if (RowCurrentDragHighlight > -1)
+            ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
+
+            if (RowCurrentDragHighlight > 0 && RowCurrentDragHighlight < (inputsDataGridView.Rows.Count - 1))
             {
-                foreach (DataGridViewCell cell in inputsDataGridView.Rows[RowCurrentDragHighlight].Cells)
-                {
-                    cell.Style.BackColor = Color.Empty;
-                }
-            }        
+                int rowAdjust = RowCurrentDragHighlight > RowIndexMouseDown ? 1 : -1;
+                ChangeRowBackgroundColor(RowCurrentDragHighlight + rowAdjust, Color.Empty);
+            }
         }
 
         private void inputsDataGridView_MouseDown(object sender, MouseEventArgs e)
@@ -728,10 +742,10 @@ namespace MobiFlight.UI.Panels
                 DataRow rowToRemove = (DataRow)e.Data.GetData(typeof(DataRow));
                 DataRow rowToInsert = inputsDataTable.NewRow();
                 rowToInsert.ItemArray = rowToRemove.ItemArray; // needs to be cloned
-                inputsDataGridView.ClearSelection();                            
-                inputsDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);
+                inputsDataGridView.ClearSelection();
                 EditedItem = null; // safety measure, otherwise on some circumstances exception can be provoked
                 inputsDataTable.Rows.Remove(rowToRemove);
+                inputsDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);
                 int newIndex = inputsDataTable.Rows.IndexOf(rowToInsert);                                      
                 inputsDataGridView.CurrentCell = inputsDataGridView.Rows[newIndex].Cells["inputDescription"];
             }           
