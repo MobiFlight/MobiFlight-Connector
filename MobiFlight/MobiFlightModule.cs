@@ -1,5 +1,6 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
+using FSUIPC;
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -161,6 +162,12 @@ namespace MobiFlight
         public bool HasMfFirmware()
         {
             return !String.IsNullOrEmpty(Version);
+        }
+
+        // Returns true if the board is running a firmware build from a pull request.
+        public bool IsPullRequestBuild
+        {
+            get { return Version?.StartsWith("0.") ?? false; }
         }
 
         public Config.Config Config
@@ -1272,6 +1279,9 @@ namespace MobiFlight
 
         public bool HasFirmwareFeature(String FirmwareFeature)
         {
+            // Pull request builds are always assumed to support all features.
+            if (IsPullRequestBuild) return true;
+
             System.Version minVersion = new System.Version(FirmwareFeature);
             System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
 
