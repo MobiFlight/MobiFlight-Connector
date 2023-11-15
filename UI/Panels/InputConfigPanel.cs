@@ -760,7 +760,7 @@ namespace MobiFlight.UI.Panels
                 // For performance reason we want to only
                 // calculate the bitmap for the cursor
                 // once when it changes from default
-                if (Cursor.Current == Cursors.Default)
+                if (Cursor.Current == Cursors.Default || Cursor.Current == Cursors.No)
                 {
                     int offsetX = CalculateCorrectCursorOffset();
 

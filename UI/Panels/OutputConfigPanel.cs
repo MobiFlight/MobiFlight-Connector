@@ -771,12 +771,12 @@ namespace MobiFlight.UI.Panels
         
         private void AddDragTargetHighlight(int rowIndex)
         {
-            ChangeRowBackgroundColor(rowIndex, Color.LightGray);
+            ChangeRowBackgroundColor(rowIndex, Color.LightSkyBlue);
 
             if (rowIndex > 0 && rowIndex < (dataGridViewConfig.Rows.Count - 1))
             {
                 int rowAdjust = rowIndex > RowIndexMouseDown ? 1 : -1;
-                ChangeRowBackgroundColor(rowIndex + rowAdjust, Color.LightGray);
+                ChangeRowBackgroundColor(rowIndex + rowAdjust, Color.LightSkyBlue);
             }
             RowCurrentDragHighlight = rowIndex;
         }
@@ -889,7 +889,8 @@ namespace MobiFlight.UI.Panels
                 // For performance reason we want to only
                 // calculate the bitmap for the cursor
                 // once when it changes from default
-                if (Cursor.Current == Cursors.Default)
+                // or from No, which happens after leaving the client area and returning
+                if (Cursor.Current == Cursors.Default || Cursor.Current == Cursors.No)
                 {
                     int offsetX = CalculateCorrectCursorOffset();
 
