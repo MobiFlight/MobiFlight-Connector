@@ -232,6 +232,7 @@
     <Compile Include="Base\CacheInterface.cs" />
     <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\ConfigRefList.cs" />
+    <Compile Include="Base\DPIUtil.cs" />
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -763,6 +764,7 @@ namespace MobiFlight.UI.Panels
                 foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex].Cells)
                 {
                     cell.Style.BackColor = color;
+                    cell.Style.Padding = new Padding(0,0,0,0);
                 }
             }
         }
@@ -883,9 +885,74 @@ namespace MobiFlight.UI.Panels
             // Sets the custom cursor based upon the effect.
             e.UseDefaultCursors = false;
             if ((e.Effect & DragDropEffects.Move) == DragDropEffects.Move)
-                Cursor.Current = Cursors.HSplit;
+            {
+                // For performance reason we want to only
+                // calculate the bitmap for the cursor
+                // once when it changes from default
+                if (Cursor.Current == Cursors.Default)
+                {
+                    int offsetX = CalculateCorrectCursorOffset(Cursor.Current);
+
+                    // This creates the bitmap of the row and creates assigns it as the new cursor
+                    Cursor.Current = CreateCursor(dataGridViewConfig.Rows[RowIndexMouseDown]);
+
+                    // This now corrects the position of the cursor using the offset,
+                    // so that the cursor won't show displaced
+                    Cursor.Position = new Point(Cursor.Position.X - offsetX, Cursor.Position.Y);
+                }
+            }
+                
             else
                 Cursor.Current = Cursors.Default;
+        }
+
+        private int CalculateCorrectCursorOffset(Cursor cursor)
+        {
+            // Transform cursor position from screen coords to control coords
+            var localCoords = PointToClient(Cursor.Position);
+
+            // Get the size of the row which is equivalent to the cursor bitmap
+            Rectangle rowRectangle = dataGridViewConfig.GetRowDisplayRectangle(RowIndexMouseDown, true);
+
+            double cursorWidth = rowRectangle.Width;
+            // if we grab the row exactly in the center, then the offset is 0
+            // if we grab it at the very left, then the offset must be -(half size of cursor)
+            // if we grab it at the very right, then the offset must be +(half size of cursor)
+            return (int)(localCoords.X - cursorWidth / 2);
+        }
+
+        private Cursor CreateCursor(DataGridViewRow row)
+        {
+            Size clientSize = dataGridViewConfig.ClientSize;
+            Rectangle rowRectangle = dataGridViewConfig.GetRowDisplayRectangle(RowIndexMouseDown, true);
+            var scalingFactor = GetScalingFactor(this.Handle) / 100;
+            
+            using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
+            using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
+            {
+                dataGridViewConfig.DrawToBitmap(dataGridViewBmp, new Rectangle(Point.Empty, clientSize));
+                using (Graphics G = Graphics.FromImage(rowBmp))
+                {
+                    G.DrawImage(dataGridViewBmp, new Rectangle(Point.Empty, rowRectangle.Size), rowRectangle, GraphicsUnit.Pixel);
+                }
+
+                var scaledX = (int)Math.Round(rowRectangle.Width * scalingFactor, 0);
+                var scaledY = (int)Math.Round(rowRectangle.Height * scalingFactor, 0);
+
+                using (var scaledRowBmp = new Bitmap(rowBmp, new Size(scaledX, scaledY)))
+                {
+                    return new Cursor(scaledRowBmp.GetHicon());
+                }                
+            }
+        }
+
+        private double GetScalingFactor(IntPtr handle)
+        {
+            using (Graphics g = Graphics.FromHwnd(handle))
+            {
+                // Get the current display scaling factor.
+                return DPIUtil.GetWindowsScreenScalingFactor();
+            }
         }
 
         private void dataGridViewConfig_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
