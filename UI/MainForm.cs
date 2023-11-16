@@ -1111,7 +1111,7 @@ namespace MobiFlight.UI
 #endif
 
 #if MOBIFLIGHT
-            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
+            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
                 ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
                 item.Tag = module;

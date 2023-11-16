@@ -445,6 +445,8 @@
     <Compile Include="UI\Panels\Config\HubHopPresetPanel.Designer.cs">
       <DependentUpon>HubHopPresetPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\InputActionMapping.cs" />
+    <Compile Include="UI\Panels\Config\IPanelConfigSync.cs" />
     <Compile Include="UI\Panels\Config\PreconditionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -522,18 +524,6 @@
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.Designer.cs">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputMultiplexerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputMultiplexerPanel.Designer.cs">
-      <DependentUpon>InputMultiplexerPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.Designer.cs">
-      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Input\AnalogPanel.cs">
       <SubType>UserControl</SubType>
@@ -1040,19 +1030,22 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_2_4_3.hex">
+    <None Include="firmware\kav_efis_fcu_mega_2_4_4.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_2_4_3.hex">
+    <None Include="firmware\mobiflight_mega_2_4_4.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_nano_2_4_3.hex">
+    <None Include="firmware\mobiflight_micro_2_4_4.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico_2_4_3.uf2">
+    <None Include="firmware\mobiflight_nano_2_4_4.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_uno_2_4_3.hex">
+    <None Include="firmware\mobiflight_raspberrypico_2_4_4.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="firmware\mobiflight_uno_2_4_4.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
@@ -1339,14 +1332,6 @@
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Input\InputMultiplexerPanel.resx">
-      <DependentUpon>InputMultiplexerPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Input\InputShiftRegisterPanel.resx">
-      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\AnalogPanel.resx">
       <DependentUpon>AnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1490,6 +1475,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\JeehellInputPanel.resx">
       <DependentUpon>JeehellInputPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\KeyboardInputPanel.de.resx">
       <DependentUpon>KeyboardInputPanel.cs</DependentUpon>

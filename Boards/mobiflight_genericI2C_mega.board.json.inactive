@@ -37,7 +37,7 @@
       "DelayAfterFirmwareUpdate": 0,
       "FirmwareBaseName": "mobiflight_genericI2C_mega",
       "FirmwareExtension": "hex",
-      "LatestFirmwareVersion": "2.4.3",
+      "LatestFirmwareVersion": "2.4.4",
       "FriendlyName": "Mobiflight GenericI2C Mega",
       "MobiFlightType": "Mobiflight GenericI2C Mega",
       "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
