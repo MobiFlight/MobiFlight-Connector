@@ -287,11 +287,17 @@ namespace MobiFlight
         {
             timer.Enabled = false;
             isExecuting = false;
+#if ARCAZE
+            arcazeCache.Clear();
+#endif
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
+            inputCache.Clear();
+            inputActionExecutionCache.Clear();
+
             ClearErrorMessages();
         }
 
@@ -999,13 +1005,6 @@ namespace MobiFlight
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            // just forget about current states if timer gets stopped
-#if ARCAZE
-            arcazeCache.Clear();
-#endif
-            inputCache.Clear();
-            inputActionExecutionCache.Clear();
-
             OnStopped?.Invoke(this, new EventArgs());
         } //timer_Stopped
 
@@ -1023,7 +1022,7 @@ namespace MobiFlight
             {
                 Log.Instance.log($"Error on config execution: {ex.Message}", LogSeverity.Error);
                 isExecuting = false;
-                timer.Enabled = false;
+                Stop();
             }
         } //timer_Tick()
 
