@@ -14,7 +14,7 @@ namespace MobiFlight
             PRESS = 0,
             RELEASE = 1,
             LONG_RELEASE = 2,
-            ON_HOLD = 3
+            HOLD = 3
         }
 
         public string Name { get; set; }

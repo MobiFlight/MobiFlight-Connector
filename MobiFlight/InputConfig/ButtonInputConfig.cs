@@ -18,16 +18,16 @@ namespace MobiFlight.InputConfig
         private object LastOnPressLock = new object();
         
         public int LongReleaseDelay = 350; //ms
-        public int OnHoldDelay = 350;
+        public int HoldDelay = 350;
         public int RepeatDelay = 0;
 
-        private Timer OnHoldTimer = new Timer();
+        private Timer HoldTimer = new Timer();
         private Timer RepeatTimer = new Timer();
 
         public ButtonInputConfig()
         {
             RepeatTimer.AutoReset = true;
-            OnHoldTimer.Elapsed += OnHoldTimer_Elapsed;            
+            HoldTimer.Elapsed += HoldTimer_Elapsed;            
             RepeatTimer.Elapsed += RepeatTimer_Elapsed;
         }
 
@@ -39,7 +39,7 @@ namespace MobiFlight.InputConfig
             if (onLongRelease != null) clone.onLongRelease = (InputAction)onLongRelease.Clone();
             if (onHold != null) clone.onHold = (InputAction)onHold.Clone();
             clone.RepeatDelay = RepeatDelay;
-            clone.OnHoldDelay = OnHoldDelay;
+            clone.HoldDelay = HoldDelay;
             clone.LongReleaseDelay = LongReleaseDelay;
             return clone;
         }
@@ -83,7 +83,7 @@ namespace MobiFlight.InputConfig
             if (reader.LocalName == "") reader.Read();
             if (reader.LocalName == "onHold")
             {
-                OnHoldDelay = int.Parse(reader["onHoldDelay"]);
+                HoldDelay = int.Parse(reader["holdDelay"]);
                 RepeatDelay = int.Parse(reader["repeatDelay"]);                
                 onHold = InputActionFactory.CreateByType(reader["type"]);
                 onHold?.ReadXml(reader);
@@ -171,7 +171,7 @@ namespace MobiFlight.InputConfig
             if (onHold != null)
             {
                 writer.WriteStartElement("onHold");
-                writer.WriteAttributeString("onHoldDelay", OnHoldDelay.ToString());
+                writer.WriteAttributeString("holdDelay", HoldDelay.ToString());
                 writer.WriteAttributeString("repeatDelay", RepeatDelay.ToString());               
                 onHold.WriteXml(writer);
                 writer.WriteEndElement();
@@ -183,8 +183,8 @@ namespace MobiFlight.InputConfig
             lock (LastOnPressLock)
             {
                 InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
-                args.Value = (int)MobiFlightButton.InputEvent.ON_HOLD;
-                Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute ON_HOLD", LogSeverity.Info);
+                args.Value = (int)MobiFlightButton.InputEvent.HOLD;
+                Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute HOLD", LogSeverity.Info);
                 onHold.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
             }            
         }
@@ -203,19 +203,19 @@ namespace MobiFlight.InputConfig
             }
         }
 
-        private void OnHoldTimer_Elapsed(object sender, EventArgs e)
+        private void HoldTimer_Elapsed(object sender, EventArgs e)
         {
             ExecuteOnHoldAction();
-            OnHoldTimer.Stop();
+            HoldTimer.Stop();
             ExecuteRepeatOnHold();
         }
 
         private void ExecuteOnHoldWithTimer()
         {
-            if (OnHoldDelay > 0)
+            if (HoldDelay > 0)
             {                
-                OnHoldTimer.Interval = OnHoldDelay;
-                OnHoldTimer.Start();
+                HoldTimer.Interval = HoldDelay;
+                HoldTimer.Start();
             }
             else
             {
@@ -226,8 +226,8 @@ namespace MobiFlight.InputConfig
 
         private void CheckAndStopTimer()
         {
-            if (OnHoldTimer.Enabled)
-                OnHoldTimer.Stop();
+            if (HoldTimer.Enabled)
+                HoldTimer.Stop();
             if (RepeatTimer.Enabled)
                 RepeatTimer.Stop();
         }
@@ -366,7 +366,7 @@ namespace MobiFlight.InputConfig
                 (
                     (onHold == null && ((obj as ButtonInputConfig).onHold == null)) ||
                     (onHold != null && onHold.Equals((obj as ButtonInputConfig).onHold) &&
-                    (OnHoldDelay == (obj as ButtonInputConfig).OnHoldDelay) &&
+                    (HoldDelay == (obj as ButtonInputConfig).HoldDelay) &&
                     (RepeatDelay == (obj as ButtonInputConfig).RepeatDelay))
                 );
         }

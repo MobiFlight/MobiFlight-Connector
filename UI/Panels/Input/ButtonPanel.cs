@@ -35,7 +35,7 @@ namespace MobiFlight.UI.Panels.Input
                     actionTypePanel.Enabled = value;
                     ActionTypePanelsToOwnerPanels[actionTypePanel].Enabled = value;
                 }
-                onHoldDelayTextBox.Enabled = value;
+                holdDelayTextBox.Enabled = value;
                 longReleaseTextBox.Enabled = value;
                 repeatTextBox.Enabled = value;
             }
@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Input
         {
             InitializeComponent();
 
-            onHoldDelayLabel.Text = i18n._tr("uiLabelDelay");
+            holdDelayLabel.Text = i18n._tr("uiLabelDelay");
             longReleaseDelayLabel.Text = i18n._tr("uiLabelDelay");
             repeatLabel.Text = i18n._tr("uiLabelRepeatPress");
 
@@ -175,7 +175,7 @@ namespace MobiFlight.UI.Panels.Input
             if (config == null) return;
 
             _config = config;
-            onHoldDelayTextBox.Text = config.OnHoldDelay.ToString();
+            holdDelayTextBox.Text = config.HoldDelay.ToString();
             repeatTextBox.Text = config.RepeatDelay.ToString();
             longReleaseTextBox.Text = config.LongReleaseDelay.ToString();
 
@@ -193,9 +193,9 @@ namespace MobiFlight.UI.Panels.Input
 
         public void ToConfig(ButtonInputConfig config)
         {
-            if (!string.IsNullOrEmpty(onHoldDelayTextBox.Text))
+            if (!string.IsNullOrEmpty(holdDelayTextBox.Text))
             {
-                config.OnHoldDelay = int.Parse(onHoldDelayTextBox.Text);
+                config.HoldDelay = int.Parse(holdDelayTextBox.Text);
             }
 
             if (!string.IsNullOrEmpty(repeatTextBox.Text))

@@ -39,11 +39,11 @@
             this.onHoldActionConfigPanel = new System.Windows.Forms.Panel();
             this.onHoldActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
             this.onHoldSettingsPanel = new System.Windows.Forms.Panel();
-            this.msOnHoldLabel = new System.Windows.Forms.Label();
+            this.msHoldLabel = new System.Windows.Forms.Label();
             this.repeatTextBox = new System.Windows.Forms.TextBox();
             this.repeatLabel = new System.Windows.Forms.Label();
-            this.onHoldDelayLabel = new System.Windows.Forms.Label();
-            this.onHoldDelayTextBox = new System.Windows.Forms.TextBox();
+            this.holdDelayLabel = new System.Windows.Forms.Label();
+            this.holdDelayTextBox = new System.Windows.Forms.TextBox();
             this.onLongReleaseTabPage = new System.Windows.Forms.TabPage();
             this.onLongRelActionConfigPanel = new System.Windows.Forms.Panel();
             this.onLongReleaseActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
@@ -182,11 +182,11 @@
             // onHoldSettingsPanel
             // 
             this.onHoldSettingsPanel.BackColor = System.Drawing.Color.Transparent;
-            this.onHoldSettingsPanel.Controls.Add(this.msOnHoldLabel);
+            this.onHoldSettingsPanel.Controls.Add(this.msHoldLabel);
             this.onHoldSettingsPanel.Controls.Add(this.repeatTextBox);
             this.onHoldSettingsPanel.Controls.Add(this.repeatLabel);
-            this.onHoldSettingsPanel.Controls.Add(this.onHoldDelayLabel);
-            this.onHoldSettingsPanel.Controls.Add(this.onHoldDelayTextBox);
+            this.onHoldSettingsPanel.Controls.Add(this.holdDelayLabel);
+            this.onHoldSettingsPanel.Controls.Add(this.holdDelayTextBox);
             this.onHoldSettingsPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.onHoldSettingsPanel.Location = new System.Drawing.Point(0, 5);
             this.onHoldSettingsPanel.Name = "onHoldSettingsPanel";
@@ -194,14 +194,14 @@
             this.onHoldSettingsPanel.Size = new System.Drawing.Size(592, 54);
             this.onHoldSettingsPanel.TabIndex = 0;
             // 
-            // msOnHoldLabel
+            // msHoldLabel
             // 
-            this.msOnHoldLabel.AutoSize = true;
-            this.msOnHoldLabel.Location = new System.Drawing.Point(398, 18);
-            this.msOnHoldLabel.Name = "msOnHoldLabel";
-            this.msOnHoldLabel.Size = new System.Drawing.Size(30, 20);
-            this.msOnHoldLabel.TabIndex = 4;
-            this.msOnHoldLabel.Text = "ms";
+            this.msHoldLabel.AutoSize = true;
+            this.msHoldLabel.Location = new System.Drawing.Point(398, 18);
+            this.msHoldLabel.Name = "msHoldLabel";
+            this.msHoldLabel.Size = new System.Drawing.Size(30, 20);
+            this.msHoldLabel.TabIndex = 4;
+            this.msHoldLabel.Text = "ms";
             // 
             // repeatTextBox
             // 
@@ -222,25 +222,25 @@
             this.repeatLabel.TabIndex = 2;
             this.repeatLabel.Text = "ms, repeat every";
             // 
-            // onHoldDelayLabel
+            // holdDelayLabel
             // 
-            this.onHoldDelayLabel.Location = new System.Drawing.Point(31, 18);
-            this.onHoldDelayLabel.Name = "onHoldDelayLabel";
-            this.onHoldDelayLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.onHoldDelayLabel.Size = new System.Drawing.Size(123, 20);
-            this.onHoldDelayLabel.TabIndex = 1;
-            this.onHoldDelayLabel.Text = "Delay:";
-            this.onHoldDelayLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.holdDelayLabel.Location = new System.Drawing.Point(31, 18);
+            this.holdDelayLabel.Name = "holdDelayLabel";
+            this.holdDelayLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.holdDelayLabel.Size = new System.Drawing.Size(123, 20);
+            this.holdDelayLabel.TabIndex = 1;
+            this.holdDelayLabel.Text = "Delay:";
+            this.holdDelayLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // onHoldDelayTextBox
+            // holdDelayTextBox
             // 
-            this.onHoldDelayTextBox.Location = new System.Drawing.Point(160, 15);
-            this.onHoldDelayTextBox.Name = "onHoldDelayTextBox";
-            this.onHoldDelayTextBox.Size = new System.Drawing.Size(51, 26);
-            this.onHoldDelayTextBox.TabIndex = 0;
-            this.onHoldDelayTextBox.Text = "350";
-            this.onHoldDelayTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.onHoldDelayTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            this.holdDelayTextBox.Location = new System.Drawing.Point(160, 15);
+            this.holdDelayTextBox.Name = "holdDelayTextBox";
+            this.holdDelayTextBox.Size = new System.Drawing.Size(51, 26);
+            this.holdDelayTextBox.TabIndex = 0;
+            this.holdDelayTextBox.Text = "350";
+            this.holdDelayTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.holdDelayTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // onLongReleaseTabPage
             // 
@@ -360,11 +360,11 @@
         private System.Windows.Forms.Panel onHoldSettingsPanel;
         private Config.ActionTypePanel onHoldActionTypePanel;
         private System.Windows.Forms.Panel onHoldActionConfigPanel;    
-        private System.Windows.Forms.TextBox onHoldDelayTextBox;
-        private System.Windows.Forms.Label msOnHoldLabel;
+        private System.Windows.Forms.TextBox holdDelayTextBox;
+        private System.Windows.Forms.Label msHoldLabel;
         private System.Windows.Forms.TextBox repeatTextBox;
         private System.Windows.Forms.Label repeatLabel;
-        private System.Windows.Forms.Label onHoldDelayLabel;
+        private System.Windows.Forms.Label holdDelayLabel;
         private System.Windows.Forms.Panel onLongRelActionConfigPanel;
         private Config.ActionTypePanel onLongReleaseActionTypePanel;
         private System.Windows.Forms.Panel onLongReleaseSettingsPanel;
