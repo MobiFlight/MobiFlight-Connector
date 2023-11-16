@@ -1021,7 +1021,6 @@ namespace MobiFlight
             catch (Exception ex)
             {
                 Log.Instance.log($"Error on config execution: {ex.Message}", LogSeverity.Error);
-                isExecuting = false;
                 Stop();
             }
         } //timer_Tick()
