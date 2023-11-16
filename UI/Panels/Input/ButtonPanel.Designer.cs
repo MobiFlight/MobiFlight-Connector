@@ -35,15 +35,15 @@
             this.onReleaseTabPage = new System.Windows.Forms.TabPage();
             this.onReleaseActionConfigPanel = new System.Windows.Forms.Panel();
             this.onReleaseActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
-            this.onLongPressTabPage = new System.Windows.Forms.TabPage();
-            this.onLongPressActionConfigPanel = new System.Windows.Forms.Panel();
-            this.onLongPressActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
-            this.onLongPressSettingsPanel = new System.Windows.Forms.Panel();
-            this.msLongPressLabel = new System.Windows.Forms.Label();
+            this.onHoldTabPage = new System.Windows.Forms.TabPage();
+            this.onHoldActionConfigPanel = new System.Windows.Forms.Panel();
+            this.onHoldActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
+            this.onHoldSettingsPanel = new System.Windows.Forms.Panel();
+            this.msOnHoldLabel = new System.Windows.Forms.Label();
             this.repeatTextBox = new System.Windows.Forms.TextBox();
             this.repeatLabel = new System.Windows.Forms.Label();
-            this.longPressDelayLabel = new System.Windows.Forms.Label();
-            this.longPressDelayTextBox = new System.Windows.Forms.TextBox();
+            this.onHoldDelayLabel = new System.Windows.Forms.Label();
+            this.onHoldDelayTextBox = new System.Windows.Forms.TextBox();
             this.onLongReleaseTabPage = new System.Windows.Forms.TabPage();
             this.onLongRelActionConfigPanel = new System.Windows.Forms.Panel();
             this.onLongReleaseActionTypePanel = new MobiFlight.UI.Panels.Config.ActionTypePanel();
@@ -54,8 +54,8 @@
             this.tabControl1.SuspendLayout();
             this.onPressTabPage.SuspendLayout();
             this.onReleaseTabPage.SuspendLayout();
-            this.onLongPressTabPage.SuspendLayout();
-            this.onLongPressSettingsPanel.SuspendLayout();
+            this.onHoldTabPage.SuspendLayout();
+            this.onHoldSettingsPanel.SuspendLayout();
             this.onLongReleaseTabPage.SuspendLayout();
             this.onLongReleaseSettingsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +76,7 @@
             // 
             this.tabControl1.Controls.Add(this.onPressTabPage);
             this.tabControl1.Controls.Add(this.onReleaseTabPage);
-            this.tabControl1.Controls.Add(this.onLongPressTabPage);
+            this.tabControl1.Controls.Add(this.onHoldTabPage);
             this.tabControl1.Controls.Add(this.onLongReleaseTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
@@ -144,64 +144,64 @@
             this.onReleaseActionTypePanel.Size = new System.Drawing.Size(592, 54);
             this.onReleaseActionTypePanel.TabIndex = 20;
             // 
-            // onLongPressTabPage
+            // onHoldTabPage
             // 
-            this.onLongPressTabPage.Controls.Add(this.onLongPressActionConfigPanel);
-            this.onLongPressTabPage.Controls.Add(this.onLongPressActionTypePanel);
-            this.onLongPressTabPage.Controls.Add(this.onLongPressSettingsPanel);
-            this.onLongPressTabPage.Location = new System.Drawing.Point(4, 29);
-            this.onLongPressTabPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.onLongPressTabPage.Name = "onLongPressTabPage";
-            this.onLongPressTabPage.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.onLongPressTabPage.Size = new System.Drawing.Size(592, 121);
-            this.onLongPressTabPage.TabIndex = 3;
-            this.onLongPressTabPage.Text = "On Long Press";
-            this.onLongPressTabPage.UseVisualStyleBackColor = true;
+            this.onHoldTabPage.Controls.Add(this.onHoldActionConfigPanel);
+            this.onHoldTabPage.Controls.Add(this.onHoldActionTypePanel);
+            this.onHoldTabPage.Controls.Add(this.onHoldSettingsPanel);
+            this.onHoldTabPage.Location = new System.Drawing.Point(4, 29);
+            this.onHoldTabPage.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.onHoldTabPage.Name = "onHoldTabPage";
+            this.onHoldTabPage.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.onHoldTabPage.Size = new System.Drawing.Size(592, 121);
+            this.onHoldTabPage.TabIndex = 3;
+            this.onHoldTabPage.Text = "On Hold";
+            this.onHoldTabPage.UseVisualStyleBackColor = true;
             // 
-            // onLongPressActionConfigPanel
+            // onHoldActionConfigPanel
             // 
-            this.onLongPressActionConfigPanel.AutoSize = true;
-            this.onLongPressActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.onLongPressActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.onLongPressActionConfigPanel.Location = new System.Drawing.Point(0, 115);
-            this.onLongPressActionConfigPanel.MinimumSize = new System.Drawing.Size(0, 154);
-            this.onLongPressActionConfigPanel.Name = "onLongPressActionConfigPanel";
-            this.onLongPressActionConfigPanel.Size = new System.Drawing.Size(592, 154);
-            this.onLongPressActionConfigPanel.TabIndex = 2;
+            this.onHoldActionConfigPanel.AutoSize = true;
+            this.onHoldActionConfigPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.onHoldActionConfigPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.onHoldActionConfigPanel.Location = new System.Drawing.Point(0, 115);
+            this.onHoldActionConfigPanel.MinimumSize = new System.Drawing.Size(0, 154);
+            this.onHoldActionConfigPanel.Name = "onHoldActionConfigPanel";
+            this.onHoldActionConfigPanel.Size = new System.Drawing.Size(592, 154);
+            this.onHoldActionConfigPanel.TabIndex = 2;
             // 
-            // onLongPressActionTypePanel
+            // onHoldActionTypePanel
             // 
-            this.onLongPressActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.onLongPressActionTypePanel.Location = new System.Drawing.Point(0, 59);
-            this.onLongPressActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 9);
-            this.onLongPressActionTypePanel.Name = "onLongPressActionTypePanel";
-            this.onLongPressActionTypePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 9);
-            this.onLongPressActionTypePanel.Size = new System.Drawing.Size(592, 56);
-            this.onLongPressActionTypePanel.TabIndex = 1;
+            this.onHoldActionTypePanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.onHoldActionTypePanel.Location = new System.Drawing.Point(0, 59);
+            this.onHoldActionTypePanel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 9);
+            this.onHoldActionTypePanel.Name = "onHoldActionTypePanel";
+            this.onHoldActionTypePanel.Padding = new System.Windows.Forms.Padding(0, 0, 0, 9);
+            this.onHoldActionTypePanel.Size = new System.Drawing.Size(592, 56);
+            this.onHoldActionTypePanel.TabIndex = 1;
             // 
-            // onLongPressSettingsPanel
+            // onHoldSettingsPanel
             // 
-            this.onLongPressSettingsPanel.BackColor = System.Drawing.Color.Transparent;
-            this.onLongPressSettingsPanel.Controls.Add(this.msLongPressLabel);
-            this.onLongPressSettingsPanel.Controls.Add(this.repeatTextBox);
-            this.onLongPressSettingsPanel.Controls.Add(this.repeatLabel);
-            this.onLongPressSettingsPanel.Controls.Add(this.longPressDelayLabel);
-            this.onLongPressSettingsPanel.Controls.Add(this.longPressDelayTextBox);
-            this.onLongPressSettingsPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.onLongPressSettingsPanel.Location = new System.Drawing.Point(0, 5);
-            this.onLongPressSettingsPanel.Name = "onLongPressSettingsPanel";
-            this.onLongPressSettingsPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.onLongPressSettingsPanel.Size = new System.Drawing.Size(592, 54);
-            this.onLongPressSettingsPanel.TabIndex = 0;
+            this.onHoldSettingsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.onHoldSettingsPanel.Controls.Add(this.msOnHoldLabel);
+            this.onHoldSettingsPanel.Controls.Add(this.repeatTextBox);
+            this.onHoldSettingsPanel.Controls.Add(this.repeatLabel);
+            this.onHoldSettingsPanel.Controls.Add(this.onHoldDelayLabel);
+            this.onHoldSettingsPanel.Controls.Add(this.onHoldDelayTextBox);
+            this.onHoldSettingsPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.onHoldSettingsPanel.Location = new System.Drawing.Point(0, 5);
+            this.onHoldSettingsPanel.Name = "onHoldSettingsPanel";
+            this.onHoldSettingsPanel.Padding = new System.Windows.Forms.Padding(3);
+            this.onHoldSettingsPanel.Size = new System.Drawing.Size(592, 54);
+            this.onHoldSettingsPanel.TabIndex = 0;
             // 
-            // msLongPressLabel
+            // msOnHoldLabel
             // 
-            this.msLongPressLabel.AutoSize = true;
-            this.msLongPressLabel.Location = new System.Drawing.Point(398, 18);
-            this.msLongPressLabel.Name = "msLongPressLabel";
-            this.msLongPressLabel.Size = new System.Drawing.Size(30, 20);
-            this.msLongPressLabel.TabIndex = 4;
-            this.msLongPressLabel.Text = "ms";
+            this.msOnHoldLabel.AutoSize = true;
+            this.msOnHoldLabel.Location = new System.Drawing.Point(398, 18);
+            this.msOnHoldLabel.Name = "msOnHoldLabel";
+            this.msOnHoldLabel.Size = new System.Drawing.Size(30, 20);
+            this.msOnHoldLabel.TabIndex = 4;
+            this.msOnHoldLabel.Text = "ms";
             // 
             // repeatTextBox
             // 
@@ -222,25 +222,25 @@
             this.repeatLabel.TabIndex = 2;
             this.repeatLabel.Text = "ms, repeat every";
             // 
-            // longPressDelayLabel
+            // onHoldDelayLabel
             // 
-            this.longPressDelayLabel.Location = new System.Drawing.Point(31, 18);
-            this.longPressDelayLabel.Name = "longPressDelayLabel";
-            this.longPressDelayLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.longPressDelayLabel.Size = new System.Drawing.Size(123, 20);
-            this.longPressDelayLabel.TabIndex = 1;
-            this.longPressDelayLabel.Text = "Delay:";
-            this.longPressDelayLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.onHoldDelayLabel.Location = new System.Drawing.Point(31, 18);
+            this.onHoldDelayLabel.Name = "onHoldDelayLabel";
+            this.onHoldDelayLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.onHoldDelayLabel.Size = new System.Drawing.Size(123, 20);
+            this.onHoldDelayLabel.TabIndex = 1;
+            this.onHoldDelayLabel.Text = "Delay:";
+            this.onHoldDelayLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // longPressDelayTextBox
+            // onHoldDelayTextBox
             // 
-            this.longPressDelayTextBox.Location = new System.Drawing.Point(160, 15);
-            this.longPressDelayTextBox.Name = "longPressDelayTextBox";
-            this.longPressDelayTextBox.Size = new System.Drawing.Size(51, 26);
-            this.longPressDelayTextBox.TabIndex = 0;
-            this.longPressDelayTextBox.Text = "350";
-            this.longPressDelayTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.longPressDelayTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
+            this.onHoldDelayTextBox.Location = new System.Drawing.Point(160, 15);
+            this.onHoldDelayTextBox.Name = "onHoldDelayTextBox";
+            this.onHoldDelayTextBox.Size = new System.Drawing.Size(51, 26);
+            this.onHoldDelayTextBox.TabIndex = 0;
+            this.onHoldDelayTextBox.Text = "350";
+            this.onHoldDelayTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.onHoldDelayTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // onLongReleaseTabPage
             // 
@@ -334,10 +334,10 @@
             this.onPressTabPage.PerformLayout();
             this.onReleaseTabPage.ResumeLayout(false);
             this.onReleaseTabPage.PerformLayout();
-            this.onLongPressTabPage.ResumeLayout(false);
-            this.onLongPressTabPage.PerformLayout();
-            this.onLongPressSettingsPanel.ResumeLayout(false);
-            this.onLongPressSettingsPanel.PerformLayout();
+            this.onHoldTabPage.ResumeLayout(false);
+            this.onHoldTabPage.PerformLayout();
+            this.onHoldSettingsPanel.ResumeLayout(false);
+            this.onHoldSettingsPanel.PerformLayout();
             this.onLongReleaseTabPage.ResumeLayout(false);
             this.onLongReleaseTabPage.PerformLayout();
             this.onLongReleaseSettingsPanel.ResumeLayout(false);
@@ -356,15 +356,15 @@
         private System.Windows.Forms.Panel onReleaseActionConfigPanel;
         private MobiFlight.UI.Panels.Config.ActionTypePanel onReleaseActionTypePanel;
         private System.Windows.Forms.TabPage onLongReleaseTabPage;
-        private System.Windows.Forms.TabPage onLongPressTabPage;
-        private System.Windows.Forms.Panel onLongPressSettingsPanel;
-        private Config.ActionTypePanel onLongPressActionTypePanel;
-        private System.Windows.Forms.Panel onLongPressActionConfigPanel;    
-        private System.Windows.Forms.TextBox longPressDelayTextBox;
-        private System.Windows.Forms.Label msLongPressLabel;
+        private System.Windows.Forms.TabPage onHoldTabPage;
+        private System.Windows.Forms.Panel onHoldSettingsPanel;
+        private Config.ActionTypePanel onHoldActionTypePanel;
+        private System.Windows.Forms.Panel onHoldActionConfigPanel;    
+        private System.Windows.Forms.TextBox onHoldDelayTextBox;
+        private System.Windows.Forms.Label msOnHoldLabel;
         private System.Windows.Forms.TextBox repeatTextBox;
         private System.Windows.Forms.Label repeatLabel;
-        private System.Windows.Forms.Label longPressDelayLabel;
+        private System.Windows.Forms.Label onHoldDelayLabel;
         private System.Windows.Forms.Panel onLongRelActionConfigPanel;
         private Config.ActionTypePanel onLongReleaseActionTypePanel;
         private System.Windows.Forms.Panel onLongReleaseSettingsPanel;

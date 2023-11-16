@@ -35,7 +35,7 @@ namespace MobiFlight.UI.Panels.Input
                     actionTypePanel.Enabled = value;
                     ActionTypePanelsToOwnerPanels[actionTypePanel].Enabled = value;
                 }
-                longPressDelayTextBox.Enabled = value;
+                onHoldDelayTextBox.Enabled = value;
                 longReleaseTextBox.Enabled = value;
                 repeatTextBox.Enabled = value;
             }
@@ -44,19 +44,19 @@ namespace MobiFlight.UI.Panels.Input
         {
             InitializeComponent();
 
-            longPressDelayLabel.Text = i18n._tr("uiLabelDelay");
+            onHoldDelayLabel.Text = i18n._tr("uiLabelDelay");
             longReleaseDelayLabel.Text = i18n._tr("uiLabelDelay");
             repeatLabel.Text = i18n._tr("uiLabelRepeatPress");
 
             ActionTypePanelsToActionNames.Add(onPressActionTypePanel, "onPress");
             ActionTypePanelsToActionNames.Add(onReleaseActionTypePanel, "onRelease");
             ActionTypePanelsToActionNames.Add(onLongReleaseActionTypePanel, "onLongRelease");
-            ActionTypePanelsToActionNames.Add(onLongPressActionTypePanel, "onLongPress");
+            ActionTypePanelsToActionNames.Add(onHoldActionTypePanel, "onHold");
 
             ActionTypePanelsToOwnerPanels.Add(onPressActionTypePanel, onPressActionConfigPanel);
             ActionTypePanelsToOwnerPanels.Add(onReleaseActionTypePanel, onReleaseActionConfigPanel);
             ActionTypePanelsToOwnerPanels.Add(onLongReleaseActionTypePanel, onLongRelActionConfigPanel);
-            ActionTypePanelsToOwnerPanels.Add(onLongPressActionTypePanel, onLongPressActionConfigPanel);
+            ActionTypePanelsToOwnerPanels.Add(onHoldActionTypePanel, onHoldActionConfigPanel);
 
             foreach (ActionTypePanel panel in ActionTypePanelsToActionNames.Keys)
             {
@@ -175,7 +175,7 @@ namespace MobiFlight.UI.Panels.Input
             if (config == null) return;
 
             _config = config;
-            longPressDelayTextBox.Text = config.LongPressDelay.ToString();
+            onHoldDelayTextBox.Text = config.OnHoldDelay.ToString();
             repeatTextBox.Text = config.RepeatDelay.ToString();
             longReleaseTextBox.Text = config.LongReleaseDelay.ToString();
 
@@ -193,9 +193,9 @@ namespace MobiFlight.UI.Panels.Input
 
         public void ToConfig(ButtonInputConfig config)
         {
-            if (!string.IsNullOrEmpty(longPressDelayTextBox.Text))
+            if (!string.IsNullOrEmpty(onHoldDelayTextBox.Text))
             {
-                config.LongPressDelay = int.Parse(longPressDelayTextBox.Text);
+                config.OnHoldDelay = int.Parse(onHoldDelayTextBox.Text);
             }
 
             if (!string.IsNullOrEmpty(repeatTextBox.Text))

@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
         public InputAction onPress;        
         public InputAction onRelease;        
         public InputAction onLongRelease;
-        public InputAction onLongPress;
+        public InputAction onHold;
 
         private InputEventArgs LastOnPressEvent;
         private CacheCollection LastOnPressCacheCollection;        
@@ -18,16 +18,16 @@ namespace MobiFlight.InputConfig
         private object LastOnPressLock = new object();
         
         public int LongReleaseDelay = 350; //ms
-        public int LongPressDelay = 350;
+        public int OnHoldDelay = 350;
         public int RepeatDelay = 0;
 
-        private Timer LongPressTimer = new Timer();
+        private Timer OnHoldTimer = new Timer();
         private Timer RepeatTimer = new Timer();
 
         public ButtonInputConfig()
         {
             RepeatTimer.AutoReset = true;
-            LongPressTimer.Elapsed += LongPressTimer_Elapsed;            
+            OnHoldTimer.Elapsed += OnHoldTimer_Elapsed;            
             RepeatTimer.Elapsed += RepeatTimer_Elapsed;
         }
 
@@ -37,9 +37,9 @@ namespace MobiFlight.InputConfig
             if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
             if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();            
             if (onLongRelease != null) clone.onLongRelease = (InputAction)onLongRelease.Clone();
-            if (onLongPress != null) clone.onLongPress = (InputAction)onLongPress.Clone();
+            if (onHold != null) clone.onHold = (InputAction)onHold.Clone();
             clone.RepeatDelay = RepeatDelay;
-            clone.LongPressDelay = LongPressDelay;
+            clone.OnHoldDelay = OnHoldDelay;
             clone.LongReleaseDelay = LongReleaseDelay;
             return clone;
         }
@@ -81,12 +81,12 @@ namespace MobiFlight.InputConfig
             }
 
             if (reader.LocalName == "") reader.Read();
-            if (reader.LocalName == "onLongPress")
+            if (reader.LocalName == "onHold")
             {
-                LongPressDelay = int.Parse(reader["longPressDelay"]);
+                OnHoldDelay = int.Parse(reader["onHoldDelay"]);
                 RepeatDelay = int.Parse(reader["repeatDelay"]);                
-                onLongPress = InputActionFactory.CreateByType(reader["type"]);
-                onLongPress?.ReadXml(reader);
+                onHold = InputActionFactory.CreateByType(reader["type"]);
+                onHold?.ReadXml(reader);
                 reader.Read(); // closing onLongRelease
             }
 
@@ -107,8 +107,8 @@ namespace MobiFlight.InputConfig
                 case "onLongRelease":
                     onLongRelease = inputAction;
                     break;
-                case "onLongPress":
-                    onLongPress = inputAction;
+                case "onHold":
+                    onHold = inputAction;
                     break;
             }
         }
@@ -123,8 +123,8 @@ namespace MobiFlight.InputConfig
                     return onRelease;
                 case "onLongRelease":
                     return onLongRelease;
-                case "onLongPress":
-                    return onLongPress;
+                case "onHold":
+                    return onHold;
                 default:
                     return null;
             }        
@@ -139,8 +139,8 @@ namespace MobiFlight.InputConfig
                 result.Add(onRelease);
             if (onLongRelease != null && onLongRelease.GetType() == type)
                 result.Add(onLongRelease);
-            if (onLongPress != null && onLongPress.GetType() == type)
-                result.Add(onLongPress);
+            if (onHold != null && onHold.GetType() == type)
+                result.Add(onHold);
             return result;
         }
 
@@ -168,33 +168,33 @@ namespace MobiFlight.InputConfig
                 writer.WriteEndElement();
             }
 
-            if (onLongPress != null)
+            if (onHold != null)
             {
-                writer.WriteStartElement("onLongPress");
-                writer.WriteAttributeString("longPressDelay", LongPressDelay.ToString());
+                writer.WriteStartElement("onHold");
+                writer.WriteAttributeString("onHoldDelay", OnHoldDelay.ToString());
                 writer.WriteAttributeString("repeatDelay", RepeatDelay.ToString());               
-                onLongPress.WriteXml(writer);
+                onHold.WriteXml(writer);
                 writer.WriteEndElement();
             }
         }
 
-        private void ExecuteOnLongPressAction()
+        private void ExecuteOnHoldAction()
         {
             lock (LastOnPressLock)
             {
                 InputEventArgs args = (InputEventArgs)LastOnPressEvent.Clone();
-                args.Value = (int)MobiFlightButton.InputEvent.LONG_PRESS;
-                Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute LONG_PRESS", LogSeverity.Info);
-                onLongPress.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
+                args.Value = (int)MobiFlightButton.InputEvent.ON_HOLD;
+                Log.Instance.log($"{args.Name} => {args.DeviceLabel}  => Execute ON_HOLD", LogSeverity.Info);
+                onHold.execute(LastOnPressCacheCollection, args, LastOnPressConfigRefs);
             }            
         }
 
         private void RepeatTimer_Elapsed(object sender, EventArgs e)
         {
-            ExecuteOnLongPressAction();
+            ExecuteOnHoldAction();
         }
 
-        private void ExecuteRepeatLongPress()
+        private void ExecuteRepeatOnHold()
         {
             if (RepeatDelay > 0)
             {
@@ -203,31 +203,31 @@ namespace MobiFlight.InputConfig
             }
         }
 
-        private void LongPressTimer_Elapsed(object sender, EventArgs e)
+        private void OnHoldTimer_Elapsed(object sender, EventArgs e)
         {
-            ExecuteOnLongPressAction();
-            LongPressTimer.Stop();
-            ExecuteRepeatLongPress();
+            ExecuteOnHoldAction();
+            OnHoldTimer.Stop();
+            ExecuteRepeatOnHold();
         }
 
-        private void ExecuteLongPressWithTimer()
+        private void ExecuteOnHoldWithTimer()
         {
-            if (LongPressDelay > 0)
+            if (OnHoldDelay > 0)
             {                
-                LongPressTimer.Interval = LongPressDelay;
-                LongPressTimer.Start();
+                OnHoldTimer.Interval = OnHoldDelay;
+                OnHoldTimer.Start();
             }
             else
             {
-                ExecuteOnLongPressAction();
-                ExecuteRepeatLongPress();
+                ExecuteOnHoldAction();
+                ExecuteRepeatOnHold();
             }
         }
 
         private void CheckAndStopTimer()
         {
-            if (LongPressTimer.Enabled)
-                LongPressTimer.Stop();
+            if (OnHoldTimer.Enabled)
+                OnHoldTimer.Stop();
             if (RepeatTimer.Enabled)
                 RepeatTimer.Stop();
         }
@@ -264,9 +264,9 @@ namespace MobiFlight.InputConfig
                     onPress.execute(cacheCollection, args, configRefs);
                 }
             }
-            if (onLongPress != null)
+            if (onHold != null)
             {               
-                ExecuteLongPressWithTimer();
+                ExecuteOnHoldWithTimer();
             }
         }
 
@@ -338,10 +338,10 @@ namespace MobiFlight.InputConfig
                 result["Input." + onLongRelease.GetType().Name] = 1;
             }
 
-            if (onLongPress != null)
+            if (onHold != null)
             {
-                result["Input.OnLongPress"] = 1;
-                result["Input." + onLongPress.GetType().Name] = 1;
+                result["Input.OnHold"] = 1;
+                result["Input." + onHold.GetType().Name] = 1;
             }
 
             return result;
@@ -364,9 +364,9 @@ namespace MobiFlight.InputConfig
                     (LongReleaseDelay == (obj as ButtonInputConfig).LongReleaseDelay))
                 ) &&
                 (
-                    (onLongPress == null && ((obj as ButtonInputConfig).onLongPress == null)) ||
-                    (onLongPress != null && onLongPress.Equals((obj as ButtonInputConfig).onLongPress) &&
-                    (LongPressDelay == (obj as ButtonInputConfig).LongPressDelay) &&
+                    (onHold == null && ((obj as ButtonInputConfig).onHold == null)) ||
+                    (onHold != null && onHold.Equals((obj as ButtonInputConfig).onHold) &&
+                    (OnHoldDelay == (obj as ButtonInputConfig).OnHoldDelay) &&
                     (RepeatDelay == (obj as ButtonInputConfig).RepeatDelay))
                 );
         }
