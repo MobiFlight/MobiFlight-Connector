@@ -6,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.UI.Panels.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class EventIdInputPanel : UserControl
+    public partial class EventIdInputPanel : UserControl, IPanelConfigSync
     {
         public String PresetFile { get; set; }
         private DataTable Data;
@@ -79,9 +81,11 @@ namespace MobiFlight.UI.Panels.Action
             fsuipcPresetUseButton.Enabled = isLoaded;
         }
         
-        internal void syncFromConfig(InputConfig.EventIdInputAction eventIdInputAction)
+        public void syncFromConfig(object config)
         {
+            EventIdInputAction eventIdInputAction = config as EventIdInputAction;
             if (eventIdInputAction == null) return;
+            
             eventIdTextBox.Text = eventIdInputAction.EventId.ToString();
             paramTextBox.Text = eventIdInputAction.Param.ToString();
 
@@ -95,9 +99,9 @@ namespace MobiFlight.UI.Panels.Action
             }
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.EventIdInputAction result = new InputConfig.EventIdInputAction();
+            EventIdInputAction result = new EventIdInputAction();
             result.EventId = Int32.Parse(eventIdTextBox.Text);
             result.Param = paramTextBox.Text;
             return result;
@@ -105,7 +109,7 @@ namespace MobiFlight.UI.Panels.Action
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            MobiFlight.InputConfig.InputAction tmp = ToConfig();
+            InputAction tmp = ToConfig();
             tmp.execute(null, null, null);
         }
 

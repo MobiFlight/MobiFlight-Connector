@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class InputEventArgs : EventArgs
+    public class InputEventArgs : EventArgs, ICloneable
     {
         public string Serial { get; set; }
         public string DeviceId { get; set; }
@@ -24,6 +24,20 @@ namespace MobiFlight
         public String StrValue { get; set; }
 
         public readonly DateTime Time = DateTime.Now;
+
+        public object Clone()
+        {
+            InputEventArgs clone = new InputEventArgs();
+            clone.Serial = Serial;
+            clone.DeviceId = DeviceId;
+            clone.DeviceLabel = DeviceLabel;
+            clone.Name = Name;
+            clone.Type = Type;
+            clone.ExtPin = ExtPin;
+            clone.Value = Value;
+            clone.StrValue = StrValue;
+            return clone;
+        }
     }
 
     public class FirmwareFeature

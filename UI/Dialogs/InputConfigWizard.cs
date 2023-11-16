@@ -360,7 +360,7 @@ namespace MobiFlight.UI.Dialogs
                     if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
                     config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
-                        (groupBoxInputSettings.Controls[0] as InputShiftRegisterPanel).ToConfig(config.inputShiftRegister);
+                        (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.inputShiftRegister);
                     break;
 
                 case DeviceType.InputMultiplexer:
@@ -368,7 +368,7 @@ namespace MobiFlight.UI.Dialogs
                     if (config.inputMultiplexer == null) config.inputMultiplexer = new InputConfig.InputMultiplexerConfig();
                     config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
-                        (groupBoxInputSettings.Controls[0] as InputMultiplexerPanel).ToConfig(config.inputMultiplexer);
+                        (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.inputMultiplexer);
                     break;
 
                 case DeviceType.AnalogInput:
@@ -575,22 +575,22 @@ namespace MobiFlight.UI.Dialogs
 
                     case DeviceType.InputShiftRegister:
                         Config.InputShiftRegister selectedInputShifter = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputShiftRegister;
-                        panel = new Panels.Input.InputShiftRegisterPanel()
+                        panel = new Panels.Input.ButtonPanel()
                         {
                             Enabled = (serial != "")
                         };
-                        (panel as Panels.Input.InputShiftRegisterPanel).syncFromConfig(config.inputShiftRegister);
+                        (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputShiftRegister);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputShifter.NumModules), config.inputShiftRegister?.ExtPin);
                         inputPinDropDown.Visible = true;
                         break;
 
                     case DeviceType.InputMultiplexer:
                         Config.InputMultiplexer selectedInputMultiplexer = (inputTypeComboBox.SelectedItem as ListItem<Config.IBaseDevice>).Value as Config.InputMultiplexer;
-                        panel = new Panels.Input.InputMultiplexerPanel()
+                        panel = new Panels.Input.ButtonPanel()
                         {
                             Enabled = (serial != "")
                         };
-                        (panel as Panels.Input.InputMultiplexerPanel).syncFromConfig(config.inputMultiplexer);
+                        (panel as Panels.Input.ButtonPanel).syncFromConfig(config.inputMultiplexer);
                         PopulateInputPinDropdown(Convert.ToInt32(selectedInputMultiplexer.NumBytes), config.inputMultiplexer?.DataPin);
                         inputPinDropDown.Visible = true;
                         break;

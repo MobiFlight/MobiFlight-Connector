@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Config;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class MSFS2020CustomInputPanel : UserControl
+    public partial class MSFS2020CustomInputPanel : UserControl, IPanelConfigSync
     {
         ErrorProvider errorProvider = new ErrorProvider();
 
@@ -24,19 +25,21 @@ namespace MobiFlight.UI.Panels.Action
             Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
         }       
 
-        internal void syncFromConfig(InputConfig.MSFS2020CustomInputAction inputAction)
-        {
-            hubHopPresetPanel1.syncFromConfig(inputAction);
-        }
-
-        internal InputConfig.InputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
             return hubHopPresetPanel1.ToConfig();            
         }
 
-        internal void syncFromConfig(MSFS2020EventIdInputAction inputAction)
+        public void syncFromConfig(object config)
         {
-            hubHopPresetPanel1.syncFromConfig(inputAction);
+            if (config is MSFS2020CustomInputAction)
+            {
+                hubHopPresetPanel1.syncFromConfig(config as MSFS2020CustomInputAction);
+            }
+            else if (config is MSFS2020EventIdInputAction)
+            {
+                hubHopPresetPanel1.syncFromConfig(config as MSFS2020EventIdInputAction);
+            }            
         }
     }
 }
