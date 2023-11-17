@@ -1111,7 +1111,7 @@ namespace MobiFlight.UI
 #endif
 
 #if MOBIFLIGHT
-            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
+            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
                 ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
                 item.Tag = module;
@@ -1701,12 +1701,24 @@ namespace MobiFlight.UI
         /// <summary>
         /// saves the current config to filename
         /// </summary>        
-        private void _saveConfig(string fileName)
+        private void SaveConfig(string fileName)
         {
             outputConfigPanel.ApplyBackwardCompatibilitySaving();
 
             ConfigFile configFile = new ConfigFile(fileName);
-            configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
+
+            // Issue 1401: Saving the file can result in an UnauthorizedAccessException, so catch any
+            // errors during save and show it in a dialog instead of crashing.
+            try
+            {
+                configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             CurrentFileName = fileName;
             _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
@@ -1807,7 +1819,7 @@ namespace MobiFlight.UI
             fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
             if (DialogResult.OK == fd.ShowDialog())
             {
-                _saveConfig(fd.FileName);
+                SaveConfig(fd.FileName);
             }            
         } //saveToolStripMenuItem_Click()
 
@@ -1847,7 +1859,7 @@ namespace MobiFlight.UI
             // if filename of loaded file is known use it
             if (CurrentFileName != null)
             {
-                _saveConfig(CurrentFileName);
+                SaveConfig(CurrentFileName);
                 return;
             }
             // otherwise trigger normal open file dialog

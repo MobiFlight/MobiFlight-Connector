@@ -783,7 +783,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         void stepperPanel_OnSetZeroTriggered(object sender, StepperConfigChangedEventArgs e)
         {
             String serial = SerialNumber.ExtractSerial(config.DisplaySerial);
-            _execManager.getMobiFlightModuleCache().resetStepper(serial, (sender as String));
+            _execManager.getMobiFlightModuleCache().ResetStepper(serial, (sender as String));
         }
 
         void stepperPanel_OnManualCalibrationTriggered(object sender, Panels.ManualCalibrationTriggeredEventArgs e)
@@ -804,7 +804,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             int CurrentValue = stepper.Position();
             int NextValue = (CurrentValue + e.Steps);
 
-            _execManager.getMobiFlightModuleCache().setStepper(
+            _execManager.getMobiFlightModuleCache().SetStepper(
                 serial,
                 config.Stepper.Address,
                 (NextValue).ToString(),

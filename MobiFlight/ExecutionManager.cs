@@ -280,6 +280,10 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
             OnStartActions();
+
+            // Force all the modules awake whenver run is activated
+            mobiFlightCache.KeepConnectedModulesAwake(true);
+
             timer.Enabled = true;
         }
 
@@ -287,11 +291,17 @@ namespace MobiFlight
         {
             timer.Enabled = false;
             isExecuting = false;
+#if ARCAZE
+            arcazeCache.Clear();
+#endif
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
+            inputCache.Clear();
+            inputActionExecutionCache.Clear();
+            mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearErrorMessages();
         }
 
@@ -383,7 +393,7 @@ namespace MobiFlight
 #if ARCAZE
             result.AddRange(arcazeCache.getModuleInfo());
 #endif
-            result.AddRange(mobiFlightCache.getModuleInfo());
+            result.AddRange(mobiFlightCache.GetModuleInfo());
             return result;
         }
 
@@ -787,7 +797,7 @@ namespace MobiFlight
                         {
                             string refValue = FindValueForRef(cfg.LedModule.DisplayLedBrightnessReference);
 
-                            mobiFlightCache.setDisplayBrightness(
+                            mobiFlightCache.SetDisplayBrightness(
                                 serial,
                                 cfg.LedModule.DisplayLedAddress,
                                 cfg.LedModule.DisplayLedConnector,
@@ -797,7 +807,7 @@ namespace MobiFlight
 
                         var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
-                        mobiFlightCache.setDisplay(
+                        mobiFlightCache.SetDisplay(
                             serial,
                             cfg.LedModule.DisplayLedAddress,
                             cfg.LedModule.DisplayLedConnector,
@@ -815,7 +825,7 @@ namespace MobiFlight
                     //    break;
 
                     case MobiFlightStepper.TYPE:
-                        mobiFlightCache.setStepper(
+                        mobiFlightCache.SetStepper(
                             serial,
                             cfg.Stepper.Address,
                             value,
@@ -828,7 +838,7 @@ namespace MobiFlight
                         break;
 
                     case MobiFlightServo.TYPE:
-                        mobiFlightCache.setServo(
+                        mobiFlightCache.SetServo(
                             serial,
                             cfg.Servo.Address,
                             value,
@@ -839,7 +849,7 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.LcdDisplay.Type:
-                        mobiFlightCache.setLcdDisplay(
+                        mobiFlightCache.SetLcdDisplay(
                             serial,
                             cfg.LcdDisplay,
                             value,
@@ -855,7 +865,7 @@ namespace MobiFlight
                             if (outputValueShiftRegister != "0" && !cfg.Pin.DisplayPinPWM)
                                 outputValueShiftRegister = cfg.Pin.DisplayPinBrightness.ToString();
                           
-                            mobiFlightCache.setShiftRegisterOutput(
+                            mobiFlightCache.SetShiftRegisterOutput(
                                 serial,
                                 cfg.ShiftRegister.Address,
                                 cfg.ShiftRegister.Pin,
@@ -864,7 +874,7 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.CustomDevice.Type:
-                        mobiFlightCache.Set(serial, cfg.CustomDevice, value, GetRefs(cfg.ConfigRefs));
+                        mobiFlightCache.Set(serial, cfg.CustomDevice, value);
                         break;
 
                     case "InputAction":
@@ -908,7 +918,7 @@ namespace MobiFlight
                         if (outputValue != "0" && !cfg.Pin.DisplayPinPWM)
                             outputValue = cfg.Pin.DisplayPinBrightness.ToString();
 
-                        mobiFlightCache.setValue(serial,
+                        mobiFlightCache.SetValue(serial,
                             cfg.Pin.DisplayPin,
                             outputValue);
                         break;
@@ -999,13 +1009,6 @@ namespace MobiFlight
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            // just forget about current states if timer gets stopped
-#if ARCAZE
-            arcazeCache.Clear();
-#endif
-            inputCache.Clear();
-            inputActionExecutionCache.Clear();
-
             OnStopped?.Invoke(this, new EventArgs());
         } //timer_Stopped
 
@@ -1017,13 +1020,13 @@ namespace MobiFlight
             try
             {
                 ExecuteConfig();
+                mobiFlightCache.KeepConnectedModulesAwake();
                 this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Error on config execution: {ex.Message}", LogSeverity.Error);
-                isExecuting = false;
-                timer.Enabled = false;
+                Stop();
             }
         } //timer_Tick()
 

@@ -445,6 +445,8 @@
     <Compile Include="UI\Panels\Config\HubHopPresetPanel.Designer.cs">
       <DependentUpon>HubHopPresetPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Config\InputActionMapping.cs" />
+    <Compile Include="UI\Panels\Config\IPanelConfigSync.cs" />
     <Compile Include="UI\Panels\Config\PreconditionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -522,18 +524,6 @@
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.Designer.cs">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputMultiplexerPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputMultiplexerPanel.Designer.cs">
-      <DependentUpon>InputMultiplexerPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Input\InputShiftRegisterPanel.Designer.cs">
-      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Input\AnalogPanel.cs">
       <SubType>UserControl</SubType>
@@ -1156,11 +1146,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="mobiflight.ico" />
-    <Content Include="Resources\button.png" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
-    <Content Include="Resources\encoder.png" />
-    <Content Include="Resources\led.png" />
     <EmbeddedResource Include="UI\Dialogs\DonateDialog.de.resx">
       <DependentUpon>DonateDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -1342,14 +1329,6 @@
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Input\InputMultiplexerPanel.resx">
-      <DependentUpon>InputMultiplexerPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Input\InputShiftRegisterPanel.resx">
-      <DependentUpon>InputShiftRegisterPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\AnalogPanel.resx">
       <DependentUpon>AnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1522,13 +1501,22 @@
     <None Include="Resources\module-mobiflight.png" />
     <None Include="Resources\module-changed.png" />
     <None Include="Resources\module-mobiflight-update.png" />
-    <None Include="Resources\mux_driver.bmp" />
     <None Include="Resources\mux-driver.png" />
+    <None Include="Resources\mobiflight_icon_in_analog.png" />
+    <None Include="Resources\mobiflight_icon_in_button.png" />
+    <None Include="Resources\mobiflight_icon_in_encoder.png" />
+    <None Include="Resources\mobiflight_icon_in_multiplexer.png" />
+    <None Include="Resources\mobiflight_icon_in_shifter.png" />
+    <None Include="Resources\mobiflight_icon_out_7segment.png" />
+    <None Include="Resources\mobiflight_icon_out_lcd.png" />
+    <None Include="Resources\mobiflight_icon_out_led.png" />
+    <None Include="Resources\mobiflight_icon_out_servo.png" />
+    <None Include="Resources\mobiflight_icon_out_shifter.png" />
+    <None Include="Resources\mobiflight_icon_out_stepper.png" />
+    <None Include="Resources\mobiflight_icon_out_customdevice.png" />
     <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />
-    <Content Include="Resources\servo.png" />
-    <Content Include="Resources\stepper.png" />
     <EmbeddedResource Include="UI\Dialogs\AboutForm.de.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1740,7 +1728,6 @@
     <None Include="Resources\export1.png" />
     <None Include="Resources\cd.png" />
     <None Include="Resources\dvd.png" />
-    <Content Include="Resources\7-led.png" />
     <Content Include="Resources\lightbulb.png" />
     <Content Include="Resources\lightbulb_on.png" />
     <None Include="Resources\media_stop_red.png" />
