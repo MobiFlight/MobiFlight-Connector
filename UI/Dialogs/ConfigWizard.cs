@@ -273,7 +273,7 @@ namespace MobiFlight.UI.Dialogs
 
         protected void _AddMobiFlightModules(List<ListItem> DisplayModuleList)
         {
-            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().getModuleInfo())
+            foreach (IModuleInfo module in _execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
                 DisplayModuleList.Add(new ListItem()
                 {
