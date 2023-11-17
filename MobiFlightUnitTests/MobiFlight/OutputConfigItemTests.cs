@@ -241,8 +241,6 @@ namespace MobiFlight.Tests
             o.FSUIPC.Mask = 0xFFFF;
             o.Modifiers.Transformation.Active = true;
             o.Modifiers.Transformation.Expression = "$+123";
-            o.Modifiers.Transformation.SubStrEnd = 11;
-            o.Modifiers.Transformation.SubStrStart = 9;
 
             o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
             o.FSUIPC.Size = 2;
