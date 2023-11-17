@@ -1,22 +1,12 @@
-﻿using MobiFlight.OutputConfig;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
     public class Transformation : ModifierBase
     {
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
         public String Expression = "$";
-        public int SubStrStart = 0;
-        public int SubStrEnd = 7;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -25,12 +15,6 @@ namespace MobiFlight.Modifier
             // read precondition settings if present
             if (reader["expression"] != null)
                 Expression = reader["expression"] as String;
-            
-            if (reader["substrStart"] != null)
-                SubStrStart = int.Parse(reader["substrStart"]);
-
-            if (reader["substrEnd"] != null)
-                SubStrEnd = int.Parse(reader["substrEnd"]);
         }
 
         public override void WriteXml(XmlWriter writer)
@@ -38,8 +22,6 @@ namespace MobiFlight.Modifier
             writer.WriteStartElement("transformation");
                 writer.WriteAttributeString("active", Active.ToString());
                 writer.WriteAttributeString("expression", Expression);
-                writer.WriteAttributeString("substrStart", SubStrStart.ToString());
-                writer.WriteAttributeString("substrEnd", SubStrEnd.ToString());
             writer.WriteEndElement();
         }
 
@@ -48,8 +30,6 @@ namespace MobiFlight.Modifier
             Transformation Clone = new Transformation();
             Clone.Active = Active;
             Clone.Expression = Expression;
-            Clone.SubStrStart = SubStrStart;
-            Clone.SubStrEnd = SubStrEnd;
             return Clone;
         }
 
@@ -58,9 +38,7 @@ namespace MobiFlight.Modifier
             return
                 obj != null && obj is Transformation &&
                 this.Active == (obj as Transformation).Active &&
-                this.Expression == (obj as Transformation).Expression &&
-                this.SubStrStart == (obj as Transformation).SubStrStart &&
-                this.SubStrEnd == (obj as Transformation).SubStrEnd;
+                this.Expression == (obj as Transformation).Expression;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
@@ -71,7 +49,7 @@ namespace MobiFlight.Modifier
             {
                 case FSUIPCOffsetType.Float:
                 case FSUIPCOffsetType.Integer:
-                    string tmpValue = Apply(value.Float64, configRefs);
+                    string tmpValue = Apply(value.Float64.ToString(), configRefs);
                     if (Double.TryParse(tmpValue, out value.Float64))
                     {
                         value.Float64 = value.Float64;
@@ -85,7 +63,7 @@ namespace MobiFlight.Modifier
                     break;
 
                 case FSUIPCOffsetType.String:
-                    value.String = Apply(value.String);
+                    value.String = Apply(value.String, configRefs);
                     break;
             }
 
@@ -93,9 +71,9 @@ namespace MobiFlight.Modifier
         }
 
 
-        protected string Apply(double value, List<ConfigRefValue> configRefs)
+        protected string Apply(string value, List<ConfigRefValue> configRefs)
         {
-            string result = value.ToString();
+            string result = value;
 
             // we have to use the US culture because "." must be used as decimal separator
             string exp = Expression.Replace("$", value.ToString());
@@ -129,17 +107,6 @@ namespace MobiFlight.Modifier
 
             return result;
         }
-
-        protected string Apply(string value)
-        {
-            if (SubStrStart > value.Length) return "";
-
-            int length = (SubStrEnd - SubStrStart);
-            if (SubStrEnd > value.Length) length = value.Length - SubStrStart;
-
-            return value.Substring(SubStrStart, length);
-        }
-
         public override string ToSummaryLabel()
         {
             return $"Expression: {Expression}";
