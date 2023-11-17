@@ -8,7 +8,7 @@
         <source type="FSUIPC" offset="0x07E2" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="Overhead_1/ 000512500000" trigger="normal" pin="C20" pinBrightness="255" />

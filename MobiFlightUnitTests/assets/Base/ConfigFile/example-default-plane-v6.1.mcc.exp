@@ -8,7 +8,7 @@
         <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
         <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
@@ -23,7 +23,7 @@
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
         <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4,6" />
@@ -40,7 +40,7 @@
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
         <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="2,4" />
@@ -57,7 +57,7 @@
         <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
         <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
@@ -72,7 +72,7 @@
         <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
         <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
@@ -87,7 +87,7 @@
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
@@ -102,7 +102,7 @@
         <source type="FSUIPC" offset="0x0BF4" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="16383" operand="=" ifValue="0" elseValue="" />
         </modifiers>
         <display type="Output" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
@@ -117,7 +117,7 @@
         <source type="FSUIPC" offset="0x3324" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="0" operand="=" ifValue="$-10" elseValue="$-10" />
         </modifiers>
         <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
@@ -132,7 +132,7 @@
         <source type="FSUIPC" offset="0x02C8" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$*0,768946875" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$*0,768946875" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
@@ -147,7 +147,7 @@
         <source type="FSUIPC" offset="0x02BC" offsetType="Integer" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$*0,0078125" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$*0,0078125" />
           <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
         </modifiers>
         <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
@@ -162,7 +162,7 @@
         <source type="FSUIPC" offset="0x07CC" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$*0,0054931640625" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$*0,0054931640625" />
           <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
@@ -177,7 +177,7 @@
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Servo" serial="TestBoard/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90" />
@@ -192,7 +192,7 @@
         <source type="FSUIPC" offset="0x0BE0" offsetType="Integer" size="4" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Servo" serial="TestBoard/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90" />
@@ -207,7 +207,7 @@
         <source type="FSUIPC" offset="0x037C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
           <interpolation active="True">
             <value x="-1055" y="130" />
@@ -229,7 +229,7 @@
         <source type="FSUIPC" offset="0x66C2" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />

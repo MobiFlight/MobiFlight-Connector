@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Serialization;
-using MobiFlight;
-using MobiFlight.OutputConfig;
-using MobiFlight.Base;
+﻿using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
-using MobiFlight.xplane;
 using MobiFlight.Modifier;
-using System.Web.UI;
+using MobiFlight.OutputConfig;
+using MobiFlight.xplane;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MobiFlight
 {
@@ -126,11 +123,11 @@ namespace MobiFlight
         }
 
         public virtual void ReadXml(XmlReader reader)
-        {  
+        {
             if (reader.ReadToDescendant("source"))
             {
                 // try to read it as FSUIPC Offset
-                if (reader["type"]=="SimConnect") {
+                if (reader["type"] == "SimConnect") {
                     SourceType = SourceType.SIMCONNECT;
                     this.SimConnectValue.ReadXml(reader);
                 } else if (reader["type"] == "Variable")
@@ -146,6 +143,13 @@ namespace MobiFlight
                 {
                     SourceType = SourceType.FSUIPC;
                     this.FSUIPC.ReadXml(reader);
+
+                    if(FSUIPC.OffsetType == FSUIPCOffsetType.String)
+                    {
+                        // this is a special case for backward compatibility
+                        // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
+                        Modifiers = new FsuipcStringModifierList();
+                    }
                 }
 
                 // backward compatibility
@@ -200,7 +204,7 @@ namespace MobiFlight
                 // preserve backward compatibility
                 if (DisplayType == "Pin") DisplayType = MobiFlightOutput.TYPE;
                 if (DisplayType == ArcazeLedDigit.OLDTYPE) DisplayType = ArcazeLedDigit.TYPE;
-                
+
                 DisplaySerial = reader["serial"];
                 DisplayTrigger = reader["trigger"];
 
@@ -271,7 +275,7 @@ namespace MobiFlight
 
                     if (reader.LocalName == "interpolation")
                         reader.Read();
-                    
+
                     if (reader.LocalName == "display")
                         reader.ReadEndElement(); // this closes the display node
                 }
@@ -311,7 +315,7 @@ namespace MobiFlight
                 // Transform.ReadXml(reader);
                 var transform = new Transformation();
                 transform.ReadXml(reader);
-                Modifiers.Items.Insert(0,transform);
+                Modifiers.Items.Insert(0, transform);
                 reader.Read();
             }
 

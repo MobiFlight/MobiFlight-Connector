@@ -50,7 +50,7 @@
         <source type="FSUIPC" offset="0x73C5" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$*100" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$*100" />
           <comparison active="True" value="129" operand="!=" ifValue="$" elseValue="-----" />
         </modifiers>
         <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />

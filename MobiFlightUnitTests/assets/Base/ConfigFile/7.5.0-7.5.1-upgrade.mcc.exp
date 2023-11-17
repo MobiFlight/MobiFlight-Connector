@@ -8,7 +8,7 @@
         <source type="FSUIPC" offset="0x6570" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR NOSE rt" pinBrightness="255" />
@@ -23,7 +23,7 @@
         <source type="FSUIPC" offset="0x6573" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR NOSE gn" pinBrightness="255" />
@@ -38,7 +38,7 @@
         <source type="FSUIPC" offset="0x6571" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR RIGHT rt" pinBrightness="255" />
@@ -53,7 +53,7 @@
         <source type="FSUIPC" offset="0x6574" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR RIGHT gn" pinBrightness="255" />
@@ -68,7 +68,7 @@
         <source type="FSUIPC" offset="0x6572" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR LEFT rt" pinBrightness="255" />
@@ -83,7 +83,7 @@
         <source type="FSUIPC" offset="0x6575" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR LEFT gn" pinBrightness="255" />
@@ -98,7 +98,7 @@
         <source type="FSUIPC" offset="0x65A7" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="PARKINGBRAKE rt" pinBrightness="255" />
@@ -113,7 +113,7 @@
         <source type="FSUIPC" offset="0x6564" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AUTOBRAKE DISARM ge" pinBrightness="255" />
@@ -128,7 +128,7 @@
         <source type="FSUIPC" offset="0x6563" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="ANTI-SKID INOP ge" pinBrightness="255" />
@@ -143,7 +143,7 @@
         <source type="FSUIPC" offset="0x6565" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="LE FLAPS TRANSIT ge" pinBrightness="255" />
@@ -158,7 +158,7 @@
         <source type="FSUIPC" offset="0x6566" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="LE FLAPS EXT gn" pinBrightness="255" />
@@ -173,7 +173,7 @@
         <source type="FSUIPC" offset="0x6558" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="SPEED BRAKE ARMED gn" pinBrightness="255" />
@@ -188,7 +188,7 @@
         <source type="FSUIPC" offset="0x6559" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="SPEED BRAKE DO NOT ARM ge" pinBrightness="255" />
@@ -203,7 +203,7 @@
         <source type="FSUIPC" offset="0x6C0C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AP PRST ge" pinBrightness="255" />
@@ -218,7 +218,7 @@
         <source type="FSUIPC" offset="0x6550" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AP PRST rt" pinBrightness="255" />
@@ -233,7 +233,7 @@
         <source type="FSUIPC" offset="0x6C0E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AT PRST ge" pinBrightness="255" />
@@ -248,7 +248,7 @@
         <source type="FSUIPC" offset="0x6552" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AT PRST rt" pinBrightness="255" />
@@ -263,7 +263,7 @@
         <source type="FSUIPC" offset="0x6554" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FMC PRST ge1" pinBrightness="255" />
@@ -278,7 +278,7 @@
         <source type="FSUIPC" offset="0x6508" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FLT CONT 6-PACK CP" pinBrightness="255" />
@@ -293,7 +293,7 @@
         <source type="FSUIPC" offset="0x6509" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="IRS 6-PACK CP" pinBrightness="255" />
@@ -308,7 +308,7 @@
         <source type="FSUIPC" offset="0x650A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FUEL 6-PACK CP" pinBrightness="255" />
@@ -323,7 +323,7 @@
         <source type="FSUIPC" offset="0x650B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="ELEC 6-PACK CP" pinBrightness="255" />
@@ -338,7 +338,7 @@
         <source type="FSUIPC" offset="0x650C" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="APU 6-PACK CP" pinBrightness="255" />
@@ -353,7 +353,7 @@
         <source type="FSUIPC" offset="0x650D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="OVHT DET 6-PACK CP" pinBrightness="255" />
@@ -368,7 +368,7 @@
         <source type="FSUIPC" offset="0x6506" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="MASTER CAUTION ge" pinBrightness="255" />
@@ -383,7 +383,7 @@
         <source type="FSUIPC" offset="0x655B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="STAB_OUT_OF_TRIM" pinBrightness="255" />
@@ -398,7 +398,7 @@
         <source type="FSUIPC" offset="0x654A" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="BELOW_GS" pinBrightness="255" />
@@ -413,7 +413,7 @@
         <source type="FSUIPC" offset="0x0BB0" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="OUTERMARKER" pinBrightness="255" />
@@ -428,7 +428,7 @@
         <source type="FSUIPC" offset="0x0BAE" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="MIDDLEMARKER" pinBrightness="255" />
@@ -443,7 +443,7 @@
         <source type="FSUIPC" offset="0x311A" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -458,7 +458,7 @@
         <source type="FSUIPC" offset="0x034E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -473,7 +473,7 @@
         <source type="FSUIPC" offset="0x311C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -488,7 +488,7 @@
         <source type="FSUIPC" offset="0x3118" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -503,7 +503,7 @@
         <source type="FSUIPC" offset="0x311E" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -518,7 +518,7 @@
         <source type="FSUIPC" offset="0x0350" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -533,7 +533,7 @@
         <source type="FSUIPC" offset="0x3120" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="7" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -548,7 +548,7 @@
         <source type="FSUIPC" offset="0x0352" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$+10000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="8" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
@@ -563,7 +563,7 @@
         <source type="FSUIPC" offset="0x0300" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
@@ -578,7 +578,7 @@
         <source type="FSUIPC" offset="0x0306" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
@@ -593,7 +593,7 @@
         <source type="FSUIPC" offset="0x034C" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="1,2,3" ledDecimalPoints="1" />
@@ -608,7 +608,7 @@
         <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0xFF00" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="4" />
@@ -623,7 +623,7 @@
         <source type="FSUIPC" offset="0x0356" offsetType="Integer" size="2" mask="0x00FF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="0" />
@@ -638,7 +638,7 @@
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0xFF00" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$/100" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$/100" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="1,4" />
@@ -653,7 +653,7 @@
         <source type="FSUIPC" offset="0x0354" offsetType="Integer" size="2" mask="0x00FF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,3" />
@@ -668,7 +668,7 @@
         <source type="FSUIPC" offset="0x6568" offsetType="Float" size="4" mask="0xFFFFFFFF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="True" expression="$*1000" substrStart="0" substrEnd="7" />
+          <transformation active="True" expression="$*1000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
           <interpolation active="True">
             <value x="0" y="0" />
@@ -694,7 +694,7 @@
         <source type="FSUIPC" offset="0x34A0" offsetType="Float" size="8" mask="0xFFFFFFFFFFFFFFFF" bcdMode="True" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$/16" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$/16" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3" />
@@ -709,7 +709,7 @@
         <source type="FSUIPC" offset="0x650E" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="ANTI_ICE 6P" pinBrightness="255" />
@@ -724,7 +724,7 @@
         <source type="FSUIPC" offset="0x650F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="HYD 6P" pinBrightness="255" />
@@ -739,7 +739,7 @@
         <source type="FSUIPC" offset="0x6510" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="DOORS 6P" pinBrightness="255" />
@@ -754,7 +754,7 @@
         <source type="FSUIPC" offset="0x6511" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="ENG 6P" pinBrightness="255" />
@@ -769,7 +769,7 @@
         <source type="FSUIPC" offset="0x6512" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="OVERHEAD 6P" pinBrightness="255" />
@@ -784,7 +784,7 @@
         <source type="FSUIPC" offset="0x6513" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="AIR_COND 6P" pinBrightness="255" />
@@ -799,7 +799,7 @@
         <source type="FSUIPC" offset="0x6599" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="EXEC LED" pinBrightness="255" />
@@ -814,7 +814,7 @@
         <source type="FSUIPC" offset="0x659B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="DISPLAY1 LED" pinBrightness="255" />
@@ -829,7 +829,7 @@
         <source type="FSUIPC" offset="0x659B" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="DISPLAY2 LED" pinBrightness="255" />
@@ -844,7 +844,7 @@
         <source type="FSUIPC" offset="0x659D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="FAIL1 LED" pinBrightness="255" />
@@ -861,7 +861,7 @@
         <source type="FSUIPC" offset="0x659D" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="FAIL2 LED" pinBrightness="255" />
@@ -876,7 +876,7 @@
         <source type="FSUIPC" offset="0x659F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="MSG1 LED" pinBrightness="255" />
@@ -891,7 +891,7 @@
         <source type="FSUIPC" offset="0x659F" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="MSG2 LED" pinBrightness="255" />
@@ -906,7 +906,7 @@
         <source type="FSUIPC" offset="0x65A1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="OFST1 LED" pinBrightness="255" />
@@ -921,7 +921,7 @@
         <source type="FSUIPC" offset="0x65A1" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
         <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="OFST2 LED" pinBrightness="255" />
@@ -936,7 +936,7 @@
         <source type="FSUIPC" offset="0x0BAC" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
         <test type="Float" value="1" />
         <modifiers>
-          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
         <display type="Output" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="INNERMARKER" pinBrightness="255" />
