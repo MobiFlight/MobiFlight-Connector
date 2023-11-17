@@ -35,15 +35,15 @@
     "CanInstallFirmware": true,
     "CanResetBoard": true,
     "DelayAfterFirmwareUpdate": 0,
-    "FirmwareBaseName": "kav_efis_fcu_mega",
+    "FirmwareBaseName": "kav_mega",
     "FirmwareExtension": "hex",
     "LatestFirmwareVersion": "2.4.4",
-    "FriendlyName": "Kav FCU/EFIS Mega",
-    "MobiFlightType": "Kav FCU/EFIS Mega",
+    "FriendlyName": "Kav Mega",
+    "MobiFlightType": "Kav Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
-      "KAV_LCD_EFIS",
-      "KAV_LCD_FCU"
+      "KAV_EFIS",
+      "KAV_FCU"
     ]  
   },
   "ModuleLimits": {
