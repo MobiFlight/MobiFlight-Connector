@@ -8,35 +8,65 @@ namespace MobiFlight.Base
 {
     public static class DPIUtil
     {
-        [DllImport("gdi32.dll", CharSet = CharSet.Auto, SetLastError = true, ExactSpelling = true)]
-        public static extern int GetDeviceCaps(IntPtr hDC, int nIndex);
-
-        public enum DeviceCap
+        [StructLayout(LayoutKind.Sequential)]
+        public struct DEVMODE
         {
-            VERTRES = 10,
-            DESKTOPVERTRES = 117
+            private const int CCHDEVICENAME = 0x20;
+            private const int CCHFORMNAME = 0x20;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
+            public string dmDeviceName;
+            public short dmSpecVersion;
+            public short dmDriverVersion;
+            public short dmSize;
+            public short dmDriverExtra;
+            public int dmFields;
+            public int dmPositionX;
+            public int dmPositionY;
+            public ScreenOrientation dmDisplayOrientation;
+            public int dmDisplayFixedOutput;
+            public short dmColor;
+            public short dmDuplex;
+            public short dmYResolution;
+            public short dmTTOption;
+            public short dmCollate;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 0x20)]
+            public string dmFormName;
+            public short dmLogPixels;
+            public int dmBitsPerPel;
+            public int dmPelsWidth;
+            public int dmPelsHeight;
+            public int dmDisplayFlags;
+            public int dmDisplayFrequency;
+            public int dmICMMethod;
+            public int dmICMIntent;
+            public int dmMediaType;
+            public int dmDitherType;
+            public int dmReserved1;
+            public int dmReserved2;
+            public int dmPanningWidth;
+            public int dmPanningHeight;
         }
 
-        public static double GetWindowsScreenScalingFactor(bool percentage = true)
+        [DllImport("user32.dll")]
+        public static extern bool EnumDisplaySettings(string lpszDeviceName, int iModeNum, ref DEVMODE lpDevMode);
+
+        public static double GetWindowsScreenScalingFactor(Control control, bool percentage = true)
         {
-            //Create Graphics object from the current windows handle
-            Graphics GraphicsObject = Graphics.FromHwnd(IntPtr.Zero);
-            //Get Handle to the device context associated with this Graphics object
-            IntPtr DeviceContextHandle = GraphicsObject.GetHdc();
-            //Call GetDeviceCaps with the Handle to retrieve the Screen Height
-            int LogicalScreenHeight = GetDeviceCaps(DeviceContextHandle, (int)DeviceCap.VERTRES);
-            int PhysicalScreenHeight = GetDeviceCaps(DeviceContextHandle, (int)DeviceCap.DESKTOPVERTRES);
-            //Divide the Screen Heights to get the scaling factor and round it to two decimals
-            double ScreenScalingFactor = Math.Round((double)PhysicalScreenHeight / (double)LogicalScreenHeight, 2);
-            //If requested as percentage - convert it
-            if (percentage)
+            Screen[] screenList = Screen.AllScreens;
+            double ScreenScalingFactor = 1;
+            var currentScreen = Screen.FromControl(control);
+
+            foreach (Screen screen in screenList)
             {
-                ScreenScalingFactor *= 100.0;
+                DEVMODE dm = new DEVMODE();
+                dm.dmSize = (short)Marshal.SizeOf(typeof(DEVMODE));
+                EnumDisplaySettings(screen.DeviceName, -1, ref dm);
+
+                ScreenScalingFactor = (double)Math.Round(Decimal.Divide(dm.dmPelsWidth, screen.Bounds.Width), 2);
+
+                if (screen.DeviceName == currentScreen.DeviceName) break;
             }
-            //Release the Handle and Dispose of the GraphicsObject object
-            GraphicsObject.ReleaseHdc(DeviceContextHandle);
-            GraphicsObject.Dispose();
-            //Return the Scaling Factor
+
             return ScreenScalingFactor;
         }
     }

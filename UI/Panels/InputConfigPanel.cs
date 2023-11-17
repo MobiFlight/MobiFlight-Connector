@@ -822,7 +822,7 @@ namespace MobiFlight.UI.Panels
             using (Graphics g = Graphics.FromHwnd(handle))
             {
                 // Get the current display scaling factor.
-                return DPIUtil.GetWindowsScreenScalingFactor();
+                return DPIUtil.GetWindowsScreenScalingFactor(this);
             }
         }
 
