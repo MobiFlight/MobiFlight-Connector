@@ -1030,7 +1030,7 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\kav_efis_fcu_mega_2_4_4.hex">
+    <None Include="firmware\kav_mega_2_4_4.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_mega_2_4_4.hex">
