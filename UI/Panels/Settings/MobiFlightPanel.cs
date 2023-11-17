@@ -77,6 +77,7 @@ namespace MobiFlight.UI.Panels.Settings
             mfTreeViewImageList.Images.Add(DeviceType.AnalogInput.ToString(), MobiFlight.Properties.Resources.mobiflight_icon_in_analog);
             mfTreeViewImageList.Images.Add(DeviceType.InputMultiplexer.ToString(), MobiFlight.Properties.Resources.mobiflight_icon_in_multiplexer);
             mfTreeViewImageList.Images.Add(DeviceType.InputShiftRegister.ToString(), MobiFlight.Properties.Resources.mobiflight_icon_in_shifter);
+            mfTreeViewImageList.Images.Add(DeviceType.CustomDevice.ToString(), MobiFlight.Properties.Resources.mobiflight_icon_out_customdevice);
             //mfTreeViewImageList.Images.Add(DeviceType.MultiplexerDriver.ToString(), MobiFlight.Properties.Resources.mux_driver);
             mfTreeViewImageList.Images.Add("Changed", MobiFlight.Properties.Resources.module_changed);
             mfTreeViewImageList.Images.Add("Changed-arcaze", MobiFlight.Properties.Resources.arcaze_changed);
