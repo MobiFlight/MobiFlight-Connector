@@ -796,7 +796,7 @@ namespace MobiFlight.UI.Panels
         {
             Size clientSize = inputsDataGridView.ClientSize;
             Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowIndexMouseDown, true);
-            var scalingFactor = GetScalingFactor(this.Handle) / 100;
+            var scalingFactor = GetScalingFactor(this.Handle);
 
             using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
             using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
@@ -822,7 +822,7 @@ namespace MobiFlight.UI.Panels
             using (Graphics g = Graphics.FromHwnd(handle))
             {
                 // Get the current display scaling factor.
-                return DPIUtil.GetWindowsScreenScalingFactor(this);
+                return DPIUtil.GetWindowsScreenScalingFactor(this, false);
             }
         }
 
