@@ -641,12 +641,13 @@ namespace MobiFlight.UI.Panels
 
         private void AddDragTargetHighlight(int rowIndex)
         {
-            ChangeRowBackgroundColor(rowIndex, Color.LightGray);
+            var color = Color.LightBlue;
+            ChangeRowBackgroundColor(rowIndex, color);
 
             if (rowIndex > 0 && rowIndex < (inputsDataGridView.Rows.Count - 1))
             {
                 int rowAdjust = rowIndex > RowIndexMouseDown ? 1 : -1;
-                ChangeRowBackgroundColor(rowIndex + rowAdjust, Color.LightGray);
+                ChangeRowBackgroundColor(rowIndex + rowAdjust, color);
             }
             RowCurrentDragHighlight = rowIndex;
         }

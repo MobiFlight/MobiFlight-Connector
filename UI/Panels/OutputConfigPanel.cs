@@ -771,12 +771,13 @@ namespace MobiFlight.UI.Panels
         
         private void AddDragTargetHighlight(int rowIndex)
         {
-            ChangeRowBackgroundColor(rowIndex, Color.LightSkyBlue);
+            var color = Color.LightBlue;
+            ChangeRowBackgroundColor(rowIndex, color);
 
             if (rowIndex > 0 && rowIndex < (dataGridViewConfig.Rows.Count - 1))
             {
                 int rowAdjust = rowIndex > RowIndexMouseDown ? 1 : -1;
-                ChangeRowBackgroundColor(rowIndex + rowAdjust, Color.LightSkyBlue);
+                ChangeRowBackgroundColor(rowIndex + rowAdjust, color);
             }
             RowCurrentDragHighlight = rowIndex;
         }
@@ -827,7 +828,7 @@ namespace MobiFlight.UI.Panels
                     dataGridViewConfig.Rows[RowIndexMouseDown].Selected = true;
                     dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[RowIndexMouseDown].Cells["description"];
                     // Start drag and drop               
-                    dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);                    
+                    dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);
                 }
             }
         }
@@ -900,7 +901,7 @@ namespace MobiFlight.UI.Panels
                     // This now corrects the position of the cursor using the offset,
                     // so that the cursor won't show displaced
                     Cursor.Position = new Point(Cursor.Position.X - offsetX, Cursor.Position.Y);
-                }
+                }                
             }
                 
             else
