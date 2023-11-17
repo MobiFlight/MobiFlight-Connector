@@ -47,6 +47,13 @@ namespace MobiFlight
 #pragma warning restore IDE0044 // Add readonly modifier
         Boolean isFirstTimeLookup = true;
 
+        private bool _lookingUpModules = false;
+
+        const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
+        DateTime lastKeepAwake = DateTime.MinValue; // Initialize to the earliest possible date so the first keep awake test will always cause a wakeup event
+
+        DateTime servoTime = DateTime.Now;
+
         /// <summary>
         /// list of known modules.
         /// 
@@ -83,6 +90,36 @@ namespace MobiFlight
                         Log.Instance.log($"End looking up connected modules. No modules found.", LogSeverity.Debug);
                     } 
                 });
+        }
+        
+        // Calls SetPowerSaveMode(false) on all connected modules. If the
+        // force parameter is set to true then all modules will be sent the
+        // command even if the keep awake interval hasn't passed yet.
+        public void KeepConnectedModulesAwake(bool force = false)
+        {
+            // lastKeepAwake is initialized to the earliest possible DateTime so the first
+            // time this method is called this test will fail and the modules will be forced
+            // to set their power save mode to off.
+            if (!force && lastKeepAwake.AddMinutes(KeepAwakeIntervalInMinutes) >= DateTime.UtcNow)
+            {
+                return;
+            }
+
+            foreach (var module in Modules)
+            {
+                module.Value.SetPowerSaveMode(false);
+            }
+
+            lastKeepAwake = DateTime.UtcNow;
+        }
+        
+        // Calls SetPowerSaveMode(true) on all connected modules.
+        public void ActivateConnectedModulePowerSave()
+        {
+            foreach (var module in Modules)
+            {
+                module.Value.SetPowerSaveMode(true);
+            }
         }
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)

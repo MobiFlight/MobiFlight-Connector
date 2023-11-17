@@ -280,6 +280,10 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
             OnStartActions();
+
+            // Force all the modules awake whenver run is activated
+            mobiFlightCache.KeepConnectedModulesAwake(true);
+
             timer.Enabled = true;
         }
 
@@ -292,6 +296,7 @@ namespace MobiFlight
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
+            mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearErrorMessages();
         }
 
@@ -1017,6 +1022,7 @@ namespace MobiFlight
             try
             {
                 ExecuteConfig();
+                mobiFlightCache.KeepConnectedModulesAwake();
                 this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
