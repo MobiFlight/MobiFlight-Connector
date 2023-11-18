@@ -26,6 +26,8 @@ namespace MobiFlight.UI.Panels
         private bool IsInCurrentRowTopHalf;
         private System.Windows.Forms.Timer DropTimer = new Timer();
         private Bitmap CurrentCursorBitmap;
+        private string LastSortingColumnName = string.Empty;
+        private SortOrder LastSortingOrder = SortOrder.None;
 
         private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
@@ -43,7 +45,9 @@ namespace MobiFlight.UI.Panels
         public DataGridView InputsDataGridView { get { return inputsDataGridView; } }
 
         void Init()
-        {
+        {      
+            inputsDataGridView.DataSource = inputsDataTable;
+            inputsDataGridView.DataMember = null;
             Helper.DoubleBufferedDGV(inputsDataGridView, true);
 
             inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
@@ -250,20 +254,44 @@ namespace MobiFlight.UI.Panels
             }
         }
 
+        private bool IsSortingActive()
+        {
+            return inputsDataGridView.SortOrder != SortOrder.None;
+        }
+
 
         private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         { 
             if (e.ListChangedType == ListChangedType.Reset)
             {
                 foreach (DataGridViewRow row in (sender as DataGridView).Rows)
-                {
-                    if (row.DataBoundItem == null) continue;
+                {                   
+                    if (row.DataBoundItem as DataRowView == null) continue;
 
                     DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
                     String guid = currentRow["guid"].ToString();
 
                     if (SelectedGuids.Contains(guid))
                         row.Selected = true;
+                }
+
+                if (IsSortingActive())
+                {
+                    string name = inputsDataGridView.SortedColumn.Name;
+                    // It is always (Ascending) -> (Descending) -> (Ascending)
+                    // Reset sorting after previous Descending
+                    if (LastSortingColumnName == name && LastSortingOrder == SortOrder.Descending)
+                    {                        
+                        LastSortingColumnName = string.Empty;
+                        LastSortingOrder = SortOrder.None;
+                        inputsDataTable.DefaultView.Sort = string.Empty;
+                    }
+                    else
+                    {
+                        // Store current sorting
+                        LastSortingColumnName = name;
+                        LastSortingOrder = InputsDataGridView.SortOrder;
+                    }
                 }
             }
         }
@@ -608,7 +636,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (e.RowIndex == -1)
                 {
-                    // we know that we have clicked on the header area for sorting
+                    // we know that we have clicked on the header area for sorting                    
                     SelectedGuids.Clear();
                     foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
                     {

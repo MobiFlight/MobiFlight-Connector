@@ -29,6 +29,8 @@ namespace MobiFlight.UI.Panels
         private bool IsInCurrentRowTopHalf;
         private System.Windows.Forms.Timer DropTimer = new Timer();
         private Bitmap CurrentCursorBitmap;
+        private string LastSortingColumnName = string.Empty;
+        private SortOrder LastSortingOrder = SortOrder.None;
 
         public OutputConfigPanel()
         {
@@ -38,6 +40,8 @@ namespace MobiFlight.UI.Panels
 
         private void Init()
         {
+            dataGridViewConfig.DataSource = configDataTable;
+            dataGridViewConfig.DataMember = null;
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
@@ -733,19 +737,43 @@ namespace MobiFlight.UI.Panels
             }
         }
 
+        private bool IsSortingActive()
+        {
+            return dataGridViewConfig.SortOrder != SortOrder.None;
+        }
+
         private void dataGridViewConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.Reset)
             {
                 foreach (DataGridViewRow row in (sender as DataGridView).Rows)
                 {
-                    if (row.DataBoundItem == null) continue;
+                    if (row.DataBoundItem as DataRowView == null) continue;
 
                     DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
                     String guid = currentRow["guid"].ToString();
 
                     if (SelectedGuids.Contains(guid))
                         row.Selected = true;
+                }
+
+                if (IsSortingActive())
+                {                    
+                    string name = dataGridViewConfig.SortedColumn.Name;
+                    // It is always (Ascending) -> (Descending) -> (Ascending)
+                    // Reset sorting after previous Descending
+                    if (LastSortingColumnName == name && LastSortingOrder == SortOrder.Descending)
+                    {
+                        LastSortingColumnName = string.Empty;
+                        LastSortingOrder = SortOrder.None;
+                        configDataTable.DefaultView.Sort = string.Empty;
+                    }
+                    else
+                    {
+                        // Store current sorting
+                        LastSortingColumnName = name;
+                        LastSortingOrder = dataGridViewConfig.SortOrder;
+                    }
                 }
             }
         }
