@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.UI.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
-using MobiFlight.UI.Dialogs;
-using MobiFlight.Base;
-using System.Xml;
 
 namespace MobiFlight.UI.Panels
 {
@@ -20,6 +16,14 @@ namespace MobiFlight.UI.Panels
 
         private int lastClickedRow = -1;
         private List<String> SelectedGuids = new List<String>();
+    
+        private Point DataGridTopLeftPoint = new Point();
+        private Point DataGridBottomRightPoint = new Point();
+        private Rectangle RectangleMouseDown;
+        private int RowIndexMouseDown;
+        private int RowCurrentDragHighlight = 0;
+        private int RowNeighbourDragHighlight = 0;
+        private bool IsInCurrentRowTopHalf;
 
         private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
@@ -622,6 +626,231 @@ namespace MobiFlight.UI.Panels
             }
 
             return result;
+        }
+
+        private void ChangeRowBackgroundColor(int rowIndex, Color color)
+        {
+            if (rowIndex > -1)
+            {
+                foreach (DataGridViewCell cell in inputsDataGridView.Rows[rowIndex].Cells)
+                {
+                    cell.Style.BackColor = color;
+                    cell.Style.Padding = new Padding(0, 0, 0, 0);
+                }
+            }
+        }
+
+        private void AdjustDragTargetHighlight(int rowIndex)
+        {
+            var color = Color.LightBlue;
+            if (RowCurrentDragHighlight != rowIndex)
+            {
+                ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
+                RowCurrentDragHighlight = rowIndex;
+                ChangeRowBackgroundColor(RowCurrentDragHighlight, color);
+            }
+
+            if (rowIndex > 0 && rowIndex < (inputsDataGridView.Rows.Count - 1))
+            {
+                int neighbourRow = IsInCurrentRowTopHalf ? (rowIndex - 1) : (rowIndex + 1);
+                if (RowNeighbourDragHighlight != neighbourRow)
+                {
+                    if (RowNeighbourDragHighlight != RowCurrentDragHighlight)
+                    {
+                        ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
+                    }
+                    RowNeighbourDragHighlight = neighbourRow;
+                    ChangeRowBackgroundColor(RowNeighbourDragHighlight, color);
+                }
+            }
+        }
+
+        private void RemoveDragTargetHighlight()
+        {
+            ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
+            ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
+        }
+
+        private void inputsDataGridView_MouseDown(object sender, MouseEventArgs e)
+        {
+            RowIndexMouseDown = inputsDataGridView.HitTest(e.X, e.Y).RowIndex;
+
+            // Handle row "Double-click...." which has no underlying data
+            if (RowIndexMouseDown != -1 && (inputsDataTable.Rows.Count >= (RowIndexMouseDown + 1)))
+            {
+                Size dragSize = SystemInformation.DragSize;
+                dragSize.Width = dragSize.Width * 5;
+                dragSize.Height = dragSize.Height * 5;               
+                Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
+                RectangleMouseDown = new Rectangle(location, dragSize);
+                DataGridTopLeftPoint.X = inputsDataGridView.Location.X;
+                DataGridTopLeftPoint.Y = inputsDataGridView.Location.Y;
+                DataGridBottomRightPoint.X = inputsDataGridView.Location.X + inputsDataGridView.Width;
+                DataGridBottomRightPoint.Y = inputsDataGridView.Location.Y + inputsDataGridView.Height;
+            }
+            else
+            {
+                // Reset if not on datagrid
+                RectangleMouseDown = Rectangle.Empty;
+            }
+        }
+
+        private void inputsDataGridView_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (MouseButtons.Left == (e.Button & MouseButtons.Left))
+            {                
+                // When mouse leaves the rectangle, start drag and drop
+                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
+                {
+                    // Only select Row which is to be moved, needed because of active multiselect
+                    inputsDataGridView.ClearSelection();
+                    inputsDataGridView.Rows[RowIndexMouseDown].Selected = true;
+                    inputsDataGridView.CurrentCell = inputsDataGridView.Rows[RowIndexMouseDown].Cells["inputDescription"];
+                    // Start drag and drop
+                    inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);           
+                }
+            }
+        }
+
+        private void inputsDataGridView_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+            Point clientPoint = inputsDataGridView.PointToClient(new Point(e.X, e.Y));
+            var hti = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y);
+            int currentRow = hti.RowIndex;
+
+            if (hti.RowIndex != -1 && hti.ColumnIndex != -1)
+            {
+                Rectangle myRect = inputsDataGridView.GetCellDisplayRectangle(hti.ColumnIndex, hti.RowIndex, false);
+                IsInCurrentRowTopHalf = clientPoint.Y < (myRect.Top + (myRect.Height / 2));
+            }
+
+            if (currentRow > -1)
+            {
+                AdjustDragTargetHighlight(currentRow);
+            }
+
+            // Autoscroll
+            int autoScrollMargin = 20;
+            int headerHeight = inputsDataGridView.ColumnHeadersHeight;
+            if ((e.Y <= PointToScreen(DataGridTopLeftPoint).Y + headerHeight + autoScrollMargin) &&
+                (inputsDataGridView.FirstDisplayedScrollingRowIndex > 0))
+            {
+                // Scroll up
+                inputsDataGridView.FirstDisplayedScrollingRowIndex -= 1;
+            }
+            if (e.Y >= PointToScreen(DataGridBottomRightPoint).Y - autoScrollMargin)
+            {
+                // Scroll down
+                inputsDataGridView.FirstDisplayedScrollingRowIndex += 1;
+            }
+        }
+
+        private void inputsDataGridView_DragDrop(object sender, DragEventArgs e)
+        {
+            Point clientPoint = inputsDataGridView.PointToClient(new Point(e.X, e.Y));
+            int rowIndexDrop = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            if (rowIndexDrop < (inputsDataGridView.Rows.Count - 1) && !IsInCurrentRowTopHalf)
+            {
+                rowIndexDrop++;
+            }
+
+            // If move operation, remove row at start position and insert at drop position
+            if (e.Effect == DragDropEffects.Move && rowIndexDrop != -1)
+            {
+                DataRow rowToRemove = (DataRow)e.Data.GetData(typeof(DataRow));
+                DataRow rowToInsert = inputsDataTable.NewRow();
+                rowToInsert.ItemArray = rowToRemove.ItemArray; // needs to be cloned
+                inputsDataGridView.ClearSelection();
+                inputsDataTable.Rows.InsertAt(rowToInsert, rowIndexDrop);
+                EditedItem = null; // safety measure, otherwise on some circumstances exception can be provoked
+                inputsDataTable.Rows.Remove(rowToRemove);
+                int newIndex = inputsDataTable.Rows.IndexOf(rowToInsert);
+                inputsDataGridView.CurrentCell = inputsDataGridView.Rows[newIndex].Cells["inputDescription"];
+            }
+        }
+
+        private void inputsDataGridView_GiveFeedback(object sender, GiveFeedbackEventArgs e)
+        {
+            // Sets the custom cursor based upon the effect.
+            e.UseDefaultCursors = false;
+            if ((e.Effect & DragDropEffects.Move) == DragDropEffects.Move)
+            {
+                // For performance reason we want to only
+                // calculate the bitmap for the cursor
+                // once when it changes from default
+                if (Cursor.Current == Cursors.Default || Cursor.Current == Cursors.No)
+                {
+                    int offsetX = CalculateCorrectCursorOffset();
+
+                    // This creates the bitmap of the row and creates assigns it as the new cursor
+                    Cursor.Current = CreateCursor(inputsDataGridView.Rows[RowIndexMouseDown]);
+
+                    // This now corrects the position of the cursor using the offset,
+                    // so that the cursor won't show displaced
+                    Cursor.Position = new Point(Cursor.Position.X - offsetX, Cursor.Position.Y);
+                }
+            }
+
+            else
+                Cursor.Current = Cursors.Default;
+        }
+
+        private int CalculateCorrectCursorOffset()
+        {
+            // Transform cursor position from screen coords to control coords
+            var localCoords = PointToClient(Cursor.Position);
+
+            // Get the size of the row which is equivalent to the cursor bitmap
+            Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowIndexMouseDown, true);
+
+            double cursorWidth = rowRectangle.Width;
+            // if we grab the row exactly in the center, then the offset is 0
+            // if we grab it at the very left, then the offset must be -(half size of cursor)
+            // if we grab it at the very right, then the offset must be +(half size of cursor)
+            return (int)(localCoords.X - cursorWidth / 2);
+        }
+
+        private Cursor CreateCursor(DataGridViewRow row)
+        {
+            Size clientSize = inputsDataGridView.ClientSize;
+            Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowIndexMouseDown, true);
+            var scalingFactor = GetScalingFactor(this.Handle);
+
+            using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
+            using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
+            {
+                inputsDataGridView.DrawToBitmap(dataGridViewBmp, new Rectangle(Point.Empty, clientSize));
+                using (Graphics G = Graphics.FromImage(rowBmp))
+                {
+                    G.DrawImage(dataGridViewBmp, new Rectangle(Point.Empty, rowRectangle.Size), rowRectangle, GraphicsUnit.Pixel);
+                }
+
+                var scaledX = (int)Math.Round(rowRectangle.Width * scalingFactor, 0);
+                var scaledY = (int)Math.Round(rowRectangle.Height * scalingFactor, 0);
+
+                using (var scaledRowBmp = new Bitmap(rowBmp, new Size(scaledX, scaledY)))
+                {
+                    return new Cursor(scaledRowBmp.GetHicon());
+                }
+            }
+        }
+
+        private double GetScalingFactor(IntPtr handle)
+        {
+            using (Graphics g = Graphics.FromHwnd(handle))
+            {
+                // Get the current display scaling factor.
+                return DPIUtil.GetWindowsScreenScalingFactor(this, false);
+            }
+        }
+
+        private void inputsDataGridView_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+            if (e.Action == DragAction.Cancel || e.Action == DragAction.Drop) 
+            {         
+                RemoveDragTargetHighlight();               
+            }                   
         }
     }
 }
