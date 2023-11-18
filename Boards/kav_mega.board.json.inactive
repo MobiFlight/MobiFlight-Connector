@@ -37,7 +37,7 @@
     "DelayAfterFirmwareUpdate": 0,
     "FirmwareBaseName": "kav_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.4",
+    "LatestFirmwareVersion": "2.4.5",
     "FriendlyName": "Kav Mega",
     "MobiFlightType": "Kav Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
