@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Serialization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Schema;
 
 namespace MobiFlight
 {
@@ -74,16 +74,45 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// Loads all board definintions from disk.
+        /// Loads all board definintions from disk, verifing them against the board JSON schema.
         /// </summary>
         public static void Load()
         {
+            var schema = JSchema.Parse(File.ReadAllText("Boards/mfboard.schema.json"));
+
             foreach (var definitionFile in Directory.GetFiles("Boards", "*.board.json"))
             {
                 try
                 {
-                    var board = JsonConvert.DeserializeObject<Board>(File.ReadAllText(definitionFile));
+                    // Load the inital, un-migrated, board definition file.
+                    var rawBoard = JObject.Parse(File.ReadAllText(definitionFile));
+                    
+                    // Convert the JObject to a Board object and migrate it. Migration has to
+                    // happen before schema validation to ensure old files that have an upgrade
+                    // flow won't fail validation.
+                    var board = rawBoard.ToObject<Board>();
                     board.Migrate();
+
+                    // Now that the board is migrated it can be converted back to a JObject for schema validation.
+                    // The NullValueHandling must be set to ignore otherwise the converted JObject will have a bunch of
+                    // null values that cause schema validation to fail as invalid values.
+                    rawBoard = JObject.FromObject(board, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
+
+                    // Actually validate against the schema. If the schema validation fails then continue
+                    // to the next file, otherwise add the board to the list of known board definitions.
+                    var jsonIsValid = rawBoard.IsValid(schema, out IList<string> validationMessages);
+
+                    if (!jsonIsValid)
+                    {
+                        Log.Instance.log($"Board definition file {definitionFile} isn't valid:", LogSeverity.Error);
+                        foreach (var message in validationMessages)
+                        {
+                            Log.Instance.log(message, LogSeverity.Error);
+                        }
+
+                        continue;
+                    }
+
                     boards.Add(board);
                     Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
                 }
