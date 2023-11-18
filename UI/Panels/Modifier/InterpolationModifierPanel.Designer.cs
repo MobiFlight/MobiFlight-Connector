@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panelSequences = new System.Windows.Forms.Panel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,6 +71,10 @@
             this.panelSequences.Size = new System.Drawing.Size(329, 37);
             this.panelSequences.TabIndex = 9;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // InterpolationModifierPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -80,6 +87,8 @@
             this.DoubleBuffered = true;
             this.Name = "InterpolationModifierPanel";
             this.Size = new System.Drawing.Size(335, 71);
+            this.Validating += new System.ComponentModel.CancelEventHandler(this.InterpolationModifierPanel_Validating);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -90,5 +99,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panelSequences;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
