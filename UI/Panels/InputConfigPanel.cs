@@ -45,9 +45,9 @@ namespace MobiFlight.UI.Panels
         public DataGridView InputsDataGridView { get { return inputsDataGridView; } }
 
         void Init()
-        {      
-            inputsDataGridView.DataSource = inputsDataTable;
+        {
             inputsDataGridView.DataMember = null;
+            inputsDataGridView.DataSource = inputsDataTable;            
             Helper.DoubleBufferedDGV(inputsDataGridView, true);
 
             inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);

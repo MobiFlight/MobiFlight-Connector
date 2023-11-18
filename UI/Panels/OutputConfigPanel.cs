@@ -40,8 +40,8 @@ namespace MobiFlight.UI.Panels
 
         private void Init()
         {
-            dataGridViewConfig.DataSource = configDataTable;
             dataGridViewConfig.DataMember = null;
+            dataGridViewConfig.DataSource = configDataTable;            
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
