@@ -800,7 +800,7 @@ namespace MobiFlight.UI.Panels
                     cell.Style.BackColor = color;
                     cell.Style.Padding = new Padding(0,0,0,0);
                 }
-            }
+            }            
         }
 
         private void AdjustDragTargetHighlight(int rowIndex)
@@ -862,7 +862,9 @@ namespace MobiFlight.UI.Panels
             if (MouseButtons.Left == (e.Button & MouseButtons.Left))
             {
                 // When mouse leaves the rectangle, start drag and drop
-                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
+                if (RectangleMouseDown != Rectangle.Empty && 
+                    !RectangleMouseDown.Contains(e.X, e.Y) &&
+                    !IsSortingActive())
                 {
                     // Only select Row which is to be moved, needed because of active multiselect
                     dataGridViewConfig.ClearSelection();

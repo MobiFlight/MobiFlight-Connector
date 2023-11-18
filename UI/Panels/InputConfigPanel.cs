@@ -731,9 +731,11 @@ namespace MobiFlight.UI.Panels
         private void inputsDataGridView_MouseMove(object sender, MouseEventArgs e)
         {
             if (MouseButtons.Left == (e.Button & MouseButtons.Left))
-            {                
+            {
                 // When mouse leaves the rectangle, start drag and drop
-                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
+                if (RectangleMouseDown != Rectangle.Empty &&
+                    !RectangleMouseDown.Contains(e.X, e.Y) &&
+                    !IsSortingActive())                   
                 {
                     // Only select Row which is to be moved, needed because of active multiselect
                     inputsDataGridView.ClearSelection();
