@@ -38,6 +38,7 @@ namespace MobiFlight.UI.Panels.Modifier
             {
                 var t = new Tuple<double, double>(Key, config.GetValues()[Key]);
                 var p = new InterpolationMappingPanel();
+                p.ModifierChanged += value_Changed;
                 p.fromConfig(t);
                 p.Dock = DockStyle.Bottom;
                 p.Leave += value_Changed;
@@ -95,12 +96,14 @@ namespace MobiFlight.UI.Panels.Modifier
 
         private void InterpolationModifierPanel_DuplicateXvalue(object sender, InterpolationMappingPanel e)
         {
-            e.SetError("Duplicate x value not allowed");
+            var errorMessage = i18n._tr("uiLabelInterpolationDuplicateXvalueNotAllowed");
+            e.SetError(errorMessage);
         }
 
         private void InterpolationModifierPanel_InvalidXorYvalue(object sender, InterpolationMappingPanel e)
         {
-            e.SetError("Not a valid value", true);
+            var errorMessage = i18n._tr("uiLabelDuplicateNotAValidValue");
+            e.SetError(errorMessage, true);
         }
 
         private void InterpolationModifierPanel_Validating(object sender, CancelEventArgs e)

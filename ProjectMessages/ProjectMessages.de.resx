@@ -618,12 +618,20 @@ That midiboard cannot be used until other application is terminated and MobiFlig
     <value>Kompatibles Modul</value>
     <comment>Compatible board</comment>
   </data>
-    <data name="uiLabelDelay" xml:space="preserve">
+  <data name="uiLabelDelay" xml:space="preserve">
     <value>Verzögerung:</value>
     <comment>Delay:</comment>
   </data>
   <data name="uiLabelRepeatPress" xml:space="preserve">
     <value>ms, erneut jede</value>
     <comment>ms, repeat every</comment>
+  </data>
+  <data name="uiLabelDuplicateNotAValidValue" xml:space="preserve">
+    <value>Ungültiger Wert</value>
+    <comment>Not a valid value</comment>
+  </data>
+  <data name="uiLabelInterpolationDuplicateXvalueNotAllowed" xml:space="preserve">
+    <value>Doppelte x-Werte sind nicht gültig.</value>
+    <comment>Duplicate x values are not valid</comment>
   </data>
 </root>
