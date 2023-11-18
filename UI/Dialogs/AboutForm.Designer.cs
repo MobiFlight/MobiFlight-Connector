@@ -39,14 +39,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.licenseReferenceControl6 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl5 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl2 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.licenseReferenceControl7 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl4 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl3 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl1 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.label5 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.licenseReferenceControl6 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -116,12 +117,22 @@
             this.panel2.Controls.Add(this.licenseReferenceControl6);
             this.panel2.Controls.Add(this.licenseReferenceControl5);
             this.panel2.Controls.Add(this.licenseReferenceControl2);
+            this.panel2.Controls.Add(this.licenseReferenceControl7);
             this.panel2.Controls.Add(this.licenseReferenceControl4);
             this.panel2.Controls.Add(this.licenseReferenceControl3);
             this.panel2.Controls.Add(this.licenseReferenceControl1);
             this.panel2.Controls.Add(this.label5);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // licenseReferenceControl6
+            // 
+            resources.ApplyResources(this.licenseReferenceControl6, "licenseReferenceControl6");
+            this.licenseReferenceControl6.Library = "MidiSlicer";
+            this.licenseReferenceControl6.LibraryLink = "https://github.com/codewitch-honey-crisis/MidiSlicer";
+            this.licenseReferenceControl6.LicenseLink = "https://www.codeproject.com/Articles/5272315/Midi-A-Windows-MIDI-Library-in-Cshar" +
+    "p";
+            this.licenseReferenceControl6.Name = "licenseReferenceControl6";
             // 
             // licenseReferenceControl5
             // 
@@ -139,10 +150,18 @@
             this.licenseReferenceControl2.LicenseLink = "http://sharpdx.org/License.txt";
             this.licenseReferenceControl2.Name = "licenseReferenceControl2";
             // 
+            // licenseReferenceControl7
+            // 
+            resources.ApplyResources(this.licenseReferenceControl7, "licenseReferenceControl7");
+            this.licenseReferenceControl7.Library = "NewtonSoft JSON.NET Schema";
+            this.licenseReferenceControl7.LibraryLink = "https://www.nuget.org/packages/Newtonsoft.Json.Schema";
+            this.licenseReferenceControl7.LicenseLink = "https://www.nuget.org/packages/Newtonsoft.Json.Schema/3.0.15/License";
+            this.licenseReferenceControl7.Name = "licenseReferenceControl7";
+            // 
             // licenseReferenceControl4
             // 
             resources.ApplyResources(this.licenseReferenceControl4, "licenseReferenceControl4");
-            this.licenseReferenceControl4.Library = "NewtonSoft JSON";
+            this.licenseReferenceControl4.Library = "NewtonSoft JSON.NET";
             this.licenseReferenceControl4.LibraryLink = "https://www.nuget.org/packages/Newtonsoft.Json/";
             this.licenseReferenceControl4.LicenseLink = "https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md";
             this.licenseReferenceControl4.Name = "licenseReferenceControl4";
@@ -173,15 +192,6 @@
             this.panel3.Controls.Add(this.button1);
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
-            // 
-            // licenseReferenceControl6
-            // 
-            resources.ApplyResources(this.licenseReferenceControl6, "licenseReferenceControl6");
-            this.licenseReferenceControl6.Library = "MidiSlicer";
-            this.licenseReferenceControl6.LibraryLink = "https://github.com/codewitch-honey-crisis/MidiSlicer";
-            this.licenseReferenceControl6.LicenseLink = "https://www.codeproject.com/Articles/5272315/Midi-A-Windows-MIDI-Library-in-Cshar" +
-    "p";
-            this.licenseReferenceControl6.Name = "licenseReferenceControl6";
             // 
             // AboutForm
             // 
@@ -220,5 +230,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel3;
         private Panels.About.LicenseReferenceControl licenseReferenceControl6;
+        private Panels.About.LicenseReferenceControl licenseReferenceControl7;
     }
 }
