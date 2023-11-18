@@ -21,8 +21,9 @@ namespace MobiFlight.UI.Panels
         private Point DataGridBottomRightPoint = new Point();
         private Rectangle RectangleMouseDown;
         private int RowIndexMouseDown;
-        private int RowIndexDrop;
-        private int RowCurrentDragHighlight;
+        private int RowCurrentDragHighlight = 0;
+        private int RowNeighbourDragHighlight = 0;
+        private bool IsInCurrentRowTopHalf;
 
         private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
@@ -639,28 +640,35 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        private void AddDragTargetHighlight(int rowIndex)
+        private void AdjustDragTargetHighlight(int rowIndex)
         {
             var color = Color.LightBlue;
-            ChangeRowBackgroundColor(rowIndex, color);
+            if (RowCurrentDragHighlight != rowIndex)
+            {
+                ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
+                RowCurrentDragHighlight = rowIndex;
+                ChangeRowBackgroundColor(RowCurrentDragHighlight, color);
+            }
 
             if (rowIndex > 0 && rowIndex < (inputsDataGridView.Rows.Count - 1))
             {
-                int rowAdjust = rowIndex > RowIndexMouseDown ? 1 : -1;
-                ChangeRowBackgroundColor(rowIndex + rowAdjust, color);
+                int neighbourRow = IsInCurrentRowTopHalf ? (rowIndex - 1) : (rowIndex + 1);
+                if (RowNeighbourDragHighlight != neighbourRow)
+                {
+                    if (RowNeighbourDragHighlight != RowCurrentDragHighlight)
+                    {
+                        ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
+                    }
+                    RowNeighbourDragHighlight = neighbourRow;
+                    ChangeRowBackgroundColor(RowNeighbourDragHighlight, color);
+                }
             }
-            RowCurrentDragHighlight = rowIndex;
         }
 
         private void RemoveDragTargetHighlight()
         {
             ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
-
-            if (RowCurrentDragHighlight > 0 && RowCurrentDragHighlight < (inputsDataGridView.Rows.Count - 1))
-            {
-                int rowAdjust = RowCurrentDragHighlight > RowIndexMouseDown ? 1 : -1;
-                ChangeRowBackgroundColor(RowCurrentDragHighlight + rowAdjust, Color.Empty);
-            }
+            ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
         }
 
         private void inputsDataGridView_MouseDown(object sender, MouseEventArgs e)
@@ -708,19 +716,25 @@ namespace MobiFlight.UI.Panels
         {
             e.Effect = DragDropEffects.Move;
             Point clientPoint = inputsDataGridView.PointToClient(new Point(e.X, e.Y));
-            int currentRow = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            var hti = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y);
+            int currentRow = hti.RowIndex;
 
-            if (currentRow > -1 && currentRow != RowCurrentDragHighlight)
+            if (hti.RowIndex != -1 && hti.ColumnIndex != -1)
             {
-                RemoveDragTargetHighlight();
-                AddDragTargetHighlight(currentRow); 
+                Rectangle myRect = inputsDataGridView.GetCellDisplayRectangle(hti.ColumnIndex, hti.RowIndex, false);
+                IsInCurrentRowTopHalf = clientPoint.Y < (myRect.Top + (myRect.Height / 2));
+            }
+
+            if (currentRow > -1)
+            {
+                AdjustDragTargetHighlight(currentRow);
             }
 
             // Autoscroll
             int autoScrollMargin = 20;
             int headerHeight = inputsDataGridView.ColumnHeadersHeight;
             if ((e.Y <= PointToScreen(DataGridTopLeftPoint).Y + headerHeight + autoScrollMargin) &&
-                (inputsDataGridView.FirstDisplayedScrollingRowIndex > 0))             
+                (inputsDataGridView.FirstDisplayedScrollingRowIndex > 0))
             {
                 // Scroll up
                 inputsDataGridView.FirstDisplayedScrollingRowIndex -= 1;
@@ -735,21 +749,25 @@ namespace MobiFlight.UI.Panels
         private void inputsDataGridView_DragDrop(object sender, DragEventArgs e)
         {
             Point clientPoint = inputsDataGridView.PointToClient(new Point(e.X, e.Y));
-            RowIndexDrop = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            int rowIndexDrop = inputsDataGridView.HitTest(clientPoint.X, clientPoint.Y).RowIndex;
+            if (rowIndexDrop < (inputsDataGridView.Rows.Count - 1) && !IsInCurrentRowTopHalf)
+            {
+                rowIndexDrop++;
+            }
 
             // If move operation, remove row at start position and insert at drop position
-            if (e.Effect == DragDropEffects.Move && RowIndexDrop != -1)
-            {                
+            if (e.Effect == DragDropEffects.Move && rowIndexDrop != -1)
+            {
                 DataRow rowToRemove = (DataRow)e.Data.GetData(typeof(DataRow));
                 DataRow rowToInsert = inputsDataTable.NewRow();
                 rowToInsert.ItemArray = rowToRemove.ItemArray; // needs to be cloned
                 inputsDataGridView.ClearSelection();
+                inputsDataTable.Rows.InsertAt(rowToInsert, rowIndexDrop);
                 EditedItem = null; // safety measure, otherwise on some circumstances exception can be provoked
                 inputsDataTable.Rows.Remove(rowToRemove);
-                inputsDataTable.Rows.InsertAt(rowToInsert, RowIndexDrop);
-                int newIndex = inputsDataTable.Rows.IndexOf(rowToInsert);                                      
+                int newIndex = inputsDataTable.Rows.IndexOf(rowToInsert);
                 inputsDataGridView.CurrentCell = inputsDataGridView.Rows[newIndex].Cells["inputDescription"];
-            }           
+            }
         }
 
         private void inputsDataGridView_GiveFeedback(object sender, GiveFeedbackEventArgs e)
