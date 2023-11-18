@@ -164,7 +164,6 @@
         "FriendlyName",
         "LatestFirmwareVersion",
         "MobiFlightType",
-        "CustomDeviceType"
       ],
       "properties": {
         "CanInstallFirmware": {
