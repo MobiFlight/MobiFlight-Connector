@@ -149,6 +149,7 @@
             this.dataGridViewConfig.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dataGridViewConfig_DataBindingComplete);
             this.dataGridViewConfig.DefaultValuesNeeded += new System.Windows.Forms.DataGridViewRowEventHandler(this.DataGridViewConfig_DefaultValuesNeeded);
             this.dataGridViewConfig.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dataGridViewConfig_EditingControlShowing);
+            this.dataGridViewConfig.Sorted += new System.EventHandler(this.dataGridViewConfig_Sorted);
             this.dataGridViewConfig.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewConfig_DragDrop);
             this.dataGridViewConfig.DragOver += new System.Windows.Forms.DragEventHandler(this.dataGridViewConfig_DragOver);
             this.dataGridViewConfig.GiveFeedback += new System.Windows.Forms.GiveFeedbackEventHandler(this.dataGridViewConfig_GiveFeedback);
