@@ -37,41 +37,43 @@
             // 
             // textBoxToValue
             // 
-            this.textBoxToValue.Location = new System.Drawing.Point(144, 3);
+            this.textBoxToValue.Location = new System.Drawing.Point(192, 2);
             this.textBoxToValue.Name = "textBoxToValue";
             this.textBoxToValue.Size = new System.Drawing.Size(67, 20);
             this.textBoxToValue.TabIndex = 10;
+            this.textBoxToValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(118, 6);
+            this.label4.Location = new System.Drawing.Point(142, 6);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(20, 13);
+            this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 9;
-            this.label4.Text = "To";
+            this.label4.Text = "maps to";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 6);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.Size = new System.Drawing.Size(60, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "From";
+            this.label3.Text = "Input value";
             // 
             // textBoxFromValue
             // 
-            this.textBoxFromValue.Location = new System.Drawing.Point(39, 3);
+            this.textBoxFromValue.Location = new System.Drawing.Point(69, 2);
             this.textBoxFromValue.Name = "textBoxFromValue";
             this.textBoxFromValue.Size = new System.Drawing.Size(67, 20);
             this.textBoxFromValue.TabIndex = 7;
+            this.textBoxFromValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxFromValue.Leave += new System.EventHandler(this.TextBoxFromValue_Leave);
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(217, 2);
+            this.button1.Location = new System.Drawing.Point(265, 1);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(21, 21);
             this.button1.TabIndex = 11;
@@ -89,7 +91,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxFromValue);
             this.Name = "InterpolationMappingPanel";
-            this.Size = new System.Drawing.Size(243, 25);
+            this.Size = new System.Drawing.Size(293, 25);
             this.ResumeLayout(false);
             this.PerformLayout();
 

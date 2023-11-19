@@ -29,7 +29,7 @@ namespace MobiFlight.UI.Panels.Modifier
             if (config.GetValues().Count == 0)
             {
                 config.Add(0, 0);
-                config.Add(1024, 1024);
+                config.Add(100, 1024);
             }
 
             var i = 0;
