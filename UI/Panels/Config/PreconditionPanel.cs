@@ -178,6 +178,12 @@ namespace MobiFlight.UI.Panels.Config
 
         public bool syncFromConfig(IBaseConfigItem config)
         {
+            // Until with have the preconditions completely refactored,
+            // add an empty precondition in case the current cfg doesn't have one
+            // we removed addEmptyNode but add an empty Precondition here
+            if (config.Preconditions.Count == 0)
+                config.Preconditions.Add(new Precondition());
+
             preconditionListTreeView.Nodes.Clear();
             Preconditions = config.Preconditions.Clone() as PreconditionList;
 

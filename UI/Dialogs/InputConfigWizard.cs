@@ -32,6 +32,8 @@ namespace MobiFlight.UI.Dialogs
         List<UserControl> displayPanels = new List<UserControl>();
 
         InputConfigItem config = null;
+        public InputConfigItem Config { get { return config; } }
+
         InputConfigItem originalConfig = null;
 
         ErrorProvider errorProvider = new ErrorProvider();
@@ -107,20 +109,17 @@ namespace MobiFlight.UI.Dialogs
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
-            config = cfg;
+            // create a clone so that we don't edit 
+            // the original item
+            config = cfg.Clone() as InputConfigItem;
 
-            // Until with have the preconditions completely refactored,
-            // add an empty precondition in case the current cfg doesn't have one
-            // we removed addEmptyNode but add an empty Precondition here
-            if (cfg.Preconditions.Count == 0)
-                cfg.Preconditions.Add(new Precondition());
-
-            originalConfig = config.Clone() as InputConfigItem;
+            // this is only stored to be able
+            // to check for modifications
+            originalConfig = cfg;
 
             InitializeComponent();
 
-            ActivateCorrectTab(config);
-            
+            ActivateCorrectTab(config);            
 
             // PRECONDITION PANEL
             preconditionPanel.Init();

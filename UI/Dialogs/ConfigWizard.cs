@@ -84,14 +84,12 @@ namespace MobiFlight.UI.Dialogs
         protected void Init(ExecutionManager executionManager, OutputConfigItem cfg)
         {
             this._execManager = executionManager;
+            // create a clone so that we don't edit 
+            // the original item
             config = cfg.Clone() as OutputConfigItem;
 
-            // Until with have the preconditions completely refactored,
-            // add an empty precondition in case the current cfg doesn't have one
-            // we removed addEmptyNode but add an empty Precondition here
-            if (cfg.Preconditions.Count == 0) 
-                cfg.Preconditions.Add(new Precondition());
-
+            // this is only stored to be able
+            // to check for modifications
             originalConfig = cfg;
 
             InitializeComponent();
