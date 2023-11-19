@@ -70,13 +70,13 @@ namespace MobiFlight.UI.Panels
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (dataRow == null) return;
-                // do something special
-                // Show used Button
-                // Show Type of Output
-                // Show last set value
-                // do something special
+
                 if (wizard.ConfigHasChanged())
                 {
+                    // we have to update the config
+                    // using the duplicated config 
+                    // that the user edited with the wizard
+                    dataRow["settings"] = wizard.Config;
                     SettingsChanged?.Invoke(cfg, null);
                     RestoreValuesInGridView();
                 }

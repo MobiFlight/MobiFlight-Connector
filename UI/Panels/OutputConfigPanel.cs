@@ -505,10 +505,11 @@ namespace MobiFlight.UI.Panels
             {
                 if (dataRow == null) return;
 
-                // do something special
                 if (wizard.ConfigHasChanged()) {
-                    cfg = wizard.Config;
-                    dataRow["settings"] = cfg;
+                    // we have to update the config
+                    // using the duplicated config 
+                    // that the user edited with the wizard
+                    dataRow["settings"] = wizard.Config;
                     SettingsChanged?.Invoke(cfg, null);
                     RestoreValuesInGridView();
                 }
