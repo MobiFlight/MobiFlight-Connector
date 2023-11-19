@@ -29,22 +29,20 @@ namespace MobiFlight
         private List<string> CollectErrorsInInputDefinition(MidiBoardDefinition def)
         {
             List<string> errorMessages = new List<string>();
-            if (def.Inputs == null)
-                errorMessages.Add($"No input definitions.");
-            else
+
+            foreach (var item in def.Inputs)
             {
-                foreach (var item in def.Inputs)
-                {
-                    if (item.LabelIds.Length != item.MessageIds.Count)
-                        errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                }
+                if (item.LabelIds.Length != item.MessageIds.Count)
+                    errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
             }
+
             return errorMessages;
         }
 
         private List<string> CollectErrorsInOutputDefinition(MidiBoardDefinition def)
         {
-            List<string> errorMessages = new List<string>();              
+            List<string> errorMessages = new List<string>();        
+            
             if (def.Outputs == null) return errorMessages;
             
             foreach (var item in def.Outputs)
@@ -56,7 +54,8 @@ namespace MobiFlight
                     if (item.RelatedIds.Length != item.MessageIds.Count)
                         errorMessages.Add($"{item.Label}: Number of RelatedIds unequal to number of MessageIds");
                 }
-            }            
+            }
+
             return errorMessages;
         }
 
@@ -81,11 +80,16 @@ namespace MobiFlight
                 onSuccess: midiBoardDef => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info)
             );
 
-            // TODO: Do additional validations here
-
-            // Add the validated definitions to the Definitions dictionary
             foreach (var definition in rawDefinitions)
             {
+                // Additional validation that can't be done via json schema. If there are any errors
+                // they were already logged and we can just skip adding this definition to the list of
+                // loaded definitions.
+                if (CollectAndLogDefinitionErrors(definition).Count != 0)
+                {
+                    continue;
+                }
+
                 Definitions.Add(definition.InstanceName, definition);
             }
         }

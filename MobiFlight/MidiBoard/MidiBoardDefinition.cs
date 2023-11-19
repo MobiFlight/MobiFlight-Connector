@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MobiFlight
 {
@@ -36,6 +37,7 @@ namespace MobiFlight
 
         private Dictionary<string, string> inputNameToLabelDictionary;
 
+        [JsonIgnore]
         public Dictionary<string, string> InputNameToLabelDictionary
         {
             get
