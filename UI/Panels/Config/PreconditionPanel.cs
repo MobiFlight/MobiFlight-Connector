@@ -222,11 +222,13 @@ namespace MobiFlight.UI.Panels.Config
                 if (selected == "config")
                 {
                     preconditionConfigLabel.Text = i18n._tr("Label_Precondition_choose_config");
+                    preconditionConfigComboBox.DataSource = null;
                     preconditionConfigComboBox.DataSource = Configs;
                 }
                 else
                 {
                     preconditionConfigLabel.Text = i18n._tr("Label_Precondition_choose_variable");
+                    preconditionConfigComboBox.DataSource = null;
                     preconditionConfigComboBox.DataSource = Variables;
                 }
 
@@ -253,7 +255,7 @@ namespace MobiFlight.UI.Panels.Config
             {
                 case "variable":
                 case "config":
-                    if (sender == preconditionConfigComboBox)
+                    if (sender == preconditionConfigComboBox && preconditionConfigComboBox.SelectedValue != null)
                         c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
                     if (sender == preconditionRefOperandComboBox)
                         c.PreconditionOperand = preconditionRefOperandComboBox.Text;
