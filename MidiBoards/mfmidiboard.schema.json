@@ -53,7 +53,8 @@
       "properties": {
         "Label": {
           "type": "string",
-          "description": "Friendly label for the input. Required."
+          "description": "Friendly label for the input. Required.",
+          "pattern": ".*%.*"
         },
         "LabelIds": {
           "type": "array",
@@ -104,7 +105,8 @@
       "properties": {
         "Label": {
           "type": "string",
-          "description": "Friendly label for the output. Required."
+          "description": "Friendly label for the output. Required.",
+          "pattern": ".*%.*"
         },
         "LabelIds": {
           "type": "array",
@@ -147,7 +149,8 @@
         },
         "RelatedInputLabel": {
           "type": "string",
-          "description": "Label of related input. When related input is triggered, output is auto refreshed. Optional."
+          "description": "Label of related input. When related input is triggered, output is auto refreshed. Optional.",
+          "pattern": ".*%.*"
         },
         "RelatedIds": {
           "type": "array",

@@ -37,8 +37,6 @@ namespace MobiFlight
                 {
                     if (item.LabelIds.Length != item.MessageIds.Count)
                         errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                    if (!item.Label.Contains("%"))
-                        errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
                 }
             }
             return errorMessages;
@@ -53,14 +51,10 @@ namespace MobiFlight
             {
                 if (item.LabelIds.Length != item.MessageIds.Count)
                     errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                if (!item.Label.Contains("%"))
-                    errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
                 if (!string.IsNullOrEmpty(item.RelatedInputLabel))
                 {
                     if (item.RelatedIds.Length != item.MessageIds.Count)
                         errorMessages.Add($"{item.Label}: Number of RelatedIds unequal to number of MessageIds");
-                    if (!item.RelatedInputLabel.Contains("%"))
-                        errorMessages.Add($"{item.Label}: RelatedInputLabel does not contain % placeholder.");
                 }
             }            
             return errorMessages;
@@ -82,9 +76,18 @@ namespace MobiFlight
 
         private void LoadDefinitions()
         {
-            var Definitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",
+            // Do the initial loading and validation against the schema
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",
                 onSuccess: midiBoardDef => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info)
             );
+
+            // TODO: Do additional validations here
+
+            // Add the validated definitions to the Definitions dictionary
+            foreach (var definition in rawDefinitions)
+            {
+                Definitions.Add(definition.InstanceName, definition);
+            }
         }
 
         public bool AreMidiBoardsConnected()
