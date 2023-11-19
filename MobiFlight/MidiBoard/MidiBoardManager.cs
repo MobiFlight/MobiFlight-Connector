@@ -11,6 +11,11 @@ namespace MobiFlight
 {
     public class MidiBoardManager
     {
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public bool LoadingError = false;
+
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;      
         private readonly List<MidiBoard> MidiBoards = new List<MidiBoard>();
@@ -77,8 +82,9 @@ namespace MobiFlight
         {
             // Do the initial loading and validation against the schema
             var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",
-                onSuccess: midiBoardDef => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info)
-            );
+                onSuccess: midiBoardDef => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info),
+                onError: () => LoadingError = true
+            ); ;
 
             foreach (var definition in rawDefinitions)
             {
@@ -87,6 +93,7 @@ namespace MobiFlight
                 // loaded definitions.
                 if (CollectAndLogDefinitionErrors(definition).Count != 0)
                 {
+                    LoadingError = true;
                     continue;
                 }
 

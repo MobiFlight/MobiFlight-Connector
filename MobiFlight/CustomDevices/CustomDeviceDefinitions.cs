@@ -11,6 +11,11 @@ namespace MobiFlight.CustomDevices
 {
     public static class CustomDeviceDefinitions
     {
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public static bool LoadingError = false;
+
         private static List<CustomDevice> devices = new List<CustomDevice>();
 
         /// <summary>
@@ -35,11 +40,12 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// Loads all device definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
             devices = JsonBackedObject.LoadDefinitions<CustomDevice>(Directory.GetFiles("Devices", "*.device.json"), "Devices/mfdevice.schema.json",
-                onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info)
-            );
+                onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info),
+                onError: () => LoadingError = true
+            ); ;
         }
     }
 }

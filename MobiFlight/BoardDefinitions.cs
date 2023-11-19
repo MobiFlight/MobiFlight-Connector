@@ -12,6 +12,11 @@ namespace MobiFlight
 {
     public static class BoardDefinitions
     {
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public static bool LoadingError = false;
+
         private static List<Board> boards = new List<Board>();
 
         /// <summary>
@@ -77,11 +82,12 @@ namespace MobiFlight
         /// <summary>
         /// Loads all board definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
             boards = JsonBackedObject.LoadDefinitions<Board>(Directory.GetFiles("Boards", "*.board.json"), "Boards/mfboard.schema.json",
-                onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info)
-                );
+                onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info),
+                onError: () => LoadingError = true
+                ); ;
         }
     }
 }

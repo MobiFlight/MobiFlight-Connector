@@ -14,7 +14,7 @@ namespace MobiFlight
 
     public class JsonBackedObject
     {
-        public static List<T> LoadDefinitions<T>(string[] definitionFiles, string schemaFile, Action<T> onSuccess) where T : IMigrateable
+        public static List<T> LoadDefinitions<T>(string[] definitionFiles, string schemaFile, Action<T> onSuccess, Action onError) where T : IMigrateable
         {
             var result = new List<T>();
             JSchema schema;
@@ -26,6 +26,7 @@ namespace MobiFlight
             catch (Exception ex)
             {
                 Log.Instance.log($"Unable to load schema file {schemaFile}: {ex.Message}", LogSeverity.Error);
+                onError?.Invoke();
                 return result;
             }
                 
@@ -40,6 +41,7 @@ namespace MobiFlight
                     // so just continue to the next file.
                     if (definition == null)
                     {
+                        onError?.Invoke();
                         continue;
                     }
 
@@ -48,6 +50,7 @@ namespace MobiFlight
                 }
                 catch (Exception ex)
                 {
+                    onError?.Invoke();
                     Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
                 }
             }

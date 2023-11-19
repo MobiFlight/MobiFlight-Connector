@@ -12,6 +12,11 @@ namespace MobiFlight
 {
     public class JoystickManager
     {
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public bool LoadingError = false;
+
         private static readonly SharpDX.DirectInput.DeviceType[] SupportedDeviceTypes =
         {
             SharpDX.DirectInput.DeviceType.Joystick,
@@ -48,10 +53,11 @@ namespace MobiFlight
         /// <summary>
         /// Loads all joystick definitions from disk.
         /// </summary>
-        private void LoadDefinitions()
+        public void LoadDefinitions()
         {
             Definitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
-                onSuccess: joystick => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info)
+                onSuccess: joystick => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
+                onError: () => LoadingError = true
             );
         }
 
