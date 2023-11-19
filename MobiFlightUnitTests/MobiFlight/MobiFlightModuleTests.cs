@@ -213,7 +213,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void GetFreePinsTest()
         {
-            BoardDefinitions.LoadDefinitions();
+            BoardDefinitions.Load();
 
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
             MobiFlightModule o = new MobiFlightModule("COM1", board);
@@ -242,7 +242,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void MobiFlightModuleType()
         {
-            BoardDefinitions.LoadDefinitions();
+            BoardDefinitions.Load();
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
 
             MobiFlightModule o = new MobiFlightModule("COM1", board);
@@ -331,7 +331,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void FirmwareRequiresUpdateTest()
         {
-            BoardDefinitions.LoadDefinitions();
+            BoardDefinitions.Load();
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
             var o = new MobiFlightModule("COM1", board);
             o.Version = "1.0.0";

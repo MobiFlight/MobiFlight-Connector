@@ -120,10 +120,10 @@ namespace MobiFlight.UI
             InitializeLogging();
 
             // Initialize the board configurations
-            BoardDefinitions.LoadDefinitions();
+            BoardDefinitions.Load();
 
             // Initialize the custom device configurations
-            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
+            CustomDevices.CustomDeviceDefinitions.Load();
 
             // configure tracking correctly
             InitializeTracking();

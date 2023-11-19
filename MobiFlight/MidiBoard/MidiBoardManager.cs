@@ -26,7 +26,7 @@ namespace MobiFlight
 
         public MidiBoardManager ()
         {
-            LoadDefinitions();
+            Load();
             ProcessTimer.Interval = 50;
             ProcessTimer.Tick += ProcessTimer_Tick;
         }
@@ -78,7 +78,7 @@ namespace MobiFlight
         }
 
 
-        private void LoadDefinitions()
+        private void Load()
         {
             // Do the initial loading and validation against the schema
             var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",

@@ -27,7 +27,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void FirmwareInstallPossibleTest()
         {
-            BoardDefinitions.LoadDefinitions();
+            BoardDefinitions.Load();
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
             var info = new MobiFlightModuleInfo();
 
