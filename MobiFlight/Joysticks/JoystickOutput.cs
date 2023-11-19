@@ -9,13 +9,13 @@ namespace MobiFlight
     public class JoystickOutput
     {
         /// <summary>
+        /// Unique Id for the output.
+        /// </summary>
+        public string Id;
+        /// <summary>
         ///  Display name for the output.
         /// </summary>
         public string Label;
-        /// <summary>
-        /// Device's name for the input.
-        /// </summary>
-        public string Name;
         /// <summary>
         /// Byte location of the output.
         /// </summary>

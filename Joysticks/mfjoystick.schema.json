@@ -59,12 +59,12 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": ["Label", "Byte", "Bit"],
+        "required": ["Id", "Label", "Byte", "Bit"],
         "properties": {
-          "Name": {
-            "$id": "#root/Outputs/items/Name",
-            "title": "Name",
-            "description": "The name for the output. Optional.",
+          "Id": {
+            "$id": "#root/Outputs/items/Id",
+            "title": "Id",
+            "description": "The unique identifier for the output. Required.",
             "type": "string"
           },
           "Label": {
