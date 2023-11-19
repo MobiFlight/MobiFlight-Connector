@@ -41,7 +41,6 @@
             this.textBoxToValue.Name = "textBoxToValue";
             this.textBoxToValue.Size = new System.Drawing.Size(67, 20);
             this.textBoxToValue.TabIndex = 10;
-            this.textBoxToValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
             // 
@@ -67,7 +66,6 @@
             this.textBoxFromValue.Name = "textBoxFromValue";
             this.textBoxFromValue.Size = new System.Drawing.Size(67, 20);
             this.textBoxFromValue.TabIndex = 7;
-            this.textBoxFromValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.textBoxFromValue.Leave += new System.EventHandler(this.TextBoxFromValue_Leave);
             // 
             // button1
