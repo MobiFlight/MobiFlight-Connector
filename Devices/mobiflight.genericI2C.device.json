@@ -25,12 +25,12 @@
   },
   "MessageTypes": [
     {
-      "id": 0,
+      "id": "0",
       "label": "Show Speed Value",
       "description": "$ will be displayed as Speed value"
     },
     {
-      "id": 1,
+      "id": "1",
       "label": "Show Heading Value",
       "description": "$ will be displayed as Heading value"
     }

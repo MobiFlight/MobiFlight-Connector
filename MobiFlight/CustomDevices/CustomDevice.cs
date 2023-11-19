@@ -114,7 +114,7 @@ namespace MobiFlight.CustomDevices
         }
     }
 
-    public class CustomDevice
+    public class CustomDevice : IMigrateable
     {
         /// <summary>
         /// General device information properties.
@@ -130,6 +130,10 @@ namespace MobiFlight.CustomDevices
         /// List of MessageTypes supported by the device.
         /// </summary>
         public List<MessageType> MessageTypes = new List<MessageType>();
+
+        // Nothing to migrate currently but the method implementation is required
+        // when using JsonBoardObject to load definitions from JSON.
+        public void Migrate() { }
 
         public override string ToString()
         {

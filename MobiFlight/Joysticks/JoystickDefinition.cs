@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class JoystickDefinition
+    public class JoystickDefinition : IMigrateable
     {
         /// <summary>
         /// List of inputs supported by the device.

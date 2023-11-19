@@ -22,7 +22,7 @@ namespace MobiFlight
             SharpDX.DirectInput.DeviceType.Supplemental
         };
 
-        private readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
+        private List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         readonly Timer PollTimer = new Timer();
@@ -50,21 +50,9 @@ namespace MobiFlight
         /// </summary>
         private void LoadDefinitions()
         {
-            foreach (var definitionFile in Directory.GetFiles("Joysticks", "*.joystick.json"))
-            {
-                try
-                {
-                    var joystick = JsonConvert.DeserializeObject<JoystickDefinition>(File.ReadAllText(definitionFile));
-                    joystick.Migrate();
-                    Definitions.Add(joystick);
-                    Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }
-
+            Definitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
+                onSuccess: joystick => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info)
+            );
         }
 
         public bool JoysticksConnected()

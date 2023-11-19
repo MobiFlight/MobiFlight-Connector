@@ -127,7 +127,7 @@
             "$id": "#root/Pins/items/Id",
             "title": "Id",
             "description": "The identifier for the message type. Unique in the scope of the device.",
-            "type": "integer"
+            "type": "string"
           },
           "Label": {
             "$id": "#root/Pins/items/Label",

@@ -11,7 +11,7 @@ namespace MobiFlight.CustomDevices
 {
     public static class CustomDeviceDefinitions
     {
-        private static readonly List<CustomDevice> devices = new List<CustomDevice>();
+        private static List<CustomDevice> devices = new List<CustomDevice>();
 
         /// <summary>
         /// Finds a device definition by matching type.
@@ -37,19 +37,9 @@ namespace MobiFlight.CustomDevices
         /// </summary>
         public static void Load()
         {
-            foreach (var definitionFile in Directory.GetFiles("Devices", "*.device.json"))
-            {
-                try
-                {
-                    var device = JsonConvert.DeserializeObject<CustomDevice>(File.ReadAllText(definitionFile));
-                    devices.Add(device);
-                    Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }
+            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(Directory.GetFiles("Devices", "*.device.json"), "Devices/mfdevice.schema.json",
+                onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info)
+            );
         }
     }
 }

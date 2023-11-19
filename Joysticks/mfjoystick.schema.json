@@ -59,28 +59,28 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": ["Name", "Label", "Byte", "Bit"],
+        "required": ["Label", "Byte", "Bit"],
         "properties": {
           "Name": {
-            "$id": "#root/Inputs/items/Name",
+            "$id": "#root/Outputs/items/Name",
             "title": "Name",
-            "description": "Device's name for the input. Required.",
+            "description": "Device's name for the output.",
             "type": "string"
           },
           "Label": {
-            "$id": "#root/Inputs/items/Label",
+            "$id": "#root/Outputs/items/Label",
             "title": "Label",
-            "description": "Label for the input. Required.",
+            "description": "Label for the output. Required.",
             "type": "string"
           },
           "Byte": {
-            "$id": "#root/Inputs/items/Byte",
+            "$id": "#root/Outputs/items/Byte",
             "title": "Byte",
             "description": "Byte location of the output. Required.",
             "type": "number"
           },
           "Bit": {
-            "$id": "#root/Inputs/items/Bit",
+            "$id": "#root/Outputs/items/Bit",
             "title": "Bit",
             "description": "Bit location within the byte of the output. Required.",
             "type": "number"
