@@ -253,10 +253,23 @@ namespace MobiFlight.UI.Panels
                 row.Selected = false;
             }
         }
-
-        private bool IsSortingActive()
+        
+        /// <summary>
+        /// Is sorting in DataGridView active.
+        /// </summary>        
+        public bool IsSortingActive()
         {
             return inputsDataGridView.SortOrder != SortOrder.None;
+        }
+
+        /// <summary>
+        /// Reset sorting in DataGridView
+        /// </summary>
+        public void ResetSorting()
+        {
+            LastSortingColumnName = string.Empty;
+            LastSortingOrder = SortOrder.None;
+            inputsDataTable.DefaultView.Sort = string.Empty;
         }
 
         private void inputsDataGridView_Sorted(object sender, EventArgs e)
@@ -268,9 +281,7 @@ namespace MobiFlight.UI.Panels
                 // Reset sorting after previous Descending
                 if (LastSortingColumnName == name && LastSortingOrder == SortOrder.Descending)
                 {
-                    LastSortingColumnName = string.Empty;
-                    LastSortingOrder = SortOrder.None;
-                    inputsDataTable.DefaultView.Sort = string.Empty;
+                    ResetSorting();
                 }
                 else
                 {
@@ -285,6 +296,7 @@ namespace MobiFlight.UI.Panels
         { 
             if (e.ListChangedType == ListChangedType.Reset)
             {
+                inputsDataGridView.ClearSelection(); // necessary because on sorting reset, callback is called twice
                 foreach (DataGridViewRow row in (sender as DataGridView).Rows)
                 {                   
                     if (row.DataBoundItem as DataRowView == null) continue;
