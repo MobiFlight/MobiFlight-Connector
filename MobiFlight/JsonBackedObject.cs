@@ -14,6 +14,15 @@ namespace MobiFlight
 
     public class JsonBackedObject
     {
+        /// <summary>
+        /// Loads objects from a list of JSON files on disk, migrating each one and validating against the provided schema.
+        /// </summary>
+        /// <typeparam name="T">The type of object to create from the JSON files. Must implement the IMigrateable interface.</typeparam>
+        /// <param name="definitionFiles">A list of JSON files to load.</param>
+        /// <param name="schemaFile">The path to the JSON schema to use for validation.</param>
+        /// <param name="onSuccess">Method called on each successful object creation.</param>
+        /// <param name="onError">Method called on each failure.</param>
+        /// <returns>A list of the valid objects.</returns>
         public static List<T> LoadDefinitions<T>(string[] definitionFiles, string schemaFile, Action<T> onSuccess, Action onError) where T : IMigrateable
         {
             var result = new List<T>();
@@ -58,6 +67,13 @@ namespace MobiFlight
             return result;
         }
 
+        /// <summary>
+        /// Loads an object from a JSON file, migrating it and validating it against the provided schema.
+        /// </summary>
+        /// <typeparam name="T">The type of object to create. Must implement IMigrateable.</typeparam>
+        /// <param name="path">Path to the JSON file to load.</param>
+        /// <param name="schema">Schema to validate the object against.</param>
+        /// <returns>The created object, or null if the object creation failed (due to schema validation failure or other error).</returns>
         private static T LoadFromFile<T>(string path, JSchema schema) where T : IMigrateable
         {
             // Load the inital, un-migrated, file, then migrate it. Migration has to
