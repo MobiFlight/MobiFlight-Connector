@@ -34,24 +34,26 @@ namespace MobiFlight.OutputConfig.Tests
             o1.CustomName = "DisplayPin";
             o1.CustomType = "CustomType";
             o1.Value = "Value";
-            o1.MessageType = "MessageType";
+            o1.MessageType = 1;
             Assert.IsFalse(o1.Equals(o2));
 
             o2.CustomName = "DisplayPin";
             o2.CustomType = "CustomType";
             o2.Value = "Value";
-            o2.MessageType = "MessageType";
+            o2.MessageType = 1;
             Assert.IsTrue(o1.Equals(o2));
         }
 
         [TestMethod()]
         public void CloneTest()
         {
-            var o1 = new CustomDevice();
-            o1.CustomName = "DisplayPin";
-            o1.CustomType = "CustomType";
-            o1.Value = "Value";
-            o1.MessageType = "MessageType";
+            var o1 = new CustomDevice
+            {
+                CustomName = "DisplayPin",
+                CustomType = "CustomType",
+                Value = "Value",
+                MessageType = 1
+            };
             var clone = (CustomDevice)o1.Clone();
 
             Assert.AreEqual(o1.CustomName, clone.CustomName);
@@ -103,7 +105,7 @@ namespace MobiFlight.OutputConfig.Tests
             o.CustomName = "TM1637 Display";
             o.CustomType = "TM1637";
             o.Value = "$+2";
-            o.MessageType = "3";
+            o.MessageType = 3;
 
             xmlWriter.WriteStartElement("display");
             xmlWriter.WriteAttributeString("type", CustomDevice.Type);

@@ -13,7 +13,7 @@ namespace MobiFlight.OutputConfig
         public const string Type = "CustomDevice";
         public String CustomType { get; set; }
         public String CustomName { get; set; }
-        public String MessageType { get; set; }
+        public int MessageType { get; set; }
         public String Value { get; set; }
 
         public CustomDevice()
@@ -61,7 +61,10 @@ namespace MobiFlight.OutputConfig
 
             if (reader["messageType"] != null && reader["messageType"] != "")
             {
-                MessageType = reader["messageType"].ToString();
+                if (Int32.TryParse(reader["messageType"], out int convertedMessageType))
+                {
+                    MessageType = convertedMessageType;
+                }
             }
 
             if (reader["value"] != null && reader["value"] != "")
@@ -74,7 +77,7 @@ namespace MobiFlight.OutputConfig
         {
             writer.WriteAttributeString("customType", CustomType);
             writer.WriteAttributeString("customName", CustomName);
-            writer.WriteAttributeString("messageType", MessageType);
+            writer.WriteAttributeString("messageType", MessageType.ToString());
             writer.WriteAttributeString("value", Value);
         }
     }

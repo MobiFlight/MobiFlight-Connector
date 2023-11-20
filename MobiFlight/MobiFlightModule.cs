@@ -885,9 +885,9 @@ namespace MobiFlight
             return true;
         }
 
-        internal bool setCustomDevice(string deviceName, string messageType, string value)
+        internal bool setCustomDevice(string deviceName, int messageType, string value)
         {
-            String key = "CustomDevice_" + deviceName + messageType;
+            String key = $"CustomDevice_{deviceName}{messageType}";
             String cachedValue = value;
 
             if (lastValue.ContainsKey(key) &&
