@@ -423,6 +423,7 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
             CheckForWasmModuleUpdate();
+            CheckForHubhopUpdate();
 
             UpdateAllConnectionIcons();
 
@@ -432,6 +433,24 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackStart();
 
             InitialLookupFinished = true;
+        }
+
+        private void CheckForHubhopUpdate()
+        {
+            var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+            if (lastModification > DateTime.UtcNow.AddDays(-7)) return;
+
+            // we haven't updated hubhop events in more than 7 days.
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("Your HubHop presets are older than 7 days.\n\nWould you like to update?");
+            tmd.Text = i18n._tr("HubHop Preset Update");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+            }
         }
 
         private void CheckForWasmModuleUpdate()
