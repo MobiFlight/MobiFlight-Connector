@@ -287,7 +287,7 @@ namespace MobiFlight.SimConnectMSFS
             var lastModified = DateTime.MinValue;
             try
             {
-                lastModified = System.IO.File.GetCreationTimeUtc($@"{WasmEventsHubHopFolder}\{WasmEventsHubHopFileName}");
+                lastModified = System.IO.File.GetLastWriteTimeUtc($@"{WasmEventsHubHopFolder}\{WasmEventsHubHopFileName}");
             }catch(Exception) 
             {
                 Log.Instance.log("Could not check presets for creation date.", LogSeverity.Error);

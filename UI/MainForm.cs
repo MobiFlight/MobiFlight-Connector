@@ -2163,6 +2163,8 @@ namespace MobiFlight.UI
                     Msfs2020HubhopPresetListSingleton.Instance.Clear();
                     XplaneHubhopPresetListSingleton.Instance.Clear();
                     progressForm.DialogResult = DialogResult.OK;
+                    var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+                    toolStripStatusLabelHubHop.Text = lastModification.ToShortDateString();
                 }
                 else
                 {
