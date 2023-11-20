@@ -444,8 +444,8 @@ namespace MobiFlight.UI
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.StartPosition = FormStartPosition.CenterParent;
             tmd.DefaultDialogResult = DialogResult.Cancel;
-            tmd.Message = i18n._tr("Your HubHop presets are older than 7 days.\n\nWould you like to update?");
-            tmd.Text = i18n._tr("HubHop Preset Update");
+            tmd.Message = i18n._tr("uiMessageHubHopAutoUpdate");
+            tmd.Text = i18n._tr("uiTitleHubhopAutoUpdate");
 
             if (tmd.ShowDialog() == DialogResult.OK)
             {
