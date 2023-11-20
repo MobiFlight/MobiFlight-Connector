@@ -121,15 +121,6 @@
     <value>136, 22</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 98</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
-    <value>inputsDataGridViewContextMenuStrip</value>
-  </data>
-  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="copyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>150, 22</value>
   </data>
@@ -156,6 +147,15 @@
   </data>
   <data name="deleteInputsRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete Row</value>
+  </data>
+  <data name="inputsDataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 98</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Name" xml:space="preserve">
+    <value>inputsDataGridViewContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;inputsDataGridViewContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="dataSetInputs.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>431, 19</value>

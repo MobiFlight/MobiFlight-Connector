@@ -27,6 +27,10 @@ namespace MobiFlight.UI.Panels
         private int RowCurrentDragHighlight = 0;
         private int RowNeighbourDragHighlight = 0;
         private bool IsInCurrentRowTopHalf;
+        private System.Windows.Forms.Timer DropTimer = new Timer();
+        private Bitmap CurrentCursorBitmap;
+        private string LastSortingColumnName = string.Empty;
+        private SortOrder LastSortingOrder = SortOrder.None;
 
         public OutputConfigPanel()
         {
@@ -36,6 +40,8 @@ namespace MobiFlight.UI.Panels
 
         private void Init()
         {
+            dataGridViewConfig.DataMember = null;
+            dataGridViewConfig.DataSource = configDataTable;
             dataGridViewConfig.Columns["Description"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
@@ -46,6 +52,9 @@ namespace MobiFlight.UI.Panels
             configDataTable.TableCleared += new DataTableClearEventHandler((o,a)=> { SettingsChanged?.Invoke(this, null); });
 
             Helper.DoubleBufferedDGV(dataGridViewConfig, true);
+
+            DropTimer.Interval = 400;
+            DropTimer.Tick += DropTimer_Tick;
         }
 
         public ExecutionManager ExecutionManager { get; set; }
@@ -729,13 +738,52 @@ namespace MobiFlight.UI.Panels
             }
         }
 
+        /// <summary>
+        /// Is sorting in DataGridView active.
+        /// </summary>        
+        public bool IsSortingActive()
+        {
+            return dataGridViewConfig.SortOrder != SortOrder.None;
+        }
+
+        /// <summary>
+        /// Reset sorting in DataGridView
+        /// </summary>
+        public void ResetSorting()
+        {
+            LastSortingColumnName = string.Empty;
+            LastSortingOrder = SortOrder.None;
+            configDataTable.DefaultView.Sort = string.Empty;
+        }
+
+        private void dataGridViewConfig_Sorted(object sender, EventArgs e)
+        {
+            if (IsSortingActive())
+            {
+                string name = dataGridViewConfig.SortedColumn.Name;
+                // It is always (Ascending) -> (Descending) -> (Ascending)
+                // Reset sorting after previous Descending
+                if (LastSortingColumnName == name && LastSortingOrder == SortOrder.Descending)
+                {
+                    ResetSorting();
+                }
+                else
+                {
+                    // Store current sorting
+                    LastSortingColumnName = name;
+                    LastSortingOrder = dataGridViewConfig.SortOrder;
+                }
+            }
+        }
+
         private void dataGridViewConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             if (e.ListChangedType == ListChangedType.Reset)
             {
+                dataGridViewConfig.ClearSelection(); // necessary because on sorting reset, callback is called twice
                 foreach (DataGridViewRow row in (sender as DataGridView).Rows)
                 {
-                    if (row.DataBoundItem == null) continue;
+                    if (row.DataBoundItem as DataRowView == null) continue;
 
                     DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
                     String guid = currentRow["guid"].ToString();
@@ -768,7 +816,7 @@ namespace MobiFlight.UI.Panels
                     cell.Style.BackColor = color;
                     cell.Style.Padding = new Padding(0,0,0,0);
                 }
-            }
+            }            
         }
 
         private void AdjustDragTargetHighlight(int rowIndex)
@@ -829,15 +877,22 @@ namespace MobiFlight.UI.Panels
         {
             if (MouseButtons.Left == (e.Button & MouseButtons.Left))
             {
-                // When mouse leaves the rectangle, start drag and drop
-                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
+                // When mouse did not leave rectangle return, otherwise start drag and drop
+                if (RectangleMouseDown == Rectangle.Empty || RectangleMouseDown.Contains(e.X, e.Y)) return;
+
+                if (!IsSortingActive())
                 {
                     // Only select Row which is to be moved, needed because of active multiselect
                     dataGridViewConfig.ClearSelection();
                     dataGridViewConfig.Rows[RowIndexMouseDown].Selected = true;
                     dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[RowIndexMouseDown].Cells["description"];
-                    // Start drag and drop               
+                    // Start drag and drop
                     dataGridViewConfig.DoDragDrop(configDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);
+                }
+                else
+                {
+                    // Show message box no drag and drop on sorted list
+                    MessageBox.Show(i18n._tr("uiMessageDragDropNotAllowed"), i18n._tr("Hint"));
                 }
             }
         }
@@ -897,6 +952,11 @@ namespace MobiFlight.UI.Panels
                 configDataTable.Rows.Remove(rowToRemove);
                 int newIndex = configDataTable.Rows.IndexOf(rowToInsert);
                 dataGridViewConfig.CurrentCell = dataGridViewConfig.Rows[newIndex].Cells["description"];
+                // Used to keep the two rows colored for a short period of time after drop
+                if (newIndex > 0)
+                    RowNeighbourDragHighlight = newIndex - 1;
+                if (newIndex < (dataGridViewConfig.Rows.Count - 1))
+                    RowCurrentDragHighlight = newIndex + 1;
             }
         }
 
@@ -933,7 +993,7 @@ namespace MobiFlight.UI.Panels
             var localCoords = PointToClient(Cursor.Position);
 
             // Get the size of the row which is equivalent to the cursor bitmap
-            Rectangle rowRectangle = dataGridViewConfig.GetRowDisplayRectangle(RowIndexMouseDown, true);
+            Rectangle rowRectangle = dataGridViewConfig.GetRowDisplayRectangle(RowCurrentDragHighlight, true);
 
             double cursorWidth = rowRectangle.Width;
             // if we grab the row exactly in the center, then the offset is 0
@@ -944,27 +1004,28 @@ namespace MobiFlight.UI.Panels
 
         private Cursor CreateCursor(DataGridViewRow row)
         {
-            Size clientSize = dataGridViewConfig.ClientSize;
-            Rectangle rowRectangle = dataGridViewConfig.GetRowDisplayRectangle(RowIndexMouseDown, true);
-            var scalingFactor = GetScalingFactor(this.Handle);
-            
-            using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
-            using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
+            if (CurrentCursorBitmap == null)
             {
-                dataGridViewConfig.DrawToBitmap(dataGridViewBmp, new Rectangle(Point.Empty, clientSize));
-                using (Graphics G = Graphics.FromImage(rowBmp))
+                Size clientSize = dataGridViewConfig.ClientSize;
+                Rectangle rowRectangle = dataGridViewConfig.GetRowDisplayRectangle(RowIndexMouseDown, true);
+                var scalingFactor = GetScalingFactor(this.Handle);
+
+                using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
+                using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
                 {
-                    G.DrawImage(dataGridViewBmp, new Rectangle(Point.Empty, rowRectangle.Size), rowRectangle, GraphicsUnit.Pixel);
+                    dataGridViewConfig.DrawToBitmap(dataGridViewBmp, new Rectangle(Point.Empty, clientSize));
+                    using (Graphics G = Graphics.FromImage(rowBmp))
+                    {
+                        G.DrawImage(dataGridViewBmp, new Rectangle(Point.Empty, rowRectangle.Size), rowRectangle, GraphicsUnit.Pixel);
+                    }
+
+                    var scaledX = (int)Math.Round(rowRectangle.Width * scalingFactor, 0);
+                    var scaledY = (int)Math.Round(rowRectangle.Height * scalingFactor, 0);
+
+                    CurrentCursorBitmap = new Bitmap(rowBmp, new Size(scaledX, scaledY));
                 }
-
-                var scaledX = (int)Math.Round(rowRectangle.Width * scalingFactor, 0);
-                var scaledY = (int)Math.Round(rowRectangle.Height * scalingFactor, 0);
-
-                using (var scaledRowBmp = new Bitmap(rowBmp, new Size(scaledX, scaledY)))
-                {
-                    return new Cursor(scaledRowBmp.GetHicon());
-                }                
             }
+            return new Cursor(CurrentCursorBitmap.GetHicon());
         }
 
         private double GetScalingFactor(IntPtr handle)
@@ -980,8 +1041,19 @@ namespace MobiFlight.UI.Panels
         {
             if (e.Action == DragAction.Cancel || e.Action == DragAction.Drop)
             {
-                RemoveDragTargetHighlight();                
+                if (CurrentCursorBitmap != null)
+                {
+                    CurrentCursorBitmap.Dispose();
+                    CurrentCursorBitmap = null;
+                }
+                DropTimer.Start();
             }
+        }
+
+        private void DropTimer_Tick(object sender, EventArgs e)
+        {
+            DropTimer.Stop();
+            RemoveDragTargetHighlight();
         }
     }
 }

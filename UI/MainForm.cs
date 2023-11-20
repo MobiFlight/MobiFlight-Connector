@@ -1387,7 +1387,12 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
-            if (!merge) { 
+            // Reset sorting if active
+            if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
+            if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
+
+            if (!merge)
+            {
                 outputConfigPanel.DataSetConfig.Clear();
                 inputConfigPanel.InputDataSetConfig.Clear();
             }
@@ -1421,7 +1426,6 @@ namespace MobiFlight.UI
                 return;
             }
 
-
             // for backward compatibility 
             // we check if there are rows that need to
             // initialize our config item correctly
@@ -1438,7 +1442,8 @@ namespace MobiFlight.UI
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
                 saveToolStripButton.Enabled = false;
-            } else
+            }
+            else
             {
                 // indicate that the merge changed
                 // the current config and that the user
@@ -1448,8 +1453,8 @@ namespace MobiFlight.UI
             // always put this after "normal" initialization
             // savetoolstripbutton may be set to "enabled"
             // if user has changed something
-            _checkForOrphanedSerials( false );
-            _checkForOrphanedJoysticks( false );
+            _checkForOrphanedSerials(false);
+            _checkForOrphanedJoysticks(false);
             _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
@@ -1458,6 +1463,7 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackSettings();
 
             ConfigLoaded?.Invoke(this, configFile);
+                 
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
@@ -1846,6 +1852,10 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
+                // Reset sorting if active
+                if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
+                if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
+                // Clear data
                 outputConfigPanel.ConfigDataTable.Clear();
                 inputConfigPanel.ConfigDataTable.Clear();
             };

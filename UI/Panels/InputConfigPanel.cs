@@ -24,6 +24,10 @@ namespace MobiFlight.UI.Panels
         private int RowCurrentDragHighlight = 0;
         private int RowNeighbourDragHighlight = 0;
         private bool IsInCurrentRowTopHalf;
+        private System.Windows.Forms.Timer DropTimer = new Timer();
+        private Bitmap CurrentCursorBitmap;
+        private string LastSortingColumnName = string.Empty;
+        private SortOrder LastSortingOrder = SortOrder.None;
 
         private object[] EditedItem = null;
         public ExecutionManager ExecutionManager { get; set; }
@@ -42,6 +46,8 @@ namespace MobiFlight.UI.Panels
 
         void Init()
         {
+            inputsDataGridView.DataMember = null;
+            inputsDataGridView.DataSource = inputsDataTable;
             Helper.DoubleBufferedDGV(inputsDataGridView, true);
 
             inputsDataTable.RowChanged += new DataRowChangeEventHandler(configDataTable_RowChanged);
@@ -50,6 +56,9 @@ namespace MobiFlight.UI.Panels
 
             inputsDataGridView.Columns["inputDescription"].DefaultCellStyle.NullValue = i18n._tr("uiLabelDoubleClickToAddConfig");
             inputsDataGridView.Columns["inputEditButtonColumn"].DefaultCellStyle.NullValue = "...";
+
+            DropTimer.Interval = 400;
+            DropTimer.Tick += DropTimer_Tick;
         }
 
         private void _editConfigWithInputWizard(DataRow dataRow, InputConfigItem cfg, bool create)
@@ -244,15 +253,53 @@ namespace MobiFlight.UI.Panels
                 row.Selected = false;
             }
         }
+        
+        /// <summary>
+        /// Is sorting in DataGridView active.
+        /// </summary>        
+        public bool IsSortingActive()
+        {
+            return inputsDataGridView.SortOrder != SortOrder.None;
+        }
 
+        /// <summary>
+        /// Reset sorting in DataGridView
+        /// </summary>
+        public void ResetSorting()
+        {
+            LastSortingColumnName = string.Empty;
+            LastSortingOrder = SortOrder.None;
+            inputsDataTable.DefaultView.Sort = string.Empty;
+        }
+
+        private void inputsDataGridView_Sorted(object sender, EventArgs e)
+        {
+            if (IsSortingActive())
+            {
+                string name = inputsDataGridView.SortedColumn.Name;
+                // It is always (Ascending) -> (Descending) -> (Ascending)
+                // Reset sorting after previous Descending
+                if (LastSortingColumnName == name && LastSortingOrder == SortOrder.Descending)
+                {
+                    ResetSorting();
+                }
+                else
+                {
+                    // Store current sorting
+                    LastSortingColumnName = name;
+                    LastSortingOrder = InputsDataGridView.SortOrder;
+                }
+            }
+        }
 
         private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         { 
             if (e.ListChangedType == ListChangedType.Reset)
             {
+                inputsDataGridView.ClearSelection(); // necessary because on sorting reset, callback is called twice
                 foreach (DataGridViewRow row in (sender as DataGridView).Rows)
-                {
-                    if (row.DataBoundItem == null) continue;
+                {                   
+                    if (row.DataBoundItem as DataRowView == null) continue;
 
                     DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
                     String guid = currentRow["guid"].ToString();
@@ -603,7 +650,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (e.RowIndex == -1)
                 {
-                    // we know that we have clicked on the header area for sorting
+                    // we know that we have clicked on the header area for sorting                    
                     SelectedGuids.Clear();
                     foreach (DataGridViewRow row in (sender as DataGridView).SelectedRows)
                     {
@@ -698,16 +745,23 @@ namespace MobiFlight.UI.Panels
         private void inputsDataGridView_MouseMove(object sender, MouseEventArgs e)
         {
             if (MouseButtons.Left == (e.Button & MouseButtons.Left))
-            {                
-                // When mouse leaves the rectangle, start drag and drop
-                if (RectangleMouseDown != Rectangle.Empty && !RectangleMouseDown.Contains(e.X, e.Y))
-                {
+            {
+                // When mouse did not leave rectangle return, otherwise start drag and drop
+                if (RectangleMouseDown == Rectangle.Empty || RectangleMouseDown.Contains(e.X, e.Y)) return;
+
+                if (!IsSortingActive())
+                {                    
                     // Only select Row which is to be moved, needed because of active multiselect
                     inputsDataGridView.ClearSelection();
                     inputsDataGridView.Rows[RowIndexMouseDown].Selected = true;
                     inputsDataGridView.CurrentCell = inputsDataGridView.Rows[RowIndexMouseDown].Cells["inputDescription"];
                     // Start drag and drop
                     inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);           
+                }
+                else
+                {
+                    // Show message box no drag and drop on sorted list
+                    MessageBox.Show(i18n._tr("uiMessageDragDropNotAllowed"), i18n._tr("Hint"));
                 }
             }
         }
@@ -767,6 +821,11 @@ namespace MobiFlight.UI.Panels
                 inputsDataTable.Rows.Remove(rowToRemove);
                 int newIndex = inputsDataTable.Rows.IndexOf(rowToInsert);
                 inputsDataGridView.CurrentCell = inputsDataGridView.Rows[newIndex].Cells["inputDescription"];
+                // Used to keep the two rows colored for a short period of time after drop
+                if (newIndex > 0)
+                    RowNeighbourDragHighlight = newIndex - 1;
+                if (newIndex < (inputsDataGridView.Rows.Count - 1))
+                    RowCurrentDragHighlight = newIndex + 1;
             }
         }
 
@@ -791,7 +850,6 @@ namespace MobiFlight.UI.Panels
                     Cursor.Position = new Point(Cursor.Position.X - offsetX, Cursor.Position.Y);
                 }
             }
-
             else
                 Cursor.Current = Cursors.Default;
         }
@@ -802,7 +860,7 @@ namespace MobiFlight.UI.Panels
             var localCoords = PointToClient(Cursor.Position);
 
             // Get the size of the row which is equivalent to the cursor bitmap
-            Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowIndexMouseDown, true);
+            Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowCurrentDragHighlight, true);
 
             double cursorWidth = rowRectangle.Width;
             // if we grab the row exactly in the center, then the offset is 0
@@ -813,28 +871,30 @@ namespace MobiFlight.UI.Panels
 
         private Cursor CreateCursor(DataGridViewRow row)
         {
-            Size clientSize = inputsDataGridView.ClientSize;
-            Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowIndexMouseDown, true);
-            var scalingFactor = GetScalingFactor(this.Handle);
-
-            using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
-            using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
+            if (CurrentCursorBitmap == null)
             {
-                inputsDataGridView.DrawToBitmap(dataGridViewBmp, new Rectangle(Point.Empty, clientSize));
-                using (Graphics G = Graphics.FromImage(rowBmp))
-                {
-                    G.DrawImage(dataGridViewBmp, new Rectangle(Point.Empty, rowRectangle.Size), rowRectangle, GraphicsUnit.Pixel);
-                }
+                Size clientSize = inputsDataGridView.ClientSize;
+                Rectangle rowRectangle = inputsDataGridView.GetRowDisplayRectangle(RowIndexMouseDown, true);
+                var scalingFactor = GetScalingFactor(this.Handle);
 
-                var scaledX = (int)Math.Round(rowRectangle.Width * scalingFactor, 0);
-                var scaledY = (int)Math.Round(rowRectangle.Height * scalingFactor, 0);
-
-                using (var scaledRowBmp = new Bitmap(rowBmp, new Size(scaledX, scaledY)))
+                using (Bitmap dataGridViewBmp = new Bitmap(clientSize.Width, clientSize.Height))
+                using (Bitmap rowBmp = new Bitmap(rowRectangle.Width, rowRectangle.Height))
                 {
-                    return new Cursor(scaledRowBmp.GetHicon());
+                    inputsDataGridView.DrawToBitmap(dataGridViewBmp, new Rectangle(Point.Empty, clientSize));
+                    using (Graphics G = Graphics.FromImage(rowBmp))
+                    {
+                        G.DrawImage(dataGridViewBmp, new Rectangle(Point.Empty, rowRectangle.Size), rowRectangle, GraphicsUnit.Pixel);
+                    }
+
+                    var scaledX = (int)Math.Round(rowRectangle.Width * scalingFactor, 0);
+                    var scaledY = (int)Math.Round(rowRectangle.Height * scalingFactor, 0);
+
+                    CurrentCursorBitmap = new Bitmap(rowBmp, new Size(scaledX, scaledY));
                 }
             }
+            return new Cursor(CurrentCursorBitmap.GetHicon());
         }
+
 
         private double GetScalingFactor(IntPtr handle)
         {
@@ -848,9 +908,20 @@ namespace MobiFlight.UI.Panels
         private void inputsDataGridView_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
         {
             if (e.Action == DragAction.Cancel || e.Action == DragAction.Drop) 
-            {         
-                RemoveDragTargetHighlight();               
+            {               
+                if (CurrentCursorBitmap != null)
+                {
+                    CurrentCursorBitmap.Dispose();
+                    CurrentCursorBitmap = null;
+                }
+                DropTimer.Start();                             
             }                   
+        }
+
+        private void DropTimer_Tick(object sender, EventArgs e)
+        {
+            DropTimer.Stop();
+            RemoveDragTargetHighlight();
         }
     }
 }

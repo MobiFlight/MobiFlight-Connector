@@ -612,4 +612,7 @@ That midiboard cannot be used until other application is terminated and MobiFlig
   <data name="uiLabelInterpolationDuplicateXvalueNotAllowed" xml:space="preserve">
     <value>Duplicate x values are not valid</value>
   </data>
+  <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
+    <value>Drag and Drop is not available when list is sorted.</value>
+  </data>
 </root>
