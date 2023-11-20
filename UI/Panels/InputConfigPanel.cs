@@ -746,17 +746,22 @@ namespace MobiFlight.UI.Panels
         {
             if (MouseButtons.Left == (e.Button & MouseButtons.Left))
             {
-                // When mouse leaves the rectangle, start drag and drop
-                if (RectangleMouseDown != Rectangle.Empty &&
-                    !RectangleMouseDown.Contains(e.X, e.Y) &&
-                    !IsSortingActive())                   
-                {
+                // When mouse did not leave rectangle return, otherwise start drag and drop
+                if (RectangleMouseDown == Rectangle.Empty || RectangleMouseDown.Contains(e.X, e.Y)) return;
+
+                if (!IsSortingActive())
+                {                    
                     // Only select Row which is to be moved, needed because of active multiselect
                     inputsDataGridView.ClearSelection();
                     inputsDataGridView.Rows[RowIndexMouseDown].Selected = true;
                     inputsDataGridView.CurrentCell = inputsDataGridView.Rows[RowIndexMouseDown].Cells["inputDescription"];
                     // Start drag and drop
                     inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);           
+                }
+                else
+                {
+                    // Show message box no drag and drop on sorted list
+                    MessageBox.Show(i18n._tr("uiMessageDragDropNotAllowed"), i18n._tr("Hint"));
                 }
             }
         }

@@ -1852,6 +1852,10 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
+                // Reset sorting if active
+                if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
+                if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
+                // Clear data
                 outputConfigPanel.ConfigDataTable.Clear();
                 inputConfigPanel.ConfigDataTable.Clear();
             };

@@ -614,6 +614,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and Drop is not available when list is sorted..
+        /// </summary>
+        internal static string uiMessageDragDropNotAllowed {
+            get {
+                return ResourceManager.GetString("uiMessageDragDropNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred on parsing your value formula. Please review and correct any errors..
         /// </summary>
         internal static string uiMessageErrorOnParsingExpression {
