@@ -438,8 +438,10 @@ namespace MobiFlight.UI
         private void CheckForHubhopUpdate()
         {
             var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+            toolStripStatusLabelHubHop.Text = lastModification.ToShortDateString();
             if (lastModification > DateTime.UtcNow.AddDays(-7)) return;
-
+            // we could provide a warning icon or so.
+            if (!Properties.Settings.Default.HubHopAutoCheck) return;
             // we haven't updated hubhop events in more than 7 days.
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.StartPosition = FormStartPosition.CenterParent;

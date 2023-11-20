@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings
@@ -91,6 +86,9 @@ namespace MobiFlight.UI.Panels.Settings
             // Run options
             autoRetriggerCheckBox.Checked = Properties.Settings.Default.AutoRetrigger;
             minimizeOnAutoRunCheckbox.Checked = Properties.Settings.Default.MinimizeOnAutoRun;
+
+            // Hubhop settings
+            checkBoxHubHopAutoCheck.Checked = Properties.Settings.Default.HubHopAutoCheck;
         }
 
         public void saveSettings()
@@ -128,6 +126,9 @@ namespace MobiFlight.UI.Panels.Settings
             // Run options
             Properties.Settings.Default.AutoRetrigger = autoRetriggerCheckBox.Checked;
             Properties.Settings.Default.MinimizeOnAutoRun = minimizeOnAutoRunCheckbox.Checked;
+
+            // Hubhop settings
+            Properties.Settings.Default.HubHopAutoCheck = checkBoxHubHopAutoCheck.Checked;
         }
     }
 }
