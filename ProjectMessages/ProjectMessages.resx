@@ -620,4 +620,7 @@ Would you like to update?</value>
   <data name="uiTitleHubhopAutoUpdate" xml:space="preserve">
     <value>HubHop Preset Update</value>
   </data>
+  <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
+    <value>Drag and Drop is not available when list is sorted.</value>
+  </data>
 </root>
