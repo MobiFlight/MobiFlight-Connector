@@ -19,6 +19,8 @@ namespace MobiFlight.Monitors
         {
             // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
             // when trying to read the volume label when the drive wasn't actually ready.
+            // Issue 1437: IsReady takes forever to timeout when called on USB card readers that have no
+            // cards in them. Wrap the test in a task so we limit the damage to only 100ms.
             var task = Task.Run(() =>
             {
                 return drive.IsReady;
