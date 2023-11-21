@@ -87,7 +87,7 @@ namespace MobiFlight
                     if (0 == AvailableComModules.Count) {
                         isFirstTimeLookup = false;
                         LookupFinished?.Invoke(this, new EventArgs());
-                        Log.Instance.log($"End looking up connected modules. No modules found.", LogSeverity.Debug);
+                        Log.Instance.log($"Finish looking up connected modules. No modules found.", LogSeverity.Info);
                     } 
                 });
         }
@@ -124,7 +124,7 @@ namespace MobiFlight
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Debug);
+            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Info);
             var disconnectedModule = AvailableComModules.Find(m => m.Port == e.Name);
 
             if (disconnectedModule == null) return;
@@ -231,13 +231,13 @@ namespace MobiFlight
 
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Debug);
+            Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Info);
             SerialPortMonitor_PortUnavailable(sender, e);
         }
 
-        private void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
+        private async void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Debug);
+            Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Info);
             var info = new MobiFlightModuleInfo()
             {
                 Type = e.Board.Info.FriendlyName,
@@ -256,6 +256,8 @@ namespace MobiFlight
             OnCompatibleBoardDetected(info);
             var result = new MobiFlightModule(info);
             ModuleConnected?.Invoke(result, new EventArgs());
+
+            await CheckIfLookUpFinished();
         }
 
         /// <summary>
