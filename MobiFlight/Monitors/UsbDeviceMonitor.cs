@@ -1,20 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Monitors
 {
     public class UsbDeviceMonitor : DeviceMonitor
     {
         /// <summary>
+        /// Returns the IsReady value of the DriveInfo but also
+        /// applies a timeout to not wait for it too long.
+        /// </summary>
+        /// <param name="drive"></param>
+        /// <returns>Actual `IsReady` value, or false if timed out</returns>
+        async Task<bool> DriveIsReady(DriveInfo drive)
+        {
+            // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
+            // when trying to read the volume label when the drive wasn't actually ready.
+            // Issue 1437: IsReady takes forever to timeout when called on USB card readers that have no
+            // cards in them. Wrap the test in a task so we limit the damage to only 100ms.
+            var task = Task.Run(() =>
+            {
+                return drive.IsReady;
+            });
+
+            if (await Task.WhenAny(task, Task.Delay(100)) != task)
+            {
+                return false;
+            }
+
+            return task.Result;
+        }
+        /// <summary>
         /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
         /// as opposed to being connected as COM port.
         /// </summary>
         /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
-        override protected void Scan()
+        override protected async void Scan()
         {
+            // since this method can take a while
+            // don't execute it in parallel
+            if (isScanning) return;
+            isScanning = true;
+
             var result = new List<PortDetails>();
-            
+
             foreach (var drive in DriveInfo.GetDrives())
             {
                 // Issue 1089: Network drives take *forever* to return the drive info slowing down startup. Only check removable drives.
@@ -25,7 +57,7 @@ namespace MobiFlight.Monitors
 
                 // Issue 1074: Failing to check for IsReady caused an IOException on certain machines
                 // when trying to read the volume label when the drive wasn't actually ready.
-                if (!drive.IsReady)
+                if (!await DriveIsReady(drive))
                 {
                     continue;
                 }
@@ -57,7 +89,7 @@ namespace MobiFlight.Monitors
                     });
                 }
             }
-
+            isScanning = false;
             UpdatePorts(result);
         }
     }
