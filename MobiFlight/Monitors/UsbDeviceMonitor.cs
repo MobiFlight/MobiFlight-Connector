@@ -9,6 +9,12 @@ namespace MobiFlight.Monitors
 {
     public class UsbDeviceMonitor : DeviceMonitor
     {
+        /// <summary>
+        /// Returns the IsReady value of the DriveInfo but also
+        /// applies a timeout to not wait for it too long.
+        /// </summary>
+        /// <param name="drive"></param>
+        /// <returns>Actual `IsReady` value, or false if timed out</returns>
         async Task<bool> DriveIsReady(DriveInfo drive)
         {
             // Issue 1074: Failing to check for IsReady caused an IOException on certain machines

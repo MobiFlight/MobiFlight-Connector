@@ -276,6 +276,7 @@ namespace MobiFlight
         /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
         /// as opposed to being connected as COM port.
         /// </summary>
+        /// <param name="WaitInMilliseconds">Time for the UsbDeviceMonitor to perform a port scan</param>
         /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
         public static List<MobiFlightModuleInfo> FindConnectedUsbDevices(double WaitInMilliseconds = 500)
         {
@@ -287,7 +288,10 @@ namespace MobiFlight
             {
                 usbDeviceMonitor.Start();
                 var task = Task
-                    // we need to wait for the timer to trigger
+                    // we need to give the usbDeviceMonitor the chance
+                    // to do the USB drive scan and return a valid list
+                    // of Detected Ports.
+                    // This might take a few moments to complete.
                     .Delay(TimeSpan.FromMilliseconds(WaitInMilliseconds))
                     .ContinueWith(_ => usbDeviceMonitor.DetectedPorts
                         .ForEach(p =>

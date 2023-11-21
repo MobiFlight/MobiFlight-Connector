@@ -32,7 +32,7 @@ namespace MobiFlight.Monitors
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            // we initialize the timer with default 0
+            // we initialize the timer with default 10ms
             // and on first timer_elapsed we set it to the
             // regular interval `TimerIntervalInMs`
             timer.Interval = TimerIntervalInMs;
@@ -45,6 +45,10 @@ namespace MobiFlight.Monitors
 
         protected void UpdatePorts(List<PortDetails> ports)
         {
+            // prevent concurrent modification of our DetectedPorts.
+            // this could be theoretically possible because:
+            // - scan events are triggered by a timer 
+            // - a scan event could take longer than the timer interval
             lock(DetectedPorts)
             {
                 ports.ForEach(p =>
