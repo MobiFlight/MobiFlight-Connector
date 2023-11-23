@@ -58,6 +58,8 @@
             this.autoRetriggerGoupBox = new System.Windows.Forms.GroupBox();
             this.minimizeOnAutoRunCheckbox = new System.Windows.Forms.CheckBox();
             this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
+            this.groupBoxHubHopAutoCheck = new System.Windows.Forms.GroupBox();
+            this.checkBoxHubHopAutoCheck = new System.Windows.Forms.CheckBox();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -70,12 +72,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.fsuipcPollIntervalTrackBar)).BeginInit();
             this.SpeedTableLayoutPanel.SuspendLayout();
             this.autoRetriggerGoupBox.SuspendLayout();
+            this.groupBoxHubHopAutoCheck.SuspendLayout();
             this.SuspendLayout();
             // 
             // BetaUpdatesGroupBox
             // 
-            resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
             this.BetaUpdatesGroupBox.Controls.Add(this.BetaUpdateCheckBox);
+            resources.ApplyResources(this.BetaUpdatesGroupBox, "BetaUpdatesGroupBox");
             this.BetaUpdatesGroupBox.Name = "BetaUpdatesGroupBox";
             this.BetaUpdatesGroupBox.TabStop = false;
             // 
@@ -87,10 +90,10 @@
             // 
             // languageGroupBox
             // 
-            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
             this.languageGroupBox.Controls.Add(this.label9);
             this.languageGroupBox.Controls.Add(this.languageComboBox);
             this.languageGroupBox.Controls.Add(this.languageLabel);
+            resources.ApplyResources(this.languageGroupBox, "languageGroupBox");
             this.languageGroupBox.Name = "languageGroupBox";
             this.languageGroupBox.TabStop = false;
             // 
@@ -101,12 +104,12 @@
             // 
             // languageComboBox
             // 
-            resources.ApplyResources(this.languageComboBox, "languageComboBox");
             this.languageComboBox.FormattingEnabled = true;
             this.languageComboBox.Items.AddRange(new object[] {
             resources.GetString("languageComboBox.Items"),
             resources.GetString("languageComboBox.Items1"),
             resources.GetString("languageComboBox.Items2")});
+            resources.ApplyResources(this.languageComboBox, "languageComboBox");
             this.languageComboBox.Name = "languageComboBox";
             // 
             // languageLabel
@@ -116,11 +119,11 @@
             // 
             // debugGroupBox
             // 
-            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
             this.debugGroupBox.Controls.Add(this.LogJoystickAxisCheckBox);
             this.debugGroupBox.Controls.Add(this.logLevelComboBox);
             this.debugGroupBox.Controls.Add(this.logLevelLabel);
             this.debugGroupBox.Controls.Add(this.logLevelCheckBox);
+            resources.ApplyResources(this.debugGroupBox, "debugGroupBox");
             this.debugGroupBox.Name = "debugGroupBox";
             this.debugGroupBox.TabStop = false;
             // 
@@ -132,7 +135,6 @@
             // 
             // logLevelComboBox
             // 
-            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
             this.logLevelComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.logLevelComboBox.FormattingEnabled = true;
             this.logLevelComboBox.Items.AddRange(new object[] {
@@ -140,6 +142,7 @@
             resources.GetString("logLevelComboBox.Items1"),
             resources.GetString("logLevelComboBox.Items2"),
             resources.GetString("logLevelComboBox.Items3")});
+            resources.ApplyResources(this.logLevelComboBox, "logLevelComboBox");
             this.logLevelComboBox.Name = "logLevelComboBox";
             // 
             // logLevelLabel
@@ -155,10 +158,10 @@
             // 
             // testModeSpeedGroupBox
             // 
-            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Controls.Add(this.label8);
             this.testModeSpeedGroupBox.Controls.Add(this.label6);
             this.testModeSpeedGroupBox.Controls.Add(this.testModeSpeedTrackBar);
+            resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
             this.testModeSpeedGroupBox.TabStop = false;
             // 
@@ -180,16 +183,16 @@
             // 
             // recentFilesGroupBox
             // 
-            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Controls.Add(this.label1);
             this.recentFilesGroupBox.Controls.Add(this.recentFilesNumericUpDown);
+            resources.ApplyResources(this.recentFilesGroupBox, "recentFilesGroupBox");
             this.recentFilesGroupBox.Name = "recentFilesGroupBox";
             this.recentFilesGroupBox.TabStop = false;
             // 
             // label1
             // 
-            resources.ApplyResources(this.label1, "label1");
             this.label1.AutoEllipsis = true;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
             // recentFilesNumericUpDown
@@ -199,8 +202,8 @@
             // 
             // CommunityFeedbackGroupBox
             // 
-            resources.ApplyResources(this.CommunityFeedbackGroupBox, "CommunityFeedbackGroupBox");
             this.CommunityFeedbackGroupBox.Controls.Add(this.CommunityFeedbackCheckBox);
+            resources.ApplyResources(this.CommunityFeedbackGroupBox, "CommunityFeedbackGroupBox");
             this.CommunityFeedbackGroupBox.Name = "CommunityFeedbackGroupBox";
             this.CommunityFeedbackGroupBox.TabStop = false;
             // 
@@ -212,11 +215,11 @@
             // 
             // ConfigExecutionGroupBox
             // 
-            resources.ApplyResources(this.ConfigExecutionGroupBox, "ConfigExecutionGroupBox");
             this.ConfigExecutionGroupBox.Controls.Add(this.label3);
             this.ConfigExecutionGroupBox.Controls.Add(this.label2);
             this.ConfigExecutionGroupBox.Controls.Add(this.label5);
             this.ConfigExecutionGroupBox.Controls.Add(this.fsuipcPollIntervalTrackBar);
+            resources.ApplyResources(this.ConfigExecutionGroupBox, "ConfigExecutionGroupBox");
             this.ConfigExecutionGroupBox.Name = "ConfigExecutionGroupBox";
             this.ConfigExecutionGroupBox.TabStop = false;
             // 
@@ -252,9 +255,9 @@
             // 
             // autoRetriggerGoupBox
             // 
-            resources.ApplyResources(this.autoRetriggerGoupBox, "autoRetriggerGoupBox");
             this.autoRetriggerGoupBox.Controls.Add(this.minimizeOnAutoRunCheckbox);
             this.autoRetriggerGoupBox.Controls.Add(this.autoRetriggerCheckBox);
+            resources.ApplyResources(this.autoRetriggerGoupBox, "autoRetriggerGoupBox");
             this.autoRetriggerGoupBox.Name = "autoRetriggerGoupBox";
             this.autoRetriggerGoupBox.TabStop = false;
             // 
@@ -270,12 +273,26 @@
             this.autoRetriggerCheckBox.Name = "autoRetriggerCheckBox";
             this.autoRetriggerCheckBox.UseVisualStyleBackColor = true;
             // 
+            // groupBoxHubHopAutoCheck
+            // 
+            this.groupBoxHubHopAutoCheck.Controls.Add(this.checkBoxHubHopAutoCheck);
+            resources.ApplyResources(this.groupBoxHubHopAutoCheck, "groupBoxHubHopAutoCheck");
+            this.groupBoxHubHopAutoCheck.Name = "groupBoxHubHopAutoCheck";
+            this.groupBoxHubHopAutoCheck.TabStop = false;
+            // 
+            // checkBoxHubHopAutoCheck
+            // 
+            resources.ApplyResources(this.checkBoxHubHopAutoCheck, "checkBoxHubHopAutoCheck");
+            this.checkBoxHubHopAutoCheck.Name = "checkBoxHubHopAutoCheck";
+            this.checkBoxHubHopAutoCheck.UseVisualStyleBackColor = true;
+            // 
             // GeneralPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.SpeedTableLayoutPanel);
             this.Controls.Add(this.languageGroupBox);
+            this.Controls.Add(this.groupBoxHubHopAutoCheck);
             this.Controls.Add(this.autoRetriggerGoupBox);
             this.Controls.Add(this.CommunityFeedbackGroupBox);
             this.Controls.Add(this.BetaUpdatesGroupBox);
@@ -299,6 +316,8 @@
             this.SpeedTableLayoutPanel.ResumeLayout(false);
             this.autoRetriggerGoupBox.ResumeLayout(false);
             this.autoRetriggerGoupBox.PerformLayout();
+            this.groupBoxHubHopAutoCheck.ResumeLayout(false);
+            this.groupBoxHubHopAutoCheck.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -334,5 +353,7 @@
         private System.Windows.Forms.GroupBox autoRetriggerGoupBox;
         private System.Windows.Forms.CheckBox autoRetriggerCheckBox;
         private System.Windows.Forms.CheckBox minimizeOnAutoRunCheckbox;
+        private System.Windows.Forms.GroupBox groupBoxHubHopAutoCheck;
+        private System.Windows.Forms.CheckBox checkBoxHubHopAutoCheck;
     }
 }

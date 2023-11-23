@@ -117,6 +117,7 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.autoloadToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelHubHop = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataTable1 = new System.Data.DataTable();
@@ -128,6 +129,7 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -599,8 +601,10 @@
             this.toolStripDropDownButton1,
             this.toolStripStatusLabel1,
             this.toolStripAircraftDropDownButton,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel,
             this.toolStripStatusLabel4,
-            this.toolStripStatusLabel});
+            this.toolStripStatusLabelHubHop});
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.ShowItemToolTips = true;
             this.statusStrip2.SizingGrip = false;
@@ -749,6 +753,11 @@
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
             resources.ApplyResources(this.toolStripStatusLabel4, "toolStripStatusLabel4");
             // 
+            // toolStripStatusLabelHubHop
+            // 
+            resources.ApplyResources(this.toolStripStatusLabelHubHop, "toolStripStatusLabelHubHop");
+            this.toolStripStatusLabelHubHop.Name = "toolStripStatusLabelHubHop";
+            // 
             // toolStripStatusLabel
             // 
             this.toolStripStatusLabel.Name = "toolStripStatusLabel";
@@ -815,6 +824,13 @@
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
             // 
             // MainForm
             // 
@@ -959,6 +975,8 @@
         private System.Windows.Forms.ToolStripMenuItem openLinkedConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem openLinkFilenameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHubHop;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
 

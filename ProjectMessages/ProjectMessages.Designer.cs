@@ -816,6 +816,17 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your HubHop presets are older than 7 days.
+        ///
+        ///Would you like to update?.
+        /// </summary>
+        internal static string uiMessageHubHopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopAutoUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error on downloading HubHop presets. Please check the Log for more information..
         /// </summary>
         internal static string uiMessageHubHopUpdateError {
@@ -1441,6 +1452,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiSettingsMobiFlightChangeRequiresRestart {
             get {
                 return ResourceManager.GetString("uiSettingsMobiFlightChangeRequiresRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HubHop Preset Update.
+        /// </summary>
+        internal static string uiTitleHubhopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiTitleHubhopAutoUpdate", resourceCulture);
             }
         }
         

@@ -638,4 +638,14 @@ That midiboard cannot be used until other application is terminated and MobiFlig
     <value>Drag and Drop ist nicht verfügbar, wenn die Liste sortiert ist.</value>
     <comment>Drag and Drop is not available when list is sorted.</comment>
   </data>
+  <data name="uiMessageHubHopAutoUpdate" xml:space="preserve">
+    <value>Deine HubHop Presets sind älter als 7 Tage.
+
+Möchtest Du sie aktualisieren?</value>
+    <comment>Your HubHop presets are older than 7 days.\n\nWould you like to update?</comment>
+  </data>
+  <data name="uiTitleHubhopAutoUpdate" xml:space="preserve">
+    <value>HubHop Preset Update</value>
+    <comment>HubHop Preset Update</comment>
+  </data>
 </root>

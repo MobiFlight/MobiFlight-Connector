@@ -423,6 +423,7 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
             CheckForWasmModuleUpdate();
+            CheckForHubhopUpdate();
 
             UpdateAllConnectionIcons();
 
@@ -432,6 +433,27 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackStart();
 
             InitialLookupFinished = true;
+        }
+
+        private void CheckForHubhopUpdate()
+        {
+            var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+            UpdateHubHopTimestampInStatusBar(lastModification);
+            
+            if (lastModification > DateTime.UtcNow.AddDays(-7)) return;
+            // we could provide a warning icon or so.
+            if (!Properties.Settings.Default.HubHopAutoCheck) return;
+            // we haven't updated hubhop events in more than 7 days.
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("uiMessageHubHopAutoUpdate");
+            tmd.Text = i18n._tr("uiTitleHubhopAutoUpdate");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+            }
         }
 
         private void CheckForWasmModuleUpdate()
@@ -2168,6 +2190,9 @@ namespace MobiFlight.UI
                    i18n._tr("uiMessageHubHopUpdateSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+                UpdateHubHopTimestampInStatusBar(lastModification);
             }
             else
             {
@@ -2178,6 +2203,12 @@ namespace MobiFlight.UI
             };
 
             progressForm.Dispose();
+        }
+
+        private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
+        {
+            toolStripStatusLabelHubHop.Text = lastModification.ToLocalTime().ToShortDateString();
+            toolStripStatusLabelHubHop.ToolTipText = lastModification.ToLocalTime().ToString();
         }
 
         private void openDiscordServer_Click(object sender, EventArgs e)
