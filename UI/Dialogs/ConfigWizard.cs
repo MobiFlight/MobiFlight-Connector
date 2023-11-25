@@ -146,6 +146,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void TestTimer_Tick(object sender, EventArgs e)
         {
+            TestTimer.Interval = Settings.Default.TestTimerInterval;
             var value = config.TestValue.Clone() as ConnectorValue;
             if (value == null) value = new ConnectorValue();
 
@@ -175,6 +176,7 @@ namespace MobiFlight.UI.Dialogs
             try
             {
                 modifierPanel1.toConfig(config);
+                TestTimer.Interval = 10;
                 TestTimer.Start();
             }
             catch (Exception e)
