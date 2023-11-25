@@ -21,7 +21,7 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual((o.onHold as XplaneInputAction).Path, (c.onHold as XplaneInputAction).Path, "onHold is not correct");
             Assert.AreEqual(o.RepeatDelay, c.RepeatDelay, "RepeatDelay is not correct");
             Assert.AreEqual(o.HoldDelay, c.HoldDelay, "HoldDelay is not correct");
-            Assert.AreEqual(o.LongReleaseDelay, c.LongReleaseDelay, "HoldDelay is not correct");
+            Assert.AreEqual(o.LongReleaseDelay, c.LongReleaseDelay, "LongReleaseDelay is not correct");
         }
 
         private ButtonInputConfig generateTestObject()
