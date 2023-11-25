@@ -16,13 +16,25 @@ namespace MobiFlight.InputConfig
     {
         public int DataPin;
 
+        /// <summary>
+        /// Public constructor with no parameters
+        /// </summary>
+        public InputMultiplexerConfig() : base() { }
+
+        /// <summary>
+        /// Copy constructor, this allows to reuse the clone method in derived classes
+        /// </summary>
+        /// <param name="copyFrom"></param>
+        protected InputMultiplexerConfig(InputMultiplexerConfig copyFrom) : base(copyFrom) {
+            this.DataPin = copyFrom.DataPin;
+        }
+
+        /// <summary>
+        /// Clone method, uses the copy constuctor to respect inheritance and prevents code duplication
+        /// </summary>
         public new object Clone()
         {
-            InputMultiplexerConfig clone = new InputMultiplexerConfig();
-            if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
-            if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
-            clone.DataPin = DataPin;
-            return clone;
+            return new InputMultiplexerConfig(this);
         }
 
         public new void ReadXml(System.Xml.XmlReader reader)
