@@ -698,8 +698,7 @@ namespace MobiFlight
             }
             else
             {
-                result.type = FSUIPCOffsetType.Float;
-                result.Float64 = simConnectCache.GetSimVar(cfg.SimConnectValue.Value);
+                result.type = simConnectCache.GetSimVar(cfg.SimConnectValue.Value, out result.String, out result.Float64);
             }
 
             return result;

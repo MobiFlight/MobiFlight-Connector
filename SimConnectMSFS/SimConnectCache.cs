@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using HidSharp.Utility;
 using Microsoft.FlightSimulator.SimConnect;
+using System.Text.RegularExpressions;
 
 namespace MobiFlight.SimConnectMSFS
 {
@@ -40,6 +41,13 @@ namespace MobiFlight.SimConnectMSFS
         /// This has to be changed also in SimConnectDefintions
         private const int MOBIFLIGHT_MESSAGE_SIZE = 1024;
 
+        /// Constants regarding the handling of string SimVars
+        private const int MOBIFLIGHT_STRINGVAR_ID_OFFSET = 10000;
+        private const int MOBIFLIGHT_STRINGVAR_SIZE = 128;
+        private const int MOBIFLIGHT_STRINGVAR_MAX_AMOUNT = 64;
+        // This must not exceed SIMCONNECT_CLIENTDATA_MAX_SIZE!
+        private const int MOBIFLIGHT_STRINGVAR_DATAAREA_SIZE = MOBIFLIGHT_STRINGVAR_SIZE * MOBIFLIGHT_STRINGVAR_MAX_AMOUNT;
+
         /// User-defined win32 event
         public const int WM_USER_SIMCONNECT = 0x0402;
 
@@ -58,6 +66,7 @@ namespace MobiFlight.SimConnectMSFS
         public String PresetFileUser = null;
 
         private List<SimVar> SimVars = new List<SimVar>();
+        private List<StringSimVar> StringSimVars = new List<StringSimVar>();
         private List<String> LVars = new List<String>();
         private String ResponseStatus = "NEW";
 
@@ -69,6 +78,7 @@ namespace MobiFlight.SimConnectMSFS
                 AREA_SIMVAR_ID = SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_LVARS,
                 AREA_COMMAND_ID = SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_CMD,
                 AREA_RESPONSE_ID = SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_RESPONSE,
+                AREA_STRINGSIMVAR_ID = SIMCONNECT_CLIENT_DATA_ID.MOBIFLIGHT_STRINGVAR,
                 DATA_DEFINITION_ID = SIMCONNECT_DEFINE_ID.INIT_CLIENT,
                 RESPONSE_OFFSET = 0    
             };
@@ -79,6 +89,7 @@ namespace MobiFlight.SimConnectMSFS
                 AREA_SIMVAR_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_LVARS,
                 AREA_COMMAND_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_CMD,
                 AREA_RESPONSE_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_RESPONSE,
+                AREA_STRINGSIMVAR_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_STRINGVAR,
                 DATA_DEFINITION_ID = SIMCONNECT_DEFINE_ID.RUNTIME_CLIENT,
                 RESPONSE_OFFSET = 0
             };
@@ -254,6 +265,10 @@ namespace MobiFlight.SimConnectMSFS
             (sender).MapClientDataNameToID($"{clientData.NAME}.Response", clientData.AREA_RESPONSE_ID);
             (sender).CreateClientData(clientData.AREA_RESPONSE_ID, MOBIFLIGHT_MESSAGE_SIZE, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
 
+            // register Client Data (for String-SimVars)
+            (sender).MapClientDataNameToID($"{clientData.NAME}.StringVars", clientData.AREA_STRINGSIMVAR_ID);
+            (sender).CreateClientData(clientData.AREA_STRINGSIMVAR_ID, MOBIFLIGHT_STRINGVAR_DATAAREA_SIZE, SIMCONNECT_CREATE_CLIENT_DATA_FLAG.DEFAULT);
+
             (sender).AddToClientDataDefinition(clientData.DATA_DEFINITION_ID, 
                                                 clientData.RESPONSE_OFFSET, MOBIFLIGHT_MESSAGE_SIZE, 0, 0);
 
@@ -328,7 +343,15 @@ namespace MobiFlight.SimConnectMSFS
 
                 }
                 // SimVar value callback
-                else
+                else if (data.dwRequestID > MOBIFLIGHT_STRINGVAR_ID_OFFSET) // -> is string SimVar
+                {
+                    var simData = (ClientDataStringValue)(data.dwData[0]);
+                    var simVarIndex = (int)(data.dwRequestID - MOBIFLIGHT_STRINGVAR_ID_OFFSET - 1);
+
+                    if (StringSimVars.Count <= simVarIndex || simVarIndex < 0) return;
+                    StringSimVars[simVarIndex].Data = simData.data;
+                }
+                else // -> Must be float SimVar
                 {
                     var simData = (ClientDataValue)(data.dwData[0]);
                     var simVarIndex = (int)(data.dwRequestID) - SIMVAR_DATA_DEFINITION_OFFSET;
@@ -337,7 +360,7 @@ namespace MobiFlight.SimConnectMSFS
                     SimVars[simVarIndex].Data = simData.data;
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Log.Instance.log($"Exception in SimConnect Callback: {ex.Message}", LogSeverity.Error);
                 throw; // Exception is caught in SimConnect
@@ -426,21 +449,52 @@ namespace MobiFlight.SimConnectMSFS
             );
         }
 
-        public float GetSimVar(String SimVarName)
+        public FSUIPCOffsetType GetSimVar(String simVarName, out String stringVal, out double floatVal)
         {
-            float result = 0;
-            if (!IsConnected()) 
-                return result;
+            FSUIPCOffsetType simVarType = FSUIPCOffsetType.Float;
+            bool isFloat = false;
+            bool isString = false;
 
-            if (!SimVars.Exists(lvar => lvar.Name == SimVarName))
+            stringVal = "0";
+            floatVal = 0.0F;
+
+            if (!IsConnected()) 
+                return simVarType;
+
+            isFloat = SimVars.Exists(lvar => lvar.Name == simVarName);
+            if(!isFloat)
             {
-                RegisterSimVar(SimVarName);            
-                WasmModuleClient.AddSimVar(m_oSimConnect, SimVarName, WasmRuntimeClientData);              
+                isString = StringSimVars.Exists(lvar => lvar.Name == simVarName);
+
+                if (!isString)
+                {
+                    simVarType = RegisterSimVar(simVarName);
+                    if (simVarType == FSUIPCOffsetType.String)
+                    {
+                        WasmModuleClient.AddStringSimVar(m_oSimConnect, simVarName, WasmRuntimeClientData);
+                    }
+                    else
+                    {
+                        WasmModuleClient.AddSimVar(m_oSimConnect, simVarName, WasmRuntimeClientData);
+                    }
+                }
+                else
+                {
+                    simVarType = FSUIPCOffsetType.String;
+                }
             }
 
-            result = SimVars.Find(lvar => lvar.Name == SimVarName).Data;
+            if(simVarType == FSUIPCOffsetType.Float)
+            {
+                floatVal = SimVars.Find(lvar => lvar.Name == simVarName).Data;
+            }
+            else
+            {
+                stringVal = StringSimVars.Find(lvar => lvar.Name == simVarName).Data;
+                stringVal = (stringVal) == null ? "0" : stringVal;
+            }
 
-            return result;
+            return simVarType;
         }
 
         public void SetSimVar(String SimVarCode)
@@ -448,44 +502,82 @@ namespace MobiFlight.SimConnectMSFS
             WasmModuleClient.SetSimVar(m_oSimConnect, SimVarCode, WasmRuntimeClientData);   
         }
 
-        private void RegisterSimVar(string SimVarName)
+        private FSUIPCOffsetType RegisterSimVar(string SimVarName)
         {
-            SimVar NewSimVar = new SimVar() { Name = SimVarName, ID = (uint) (SimVars.Count + SIMVAR_DATA_DEFINITION_OFFSET) };
-            SimVars.Add(NewSimVar);
-
-            if (MaxClientDataDefinition >= NewSimVar.ID)
+            // Matches presets like "(A:TITLE,String)" in different variations. These will most likely be of type String an will therefore be treated as String.
+            Match stringPreset = Regex.Match(SimVarName, "\\(.*A.*:.*,.*String.*\\)");
+            FSUIPCOffsetType simVarType = stringPreset.Success ? FSUIPCOffsetType.String : FSUIPCOffsetType.Float;
+            
+            
+            if(simVarType == FSUIPCOffsetType.Float)
             {
-                return;
+                // Register SimVar as float
+                SimVar newSimVar = new SimVar() { Name = SimVarName, ID = (uint)(SimVars.Count + SIMVAR_DATA_DEFINITION_OFFSET) };
+                SimVars.Add(newSimVar);
+                if(MaxClientDataDefinition < (SimVars.Count + SIMVAR_DATA_DEFINITION_OFFSET - 1 + StringSimVars.Count))
+                {
+                    // Register SimVar as float
+                    m_oSimConnect?.AddToClientDataDefinition(
+                        (SIMCONNECT_DEFINE_ID)newSimVar.ID,
+                        (uint)((newSimVar.ID - SIMVAR_DATA_DEFINITION_OFFSET) * sizeof(float)),
+                        sizeof(float),
+                        0,
+                        0);
+
+                    m_oSimConnect?.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataValue>((SIMCONNECT_DEFINE_ID)newSimVar.ID);
+
+                    m_oSimConnect?.RequestClientData(
+                        WasmRuntimeClientData.AREA_SIMVAR_ID,
+                        (SIMCONNECT_REQUEST_ID)newSimVar.ID,
+                        (SIMCONNECT_DEFINE_ID)newSimVar.ID,
+                        SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET,
+                        SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED,
+                        0,
+                        0,
+                        0
+                    );
+
+                    MaxClientDataDefinition = (uint)(SimVars.Count + SIMVAR_DATA_DEFINITION_OFFSET - 1 + StringSimVars.Count);
+                }
+            }
+            else
+            {
+                // Register SimVar as string (different ID-offset, size and a separate data-area)
+                StringSimVar newStringSimVar = new StringSimVar() { Name = SimVarName, ID = (uint)StringSimVars.Count + 1 + MOBIFLIGHT_STRINGVAR_ID_OFFSET };
+                StringSimVars.Add(newStringSimVar);
+                if (MaxClientDataDefinition < (SimVars.Count + SIMVAR_DATA_DEFINITION_OFFSET - 1 + StringSimVars.Count))
+                {
+                    m_oSimConnect?.AddToClientDataDefinition(
+                        (SIMCONNECT_DEFINE_ID)(newStringSimVar.ID),
+                        (uint)((StringSimVars.Count - 1) * MOBIFLIGHT_STRINGVAR_SIZE),
+                        MOBIFLIGHT_STRINGVAR_SIZE,
+                        0,
+                        0);
+
+                    m_oSimConnect?.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataStringValue>((SIMCONNECT_DEFINE_ID)newStringSimVar.ID);
+
+                    m_oSimConnect?.RequestClientData(
+                        WasmRuntimeClientData.AREA_STRINGSIMVAR_ID,
+                        (SIMCONNECT_REQUEST_ID)(newStringSimVar.ID),
+                        (SIMCONNECT_DEFINE_ID)(newStringSimVar.ID),
+                        SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET,
+                        SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED,
+                        0,
+                        0,
+                        0
+                    );
+    
+                    MaxClientDataDefinition = (uint)(SimVars.Count + SIMVAR_DATA_DEFINITION_OFFSET - 1 + StringSimVars.Count);
+                }
             }
 
-            MaxClientDataDefinition = NewSimVar.ID;
-
-            uint offset = (uint)(NewSimVar.ID - SIMVAR_DATA_DEFINITION_OFFSET) * sizeof(float);
-
-            m_oSimConnect?.AddToClientDataDefinition(
-                (SIMCONNECT_DEFINE_ID)NewSimVar.ID, // data Definition ID
-                offset,
-                sizeof(float),
-                0,
-                0);
-
-            m_oSimConnect?.RegisterStruct<SIMCONNECT_RECV_CLIENT_DATA, ClientDataValue>((SIMCONNECT_DEFINE_ID)NewSimVar.ID);
-
-            m_oSimConnect?.RequestClientData(
-                WasmRuntimeClientData.AREA_SIMVAR_ID,          
-                (SIMCONNECT_REQUEST_ID)NewSimVar.ID,
-                (SIMCONNECT_DEFINE_ID)NewSimVar.ID,
-                SIMCONNECT_CLIENT_DATA_PERIOD.ON_SET,
-                SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.CHANGED,
-                0,
-                0,
-                0
-            );
+            return simVarType;
         }
 
         private void ClearSimVars()
         {            
             SimVars.Clear();
+            StringSimVars.Clear();
             Log.Instance.log("SimVars Cleared.", LogSeverity.Debug);
         }
 
