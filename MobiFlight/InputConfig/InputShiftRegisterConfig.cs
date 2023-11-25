@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
@@ -13,13 +10,27 @@ namespace MobiFlight.InputConfig
     {
         public int ExtPin;
 
+        /// <summary>
+        /// Public constructor with no parameters
+        /// </summary>
+        public InputShiftRegisterConfig() : base() { 
+            // we don't do anything in the public constructor
+        }
+
+        /// <summary>
+        /// Copy constructor, this allows to reuse the clone method in derived classes
+        /// </summary>
+        /// <param name="copyFrom"></param>
+        protected InputShiftRegisterConfig(InputShiftRegisterConfig copyFrom) : base(copyFrom) {
+            this.ExtPin = copyFrom.ExtPin;
+        }
+
+        /// <summary>
+        /// Clone method, uses the copy constuctor to respect inheritance and prevents code duplication
+        /// </summary>
         public new object Clone()
         {
-            InputShiftRegisterConfig clone = new InputShiftRegisterConfig();
-            if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
-            if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();
-            clone.ExtPin = ExtPin;
-            return clone;
+            return new InputShiftRegisterConfig(this);
         }
 
         public new void ReadXml(System.Xml.XmlReader reader)
