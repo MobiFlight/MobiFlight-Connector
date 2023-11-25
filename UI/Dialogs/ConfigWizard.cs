@@ -52,19 +52,22 @@ namespace MobiFlight.UI.Dialogs
 #else
             initWithoutArcazeCache();
 #endif
-            var list = dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
+            // copy this so that no filtering will 
+            // impact the list of displayed items
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
+            _dataSetConfig = dataSetConfig.Copy();
+            var list = _dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
 
             // store the current guid
             CurrentGuid = filterGuid;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(dataSetConfig, filterGuid);   
+            initConfigRefDropDowns(_dataSetConfig, filterGuid);   
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
         {
-            _dataSetConfig = dataSetConfig;
             DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
 
             // this filters the current config
@@ -73,7 +76,6 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
             displayPanel1.SetConfigRefsDataView(dv, filterGuid);
-            //displayShiftRegisterPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 
         public bool ConfigHasChanged()
