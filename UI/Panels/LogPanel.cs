@@ -7,6 +7,7 @@ namespace MobiFlight.UI.Panels
     public partial class LogPanel : UserControl, ILogAppender
     {
         private bool IsDrawingSuspended = false;
+        private bool IsShutdown = false;
         private System.Windows.Forms.Timer CheckDrawingSuspendedTimer = new Timer();
         public LogPanel()
         {
@@ -16,6 +17,13 @@ namespace MobiFlight.UI.Panels
             listView1.DoubleBuffered(true);
             CheckDrawingSuspendedTimer.Interval = 50;
             CheckDrawingSuspendedTimer.Tick += CheckDrawingSuspendedTimer_Tick;
+        }
+
+        public void Shutdown()
+        {
+            IsShutdown = true;
+            CheckDrawingSuspendedTimer.Stop();
+            ((IDisposable)CheckDrawingSuspendedTimer).Dispose();
         }
 
         private void CheckDrawingSuspendedTimer_Tick(object sender, EventArgs e)
@@ -36,6 +44,8 @@ namespace MobiFlight.UI.Panels
 
         public void log(string message, LogSeverity severity)
         {
+            if (IsShutdown) return;
+
             if (!IsDrawingSuspended)
             {
                 IsDrawingSuspended = true;
@@ -43,7 +53,7 @@ namespace MobiFlight.UI.Panels
                 CheckDrawingSuspendedTimer.Start();
             }
             ListViewItem item = new ListViewItem();
-            switch(severity)
+            switch (severity)
             {
                 case LogSeverity.Error:
                     item.StateImageIndex = 0;
