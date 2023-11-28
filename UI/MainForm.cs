@@ -393,6 +393,7 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackShutdown();
             execManager.Shutdown();
             Properties.Settings.Default.Save();
+            logPanel1.Shutdown();
         } //Form1_FormClosed
 
         void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
