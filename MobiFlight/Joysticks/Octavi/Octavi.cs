@@ -1,7 +1,9 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
+using HidSharp.Reports.Input;
 using SharpDX.DirectInput;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MobiFlight.Joysticks.Octavi
 {
@@ -104,10 +106,26 @@ namespace MobiFlight.Joysticks.Octavi
             
             Stream = Device.Open();
             Stream.ReadTimeout = System.Threading.Timeout.Infinite;
-
             reportDescriptor = Device.GetReportDescriptor();
             inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
+            inputReceiver.Received += InputReceiver_Received;
             inputReceiver.Start(Stream);
+        }
+
+        private void InputReceiver_Received(object sender, System.EventArgs e)
+        {
+            var inputRec = sender as HidDeviceInputReceiver;
+            byte[] inputReportBuffer = new byte[8];
+            
+            while (inputRec.TryRead(inputReportBuffer, 0, out _))
+            {
+                OctaviReport OReport = new OctaviReport();
+                OReport.parseReport(inputReportBuffer);
+                List<int> btnz = octaviHandler.toButton(OReport);
+                foreach (int i in btnz) {
+                    TriggerButtonPress(i);
+                }
+            }
         }
 
         protected override void SendData(byte[] data)
@@ -137,44 +155,13 @@ namespace MobiFlight.Joysticks.Octavi
 
         public override void Update()
         {
-            byte[] streambuffer = null;
-            byte[] inputReportBuffer = new byte[8];
-            Report report;
-
             if (Stream == null)
             {
                 Connect();
             };
-
-            int n = 0;
-            while(inputReceiver.TryRead(inputReportBuffer, 0, out report))
-            {
-                n++;
-                OctaviReport OReport = new OctaviReport();
-                OReport.parseReport(inputReportBuffer);
-                List<int> btnz = octaviHandler.toButton(OReport);
-                foreach(int i in btnz) TriggerButtonPress(i);
-            }
-            if(n>1)
-            {
-
-            }
-            if (streambuffer != null)
-            {
-                sbyte outerknob = (sbyte) streambuffer[5];
-                sbyte innerknob = (sbyte) streambuffer[6];
-
-                if (innerknob < 0)
-                {
-                    TriggerButtonPress(0);
-                }
-                else if (innerknob > 0)
-                {
-                    TriggerButtonPress(1);
-                }
-            }
-
-            
+            // We don't do anything else
+            // because we have a callback for
+            // handling the incoming reports
         }
 
         protected override void EnumerateDevices()
