@@ -493,8 +493,6 @@ namespace MobiFlight.UI
                 }
             }
 
-            // Connected USB devices that are in bootsel mode get added to the firmware flashing list
-            modulesForFlashing.AddRange(MobiFlightCache.FindConnectedUsbDevices());
 
             if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
