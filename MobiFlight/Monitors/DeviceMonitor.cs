@@ -1,45 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Timers;
+using System.Management;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Monitors
 {
-    public class DeviceMonitor : IDisposable
+    public class DeviceMonitor
     {
         protected bool isScanning = false;
         public event EventHandler<PortDetails> PortAvailable;
         public event EventHandler<PortDetails> PortUnavailable;
         public List<PortDetails> DetectedPorts { get; set; } = new List<PortDetails>();
 
-        // initial timer interval will be 10 
-        // so it will execute Timer_Elapsed immediately
-        private readonly Timer timer = new Timer(10);
+        private ManagementEventWatcher EventWatcher = new ManagementEventWatcher();
 
-        const double TimerIntervalInMs = 1000;
-
-        public DeviceMonitor() {
-            timer.Elapsed += Timer_Elapsed;
-        }
-        public void Start()
+        public DeviceMonitor()
         {
-            timer.Start();
+            // EventType 2 is for connected, 3 for disconnected.
+            // Most of the time several DeviceChangeEvent are fired in the process of connecting or disconnecting.
+            // GROUP WITHIN 1 collects all events within one second.
+            var query = new WqlEventQuery("SELECT * FROM Win32_DeviceChangeEvent WHERE EventType = 2 or EventType = 3 GROUP WITHIN 1");
+            EventWatcher.Query = query;
         }
 
-        public void Stop() 
-        { 
-            timer.Stop(); 
-        }
-
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void EventWatcher_EventArrived(object sender, EventArrivedEventArgs e)
         {
-            // we initialize the timer with default 10ms
-            // and on first timer_elapsed we set it to the
-            // regular interval `TimerIntervalInMs`
-            timer.Interval = TimerIntervalInMs;
+            Log.Instance.log($"DeviceMonitor EventWatcher_EventArrived: {e.NewEvent.ClassPath.Path}.", LogSeverity.Debug);            
             Scan();
         }
 
-        virtual protected void Scan() { 
+        public void Start()
+        {
+            EventWatcher.EventArrived += EventWatcher_EventArrived;
+            EventWatcher.Start();
+            // Currently thread change necessary, otherwise exception in board reset process.
+            Task.Delay(TimeSpan.FromMilliseconds(50)).ContinueWith(_ => Scan());                   
+        }
+
+        public void Stop()
+        {
+            EventWatcher.Stop();
+            EventWatcher.EventArrived -= EventWatcher_EventArrived;
+        }
+
+        virtual protected void Scan()
+        {
             throw new NotImplementedException();
         }
 
@@ -49,7 +54,7 @@ namespace MobiFlight.Monitors
             // this could be theoretically possible because:
             // - scan events are triggered by a timer 
             // - a scan event could take longer than the timer interval
-            lock(DetectedPorts)
+            lock (DetectedPorts)
             {
                 ports.ForEach(p =>
                 {
@@ -75,11 +80,6 @@ namespace MobiFlight.Monitors
 
                 stalePorts.ForEach(p => DetectedPorts.Remove(p));
             }
-        }
-
-        public void Dispose()
-        {
-            ((IDisposable)timer).Dispose();
         }
     }
 }
