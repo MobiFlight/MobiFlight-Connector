@@ -23,7 +23,7 @@ namespace MobiFlight.Joysticks.Octavi
 
         public Octavi(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition) {
 
-            OctaviButtons  = new Dictionary<string, string>()
+            OctaviButtons = new Dictionary<string, string>()
             {
                 { "Button_COM1_OI", "COM1 Outer +" },
                 { "Button_COM1_OD", "COM1 Outer -" },
@@ -103,7 +103,7 @@ namespace MobiFlight.Joysticks.Octavi
                 Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
                 if (Device == null) return;
             }
-            
+
             Stream = Device.Open();
             Stream.ReadTimeout = System.Threading.Timeout.Infinite;
             reportDescriptor = Device.GetReportDescriptor();
@@ -155,7 +155,7 @@ namespace MobiFlight.Joysticks.Octavi
 
         public override void Update()
         {
-            if (Stream == null)
+            if (Stream == null || inputReceiver == null)
             {
                 Connect();
             };

@@ -87,6 +87,11 @@ namespace MobiFlight
             {
                 // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
             }
+            catch (Exception ex)
+            {
+                // something else has happened
+                Log.Instance.log($"An exception occured during update {ex.Message}", LogSeverity.Error);
+            }
         }
 
         public void Startup()
