@@ -38,6 +38,8 @@ namespace MobiFlight
 		public OutputConfig.LedModule   LedModule               { get; set; }
 		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
 		public List<string>         BcdPins                     { get; set; }
+        public OutputConfig.MqttMessageConfig MqttMessage { get; set; }
+
         public OutputConfig.Servo   Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
@@ -65,6 +67,7 @@ namespace MobiFlight
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
+            MqttMessage = new OutputConfig.MqttMessageConfig();
             ShiftRegister = new OutputConfig.ShiftRegister();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
@@ -100,6 +103,8 @@ namespace MobiFlight
                 //===
                 // TODO: I will ignore this, because it is a deprecated feature
                 // this.BcdPins.Equals((obj as OutputConfigItem).BcdPins) &&
+                //===
+                this.MqttMessage.Equals((obj as OutputConfigItem).MqttMessage) &&
                 //===
                 this.ShiftRegister.Equals((obj as OutputConfigItem).ShiftRegister) &&
                 //===
@@ -236,6 +241,10 @@ namespace MobiFlight
                 {
                     if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.ReadXml(reader);
+                }
+                else if (DisplayType == MqttMessageConfig.TYPE)
+                {
+                    MqttMessage.ReadXml(reader);
                 }
                 else if (DisplayType == MobiFlightShiftRegister.TYPE)
                 {
@@ -390,6 +399,10 @@ namespace MobiFlight
                 if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                 LcdDisplay.WriteXml(writer);
             }
+            else if (DisplayType == MqttMessageConfig.TYPE)
+            {
+                MqttMessage.WriteXml(writer);
+            }
             else if (DisplayType == MobiFlightShiftRegister.TYPE)
             {
                 ShiftRegister.WriteXml(writer);
@@ -456,6 +469,7 @@ namespace MobiFlight
             clone.Servo                     = Servo.Clone() as OutputConfig.Servo;
             clone.Stepper                   = Stepper.Clone() as OutputConfig.Stepper;
 
+            clone.MqttMessage               = MqttMessage.Clone() as OutputConfig.MqttMessageConfig;
             clone.ShiftRegister             = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
             clone.CustomDevice              = CustomDevice.Clone() as OutputConfig.CustomDevice;
 

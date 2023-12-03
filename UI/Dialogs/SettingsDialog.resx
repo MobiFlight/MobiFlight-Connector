@@ -217,7 +217,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 509</value>
+    <value>557, 541</value>
   </data>
   <data name="arcazePanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -241,7 +241,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="ArcazeTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>563, 515</value>
+    <value>563, 547</value>
   </data>
   <data name="ArcazeTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -457,7 +457,7 @@
     <value>1, 1, 1, 1</value>
   </data>
   <data name="mobiFlightPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 509</value>
+    <value>557, 541</value>
   </data>
   <data name="mobiFlightPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -481,7 +481,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>563, 515</value>
+    <value>563, 547</value>
   </data>
   <data name="mobiFlightTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -500,6 +500,51 @@
   </data>
   <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="mqttServerSettingsPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="mqttServerSettingsPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 516</value>
+  </data>
+  <data name="mqttServerSettingsPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;mqttServerSettingsPanel1.Name" xml:space="preserve">
+    <value>mqttServerSettingsPanel1</value>
+  </data>
+  <data name="&gt;&gt;mqttServerSettingsPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Settings.MqttServerSettingsPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;mqttServerSettingsPanel1.Parent" xml:space="preserve">
+    <value>mqttServerTabPage</value>
+  </data>
+  <data name="&gt;&gt;mqttServerSettingsPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mqttServerTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="mqttServerTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>563, 547</value>
+  </data>
+  <data name="mqttServerTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="mqttServerTabPage.Text" xml:space="preserve">
+    <value>MQTT Server</value>
+  </data>
+  <data name="&gt;&gt;mqttServerTabPage.Name" xml:space="preserve">
+    <value>mqttServerTabPage</value>
+  </data>
+  <data name="&gt;&gt;mqttServerTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mqttServerTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;mqttServerTabPage.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

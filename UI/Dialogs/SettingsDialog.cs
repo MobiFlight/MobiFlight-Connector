@@ -105,6 +105,10 @@ namespace MobiFlight.UI.Dialogs
             // TAB MobiFlight
             //
             mobiFlightPanel.LoadSettings();
+            //
+            // TAB MQTT server
+            //
+            mqttServerSettingsPanel.LoadSettings();
         }
 
         /// <summary>
@@ -121,6 +125,9 @@ namespace MobiFlight.UI.Dialogs
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
+
+            // MQTT server Tab
+            mqttServerSettingsPanel.SaveSettings();
 
             // Save all Settings
             Properties.Settings.Default.Save();

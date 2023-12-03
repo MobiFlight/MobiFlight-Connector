@@ -63,17 +63,20 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
+            this.mqttServerTabPage = new System.Windows.Forms.TabPage();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.mqttServerSettingsPanel = new MobiFlight.UI.Panels.Settings.MqttServerSettingsPanel();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
             this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
+            this.mqttServerTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -270,6 +273,7 @@
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.ArcazeTabPage);
+            this.tabControl1.Controls.Add(this.mqttServerTabPage);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -285,6 +289,13 @@
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
             this.mobiFlightPanel.Name = "mobiFlightPanel";
+            // 
+            // mqttServerTabPage
+            // 
+            this.mqttServerTabPage.Controls.Add(this.mqttServerSettingsPanel);
+            resources.ApplyResources(this.mqttServerTabPage, "mqttServerTabPage");
+            this.mqttServerTabPage.Name = "mqttServerTabPage";
+            this.mqttServerTabPage.UseVisualStyleBackColor = true;
             // 
             // firmwareSettingsToolStripMenuItem
             // 
@@ -306,6 +317,11 @@
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
             // 
+            // mqttServerSettingsPanel1
+            // 
+            resources.ApplyResources(this.mqttServerSettingsPanel, "mqttServerSettingsPanel1");
+            this.mqttServerSettingsPanel.Name = "mqttServerSettingsPanel1";
+            // 
             // SettingsDialog
             // 
             resources.ApplyResources(this, "$this");
@@ -323,6 +339,7 @@
             this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
+            this.mqttServerTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -368,5 +385,7 @@
         private Panels.Settings.ArcazePanel arcazePanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
+        private System.Windows.Forms.TabPage mqttServerTabPage;
+        private Panels.Settings.MqttServerSettingsPanel mqttServerSettingsPanel;
     }
 }

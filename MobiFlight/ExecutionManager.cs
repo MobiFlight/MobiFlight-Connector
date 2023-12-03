@@ -1,6 +1,8 @@
 using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.MQTT;
+using MobiFlight.OutputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
@@ -279,6 +281,7 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
+            MQTTManager.Connect().Forget();
             OnStartActions();
 
             // Force all the modules awake whenver run is activated
@@ -297,6 +300,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
+            MQTTManager.Disconnect().Forget();
             joystickManager.Stop();
             midiBoardManager.Stop();
             inputCache.Clear();
@@ -712,6 +716,12 @@ namespace MobiFlight
             if (serial == "" && 
                 cfg.DisplayType!="InputAction") 
                 return value.ToString();
+
+            if (cfg.DisplayType == MqttMessageConfig.TYPE)
+            {
+                MQTTManager.Publish(cfg.MqttMessage.Topic, $"{cfg.MqttMessage.ValuePrefix}{value}").Forget();
+                return value.ToString();
+            }
 
             if (serial.IndexOf(Joystick.SerialPrefix)==0)
             {
