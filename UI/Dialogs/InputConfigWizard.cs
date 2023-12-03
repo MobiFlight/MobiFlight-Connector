@@ -830,13 +830,13 @@ namespace MobiFlight.UI.Dialogs
             else if (SerialNumber.IsMidiBoardSerial(e.Serial))
             {
                 // Add item to device list if not yet there
-                if (!inputTypeComboBox.Items.OfType<ListItem<MidiBoardDevice>>().Any(i => i.Value.Name == e.DeviceId))
+                if (!inputTypeComboBox.Items.OfType<ListItem<IBaseDevice>>().Any(i => i.Value.Name == e.DeviceId))
                 { 
                     MidiBoardDevice mbd = new MidiBoardDevice();
                     mbd.Label = e.DeviceLabel;  
                     mbd.Name = e.DeviceId;
                     mbd.Type = DeviceType.Button;
-                    inputTypeComboBox.Items.Add(new ListItem<MidiBoardDevice> { Label = mbd.Label, Value = mbd });
+                    inputTypeComboBox.Items.Add(new ListItem<IBaseDevice> { Label = mbd.Label, Value = mbd });
                 }                        
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
             }
