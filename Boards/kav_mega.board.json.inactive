@@ -37,14 +37,14 @@
     "DelayAfterFirmwareUpdate": 0,
     "FirmwareBaseName": "kav_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.6",
+    "LatestFirmwareVersion": "2.5.0",
     "FriendlyName": "Kav Mega",
     "MobiFlightType": "Kav Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
       "KAV_EFIS",
       "KAV_FCU"
-    ]  
+    ]
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 16,
