@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight;
+using MobiFlight.Base;
+using MobiFlight.MQTT;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -47,6 +49,7 @@ namespace MobiFlight.UI.Dialogs
                 if (cfg.DisplaySerial != "" && 
                     cfg.DisplaySerial  != "-" && 
                     !Joystick.IsJoystickSerial(cfg.DisplaySerial) &&
+                    !MQTTManager.IsMQTTSerial(SerialNumber.ExtractSerial(cfg.DisplaySerial)) &&
                     !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&  
                     !configSerials.Contains(cfg.DisplaySerial) && 
                     !moduleSerials.Contains(cfg.DisplaySerial))

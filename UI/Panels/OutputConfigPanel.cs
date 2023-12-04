@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.OutputConfig;
 using MobiFlight.UI.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -608,6 +609,9 @@ namespace MobiFlight.UI.Panels
                                 break;
                             case MobiFlightShiftRegister.TYPE:
                                 row["OutputName"] = cfgItem.ShiftRegister.ToString();
+                                break;
+                            case MqttMessageConfig.TYPE:
+                                row["OutputName"] = cfgItem.MqttMessage.ToString();
                                 break;
                             case MobiFlightCustomDevice.TYPE:
                                 row["OutputName"] = cfgItem.CustomDevice.CustomName;

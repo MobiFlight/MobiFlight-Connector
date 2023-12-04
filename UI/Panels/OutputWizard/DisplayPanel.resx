@@ -300,6 +300,126 @@
   <data name="&gt;&gt;displayModuleNameComboBox.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="mqttValuePrefixTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>78, 48</value>
+  </data>
+  <data name="mqttValuePrefixTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 20</value>
+  </data>
+  <data name="mqttValuePrefixTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;mqttValuePrefixTextBox.Name" xml:space="preserve">
+    <value>mqttValuePrefixTextBox</value>
+  </data>
+  <data name="&gt;&gt;mqttValuePrefixTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mqttValuePrefixTextBox.Parent" xml:space="preserve">
+    <value>mqttMessageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mqttValuePrefixTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="mqttTopicTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>78, 21</value>
+  </data>
+  <data name="mqttTopicTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 20</value>
+  </data>
+  <data name="mqttTopicTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;mqttTopicTextBox.Name" xml:space="preserve">
+    <value>mqttTopicTextBox</value>
+  </data>
+  <data name="&gt;&gt;mqttTopicTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mqttTopicTextBox.Parent" xml:space="preserve">
+    <value>mqttMessageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mqttTopicTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="mqttMessageValuePrefixLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="mqttMessageValuePrefixLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 51</value>
+  </data>
+  <data name="mqttMessageValuePrefixLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 13</value>
+  </data>
+  <data name="mqttMessageValuePrefixLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="mqttMessageValuePrefixLabel.Text" xml:space="preserve">
+    <value>Value prefix:</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageValuePrefixLabel.Name" xml:space="preserve">
+    <value>mqttMessageValuePrefixLabel</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageValuePrefixLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageValuePrefixLabel.Parent" xml:space="preserve">
+    <value>mqttMessageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageValuePrefixLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="mqttMessageTopicLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="mqttMessageTopicLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 24</value>
+  </data>
+  <data name="mqttMessageTopicLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 13</value>
+  </data>
+  <data name="mqttMessageTopicLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="mqttMessageTopicLabel.Text" xml:space="preserve">
+    <value>Topic:</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageTopicLabel.Name" xml:space="preserve">
+    <value>mqttMessageTopicLabel</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageTopicLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageTopicLabel.Parent" xml:space="preserve">
+    <value>mqttMessageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageTopicLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="mqttMessageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 3</value>
+  </data>
+  <data name="mqttMessageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>615, 80</value>
+  </data>
+  <data name="mqttMessageGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="mqttMessageGroupBox.Text" xml:space="preserve">
+    <value>MQTT message</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageGroupBox.Name" xml:space="preserve">
+    <value>mqttMessageGroupBox</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageGroupBox.Parent" xml:space="preserve">
+    <value>DisplayTypePanel</value>
+  </data>
+  <data name="&gt;&gt;mqttMessageGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <data name="displayTypeComboBoxLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
@@ -328,7 +448,7 @@
     <value>DisplayTypePanel</value>
   </data>
   <data name="&gt;&gt;displayTypeComboBoxLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="displayTypeComboBox.Items" xml:space="preserve">
     <value>Pin</value>
@@ -358,7 +478,7 @@
     <value>DisplayTypePanel</value>
   </data>
   <data name="&gt;&gt;displayTypeComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="DisplayTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -389,6 +509,9 @@
   </data>
   <data name="OutputTypeComboBox.Items1" xml:space="preserve">
     <value>Input Action</value>
+  </data>
+  <data name="OutputTypeComboBox.Items2" xml:space="preserve">
+    <value>MQTT Message</value>
   </data>
   <data name="OutputTypeComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>108, 4</value>

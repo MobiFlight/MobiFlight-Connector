@@ -81,7 +81,7 @@ namespace MobiFlight.MQTT
             // from the server. Please refer to the MQTT protocol specification for details.
             await mqttClient.ConnectAsync(mqttClientOptions.Build(), CancellationToken.None);
 
-            Log.Instance.log($"MQTT: Connected to {settings.Address}:{settings.Port}.", LogSeverity.Debug);
+            Log.Instance.log($"MQTT: Connected to {settings.Address}:{settings.Port}.", LogSeverity.Info);
         }
 
         private static Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
@@ -105,15 +105,22 @@ namespace MobiFlight.MQTT
             if (outputCache.ContainsKey(topic) && outputCache[topic] == payload)
                 return;
 
-            var applicationMessage = new MqttApplicationMessageBuilder()
-                .WithTopic(topic)
-                .WithPayload(payload)
-                .Build();
+            try
+            {
+                var applicationMessage = new MqttApplicationMessageBuilder()
+                    .WithTopic(topic)
+                    .WithPayload(payload)
+                    .Build();
 
-            await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
-            outputCache[topic] = payload;
+                await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
+                outputCache[topic] = payload;
 
-            Log.Instance.log($"MQTT: Published {payload} to {topic}.", LogSeverity.Debug);
+                Log.Instance.log($"MQTT: Published {payload} to {topic}.", LogSeverity.Debug);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Unable to publish {payload} to {topic}: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         /// <summary>
@@ -155,7 +162,7 @@ namespace MobiFlight.MQTT
 
             await mqttClient.DisconnectAsync(mqttClientDisconnectOptions, CancellationToken.None);
 
-            Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Debug);
+            Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Info);
         }
     }
 }
