@@ -324,9 +324,9 @@
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
-    <Compile Include="MQTT\MQTTInput.cs" />
-    <Compile Include="MQTT\MQTTManager.cs" />
-    <Compile Include="MQTT\MQTTServerSettings.cs" />
+    <Compile Include="MobiFlight\MQTT\MQTTInput.cs" />
+    <Compile Include="MobiFlight\MQTT\MQTTManager.cs" />
+    <Compile Include="MobiFlight\MQTT\MQTTServerSettings.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
@@ -1111,6 +1111,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\x_touch_mini.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MQTT\inputs.mqtt.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

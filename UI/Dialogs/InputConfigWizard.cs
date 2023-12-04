@@ -222,7 +222,7 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
-            if (MQTTManager.GetMqttInputs().Count > 0)
+            if (_execManager.GetMQTTManager().GetMqttInputs().Count > 0)
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
@@ -274,7 +274,7 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
-            if (MQTTManager.GetMqttInputs().Count > 0)
+            if (_execManager.GetMQTTManager().GetMqttInputs().Count > 0)
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
@@ -495,7 +495,7 @@ namespace MobiFlight.UI.Dialogs
                 // Add MQTT inputs
                 else if (MQTTManager.IsMQTTSerial(serial))
                 {
-                    foreach (var input in MQTTManager.GetMqttInputs())
+                    foreach (var input in _execManager.GetMQTTManager().GetMqttInputs())
                     {
                         inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = input.Value.Label, Value = input.Value});
                     }

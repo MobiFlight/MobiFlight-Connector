@@ -1,0 +1,10 @@
+{
+  "mobiflight/input/masterbatteryon": {
+    "Type": "Button",
+    "Label": "Master battery on"
+  },
+  "mobiflight/input/brightness": {
+    "Type": "AnalogInput",
+    "Label": "Brightness"
+  }
+}

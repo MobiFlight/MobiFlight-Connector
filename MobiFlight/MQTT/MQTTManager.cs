@@ -6,21 +6,28 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 using static MobiFlight.MobiFlightButton;
-using MobiFlight.Config;
+using Newtonsoft.Json;
+using System.IO;
+using SharpDX.DirectInput;
 
 namespace MobiFlight
 {
-    public static class MQTTManager
+    public class MQTTManager
     {
-        public static string Serial = "MQTTServer";
-        public static event Func<MqttClientConnectedEventArgs, Task> ConnectedAsync;
-        public static event ButtonEventHandler OnButtonPressed;
+        public static readonly string Serial = "MQTTServer";
+        public event Func<MqttClientConnectedEventArgs, Task> ConnectedAsync;
+        public event ButtonEventHandler OnButtonPressed;
 
-        private static readonly Dictionary<string, MQTTInput> Inputs = new Dictionary<string, MQTTInput>();
+        private Dictionary<string, MQTTInput> Inputs = new Dictionary<string, MQTTInput>();
 
-        private static MqttFactory mqttFactory;
-        private static IMqttClient mqttClient;
-        private static readonly Dictionary<string, string> outputCache = new Dictionary<string, string>();
+        private MqttFactory mqttFactory;
+        private IMqttClient mqttClient;
+        private readonly Dictionary<string, string> outputCache = new Dictionary<string, string>();
+
+        public MQTTManager()
+        {
+            LoadInputs();
+        }
 
         /// <summary>
         /// Compares the specified serial to the serial used to identify MQTT Server configurations.
@@ -32,41 +39,35 @@ namespace MobiFlight
             return serial == Serial;
         }
 
-        public static Dictionary<string, MQTTInput> GetMqttInputs()
+        public Dictionary<string, MQTTInput> GetMqttInputs()
         {
             return Inputs;
         }
 
-        private static void LoadInputs()
+        public void LoadInputs()
         {
-            Inputs["mobiflight/input/masterbatteryon"] = new MQTTInput
+            try
             {
-                Type = DeviceType.Button,
-                Label = "Master battery on",
-                Topic = "mobiflight/input/masterbatteryon"
-            };
-
-            Inputs["mobiflight/input/brightness"] = new MQTTInput
+                Inputs = JsonConvert.DeserializeObject<Dictionary<string, MQTTInput>>(File.ReadAllText("MQTT/inputs.mqtt.json"));
+                Log.Instance.log($"Loaded {Inputs.Count} MQTT input events", LogSeverity.Info);
+            }
+            catch (Exception ex)
             {
-                Type = DeviceType.AnalogInput,
-                Label = "Brightness",
-                Topic = "mobiflight/input/brightness"
-            };
+                Log.Instance.log($"Unable to load MQTT input events from MQTT/inputs.mqtt.json: {ex.Message}", LogSeverity.Error);
 
+            }
         }
 
         /// <summary>
         /// Connects to an MQTT server using the settings saved in the app config.
         /// </summary>
         /// <returns>A task.</returns>
-        public static async Task Connect()
+        public async Task Connect()
         {
             if (mqttClient?.IsConnected ?? false)
                 return;
 
             var settings = MQTTServerSettings.Load();
-
-            LoadInputs();
 
             mqttFactory = new MqttFactory();
             mqttClient = mqttFactory.CreateMqttClient();
@@ -126,7 +127,7 @@ namespace MobiFlight
             Log.Instance.log($"MQTT: Connected to {settings.Address}:{settings.Port}.", LogSeverity.Info);
         }
 
-        private static async Task RegisterInputs()
+        private async Task RegisterInputs()
         {
             if (!mqttClient.IsConnected)
                 return;
@@ -137,8 +138,8 @@ namespace MobiFlight
 
                 foreach (var input in Inputs)
                 {
-                    Log.Instance.log($"MQTT: Subscribing to {input.Value.Topic}", LogSeverity.Debug);
-                    mqttSubscribeOptions.WithTopicFilter(f => { f.WithTopic(input.Value.Topic); });
+                    Log.Instance.log($"MQTT: Subscribing to {input.Key}", LogSeverity.Debug);
+                    mqttSubscribeOptions.WithTopicFilter(f => { f.WithTopic(input.Key); });
                 }
 
                 var response = await mqttClient.SubscribeAsync(mqttSubscribeOptions.Build(), CancellationToken.None);
@@ -151,13 +152,13 @@ namespace MobiFlight
             }
         }
 
-        private static async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
+        private async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             ConnectedAsync?.Invoke(arg);
             await RegisterInputs();
         }
 
-        private static Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+        private Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
             var input = Inputs[arg.ApplicationMessage.Topic];
 
@@ -205,7 +206,7 @@ namespace MobiFlight
             return Task.CompletedTask;
         }
 
-        public static async Task Publish(string topic, string payload)
+        public async Task Publish(string topic, string payload)
         {
             if (!mqttClient.IsConnected)
                 return;
@@ -243,7 +244,7 @@ namespace MobiFlight
         /// Disconnects from the MQTT server.
         /// </summary>
         /// <returns>A task.</returns>
-        public static async Task Disconnect()
+        public async Task Disconnect()
         {
             // Send a clean disconnect to the server by calling _DisconnectAsync_. Without this the TCP connection
             // gets dropped and the server will handle this as a non clean disconnect (see MQTT spec for details).

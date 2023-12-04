@@ -79,6 +79,7 @@ namespace MobiFlight
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
+        readonly MQTTManager mqttManager = new MQTTManager();
 
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
@@ -148,7 +149,7 @@ namespace MobiFlight
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
             midiBoardManager.Connect();
 
-            MQTTManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            mqttManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 
             mobiFlightCache.Start();
         }
@@ -283,7 +284,7 @@ namespace MobiFlight
         {
             simConnectCache.Start();
             xplaneCache.Start();
-            MQTTManager.Connect().Forget();
+            mqttManager.Connect().Forget();
             OnStartActions();
 
             // Force all the modules awake whenver run is activated
@@ -302,7 +303,7 @@ namespace MobiFlight
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
-            MQTTManager.Disconnect().Forget();
+            mqttManager.Disconnect().Forget();
             joystickManager.Stop();
             midiBoardManager.Stop();
             inputCache.Clear();
@@ -391,6 +392,11 @@ namespace MobiFlight
         public MidiBoardManager GetMidiBoardManager()
         {
             return midiBoardManager;    
+        }
+
+        public MQTTManager GetMQTTManager()
+        {
+            return mqttManager;
         }
 
         public List<IModuleInfo> GetAllConnectedModulesInfo()
@@ -721,7 +727,7 @@ namespace MobiFlight
 
             if (cfg.DisplayType == MqttMessageConfig.TYPE)
             {
-                MQTTManager.Publish(cfg.MqttMessage.Topic, $"{cfg.MqttMessage.ValuePrefix}{value}").Forget();
+                mqttManager.Publish(cfg.MqttMessage.Topic, $"{cfg.MqttMessage.ValuePrefix}{value}").Forget();
                 return value.ToString();
             }
 
