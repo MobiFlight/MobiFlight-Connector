@@ -148,6 +148,9 @@ namespace MobiFlight
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
             midiBoardManager.Connect();
+
+            MQTTManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+
             mobiFlightCache.Start();
         }
 

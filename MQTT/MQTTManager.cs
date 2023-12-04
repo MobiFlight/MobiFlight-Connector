@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System;
+using System.Linq;
+using static MobiFlight.MobiFlightButton;
 
 namespace MobiFlight.MQTT
 {
@@ -11,6 +13,9 @@ namespace MobiFlight.MQTT
     {
         public static string Serial = "MQTTServer";
         public static event Func<MqttClientConnectedEventArgs, Task> ConnectedAsync;
+        public static event ButtonEventHandler OnButtonPressed;
+
+        private static readonly Dictionary<string, MQTTInput> Inputs = new Dictionary<string, MQTTInput>();
 
         private static MqttFactory mqttFactory;
         private static IMqttClient mqttClient;
@@ -26,13 +31,36 @@ namespace MobiFlight.MQTT
             return serial == Serial;
         }
 
+        private static void LoadInputs()
+        {
+            Inputs["mobiflight/input/parkingbrake"] = new MQTTInput
+            {
+                Type = MQTTInputType.Button,
+                Label = "Parking brake",
+                Topic = "mobiflight/input/parkingbrake"
+            };
+
+            Inputs["mobiflight/input/brightness"] = new MQTTInput
+            {
+                Type = MQTTInputType.AnalogInput,
+                Label = "Brightness",
+                Topic = "mobiflight/input/brightness"
+            };
+
+        }
+
         /// <summary>
         /// Connects to an MQTT server using the settings saved in the app config.
         /// </summary>
         /// <returns>A task.</returns>
         public static async Task Connect()
         {
+            if (mqttClient?.IsConnected ?? false)
+                return;
+
             var settings = MQTTServerSettings.Load();
+
+            LoadInputs();
 
             mqttFactory = new MqttFactory();
             mqttClient = mqttFactory.CreateMqttClient();
@@ -79,20 +107,95 @@ namespace MobiFlight.MQTT
             // This will throw an exception if the server is not available.
             // The result from this message returns additional data which was sent 
             // from the server. Please refer to the MQTT protocol specification for details.
-            await mqttClient.ConnectAsync(mqttClientOptions.Build(), CancellationToken.None);
+            try
+            {
+                await mqttClient.ConnectAsync(mqttClientOptions.Build(), CancellationToken.None);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"MQTT: Unable to connect to {settings.Address}:{settings.Port}: {ex.Message}", LogSeverity.Error);
+                return;
+            }
 
             Log.Instance.log($"MQTT: Connected to {settings.Address}:{settings.Port}.", LogSeverity.Info);
         }
 
-        private static Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
+        private static async Task RegisterInputs()
+        {
+            if (!mqttClient.IsConnected)
+                return;
+
+            try
+            {
+                var mqttSubscribeOptions = mqttFactory.CreateSubscribeOptionsBuilder();
+
+                foreach (var input in Inputs)
+                {
+                    Log.Instance.log($"MQTT: Subscribing to {input.Value.Topic}", LogSeverity.Debug);
+                    mqttSubscribeOptions.WithTopicFilter(f => { f.WithTopic(input.Value.Topic); });
+                }
+
+                var response = await mqttClient.SubscribeAsync(mqttSubscribeOptions.Build(), CancellationToken.None);
+
+                Log.Instance.log($"MQTT: Subscribing to all input topics complete.", LogSeverity.Debug);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"MQTT: Error subscribing to topics. {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        private static async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             ConnectedAsync?.Invoke(arg);
-            return Task.CompletedTask;
+            await RegisterInputs();
         }
 
         private static Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
-            Log.Instance.log($"MQTT: Received incoming message.", LogSeverity.Debug);
+            var input = Inputs[arg.ApplicationMessage.Topic];
+
+            if (input == null)
+            {
+                Log.Instance.log($"MQTT: Received an incoming message for {arg.ApplicationMessage.Topic} but it's not in the list of topics being watched. This should never happen.", LogSeverity.Error);
+                return Task.CompletedTask;
+            }
+
+            // Absolute nonsense to parse the incoming message value as a number.
+            var payloadString = System.Text.Encoding.UTF8.GetString(arg.ApplicationMessage.PayloadSegment.ToArray());
+            if (int.TryParse(payloadString, out int value))
+            {
+                var eventArgs = new InputEventArgs
+                {
+                    DeviceLabel = input.Label,
+                    Serial = Serial,
+                    DeviceId = input.Topic,
+                };
+
+                if (input.Type == MQTTInputType.Button)
+                {
+                    eventArgs.Type = DeviceType.Button;
+                    eventArgs.Value = value == 0 ? (int)InputEvent.RELEASE : (int)InputEvent.PRESS;                       
+                }
+                else if (input.Type == MQTTInputType.AnalogInput)
+                {
+                    eventArgs.Type = DeviceType.AnalogInput;
+                    eventArgs.Value = value;
+                }
+                else
+                {
+                    Log.Instance.log($"MQTT: Received incoming message {arg.ApplicationMessage.Topic} for a type that isn't understhood. This should never happen.", LogSeverity.Error);
+                    return Task.CompletedTask;
+                }
+
+                Log.Instance.log($"MQTT: Received incoming message: {arg.ApplicationMessage.Topic} {value}", LogSeverity.Debug);
+                OnButtonPressed?.Invoke(null, eventArgs);
+            }
+            else
+            {
+                Log.Instance.log($"MQTT: Unable to parse {payloadString} from {arg.ApplicationMessage.Topic} as a number.", LogSeverity.Error);
+            }
+
             return Task.CompletedTask;
         }
 
@@ -128,33 +231,6 @@ namespace MobiFlight.MQTT
             {
                 Log.Instance.log($"MQTT: Unable to publish {payload} to {topic}: {ex.Message}", LogSeverity.Error);
             }
-        }
-
-        /// <summary>
-        /// Subscribes to an MQTT topic. This method shouldn't be called until after the Connect() task completes.
-        /// Use the MQTTServer.ConnectedAsync event to determine when the connection process is complete.
-        /// </summary>
-        /// <param name="topic">The MQTT topic to subscribe to.</param>
-        /// <returns>A task.</returns>
-        public static async Task Subscribe(string topic)
-        {
-            if (!mqttClient.IsConnected)
-            {
-                Log.Instance.log("MQTT: Unable to subscribe to topic, client isnt' connected.", LogSeverity.Error);
-                return;
-            }
-
-            var mqttSubscribeOptions = mqttFactory.CreateSubscribeOptionsBuilder()
-                .WithTopicFilter(
-                    f =>
-                    {
-                        f.WithTopic(topic);
-                    })
-                .Build();
-
-            var response = await mqttClient.SubscribeAsync(mqttSubscribeOptions, CancellationToken.None);
-
-            Log.Instance.log($"MQTT: Subscribed to {topic}.", LogSeverity.Debug);
         }
 
         /// <summary>

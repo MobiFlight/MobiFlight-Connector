@@ -324,6 +324,8 @@
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
+    <Compile Include="MQTT\MQTTInput.cs" />
+    <Compile Include="MQTT\MQTTInputType.cs" />
     <Compile Include="MQTT\MQTTManager.cs" />
     <Compile Include="MQTT\MQTTServerSettings.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
