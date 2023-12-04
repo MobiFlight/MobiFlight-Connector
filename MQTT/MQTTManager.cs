@@ -105,6 +105,13 @@ namespace MobiFlight.MQTT
             if (outputCache.ContainsKey(topic) && outputCache[topic] == payload)
                 return;
 
+            // Don't send anything if the topic is empty.
+            if (String.IsNullOrEmpty(topic))
+            {
+                Log.Instance.log($"MQTT: Received a blank topic, not sending {payload}", LogSeverity.Warn);
+                return;
+            }
+
             try
             {
                 var applicationMessage = new MqttApplicationMessageBuilder()
@@ -119,7 +126,7 @@ namespace MobiFlight.MQTT
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Unable to publish {payload} to {topic}: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"MQTT: Unable to publish {payload} to {topic}: {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -162,7 +169,7 @@ namespace MobiFlight.MQTT
 
             await mqttClient.DisconnectAsync(mqttClientDisconnectOptions, CancellationToken.None);
 
-            Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Info);
+            Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Debug);
         }
     }
 }

@@ -43,6 +43,11 @@
             this.OutputTypePanel = new System.Windows.Forms.Panel();
             this.OutputTypeComboBox = new System.Windows.Forms.ComboBox();
             this.OutputTypeLabel = new System.Windows.Forms.Label();
+            this.mqttMessageGroupBox = new System.Windows.Forms.GroupBox();
+            this.mqttValuePrefixTextBox = new System.Windows.Forms.TextBox();
+            this.mqttTopicTextBox = new System.Windows.Forms.TextBox();
+            this.mqttMessageValuePrefixLabel = new System.Windows.Forms.Label();
+            this.mqttMessageTopicLabel = new System.Windows.Forms.Label();
             this.groupBoxDisplaySettings = new System.Windows.Forms.GroupBox();
             this.inputActionGroupBox = new System.Windows.Forms.GroupBox();
             this.buttonPanel1 = new MobiFlight.UI.Panels.Input.ButtonPanel();
@@ -52,18 +57,13 @@
             this.OutputDevicePanel = new System.Windows.Forms.Panel();
             this.DisplayPanelTextLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.mqttMessageGroupBox = new System.Windows.Forms.GroupBox();
-            this.mqttValuePrefixTextBox = new System.Windows.Forms.TextBox();
-            this.mqttTopicTextBox = new System.Windows.Forms.TextBox();
-            this.mqttMessageValuePrefixLabel = new System.Windows.Forms.Label();
-            this.mqttMessageTopicLabel = new System.Windows.Forms.Label();
             this.displayTypeGroupBox.SuspendLayout();
             this.InputActionTypePanel.SuspendLayout();
             this.DisplayTypePanel.SuspendLayout();
             this.OutputTypePanel.SuspendLayout();
+            this.mqttMessageGroupBox.SuspendLayout();
             this.inputActionGroupBox.SuspendLayout();
             this.OutputDevicePanel.SuspendLayout();
-            this.mqttMessageGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // displayTypeGroupBox
@@ -72,6 +72,7 @@
             this.displayTypeGroupBox.Controls.Add(this.InputActionTypePanel);
             this.displayTypeGroupBox.Controls.Add(this.DisplayTypePanel);
             this.displayTypeGroupBox.Controls.Add(this.OutputTypePanel);
+            this.displayTypeGroupBox.Controls.Add(this.mqttMessageGroupBox);
             this.displayTypeGroupBox.Name = "displayTypeGroupBox";
             this.displayTypeGroupBox.TabStop = false;
             // 
@@ -103,7 +104,6 @@
             this.DisplayTypePanel.Controls.Add(this.DeviceNotAvailableWarningLabel);
             this.DisplayTypePanel.Controls.Add(this.arcazeSerialLabel);
             this.DisplayTypePanel.Controls.Add(this.displayModuleNameComboBox);
-            this.DisplayTypePanel.Controls.Add(this.mqttMessageGroupBox);
             this.DisplayTypePanel.Controls.Add(this.displayTypeComboBoxLabel);
             this.DisplayTypePanel.Controls.Add(this.displayTypeComboBox);
             resources.ApplyResources(this.DisplayTypePanel, "DisplayTypePanel");
@@ -172,6 +172,36 @@
             resources.ApplyResources(this.OutputTypeLabel, "OutputTypeLabel");
             this.OutputTypeLabel.Name = "OutputTypeLabel";
             // 
+            // mqttMessageGroupBox
+            // 
+            this.mqttMessageGroupBox.Controls.Add(this.mqttValuePrefixTextBox);
+            this.mqttMessageGroupBox.Controls.Add(this.mqttTopicTextBox);
+            this.mqttMessageGroupBox.Controls.Add(this.mqttMessageValuePrefixLabel);
+            this.mqttMessageGroupBox.Controls.Add(this.mqttMessageTopicLabel);
+            resources.ApplyResources(this.mqttMessageGroupBox, "mqttMessageGroupBox");
+            this.mqttMessageGroupBox.Name = "mqttMessageGroupBox";
+            this.mqttMessageGroupBox.TabStop = false;
+            // 
+            // mqttValuePrefixTextBox
+            // 
+            resources.ApplyResources(this.mqttValuePrefixTextBox, "mqttValuePrefixTextBox");
+            this.mqttValuePrefixTextBox.Name = "mqttValuePrefixTextBox";
+            // 
+            // mqttTopicTextBox
+            // 
+            resources.ApplyResources(this.mqttTopicTextBox, "mqttTopicTextBox");
+            this.mqttTopicTextBox.Name = "mqttTopicTextBox";
+            // 
+            // mqttMessageValuePrefixLabel
+            // 
+            resources.ApplyResources(this.mqttMessageValuePrefixLabel, "mqttMessageValuePrefixLabel");
+            this.mqttMessageValuePrefixLabel.Name = "mqttMessageValuePrefixLabel";
+            // 
+            // mqttMessageTopicLabel
+            // 
+            resources.ApplyResources(this.mqttMessageTopicLabel, "mqttMessageTopicLabel");
+            this.mqttMessageTopicLabel.Name = "mqttMessageTopicLabel";
+            // 
             // groupBoxDisplaySettings
             // 
             resources.ApplyResources(this.groupBoxDisplaySettings, "groupBoxDisplaySettings");
@@ -220,36 +250,6 @@
             resources.ApplyResources(this.DisplayPanelTextLabel, "DisplayPanelTextLabel");
             this.DisplayPanelTextLabel.Name = "DisplayPanelTextLabel";
             // 
-            // mqttMessageGroupBox
-            // 
-            this.mqttMessageGroupBox.Controls.Add(this.mqttValuePrefixTextBox);
-            this.mqttMessageGroupBox.Controls.Add(this.mqttTopicTextBox);
-            this.mqttMessageGroupBox.Controls.Add(this.mqttMessageValuePrefixLabel);
-            this.mqttMessageGroupBox.Controls.Add(this.mqttMessageTopicLabel);
-            resources.ApplyResources(this.mqttMessageGroupBox, "mqttMessageGroupBox");
-            this.mqttMessageGroupBox.Name = "mqttMessageGroupBox";
-            this.mqttMessageGroupBox.TabStop = false;
-            // 
-            // mqttValuePrefixTextBox
-            // 
-            resources.ApplyResources(this.mqttValuePrefixTextBox, "mqttValuePrefixTextBox");
-            this.mqttValuePrefixTextBox.Name = "mqttValuePrefixTextBox";
-            // 
-            // mqttTopicTextBox
-            // 
-            resources.ApplyResources(this.mqttTopicTextBox, "mqttTopicTextBox");
-            this.mqttTopicTextBox.Name = "mqttTopicTextBox";
-            // 
-            // mqttMessageValuePrefixLabel
-            // 
-            resources.ApplyResources(this.mqttMessageValuePrefixLabel, "mqttMessageValuePrefixLabel");
-            this.mqttMessageValuePrefixLabel.Name = "mqttMessageValuePrefixLabel";
-            // 
-            // mqttMessageTopicLabel
-            // 
-            resources.ApplyResources(this.mqttMessageTopicLabel, "mqttMessageTopicLabel");
-            this.mqttMessageTopicLabel.Name = "mqttMessageTopicLabel";
-            // 
             // DisplayPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -257,18 +257,19 @@
             this.Controls.Add(this.inputActionGroupBox);
             this.Controls.Add(this.OutputDevicePanel);
             this.Controls.Add(this.DisplayPanelTextLabel);
+            this.Controls.Add(this.mqttMessageGroupBox);
             this.Name = "DisplayPanel";
             this.displayTypeGroupBox.ResumeLayout(false);
             this.InputActionTypePanel.ResumeLayout(false);
             this.InputActionTypePanel.PerformLayout();
             this.DisplayTypePanel.ResumeLayout(false);
             this.OutputTypePanel.ResumeLayout(false);
+            this.mqttMessageGroupBox.ResumeLayout(false);
+            this.mqttMessageGroupBox.PerformLayout();
             this.inputActionGroupBox.ResumeLayout(false);
             this.inputActionGroupBox.PerformLayout();
             this.OutputDevicePanel.ResumeLayout(false);
             this.OutputDevicePanel.PerformLayout();
-            this.mqttMessageGroupBox.ResumeLayout(false);
-            this.mqttMessageGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
