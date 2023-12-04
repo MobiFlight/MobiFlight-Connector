@@ -39,11 +39,11 @@ namespace MobiFlight
 
         private static void LoadInputs()
         {
-            Inputs["mobiflight/input/parkingbrake"] = new MQTTInput
+            Inputs["mobiflight/input/masterbatteryon"] = new MQTTInput
             {
                 Type = DeviceType.Button,
-                Label = "Parking brake",
-                Topic = "mobiflight/input/parkingbrake"
+                Label = "Master battery on",
+                Topic = "mobiflight/input/masterbatteryon"
             };
 
             Inputs["mobiflight/input/brightness"] = new MQTTInput
