@@ -5,7 +5,7 @@ using System.Security;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace MobiFlight.MQTT
+namespace MobiFlight
 {
     public class MQTTServerSettings
     {

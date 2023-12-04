@@ -1,17 +1,20 @@
-﻿using System;
+﻿using MobiFlight.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MobiFlight.MQTT
+namespace MobiFlight
 {
-    public class MQTTInput
+    public class MQTTInput : IBaseDevice
     {
-        public MQTTInputType Type;
-                
-        public string Label;
+        public DeviceType Type { get; set; }
 
-        public string Topic;
+        public String Name { get { return Label; } }
+
+        public String Label { get; set; }
+
+        public String Topic { get; set; }
     }
 }

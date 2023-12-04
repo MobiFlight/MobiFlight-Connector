@@ -222,6 +222,15 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
+            if (MQTTManager.GetMqttInputs().Count > 0)
+            {
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{MQTTManager.Serial} / {MQTTManager.Serial}",
+                    Label = "MQTT topic"
+                });
+            }
+
             preconditionPanel.SetModules(PreconditionModuleList);
         }
 #endif
@@ -262,6 +271,15 @@ namespace MobiFlight.UI.Dialogs
                 {
                     Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
                     Label = $"{midiBoard.Name}"
+                });
+            }
+
+            if (MQTTManager.GetMqttInputs().Count > 0)
+            {
+                inputModuleNameComboBox.Items.Add(new ListItem()
+                {
+                    Value = $"{MQTTManager.Serial} / {MQTTManager.Serial}",
+                    Label = "MQTT topic"
                 });
             }
 
@@ -472,6 +490,14 @@ namespace MobiFlight.UI.Dialogs
                     foreach (var device in devices)
                     {
                         inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
+                    }
+                }
+                // Add MQTT inputs
+                else if (MQTTManager.IsMQTTSerial(serial))
+                {
+                    foreach (var input in MQTTManager.GetMqttInputs())
+                    {
+                        inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = input.Value.Label, Value = input.Value});
                     }
                 }
                 else

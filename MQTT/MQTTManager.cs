@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System;
 using System.Linq;
 using static MobiFlight.MobiFlightButton;
+using MobiFlight.Config;
 
-namespace MobiFlight.MQTT
+namespace MobiFlight
 {
-    internal static class MQTTManager
+    public static class MQTTManager
     {
         public static string Serial = "MQTTServer";
         public static event Func<MqttClientConnectedEventArgs, Task> ConnectedAsync;
@@ -31,18 +32,23 @@ namespace MobiFlight.MQTT
             return serial == Serial;
         }
 
+        public static Dictionary<string, MQTTInput> GetMqttInputs()
+        {
+            return Inputs;
+        }
+
         private static void LoadInputs()
         {
             Inputs["mobiflight/input/parkingbrake"] = new MQTTInput
             {
-                Type = MQTTInputType.Button,
+                Type = DeviceType.Button,
                 Label = "Parking brake",
                 Topic = "mobiflight/input/parkingbrake"
             };
 
             Inputs["mobiflight/input/brightness"] = new MQTTInput
             {
-                Type = MQTTInputType.AnalogInput,
+                Type = DeviceType.AnalogInput,
                 Label = "Brightness",
                 Topic = "mobiflight/input/brightness"
             };
@@ -169,15 +175,15 @@ namespace MobiFlight.MQTT
                 {
                     DeviceLabel = input.Label,
                     Serial = Serial,
-                    DeviceId = input.Topic,
+                    DeviceId = input.Label,
                 };
 
-                if (input.Type == MQTTInputType.Button)
+                if (input.Type == DeviceType.Button)
                 {
                     eventArgs.Type = DeviceType.Button;
                     eventArgs.Value = value == 0 ? (int)InputEvent.RELEASE : (int)InputEvent.PRESS;                       
                 }
-                else if (input.Type == MQTTInputType.AnalogInput)
+                else if (input.Type == DeviceType.AnalogInput)
                 {
                     eventArgs.Type = DeviceType.AnalogInput;
                     eventArgs.Value = value;

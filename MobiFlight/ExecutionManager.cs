@@ -1,7 +1,6 @@
 using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
-using MobiFlight.MQTT;
 using MobiFlight.OutputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -1411,7 +1410,7 @@ namespace MobiFlight
                         
                         	if (cfg.ModuleSerial != null && 
                                 cfg.ModuleSerial.Contains("/ " + e.Serial) && 
-                               (cfg.Name == e.DeviceId || 
+                               (cfg.Name == e.DeviceId ||
                                // for backward compatibility we have to make this check
                                // because we used to have the label in the config
                                // but now we want to store the internal button identifier

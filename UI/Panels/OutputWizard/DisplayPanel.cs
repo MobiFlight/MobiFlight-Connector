@@ -1,7 +1,7 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
-using MobiFlight.MQTT;
+using MobiFlight;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;

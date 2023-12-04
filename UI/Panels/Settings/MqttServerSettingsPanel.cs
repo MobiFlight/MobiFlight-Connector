@@ -1,4 +1,4 @@
-﻿using MobiFlight.MQTT;
+﻿using MobiFlight;
 using System;
 using System.Security;
 using System.Windows.Forms;
