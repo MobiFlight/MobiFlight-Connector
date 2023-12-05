@@ -39,11 +39,18 @@ namespace MobiFlight
             return serial == Serial;
         }
 
+        /// <summary>
+        /// Provides the list of MQTTInput events defined in the corresponding inputs.mqtt.json file.
+        /// </summary>
+        /// <returns>A dictionary of the input events, where the keys are the MQTT topics and the values are MQTTInput objects.</returns>
         public Dictionary<string, MQTTInput> GetMqttInputs()
         {
             return Inputs;
         }
 
+        /// <summary>
+        /// Loads a list of MQTT inputs from the inputs.mqtt.json file.
+        /// </summary>
         public void LoadInputs()
         {
             try
@@ -127,7 +134,11 @@ namespace MobiFlight
             Log.Instance.log($"MQTT: Connected to {settings.Address}:{settings.Port}.", LogSeverity.Info);
         }
 
-        private async Task RegisterInputs()
+        /// <summary>
+        /// Subscribes to the MQTT topics for each input event described in the inputs.mqtt.json file.
+        /// </summary>
+        /// <returns>A task that completes once all topics are subscribed to.</returns>
+        private async Task SubscribeToInputs()
         {
             if (!mqttClient?.IsConnected ?? true)
                 return;
@@ -152,12 +163,24 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// Event handler for when the MQTT client completes its connection. Fires a ConnectedAsync
+        /// event to any registered listeners, then subscribes to the MQTT input topics.
+        /// </summary>
+        /// <param name="arg">The connected event arguments</param>
+        /// <returns>A task that completes after the topics are subscribed to.</returns>
         private async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             ConnectedAsync?.Invoke(arg);
-            await RegisterInputs();
+            await SubscribeToInputs();
         }
 
+        /// <summary>
+        /// Event handler when MQTT messages are received on subscribed topics. Processes the retrieved message,
+        /// converts it to a MobiFlight InputEventArgs object, then fires the OnbuttonPressed event.
+        /// </summary>
+        /// <param name="arg">The received message information</param>
+        /// <returns>A task that completes once the received message is processed.</returns>
         private Task MqttClient_ApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
         {
             var input = Inputs[arg.ApplicationMessage.Topic];
@@ -172,6 +195,7 @@ namespace MobiFlight
             var payloadString = System.Text.Encoding.UTF8.GetString(arg.ApplicationMessage.PayloadSegment.ToArray());
             if (int.TryParse(payloadString, out int value))
             {
+                // All device types share these three properties so set them first.
                 var eventArgs = new InputEventArgs
                 {
                     DeviceLabel = input.Label,
@@ -179,6 +203,7 @@ namespace MobiFlight
                     DeviceId = input.Label,
                 };
 
+                // Set specific type and value properties based on the input's type defined in the inputs.mqtt.json file.
                 if (input.Type == DeviceType.Button)
                 {
                     eventArgs.Type = DeviceType.Button;
@@ -206,6 +231,13 @@ namespace MobiFlight
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Publishes data to an MQTT topic, caching payload values to avoid sending the same
+        /// message repeatedly when the data doesn't change.
+        /// </summary>
+        /// <param name="topic">The topic to publish to.</param>
+        /// <param name="payload">The paylod to send.</param>
+        /// <returns>A task that completes once the payload is published to the topic.</returns>
         public async Task Publish(string topic, string payload)
         {
             if (!mqttClient?.IsConnected ?? true)
@@ -226,10 +258,9 @@ namespace MobiFlight
             {
                 var applicationMessage = new MqttApplicationMessageBuilder()
                     .WithTopic(topic)
-                    .WithPayload(payload)
-                    .Build();
+                    .WithPayload(payload);
 
-                await mqttClient.PublishAsync(applicationMessage, CancellationToken.None);
+                await mqttClient.PublishAsync(applicationMessage.Build(), CancellationToken.None);
                 outputCache[topic] = payload;
 
                 Log.Instance.log($"MQTT: Published {payload} to {topic}.", LogSeverity.Debug);
@@ -251,9 +282,9 @@ namespace MobiFlight
 
             // Send a clean disconnect to the server by calling _DisconnectAsync_. Without this the TCP connection
             // gets dropped and the server will handle this as a non clean disconnect (see MQTT spec for details).
-            var mqttClientDisconnectOptions = mqttFactory.CreateClientDisconnectOptionsBuilder().Build();
+            var mqttClientDisconnectOptions = mqttFactory.CreateClientDisconnectOptionsBuilder();
 
-            await mqttClient.DisconnectAsync(mqttClientDisconnectOptions, CancellationToken.None);
+            await mqttClient.DisconnectAsync(mqttClientDisconnectOptions.Build(), CancellationToken.None);
 
             Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Debug);
         }
