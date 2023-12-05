@@ -129,7 +129,7 @@ namespace MobiFlight
 
         private async Task RegisterInputs()
         {
-            if (!mqttClient.IsConnected)
+            if (!mqttClient?.IsConnected ?? true)
                 return;
 
             try
@@ -208,7 +208,7 @@ namespace MobiFlight
 
         public async Task Publish(string topic, string payload)
         {
-            if (!mqttClient.IsConnected)
+            if (!mqttClient?.IsConnected ?? true)
                 return;
 
             // Don't spam MQTT server if the payload is the same as last time for the topic.
@@ -246,6 +246,9 @@ namespace MobiFlight
         /// <returns>A task.</returns>
         public async Task Disconnect()
         {
+            if (!mqttClient?.IsConnected ?? true)
+                return;
+
             // Send a clean disconnect to the server by calling _DisconnectAsync_. Without this the TCP connection
             // gets dropped and the server will handle this as a non clean disconnect (see MQTT spec for details).
             var mqttClientDisconnectOptions = mqttFactory.CreateClientDisconnectOptionsBuilder().Build();
