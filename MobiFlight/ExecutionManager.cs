@@ -133,6 +133,8 @@ namespace MobiFlight
             timer.Started += new EventHandler(timer_Started);
             SetPollInterval(Properties.Settings.Default.PollInterval);
 
+            OnSimAircraftChanged += mqttManager.PublishCurrentAircraft;
+
             autoConnectTimer.Interval = 10000;
             autoConnectTimer.Tick += new EventHandler(AutoConnectTimer_TickAsync);
 

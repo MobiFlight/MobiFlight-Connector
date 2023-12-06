@@ -9,12 +9,19 @@ using static MobiFlight.MobiFlightButton;
 using Newtonsoft.Json;
 using System.IO;
 using SharpDX.DirectInput;
+using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Schema.Generation;
+using System.Diagnostics;
 
 namespace MobiFlight
 {
     public class MQTTManager
     {
         public static readonly string Serial = "MQTTServer";
+        private static readonly string MobiFlightTopicPrefix = "mobiflight";
+        public static readonly string MobiFlightRunningStateTopic = $"{MobiFlightTopicPrefix}/state/running";
+        public static readonly string MobiFlightCurrentAircraftTopic = $"{MobiFlightTopicPrefix}/state/currentAircraft";
+
         public event Func<MqttClientConnectedEventArgs, Task> ConnectedAsync;
         public event ButtonEventHandler OnButtonPressed;
 
@@ -172,6 +179,8 @@ namespace MobiFlight
         private async Task MqttClient_ConnectedAsync(MqttClientConnectedEventArgs arg)
         {
             ConnectedAsync?.Invoke(arg);
+            await Publish(MQTTManager.MobiFlightRunningStateTopic, "1");
+
             await SubscribeToInputs();
         }
 
@@ -231,6 +240,11 @@ namespace MobiFlight
             return Task.CompletedTask;
         }
 
+        public async void PublishCurrentAircraft(object _, string e)
+        {
+            await Publish(MQTTManager.MobiFlightCurrentAircraftTopic, e);
+        }
+
         /// <summary>
         /// Publishes data to an MQTT topic, caching payload values to avoid sending the same
         /// message repeatedly when the data doesn't change.
@@ -280,13 +294,15 @@ namespace MobiFlight
             if (!mqttClient?.IsConnected ?? true)
                 return;
 
+            await Publish(MQTTManager.MobiFlightRunningStateTopic, "0");
+
             // Send a clean disconnect to the server by calling _DisconnectAsync_. Without this the TCP connection
             // gets dropped and the server will handle this as a non clean disconnect (see MQTT spec for details).
             var mqttClientDisconnectOptions = mqttFactory.CreateClientDisconnectOptionsBuilder();
 
             await mqttClient.DisconnectAsync(mqttClientDisconnectOptions.Build(), CancellationToken.None);
 
-            Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Debug);
+            Log.Instance.log($"MQTT: Disconnected from server.", LogSeverity.Info);
         }
     }
 }
