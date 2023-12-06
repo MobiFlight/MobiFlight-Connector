@@ -20,7 +20,7 @@
     "FirmwareBaseName": "mobiflight_raspberrypico",
     "FirmwareExtension": "uf2",
     "FriendlyName": "Raspberry Pico",
-    "LatestFirmwareVersion": "2.4.6",
+    "LatestFirmwareVersion": "2.5.0",
     "MobiFlightType": "MobiFlight RaspiPico",
     "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2"
   },
