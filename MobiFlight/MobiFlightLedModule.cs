@@ -87,6 +87,7 @@ namespace MobiFlight
             if (reverse)
             {
                 value = new string(value.ToCharArray().Reverse().ToArray());
+                // the points are not reversed correctly
                 points = points.Reverse();
                 // mask = mask.Reverse();
             }

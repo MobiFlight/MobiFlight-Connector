@@ -807,6 +807,17 @@ namespace MobiFlight
 
                         var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
+                        if (reverse)
+                        {
+                            val = new string(val.ToCharArray().Reverse().ToArray());
+                            for (int i = 0; i != decimalPoints.Count; i++)
+                            {
+                                decimalPoints[i] = (cfg.LedModule.DisplayLedDigits.Count - int.Parse(decimalPoints[i]) - 1).ToString();
+                            };
+                            reverse = false;
+                        }
+
+
                         mobiFlightCache.SetDisplay(
                             serial,
                             cfg.LedModule.DisplayLedAddress,
