@@ -32,7 +32,7 @@
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_nano",
     "FirmwareExtension": "hex",
-    "FriendlyName": "Core Flight Tech",
+    "FriendlyName": "Core Flight Tech/Nano",
     "LatestFirmwareVersion": "10.0.1",
     "MobiFlightType": "Core Flight Tech",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
