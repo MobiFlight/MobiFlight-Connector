@@ -88,7 +88,7 @@ namespace MobiFlight
             {
                 value = new string(value.ToCharArray().Reverse().ToArray());
                 points = points.Reverse();
-                mask = mask.Reverse();
+                // mask = mask.Reverse();
             }
 
             // cache hit
