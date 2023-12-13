@@ -78,6 +78,7 @@ jobs:
           files: |
             Release/*.zip
             Release/*.sha1
+            Build/MobiFlight-Setup.exe
 
       - name: store latest setup file
         uses: actions/upload-artifact@v3
