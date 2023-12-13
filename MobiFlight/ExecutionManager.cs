@@ -807,16 +807,24 @@ namespace MobiFlight
 
                         var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
+                        // this is a temporary hack to fix
+                        // the issue https://github.com/MobiFlight/MobiFlight-Connector/issues/1479
+                        // as a hotfix
                         if (reverse)
                         {
+                            // simply reverse the entire string
                             val = new string(val.ToCharArray().Reverse().ToArray());
+
+                            // the decimal points are reversed
+                            // taking into account the number of enabled digits
+                            // this is different to how the "new" reverse logic 
+                            // would do it.
                             for (int i = 0; i != decimalPoints.Count; i++)
                             {
                                 decimalPoints[i] = (cfg.LedModule.DisplayLedDigits.Count - int.Parse(decimalPoints[i]) - 1).ToString();
                             };
                             reverse = false;
                         }
-
 
                         mobiFlightCache.SetDisplay(
                             serial,
