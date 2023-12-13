@@ -807,7 +807,7 @@ namespace MobiFlight
 
                         var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
-                        // this is a temporary hack to fix
+                        /*// this is a temporary hack to fix
                         // the issue https://github.com/MobiFlight/MobiFlight-Connector/issues/1479
                         // as a hotfix
                         if (reverse)
@@ -824,7 +824,7 @@ namespace MobiFlight
                                 decimalPoints[i] = (cfg.LedModule.DisplayLedDigits.Count - int.Parse(decimalPoints[i]) - 1).ToString();
                             };
                             reverse = false;
-                        }
+                        }*/
 
                         mobiFlightCache.SetDisplay(
                             serial,
