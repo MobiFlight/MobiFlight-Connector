@@ -248,22 +248,22 @@ namespace MobiFlight.Tests
             value = "1234";
             points = 0;
             mask = 8 + 4 + 2 + 1;
-            // var reverseMask = 128 + 64 + 32 + 16;
+            var reverseMask = 128 + 64 + 32 + 16;
             mockTransport.Clear();
             module.Display(0, value, points, mask, true);
             WaitForQueueUpdate();
-            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},4321,0,{mask};";
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},4321,0,{reverseMask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Reversed value not correct");
 
             module.ClearState();
             value = "123456";
             points = 0;
             mask = 8 + 4 + 2 + 1;
-            // reverseMask = 128 + 64 + 32 + 16;
+            reverseMask = 128 + 64 + 32 + 16;
             mockTransport.Clear();
             module.Display(0, value, points, mask, true);
             WaitForQueueUpdate();
-            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},4321,0,{mask};";
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},4321,0,{reverseMask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Reversed value not correct");
 
 
@@ -272,11 +272,11 @@ namespace MobiFlight.Tests
             value = "12345678";
             points = 0;
             mask = 4 + 2 + 1;
-            // reverseMask = 128 + 64 + 32;
+            reverseMask = 128 + 64 + 32;
             mockTransport.Clear();
             module.Display(0, value, points, mask, true);
             WaitForQueueUpdate();
-            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},321,0,{mask};";
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},321,0,{reverseMask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Reversed value not correct");
         }
 
