@@ -43,7 +43,8 @@ namespace MobiFlight.UI.Dialogs
                              Dictionary<string, ArcazeModuleSettings> moduleSettings, 
 #endif
                              DataSet dataSetConfig, 
-                             String filterGuid)
+                             String filterGuid,
+                             String description)
         {
             Init(mainForm, cfg);
 #if ARCAZE
@@ -63,7 +64,13 @@ namespace MobiFlight.UI.Dialogs
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(_dataSetConfig, filterGuid);   
+            initConfigRefDropDowns(_dataSetConfig, filterGuid);
+
+            // Append the row description to the window title if one was provided.
+            if (!String.IsNullOrEmpty(description))
+            {
+                this.Text = $"{this.Text} - {description}";
+            }
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)

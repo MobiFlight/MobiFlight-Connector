@@ -504,10 +504,12 @@ namespace MobiFlight.UI.Panels
                                             ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                             dataSetConfig,
-                                            dataRow["guid"].ToString()
-                                          );
-
-            wizard.StartPosition = FormStartPosition.CenterParent;
+                                            dataRow["guid"].ToString(),
+                                            dataRow["description"].ToString()
+                                          )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
 
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
