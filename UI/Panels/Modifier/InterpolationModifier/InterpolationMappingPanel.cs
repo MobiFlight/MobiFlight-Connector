@@ -42,11 +42,11 @@ namespace MobiFlight.UI.Panels.Modifier.InterpolationModifier
 
         public Tuple<double, double> toConfig()
         {
-            if (!int.TryParse(textBoxFromValue.Text, out int on) || 
-                !int.TryParse(textBoxToValue.Text, out int off)) 
+            if (!double.TryParse(textBoxFromValue.Text, out double from) || 
+                !double.TryParse(textBoxToValue.Text, out double to)) 
                 return null;
 
-            return new Tuple<double, double>(on, off);
+            return new Tuple<double, double>(from, to);
         }
 
         private void Button1_Click(object sender, EventArgs e)

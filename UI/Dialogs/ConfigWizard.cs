@@ -397,6 +397,7 @@ namespace MobiFlight.UI.Dialogs
             try {
                 if (!ValidateChildren())
                 {
+                    Log.Instance.log("The dialog cannot be closed. There are invalid values on some tab.", LogSeverity.Error);
                     return;
                 }
             } catch (System.InvalidOperationException ex)
