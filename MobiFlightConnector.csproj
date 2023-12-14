@@ -1742,8 +1742,14 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Boards\MiniFCU\" />
     <Folder Include="Controls\" />
     <Folder Include="Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Community\**">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">

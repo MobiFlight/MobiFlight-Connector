@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MobiFlight
 {
@@ -278,6 +276,16 @@ namespace MobiFlight
         /// Settings relating to updating the firmware via a mounted USB drive.
         /// </summary>
         public UsbDriveSettings UsbDriveSettings;
+
+        /// <summary>
+        /// Base path for custom firmware
+        /// </summary>
+        public String BasePath;
+
+        /// <summary>
+        /// The image resource
+        /// </summary>
+        public Image Image;
 
         /// <summary>
         /// Migrates board definitions from older versions to newer versions.

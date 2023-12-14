@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace MobiFlight
 {
@@ -78,14 +77,25 @@ namespace MobiFlight
         /// </summary>
         public static void Load()
         {
-            foreach (var definitionFile in Directory.GetFiles("Boards", "*.board.json"))
+            var files = new List<String>(Directory.GetFiles("Boards", "*.board.json"));
+            files.AddRange(Directory.GetFiles("Community/", "*.board.json", SearchOption.AllDirectories));
+
+            foreach (var definitionFile in files)
             {
                 try
                 {
                     var board = JsonConvert.DeserializeObject<Board>(File.ReadAllText(definitionFile));
                     board.Migrate();
+                    var boardPath = Path.GetDirectoryName(definitionFile);
+                    board.BasePath = Path.GetDirectoryName(boardPath);
+
+                    var logoPath = $@"{boardPath}\board-logo.png";
+                    if (File.Exists(logoPath)) {
+                        board.Image = Image.FromFile($@"{boardPath}\board-logo.png");
+                    }
+
                     boards.Add(board);
-                    Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
+                    Log.Instance.log($"Loaded device definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
                 }
                 catch (Exception ex)
                 {

@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace MobiFlight.CustomDevices
 {
@@ -37,11 +33,15 @@ namespace MobiFlight.CustomDevices
         /// </summary>
         public static void Load()
         {
-            foreach (var definitionFile in Directory.GetFiles("Devices", "*.device.json"))
+            var files = new List<String>(Directory.GetFiles("Devices", "*.board.json"));
+            files.AddRange(Directory.GetFiles("Community/", "*.device.json", SearchOption.AllDirectories));
+
+            foreach (var definitionFile in files)
             {
                 try
                 {
                     var device = JsonConvert.DeserializeObject<CustomDevice>(File.ReadAllText(definitionFile));
+                    device.BasePath = Path.GetDirectoryName(Path.GetDirectoryName(definitionFile));
                     devices.Add(device);
                     Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info);
                 }

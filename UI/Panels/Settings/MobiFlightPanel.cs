@@ -391,11 +391,22 @@ namespace MobiFlight.UI.Panels.Settings
                 moduleNode.Nodes.Clear();
                 moduleMultiplexerDrivers.Remove(moduleInfo.Name);
 
-                if (null == (moduleNode.Tag as MobiFlightModule).Config) return moduleNode;
+                var module = (moduleNode.Tag as MobiFlightModule);
+
+                if (null == module?.Config) return moduleNode;
+
+                if (module.Board.Image != null)
+                {
+                    var imageKey = module.Board.Info.FriendlyName;
+                    if (!mfTreeViewImageList.Images.ContainsKey(imageKey)) {
+                        mfTreeViewImageList.Images.Add(imageKey, module.Board.Image);
+                    }
+                    moduleNode.SelectedImageKey = moduleNode.ImageKey = imageKey;
+                }
 
                 // This is where the UI (TreeView.Node.Tag) is populated with the configuration data coming from MobiFlightModule.Config.Items
                 
-                foreach (MobiFlight.Config.BaseDevice device in (moduleNode.Tag as MobiFlightModule).Config.Items)
+                foreach (MobiFlight.Config.BaseDevice device in module.Config.Items)
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
 
