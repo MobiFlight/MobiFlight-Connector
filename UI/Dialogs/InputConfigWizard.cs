@@ -61,7 +61,8 @@ namespace MobiFlight.UI.Dialogs
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
                              DataSet dataSetConfig,
-                             String filterGuid)
+                             String filterGuid,
+                             String description)
         {
             Init(mainForm, cfg);
 #if ARCAZE
@@ -85,6 +86,12 @@ namespace MobiFlight.UI.Dialogs
             ScanForInputButtonDefaultStyle.BackColor = ScanForInputButton.BackColor;
             ScanForInputButtonDefaultStyle.ForeColor = ScanForInputButton.ForeColor;
             ScanForInputButtonDefaultStyle.BorderColor = ScanForInputButton.FlatAppearance.BorderColor;
+
+            // Append the row description to the window title if one was provided.
+            if (!String.IsNullOrEmpty(description))
+            {
+                this.Text = $"{this.Text} - {description}";
+            }
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
