@@ -4,6 +4,13 @@ using System.Drawing;
 
 namespace MobiFlight
 {
+    public enum BoardPartnerLevel
+    {
+        Core,
+        Partner,
+        Community
+    }
+
     /// <summary>
     /// Settings for flashing Arduino devices with avrdude.
     /// </summary>
@@ -286,6 +293,26 @@ namespace MobiFlight
         /// The image resource
         /// </summary>
         public Image Image;
+
+        /// <summary>
+        /// Returns the correct Partner Level
+        /// </summary>
+        /// <returns></returns>
+        public BoardPartnerLevel PartnerLevel { get {
+                if (BasePath == "" && Info.MobiFlightType.Contains("MobiFlight"))
+                    return BoardPartnerLevel.Core;
+
+                var partners = new List<string>() { 
+                    "kavSimulations",
+                    "miniCOCKPIT"
+                };
+                var partner = partners.Find(p => BasePath.Contains(p)) != null;
+                if (partner) return BoardPartnerLevel.Partner;
+
+                return BoardPartnerLevel.Community;
+            }
+        }
+        
 
         /// <summary>
         /// Migrates board definitions from older versions to newer versions.

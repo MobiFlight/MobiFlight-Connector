@@ -1730,7 +1730,6 @@
     <None Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Boards\MiniFCU\" />
     <Folder Include="Controls\" />
     <Folder Include="Release\" />
   </ItemGroup>

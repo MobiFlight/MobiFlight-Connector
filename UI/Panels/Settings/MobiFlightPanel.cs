@@ -337,15 +337,25 @@ namespace MobiFlight.UI.Panels.Settings
 
                 if (boards.Count > 0)
                 {
+                    var coreBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Core);
+                    var partnerBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Partner);
+                    var communityBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Community);
+                    AddBoardsToMenu(module, coreBoards);
 
-                    foreach (var board in boards)
+                    if (partnerBoards.Count > 0)
                     {
-                        ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
-                        ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
-
-                        updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
-                        UpdateFirmwareToolStripButton.DropDownItems.Add(item2);
+                        updateFirmwareToolStripMenuItem.DropDownItems.Add("-");
+                        UpdateFirmwareToolStripButton.DropDownItems.Add("-");
+                        AddBoardsToMenu(module, partnerBoards);
                     }
+
+                    if (communityBoards.Count > 0)
+                    {
+                        updateFirmwareToolStripMenuItem.DropDownItems.Add("-");
+                        UpdateFirmwareToolStripButton.DropDownItems.Add("-");
+                        AddBoardsToCommunityMenu(module, communityBoards);
+                    }
+
                     UpdateFirmwareToolStripButton.ShowDropDownArrow = true;
                 }
             }
@@ -356,6 +366,36 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             syncPanelWithSelectedDevice(node);
+        }
+
+        private void AddBoardsToMenu(MobiFlightModule module, List<Board> boards)
+        {
+            foreach (var board in boards)
+            {
+                ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
+                ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
+
+                updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
+                UpdateFirmwareToolStripButton.DropDownItems.Add(item2);
+            }
+        }
+
+        private void AddBoardsToCommunityMenu(MobiFlightModule module, List<Board> boards)
+        {
+            ToolStripMenuItem communityItem = new ToolStripMenuItem() { Text = "Community" };
+            ToolStripMenuItem communityItem2 = new ToolStripMenuItem() { Text = "Community" };
+
+            foreach (var board in boards)
+            {
+                ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
+                ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
+
+                communityItem.DropDownItems.Add(item);
+                communityItem2.DropDownItems.Add(item2);
+            }
+
+            updateFirmwareToolStripMenuItem.DropDownItems.Add(communityItem);
+            UpdateFirmwareToolStripButton.DropDownItems.Add(communityItem2);
         }
 
         private ToolStripMenuItem CreateFirmwareUploadMenuItem(MobiFlightModule module, Board board)
