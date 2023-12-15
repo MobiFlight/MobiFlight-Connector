@@ -137,63 +137,63 @@
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 16
     },
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 17
     },
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 18
     },
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 19
     },
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 20
     },
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 21
     },
     {
       "isAnalog": false,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Pin": 22
     },
     {
       "isAnalog": true,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Name": "A0",
       "Pin": 26
     },
     {
       "isAnalog": true,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Name": "A1",
       "Pin": 27
     },
     {
       "isAnalog": true,
       "isI2C": false,
-      "isPWM": true,
+      "isPWM": false,
       "Name": "A2",
       "Pin": 28
     }
