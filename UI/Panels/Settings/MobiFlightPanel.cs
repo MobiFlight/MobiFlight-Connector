@@ -340,6 +340,7 @@ namespace MobiFlight.UI.Panels.Settings
                     var coreBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Core);
                     var partnerBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Partner);
                     var communityBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Community);
+                    
                     AddBoardsToMenu(module, coreBoards);
 
                     if (partnerBoards.Count > 0)
@@ -372,12 +373,17 @@ namespace MobiFlight.UI.Panels.Settings
         {
             foreach (var board in boards)
             {
-                ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
-                ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
-
-                updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
-                UpdateFirmwareToolStripButton.DropDownItems.Add(item2);
+                AddBoardsToMenuUsingParent(module, board, updateFirmwareToolStripMenuItem, UpdateFirmwareToolStripButton);
             }
+        }
+
+        private void AddBoardsToMenuUsingParent(MobiFlightModule module, Board board, ToolStripDropDownItem parentMenu, ToolStripDropDownItem parentMenu2)
+        {
+            ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
+            ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
+
+            parentMenu.DropDownItems.Add(item);
+            parentMenu2.DropDownItems.Add(item2);
         }
 
         private void AddBoardsToCommunityMenu(MobiFlightModule module, List<Board> boards)
@@ -387,11 +393,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             foreach (var board in boards)
             {
-                ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
-                ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
-
-                communityItem.DropDownItems.Add(item);
-                communityItem2.DropDownItems.Add(item2);
+                AddBoardsToMenuUsingParent(module, board, communityItem, communityItem2);
             }
 
             updateFirmwareToolStripMenuItem.DropDownItems.Add(communityItem);
@@ -409,6 +411,12 @@ namespace MobiFlight.UI.Panels.Settings
                 modules.Add(module);
                 UpdateModules(modules);
             };
+
+            if (board.Image != null)
+            {                
+                item.Image = board.Image;
+            }
+
             return item;
         }
 
@@ -437,10 +445,9 @@ namespace MobiFlight.UI.Panels.Settings
 
                 if (module.Board.Image != null)
                 {
-                    var imageKey = module.Board.Info.FriendlyName;
-                    if (!mfTreeViewImageList.Images.ContainsKey(imageKey)) {
-                        mfTreeViewImageList.Images.Add(imageKey, module.Board.Image);
-                    }
+                    // i had to do this with the imageKey
+                    // the nodes don't support an image directly
+                    var imageKey = generateImageKeyAndAddImageToImageList(module.Board);
                     moduleNode.SelectedImageKey = moduleNode.ImageKey = imageKey;
                 }
 
@@ -469,6 +476,21 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             return moduleNode;
+        }
+
+        /// <summary>
+        /// This generates the imageKey and also adds the image to the imageList
+        /// </summary>
+        /// <param name="board">The Board information</param>
+        /// <returns>the valid imageKey</returns>
+        private string generateImageKeyAndAddImageToImageList(Board board)
+        {
+            var imageKey = board.Info.MobiFlightType;
+            if (!mfTreeViewImageList.Images.ContainsKey(imageKey))
+            {
+                mfTreeViewImageList.Images.Add(imageKey, board.Image);
+            }
+            return imageKey;
         }
 
         /// <summary>

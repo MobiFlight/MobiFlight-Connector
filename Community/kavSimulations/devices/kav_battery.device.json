@@ -1,0 +1,41 @@
+{
+    "$schema": "./mfdevice.schema.json",
+    "Info": {
+      "Label": "Kav's Battery LCD",
+      "Type": "KAV_BATTERY",
+      "Author": "Jak Kav",
+      "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+      "Version" : "1.0.0"
+    },
+    "Config": {
+      "Pins": [
+        "Data",
+        "CS",
+        "CLK"
+      ],
+      "isI2C": false
+    },
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "Set volt symbol",
+        "description": "$ will set the volt symbol (0/1)"
+      },
+      {
+        "id": 1,
+        "label": "Set dot",
+        "description": "$ will be the dot (0/1)"
+      },
+      {
+        "id": 2,
+        "label": "Set value",
+        "description": "$ will set the value of the LCD"
+      },
+      {
+        "id": 3,
+        "label": "Set value w/ L",
+        "description": "$ will set the value of the LCD with 'L' character anabled"
+      }
+    ]
+  }
+  

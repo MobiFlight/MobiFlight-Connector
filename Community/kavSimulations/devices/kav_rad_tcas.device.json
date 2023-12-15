@@ -1,0 +1,41 @@
+{
+    "$schema": "./mfdevice.schema.json",
+    "Info": {
+      "Label": "Kav's RAD/TCAS LCD",
+      "Type": "KAV_RAD_TCAS",
+      "Author": "Jak Kav",
+      "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+      "Version" : "1.0.0"
+    },
+    "Config": {
+      "Pins": [
+        "Data",
+        "CS",
+        "CLK"
+      ],
+      "isI2C": false
+    },
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "Set dot",
+        "description": "$ sets the dot to show or hide (0/1)"
+      },
+      {
+        "id": 1,
+        "label": "Set pattern",
+        "description": "$ will show the aircraft 'test' pattern (0/1)"
+      },
+      {
+        "id": 2,
+        "label": "Set value radio",
+        "description": "$ will show the value on the display for radio"
+      },
+      {
+        "id": 3,
+        "label": "Set value TCAS",
+        "description": "$ will show the value on the display for TCAS"
+      }
+    ]
+  }
+  
