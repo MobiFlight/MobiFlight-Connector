@@ -42,23 +42,28 @@ namespace MobiFlight
         public event EventHandler LookupFinished;
 
 
+#pragma warning disable IDE0044 // Add readonly modifier.
         private volatile List<MobiFlightModuleInfo> AvailableComModules = new List<MobiFlightModuleInfo>();
+#pragma warning restore IDE0044 // Add readonly modifier
         Boolean isFirstTimeLookup = true;
 
         private bool _lookingUpModules = false;
 
+        const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
+        DateTime lastKeepAwake = DateTime.MinValue; // Initialize to the earliest possible date so the first keep awake test will always cause a wakeup event
+
         DateTime servoTime = DateTime.Now;
+
         /// <summary>
         /// list of known modules.
         /// 
         /// ConcurrentDictionary for better thread-safety
         /// </summary>
-        ConcurrentDictionary<string, MobiFlightModule> Modules = new ConcurrentDictionary<string, MobiFlightModule>();
-        ConcurrentDictionary<string, MobiFlightVariable> variables = new ConcurrentDictionary<string, MobiFlightVariable>();
+        readonly ConcurrentDictionary<string, MobiFlightModule> Modules = new ConcurrentDictionary<string, MobiFlightModule>();
+        readonly ConcurrentDictionary<string, MobiFlightVariable> variables = new ConcurrentDictionary<string, MobiFlightVariable>();
 
-        SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
-        UsbDeviceMonitor UsbDeviceMonitor = new UsbDeviceMonitor();
-        int progressValue = 0;
+        readonly SerialPortMonitor SerialPortMonitor = new SerialPortMonitor();
+        readonly UsbDeviceMonitor UsbDeviceMonitor = new UsbDeviceMonitor();
 
         public MobiFlightCache()
         {
@@ -82,14 +87,44 @@ namespace MobiFlight
                     if (0 == AvailableComModules.Count) {
                         isFirstTimeLookup = false;
                         LookupFinished?.Invoke(this, new EventArgs());
-                        Log.Instance.log($"End looking up connected modules. No modules found.", LogSeverity.Debug);
+                        Log.Instance.log($"Finish looking up connected modules. No modules found.", LogSeverity.Info);
                     } 
                 });
+        }
+        
+        // Calls SetPowerSaveMode(false) on all connected modules. If the
+        // force parameter is set to true then all modules will be sent the
+        // command even if the keep awake interval hasn't passed yet.
+        public void KeepConnectedModulesAwake(bool force = false)
+        {
+            // lastKeepAwake is initialized to the earliest possible DateTime so the first
+            // time this method is called this test will fail and the modules will be forced
+            // to set their power save mode to off.
+            if (!force && lastKeepAwake.AddMinutes(KeepAwakeIntervalInMinutes) >= DateTime.UtcNow)
+            {
+                return;
+            }
+
+            foreach (var module in Modules)
+            {
+                module.Value.SetPowerSaveMode(false);
+            }
+
+            lastKeepAwake = DateTime.UtcNow;
+        }
+        
+        // Calls SetPowerSaveMode(true) on all connected modules.
+        public void ActivateConnectedModulePowerSave()
+        {
+            foreach (var module in Modules)
+            {
+                module.Value.SetPowerSaveMode(true);
+            }
         }
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Debug);
+            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Info);
             var disconnectedModule = AvailableComModules.Find(m => m.Port == e.Name);
 
             if (disconnectedModule == null) return;
@@ -111,7 +146,7 @@ namespace MobiFlight
         {
             Log.Instance.log($"Port detected: {portDetails.Name} {portDetails.Board.Info.FriendlyName}", LogSeverity.Debug);
 
-            List<string> ignoredComPorts = getIgnoredPorts();
+            List<string> ignoredComPorts = GetIgnoredPorts();
             if (ignoredComPorts.Contains(portDetails.Name))
             {
                 OnIgnoredPortDetected(sender, portDetails);
@@ -168,7 +203,7 @@ namespace MobiFlight
             return true;
         }
 
-        private void OnIgnoredPortDetected(object sender, PortDetails portDetails)
+        private void OnIgnoredPortDetected(object _, PortDetails portDetails)
         {
             Log.Instance.log($"Skipping {portDetails.Name} since it is in the list of ports to ignore.", LogSeverity.Info);
             var ignoredPort = new MobiFlightModuleInfo()
@@ -196,13 +231,13 @@ namespace MobiFlight
 
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Debug);
+            Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Info);
             SerialPortMonitor_PortUnavailable(sender, e);
         }
 
-        private void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
+        private async void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Debug);
+            Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Info);
             var info = new MobiFlightModuleInfo()
             {
                 Type = e.Board.Info.FriendlyName,
@@ -221,6 +256,8 @@ namespace MobiFlight
             OnCompatibleBoardDetected(info);
             var result = new MobiFlightModule(info);
             ModuleConnected?.Invoke(result, new EventArgs());
+
+            await CheckIfLookUpFinished();
         }
 
         /// <summary>
@@ -241,39 +278,48 @@ namespace MobiFlight
         /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
         /// as opposed to being connected as COM port.
         /// </summary>
+        /// <param name="WaitInMilliseconds">Time for the UsbDeviceMonitor to perform a port scan</param>
         /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
-        public static List<MobiFlightModuleInfo> FindConnectedUsbDevices()
+        public static List<MobiFlightModuleInfo> FindConnectedUsbDevices(double WaitInMilliseconds = 500)
         {
             var result = new List<MobiFlightModuleInfo>();
-            var usbDeviceMonitor = new UsbDeviceMonitor();
-            usbDeviceMonitor.Start();
-            var task = Task
-                // we need to wait for the timer to trigger
-                .Delay(TimeSpan.FromMilliseconds(2000))
-                .ContinueWith(_ => usbDeviceMonitor.DetectedPorts
-                    .ForEach(p =>
-                    {
-                        result.Add(new MobiFlightModuleInfo()
+
+            // we have to use it this way so that
+            // the timer gets disposed correctly
+            using (var usbDeviceMonitor = new UsbDeviceMonitor())
+            {
+                usbDeviceMonitor.Start();
+                var task = Task
+                    // we need to give the usbDeviceMonitor the chance
+                    // to do the USB drive scan and return a valid list
+                    // of Detected Ports.
+                    // This might take a few moments to complete.
+                    .Delay(TimeSpan.FromMilliseconds(WaitInMilliseconds))
+                    .ContinueWith(_ => usbDeviceMonitor.DetectedPorts
+                        .ForEach(p =>
                         {
-                            Type = p.Board.Info.FriendlyName,
-                            Board = p.Board,
-                            HardwareId = p.HardwareId,
-                            Name = p.Board.Info.FriendlyName,
-                            // It's important that this is the drive letter for the connected USB device. This is
-                            // used elsewhere in the flashing code to know that it wasn't connected via a COM
-                            // port and to skip the COM port toggle before flashing.
-                            Port = (p as UsbPortDetails)?.Path
-                        });
-                    })
-                );
-            
-            task.Wait();
-            usbDeviceMonitor.Stop();
+                            result.Add(new MobiFlightModuleInfo()
+                            {
+                                Type = p.Board.Info.FriendlyName,
+                                Board = p.Board,
+                                HardwareId = p.HardwareId,
+                                Name = p.Board.Info.FriendlyName,
+                                // It's important that this is the drive letter for the connected USB device. This is
+                                // used elsewhere in the flashing code to know that it wasn't connected via a COM
+                                // port and to skip the COM port toggle before flashing.
+                                Port = (p as UsbPortDetails)?.Path
+                            });
+                        })
+                    );
+
+                task.Wait();
+                usbDeviceMonitor.Stop();
+            }
 
             return result;
         }
 
-        public bool updateConnectedModuleName(MobiFlightModule m)
+        public bool UpdateConnectedModuleName(MobiFlightModule m)
         {
             if (AvailableComModules == null) return false;
 
@@ -309,7 +355,7 @@ namespace MobiFlight
             return Modules.Values;
         }
 
-        private List<string> getIgnoredPorts()
+        private List<string> GetIgnoredPorts()
         {
             List<String> ports = new List<string>();
             if (Properties.Settings.Default.IgnoreComPorts)
@@ -336,7 +382,7 @@ namespace MobiFlight
             
             if (Modules.ContainsKey(devInfo.Serial))
             {
-                Modules.TryRemove(devInfo.Serial, out MobiFlightModule removedModule);
+                Modules.TryRemove(devInfo.Serial, out _);
                 return;
             }
             
@@ -360,7 +406,7 @@ namespace MobiFlight
                 if (replace)
                 {
                     // remove the existing handler
-                    Modules[devInfo.Serial].OnInputDeviceAction -= new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
+                    Modules[devInfo.Serial].OnInputDeviceAction -= new MobiFlightModule.InputDeviceEventHandler(Module_OnButtonPressed);
                     Modules[devInfo.Serial] = m;                
                 }
                 else
@@ -374,13 +420,12 @@ namespace MobiFlight
                 }
 
             // add the handler
-            m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(module_OnButtonPressed);
+            m.OnInputDeviceAction += new MobiFlightModule.InputDeviceEventHandler(Module_OnButtonPressed);
         }
 
-        public void module_OnButtonPressed(object sender, InputEventArgs e)
+        public void Module_OnButtonPressed(object sender, InputEventArgs e)
         {
-            if (OnButtonPressed != null)
-                OnButtonPressed(sender, e);
+            OnButtonPressed?.Invoke(sender, e);
         }
 
         /// <summary>
@@ -410,7 +455,7 @@ namespace MobiFlight
         /// <param name="serial">the device's serial</param>
         /// <param name="name">the port letter and pin number, e.g. A01</param>
         /// <param name="value">the value to be used</param>
-        public void setValue(string serial, string name, string value)
+        public void SetValue(string serial, string name, string value)
         {
             if (serial == null)
             {
@@ -468,7 +513,7 @@ namespace MobiFlight
         /// <param name="digits"></param>
         /// <param name="decimalPoints"></param>
         /// <param name="value"></param>
-        public void setDisplay(string serial, string address, byte connector, List<string> digits, List<string> decimalPoints, string value, bool reverse)
+        public void SetDisplay(string serial, string address, byte connector, List<string> digits, List<string> decimalPoints, string value, bool reverse)
         {
             if (serial == null)
             {
@@ -504,7 +549,7 @@ namespace MobiFlight
             }
         }
 
-        public void setDisplayBrightness(string serial, string address, byte connector, string value)
+        public void SetDisplayBrightness(string serial, string address, byte connector, string value)
         {
             if (serial == null)
             {
@@ -535,26 +580,15 @@ namespace MobiFlight
             }
         }
 
-        private string GetValueForReference(string reference, List<ConfigRefValue> referenceList)
-        {
-            if (referenceList == null)
-            {
-                return null;
-            }
-            var found = referenceList.Find(x => x.ConfigRef.Ref.Equals(reference));
-            return found?.Value;
-        }
-
-        public void setServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
+        public void SetServo(string serial, string address, string value, int min, int max, byte maxRotationPercent)
         {
             try
             {
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                double dValue;
-                
-                if (!double.TryParse(value, out dValue)) return;
+
+                if (!double.TryParse(value, out double dValue)) return;
 
                 int iValue = (int)dValue;
 
@@ -566,7 +600,7 @@ namespace MobiFlight
             }
         }
 
-        public void setStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed = 0, Int16 acceleration = 0)
+        public void SetStepper(string serial, string address, string value, int inputRevolutionSteps, int outputRevolutionSteps, bool CompassMode, Int16 speed = 0, Int16 acceleration = 0)
         {
             try
             {
@@ -574,8 +608,7 @@ namespace MobiFlight
 
                 MobiFlightModule module = Modules[serial];
 
-                double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                if (!double.TryParse(value, out double dValue)) return;
 
                 int iValue = (int)dValue;
 
@@ -601,7 +634,7 @@ namespace MobiFlight
             }
         }
 
-        public void resetStepper(string serial, string address)
+        public void ResetStepper(string serial, string address)
         {
             try
             {
@@ -621,7 +654,7 @@ namespace MobiFlight
         /// <param name="LcdConfig"></param>
         /// <param name="value"></param>
         /// <param name="replacements"></param>
-        public void setLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<ConfigRefValue> replacements)
+        public void SetLcdDisplay(string serial, OutputConfig.LcdDisplay LcdConfig, string value, List<ConfigRefValue> replacements)
         {
             if (serial == null)
             {
@@ -658,7 +691,7 @@ namespace MobiFlight
             }
         }
 
-        public void setShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
+        public void SetShiftRegisterOutput(string serial, string shiftRegName, string outputPin, string value)
         {
             if (serial == null)
             {
@@ -675,8 +708,7 @@ namespace MobiFlight
                 if (!Modules.ContainsKey(serial)) return;
 
                 MobiFlightModule module = Modules[serial];
-                double dValue;
-                if (!double.TryParse(value, out dValue)) return;
+                if (!double.TryParse(value, out double dValue)) return;
 
                 int iValue = (int)Math.Round(dValue,0);
                 module.setShiftRegisterOutput(shiftRegName, outputPin, iValue.ToString());
@@ -703,7 +735,7 @@ namespace MobiFlight
             variables.Clear();
         }
         
-        public IEnumerable<IModuleInfo> getModuleInfo()
+        public IEnumerable<IModuleInfo> GetModuleInfo()
         {
             List<IModuleInfo> result = new List<IModuleInfo>();
             foreach (MobiFlightModuleInfo moduleInfo in GetDetectedCompatibleModules())
@@ -785,11 +817,12 @@ namespace MobiFlight
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>();
+            var result = new Dictionary<string, int>
+            {
+                ["Modules.Count"] = Modules.Values.Count()
+            };
 
-            result["Modules.Count"] = Modules.Values.Count();
-
-            foreach(MobiFlightModule module in Modules.Values)
+            foreach (MobiFlightModule module in Modules.Values)
             {
                 String key = "Modules." + module.Type;
                 if (!result.ContainsKey(key)) result[key] = 0;
@@ -818,7 +851,7 @@ namespace MobiFlight
             return result;
         }
 
-        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value, List<ConfigRefValue> configRefValues)
+        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
         {
             if (serial == null)
             {

@@ -178,6 +178,12 @@ namespace MobiFlight.UI.Panels.Config
 
         public bool syncFromConfig(IBaseConfigItem config)
         {
+            // Until with have the preconditions completely refactored,
+            // add an empty precondition in case the current cfg doesn't have one
+            // we removed addEmptyNode but add an empty Precondition here
+            if (config.Preconditions.Count == 0)
+                config.Preconditions.Add(new Precondition());
+
             preconditionListTreeView.Nodes.Clear();
             Preconditions = config.Preconditions.Clone() as PreconditionList;
 
@@ -216,11 +222,13 @@ namespace MobiFlight.UI.Panels.Config
                 if (selected == "config")
                 {
                     preconditionConfigLabel.Text = i18n._tr("Label_Precondition_choose_config");
+                    preconditionConfigComboBox.DataSource = null;
                     preconditionConfigComboBox.DataSource = Configs;
                 }
                 else
                 {
                     preconditionConfigLabel.Text = i18n._tr("Label_Precondition_choose_variable");
+                    preconditionConfigComboBox.DataSource = null;
                     preconditionConfigComboBox.DataSource = Variables;
                 }
 
@@ -247,7 +255,7 @@ namespace MobiFlight.UI.Panels.Config
             {
                 case "variable":
                 case "config":
-                    if (sender == preconditionConfigComboBox)
+                    if (sender == preconditionConfigComboBox && preconditionConfigComboBox.SelectedValue != null)
                         c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
                     if (sender == preconditionRefOperandComboBox)
                         c.PreconditionOperand = preconditionRefOperandComboBox.Text;

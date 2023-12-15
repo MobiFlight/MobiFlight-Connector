@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.VJoy;
+using MobiFlight.UI.Panels.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class VJoyInputPanel : UserControl
+    public partial class VJoyInputPanel : UserControl, IPanelConfigSync
     {
         public VJoyInputPanel()
         {
@@ -52,10 +54,11 @@ namespace MobiFlight.UI.Panels.Action
             comboBoxButtonNr.Enabled = false;
         }
 
-        internal void syncFromConfig(InputConfig.VJoyInputAction vJoyInputAction)
+        public void syncFromConfig(object config)
         {
+            VJoyInputAction vJoyInputAction = config as VJoyInputAction;
             if (vJoyInputAction == null) return;
-
+            
             ComboBoxID.SelectedItem = vJoyInputAction.vJoyID;
             try
             {
@@ -88,11 +91,11 @@ namespace MobiFlight.UI.Panels.Action
             setInputEnabledState(-1);
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputAction ToConfig()
         {
             if (ComboBoxID.SelectedItem != null)
             {
-                InputConfig.VJoyInputAction vJoyInputAction = new InputConfig.VJoyInputAction();
+                VJoyInputAction vJoyInputAction = new VJoyInputAction();
                 vJoyInputAction.vJoyID = UInt16.Parse(ComboBoxID.SelectedItem.ToString());
                 if (comboBoxButtonNr.SelectedItem.ToString() != "--")
                 {

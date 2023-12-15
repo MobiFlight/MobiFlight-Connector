@@ -376,11 +376,38 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay:.
+        /// </summary>
+        internal static string uiLabelDelay {
+            get {
+                return ResourceManager.GetString("uiLabelDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Double-click row to add new config....
         /// </summary>
         internal static string uiLabelDoubleClickToAddConfig {
             get {
                 return ResourceManager.GetString("uiLabelDoubleClickToAddConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not a valid value.
+        /// </summary>
+        internal static string uiLabelDuplicateNotAValidValue {
+            get {
+                return ResourceManager.GetString("uiLabelDuplicateNotAValidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate x values are not valid.
+        /// </summary>
+        internal static string uiLabelInterpolationDuplicateXvalueNotAllowed {
+            get {
+                return ResourceManager.GetString("uiLabelInterpolationDuplicateXvalueNotAllowed", resourceCulture);
             }
         }
         
@@ -408,6 +435,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiLabelNoAircraftDetected_ {
             get {
                 return ResourceManager.GetString("uiLabelNoAircraftDetected.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ms, repeat every.
+        /// </summary>
+        internal static string uiLabelRepeatPress {
+            get {
+                return ResourceManager.GetString("uiLabelRepeatPress", resourceCulture);
             }
         }
         
@@ -574,6 +610,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageDeviceNameContainsInvalidCharsOrTooLong {
             get {
                 return ResourceManager.GetString("uiMessageDeviceNameContainsInvalidCharsOrTooLong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drag and Drop is not available when list is sorted..
+        /// </summary>
+        internal static string uiMessageDragDropNotAllowed {
+            get {
+                return ResourceManager.GetString("uiMessageDragDropNotAllowed", resourceCulture);
             }
         }
         
@@ -767,6 +812,17 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageFsuipcConnectionLost {
             get {
                 return ResourceManager.GetString("uiMessageFsuipcConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your HubHop presets are older than 7 days.
+        ///
+        ///Would you like to update?.
+        /// </summary>
+        internal static string uiMessageHubHopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopAutoUpdate", resourceCulture);
             }
         }
         
@@ -1396,6 +1452,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiSettingsMobiFlightChangeRequiresRestart {
             get {
                 return ResourceManager.GetString("uiSettingsMobiFlightChangeRequiresRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HubHop Preset Update.
+        /// </summary>
+        internal static string uiTitleHubhopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiTitleHubhopAutoUpdate", resourceCulture);
             }
         }
         

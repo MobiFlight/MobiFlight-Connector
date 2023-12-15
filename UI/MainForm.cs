@@ -176,10 +176,10 @@ namespace MobiFlight.UI
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
-            execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
-            execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
-            execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
-            execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
+            execManager.OnSimCacheConnectionLost += new EventHandler(SimCache_ConnectionLost);
+            execManager.OnSimCacheConnected += new EventHandler(SimCache_Connected);
+            execManager.OnSimCacheConnected += new EventHandler(CheckAutoRun);
+            execManager.OnSimCacheClosed += new EventHandler(SimCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
 
             // working hypothesis: we don't need this at all.
@@ -239,8 +239,7 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
-            execManager.AutoConnectStart();
-
+            
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
@@ -393,6 +392,7 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackShutdown();
             execManager.Shutdown();
             Properties.Settings.Default.Save();
+            logPanel1.Shutdown();
         } //Form1_FormClosed
 
         void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
@@ -423,6 +423,7 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
 
             CheckForWasmModuleUpdate();
+            CheckForHubhopUpdate();
 
             UpdateAllConnectionIcons();
 
@@ -432,6 +433,31 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackStart();
 
             InitialLookupFinished = true;
+
+            // Now we are done with all initialization stuff
+            // and now we are ready to look for sims
+            execManager.AutoConnectStart();
+        }
+
+        private void CheckForHubhopUpdate()
+        {
+            var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+            UpdateHubHopTimestampInStatusBar(lastModification);
+            
+            if (lastModification > DateTime.UtcNow.AddDays(-7)) return;
+            // we could provide a warning icon or so.
+            if (!Properties.Settings.Default.HubHopAutoCheck) return;
+            // we haven't updated hubhop events in more than 7 days.
+            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
+            tmd.StartPosition = FormStartPosition.CenterParent;
+            tmd.DefaultDialogResult = DialogResult.Cancel;
+            tmd.Message = i18n._tr("uiMessageHubHopAutoUpdate");
+            tmd.Text = i18n._tr("uiTitleHubhopAutoUpdate");
+
+            if (tmd.ShowDialog() == DialogResult.OK)
+            {
+                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+            }
         }
 
         private void CheckForWasmModuleUpdate()
@@ -470,8 +496,6 @@ namespace MobiFlight.UI
                 }
             }
 
-            // Connected USB devices that are in bootsel mode get added to the firmware flashing list
-            modulesForFlashing.AddRange(MobiFlightCache.FindConnectedUsbDevices());
 
             if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
@@ -822,7 +846,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void fsuipcCache_Closed(object sender, EventArgs e)
+        void SimCache_Closed(object sender, EventArgs e)
         {
             if (sender.GetType() == typeof(SimConnectCache))
             {
@@ -900,7 +924,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>        
-        void fsuipcCache_Connected(object sender, EventArgs e)
+        void SimCache_Connected(object sender, EventArgs e)
         {
             // Typically the information in this static object is correct
             // only in the case of FSUIPC it might actually be not correct
@@ -992,7 +1016,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// gets triggered as soon as the fsuipc is connected
         /// </summary>        
-        void checkAutoRun (object sender, EventArgs e)
+        void CheckAutoRun (object sender, EventArgs e)
         {            
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
@@ -1007,7 +1031,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows message to user and stops execution of timer
         /// </summary>
-        void fsuipcCache_ConnectionLost(object sender, EventArgs e)
+        void SimCache_ConnectionLost(object sender, EventArgs e)
         {
             execManager.Stop();
 
@@ -1111,7 +1135,7 @@ namespace MobiFlight.UI
 #endif
 
 #if MOBIFLIGHT
-            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().getModuleInfo())
+            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().GetModuleInfo())
             {
                 ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
                 item.Tag = module;
@@ -1387,7 +1411,12 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
-            if (!merge) { 
+            // Reset sorting if active
+            if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
+            if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
+
+            if (!merge)
+            {
                 outputConfigPanel.DataSetConfig.Clear();
                 inputConfigPanel.InputDataSetConfig.Clear();
             }
@@ -1421,7 +1450,6 @@ namespace MobiFlight.UI
                 return;
             }
 
-
             // for backward compatibility 
             // we check if there are rows that need to
             // initialize our config item correctly
@@ -1438,7 +1466,8 @@ namespace MobiFlight.UI
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
                 saveToolStripButton.Enabled = false;
-            } else
+            }
+            else
             {
                 // indicate that the merge changed
                 // the current config and that the user
@@ -1448,8 +1477,8 @@ namespace MobiFlight.UI
             // always put this after "normal" initialization
             // savetoolstripbutton may be set to "enabled"
             // if user has changed something
-            _checkForOrphanedSerials( false );
-            _checkForOrphanedJoysticks( false );
+            _checkForOrphanedSerials(false);
+            _checkForOrphanedJoysticks(false);
             _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
@@ -1701,12 +1730,24 @@ namespace MobiFlight.UI
         /// <summary>
         /// saves the current config to filename
         /// </summary>        
-        private void _saveConfig(string fileName)
+        private void SaveConfig(string fileName)
         {
             outputConfigPanel.ApplyBackwardCompatibilitySaving();
 
             ConfigFile configFile = new ConfigFile(fileName);
-            configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
+
+            // Issue 1401: Saving the file can result in an UnauthorizedAccessException, so catch any
+            // errors during save and show it in a dialog instead of crashing.
+            try
+            {
+                configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             CurrentFileName = fileName;
             _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
@@ -1807,7 +1848,7 @@ namespace MobiFlight.UI
             fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
             if (DialogResult.OK == fd.ShowDialog())
             {
-                _saveConfig(fd.FileName);
+                SaveConfig(fd.FileName);
             }            
         } //saveToolStripMenuItem_Click()
 
@@ -1834,6 +1875,10 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
+                // Reset sorting if active
+                if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
+                if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
+                // Clear data
                 outputConfigPanel.ConfigDataTable.Clear();
                 inputConfigPanel.ConfigDataTable.Clear();
             };
@@ -1847,7 +1892,7 @@ namespace MobiFlight.UI
             // if filename of loaded file is known use it
             if (CurrentFileName != null)
             {
-                _saveConfig(CurrentFileName);
+                SaveConfig(CurrentFileName);
                 return;
             }
             // otherwise trigger normal open file dialog
@@ -2146,6 +2191,9 @@ namespace MobiFlight.UI
                    i18n._tr("uiMessageHubHopUpdateSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
+                UpdateHubHopTimestampInStatusBar(lastModification);
             }
             else
             {
@@ -2156,6 +2204,12 @@ namespace MobiFlight.UI
             };
 
             progressForm.Dispose();
+        }
+
+        private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
+        {
+            toolStripStatusLabelHubHop.Text = lastModification.ToLocalTime().ToShortDateString();
+            toolStripStatusLabelHubHop.ToolTipText = lastModification.ToLocalTime().ToString();
         }
 
         private void openDiscordServer_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
 ﻿using MobiFlight.InputConfig;
+using MobiFlight.UI.Panels.Config;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class XplaneInputPanel : UserControl
+    public partial class XplaneInputPanel : UserControl, IPanelConfigSync
     {
         public XplaneInputPanel()
         {
@@ -22,12 +23,13 @@ namespace MobiFlight.UI.Panels.Action
             hubHopPresetPanel1.LoadPresets();
             Disposed += (sender, args) => { hubHopPresetPanel1.Dispose(); };
         }
-        internal void syncFromConfig(InputConfig.XplaneInputAction inputAction)
+        public void syncFromConfig(object config)
         {
+            XplaneInputAction inputAction = config as XplaneInputAction;
             hubHopPresetPanel1.syncFromConfig(inputAction);
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputAction ToConfig()
         {
             return hubHopPresetPanel1.ToConfig();
         }

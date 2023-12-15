@@ -282,6 +282,20 @@ namespace MobiFlight.SimConnectMSFS
             return true;
         }
 
+        static public DateTime HubHopPresetTimestamp()
+        {
+            var lastModified = DateTime.MinValue;
+            try
+            {
+                lastModified = System.IO.File.GetLastWriteTimeUtc($@"{WasmEventsHubHopFolder}\{WasmEventsHubHopFileName}");
+            }catch(Exception) 
+            {
+                Log.Instance.log("Could not check presets for creation date.", LogSeverity.Error);
+            }
+                
+            return lastModified;
+        }
+
         private bool DownloadSingleFile(Uri uri, String filename, String targetPath)
         {
             SecurityProtocolType oldType = System.Net.ServicePointManager.SecurityProtocol;
