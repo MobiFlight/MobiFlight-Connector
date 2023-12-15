@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Forms
 
             if (e.Current == e.Total)
             {
-                this.Invoke(new EventHandler<ProgressUpdateEvent>(OnProgressCompleted), new object[] { sender, e });
+                OnProgressCompleted(sender, e);
             }
         }
 
