@@ -45,12 +45,8 @@ namespace MobiFlightInstaller.UI
             UpdaterCurrentTask.Text = "Download finished.";
             if (MobiFlightUpdaterModel.CheckIfFileIsHere(CurrentFileName, _downloadChecksum)) //compare checksum if download is correct
             {
-                UpdaterCurrentTask.Text = "Extracting files...";
-                Log.Instance.log("DOWNLOAD is OK, start extracting ...", LogSeverity.Debug);
-                MobiFlightUpdaterModel.CloseMobiFlightAndWait();
-                MobiFlightUpdaterModel.GoExtractToDirectory(CurrentFileName, Directory.GetCurrentDirectory());
-                UpdaterCurrentTask.Text = "Start MobiFlight";
-                MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
+                Log.Instance.log("DOWNLOAD is OK.", LogSeverity.Debug);
+                ExtractAndInstall(CurrentFileName);
             }
             else
             {
@@ -58,6 +54,15 @@ namespace MobiFlightInstaller.UI
                 MessageBox.Show("Download failed, installation aborted! Please run installer again or unzip manually.");
             }
             _webClient.Dispose();
+        }
+
+        private void ExtractAndInstall(string currentFileName)
+        {
+            UpdaterCurrentTask.Text = "Extracting files...";
+            MobiFlightUpdaterModel.CloseMobiFlightAndWait();
+            MobiFlightUpdaterModel.GoExtractToDirectory(currentFileName, Directory.GetCurrentDirectory());
+            UpdaterCurrentTask.Text = "Start MobiFlight";
+            MobiFlightUpdaterModel.StartProcessAndClose(MobiFlightHelperMethods.ProcessName);
         }
 
         private void ManualUpgradeFromCommandLine(string Version)
@@ -79,7 +84,13 @@ namespace MobiFlightInstaller.UI
                     _webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(OnDownloadProgressChanged);
                     _webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(OnDownloadComplete);
                     _webClient.DownloadFileAsync(uri, CurrentFileName); // Download the file
+
+                    // Extract and install is done in the OnDownloadFinished
+                    // 
+                    return;
                 }
+                UpdaterCurrentTask.Text = $"MobiFlight file {Version} already available. No download needed.";
+                ExtractAndInstall(CurrentFileName);
             }
             else
             {

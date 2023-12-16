@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Panels
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }
 
-            if (!ComboBoxHelper.SetSelectedItemByValue(MessageTypeComboBox, config.CustomDevice.MessageType))
+            if (!ComboBoxHelper.SetSelectedItemByValue(MessageTypeComboBox, config.CustomDevice.MessageType.ToString()))
             {
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }

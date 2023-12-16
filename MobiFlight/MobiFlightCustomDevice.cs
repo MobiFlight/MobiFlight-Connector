@@ -24,7 +24,7 @@ namespace MobiFlight
         public int DeviceNumber { get; set; }
         public CustomDevices.CustomDevice CustomDevice { get; set; }
 
-        public void Display(string MessageType, string value)
+        public void Display(int MessageType, string value)
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetCustomDevice);
 

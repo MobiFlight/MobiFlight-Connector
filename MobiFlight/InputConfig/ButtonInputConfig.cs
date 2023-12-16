@@ -31,17 +31,24 @@ namespace MobiFlight.InputConfig
             RepeatTimer.Elapsed += RepeatTimer_Elapsed;
         }
 
+        /// <summary>
+        /// Copy constructor, this allows to reuse the clone method in derived classes
+        /// </summary>
+        /// <param name="copyFrom"></param>
+        protected ButtonInputConfig(ButtonInputConfig copyFrom) : this()
+        {
+            this.onPress = (InputAction)copyFrom?.onPress?.Clone();
+            this.onRelease = (InputAction)copyFrom?.onRelease?.Clone();
+            this.onLongRelease = (InputAction)copyFrom?.onLongRelease?.Clone();
+            this.onHold = (InputAction)copyFrom?.onHold?.Clone();
+            this.RepeatDelay = copyFrom.RepeatDelay;
+            this.HoldDelay = copyFrom.HoldDelay;
+            this.LongReleaseDelay = copyFrom.LongReleaseDelay;
+        }
+
         public object Clone()
         {
-            ButtonInputConfig clone = new ButtonInputConfig();
-            if (onPress != null) clone.onPress = (InputAction)onPress.Clone();
-            if (onRelease != null) clone.onRelease = (InputAction)onRelease.Clone();            
-            if (onLongRelease != null) clone.onLongRelease = (InputAction)onLongRelease.Clone();
-            if (onHold != null) clone.onHold = (InputAction)onHold.Clone();
-            clone.RepeatDelay = RepeatDelay;
-            clone.HoldDelay = HoldDelay;
-            clone.LongReleaseDelay = LongReleaseDelay;
-            return clone;
+            return new ButtonInputConfig(this);
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()

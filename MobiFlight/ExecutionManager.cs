@@ -277,6 +277,8 @@ namespace MobiFlight
 
         public void Start()
         {
+            if (timer.Enabled) return;
+
             simConnectCache.Start();
             xplaneCache.Start();
             OnStartActions();

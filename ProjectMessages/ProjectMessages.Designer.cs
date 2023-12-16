@@ -614,6 +614,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and Drop is not available when list is sorted..
+        /// </summary>
+        internal static string uiMessageDragDropNotAllowed {
+            get {
+                return ResourceManager.GetString("uiMessageDragDropNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred on parsing your value formula. Please review and correct any errors..
         /// </summary>
         internal static string uiMessageErrorOnParsingExpression {
@@ -803,6 +812,17 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageFsuipcConnectionLost {
             get {
                 return ResourceManager.GetString("uiMessageFsuipcConnectionLost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your HubHop presets are older than 7 days.
+        ///
+        ///Would you like to update?.
+        /// </summary>
+        internal static string uiMessageHubHopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopAutoUpdate", resourceCulture);
             }
         }
         
@@ -1432,6 +1452,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiSettingsMobiFlightChangeRequiresRestart {
             get {
                 return ResourceManager.GetString("uiSettingsMobiFlightChangeRequiresRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HubHop Preset Update.
+        /// </summary>
+        internal static string uiTitleHubhopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiTitleHubhopAutoUpdate", resourceCulture);
             }
         }
         

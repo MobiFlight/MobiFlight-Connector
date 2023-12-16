@@ -116,8 +116,10 @@
             this.removeLinkConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.autoloadToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelHubHop = new System.Windows.Forms.ToolStripStatusLabel();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataTable1 = new System.Data.DataTable();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -317,6 +319,7 @@
             // 
             this.openHubHopWebsiteToolStripMenuItem.Name = "openHubHopWebsiteToolStripMenuItem";
             resources.ApplyResources(this.openHubHopWebsiteToolStripMenuItem, "openHubHopWebsiteToolStripMenuItem");
+            this.openHubHopWebsiteToolStripMenuItem.Click += new System.EventHandler(this.HubHopToolStripButton_Click);
             // 
             // openYoutubeChannelToolStripMenuItem
             // 
@@ -599,8 +602,10 @@
             this.toolStripDropDownButton1,
             this.toolStripStatusLabel1,
             this.toolStripAircraftDropDownButton,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel,
             this.toolStripStatusLabel4,
-            this.toolStripStatusLabel});
+            this.toolStripStatusLabelHubHop});
             this.statusStrip2.Name = "statusStrip2";
             this.statusStrip2.ShowItemToolTips = true;
             this.statusStrip2.SizingGrip = false;
@@ -742,6 +747,19 @@
             resources.ApplyResources(this.autoloadToggleToolStripMenuItem, "autoloadToggleToolStripMenuItem");
             this.autoloadToggleToolStripMenuItem.Click += new System.EventHandler(this.autoloadToggleToolStripMenuItem_Click);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
+            this.toolStripStatusLabel.Spring = true;
+            // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
@@ -749,11 +767,10 @@
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
             resources.ApplyResources(this.toolStripStatusLabel4, "toolStripStatusLabel4");
             // 
-            // toolStripStatusLabel
+            // toolStripStatusLabelHubHop
             // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
-            this.toolStripStatusLabel.Spring = true;
+            resources.ApplyResources(this.toolStripStatusLabelHubHop, "toolStripStatusLabelHubHop");
+            this.toolStripStatusLabelHubHop.Name = "toolStripStatusLabelHubHop";
             // 
             // activeDataGridViewCheckBoxColumn
             // 
@@ -959,6 +976,8 @@
         private System.Windows.Forms.ToolStripMenuItem openLinkedConfigToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem openLinkFilenameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHubHop;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
 

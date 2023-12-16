@@ -32,6 +32,8 @@ namespace MobiFlight.UI.Dialogs
         List<UserControl> displayPanels = new List<UserControl>();
 
         InputConfigItem config = null;
+        public InputConfigItem Config { get { return config; } }
+
         InputConfigItem originalConfig = null;
 
         ErrorProvider errorProvider = new ErrorProvider();
@@ -59,7 +61,8 @@ namespace MobiFlight.UI.Dialogs
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
                              DataSet dataSetConfig,
-                             String filterGuid)
+                             String filterGuid,
+                             String description)
         {
             Init(mainForm, cfg);
 #if ARCAZE
@@ -68,21 +71,31 @@ namespace MobiFlight.UI.Dialogs
 #else
             initWithoutArcazeCache();
 #endif
-            var list = dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
+            // copy this so that no filtering will 
+            // impact the list of displayed items
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
+            _dataSetConfig = dataSetConfig.Copy();
+
+            var list = _dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(dataSetConfig, filterGuid);
+            initConfigRefDropDowns(_dataSetConfig, filterGuid);
             _loadPresets();
 
             // remember the default style of the button
             ScanForInputButtonDefaultStyle.BackColor = ScanForInputButton.BackColor;
             ScanForInputButtonDefaultStyle.ForeColor = ScanForInputButton.ForeColor;
             ScanForInputButtonDefaultStyle.BorderColor = ScanForInputButton.FlatAppearance.BorderColor;
+
+            // Append the row description to the window title if one was provided.
+            if (!String.IsNullOrEmpty(description))
+            {
+                this.Text = $"{this.Text} - {description}";
+            }
         }
 
         private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
         {
-            _dataSetConfig = dataSetConfig;
             DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
 
             // this filters the current config
@@ -91,7 +104,6 @@ namespace MobiFlight.UI.Dialogs
 
             configRefPanel.SetConfigRefsDataView(dv, filterGuid);
             displayLedDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
-            //displayShiftRegisterPanel.SetConfigRefsDataView(dv, filterGuid);
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
@@ -107,20 +119,17 @@ namespace MobiFlight.UI.Dialogs
         protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
-            config = cfg;
+            // create a clone so that we don't edit 
+            // the original item
+            config = cfg.Clone() as InputConfigItem;
 
-            // Until with have the preconditions completely refactored,
-            // add an empty precondition in case the current cfg doesn't have one
-            // we removed addEmptyNode but add an empty Precondition here
-            if (cfg.Preconditions.Count == 0)
-                cfg.Preconditions.Add(new Precondition());
-
-            originalConfig = config.Clone() as InputConfigItem;
+            // this is only stored to be able
+            // to check for modifications
+            originalConfig = cfg;
 
             InitializeComponent();
 
-            ActivateCorrectTab(config);
-            
+            ActivateCorrectTab(config);            
 
             // PRECONDITION PANEL
             preconditionPanel.Init();
@@ -828,13 +837,13 @@ namespace MobiFlight.UI.Dialogs
             else if (SerialNumber.IsMidiBoardSerial(e.Serial))
             {
                 // Add item to device list if not yet there
-                if (!inputTypeComboBox.Items.OfType<ListItem<MidiBoardDevice>>().Any(i => i.Value.Name == e.DeviceId))
+                if (!inputTypeComboBox.Items.OfType<ListItem<IBaseDevice>>().Any(i => i.Value.Name == e.DeviceId))
                 { 
                     MidiBoardDevice mbd = new MidiBoardDevice();
                     mbd.Label = e.DeviceLabel;  
                     mbd.Name = e.DeviceId;
                     mbd.Type = DeviceType.Button;
-                    inputTypeComboBox.Items.Add(new ListItem<MidiBoardDevice> { Label = mbd.Label, Value = mbd });
+                    inputTypeComboBox.Items.Add(new ListItem<IBaseDevice> { Label = mbd.Label, Value = mbd });
                 }                        
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
             }

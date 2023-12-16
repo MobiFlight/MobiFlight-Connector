@@ -885,9 +885,9 @@ namespace MobiFlight
             return true;
         }
 
-        internal bool setCustomDevice(string deviceName, string messageType, string value)
+        internal bool setCustomDevice(string deviceName, int messageType, string value)
         {
-            String key = "CustomDevice_" + deviceName + messageType;
+            String key = $"CustomDevice_{deviceName}{messageType}";
             String cachedValue = value;
 
             if (lastValue.ContainsKey(key) &&
@@ -1083,7 +1083,16 @@ namespace MobiFlight
 
             foreach(var device in customDevices.Values)
             {
-                var customDeviceType = device.CustomDevice.Info.Type;
+                // Issue 1423: Handle the case where an Arduino with custom
+                // devices in the config is connected, but the corresponding
+                // custom device and board json files are missing on the desktop.
+                var customDeviceType = device.CustomDevice?.Info.Type;
+
+                if (String.IsNullOrEmpty(customDeviceType))
+                {
+                    continue;
+                }
+
                 var statisticsKey = $"CustomDevice.{customDeviceType}";
                 if (!result.ContainsKey(statisticsKey))
                     result[statisticsKey] = 0;

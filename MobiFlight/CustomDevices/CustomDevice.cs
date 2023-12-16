@@ -96,7 +96,7 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// The identifier for the message type. Unique in the scope of the device.
         /// </summary>
-        public string Id;
+        public int Id;
 
         /// <summary>
         /// The label for the message type which is used in the config wizard UI.

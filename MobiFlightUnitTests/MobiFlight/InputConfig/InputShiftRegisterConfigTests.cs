@@ -22,6 +22,8 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreNotSame(o, c, "Cloned object is the same");
             Assert.AreEqual((o.onPress as EventIdInputAction).EventId, (c.onPress as EventIdInputAction).EventId, "OnPress is not correct");
             Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelase is not correct");
+            Assert.AreEqual((o.onHold as VariableInputAction).Variable.Name, (c.onHold as VariableInputAction).Variable.Name, "onHold is not correct");
+            Assert.AreEqual((o.onLongRelease as VariableInputAction).Variable.Name, (c.onLongRelease as VariableInputAction).Variable.Name, "onLongRelease is not correct");
         }
 
         private InputShiftRegisterConfig generateTestObject()
@@ -30,6 +32,11 @@ namespace MobiFlight.InputConfig.Tests
             o.ExtPin = 1;
             o.onPress = new EventIdInputAction() { EventId = 12345 };
             o.onRelease = new JeehellInputAction() { EventId = 127, Param = "123" };
+            o.onHold = new VariableInputAction() { Variable = new MobiFlightVariable() { Name = "onHold", Expression = "$+1" } };
+            o.onLongRelease = new VariableInputAction() { Variable = new MobiFlightVariable() { Name = "onLongRelease", Expression = "$+1" } };
+            o.HoldDelay = 1234;
+            o.LongReleaseDelay = 4321;
+            o.RepeatDelay = 111;
             return o;
         }
 

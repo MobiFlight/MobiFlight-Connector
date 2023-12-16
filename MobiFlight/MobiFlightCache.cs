@@ -87,7 +87,7 @@ namespace MobiFlight
                     if (0 == AvailableComModules.Count) {
                         isFirstTimeLookup = false;
                         LookupFinished?.Invoke(this, new EventArgs());
-                        Log.Instance.log($"End looking up connected modules. No modules found.", LogSeverity.Debug);
+                        Log.Instance.log($"Finish looking up connected modules. No modules found.", LogSeverity.Info);
                     } 
                 });
         }
@@ -124,7 +124,7 @@ namespace MobiFlight
 
         private void SerialPortMonitor_PortUnavailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Debug);
+            Log.Instance.log($"Port disappeared: {e.Name}", LogSeverity.Info);
             var disconnectedModule = AvailableComModules.Find(m => m.Port == e.Name);
 
             if (disconnectedModule == null) return;
@@ -231,13 +231,13 @@ namespace MobiFlight
 
         private void UsbDeviceMonitor_PortUnavailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Debug);
+            Log.Instance.log($"USB device disappeared: {e.Name}", LogSeverity.Info);
             SerialPortMonitor_PortUnavailable(sender, e);
         }
 
-        private void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
+        private async void UsbDeviceMonitor_PortAvailable(object sender, PortDetails e)
         {
-            Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Debug);
+            Log.Instance.log($"USB device detected: {e.Name} {e.Board.Info.FriendlyName}", LogSeverity.Info);
             var info = new MobiFlightModuleInfo()
             {
                 Type = e.Board.Info.FriendlyName,
@@ -256,6 +256,8 @@ namespace MobiFlight
             OnCompatibleBoardDetected(info);
             var result = new MobiFlightModule(info);
             ModuleConnected?.Invoke(result, new EventArgs());
+
+            await CheckIfLookUpFinished();
         }
 
         /// <summary>
@@ -276,15 +278,21 @@ namespace MobiFlight
         /// Returns a list of connected USB drives that are supported with MobiFlight and are in flash mode already,
         /// as opposed to being connected as COM port.
         /// </summary>
+        /// <param name="WaitInMilliseconds">Time for the UsbDeviceMonitor to perform a port scan</param>
         /// <returns>The list of connected USB drives supported by MobiFlight.</returns>
-        public static List<MobiFlightModuleInfo> FindConnectedUsbDevices()
+        public static List<MobiFlightModuleInfo> FindConnectedUsbDevices(double WaitInMilliseconds = 500)
         {
             var result = new List<MobiFlightModuleInfo>();
+
+
             var usbDeviceMonitor = new UsbDeviceMonitor();
             usbDeviceMonitor.Start();
             var task = Task
-                // we need to wait for the timer to trigger
-                .Delay(TimeSpan.FromMilliseconds(2000))
+                // we need to give the usbDeviceMonitor the chance
+                // to do the USB drive scan and return a valid list
+                // of Detected Ports.
+                // This might take a few moments to complete.
+                .Delay(TimeSpan.FromMilliseconds(WaitInMilliseconds))
                 .ContinueWith(_ => usbDeviceMonitor.DetectedPorts
                     .ForEach(p =>
                     {
@@ -301,10 +309,9 @@ namespace MobiFlight
                         });
                     })
                 );
-            
+
             task.Wait();
             usbDeviceMonitor.Stop();
-
             return result;
         }
 
