@@ -395,7 +395,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             foreach (var board in boards.OrderBy((b) => b.BasePath))
             {
-                var currentProject = board.BasePath.GetLastFolderName();
+                var currentProject = board.Info.Community?.Project ?? board.BasePath.GetLastFolderName();
                 if (project != currentProject)
                 {
                     project = currentProject;
@@ -443,6 +443,11 @@ namespace MobiFlight.UI.Panels.Settings
                 };
                 UpdateModules(modules);
             };
+
+            if (board.BoardImage != null && board.PartnerLevel==BoardPartnerLevel.Core)
+            {
+                item.Image = board.BoardImage;
+            }
 
             return item;
         }
