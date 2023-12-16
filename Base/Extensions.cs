@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,19 @@ namespace MobiFlight.Base
             }
 
             return sum;
+        }
+
+        public static string GetLastFolderName(this string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentException("Path cannot be null or empty.", nameof(path));
+            }
+
+            path = path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            return directoryInfo.Name;
         }
     }
 }

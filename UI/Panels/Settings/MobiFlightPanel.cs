@@ -1,4 +1,5 @@
-﻿using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.Base;
+using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -347,7 +348,7 @@ namespace MobiFlight.UI.Panels.Settings
                     {
                         updateFirmwareToolStripMenuItem.DropDownItems.Add("-");
                         UpdateFirmwareToolStripButton.DropDownItems.Add("-");
-                        AddBoardsToMenu(module, partnerBoards);
+                        AddBoardsToPartnerMenu(module, partnerBoards);
                     }
 
                     if (communityBoards.Count > 0)
@@ -386,6 +387,35 @@ namespace MobiFlight.UI.Panels.Settings
             parentMenu2.DropDownItems.Add(item2);
         }
 
+        private void AddBoardsToPartnerMenu(MobiFlightModule module, List<Board> boards)
+        {
+            var project = String.Empty;
+            ToolStripMenuItem communityItem = null;
+            ToolStripMenuItem communityItem2 = null;
+
+            foreach (var board in boards.OrderBy((b) => b.BasePath))
+            {
+                var currentProject = board.BasePath.GetLastFolderName();
+                if (project != currentProject)
+                {
+                    project = currentProject;
+                    communityItem = new ToolStripMenuItem() { Text = currentProject };
+                    communityItem2 = new ToolStripMenuItem() { Text = currentProject };
+
+                    if (board.BoardImage != null)
+                    {
+                        communityItem2.Image = communityItem.Image = board.BoardImage;
+                    }
+                    updateFirmwareToolStripMenuItem.DropDownItems.Add(communityItem);
+                    UpdateFirmwareToolStripButton.DropDownItems.Add(communityItem2);
+                }
+
+                AddBoardsToMenuUsingParent(module, board, communityItem, communityItem2);
+            }
+
+            
+        }
+
         private void AddBoardsToCommunityMenu(MobiFlightModule module, List<Board> boards)
         {
             ToolStripMenuItem communityItem = new ToolStripMenuItem() { Text = "Community" };
@@ -407,15 +437,12 @@ namespace MobiFlight.UI.Panels.Settings
             item.Click += (s, evt) =>
             {
                 module.Board = board;
-                List<MobiFlightModule> modules = new List<MobiFlightModule>();
-                modules.Add(module);
+                List<MobiFlightModule> modules = new List<MobiFlightModule>
+                {
+                    module
+                };
                 UpdateModules(modules);
             };
-
-            if (board.BoardImage != null)
-            {                
-                item.Image = board.BoardImage;
-            }
 
             return item;
         }
@@ -999,19 +1026,11 @@ namespace MobiFlight.UI.Panels.Settings
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // Saves the configuration of the current module to a file
-
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             newConfig.ModuleName = module.Name;
-
-            // These lines are only required if the multiplexerDriver is handled
-            // as a proper device (with its own config line):
-            //var multiplexerDriver = findModuleMultiplexerDriver(false);
-            //if (multiplexerDriver != null) {
-            //    newConfig.Items.Add(multiplexerDriver as MobiFlight.Config.BaseDevice);
-            //}
 
             foreach (TreeNode node in moduleNode.Nodes)
             {
