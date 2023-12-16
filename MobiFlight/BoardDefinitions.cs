@@ -89,9 +89,15 @@ namespace MobiFlight
                     var boardPath = Path.GetDirectoryName(definitionFile);
                     board.BasePath = Path.GetDirectoryName(boardPath);
 
-                    var logoPath = $@"{boardPath}\board-logo.png";
-                    if (File.Exists(logoPath)) {
-                        board.Image = Image.FromFile($@"{boardPath}\board-logo.png");
+                    var logoPath = $@"{boardPath}\logo.png";
+                    if (File.Exists(logoPath))
+                    {
+                        board.Info.Community.Logo = Image.FromFile($@"{boardPath}\logo.png");
+                    }
+
+                    var boardLogoPath = $@"{boardPath}\board-logo.png";
+                    if (File.Exists(boardLogoPath)) {
+                        board.BoardImage = Image.FromFile($@"{boardPath}\board-logo.png");
                     }
 
                     boards.Add(board);

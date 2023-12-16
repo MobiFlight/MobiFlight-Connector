@@ -412,9 +412,9 @@ namespace MobiFlight.UI.Panels.Settings
                 UpdateModules(modules);
             };
 
-            if (board.Image != null)
+            if (board.BoardImage != null)
             {                
-                item.Image = board.Image;
+                item.Image = board.BoardImage;
             }
 
             return item;
@@ -442,25 +442,21 @@ namespace MobiFlight.UI.Panels.Settings
                 var module = (moduleNode.Tag as MobiFlightModule);
 
                 if (null == module?.Config) return moduleNode;
-
-                if (module.Board.Image != null)
-                {
-                    // i had to do this with the imageKey
-                    // the nodes don't support an image directly
-                    var imageKey = generateImageKeyAndAddImageToImageList(module.Board);
-                    moduleNode.SelectedImageKey = moduleNode.ImageKey = imageKey;
-                }
+                SetCorrectBoardIcon(moduleNode, module);
 
                 // This is where the UI (TreeView.Node.Tag) is populated with the configuration data coming from MobiFlightModule.Config.Items
-                
+
                 foreach (MobiFlight.Config.BaseDevice device in module.Config.Items)
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
 
                     // MultiplexerDrivers exist as items in the device list, but they should not appear in the GUI
-                    if(device.Type == DeviceType.MultiplexerDriver) {
+                    if (device.Type == DeviceType.MultiplexerDriver)
+                    {
                         moduleMultiplexerDrivers.Add(moduleNode.Text, device as MobiFlight.Config.MultiplexerDriver);
-                    } else {
+                    }
+                    else
+                    {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
                         deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
@@ -478,6 +474,17 @@ namespace MobiFlight.UI.Panels.Settings
             return moduleNode;
         }
 
+        private void SetCorrectBoardIcon(TreeNode moduleNode, MobiFlightModule module)
+        {
+            if (module.Board.BoardImage != null)
+            {
+                // i had to do this with the imageKey
+                // the nodes don't support an image directly
+                var imageKey = generateImageKeyAndAddImageToImageList(module.Board);
+                moduleNode.SelectedImageKey = moduleNode.ImageKey = imageKey;
+            }
+        }
+
         /// <summary>
         /// This generates the imageKey and also adds the image to the imageList
         /// </summary>
@@ -488,7 +495,7 @@ namespace MobiFlight.UI.Panels.Settings
             var imageKey = board.Info.MobiFlightType;
             if (!mfTreeViewImageList.Images.ContainsKey(imageKey))
             {
-                mfTreeViewImageList.Images.Add(imageKey, board.Image);
+                mfTreeViewImageList.Images.Add(imageKey, board.BoardImage);
             }
             return imageKey;
         }
@@ -510,6 +517,11 @@ namespace MobiFlight.UI.Panels.Settings
                     // It's a Module entry
                     panel = new MFModulePanel((selectedNode.Tag as MobiFlightModule));
                     (panel as MFModulePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                    (panel as MFModulePanel).UploadDefaultConfigRequested += (s, configFile) =>
+                    {
+                        OpenFile(selectedNode, configFile);
+                        uploadToolStripButton_Click(this, EventArgs.Empty);
+                    };
                 }
                 else
                 {
@@ -1029,35 +1041,41 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (DialogResult.OK == fd.ShowDialog())
             {
-                TextReader textReader = new StreamReader(fd.FileName);
-                XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
-                MobiFlight.Config.Config newConfig;
-                newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
-                textReader.Close();
-
-                if (newConfig.ModuleName != null && newConfig.ModuleName != "")
-                {
-                    moduleNode.Text = (moduleNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
-
-                }
-
-                moduleNode.Nodes.Clear();
-
-                foreach (MobiFlight.Config.BaseDevice device in newConfig.Items)
-                {
-                    if(device.Type != DeviceType.MultiplexerDriver) {
-                        TreeNode newNode = new TreeNode(device.Name);
-                        newNode.Tag = device;
-                        newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
-                        moduleNode.Nodes.Add(newNode);
-                    }
-                }
-
-                moduleNode.ImageKey = "Changed";
-                moduleNode.SelectedImageKey = "Changed";
-                moduleNode.Expand();
-                UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
+                OpenFile(moduleNode, fd.FileName);
             }
+        }
+
+        private void OpenFile(TreeNode moduleNode, string fileName)
+        {
+            TextReader textReader = new StreamReader(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+            MobiFlight.Config.Config newConfig;
+            newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
+            textReader.Close();
+
+            if (newConfig.ModuleName != null && newConfig.ModuleName != "")
+            {
+                moduleNode.Text = (moduleNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
+
+            }
+
+            moduleNode.Nodes.Clear();
+
+            foreach (MobiFlight.Config.BaseDevice device in newConfig.Items)
+            {
+                if (device.Type != DeviceType.MultiplexerDriver)
+                {
+                    TreeNode newNode = new TreeNode(device.Name);
+                    newNode.Tag = device;
+                    newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
+                    moduleNode.Nodes.Add(newNode);
+                }
+            }
+
+            moduleNode.ImageKey = "Changed";
+            moduleNode.SelectedImageKey = "Changed";
+            moduleNode.Expand();
+            UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
         }
 
         private void removeDeviceToolStripButton_Click(object sender, EventArgs e)
@@ -1151,8 +1169,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (uploadResult)
             {
-                moduleNode.ImageKey = "";
-                moduleNode.SelectedImageKey = "";
+                SetCorrectBoardIcon(moduleNode, module);
                 TimeoutMessageDialog tmd = new TimeoutMessageDialog();
                 tmd.StartPosition = FormStartPosition.CenterParent;
                 tmd.DefaultDialogResult = DialogResult.Cancel;

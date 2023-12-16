@@ -11,6 +11,34 @@ namespace MobiFlight
         Community
     }
 
+    public class Community
+    {
+        /// <summary>
+        /// The project's name
+        /// </summary>
+        public String Project;
+
+        /// <summary>
+        /// The project's website
+        /// </summary>
+        public String Website;
+
+        /// <summary>
+        /// The project's documentation
+        /// </summary>
+        public String Docs;
+
+        /// <summary>
+        /// The project's support, e.g. Discord Server link
+        /// </summary>
+        public String Support;
+
+        /// <summary>
+        /// The logo resource
+        /// </summary>
+        public Image Logo;
+    }
+
     /// <summary>
     /// Settings for flashing Arduino devices with avrdude.
     /// </summary>
@@ -157,6 +185,16 @@ namespace MobiFlight
         public List<String> CustomDeviceTypes = new List<string>();
 
         /// <summary>
+        /// True if the board ships with a default config that can be auto-loaded after flashing.
+        /// </summary>
+        public Boolean HasDefaultDeviceConfig;
+
+        /// <summary>
+        /// True if the board ships with a default config that can be auto-loaded after flashing.
+        /// </summary>
+        public Community Community;
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
@@ -292,7 +330,7 @@ namespace MobiFlight
         /// <summary>
         /// The image resource
         /// </summary>
-        public Image Image;
+        public Image BoardImage;
 
         /// <summary>
         /// Returns the correct Partner Level
@@ -358,6 +396,15 @@ namespace MobiFlight
         public override string ToString()
         {
             return $"{Info.MobiFlightType} ({Info.FriendlyName})";
+        }
+
+        /// <summary>
+        /// Get the name for the Default Config
+        /// </summary>
+        /// <returns>The </returns>
+        public string GetDefaultConfigPath()
+        {
+            return $@"{BasePath}\config\{Info.FirmwareBaseName}.mfmc";
         }
     }
 }

@@ -220,6 +220,13 @@
           "title": "Resetfirmwarefile",
           "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
+        },
+        "HasDefaultDeviceConfig": {
+          "$id": "#root/Info/HasDefaultConfig",
+          "title": "HasDefaultConfig",
+          "description": "True if the board ships with a default config that can be loaded after flashing the firmware.",
+          "type": "boolean",
+          "default": false
         }
       }
     },

@@ -6,6 +6,9 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.IO;
+using System.Web.UI.WebControls;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
@@ -15,6 +18,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         /// Gets raised whenever config object has changed
         /// </summary>
         public event EventHandler Changed;
+        public event EventHandler<string> UploadDefaultConfigRequested;
 
         private MobiFlightModule module;
         bool initialized = false;
@@ -41,7 +45,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             TypeValueLabel.Text = module.Type;
             if(module.Type==MobiFlightModule.TYPE_COMPATIBLE)
             {
-                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
+                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId).FindAll(b => b.PartnerLevel==BoardPartnerLevel.Core);
                 var tooltipLabel = string.Join(" / ",boards.Select(b=>b.Info.FriendlyName).ToList());
                 toolTip1.SetToolTip(TypeValueLabel, tooltipLabel);
                 TypeValueLabel.Text = i18n._tr("uiLabelModuleTYPE_COMPATIBLE") + $" ({tooltipLabel})";
@@ -49,7 +53,63 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             PortValueLabel.Text = module.Port;
 
+            DisplayDetails(module.Board);
+
             initialized = true;
+        }
+
+        private void DisplayDetails(Board board)
+        {
+            if (board.Info.Community == null)
+            {
+                groupBoxDetails.Visible = false;
+                return;
+            }
+
+            if (board.Info.Community?.Project != null)
+                labelProjectValue.Text = board.Info.Community.Project;
+            else
+                labelProjectValue.Text= "Unknown";
+
+            if (board.Info.Community != null)
+            {
+                pictureBoxLogo.Image = board.Info.Community.Logo;
+                pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            } else
+            {
+                pictureBoxLogo.Visible = false;
+            }
+            
+
+            if (board.Info.Community?.Website != null)
+                buttonWebsite.Click += (s, e) => { Process.Start(board.Info.Community.Website); };
+            else
+                buttonWebsite.Enabled = false;
+
+            if (board.Info.Community?.Docs != null)
+                buttonDocs.Click += (s, e) => { Process.Start(board.Info.Community.Docs); };
+            else
+                buttonDocs.Enabled = false;
+            
+            if (board.Info.Community?.Support != null)
+                buttonSupport.Click += (s, e) => { Process.Start(board.Info.Community.Support); };
+            else
+                buttonSupport.Enabled = false;
+
+            if (board.Info.HasDefaultDeviceConfig)
+            {
+                var configFile = board.GetDefaultConfigPath();
+                if (configFile != null && File.Exists(configFile)){
+                    buttonUploadDefaultConfig.Click += (s, e) =>
+                    {
+                        UploadDefaultConfigRequested?.Invoke(this, configFile);
+                    };
+                }
+                else
+                {
+                    panel1.Visible = false;
+                }
+            }
         }
 
         private void value_Changed(object sender, EventArgs e)
