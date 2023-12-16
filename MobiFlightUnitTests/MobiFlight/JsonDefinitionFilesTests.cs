@@ -9,7 +9,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void BoardDefinitionFileTest()
         {
-            BoardDefinitions.Load();
+            BoardDefinitions.LoadDefinitions();
 
             Assert.IsFalse(BoardDefinitions.LoadingError);
         }
@@ -17,7 +17,7 @@ namespace MobiFlight.Tests
         [TestMethod()]
         public void CustomDeviceDefinitionFileTest()
         {
-            CustomDeviceDefinitions.Load();
+            CustomDeviceDefinitions.LoadDefinitions();
 
             Assert.IsFalse(CustomDeviceDefinitions.LoadingError);
         }

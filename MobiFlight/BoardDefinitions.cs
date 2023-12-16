@@ -82,7 +82,7 @@ namespace MobiFlight
         /// <summary>
         /// Loads all board definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
             boards = JsonBackedObject.LoadDefinitions<Board>(Directory.GetFiles("Boards", "*.board.json"), "Boards/mfboard.schema.json",
                 onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info),

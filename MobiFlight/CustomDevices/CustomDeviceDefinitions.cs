@@ -40,7 +40,7 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// Loads all device definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
             devices = JsonBackedObject.LoadDefinitions<CustomDevice>(Directory.GetFiles("Devices", "*.device.json"), "Devices/mfdevice.schema.json",
                 onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info),
