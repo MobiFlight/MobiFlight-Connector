@@ -242,7 +242,7 @@ namespace MobiFlight
         public String VolumeLabel;
     }
 
-    public class Board
+    public class Board : IMigrateable
     {
         /// <summary>
         /// Settings related to updating the firmware via AvrDude.

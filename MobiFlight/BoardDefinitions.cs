@@ -6,12 +6,18 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json.Schema;
 
 namespace MobiFlight
 {
     public static class BoardDefinitions
     {
-        private static readonly List<Board> boards = new List<Board>();
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public static bool LoadingError = false;
+
+        private static List<Board> boards = new List<Board>();
 
         /// <summary>
         /// Finds a board definition by matching against USB drive volume label. This does not check for the
@@ -76,22 +82,12 @@ namespace MobiFlight
         /// <summary>
         /// Loads all board definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
-            foreach (var definitionFile in Directory.GetFiles("Boards", "*.board.json"))
-            {
-                try
-                {
-                    var board = JsonConvert.DeserializeObject<Board>(File.ReadAllText(definitionFile));
-                    board.Migrate();
-                    boards.Add(board);
-                    Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }
+            boards = JsonBackedObject.LoadDefinitions<Board>(Directory.GetFiles("Boards", "*.board.json"), "Boards/mfboard.schema.json",
+                onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info),
+                onError: () => LoadingError = true
+                ); ;
         }
     }
 }

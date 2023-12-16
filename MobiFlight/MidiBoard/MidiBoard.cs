@@ -102,7 +102,7 @@ namespace MobiFlight
             {
                 foreach (var inputDef in Definition.Inputs)
                 {
-                    for (int i = 0; i < inputDef.MessageIds.Length; i++)
+                    for (int i = 0; i < inputDef.MessageIds.Count; i++)
                     {
                         string name = inputDef.GetNameWithIndex(i);
                         string label = inputDef.GetLabelWithIndex(i);
@@ -382,7 +382,7 @@ namespace MobiFlight
             {
                 foreach (var outputDef in Definition.Outputs)
                 {                    
-                    for (int i = 0; i < outputDef.MessageIds.Length; i++)
+                    for (int i = 0; i < outputDef.MessageIds.Count; i++)
                     {
                         // Get related input if configured
                         MidiBoardDevice relatedInput = null;

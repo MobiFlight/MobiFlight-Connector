@@ -11,6 +11,11 @@ namespace MobiFlight
 {
     public class MidiBoardManager
     {
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public bool LoadingError = false;
+
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;      
         private readonly List<MidiBoard> MidiBoards = new List<MidiBoard>();
@@ -21,7 +26,7 @@ namespace MobiFlight
 
         public MidiBoardManager ()
         {
-            LoadDefinitions();
+            Load();
             ProcessTimer.Interval = 50;
             ProcessTimer.Tick += ProcessTimer_Tick;
         }
@@ -29,40 +34,33 @@ namespace MobiFlight
         private List<string> CollectErrorsInInputDefinition(MidiBoardDefinition def)
         {
             List<string> errorMessages = new List<string>();
-            if (def.Inputs == null)
-                errorMessages.Add($"No input definitions.");
-            else
+
+            foreach (var item in def.Inputs)
             {
-                foreach (var item in def.Inputs)
-                {
-                    if (item.LabelIds.Length != item.MessageIds.Length)
-                        errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                    if (!item.Label.Contains("%"))
-                        errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
-                }
+                if (item.LabelIds.Length != item.MessageIds.Count)
+                    errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
             }
+
             return errorMessages;
         }
 
         private List<string> CollectErrorsInOutputDefinition(MidiBoardDefinition def)
         {
-            List<string> errorMessages = new List<string>();              
+            List<string> errorMessages = new List<string>();        
+            
             if (def.Outputs == null) return errorMessages;
             
             foreach (var item in def.Outputs)
             {
-                if (item.LabelIds.Length != item.MessageIds.Length)
+                if (item.LabelIds.Length != item.MessageIds.Count)
                     errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                if (!item.Label.Contains("%"))
-                    errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
                 if (!string.IsNullOrEmpty(item.RelatedInputLabel))
                 {
-                    if (item.RelatedIds.Length != item.MessageIds.Length)
+                    if (item.RelatedIds.Length != item.MessageIds.Count)
                         errorMessages.Add($"{item.Label}: Number of RelatedIds unequal to number of MessageIds");
-                    if (!item.RelatedInputLabel.Contains("%"))
-                        errorMessages.Add($"{item.Label}: RelatedInputLabel does not contain % placeholder.");
                 }
-            }            
+            }
+
             return errorMessages;
         }
 
@@ -80,24 +78,27 @@ namespace MobiFlight
         }
 
 
-        private void LoadDefinitions()
+        private void Load()
         {
-            foreach (var definitionFile in Directory.GetFiles("MidiBoards", "*.midiboard.json"))
+            // Do the initial loading and validation against the schema
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",
+                onSuccess: midiBoardDef => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info),
+                onError: () => LoadingError = true
+            ); ;
+
+            foreach (var definition in rawDefinitions)
             {
-                try
+                // Additional validation that can't be done via json schema. If there are any errors
+                // they were already logged and we can just skip adding this definition to the list of
+                // loaded definitions.
+                if (CollectAndLogDefinitionErrors(definition).Count != 0)
                 {
-                    var midiBoardDef = JsonConvert.DeserializeObject<MidiBoardDefinition>(File.ReadAllText(definitionFile));
-                    if (CollectAndLogDefinitionErrors(midiBoardDef).Count == 0)
-                    {
-                        Definitions.Add(midiBoardDef.InstanceName, midiBoardDef);
-                        Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info);
-                    }                    
+                    LoadingError = true;
+                    continue;
                 }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }         
+
+                Definitions.Add(definition.InstanceName, definition);
+            }
         }
 
         public bool AreMidiBoardsConnected()
@@ -198,7 +199,7 @@ namespace MobiFlight
                 }
                 inputList.RemoveAt(0);
                 if (registeredBoards.ContainsKey(name))     
-                    name = name + $"_{++registeredBoards[name]}";
+                    name += $"_{++registeredBoards[name]}";
                 else
                     registeredBoards[name] = 1;
                                     
@@ -269,8 +270,10 @@ namespace MobiFlight
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>();
-            result["MidiBoards.Count"] = MidiBoards.Count();            
+            var result = new Dictionary<string, int>
+            {
+                ["MidiBoards.Count"] = MidiBoards.Count()
+            };
             foreach (MidiBoard mb in MidiBoards)
             {
                 string key = "MidiBoard.Model." + mb.Name;

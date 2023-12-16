@@ -1,172 +1,201 @@
 {
-  "$schema": "http://json-schema.org/draft-06/schema#",
-  "$ref": "#/definitions/MfMidi",
-  "definitions": {
-    "MfMidi": {
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "$schema": {
-          "type": "string"
-        },
-        "InstanceName": {
-          "type": "string",
-          "description": "Instance name for the device. Required. This is used to match the definition with a connected device."
-        },
-        "DifferingOutputName": {
-          "type": "string",
-          "description": "Name of the midi output port, if different from input name. Optional."
-        },
-        "EncoderNeutralPosition": {
-          "type": "integer",
-          "description": "Set the encoder neutral position. For example 0 or 64 Optional."
-        },
-        "InitialLayer": {
-          "type": "string",
-          "description": "When layer property is used, initial active layer on startup. Optional."
-        },
-        "Inputs": {
-          "type": "array",
-          "description": "List of inputs supported by the device. Required.",
-          "items": {
-            "$ref": "#/definitions/Input"
-          }
-        },
-        "Outputs": {
-          "type": "array",
-          "description": "List of LED outputs supported by the device. Optional.",
-          "items": {
-            "$ref": "#/definitions/Output"
-          }
-        }
-      },
-      "required": [    
-        "$schema", 
-        "Inputs",
-        "InstanceName"      
-      ],
-      "title": "MfMidi"
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "$id": "https://mobiflight.com/mfmidiboard.schema.json",
+  "title": "Root",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "Inputs",
+    "InstanceName"
+  ],
+  "properties": {
+    "InstanceName": {
+      "$id": "#root/InstanceName",
+      "title": "InstanceName",
+      "type": "string",
+      "description": "Instance name for the device. Required. This is used to match the definition with a connected device."
     },
+    "DifferingOutputName": {
+      "$id": "#root/DifferingOutputName",
+      "title": "DifferingOutputName",
+      "type": "string",
+      "description": "Name of the midi output port, if different from input name. Optional."
+    },
+    "EncoderNeutralPosition": {
+      "$id": "#root/EncoderNeutralPosition",
+      "title": "EncoderNeutralPosition",
+      "type": "integer",
+      "description": "Set the encoder neutral position. For example 0 or 64 Optional."
+    },
+    "InitialLayer": {
+      "$id": "#root/InitialLayer",
+      "title": "InitialLayer",
+      "type": "string",
+      "description": "When layer property is used, initial active layer on startup. Optional."
+    },
+    "Inputs": {
+      "type": "array",
+      "description": "List of inputs supported by the device. Required.",
+      "items": {
+        "$ref": "#/definitions/Input"
+      },
+      "minLength": 1
+    },
+    "Outputs": {
+      "type": "array",
+      "description": "List of LED outputs supported by the device. Optional.",
+      "items": {
+        "$ref": "#/definitions/Output"
+      }
+    }
+  },
+  "definitions": {
     "Input": {
       "type": "object",
+      "title": "Input",
+      "required": [
+        "InputType",
+        "Label",
+        "LabelIds",
+        "MessageChannel",
+        "MessageIds",
+        "MessageType"
+      ],
       "additionalProperties": false,
       "properties": {
         "Label": {
+          "$id": "#Input/Label",
           "type": "string",
-          "description": "Friendly label for the input. Required."
+          "description": "Friendly label for the input. Required.",
+          "pattern": ".*%.*"
         },
         "LabelIds": {
+          "$id": "#Input/LabelIds",
           "type": "array",
           "items": {
             "type": "string",
             "description": "Friendly label ids for the input, replacing the % in the label. Required."
-          }
+          },
+          "minLength": 1
         },
         "Layer": {
+          "$id": "#Input/Layer",
           "type": "string",
           "description": "Associated layer for the input. Optional."
         },
         "InputType": {
+          "$id": "#Input/InputType",
           "type": "string",
           "description": "The input's type. Supported values: Button, EndlessKnob, LimitedKnob, Fader, Pitch. Required.",
           "enum": [ "Button", "EndlessKnob", "LimitedKnob", "Fader", "Pitch" ]
         },
         "MessageType": {
+          "$id": "#Input/MessageType",
           "type": "string",
           "description": "The midi message type. Supported values: Note, CC, Pitch. Required.",
           "enum": [ "Note", "CC", "Pitch" ]
         },
         "MessageChannel": {
+          "$id": "#Input/MessageChannel",
           "type": "integer",
           "description": "The midi message channel. Possible value range from 1 to 16. Required."
         },
         "MessageIds": {
+          "$id": "#Input/MessageIds",
           "type": "array",
           "description": "The midi message ids. Possible value range from 0 to 127. Required.",
           "items": {
             "type": "integer"
-          }
+          },
+          "minLength": 1
         }
-      },
-      "required": [
-        "InputType",
-        "Label",
-        "LabelIds",    
-        "MessageChannel",
-        "MessageIds",
-        "MessageType"
-      ],
-      "title": "Input"
+      }
     },
     "Output": {
       "type": "object",
+      "title": "Output",
       "additionalProperties": false,
-      "properties": {
-        "Label": {
-          "type": "string",
-          "description": "Friendly label for the output. Required."
-        },
-        "LabelIds": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "description": "Friendly label ids for the output, replacing the % in the label. Required."
-          }
-        },
-        "Layer": {
-          "type": "string",
-          "description": "Associated layer for the output. Optional."
-        },
-        "MessageType": {
-          "type": "string",
-          "description": "The midi message type. Supported values: Note, CC. Required.",
-          "enum": [ "Note", "CC" ]
-        },
-        "MessageChannel": {
-          "type": "integer",
-          "description": "The midi message channel. Possible value range from 1 to 16. Required."
-        },
-        "MessageIds": {
-          "type": "array",
-          "description": "The midi message ids. Possible value range from 0 to 127. Required.",
-          "items": {
-            "type": "integer"
-          }
-        },
-        "ValueOn": {
-          "type": "integer",
-          "description": "Midi message value for turning on the LED. Required."
-        },
-        "ValueBlinkOn": {
-          "type": "integer",
-          "description": "Midi message value for putting LED to blink mode. Optional."
-        },
-        "ValueOff": {
-          "type": "integer",
-          "description": "Midi message value for turning off the LED. Required."
-        },
-        "RelatedInputLabel": {
-          "type": "string",
-          "description": "Label of related input. When related input is triggered, output is auto refreshed. Optional."
-        },
-        "RelatedIds": {
-          "type": "array",
-          "description": "Label ids of related input, replacing the % in the related input label. Optional.",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
       "required": [
         "Label",
-        "LabelIds",  
+        "LabelIds",
         "MessageChannel",
         "MessageIds",
         "MessageType",
         "ValueOff",
         "ValueOn"
       ],
-      "title": "Output"
+      "properties": {
+        "Label": {
+          "$id": "#Output/Label",
+          "type": "string",
+          "description": "Friendly label for the output. Required.",
+          "pattern": ".*%.*"
+        },
+        "LabelIds": {
+          "$id": "#Output/LabelIds",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Friendly label ids for the output, replacing the % in the label. Required."
+          },
+          "minLength": 1
+        },
+        "Layer": {
+          "$id": "#Output/Layer",
+          "type": "string",
+          "description": "Associated layer for the output. Optional."
+        },
+        "MessageType": {
+          "$id": "#Output/MessageType",
+          "type": "string",
+          "description": "The midi message type. Supported values: Note, CC. Required.",
+          "enum": [ "Note", "CC" ]
+        },
+        "MessageChannel": {
+          "$id": "#Output/MessageChannel",
+          "type": "integer",
+          "description": "The midi message channel. Possible value range from 1 to 16. Required."
+        },
+        "MessageIds": {
+          "$id": "#Output/MessageIds",
+          "type": "array",
+          "description": "The midi message ids. Possible value range from 0 to 127. Required.",
+          "items": {
+            "type": "integer"
+          },
+          "minLength": 1
+        },
+        "ValueOn": {
+          "$id": "#Output/ValueOn",
+          "type": "integer",
+          "description": "Midi message value for turning on the LED. Required."
+        },
+        "ValueBlinkOn": {
+          "$id": "#Output/ValueBlinkOn",
+          "type": "integer",
+          "description": "Midi message value for putting LED to blink mode. Optional."
+        },
+        "ValueOff": {
+          "$id": "#Output/ValueOff",
+          "type": "integer",
+          "description": "Midi message value for turning off the LED. Required."
+        },
+        "RelatedInputLabel": {
+          "$id": "#Output/RelatedInputLabel",
+          "type": "string",
+          "description": "Label of related input. When related input is triggered, output is auto refreshed. Optional.",
+          "pattern": ".*%.*"
+        },
+        "RelatedIds": {
+          "$id": "#Output/RelatedIds",
+          "type": "array",
+          "description": "Label ids of related input, replacing the % in the related input label. Optional.",
+          "items": {
+            "type": "string"
+          },
+          "minLength": 1
+        }
+      }
     }
   }
 }

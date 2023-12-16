@@ -66,7 +66,7 @@
       "description": "1 = vertical speed dashes will be shown"
     },
     {
-      "id": 10,
+     "id": 10,
       "label": "Show speed dot",
       "description": "1 = speed dot will be shown, 0 = not shown"
     },

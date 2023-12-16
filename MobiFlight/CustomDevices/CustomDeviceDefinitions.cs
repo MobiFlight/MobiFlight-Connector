@@ -11,7 +11,12 @@ namespace MobiFlight.CustomDevices
 {
     public static class CustomDeviceDefinitions
     {
-        private static readonly List<CustomDevice> devices = new List<CustomDevice>();
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public static bool LoadingError = false;
+
+        private static List<CustomDevice> devices = new List<CustomDevice>();
 
         /// <summary>
         /// Finds a device definition by matching type.
@@ -35,21 +40,12 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// Loads all device definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
-            foreach (var definitionFile in Directory.GetFiles("Devices", "*.device.json"))
-            {
-                try
-                {
-                    var device = JsonConvert.DeserializeObject<CustomDevice>(File.ReadAllText(definitionFile));
-                    devices.Add(device);
-                    Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }
+            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(Directory.GetFiles("Devices", "*.device.json"), "Devices/mfdevice.schema.json",
+                onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info),
+                onError: () => LoadingError = true
+            ); ;
         }
     }
 }

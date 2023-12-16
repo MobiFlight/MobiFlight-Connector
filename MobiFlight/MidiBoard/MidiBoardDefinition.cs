@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MobiFlight
 {
-    public class MidiBoardDefinition
+    public class MidiBoardDefinition : IMigrateable
     {
         /// <summary>
         /// Instance name for the device. Required. This is used to match the definition with a connected device.
@@ -36,13 +37,14 @@ namespace MobiFlight
 
         private Dictionary<string, string> inputNameToLabelDictionary;
 
+        [JsonIgnore]
         public Dictionary<string, string> InputNameToLabelDictionary
         {
-            get 
+            get
             {
                 if (inputNameToLabelDictionary == null) CreateInputNameToLabelDictionary();
-                return inputNameToLabelDictionary; 
-            }           
+                return inputNameToLabelDictionary;
+            }
         }
 
         private void CreateInputNameToLabelDictionary()
@@ -50,7 +52,7 @@ namespace MobiFlight
             inputNameToLabelDictionary = new Dictionary<string, string>();
             foreach (var inputDef in Inputs)
             {
-                for (int i = 0; i < inputDef.MessageIds.Length; i++)
+                for (int i = 0; i < inputDef.MessageIds.Count; i++)
                 {
                     string name = inputDef.GetNameWithIndex(i);
                     string label = inputDef.GetLabelWithIndex(i);
@@ -58,5 +60,9 @@ namespace MobiFlight
                 }
             }
         }
+
+        // Nothing to migrate currently but the method implementation is required
+        // when using JsonBoardObject to load definitions from JSON.
+        public void Migrate() { }
     }
 }

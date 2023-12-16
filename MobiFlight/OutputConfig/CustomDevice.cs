@@ -33,13 +33,13 @@ namespace MobiFlight.OutputConfig
 
         public object Clone()
         {
-            CustomDevice clone = new CustomDevice();
-            clone.CustomType = this.CustomType;
-            clone.CustomName = CustomName;
-            clone.MessageType = MessageType;
-            clone.Value = this.Value;
-
-            return clone;
+            return new CustomDevice
+            {
+                CustomType = this.CustomType,
+                CustomName = CustomName,
+                MessageType = MessageType,
+                Value = this.Value
+            };
         }
 
         public XmlSchema GetSchema()
