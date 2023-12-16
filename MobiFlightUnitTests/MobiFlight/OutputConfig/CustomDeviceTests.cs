@@ -21,7 +21,7 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.AreEqual(null, o.CustomName);
             Assert.AreEqual(null, o.CustomType);
             Assert.AreEqual(null, o.Value);
-            Assert.AreEqual(null, o.MessageType);
+            Assert.AreEqual(0, o.MessageType);
         }
 
         [TestMethod()]
@@ -88,7 +88,7 @@ namespace MobiFlight.OutputConfig.Tests
             Assert.AreEqual("TM1637 Display", o.CustomName);
             Assert.AreEqual("TM1637", o.CustomType);
             Assert.AreEqual("$+2", o.Value);
-            Assert.AreEqual("3", o.MessageType);
+            Assert.AreEqual(3, o.MessageType);
         }
 
         [TestMethod()]
