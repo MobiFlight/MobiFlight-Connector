@@ -1311,11 +1311,14 @@ namespace MobiFlight.UI.Panels.Settings
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
                 MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
-                var boards = BoardDefinitions.GetBoardsByHardwareId(moduleInfo.HardwareId);
-                if (boards.Count>1)
+
+                // only use the core boards for the automatic flashing
+                var coreBoards = BoardDefinitions.GetBoardsByHardwareId(moduleInfo.HardwareId)
+                                             .FindAll(b => b.PartnerLevel == BoardPartnerLevel.Core); ;
+                if (coreBoards.Count>1)
                 {
                     var FriendlyNames = new List<String>();
-                    foreach(var b in boards) FriendlyNames.Add(b.Info.FriendlyName);
+                    foreach(var b in coreBoards) FriendlyNames.Add(b.Info.FriendlyName);
                     ambiguousBoardsFound.Add(module.Port + ": " + String.Join(" or ", FriendlyNames));
                     continue;
                 } 
