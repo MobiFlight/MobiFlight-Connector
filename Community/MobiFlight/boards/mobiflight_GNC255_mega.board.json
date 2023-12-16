@@ -2,12 +2,12 @@
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
     "Device": "atmega2560",
-    "BaudRates": [ "115200" ],
+    "BaudRates": ["115200"],
     "Programmer": "wiring",
     "Timeout": 15000
   },
   "Connection": {
-    "ConnectionDelay": 1250,
+    "ConnectionDelay": 1750,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
@@ -35,30 +35,29 @@
     "CanInstallFirmware": true,
     "CanResetBoard": true,
     "DelayAfterFirmwareUpdate": 0,
-    "FirmwareBaseName": "kav_mega",
+    "FirmwareBaseName": "mobiflight_gnc255_mega",
     "FirmwareExtension": "hex",
     "LatestFirmwareVersion": "2.5.0",
-    "FriendlyName": "Kav Mega",
-    "MobiFlightType": "Kav Mega",
+    "FriendlyName": "MobiFlight GNC255 Mega",
+    "MobiFlightType": "MobiFlight GNC255 Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
-      "KAV_EFIS",
-      "KAV_FCU"
+      "MOBIFLIGHT_GNC255"
     ]
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 16,
-    "MaxInputShifters": 6,
+    "MaxInputShifters": 4,
     "MaxButtons": 68,
     "MaxEncoders": 20,
     "MaxLcdI2C": 2,
-    "MaxLedSegments": 6,
-    "MaxOutputs": 68,
-    "MaxServos": 12,
-    "MaxShifters": 6,
+    "MaxLedSegments": 4,
+    "MaxOutputs": 40,
+    "MaxServos": 10,
+    "MaxShifters": 4,
     "MaxSteppers": 10,
-    "MaxInputMultiplexer": 6,
-    "MaxCustomDevices": 5
+    "MaxInputMultiplexer": 4,
+    "MaxCustomDevices" : 5
   },
   "Pins": [
     {

@@ -1,0 +1,51 @@
+{
+    "$schema": "./mfdevice.schema.json",
+    "Info": {
+      "Label": "Kav's Rudder LCD",
+      "Type": "KAV_RUDDER",
+      "Author": "Jak Kav",
+      "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+      "Version" : "1.0.0"
+    },
+    "Config": {
+      "Pins": [
+        "Data",
+        "CS",
+        "CLK"
+      ],
+      "isI2C": false
+    },
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "Set 'L'",
+        "description": "$ will set the first character to show 'L' or blank (0/1)"
+      },
+      {
+        "id": 1,
+        "label": "Set 'R'",
+        "description": "$ will set the first character to show 'R' or blank (0/1)"
+      },
+      {
+        "id": 2,
+        "label": "Set dot",
+        "description": "$ will set the dot to show or hide"
+      },
+      {
+        "id": 3,
+        "label": "Set value",
+        "description": "$ will set the value of the LCD"
+      },
+      {
+        "id": 4,
+        "label": "Set value w/ 'L'",
+        "description": "$ will set the value on the display with the 'L' character"
+      },
+      {
+        "id": 5,
+        "label": "Set value w/ 'R'",
+        "description": "$ will set the value of the display with the 'R' character"
+      }
+    ]
+  }
+  

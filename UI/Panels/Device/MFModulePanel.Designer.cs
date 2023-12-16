@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBoxName = new System.Windows.Forms.GroupBox();
             this.moduleNameTextBox = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxInformation = new System.Windows.Forms.GroupBox();
             this.TypeValueLabel = new System.Windows.Forms.Label();
             this.TypeLabel = new System.Windows.Forms.Label();
             this.SerialValueLabel = new System.Windows.Forms.Label();
@@ -41,20 +41,33 @@
             this.FirmwareValueLabel = new System.Windows.Forms.Label();
             this.FirmwareLabel = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxDetails = new System.Windows.Forms.GroupBox();
+            this.buttonWebsite = new System.Windows.Forms.Button();
+            this.buttonDocs = new System.Windows.Forms.Button();
+            this.buttonSupport = new System.Windows.Forms.Button();
+            this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonUploadDefaultConfig = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelProjectValue = new System.Windows.Forms.Label();
+            this.labelProject = new System.Windows.Forms.Label();
+            this.groupBoxName.SuspendLayout();
+            this.groupBoxInformation.SuspendLayout();
+            this.groupBoxDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox2
+            // groupBoxName
             // 
-            this.groupBox2.Controls.Add(this.moduleNameTextBox);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(183, 48);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Name";
+            this.groupBoxName.Controls.Add(this.moduleNameTextBox);
+            this.groupBoxName.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxName.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxName.Name = "groupBoxName";
+            this.groupBoxName.Size = new System.Drawing.Size(282, 48);
+            this.groupBoxName.TabIndex = 5;
+            this.groupBoxName.TabStop = false;
+            this.groupBoxName.Text = "Name";
             // 
             // moduleNameTextBox
             // 
@@ -65,23 +78,23 @@
             this.moduleNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             this.moduleNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.moduleNameTextBox_Validating);
             // 
-            // groupBox1
+            // groupBoxInformation
             // 
-            this.groupBox1.Controls.Add(this.TypeValueLabel);
-            this.groupBox1.Controls.Add(this.TypeLabel);
-            this.groupBox1.Controls.Add(this.SerialValueLabel);
-            this.groupBox1.Controls.Add(this.SerialLabel);
-            this.groupBox1.Controls.Add(this.PortValueLabel);
-            this.groupBox1.Controls.Add(this.PortLabel);
-            this.groupBox1.Controls.Add(this.FirmwareValueLabel);
-            this.groupBox1.Controls.Add(this.FirmwareLabel);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 48);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(183, 105);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Information";
+            this.groupBoxInformation.Controls.Add(this.TypeValueLabel);
+            this.groupBoxInformation.Controls.Add(this.TypeLabel);
+            this.groupBoxInformation.Controls.Add(this.SerialValueLabel);
+            this.groupBoxInformation.Controls.Add(this.SerialLabel);
+            this.groupBoxInformation.Controls.Add(this.PortValueLabel);
+            this.groupBoxInformation.Controls.Add(this.PortLabel);
+            this.groupBoxInformation.Controls.Add(this.FirmwareValueLabel);
+            this.groupBoxInformation.Controls.Add(this.FirmwareLabel);
+            this.groupBoxInformation.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxInformation.Location = new System.Drawing.Point(0, 48);
+            this.groupBoxInformation.Name = "groupBoxInformation";
+            this.groupBoxInformation.Size = new System.Drawing.Size(282, 105);
+            this.groupBoxInformation.TabIndex = 6;
+            this.groupBoxInformation.TabStop = false;
+            this.groupBoxInformation.Text = "Information";
             // 
             // TypeValueLabel
             // 
@@ -89,7 +102,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TypeValueLabel.Location = new System.Drawing.Point(73, 74);
             this.TypeValueLabel.Name = "TypeValueLabel";
-            this.TypeValueLabel.Size = new System.Drawing.Size(96, 24);
+            this.TypeValueLabel.Size = new System.Drawing.Size(195, 24);
             this.TypeValueLabel.TabIndex = 7;
             this.TypeValueLabel.Text = "MobiFlight Mega";
             this.toolTip1.SetToolTip(this.TypeValueLabel, "Test");
@@ -109,7 +122,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.SerialValueLabel.Location = new System.Drawing.Point(73, 56);
             this.SerialValueLabel.Name = "SerialValueLabel";
-            this.SerialValueLabel.Size = new System.Drawing.Size(96, 13);
+            this.SerialValueLabel.Size = new System.Drawing.Size(195, 13);
             this.SerialValueLabel.TabIndex = 5;
             this.SerialValueLabel.Text = "S-N / XXX";
             // 
@@ -128,7 +141,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PortValueLabel.Location = new System.Drawing.Point(73, 38);
             this.PortValueLabel.Name = "PortValueLabel";
-            this.PortValueLabel.Size = new System.Drawing.Size(96, 13);
+            this.PortValueLabel.Size = new System.Drawing.Size(195, 13);
             this.PortValueLabel.TabIndex = 3;
             this.PortValueLabel.Text = "ComX";
             // 
@@ -147,7 +160,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FirmwareValueLabel.Location = new System.Drawing.Point(73, 20);
             this.FirmwareValueLabel.Name = "FirmwareValueLabel";
-            this.FirmwareValueLabel.Size = new System.Drawing.Size(96, 13);
+            this.FirmwareValueLabel.Size = new System.Drawing.Size(195, 13);
             this.FirmwareValueLabel.TabIndex = 1;
             this.FirmwareValueLabel.Text = "x.x.x";
             // 
@@ -160,28 +173,132 @@
             this.FirmwareLabel.TabIndex = 0;
             this.FirmwareLabel.Text = "Firmware";
             // 
+            // groupBoxDetails
+            // 
+            this.groupBoxDetails.Controls.Add(this.labelProjectValue);
+            this.groupBoxDetails.Controls.Add(this.labelProject);
+            this.groupBoxDetails.Controls.Add(this.panel1);
+            this.groupBoxDetails.Controls.Add(this.pictureBoxLogo);
+            this.groupBoxDetails.Controls.Add(this.buttonSupport);
+            this.groupBoxDetails.Controls.Add(this.buttonDocs);
+            this.groupBoxDetails.Controls.Add(this.buttonWebsite);
+            this.groupBoxDetails.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBoxDetails.Location = new System.Drawing.Point(0, 153);
+            this.groupBoxDetails.Name = "groupBoxDetails";
+            this.groupBoxDetails.Size = new System.Drawing.Size(282, 152);
+            this.groupBoxDetails.TabIndex = 7;
+            this.groupBoxDetails.TabStop = false;
+            this.groupBoxDetails.Text = "More Details";
+            // 
+            // buttonWebsite
+            // 
+            this.buttonWebsite.Location = new System.Drawing.Point(23, 89);
+            this.buttonWebsite.Name = "buttonWebsite";
+            this.buttonWebsite.Size = new System.Drawing.Size(75, 23);
+            this.buttonWebsite.TabIndex = 12;
+            this.buttonWebsite.Text = "Website";
+            this.buttonWebsite.UseVisualStyleBackColor = true;
+            // 
+            // buttonDocs
+            // 
+            this.buttonDocs.Location = new System.Drawing.Point(104, 89);
+            this.buttonDocs.Name = "buttonDocs";
+            this.buttonDocs.Size = new System.Drawing.Size(75, 23);
+            this.buttonDocs.TabIndex = 13;
+            this.buttonDocs.Text = "Docs";
+            this.buttonDocs.UseVisualStyleBackColor = true;
+            // 
+            // buttonSupport
+            // 
+            this.buttonSupport.Location = new System.Drawing.Point(185, 89);
+            this.buttonSupport.Name = "buttonSupport";
+            this.buttonSupport.Size = new System.Drawing.Size(72, 23);
+            this.buttonSupport.TabIndex = 14;
+            this.buttonSupport.Text = "Support";
+            this.buttonSupport.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxLogo
+            // 
+            this.pictureBoxLogo.Location = new System.Drawing.Point(21, 40);
+            this.pictureBoxLogo.Name = "pictureBoxLogo";
+            this.pictureBoxLogo.Size = new System.Drawing.Size(236, 43);
+            this.pictureBoxLogo.TabIndex = 15;
+            this.pictureBoxLogo.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.buttonUploadDefaultConfig);
+            this.panel1.Location = new System.Drawing.Point(18, 118);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(250, 28);
+            this.panel1.TabIndex = 16;
+            // 
+            // buttonUploadDefaultConfig
+            // 
+            this.buttonUploadDefaultConfig.Location = new System.Drawing.Point(167, 3);
+            this.buttonUploadDefaultConfig.Name = "buttonUploadDefaultConfig";
+            this.buttonUploadDefaultConfig.Size = new System.Drawing.Size(72, 23);
+            this.buttonUploadDefaultConfig.TabIndex = 17;
+            this.buttonUploadDefaultConfig.Text = "Upload";
+            this.buttonUploadDefaultConfig.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(158, 23);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Upload board\'s default config:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelProjectValue
+            // 
+            this.labelProjectValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProjectValue.Location = new System.Drawing.Point(73, 19);
+            this.labelProjectValue.Name = "labelProjectValue";
+            this.labelProjectValue.Size = new System.Drawing.Size(184, 18);
+            this.labelProjectValue.TabIndex = 18;
+            this.labelProjectValue.Text = "MobiFlight Mega";
+            this.toolTip1.SetToolTip(this.labelProjectValue, "Test");
+            // 
+            // labelProject
+            // 
+            this.labelProject.AutoSize = true;
+            this.labelProject.Location = new System.Drawing.Point(18, 19);
+            this.labelProject.Name = "labelProject";
+            this.labelProject.Size = new System.Drawing.Size(40, 13);
+            this.labelProject.TabIndex = 17;
+            this.labelProject.Text = "Project";
+            // 
             // MFModulePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBoxDetails);
+            this.Controls.Add(this.groupBoxInformation);
+            this.Controls.Add(this.groupBoxName);
             this.Name = "MFModulePanel";
-            this.Size = new System.Drawing.Size(183, 241);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.Size = new System.Drawing.Size(282, 325);
+            this.groupBoxName.ResumeLayout(false);
+            this.groupBoxName.PerformLayout();
+            this.groupBoxInformation.ResumeLayout(false);
+            this.groupBoxInformation.PerformLayout();
+            this.groupBoxDetails.ResumeLayout(false);
+            this.groupBoxDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxName;
         private System.Windows.Forms.TextBox moduleNameTextBox;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxInformation;
         private System.Windows.Forms.Label FirmwareValueLabel;
         private System.Windows.Forms.Label FirmwareLabel;
         private System.Windows.Forms.Label SerialValueLabel;
@@ -191,5 +308,15 @@
         private System.Windows.Forms.Label TypeValueLabel;
         private System.Windows.Forms.Label TypeLabel;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.GroupBox groupBoxDetails;
+        private System.Windows.Forms.Button buttonWebsite;
+        private System.Windows.Forms.Button buttonSupport;
+        private System.Windows.Forms.Button buttonDocs;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBoxLogo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonUploadDefaultConfig;
+        private System.Windows.Forms.Label labelProjectValue;
+        private System.Windows.Forms.Label labelProject;
     }
 }

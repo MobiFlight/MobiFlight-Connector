@@ -1,11 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MobiFlight
 {
+    public enum BoardPartnerLevel
+    {
+        Core,
+        Partner,
+        Community
+    }
+
+    public class Community
+    {
+        /// <summary>
+        /// The project's name
+        /// </summary>
+        public String Project;
+
+        /// <summary>
+        /// The project's website
+        /// </summary>
+        public String Website;
+
+        /// <summary>
+        /// The project's documentation
+        /// </summary>
+        public String Docs;
+
+        /// <summary>
+        /// The project's support, e.g. Discord Server link
+        /// </summary>
+        public String Support;
+
+        /// <summary>
+        /// The logo resource
+        /// </summary>
+        public Image Logo;
+    }
+
     /// <summary>
     /// Settings for flashing Arduino devices with avrdude.
     /// </summary>
@@ -152,6 +185,16 @@ namespace MobiFlight
         public List<String> CustomDeviceTypes = new List<string>();
 
         /// <summary>
+        /// True if the board ships with a default config that can be auto-loaded after flashing.
+        /// </summary>
+        public Boolean HasDefaultDeviceConfig;
+
+        /// <summary>
+        /// True if the board ships with a default config that can be auto-loaded after flashing.
+        /// </summary>
+        public Community Community;
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
@@ -280,6 +323,36 @@ namespace MobiFlight
         public UsbDriveSettings UsbDriveSettings;
 
         /// <summary>
+        /// Base path for custom firmware
+        /// </summary>
+        public String BasePath;
+
+        /// <summary>
+        /// The image resource
+        /// </summary>
+        public Image BoardImage;
+
+        /// <summary>
+        /// Returns the correct Partner Level
+        /// </summary>
+        /// <returns></returns>
+        public BoardPartnerLevel PartnerLevel { get {
+                if (BasePath == "" && Info.MobiFlightType.Contains("MobiFlight"))
+                    return BoardPartnerLevel.Core;
+
+                var partners = new List<string>() { 
+                    "kavSimulations",
+                    "miniCOCKPIT"
+                };
+                var partner = partners.Find(p => BasePath.Contains(p)) != null;
+                if (partner) return BoardPartnerLevel.Partner;
+
+                return BoardPartnerLevel.Community;
+            }
+        }
+        
+
+        /// <summary>
         /// Migrates board definitions from older versions to newer versions.
         /// </summary>
 #pragma warning disable CS0612 // Type or member is obsolete
@@ -323,6 +396,15 @@ namespace MobiFlight
         public override string ToString()
         {
             return $"{Info.MobiFlightType} ({Info.FriendlyName})";
+        }
+
+        /// <summary>
+        /// Get the name for the Default Config
+        /// </summary>
+        /// <returns>The </returns>
+        public string GetDefaultConfigPath()
+        {
+            return $@"{BasePath}\config\{Info.FirmwareBaseName}.mfmc";
         }
     }
 }

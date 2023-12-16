@@ -1,4 +1,5 @@
-﻿using MobiFlight.UI.Dialogs;
+﻿using MobiFlight.Base;
+using MobiFlight.UI.Dialogs;
 using MobiFlight.UI.Forms;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -337,15 +338,26 @@ namespace MobiFlight.UI.Panels.Settings
 
                 if (boards.Count > 0)
                 {
+                    var coreBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Core);
+                    var partnerBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Partner);
+                    var communityBoards = boards.FindAll(b => b.PartnerLevel == BoardPartnerLevel.Community);
+                    
+                    AddBoardsToMenu(module, coreBoards);
 
-                    foreach (var board in boards)
+                    if (partnerBoards.Count > 0)
                     {
-                        ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
-                        ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
-
-                        updateFirmwareToolStripMenuItem.DropDownItems.Add(item);
-                        UpdateFirmwareToolStripButton.DropDownItems.Add(item2);
+                        updateFirmwareToolStripMenuItem.DropDownItems.Add("-");
+                        UpdateFirmwareToolStripButton.DropDownItems.Add("-");
+                        AddBoardsToPartnerMenu(module, partnerBoards);
                     }
+
+                    if (communityBoards.Count > 0)
+                    {
+                        updateFirmwareToolStripMenuItem.DropDownItems.Add("-");
+                        UpdateFirmwareToolStripButton.DropDownItems.Add("-");
+                        AddBoardsToCommunityMenu(module, communityBoards);
+                    }
+
                     UpdateFirmwareToolStripButton.ShowDropDownArrow = true;
                 }
             }
@@ -358,6 +370,66 @@ namespace MobiFlight.UI.Panels.Settings
             syncPanelWithSelectedDevice(node);
         }
 
+        private void AddBoardsToMenu(MobiFlightModule module, List<Board> boards)
+        {
+            foreach (var board in boards)
+            {
+                AddBoardsToMenuUsingParent(module, board, updateFirmwareToolStripMenuItem, UpdateFirmwareToolStripButton);
+            }
+        }
+
+        private void AddBoardsToMenuUsingParent(MobiFlightModule module, Board board, ToolStripDropDownItem parentMenu, ToolStripDropDownItem parentMenu2)
+        {
+            ToolStripMenuItem item = CreateFirmwareUploadMenuItem(module, board);
+            ToolStripMenuItem item2 = CreateFirmwareUploadMenuItem(module, board);
+
+            parentMenu.DropDownItems.Add(item);
+            parentMenu2.DropDownItems.Add(item2);
+        }
+
+        private void AddBoardsToPartnerMenu(MobiFlightModule module, List<Board> boards)
+        {
+            var project = String.Empty;
+            ToolStripMenuItem communityItem = null;
+            ToolStripMenuItem communityItem2 = null;
+
+            foreach (var board in boards.OrderBy((b) => b.BasePath))
+            {
+                var currentProject = board.Info.Community?.Project ?? board.BasePath.GetLastFolderName();
+                if (project != currentProject)
+                {
+                    project = currentProject;
+                    communityItem = new ToolStripMenuItem() { Text = currentProject };
+                    communityItem2 = new ToolStripMenuItem() { Text = currentProject };
+
+                    if (board.BoardImage != null)
+                    {
+                        communityItem2.Image = communityItem.Image = board.BoardImage;
+                    }
+                    updateFirmwareToolStripMenuItem.DropDownItems.Add(communityItem);
+                    UpdateFirmwareToolStripButton.DropDownItems.Add(communityItem2);
+                }
+
+                AddBoardsToMenuUsingParent(module, board, communityItem, communityItem2);
+            }
+
+            
+        }
+
+        private void AddBoardsToCommunityMenu(MobiFlightModule module, List<Board> boards)
+        {
+            ToolStripMenuItem communityItem = new ToolStripMenuItem() { Text = "Community" };
+            ToolStripMenuItem communityItem2 = new ToolStripMenuItem() { Text = "Community" };
+
+            foreach (var board in boards)
+            {
+                AddBoardsToMenuUsingParent(module, board, communityItem, communityItem2);
+            }
+
+            updateFirmwareToolStripMenuItem.DropDownItems.Add(communityItem);
+            UpdateFirmwareToolStripButton.DropDownItems.Add(communityItem2);
+        }
+
         private ToolStripMenuItem CreateFirmwareUploadMenuItem(MobiFlightModule module, Board board)
         {
             var item = new ToolStripMenuItem();
@@ -365,10 +437,18 @@ namespace MobiFlight.UI.Panels.Settings
             item.Click += (s, evt) =>
             {
                 module.Board = board;
-                List<MobiFlightModule> modules = new List<MobiFlightModule>();
-                modules.Add(module);
+                List<MobiFlightModule> modules = new List<MobiFlightModule>
+                {
+                    module
+                };
                 UpdateModules(modules);
             };
+
+            if (board.BoardImage != null && board.PartnerLevel==BoardPartnerLevel.Core)
+            {
+                item.Image = board.BoardImage;
+            }
+
             return item;
         }
 
@@ -391,18 +471,24 @@ namespace MobiFlight.UI.Panels.Settings
                 moduleNode.Nodes.Clear();
                 moduleMultiplexerDrivers.Remove(moduleInfo.Name);
 
-                if (null == (moduleNode.Tag as MobiFlightModule).Config) return moduleNode;
+                var module = (moduleNode.Tag as MobiFlightModule);
+
+                if (null == module?.Config) return moduleNode;
+                SetCorrectBoardIcon(moduleNode, module);
 
                 // This is where the UI (TreeView.Node.Tag) is populated with the configuration data coming from MobiFlightModule.Config.Items
-                
-                foreach (MobiFlight.Config.BaseDevice device in (moduleNode.Tag as MobiFlightModule).Config.Items)
+
+                foreach (MobiFlight.Config.BaseDevice device in module.Config.Items)
                 {
                     if (device == null) continue; // Happens if working on an older firmware version. Ok.
 
                     // MultiplexerDrivers exist as items in the device list, but they should not appear in the GUI
-                    if(device.Type == DeviceType.MultiplexerDriver) {
+                    if (device.Type == DeviceType.MultiplexerDriver)
+                    {
                         moduleMultiplexerDrivers.Add(moduleNode.Text, device as MobiFlight.Config.MultiplexerDriver);
-                    } else {
+                    }
+                    else
+                    {
                         TreeNode deviceNode = new TreeNode(device.Name);
                         deviceNode.Tag = device;
                         deviceNode.SelectedImageKey = deviceNode.ImageKey = device.Type.ToString();
@@ -418,6 +504,32 @@ namespace MobiFlight.UI.Panels.Settings
             }
 
             return moduleNode;
+        }
+
+        private void SetCorrectBoardIcon(TreeNode moduleNode, MobiFlightModule module)
+        {
+            if (module.Board.BoardImage != null)
+            {
+                // i had to do this with the imageKey
+                // the nodes don't support an image directly
+                var imageKey = generateImageKeyAndAddImageToImageList(module.Board);
+                moduleNode.SelectedImageKey = moduleNode.ImageKey = imageKey;
+            }
+        }
+
+        /// <summary>
+        /// This generates the imageKey and also adds the image to the imageList
+        /// </summary>
+        /// <param name="board">The Board information</param>
+        /// <returns>the valid imageKey</returns>
+        private string generateImageKeyAndAddImageToImageList(Board board)
+        {
+            var imageKey = board.Info.MobiFlightType;
+            if (!mfTreeViewImageList.Images.ContainsKey(imageKey))
+            {
+                mfTreeViewImageList.Images.Add(imageKey, board.BoardImage);
+            }
+            return imageKey;
         }
 
         /// <summary>
@@ -437,6 +549,11 @@ namespace MobiFlight.UI.Panels.Settings
                     // It's a Module entry
                     panel = new MFModulePanel((selectedNode.Tag as MobiFlightModule));
                     (panel as MFModulePanel).Changed += new EventHandler(mfConfigDeviceObject_changed);
+                    (panel as MFModulePanel).UploadDefaultConfigRequested += (s, configFile) =>
+                    {
+                        OpenFile(selectedNode, configFile);
+                        uploadToolStripButton_Click(this, EventArgs.Empty);
+                    };
                 }
                 else
                 {
@@ -914,19 +1031,11 @@ namespace MobiFlight.UI.Panels.Settings
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // Saves the configuration of the current module to a file
-
             TreeNode moduleNode = getModuleNode();
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
             newConfig.ModuleName = module.Name;
-
-            // These lines are only required if the multiplexerDriver is handled
-            // as a proper device (with its own config line):
-            //var multiplexerDriver = findModuleMultiplexerDriver(false);
-            //if (multiplexerDriver != null) {
-            //    newConfig.Items.Add(multiplexerDriver as MobiFlight.Config.BaseDevice);
-            //}
 
             foreach (TreeNode node in moduleNode.Nodes)
             {
@@ -956,35 +1065,41 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (DialogResult.OK == fd.ShowDialog())
             {
-                TextReader textReader = new StreamReader(fd.FileName);
-                XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
-                MobiFlight.Config.Config newConfig;
-                newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
-                textReader.Close();
-
-                if (newConfig.ModuleName != null && newConfig.ModuleName != "")
-                {
-                    moduleNode.Text = (moduleNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
-
-                }
-
-                moduleNode.Nodes.Clear();
-
-                foreach (MobiFlight.Config.BaseDevice device in newConfig.Items)
-                {
-                    if(device.Type != DeviceType.MultiplexerDriver) {
-                        TreeNode newNode = new TreeNode(device.Name);
-                        newNode.Tag = device;
-                        newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
-                        moduleNode.Nodes.Add(newNode);
-                    }
-                }
-
-                moduleNode.ImageKey = "Changed";
-                moduleNode.SelectedImageKey = "Changed";
-                moduleNode.Expand();
-                UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
+                OpenFile(moduleNode, fd.FileName);
             }
+        }
+
+        private void OpenFile(TreeNode moduleNode, string fileName)
+        {
+            TextReader textReader = new StreamReader(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+            MobiFlight.Config.Config newConfig;
+            newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
+            textReader.Close();
+
+            if (newConfig.ModuleName != null && newConfig.ModuleName != "")
+            {
+                moduleNode.Text = (moduleNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
+
+            }
+
+            moduleNode.Nodes.Clear();
+
+            foreach (MobiFlight.Config.BaseDevice device in newConfig.Items)
+            {
+                if (device.Type != DeviceType.MultiplexerDriver)
+                {
+                    TreeNode newNode = new TreeNode(device.Name);
+                    newNode.Tag = device;
+                    newNode.SelectedImageKey = newNode.ImageKey = device.Type.ToString();
+                    moduleNode.Nodes.Add(newNode);
+                }
+            }
+
+            moduleNode.ImageKey = "Changed";
+            moduleNode.SelectedImageKey = "Changed";
+            moduleNode.Expand();
+            UpdateToolbarAndPanelAfterNodeHasChanged(moduleNode);
         }
 
         private void removeDeviceToolStripButton_Click(object sender, EventArgs e)
@@ -1078,8 +1193,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (uploadResult)
             {
-                moduleNode.ImageKey = "";
-                moduleNode.SelectedImageKey = "";
+                SetCorrectBoardIcon(moduleNode, module);
                 TimeoutMessageDialog tmd = new TimeoutMessageDialog();
                 tmd.StartPosition = FormStartPosition.CenterParent;
                 tmd.DefaultDialogResult = DialogResult.Cancel;
@@ -1238,11 +1352,14 @@ namespace MobiFlight.UI.Panels.Settings
             foreach (MobiFlightModuleInfo moduleInfo in modulesForFlashing)
             {
                 MobiFlightModule module = new MobiFlightModule(moduleInfo.Port, moduleInfo.Board);
-                var boards = BoardDefinitions.GetBoardsByHardwareId(moduleInfo.HardwareId);
-                if (boards.Count>1)
+
+                // only use the core boards for the automatic flashing
+                var coreBoards = BoardDefinitions.GetBoardsByHardwareId(moduleInfo.HardwareId)
+                                             .FindAll(b => b.PartnerLevel == BoardPartnerLevel.Core); ;
+                if (coreBoards.Count>1)
                 {
                     var FriendlyNames = new List<String>();
-                    foreach(var b in boards) FriendlyNames.Add(b.Info.FriendlyName);
+                    foreach(var b in coreBoards) FriendlyNames.Add(b.Info.FriendlyName);
                     ambiguousBoardsFound.Add(module.Port + ": " + String.Join(" or ", FriendlyNames));
                     continue;
                 } 

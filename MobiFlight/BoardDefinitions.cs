@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -84,7 +86,9 @@ namespace MobiFlight
         /// </summary>
         public static void LoadDefinitions()
         {
-            boards = JsonBackedObject.LoadDefinitions<Board>(Directory.GetFiles("Boards", "*.board.json"), "Boards/mfboard.schema.json",
+            var files = new List<String>(Directory.GetFiles("Boards", "*.board.json"));
+            files.AddRange(Directory.GetFiles("Community/", "*.board.json", SearchOption.AllDirectories));
+            boards = JsonBackedObject.LoadDefinitions<Board>(files, "Boards/mfboard.schema.json",
                 onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info),
                 onError: () => LoadingError = true
                 ); ;

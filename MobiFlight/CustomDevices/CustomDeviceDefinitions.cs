@@ -1,11 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace MobiFlight.CustomDevices
 {
@@ -42,10 +38,13 @@ namespace MobiFlight.CustomDevices
         /// </summary>
         public static void LoadDefinitions()
         {
-            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(Directory.GetFiles("Devices", "*.device.json"), "Devices/mfdevice.schema.json",
+            var files = Directory.GetFiles("Devices", "*.device.json");
+            files.AddRange(Directory.GetFiles("Community/", "*.device.json", SearchOption.AllDirectories));
+
+            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(files, "Devices/mfdevice.schema.json",
                 onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info),
                 onError: () => LoadingError = true
-            ); ;
+            );
         }
     }
 }

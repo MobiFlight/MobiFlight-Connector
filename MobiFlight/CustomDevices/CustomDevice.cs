@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.CustomDevices
 {
@@ -130,6 +126,11 @@ namespace MobiFlight.CustomDevices
         /// List of MessageTypes supported by the device.
         /// </summary>
         public List<MessageType> MessageTypes = new List<MessageType>();
+
+        /// <summary>
+        /// Base path for custom firmware
+        /// </summary>
+        public String BasePath;
 
         // Nothing to migrate currently but the method implementation is required
         // when using JsonBoardObject to load definitions from JSON.
