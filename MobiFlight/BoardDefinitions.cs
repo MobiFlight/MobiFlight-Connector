@@ -88,8 +88,25 @@ namespace MobiFlight
         {
             var files = new List<String>(Directory.GetFiles("Boards", "*.board.json"));
             files.AddRange(Directory.GetFiles("Community/", "*.board.json", SearchOption.AllDirectories));
-            boards = JsonBackedObject.LoadDefinitions<Board>(files, "Boards/mfboard.schema.json",
-                onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info),
+            boards = JsonBackedObject.LoadDefinitions<Board>(files.ToArray(), "Boards/mfboard.schema.json",
+                onSuccess: (board, definitionFile) => {
+                    Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
+
+                    var boardPath = Path.GetDirectoryName(definitionFile);
+                    board.BasePath = Path.GetDirectoryName(boardPath);
+
+                    var logoPath = $@"{boardPath}\logo.png";
+                    if (File.Exists(logoPath))
+                    {
+                        board.Info.Community.Logo = Image.FromFile($@"{boardPath}\logo.png");
+                    }
+
+                    var boardLogoPath = $@"{boardPath}\board-logo.png";
+                    if (File.Exists(boardLogoPath))
+                    {
+                        board.BoardImage = Image.FromFile($@"{boardPath}\board-logo.png");
+                    }
+                },
                 onError: () => LoadingError = true
                 ); ;
         }

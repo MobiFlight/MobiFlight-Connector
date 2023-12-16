@@ -23,7 +23,7 @@ namespace MobiFlight
         /// <param name="onSuccess">Method called on each successful object creation.</param>
         /// <param name="onError">Method called on each failure.</param>
         /// <returns>A list of the valid objects.</returns>
-        public static List<T> LoadDefinitions<T>(string[] definitionFiles, string schemaFile, Action<T> onSuccess, Action onError) where T : IMigrateable
+        public static List<T> LoadDefinitions<T>(string[] definitionFiles, string schemaFile, Action<T, string> onSuccess, Action onError) where T : IMigrateable
         {
             var result = new List<T>();
             JSchema schema;
@@ -55,7 +55,7 @@ namespace MobiFlight
                     }
 
                     result.Add(definition);
-                    onSuccess?.Invoke(definition);
+                    onSuccess?.Invoke(definition, definitionFile);
                 }
                 catch (Exception ex)
                 {

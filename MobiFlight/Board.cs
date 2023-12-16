@@ -344,7 +344,7 @@ namespace MobiFlight
                     "kavSimulations",
                     "miniCOCKPIT"
                 };
-                var partner = partners.Find(p => BasePath.Contains(p)) != null;
+                var partner = partners.Find(p => BasePath?.Contains(p) ?? false) != null;
                 if (partner) return BoardPartnerLevel.Partner;
 
                 return BoardPartnerLevel.Community;

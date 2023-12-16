@@ -38,11 +38,14 @@ namespace MobiFlight.CustomDevices
         /// </summary>
         public static void LoadDefinitions()
         {
-            var files = Directory.GetFiles("Devices", "*.device.json");
+            var files = new List<String>(Directory.GetFiles("Devices", "*.device.json"));
             files.AddRange(Directory.GetFiles("Community/", "*.device.json", SearchOption.AllDirectories));
 
-            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(files, "Devices/mfdevice.schema.json",
-                onSuccess: device => Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info),
+            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(files.ToArray(), "Devices/mfdevice.schema.json",
+                onSuccess: (device, definitionFile) => {
+                    Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info);
+                    device.BasePath = Path.GetDirectoryName(Path.GetDirectoryName(definitionFile));
+                },
                 onError: () => LoadingError = true
             );
         }
