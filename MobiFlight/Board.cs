@@ -11,6 +11,9 @@ namespace MobiFlight
         Community
     }
 
+    /// <summary>
+    /// Additional community information
+    /// </summary>
     public class Community
     {
         /// <summary>
@@ -190,7 +193,7 @@ namespace MobiFlight
         public Boolean HasDefaultDeviceConfig;
 
         /// <summary>
-        /// True if the board ships with a default config that can be auto-loaded after flashing.
+        /// Additional community information
         /// </summary>
         public Community Community;
 
