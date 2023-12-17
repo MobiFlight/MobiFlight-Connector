@@ -222,8 +222,8 @@
           "type": "string"
         },
         "HasDefaultDeviceConfig": {
-          "$id": "#root/Info/HasDefaultConfig",
-          "title": "HasDefaultConfig",
+          "$id": "#root/Info/HasDefaultDeviceConfig",
+          "title": "HasDefaultDeviceConfig",
           "description": "True if the board ships with a default config that can be loaded after flashing the firmware.",
           "type": "boolean",
           "default": false

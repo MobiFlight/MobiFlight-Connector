@@ -44,7 +44,7 @@
       "CustomDeviceTypes": [
         "miniCOCKPIT_miniFCU"
       ],
-      "HasDefaultConfig": true,
+      "HasDefaultDeviceConfig": true,
       "Community": {
         "Project" :  "miniCOCKPIT",
         "Website": "https://minicockpit.com/",

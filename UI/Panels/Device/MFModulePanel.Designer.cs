@@ -61,23 +61,20 @@
             // 
             // groupBoxName
             // 
-            resources.ApplyResources(this.groupBoxName, "groupBoxName");
             this.groupBoxName.Controls.Add(this.moduleNameTextBox);
+            resources.ApplyResources(this.groupBoxName, "groupBoxName");
             this.groupBoxName.Name = "groupBoxName";
             this.groupBoxName.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBoxName, resources.GetString("groupBoxName.ToolTip"));
             // 
             // moduleNameTextBox
             // 
             resources.ApplyResources(this.moduleNameTextBox, "moduleNameTextBox");
             this.moduleNameTextBox.Name = "moduleNameTextBox";
-            this.toolTip1.SetToolTip(this.moduleNameTextBox, resources.GetString("moduleNameTextBox.ToolTip"));
             this.moduleNameTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             this.moduleNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.moduleNameTextBox_Validating);
             // 
             // groupBoxInformation
             // 
-            resources.ApplyResources(this.groupBoxInformation, "groupBoxInformation");
             this.groupBoxInformation.Controls.Add(this.TypeValueLabel);
             this.groupBoxInformation.Controls.Add(this.TypeLabel);
             this.groupBoxInformation.Controls.Add(this.SerialValueLabel);
@@ -86,9 +83,9 @@
             this.groupBoxInformation.Controls.Add(this.PortLabel);
             this.groupBoxInformation.Controls.Add(this.FirmwareValueLabel);
             this.groupBoxInformation.Controls.Add(this.FirmwareLabel);
+            resources.ApplyResources(this.groupBoxInformation, "groupBoxInformation");
             this.groupBoxInformation.Name = "groupBoxInformation";
             this.groupBoxInformation.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBoxInformation, resources.GetString("groupBoxInformation.ToolTip"));
             // 
             // TypeValueLabel
             // 
@@ -100,43 +97,36 @@
             // 
             resources.ApplyResources(this.TypeLabel, "TypeLabel");
             this.TypeLabel.Name = "TypeLabel";
-            this.toolTip1.SetToolTip(this.TypeLabel, resources.GetString("TypeLabel.ToolTip"));
             // 
             // SerialValueLabel
             // 
             resources.ApplyResources(this.SerialValueLabel, "SerialValueLabel");
             this.SerialValueLabel.Name = "SerialValueLabel";
-            this.toolTip1.SetToolTip(this.SerialValueLabel, resources.GetString("SerialValueLabel.ToolTip"));
             // 
             // SerialLabel
             // 
             resources.ApplyResources(this.SerialLabel, "SerialLabel");
             this.SerialLabel.Name = "SerialLabel";
-            this.toolTip1.SetToolTip(this.SerialLabel, resources.GetString("SerialLabel.ToolTip"));
             // 
             // PortValueLabel
             // 
             resources.ApplyResources(this.PortValueLabel, "PortValueLabel");
             this.PortValueLabel.Name = "PortValueLabel";
-            this.toolTip1.SetToolTip(this.PortValueLabel, resources.GetString("PortValueLabel.ToolTip"));
             // 
             // PortLabel
             // 
             resources.ApplyResources(this.PortLabel, "PortLabel");
             this.PortLabel.Name = "PortLabel";
-            this.toolTip1.SetToolTip(this.PortLabel, resources.GetString("PortLabel.ToolTip"));
             // 
             // FirmwareValueLabel
             // 
             resources.ApplyResources(this.FirmwareValueLabel, "FirmwareValueLabel");
             this.FirmwareValueLabel.Name = "FirmwareValueLabel";
-            this.toolTip1.SetToolTip(this.FirmwareValueLabel, resources.GetString("FirmwareValueLabel.ToolTip"));
             // 
             // FirmwareLabel
             // 
             resources.ApplyResources(this.FirmwareLabel, "FirmwareLabel");
             this.FirmwareLabel.Name = "FirmwareLabel";
-            this.toolTip1.SetToolTip(this.FirmwareLabel, resources.GetString("FirmwareLabel.ToolTip"));
             // 
             // labelProjectValue
             // 
@@ -156,33 +146,28 @@
             this.groupBoxDetails.Controls.Add(this.buttonWebsite);
             this.groupBoxDetails.Name = "groupBoxDetails";
             this.groupBoxDetails.TabStop = false;
-            this.toolTip1.SetToolTip(this.groupBoxDetails, resources.GetString("groupBoxDetails.ToolTip"));
             // 
             // labelProject
             // 
             resources.ApplyResources(this.labelProject, "labelProject");
             this.labelProject.Name = "labelProject";
-            this.toolTip1.SetToolTip(this.labelProject, resources.GetString("labelProject.ToolTip"));
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.buttonUploadDefaultConfig);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
-            this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
             // 
             // label1
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
             // 
             // buttonUploadDefaultConfig
             // 
             resources.ApplyResources(this.buttonUploadDefaultConfig, "buttonUploadDefaultConfig");
             this.buttonUploadDefaultConfig.Name = "buttonUploadDefaultConfig";
-            this.toolTip1.SetToolTip(this.buttonUploadDefaultConfig, resources.GetString("buttonUploadDefaultConfig.ToolTip"));
             this.buttonUploadDefaultConfig.UseVisualStyleBackColor = true;
             // 
             // pictureBoxLogo
@@ -190,27 +175,23 @@
             resources.ApplyResources(this.pictureBoxLogo, "pictureBoxLogo");
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBoxLogo, resources.GetString("pictureBoxLogo.ToolTip"));
             // 
             // buttonSupport
             // 
             resources.ApplyResources(this.buttonSupport, "buttonSupport");
             this.buttonSupport.Name = "buttonSupport";
-            this.toolTip1.SetToolTip(this.buttonSupport, resources.GetString("buttonSupport.ToolTip"));
             this.buttonSupport.UseVisualStyleBackColor = true;
             // 
             // buttonDocs
             // 
             resources.ApplyResources(this.buttonDocs, "buttonDocs");
             this.buttonDocs.Name = "buttonDocs";
-            this.toolTip1.SetToolTip(this.buttonDocs, resources.GetString("buttonDocs.ToolTip"));
             this.buttonDocs.UseVisualStyleBackColor = true;
             // 
             // buttonWebsite
             // 
             resources.ApplyResources(this.buttonWebsite, "buttonWebsite");
             this.buttonWebsite.Name = "buttonWebsite";
-            this.toolTip1.SetToolTip(this.buttonWebsite, resources.GetString("buttonWebsite.ToolTip"));
             this.buttonWebsite.UseVisualStyleBackColor = true;
             // 
             // MFModulePanel
@@ -221,7 +202,6 @@
             this.Controls.Add(this.groupBoxInformation);
             this.Controls.Add(this.groupBoxName);
             this.Name = "MFModulePanel";
-            this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
             this.groupBoxName.ResumeLayout(false);
             this.groupBoxName.PerformLayout();
             this.groupBoxInformation.ResumeLayout(false);
@@ -231,6 +211,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

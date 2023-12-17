@@ -96,6 +96,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
             else
                 buttonSupport.Enabled = false;
 
+
+            panel1.Visible = false;
             if (board.Info.HasDefaultDeviceConfig)
             {
                 var configFile = board.GetDefaultConfigPath();
@@ -104,10 +106,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     {
                         UploadDefaultConfigRequested?.Invoke(this, configFile);
                     };
-                }
-                else
-                {
-                    panel1.Visible = false;
+                    panel1.Visible = true;
                 }
             }
         }
