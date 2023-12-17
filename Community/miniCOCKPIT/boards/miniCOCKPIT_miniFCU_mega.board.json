@@ -46,7 +46,7 @@
       ],
       "HasDefaultConfig": true,
       "Community": {
-        "Project" :  "MiniCOCKPIT",
+        "Project" :  "miniCOCKPIT",
         "Website": "https://minicockpit.com/",
         "Docs": "https://shop.minicockpit.com/a/help",
         "Support": "mailto:hello@minicockpit.com"

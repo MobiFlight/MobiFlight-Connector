@@ -95,16 +95,16 @@ namespace MobiFlight
                     var boardPath = Path.GetDirectoryName(definitionFile);
                     board.BasePath = Path.GetDirectoryName(boardPath);
 
-                    var logoPath = $@"{boardPath}\logo.png";
-                    if (File.Exists(logoPath))
+                    var logoPath = $@"{board.BasePath}\logo.png";
+                    if (File.Exists(logoPath) && board.Info.Community != null)
                     {
-                        board.Info.Community.Logo = Image.FromFile($@"{boardPath}\logo.png");
+                        board.Info.Community.Logo = Image.FromFile(logoPath);
                     }
 
                     var boardLogoPath = $@"{boardPath}\board-logo.png";
                     if (File.Exists(boardLogoPath))
                     {
-                        board.BoardImage = Image.FromFile($@"{boardPath}\board-logo.png");
+                        board.BoardImage = Image.FromFile(boardLogoPath);
                     }
                 },
                 onError: () => LoadingError = true
