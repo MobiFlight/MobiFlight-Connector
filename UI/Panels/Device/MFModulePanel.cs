@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Web.UI.WebControls;
+using System.Security.Policy;
+using System.Web;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
@@ -19,6 +21,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         /// </summary>
         public event EventHandler Changed;
         public event EventHandler<string> UploadDefaultConfigRequested;
+        const string redirectUrl = "https://mobiflight.com?redirect=";
 
         private MobiFlightModule module;
         bool initialized = false;
@@ -82,17 +85,17 @@ namespace MobiFlight.UI.Panels.Settings.Device
             
 
             if (board.Info.Community?.Website != null)
-                buttonWebsite.Click += (s, e) => { Process.Start(board.Info.Community.Website); };
+                buttonWebsite.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Website)); };
             else
                 buttonWebsite.Enabled = false;
 
             if (board.Info.Community?.Docs != null)
-                buttonDocs.Click += (s, e) => { Process.Start(board.Info.Community.Docs); };
+                buttonDocs.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Docs)); };
             else
                 buttonDocs.Enabled = false;
             
             if (board.Info.Community?.Support != null)
-                buttonSupport.Click += (s, e) => { Process.Start(board.Info.Community.Support); };
+                buttonSupport.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Support)); };
             else
                 buttonSupport.Enabled = false;
 
@@ -110,6 +113,14 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 panel1.Visible = false;
             }
+        }
+
+        private string CreateRedirectTarget(string target)
+        {
+            var redirectTarget = target;
+            redirectTarget = $"{redirectUrl}{redirectTarget}";
+
+            return redirectTarget;
         }
 
         private void value_Changed(object sender, EventArgs e)
