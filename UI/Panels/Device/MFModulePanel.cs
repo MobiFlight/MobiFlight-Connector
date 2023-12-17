@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             FirmwareValueLabel.Text = module.Version;
             SerialValueLabel.Text = module.Serial != string.Empty ? module.Serial : " - ";
 
-            TypeValueLabel.Text = module.Type;
+            TypeValueLabel.Text = module.Board.Info.MobiFlightTypeLabel ?? module.Type;
             if(module.Type==MobiFlightModule.TYPE_COMPATIBLE)
             {
                 var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId).FindAll(b => b.PartnerLevel==BoardPartnerLevel.Core);

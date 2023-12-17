@@ -40,6 +40,7 @@
     "LatestFirmwareVersion": "2.5.0",
     "FriendlyName": "Kav Mega",
     "MobiFlightType": "Kav Mega",
+    "MobiFlightTypeLabel": "Kav Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
       "KAV_EFIS",
@@ -50,7 +51,7 @@
     ],
     "HasDefaultConfig": true,
     "Community": {
-      "Project": "kavSimulations",
+      "Project": "KAV Simulations",
       "Website": "https://jak-kav.co.uk/",
       "Docs": "https://jak-kav.co.uk/pages/documentation-1",
       "Support": "https://jak-kav.co.uk/pages/contact"

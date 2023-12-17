@@ -164,6 +164,8 @@ namespace MobiFlight
 
         /// <summary>
         /// The USB friendly name for the board as specified by the board manufacturer.
+        /// This is only used for initial type detecting when no MF firmware is present.
+        /// This doesn't really make sense for Custom boards.
         /// </summary>
         public String FriendlyName;
 
@@ -176,6 +178,11 @@ namespace MobiFlight
         /// The type of the board as provided by the MobiFlight firmware.
         /// </summary>
         public String MobiFlightType;
+
+        /// <summary>
+        /// This Label is used instead of the internal MobiFlightType
+        /// </summary>
+        public String MobiFlightTypeLabel;
 
         /// <summary>
         /// Firmware filename to reset the board.

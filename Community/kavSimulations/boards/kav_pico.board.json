@@ -14,23 +14,24 @@
       "MessageSize": 64
     },
     "HardwareIds": ["^VID_2E8A&PID_000A"],
-    "Info": {
-      "CanInstallFirmware": true,
-      "CanResetBoard": true,
-      "FirmwareBaseName": "kav_raspberrypico",
-      "FirmwareExtension": "uf2",
-      "FriendlyName": "Kav RaspiPico",
-      "LatestFirmwareVersion": "2.5.0",
-      "MobiFlightType": "Kav RaspiPico",
-      "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
-      "CustomDeviceTypes": [
-        "KAV_EFIS",
-        "KAV_FCU",
-        "KAV_BATTERY",
-        "KAV_RAD_TCAS",
-        "KAV_RUDDER"
-      ]
-    },
+  "Info": {
+    "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "FirmwareBaseName": "kav_raspberrypico",
+    "FirmwareExtension": "uf2",
+    "FriendlyName": "Kav RaspiPico",
+    "LatestFirmwareVersion": "2.5.0",
+    "MobiFlightType": "Kav RaspiPico",
+    "MobiFlightTypeLabel": "Kav Pico",
+    "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
+    "CustomDeviceTypes": [
+      "KAV_EFIS",
+      "KAV_FCU",
+      "KAV_BATTERY",
+      "KAV_RAD_TCAS",
+      "KAV_RUDDER"
+    ]
+  },
     "ModuleLimits": {
       "MaxAnalogInputs": 3,
       "MaxInputShifters": 4,
