@@ -88,7 +88,7 @@
       </settings>
     </config>
     <config guid="8e365516-9c51-42a4-9924-3b182b8f0fcd">
-      <active>false</active>
+      <active>true</active>
       <description>HEADING Dot</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_HDG_MANAGED_DOT)" UUID="efe73349-997f-409e-b73b-89172e03a62b" />
