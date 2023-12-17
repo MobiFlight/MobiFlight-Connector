@@ -5,7 +5,7 @@
       "Type": "miniCOCKPIT_miniFCU",
       "Author": "miniCOCKPIT",
       "URL": "",
-      "Version" : "1.0.0"
+      "Version" : "0.9.1"
     },
     "Config": {
       "Pins": [

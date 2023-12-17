@@ -31,26 +31,27 @@
       "^VID_3343&PID_0042",
       "^VID_04D9&PID_B534"
     ],
-    "Info": {
-      "CanInstallFirmware": true,
-      "CanResetBoard": true,
-      "DelayAfterFirmwareUpdate": 0,
-      "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
-      "FirmwareExtension": "hex",
-      "LatestFirmwareVersion": "0.9.0",
-      "FriendlyName": "miniCOCKPIT miniFCU",
-      "MobiFlightType": "miniCOCKPIT miniFCU mega",
-      "ResetFirmwareFile": "reset.miniFCU.ino.hex",
-      "CustomDeviceTypes": [
-        "miniCOCKPIT_miniFCU"
-      ],
-      "Community": {
-        "Project" :  "miniCOCKPIT",
-        "Website": "https://minicockpit.com/",
-        "Docs": "https://shop.minicockpit.com/a/help",
-        "Support": "mailto:hello@minicockpit.com"
-      }
-    },
+  "Info": {
+    "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "DelayAfterFirmwareUpdate": 0,
+    "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
+    "FirmwareExtension": "hex",
+    "LatestFirmwareVersion": "0.9.1",
+    "FriendlyName": "miniCOCKPIT miniFCU",
+    "MobiFlightType": "miniCOCKPIT miniFCU mega",
+    "MobiFlightTypeLabel": "miniCOCKPIT miniFCU",
+    "ResetFirmwareFile": "reset.miniFCU.ino.hex",
+    "CustomDeviceTypes": [
+      "miniCOCKPIT_miniFCU"
+    ],
+    "Community": {
+      "Project": "miniCOCKPIT",
+      "Website": "https://minicockpit.com/",
+      "Docs": "https://shop.minicockpit.com/a/help",
+      "Support": "mailto:hello@minicockpit.com"
+    }
+  },
     "ModuleLimits": {
       "MaxAnalogInputs": 16,
       "MaxInputShifters": 4,
