@@ -5,8 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using System.Timers;
 
 namespace MobiFlight
 {
@@ -35,8 +34,8 @@ namespace MobiFlight
 
         public JoystickManager()
         {
-            PollTimer.Interval = 50;
-            PollTimer.Tick += PollTimer_Tick;
+            PollTimer.Interval = 20;
+            PollTimer.Elapsed += PollTimer_Tick;
             LoadDefinitions();
         }
 
@@ -81,6 +80,11 @@ namespace MobiFlight
             catch (InvalidOperationException)
             {
                 // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
+            }
+            catch (Exception ex)
+            {
+                // something else has happened
+                Log.Instance.log($"An exception occured during update {ex.Message}", LogSeverity.Error);
             }
         }
 
