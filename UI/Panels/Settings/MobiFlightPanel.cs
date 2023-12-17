@@ -498,6 +498,9 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
+                // Since it is not a MobiFlight Firmware Board
+                // We can only tell by type what it is.
+                moduleNode.Text = moduleInfo.Type;
                 moduleNode.Tag = new MobiFlightModule(moduleInfo);
                 moduleNode.SelectedImageKey = moduleNode.ImageKey = "module-arduino";
                 moduleNode.Nodes.Clear();
@@ -1524,7 +1527,15 @@ namespace MobiFlight.UI.Panels.Settings
             }
             else
             {
+
+                // We have to reset the board
+                // otherwise it will still have stored the prior board info
+                // and it will show prior details which is confusing
+                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
                 module.Version = null;
+                if (boards.Count>0)
+                    module.Board = boards.First();
+
                 module.Name = module.Board.Info.FriendlyName;
                 module.Serial = null;
                 newInfo = module.ToMobiFlightModuleInfo();
