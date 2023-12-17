@@ -343,11 +343,14 @@ namespace MobiFlight
         /// </summary>
         /// <returns></returns>
         [JsonIgnore]
-        public BoardPartnerLevel PartnerLevel { get {
+        public BoardPartnerLevel PartnerLevel
+        {
+            get
+            {
                 if (BasePath == "" && Info.MobiFlightType.Contains("MobiFlight"))
                     return BoardPartnerLevel.Core;
 
-                var partners = new List<string>() { 
+                var partners = new List<string>() {
                     "kavSimulations",
                     "miniCOCKPIT"
                 };
@@ -357,7 +360,7 @@ namespace MobiFlight
                 return BoardPartnerLevel.Community;
             }
         }
-        
+
 
         /// <summary>
         /// Migrates board definitions from older versions to newer versions.
