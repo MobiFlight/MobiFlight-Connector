@@ -43,6 +43,28 @@
         </configrefs>
       </settings>
     </config>
+    <config guid="e829147f-cf95-4fb3-be51-af850bd9c2bc">
+      <active>true</active>
+      <description>HEADING Dashes</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_HDG_MANAGED_DASHES)" UUID="74e0f839-1cea-40c7-a6dd-a65eef34cf9d" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="1" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-FF7-AF3" trigger="normal" customType="" customName="miniFCU LCD" messageType="6" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" operand="&lt;" value="0" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+        </configrefs>
+      </settings>
+    </config>
     <config guid="3d11ca79-1463-47ec-b7bb-ea3808c17913">
       <active>true</active>
       <description>HEADING</description>
@@ -65,30 +87,8 @@
         </configrefs>
       </settings>
     </config>
-    <config guid="e829147f-cf95-4fb3-be51-af850bd9c2bc">
-      <active>true</active>
-      <description>HEADING Dashes</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_HDG_MANAGED_DASHES)" UUID="74e0f839-1cea-40c7-a6dd-a65eef34cf9d" />
-        <test type="Float" value="1" />
-        <modifiers>
-          <transformation active="False" expression="$" />
-          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
-        </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-FF7-AF3" trigger="normal" customType="" customName="miniFCU LCD" messageType="6" value="$" />
-        <preconditions>
-          <precondition type="config" active="true" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" operand="&lt;" value="0" logic="and" />
-        </preconditions>
-        <configrefs>
-          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
-        </configrefs>
-      </settings>
-    </config>
     <config guid="8e365516-9c51-42a4-9924-3b182b8f0fcd">
-      <active>true</active>
+      <active>false</active>
       <description>HEADING Dot</description>
       <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_HDG_MANAGED_DOT)" UUID="efe73349-997f-409e-b73b-89172e03a62b" />
