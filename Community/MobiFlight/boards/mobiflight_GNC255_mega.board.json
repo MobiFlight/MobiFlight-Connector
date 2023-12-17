@@ -40,6 +40,7 @@
     "LatestFirmwareVersion": "2.5.0",
     "FriendlyName": "MobiFlight GNC255 Mega",
     "MobiFlightType": "MobiFlight GNC255 Mega",
+    "MobiFlightTypeLabel": "MobiFlight GNC255 Mega",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
       "MOBIFLIGHT_GNC255"
