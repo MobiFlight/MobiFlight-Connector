@@ -49,7 +49,6 @@
       "KAV_RAD_TCAS",
       "KAV_RUDDER"
     ],
-    "HasDefaultConfig": true,
     "Community": {
       "Project": "KAV Simulations",
       "Website": "https://jak-kav.co.uk/",

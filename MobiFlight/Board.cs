@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -195,11 +196,6 @@ namespace MobiFlight
         public List<String> CustomDeviceTypes = new List<string>();
 
         /// <summary>
-        /// True if the board ships with a default config that can be auto-loaded after flashing.
-        /// </summary>
-        public Boolean HasDefaultDeviceConfig;
-
-        /// <summary>
         /// Additional community information
         /// </summary>
         public Community Community;
@@ -346,6 +342,7 @@ namespace MobiFlight
         /// Returns the correct Partner Level
         /// </summary>
         /// <returns></returns>
+        [JsonIgnore]
         public BoardPartnerLevel PartnerLevel { get {
                 if (BasePath == "" && Info.MobiFlightType.Contains("MobiFlight"))
                     return BoardPartnerLevel.Core;
@@ -412,7 +409,7 @@ namespace MobiFlight
         /// Get the name for the Default Config
         /// </summary>
         /// <returns>The </returns>
-        public string GetDefaultConfigPath()
+        public string GetDefaultDeviceConfigFilePath()
         {
             return $@"{BasePath}\config\{Info.FirmwareBaseName}.mfmc";
         }

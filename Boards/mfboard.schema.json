@@ -183,13 +183,13 @@
           "type": "boolean"
         },
         "FirmwareBaseName": {
-          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
+          "$id": "#root/Info/FirmwareBaseName",
           "title": "FirmwareBaseName",
           "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
           "type": "string"
         },
         "FirmwareExtension": {
-          "$id": "#root/UsbDriveSettings/FirmwareExtension",
+          "$id": "#root/Info/FirmwareExtension",
           "title": "FirmwareExtension",
           "description": "File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
           "type": "string"
@@ -230,13 +230,6 @@
           "title": "Resetfirmwarefile",
           "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
-        },
-        "HasDefaultDeviceConfig": {
-          "$id": "#root/Info/HasDefaultDeviceConfig",
-          "title": "HasDefaultDeviceConfig",
-          "description": "True if the board ships with a default config that can be loaded after flashing the firmware.",
-          "type": "boolean",
-          "default": false
         },
         "Community": {
           "$id": "#root/Info/Community",
@@ -355,8 +348,14 @@
         },
         "MaxInputMultiplexer": {
           "$id": "#root/ModuleLimits/MaxInputMultiplexer",
-          "title": "MaxInputMuxes",
+          "title": "MaxInputMultiplexer",
           "description": "Maximum number of digital input multiplexers supported by the board.",
+          "type": "integer"
+        },
+        "MaxCustomDevices": {
+          "$id": "#root/ModuleLimits/MaxCustomDevices",
+          "title": "MaxCustomDevices",
+          "description": "Maximum number of custom devices supported by the board.",
           "type": "integer"
         }
       }
@@ -415,7 +414,7 @@
       "required": [ "VerificationFileName", "VolumeLabel" ],
       "additionalProperties": false,
       "properties": {
-        "Settings": {
+        "VerificationFileName": {
           "$id": "#root/UsbDriveSettings/VerificationFileName",
           "title": "VerificationFileName",
           "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered, a match and able to be flashed.",

@@ -97,17 +97,18 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 buttonSupport.Enabled = false;
 
 
-            panel1.Visible = false;
-            if (board.Info.HasDefaultDeviceConfig)
+            
+            var defaultDeviceConfigFile = board.GetDefaultDeviceConfigFilePath();
+            if (defaultDeviceConfigFile != null && File.Exists(defaultDeviceConfigFile))
             {
-                var configFile = board.GetDefaultConfigPath();
-                if (configFile != null && File.Exists(configFile)){
-                    buttonUploadDefaultConfig.Click += (s, e) =>
-                    {
-                        UploadDefaultConfigRequested?.Invoke(this, configFile);
-                    };
-                    panel1.Visible = true;
-                }
+                buttonUploadDefaultConfig.Click += (s, e) =>
+                {
+                    UploadDefaultConfigRequested?.Invoke(this, defaultDeviceConfigFile);
+                };
+                panel1.Visible = true;
+            } else
+            {
+                panel1.Visible = false;
             }
         }
 
