@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -84,8 +86,27 @@ namespace MobiFlight
         /// </summary>
         public static void LoadDefinitions()
         {
-            boards = JsonBackedObject.LoadDefinitions<Board>(Directory.GetFiles("Boards", "*.board.json"), "Boards/mfboard.schema.json",
-                onSuccess: board => Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info),
+            var files = new List<String>(Directory.GetFiles("Boards", "*.board.json"));
+            files.AddRange(Directory.GetFiles("Community/", "*.board.json", SearchOption.AllDirectories));
+            boards = JsonBackedObject.LoadDefinitions<Board>(files.ToArray(), "Boards/mfboard.schema.json",
+                onSuccess: (board, definitionFile) => {
+                    Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
+
+                    var boardPath = Path.GetDirectoryName(definitionFile);
+                    board.BasePath = Path.GetDirectoryName(boardPath);
+
+                    var logoPath = $@"{board.BasePath}\logo.png";
+                    if (File.Exists(logoPath) && board.Info.Community != null)
+                    {
+                        board.Info.Community.Logo = Image.FromFile(logoPath);
+                    }
+
+                    var boardLogoPath = $@"{boardPath}\board-logo.png";
+                    if (File.Exists(boardLogoPath))
+                    {
+                        board.BoardImage = Image.FromFile(boardLogoPath);
+                    }
+                },
                 onError: () => LoadingError = true
                 ); ;
         }

@@ -31,32 +31,33 @@
       "^VID_3343&PID_0042",
       "^VID_04D9&PID_B534"
     ],
-    "Info": {
-      "CanInstallFirmware": true,
-      "CanResetBoard": true,
-      "DelayAfterFirmwareUpdate": 0,
-      "FirmwareBaseName": "mobiflight_genericI2C_mega",
-      "FirmwareExtension": "hex",
-      "LatestFirmwareVersion": "2.5.0",
-      "FriendlyName": "MobiFlight GenericI2C Mega",
-      "MobiFlightType": "MobiFlight GenericI2C Mega",
-      "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
-      "CustomDeviceTypes": [
-        "MOBIFLIGHT_GENERICI2C"
-      ]
-    },
+  "Info": {
+    "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "DelayAfterFirmwareUpdate": 0,
+    "FirmwareBaseName": "mobiflight_genericI2C_mega",
+    "FirmwareExtension": "hex",
+    "LatestFirmwareVersion": "2.5.0",
+    "FriendlyName": "Mobiflight GenericI2C Mega",
+    "MobiFlightType": "MobiFlight GenericI2C Mega",
+    "MobiFlightTypeLabel": "MobiFlight Generic I2C Mega",
+    "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
+    "CustomDeviceTypes": [
+      "MOBIFLIGHT_GENERICI2C"
+    ]
+  },
     "ModuleLimits": {
       "MaxAnalogInputs": 16,
-      "MaxInputShifters": 6,
+      "MaxInputShifters": 4,
       "MaxButtons": 68,
       "MaxEncoders": 20,
       "MaxLcdI2C": 2,
-      "MaxLedSegments": 6,
-      "MaxOutputs": 68,
-      "MaxServos": 12,
-      "MaxShifters": 6,
+      "MaxLedSegments": 4,
+      "MaxOutputs": 40,
+      "MaxServos": 10,
+      "MaxShifters": 4,
       "MaxSteppers": 10,
-      "MaxInputMultiplexer": 6,
+      "MaxInputMultiplexer": 4,
       "MaxCustomDevices": 5
     },
     "Pins": [

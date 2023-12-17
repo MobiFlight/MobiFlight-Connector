@@ -992,13 +992,7 @@
     <None Include="Boards\arduino_uno.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Boards\kav_mega.board.json.inactive">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Boards\mfboard.schema.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Boards\mobiflight_genericI2C_mega.board.json.inactive">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Boards\raspberrypi_pico.board.json">
@@ -1006,15 +1000,6 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
-    <None Include="Devices\kav_efis.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Devices\mobiflight.genericI2C.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Devices\kav_fcu.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1035,9 +1020,6 @@
     </None>
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\kav_mega_2_5_0.hex">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\mobiflight_mega_2_5_0.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1151,6 +1133,9 @@
     <None Include="Boards\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
@@ -1300,6 +1285,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFInputMultiplexerPanel.resx">
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFModulePanel.ar-LY.resx">
+      <DependentUpon>MFModulePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFModulePanel.de.resx">
+      <DependentUpon>MFModulePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.de.resx">
       <DependentUpon>MFMultiplexerDriverSubPanel.cs</DependentUpon>
@@ -1748,6 +1739,11 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Community\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
