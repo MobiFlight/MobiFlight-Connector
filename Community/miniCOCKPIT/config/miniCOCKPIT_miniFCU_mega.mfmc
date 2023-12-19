@@ -26,10 +26,10 @@
   <Button Name="ALTINC" Pin="67" />
   <Button Name="VS PUSH" Pin="66" />
   <Button Name="VS PULL" Pin="45" />
-  <Encoder Name="SPD Encoder" PinLeft="28" PinRight="29" EncoderType="3" />
-  <Encoder Name="HDG Encoder" PinLeft="27" PinRight="26" EncoderType="3" />
-  <Encoder Name="ALT Encoder" PinLeft="33" PinRight="32" EncoderType="3" />
-  <Encoder Name="VS Encoder" PinLeft="37" PinRight="35" EncoderType="3" />
+  <Encoder Name="SPD Encoder" PinLeft="28" PinRight="29" EncoderType="5" />
+  <Encoder Name="HDG Encoder" PinLeft="27" PinRight="26" EncoderType="5" />
+  <Encoder Name="ALT Encoder" PinLeft="33" PinRight="32" EncoderType="5" />
+  <Encoder Name="VS Encoder" PinLeft="37" PinRight="35" EncoderType="5" />
   <CustomDevice Name="miniFCU LCD" CustomType="miniCOCKPIT_miniFCU" Pins="2|5|4|3" Config="">
     <ConfiguredPins>
       <string>2</string>
