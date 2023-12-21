@@ -1000,6 +1000,90 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
+    <None Include="Community\kavSimulations\boards\kav_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\boards\kav_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\config\MF_FBWA320_1FCU_2EFIS_Config_new.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\devices\kav_battery.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\devices\kav_efis.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\devices\kav_fcu.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\devices\kav_rad_tcas.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\devices\kav_rudder.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\firmware\kav_mega_2_5_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\kavSimulations\firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\boards\miniCOCKPIT_miniFCU_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\config\miniCOCKPIT_miniFCU_mega.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniFCU_mega.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\firmware\miniCOCKPIT_miniFCU_mega_0_9_1.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\firmware\reset.miniFCU.ino.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\profiles\msfs2020\FBW-a320.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\boards\mobiflight_genericI2C_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\boards\mobiflight_genericI2C_raspberry_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\boards\mobiflight_GNC255_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\boards\mobiflight_GNC255_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\devices\mobiflight.genericI2C.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\devices\mobiflight.gnc255.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\firmware\mobiflight_genericI2C_mega_2_5_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\firmware\mobiflight_genericI2C_raspberrypico_2_5_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\firmware\mobiflight_gnc255_mega_2_5_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\firmware\mobiflight_gnc255_raspberrypico_2_5_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1136,6 +1220,21 @@
     <Content Include="Boards\board-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Community\kavSimulations\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Community\miniCOCKPIT\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\MobiFlight\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
@@ -1739,11 +1838,6 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Release\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Community\**">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
