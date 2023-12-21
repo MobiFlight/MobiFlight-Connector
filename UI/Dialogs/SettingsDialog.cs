@@ -1,28 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-//using SimpleSolutions.Usb;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using MobiFlight.UI.Forms;
-using MobiFlight.UI.Panels.Settings;
-using MobiFlight.Base;
-using Microsoft.ApplicationInsights.DataContracts;
 
 namespace MobiFlight.UI.Dialogs
 {
     public partial class SettingsDialog : Form
     {
-
         ExecutionManager execManager;
-        int lastSelectedIndex = -1;
 
         public List<MobiFlightModule> MobiFlightModulesForUpdate {
             get { return mobiFlightPanel.modulesForUpdate; } 
@@ -89,22 +74,20 @@ namespace MobiFlight.UI.Dialogs
         /// Load all settings for each tab
         /// </summary>
         private void loadSettings ()
-        {
-            //
-            // TAB General
-            //
+        {            
+            // TAB General            
             generalPanel.loadSettings();
-
-            //
-            // TAB Arcaze
-            //
+            
+            // TAB Arcaze           
 #if ARCAZE
             arcazePanel.LoadSettings();
 #endif
-            //
-            // TAB MobiFlight
-            //
+           
+            // TAB MobiFlight           
             mobiFlightPanel.LoadSettings();
+
+            // TAB Joystick & Midi
+            joystickMidiPanel.LoadSettings();
         }
 
         /// <summary>
@@ -121,6 +104,9 @@ namespace MobiFlight.UI.Dialogs
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
+
+            // TAB Joystick & Midi
+            joystickMidiPanel.SaveSettings();
 
             // Save all Settings
             Properties.Settings.Default.Save();

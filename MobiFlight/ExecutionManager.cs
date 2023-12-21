@@ -140,12 +140,21 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
-            joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
-            joystickManager.Connect(handle);
-            midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
-            midiBoardManager.Connect();
+            
+            if (!Properties.Settings.Default.DisableJoystickSupport)
+            {
+                joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+                joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
+                joystickManager.Connect(handle);
+            }
+            
+            if (!Properties.Settings.Default.DisableMidiSupport)
+            {
+                midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+                midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
+                midiBoardManager.Connect();
+            }
+
             mobiFlightCache.Start();
         }
 
@@ -416,9 +425,15 @@ namespace MobiFlight
 
 #if SIMCONNECT
             simConnectCache.Disconnect();
-#endif
-            joystickManager.Shutdown();
-            midiBoardManager.Shutdown();
+#endif            
+            if (!Properties.Settings.Default.DisableJoystickSupport)
+            {
+                joystickManager.Shutdown();
+            }
+            if (!Properties.Settings.Default.DisableMidiSupport)
+            {
+                midiBoardManager.Shutdown();
+            }
             this.OnShutdown?.Invoke(this, new EventArgs());
         }
 

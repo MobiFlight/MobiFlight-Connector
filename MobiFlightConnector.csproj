@@ -651,6 +651,12 @@
     <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.Designer.cs">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Settings\JoystickMidiPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\JoystickMidiPanel.Designer.cs">
+      <DependentUpon>JoystickMidiPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1414,6 +1420,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\JoystickMidiPanel.de.resx">
+      <DependentUpon>JoystickMidiPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\JoystickMidiPanel.resx">
+      <DependentUpon>JoystickMidiPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
