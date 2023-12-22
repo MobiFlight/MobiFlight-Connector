@@ -117,72 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;checkBoxMidiSupport.Name" xml:space="preserve">
-    <value>checkBoxMidiSupport</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMidiSupport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMidiSupport.Parent" xml:space="preserve">
-    <value>groupBoxActivation</value>
-  </data>
-  <data name="&gt;&gt;checkBoxMidiSupport.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;checkBoxJoystickSupport.Name" xml:space="preserve">
-    <value>checkBoxJoystickSupport</value>
-  </data>
-  <data name="&gt;&gt;checkBoxJoystickSupport.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxJoystickSupport.Parent" xml:space="preserve">
-    <value>groupBoxActivation</value>
-  </data>
-  <data name="&gt;&gt;checkBoxJoystickSupport.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBoxActivation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="groupBoxActivation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="groupBoxActivation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBoxActivation.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBoxActivation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 80</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="groupBoxActivation.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBoxActivation.Text" xml:space="preserve">
-    <value>Activation</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.Name" xml:space="preserve">
-    <value>groupBoxActivation</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="checkBoxMidiSupport.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="checkBoxMidiSupport.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 46</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="checkBoxMidiSupport.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
@@ -217,13 +160,13 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="checkBoxJoystickSupport.Size" type="System.Drawing.Size, System.Drawing">
-    <value>140, 17</value>
+    <value>137, 17</value>
   </data>
   <data name="checkBoxJoystickSupport.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="checkBoxJoystickSupport.Text" xml:space="preserve">
-    <value>Disable Joystick support</value>
+    <value>Disable joystick support</value>
   </data>
   <data name="&gt;&gt;checkBoxJoystickSupport.Name" xml:space="preserve">
     <value>checkBoxJoystickSupport</value>
@@ -235,6 +178,39 @@
     <value>groupBoxActivation</value>
   </data>
   <data name="&gt;&gt;checkBoxJoystickSupport.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="groupBoxActivation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="groupBoxActivation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="groupBoxActivation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBoxActivation.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBoxActivation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>560, 80</value>
+  </data>
+  <data name="groupBoxActivation.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBoxActivation.Text" xml:space="preserve">
+    <value>Activation</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.Name" xml:space="preserve">
+    <value>groupBoxActivation</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="listBoxJoysticks.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -316,7 +292,7 @@
     <value>3</value>
   </data>
   <data name="groupBoxJoysticks.Text" xml:space="preserve">
-    <value>Active Joysticks</value>
+    <value>Active joysticks</value>
   </data>
   <data name="&gt;&gt;groupBoxJoysticks.Name" xml:space="preserve">
     <value>groupBoxJoysticks</value>
