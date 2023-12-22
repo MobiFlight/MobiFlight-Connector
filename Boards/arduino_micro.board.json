@@ -74,8 +74,7 @@
       "isAnalog": true,
       "isI2C": false,
       "isPWM": false,
-      "Pin": 4,
-      "Name": "A6"
+      "Pin": 4
     },
     {
       "isAnalog": false,
@@ -87,8 +86,7 @@
       "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
-      "Pin": 6,
-      "Name": "A7"
+      "Pin": 6
     },
     {
       "isAnalog": false,
@@ -100,22 +98,19 @@
       "isAnalog": true,
       "isI2C": false,
       "isPWM": false,
-      "Pin": 8,
-      "Name": "A8"
+      "Pin": 8
     },
     {
       "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
-      "Pin": 9,
-      "Name": "A9"
+      "Pin": 9
     },
     {
       "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
-      "Pin": 10,
-      "Name": "A10"
+      "Pin": 10
     },
     {
       "isAnalog": false,
