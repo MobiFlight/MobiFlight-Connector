@@ -651,11 +651,11 @@
     <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.Designer.cs">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Settings\JoystickMidiPanel.cs">
+    <Compile Include="UI\Panels\Settings\PeripheralsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Settings\JoystickMidiPanel.Designer.cs">
-      <DependentUpon>JoystickMidiPanel.cs</DependentUpon>
+    <Compile Include="UI\Panels\Settings\PeripheralsPanel.Designer.cs">
+      <DependentUpon>PeripheralsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
       <SubType>UserControl</SubType>
@@ -1421,11 +1421,11 @@
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\JoystickMidiPanel.de.resx">
-      <DependentUpon>JoystickMidiPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Settings\PeripheralsPanel.de.resx">
+      <DependentUpon>PeripheralsPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Settings\JoystickMidiPanel.resx">
-      <DependentUpon>JoystickMidiPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Settings\PeripheralsPanel.resx">
+      <DependentUpon>PeripheralsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>

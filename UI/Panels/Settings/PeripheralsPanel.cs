@@ -1,12 +1,22 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings
 {
-    public partial class JoystickMidiPanel : UserControl
+    public partial class PeripheralsPanel : UserControl
     {
-        public JoystickMidiPanel()
+        public PeripheralsPanel()
         {
             InitializeComponent();
+        }
+
+        public void Init(JoystickManager joystickManager, MidiBoardManager midiBoardManager)
+        {
+            // Active Joysticks and MidiBoards
+            var joysticks = joystickManager.GetJoysticks();
+            var midiBoards = midiBoardManager.GetMidiBoards();
+            listBoxJoysticks.DataSource = joysticks.Select(x => x.Name).ToList();
+            listBoxMidiBoards.DataSource = midiBoards.Select(x => x.Name).ToList();
         }
 
         public void LoadSettings()

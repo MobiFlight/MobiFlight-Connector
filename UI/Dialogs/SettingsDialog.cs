@@ -67,6 +67,7 @@ namespace MobiFlight.UI.Dialogs
 #if !MOBIFLIGHT
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
+            peripheralsPanel.Init(execManager.GetJoystickManager(), execManager.GetMidiBoardManager());
             loadSettings();
         }
 
@@ -87,7 +88,7 @@ namespace MobiFlight.UI.Dialogs
             mobiFlightPanel.LoadSettings();
 
             // TAB Joystick & Midi
-            joystickMidiPanel.LoadSettings();
+            peripheralsPanel.LoadSettings();
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace MobiFlight.UI.Dialogs
             mobiFlightPanel.SaveSettings();
 
             // TAB Joystick & Midi
-            joystickMidiPanel.SaveSettings();
+            peripheralsPanel.SaveSettings();
 
             // Save all Settings
             Properties.Settings.Default.Save();
