@@ -65,6 +65,7 @@
             // 
             // listBoxJoysticks
             // 
+            this.listBoxJoysticks.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.listBoxJoysticks, "listBoxJoysticks");
             this.listBoxJoysticks.FormattingEnabled = true;
             this.listBoxJoysticks.Name = "listBoxJoysticks";
@@ -86,6 +87,7 @@
             // 
             // listBoxMidiBoards
             // 
+            this.listBoxMidiBoards.BackColor = System.Drawing.SystemColors.Control;
             resources.ApplyResources(this.listBoxMidiBoards, "listBoxMidiBoards");
             this.listBoxMidiBoards.FormattingEnabled = true;
             this.listBoxMidiBoards.Name = "listBoxMidiBoards";

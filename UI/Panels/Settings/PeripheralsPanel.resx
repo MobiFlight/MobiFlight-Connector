@@ -117,15 +117,72 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="&gt;&gt;checkBoxMidiSupport.Name" xml:space="preserve">
+    <value>checkBoxMidiSupport</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMidiSupport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMidiSupport.Parent" xml:space="preserve">
+    <value>groupBoxActivation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxMidiSupport.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;checkBoxJoystickSupport.Name" xml:space="preserve">
+    <value>checkBoxJoystickSupport</value>
+  </data>
+  <data name="&gt;&gt;checkBoxJoystickSupport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxJoystickSupport.Parent" xml:space="preserve">
+    <value>groupBoxActivation</value>
+  </data>
+  <data name="&gt;&gt;checkBoxJoystickSupport.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="groupBoxActivation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="groupBoxActivation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="groupBoxActivation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBoxActivation.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="groupBoxActivation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>560, 80</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="groupBoxActivation.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="groupBoxActivation.Text" xml:space="preserve">
+    <value>Activation</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.Name" xml:space="preserve">
+    <value>groupBoxActivation</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxActivation.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="checkBoxMidiSupport.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="checkBoxMidiSupport.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 46</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="checkBoxMidiSupport.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
@@ -180,39 +237,6 @@
   <data name="&gt;&gt;checkBoxJoystickSupport.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBoxActivation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="groupBoxActivation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="groupBoxActivation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBoxActivation.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
-  </data>
-  <data name="groupBoxActivation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>560, 80</value>
-  </data>
-  <data name="groupBoxActivation.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="groupBoxActivation.Text" xml:space="preserve">
-    <value>Activation</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.Name" xml:space="preserve">
-    <value>groupBoxActivation</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxActivation.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="listBoxJoysticks.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -240,6 +264,18 @@
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="listBoxMidiBoards.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="listBoxMidiBoards.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="listBoxMidiBoards.Size" type="System.Drawing.Size, System.Drawing">
+    <value>268, 85</value>
+  </data>
+  <data name="listBoxMidiBoards.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
   <data name="&gt;&gt;listBoxMidiBoards.Name" xml:space="preserve">
     <value>listBoxMidiBoards</value>
   </data>
@@ -265,7 +301,7 @@
     <value>3</value>
   </data>
   <data name="groupBoxMidiBoards.Text" xml:space="preserve">
-    <value>Active MIDI boards</value>
+    <value>Detected MIDI boards</value>
   </data>
   <data name="&gt;&gt;groupBoxMidiBoards.Name" xml:space="preserve">
     <value>groupBoxMidiBoards</value>
@@ -292,7 +328,7 @@
     <value>3</value>
   </data>
   <data name="groupBoxJoysticks.Text" xml:space="preserve">
-    <value>Active joysticks</value>
+    <value>Detected joysticks</value>
   </data>
   <data name="&gt;&gt;groupBoxJoysticks.Name" xml:space="preserve">
     <value>groupBoxJoysticks</value>
@@ -335,30 +371,6 @@
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="groupBoxMidiBoards" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="groupBoxJoysticks" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
-  </data>
-  <data name="listBoxMidiBoards.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <data name="listBoxMidiBoards.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="listBoxMidiBoards.Size" type="System.Drawing.Size, System.Drawing">
-    <value>268, 85</value>
-  </data>
-  <data name="listBoxMidiBoards.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;listBoxMidiBoards.Name" xml:space="preserve">
-    <value>listBoxMidiBoards</value>
-  </data>
-  <data name="&gt;&gt;listBoxMidiBoards.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;listBoxMidiBoards.Parent" xml:space="preserve">
-    <value>groupBoxMidiBoards</value>
-  </data>
-  <data name="&gt;&gt;listBoxMidiBoards.ZOrder" xml:space="preserve">
-    <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

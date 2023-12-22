@@ -127,9 +127,9 @@
     <value>Aktivierung</value>
   </data>
   <data name="groupBoxJoysticks.Text" xml:space="preserve">
-    <value>Aktive Joysticks</value>
+    <value>Detektierte Joysticks</value>
   </data>
   <data name="groupBoxMidiBoards.Text" xml:space="preserve">
-    <value>Aktive MIDI Boards</value>
+    <value>Detektierte MIDI Boards</value>
   </data>
 </root>
