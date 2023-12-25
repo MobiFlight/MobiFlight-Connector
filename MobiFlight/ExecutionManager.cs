@@ -140,18 +140,18 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
-            
+            joystickManager.SetHandle(handle);
+            joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };            
             if (Properties.Settings.Default.EnableJoystickSupport)
             {
-                joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-                joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
-                joystickManager.Connect(handle);
+                joystickManager.Connect();
             }
-            
+
+            midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
+            midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
             if (Properties.Settings.Default.EnableMidiSupport)
             {
-                midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-                midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
                 midiBoardManager.Connect();
             }
 

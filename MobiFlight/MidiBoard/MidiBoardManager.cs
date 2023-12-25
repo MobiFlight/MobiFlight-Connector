@@ -158,7 +158,8 @@ namespace MobiFlight
             foreach (var mb in MidiBoards)
             {
                 mb.Shutdown();
-            }
+            }  
+            MidiBoards.Clear();
         }
 
         public List<MidiBoard> GetMidiBoards()
@@ -183,6 +184,7 @@ namespace MobiFlight
             inputList.ForEach(i => { Log.Instance.log($"Found MidiInput: {i.Name}, Index: {i.Index}.", LogSeverity.Debug); });
             outputList.ForEach(o => { Log.Instance.log($"Found MidiOutput: {o.Name}, Index {o.Index}.", LogSeverity.Debug); });
 
+            MidiBoards?.Clear();
             while (inputList.Count > 0)
             {
                 MidiInputDevice midiInput = inputList[0];

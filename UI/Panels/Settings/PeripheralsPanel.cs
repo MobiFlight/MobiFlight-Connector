@@ -5,6 +5,9 @@ namespace MobiFlight.UI.Panels.Settings
 {
     public partial class PeripheralsPanel : UserControl
     {
+        private MidiBoardManager MidiBoardMgr;
+        private JoystickManager JoystickMgr;
+
         public PeripheralsPanel()
         {
             InitializeComponent();
@@ -12,9 +15,12 @@ namespace MobiFlight.UI.Panels.Settings
 
         public void Init(JoystickManager joystickManager, MidiBoardManager midiBoardManager)
         {
+            JoystickMgr = joystickManager;
+            MidiBoardMgr = midiBoardManager;
+
             // Active Joysticks and MidiBoards
-            var joysticks = joystickManager.GetJoysticks();
-            var midiBoards = midiBoardManager.GetMidiBoards();
+            var joysticks = JoystickMgr.GetJoysticks();
+            var midiBoards = MidiBoardMgr.GetMidiBoards();
             listBoxJoysticks.DataSource = joysticks.Select(x => x.Name).ToList();
             listBoxMidiBoards.DataSource = midiBoards.Select(x => x.Name).ToList();
         }
@@ -28,9 +34,33 @@ namespace MobiFlight.UI.Panels.Settings
 
         public void SaveSettings()
         {
-            // Activation
-            Properties.Settings.Default.EnableJoystickSupport = checkBoxJoystickSupport.Checked;
-            Properties.Settings.Default.EnableMidiSupport = checkBoxMidiSupport.Checked;
+            // Joystick activation changed
+            if (Properties.Settings.Default.EnableJoystickSupport != checkBoxJoystickSupport.Checked)
+            {
+                if (checkBoxJoystickSupport.Checked) 
+                {
+                    JoystickMgr.Connect();
+                }
+                else 
+                {
+                    JoystickMgr.Shutdown();
+                }
+                Properties.Settings.Default.EnableJoystickSupport = checkBoxJoystickSupport.Checked;
+            }
+
+            // MIDI activation changed
+            if (Properties.Settings.Default.EnableMidiSupport != checkBoxMidiSupport.Checked)
+            {
+                if (checkBoxMidiSupport.Checked)
+                {
+                    MidiBoardMgr.Connect();
+                }
+                else
+                {
+                    MidiBoardMgr.Shutdown();
+                }
+                Properties.Settings.Default.EnableMidiSupport = checkBoxMidiSupport.Checked;
+            }
         }
     }
 }
