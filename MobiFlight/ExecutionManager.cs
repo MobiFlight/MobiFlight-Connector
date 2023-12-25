@@ -1070,25 +1070,14 @@ namespace MobiFlight
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
 
-
-            if (
 #if ARCAZE
-                !arcazeCache.Available() &&
-#endif
-#if MOBIFLIGHT
-                !mobiFlightCache.Available()
-#endif
-                )
+            if (!arcazeCache.Available())
             {
                 Log.Instance.log("AutoConnect modules.", LogSeverity.Debug);
-#if ARCAZE
                 if (Properties.Settings.Default.ArcazeSupportEnabled)
                     arcazeCache.connect(); //  _initializeArcaze();
-#endif
-#if MOBIFLIGHT
-                // await mobiFlightCache.connectAsync();
-#endif
             }
+#endif
 
             // Check only for available sims if not in Offline mode.
             if (true) { 
