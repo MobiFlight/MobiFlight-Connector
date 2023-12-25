@@ -7,7 +7,8 @@ namespace MobiFlight.Config
 {
     public class Config
     {
-        public String ModuleName = "";
+        public string ModuleType = "";
+        public string ModuleName = "";
         public int PowerSavingTime = 60 * 10; // => 10 Minutes Default
 
         [XmlElement(typeof(Button))]
