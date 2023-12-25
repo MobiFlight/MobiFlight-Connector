@@ -58,7 +58,7 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return Type + ":" + Name + " Pin:" + Pin + " Sensitivity:" + Sensitivity;
+            return $"{Type}:{Name} Pin:{Pin} Sensitivity:{Sensitivity}";
         }
     }
 }

@@ -61,7 +61,7 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return Type + ":" + Name + " Cols:" + Cols + " Lines:" + Lines + " Address:" + Address;
+            return $"{Type}:{Name} Cols:{Cols} Lines:{Lines} Address:{Address}";
         }
     }
 }

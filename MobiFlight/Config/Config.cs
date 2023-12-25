@@ -1,6 +1,8 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -216,6 +218,23 @@ namespace MobiFlight.Config
 
             }
             return this;
+        }
+
+        public static Config LoadFromFile(string fileName)
+        {
+            TextReader textReader = new StreamReader(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(Config));
+            var config = (Config)serializer.Deserialize(textReader);
+            textReader.Close();
+            return config;
+        }
+
+        public void SaveToFile(string fileName)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+            TextWriter textWriter = new StreamWriter(fileName);
+            serializer.Serialize(textWriter, this);
+            textWriter.Close();
         }
     }
 }

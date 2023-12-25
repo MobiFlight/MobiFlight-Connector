@@ -51,7 +51,7 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return Type + ":" + Name + " DataPin:" + DataPin;
+            return $"{Type}:{Name} DataPin:{DataPin}";
         }
     }
 }

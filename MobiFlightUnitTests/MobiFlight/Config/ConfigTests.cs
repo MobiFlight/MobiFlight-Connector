@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.Config;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
@@ -573,6 +574,35 @@ namespace MobiFlight.Config.Tests
             Assert.AreEqual("7.0.1.2.Device7:", actual.ElementAt(6));
             Assert.AreEqual("8.0.1.2.Device8:", actual.ElementAt(7));
             Assert.AreEqual("15.0.1.2.3.4.0.0.0.0.Device9:", actual.ElementAt(8));
+        }
+
+        [TestMethod()]
+        public void LoadFromFileTest()
+        {
+            const string fileName = @"assets/MobiFlight/Config/Config/UnitTest.mfmc";
+            var config = Config.LoadFromFile(fileName);
+
+            Assert.AreEqual("UnitTest", config.ModuleName);
+            Assert.AreEqual("MobiFlight Mega", config.ModuleType);
+            Assert.AreEqual(11, config.Items.Count);
+        }
+
+        [TestMethod()]
+        public void SaveToFileTest()
+        {
+            const string fileName = @"assets/MobiFlight/Config/Config/UnitTest.mfmc";
+            var config = Config.LoadFromFile(fileName);
+            const string tmpFileName = @"assets/MobiFlight/Config/Config/UnitTest.tmp.mfmc";
+
+            config.SaveToFile(tmpFileName);
+            var savedConfig = Config.LoadFromFile(tmpFileName);
+            Assert.AreEqual(config.ModuleName, savedConfig.ModuleName);
+            Assert.AreEqual(config.ModuleType, savedConfig.ModuleType);
+            Assert.AreEqual(config.Items.Count, savedConfig.Items.Count);  
+            for(var i = 0; i < config.Items.Count; i++)
+            {
+                Assert.IsTrue(config.Items[i].Equals(savedConfig.Items[i]));
+            }
         }
     }
 }

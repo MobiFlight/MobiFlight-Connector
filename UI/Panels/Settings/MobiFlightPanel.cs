@@ -1052,10 +1052,7 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (DialogResult.OK == fd.ShowDialog())
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
-                TextWriter textWriter = new StreamWriter(fd.FileName);
-                serializer.Serialize(textWriter, newConfig);
-                textWriter.Close();
+                newConfig.SaveToFile(fd.FileName);
             }
         }
 
@@ -1073,11 +1070,7 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void OpenFile(TreeNode moduleNode, string fileName)
         {
-            TextReader textReader = new StreamReader(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
-            MobiFlight.Config.Config newConfig;
-            newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
-            textReader.Close();
+            var newConfig = MobiFlight.Config.Config.LoadFromFile(fileName);
             var module = (moduleNode.Tag as MobiFlightModule);
 
             if (newConfig?.ModuleType != module.Type)

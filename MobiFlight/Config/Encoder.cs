@@ -61,7 +61,7 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return Type + ":" + Name + " PinLeft:" + PinLeft + " PinRight:" + PinRight + " EncoderType:" + EncoderType;
+            return $"{Type}:{Name} PinLeft:{PinLeft} PinRight:{PinRight} EncoderType:{EncoderType}";
         }
     }
 }
