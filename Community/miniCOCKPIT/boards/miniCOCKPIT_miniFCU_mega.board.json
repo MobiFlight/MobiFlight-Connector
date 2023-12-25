@@ -37,7 +37,7 @@
     "DelayAfterFirmwareUpdate": 0,
     "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "0.9.1",
+    "LatestFirmwareVersion": "0.9.2",
     "FriendlyName": "miniCOCKPIT miniFCU",
     "MobiFlightType": "miniCOCKPIT miniFCU mega",
     "MobiFlightTypeLabel": "miniCOCKPIT miniFCU",
