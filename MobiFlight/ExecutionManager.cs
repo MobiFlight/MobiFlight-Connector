@@ -141,14 +141,14 @@ namespace MobiFlight
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
             
-            if (!Properties.Settings.Default.DisableJoystickSupport)
+            if (Properties.Settings.Default.EnableJoystickSupport)
             {
                 joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
                 joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
                 joystickManager.Connect(handle);
             }
             
-            if (!Properties.Settings.Default.DisableMidiSupport)
+            if (Properties.Settings.Default.EnableMidiSupport)
             {
                 midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
                 midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
@@ -426,11 +426,11 @@ namespace MobiFlight
 #if SIMCONNECT
             simConnectCache.Disconnect();
 #endif            
-            if (!Properties.Settings.Default.DisableJoystickSupport)
+            if (Properties.Settings.Default.EnableJoystickSupport)
             {
                 joystickManager.Shutdown();
             }
-            if (!Properties.Settings.Default.DisableMidiSupport)
+            if (Properties.Settings.Default.EnableMidiSupport)
             {
                 midiBoardManager.Shutdown();
             }

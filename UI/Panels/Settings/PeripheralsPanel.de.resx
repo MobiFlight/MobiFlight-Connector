@@ -118,18 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="checkBoxJoystickSupport.Text" xml:space="preserve">
-    <value>Deaktiviere Joystick Unterstützung</value>
+    <value>Aktiviere Joystick Unterstützung</value>
   </data>
   <data name="checkBoxMidiSupport.Text" xml:space="preserve">
-    <value>Deaktiviere MIDI Unterstützung</value>
+    <value>Aktiviere MIDI Unterstützung</value>
   </data>
-  <data name="groupBoxActivation.Text" xml:space="preserve">
-    <value>Aktivierung</value>
+  <data name="groupBoxJoystickSettings.Text" xml:space="preserve">
+    <value>Joystick Einstellungen</value>
   </data>
-  <data name="groupBoxJoysticks.Text" xml:space="preserve">
-    <value>Detektierte Joysticks</value>
+  <data name="groupBoxMidiSettings.Text" xml:space="preserve">
+    <value>MIDI Einstellungen</value>
   </data>
-  <data name="groupBoxMidiBoards.Text" xml:space="preserve">
-    <value>Detektierte MIDI Boards</value>
+  <data name="labelDetectedJoysticks.Text" xml:space="preserve">
+    <value>Detektierte Joysticks:</value>
+  </data>
+  <data name="labelDetectedMidiBoards.Text" xml:space="preserve">
+    <value>Detektierte MIDI Geräte:</value>
   </data>
 </root>

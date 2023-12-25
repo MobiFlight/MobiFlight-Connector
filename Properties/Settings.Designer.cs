@@ -506,25 +506,25 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisableMidiSupport {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableMidiSupport {
             get {
-                return ((bool)(this["DisableMidiSupport"]));
+                return ((bool)(this["EnableMidiSupport"]));
             }
             set {
-                this["DisableMidiSupport"] = value;
+                this["EnableMidiSupport"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DisableJoystickSupport {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableJoystickSupport {
             get {
-                return ((bool)(this["DisableJoystickSupport"]));
+                return ((bool)(this["EnableJoystickSupport"]));
             }
             set {
-                this["DisableJoystickSupport"] = value;
+                this["EnableJoystickSupport"] = value;
             }
         }
     }

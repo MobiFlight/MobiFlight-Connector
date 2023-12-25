@@ -22,15 +22,15 @@ namespace MobiFlight.UI.Panels.Settings
         public void LoadSettings()
         {
             // Activation
-            checkBoxJoystickSupport.Checked = Properties.Settings.Default.DisableJoystickSupport;
-            checkBoxMidiSupport.Checked = Properties.Settings.Default.DisableMidiSupport;
+            checkBoxJoystickSupport.Checked = Properties.Settings.Default.EnableJoystickSupport;
+            checkBoxMidiSupport.Checked = Properties.Settings.Default.EnableMidiSupport;
         }
 
         public void SaveSettings()
         {
             // Activation
-            Properties.Settings.Default.DisableJoystickSupport = checkBoxJoystickSupport.Checked;
-            Properties.Settings.Default.DisableMidiSupport = checkBoxMidiSupport.Checked;
+            Properties.Settings.Default.EnableJoystickSupport = checkBoxJoystickSupport.Checked;
+            Properties.Settings.Default.EnableMidiSupport = checkBoxMidiSupport.Checked;
         }
     }
 }

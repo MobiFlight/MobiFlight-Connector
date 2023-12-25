@@ -29,27 +29,21 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PeripheralsPanel));
-            this.groupBoxActivation = new System.Windows.Forms.GroupBox();
             this.checkBoxMidiSupport = new System.Windows.Forms.CheckBox();
             this.checkBoxJoystickSupport = new System.Windows.Forms.CheckBox();
             this.listBoxJoysticks = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBoxMidiBoards = new System.Windows.Forms.GroupBox();
+            this.groupBoxMidiSettings = new System.Windows.Forms.GroupBox();
             this.listBoxMidiBoards = new System.Windows.Forms.ListBox();
-            this.groupBoxJoysticks = new System.Windows.Forms.GroupBox();
-            this.groupBoxActivation.SuspendLayout();
+            this.groupBoxJoystickSettings = new System.Windows.Forms.GroupBox();
+            this.panelJoysticks = new System.Windows.Forms.Panel();
+            this.labelDetectedJoysticks = new System.Windows.Forms.Label();
+            this.labelDetectedMidiBoards = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
-            this.groupBoxMidiBoards.SuspendLayout();
-            this.groupBoxJoysticks.SuspendLayout();
+            this.groupBoxMidiSettings.SuspendLayout();
+            this.groupBoxJoystickSettings.SuspendLayout();
+            this.panelJoysticks.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBoxActivation
-            // 
-            this.groupBoxActivation.Controls.Add(this.checkBoxMidiSupport);
-            this.groupBoxActivation.Controls.Add(this.checkBoxJoystickSupport);
-            resources.ApplyResources(this.groupBoxActivation, "groupBoxActivation");
-            this.groupBoxActivation.Name = "groupBoxActivation";
-            this.groupBoxActivation.TabStop = false;
             // 
             // checkBoxMidiSupport
             // 
@@ -74,16 +68,18 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.groupBoxMidiBoards, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupBoxJoysticks, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelJoysticks, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupBoxMidiSettings, 1, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
-            // groupBoxMidiBoards
+            // groupBoxMidiSettings
             // 
-            this.groupBoxMidiBoards.Controls.Add(this.listBoxMidiBoards);
-            resources.ApplyResources(this.groupBoxMidiBoards, "groupBoxMidiBoards");
-            this.groupBoxMidiBoards.Name = "groupBoxMidiBoards";
-            this.groupBoxMidiBoards.TabStop = false;
+            this.groupBoxMidiSettings.Controls.Add(this.listBoxMidiBoards);
+            this.groupBoxMidiSettings.Controls.Add(this.labelDetectedMidiBoards);
+            this.groupBoxMidiSettings.Controls.Add(this.checkBoxMidiSupport);
+            resources.ApplyResources(this.groupBoxMidiSettings, "groupBoxMidiSettings");
+            this.groupBoxMidiSettings.Name = "groupBoxMidiSettings";
+            this.groupBoxMidiSettings.TabStop = false;
             // 
             // listBoxMidiBoards
             // 
@@ -93,38 +89,57 @@
             this.listBoxMidiBoards.Name = "listBoxMidiBoards";
             this.listBoxMidiBoards.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
-            // groupBoxJoysticks
+            // groupBoxJoystickSettings
             // 
-            this.groupBoxJoysticks.Controls.Add(this.listBoxJoysticks);
-            resources.ApplyResources(this.groupBoxJoysticks, "groupBoxJoysticks");
-            this.groupBoxJoysticks.Name = "groupBoxJoysticks";
-            this.groupBoxJoysticks.TabStop = false;
+            this.groupBoxJoystickSettings.Controls.Add(this.listBoxJoysticks);
+            this.groupBoxJoystickSettings.Controls.Add(this.labelDetectedJoysticks);
+            this.groupBoxJoystickSettings.Controls.Add(this.checkBoxJoystickSupport);
+            resources.ApplyResources(this.groupBoxJoystickSettings, "groupBoxJoystickSettings");
+            this.groupBoxJoystickSettings.Name = "groupBoxJoystickSettings";
+            this.groupBoxJoystickSettings.TabStop = false;
+            // 
+            // panelJoysticks
+            // 
+            this.panelJoysticks.Controls.Add(this.groupBoxJoystickSettings);
+            resources.ApplyResources(this.panelJoysticks, "panelJoysticks");
+            this.panelJoysticks.Name = "panelJoysticks";
+            // 
+            // labelDetectedJoysticks
+            // 
+            resources.ApplyResources(this.labelDetectedJoysticks, "labelDetectedJoysticks");
+            this.labelDetectedJoysticks.Name = "labelDetectedJoysticks";
+            // 
+            // labelDetectedMidiBoards
+            // 
+            resources.ApplyResources(this.labelDetectedMidiBoards, "labelDetectedMidiBoards");
+            this.labelDetectedMidiBoards.Name = "labelDetectedMidiBoards";
             // 
             // PeripheralsPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.groupBoxActivation);
             this.Name = "PeripheralsPanel";
-            this.groupBoxActivation.ResumeLayout(false);
-            this.groupBoxActivation.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.groupBoxMidiBoards.ResumeLayout(false);
-            this.groupBoxJoysticks.ResumeLayout(false);
+            this.groupBoxMidiSettings.ResumeLayout(false);
+            this.groupBoxMidiSettings.PerformLayout();
+            this.groupBoxJoystickSettings.ResumeLayout(false);
+            this.groupBoxJoystickSettings.PerformLayout();
+            this.panelJoysticks.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox groupBoxActivation;
         private System.Windows.Forms.CheckBox checkBoxJoystickSupport;
         private System.Windows.Forms.CheckBox checkBoxMidiSupport;
         private System.Windows.Forms.ListBox listBoxJoysticks;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox groupBoxMidiBoards;
+        private System.Windows.Forms.GroupBox groupBoxMidiSettings;
         private System.Windows.Forms.ListBox listBoxMidiBoards;
-        private System.Windows.Forms.GroupBox groupBoxJoysticks;
+        private System.Windows.Forms.GroupBox groupBoxJoystickSettings;
+        private System.Windows.Forms.Panel panelJoysticks;
+        private System.Windows.Forms.Label labelDetectedJoysticks;
+        private System.Windows.Forms.Label labelDetectedMidiBoards;
     }
 }

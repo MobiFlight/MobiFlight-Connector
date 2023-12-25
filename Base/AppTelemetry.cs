@@ -134,8 +134,8 @@ namespace MobiFlight.Base
             trackingEvent.Metrics["Settings.ExecutionSpeed"] = Properties.Settings.Default.PollInterval;
             trackingEvent.Metrics["Settings.TestModeSpeed"] = Properties.Settings.Default.TestTimerInterval;
             trackingEvent.Metrics["Settings.HubHopAutoCheck"] = Properties.Settings.Default.HubHopAutoCheck ? 1 : 0;
-            trackingEvent.Metrics["Settings.DisableJoystickSupport"] = Properties.Settings.Default.DisableJoystickSupport ? 1 : 0;
-            trackingEvent.Metrics["Settings.DisableMidiSupport"] = Properties.Settings.Default.DisableMidiSupport ? 1 : 0;
+            trackingEvent.Metrics["Settings.EnableJoystickSupport"] = Properties.Settings.Default.EnableJoystickSupport ? 1 : 0;
+            trackingEvent.Metrics["Settings.EnableMidiSupport"] = Properties.Settings.Default.EnableMidiSupport ? 1 : 0;
 
             Dictionary<String, int> Statistics = Log.Instance.GetStatistics();
 
