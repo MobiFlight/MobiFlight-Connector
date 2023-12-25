@@ -87,7 +87,7 @@ namespace MobiFlight
         public static void LoadDefinitions()
         {
             var files = new List<String>(Directory.GetFiles("Boards", "*.board.json"));
-            files.AddRange(Directory.GetFiles("Community/", "*.board.json", SearchOption.AllDirectories));
+            files.AddRange(Directory.GetFiles("Community", "*.board.json", SearchOption.AllDirectories));
             boards = JsonBackedObject.LoadDefinitions<Board>(files.ToArray(), "Boards/mfboard.schema.json",
                 onSuccess: (board, definitionFile) => {
                     Log.Instance.log($"Loaded board definition for {board.Info.MobiFlightType} ({board.Info.FriendlyName})", LogSeverity.Info);
