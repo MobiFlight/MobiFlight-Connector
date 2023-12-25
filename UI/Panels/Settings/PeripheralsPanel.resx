@@ -229,13 +229,13 @@
     <value>3, 53</value>
   </data>
   <data name="labelDetectedJoysticks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 13</value>
+    <value>97, 13</value>
   </data>
   <data name="labelDetectedJoysticks.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="labelDetectedJoysticks.Text" xml:space="preserve">
-    <value>Detected Joysticks:</value>
+    <value>Detected joysticks:</value>
   </data>
   <data name="&gt;&gt;labelDetectedJoysticks.Name" xml:space="preserve">
     <value>labelDetectedJoysticks</value>
