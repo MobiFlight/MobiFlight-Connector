@@ -503,5 +503,29 @@ namespace MobiFlight.Properties {
                 this["HubHopAutoCheck"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableMidiSupport {
+            get {
+                return ((bool)(this["EnableMidiSupport"]));
+            }
+            set {
+                this["EnableMidiSupport"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool EnableJoystickSupport {
+            get {
+                return ((bool)(this["EnableJoystickSupport"]));
+            }
+            set {
+                this["EnableJoystickSupport"] = value;
+            }
+        }
     }
 }

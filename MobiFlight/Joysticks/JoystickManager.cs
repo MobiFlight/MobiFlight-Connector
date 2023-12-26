@@ -31,6 +31,7 @@ namespace MobiFlight
         public event ButtonEventHandler OnButtonPressed;
         readonly Timer PollTimer = new Timer();
         readonly List<Joystick> joysticks = new List<Joystick>();
+        private IntPtr Handle;
 
         public JoystickManager()
         {
@@ -96,6 +97,7 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
+            joysticks.Clear();
         }
 
         public void Stop()
@@ -111,7 +113,12 @@ namespace MobiFlight
             return joysticks;
         }
 
-        public void Connect(IntPtr Handle)
+        public void SetHandle(IntPtr handle)
+        {
+            Handle = handle;
+        }
+
+        public void Connect()
         {
             var di = new SharpDX.DirectInput.DirectInput();
             joysticks?.Clear();
