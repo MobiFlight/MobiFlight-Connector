@@ -1072,15 +1072,16 @@ namespace MobiFlight.UI.Panels.Settings
         {
             var newConfig = MobiFlight.Config.Config.LoadFromFile(fileName);
             var module = (moduleNode.Tag as MobiFlightModule);
+            var moduleType = newConfig?.ModuleType;
 
-            if (newConfig?.ModuleType != module.Type)
+            if (module.Type != moduleType)
             {
                 // Old configs don't contain a specified type 
                 // In this case newConfig.ModuleType == "" 
                 var message = string.Format(i18n._tr("uiMessageOpenConfigUnspecificTypeText"), module.Type);
 
                 // New configs have a specific type other than ""
-                if ((newConfig?.ModuleType ?? "") != "")
+                if (!String.IsNullOrEmpty(moduleType))
                 {
                     message = string.Format(i18n._tr("uiMessageOpenConfigIncompatibleTypeText"), newConfig.ModuleType, module.Type);
                 }

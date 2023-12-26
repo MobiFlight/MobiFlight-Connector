@@ -1093,7 +1093,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incompatible config.
+        ///   Looks up a localized string similar to Board type warning.
         /// </summary>
         internal static string uiMessageOpenConfigIncompatibleTypeHint {
             get {
@@ -1102,9 +1102,9 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The config was created for a &quot;{0}&quot; board type. Your board type is &quot;{1}&quot;. The config might be incompatible.
+        ///   Looks up a localized string similar to The config was created for a &quot;{0}&quot; board. Your selected board is a &quot;{1}&quot;. The config may be incompatible, check before uploading.
         ///
-        ///Do you want to open it?.
+        ///Open anyway?.
         /// </summary>
         internal static string uiMessageOpenConfigIncompatibleTypeText {
             get {
@@ -1113,9 +1113,11 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The config doesn&apos;t contain any board type information. Your board type is &quot;{0}&quot;.
+        ///   Looks up a localized string similar to This config doesn&apos;t specify a board type and may not be compatible with your &quot;{0}&quot;.
         ///
-        ///Do you want to open it?.
+        ///Open anyway?
+        ///
+        ///Tip: Save the file after opening to update the associated board for future use..
         /// </summary>
         internal static string uiMessageOpenConfigUnspecificTypeText {
             get {
