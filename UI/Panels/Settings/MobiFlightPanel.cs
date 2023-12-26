@@ -1038,6 +1038,7 @@ namespace MobiFlight.UI.Panels.Settings
             MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
 
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+            newConfig.ModuleType = module.Type;
             newConfig.ModuleName = module.Name;
 
             foreach (TreeNode node in moduleNode.Nodes)
@@ -1051,18 +1052,13 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (DialogResult.OK == fd.ShowDialog())
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
-                TextWriter textWriter = new StreamWriter(fd.FileName);
-                serializer.Serialize(textWriter, newConfig);
-                textWriter.Close();
+                newConfig.SaveToFile(fd.FileName);
             }
         }
 
         private void openToolStripButton_Click(object sender, EventArgs e)
         {
             TreeNode moduleNode = getModuleNode();
-            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
-
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
 
@@ -1074,15 +1070,34 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void OpenFile(TreeNode moduleNode, string fileName)
         {
-            TextReader textReader = new StreamReader(fileName);
-            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
-            MobiFlight.Config.Config newConfig;
-            newConfig = (MobiFlight.Config.Config)serializer.Deserialize(textReader);
-            textReader.Close();
+            var newConfig = MobiFlight.Config.Config.LoadFromFile(fileName);
+            var module = (moduleNode.Tag as MobiFlightModule);
+            var moduleType = newConfig?.ModuleType;
+
+            if (module.Type != moduleType)
+            {
+                // Old configs don't contain a specified type 
+                // In this case newConfig.ModuleType == "" 
+                var message = string.Format(i18n._tr("uiMessageOpenConfigUnspecificTypeText"), module.Type);
+
+                // New configs have a specific type other than ""
+                if (!String.IsNullOrEmpty(moduleType))
+                {
+                    message = string.Format(i18n._tr("uiMessageOpenConfigIncompatibleTypeText"), newConfig.ModuleType, module.Type);
+                }
+                
+                if (MessageBox.Show(message,
+                                    i18n._tr("uiMessageOpenConfigIncompatibleTypeHint"),
+                                    MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+                {
+                    // User aborted using the incompatible file
+                    return;
+                }
+            }
 
             if (newConfig.ModuleName != null && newConfig.ModuleName != "")
             {
-                moduleNode.Text = (moduleNode.Tag as MobiFlightModule).Name = newConfig.ModuleName;
+                moduleNode.Text = module.Name = newConfig.ModuleName;
 
             }
 

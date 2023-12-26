@@ -1093,6 +1093,39 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Board type warning.
+        /// </summary>
+        internal static string uiMessageOpenConfigIncompatibleTypeHint {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigIncompatibleTypeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The config was created for a &quot;{0}&quot; board. Your selected board is a &quot;{1}&quot;. The config may be incompatible, check before uploading.
+        ///
+        ///Open anyway?.
+        /// </summary>
+        internal static string uiMessageOpenConfigIncompatibleTypeText {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigIncompatibleTypeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This config doesn&apos;t specify a board type and may not be compatible with your &quot;{0}&quot;.
+        ///
+        ///Open anyway?
+        ///
+        ///Tip: Save the file after opening to update the associated board for future use..
+        /// </summary>
+        internal static string uiMessageOpenConfigUnspecificTypeText {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigUnspecificTypeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value must be a number and greater than 0..
         /// </summary>
         internal static string uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0 {

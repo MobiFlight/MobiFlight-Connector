@@ -623,4 +623,19 @@ Would you like to update?</value>
   <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
     <value>Drag and Drop is not available when list is sorted.</value>
   </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeHint" xml:space="preserve">
+    <value>Board type warning</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeText" xml:space="preserve">
+    <value>The config was created for a "{0}" board. Your selected board is a "{1}". The config may be incompatible, check before uploading.
+
+Open anyway?</value>
+  </data>
+  <data name="uiMessageOpenConfigUnspecificTypeText" xml:space="preserve">
+    <value>This config doesn't specify a board type and may not be compatible with your "{0}".
+
+Open anyway?
+
+Tip: Save the file after opening to update the associated board for future use.</value>
+  </data>
 </root>

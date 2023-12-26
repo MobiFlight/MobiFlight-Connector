@@ -65,19 +65,27 @@ namespace MobiFlight.Config
             NumBytes    = paramList[6];
             Name        = paramList[7];
 
-            /* TO BE DELETED before PR is accepted:
-            // pass the MultiplexerDriver pins, but only if the multiplexerDriver wasn't already set
-            if (Selector == null || Selector.isInitialized()) return false;
-            value = ((int)DeviceType.MultiplexerDriver).ToString() + Separator + paramList[2] + Separator + paramList[3] + Separator + paramList[4] + Separator + paramList[5] + End;
-            Selector.FromInternal(value);
-            // The FromInternal() call takes care internally of the activation counter and the "initialized" flag
-            */
             return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            InputMultiplexer other = obj as InputMultiplexer;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.DataPin == other.DataPin
+                && this.NumBytes == other.NumBytes
+                && this.Selector.Equals(other.Selector)
+                ;
         }
 
         public override string ToString()
         {
-            return $"{Type}:{Name}";
+            return $"{Type}:{Name} DataPin:{DataPin} NumBytes:{NumBytes} Selector:{this.Selector}";
         }
         
         public static String GetMultiplexerDriverConfig(String value)

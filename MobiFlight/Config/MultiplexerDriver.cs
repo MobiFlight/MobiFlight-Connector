@@ -110,9 +110,25 @@ namespace MobiFlight.Config
             return res;
         }
 
+        public override bool Equals(object obj)
+        {
+            MultiplexerDriver other = obj as MultiplexerDriver;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.PinSx[0] == other.PinSx[0]
+                && this.PinSx[1] == other.PinSx[1]
+                && this.PinSx[2] == other.PinSx[2]
+                && this.PinSx[3] == other.PinSx[3]
+                ;
+        }
+
         public override string ToString()
         {
-            return $"{Type}:{Name}";
+            return $"PinSx[0]:{PinSx[0]} PinSx[1]:{PinSx[1]} PinSx[2]:{PinSx[2]} PinSx[3]:{PinSx[3]}";
         }
     }
 
