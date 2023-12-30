@@ -41,8 +41,6 @@
             this.logLevelLabel = new System.Windows.Forms.Label();
             this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
             this.testModeSpeedGroupBox = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.testModeSpeedTrackBar = new System.Windows.Forms.TrackBar();
             this.recentFilesGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -50,9 +48,6 @@
             this.CommunityFeedbackGroupBox = new System.Windows.Forms.GroupBox();
             this.CommunityFeedbackCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigExecutionGroupBox = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
             this.SpeedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.autoRetriggerGoupBox = new System.Windows.Forms.GroupBox();
@@ -60,6 +55,11 @@
             this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBoxHubHopAutoCheck = new System.Windows.Forms.GroupBox();
             this.checkBoxHubHopAutoCheck = new System.Windows.Forms.CheckBox();
+            this.labelTestModeSlow = new System.Windows.Forms.Label();
+            this.labelTestModeFast = new System.Windows.Forms.Label();
+            this.labelExecutionSlow = new System.Windows.Forms.Label();
+            this.labelExecutionFast = new System.Windows.Forms.Label();
+            this.labelExplainExecution = new System.Windows.Forms.Label();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -158,22 +158,12 @@
             // 
             // testModeSpeedGroupBox
             // 
-            this.testModeSpeedGroupBox.Controls.Add(this.label8);
-            this.testModeSpeedGroupBox.Controls.Add(this.label6);
+            this.testModeSpeedGroupBox.Controls.Add(this.labelTestModeFast);
+            this.testModeSpeedGroupBox.Controls.Add(this.labelTestModeSlow);
             this.testModeSpeedGroupBox.Controls.Add(this.testModeSpeedTrackBar);
             resources.ApplyResources(this.testModeSpeedGroupBox, "testModeSpeedGroupBox");
             this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
             this.testModeSpeedGroupBox.TabStop = false;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            // 
-            // label6
-            // 
-            resources.ApplyResources(this.label6, "label6");
-            this.label6.Name = "label6";
             // 
             // testModeSpeedTrackBar
             // 
@@ -215,28 +205,13 @@
             // 
             // ConfigExecutionGroupBox
             // 
-            this.ConfigExecutionGroupBox.Controls.Add(this.label3);
-            this.ConfigExecutionGroupBox.Controls.Add(this.label2);
-            this.ConfigExecutionGroupBox.Controls.Add(this.label5);
+            this.ConfigExecutionGroupBox.Controls.Add(this.labelExplainExecution);
+            this.ConfigExecutionGroupBox.Controls.Add(this.labelExecutionFast);
+            this.ConfigExecutionGroupBox.Controls.Add(this.labelExecutionSlow);
             this.ConfigExecutionGroupBox.Controls.Add(this.fsuipcPollIntervalTrackBar);
             resources.ApplyResources(this.ConfigExecutionGroupBox, "ConfigExecutionGroupBox");
             this.ConfigExecutionGroupBox.Name = "ConfigExecutionGroupBox";
             this.ConfigExecutionGroupBox.TabStop = false;
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.Name = "label3";
-            // 
-            // label2
-            // 
-            resources.ApplyResources(this.label2, "label2");
-            this.label2.Name = "label2";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
             // 
             // fsuipcPollIntervalTrackBar
             // 
@@ -249,7 +224,7 @@
             // SpeedTableLayoutPanel
             // 
             resources.ApplyResources(this.SpeedTableLayoutPanel, "SpeedTableLayoutPanel");
-            this.SpeedTableLayoutPanel.Controls.Add(this.testModeSpeedGroupBox, 0, 0);
+            this.SpeedTableLayoutPanel.Controls.Add(this.testModeSpeedGroupBox, 1, 0);
             this.SpeedTableLayoutPanel.Controls.Add(this.ConfigExecutionGroupBox, 0, 0);
             this.SpeedTableLayoutPanel.Name = "SpeedTableLayoutPanel";
             // 
@@ -285,6 +260,31 @@
             resources.ApplyResources(this.checkBoxHubHopAutoCheck, "checkBoxHubHopAutoCheck");
             this.checkBoxHubHopAutoCheck.Name = "checkBoxHubHopAutoCheck";
             this.checkBoxHubHopAutoCheck.UseVisualStyleBackColor = true;
+            // 
+            // labelTestModeSlow
+            // 
+            resources.ApplyResources(this.labelTestModeSlow, "labelTestModeSlow");
+            this.labelTestModeSlow.Name = "labelTestModeSlow";
+            // 
+            // labelTestModeFast
+            // 
+            resources.ApplyResources(this.labelTestModeFast, "labelTestModeFast");
+            this.labelTestModeFast.Name = "labelTestModeFast";
+            // 
+            // labelExecutionSlow
+            // 
+            resources.ApplyResources(this.labelExecutionSlow, "labelExecutionSlow");
+            this.labelExecutionSlow.Name = "labelExecutionSlow";
+            // 
+            // labelExecutionFast
+            // 
+            resources.ApplyResources(this.labelExecutionFast, "labelExecutionFast");
+            this.labelExecutionFast.Name = "labelExecutionFast";
+            // 
+            // labelExplainExecution
+            // 
+            resources.ApplyResources(this.labelExplainExecution, "labelExplainExecution");
+            this.labelExplainExecution.Name = "labelExplainExecution";
             // 
             // GeneralPanel
             // 
@@ -335,8 +335,6 @@
         private System.Windows.Forms.Label logLevelLabel;
         private System.Windows.Forms.CheckBox logLevelCheckBox;
         private System.Windows.Forms.GroupBox testModeSpeedGroupBox;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TrackBar testModeSpeedTrackBar;
         private System.Windows.Forms.GroupBox recentFilesGroupBox;
         private System.Windows.Forms.Label label1;
@@ -345,9 +343,6 @@
         private System.Windows.Forms.CheckBox CommunityFeedbackCheckBox;
         private System.Windows.Forms.CheckBox LogJoystickAxisCheckBox;
         private System.Windows.Forms.GroupBox ConfigExecutionGroupBox;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TrackBar fsuipcPollIntervalTrackBar;
         private System.Windows.Forms.TableLayoutPanel SpeedTableLayoutPanel;
         private System.Windows.Forms.GroupBox autoRetriggerGoupBox;
@@ -355,5 +350,10 @@
         private System.Windows.Forms.CheckBox minimizeOnAutoRunCheckbox;
         private System.Windows.Forms.GroupBox groupBoxHubHopAutoCheck;
         private System.Windows.Forms.CheckBox checkBoxHubHopAutoCheck;
+        private System.Windows.Forms.Label labelTestModeFast;
+        private System.Windows.Forms.Label labelTestModeSlow;
+        private System.Windows.Forms.Label labelExecutionSlow;
+        private System.Windows.Forms.Label labelExecutionFast;
+        private System.Windows.Forms.Label labelExplainExecution;
     }
 }

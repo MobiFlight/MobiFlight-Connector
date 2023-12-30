@@ -164,17 +164,11 @@
   <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
     <value>124, 39</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>Sehr schnell</value>
-  </data>
   <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 63</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Langsam</value>
   </data>
   <data name="recentFilesGroupBox.Text" xml:space="preserve">
     <value>Zuletzt verwendete Dateien</value>
@@ -194,20 +188,11 @@
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>99, 20</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Sehr Schnell</value>
-  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 63</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 13</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Langsam</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Du kannst die Geschwindigkeit anpassen, z.B. wenn du Lag bei Eingaben hast. Zu schnelle Einstellung kann sich eventuell auf die System-Performance auswirken.</value>
   </data>
   <data name="label5.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>BottomLeft</value>
@@ -226,5 +211,26 @@
   </data>
   <data name="autoRetriggerCheckBox.Text" xml:space="preserve">
     <value>Automatisch retrigger-action mit "run"-Mode ausführen.</value>
+  </data>
+  <data name="labelTestModeFast.Text" xml:space="preserve">
+    <value>Sehr Schnell</value>
+  </data>
+  <data name="labelTestModeSlow.Text" xml:space="preserve">
+    <value>Langsam</value>
+  </data>
+  <data name="labelExecutionFast.Text" xml:space="preserve">
+    <value>Sehr Schnell</value>
+  </data>
+  <data name="labelExecutionSlow.Text" xml:space="preserve">
+    <value>Langsam</value>
+  </data>
+  <data name="labelExplainExecution.Text" xml:space="preserve">
+    <value>Du kannst die Geschwindigkeit anpassen, z.B. wenn du Lag bei Eingaben hast. Zu schnelle Einstellung kann sich eventuell auf die System-Performance auswirken.</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.Text" xml:space="preserve">
+    <value>HubHob Presets beim Applikationsstart prüfen.</value>
+  </data>
+  <data name="LogJoystickAxisCheckBox.Text" xml:space="preserve">
+    <value>Logge Joystick Achsen</value>
   </data>
 </root>
