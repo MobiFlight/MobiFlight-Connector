@@ -165,6 +165,19 @@ namespace MobiFlight.Modifier.Tests
             Assert.AreEqual(FSUIPCOffsetType.String, c.Apply(value, new List<ConfigRefValue>()).type);
             Assert.AreEqual("'works!'", c.Apply(value, new List<ConfigRefValue>()).String);
 
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "Hello";
+            c.IfValue = "$ world!";
+            c.ElseValue = "$ welt!";
+
+            value.type = FSUIPCOffsetType.String;
+            value.Float64 = 0;
+            value.String = "Hello";
+
+            Assert.AreEqual(FSUIPCOffsetType.String, c.Apply(value, new List<ConfigRefValue>()).type);
+            Assert.AreEqual("Hello world!", c.Apply(value, new List<ConfigRefValue>()).String);
+
         }
     }
 }
