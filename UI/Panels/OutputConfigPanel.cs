@@ -562,12 +562,28 @@ namespace MobiFlight.UI.Panels
             e.Row.Cells["guid"].Value = Guid.NewGuid();
         }
 
+        private void ActivateAutoColumnWidth()
+        {                   
+            dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
+
+        private void DeactivateAutoColumnWidth()
+        {                   
+            dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        }
+
         /// <summary>
         /// use the settings from the config object and initialize the grid cells 
         /// this is needed after loading and saving configs
         /// </summary>
         public void RestoreValuesInGridView()
         {
+            // Needed for performance reasons
+            DeactivateAutoColumnWidth();
             foreach (DataRow row in ConfigDataTable.Rows)
             {
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
@@ -633,6 +649,8 @@ namespace MobiFlight.UI.Panels
                     }
                 }
             }
+
+            ActivateAutoColumnWidth();
         } //_restoreValuesInGridView()
 
         /// <summary>
