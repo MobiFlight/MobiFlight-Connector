@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             InitializeComponent();
             configRefComboBox.Text = "Select reference";
+            checkBox1.Checked=true;
         }
 
         public void SetDataView(DataView dv)
@@ -64,6 +65,7 @@ namespace MobiFlight.UI.Panels.Config
             }
             
             textBox1.Text = config.Placeholder;
+            textBoxTestValue.Text = config.TestValue;
         }
 
         internal ConfigRef syncToConfig(ConfigRef config)
@@ -72,6 +74,7 @@ namespace MobiFlight.UI.Panels.Config
             if (configRefComboBox.SelectedValue != null)
                 config.Ref = configRefComboBox.SelectedValue.ToString();
             config.Placeholder = textBox1.Text;
+            config.TestValue = textBoxTestValue.Text.Trim();
             return config;
         }
 

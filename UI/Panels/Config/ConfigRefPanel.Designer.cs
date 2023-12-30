@@ -115,8 +115,8 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.configRefItemPanel);
             resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Controls.Add(this.configRefItemPanel);
             this.panel3.Name = "panel3";
             // 
             // ConfigRefPanel
