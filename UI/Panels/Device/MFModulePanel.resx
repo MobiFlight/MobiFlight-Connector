@@ -117,17 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="moduleNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 19</value>
-  </data>
-  <data name="moduleNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>151, 20</value>
-  </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="moduleNameTextBox.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="&gt;&gt;moduleNameTextBox.Name" xml:space="preserve">
     <value>moduleNameTextBox</value>
   </data>
@@ -144,12 +133,14 @@
   <data name="groupBoxName.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="groupBoxName.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
   <data name="groupBoxName.Size" type="System.Drawing.Size, System.Drawing">
     <value>282, 48</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="groupBoxName.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
@@ -168,6 +159,153 @@
   <data name="&gt;&gt;groupBoxName.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="moduleNameTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 19</value>
+  </data>
+  <data name="moduleNameTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 20</value>
+  </data>
+  <data name="moduleNameTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;moduleNameTextBox.Name" xml:space="preserve">
+    <value>moduleNameTextBox</value>
+  </data>
+  <data name="&gt;&gt;moduleNameTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;moduleNameTextBox.Parent" xml:space="preserve">
+    <value>groupBoxName</value>
+  </data>
+  <data name="&gt;&gt;moduleNameTextBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TypeValueLabel.Name" xml:space="preserve">
+    <value>TypeValueLabel</value>
+  </data>
+  <data name="&gt;&gt;TypeValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TypeValueLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;TypeValueLabel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Name" xml:space="preserve">
+    <value>TypeLabel</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;TypeLabel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;SerialValueLabel.Name" xml:space="preserve">
+    <value>SerialValueLabel</value>
+  </data>
+  <data name="&gt;&gt;SerialValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SerialValueLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;SerialValueLabel.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;SerialLabel.Name" xml:space="preserve">
+    <value>SerialLabel</value>
+  </data>
+  <data name="&gt;&gt;SerialLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;SerialLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;SerialLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;PortValueLabel.Name" xml:space="preserve">
+    <value>PortValueLabel</value>
+  </data>
+  <data name="&gt;&gt;PortValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PortValueLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;PortValueLabel.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;PortLabel.Name" xml:space="preserve">
+    <value>PortLabel</value>
+  </data>
+  <data name="&gt;&gt;PortLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PortLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;PortLabel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;FirmwareValueLabel.Name" xml:space="preserve">
+    <value>FirmwareValueLabel</value>
+  </data>
+  <data name="&gt;&gt;FirmwareValueLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FirmwareValueLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;FirmwareValueLabel.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;FirmwareLabel.Name" xml:space="preserve">
+    <value>FirmwareLabel</value>
+  </data>
+  <data name="&gt;&gt;FirmwareLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;FirmwareLabel.Parent" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;FirmwareLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="groupBoxInformation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="groupBoxInformation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 48</value>
+  </data>
+  <data name="groupBoxInformation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>282, 105</value>
+  </data>
+  <data name="groupBoxInformation.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="groupBoxInformation.Text" xml:space="preserve">
+    <value>Information</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInformation.Name" xml:space="preserve">
+    <value>groupBoxInformation</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInformation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInformation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxInformation.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="TypeValueLabel.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -183,9 +321,6 @@
   <data name="TypeValueLabel.Text" xml:space="preserve">
     <value>MobiFlight Mega</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <data name="TypeValueLabel.ToolTip" xml:space="preserve">
     <value>Test</value>
   </data>
@@ -390,33 +525,9 @@
   <data name="&gt;&gt;FirmwareLabel.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
-  <data name="groupBoxInformation.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="groupBoxInformation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 48</value>
-  </data>
-  <data name="groupBoxInformation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 105</value>
-  </data>
-  <data name="groupBoxInformation.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="groupBoxInformation.Text" xml:space="preserve">
-    <value>Information</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInformation.Name" xml:space="preserve">
-    <value>groupBoxInformation</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInformation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInformation.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;groupBoxInformation.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="labelProjectValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -450,6 +561,9 @@
   <data name="groupBoxDetails.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="groupBoxDetails.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
   <data name="labelProject.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -477,21 +591,6 @@
   <data name="&gt;&gt;labelProject.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 23</value>
-  </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Upload board's default config:</value>
-  </data>
-  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
   </data>
@@ -503,18 +602,6 @@
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="buttonUploadDefaultConfig.Location" type="System.Drawing.Point, System.Drawing">
-    <value>167, 3</value>
-  </data>
-  <data name="buttonUploadDefaultConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 23</value>
-  </data>
-  <data name="buttonUploadDefaultConfig.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
-  </data>
-  <data name="buttonUploadDefaultConfig.Text" xml:space="preserve">
-    <value>Upload</value>
   </data>
   <data name="&gt;&gt;buttonUploadDefaultConfig.Name" xml:space="preserve">
     <value>buttonUploadDefaultConfig</value>
@@ -529,10 +616,13 @@
     <value>1</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 118</value>
+    <value>16, 185</value>
+  </data>
+  <data name="panel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>250, 28</value>
+    <value>251, 28</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -550,10 +640,13 @@
     <value>2</value>
   </data>
   <data name="pictureBoxLogo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 40</value>
+    <value>17, 40</value>
   </data>
   <data name="pictureBoxLogo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 43</value>
+    <value>250, 100</value>
+  </data>
+  <data name="pictureBoxLogo.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
   </data>
   <data name="pictureBoxLogo.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -571,7 +664,7 @@
     <value>3</value>
   </data>
   <data name="buttonSupport.Location" type="System.Drawing.Point, System.Drawing">
-    <value>185, 89</value>
+    <value>196, 155</value>
   </data>
   <data name="buttonSupport.Size" type="System.Drawing.Size, System.Drawing">
     <value>72, 23</value>
@@ -595,7 +688,7 @@
     <value>4</value>
   </data>
   <data name="buttonDocs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>104, 89</value>
+    <value>107, 155</value>
   </data>
   <data name="buttonDocs.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -619,7 +712,7 @@
     <value>5</value>
   </data>
   <data name="buttonWebsite.Location" type="System.Drawing.Point, System.Drawing">
-    <value>23, 89</value>
+    <value>18, 155</value>
   </data>
   <data name="buttonWebsite.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -648,8 +741,14 @@
   <data name="groupBoxDetails.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 153</value>
   </data>
+  <data name="groupBoxDetails.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="groupBoxDetails.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 0</value>
+  </data>
   <data name="groupBoxDetails.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 165</value>
+    <value>282, 226</value>
   </data>
   <data name="groupBoxDetails.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -669,6 +768,60 @@
   <data name="&gt;&gt;groupBoxDetails.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
+  </data>
+  <data name="label1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>158, 23</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Upload board's default config:</value>
+  </data>
+  <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="buttonUploadDefaultConfig.Location" type="System.Drawing.Point, System.Drawing">
+    <value>179, 3</value>
+  </data>
+  <data name="buttonUploadDefaultConfig.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="buttonUploadDefaultConfig.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="buttonUploadDefaultConfig.Text" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="&gt;&gt;buttonUploadDefaultConfig.Name" xml:space="preserve">
+    <value>buttonUploadDefaultConfig</value>
+  </data>
+  <data name="&gt;&gt;buttonUploadDefaultConfig.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonUploadDefaultConfig.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;buttonUploadDefaultConfig.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -679,7 +832,7 @@
     <value>True</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>282, 325</value>
+    <value>282, 386</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
