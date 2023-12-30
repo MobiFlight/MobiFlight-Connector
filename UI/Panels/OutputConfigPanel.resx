@@ -157,6 +157,9 @@
   <data name="moduleSerial.ToolTipText" xml:space="preserve">
     <value>The board used in the config</value>
   </data>
+  <data name="moduleSerial.Width" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
   <metadata name="OutputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -169,6 +172,9 @@
   <data name="OutputName.ToolTipText" xml:space="preserve">
     <value>The device used in the config</value>
   </data>
+  <data name="OutputName.Width" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
   <metadata name="OutputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -177,6 +183,9 @@
   </data>
   <data name="OutputType.ToolTipText" xml:space="preserve">
     <value>The type of device used in the config</value>
+  </data>
+  <data name="OutputType.Width" type="System.Int32, mscorlib">
+    <value>56</value>
   </data>
   <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -303,11 +312,8 @@
   <data name="dataGridViewConfig.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dataGridViewConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1394, 968</value>
+    <value>929, 629</value>
   </data>
   <data name="dataGridViewConfig.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -331,13 +337,10 @@
     <value>280</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1394, 968</value>
+    <value>929, 629</value>
   </data>
   <data name="&gt;&gt;active.Name" xml:space="preserve">
     <value>active</value>
