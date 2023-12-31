@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms.Design;
@@ -17,6 +18,7 @@ namespace MobiFlight
     public class MobiFlightCustomDevice : IConnectedDevice
     {
         public const string TYPE = "CustomDevice";
+        public const int MESSAGE_STOP = -1;
 
         public CmdMessenger CmdMessenger { get; set; }
         public string Name { get; set; } = "Custom Device";
@@ -42,6 +44,16 @@ namespace MobiFlight
         // Blank the display when stopped
         public void Stop()
         {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetCustomDevice);
+
+            command.AddArgument(DeviceNumber);
+            command.AddArgument(MESSAGE_STOP);
+
+            Log.Instance.log($"Command: SetCustomDevice (Stop) <{(int)MobiFlightModule.Command.SetCustomDevice},{DeviceNumber},{MESSAGE_STOP};>.", LogSeverity.Debug);
+
+            // Send command
+            System.Threading.Thread.Sleep(1);
+            CmdMessenger.SendCommand(command);
         }
     }
 }
