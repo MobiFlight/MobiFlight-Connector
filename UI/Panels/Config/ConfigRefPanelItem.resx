@@ -118,37 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="textBoxPlaceholder.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>343, 4</value>
+  <data name="textBoxPlaceholder.Location" type="System.Drawing.Point, System.Drawing">
+    <value>374, 4</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="textBox1.MaxLength" type="System.Int32, mscorlib">
+  <data name="textBoxPlaceholder.MaxLength" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="textBoxPlaceholder.Size" type="System.Drawing.Size, System.Drawing">
     <value>37, 20</value>
   </data>
-  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+  <data name="textBoxPlaceholder.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
   </data>
-  <data name="textBox1.Text" xml:space="preserve">
+  <data name="textBoxPlaceholder.Text" xml:space="preserve">
     <value>$</value>
   </data>
-  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
-    <value>textBox1</value>
+  <data name="&gt;&gt;textBoxPlaceholder.Name" xml:space="preserve">
+    <value>textBoxPlaceholder</value>
   </data>
-  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+  <data name="&gt;&gt;textBoxPlaceholder.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;textBoxPlaceholder.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;textBoxPlaceholder.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
   <data name="configRefComboBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -163,10 +163,10 @@
     <value>Reference Three</value>
   </data>
   <data name="configRefComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 4</value>
+    <value>62, 3</value>
   </data>
   <data name="configRefComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 21</value>
+    <value>290, 21</value>
   </data>
   <data name="configRefComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -181,70 +181,64 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;configRefComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
-  <data name="checkBox1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="checkBoxUse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 4</value>
   </data>
-  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
-  </data>
-  <data name="checkBox1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="checkBoxUse.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 2, 0, 0</value>
   </data>
-  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 19</value>
+  <data name="checkBoxUse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 19</value>
   </data>
-  <data name="checkBox1.TabIndex" type="System.Int32, mscorlib">
+  <data name="checkBoxUse.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
-  <data name="checkBox1.Text" xml:space="preserve">
+  <data name="checkBoxUse.Text" xml:space="preserve">
     <value>use</value>
   </data>
-  <data name="&gt;&gt;checkBox1.Name" xml:space="preserve">
-    <value>checkBox1</value>
+  <data name="&gt;&gt;checkBoxUse.Name" xml:space="preserve">
+    <value>checkBoxUse</value>
   </data>
-  <data name="&gt;&gt;checkBox1.Type" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxUse.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;checkBoxUse.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;checkBox1.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;checkBoxUse.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelAs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="labelAs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>348, 0</value>
   </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>320, 6</value>
+  <data name="labelAs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 27</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>18, 13</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelAs.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
   </data>
-  <data name="label3.Text" xml:space="preserve">
+  <data name="labelAs.Text" xml:space="preserve">
     <value>as</value>
   </data>
-  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
+  <data name="labelAs.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
+  <data name="&gt;&gt;labelAs.Name" xml:space="preserve">
+    <value>labelAs</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelAs.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelAs.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;labelAs.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -255,14 +249,80 @@
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
   </data>
+  <data name="textBoxTestValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="textBoxTestValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>485, 4</value>
+  </data>
+  <data name="textBoxTestValue.MaxLength" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="textBoxTestValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="textBoxTestValue.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="textBoxTestValue.Text" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;textBoxTestValue.Name" xml:space="preserve">
+    <value>textBoxTestValue</value>
+  </data>
+  <data name="&gt;&gt;textBoxTestValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxTestValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxTestValue.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelTestValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="labelTestValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>412, 4</value>
+  </data>
+  <data name="labelTestValue.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
+  </data>
+  <data name="labelTestValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 20</value>
+  </data>
+  <data name="labelTestValue.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="labelTestValue.Text" xml:space="preserve">
+    <value>||   test value</value>
+  </data>
+  <data name="labelTestValue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;labelTestValue.Name" xml:space="preserve">
+    <value>labelTestValue</value>
+  </data>
+  <data name="&gt;&gt;labelTestValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelTestValue.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelTestValue.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="removeConfigReferenceButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
+  <data name="removeConfigReferenceButton.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 7pt, style=Bold</value>
+  </data>
   <data name="removeConfigReferenceButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>383, 4</value>
+    <value>527, 4</value>
   </data>
   <data name="removeConfigReferenceButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>2, 2, 2, 2</value>
+    <value>0, 0, 0, 0</value>
   </data>
   <data name="removeConfigReferenceButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>21, 21</value>
@@ -283,10 +343,10 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;removeConfigReferenceButton.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 27</value>
+    <value>550, 27</value>
   </data>
   <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
     <value>errorProvider1</value>
