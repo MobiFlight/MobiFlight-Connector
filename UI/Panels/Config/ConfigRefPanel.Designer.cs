@@ -79,9 +79,9 @@
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.panel2);
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // label2
@@ -91,8 +91,8 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.addReferenceButton);
             resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Controls.Add(this.addReferenceButton);
             this.panel2.Name = "panel2";
             // 
             // addReferenceButton

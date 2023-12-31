@@ -163,10 +163,10 @@
     <value>Reference Three</value>
   </data>
   <data name="configRefComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 3</value>
+    <value>62, 3</value>
   </data>
   <data name="configRefComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>303, 21</value>
+    <value>290, 21</value>
   </data>
   <data name="configRefComboBox.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -183,9 +183,6 @@
   <data name="&gt;&gt;configRefComboBox.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
-  <data name="checkBox1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 4</value>
   </data>
@@ -193,7 +190,7 @@
     <value>0, 2, 0, 0</value>
   </data>
   <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>43, 19</value>
+    <value>53, 19</value>
   </data>
   <data name="checkBox1.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
