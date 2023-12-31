@@ -706,6 +706,12 @@ namespace MobiFlight.UI.Panels.Settings
                 Dictionary<String, int> statistics = tempModule.GetConnectedDevicesStatistics();
                 List<MobiFlightPin> freePinList = getVirtualModuleFromTree().GetFreePins();
 
+                if (tempModule.FirmwareRequiresUpdate())
+                {
+                    DisplayErrorMessageForFirmwareRequiresUpdate();
+                    return;
+                }
+
                 switch ((sender as ToolStripMenuItem).Name)
                 {
                     case "servoToolStripMenuItem":
@@ -913,6 +919,11 @@ namespace MobiFlight.UI.Panels.Settings
                                 i18n._tr("uiMessageNotEnoughPinsHint"),
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void DisplayErrorMessageForFirmwareRequiresUpdate()
+        {
+            MessageBox.Show(i18n._tr("uiMessageSettingsDialogFirmwareRequiresUpdate"), i18n._tr("Hint"), MessageBoxButtons.OK);
         }
 
         private void CheckIfI2CPinsAreAvailable(MobiFlightModule tempModule)
@@ -1127,7 +1138,14 @@ namespace MobiFlight.UI.Panels.Settings
             if (node.Level == 0) return;    // removing a device, not a module
 
             TreeNode ModuleNode = getModuleNode();
-            
+            MobiFlightModule module = ModuleNode.Tag as MobiFlightModule;
+
+            if (module?.FirmwareRequiresUpdate() ?? false)
+            {
+                DisplayErrorMessageForFirmwareRequiresUpdate();
+                return;
+            }
+
             lock (mfModulesTreeView.Nodes)
             {
                 mfModulesTreeView.Nodes.Remove(node);
@@ -1150,16 +1168,22 @@ namespace MobiFlight.UI.Panels.Settings
         /// <param name="e"></param>
         private async void uploadToolStripButton_Click(object sender, EventArgs e)
         {
+            TreeNode moduleNode = getModuleNode();
+            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
+            MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
+
+            if (module.FirmwareRequiresUpdate())
+            {
+                DisplayErrorMessageForFirmwareRequiresUpdate();
+                return;
+            }
+
             if (MessageBox.Show(i18n._tr("uiMessageUploadConfigurationConfirm"),
                                 i18n._tr("uiMessageUploadConfigurationHint"),
                                 MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
             {
                 return;
             }
-
-            TreeNode moduleNode = getModuleNode();
-            MobiFlightModule module = moduleNode.Tag as MobiFlightModule;
-            MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
 
             foreach (TreeNode node in moduleNode.Nodes)
             {
