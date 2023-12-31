@@ -17,6 +17,7 @@ namespace MobiFlight.InputConfig
         {
             LuaMacroInputAction clone = new LuaMacroInputAction();
             clone.MacroName = MacroName;
+            clone.MacroValue = MacroValue;
 
             return clone;
         }
