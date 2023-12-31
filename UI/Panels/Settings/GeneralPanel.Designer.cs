@@ -41,6 +41,8 @@
             this.logLevelLabel = new System.Windows.Forms.Label();
             this.logLevelCheckBox = new System.Windows.Forms.CheckBox();
             this.testModeSpeedGroupBox = new System.Windows.Forms.GroupBox();
+            this.labelTestModeFast = new System.Windows.Forms.Label();
+            this.labelTestModeSlow = new System.Windows.Forms.Label();
             this.testModeSpeedTrackBar = new System.Windows.Forms.TrackBar();
             this.recentFilesGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -48,6 +50,9 @@
             this.CommunityFeedbackGroupBox = new System.Windows.Forms.GroupBox();
             this.CommunityFeedbackCheckBox = new System.Windows.Forms.CheckBox();
             this.ConfigExecutionGroupBox = new System.Windows.Forms.GroupBox();
+            this.labelExplainExecution = new System.Windows.Forms.Label();
+            this.labelExecutionFast = new System.Windows.Forms.Label();
+            this.labelExecutionSlow = new System.Windows.Forms.Label();
             this.fsuipcPollIntervalTrackBar = new System.Windows.Forms.TrackBar();
             this.SpeedTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.autoRetriggerGoupBox = new System.Windows.Forms.GroupBox();
@@ -55,11 +60,6 @@
             this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBoxHubHopAutoCheck = new System.Windows.Forms.GroupBox();
             this.checkBoxHubHopAutoCheck = new System.Windows.Forms.CheckBox();
-            this.labelTestModeSlow = new System.Windows.Forms.Label();
-            this.labelTestModeFast = new System.Windows.Forms.Label();
-            this.labelExecutionSlow = new System.Windows.Forms.Label();
-            this.labelExecutionFast = new System.Windows.Forms.Label();
-            this.labelExplainExecution = new System.Windows.Forms.Label();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -104,6 +104,7 @@
             // 
             // languageComboBox
             // 
+            this.languageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.languageComboBox.FormattingEnabled = true;
             this.languageComboBox.Items.AddRange(new object[] {
             resources.GetString("languageComboBox.Items"),
@@ -165,6 +166,16 @@
             this.testModeSpeedGroupBox.Name = "testModeSpeedGroupBox";
             this.testModeSpeedGroupBox.TabStop = false;
             // 
+            // labelTestModeFast
+            // 
+            resources.ApplyResources(this.labelTestModeFast, "labelTestModeFast");
+            this.labelTestModeFast.Name = "labelTestModeFast";
+            // 
+            // labelTestModeSlow
+            // 
+            resources.ApplyResources(this.labelTestModeSlow, "labelTestModeSlow");
+            this.labelTestModeSlow.Name = "labelTestModeSlow";
+            // 
             // testModeSpeedTrackBar
             // 
             resources.ApplyResources(this.testModeSpeedTrackBar, "testModeSpeedTrackBar");
@@ -213,6 +224,21 @@
             this.ConfigExecutionGroupBox.Name = "ConfigExecutionGroupBox";
             this.ConfigExecutionGroupBox.TabStop = false;
             // 
+            // labelExplainExecution
+            // 
+            resources.ApplyResources(this.labelExplainExecution, "labelExplainExecution");
+            this.labelExplainExecution.Name = "labelExplainExecution";
+            // 
+            // labelExecutionFast
+            // 
+            resources.ApplyResources(this.labelExecutionFast, "labelExecutionFast");
+            this.labelExecutionFast.Name = "labelExecutionFast";
+            // 
+            // labelExecutionSlow
+            // 
+            resources.ApplyResources(this.labelExecutionSlow, "labelExecutionSlow");
+            this.labelExecutionSlow.Name = "labelExecutionSlow";
+            // 
             // fsuipcPollIntervalTrackBar
             // 
             resources.ApplyResources(this.fsuipcPollIntervalTrackBar, "fsuipcPollIntervalTrackBar");
@@ -260,31 +286,6 @@
             resources.ApplyResources(this.checkBoxHubHopAutoCheck, "checkBoxHubHopAutoCheck");
             this.checkBoxHubHopAutoCheck.Name = "checkBoxHubHopAutoCheck";
             this.checkBoxHubHopAutoCheck.UseVisualStyleBackColor = true;
-            // 
-            // labelTestModeSlow
-            // 
-            resources.ApplyResources(this.labelTestModeSlow, "labelTestModeSlow");
-            this.labelTestModeSlow.Name = "labelTestModeSlow";
-            // 
-            // labelTestModeFast
-            // 
-            resources.ApplyResources(this.labelTestModeFast, "labelTestModeFast");
-            this.labelTestModeFast.Name = "labelTestModeFast";
-            // 
-            // labelExecutionSlow
-            // 
-            resources.ApplyResources(this.labelExecutionSlow, "labelExecutionSlow");
-            this.labelExecutionSlow.Name = "labelExecutionSlow";
-            // 
-            // labelExecutionFast
-            // 
-            resources.ApplyResources(this.labelExecutionFast, "labelExecutionFast");
-            this.labelExecutionFast.Name = "labelExecutionFast";
-            // 
-            // labelExplainExecution
-            // 
-            resources.ApplyResources(this.labelExplainExecution, "labelExplainExecution");
-            this.labelExplainExecution.Name = "labelExplainExecution";
             // 
             // GeneralPanel
             // 
