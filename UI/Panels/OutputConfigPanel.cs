@@ -570,10 +570,18 @@ namespace MobiFlight.UI.Panels
         }
 
         private void DeactivateAutoColumnWidth()
-        {                   
-            dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        {
+            // Deactivate and adjust FillWeights
+            string[] columnNames = { "moduleSerial", "OutputName", "OutputType" };
+
+            // description has FillWeight 1000
+            var descColumn = dataGridViewConfig.Columns["description"];
+            foreach (string name in columnNames)
+            {
+                int currentWidth = dataGridViewConfig.Columns[name].Width;
+                dataGridViewConfig.Columns[name].FillWeight = (float)currentWidth / (float)descColumn.Width * 1450;
+                dataGridViewConfig.Columns[name].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
         }
 
         /// <summary>
@@ -649,8 +657,11 @@ namespace MobiFlight.UI.Panels
                     }
                 }
             }
-
+            // Auto adjust column width
             ActivateAutoColumnWidth();
+
+            // Deactivate again, to make them resizable
+            DeactivateAutoColumnWidth();
         } //_restoreValuesInGridView()
 
         /// <summary>

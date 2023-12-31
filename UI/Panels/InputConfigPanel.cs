@@ -461,10 +461,18 @@ namespace MobiFlight.UI.Panels
         }
 
         private void DeactivateAutoColumnWidth()
-        {           
-            inputsDataGridView.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            inputsDataGridView.Columns["inputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            inputsDataGridView.Columns["inputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        {
+            // Deactivate and adjust FillWeights
+            string[] columnNames = { "moduleSerial", "inputName", "inputType" };
+
+            // inputDescription has FillWeight 1000
+            var descColumn = inputsDataGridView.Columns["inputDescription"];
+            foreach (string name in columnNames)
+            {
+                int currentWidth = inputsDataGridView.Columns[name].Width;
+                inputsDataGridView.Columns[name].FillWeight = (float)currentWidth / (float)descColumn.Width * 1450;
+                inputsDataGridView.Columns[name].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
         }
 
         /// <summary>
@@ -520,7 +528,11 @@ namespace MobiFlight.UI.Panels
                     row["inputType"] = cfg.Type;                   
                 }
             }
+            // Auto adjust column width
             ActivateAutoColumnWidth();
+
+            // Deactivate again, to make them resizable
+            DeactivateAutoColumnWidth();
         } //_restoreValuesInGridView()
 
         private void inputsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)

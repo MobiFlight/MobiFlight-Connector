@@ -157,9 +157,6 @@
   <data name="moduleSerial.ToolTipText" xml:space="preserve">
     <value>The board used in the config</value>
   </data>
-  <data name="moduleSerial.Width" type="System.Int32, mscorlib">
-    <value>90</value>
-  </data>
   <metadata name="OutputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -172,9 +169,6 @@
   <data name="OutputName.ToolTipText" xml:space="preserve">
     <value>The device used in the config</value>
   </data>
-  <data name="OutputName.Width" type="System.Int32, mscorlib">
-    <value>90</value>
-  </data>
   <metadata name="OutputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -183,9 +177,6 @@
   </data>
   <data name="OutputType.ToolTipText" xml:space="preserve">
     <value>The type of device used in the config</value>
-  </data>
-  <data name="OutputType.Width" type="System.Int32, mscorlib">
-    <value>56</value>
   </data>
   <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

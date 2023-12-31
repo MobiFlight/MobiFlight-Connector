@@ -197,9 +197,6 @@
   <data name="moduleSerial.ToolTipText" xml:space="preserve">
     <value>The board used in the config</value>
   </data>
-  <data name="moduleSerial.Width" type="System.Int32, mscorlib">
-    <value>67</value>
-  </data>
   <metadata name="inputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -209,9 +206,6 @@
   <data name="inputName.ToolTipText" xml:space="preserve">
     <value>The device used in the config</value>
   </data>
-  <data name="inputName.Width" type="System.Int32, mscorlib">
-    <value>56</value>
-  </data>
   <metadata name="inputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -220,9 +214,6 @@
   </data>
   <data name="inputType.ToolTipText" xml:space="preserve">
     <value>The type of device used in the config</value>
-  </data>
-  <data name="inputType.Width" type="System.Int32, mscorlib">
-    <value>56</value>
   </data>
   <metadata name="inputEditButtonColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -246,8 +237,11 @@
   <data name="inputsDataGridView.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="inputsDataGridView.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="inputsDataGridView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>788, 519</value>
+    <value>1182, 798</value>
   </data>
   <data name="inputsDataGridView.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -268,10 +262,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>788, 519</value>
+    <value>1182, 798</value>
   </data>
   <data name="&gt;&gt;copyToolStripMenuItem.Name" xml:space="preserve">
     <value>copyToolStripMenuItem</value>

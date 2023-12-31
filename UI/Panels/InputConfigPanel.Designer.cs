@@ -231,7 +231,7 @@
             // 
             // moduleSerial
             // 
-            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.moduleSerial.DataPropertyName = "moduleSerial";
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.moduleSerial.DefaultCellStyle = dataGridViewCellStyle1;
@@ -243,7 +243,7 @@
             // 
             // inputName
             // 
-            this.inputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.inputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.inputName.DataPropertyName = "inputName";
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
             this.inputName.DefaultCellStyle = dataGridViewCellStyle2;
@@ -255,7 +255,7 @@
             // 
             // inputType
             // 
-            this.inputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.inputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.inputType.DataPropertyName = "inputType";
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.inputType.DefaultCellStyle = dataGridViewCellStyle3;
