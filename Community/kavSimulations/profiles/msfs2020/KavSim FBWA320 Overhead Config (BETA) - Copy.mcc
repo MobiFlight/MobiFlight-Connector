@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="24ad43e7-bbc5-4ea2-8293-9ecf4a289cfa">
+      <active>true</active>
+      <description>BAT 1 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_ELEC_BAT_1_POTENTIAL, number)" UUID="8dbded6c-d3be-4bbe-a64d-797dd82be063" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(Round($, 1))*10" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" customType="" customName="BAT 1" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
+      <active>true</active>
+      <description>BAT 2 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_ELEC_BAT_2_POTENTIAL, number)" UUID="bde5d497-107f-4e7e-b14c-9acc2d7be333" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(Round($, 1))*10" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" customType="" customName="BAT 2" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="924e9a59-256b-4fd0-bbd2-b4a57d0de80b">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e7f555c-b2f4-4824-b9f6-6711a3a093ab">
+      <active>false</active>
+      <description>There is no radio in the FBW A320 Overhead. So, this references RMP Left </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
+      <active>true</active>
+      <description>Radio ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(X=1,A,if(X=2,B,if(X=3,C,0)))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" customType="" customName="ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="f7a2e9f7-6674-4163-9112-dee3e64829fd" placeholder="C" />
+          <configref active="True" ref="f2da6219-99b6-436c-acc0-c78dcd3a275e" placeholder="B" />
+          <configref active="True" ref="95dbc556-9d20-43d3-bc87-718060e9845c" placeholder="A" />
+          <configref active="True" ref="7dd4106a-a29e-45d1-8628-eb50e2221eee" placeholder="X" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
+      <active>true</active>
+      <description>Radio STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(X=1,A,if(X=2,B,if(X=3,C,0)))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" customType="" customName="STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="eb52ed55-b37d-4884-b16c-c74cb1eafea3" placeholder="C" />
+          <configref active="True" ref="34179827-b297-4592-ba4d-cd3068e3834e" placeholder="B" />
+          <configref active="True" ref="6fce320a-727b-4d54-8635-cf022362cda5" placeholder="A" />
+          <configref active="True" ref="7dd4106a-a29e-45d1-8628-eb50e2221eee" placeholder="X" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7dd4106a-a29e-45d1-8628-eb50e2221eee">
+      <active>true</active>
+      <description>Selected VHF</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_RMP_L_SELECTED_MODE)" UUID="d17a285e-b483-41db-b5dd-803d7bcd76b7" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="95dbc556-9d20-43d3-bc87-718060e9845c">
+      <active>true</active>
+      <description>VHF_1 ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f2da6219-99b6-436c-acc0-c78dcd3a275e">
+      <active>true</active>
+      <description>VHF_2 ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:2,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f7a2e9f7-6674-4163-9112-dee3e64829fd">
+      <active>true</active>
+      <description>VHF_3 ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:3,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Truncate($)" />
+        </modifiers>
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6fce320a-727b-4d54-8635-cf022362cda5">
+      <active>true</active>
+      <description>VHF_1 STANDBY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="34179827-b297-4592-ba4d-cd3068e3834e">
+      <active>true</active>
+      <description>VHF_2 STANDBY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_RMP_L_VHF2_STANDBY_FREQUENCY)" UUID="309a6989-0ad3-41a9-9d6f-52f3dfdfc2f9" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$/1000" />
+        </modifiers>
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="eb52ed55-b37d-4884-b16c-c74cb1eafea3">
+      <active>true</active>
+      <description>VHF_3 STANDBY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_RMP_L_VHF3_STANDBY_FREQUENCY)" UUID="aa254bcc-8a1b-4ab5-a074-cf51355443d8" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$/1000" />
+          <transformation active="True" expression="Truncate($)" />
+        </modifiers>
+        <display type="-" serial="Kav Mega Ovrhd/ SN-B9F-095" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.1, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

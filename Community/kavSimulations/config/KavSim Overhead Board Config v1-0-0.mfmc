@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>Kav Mega Ovrhd</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <CustomDevice Name="BAT 1" CustomType="KAV_BATTERY" Pins="34|32|33" Config="">
+    <ConfiguredPins>
+      <string>34</string>
+      <string>32</string>
+      <string>33</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="BAT 2" CustomType="KAV_BATTERY" Pins="37|35|36" Config="">
+    <ConfiguredPins>
+      <string>37</string>
+      <string>35</string>
+      <string>36</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="ACTIVE" CustomType="KAV_RAD_TCAS" Pins="8|9|10" Config="">
+    <ConfiguredPins>
+      <string>25</string>
+      <string>23</string>
+      <string>24</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="STBY-CRS" CustomType="KAV_RAD_TCAS" Pins="11|12|13" Config="">
+    <ConfiguredPins>
+      <string>28</string>
+      <string>30</string>
+      <string>29</string>
+    </ConfiguredPins>
+  </CustomDevice>
+</Config>

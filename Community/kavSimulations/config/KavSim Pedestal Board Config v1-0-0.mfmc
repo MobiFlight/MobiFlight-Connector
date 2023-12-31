@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>Kav Mega Pedesta</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <CustomDevice Name="RMP L ACTIVE" CustomType="KAV_RAD_TCAS" Pins="25|23|24" Config="">
+    <ConfiguredPins>
+      <string>25</string>
+      <string>23</string>
+      <string>24</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="RMP L STBY-CRS" CustomType="KAV_RAD_TCAS" Pins="28|30|29" Config="">
+    <ConfiguredPins>
+      <string>28</string>
+      <string>30</string>
+      <string>29</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="RMP R ACTIVE" CustomType="KAV_RAD_TCAS" Pins="34|32|33" Config="">
+    <ConfiguredPins>
+      <string>34</string>
+      <string>32</string>
+      <string>33</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="RMP R STBY-CRS" CustomType="KAV_RAD_TCAS" Pins="37|35|36" Config="">
+    <ConfiguredPins>
+      <string>37</string>
+      <string>35</string>
+      <string>36</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="TCAS" CustomType="KAV_RAD_TCAS" Pins="14|16|15" Config="">
+    <ConfiguredPins>
+      <string>14</string>
+      <string>16</string>
+      <string>15</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="RUDDER TRIM" CustomType="KAV_RUDDER" Pins="17|18|19" Config="">
+    <ConfiguredPins>
+      <string>51</string>
+      <string>49</string>
+      <string>50</string>
+    </ConfiguredPins>
+  </CustomDevice>
+</Config>
