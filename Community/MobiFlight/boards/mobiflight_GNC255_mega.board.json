@@ -44,7 +44,13 @@
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
       "MOBIFLIGHT_GNC255"
-    ]
+    ],
+    "Community": {
+      "Project": "Mobiflight GNC255",
+      "Website": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/GNC255",
+      "Docs": "https://github.com/MobiFlight/MobiFlight-Connector/wiki",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 16,
