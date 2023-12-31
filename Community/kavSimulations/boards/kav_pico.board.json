@@ -14,23 +14,29 @@
       "MessageSize": 64
     },
     "HardwareIds": ["^VID_2E8A&PID_000A"],
-    "Info": {
-      "CanInstallFirmware": true,
-      "CanResetBoard": true,
-      "FirmwareBaseName": "kav_raspberrypico",
-      "FirmwareExtension": "uf2",
-      "FriendlyName": "Kav RaspiPico",
-      "LatestFirmwareVersion": "2.5.1",
-      "MobiFlightType": "Kav RaspiPico",
-      "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
-      "CustomDeviceTypes": [
-        "KAV_FCU",
-        "KAV_EFIS",
-        "KAV_BATTERY",
-        "KAV_RAD_TCAS",
-        "KAV_RUDDER"
-      ]
-    },
+  "Info": {
+    "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "FirmwareBaseName": "kav_raspberrypico",
+    "FirmwareExtension": "uf2",
+    "FriendlyName": "Kav RaspiPico",
+    "LatestFirmwareVersion": "2.5.1",
+    "MobiFlightType": "Kav RaspiPico",
+    "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
+    "CustomDeviceTypes": [
+      "KAV_FCU",
+      "KAV_EFIS",
+      "KAV_BATTERY",
+      "KAV_RAD_TCAS",
+      "KAV_RUDDER"
+    ],
+    "Community": {
+      "Project": "KAV Simulations",
+      "Website": "https://jak-kav.co.uk/",
+      "Docs": "https://jak-kav.co.uk/pages/documentation-1",
+      "Support": "https://jak-kav.co.uk/pages/contact"
+    }
+  },
     "ModuleLimits": {
       "MaxAnalogInputs": 3,
       "MaxInputShifters": 6,

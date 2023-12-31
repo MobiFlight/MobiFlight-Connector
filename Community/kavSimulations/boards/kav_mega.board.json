@@ -47,7 +47,13 @@
       "KAV_BATTERY",
       "KAV_RAD_TCAS",
       "KAV_RUDDER"
-    ]  
+    ],
+    "Community": {
+      "Project": "KAV Simulations",
+      "Website": "https://jak-kav.co.uk/",
+      "Docs": "https://jak-kav.co.uk/pages/documentation-1",
+      "Support": "https://jak-kav.co.uk/pages/contact"
+    }
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 16,
