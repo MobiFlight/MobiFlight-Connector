@@ -21,10 +21,10 @@ namespace MobiFlight.Base
 
         public void ReadXml(XmlReader reader)
         {
-            if (reader["active"] != null && reader["active"] != "") Active = bool.Parse( reader["active"]);
-            if (reader["ref"] != null && reader["ref"] != "") Ref = reader["ref"];
-            if (reader["placeholder"] != null && reader["placeholder"] != "") Placeholder = reader["placeholder"];
-            if (reader["testvalue"] != null && reader["testvalue"] != "") TestValue = reader["testvalue"];
+            if (!String.IsNullOrEmpty(reader["active"])) Active = bool.Parse( reader["active"]);
+            if (!String.IsNullOrEmpty(reader["ref"])) Ref = reader["ref"];
+            if (!String.IsNullOrEmpty(reader["placeholder"])) Placeholder = reader["placeholder"];
+            if (!String.IsNullOrEmpty(reader["testvalue"])) TestValue = reader["testvalue"];
             reader.Read();
         }
 
