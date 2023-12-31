@@ -120,7 +120,7 @@
             dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle10;
             resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
@@ -185,7 +185,7 @@
             // 
             // moduleSerial
             // 
-            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.moduleSerial.DataPropertyName = "arcazeSerial";
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.moduleSerial.DefaultCellStyle = dataGridViewCellStyle3;
@@ -197,7 +197,7 @@
             // 
             // OutputName
             // 
-            this.OutputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.OutputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.OutputName.DataPropertyName = "OutputName";
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.OutputName.DefaultCellStyle = dataGridViewCellStyle4;
@@ -208,6 +208,7 @@
             // 
             // OutputType
             // 
+            this.OutputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.OutputType.DataPropertyName = "OutputType";
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
             this.OutputType.DefaultCellStyle = dataGridViewCellStyle5;
