@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms.Design;
-using CommandMessenger;
-using MobiFlight.Base;
-using MobiFlight.CustomDevices;
-using Newtonsoft.Json.Linq;
-using SharpDX.DirectInput;
+﻿using CommandMessenger;
 
 namespace MobiFlight
 {
