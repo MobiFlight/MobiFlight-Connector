@@ -638,4 +638,7 @@ Open anyway?
 
 Tip: Save the file after opening to update the associated board for future use.</value>
   </data>
+  <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
+    <value>Editing is disabled due to outdated firmware. Please update to the latest version.</value>
+  </data>
 </root>

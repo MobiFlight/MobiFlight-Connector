@@ -11,9 +11,9 @@ namespace MobiFlight.Base
     public class ConfigRef : IXmlSerializable, ICloneable
     {
         public bool Active { get; set; }
-        public String Ref { get; set; } 
-        public String Placeholder { get; set; }
-
+        public string Ref { get; set; } 
+        public string Placeholder { get; set; }
+        public string TestValue { get; set; } = "1";
         public XmlSchema GetSchema()
         {
             return null;
@@ -21,9 +21,10 @@ namespace MobiFlight.Base
 
         public void ReadXml(XmlReader reader)
         {
-            if (reader["active"] != null && reader["active"] != "") Active = bool.Parse( reader["active"]);
-            if (reader["ref"] != null && reader["ref"] != "") Ref = reader["ref"];
-            if (reader["placeholder"] != null && reader["placeholder"] != "") Placeholder = reader["placeholder"];
+            if (!String.IsNullOrEmpty(reader["active"])) Active = bool.Parse( reader["active"]);
+            if (!String.IsNullOrEmpty(reader["ref"])) Ref = reader["ref"];
+            if (!String.IsNullOrEmpty(reader["placeholder"])) Placeholder = reader["placeholder"];
+            if (!String.IsNullOrEmpty(reader["testvalue"])) TestValue = reader["testvalue"];
             reader.Read();
         }
 
@@ -35,6 +36,7 @@ namespace MobiFlight.Base
                 writer.WriteAttributeString("active", Active.ToString());
                 writer.WriteAttributeString("ref", Ref);
                 writer.WriteAttributeString("placeholder", Placeholder);
+                writer.WriteAttributeString("testvalue", TestValue);
             writer.WriteEndElement();
         }
 
@@ -44,6 +46,7 @@ namespace MobiFlight.Base
             clone.Active = Active;
             clone.Ref = Ref;
             clone.Placeholder = Placeholder;
+            clone.TestValue = TestValue;
             return clone;
         }
 
@@ -53,7 +56,9 @@ namespace MobiFlight.Base
                 obj != null && obj is ConfigRef &&
                 Active == (obj as ConfigRef).Active &&
                 Ref == (obj as ConfigRef).Ref &&
-                Placeholder == (obj as ConfigRef).Placeholder;
+                Placeholder == (obj as ConfigRef).Placeholder &&
+                TestValue == (obj as ConfigRef).TestValue
+                ;
         }
     }
 }

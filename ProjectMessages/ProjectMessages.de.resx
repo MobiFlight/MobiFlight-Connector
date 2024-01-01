@@ -667,4 +667,8 @@ Bist du sicher, dass du sie für Dein Board ({1}) laden willst? </value>
 
 Do you want to open it?</comment>
   </data>
+  <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
+    <value>Bearbeiten ist deaktiviert, weil die Firmware veraltet ist. Bitte aktualisiere auf die neueste Version.</value>
+    <comment>Editing is disabled due to outdated firmware. Please update to the latest version.</comment>
+  </data>
 </root>

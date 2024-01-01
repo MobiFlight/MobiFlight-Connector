@@ -159,9 +159,10 @@ namespace MobiFlight.UI.Dialogs
 
             try
             {
+                var configRefs = CreateTestConfigRefs(config.ConfigRefs);
                 // Apply all modifiers to the test value
                 // so that the test value yields the final value
-                config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, new List<ConfigRefValue>()));
+                config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, configRefs));
             } catch (Exception ex)
             {
                 // ShowError? Or don't do anything?
@@ -170,6 +171,17 @@ namespace MobiFlight.UI.Dialogs
             testValuePanel1.Result = value.ToString();
 
             _execManager.ExecuteTestOn(config, CurrentGuid, value);
+        }
+
+        private List<ConfigRefValue> CreateTestConfigRefs(ConfigRefList configRefs)
+        {
+            var result = new List<ConfigRefValue>();
+            foreach (ConfigRef configRef in configRefs)
+            {
+                if (!configRef.Active) continue;
+                result.Add(new ConfigRefValue() { ConfigRef = configRef, Value = configRef.TestValue });
+            }
+            return result;
         }
 
         private void TestValuePanel_TestModeEnd(object sender, EventArgs e)
