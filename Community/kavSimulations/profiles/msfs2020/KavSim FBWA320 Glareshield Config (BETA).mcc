@@ -8,7 +8,7 @@
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_SPEED_SELECTED)" UUID="75c16739-da7d-4cfb-aad1-c4607104321e" />
         <test type="String" value="1" />
         <modifiers />
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="0" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="0" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="e6ff34ad-9a39-4bf4-83cd-ea818057dc42" operand="!=" value="1" logic="and" />
           <precondition type="config" active="true" ref="48b1ea69-194d-49e9-892b-af6c3eef5e54" operand="&gt;" value="100" logic="and" />
@@ -26,7 +26,7 @@
           <transformation active="True" expression="Round($*100, 0)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="1" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="1" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="e6ff34ad-9a39-4bf4-83cd-ea818057dc42" operand="!=" value="1" logic="and" />
           <precondition type="config" active="true" ref="bb9fc77e-8eca-4508-9d91-de808b27b4d5" operand="&lt;" value="1" logic="and" />
@@ -46,7 +46,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="6" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="6" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="bb9fc77e-8eca-4508-9d91-de808b27b4d5" operand="=" value="-1" logic="or" />
         </preconditions>
@@ -63,7 +63,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="10" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="10" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
         </preconditions>
@@ -95,7 +95,7 @@
           <transformation active="True" expression="Round($, 0)" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="2" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="6f608be4-cce7-4d5d-adf9-24b60d578c57" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
@@ -113,7 +113,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="7" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="7" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="80e9ee8c-6b87-44af-9548-b030d8139d14" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
@@ -146,7 +146,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="11" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="11" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
         </preconditions>
@@ -163,7 +163,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="13" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="13" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
         </preconditions>
@@ -195,7 +195,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="3" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="3" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
         </preconditions>
@@ -212,7 +212,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="12" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="12" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
         </preconditions>
@@ -244,7 +244,7 @@
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="$" />
           <transformation active="True" expression="if($&gt;0, $+(#/10), $+(-#/10))" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="4" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="4" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="5c5ddbfc-d1db-48f0-bc2e-d668b0882c47" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="ac4a3707-edb9-43d0-8888-8528cc9bc9e7" operand="=" value="0" logic="and" />
@@ -265,7 +265,7 @@
           <transformation active="True" expression="Round($*10, 0)" />
           <transformation active="True" expression="if($&gt;0, $+(#/10), $+(-#/10))" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="5" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="5" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="5c5ddbfc-d1db-48f0-bc2e-d668b0882c47" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="ac4a3707-edb9-43d0-8888-8528cc9bc9e7" operand="=" value="0" logic="and" />
@@ -286,7 +286,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="9" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="FCU LCD" messageType="9" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="b052808c-9b7b-459e-9b63-322d2ece57ff" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
@@ -349,7 +349,7 @@
           <transformation active="True" expression="if($&lt;100, Round($, 2)*100, $)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="EFIS L" messageType="0" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="EFIS L" messageType="0" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="6768a80d-bc0c-4302-8e87-2ec2bffbd45d" operand="=" value="1" logic="and" />
         </preconditions>
@@ -368,7 +368,7 @@
           <transformation active="True" expression="if($&lt;100, Round($, 2)*100, $)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="EFIS L" messageType="1" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="EFIS L" messageType="1" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="6768a80d-bc0c-4302-8e87-2ec2bffbd45d" operand="=" value="0" logic="and" />
         </preconditions>
@@ -387,7 +387,7 @@
           <transformation active="True" expression="if(C&gt;=2,1,0)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="EFIS L" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="EFIS L" messageType="2" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="6768a80d-bc0c-4302-8e87-2ec2bffbd45d" operand="&gt;=" value="2" logic="or" />
         </preconditions>
@@ -437,7 +437,7 @@
           <transformation active="True" expression="if($&lt;100, Round($, 2)*100, $)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="EFIS R" messageType="0" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="EFIS R" messageType="0" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="514dfa61-d012-4679-9066-bd67fad44972" operand="=" value="1" logic="and" />
         </preconditions>
@@ -456,7 +456,7 @@
           <transformation active="True" expression="if($&lt;100, Round($, 2)*100, $)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="EFIS R" messageType="1" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="EFIS R" messageType="1" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="514dfa61-d012-4679-9066-bd67fad44972" operand="=" value="0" logic="and" />
         </preconditions>
@@ -475,7 +475,7 @@
           <transformation active="True" expression="if(C&gt;=2,1,0)" />
           <transformation active="True" expression="$+#" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" customType="" customName="EFIS R" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-346-31C" trigger="normal" customType="" customName="EFIS R" messageType="2" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="514dfa61-d012-4679-9066-bd67fad44972" operand="&gt;=" value="2" logic="or" />
         </preconditions>
@@ -506,7 +506,7 @@
         <modifiers>
           <blink active="True" blinkValue="0.1" onOffSequence="50,50" />
         </modifiers>
-        <display type="-" serial="Kav Mega Glaresh/ SN-346-31C" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Glareshield/ SN-346-31C" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
