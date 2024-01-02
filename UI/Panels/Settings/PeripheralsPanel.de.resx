@@ -129,10 +129,10 @@
   <data name="groupBoxMidiSettings.Text" xml:space="preserve">
     <value>MIDI Einstellungen</value>
   </data>
-  <data name="labelDetectedJoysticks.Text" xml:space="preserve">
-    <value>Detektierte Joysticks:</value>
+  <data name="labelJoysticks.Text" xml:space="preserve">
+    <value>Aktive Joysticks:</value>
   </data>
-  <data name="labelDetectedMidiBoards.Text" xml:space="preserve">
-    <value>Detektierte MIDI Geräte:</value>
+  <data name="labelMidiBoards.Text" xml:space="preserve">
+    <value>Aktive MIDI Geräte:</value>
   </data>
 </root>
