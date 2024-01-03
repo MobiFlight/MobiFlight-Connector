@@ -130,7 +130,7 @@ namespace MobiFlight
             var di = new SharpDX.DirectInput.DirectInput();
             Joysticks?.Clear();
             ExcludedJoysticks?.Clear();
-            string[] excludedJoysticks = Properties.Settings.Default.ExcludedJoysticks.Split('§');            
+            List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
             var devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
 
@@ -166,7 +166,7 @@ namespace MobiFlight
                 }
 
                 // Check against exclusion list
-                if (excludedJoysticks.Contains(js.Name))
+                if (settingsExcludedJoysticks.Contains(js.Name))
                 {
                     Log.Instance.log($"Ignore attached joystick device: {js.Name}.", LogSeverity.Info);
                     ExcludedJoysticks.Add(js);

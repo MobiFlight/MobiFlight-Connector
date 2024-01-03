@@ -193,7 +193,8 @@ namespace MobiFlight
 
             MidiBoards?.Clear();
             ExcludedMidiBoards?.Clear();
-            string[] excludedBoards = Properties.Settings.Default.ExcludedMidiBoards.Split('§');
+            List<string> settingsExcludedBoards = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedMidiBoards);
+
             while (inputList.Count > 0)
             {
                 MidiInputDevice midiInput = inputList[0];
@@ -221,7 +222,7 @@ namespace MobiFlight
                 MidiBoard mb = new MidiBoard(midiInput, midiOutput, name, def);
 
                 // Check against exclusion list
-                if (excludedBoards.Contains(mb.Name))
+                if (settingsExcludedBoards.Contains(mb.Name))
                 {
                     Log.Instance.log($"Ignore attached Midi Device: {mb.Name}.", LogSeverity.Info);
                     ExcludedMidiBoards.Add(mb);

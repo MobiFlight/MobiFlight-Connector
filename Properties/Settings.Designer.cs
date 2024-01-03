@@ -530,7 +530,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
         public string ExcludedMidiBoards {
             get {
                 return ((string)(this["ExcludedMidiBoards"]));
@@ -542,7 +542,7 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("[]")]
         public string ExcludedJoysticks {
             get {
                 return ((string)(this["ExcludedJoysticks"]));

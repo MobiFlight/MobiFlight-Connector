@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -59,8 +60,8 @@ namespace MobiFlight.UI.Panels.Settings
 
         public void SaveSettings()
         {
-            List<string> excludedBoards = Properties.Settings.Default.ExcludedMidiBoards.Split('§').ToList();
-            List<string> excludedJoysticks = Properties.Settings.Default.ExcludedJoysticks.Split('§').ToList();
+            List<string> excludedBoards = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedMidiBoards);
+            List<string> excludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
             bool excludedJoysticksChanged = UpdateExclusionList(excludedJoysticks, listBoxJoysticks);
             bool excludedBoardsChanged = UpdateExclusionList(excludedBoards, listBoxMidiBoards);
@@ -68,8 +69,8 @@ namespace MobiFlight.UI.Panels.Settings
             bool enableJoysticksChanged = Properties.Settings.Default.EnableJoystickSupport != checkBoxJoystickSupport.Checked;
             bool enableMidiChanged = Properties.Settings.Default.EnableMidiSupport != checkBoxMidiSupport.Checked;
 
-            Properties.Settings.Default.ExcludedMidiBoards = string.Join("§", excludedBoards);
-            Properties.Settings.Default.ExcludedJoysticks = string.Join("§", excludedJoysticks);
+            Properties.Settings.Default.ExcludedMidiBoards = JsonConvert.SerializeObject(excludedBoards);
+            Properties.Settings.Default.ExcludedJoysticks = JsonConvert.SerializeObject(excludedJoysticks);
             Properties.Settings.Default.EnableJoystickSupport = checkBoxJoystickSupport.Checked;
             Properties.Settings.Default.EnableMidiSupport = checkBoxMidiSupport.Checked;
 
