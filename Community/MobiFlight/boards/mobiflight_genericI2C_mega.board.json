@@ -44,7 +44,13 @@
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "CustomDeviceTypes": [
       "MOBIFLIGHT_GENERICI2C"
-    ]
+    ],
+    "Community": {
+      "Project": "Mobiflight GenericI2C",
+      "Website": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/GenericI2C",
+      "Docs": "https://github.com/MobiFlight/MobiFlight-Connector/wiki",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
     "ModuleLimits": {
       "MaxAnalogInputs": 16,
