@@ -104,8 +104,7 @@ namespace MobiFlight.UI.Forms
             }
 
             String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
-            String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{module.Board.BasePath}\firmware";
-
+            
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
             {
                 MessageBox.Show(
@@ -117,8 +116,7 @@ namespace MobiFlight.UI.Forms
             OnBeforeFirmwareUpdate?.Invoke(module, null);
 
             MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
-            MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;
-
+            
             var task = Task<bool>.Run(() => {
                 bool UpdateResult;
                 if (IsUpdate)
