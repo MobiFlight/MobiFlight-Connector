@@ -70,6 +70,9 @@ namespace MobiFlight
 
             try
             {
+                String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{module.Board.BasePath}\firmware";
+                String FullFirmwarePath = $@"{firmwarePath}\{FirmwareName}";
+
                 if (module.Board.AvrDudeSettings != null)
                 {
                     while (!SerialPort.GetPortNames().Contains(UploadPort))
@@ -77,11 +80,11 @@ namespace MobiFlight
                         System.Threading.Thread.Sleep(100);
                     }
 
-                    RunAvrDude(UploadPort, module.Board, FirmwareName);
+                    RunAvrDude(UploadPort, module.Board, FullFirmwarePath);
                 }
                 else if (module.Board.UsbDriveSettings != null)
                 {
-                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName);
+                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName, FullFirmwarePath);
                 }
                 else
                 {
@@ -103,16 +106,13 @@ namespace MobiFlight
             return result;
         }
 
-        public static void RunAvrDude(String port, Board board, String firmwareName) 
+        public static void RunAvrDude(String port, Board board, String fullFirmwarePath) 
         {
             String message = "";
-            String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{board.BasePath}\firmware";
-            String FullFirmwarePath = $@"{firmwarePath}\{firmwareName}";
-
-
-            if (!IsValidFirmwareFilepath(FullFirmwarePath))
+            
+            if (!IsValidFirmwareFilepath(fullFirmwarePath))
             {
-                message = $"Firmware not found: {FullFirmwarePath}.";
+                message = $"Firmware not found: {fullFirmwarePath}.";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -130,7 +130,7 @@ namespace MobiFlight
 
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
                 string anyCommand =
-                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FullFirmwarePath}"":i";
+                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{fullFirmwarePath}"":i";
 
                 // StandardOutput and StandardError can only be captured when UseShellExecute is false
                 p.StartInfo.UseShellExecute = false;
@@ -177,16 +177,14 @@ namespace MobiFlight
             throw new Exception(message);
         }
 
-        public static void FlashViaUsbDrive(String port, Board board, String firmwareName)
+        public static void FlashViaUsbDrive(String port, Board board, string firmwareName, String fullFirmwarePath)
         {
-            String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{board.BasePath}\firmware";
-            String FullFirmwarePath = $@"{firmwarePath}\{firmwareName}";
             String message = "";
             DriveInfo driveInfo;
 
-            if (!IsValidFirmwareFilepath(FullFirmwarePath))
+            if (!IsValidFirmwareFilepath(fullFirmwarePath))
             {
-                message = $"Firmware not found: {FullFirmwarePath}";
+                message = $"Firmware not found: {fullFirmwarePath}";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -256,12 +254,12 @@ namespace MobiFlight
             var destination = $"{driveInfo.RootDirectory.FullName}{firmwareName}";
             try
             {
-                Log.Instance.log($"Copying {FullFirmwarePath} to {destination}", LogSeverity.Debug);
-                File.Copy(FullFirmwarePath, destination);
+                Log.Instance.log($"Copying {fullFirmwarePath} to {destination}", LogSeverity.Debug);
+                File.Copy(fullFirmwarePath, destination);
             }
             catch (Exception e)
             {
-                message = $"Unable to copy {FullFirmwarePath} to {destination}: {e.Message}";
+                message = $"Unable to copy {fullFirmwarePath} to {destination}: {e.Message}";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new Exception(message);
             }
