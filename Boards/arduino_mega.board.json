@@ -7,7 +7,7 @@
     "Timeout": 15000
   },
   "Connection": {
-    "ConnectionDelay": 1750,
+    "ConnectionDelay": 2000,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
