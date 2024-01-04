@@ -14,11 +14,6 @@ namespace MobiFlight
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
 
-        /***
-         * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex
-         **/
-        public static String FirmwarePath { get; set; }
-
         public static bool IsValidArduinoIdePath(string path)
         {
             return Directory.Exists(path + "\\" + AvrPath);
@@ -111,10 +106,13 @@ namespace MobiFlight
         public static void RunAvrDude(String port, Board board, String firmwareName) 
         {
             String message = "";
+            String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{board.BasePath}\firmware";
+            String FullFirmwarePath = $@"{firmwarePath}\{firmwareName}";
 
-            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + firmwareName))
+
+            if (!IsValidFirmwareFilepath(FullFirmwarePath))
             {
-                message = $"Firmware not found: {FirmwarePath}\\{firmwareName}.";
+                message = $"Firmware not found: {FullFirmwarePath}.";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -132,7 +130,7 @@ namespace MobiFlight
 
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
                 string anyCommand =
-                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
+                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FullFirmwarePath}"":i";
 
                 // StandardOutput and StandardError can only be captured when UseShellExecute is false
                 p.StartInfo.UseShellExecute = false;
@@ -181,7 +179,8 @@ namespace MobiFlight
 
         public static void FlashViaUsbDrive(String port, Board board, String firmwareName)
         {
-            String FullFirmwarePath = $"{FirmwarePath}\\{firmwareName}";
+            String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{board.BasePath}\firmware";
+            String FullFirmwarePath = $@"{firmwarePath}\{firmwareName}";
             String message = "";
             DriveInfo driveInfo;
 
