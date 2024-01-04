@@ -70,8 +70,7 @@ namespace MobiFlight
 
             try
             {
-                String firmwarePath = $@"{Directory.GetCurrentDirectory()}\{module.Board.BasePath}\firmware";
-                String FullFirmwarePath = $@"{firmwarePath}\{FirmwareName}";
+                var FullFirmwarePath = Path.Combine(Directory.GetCurrentDirectory(), module.Board.BasePath, "firmware", FirmwareName);
 
                 if (module.Board.AvrDudeSettings != null)
                 {
