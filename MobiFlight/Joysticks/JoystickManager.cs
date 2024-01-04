@@ -98,6 +98,10 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
+            foreach (var js in Joysticks)
+            {
+                js.Shutdown();
+            }
             Joysticks.Clear();
             ExcludedJoysticks.Clear();
         }
