@@ -456,7 +456,7 @@ namespace MobiFlight
             SendData(data);
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             foreach(var light in Lights)
             {
@@ -464,6 +464,11 @@ namespace MobiFlight
             }
             RequiresOutputUpdate = true;
             UpdateOutputDeviceStates();
+        }
+
+        public virtual void Shutdown()
+        {
+            // nothing to do
         }
     }
 }

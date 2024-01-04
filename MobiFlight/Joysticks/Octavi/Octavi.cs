@@ -171,5 +171,13 @@ namespace MobiFlight.Joysticks.Octavi
                     Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
             }
         }
+
+        public override void Shutdown()
+        {
+            Stream.Close();
+            inputReceiver.Received -= InputReceiver_Received;
+            Stream = null;
+            inputReceiver = null;
+        }
     }
 }
