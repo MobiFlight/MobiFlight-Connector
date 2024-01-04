@@ -5,7 +5,7 @@
       "Type": "miniCOCKPIT_miniFCU",
       "Author": "miniCOCKPIT",
       "URL": "",
-      "Version" : "0.9.1"
+      "Version" : "0.9.3"
     },
     "Config": {
       "Pins": [
@@ -88,6 +88,12 @@
         "id": 13,
         "label": "Toggle VS/FPA Mode",
         "description": "1 = FPA, 0=VS"
+      },
+
+      {
+        "id": 14,
+        "label": "ANN LT",
+        "description": "1 = ON, 0=OFF"
       }
 
 
