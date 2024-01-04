@@ -121,15 +121,17 @@ namespace MobiFlight
             //verboseLevel = " -v -v -v -v";
 
             // Process() requires an absolute, rather than relative, path when using UseShellExecute = false
-            String FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
+            var FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
 
             foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
                 var p = new Process();
 
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
+                var avrDudeConfPath = Path.Combine(FullAvrDudePath, "etc", "avrdude.conf");
+
                 string anyCommand =
-                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{fullFirmwarePath}"":i";
+                    $@"-C""{avrDudeConfPath}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{fullFirmwarePath}"":i";
 
                 // StandardOutput and StandardError can only be captured when UseShellExecute is false
                 p.StartInfo.UseShellExecute = false;
