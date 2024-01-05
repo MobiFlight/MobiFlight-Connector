@@ -36,11 +36,6 @@ namespace MobiFlight
         /// The project's support, e.g. Discord Server link
         /// </summary>
         public String Support;
-
-        /// <summary>
-        /// The logo resource
-        /// </summary>
-        public Image Logo;
     }
 
     /// <summary>
@@ -201,6 +196,16 @@ namespace MobiFlight
         public Community Community;
 
         /// <summary>
+        /// The image resource
+        /// </summary>
+        public Image BoardIcon;
+
+        /// <summary>
+        /// The image resource
+        /// </summary>
+        public Image BoardPicture;
+
+        /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
         /// </summary>
         /// <param name="latestFirmwareVersion">The version of the firmware, for example "1.14.0".</param>
@@ -332,11 +337,6 @@ namespace MobiFlight
         /// Base path for custom firmware
         /// </summary>
         public String BasePath;
-
-        /// <summary>
-        /// The image resource
-        /// </summary>
-        public Image BoardImage;
 
         /// <summary>
         /// Returns the correct Partner Level
