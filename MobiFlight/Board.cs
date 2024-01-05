@@ -351,6 +351,7 @@ namespace MobiFlight
                     return BoardPartnerLevel.Core;
 
                 var partners = new List<string>() {
+                    "CoreFlightTech",
                     "kavSimulations",
                     "miniCOCKPIT"
                 };
