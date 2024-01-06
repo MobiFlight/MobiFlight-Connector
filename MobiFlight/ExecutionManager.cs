@@ -1233,7 +1233,7 @@ namespace MobiFlight
                 try
                 {
                     var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
-                    ExecuteTestOn(cfg, currentGuid, null);
+                    ExecuteTestOn(cfg, currentGuid, cfg.TestValue);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1320,6 +1320,10 @@ namespace MobiFlight
                     break;
                 
                 case MobiFlightShiftRegister.TYPE:
+                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
+                    break;
+
+                case MobiFlightCustomDevice.TYPE:
                     ExecuteDisplay(value?.ToString() ?? "1", cfg);
                     break;
 

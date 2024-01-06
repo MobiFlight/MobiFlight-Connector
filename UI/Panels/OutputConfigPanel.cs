@@ -55,6 +55,16 @@ namespace MobiFlight.UI.Panels
 
             DropTimer.Interval = 400;
             DropTimer.Tick += DropTimer_Tick;
+
+            dataGridViewConfig.SelectionChanged += (s, e) => {
+                if (testToolStripMenuItem.Checked)
+                {
+                    UpdateSingleItemTestMode();
+                }
+
+                testToolStripMenuItem.Enabled = dataGridViewConfig.SelectedRows.Count > 0 && !dataGridViewConfig.SelectedRows[0].IsNewRow;
+                if (testToolStripMenuItem.Enabled) return;
+            };
         }
 
         public ExecutionManager ExecutionManager { get; set; }
@@ -63,6 +73,8 @@ namespace MobiFlight.UI.Panels
         public DataTable ConfigDataTable { get { return configDataTable; } }
 
         public DataGridView DataGridViewConfig { get { return dataGridViewConfig; } }
+
+        public OutputConfigItem ItemInTestMode { get; private set; }
 
         void DataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -1076,6 +1088,44 @@ namespace MobiFlight.UI.Panels
         {
             DropTimer.Stop();
             RemoveDragTargetHighlight();
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateSingleItemTestMode();
+        }
+
+        private void UpdateSingleItemTestMode()
+        {
+            var isTestOn = testToolStripMenuItem.Checked;
+
+            if (isTestOn && ItemInTestMode!=null)
+            {
+                ExecutionManager.ExecuteTestOff(ItemInTestMode, true);
+                ItemInTestMode = null;
+                testToolStripMenuItem.Checked = false;
+                return;
+            }
+
+            foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
+            {
+                // ignore new rows since they cannot be copied nor deleted
+                if (row.IsNewRow) continue;
+
+                DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
+                if (currentRow == null) continue;
+
+                OutputConfigItem cfg = currentRow["settings"] as OutputConfigItem;
+                var currentGuid = currentRow["guid"].ToString();
+
+                if (cfg == null) return;
+
+                ItemInTestMode = cfg;
+                ExecutionManager.ExecuteTestOn(cfg, currentGuid, cfg.TestValue);
+                testToolStripMenuItem.Checked = true;
+
+                return;
+            }
         }
     }
 }
