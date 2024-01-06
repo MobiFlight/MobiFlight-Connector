@@ -59,11 +59,12 @@ namespace MobiFlight.UI.Panels
             dataGridViewConfig.SelectionChanged += (s, e) => {
                 if (testToolStripMenuItem.Checked)
                 {
+                    // this disables the currently tested item
                     UpdateSingleItemTestMode();
                 }
 
-                testToolStripMenuItem.Enabled = dataGridViewConfig.SelectedRows.Count > 0 && !dataGridViewConfig.SelectedRows[0].IsNewRow;
-                if (testToolStripMenuItem.Enabled) return;
+                var AtLeastOneRowSelectedAndNotLastRow = dataGridViewConfig.SelectedRows.Count > 0 && !dataGridViewConfig.SelectedRows[0].IsNewRow;
+                testToolStripMenuItem.Enabled = AtLeastOneRowSelectedAndNotLastRow;
             };
         }
 
