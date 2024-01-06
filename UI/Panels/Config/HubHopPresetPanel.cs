@@ -278,7 +278,7 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfigXplane(OutputConfigItem config)
         {
-            var VariableValue = config.XplaneDataRef.Path.Trim();
+            var VariableValue = config.XplaneDataRef.Path?.Trim();
 
             // Restore the code
             if (VariableValue != "")
@@ -383,7 +383,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void TryToSelectOriginalPresetFromCode(string Code)
         {
-            if (Code == null || Code == "") return;
+            if (String.IsNullOrEmpty(Code)) return;
 
             String OriginalCode = Regex.Replace(Code, @":\d+", ":index");
 
