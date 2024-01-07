@@ -30,15 +30,15 @@
   "Info": {
     "CanInstallFirmware": true,
     "CanResetBoard": true,
-    "FriendlyName": "CoreFlightTech EFIS",
-    "FirmwareBaseName": "coreflighttech_efis_nano",
+    "FriendlyName": "CoreFlightTech COMM",
+    "FirmwareBaseName": "coreflighttech_comm_nano",
     "FirmwareExtension": "hex",
     "LatestFirmwareVersion": "1.0.0",
-    "MobiFlightType": "CoreFlightTech EFIS",
+    "MobiFlightType": "CoreFlightTech COMM",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex",
     "Community": {
       "Project": "CoreFlightTech",
-      "Website": "https://coreflighttech.com/product/boeing-737-efis-panel/",
+      "Website": "https://coreflighttech.com/product/b737-comm-radio-module/",
       "Docs": "https://coreflighttech.com/fly-core-flight-technologies/blog-and-downloads/",
       "Support": "https://coreflighttech.com/contact-us/"
     }

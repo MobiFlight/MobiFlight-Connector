@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="bb644eda-c761-47d7-82a0-b135bea5de7d">
+      <active>true</active>
+      <description>MSFS2020_COMM_FO ACTIVE DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:2,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="FO_COMM_v4/ SN-738-d02" trigger="normal" ledAddress="FO_COM_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="45325ee7-2129-420f-8805-4a1d103b4b12">
+      <active>true</active>
+      <description>MSFS2020_COMM_FO STANDBY DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:2,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="-1" operand="!=" ifValue="" elseValue="123456" />
+        </modifiers>
+        <display type="Display Module" serial="FO_COMM_v4/ SN-738-d02" trigger="normal" ledAddress="FO_COM_STANDBY" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar=" " ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9e29436c-aa73-4f0f-8402-9338d5a4a9b2">
+      <active>true</active>
+      <description>MSFS2020_COMM_FO BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:BL_Pedestal, number)" UUID="6cf89bcd-3f58-4ae8-812b-7702eebc6732" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="-1" operand="!=" ifValue="1" elseValue="0" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="FO_COMM_v4/ SN-738-d02" trigger="normal" pin="FO_COM_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="6f023812-9b70-446e-932c-4c5c0325702b">
+      <active>true</active>
+      <description>MSFS2020_FO COMM INNER ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_COMM_v4/ SN-738-d02" name="FO_COM_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="84308 (&gt;K:ROTOR_BRAKE)" presetId="4f1ff70e-9db2-4897-8661-5db00d8109ae" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="84307 (&gt;K:ROTOR_BRAKE)" presetId="5e9dfee4-6aaf-4aab-85a5-26912e54b0bf" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f4da7bdb-e67f-4e08-8a02-481a204370ea">
+      <active>true</active>
+      <description>MSFS2020_FO COMM OUTER ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_COMM_v4/ SN-738-d02" name="FO_COM_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="84208 (&gt;K:ROTOR_BRAKE)" presetId="05130fa0-2df3-41f9-b023-021a0d3013b8" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="84207 (&gt;K:ROTOR_BRAKE)" presetId="1ef0daa7-80ea-4311-b81c-6c7fd1ac1e51" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6d51a1a7-a244-49bd-87b7-e200ae61b8a1">
+      <active>true</active>
+      <description>MSFS2020_FO COMM TFR </description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_COMM_v4/ SN-738-d02" name="FO_COM_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="83701 (&gt;K:ROTOR_BRAKE)" presetId="426c6583-0dd4-437d-846a-8f447dd80b00" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1f5343f3-a76f-4921-ba8f-7c86ad499aae">
+      <active>false</active>
+      <description>MSFS2020_FO  COMM TEST - (DEACTIVE)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_COMM_v4/ SN-738-d02" name="FO_COM_TEST" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="95107 (&gt;K:ROTOR_BRAKE)" presetId="8d130a62-616e-4e8d-8aa7-81b98945eeba" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

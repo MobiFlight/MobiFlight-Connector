@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ModuleName>CPT_EFIS_v5_3</ModuleName>
+  <ModuleName>CoreFlightTech EFIS</ModuleName>
   <ModuleType>CoreFlightTech EFIS</ModuleType>
   <PowerSavingTime>600</PowerSavingTime>
   <InputMultiplexer Name="CPT_EFIS_InMux1" DataPin="5" NumBytes="1">
