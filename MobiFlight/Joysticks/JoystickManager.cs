@@ -1,4 +1,5 @@
-﻿using MobiFlight.Joysticks.Octavi;
+﻿using MobiFlight.Joysticks.FlightSimBuilder;
+using MobiFlight.Joysticks.Octavi;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -156,6 +157,15 @@ namespace MobiFlight
                             // statically set this to Octavi
                             // until we might support (Octavi|IFR1) or similar
                             GetDefinitionByInstanceName("Octavi")
+                         );
+                }
+                else if (d.InstanceName == "FlightSimBuilder 5301" || d.InstanceName == "FlightSimBuilder 5301 ")
+                {
+                    js = new GNS530(
+                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
+                            // statically set this to Octavi
+                            // until we might support (Octavi|IFR1) or similar
+                            GetDefinitionByInstanceName("FlightSimBuilder GNS530")
                          );
                 }
                 else

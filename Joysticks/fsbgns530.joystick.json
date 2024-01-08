@@ -1,0 +1,10 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "FlightSimBuilder GNS530",
+  "VendorId": 1240,
+  "ProductId": 59094,
+  "Inputs": [
+  ],
+  "Outputs": [
+  ]
+}
