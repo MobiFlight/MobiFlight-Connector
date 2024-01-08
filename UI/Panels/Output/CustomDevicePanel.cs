@@ -20,7 +20,7 @@ namespace MobiFlight.UI.Panels
 
         public void SetCustomDeviceNames(List<ListItem<MobiFlightCustomDevice>> pins)
         {
-            customDeviceNamesComboBox.ValueMember = "Value"; 
+            customDeviceNamesComboBox.ValueMember = "Value";
             customDeviceNamesComboBox.DisplayMember = "Label";
             customDeviceNamesComboBox.DataSource = pins;
 
@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Panels
             {
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }
-            
+
             valueTextBox.Text = config.CustomDevice.Value;
         }
 
@@ -50,7 +50,7 @@ namespace MobiFlight.UI.Panels
         {
             if (customDeviceNamesComboBox.SelectedValue != null)
             {
-                config.CustomDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString ();
+                config.CustomDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString();
             }
 
             if (MessageTypeComboBox.SelectedValue != null)
@@ -68,7 +68,8 @@ namespace MobiFlight.UI.Panels
             var messages = new List<ListItem<CustomDevices.MessageType>>();
             var customDevice = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice);
 
-            if (customDevice == null) return;
+            if (customDevice == null || customDevice.CustomDevice == null) 
+                return;
 
 
             customDevice.CustomDevice

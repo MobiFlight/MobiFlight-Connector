@@ -664,7 +664,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
+        ///   Looks up a localized string similar to Resetting {0} on {1} (Module {2}/{3}).
         /// </summary>
         internal static string uiMessageFirmwareResetStatus {
             get {
