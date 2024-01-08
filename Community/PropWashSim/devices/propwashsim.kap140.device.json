@@ -1,0 +1,111 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "PropWashSim KAP140",
+    "Type": "PROPWASHSIM_KAP140",
+    "Author": "PropWashSim",
+    "URL": "https://github.com",
+    "Version": "1.0.0"
+  },
+  "Config": {
+    "Pins": [],
+    "I2C": {
+      "Enabled": true,
+      "Addresses": [
+        "0x3F"
+      ]
+    }
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Set value",
+      "description": "$ will be displayed as value"
+    },
+    {
+      "id": 1,
+      "label": "Perform lamp test",
+      "description": "$ will be time in ms for the test, e.g. 1000 is 1 sec"
+    },
+    {
+      "id": 2,
+      "label": "Set B1 prompt",
+      "description": "Possible values are: HDG, AP, NAV, ROL, APR, REV, CLR"
+    },
+    {
+      "id": 3,
+      "label": "Set B2 prompt",
+      "description": "Possible values are: ALT, PFT, VS, GS, CLR"
+    },
+    {
+      "id": 4,
+      "label": "Set B3 prompt",
+      "description": "Possible values are: REV, NAV, APR, GS, CLR"
+    },
+    {
+      "id": 5,
+      "label": "Set B4 prompt",
+      "description": "Possible values are: REV, NAV, APR, GS, CLR"
+    },
+    {
+      "id": 6,
+      "label": "Set Annunciator AP",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 7,
+      "label": "Set Annunciator YD",
+      "description": "0=OFF, 1=ON"
+    },
+    {
+      "id": 8,
+      "label": "Set Annunciator L_ARM",
+      "description": "0=OFF, 1=ON"
+    },
+    {
+      "id": 9,
+      "label": "Set Annunciator R_ARM",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 10,
+      "label": "Set Annunciator DOWN",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 11,
+      "label": "Set Annunciator PT",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 12,
+      "label": "Set Annunciator UP",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 13,
+      "label": "Set Annunciator ALERT",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 14,
+      "label": "Set Annunciator FPM",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 15,
+      "label": "Set Annunciator FT",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 16,
+      "label": "Set Annunciator HPA",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    },
+    {
+      "id": 17,
+      "label": "Set Annunciator INHG",
+      "description": "Possible values are: 0=OFF, 1=ON"
+    }
+  ]
+}

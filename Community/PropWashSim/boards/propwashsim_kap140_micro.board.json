@@ -1,0 +1,171 @@
+{
+  "$schema": "./mfboard.schema.json",
+  "AvrDudeSettings": {
+    "Attempts": 1,
+    "BaudRates": [ "57600" ],
+    "Device": "atmega32u4",
+    "Programmer": "avr109",
+    "Timeout": 15000
+  },
+  "Connection": {
+    "ConnectionDelay": 1250,
+    "DelayAfterFirmwareUpdate": 1250,
+    "DtrEnable": true,
+    "EEPROMSize": 440,
+    "ExtraConnectionRetry": false,
+    "ForceResetOnFirmwareUpdate": true,
+    "MessageSize": 64
+  },
+  "HardwareIds": [
+    "^VID_1B4F&PID_9206",
+    "^VID_2341&PID_8036",
+    "^VID_2341&PID_8037"
+  ],
+  "Info": {
+    "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "FirmwareBaseName": "propwashsim_kap140_micro",
+    "FirmwareExtension": "hex",
+    "LatestFirmwareVersion": "0.0.1",
+    "FriendlyName": "PropWashSim KAP140",
+    "MobiFlightType": "PropWashSim KAP140 Micro",
+    "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
+    "CustomDeviceTypes": [
+      "PROPWASHSIM_KAP140"
+    ],
+    "Community": {
+      "Project": "PropWashSim KAP140",
+      "Website": "https://www.propwashsim.com/store/pws140-autopilot",
+      "Docs": "https://www.propwashsim.com/downloads",
+      "Support": "https://www.propwashsim.com/about-us"
+    }
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 9,
+    "MaxButtons": 18,
+    "MaxEncoders": 9,
+    "MaxInputShifters": 6,
+    "MaxLcdI2C": 0,
+    "MaxLedSegments": 6,
+    "MaxOutputs": 18,
+    "MaxServos": 8,
+    "MaxShifters": 6,
+    "MaxSteppers": 0,
+    "MaxInputMultiplexer": 6,
+    "MaxCustomDevices": 1
+  },
+  "Pins": [
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 0
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 1
+    },
+    {
+      "isAnalog": false,
+      "isI2C": true,
+      "isPWM": false,
+      "Pin": 2
+    },
+    {
+      "isAnalog": false,
+      "isI2C": true,
+      "isPWM": true,
+      "Pin": 3
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 4
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 5
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 6
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 7
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 8
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 9
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 10
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 14
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 15
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 16
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 18,
+      "Name": "A0"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 19,
+      "Name": "A1"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 20,
+      "Name": "A2"
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 21,
+      "Name": "A3"
+    }
+  ]
+}
