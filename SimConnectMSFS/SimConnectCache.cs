@@ -72,10 +72,11 @@ namespace MobiFlight.SimConnectMSFS
                 DATA_DEFINITION_ID = SIMCONNECT_DEFINE_ID.INIT_CLIENT,
                 RESPONSE_OFFSET = 0    
             };
-
+            
+            string hashMachineName = GenerateSimpleHash(Environment.MachineName, int.MaxValue).ToString();
             WasmRuntimeClientData = new WasmModuleClientData()
             {
-                NAME = $"Client_{Environment.MachineName}",
+                NAME = $"Client_{hashMachineName}",
                 AREA_SIMVAR_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_LVARS,
                 AREA_COMMAND_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_CMD,
                 AREA_RESPONSE_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_RESPONSE,
@@ -104,6 +105,18 @@ namespace MobiFlight.SimConnectMSFS
                 Log.Instance.log(e.Message, LogSeverity.Debug);
                 Disconnect();
             }
+        }
+        
+        private int GenerateSimpleHash(string s, int maxint)
+        {
+            // Simple hash algorithm, folding on a string, summed 4 bytes at a time 
+            long sum = 0, mul = 1;
+            for (int i = 0; i < s.Length; i++)
+            {
+                mul = (i % 4 == 0) ? 1 : mul * 256;
+                sum += (long)s[i] * mul;                              
+            }
+            return (int)(Math.Abs(sum) % maxint);
         }
 
         private void loadEventPresets()
