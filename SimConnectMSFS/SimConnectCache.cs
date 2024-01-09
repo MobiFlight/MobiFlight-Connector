@@ -505,10 +505,9 @@ namespace MobiFlight.SimConnectMSFS
         private FSUIPCOffsetType RegisterSimVar(string SimVarName)
         {
             // Matches presets like "(A:TITLE,String)" in different variations. These will most likely be of type String an will therefore be treated as String.
-            Match stringPreset = Regex.Match(SimVarName, "\\(.*A.*:.*,.*String.*\\)");
+            Match stringPreset = Regex.Match(SimVarName, "\\(.*A.*:.*,.*String.*\\)", RegexOptions.IgnoreCase);
             FSUIPCOffsetType simVarType = stringPreset.Success ? FSUIPCOffsetType.String : FSUIPCOffsetType.Float;
-            
-            
+
             if(simVarType == FSUIPCOffsetType.Float)
             {
                 // Register SimVar as float
