@@ -30,7 +30,7 @@ namespace MobiFlight
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         private readonly Timer PollTimer = new Timer();        
-        private readonly List<Joystick> Joysticks = new List<Joystick>();
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
         private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
         private IntPtr Handle;
 
@@ -73,7 +73,7 @@ namespace MobiFlight
             {
                 lock (Joysticks)
                 {
-                    foreach (MobiFlight.Joystick js in Joysticks)
+                    foreach (MobiFlight.Joystick js in Joysticks.Values)
                     {
                         js?.Update();
                     }
@@ -98,7 +98,7 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
-            foreach (var js in Joysticks)
+            foreach (var js in Joysticks.Values)
             {
                 js.Shutdown();
             }
@@ -108,18 +108,22 @@ namespace MobiFlight
 
         public void Stop()
         {
-            foreach (var j in Joysticks)
+            foreach (var j in Joysticks.Values)
             {
                 j.Stop();
             }
         }
 
-        public List<MobiFlight.Joystick> GetJoysticks()
+        /// <summary>
+        /// Returns the list of Joysticks sorted by name
+        /// </summary>
+        /// <returns>List of currently connected joysticks</returns>
+        public List<Joystick> GetJoysticks()
         {
-            return Joysticks;
+            return Joysticks.Values.OrderBy(j=>j.Name).ToList();
         }
 
-        public List<MobiFlight.Joystick> GetExcludedJoysticks()
+        public List<Joystick> GetExcludedJoysticks()
         {
             return ExcludedJoysticks;
         }
@@ -179,7 +183,7 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
                     js.Connect(Handle);
-                    Joysticks.Add(js);
+                    Joysticks.TryAdd(js.Name, js);
                     js.OnButtonPressed += Js_OnButtonPressed;
                     js.OnDisconnected += Js_OnDisconnected;
                 }       
@@ -187,7 +191,6 @@ namespace MobiFlight
 
             if (JoysticksConnected())
             {
-                Joysticks.Sort((j1, j2) => j1.Name.CompareTo(j2.Name));
                 Connected?.Invoke(this, null);
             }
         }
@@ -196,8 +199,7 @@ namespace MobiFlight
         {
             var js = sender as Joystick;
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
-            lock (Joysticks)
-                Joysticks.Remove(js);
+            Joysticks.TryRemove(js.Name, out _);
         }
 
         private bool HasAxisOrButtons(Joystick js)
@@ -214,7 +216,7 @@ namespace MobiFlight
 
         internal Joystick GetJoystickBySerial(string serial)
         {
-            return Joysticks.Find(js => js.Serial == serial);
+            return Joysticks.Values.ToList().Find(js => js.Serial == serial);
         }
 
         public Dictionary<String, int> GetStatistics()
@@ -224,7 +226,7 @@ namespace MobiFlight
                 ["Joysticks.Count"] = Joysticks.Count()
             };
 
-            foreach (var joystick in Joysticks)
+            foreach (var joystick in Joysticks.Values)
             {
                 var key = $"Joysticks.Model.{joystick.Name}";
 

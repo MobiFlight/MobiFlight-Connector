@@ -453,7 +453,16 @@ namespace MobiFlight
                 data[light.Byte] |= (byte)(light.State << light.Bit);
             }
 
-            SendData(data);
+            try
+            {
+                SendData(data);
+            }
+            catch (System.IO.IOException)
+            {
+                // this happens when the device is removed.
+                DIJoystick.Unacquire();
+                OnDisconnected?.Invoke(this, null);
+            }
         }
 
         public virtual void Stop()
