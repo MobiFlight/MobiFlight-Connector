@@ -522,7 +522,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>The board reset was successful!</value>
   </data>
   <data name="uiMessageFirmwareResetTitle" xml:space="preserve">
-    <value>Board reset</value>
+    <value>Board Reset</value>
   </data>
   <data name="uiMessageRestartRequired" xml:space="preserve">
     <value>This change will require a restart of MobiFlight to become effective.</value>

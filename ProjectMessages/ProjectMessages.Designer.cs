@@ -691,7 +691,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Board reset.
+        ///   Looks up a localized string similar to Board Reset.
         /// </summary>
         internal static string uiMessageFirmwareResetTitle {
             get {
