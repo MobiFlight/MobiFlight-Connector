@@ -19,6 +19,7 @@ namespace MobiFlight
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;      
         private readonly List<MidiBoard> MidiBoards = new List<MidiBoard>();
+        private readonly List<MidiBoard> ExcludedMidiBoards = new List<MidiBoard>();        
         private readonly List<MidiBoard> BoardsToBeRemoved = new List<MidiBoard>();
         private readonly Dictionary<string, MidiBoardDefinition> Definitions = new Dictionary<string, MidiBoardDefinition>();
         private readonly Timer ProcessTimer = new System.Windows.Forms.Timer();
@@ -133,7 +134,7 @@ namespace MobiFlight
             if (CheckAttachedRemovedCounter < 40) return;   
             
             CheckAttachedRemovedCounter = 0;
-            if (MidiDevice.InputsCount == MidiBoards.Count) return;
+            if (MidiDevice.InputsCount == (MidiBoards.Count + ExcludedMidiBoards.Count)) return;
 
             Log.Instance.log($"Change in MIDI Board Setup detected.", LogSeverity.Info);
             foreach (var mb in MidiBoards)
@@ -160,11 +161,17 @@ namespace MobiFlight
                 mb.Shutdown();
             }  
             MidiBoards.Clear();
+            ExcludedMidiBoards.Clear();
         }
 
         public List<MidiBoard> GetMidiBoards()
         {
             return MidiBoards;
+        }
+
+        public List<MidiBoard> GetExcludedMidiBoards()
+        {
+            return ExcludedMidiBoards;
         }
 
         public void Connect()
@@ -185,6 +192,9 @@ namespace MobiFlight
             outputList.ForEach(o => { Log.Instance.log($"Found MidiOutput: {o.Name}, Index {o.Index}.", LogSeverity.Debug); });
 
             MidiBoards?.Clear();
+            ExcludedMidiBoards?.Clear();
+            List<string> settingsExcludedBoards = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedMidiBoards);
+
             while (inputList.Count > 0)
             {
                 MidiInputDevice midiInput = inputList[0];
@@ -200,13 +210,27 @@ namespace MobiFlight
                     outputList.RemoveAt(index);                   
                 }
                 inputList.RemoveAt(0);
-                if (registeredBoards.ContainsKey(name))     
+                if (registeredBoards.ContainsKey(name))
+                {
                     name += $"_{++registeredBoards[name]}";
+                }
                 else
+                {
                     registeredBoards[name] = 1;
+                }
                                     
                 MidiBoard mb = new MidiBoard(midiInput, midiOutput, name, def);
-                ConnectBoard(mb);
+
+                // Check against exclusion list
+                if (settingsExcludedBoards.Contains(mb.Name))
+                {
+                    Log.Instance.log($"Ignore attached Midi Device: {mb.Name}.", LogSeverity.Info);
+                    ExcludedMidiBoards.Add(mb);
+                }
+                else
+                {
+                    ConnectBoard(mb);
+                }                
             }
 
             if (AreMidiBoardsConnected())
@@ -227,6 +251,7 @@ namespace MobiFlight
             }
             catch (MidiBoardInUsageByOtherProcessException ex)
             {
+                ExcludedMidiBoards.Add(board);
                 TimeoutMessageDialog tmd = new TimeoutMessageDialog
                 {
                     HasCancelButton = false,

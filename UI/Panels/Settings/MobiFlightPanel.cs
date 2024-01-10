@@ -402,9 +402,9 @@ namespace MobiFlight.UI.Panels.Settings
                     communityItem = new ToolStripMenuItem() { Text = currentProject };
                     communityItem2 = new ToolStripMenuItem() { Text = currentProject };
 
-                    if (board.BoardImage != null)
+                    if (board.Info.BoardIcon != null)
                     {
-                        communityItem2.Image = communityItem.Image = board.BoardImage;
+                        communityItem2.Image = communityItem.Image = board.Info.BoardIcon;
                     }
                     updateFirmwareToolStripMenuItem.DropDownItems.Add(communityItem);
                     UpdateFirmwareToolStripButton.DropDownItems.Add(communityItem2);
@@ -444,9 +444,9 @@ namespace MobiFlight.UI.Panels.Settings
                 UpdateModules(modules);
             };
 
-            if (board.BoardImage != null && board.PartnerLevel==BoardPartnerLevel.Core)
+            if (board.Info.BoardIcon != null && board.PartnerLevel==BoardPartnerLevel.Core)
             {
-                item.Image = board.BoardImage;
+                item.Image = board.Info.BoardIcon;
             }
 
             return item;
@@ -511,7 +511,7 @@ namespace MobiFlight.UI.Panels.Settings
 
         private void SetCorrectBoardIcon(TreeNode moduleNode, MobiFlightModule module)
         {
-            if (module.Board.BoardImage != null)
+            if (module.Board.Info.BoardIcon != null)
             {
                 // i had to do this with the imageKey
                 // the nodes don't support an image directly
@@ -530,7 +530,7 @@ namespace MobiFlight.UI.Panels.Settings
             var imageKey = board.Info.MobiFlightType;
             if (!mfTreeViewImageList.Images.ContainsKey(imageKey))
             {
-                mfTreeViewImageList.Images.Add(imageKey, board.BoardImage);
+                mfTreeViewImageList.Images.Add(imageKey, board.Info.BoardIcon);
             }
             return imageKey;
         }

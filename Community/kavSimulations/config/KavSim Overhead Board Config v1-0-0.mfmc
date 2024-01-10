@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ModuleType>Kav Mega</ModuleType>
-  <ModuleName>Kav Mega Ovrhd</ModuleName>
+  <ModuleName>Kav Overhead</ModuleName>
   <PowerSavingTime>600</PowerSavingTime>
   <CustomDevice Name="BAT 1" CustomType="KAV_BATTERY" Pins="34|32|33" Config="">
     <ConfiguredPins>

@@ -233,7 +233,7 @@ namespace MobiFlight.UI.Panels.Config
                 config.SimConnectValue.Value = SimVarNameTextBox.Text.ToLF();
             } else if (FlightSimType == FlightSimType.XPLANE)
             {
-                config.XplaneDataRef.Path = SimVarNameTextBox.Text;
+                config.XplaneDataRef.Path = SimVarNameTextBox.Text.Trim();
             }
         }
 
@@ -262,7 +262,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             MobiFlight.InputConfig.XplaneInputAction result = new InputConfig.XplaneInputAction();
             result.InputType = CodeTypeComboBox.SelectedValue.ToString();
-            result.Path = SimVarNameTextBox.Text;
+            result.Path = SimVarNameTextBox.Text.Trim();
             result.Expression = ValueTextBox.Text;
             return result;
         }
@@ -278,7 +278,7 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfigXplane(OutputConfigItem config)
         {
-            var VariableValue = config.XplaneDataRef.Path;
+            var VariableValue = config.XplaneDataRef.Path?.Trim();
 
             // Restore the code
             if (VariableValue != "")
@@ -383,7 +383,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void TryToSelectOriginalPresetFromCode(string Code)
         {
-            if (Code == null || Code == "") return;
+            if (String.IsNullOrEmpty(Code)) return;
 
             String OriginalCode = Regex.Replace(Code, @":\d+", ":index");
 
@@ -709,12 +709,12 @@ namespace MobiFlight.UI.Panels.Config
             }
 
             // Restore the code
-            SimVarNameTextBox.Text = inputAction.Path;
+            SimVarNameTextBox.Text = inputAction.Path.Trim();
             ValueTextBox.Text = inputAction.Expression;
 
             // Try to find the original preset and 
             // initialize comboboxes accordingly
-            String OriginalCode = inputAction.Path;
+            String OriginalCode = inputAction.Path.Trim();
 
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }

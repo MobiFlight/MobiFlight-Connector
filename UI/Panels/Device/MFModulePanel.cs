@@ -74,9 +74,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             else
                 labelProjectValue.Text= "Unknown";
 
-            if (board.Info.Community != null)
+            if (board.Info.BoardPicture != null)
             {
-                pictureBoxLogo.Image = board.Info.Community.Logo;
+                pictureBoxLogo.Image = board.Info.BoardPicture;
                 pictureBoxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             } else
             {

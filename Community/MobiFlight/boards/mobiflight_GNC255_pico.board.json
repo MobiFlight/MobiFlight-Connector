@@ -26,7 +26,13 @@
     "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
     "CustomDeviceTypes": [
       "MOBIFLIGHT_GNC255"
-    ]
+    ],
+    "Community": {
+      "Project": "Mobiflight GNC255",
+      "Website": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/Mobiflight/GNC255",
+      "Docs": "https://github.com/MobiFlight/MobiFlight-Connector/wiki",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
     "ModuleLimits": {
       "MaxAnalogInputs": 3,

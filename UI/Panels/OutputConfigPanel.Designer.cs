@@ -77,6 +77,8 @@
             this.guidDataColumn = new System.Data.DataColumn();
             this.outputDataColumn = new System.Data.DataColumn();
             this.outputTypeDataColumn = new System.Data.DataColumn();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
             this.dataGridViewContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
@@ -267,7 +269,9 @@
             this.pasteToolStripMenuItem,
             this.toolStripMenuItem1,
             this.duplicateRowToolStripMenuItem,
-            this.deleteRowToolStripMenuItem});
+            this.deleteRowToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.testToolStripMenuItem});
             this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
             resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DataGridViewContextMenuStrip_Opening);
@@ -432,6 +436,17 @@
             this.outputTypeDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
             this.outputTypeDataColumn.ColumnName = "OutputType";
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
+            // 
+            // testToolStripMenuItem
+            // 
+            resources.ApplyResources(this.testToolStripMenuItem, "testToolStripMenuItem");
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
             // OutputConfigPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -485,5 +500,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fsuipcValueColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn arcazeValueColumn;
         private System.Windows.Forms.DataGridViewButtonColumn EditButtonColumn;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }

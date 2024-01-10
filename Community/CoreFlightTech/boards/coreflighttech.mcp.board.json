@@ -2,12 +2,12 @@
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
     "Device": "atmega2560",
-    "BaudRates": [ "115200" ],
+    "BaudRates": ["115200"],
     "Programmer": "wiring",
     "Timeout": 15000
   },
   "Connection": {
-    "ConnectionDelay": 1250,
+    "ConnectionDelay": 1750,
     "ExtraConnectionRetry": false,
     "ForceResetOnFirmwareUpdate": false,
     "DelayAfterFirmwareUpdate": 0,
@@ -35,24 +35,17 @@
     "CanInstallFirmware": true,
     "CanResetBoard": true,
     "DelayAfterFirmwareUpdate": 0,
-    "FirmwareBaseName": "kav_mega",
+    "FirmwareBaseName": "coreflighttech_mcp_mega",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.5.2",
-    "FriendlyName": "Kav Mega",
-    "MobiFlightType": "Kav Mega",
+    "LatestFirmwareVersion": "1.0.0",
+    "FriendlyName": "CoreFlightTech MCP",
+    "MobiFlightType": "CoreFlightTech MCP",
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
-    "CustomDeviceTypes": [
-      "KAV_FCU",
-      "KAV_EFIS",
-      "KAV_BATTERY",
-      "KAV_RAD_TCAS",
-      "KAV_RUDDER"
-    ],
     "Community": {
-      "Project": "KAV Simulations",
-      "Website": "https://jak-kav.co.uk/",
-      "Docs": "https://jak-kav.co.uk/pages/documentation-1",
-      "Support": "https://jak-kav.co.uk/pages/contact"
+      "Project": "CoreFlightTech",
+      "Website": "https://coreflighttech.com/",
+      "Docs": "https://coreflighttech.com/fly-core-flight-technologies/blog-and-downloads/",
+      "Support": "https://coreflighttech.com/contact-us/"
     }
   },
   "ModuleLimits": {
@@ -67,7 +60,7 @@
     "MaxShifters": 6,
     "MaxSteppers": 10,
     "MaxInputMultiplexer": 6,
-    "MaxCustomDevices": 6
+    "MaxCustomDevices" : 0
   },
   "Pins": [
     {

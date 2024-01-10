@@ -22,7 +22,7 @@
         <modifiers>
           <transformation active="True" expression="if(X=1,A,if(X=2,B,if(X=3,C,0)))" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RMP L ACTIVE" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RMP L ACTIVE" messageType="2" value="$" />
         <preconditions />
         <configrefs>
           <configref active="True" ref="f7a2e9f7-6674-4163-9112-dee3e64829fd" placeholder="C" />
@@ -41,7 +41,7 @@
         <modifiers>
           <transformation active="True" expression="if(X=1,A,if(X=2,B,if(X=3,C,0)))" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RMP L STBY-CRS" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RMP L STBY-CRS" messageType="2" value="$" />
         <preconditions />
         <configrefs>
           <configref active="True" ref="eb52ed55-b37d-4884-b16c-c74cb1eafea3" placeholder="C" />
@@ -72,7 +72,7 @@
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_RMP_L_SELECTED_MODE)" UUID="d17a285e-b483-41db-b5dd-803d7bcd76b7" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -84,7 +84,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -96,7 +96,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:2,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -110,7 +110,7 @@
         <modifiers>
           <transformation active="True" expression="Truncate($)" />
         </modifiers>
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -122,7 +122,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -136,7 +136,7 @@
         <modifiers>
           <transformation active="True" expression="$/1000" />
         </modifiers>
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -151,7 +151,7 @@
           <transformation active="True" expression="$/1000" />
           <transformation active="True" expression="Truncate($)" />
         </modifiers>
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -191,7 +191,7 @@
         <modifiers>
           <transformation active="True" expression="if(X=1,A,if(X=2,B,if(X=3,C,0)))" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RMP R ACTIVE" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RMP R ACTIVE" messageType="2" value="$" />
         <preconditions />
         <configrefs>
           <configref active="True" ref="9105c587-cdb0-4c4f-992a-ec4e1c024b85" placeholder="C" />
@@ -210,7 +210,7 @@
         <modifiers>
           <transformation active="True" expression="if(X=1,A,if(X=2,B,if(X=3,C,0)))" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RMP R STBY-CRS" messageType="2" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RMP R STBY-CRS" messageType="2" value="$" />
         <preconditions />
         <configrefs>
           <configref active="True" ref="3f576e2a-f4c5-4245-b342-0f5eb68ce473" placeholder="C" />
@@ -241,7 +241,7 @@
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_RMP_R_SELECTED_MODE)" UUID="2a0993fd-857f-4632-a9c0-5e90bee04089" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -253,7 +253,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -265,7 +265,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:2,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -279,7 +279,7 @@
         <modifiers>
           <transformation active="True" expression="Truncate($)" />
         </modifiers>
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -293,7 +293,7 @@
         <modifiers>
           <transformation active="True" expression="Truncate($/1000)" />
         </modifiers>
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -305,7 +305,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:2,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -320,7 +320,7 @@
           <transformation active="True" expression="$/1000" />
           <transformation active="True" expression="Truncate($)" />
         </modifiers>
-        <display type="-" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -346,7 +346,7 @@
         <source type="SimConnect" VarType="CODE" Value="(A:TRANSPONDER CODE:1, Number)" UUID="d52e9a47-61c3-496b-b918-c5aa2fcf4ee7" />
         <test type="Float" value="1" />
         <modifiers />
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="TCAS" messageType="3" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="TCAS" messageType="3" value="$" />
         <preconditions />
         <configrefs />
       </settings>
@@ -374,7 +374,7 @@
         <modifiers>
           <transformation active="True" expression="if($&lt;0,1,0)" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RUDDER TRIM" messageType="0" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RUDDER TRIM" messageType="0" value="$" />
         <preconditions />
         <configrefs />
       </settings>
@@ -388,7 +388,7 @@
         <modifiers>
           <transformation active="True" expression="if($&gt;0,1,0)" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RUDDER TRIM" messageType="1" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RUDDER TRIM" messageType="1" value="$" />
         <preconditions />
         <configrefs />
       </settings>
@@ -403,7 +403,7 @@
           <transformation active="True" expression="Round($,1)" />
           <transformation active="True" expression="$*10" />
         </modifiers>
-        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-D93-0CE" trigger="normal" customType="" customName="RUDDER TRIM" messageType="3" value="$" />
+        <display type="CustomDevice" serial="Kav Pedestal/ SN-D93-0CE" trigger="normal" customType="" customName="RUDDER TRIM" messageType="3" value="$" />
         <preconditions />
         <configrefs />
       </settings>

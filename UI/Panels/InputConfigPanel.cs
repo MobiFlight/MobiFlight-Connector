@@ -737,6 +737,8 @@ namespace MobiFlight.UI.Panels
         {
             ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
             ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
+            RowCurrentDragHighlight = 0;
+            RowNeighbourDragHighlight = 0;
         }
 
         private void inputsDataGridView_MouseDown(object sender, MouseEventArgs e)
