@@ -114,9 +114,13 @@ namespace MobiFlight
             }
         }
 
+        /// <summary>
+        /// Returns the list of Joysticks sorted by name
+        /// </summary>
+        /// <returns>List of currently connected joysticks</returns>
         public List<Joystick> GetJoysticks()
         {
-            return Joysticks.Values.ToList();
+            return Joysticks.Values.OrderBy(j=>j.Name).ToList();
         }
 
         public List<Joystick> GetExcludedJoysticks()
@@ -187,7 +191,6 @@ namespace MobiFlight
 
             if (JoysticksConnected())
             {
-                // Joysticks.Sort((j1, j2) => j1.Name.CompareTo(j2.Name));
                 Connected?.Invoke(this, null);
             }
         }
