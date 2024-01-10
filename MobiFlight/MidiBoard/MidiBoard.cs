@@ -1,4 +1,5 @@
 ﻿using M;
+using MobiFlight.Base;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -61,33 +62,21 @@ namespace MobiFlight
 
 
         public MidiBoard(MidiInputDevice midiInput, MidiOutputDevice midiOutput, string name, MidiBoardDefinition def)
-        {                 
+        {
             this.MidiInput = midiInput;
             this.MidiOutput = midiOutput;
             this.name = name;
             // Two boards of the same type get a different postfix to their name in windows
-            this.serial = GenerateSerial(name, int.MaxValue).ToString();
+            this.serial = name.GenerateSimpleHash(int.MaxValue).ToString();
             this.Definition = def;
             if (def != null)
             {
                 EncoderNeutral = def.EncoderNeutralPosition;
                 if (!string.IsNullOrEmpty(def.InitialLayer))
                     ActiveLayer = def.InitialLayer;
-            }            
+            }
             EncoderRightFast = EncoderNeutral + 3;
             EncoderLeftFast = EncoderNeutral - 3;
-    }
-
-        private int GenerateSerial(string s, int maxint)
-        {
-            // Simple hash algorithm, folding on a string, summed 4 bytes at a time 
-            long sum = 0, mul = 1;
-            for (int i = 0; i < s.Length; i++)
-            {
-                mul = (i % 4 == 0) ? 1 : mul * 256;
-                sum += (long)s[i] * mul;
-            }
-            return (int)(Math.Abs(sum) % maxint);
         }
 
         private void SendInputEvent(InputEventArgs inputEventArgs)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using HidSharp.Utility;
 using Microsoft.FlightSimulator.SimConnect;
+using MobiFlight.Base;
 
 namespace MobiFlight.SimConnectMSFS
 {
@@ -73,9 +74,10 @@ namespace MobiFlight.SimConnectMSFS
                 RESPONSE_OFFSET = 0    
             };
 
+            string hashMachineName = Environment.MachineName.GenerateSimpleHash(int.MaxValue).ToString();          
             WasmRuntimeClientData = new WasmModuleClientData()
             {
-                NAME = $"Client_{Environment.MachineName}",
+                NAME = $"Client_{hashMachineName}",
                 AREA_SIMVAR_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_LVARS,
                 AREA_COMMAND_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_CMD,
                 AREA_RESPONSE_ID = SIMCONNECT_CLIENT_DATA_ID.RUNTIME_RESPONSE,

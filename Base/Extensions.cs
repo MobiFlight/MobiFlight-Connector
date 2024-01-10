@@ -70,5 +70,17 @@ namespace MobiFlight.Base
             DirectoryInfo directoryInfo = new DirectoryInfo(path);
             return directoryInfo.Name;
         }
+
+        public static int GenerateSimpleHash(this string s, int maxint)
+        {
+            // Simple hash algorithm, folding on a string, summed 4 bytes at a time 
+            long sum = 0, mul = 1;
+            for (int i = 0; i < s.Length; i++)
+            {
+                mul = (i % 4 == 0) ? 1 : mul * 256;
+                sum += (long)s[i] * mul;
+            }
+            return (int)(Math.Abs(sum) % maxint);
+        }
     }
 }
