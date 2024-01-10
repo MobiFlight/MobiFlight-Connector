@@ -281,7 +281,6 @@
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
     <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\GNS530.cs" />
-    <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\Gns530Handler.cs" />
     <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\Gns530Report.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />

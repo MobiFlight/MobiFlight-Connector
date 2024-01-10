@@ -1,9 +1,154 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "FlightSimBuilder GNS530",
+  "InstanceName": "FlightSimBuilder 530",
   "VendorId": 1240,
   "ProductId": 59094,
   "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Left - Knob Outer - Left"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Left - Knob Outer - Right"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Left - Knob Inner - Left"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Left - Knob Inner - Right"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Left - Knob Inner - Push"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Right - Knob Outer - Left"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Right - Knob Outer - Right"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Right - Knob Inner - Left"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Right - Knob Inner - Right"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Right - Knob Inner - Push"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "UNUSED"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "C <->"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": ".C"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "V <->"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": ".V"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "UNUSED"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "UNUSED"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "CDI"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "OBS"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "MSG"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "FPL"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "VNAV"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "PROC"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "RNG UP"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "RNG DOWN"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "Direct To"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "MENU"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "CLR"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "ENT"
+    }
   ],
   "Outputs": [
   ]

@@ -32,7 +32,7 @@ namespace MobiFlight
 
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
-        private JoystickState State = null;
+        protected JoystickState State = null;
         private HidStream Stream;
 
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
@@ -366,7 +366,7 @@ namespace MobiFlight
             }
         }
 
-        private void UpdateButtons(JoystickState newState)
+        protected void UpdateButtons(JoystickState newState)
         {
             if (Buttons.Count==0) return;
 

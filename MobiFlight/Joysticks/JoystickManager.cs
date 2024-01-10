@@ -159,13 +159,13 @@ namespace MobiFlight
                             GetDefinitionByInstanceName("Octavi")
                          );
                 }
-                else if (d.InstanceName == "FlightSimBuilder 5301" || d.InstanceName == "FlightSimBuilder 5301 ")
+                else if (d.InstanceName == "FlightSimBuilder 530" || d.InstanceName == "FlightSimBuilder 530")
                 {
                     js = new GNS530(
                             new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
                             // statically set this to Octavi
                             // until we might support (Octavi|IFR1) or similar
-                            GetDefinitionByInstanceName("FlightSimBuilder GNS530")
+                            GetDefinitionByInstanceName("FlightSimBuilder 530")
                          );
                 }
                 else
