@@ -39,7 +39,7 @@
       {
         "id": 3,
         "label": "Set value w/ V",
-        "description": "$ will set the value of the LCD with 'V' character anabled"
+        "description": "$ will set the value of the LCD with 'V' character enabled"
       }
     ]
   }

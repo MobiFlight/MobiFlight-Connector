@@ -5,7 +5,7 @@
       "Type": "KAV_FCU",
       "Author": "Jak Kav",
       "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
-      "Version" : "1.0.0"
+      "Version": "1.0.0"
     },
     "Config": {
       "Pins": [
@@ -70,8 +70,7 @@
         "id": 10,
         "label": "Show speed dot",
         "description": "1 = speed dot will be shown, 0 = not shown"
-      }
-      ,
+      },
       {
         "id": 11,
         "label": "Show heading dot",
