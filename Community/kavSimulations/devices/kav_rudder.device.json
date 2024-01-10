@@ -17,6 +17,11 @@
     },
     "MessageTypes": [
       {
+        "id": -1,
+        "label": "Clear display",
+        "description": "will clear the display"
+      },
+      {
         "id": 0,
         "label": "Set 'L'",
         "description": "$ will set the first character to show 'L' or blank (0/1)"
@@ -45,6 +50,11 @@
         "id": 5,
         "label": "Set value w/ 'R'",
         "description": "$ will set the value of the display with the 'R' character"
+      },
+      {
+        "id": 6,
+        "label": "Set value w/ 'L' or 'R'",
+        "description": "$ will set the value of the display with the 'L' or 'R' character"
       }
     ]
   }

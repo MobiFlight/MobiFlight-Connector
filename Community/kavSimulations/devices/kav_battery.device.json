@@ -17,6 +17,11 @@
     },
     "MessageTypes": [
       {
+        "id": -1,
+        "label": "Clear display",
+        "description": "will clear the display"
+      },
+      {
         "id": 0,
         "label": "Set volt symbol",
         "description": "$ will set the volt symbol (0/1)"
@@ -33,8 +38,8 @@
       },
       {
         "id": 3,
-        "label": "Set value w/ L",
-        "description": "$ will set the value of the LCD with 'L' character anabled"
+        "label": "Set value w/ V",
+        "description": "$ will set the value of the LCD with 'V' character enabled"
       }
     ]
   }
