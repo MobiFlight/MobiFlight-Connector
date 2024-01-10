@@ -37,7 +37,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             // TODO: Complete member initialization
             this.module = module;
             moduleNameTextBox.Text = module.Name;
-            if (module.Name == "Unknown")
+            if (!module.HasMfFirmware())
             {
                 moduleNameTextBox.Text = i18n._tr("uiLabelModuleNAME_UNKNOWN");
                 moduleNameTextBox.ReadOnly = true;

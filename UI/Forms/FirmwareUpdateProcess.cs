@@ -52,7 +52,7 @@ namespace MobiFlight.UI.Forms
         {
             var Message = i18n._tr("uiMessageFirmwareUpdateStatus");
             if (ResetMode) Message = i18n._tr("uiMessageFirmwareResetStatus");
-
+            
             StatusLabel.Text = string.Format(
                                     Message,
                                     module.Name,
@@ -94,11 +94,13 @@ namespace MobiFlight.UI.Forms
 
         async void UpdateOrResetModule(MobiFlightModule module, bool IsUpdate)
         {
+            Text = i18n._tr("uiMessageFirmwareUploadTitle");
             var MessageComplete = i18n._tr("uiMessageFirmwareUpdateComplete");
             var MessageTimeout = i18n._tr("uiMessageFirmwareUpdateTimeout");
 
             if (!IsUpdate)
             {
+                Text = i18n._tr("uiMessageFirmwareResetTitle");
                 MessageComplete = i18n._tr("uiMessageFirmwareResetComplete");
                 MessageTimeout = i18n._tr("uiMessageFirmwareResetTimeout");
             }
@@ -125,6 +127,7 @@ namespace MobiFlight.UI.Forms
                     UpdateResult = MobiFlightFirmwareUpdater.Reset(module);
                 return UpdateResult;
             });
+            
             if (await Task.WhenAny(task, Task.Delay(module.Board.Connection.TimeoutForFirmwareUpdate)) == task)
             {
                 NumberOfModulesForFirmwareUpdate--;

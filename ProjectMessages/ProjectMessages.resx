@@ -507,7 +507,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>{0} ({1}) firmware reset completed ({2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
-    <value>Updating {0} on {1} (Module {2}/{3})</value>
+    <value>Resetting {0} on {1} (Module {2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
     <value>{0} ({1}) firmware reset timed out ({2}/{3})</value>
@@ -522,7 +522,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>The board reset was successful!</value>
   </data>
   <data name="uiMessageFirmwareResetTitle" xml:space="preserve">
-    <value>Board reset</value>
+    <value>Board Reset</value>
   </data>
   <data name="uiMessageRestartRequired" xml:space="preserve">
     <value>This change will require a restart of MobiFlight to become effective.</value>

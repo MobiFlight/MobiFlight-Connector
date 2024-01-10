@@ -148,7 +148,20 @@ namespace MobiFlight
 
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
-        public String Name { get; set; }
+
+        private string _name;
+        public String Name {
+            get
+            {
+                if (HasMfFirmware()) return _name;
+                return Board.Info.FriendlyName;
+            }
+            set 
+            {
+                _name = value;
+            } 
+        }
+
         public string HardwareId { get; set; }
 
         public String Type
@@ -275,7 +288,7 @@ namespace MobiFlight
 
         public MobiFlightModule(String port, Board board)
         {
-            Name = "Unknown";
+            Name = board.Info.FriendlyName;
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
             _comPort = port;
@@ -284,7 +297,7 @@ namespace MobiFlight
 
         public MobiFlightModule(MobiFlightModuleInfo moduleInfo)
         {
-            Name = moduleInfo.Name ?? "Unknown";
+            Name = moduleInfo.Name ?? moduleInfo.Board.Info.FriendlyName;
             Version = moduleInfo.Version;
             Serial = moduleInfo.Serial;
             _comPort = moduleInfo.Port;
@@ -356,11 +369,11 @@ namespace MobiFlight
             shiftRegisters.Clear();
             customDevices.Clear();
 
-            
+
             foreach (Config.BaseDevice device in Config.Items)
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
-                
+
                 try
                 {
                     switch (device.Type)
@@ -380,7 +393,7 @@ namespace MobiFlight
 
                             device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                             var dev = device as Config.LedModule;
-                            
+
                             ledModules.Add(device.Name, new MobiFlightLedModule()
                             {
                                 CmdMessenger = _cmdMessenger,
@@ -472,11 +485,12 @@ namespace MobiFlight
 
                         case DeviceType.CustomDevice:
                             device.Name = GenerateUniqueDeviceName(customDevices.Keys.ToArray(), device.Name);
-                            customDevices.Add(device.Name, new MobiFlightCustomDevice() {
-                                    CmdMessenger = _cmdMessenger,
-                                    DeviceNumber = customDevices.Count,
-                                    Name = device.Name,
-                                    CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Config.CustomDevice).CustomType)
+                            customDevices.Add(device.Name, new MobiFlightCustomDevice()
+                            {
+                                CmdMessenger = _cmdMessenger,
+                                DeviceNumber = customDevices.Count,
+                                Name = device.Name,
+                                CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Config.CustomDevice).CustomType)
                             });
                             break;
                     }
@@ -485,7 +499,7 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Unable to load config for {Board.Info.FriendlyName} ({Port}) > {device.Name}: {ex.Message}", LogSeverity.Error);
                 }
-            } 
+            }
         }
 
         public static string GenerateUniqueDeviceName(String[] Keys, String Name)
@@ -552,7 +566,7 @@ namespace MobiFlight
                 {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
- 
+
                 tmpSerial.Connect();
                 tmpSerial.Disconnect();
                 tmpSerial.Dispose();
@@ -620,13 +634,14 @@ namespace MobiFlight
             }
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = enc, 
-                    DeviceLabel = enc, 
-                    Type = DeviceType.Encoder, 
-                    Value = value 
+                OnInputDeviceAction(this, new InputEventArgs()
+                {
+                    Serial = this.Serial,
+                    Name = Name,
+                    DeviceId = enc,
+                    DeviceLabel = enc,
+                    Type = DeviceType.Encoder,
+                    Value = value
                 });
             //addLog("Enc: " + enc + ":" + pos);
         }
@@ -650,14 +665,15 @@ namespace MobiFlight
             }
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = deviceId, 
-                    DeviceLabel = deviceId, 
-                    Type = DeviceType.InputShiftRegister, 
-                    ExtPin = channel, 
-                    Value = state 
+                OnInputDeviceAction(this, new InputEventArgs()
+                {
+                    Serial = this.Serial,
+                    Name = Name,
+                    DeviceId = deviceId,
+                    DeviceLabel = deviceId,
+                    Type = DeviceType.InputShiftRegister,
+                    ExtPin = channel,
+                    Value = state
                 });
         }
 
@@ -680,13 +696,14 @@ namespace MobiFlight
             }
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = deviceId, 
+                OnInputDeviceAction(this, new InputEventArgs()
+                {
+                    Serial = this.Serial,
+                    Name = Name,
+                    DeviceId = deviceId,
                     DeviceLabel = deviceId,
-                    Type = DeviceType.InputMultiplexer, 
-                    ExtPin = channel, 
+                    Type = DeviceType.InputMultiplexer,
+                    ExtPin = channel,
                     Value = state
                 });
         }
@@ -697,7 +714,8 @@ namespace MobiFlight
             String button = arguments.ReadStringArg();
             String strState = arguments.ReadStringArg();
 
-            if (!int.TryParse(strState, out int state)) {
+            if (!int.TryParse(strState, out int state))
+            {
                 Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
                 return;
             }
@@ -1081,7 +1099,7 @@ namespace MobiFlight
             result[MobiFlightInputMultiplexer.TYPE] = inputMultiplexers.Count;
             result[MobiFlightCustomDevice.TYPE] = customDevices.Count;
 
-            foreach(var device in customDevices.Values)
+            foreach (var device in customDevices.Values)
             {
                 // Issue 1423: Handle the case where an Arduino with custom
                 // devices in the config is connected, but the corresponding
@@ -1434,7 +1452,8 @@ namespace MobiFlight
             }
 
             // Mark all the used pins as used in the result list.
-            foreach (byte pinNo in usedPins) {
+            foreach (byte pinNo in usedPins)
+            {
                 MobiFlightPin pin = ResultPins.Find(resultPin => resultPin.Pin == pinNo);
                 if (pin != null) pin.Used = true;
             }

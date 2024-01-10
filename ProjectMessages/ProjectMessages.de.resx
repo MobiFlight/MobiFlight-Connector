@@ -497,7 +497,7 @@ Respective input actions won't work until they are connected and you have restar
     <value>{0} ({1}) Firmware Reset fertig. ({2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
-    <value>Update von {0} an {1} (Modul {2}/{3})</value>
+    <value>Reset von {0} an {1} (Modul {2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
     <value>{0} ({1}) Firmware Reset time out. ({2}/{3})</value>
