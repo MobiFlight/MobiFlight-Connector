@@ -94,11 +94,13 @@ namespace MobiFlight.UI.Forms
 
         async void UpdateOrResetModule(MobiFlightModule module, bool IsUpdate)
         {
+            Text = i18n._tr("uiMessageFirmwareUploadTitle");
             var MessageComplete = i18n._tr("uiMessageFirmwareUpdateComplete");
             var MessageTimeout = i18n._tr("uiMessageFirmwareUpdateTimeout");
 
             if (!IsUpdate)
             {
+                Text = i18n._tr("uiMessageFirmwareResetTitle");
                 MessageComplete = i18n._tr("uiMessageFirmwareResetComplete");
                 MessageTimeout = i18n._tr("uiMessageFirmwareResetTimeout");
             }
