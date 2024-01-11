@@ -1,13 +1,11 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
-using FSUIPC;
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
