@@ -262,6 +262,7 @@
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
+    <Compile Include="MobiFlight\DeviceType.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
@@ -305,6 +306,8 @@
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\FsuipcStringModifierList.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
+    <Compile Include="MobiFlight\FirmwareFeature.cs" />
+    <Compile Include="MobiFlight\InputEventArgs.cs" />
     <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
