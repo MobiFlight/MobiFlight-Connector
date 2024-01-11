@@ -926,8 +926,7 @@ namespace MobiFlight
             // With the support of Custom Devices
             // we also introduced CoreVersion
             // if a CoreVersion was not provided 
-            // we determine a fallback one
-            // this has
+            // we determine a fallback version
             if (String.IsNullOrEmpty(CoreVersion))
             {
                 CoreVersion = FallbackCoreVersion(Version, Board);
@@ -937,6 +936,12 @@ namespace MobiFlight
             return devInfo;
         }
 
+        /// <summary>
+        /// Determine a sensible CoreVersion if not present
+        /// </summary>
+        /// <param name="version">Firmware version</param>
+        /// <param name="board">The current Board information</param>
+        /// <returns>CoreVersion, or null if no guess possible</returns>
         private static string FallbackCoreVersion(string version, Board board)
         {
             if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
