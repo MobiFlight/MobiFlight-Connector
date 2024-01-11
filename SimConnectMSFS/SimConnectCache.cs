@@ -74,7 +74,7 @@ namespace MobiFlight.SimConnectMSFS
                 RESPONSE_OFFSET = 0    
             };
 
-            string hashMachineName = Environment.MachineName.GenerateSimpleHash(int.MaxValue).ToString();          
+            string hashMachineName = Environment.MachineName.GenerateSimpleHash().ToString();          
             WasmRuntimeClientData = new WasmModuleClientData()
             {
                 NAME = $"Client_{hashMachineName}",
