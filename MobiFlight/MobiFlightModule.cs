@@ -1,6 +1,5 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
-using FSUIPC;
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -12,69 +11,10 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class InputEventArgs : EventArgs, ICloneable
-    {
-        public string Serial { get; set; }
-        public string DeviceId { get; set; }
-        public string DeviceLabel { get; set; }
-        public string Name { get; set; }
-        public DeviceType Type { get; set; }
-        public int? ExtPin { get; set; }
-        public int Value { get; set; }
-
-        public String StrValue { get; set; }
-
-        public readonly DateTime Time = DateTime.Now;
-
-        public object Clone()
-        {
-            InputEventArgs clone = new InputEventArgs();
-            clone.Serial = Serial;
-            clone.DeviceId = DeviceId;
-            clone.DeviceLabel = DeviceLabel;
-            clone.Name = Name;
-            clone.Type = Type;
-            clone.ExtPin = ExtPin;
-            clone.Value = Value;
-            clone.StrValue = StrValue;
-            return clone;
-        }
-    }
-
-    public class FirmwareFeature
-    {
-        public const string GenerateSerial = "1.3.0";
-        public const string SetName = "1.6.0";
-        public const string LedModuleTypeTM1637 = "2.4.2";
-        public const string CustomDevices = "2.4.2";
-    }
-
-    // This is the list of recognized commands. These can be commands that can either be sent or received. 
-    // In order to receive, attach a callback function to these events
-    public enum DeviceType
-    {
-        NotSet,              // 0 
-        Button,              // 1
-        EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
-        Output,              // 3
-        LedModuleDeprecated, // 4
-        StepperDeprecatedV1, // 5
-        Servo,               // 6
-        LcdDisplay,          // 7
-        Encoder,             // 8
-        StepperDeprecatedV2, // 9
-        ShiftRegister,       // 10
-        AnalogInput,         // 11
-        InputShiftRegister,  // 12
-        MultiplexerDriver,   // 13  Not a proper device, but index required for update events
-        InputMultiplexer, 	 // 14
-        Stepper,             // 15
-        LedModule,           // 16
-        CustomDevice         // 17        
-    }
-
     public class MobiFlightModule : IModule, IOutputModule
     {
+        // This is the list of recognized commands. These can be commands that can either be sent or received. 
+        // In order to receive, attach a callback function to these events
         public enum Command
         {
             InitModule,             // 0
@@ -186,6 +126,8 @@ namespace MobiFlight
         }
         public String Serial { get; set; }
         public String Version { get; set; }
+        public string CoreVersion { get; set; }
+
         public bool HasMfFirmware()
         {
             return !String.IsNullOrEmpty(Version);
@@ -959,6 +901,13 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
+                // With the support of Custom Devices
+                // we also introduced CoreVersion
+                if(InfoCommand.Arguments.Length>4)
+                {
+                    CoreVersion = InfoCommand.ReadStringArg();
+                }
+
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
@@ -974,8 +923,32 @@ namespace MobiFlight
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
 
-            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}, {Serial}.", LogSeverity.Debug);
+            // With the support of Custom Devices
+            // we also introduced CoreVersion
+            // if a CoreVersion was not provided 
+            // we determine a fallback version
+            if (String.IsNullOrEmpty(CoreVersion))
+            {
+                CoreVersion = FallbackCoreVersion(Version, Board);
+            }
+
+            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Info);
             return devInfo;
+        }
+
+        /// <summary>
+        /// Determine a sensible CoreVersion if not present
+        /// </summary>
+        /// <param name="version">Firmware version</param>
+        /// <param name="board">The current Board information</param>
+        /// <returns>CoreVersion, or null if no guess possible</returns>
+        private static string FallbackCoreVersion(string version, Board board)
+        {
+            if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
+
+            // Official partner boards were only built with > 2.5.0
+            if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "2.5.0";
+            return null;
         }
 
         public bool SaveName()
