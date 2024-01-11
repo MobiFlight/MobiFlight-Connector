@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -186,6 +187,8 @@ namespace MobiFlight
         }
         public String Serial { get; set; }
         public String Version { get; set; }
+        public string CoreVersion { get; set; }
+
         public bool HasMfFirmware()
         {
             return !String.IsNullOrEmpty(Version);
@@ -959,6 +962,13 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
+                // With the support of Custom Devices
+                // we also introduced CoreVersion
+                if(InfoCommand.Arguments.Length>4)
+                {
+                    CoreVersion = InfoCommand.ReadStringArg();
+                }
+
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
@@ -974,8 +984,27 @@ namespace MobiFlight
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
 
-            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}, {Serial}.", LogSeverity.Debug);
+            // With the support of Custom Devices
+            // we also introduced CoreVersion
+            // if a CoreVersion was not provided 
+            // we determine a fallback one
+            // this has
+            if (String.IsNullOrEmpty(CoreVersion))
+            {
+                CoreVersion = FallbackCoreVersion(Version, Board);
+            }
+
+            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Info);
             return devInfo;
+        }
+
+        private static string FallbackCoreVersion(string version, Board board)
+        {
+            if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
+
+            // Official partner boards were only built with > 2.5.0
+            if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "1.5.9";
+            return null;
         }
 
         public bool SaveName()
