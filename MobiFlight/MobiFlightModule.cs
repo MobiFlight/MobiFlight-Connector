@@ -932,7 +932,7 @@ namespace MobiFlight
                 CoreVersion = FallbackCoreVersion(Version, Board);
             }
 
-            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Info);
+            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Debug);
             return devInfo;
         }
 
