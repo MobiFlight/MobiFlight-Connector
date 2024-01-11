@@ -947,7 +947,7 @@ namespace MobiFlight
             if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
 
             // Official partner boards were only built with > 2.5.0
-            if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "1.5.9";
+            if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "2.5.0";
             return null;
         }
 
