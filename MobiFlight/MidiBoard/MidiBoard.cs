@@ -67,7 +67,7 @@ namespace MobiFlight
             this.MidiOutput = midiOutput;
             this.name = name;
             // Two boards of the same type get a different postfix to their name in windows
-            this.serial = name.GenerateSimpleHash(int.MaxValue).ToString();
+            this.serial = name.GenerateSimpleHash().ToString();
             this.Definition = def;
             if (def != null)
             {
