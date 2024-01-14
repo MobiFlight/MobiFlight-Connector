@@ -37,20 +37,19 @@
       "DelayAfterFirmwareUpdate": 0,
       "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
       "FirmwareExtension": "hex",
-      "LatestFirmwareVersion": "0.9.3",
+      "LatestFirmwareVersion": "1.0.0",
       "FriendlyName": "miniCOCKPIT miniFCU",
       "MobiFlightType": "miniCOCKPIT miniFCU mega",
-    "MobiFlightTypeLabel": "miniCOCKPIT miniFCU",
-      "ResetFirmwareFile": "reset.miniFCU.ino.hex",
+      "ResetFirmwareFile": "reset.miniFCU_1_0_0.ino.hex",
       "CustomDeviceTypes": [
         "miniCOCKPIT_miniFCU"
-    ],
-    "Community": {
-      "Project": "miniCOCKPIT",
-      "Website": "https://minicockpit.com/",
-      "Docs": "https://shop.minicockpit.com/a/help",
-      "Support": "mailto:hello@minicockpit.com"
-    }
+      ],
+      "Community": {
+        "Project": "miniCOCKPIT",
+        "Website": "https://minicockpit.com/",
+        "Docs": "https://shop.minicockpit.com/a/help",
+        "Support": "mailto:hello@minicockpit.com"
+      }
     },
     "ModuleLimits": {
       "MaxAnalogInputs": 16,
