@@ -4,13 +4,13 @@
     <config guid="8698d38c-1e1d-4ec1-a89a-b01e36fc89df">
       <active>true</active>
       <description>SPEED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_SPEED_SELECTED, Number)" UUID="4c2007cc-7799-4220-b211-4cd22ff099d9" />
         <test type="Float" value="298" />
         <modifiers>
           <comparison active="True" value="1" operand="&lt;" ifValue="Round($*100, 0.01)" elseValue="$" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="0" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="0" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="34911206-59d1-4e37-a037-37107eb62df3" operand="!=" value="1" logic="and" />
           <precondition type="config" active="true" ref="b0c05b0d-c9f1-4327-be6e-17d93af7447b" operand="!=" value="1" logic="and" />
@@ -22,52 +22,52 @@
     <config guid="34911206-59d1-4e37-a037-37107eb62df3">
       <active>true</active>
       <description>SPEED Dashes</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_SPD_MANAGED_DASHES)" UUID="fd53b904-19b1-42f7-b427-31f4e34ba1d7" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="False" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="3" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="3" value="$" />
         <preconditions>
           <precondition type="config" active="false" ref="4ccb2a83-f260-4d6a-8639-36636661e28f" operand="&lt;" value="0" logic="and" />
           <precondition type="config" active="false" ref="de93b7c1-0691-4ea8-9278-abec7a157f1c" operand="&lt;" value="0" logic="and" />
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" />
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="A" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="@" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="?" />
+          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" testvalue="1" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="A" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="@" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d">
       <active>true</active>
       <description>SPEED Dot</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_SPD_MANAGED_DOT)" UUID="d2e55c8e-41a1-4e05-8d2e-6afdd660d0e2" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="False" expression="$" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="4" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="4" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" />
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="A" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" testvalue="1" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="A" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="de93b7c1-0691-4ea8-9278-abec7a157f1c">
       <active>true</active>
       <description>MACH</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_SPEED_SELECTED, Number)" UUID="4c2007cc-7799-4220-b211-4cd22ff099d9" />
         <test type="Float" value="0.88" />
         <modifiers>
@@ -78,7 +78,7 @@
             <value x="1024" y="1024" />
           </interpolation>
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="1" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="1" value="$" />
         <preconditions>
           <precondition type="config" active="false" ref="4ccb2a83-f260-4d6a-8639-36636661e28f" operand="&lt;" value="1" logic="and" />
           <precondition type="config" active="true" ref="b0c05b0d-c9f1-4327-be6e-17d93af7447b" operand="!=" value="0" logic="and" />
@@ -86,24 +86,24 @@
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="b0c05b0d-c9f1-4327-be6e-17d93af7447b">
       <active>true</active>
       <description>SPDMACH</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT MANAGED SPEED IN MACH,Bool)" UUID="1a2d4936-4073-410f-8081-bf186601a2a2" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="False" value="1" operand="=" ifValue="0" elseValue="1" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="2" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="2" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
@@ -113,171 +113,171 @@
     <config guid="e829147f-cf95-4fb3-be51-af850bd9c2bc">
       <active>true</active>
       <description>HEADING Dashes</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_HDG_MANAGED_DASHES)" UUID="74e0f839-1cea-40c7-a6dd-a65eef34cf9d" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="6" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="6" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="3d11ca79-1463-47ec-b7bb-ea3808c17913">
       <active>true</active>
       <description>HEADING</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_HEADING_SELECTED)" UUID="a20b8246-d975-4b5b-a335-95cd15157da3" />
         <test type="Float" value="271" />
         <modifiers>
           <transformation active="True" expression="Round($, 0.1)" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="5" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="5" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" />
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="8e365516-9c51-42a4-9924-3b182b8f0fcd" placeholder="B" testvalue="1" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="8e365516-9c51-42a4-9924-3b182b8f0fcd">
       <active>true</active>
       <description>HEADING Dot</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_HDG_MANAGED_DOT)" UUID="efe73349-997f-409e-b73b-89172e03a62b" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="False" expression="$" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="7" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="7" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="17f4d690-2433-420b-a8f9-63ada089540d">
       <active>true</active>
       <description>ALTITUDE</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(A:AUTOPILOT ALTITUDE LOCK VAR:3, Feet)" UUID="d4f30cbf-baed-432d-b110-c7ed94dec775" />
         <test type="Float" value="10000" />
         <modifiers>
           <transformation active="True" expression="$/100" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="8" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="8" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="0cf4aa95-b830-4820-a353-dba198e646da">
       <active>true</active>
       <description>ALTITUDE DOT</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_ALT_MANAGED)" UUID="01080513-2a03-4e42-981b-bd0692ab7646" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="False" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="9" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="9" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="d5585bb5-41f8-4b94-958d-eda396a783e3">
       <active>true</active>
       <description>FPA</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_FPA_SELECTED)" UUID="fc8b0ff4-8c94-4373-bdc6-1cb6a365f301" />
         <test type="Float" value="100" />
         <modifiers>
           <transformation active="True" expression="Round($*1000, 0.1)" />
           <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="11" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="11" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="7f8454e4-8751-456e-9f2d-3aed93e5ed2d" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="b95a9673-c3f4-49d5-a4f0-b2ed5a827826" operand="!=" value="1" logic="and" />
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="b8c4cbba-e408-4a79-bf89-369630ad3fc1">
       <active>true</active>
       <description>VS</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_VS_SELECTED)" UUID="bb5af9a4-b690-45e6-b02a-b81a5b137ed5" />
         <test type="Float" value="1000" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="10" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="10" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="7f8454e4-8751-456e-9f2d-3aed93e5ed2d" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="b95a9673-c3f4-49d5-a4f0-b2ed5a827826" operand="!=" value="1" logic="and" />
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="b95a9673-c3f4-49d5-a4f0-b2ed5a827826">
       <active>true</active>
       <description>VS Dashes</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_VS_MANAGED)" UUID="17c91c46-676d-41d6-9108-893e8d0731ed" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="12" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="12" value="$" />
         <preconditions>
           <precondition type="config" active="false" ref="b8c4cbba-e408-4a79-bf89-369630ad3fc1" operand="=" value="0" logic="and" />
           <precondition type="config" active="false" ref="d5585bb5-41f8-4b94-958d-eda396a783e3" operand="=" value="0" logic="and" />
@@ -289,132 +289,132 @@
     <config guid="7f8454e4-8751-456e-9f2d-3aed93e5ed2d">
       <active>true</active>
       <description>TRK/FPA</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_TRK_FPA_MODE_ACTIVE)" UUID="20864ce0-eef8-48ab-97cb-9ca8a5a0cefd" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="13" value="$" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="13" value="$" />
         <preconditions>
           <precondition type="config" active="true" ref="60c27940-c33a-4734-bf15-df4a238b5579" operand="!=" value="1" logic="and" />
         </preconditions>
         <configrefs>
-          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" />
-          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" />
-          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" />
-          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" />
+          <configref active="False" ref="e829147f-cf95-4fb3-be51-af850bd9c2bc" placeholder="B" testvalue="1" />
+          <configref active="False" ref="3d11ca79-1463-47ec-b7bb-ea3808c17913" placeholder="A" testvalue="1" />
+          <configref active="False" ref="03bdb7db-7b38-4c5b-9fdc-49b8741d1a4d" placeholder="@" testvalue="1" />
+          <configref active="False" ref="34911206-59d1-4e37-a037-37107eb62df3" placeholder="?" testvalue="1" />
         </configrefs>
       </settings>
     </config>
     <config guid="0ad17bfa-ef2d-4b18-bd72-0c50d2a24561">
       <active>true</active>
       <description>AP1</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_1_ACTIVE)" UUID="0d990abb-dbfb-4265-8036-cf9a9308ef1a" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="True" expression="if(#=1,1,$)" />
         </modifiers>
-        <display type="Output" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="AP1" pinBrightness="255" />
+        <display type="Output" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="AP1" pinBrightness="255" />
         <preconditions />
         <configrefs>
-          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" />
+          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" testvalue="0" />
         </configrefs>
       </settings>
     </config>
     <config guid="25714049-1c75-49be-a6a7-ec5e5152cfab">
       <active>true</active>
       <description>AP2</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOPILOT_2_ACTIVE)" UUID="e1fc4872-02dc-4917-b8a4-9bf5fc604284" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="True" expression="if(#=1,1,$)" />
         </modifiers>
-        <display type="Output" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="AP2" pinBrightness="255" />
+        <display type="Output" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="AP2" pinBrightness="255" />
         <preconditions />
         <configrefs>
-          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" />
+          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" testvalue="0" />
         </configrefs>
       </settings>
     </config>
     <config guid="e08a7f92-33c2-478a-8112-357404f7a2dc">
       <active>true</active>
       <description>ATHR</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_AUTOTHRUST_STATUS)" UUID="f5871717-a11a-46dd-a403-655821efacd7" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="True" expression="if(#=1,1,$)" />
           <comparison active="True" value="1" operand="&gt;=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="ATHR" pinBrightness="255" />
+        <display type="Output" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="ATHR" pinBrightness="255" />
         <preconditions />
         <configrefs>
-          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" />
+          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" testvalue="0" />
         </configrefs>
       </settings>
     </config>
     <config guid="efbb6959-eea0-4a6f-8f8c-4efeecd9f43a">
       <active>true</active>
       <description>LOC</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_LOC_MODE_ACTIVE)" UUID="c85c200c-8a27-4f3d-85fc-e5eb14a13c98" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="True" expression="if((#=1),1,$)" />
         </modifiers>
-        <display type="Output" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="LOC" pinBrightness="255" />
+        <display type="Output" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="LOC" pinBrightness="255" />
         <preconditions />
         <configrefs>
-          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" />
+          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" testvalue="0" />
         </configrefs>
       </settings>
     </config>
     <config guid="d8f96e47-5602-44b8-9517-462f270fdd46">
       <active>true</active>
       <description>EXPED</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FMA_EXPEDITE_MODE)" UUID="9523d034-8f4b-40a6-be79-3d5382c64ce3" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="True" expression="if(#=1,1,$)" />
         </modifiers>
-        <display type="Output" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="EXPED" pinBrightness="255" />
+        <display type="Output" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="EXPED" pinBrightness="255" />
         <preconditions />
         <configrefs>
-          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" />
+          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" testvalue="0" />
         </configrefs>
       </settings>
     </config>
     <config guid="4249ffb5-ba01-4f2c-88f9-b48e8580fac8">
       <active>true</active>
       <description>APPR</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_FCU_APPR_MODE_ACTIVE)" UUID="9d916af1-6d7d-430d-8d06-2be45dee2714" />
         <test type="Float" value="0" />
         <modifiers>
           <transformation active="True" expression="if(#=1,1,$)" />
         </modifiers>
-        <display type="Output" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="APPR" pinBrightness="255" />
+        <display type="Output" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="APPR" pinBrightness="255" />
         <preconditions />
         <configrefs>
-          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" />
+          <configref active="True" ref="60c27940-c33a-4734-bf15-df4a238b5579" placeholder="#" testvalue="0" />
         </configrefs>
       </settings>
     </config>
     <config guid="b674fdc9-844e-40c8-9d90-586d9ce18ab8">
       <active>true</active>
       <description>ALTINC</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT)" UUID="f10a55c0-eb57-4203-bda5-5a6cee9c3f80" />
         <test type="Float" value="1" />
         <modifiers>
           <transformation active="False" expression="$" />
         </modifiers>
-        <display type="-" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" pin="" pinBrightness="255" />
+        <display type="-" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" pin="" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -422,13 +422,13 @@
     <config guid="60c27940-c33a-4734-bf15-df4a238b5579">
       <active>true</active>
       <description>ANN</description>
-      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_INTLT_ANN)" UUID="c1a09a24-8726-4b92-8a1d-c6c7c4cf5db4" />
-        <test type="Float" value="1" />
+        <test type="Float" value="0" />
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="CustomDevice" serial="miniCOCKPIT/ SN-640-5FD" trigger="normal" customType="" customName="miniFCU LCD" messageType="14" value="1" />
+        <display type="CustomDevice" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" trigger="normal" customType="" customName="miniFCU LCD" messageType="14" value="$" />
         <preconditions />
         <configrefs />
       </settings>
@@ -438,7 +438,7 @@
     <config guid="ad9e3c28-f4cb-468f-95ba-a255cb58b950">
       <active>true</active>
       <description>SPDMACH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="MACH Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="MACH Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_SPEED_TOGGLE_SPEED_MACH)" presetId="2f9cec02-d8ad-4f6b-bc1e-35a26aff260e" />
         </button>
@@ -449,7 +449,7 @@
     <config guid="facefea0-7c6f-4601-bdab-cf2a0928d073">
       <active>true</active>
       <description>HDGTRK</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="TRK Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="TRK Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_TRK_FPA_TOGGLE_PUSH)" presetId="62aa2672-92e5-45bc-97f4-a3fc77cfab82" />
         </button>
@@ -460,7 +460,7 @@
     <config guid="7ab10310-6d35-4dae-aab4-811609d026f3">
       <active>true</active>
       <description>AP1 button</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="AP1 Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="AP1 Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_AP_1_PUSH)" presetId="7f471277-ed45-481b-aa59-6a305bc74465" />
         </button>
@@ -471,7 +471,7 @@
     <config guid="4022226d-1f38-4a44-86fe-507b02df48ac">
       <active>true</active>
       <description>AP2 button</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="AP2 Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="AP2 Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_AP_2_PUSH)" presetId="7028cdf2-c6a7-4b7c-97ab-922dcc2ee280" />
         </button>
@@ -482,7 +482,7 @@
     <config guid="87d3cabb-0b5c-46cb-8659-f0a57bde65ea">
       <active>true</active>
       <description>metric</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="METRIC Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="METRIC Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(L:A32NX_METRIC_ALT_TOGGLE, bool) ! (&gt;L:A32NX_METRIC_ALT_TOGGLE)" presetId="1c6d154c-8ee9-405b-909b-57a1d27c4a0d" />
         </button>
@@ -493,7 +493,7 @@
     <config guid="931d6615-bf16-44d8-a110-796491a0e98d">
       <active>true</active>
       <description>ATHR button</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="ATHR Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="ATHR Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_ATHR_PUSH)" presetId="110f9366-1a2d-4577-8deb-26db37581086" />
         </button>
@@ -504,7 +504,7 @@
     <config guid="64c564fb-e450-452e-9418-72382ef4a770">
       <active>true</active>
       <description>LOC button</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="LOC Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="LOC Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(L:A32NX_AUTOPILOT_LOC_MODE, bool) if{ 0 (&gt;L:A32NX_AUTOPILOT_APPR_MODE) 0 (&gt;L:A32NX_AUTOPILOT_LOC_MODE) (&gt;K:AP_LOC_HOLD) } els{ 0 (&gt;L:A32NX_AUTOPILOT_APPR_MODE) 1 (&gt;L:A32NX_AUTOPILOT_LOC_MODE) (&gt;K:AP_LOC_HOLD) }" presetId="a2535116-c5aa-4185-86e8-86da3e1dd988" />
         </button>
@@ -515,7 +515,7 @@
     <config guid="319f12d8-7b5f-4078-9148-023044f01e0b">
       <active>true</active>
       <description>EXPED button</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="EXPED Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="EXPED Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_EXPEDITE_MODE)" presetId="3a5e1527-3f62-4284-b05d-d72e0e2a3879" />
         </button>
@@ -526,7 +526,7 @@
     <config guid="33899d37-bb55-4ac6-ab19-f3d0edca7767">
       <active>true</active>
       <description>APPR button</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="APPR Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="APPR Button" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_APPR_PUSH)" presetId="202da8d4-c76c-4083-9417-6f275cfae362" />
         </button>
@@ -537,7 +537,7 @@
     <config guid="97e62717-5956-4ecb-bf1f-09e8facfe836">
       <active>true</active>
       <description>ALT encoder</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="ALT Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="ALT Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="MSFS2020CustomInputAction" command="3 (A:AUTOPILOT ALTITUDE LOCK VAR:3, feet) (L:XMLVAR_Autopilot_Altitude_Increment) - (L:XMLVAR_Autopilot_Altitude_Increment) (A:AUTOPILOT ALTITUDE LOCK VAR:3, feet) (L:XMLVAR_Autopilot_Altitude_Increment) % - (L:XMLVAR_Autopilot_Altitude_Increment) % + 100 max (&gt;K:2:AP_ALT_VAR_SET_ENGLISH) (&gt;H:AP_KNOB_Down) (&gt;H:A320_Neo_CDU_AP_DEC_ALT)" presetId="910760bf-466c-46ca-a0ba-42138e931c29" />
           <onLeftFast type="MSFS2020CustomInputAction" command="3 (A:AUTOPILOT ALTITUDE LOCK VAR:3, feet) (L:XMLVAR_Autopilot_Altitude_Increment) - (L:XMLVAR_Autopilot_Altitude_Increment) (A:AUTOPILOT ALTITUDE LOCK VAR:3, feet) (L:XMLVAR_Autopilot_Altitude_Increment) % - (L:XMLVAR_Autopilot_Altitude_Increment) % + 100 max (&gt;K:2:AP_ALT_VAR_SET_ENGLISH) (&gt;H:AP_KNOB_Down) (&gt;H:A320_Neo_CDU_AP_DEC_ALT)" presetId="910760bf-466c-46ca-a0ba-42138e931c29" />
@@ -551,7 +551,7 @@
     <config guid="39ac6a0d-9fc1-4a5b-8560-d6999b069faa">
       <active>true</active>
       <description>SPD encoder</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="SPD Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="SPD Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="MSFS2020CustomInputAction" command="(L:XMLVAR_AirSpeedIsInMach) if{ 1 (&gt;K:AP_MACH_VAR_DEC) } els{ 1 (&gt;K:AP_SPD_VAR_DEC) } (&gt;H:A320_Neo_CDU_AP_DEC_SPEED)" presetId="848b0c96-0631-4de9-810c-9eb5284efd93" />
           <onLeftFast type="MSFS2020CustomInputAction" command="(L:XMLVAR_AirSpeedIsInMach) if{ 1 (&gt;K:AP_MACH_VAR_DEC) } els{ 1 (&gt;K:AP_SPD_VAR_DEC) } (&gt;H:A320_Neo_CDU_AP_DEC_SPEED)" presetId="848b0c96-0631-4de9-810c-9eb5284efd93" />
@@ -565,7 +565,7 @@
     <config guid="bcbc9f7e-7127-444f-a28e-6ba24a63395f">
       <active>true</active>
       <description>HDG encoder</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="HDG Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="HDG Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_HDG_DEC)" presetId="57db72d2-69b6-4337-beb5-7e42ebe410dc" />
           <onLeftFast type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_HDG_DEC)" presetId="57db72d2-69b6-4337-beb5-7e42ebe410dc" />
@@ -579,7 +579,7 @@
     <config guid="319c9a9f-c1ba-4cd6-b04c-b45946208d71">
       <active>true</active>
       <description>VS encoder</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="VS Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="VS Encoder" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <encoder>
           <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:AP_VS_VAR_DEC)" presetId="2fdf3342-238b-4055-9fd9-97aaa666e278" />
           <onLeftFast type="MSFS2020CustomInputAction" command="(&gt;K:AP_VS_VAR_DEC)" presetId="2fdf3342-238b-4055-9fd9-97aaa666e278" />
@@ -593,7 +593,7 @@
     <config guid="87d29bb1-0f0c-4875-99cc-d8339bacdc23">
       <active>true</active>
       <description>SPD PUSH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="SPD PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="SPD PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_SPEED_PUSH)" presetId="2bd97993-0352-4b8f-9295-564398775b57" />
         </button>
@@ -604,7 +604,7 @@
     <config guid="dcd3a56b-a63f-4a32-8df7-8d036e9a69f9">
       <active>true</active>
       <description>SPD PULL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="SPD PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="SPD PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_SPEED_PULL)" presetId="a77c2892-6f84-4255-9817-1c508e9d3755" />
         </button>
@@ -615,7 +615,7 @@
     <config guid="6c86f3d4-6e17-442d-84f8-0e140f92d2cb">
       <active>true</active>
       <description>HDG PUSH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="HDG PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="HDG PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_HDG_PUSH)" presetId="d668c323-6ce2-4dca-9261-c66b0591cb80" />
         </button>
@@ -626,7 +626,7 @@
     <config guid="9fe14fd3-2de0-4e94-bc62-9898deec390a">
       <active>true</active>
       <description>HDG PULL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="HDG PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="HDG PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;K:A32NX.FCU_HDG_PULL)" presetId="1f31b6c8-56af-400a-b956-91bffd60d8a6" />
         </button>
@@ -637,7 +637,7 @@
     <config guid="3a7d5c0b-c5a5-4720-84c1-8c2797c62449">
       <active>true</active>
       <description>ALT PUSH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="ALT PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="ALT PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_ALT_PUSH)&#xA;(&gt;H:A320_Neo_CDU_MODE_MANAGED_ALTITUDE)" presetId="d26b24f4-9915-42d7-ba45-4a86a9f9d734" />
         </button>
@@ -648,7 +648,7 @@
     <config guid="eef37364-7420-4c40-94c6-bb775d8f63b7">
       <active>true</active>
       <description>ALT PULL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="ALT PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="ALT PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_ALT_PULL)&#xA;(&gt;H:A320_Neo_CDU_MODE_SELECTED_ALTITUDE)" presetId="08cb0e91-4b4b-400f-b05b-6dd90e6e6b16" />
         </button>
@@ -659,7 +659,7 @@
     <config guid="0f6a0657-c407-418e-b751-8e35885b7312">
       <active>true</active>
       <description>VS PUSH</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="VS PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="VS PUSH" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_VS_PUSH)&#xA;(&gt;H:A320_Neo_CDU_VS)" presetId="7e469103-0888-4833-a452-67a8e9a28cc8" />
         </button>
@@ -670,7 +670,7 @@
     <config guid="14f567b2-d50f-41d4-8697-055fd3f032a4">
       <active>true</active>
       <description>VS PULL</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="VS PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="VS PULL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(&gt;H:A320_Neo_FCU_VS_PULL)&#xA;(&gt;H:A320_Neo_CDU_VS)" presetId="c38d3c27-b9f2-484c-9f31-3f2f4dd51f64" />
         </button>
@@ -681,7 +681,7 @@
     <config guid="e2179ab3-b12f-4196-9622-76525a3ac8c0">
       <active>true</active>
       <description>ALT 100</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="ALTINC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="ALTINC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onPress type="MSFS2020CustomInputAction" command="(L:XMLVAR_Autopilot_Altitude_Increment) 100 == if{ 1000 } els{ 100 } (&gt;L:XMLVAR_Autopilot_Altitude_Increment)" presetId="fb69e572-f2bb-4358-990a-e961827f1ffc" />
         </button>
@@ -694,7 +694,7 @@
     <config guid="310d896f-556b-4d85-b430-bffa4aa1bb00">
       <active>true</active>
       <description>ALT 1000</description>
-      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.2, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT/ SN-640-5FD" name="ALTINC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.0.2.4, Culture=neutral, PublicKeyToken=null" serial="miniCOCKPIT miniFCU/ SN-2G6-C0F" name="ALTINC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <button>
           <onRelease type="MSFS2020CustomInputAction" command="(L:XMLVAR_Autopilot_Altitude_Increment) 100 == if{ 1000 } els{ 100 } (&gt;L:XMLVAR_Autopilot_Altitude_Increment)" presetId="fb69e572-f2bb-4358-990a-e961827f1ffc" />
         </button>
