@@ -1,7 +1,6 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
-using System.Collections.Generic;
 
 namespace MobiFlight.Joysticks.FlightSimBuilder
 {
@@ -13,8 +12,6 @@ namespace MobiFlight.Joysticks.FlightSimBuilder
         HidDevice Device { get; set; }
 
         protected HidDeviceInputReceiver inputReceiver;
-        protected ReportDescriptor reportDescriptor;
-        protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();
 
         public GNS530(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition) {
         }
@@ -28,16 +25,16 @@ namespace MobiFlight.Joysticks.FlightSimBuilder
             }
 
             Stream = Device.Open();
-            reportDescriptor = Device.GetReportDescriptor();
+            var reportDescriptor = Device.GetReportDescriptor();
             inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
-            // inputReceiver.Received += InputReceiver_Received;
+            inputReceiver.Received += InputReceiver_Received;
             inputReceiver.Start(Stream);
         }
 
         private void InputReceiver_Received(object sender, System.EventArgs e)
         {
             var inputRec = sender as HidDeviceInputReceiver;
-            var inputReportBuffer = new byte[1+2+9];
+            var inputReportBuffer = new byte[5];
             
             while (inputRec.TryRead(inputReportBuffer, 0, out Report report))
             {
@@ -62,7 +59,7 @@ namespace MobiFlight.Joysticks.FlightSimBuilder
             // We don't do anything else
             // because we have a callback for
             // handling the incoming reports
-            InputReceiver_Received(inputReceiver, new System.EventArgs());
+            // InputReceiver_Received(inputReceiver, new System.EventArgs());
         }
 
         public override void Shutdown()
