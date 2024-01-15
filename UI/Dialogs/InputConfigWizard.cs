@@ -210,7 +210,7 @@ namespace MobiFlight.UI.Dialogs
                 });
             }
 
-            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            foreach (IHidDevice joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 if (joystick.GetAvailableDevicesAsListItems().Count > 0)
                     inputModuleNameComboBox.Items.Add(new ListItem()
@@ -254,7 +254,7 @@ namespace MobiFlight.UI.Dialogs
                 // preconditionPinSerialComboBox.Items.Add(module.Name + "/ " + module.Serial);
             }
 
-            foreach (Joystick joystick in _execManager.GetJoystickManager().GetJoysticks())
+            foreach (IHidDevice joystick in _execManager.GetJoystickManager().GetJoysticks())
             {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
@@ -468,7 +468,7 @@ namespace MobiFlight.UI.Dialogs
                 // Add all Joysticks
                 else if (Joystick.IsJoystickSerial(serial))
                 { 
-                    Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+                    IHidDevice joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
                     inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevicesAsListItems().ToArray());
                 }
                 // Add all MidiBoards

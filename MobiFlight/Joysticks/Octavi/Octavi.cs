@@ -1,9 +1,7 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
-using SharpDX.DirectInput;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace MobiFlight.Joysticks.Octavi
 {
@@ -12,9 +10,9 @@ namespace MobiFlight.Joysticks.Octavi
         int VendorId = 0x04D8;
         int ProductId = 0xE6D6;
         HidStream Stream { get; set; }
-        HidDevice Device { get; set; }
+        HidSharp.HidDevice Device { get; set; }
 
-        protected HidSharp.Reports.Input.HidDeviceInputReceiver inputReceiver;
+        protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
 
         protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();

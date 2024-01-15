@@ -33,6 +33,7 @@ namespace MobiFlight
         /// </summary>
         public int VendorId;
 
+
         /// <summary>
         /// Finds a JoystickInput given an input name. This will eventually get replaced with a method that
         /// looks up by Id instead.

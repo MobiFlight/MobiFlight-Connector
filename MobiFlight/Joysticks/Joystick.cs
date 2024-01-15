@@ -12,7 +12,7 @@ namespace MobiFlight
         public JoystickNotConnectedException(string Message) : base(Message) { }
     }
     
-    public class Joystick
+    public class Joystick : IHidDevice
     {
         public static readonly string ButtonPrefix = "Button";
         public static readonly string AxisPrefix = "Axis";

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.OutputWizard
@@ -293,7 +294,16 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 }
                 else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
                 {
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                    var joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+                    if (joystick.GetAvailableOutputDevicesAsListItems().ToList().Find(x=> x.Value is JoystickOutputDevice) != null)
+                    {
+                        deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                    }
+
+                    if (joystick.GetAvailableOutputDevicesAsListItems().ToList().Find(x => x.Value is JoystickStringOutputDevice) != null)
+                    {
+                        deviceTypeOptions.Add(new ListItem() { Value = MobiFlightCustomDevice.TYPE, Label = "Text" });
+                    }
                 }
                 else if (serial.IndexOf(MidiBoard.SerialPrefix) == 0)
                 {
@@ -445,20 +455,30 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         private bool InitializeJoystickDisplays(ComboBox cb, string serial)
         {
-            Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+            IHidDevice joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
 
             displayPinPanel.SetModule(null);
             displayPinPanel.displayPinBrightnessPanel.Visible = false;
             displayPinPanel.displayPinBrightnessPanel.Enabled = false;
 
             List<ListItem> outputs = new List<ListItem>();
-            foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
+            foreach (var device in joystick.GetAvailableOutputDevicesAsListItems()) { 
                 outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+            }
 
-            displayPinPanel.WideStyle = true;
-            displayPinPanel.EnablePWMSelect(false);
-            displayPinPanel.SetPorts(new List<ListItem>());
-            displayPinPanel.SetPins(outputs);
+            if (outputs.Count>0)
+            {
+                displayPinPanel.WideStyle = true;
+                displayPinPanel.EnablePWMSelect(false);
+                displayPinPanel.SetPorts(new List<ListItem>());
+                displayPinPanel.SetPins(outputs);
+            }
+
+            outputs.Clear();
+            foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
+            {
+                outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+            }
 
             return true;
         }

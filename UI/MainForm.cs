@@ -1494,7 +1494,7 @@ namespace MobiFlight.UI
             List<string> serials = new List<string>();
             List<string> NotConnectedJoysticks = new List<string>();
 
-            foreach (Joystick j in execManager.GetJoystickManager().GetJoysticks())
+            foreach (IHidDevice j in execManager.GetJoystickManager().GetJoysticks())
             {
                 serials.Add($"{j.Name} {SerialNumber.SerialSeparator}{j.Serial}");
             }

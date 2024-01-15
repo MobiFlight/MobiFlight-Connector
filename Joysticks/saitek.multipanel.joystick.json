@@ -1,0 +1,176 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "Pro Flight Multi Panel",
+  "VendorId": 1699,
+  "ProductId": 3334,
+  "Inputs": [
+    {
+      "Id": 0,
+      "Type": "Button",
+      "Label": "Position Switch - ALT"
+    },
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Position Switch - VS"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Position Switch - IAS"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Position Switch - HDG"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Position Switch - CRS"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Encoder Right"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Encoder Left"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "AP Button"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "HDG Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "NAV Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "IAS Button"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "ALT Button"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "VS Button"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "APR Button"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "REV Button"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Auto Throttle ARM"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Flaps UP"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Flaps DN"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Pitch Trim DN"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Pitch Trim UP"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "AP Mode - On/Off",
+      "Type": "Output",
+      "Id": "AP.autopilot",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "AP Mode - HDG",
+      "Type": "Output",
+      "Id": "AP.hdg",
+      "Byte": 11,
+      "Bit": 1
+    },
+    {
+      "Label": "AP Mode - NAV",
+      "Id": "AP.nav",
+      "Type": "Output",
+      "Byte": 11,
+      "Bit": 2
+    },
+    {
+      "Label": "AP Mode - IAS",
+      "Id": "AP.ias",
+      "Type": "Output",
+      "Byte": 11,
+      "Bit": 3
+    },
+    {
+      "Label": "AP Mode - ALT",
+      "Id": "AP.alt",
+      "Type": "Output",
+      "Byte": 11,
+      "Bit": 4
+    },
+    {
+      "Label": "AP Mode - VS",
+      "Id": "AP.vs",
+      "Type": "Output",
+      "Byte": 11,
+      "Bit": 5
+    },
+    {
+      "Label": "AP Mode - APR",
+      "Id": "AP.apr",
+      "Type": "Output",
+      "Byte": 11,
+      "Bit": 6
+    },
+    {
+      "Label": "AP Mode - REV",
+      "Id": "AP.rev",
+      "Type": "Output",
+      "Byte": 11,
+      "Bit": 7
+    },
+    {
+      "Label": "Line 1",
+      "Id": "CUSTOM.line1",
+      "Type": "Custom"
+    },
+    {
+      "Label": "Line 2",
+      "Id": "CUSTOM.line2",
+      "Type": "Custom"
+    }
+  ]
+}

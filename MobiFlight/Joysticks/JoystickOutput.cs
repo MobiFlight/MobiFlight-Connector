@@ -11,6 +11,10 @@ namespace MobiFlight
         /// <summary>
         /// Unique Id for the output.
         /// </summary>
+        public string Type;
+        /// <summary>
+        /// Unique Id for the output.
+        /// </summary>
         public string Id;
         /// <summary>
         ///  Display name for the output.

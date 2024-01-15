@@ -9,7 +9,7 @@ namespace MobiFlight.Joysticks.FlightSimBuilder
         int VendorId = 0x04D8;
         int ProductId = 0xE89D;
         HidStream Stream { get; set; }
-        HidDevice Device { get; set; }
+        HidSharp.HidDevice Device { get; set; }
 
         protected HidDeviceInputReceiver inputReceiver;
 

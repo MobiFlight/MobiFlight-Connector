@@ -732,7 +732,7 @@ namespace MobiFlight
 
             if (serial.IndexOf(Joystick.SerialPrefix)==0)
             {
-                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
+                IHidDevice joystick = joystickManager.GetJoystickBySerial(serial);
                 if(joystick != null)
                 {
                     byte state = 0;

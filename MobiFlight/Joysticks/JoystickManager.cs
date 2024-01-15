@@ -1,4 +1,7 @@
-﻿using MobiFlight.Joysticks.FlightSimBuilder;
+﻿using HidSharp;
+using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.FlightSimBuilder;
+using MobiFlight.Joysticks.Logitech;
 using MobiFlight.Joysticks.Octavi;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
@@ -32,7 +35,8 @@ namespace MobiFlight
         public event ButtonEventHandler OnButtonPressed;
         private readonly Timer PollTimer = new Timer();        
         private readonly List<Joystick> Joysticks = new List<Joystick>();
-        private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
+        private readonly List<MobiFlight.Joysticks.HidDevice> HidDevices = new List<MobiFlight.Joysticks.HidDevice>();
+        private readonly List<MobiFlight.IHidDevice> ExcludedJoysticks = new List<MobiFlight.IHidDevice>();
         private IntPtr Handle;
 
         public JoystickManager()
@@ -115,12 +119,15 @@ namespace MobiFlight
             }
         }
 
-        public List<MobiFlight.Joystick> GetJoysticks()
+        public List<MobiFlight.IHidDevice> GetJoysticks()
         {
-            return Joysticks;
+            var result = new List<MobiFlight.IHidDevice>();
+            result.AddRange(Joysticks);
+            result.AddRange(HidDevices);
+            return result;
         }
 
-        public List<MobiFlight.Joystick> GetExcludedJoysticks()
+        public List<MobiFlight.IHidDevice> GetExcludedJoysticks()
         {
             return ExcludedJoysticks;
         }
@@ -149,7 +156,7 @@ namespace MobiFlight
                     continue;
                 }
 
-                MobiFlight.Joystick js;
+                Joystick js;
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     js = new Octavi(
@@ -195,6 +202,8 @@ namespace MobiFlight
                 }       
             }
 
+            ConnectToDirectHid();
+
             if (JoysticksConnected())
             {
                 Joysticks.Sort((j1, j2) => j1.Name.CompareTo(j2.Name));
@@ -202,12 +211,37 @@ namespace MobiFlight
             }
         }
 
+        private void ConnectToDirectHid()
+        {
+            HidDevices.Clear();
+            var directHidDevice = DeviceList.Local.GetHidDevices();
+            directHidDevice.ToList().ForEach(d =>
+            {
+                try
+                {
+                    var FriendlyName = d.GetFriendlyName();
+
+                    var definition = GetDefinitionByInstanceName(FriendlyName);
+                    if (definition == null) return;
+
+                    var js = new Multipanel(definition);
+                    js.OnButtonPressed += Js_OnButtonPressed;
+                    js.Connect();
+                    HidDevices.Add(js);
+                }catch (Exception ex) {
+                    return;
+                }                
+            });
+        }
+
         private void Js_OnDisconnected(object sender, EventArgs e)
         {
-            var js = sender as Joystick;
+            var js = sender as IHidDevice;
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
-            lock (Joysticks)
-                Joysticks.Remove(js);
+
+            if(js is Joystick)
+                lock (Joysticks)
+                    Joysticks.Remove(js as Joystick);
         }
 
         private bool HasAxisOrButtons(Joystick js)
@@ -222,9 +256,12 @@ namespace MobiFlight
             OnButtonPressed?.Invoke(sender, e);
         }
 
-        internal Joystick GetJoystickBySerial(string serial)
+        internal IHidDevice GetJoystickBySerial(string serial)
         {
-            return Joysticks.Find(js => js.Serial == serial);
+            var result = Joysticks.Find(js => js.Serial == serial);
+            if (result != null) return result;
+
+            return HidDevices.Find(js => js.Serial == serial);
         }
 
         public Dictionary<String, int> GetStatistics()
