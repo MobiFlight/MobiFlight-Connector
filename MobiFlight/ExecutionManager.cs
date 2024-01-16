@@ -142,7 +142,7 @@ namespace MobiFlight
 #endif
             joystickManager.SetHandle(handle);
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };            
+            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
             if (Properties.Settings.Default.EnableJoystickSupport)
             {
                 joystickManager.Connect();
@@ -186,7 +186,7 @@ namespace MobiFlight
 
                 // cfg was not set yet, e.g. we created row and are still in edit mode and now we hit "Edit"
                 if (cfg == null) continue;
-                
+
                 if (cfg.SourceType != SourceType.VARIABLE) continue;
 
                 if (cfg.MobiFlightVariable == null) continue;
@@ -208,7 +208,7 @@ namespace MobiFlight
 
                 List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
 
-                if(actions == null) continue;
+                if (actions == null) continue;
 
                 actions.ForEach(action =>
                 {
@@ -280,7 +280,7 @@ namespace MobiFlight
 #if ARCAZE
                 arcazeCache.Available() ||
 #endif
-                mobiFlightCache.Available();
+                mobiFlightCache.Available() || joystickManager.GetJoysticks().Count > 0;
 #endif
         }
 

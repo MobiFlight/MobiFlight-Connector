@@ -2,7 +2,7 @@
 
 namespace MobiFlight
 {
-    public class MobiFlightCustomDevice : IConnectedDevice
+    public class MobiFlightCustomDevice : ICustomDevice
     {
         public const string TYPE = "CustomDevice";
         public const int MESSAGE_STOP = -1;

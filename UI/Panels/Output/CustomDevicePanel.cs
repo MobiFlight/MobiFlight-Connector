@@ -18,7 +18,7 @@ namespace MobiFlight.UI.Panels
             InitializeComponent();
         }
 
-        public void SetCustomDeviceNames(List<ListItem<MobiFlightCustomDevice>> pins)
+        public void SetCustomDeviceNames(List<ListItem<ICustomDevice>> pins)
         {
             customDeviceNamesComboBox.ValueMember = "Value"; 
             customDeviceNamesComboBox.DisplayMember = "Label";

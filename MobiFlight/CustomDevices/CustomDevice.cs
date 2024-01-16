@@ -110,7 +110,7 @@ namespace MobiFlight.CustomDevices
         }
     }
 
-    public class CustomDevice : IMigrateable
+    public class CustomDevice : IMigrateable, IMessageTypeProvider
     {
         /// <summary>
         /// General device information properties.
@@ -125,7 +125,7 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// List of MessageTypes supported by the device.
         /// </summary>
-        public List<MessageType> MessageTypes = new List<MessageType>();
+        public List<MessageType> MessageTypes { get; set; } = new List<MessageType>();
 
         /// <summary>
         /// Base path for custom firmware

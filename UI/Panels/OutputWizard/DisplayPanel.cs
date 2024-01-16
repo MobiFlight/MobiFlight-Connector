@@ -474,12 +474,15 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 displayPinPanel.SetPins(outputs);
             }
 
-            outputs.Clear();
+            var customDevices = new List<ListItem<ICustomDevice>>();
             foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
             {
-                outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+                if (device.Value.Type != DeviceType.CustomDevice) continue;
+
+                customDevices.Add(new ListItem<ICustomDevice>() { Value = device as ICustomDevice, Label = device.Label });
             }
 
+            customDevicePanel.SetCustomDeviceNames(customDevices);
             return true;
         }
 
@@ -580,7 +583,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem> stepper = new List<ListItem>();
             List<ListItem> lcdDisplays = new List<ListItem>();
             List<ListItem> shiftRegisters = new List<ListItem>();
-            List<ListItem<MobiFlightCustomDevice>> customDevices = new List<ListItem<MobiFlightCustomDevice>>();
+            List<ListItem<ICustomDevice>> customDevices = new List<ListItem<ICustomDevice>>();
 
 
             if (module!=null)
@@ -616,7 +619,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                             break;
 
                         case DeviceType.CustomDevice:
-                            customDevices.Add(new ListItem<MobiFlightCustomDevice>()
+                            customDevices.Add(new ListItem<ICustomDevice>()
                             {
                                 Value = device as MobiFlightCustomDevice,
                                 Label = device.Name
