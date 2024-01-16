@@ -1,15 +1,11 @@
-﻿using System;
+﻿using MobiFlight.InputConfig;
+using MobiFlight.Modifier;
+using MobiFlight.UI.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
-using MobiFlight.InputConfig;
-using MobiFlight.UI.Forms;
-using MobiFlight.Modifier;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -228,12 +224,14 @@ namespace MobiFlight.UI.Panels.Config
 
         public void syncFromConfig(object config)
         {
-            IFsuipcConfigItem conf = config as IFsuipcConfigItem;
+            var conf = config as IFsuipcConfigItem;
+
             if (conf == null)
             {
                 // this happens when casting badly
                 return;
             }
+            
             // first tab                        
             fsuipcOffsetTextBox.Text = "0x" + conf.FSUIPC.Offset.ToString("X4");
 
@@ -263,10 +261,10 @@ namespace MobiFlight.UI.Panels.Config
 
             transformOptionsGroup1.syncFromConfig(conf);
 
-            /*if (config.Modifiers.Items.Count > 0 && config.Modifiers.Transformation != null)
+            if (conf.Modifiers.Items.Count > 0 && conf.Modifiers.Transformation != null)
             {
-                Modifier = config.Modifiers.Transformation;
-            }*/
+                Modifier = conf.Modifiers.Transformation;
+            }
 
             foreach (DataRow row in presetDataTable.Rows)
             {
@@ -305,10 +303,10 @@ namespace MobiFlight.UI.Panels.Config
             config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             transformOptionsGroup1.syncToConfig(config);
 
-            /*if (Modifier!=null)
+            if (Modifier!=null)
             {
-                config.Modifiers.Items.Add(Modifier);
-            }*/
+                config.Modifiers.AddModifierOnce(Modifier, true);
+            }
         }
 
         public InputConfig.InputAction ToConfig()

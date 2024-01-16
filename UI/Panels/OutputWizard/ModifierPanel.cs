@@ -32,8 +32,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
         public void UpdateModifier(ModifierBase modifier)
         {
-            modifierList.Items?.Clear();
-            modifierList.Items.Add(modifier);
+            modifierList.AddModifierOnce(modifier, true);
             UpdateControls();
         }
 
