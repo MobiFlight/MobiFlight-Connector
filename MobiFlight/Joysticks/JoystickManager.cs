@@ -1,5 +1,4 @@
 ﻿using HidSharp;
-using MobiFlight.Joysticks;
 using MobiFlight.Joysticks.FlightSimBuilder;
 using MobiFlight.Joysticks.Logitech;
 using MobiFlight.Joysticks.Octavi;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace MobiFlight
@@ -137,14 +137,14 @@ namespace MobiFlight
             Handle = handle;
         }
 
-        public void Connect()
+        public async void Connect()
         {
             var di = new SharpDX.DirectInput.DirectInput();
             Joysticks?.Clear();
             ExcludedJoysticks?.Clear();
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
-
-            var devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
+            
+            var devices = await Task.Run(() => { return di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList(); }).ConfigureAwait(false);
 
             foreach (var d in devices)
             {
