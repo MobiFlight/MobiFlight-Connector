@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -23,9 +17,6 @@ namespace MobiFlight.UI.Panels.Config
 
             // hide the string options.
             transformOptionsGroup1.setMode(true);
-            transformOptionsGroup1.ModifyTabLink += (s, e) => {
-                ModifyTabLink?.Invoke(this, e);
-            };
 
             List<ListItem> options = new List<ListItem>();
             options.Add(new ListItem() { Value = MobiFlightVariable.TYPE_NUMBER, Label = "Number" });

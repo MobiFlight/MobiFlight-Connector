@@ -36,9 +36,7 @@ namespace MobiFlight.UI.Panels.Config
             PresetFile = Properties.Settings.Default.PresetFileOutputs;
             _loadPresets();
             fsuipcPresetComboBox.ResetText();
-            transformOptionsGroup1.ModifyTabLink += (s, e) => { 
-                ModifyTabLink?.Invoke(this, e);
-            };
+            panelModifierHint.Visible = false;
         }
 
         public void setMode(bool isOutputPanel)
@@ -108,12 +106,16 @@ namespace MobiFlight.UI.Panels.Config
 
         private void fsuipcPresetUseButton_Click(object sender, EventArgs e)
         {
+            panelModifierHint.Visible = false;
             if (fsuipcPresetComboBox.Text != "")
             {
                 DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text + "'");
                 if (rows.Length > 0)
                 {
-                    syncFromConfig(rows[0]["settings"] as IFsuipcConfigItem);
+                    var config = rows[0]["settings"] as IFsuipcConfigItem;
+                    syncFromConfig(config);
+                    
+                    panelModifierHint.Visible = (config?.Modifiers?.Transformation?.Active ?? false);
                 }
             }
         }
@@ -225,7 +227,7 @@ namespace MobiFlight.UI.Panels.Config
         public void syncFromConfig(object config)
         {
             var conf = config as IFsuipcConfigItem;
-
+            
             if (conf == null)
             {
                 // this happens when casting badly
@@ -275,6 +277,7 @@ namespace MobiFlight.UI.Panels.Config
                     (row["settings"] as IFsuipcConfigItem).FSUIPC.BcdMode == conf.FSUIPC.BcdMode
                     ) {
                     fsuipcPresetComboBox.Text = row["description"].ToString();
+                    panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Transformation != null;
                     break;
                 }
             }
@@ -358,6 +361,11 @@ namespace MobiFlight.UI.Panels.Config
             errorProvider.SetError(
                     control,
                     "");
+        }
+
+        private void ButtonModifyTab_Click(object sender, EventArgs e)
+        {
+            ModifyTabLink?.Invoke(this, EventArgs.Empty);
         }
     }
 }

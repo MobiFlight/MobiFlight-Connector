@@ -50,13 +50,21 @@
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
+            this.panelModifierHint = new System.Windows.Forms.Panel();
+            this.buttonModifyTab = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
+            this.labelModifierHint = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.maskAndBcdPanel.SuspendLayout();
             this.fsuipcBaseSettingsGroupBox.SuspendLayout();
             this.offsetPanel.SuspendLayout();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
+            this.panelModifierHint.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // maskAndBcdPanel
@@ -210,15 +218,49 @@
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // panelModifierHint
+            // 
+            this.panelModifierHint.Controls.Add(this.panel1);
+            this.panelModifierHint.Controls.Add(this.pictureBox1);
+            resources.ApplyResources(this.panelModifierHint, "panelModifierHint");
+            this.panelModifierHint.Name = "panelModifierHint";
+            // 
+            // buttonModifyTab
+            // 
+            resources.ApplyResources(this.buttonModifyTab, "buttonModifyTab");
+            this.buttonModifyTab.Name = "buttonModifyTab";
+            this.buttonModifyTab.UseVisualStyleBackColor = true;
+            this.buttonModifyTab.Click += new System.EventHandler(this.ButtonModifyTab_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MobiFlight.Properties.Resources.mobiflight_icon_out_led;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
             // transformOptionsGroup1
             // 
             resources.ApplyResources(this.transformOptionsGroup1, "transformOptionsGroup1");
             this.transformOptionsGroup1.Name = "transformOptionsGroup1";
             // 
+            // labelModifierHint
+            // 
+            resources.ApplyResources(this.labelModifierHint, "labelModifierHint");
+            this.labelModifierHint.Name = "labelModifierHint";
+            // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.buttonModifyTab);
+            this.panel1.Controls.Add(this.labelModifierHint);
+            this.panel1.Name = "panel1";
+            // 
             // FsuipcConfigPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.panelModifierHint);
             this.Controls.Add(this.transformOptionsGroup1);
             this.Controls.Add(this.fsuipcBaseSettingsGroupBox);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
@@ -232,6 +274,10 @@
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
+            this.panelModifierHint.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,5 +306,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox fsuipcMaskTextBox;
         private TransformOptionsGroup transformOptionsGroup1;
+        private System.Windows.Forms.Panel panelModifierHint;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonModifyTab;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelModifierHint;
     }
 }
