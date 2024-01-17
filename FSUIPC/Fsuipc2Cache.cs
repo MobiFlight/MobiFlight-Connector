@@ -450,10 +450,17 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, string value)
         {
+            // +1 needed because fsuipc string must end with 0x00 and last char is auto set by library
+            int stringLength = value.Length + 1; 
             if (!__cacheString.ContainsKey(offset))
             {
-                __cacheString[offset] = new Offset<String>(offset,value.Length);
-                _offsetsRegistered = true;
+                __cacheString[offset] = new Offset<String>(offset, stringLength);
+                _offsetsRegistered = true;                
+            }
+            else if (__cacheString[offset].DataLength != (stringLength))
+            {
+                __cacheString[offset].Disconnect();
+                __cacheString[offset] = new Offset<String>(offset, stringLength);
             }
 
             __cacheString[offset].Value = value;
