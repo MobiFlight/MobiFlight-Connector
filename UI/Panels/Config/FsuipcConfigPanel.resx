@@ -273,143 +273,8 @@
   <data name="fsuipcBaseSettingsGroupBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;offsetPanel.Name" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 49</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>574, 95</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>20</value>
-  </data>
-  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
-    <value>Base settings</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Name" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="offsetPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Name" xml:space="preserve">
-    <value>fsuipcTypeLabel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcTypeLabel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Name" xml:space="preserve">
-    <value>fsuipcOffsetTypeComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTypeComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeLabel.Name" xml:space="preserve">
-    <value>fsuipcSizeLabel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeLabel.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Name" xml:space="preserve">
-    <value>fsuipcSizeComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcSizeComboBox.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Name" xml:space="preserve">
-    <value>fsuipcOffsetTextBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.Parent" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;fsuipcOffsetTextBox.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="offsetPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="offsetPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 16</value>
-  </data>
-  <data name="offsetPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>568, 51</value>
-  </data>
-  <data name="offsetPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Name" xml:space="preserve">
-    <value>offsetPanel</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.Parent" xml:space="preserve">
-    <value>fsuipcBaseSettingsGroupBox</value>
-  </data>
-  <data name="&gt;&gt;offsetPanel.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="fsuipcTypeLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -588,68 +453,56 @@
   <data name="&gt;&gt;fsuipcOffsetTextBox.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Name" xml:space="preserve">
-    <value>fsuipcPresetUseButton</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetUseButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Name" xml:space="preserve">
-    <value>labelFsuipcPreset</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;labelFsuipcPreset.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Name" xml:space="preserve">
-    <value>fsuipcPresetComboBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.Parent" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
-  </data>
-  <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="offsetPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="offsetPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>574, 49</value>
+  <data name="offsetPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>568, 51</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>22</value>
+  <data name="offsetPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
-    <value>Load preset</value>
+  <data name="&gt;&gt;offsetPanel.Name" xml:space="preserve">
+    <value>offsetPanel</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Name" xml:space="preserve">
-    <value>fsuipcLoadPresetGroupBox</value>
+  <data name="&gt;&gt;offsetPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Type" xml:space="preserve">
+  <data name="&gt;&gt;offsetPanel.Parent" xml:space="preserve">
+    <value>fsuipcBaseSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;offsetPanel.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 49</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 95</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
+    <value>Base settings</value>
+  </data>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Name" xml:space="preserve">
+    <value>fsuipcBaseSettingsGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Parent" xml:space="preserve">
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;fsuipcBaseSettingsGroupBox.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="fsuipcPresetUseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -734,6 +587,33 @@
   </data>
   <data name="&gt;&gt;fsuipcPresetComboBox.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>574, 49</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
+    <value>Load preset</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Name" xml:space="preserve">
+    <value>fsuipcLoadPresetGroupBox</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;fsuipcLoadPresetGroupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <metadata name="presetsDataSet.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

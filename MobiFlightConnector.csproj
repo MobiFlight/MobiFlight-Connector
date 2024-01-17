@@ -1526,6 +1526,7 @@
     <None Include="Resources\mobiflight_icon_out_shifter.png" />
     <None Include="Resources\mobiflight_icon_out_stepper.png" />
     <None Include="Resources\mobiflight_icon_out_customdevice.png" />
+    <Content Include="Resources\hint-bulb.png" />
     <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />

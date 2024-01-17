@@ -51,11 +51,11 @@
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
             this.panelModifierHint = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.buttonModifyTab = new System.Windows.Forms.Button();
+            this.labelModifierHint = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
-            this.labelModifierHint = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.maskAndBcdPanel.SuspendLayout();
             this.fsuipcBaseSettingsGroupBox.SuspendLayout();
             this.offsetPanel.SuspendLayout();
@@ -63,8 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
             this.panelModifierHint.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // maskAndBcdPanel
@@ -225,6 +225,13 @@
             resources.ApplyResources(this.panelModifierHint, "panelModifierHint");
             this.panelModifierHint.Name = "panelModifierHint";
             // 
+            // panel1
+            // 
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Controls.Add(this.buttonModifyTab);
+            this.panel1.Controls.Add(this.labelModifierHint);
+            this.panel1.Name = "panel1";
+            // 
             // buttonModifyTab
             // 
             resources.ApplyResources(this.buttonModifyTab, "buttonModifyTab");
@@ -232,9 +239,14 @@
             this.buttonModifyTab.UseVisualStyleBackColor = true;
             this.buttonModifyTab.Click += new System.EventHandler(this.ButtonModifyTab_Click);
             // 
+            // labelModifierHint
+            // 
+            resources.ApplyResources(this.labelModifierHint, "labelModifierHint");
+            this.labelModifierHint.Name = "labelModifierHint";
+            // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::MobiFlight.Properties.Resources.mobiflight_icon_out_led;
+            this.pictureBox1.Image = global::MobiFlight.Properties.Resources.hint_bulb;
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
@@ -243,18 +255,6 @@
             // 
             resources.ApplyResources(this.transformOptionsGroup1, "transformOptionsGroup1");
             this.transformOptionsGroup1.Name = "transformOptionsGroup1";
-            // 
-            // labelModifierHint
-            // 
-            resources.ApplyResources(this.labelModifierHint, "labelModifierHint");
-            this.labelModifierHint.Name = "labelModifierHint";
-            // 
-            // panel1
-            // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.buttonModifyTab);
-            this.panel1.Controls.Add(this.labelModifierHint);
-            this.panel1.Name = "panel1";
             // 
             // FsuipcConfigPanel
             // 
@@ -275,9 +275,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
             this.panelModifierHint.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
