@@ -1,11 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Modifier;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Modifier.Tests
@@ -81,6 +76,45 @@ namespace MobiFlight.Modifier.Tests
             var modifierList = new ModifierList();
             var modifierList2 = modifierList.Clone() as ModifierList;
             Assert.AreEqual(modifierList, modifierList2);
+        }
+
+        [TestMethod()]
+        public void ContainsModifierTest()
+        {
+            var modifierList = new ModifierList();
+            var modifier1 = new Transformation() { Active = true, Expression = "$+1" };
+            var modifier2 = new Transformation() { Active = true, Expression = "$+2" };
+
+            modifierList.Items.Add(modifier1);
+
+            Assert.IsFalse(modifierList.ContainsModifier(modifier2));
+
+            modifierList.Items.Add(modifier2);
+            Assert.IsTrue(modifierList.ContainsModifier(modifier2));
+
+            var modifier3 = new Comparison() { Active = true };
+            Assert.IsFalse(modifierList.ContainsModifier(modifier3));
+        }
+
+        [TestMethod()]
+        public void AddModifierOnceTest()
+        {
+            var modifierList = new ModifierList();
+            var modifier1 = new Transformation() { Active = true, Expression = "$+1" };
+            Assert.IsTrue(modifierList.Items.Count == 0);
+            modifierList.AddModifierOnce(modifier1, true);
+            Assert.IsTrue(modifierList.Items.Count == 1);
+            modifierList.AddModifierOnce(modifier1, true);
+            Assert.IsTrue(modifierList.Items.Count == 1);
+
+            var modifier2 = new Transformation() { Active = true, Expression = "$+2" };
+            modifierList.AddModifierOnce(modifier2, true);
+            Assert.IsTrue(modifierList.Items.Count == 2);
+            Assert.IsTrue(modifierList.Items.First() == modifier2);
+
+            var modifier3 = new Transformation() { Active = true, Expression = "$+3" };
+            modifierList.AddModifierOnce(modifier3, false);
+            Assert.IsTrue(modifierList.Items.Last() == modifier3);
         }
     }
 }
