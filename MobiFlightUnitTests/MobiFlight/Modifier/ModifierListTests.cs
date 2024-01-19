@@ -130,41 +130,5 @@ namespace MobiFlight.Modifier.Tests
             modifierList.AddModifierOnce(modifier3, false);
             Assert.IsTrue(modifierList.Items.Last() == modifier3);
         }
-
-        [TestMethod()]
-        public void EqualsTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void ReadXmlTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void WriteXmlTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void CloneTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void ContainsModifierTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void AddModifierOnceTest1()
-        {
-
-        }
     }
 }
