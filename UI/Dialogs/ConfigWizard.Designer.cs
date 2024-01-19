@@ -127,7 +127,6 @@
             // fsuipcConfigPanel
             // 
             resources.ApplyResources(this.fsuipcConfigPanel, "fsuipcConfigPanel");
-            this.fsuipcConfigPanel.Modifier = null;
             this.fsuipcConfigPanel.Name = "fsuipcConfigPanel";
             this.fsuipcConfigPanel.PresetFile = "";
             // 

@@ -1,5 +1,4 @@
 ﻿using MobiFlight.InputConfig;
-using MobiFlight.Modifier;
 using MobiFlight.UI.Forms;
 using System;
 using System.Collections.Generic;
@@ -12,20 +11,22 @@ namespace MobiFlight.UI.Panels.Config
     public partial class FsuipcConfigPanel : UserControl, IPanelConfigSync
     {
         public event EventHandler ModifyTabLink;
-        public event EventHandler ModifierChanged;
+        public event EventHandler<IFsuipcConfigItem> PresetChanged;
         public String PresetFile { get; set; }
         ErrorProvider errorProvider = new ErrorProvider();
         protected Boolean OutputPanelMode = true;
 
-        private Transformation _modifier = null;
-        public Transformation Modifier
+        private IFsuipcConfigItem _preset;
+
+        public IFsuipcConfigItem Preset
         {
-            get { return _modifier; }
-            set { 
-                _modifier = value;
-                ModifierChanged?.Invoke(this, EventArgs.Empty);
+            get { return _preset; }
+            set {
+                PresetChanged?.Invoke(value, _preset);
+                _preset = value; 
             }
         }
+
 
         public FsuipcConfigPanel()
         {
@@ -114,8 +115,9 @@ namespace MobiFlight.UI.Panels.Config
                 {
                     var config = rows[0]["settings"] as IFsuipcConfigItem;
                     syncFromConfig(config);
+                    Preset = config;
                     
-                    panelModifierHint.Visible = (config?.Modifiers?.Transformation?.Active ?? false);
+                    panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0);
                 }
             }
         }
@@ -260,24 +262,20 @@ namespace MobiFlight.UI.Panels.Config
                 fsuipcMaskTextBox.Text = "0x" + conf.FSUIPC.Mask.ToString("X" + conf.FSUIPC.Size.ToString());
             
             fsuipcBcdModeCheckBox.Checked = conf.FSUIPC.BcdMode;
-
             transformOptionsGroup1.syncFromConfig(conf);
-
-            if (conf.Modifiers.Items.Count > 0 && conf.Modifiers.Transformation != null)
-            {
-                Modifier = conf.Modifiers.Transformation;
-            }
 
             foreach (DataRow row in presetDataTable.Rows)
             {
-                if ((row["settings"] as IFsuipcConfigItem).FSUIPC.Offset == conf.FSUIPC.Offset &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.OffsetType == conf.FSUIPC.OffsetType &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Size == conf.FSUIPC.Size &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.Mask == conf.FSUIPC.Mask &&
-                    (row["settings"] as IFsuipcConfigItem).FSUIPC.BcdMode == conf.FSUIPC.BcdMode
-                    ) {
+                var preset = row["settings"] as IFsuipcConfigItem;
+                if (preset == null) continue;
+
+                if (preset.FSUIPC.Equals(conf.FSUIPC)) 
+                {
+                    if (!preset.Modifiers.Items.TrueForAll(m => m.Active && conf.Modifiers.ContainsModifier(m))) continue;
+                    // we found the preset
                     fsuipcPresetComboBox.Text = row["description"].ToString();
-                    panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Transformation != null;
+                    Preset = (row["settings"] as IFsuipcConfigItem);
+                    panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Items.Count > 0;
                     break;
                 }
             }
@@ -305,11 +303,6 @@ namespace MobiFlight.UI.Panels.Config
 
             config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
             transformOptionsGroup1.syncToConfig(config);
-
-            if (Modifier!=null)
-            {
-                config.Modifiers.AddModifierOnce(Modifier, true);
-            }
         }
 
         public InputConfig.InputAction ToConfig()

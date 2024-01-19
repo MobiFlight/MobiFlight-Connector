@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.Modifier;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -14,6 +15,19 @@ namespace MobiFlight.Modifier.Tests
             var modifierList = new ModifierList();
             var modifierList2 = new ModifierList();
 
+            Assert.IsTrue(modifierList.Equals(modifierList2));
+
+            modifierList.Items.Add(new Transformation() { Active = true });
+
+            Assert.IsFalse(modifierList.Equals(modifierList2));
+
+            modifierList2.Items.Add(new Transformation() { Active = true });
+
+            Assert.IsTrue(modifierList.Equals(modifierList2));
+
+            modifierList.Items.Add(new Transformation() { Active = true, Expression = "$+1" });
+            Assert.IsFalse (modifierList.Equals(modifierList2));
+            modifierList2.Items.Add(new Transformation() { Active = true, Expression = "$+1" });
             Assert.IsTrue(modifierList.Equals(modifierList2));
         }
 
@@ -115,6 +129,42 @@ namespace MobiFlight.Modifier.Tests
             var modifier3 = new Transformation() { Active = true, Expression = "$+3" };
             modifierList.AddModifierOnce(modifier3, false);
             Assert.IsTrue(modifierList.Items.Last() == modifier3);
+        }
+
+        [TestMethod()]
+        public void EqualsTest1()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ReadXmlTest1()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void WriteXmlTest1()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void CloneTest1()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void ContainsModifierTest1()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void AddModifierOnceTest1()
+        {
+
         }
     }
 }
