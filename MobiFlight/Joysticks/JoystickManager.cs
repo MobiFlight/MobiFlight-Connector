@@ -183,7 +183,7 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
                     js.Connect(Handle);
-                    Joysticks.TryAdd(js.Name, js);
+                    Joysticks.TryAdd(js.Serial, js);
                     js.OnButtonPressed += Js_OnButtonPressed;
                     js.OnDisconnected += Js_OnDisconnected;
                 }       
@@ -199,7 +199,7 @@ namespace MobiFlight
         {
             var js = sender as Joystick;
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
-            Joysticks.TryRemove(js.Name, out _);
+            Joysticks.TryRemove(js.Serial, out _);
         }
 
         private bool HasAxisOrButtons(Joystick js)
