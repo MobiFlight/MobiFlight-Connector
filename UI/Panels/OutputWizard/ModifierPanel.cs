@@ -30,12 +30,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
             UpdateControls();
         }
 
-        public void AddModifiersOnce(ModifierList modifiers)
+        public void ReplaceModifiers(ModifierList modifiers)
         {
-            foreach (ModifierBase modifier in modifiers.Items)
-            {
-                modifierList.AddModifierOnce(modifier, true);
-            }
+            modifierList = modifiers;
             UpdateControls();
         }
 

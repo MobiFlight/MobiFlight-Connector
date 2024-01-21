@@ -16,18 +16,6 @@ namespace MobiFlight.UI.Panels.Config
         ErrorProvider errorProvider = new ErrorProvider();
         protected Boolean OutputPanelMode = true;
 
-        private IFsuipcConfigItem _preset;
-
-        public IFsuipcConfigItem Preset
-        {
-            get { return _preset; }
-            set {
-                PresetChanged?.Invoke(value, _preset);
-                _preset = value; 
-            }
-        }
-
-
         public FsuipcConfigPanel()
         {
             InitializeComponent();
@@ -114,10 +102,9 @@ namespace MobiFlight.UI.Panels.Config
                 if (rows.Length > 0)
                 {
                     var config = rows[0]["settings"] as IFsuipcConfigItem;
-                    syncFromConfig(config);
-                    Preset = config;
-                    
+                    syncFromConfig(config);                 
                     panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0);
+                    PresetChanged(this, config);
                 }
             }
         }
@@ -274,7 +261,6 @@ namespace MobiFlight.UI.Panels.Config
                     if (!preset.Modifiers.Items.TrueForAll(m => m.Active && conf.Modifiers.ContainsModifier(m))) continue;
                     // we found the preset
                     fsuipcPresetComboBox.Text = row["description"].ToString();
-                    Preset = (row["settings"] as IFsuipcConfigItem);
                     panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Items.Count > 0;
                     break;
                 }

@@ -204,10 +204,9 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        private void FsuipcConfigPanel_ModifierChanged(object newPreset, IFsuipcConfigItem oldPreset)
+        private void FsuipcConfigPanel_ModifierChanged(object sender, IFsuipcConfigItem newPreset)
         {
-            modifierPanel1.RemoveModifiers(oldPreset?.Modifiers);
-            modifierPanel1.AddModifiersOnce((newPreset as IFsuipcConfigItem)?.Modifiers);
+            modifierPanel1.ReplaceModifiers((newPreset as IFsuipcConfigItem)?.Modifiers);
         }
 
         private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)

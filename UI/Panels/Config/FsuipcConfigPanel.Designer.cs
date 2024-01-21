@@ -51,7 +51,7 @@
             this.description = new System.Data.DataColumn();
             this.settingsColumn = new System.Data.DataColumn();
             this.panelModifierHint = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelModifierHintFloatLayout = new System.Windows.Forms.Panel();
             this.buttonModifyTab = new System.Windows.Forms.Button();
             this.labelModifierHint = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -63,7 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
             this.panelModifierHint.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelModifierHintFloatLayout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -220,17 +220,17 @@
             // 
             // panelModifierHint
             // 
-            this.panelModifierHint.Controls.Add(this.panel1);
+            this.panelModifierHint.Controls.Add(this.panelModifierHintFloatLayout);
             this.panelModifierHint.Controls.Add(this.pictureBox1);
             resources.ApplyResources(this.panelModifierHint, "panelModifierHint");
             this.panelModifierHint.Name = "panelModifierHint";
             // 
-            // panel1
+            // panelModifierHintFloatLayout
             // 
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Controls.Add(this.buttonModifyTab);
-            this.panel1.Controls.Add(this.labelModifierHint);
-            this.panel1.Name = "panel1";
+            resources.ApplyResources(this.panelModifierHintFloatLayout, "panelModifierHintFloatLayout");
+            this.panelModifierHintFloatLayout.Controls.Add(this.buttonModifyTab);
+            this.panelModifierHintFloatLayout.Controls.Add(this.labelModifierHint);
+            this.panelModifierHintFloatLayout.Name = "panelModifierHintFloatLayout";
             // 
             // buttonModifyTab
             // 
@@ -275,8 +275,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
             this.panelModifierHint.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelModifierHintFloatLayout.ResumeLayout(false);
+            this.panelModifierHintFloatLayout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -309,7 +309,7 @@
         private System.Windows.Forms.Panel panelModifierHint;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonModifyTab;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelModifierHintFloatLayout;
         private System.Windows.Forms.Label labelModifierHint;
     }
 }
