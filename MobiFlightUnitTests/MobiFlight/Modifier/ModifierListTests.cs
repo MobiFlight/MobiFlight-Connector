@@ -1,11 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Modifier;
-using System;
-using System.Collections.Generic;
+﻿using MobiFlight.Modifier;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Modifier.Tests
@@ -19,6 +15,19 @@ namespace MobiFlight.Modifier.Tests
             var modifierList = new ModifierList();
             var modifierList2 = new ModifierList();
 
+            Assert.IsTrue(modifierList.Equals(modifierList2));
+
+            modifierList.Items.Add(new Transformation() { Active = true });
+
+            Assert.IsFalse(modifierList.Equals(modifierList2));
+
+            modifierList2.Items.Add(new Transformation() { Active = true });
+
+            Assert.IsTrue(modifierList.Equals(modifierList2));
+
+            modifierList.Items.Add(new Transformation() { Active = true, Expression = "$+1" });
+            Assert.IsFalse (modifierList.Equals(modifierList2));
+            modifierList2.Items.Add(new Transformation() { Active = true, Expression = "$+1" });
             Assert.IsTrue(modifierList.Equals(modifierList2));
         }
 
@@ -81,6 +90,24 @@ namespace MobiFlight.Modifier.Tests
             var modifierList = new ModifierList();
             var modifierList2 = modifierList.Clone() as ModifierList;
             Assert.AreEqual(modifierList, modifierList2);
+        }
+
+        [TestMethod()]
+        public void ContainsModifierTest()
+        {
+            var modifierList = new ModifierList();
+            var modifier1 = new Transformation() { Active = true, Expression = "$+1" };
+            var modifier2 = new Transformation() { Active = true, Expression = "$+2" };
+
+            modifierList.Items.Add(modifier1);
+
+            Assert.IsFalse(modifierList.ContainsModifier(modifier2));
+
+            modifierList.Items.Add(modifier2);
+            Assert.IsTrue(modifierList.ContainsModifier(modifier2));
+
+            var modifier3 = new Comparison() { Active = true };
+            Assert.IsFalse(modifierList.ContainsModifier(modifier3));
         }
     }
 }

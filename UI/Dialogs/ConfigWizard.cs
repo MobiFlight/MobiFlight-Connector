@@ -131,7 +131,7 @@ namespace MobiFlight.UI.Dialogs
             _execManager.GetSimConnectCache().LVarListUpdated += ConfigWizard_LVarListUpdated;
 
             fsuipcConfigPanel.ModifyTabLink += ConfigPanel_ModifyTabLink;
-            fsuipcConfigPanel.ModifierChanged += FsuipcConfigPanel_ModifierChanged;
+            fsuipcConfigPanel.PresetChanged += FsuipcConfigPanel_PresetChanged;
             simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
@@ -204,9 +204,9 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        private void FsuipcConfigPanel_ModifierChanged(object sender, EventArgs e)
+        private void FsuipcConfigPanel_PresetChanged(object sender, IFsuipcConfigItem newPreset)
         {
-            modifierPanel1.UpdateModifier(fsuipcConfigPanel.Modifier);
+            modifierPanel1.ReplaceModifiers((newPreset as IFsuipcConfigItem)?.Modifiers);
         }
 
         private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)
