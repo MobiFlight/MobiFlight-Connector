@@ -109,26 +109,5 @@ namespace MobiFlight.Modifier.Tests
             var modifier3 = new Comparison() { Active = true };
             Assert.IsFalse(modifierList.ContainsModifier(modifier3));
         }
-
-        [TestMethod()]
-        public void AddModifierOnceTest()
-        {
-            var modifierList = new ModifierList();
-            var modifier1 = new Transformation() { Active = true, Expression = "$+1" };
-            Assert.IsTrue(modifierList.Items.Count == 0);
-            modifierList.AddModifierOnce(modifier1, true);
-            Assert.IsTrue(modifierList.Items.Count == 1);
-            modifierList.AddModifierOnce(modifier1, true);
-            Assert.IsTrue(modifierList.Items.Count == 1);
-
-            var modifier2 = new Transformation() { Active = true, Expression = "$+2" };
-            modifierList.AddModifierOnce(modifier2, true);
-            Assert.IsTrue(modifierList.Items.Count == 2);
-            Assert.IsTrue(modifierList.Items.First() == modifier2);
-
-            var modifier3 = new Transformation() { Active = true, Expression = "$+3" };
-            modifierList.AddModifierOnce(modifier3, false);
-            Assert.IsTrue(modifierList.Items.Last() == modifier3);
-        }
     }
 }

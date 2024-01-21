@@ -171,17 +171,5 @@ namespace MobiFlight.Modifier
         {
             return modifiers.Find(m => m.Equals(modifier)) != null;
         }
-
-        public void AddModifierOnce(ModifierBase modifier, bool insertAsFirst)
-        {
-            if (ContainsModifier(modifier)) return;
-            if (insertAsFirst)
-            {
-                modifiers.Insert(0, modifier);
-                return;
-            }
-
-            modifiers.Add(modifier);
-        }
     }
 }
