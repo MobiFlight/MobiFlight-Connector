@@ -479,7 +479,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 if (device.Value.Type != DeviceType.CustomDevice) continue;
 
-                customDevices.Add(new ListItem<ICustomDevice>() { Value = device as ICustomDevice, Label = device.Label });
+                customDevices.Add(new ListItem<ICustomDevice>() { Value = device.Value as ICustomDevice, Label = device.Label });
             }
 
             customDevicePanel.SetCustomDeviceNames(customDevices);

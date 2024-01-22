@@ -735,10 +735,20 @@ namespace MobiFlight
                 IHidDevice joystick = joystickManager.GetJoystickBySerial(serial);
                 if(joystick != null)
                 {
-                    byte state = 0;
-                    if (value != "0") state = 1;
+                    if (cfg.DisplayType==DeviceType.CustomDevice.ToString())
+                    {
+                        var device = joystick.GetAvailableOutputDevicesAsListItems().Find(d => {
+                            return (d.Value as ICustomDevice)?.Name == cfg.CustomDevice.CustomName;
+                        });
+                        if (device ==  null) return value;
+                        (device.Value as ICustomDevice).Display(cfg.CustomDevice.MessageType, value);
+                    } else
+                    {
+                        byte state = 0;
+                        if (value != "0") state = 1;
 
-                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
+                        joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
+                    }
                     joystick.UpdateOutputDeviceStates();
                     joystick.Update();
                 } else

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MobiFlight
 {
-    public interface ICustomDevice : IConnectedDevice, IMessageTypeProvider
+    public interface ICustomDevice : IConnectedDevice
     {
         void Display(int MessageType, string value);
-        List<MessageType> MessageType { get; }
+        List<MessageType> MessageTypes { get; }
     }
 }

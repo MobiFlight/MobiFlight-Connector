@@ -5,6 +5,7 @@ namespace MobiFlight
         Button,
         Axis,
         POV,
-        Light
+        Light,
+        String
     }
 }

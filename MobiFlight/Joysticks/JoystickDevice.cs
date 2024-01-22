@@ -1,5 +1,7 @@
 using MobiFlight.Config;
+using MobiFlight.CustomDevices;
 using System;
+using System.Collections.Generic;
 
 namespace MobiFlight
 {
@@ -24,22 +26,48 @@ namespace MobiFlight
         public byte State = 0;
         public JoystickOutputDevice()
         {
+            JoystickDeviceType = JoystickDeviceType.Light;
             Type = DeviceType.Output;
         }
     }
 
-    public class JoystickStringOutputDevice : JoystickOutputDevice
+    public class JoystickStringOutputDevice : JoystickOutputDevice, ICustomDevice
     {
+        public string StringState = null;
+
         public JoystickStringOutputDevice()
         {
             Type = DeviceType.CustomDevice;
+            JoystickDeviceType = JoystickDeviceType.String;
         }
 
         public JoystickStringOutputDevice(JoystickOutputDevice device)
         {
             Type = DeviceType.CustomDevice;
             Name = device.Name;
-            Label = device.Label;  
+            Label = device.Label;
+            Byte = device.Byte;
+            JoystickDeviceType = JoystickDeviceType.String;
+        }
+
+        public void Display(int MessageType, string value)
+        {
+            StringState = value;
+        }
+
+        public List<MessageType> MessageTypes
+        {
+            get
+            {
+                var list = new List<MessageType>();
+                list.Add(new MessageType() { Id=1, Description = "You can display up to 5 characters.", Label="Set LCD" });
+                return list;
+            }
+        }
+
+        public void Stop()
+        {
+            // Do nothing
         }
     }
 }

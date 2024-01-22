@@ -165,11 +165,13 @@
     {
       "Label": "Line 1",
       "Id": "CUSTOM.line1",
+      "Byte": 1,
       "Type": "Custom"
     },
     {
       "Label": "Line 2",
       "Id": "CUSTOM.line2",
+      "Byte": 6,
       "Type": "Custom"
     }
   ]

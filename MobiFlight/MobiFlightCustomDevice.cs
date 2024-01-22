@@ -1,4 +1,6 @@
 ﻿using CommandMessenger;
+using MobiFlight.CustomDevices;
+using System.Collections.Generic;
 
 namespace MobiFlight
 {
@@ -12,6 +14,7 @@ namespace MobiFlight
         public DeviceType Type { get; set; } = DeviceType.CustomDevice;
         public int DeviceNumber { get; set; }
         public CustomDevices.CustomDevice CustomDevice { get; set; }
+        public List<MessageType> MessageTypes { get { return CustomDevice.MessageTypes; } }
 
         public void Display(int MessageType, string value)
         {

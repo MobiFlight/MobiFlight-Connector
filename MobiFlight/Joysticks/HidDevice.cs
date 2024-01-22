@@ -163,7 +163,7 @@ namespace MobiFlight.Joysticks
         private void InputReceiver_Received(object sender, System.EventArgs e)
         {
             var inputRec = sender as HidDeviceInputReceiver;
-            var inputReportBuffer = new byte[5];
+            var inputReportBuffer = new byte[32];
 
             while (inputRec.TryRead(inputReportBuffer, 0, out Report report))
             {
@@ -181,14 +181,21 @@ namespace MobiFlight.Joysticks
 
         public void SetOutputDeviceState(string name, byte state)
         {
-            foreach (var light in Outputs)
+            foreach (var light in Outputs.FindAll(l => l.JoystickDeviceType == JoystickDeviceType.Light))
             {
                 if (light.Label != name) continue;
                 if (light.State == state) continue;
 
                 light.State = state;
                 RequiresOutputUpdate = true;
-                return;
+                break;
+            }
+        }
+        public void SetCustomDeviceState(string name, string value)
+        {
+            foreach (var light in Outputs.FindAll(l => l.JoystickDeviceType == JoystickDeviceType.String))
+            {
+                //
             }
         }
 
@@ -213,11 +220,38 @@ namespace MobiFlight.Joysticks
         public void UpdateOutputDeviceStates()
         {
             var data = new byte[] { 0, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x01, 0, 0xff };
+            var mappingTable = new Dictionary<string, byte>()
+            {
+                { " ", 0b00001111 },
+                { "0", 0x00 },
+                { "1", 0x01 },
+                { "2", 0x02 },
+                { "3", 0x03 },
+                { "4", 0x04 },
+                { "5", 0x05 },
+                { "6", 0x06 },
+                { "7", 0x07 },
+                { "8", 0x08 },
+                { "9", 0x09 },
+            };
 
-            foreach (var light in Outputs)
+            foreach (var light in Outputs.FindAll(l=>l.JoystickDeviceType==JoystickDeviceType.Light))
             {
                 data[light.Byte] |= (byte)(light.State << light.Bit);
             }
+
+            foreach (var stringOutput in Outputs.FindAll(l=>l.JoystickDeviceType==JoystickDeviceType.String))
+            {
+                var strOutputDevice = stringOutput as JoystickStringOutputDevice;
+                if (strOutputDevice == null) continue;
+                if (strOutputDevice.StringState == null) continue;
+                for (var i = 0; i!= strOutputDevice.StringState.Length; i++)
+                {
+                    var value = mappingTable.ContainsKey(strOutputDevice.StringState[i].ToString()) ? mappingTable[strOutputDevice.StringState[i].ToString()] : (byte)0b00001111;
+                    data[i + strOutputDevice.Byte] = value;
+                }
+            }
+            RequiresOutputUpdate = true;
 
             SendData(data);
         }

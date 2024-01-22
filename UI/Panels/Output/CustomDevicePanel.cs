@@ -50,7 +50,7 @@ namespace MobiFlight.UI.Panels
         {
             if (customDeviceNamesComboBox.SelectedValue != null)
             {
-                config.CustomDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString ();
+                config.CustomDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as ICustomDevice).Name.ToString ();
             }
 
             if (MessageTypeComboBox.SelectedValue != null)
@@ -66,13 +66,12 @@ namespace MobiFlight.UI.Panels
         private void customDeviceNameComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             var messages = new List<ListItem<CustomDevices.MessageType>>();
-            var customDevice = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice);
+            var customDevice = (customDeviceNamesComboBox.SelectedValue as ICustomDevice);
 
             if (customDevice == null) return;
 
 
-            customDevice.CustomDevice
-                        .MessageTypes
+            customDevice.MessageTypes
                         .ForEach(
                             (m) => { messages.Add(new ListItem<CustomDevices.MessageType>() { Value = m, Label = m.Label }); }
                         );

@@ -110,7 +110,7 @@ namespace MobiFlight.CustomDevices
         }
     }
 
-    public class CustomDevice : IMigrateable, IMessageTypeProvider
+    public class CustomDevice : IMigrateable
     {
         /// <summary>
         /// General device information properties.
