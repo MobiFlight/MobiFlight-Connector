@@ -103,8 +103,8 @@ namespace MobiFlight.UI.Panels.Config
                 {
                     var config = rows[0]["settings"] as IFsuipcConfigItem;
                     syncFromConfig(config);                 
-                    panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0);
-                    PresetChanged(this, config);
+                    panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0) && OutputPanelMode;
+                    PresetChanged?.Invoke(this, config);
                 }
             }
         }
