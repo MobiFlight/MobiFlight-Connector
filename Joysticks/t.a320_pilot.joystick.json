@@ -1,0 +1,114 @@
+﻿{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "T.A320 Pilot",
+  "VendorId":  "0x044F",
+  "ProductId": "0x0405",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type":  "Button",
+      "Label": "Button 1 - Trigger"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Button 2 - Upper trigger"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Button 3 - Handle left"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Button 4 - Handle right"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Button 5 - Right front 3"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Button 6 - Right front 2"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Button 7 - Right front 1"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Button 10 - Right back 3"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Button 9 - Right back 2"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Button 8 - Right back 1"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Button 11 - Left front 1"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Button 12 - Left front 2"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Button 13 - Left  front 3"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "Button 14 - Left back 3"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "Button 15 - Left back 2"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Button 16 - Left back 1"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "Button 17 - Slider switch"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Axis - Roll"
+    },
+    {
+      "Id": 49,
+      "Type": "Axis",
+      "Label": "Axis - Pitch"
+    },
+    {
+      "Id": 53,
+      "Type": "Axis",
+      "Label": "Axis - Grip twist"
+    },
+    {
+      "Id": 54,
+      "Type": "Axis",
+      "Label": "Axis - Slider"
+    }
+  ],
+  "Outputs": []
+}
