@@ -130,6 +130,7 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
+            this.copyLogsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -221,6 +222,7 @@
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hubHopToolStripMenuItem,
             this.mSFS2020ToolStripMenuItem,
+            this.copyLogsToClipboardToolStripMenuItem,
             this.orphanedSerialsFinderToolStripMenuItem,
             this.toolStripMenuItem4,
             this.settingsToolStripMenuItem});
@@ -833,6 +835,12 @@
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
+            // copyLogsToClipboardToolStripMenuItem
+            // 
+            this.copyLogsToClipboardToolStripMenuItem.Name = "copyLogsToClipboardToolStripMenuItem";
+            resources.ApplyResources(this.copyLogsToClipboardToolStripMenuItem, "copyLogsToClipboardToolStripMenuItem");
+            this.copyLogsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyLogsToClipboardToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -978,6 +986,7 @@
         private System.Windows.Forms.ToolStripMenuItem openLinkFilenameToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHubHop;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripMenuItem copyLogsToClipboardToolStripMenuItem;
     }
 }
 

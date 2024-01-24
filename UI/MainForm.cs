@@ -20,6 +20,7 @@ using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace MobiFlight.UI
 {
@@ -67,10 +68,11 @@ namespace MobiFlight.UI
 
         public event EventHandler<ConfigFile> ConfigLoaded;
 
+        private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
+
         private void InitializeLogging()
         {
             LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
-            LogAppenderFile logAppenderFile = new LogAppenderFile();
 
             Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
@@ -2380,6 +2382,26 @@ namespace MobiFlight.UI
             };
 
             LoadConfig(linkedFile);
+        }
+
+        private void copyLogsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                logAppenderFile.CopyToClipboard();
+            }
+            catch (FileLoadException ex)
+            {
+                MessageBox.Show("No logs available to copy. Make sure logging is enabled in settings then try again.", "Copy to clipboard");
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to copy logs to the clipboard: {ex.Message}", "Copy to clipboard");
+                return;
+            }
+
+            MessageBox.Show("Logs successfully copied to the clipboard.", "Copy to clipboard");
         }
     }
 
