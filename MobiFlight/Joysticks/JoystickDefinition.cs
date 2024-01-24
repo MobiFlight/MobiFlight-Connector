@@ -45,7 +45,7 @@ namespace MobiFlight
         {
             if (value is int || value is long)
             {
-                string hexString = "0x" + Convert.ToString(Convert.ToInt64(value), 16);
+                string hexString = $"0x{Convert.ToString(Convert.ToInt64(value), 16)}";
                 writer.WriteValue(hexString);
             }
             else
