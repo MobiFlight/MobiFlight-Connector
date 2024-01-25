@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech MCP</ModuleName>
+  <ModuleType>CoreFlightTech MCP</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="FDL" Pin="50" />
+  <Button Name="AT" Pin="62" />
+  <Button Name="N1" Pin="49" />
+  <Button Name="SPD" Pin="42" />
+  <Button Name="CO" Pin="64" />
+  <Button Name="SPD_INTV" Pin="59" />
+  <Button Name="VNAV" Pin="60" />
+  <Button Name="LVL_CHG" Pin="43" />
+  <Button Name="HDG_SEL" Pin="51" />
+  <Button Name="LNAV" Pin="55" />
+  <Button Name="VORLOC" Pin="58" />
+  <Button Name="APP" Pin="69" />
+  <Button Name="ALT_HLD" Pin="20" />
+  <Button Name="ALT_INTV" Pin="7" />
+  <Button Name="VS" Pin="22" />
+  <Button Name="CMDA" Pin="3" />
+  <Button Name="CMDB" Pin="4" />
+  <Button Name="CWSA" Pin="11" />
+  <Button Name="CWSB" Pin="9" />
+  <Button Name="DISENGAGE" Pin="25" />
+  <Button Name="FDR" Pin="27" />
+  <Encoder Name="ENC_CRS_L" PinLeft="52" PinRight="53" EncoderType="1" />
+  <Encoder Name="ENC_IASMACH" PinLeft="39" PinRight="37" EncoderType="1" />
+  <Encoder Name="ENC_HEADING" PinLeft="32" PinRight="33" EncoderType="1" />
+  <Encoder Name="ENC_ALTITUDE" PinLeft="15" PinRight="14" EncoderType="1" />
+  <Encoder Name="ENC_VS" PinLeft="13" PinRight="12" EncoderType="1" />
+  <Encoder Name="ENC_CRS_R" PinLeft="26" PinRight="29" EncoderType="1" />
+  <LedModule Name="MAX1" ModelType="0" DinPin="46" ClsPin="47" ClkPin="48" Brightness="15" NumModules="1" />
+  <LedModule Name="MAX2" ModelType="0" DinPin="34" ClsPin="36" ClkPin="35" Brightness="15" NumModules="1" />
+  <LedModule Name="MAX3" ModelType="0" DinPin="31" ClsPin="30" ClkPin="28" Brightness="15" NumModules="1" />
+  <Output Name="fdL" Pin="38" />
+  <Output Name="n1" Pin="44" />
+  <Output Name="speed" Pin="45" />
+  <Output Name="vnav" Pin="61" />
+  <Output Name="lvl_chg" Pin="40" />
+  <Output Name="hdg_sel" Pin="41" />
+  <Output Name="lnav" Pin="56" />
+  <Output Name="vorloc" Pin="57" />
+  <Output Name="app" Pin="67" />
+  <Output Name="alt_hld" Pin="21" />
+  <Output Name="vs" Pin="23" />
+  <Output Name="cmda" Pin="5" />
+  <Output Name="cmdb" Pin="6" />
+  <Output Name="cwsa" Pin="10" />
+  <Output Name="cwsb" Pin="8" />
+  <Output Name="fdR" Pin="24" />
+  <Output Name="at" Pin="63" />
+  <Output Name="Backlight_Pin" Pin="2" />
+  <Button Name="HeadingEnc_Btn" Pin="54" />
+</Config>

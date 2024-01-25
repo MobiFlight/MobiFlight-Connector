@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>Kav Mega</ModuleType>
+  <ModuleName>Kav Glareshield</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <CustomDevice Name="FCU LCD" CustomType="KAV_FCU" Pins="" Config="">
+    <ConfiguredPins>
+      <string>8</string>
+      <string>12</string>
+      <string>11</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="EFIS L" CustomType="KAV_EFIS" Pins="" Config="">
+    <ConfiguredPins>
+      <string>34</string>
+      <string>32</string>
+      <string>33</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="EFIS R" CustomType="KAV_EFIS" Pins="" Config="">
+    <ConfiguredPins>
+      <string>37</string>
+      <string>35</string>
+      <string>36</string>
+    </ConfiguredPins>
+  </CustomDevice>
+</Config>

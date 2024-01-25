@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="bb644eda-c761-47d7-82a0-b135bea5de7d">
+      <active>true</active>
+      <description>COMM_CPT_ACTIVE_DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/com1_frequency_hz_833" />
+        <modifiers>
+          <transformation active="False" expression="($*100)+0.01" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="CPT_COMM_v4/ SN-27d-77e" trigger="normal" ledAddress="CPT_COM_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="45325ee7-2129-420f-8805-4a1d103b4b12">
+      <active>true</active>
+      <description>COMM_CPT_STANDBY_DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/com1_standby_frequency_hz_833" />
+        <modifiers>
+          <transformation active="False" expression="($*100)+0.01" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="CPT_COMM_v4/ SN-27d-77e" trigger="normal" ledAddress="CPT_COM_STANDBY" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar=" " ledDigits="0,1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9e29436c-aa73-4f0f-8402-9338d5a4a9b2">
+      <active>true</active>
+      <description>COMM_CPT_BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="-1" operand="!=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="CPT_COMM_v4/ SN-27d-77e" trigger="normal" pin="CPT_COM_BLIGHT" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="6f023812-9b70-446e-932c-4c5c0325702b">
+      <active>true</active>
+      <description>CPT COMM INNER ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-27d-77e" name="CPT_COM_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_fine_down_833" expression="$" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_fine_up_833" expression="$" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f4da7bdb-e67f-4e08-8a02-481a204370ea">
+      <active>true</active>
+      <description>CPT COMM OUTER ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-27d-77e" name="CPT_COM_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_coarse_down" expression="$" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_com1_coarse_up" expression="$" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6d51a1a7-a244-49bd-87b7-e200ae61b8a1">
+      <active>true</active>
+      <description>CPT COMM TFR </description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_COMM_v4/ SN-27d-77e" name="CPT_COM_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/radios/com1_standy_flip" expression="$" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1f5343f3-a76f-4921-ba8f-7c86ad499aae">
+      <active>false</active>
+      <description>CPT COMM TEST - (DEACTIVE)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="" name="" type="-" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

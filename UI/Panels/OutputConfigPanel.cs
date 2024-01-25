@@ -55,6 +55,17 @@ namespace MobiFlight.UI.Panels
 
             DropTimer.Interval = 400;
             DropTimer.Tick += DropTimer_Tick;
+
+            dataGridViewConfig.SelectionChanged += (s, e) => {
+                if (testToolStripMenuItem.Checked)
+                {
+                    // this disables the currently tested item
+                    UpdateSingleItemTestMode();
+                }
+
+                var AtLeastOneRowSelectedAndNotLastRow = dataGridViewConfig.SelectedRows.Count > 0 && !dataGridViewConfig.SelectedRows[0].IsNewRow;
+                testToolStripMenuItem.Enabled = AtLeastOneRowSelectedAndNotLastRow;
+            };
         }
 
         public ExecutionManager ExecutionManager { get; set; }
@@ -63,6 +74,8 @@ namespace MobiFlight.UI.Panels
         public DataTable ConfigDataTable { get { return configDataTable; } }
 
         public DataGridView DataGridViewConfig { get { return dataGridViewConfig; } }
+
+        public OutputConfigItem ItemInTestMode { get; private set; }
 
         void DataGridViewConfig_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
@@ -504,10 +517,12 @@ namespace MobiFlight.UI.Panels
                                             ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                             dataSetConfig,
-                                            dataRow["guid"].ToString()
-                                          );
-
-            wizard.StartPosition = FormStartPosition.CenterParent;
+                                            dataRow["guid"].ToString(),
+                                            dataRow["description"].ToString()
+                                          )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
             wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
 
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -560,12 +575,28 @@ namespace MobiFlight.UI.Panels
             e.Row.Cells["guid"].Value = Guid.NewGuid();
         }
 
+        private void ActivateAutoColumnWidth()
+        {                   
+            dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
+
+        private void DeactivateAutoColumnWidth()
+        {                   
+            dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        }
+
         /// <summary>
         /// use the settings from the config object and initialize the grid cells 
         /// this is needed after loading and saving configs
         /// </summary>
         public void RestoreValuesInGridView()
         {
+            // Needed for performance reasons
+            DeactivateAutoColumnWidth();
             foreach (DataRow row in ConfigDataTable.Rows)
             {
                 OutputConfigItem cfgItem = row["settings"] as OutputConfigItem;
@@ -631,6 +662,8 @@ namespace MobiFlight.UI.Panels
                     }
                 }
             }
+
+            ActivateAutoColumnWidth();
         } //_restoreValuesInGridView()
 
         /// <summary>
@@ -848,6 +881,8 @@ namespace MobiFlight.UI.Panels
         {
             ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
             ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
+            RowCurrentDragHighlight = 0;
+            RowNeighbourDragHighlight = 0;
         }
 
         private void dataGridViewConfig_MouseDown(object sender, MouseEventArgs e)
@@ -1054,6 +1089,44 @@ namespace MobiFlight.UI.Panels
         {
             DropTimer.Stop();
             RemoveDragTargetHighlight();
+        }
+
+        private void testToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateSingleItemTestMode();
+        }
+
+        private void UpdateSingleItemTestMode()
+        {
+            var isTestOn = testToolStripMenuItem.Checked;
+
+            if (isTestOn && ItemInTestMode!=null)
+            {
+                ExecutionManager.ExecuteTestOff(ItemInTestMode, true);
+                ItemInTestMode = null;
+                testToolStripMenuItem.Checked = false;
+                return;
+            }
+
+            foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
+            {
+                // ignore new rows since they cannot be copied nor deleted
+                if (row.IsNewRow) continue;
+
+                DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
+                if (currentRow == null) continue;
+
+                OutputConfigItem cfg = currentRow["settings"] as OutputConfigItem;
+                var currentGuid = currentRow["guid"].ToString();
+
+                if (cfg == null) return;
+
+                ItemInTestMode = cfg;
+                ExecutionManager.ExecuteTestOn(cfg, currentGuid, cfg.TestValue);
+                testToolStripMenuItem.Checked = true;
+
+                return;
+            }
         }
     }
 }

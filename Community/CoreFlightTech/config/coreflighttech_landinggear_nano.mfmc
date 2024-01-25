@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech Landing Gear</ModuleName>
+  <ModuleType>CoreFlightTech Landing Gear</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="UP" Pin="15" />
+  <Button Name="OFF" Pin="16" />
+  <Button Name="DOWN" Pin="17" />
+  <Output Name="Backlight" Pin="3" />
+  <Output Name="Left_Green" Pin="9" />
+  <Output Name="Left_Red" Pin="10" />
+  <Output Name="Nose_Green" Pin="7" />
+  <Output Name="Nose_Red" Pin="11" />
+  <Output Name="Right_Green" Pin="8" />
+  <Output Name="Right_Red" Pin="6" />
+</Config>

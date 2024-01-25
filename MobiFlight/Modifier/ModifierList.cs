@@ -166,5 +166,10 @@ namespace MobiFlight.Modifier
 
             return clone;
         }
+
+        public bool ContainsModifier(ModifierBase modifier)
+        {
+            return modifiers.Find(m => m.Equals(modifier)) != null;
+        }
     }
 }

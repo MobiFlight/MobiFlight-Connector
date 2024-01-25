@@ -80,6 +80,8 @@ namespace MobiFlight.UI.Panels.Modifier
             for (var i=0; i!= panelSequences.Controls.Count; i++)
             {
                 var sequence = (panelSequences.Controls[i] as BlinkSequencePanel).toConfig();
+                if (sequence == null) continue;
+
                 onOffSequence.Add(sequence.Item1);
                 onOffSequence.Add(sequence.Item2);
             }

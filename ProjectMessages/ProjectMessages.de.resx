@@ -497,7 +497,7 @@ Respective input actions won't work until they are connected and you have restar
     <value>{0} ({1}) Firmware Reset fertig. ({2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
-    <value>Update von {0} an {1} (Modul {2}/{3})</value>
+    <value>Reset von {0} an {1} (Modul {2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
     <value>{0} ({1}) Firmware Reset time out. ({2}/{3})</value>
@@ -647,5 +647,28 @@ Möchtest Du sie aktualisieren?</value>
   <data name="uiTitleHubhopAutoUpdate" xml:space="preserve">
     <value>HubHop Preset Update</value>
     <comment>HubHop Preset Update</comment>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeHint" xml:space="preserve">
+    <value>Inkompatible Konfiguration</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeText" xml:space="preserve">
+    <value>Die Config wurde für ein Board von Typ "{0}" gemacht. Dein Board ist Typ "{1}". Die Config ist vielleicht inkompatibel.
+
+Willst Du sie öffnen?</value>
+    <comment>The config was created for a "{0}" board type. Your board type is "{1}". The config might be incompatible.
+
+Do you want to open it?</comment>
+  </data>
+  <data name="uiMessageOpenConfigUnspecificTypeText" xml:space="preserve">
+    <value>Die Config enthält keine Information zu Board-Typ. Dein Board ist Typ "{1}".  Die Config ist vielleicht inkompatibel.
+
+Bist du sicher, dass du sie für Dein Board ({1}) laden willst? </value>
+    <comment>The config doesn't contain any board type information. Your board type is "{0}".
+
+Do you want to open it?</comment>
+  </data>
+  <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
+    <value>Bearbeiten ist deaktiviert, weil die Firmware veraltet ist. Bitte aktualisiere auf die neueste Version.</value>
+    <comment>Editing is disabled due to outdated firmware. Please update to the latest version.</comment>
   </data>
 </root>

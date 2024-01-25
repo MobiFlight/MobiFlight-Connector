@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="bb644eda-c761-47d7-82a0-b135bea5de7d">
+      <active>true</active>
+      <description>MSFS2020_NAV_FO ACTIVE DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV ACTIVE FREQUENCY:2,MHz)" UUID="37a19dbf-bfc5-4193-ac3e-591772069e42" />
+        <modifiers>
+          <transformation active="True" expression="($*100)+0.01" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="FO_NAV_v5/ SN-34f-ccc" trigger="normal" ledAddress="FO_NAV_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="1,2,3,4,5" ledDecimalPoints="3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="45325ee7-2129-420f-8805-4a1d103b4b12">
+      <active>true</active>
+      <description>MSFS2020_NAV_FO STANDBY DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV STANDBY FREQUENCY:2,MHz)" UUID="73a2f48d-d613-4b7b-b30d-8065bc150f98" />
+        <modifiers>
+          <transformation active="True" expression="($*100)+0.01" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="FO_NAV_v5/ SN-34f-ccc" trigger="normal" ledAddress="FO_NAV_STANDBY" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9e29436c-aa73-4f0f-8402-9338d5a4a9b2">
+      <active>true</active>
+      <description>MSFS2020_NAV_FO BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:BL_Pedestal, number)" UUID="6cf89bcd-3f58-4ae8-812b-7702eebc6732" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="-1" operand="!=" ifValue="1" elseValue="0" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="FO_NAV_v5/ SN-34f-ccc" trigger="normal" pin="FO_NAV_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="6f023812-9b70-446e-932c-4c5c0325702b">
+      <active>true</active>
+      <description>MSFS2020_FO_NAV INNER ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_NAV_v5/ SN-34f-ccc" name="FO_NAV_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="84908 (&gt;K:ROTOR_BRAKE)" presetId="3be18b68-da9b-4411-b499-fe6edbda3098" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="84907 (&gt;K:ROTOR_BRAKE)" presetId="15d4c745-90d1-4157-8f9b-fb0517b4ed84" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f4da7bdb-e67f-4e08-8a02-481a204370ea">
+      <active>true</active>
+      <description>MSFS2020_FO_NAV OUTER ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_NAV_v5/ SN-34f-ccc" name="FO_NAV_OUT_EN" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="84808 (&gt;K:ROTOR_BRAKE)" presetId="a2a15f0a-f126-47ba-93f6-749f718fe6ac" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="84807 (&gt;K:ROTOR_BRAKE)" presetId="cf9e1756-d652-492b-ad94-8f9fc48ba1e2" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6d51a1a7-a244-49bd-87b7-e200ae61b8a1">
+      <active>true</active>
+      <description>MSFS2020_FO_NAV TFR </description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_NAV_v5/ SN-34f-ccc" name="FO_NAV_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="84501 (&gt;K:ROTOR_BRAKE)" presetId="0497fb19-2b9a-47ab-a91d-1a06c20c6130" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1f5343f3-a76f-4921-ba8f-7c86ad499aae">
+      <active>false</active>
+      <description>MSFS2020_FO_NAV TEST - (DEACTIVE)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.0.0, Culture=neutral, PublicKeyToken=null" serial="FO_NAV_v5/ SN-34f-ccc" name="FO_NAV_TEST" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

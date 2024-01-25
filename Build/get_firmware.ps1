@@ -16,7 +16,7 @@ else {
 
 # The list of assets also includes the zipped source code so filter it to just the
 # firmware files
-$firmwareFiles = $releaseDetails.assets | where-object { $_.name -match ".hex" }
+$firmwareFiles = $releaseDetails.assets | where-object { $_.name -match ".hex|.uf2" }
 
 # Download all the firmware files to the correct location
 foreach ($firmware in $firmwareFiles) {

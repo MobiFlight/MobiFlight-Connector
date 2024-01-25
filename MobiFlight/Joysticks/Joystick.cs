@@ -193,7 +193,7 @@ namespace MobiFlight
         {
             Lights.Clear();
             
-            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Name, Byte = output.Byte, Bit = output.Bit }));
+            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));
             return;
         }
 
@@ -453,10 +453,19 @@ namespace MobiFlight
                 data[light.Byte] |= (byte)(light.State << light.Bit);
             }
 
-            SendData(data);
+            try
+            {
+                SendData(data);
+            }
+            catch (System.IO.IOException)
+            {
+                // this happens when the device is removed.
+                DIJoystick.Unacquire();
+                OnDisconnected?.Invoke(this, null);
+            }
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             foreach(var light in Lights)
             {
@@ -464,6 +473,11 @@ namespace MobiFlight
             }
             RequiresOutputUpdate = true;
             UpdateOutputDeviceStates();
+        }
+
+        public virtual void Shutdown()
+        {
+            // nothing to do
         }
     }
 }

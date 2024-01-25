@@ -1,0 +1,102 @@
+{
+    "$schema": "./mfdevice.schema.json",
+    "Info": {
+      "Label": "miniFCU LCD",
+      "Type": "miniCOCKPIT_miniFCU",
+      "Author": "miniCOCKPIT",
+      "URL": "",
+      "Version" : "1.0.0"
+    },
+    "Config": {
+      "Pins": [
+        "Data",
+        "CS1",
+        "CS2",
+        "WR"
+      ],
+      "isI2C": false
+    },
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "Speed Value",
+        "description": "$ will be displayed as Speed value"
+      },
+      {
+        "id": 1,
+        "label": "Mach Value",
+        "description": "$*100 will be displayed as Mach value"
+      },
+      {
+        "id": 2,
+        "label": "Toggle SPD/MACH Mode",
+        "description": "0 = SPEED, 1 = MACH"
+      },
+      {
+        "id": 3,
+        "label": "speed dashes",
+        "description": "1 = speed dashes"
+      },
+      {
+        "id": 4,
+        "label": "speed dot",
+        "description": "1 = speed dot"
+      },
+      {
+        "id": 5,
+        "label": "Heading Value",
+        "description": "$ will be displayed as Heading value"
+      },
+      {
+        "id": 6,
+        "label": "Heading dashes",
+        "description": "1 = heading dashes"
+      },
+      {
+        "id": 7,
+        "label": "Heading dot",
+        "description": "1 = heading dot"
+      },
+      {
+        "id": 8,
+        "label": "Altitude Value",
+        "description": "$/100 will be displayed as Altitude value"
+      },
+      {
+        "id": 9,
+        "label": "Altitude Dot",
+        "description": "1 = Altitude dot"
+      },
+      {
+        "id": 10,
+        "label": "VS Value",
+        "description": "$ will be displayed as VS value"
+      },
+      {
+        "id": 11,
+        "label": "FPA Value",
+        "description": "$*1000 will be displayed as FPA value"
+      },
+
+      {
+        "id": 12,
+        "label": "VS Dash",
+        "description": "1 = VS dash"
+      },
+
+      {
+        "id": 13,
+        "label": "Toggle VS/FPA Mode",
+        "description": "1 = FPA, 0=VS"
+      },
+
+      {
+        "id": 14,
+        "label": "ANN LT",
+        "description": "1 = ON, 0=OFF"
+      }
+
+
+
+    ]
+  }

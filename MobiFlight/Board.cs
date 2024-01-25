@@ -1,11 +1,43 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace MobiFlight
 {
+    public enum BoardPartnerLevel
+    {
+        Core,
+        Partner,
+        Community
+    }
+
+    /// <summary>
+    /// Additional community information
+    /// </summary>
+    public class Community
+    {
+        /// <summary>
+        /// The project's name
+        /// </summary>
+        public String Project;
+
+        /// <summary>
+        /// The project's website
+        /// </summary>
+        public String Website;
+
+        /// <summary>
+        /// The project's documentation
+        /// </summary>
+        public String Docs;
+
+        /// <summary>
+        /// The project's support, e.g. Discord Server link
+        /// </summary>
+        public String Support;
+    }
+
     /// <summary>
     /// Settings for flashing Arduino devices with avrdude.
     /// </summary>
@@ -128,6 +160,8 @@ namespace MobiFlight
 
         /// <summary>
         /// The USB friendly name for the board as specified by the board manufacturer.
+        /// This is only used for initial type detecting when no MF firmware is present.
+        /// This doesn't really make sense for Custom boards.
         /// </summary>
         public String FriendlyName;
 
@@ -142,6 +176,11 @@ namespace MobiFlight
         public String MobiFlightType;
 
         /// <summary>
+        /// This Label is used instead of the internal MobiFlightType
+        /// </summary>
+        public String MobiFlightTypeLabel;
+
+        /// <summary>
         /// Firmware filename to reset the board.
         /// </summary>
         public String ResetFirmwareFile;
@@ -150,6 +189,21 @@ namespace MobiFlight
         /// A list of supported custom device types by this board.
         /// </summary>
         public List<String> CustomDeviceTypes = new List<string>();
+
+        /// <summary>
+        /// Additional community information
+        /// </summary>
+        public Community Community;
+
+        /// <summary>
+        /// The image resource
+        /// </summary>
+        public Image BoardIcon;
+
+        /// <summary>
+        /// The image resource
+        /// </summary>
+        public Image BoardPicture;
 
         /// <summary>
         /// Provides the name of the firmware file for a given firmware version.
@@ -242,7 +296,7 @@ namespace MobiFlight
         public String VolumeLabel;
     }
 
-    public class Board
+    public class Board : IMigrateable
     {
         /// <summary>
         /// Settings related to updating the firmware via AvrDude.
@@ -278,6 +332,36 @@ namespace MobiFlight
         /// Settings relating to updating the firmware via a mounted USB drive.
         /// </summary>
         public UsbDriveSettings UsbDriveSettings;
+
+        /// <summary>
+        /// Base path for custom firmware
+        /// </summary>
+        public String BasePath;
+
+        /// <summary>
+        /// Returns the correct Partner Level
+        /// </summary>
+        /// <returns></returns>
+        [JsonIgnore]
+        public BoardPartnerLevel PartnerLevel
+        {
+            get
+            {
+                if (BasePath == "" && Info.MobiFlightType.Contains("MobiFlight"))
+                    return BoardPartnerLevel.Core;
+
+                var partners = new List<string>() {
+                    "CoreFlightTech",
+                    "kavSimulations",
+                    "miniCOCKPIT"
+                };
+                var partner = partners.Find(p => BasePath?.Contains(p) ?? false) != null;
+                if (partner) return BoardPartnerLevel.Partner;
+
+                return BoardPartnerLevel.Community;
+            }
+        }
+
 
         /// <summary>
         /// Migrates board definitions from older versions to newer versions.
@@ -323,6 +407,15 @@ namespace MobiFlight
         public override string ToString()
         {
             return $"{Info.MobiFlightType} ({Info.FriendlyName})";
+        }
+
+        /// <summary>
+        /// Get the name for the Default Config
+        /// </summary>
+        /// <returns>The </returns>
+        public string GetDefaultDeviceConfigFilePath()
+        {
+            return $@"{BasePath}\config\{Info.FirmwareBaseName}.mfmc";
         }
     }
 }

@@ -157,6 +157,9 @@
   <data name="moduleSerial.ToolTipText" xml:space="preserve">
     <value>The board used in the config</value>
   </data>
+  <data name="moduleSerial.Width" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
   <metadata name="OutputName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -169,6 +172,9 @@
   <data name="OutputName.ToolTipText" xml:space="preserve">
     <value>The device used in the config</value>
   </data>
+  <data name="OutputName.Width" type="System.Int32, mscorlib">
+    <value>90</value>
+  </data>
   <metadata name="OutputType.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -177,6 +183,9 @@
   </data>
   <data name="OutputType.ToolTipText" xml:space="preserve">
     <value>The type of device used in the config</value>
+  </data>
+  <data name="OutputType.Width" type="System.Int32, mscorlib">
+    <value>56</value>
   </data>
   <metadata name="FsuipcOffset.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -246,7 +255,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="copyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="copyToolStripMenuItem.Text" xml:space="preserve">
     <value>Copy</value>
@@ -255,19 +264,19 @@
     <value>False</value>
   </data>
   <data name="pasteToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="pasteToolStripMenuItem.Text" xml:space="preserve">
     <value>Paste</value>
   </data>
   <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 6</value>
+    <value>177, 6</value>
   </data>
   <data name="duplicateRowToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="duplicateRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="duplicateRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Duplicate row</value>
@@ -276,7 +285,7 @@
     <value>False</value>
   </data>
   <data name="deleteRowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>147, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="deleteRowToolStripMenuItem.Text" xml:space="preserve">
     <value>Delete row(s)</value>
@@ -284,8 +293,20 @@
   <data name="deleteRowToolStripMenuItem.ToolTipText" xml:space="preserve">
     <value>Delete selected row(s)</value>
   </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 6</value>
+  </data>
+  <data name="testToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="testToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="testToolStripMenuItem.Text" xml:space="preserve">
+    <value>Test</value>
+  </data>
   <data name="dataGridViewContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>148, 98</value>
+    <value>181, 148</value>
   </data>
   <data name="&gt;&gt;dataGridViewContextMenuStrip.Name" xml:space="preserve">
     <value>dataGridViewContextMenuStrip</value>
@@ -303,11 +324,8 @@
   <data name="dataGridViewConfig.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="dataGridViewConfig.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
-  </data>
   <data name="dataGridViewConfig.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1394, 968</value>
+    <value>929, 629</value>
   </data>
   <data name="dataGridViewConfig.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -331,13 +349,10 @@
     <value>280</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>9, 20</value>
-  </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1394, 968</value>
+    <value>929, 629</value>
   </data>
   <data name="&gt;&gt;active.Name" xml:space="preserve">
     <value>active</value>
@@ -542,6 +557,18 @@
   </data>
   <data name="&gt;&gt;outputTypeDataColumn.Type" xml:space="preserve">
     <value>System.Data.DataColumn, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testToolStripMenuItem.Name" xml:space="preserve">
+    <value>testToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;testToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>OutputConfigPanel</value>

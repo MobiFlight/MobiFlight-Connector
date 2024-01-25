@@ -281,7 +281,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private void AutoZeroCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             mfBtnPinComboBox.Enabled = !autoZeroCheckBox.Checked;
-            Value_Changed(mfBtnPinComboBox, new EventArgs());
+            Value_Changed(autoZeroCheckBox, new EventArgs());
         }
 
         private void BacklashTextBox_Validating(object sender, CancelEventArgs e)

@@ -14,11 +14,6 @@ namespace MobiFlight
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
 
-        /***
-         * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex
-         **/
-        public static String FirmwarePath { get; set; }
-
         public static bool IsValidArduinoIdePath(string path)
         {
             return Directory.Exists(path + "\\" + AvrPath);
@@ -75,6 +70,8 @@ namespace MobiFlight
 
             try
             {
+                var FullFirmwarePath = Path.Combine(Directory.GetCurrentDirectory(), module.Board.BasePath, "firmware", FirmwareName);
+
                 if (module.Board.AvrDudeSettings != null)
                 {
                     while (!SerialPort.GetPortNames().Contains(UploadPort))
@@ -82,11 +79,11 @@ namespace MobiFlight
                         System.Threading.Thread.Sleep(100);
                     }
 
-                    RunAvrDude(UploadPort, module.Board, FirmwareName);
+                    RunAvrDude(UploadPort, module.Board, FullFirmwarePath);
                 }
                 else if (module.Board.UsbDriveSettings != null)
                 {
-                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName);
+                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName, FullFirmwarePath);
                 }
                 else
                 {
@@ -108,13 +105,13 @@ namespace MobiFlight
             return result;
         }
 
-        public static void RunAvrDude(String port, Board board, String firmwareName) 
+        public static void RunAvrDude(String port, Board board, String fullFirmwarePath) 
         {
             String message = "";
-
-            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + firmwareName))
+            
+            if (!IsValidFirmwareFilepath(fullFirmwarePath))
             {
-                message = $"Firmware not found: {FirmwarePath}\\{firmwareName}.";
+                message = $"Firmware not found: {fullFirmwarePath}.";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -124,15 +121,17 @@ namespace MobiFlight
             //verboseLevel = " -v -v -v -v";
 
             // Process() requires an absolute, rather than relative, path when using UseShellExecute = false
-            String FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
+            var FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
 
             foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
                 var p = new Process();
 
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
+                var avrDudeConfPath = Path.Combine(FullAvrDudePath, "etc", "avrdude.conf");
+
                 string anyCommand =
-                    $@"-C""{Path.Combine(FullAvrDudePath, "etc", "avrdude.conf")}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
+                    $@"-C""{avrDudeConfPath}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{fullFirmwarePath}"":i";
 
                 // StandardOutput and StandardError can only be captured when UseShellExecute is false
                 p.StartInfo.UseShellExecute = false;
@@ -179,15 +178,14 @@ namespace MobiFlight
             throw new Exception(message);
         }
 
-        public static void FlashViaUsbDrive(String port, Board board, String firmwareName)
+        public static void FlashViaUsbDrive(String port, Board board, string firmwareName, String fullFirmwarePath)
         {
-            String FullFirmwarePath = $"{FirmwarePath}\\{firmwareName}";
             String message = "";
             DriveInfo driveInfo;
 
-            if (!IsValidFirmwareFilepath(FullFirmwarePath))
+            if (!IsValidFirmwareFilepath(fullFirmwarePath))
             {
-                message = $"Firmware not found: {FullFirmwarePath}";
+                message = $"Firmware not found: {fullFirmwarePath}";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -257,12 +255,12 @@ namespace MobiFlight
             var destination = $"{driveInfo.RootDirectory.FullName}{firmwareName}";
             try
             {
-                Log.Instance.log($"Copying {FullFirmwarePath} to {destination}", LogSeverity.Debug);
-                File.Copy(FullFirmwarePath, destination);
+                Log.Instance.log($"Copying {fullFirmwarePath} to {destination}", LogSeverity.Debug);
+                File.Copy(fullFirmwarePath, destination);
             }
             catch (Exception e)
             {
-                message = $"Unable to copy {FullFirmwarePath} to {destination}: {e.Message}";
+                message = $"Unable to copy {fullFirmwarePath} to {destination}: {e.Message}";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new Exception(message);
             }

@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace MobiFlight.CustomDevices
 {
     public static class CustomDeviceDefinitions
     {
-        private static readonly List<CustomDevice> devices = new List<CustomDevice>();
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public static bool LoadingError = false;
+
+        private static List<CustomDevice> devices = new List<CustomDevice>();
 
         /// <summary>
         /// Finds a device definition by matching type.
@@ -35,21 +36,18 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// Loads all device definintions from disk.
         /// </summary>
-        public static void Load()
+        public static void LoadDefinitions()
         {
-            foreach (var definitionFile in Directory.GetFiles("Devices", "*.device.json"))
-            {
-                try
-                {
-                    var device = JsonConvert.DeserializeObject<CustomDevice>(File.ReadAllText(definitionFile));
-                    devices.Add(device);
+            var files = new List<String>(Directory.GetFiles("Devices", "*.device.json"));
+            files.AddRange(Directory.GetFiles("Community/", "*.device.json", SearchOption.AllDirectories));
+
+            devices = JsonBackedObject.LoadDefinitions<CustomDevice>(files.ToArray(), "Devices/mfdevice.schema.json",
+                onSuccess: (device, definitionFile) => {
                     Log.Instance.log($"Loaded custom device definition for {device.Info.Label} ({device.Info.Version})", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }
+                    device.BasePath = Path.GetDirectoryName(Path.GetDirectoryName(definitionFile));
+                },
+                onError: () => LoadingError = true
+            );
         }
     }
 }

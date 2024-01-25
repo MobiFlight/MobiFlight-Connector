@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech EFIS</ModuleName>
+  <ModuleType>CoreFlightTech EFIS</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <InputMultiplexer Name="CPT_EFIS_InMux1" DataPin="5" NumBytes="1">
+    <Selector Name="MultiplexerDriver" PinSx="2 3 4 13" />
+  </InputMultiplexer>
+  <InputMultiplexer Name="CPT_EFIS_InMux2" DataPin="6" NumBytes="1">
+    <Selector Name="MultiplexerDriver" PinSx="2 3 4 13" />
+  </InputMultiplexer>
+  <InputMultiplexer Name="CPT_EFIS_InMux3" DataPin="12" NumBytes="1">
+    <Selector Name="MultiplexerDriver" PinSx="2 3 4 13" />
+  </InputMultiplexer>
+  <Output Name="CPT_EFIS_BLIGHT" Pin="11" />
+  <Button Name="CPT_EFIS_ADF1" Pin="14" />
+  <Button Name="CPT_EFIS_ADF2" Pin="15" />
+  <Button Name="CPT_EFIS_VOR1" Pin="16" />
+  <Button Name="CPT_EFIS_VOR2" Pin="17" />
+  <Button Name="CPT_EFIS_MTRS" Pin="18" />
+  <Button Name="CPT_EFIS_FPV" Pin="19" />
+  <Encoder Name="CPT_EFIS_MINS_EN" PinLeft="8" PinRight="7" EncoderType="0" />
+  <Encoder Name="CPT_EFS_BARO_EN" PinLeft="10" PinRight="9" EncoderType="0" />
+</Config>

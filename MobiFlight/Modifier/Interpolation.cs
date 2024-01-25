@@ -172,22 +172,25 @@ namespace MobiFlight.Modifier
 
         public override bool Equals(object obj)
         {
-            bool entriesAreSame = (Values.Count == (obj as Interpolation).Count);
-            if (entriesAreSame)
+            var interpolation = (obj as Interpolation);
+            if (interpolation == null) return false;
+
+            bool valuesAreSame = (Values.Count == interpolation.Count);
+           
+            if (valuesAreSame)
             {
                 foreach (double x in Values.Keys)
                 {
-                    entriesAreSame = entriesAreSame && ((obj as Interpolation).Values.ContainsKey(x) && Values[x] == (obj as Interpolation).Values[x]);
+                    valuesAreSame = valuesAreSame && (interpolation.Values.ContainsKey(x) && Values[x] == interpolation.Values[x]);
                 }
             }
 
             return
-                obj != null && obj is Interpolation && 
-                Max == (obj as Interpolation).Max &&
-                Min == (obj as Interpolation).Min &&
-                Count == (obj as Interpolation).Count &&
-                Active == (obj as Interpolation).Active &&
-                entriesAreSame;
+                Max == interpolation.Max &&
+                Min == interpolation.Min &&
+                Count == interpolation.Count &&
+                Active == interpolation.Active &&
+                valuesAreSame;
         }
         public override string ToSummaryLabel()
         {

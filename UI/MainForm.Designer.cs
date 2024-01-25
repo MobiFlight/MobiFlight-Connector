@@ -116,9 +116,10 @@
             this.removeLinkConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.autoloadToggleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelHubHop = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.activeDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.dataTable1 = new System.Data.DataTable();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -129,7 +130,6 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -319,6 +319,7 @@
             // 
             this.openHubHopWebsiteToolStripMenuItem.Name = "openHubHopWebsiteToolStripMenuItem";
             resources.ApplyResources(this.openHubHopWebsiteToolStripMenuItem, "openHubHopWebsiteToolStripMenuItem");
+            this.openHubHopWebsiteToolStripMenuItem.Click += new System.EventHandler(this.HubHopToolStripButton_Click);
             // 
             // openYoutubeChannelToolStripMenuItem
             // 
@@ -746,6 +747,19 @@
             resources.ApplyResources(this.autoloadToggleToolStripMenuItem, "autoloadToggleToolStripMenuItem");
             this.autoloadToggleToolStripMenuItem.Click += new System.EventHandler(this.autoloadToggleToolStripMenuItem_Click);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
+            this.toolStripStatusLabel.Spring = true;
+            // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
@@ -757,12 +771,6 @@
             // 
             resources.ApplyResources(this.toolStripStatusLabelHubHop, "toolStripStatusLabelHubHop");
             this.toolStripStatusLabelHubHop.Name = "toolStripStatusLabelHubHop";
-            // 
-            // toolStripStatusLabel
-            // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            resources.ApplyResources(this.toolStripStatusLabel, "toolStripStatusLabel");
-            this.toolStripStatusLabel.Spring = true;
             // 
             // activeDataGridViewCheckBoxColumn
             // 
@@ -824,13 +832,6 @@
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            resources.ApplyResources(this.toolStripStatusLabel2, "toolStripStatusLabel2");
             // 
             // MainForm
             // 

@@ -120,10 +120,10 @@ namespace MobiFlight.UI
             InitializeLogging();
 
             // Initialize the board configurations
-            BoardDefinitions.Load();
+            BoardDefinitions.LoadDefinitions();
 
             // Initialize the custom device configurations
-            CustomDevices.CustomDeviceDefinitions.Load();
+            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
 
             // configure tracking correctly
             InitializeTracking();
@@ -176,10 +176,10 @@ namespace MobiFlight.UI
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
-            execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
-            execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
-            execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
-            execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
+            execManager.OnSimCacheConnectionLost += new EventHandler(SimCache_ConnectionLost);
+            execManager.OnSimCacheConnected += new EventHandler(SimCache_Connected);
+            execManager.OnSimCacheConnected += new EventHandler(CheckAutoRun);
+            execManager.OnSimCacheClosed += new EventHandler(SimCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
 
             // working hypothesis: we don't need this at all.
@@ -239,8 +239,7 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
-            execManager.AutoConnectStart();
-
+            
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
@@ -393,6 +392,7 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackShutdown();
             execManager.Shutdown();
             Properties.Settings.Default.Save();
+            logPanel1.Shutdown();
         } //Form1_FormClosed
 
         void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
@@ -433,6 +433,10 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackStart();
 
             InitialLookupFinished = true;
+
+            // Now we are done with all initialization stuff
+            // and now we are ready to look for sims
+            execManager.AutoConnectStart();
         }
 
         private void CheckForHubhopUpdate()
@@ -492,8 +496,6 @@ namespace MobiFlight.UI
                 }
             }
 
-            // Connected USB devices that are in bootsel mode get added to the firmware flashing list
-            modulesForFlashing.AddRange(MobiFlightCache.FindConnectedUsbDevices());
 
             if (Properties.Settings.Default.FwAutoUpdateCheck && (modulesForFlashing.Count > 0 || modulesForUpdate.Count > 0))
             {
@@ -844,7 +846,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void fsuipcCache_Closed(object sender, EventArgs e)
+        void SimCache_Closed(object sender, EventArgs e)
         {
             if (sender.GetType() == typeof(SimConnectCache))
             {
@@ -922,7 +924,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>        
-        void fsuipcCache_Connected(object sender, EventArgs e)
+        void SimCache_Connected(object sender, EventArgs e)
         {
             // Typically the information in this static object is correct
             // only in the case of FSUIPC it might actually be not correct
@@ -1014,7 +1016,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// gets triggered as soon as the fsuipc is connected
         /// </summary>        
-        void checkAutoRun (object sender, EventArgs e)
+        void CheckAutoRun (object sender, EventArgs e)
         {            
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
@@ -1029,7 +1031,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows message to user and stops execution of timer
         /// </summary>
-        void fsuipcCache_ConnectionLost(object sender, EventArgs e)
+        void SimCache_ConnectionLost(object sender, EventArgs e)
         {
             execManager.Stop();
 
@@ -1485,7 +1487,6 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackSettings();
 
             ConfigLoaded?.Invoke(this, configFile);
-                 
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)

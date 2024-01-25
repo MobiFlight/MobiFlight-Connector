@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="7ede31e0-58cd-4e4b-ac62-06b91429b2df">
+      <active>true</active>
+      <description>CPT_ADF_ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:ADF ACTIVE FREQUENCY:1,KHz)" UUID="2e699250-5034-4b3b-9f4d-a24c6a441ba2" />
+        <modifiers>
+          <transformation active="True" expression="$*10" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CPT_ADF_v1/ SN-5e1-a10" trigger="normal" ledAddress="CPT_ADF_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="94a1f88b-732b-4350-aa59-7cb6034dbbfa">
+      <active>true</active>
+      <description>CPT_ADF_STANDBY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:ADF STANDBY FREQUENCY:1,KHz)" UUID="1734cf8b-af1b-4f74-94e8-f18513c7dd88" />
+        <modifiers>
+          <transformation active="True" expression="$*10" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="CPT_ADF_v1/ SN-5e1-a10" trigger="normal" ledAddress="CPT_ADF_STANDBY" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="11c7416a-e6e0-47d3-8ae3-30b4c9e5fed4">
+      <active>true</active>
+      <description>CPT_ADF_BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:BL_Pedestal, number)" UUID="6cf89bcd-3f58-4ae8-812b-7702eebc6732" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="CPT_ADF_v1/ SN-5e1-a10" trigger="normal" pin="CPT_ADF_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="7253e98f-337d-43c5-9f4b-894eb0aa77f8">
+      <active>true</active>
+      <description>CPT_ADF_INNER_ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v1/ SN-5e1-a10" name="CPT_ADF_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="82208 (&gt;K:ROTOR_BRAKE)" presetId="44d5a898-a807-4fef-9a6a-ecf313014720" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="82207 (&gt;K:ROTOR_BRAKE)" presetId="4bbd676b-8d9a-4afb-897e-f4891eaa66c8" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0234c9c0-9fd9-49bb-ba9e-5ceb8be07e91">
+      <active>true</active>
+      <description>CPT_ADF_OUTER_ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v1/ SN-5e1-a10" name="CPT_ADF_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="82408 (&gt;K:ROTOR_BRAKE)" presetId="aa2c2e8c-d889-4f9e-a8b1-13836c16e287" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="82407 (&gt;K:ROTOR_BRAKE)" presetId="8a27bad2-6414-4ed1-9efe-8e758fd291dc" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="857c0b91-ce7b-4380-bc39-afd325ae3e60">
+      <active>true</active>
+      <description>CPT_ADF_TFR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v1/ SN-5e1-a10" name="CPT_ADF_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="82701 (&gt;K:ROTOR_BRAKE)" presetId="291d396f-a4e9-4176-9aba-d824ec5189d9" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="684b4d22-98f2-47a8-aa10-f10c4586c23f">
+      <active>true</active>
+      <description> CPT_ADF_TONE_SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v1/ SN-5e1-a10" name="CPT_ADF_TONE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="74801 (&gt;K:ROTOR_BRAKE)" presetId="8dd18d90-bdbe-4c33-8181-6af69b8a3044" />
+          <onRelease type="MSFS2020CustomInputAction" command="74801 (&gt;K:ROTOR_BRAKE)" presetId="8dd18d90-bdbe-4c33-8181-6af69b8a3044" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a70ab5df-e65e-4f9f-b975-1e112e9119b2">
+      <active>true</active>
+      <description>CPT_ADF_ADF-ANT_SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.6.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v1/ SN-5e1-a10" name="CPT_ADF_TONE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="81801 (&gt;K:ROTOR_BRAKE)" presetId="ca4a0496-66fc-4bba-85fb-d0896430ad48" />
+          <onRelease type="MSFS2020CustomInputAction" command="81801 (&gt;K:ROTOR_BRAKE)" presetId="ca4a0496-66fc-4bba-85fb-d0896430ad48" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

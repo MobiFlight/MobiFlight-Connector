@@ -11,9 +11,15 @@ namespace MobiFlight
 {
     public class MidiBoardManager
     {
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public bool LoadingError = false;
+
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;      
         private readonly List<MidiBoard> MidiBoards = new List<MidiBoard>();
+        private readonly List<MidiBoard> ExcludedMidiBoards = new List<MidiBoard>();        
         private readonly List<MidiBoard> BoardsToBeRemoved = new List<MidiBoard>();
         private readonly Dictionary<string, MidiBoardDefinition> Definitions = new Dictionary<string, MidiBoardDefinition>();
         private readonly Timer ProcessTimer = new System.Windows.Forms.Timer();
@@ -21,7 +27,7 @@ namespace MobiFlight
 
         public MidiBoardManager ()
         {
-            LoadDefinitions();
+            Load();
             ProcessTimer.Interval = 50;
             ProcessTimer.Tick += ProcessTimer_Tick;
         }
@@ -29,40 +35,33 @@ namespace MobiFlight
         private List<string> CollectErrorsInInputDefinition(MidiBoardDefinition def)
         {
             List<string> errorMessages = new List<string>();
-            if (def.Inputs == null)
-                errorMessages.Add($"No input definitions.");
-            else
+
+            foreach (var item in def.Inputs)
             {
-                foreach (var item in def.Inputs)
-                {
-                    if (item.LabelIds.Length != item.MessageIds.Length)
-                        errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                    if (!item.Label.Contains("%"))
-                        errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
-                }
+                if (item.LabelIds.Length != item.MessageIds.Count)
+                    errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
             }
+
             return errorMessages;
         }
 
         private List<string> CollectErrorsInOutputDefinition(MidiBoardDefinition def)
         {
-            List<string> errorMessages = new List<string>();              
+            List<string> errorMessages = new List<string>();        
+            
             if (def.Outputs == null) return errorMessages;
             
             foreach (var item in def.Outputs)
             {
-                if (item.LabelIds.Length != item.MessageIds.Length)
+                if (item.LabelIds.Length != item.MessageIds.Count)
                     errorMessages.Add($"{item.Label}: Number of LabelIds unequal to number of MessageIds");
-                if (!item.Label.Contains("%"))
-                    errorMessages.Add($"{item.Label}: Label does not contain % placeholder.");
                 if (!string.IsNullOrEmpty(item.RelatedInputLabel))
                 {
-                    if (item.RelatedIds.Length != item.MessageIds.Length)
+                    if (item.RelatedIds.Length != item.MessageIds.Count)
                         errorMessages.Add($"{item.Label}: Number of RelatedIds unequal to number of MessageIds");
-                    if (!item.RelatedInputLabel.Contains("%"))
-                        errorMessages.Add($"{item.Label}: RelatedInputLabel does not contain % placeholder.");
                 }
-            }            
+            }
+
             return errorMessages;
         }
 
@@ -80,24 +79,27 @@ namespace MobiFlight
         }
 
 
-        private void LoadDefinitions()
+        private void Load()
         {
-            foreach (var definitionFile in Directory.GetFiles("MidiBoards", "*.midiboard.json"))
+            // Do the initial loading and validation against the schema
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",
+                onSuccess: (midiBoardDef, definitionFile) => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info),
+                onError: () => LoadingError = true
+            ); ;
+
+            foreach (var definition in rawDefinitions)
             {
-                try
+                // Additional validation that can't be done via json schema. If there are any errors
+                // they were already logged and we can just skip adding this definition to the list of
+                // loaded definitions.
+                if (CollectAndLogDefinitionErrors(definition).Count != 0)
                 {
-                    var midiBoardDef = JsonConvert.DeserializeObject<MidiBoardDefinition>(File.ReadAllText(definitionFile));
-                    if (CollectAndLogDefinitionErrors(midiBoardDef).Count == 0)
-                    {
-                        Definitions.Add(midiBoardDef.InstanceName, midiBoardDef);
-                        Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info);
-                    }                    
+                    LoadingError = true;
+                    continue;
                 }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }         
+
+                Definitions.Add(definition.InstanceName, definition);
+            }
         }
 
         public bool AreMidiBoardsConnected()
@@ -132,7 +134,7 @@ namespace MobiFlight
             if (CheckAttachedRemovedCounter < 40) return;   
             
             CheckAttachedRemovedCounter = 0;
-            if (MidiDevice.InputsCount == MidiBoards.Count) return;
+            if (MidiDevice.InputsCount == (MidiBoards.Count + ExcludedMidiBoards.Count)) return;
 
             Log.Instance.log($"Change in MIDI Board Setup detected.", LogSeverity.Info);
             foreach (var mb in MidiBoards)
@@ -157,12 +159,19 @@ namespace MobiFlight
             foreach (var mb in MidiBoards)
             {
                 mb.Shutdown();
-            }
+            }  
+            MidiBoards.Clear();
+            ExcludedMidiBoards.Clear();
         }
 
         public List<MidiBoard> GetMidiBoards()
         {
             return MidiBoards;
+        }
+
+        public List<MidiBoard> GetExcludedMidiBoards()
+        {
+            return ExcludedMidiBoards;
         }
 
         public void Connect()
@@ -182,6 +191,10 @@ namespace MobiFlight
             inputList.ForEach(i => { Log.Instance.log($"Found MidiInput: {i.Name}, Index: {i.Index}.", LogSeverity.Debug); });
             outputList.ForEach(o => { Log.Instance.log($"Found MidiOutput: {o.Name}, Index {o.Index}.", LogSeverity.Debug); });
 
+            MidiBoards?.Clear();
+            ExcludedMidiBoards?.Clear();
+            List<string> settingsExcludedBoards = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedMidiBoards);
+
             while (inputList.Count > 0)
             {
                 MidiInputDevice midiInput = inputList[0];
@@ -197,13 +210,27 @@ namespace MobiFlight
                     outputList.RemoveAt(index);                   
                 }
                 inputList.RemoveAt(0);
-                if (registeredBoards.ContainsKey(name))     
-                    name = name + $"_{++registeredBoards[name]}";
+                if (registeredBoards.ContainsKey(name))
+                {
+                    name += $"_{++registeredBoards[name]}";
+                }
                 else
+                {
                     registeredBoards[name] = 1;
+                }
                                     
                 MidiBoard mb = new MidiBoard(midiInput, midiOutput, name, def);
-                ConnectBoard(mb);
+
+                // Check against exclusion list
+                if (settingsExcludedBoards.Contains(mb.Name))
+                {
+                    Log.Instance.log($"Ignore attached Midi Device: {mb.Name}.", LogSeverity.Info);
+                    ExcludedMidiBoards.Add(mb);
+                }
+                else
+                {
+                    ConnectBoard(mb);
+                }                
             }
 
             if (AreMidiBoardsConnected())
@@ -224,6 +251,7 @@ namespace MobiFlight
             }
             catch (MidiBoardInUsageByOtherProcessException ex)
             {
+                ExcludedMidiBoards.Add(board);
                 TimeoutMessageDialog tmd = new TimeoutMessageDialog
                 {
                     HasCancelButton = false,
@@ -269,8 +297,10 @@ namespace MobiFlight
 
         public Dictionary<String, int> GetStatistics()
         {
-            Dictionary<String, int> result = new Dictionary<string, int>();
-            result["MidiBoards.Count"] = MidiBoards.Count();            
+            var result = new Dictionary<string, int>
+            {
+                ["MidiBoards.Count"] = MidiBoards.Count()
+            };
             foreach (MidiBoard mb in MidiBoards)
             {
                 string key = "MidiBoard.Model." + mb.Name;

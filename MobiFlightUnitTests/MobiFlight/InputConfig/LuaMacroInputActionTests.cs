@@ -34,5 +34,14 @@ namespace MobiFlight.InputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
         }
+
+        [TestMethod()]
+        public void CloneTest()
+        {
+            var o1 = generateTestObject();
+            var o2 = o1.Clone() as LuaMacroInputAction;
+
+            Assert.IsTrue(o1.Equals(o2));
+        }
     }
 }

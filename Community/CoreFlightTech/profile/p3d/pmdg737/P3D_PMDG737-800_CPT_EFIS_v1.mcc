@@ -1,0 +1,395 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="38676835-96ca-4284-89a2-f13ed3568bc0">
+      <active>false</active>
+      <description>CPT EFIS BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar1" varExpression="$" />
+        <comparison active="True" value="-1" operand="!=" ifValue="1" elseValue="" />
+        <display type="Pin" serial="CPT_EFIS_v5_0/ SN-2d8-b39" trigger="normal" pin="CPT_BACKLIGHT" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="29018f35-4170-40a0-9e85-9b7f720f8ffc">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 5</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="0" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c5168126-6fe2-49c4-9b11-a1024c1b98cf">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 10</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="1" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6de5e458-9f19-4d5d-8c76-b6099efbbc77">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 20</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="2" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b05404b-0d57-4f38-a773-1c1a9c146226">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 40</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="3" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="91fc0faf-c621-43df-9da3-a3daf72687e6">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 80</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="4" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fc0a67a0-1076-4f5b-a4cc-ce90d264eebe">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 160</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="5" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="20cfa3bd-6ddb-4930-b782-c3a9e04f35e3">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 320</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="6" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1e44ec15-6526-4f11-9096-672e71e31af6">
+      <active>true</active>
+      <description>CPT EFIS MAP RANGE 640</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="PmdgEventIdInputAction" eventId="69993" param="7" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0f00874d-8006-4f34-9258-e65d8f85da89">
+      <active>true</active>
+      <description>CPT EFIS MODE APP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="PmdgEventIdInputAction" eventId="69991" param="0" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9a11440b-5a17-41b5-ac34-11c811c57f1b">
+      <active>true</active>
+      <description>CPT EFIS MODE VOR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="PmdgEventIdInputAction" eventId="69991" param="1" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b76b6308-0b0d-4336-9719-919fe87560e2">
+      <active>true</active>
+      <description>CPT EFIS MODE MAP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="PmdgEventIdInputAction" eventId="69991" param="2" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="48336ba0-6ba7-42a7-a6d7-d52bc95e3979">
+      <active>true</active>
+      <description>CPT EFIS MODE PLN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="PmdgEventIdInputAction" eventId="69991" param="3" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="683cefa6-708e-430d-8a7a-4e8ed1e5d79d">
+      <active>true</active>
+      <description>CPT EFIS RST BUTTON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="PmdgEventIdInputAction" eventId="69989" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff847c3e-e3c2-441e-9261-507800e34df9">
+      <active>true</active>
+      <description>CPT EFIS STD BUTTON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="PmdgEventIdInputAction" eventId="69999" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="beb5c16b-4212-4266-b1c8-db70b46dc070">
+      <active>true</active>
+      <description>CPT EFIS IN/HPA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="PmdgEventIdInputAction" eventId="69998" param="536870912" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69998" param="2147483648" aircraft="B737" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90947679-b2eb-44b3-9a1b-b3b54ff27125">
+      <active>true</active>
+      <description>CPT EFIS RADIO/BARO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="PmdgEventIdInputAction" eventId="69988" param="536870912" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69988" param="2147483648" aircraft="B737" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="34fa40fa-8ccc-495e-8400-4b8659454f7b">
+      <active>true</active>
+      <description>CPT EFIS WXR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="PmdgEventIdInputAction" eventId="70001" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="00da5958-9c54-4b65-8b6b-ca2fa3745d20">
+      <active>true</active>
+      <description>CPT EFIS STA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="PmdgEventIdInputAction" eventId="70002" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ee6e7d7c-d89c-4959-9744-f1ca271a7279">
+      <active>true</active>
+      <description>CPT EFIS WPT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="PmdgEventIdInputAction" eventId="70003" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3c58fe70-7a40-460a-af3c-ce2177ae2a4e">
+      <active>true</active>
+      <description>CPT EFIS APT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="PmdgEventIdInputAction" eventId="70004" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="935df8b3-d59f-48a4-9ee4-de4b30884f91">
+      <active>true</active>
+      <description>CPT EFIS DATA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="PmdgEventIdInputAction" eventId="70005" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="41c8a4ba-3a9b-4f5c-ac8a-1c9d9f524db9">
+      <active>true</active>
+      <description>CPT EFIS POS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="PmdgEventIdInputAction" eventId="70006" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="87bc8923-f614-4012-b854-6d94ecf1cf66">
+      <active>true</active>
+      <description>CPT EFIS TERR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="PmdgEventIdInputAction" eventId="70007" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="83e052f9-be70-4948-821b-7d57caaa820b">
+      <active>true</active>
+      <description>CPT EFIS VOR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_VOR1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="69990" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69990" param="1" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="33712923-e345-4e26-bb97-5c6c8d6bc10a">
+      <active>true</active>
+      <description>CPT EFIS VOR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_VOR2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="70000" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="70000" param="1" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="282eb802-3a43-4b10-ad0e-c74d43af4c2e">
+      <active>true</active>
+      <description>CPT EFIS ADF1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_ADF1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="69990" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="69990" param="1" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5fee9232-19c7-4997-bc89-258161c4bb30">
+      <active>true</active>
+      <description>CPT EFIS ADF2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_ADF2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="70000" param="2" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="70000" param="1" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2d792fde-7830-44fa-88f9-355005781d7b">
+      <active>true</active>
+      <description>CPT EFIS MTRS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_MTRS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="69996" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="927976fe-c31f-4da8-ae9b-f5858c5193ba">
+      <active>true</active>
+      <description>CPT EFIS FPV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_FPV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="69995" param="2147483648" aircraft="B737" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="88620743-325f-455e-9a8f-49640eec1528">
+      <active>true</active>
+      <description>CPT EFIS MINS ENCODER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_MINS_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="PmdgEventIdInputAction" eventId="69987" param="536870912" aircraft="B737" />
+          <onLeftFast />
+          <onRight type="PmdgEventIdInputAction" eventId="69987" param="2147483648" aircraft="B737" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a4d76b95-25d3-46e0-b552-7a7712332fe1">
+      <active>true</active>
+      <description>CPT EFIS BARO ENCODER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.5.0.0, Culture=neutral, PublicKeyToken=null" serial="CPT_EFIS_v5_0/ SN-2d8-b39" name="CPT_BARO_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="PmdgEventIdInputAction" eventId="69997" param="536870912" aircraft="B737" />
+          <onLeftFast />
+          <onRight type="PmdgEventIdInputAction" eventId="69997" param="2147483648" aircraft="B737" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

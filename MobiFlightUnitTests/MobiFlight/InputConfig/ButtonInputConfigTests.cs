@@ -19,7 +19,9 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual((o.onRelease as JeehellInputAction).EventId, (c.onRelease as JeehellInputAction).EventId, "OnRelease is not correct");
             Assert.AreEqual((o.onLongRelease as MSFS2020CustomInputAction).PresetId, (c.onLongRelease as MSFS2020CustomInputAction).PresetId, "OnLongRelase is not correct");
             Assert.AreEqual((o.onHold as XplaneInputAction).Path, (c.onHold as XplaneInputAction).Path, "onHold is not correct");
+            Assert.AreEqual(o.RepeatDelay, c.RepeatDelay, "RepeatDelay is not correct");
             Assert.AreEqual(o.HoldDelay, c.HoldDelay, "HoldDelay is not correct");
+            Assert.AreEqual(o.LongReleaseDelay, c.LongReleaseDelay, "LongReleaseDelay is not correct");
         }
 
         private ButtonInputConfig generateTestObject()
@@ -31,6 +33,7 @@ namespace MobiFlight.InputConfig.Tests
             o.onHold = new XplaneInputAction() { Expression = "", InputType = "Command", Path = "sim/autopilot/autothrottle_toggle" };
             o.RepeatDelay = 1000;
             o.HoldDelay = 2000;
+            o.LongReleaseDelay = 1234;
             return o;
         }
 

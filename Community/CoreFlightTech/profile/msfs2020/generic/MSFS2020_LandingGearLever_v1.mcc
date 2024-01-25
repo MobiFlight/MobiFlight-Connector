@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="912965e2-9be5-4506-9f21-d15b4e417fbd">
+      <active>true</active>
+      <description>MSFS2020 LEFT GEAR GREEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_453_73X, number) 0 &gt;" UUID="de7719f1-4741-4680-b79a-f19aea6e0fae" />
+        <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Left_Green" pinBrightness="255" />
+        <preconditions />
+        <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a65bb0f2-7681-4123-82ec-2526f5aa545d">
+      <active>true</active>
+      <description>MSFS2020 LEFT GEAR RED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_451_73X, number) 0 &gt;" UUID="cc04f5bf-9a19-44de-aa89-329b3d1ddcf4" />
+        <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Left_Red" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="70cd40d4-e38f-49b7-a673-baafed9cdedb">
+      <active>true</active>
+      <description>MSFS2020 NOSE GEAR GREEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_450_73X, number) 0 &gt;" UUID="b748dead-735c-4b49-91b2-b4c841bb7b14" />
+        <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Nose_Green" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c3a5a79e-e8c5-48b1-8135-7e1ec64d253e">
+      <active>true</active>
+      <description>MSFS2020 NOSE GEAR RED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_449_73X, number) 0 &gt;" UUID="329ac403-9ecd-4ebb-bdc4-29d926b2c72d" />
+        <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Nose_Red" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="(A:AUTOPILOT AVAILABLE,Bool)" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0c4b9d26-da77-494b-af69-f63a1f084a5e">
+      <active>true</active>
+      <description>MSFS2020 RIGHT GEAR GREEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_454_73X, number) 0 &gt;" UUID="f66ebaa2-cb3f-467c-aa0d-47fb95b807c5" />
+        <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Right_Green" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fd9d233f-cd22-42a3-8582-63e0eb2094db">
+      <active>true</active>
+      <description>MSFS2020 RIGHT GEAR RED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_452_73X, number) 0 &gt;" UUID="7078cc75-2acd-4d7f-8d85-bcd60ef1ed72" />
+        <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Right_Red" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c59765d8-ead2-4abb-9269-d9a20c7cee64">
+      <active>true</active>
+      <description>BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_7591_73X, number) 0 &gt;" UUID="0" />
+        <comparison active="True" value="1" operand="=" ifValue="1" elseValue="1" />
+        <display type="Pin" serial="LandingGearLever/ SN-73f-101" trigger="normal" pin="Backlight" pinBrightness="255" />
+        <preconditions />
+        <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="be1ad87d-0e75-4856-b77c-507fb7201923">
+      <active>true</active>
+      <description>MSFS2020 LG UP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" serial="LandingGearLever/ SN-73f-101" name="UP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="30 (L:switch_455_73X) - 10 div == if{ 45502 (&gt;K:ROTOR_BRAKE) } els{ (&gt;K:GEAR_UP) }" presetId="8ec910df-cc18-462d-ba19-8bf8deea3fb6" />
+          <onRelease type="MSFS2020CustomInputAction" command="" presetId="-" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b8a2f555-b7e3-45be-8684-782551954e3c">
+      <active>true</active>
+      <description>MSFS2020 LG OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" serial="LandingGearLever/ SN-73f-101" name="OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="30 (L:switch_455_73X) - 10 div s0 :1 l0 0 &gt; if{ 45501 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 } l0 0 &lt; if{ 45502 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="8130df9f-ab16-4944-bb92-c24c0484116a" />
+          <onRelease type="MSFS2020CustomInputAction" command="" presetId="-" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5780e6d3-ae7b-49f6-bbd9-4e2b53281774">
+      <active>true</active>
+      <description>MSFS2020 LG DOWN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.4.0.4, Culture=neutral, PublicKeyToken=null" serial="LandingGearLever/ SN-73f-101" name="DOWN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:GEAR_DOWN)" presetId="673ed6a9-9ce9-4c8a-91a7-02c82ccc6f6b" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

@@ -454,7 +454,7 @@
     <value>preconditionPanel</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.PreconditionPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;preconditionPanel.Parent" xml:space="preserve">
     <value>preconditionTabPage</value>
@@ -511,7 +511,7 @@
     <value>configRefPanel</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ConfigRefPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;configRefPanel.Parent" xml:space="preserve">
     <value>configRefTabPage</value>
@@ -835,7 +835,7 @@
     <value>CenterParent</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>InputConfigWizard</value>
+    <value>Input Config Wizard</value>
   </data>
   <data name="&gt;&gt;presetsDataSet.Name" xml:space="preserve">
     <value>presetsDataSet</value>

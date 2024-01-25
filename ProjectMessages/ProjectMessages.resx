@@ -507,7 +507,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>{0} ({1}) firmware reset completed ({2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
-    <value>Updating {0} on {1} (Module {2}/{3})</value>
+    <value>Resetting {0} on {1} (Module {2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
     <value>{0} ({1}) firmware reset timed out ({2}/{3})</value>
@@ -522,7 +522,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>The board reset was successful!</value>
   </data>
   <data name="uiMessageFirmwareResetTitle" xml:space="preserve">
-    <value>Board reset</value>
+    <value>Board Reset</value>
   </data>
   <data name="uiMessageRestartRequired" xml:space="preserve">
     <value>This change will require a restart of MobiFlight to become effective.</value>
@@ -622,5 +622,23 @@ Would you like to update?</value>
   </data>
   <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
     <value>Drag and Drop is not available when list is sorted.</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeHint" xml:space="preserve">
+    <value>Board type warning</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeText" xml:space="preserve">
+    <value>The config was created for a "{0}" board. Your selected board is a "{1}". The config may be incompatible, check before uploading.
+
+Open anyway?</value>
+  </data>
+  <data name="uiMessageOpenConfigUnspecificTypeText" xml:space="preserve">
+    <value>This config doesn't specify a board type and may not be compatible with your "{0}".
+
+Open anyway?
+
+Tip: Save the file after opening to update the associated board for future use.</value>
+  </data>
+  <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
+    <value>Editing is disabled due to outdated firmware. Please update to the latest version.</value>
   </data>
 </root>
