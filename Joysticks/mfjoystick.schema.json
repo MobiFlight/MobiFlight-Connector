@@ -91,14 +91,16 @@
     "ProductId": {
       "$id": "#Root/VendorId",
       "title": "VendorId",
-      "type": "number",
-      "description": "The device's USB VendorId. Required if Outputs are provided."
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]+$",
+      "description": "The device's USB VendorId as a hexadcimal, e.g. `0x123A`. Required if Outputs are provided."
     },
     "VendorId": {
       "$id": "#Root/ProductId",
       "title": "ProductId",
-      "type": "number",
-      "description": "The device's USB ProductId. Required if Outputs are provided."
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]+$",
+      "description": "The device's USB ProductId as a hexadecimal, e.g. `0x234A`. Required if Outputs are provided."
     }
   }
 }
