@@ -78,6 +78,11 @@ namespace MobiFlight.SimConnectMSFS
             WasmModuleClient.SendWasmCmd(simConnect, "MF.SimVars.Add." + SimVarName, clientData);
         }
 
+        public static void AddStringSimVar(SimConnect simConnect, String SimVarName, WasmModuleClientData clientData)
+        {
+            WasmModuleClient.SendWasmCmd(simConnect, "MF.SimVars.AddString." + SimVarName, clientData);
+        }
+
 
     }
 }
