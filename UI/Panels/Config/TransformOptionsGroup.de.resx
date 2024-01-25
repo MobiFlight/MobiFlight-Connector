@@ -120,12 +120,6 @@
   <data name="label5.Text" xml:space="preserve">
     <value>Setze Wert</value>
   </data>
-  <data name="SubstringTransformationCheckBox.Text" xml:space="preserve">
-    <value>Substring von</value>
-  </data>
-  <data name="SubStringToLabel.Text" xml:space="preserve">
-    <value>bis</value>
-  </data>
   <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
     <value>Weitere Optionen</value>
   </data>

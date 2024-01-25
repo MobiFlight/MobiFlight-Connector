@@ -118,35 +118,23 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 5</value>
-  </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>106, 13</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>Setze Wert</value>
-  </data>
-  <data name="SubStringToLabel.Text" xml:space="preserve">
-    <value>bis</value>
-  </data>
-  <data name="fsuipcMoreOptionsGroupBox.Text" xml:space="preserve">
-    <value>Weitere Optionen</value>
-  </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>101, 13</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Maskiere Wert mit</value>
   </data>
+  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
+    <value>Basis-Einstellungen</value>
+  </data>
   <data name="fsuipcTypeLabel.Text" xml:space="preserve">
     <value>Wert Typ</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
+  <data name="fsuipcSizeLabel.Text" xml:space="preserve">
     <value>Größe in Bytes</value>
   </data>
-  <data name="fsuipcBaseSettingsGroupBox.Text" xml:space="preserve">
-    <value>Basis-Einstellungen</value>
+  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
+    <value>Preset laden</value>
   </data>
   <data name="labelFsuipcPreset.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 25</value>
@@ -157,7 +145,14 @@
   <data name="labelFsuipcPreset.Text" xml:space="preserve">
     <value>Verwende Preset</value>
   </data>
-  <data name="fsuipcLoadPresetGroupBox.Text" xml:space="preserve">
-    <value>Preset laden</value>
+  <data name="buttonModifyTab.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 3</value>
+  </data>
+  <data name="labelModifierHint.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 18</value>
+  </data>
+  <data name="labelModifierHint.Text" xml:space="preserve">
+    <value>Preset enthält Modifikatoren. Du kannst sie anpassen auf dem
+</value>
   </data>
 </root>
