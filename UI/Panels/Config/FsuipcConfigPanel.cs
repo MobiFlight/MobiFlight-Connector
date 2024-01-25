@@ -103,8 +103,8 @@ namespace MobiFlight.UI.Panels.Config
                 {
                     var config = rows[0]["settings"] as IFsuipcConfigItem;
                     syncFromConfig(config);                 
-                    panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0);
-                    PresetChanged(this, config);
+                    panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0) && OutputPanelMode;
+                    PresetChanged?.Invoke(this, config);
                 }
             }
         }
@@ -258,7 +258,7 @@ namespace MobiFlight.UI.Panels.Config
 
                 if (preset.FSUIPC.Equals(conf.FSUIPC)) 
                 {
-                    if (!preset.Modifiers.Items.TrueForAll(m => m.Active && conf.Modifiers.ContainsModifier(m))) continue;
+                    if (!preset.Modifiers.Items.FindAll(m=>m.Active).TrueForAll(m => conf.Modifiers.ContainsModifier(m))) continue;
                     // we found the preset
                     fsuipcPresetComboBox.Text = row["description"].ToString();
                     panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Items.Count > 0;
