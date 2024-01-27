@@ -122,8 +122,8 @@ namespace MobiFlight.Joysticks.Octavi
                 OctaviReport OReport = new OctaviReport();
                 OReport.parseReport(inputReportBuffer);
                 var buttons = octaviHandler.toButton(OReport);
-                foreach (var btn in btnz) {
-                    TriggerButtonPress(btn.Item1, btn.Item2);
+                foreach (var button in buttons) {
+                    TriggerButtonPress(button.Item1, button.Item2);
                 }
             }
         }
