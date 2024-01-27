@@ -121,9 +121,9 @@ namespace MobiFlight.Joysticks.Octavi
             {
                 OctaviReport OReport = new OctaviReport();
                 OReport.parseReport(inputReportBuffer);
-                List<int> btnz = octaviHandler.toButton(OReport);
-                foreach (int i in btnz) {
-                    TriggerButtonPress(i);
+                List<(int, MobiFlightButton.InputEvent)> btnz = octaviHandler.toButton(OReport);
+                foreach (var btn in btnz) {
+                    TriggerButtonPress(btn.Item1, btn.Item2);
                 }
             }
         }
@@ -140,7 +140,7 @@ namespace MobiFlight.Joysticks.Octavi
             RequiresOutputUpdate = false;
         }
 
-        protected void TriggerButtonPress(int i)
+        protected void TriggerButtonPress(int i, MobiFlightButton.InputEvent inputEvent)
         {
             TriggerButtonPressed(this, new InputEventArgs()
             {
@@ -149,7 +149,7 @@ namespace MobiFlight.Joysticks.Octavi
                 DeviceLabel = Buttons[i].Label,
                 Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
                 Type = DeviceType.Button,
-                Value = 0
+                Value = (int)inputEvent
             });
         }
 

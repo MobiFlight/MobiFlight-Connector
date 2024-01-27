@@ -393,10 +393,11 @@ namespace MobiFlight.Joysticks.Octavi
             OctaviButtonMatrix = OctaviButtonMatrixCopy.ToDictionary(entry => entry.Key, entry => entry.Value);
 
         }
-    public List<int> toButton(OctaviReport report)
+    public List<(int, MobiFlightButton.InputEvent)> toButton(OctaviReport report)
         {
-            List<int> ButtonPresses = new List<int>();
-            uint pressed = report.buttonState & ~lastReport.buttonState; // only rising edges
+            List<(int, MobiFlightButton.InputEvent)> ButtonPresses = new List<(int, MobiFlightButton.InputEvent)>();
+            uint pressed = report.buttonState & ~lastReport.buttonState; // rising edges
+            uint released = lastReport.buttonState & ~report.buttonState; // falling edges
             byte extContentState = report.contextState;
 
             if(report.contextState != lastReport.contextState)
@@ -409,10 +410,10 @@ namespace MobiFlight.Joysticks.Octavi
             // To Do: Replace contextState with extContentState in next block?
             // To Do: Translate to 
             if (report.incrCoarse != 0 || report.incrFine != 0)
-                if (report.incrCoarse > 0) for (int i = 0; i < report.incrCoarse; i++) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 0).Value);
-                else if (report.incrCoarse < 0) for (int i = 0; i > report.incrCoarse; i--) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 1).Value);
-                if (report.incrFine > 0) for (int i = 0; i < report.incrFine; i++) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 2).Value);
-                else if (report.incrFine < 0) for (int i = 0; i > report.incrFine; i--) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 3).Value);
+                if (report.incrCoarse > 0) for (int i = 0; i < report.incrCoarse; i++) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 0).Value, MobiFlightButton.InputEvent.PRESS));
+                else if (report.incrCoarse < 0) for (int i = 0; i > report.incrCoarse; i--) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 1).Value, MobiFlightButton.InputEvent.PRESS));
+                if (report.incrFine > 0) for (int i = 0; i < report.incrFine; i++) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 2).Value, MobiFlightButton.InputEvent.PRESS));
+                else if (report.incrFine < 0) for (int i = 0; i > report.incrFine; i--) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 3).Value, MobiFlightButton.InputEvent.PRESS));
 
             if((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
             {
@@ -424,11 +425,14 @@ namespace MobiFlight.Joysticks.Octavi
             }
             foreach(uint HIDEvent in HIDEventAssignments.Keys)
             {
-                if ((pressed & HIDEvent) != 0)
+                if ((pressed & HIDEvent) != 0 || (released & HIDEvent) != 0)
                 {
                     int ButtonPress = extContentState * 16 + (int)HIDEventAssignments[HIDEvent]; // find "full matrix" event index
                     ButtonPress = OctaviButtonMatrix.ElementAt(ButtonPress).Value; // translate to existing Octavi "devices" in MF
-                    if (ButtonPress >= 0) ButtonPresses.Add(ButtonPress); // if not "unassigned" (-1), then press the button!
+                    if (ButtonPress >= 0) { // if not "unassigned" (-1), then press the button!
+                        var inputEvent = (pressed & HIDEvent) != 0 ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
+                        ButtonPresses.Add((ButtonPress, inputEvent)); 
+                    }
                 }
             }
             
