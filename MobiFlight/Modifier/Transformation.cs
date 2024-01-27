@@ -43,40 +43,14 @@ namespace MobiFlight.Modifier
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
-            ConnectorValue result = value;
+            var result = value.Clone() as ConnectorValue;
 
-            switch (value.type)
+            string exp = Expression.Replace("$", value.Float64.ToString());
+
+            if (value.type == FSUIPCOffsetType.String)
             {
-                case FSUIPCOffsetType.Float:
-                case FSUIPCOffsetType.Integer:
-                    string tmpValue = Apply(value.Float64.ToString(), configRefs);
-                    if (Double.TryParse(tmpValue, out value.Float64))
-                    {
-                        value.Float64 = value.Float64;
-                    } 
-                    else 
-                    {
-                        // Expression has now made this a string
-                        value.type = FSUIPCOffsetType.String;
-                        value.String = tmpValue;
-                    }
-                    break;
-
-                case FSUIPCOffsetType.String:
-                    value.String = Apply(value.String, configRefs);
-                    break;
+                exp = Expression.Replace("$", value.String);
             }
-
-            return result;
-        }
-
-
-        protected string Apply(string value, List<ConfigRefValue> configRefs)
-        {
-            string result = value;
-
-            // we have to use the US culture because "." must be used as decimal separator
-            string exp = Expression.Replace("$", value.ToString());
 
             foreach (ConfigRefValue configRef in configRefs)
             {
@@ -84,7 +58,7 @@ namespace MobiFlight.Modifier
             }
 
             var ce = new NCalc.Expression(exp);
-            string ncalcResult = null;
+            string ncalcResult;
             try
             {
                 ncalcResult = ce.Evaluate().ToString();
@@ -95,18 +69,23 @@ namespace MobiFlight.Modifier
                 throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
             }
 
-            if (ncalcResult!=null)
+            if (ncalcResult != null)
             {
-                double dValue;
-                if (double.TryParse(ncalcResult, out dValue)) {
-                    result = dValue.ToString();
+                if (double.TryParse(ncalcResult, out result.Float64) && result.Float64.ToString().Length == ncalcResult.Length)
+                {
+                    result.type = FSUIPCOffsetType.Float;
+                    result.String = result.Float64.ToString();
                 }
                 else
-                    result = ncalcResult;
+                {
+                    result.type = FSUIPCOffsetType.String;
+                    result.String = ncalcResult;
+                }
             }
 
             return result;
         }
+
         public override string ToSummaryLabel()
         {
             return $"Expression: {Expression}";
