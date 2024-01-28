@@ -336,7 +336,7 @@ namespace MobiFlight
             }
         }
 
-        private void UpdateAxis(JoystickState newState)
+        protected void UpdateAxis(JoystickState newState)
         {            
             if (DIJoystick.Capabilities.AxeCount > 0)
             {

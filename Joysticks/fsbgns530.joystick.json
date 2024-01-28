@@ -2,7 +2,7 @@
   "$schema": "./mfjoystick.schema.json",
   "InstanceName": "FlightSimBuilder 530",
   "VendorId": 1240,
-  "ProductId": 59094,
+  "ProductId": 59549,
   "Inputs": [
     {
       "Id": 1,

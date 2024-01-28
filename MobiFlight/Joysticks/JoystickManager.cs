@@ -159,13 +159,22 @@ namespace MobiFlight
                             GetDefinitionByInstanceName("Octavi")
                          );
                 }
-                else if (d.InstanceName == "FlightSimBuilder 530" || d.InstanceName == "FlightSimBuilder 530")
+                else if (d.InstanceName == "FlightSimBuilder 530 " || d.InstanceName == "FlightSimBuilder 530")
                 {
-                    js = new GNS530(
+                    js = new FlightSimBuilderJoystick(
                             new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
                             // statically set this to Octavi
                             // until we might support (Octavi|IFR1) or similar
                             GetDefinitionByInstanceName("FlightSimBuilder 530")
+                         );
+                }
+                else if (d.InstanceName == "FlightSimBuilder G1000 PFD")
+                {
+                    js = new FlightSimBuilderJoystick(
+                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
+                            // statically set this to Octavi
+                            // until we might support (Octavi|IFR1) or similar
+                            GetDefinitionByInstanceName("FlightSimBuilder G1000 PFD")
                          );
                 }
                 else

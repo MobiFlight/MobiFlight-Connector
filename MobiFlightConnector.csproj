@@ -272,6 +272,8 @@
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
+    <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\Gns1000Report.cs" />
+    <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\IReportParser.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDeviceType.cs" />
@@ -280,7 +282,7 @@
     <Compile Include="MobiFlight\Joysticks\JoystickDefinition.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
-    <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\GNS530.cs" />
+    <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\FlightSimBuilderJoystick.cs" />
     <Compile Include="MobiFlight\Joysticks\FlightSimBuilder\Gns530Report.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />
@@ -1054,6 +1056,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\fsbg1000pfd.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\fsbgns530.joystick.json">

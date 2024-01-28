@@ -1,0 +1,350 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "FlightSimBuilder G1000 PFD",
+  "VendorId": 1240,
+  "ProductId": 59547,
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "NAV Swap"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "NAV - Knob Outer - Left"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "NAV - Knob Outer - Right"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "NAV - Knob Inner - Left"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "NAV - Knob Inner - Right"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "NAV - Knob Inner - Push"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "HDG - Knob - Left"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "HDG - Knob - Right"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "HDG - Knob - Push"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "AP"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "HDG"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "NAV"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "APR"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "VS"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "FLC"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "FD"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "ALT"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "VNV"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "BC"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "Nose UP"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Nose DN"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Softkey 1"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "Softkey 2"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "Softkey 3"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "ALT - Knob Outer - Left"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "ALT - Knob Outer - Right"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "ALT - Knob Inner - Left"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "ALT - Knob Inner - Right"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "ALT - Knob Inner - Push"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "Softkey 4"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "Softkey 5"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Softkey 6"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Softkey 7"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Softkey 8"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Softkey 9"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "Softkey 10"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "Softkey 11"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "Softkey 12"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "CLR"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "FPL"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "FMS - Outer - Left "
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "FMS - Outer - Right"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "FMS - Inner - Left"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "FMS - Inner - Right"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "FMS Push"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "ENT"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "PROC"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "MENU"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "DIRECT TO"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "Range (+)"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "Range (-)"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "PAN (↑)"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "PAN (←)"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "PAN (←)"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "PAN (↓)"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "PAN (→)"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "PAN (Push)"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "COM Swap"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "BARO - Left"
+    },
+    {
+      "Id": 59,
+      "Type": "Button",
+      "Label": "BARO - Right"
+    },
+    {
+      "Id": 60,
+      "Type": "Button",
+      "Label": "CRS - Left"
+    },
+    {
+      "Id": 61,
+      "Type": "Button",
+      "Label": "CRS - Right"
+    },
+    {
+      "Id": 62,
+      "Type": "Button",
+      "Label": "CRS - Push"
+    },
+    {
+      "Id": 63,
+      "Type": "Button",
+      "Label": "COM - Inner - Left"
+    },
+    {
+      "Id": 64,
+      "Type": "Button",
+      "Label": "COM - Inner - Right"
+    },
+    {
+      "Id": 65,
+      "Type": "Button",
+      "Label": "COM - Outer - Left"
+    },
+    {
+      "Id": 66,
+      "Type": "Button",
+      "Label": "COM - Outer - Right"
+    },
+    {
+      "Id": 67,
+      "Type": "Button",
+      "Label": "COM - Inner - Push"
+    }
+  ],
+  "Outputs": [
+  ]
+}

@@ -4,16 +4,26 @@ using HidSharp.Reports.Input;
 
 namespace MobiFlight.Joysticks.FlightSimBuilder
 {
-    internal class GNS530 : Joystick
+    internal class FlightSimBuilderJoystick : Joystick
     {
         int VendorId = 0x04D8;
         int ProductId = 0xE89D;
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
 
+        IReportParser ReportParser { get; set; }
+
         protected HidDeviceInputReceiver inputReceiver;
 
-        public GNS530(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition) {
+        public FlightSimBuilderJoystick(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition) {
+            VendorId = definition.VendorId;
+            ProductId = definition.ProductId;
+
+            ReportParser = new Gns530Report();
+            if (definition.InstanceName == "FlightSimBuilder G1000 PFD")
+            {
+                ReportParser = new Gns1000Report();
+            }
         }
 
         public void Connect()
@@ -34,12 +44,13 @@ namespace MobiFlight.Joysticks.FlightSimBuilder
         private void InputReceiver_Received(object sender, System.EventArgs e)
         {
             var inputRec = sender as HidDeviceInputReceiver;
-            var inputReportBuffer = new byte[5];
+            var inputReportBuffer = new byte[12];
             
             while (inputRec.TryRead(inputReportBuffer, 0, out Report report))
             {
-                var newState = Gns530Report.ParseReport(inputReportBuffer).ToJoystickState();
+                var newState = ReportParser.Parse(inputReportBuffer).ToJoystickState();
                 UpdateButtons(newState);
+                UpdateAxis(newState);
                 // at the very end update our state
                 State = newState;
             }
