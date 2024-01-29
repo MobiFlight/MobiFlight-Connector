@@ -14,7 +14,7 @@ namespace MobiFlight.Joysticks.Octavi
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
 
-        protected HidSharp.Reports.Input.HidDeviceInputReceiver inputReceiver;
+        protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
 
         protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();
@@ -119,9 +119,9 @@ namespace MobiFlight.Joysticks.Octavi
             
             while (inputRec.TryRead(inputReportBuffer, 0, out _))
             {
-                OctaviReport OReport = new OctaviReport();
-                OReport.parseReport(inputReportBuffer);
-                var buttons = octaviHandler.toButton(OReport);
+                OctaviReport report = new OctaviReport();
+                report.parseReport(inputReportBuffer);
+                var buttons = octaviHandler.toButton(report);
                 foreach (var button in buttons) {
                     TriggerButtonPress(button.Item1, button.Item2);
                 }
@@ -168,7 +168,7 @@ namespace MobiFlight.Joysticks.Octavi
         {
             foreach (string entry in octaviHandler.OctaviButtonList)
             {
-                    Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
+                Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
             }
         }
 

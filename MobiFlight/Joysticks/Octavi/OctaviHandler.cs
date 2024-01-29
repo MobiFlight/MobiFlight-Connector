@@ -12,7 +12,6 @@ namespace MobiFlight.Joysticks.Octavi
     {
         bool shiftState = false;
         OctaviReport lastReport = new OctaviReport();
-        byte contextState = (byte)OctaviReport.OctaviState.STATE_COM1;
 
         protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();
         public Dictionary<string, int> OctaviButtonMatrix;
@@ -23,78 +22,6 @@ namespace MobiFlight.Joysticks.Octavi
 
         public OctaviHandler()
         {
-            OctaviButtons = new Dictionary<string, string>()
-            {
-                { "Button_COM1_OI", "COM1 Outer +" },
-                { "Button_COM1_OD", "COM1 Outer -" },
-                { "Button_COM1_II", "COM1 Inner +" },
-                { "Button_COM1_ID", "COM1 Inner -" },
-                { "Button_COM1_TOG", "COM1 Toggle" },
-                { "Button_COM2_OI", "COM2 Outer +" },
-                { "Button_COM2_OD", "COM2 Outer -" },
-                { "Button_COM2_II", "COM2 Inner +" },
-                { "Button_COM2_ID", "COM2 Inner -" },
-                { "Button_COM2_TOG", "COM2 Toggle" },
-                { "Button_NAV1_OI", "NAV1 Outer +" },
-                { "Button_NAV1_OD", "NAV1 Outer -" },
-                { "Button_NAV1_II", "NAV1 Inner +" },
-                { "Button_NAV1_ID", "NAV1 Inner -" },
-                { "Button_NAV1_TOG", "NAV1 Toggle" },
-                { "Button_NAV2_OI", "NAV2 Outer +" },
-                { "Button_NAV2_OD", "NAV2 Outer -" },
-                { "Button_NAV2_II", "NAV2 Inner +" },
-                { "Button_NAV2_ID", "NAV2 Inner -" },
-                { "Button_NAV2_TOG", "NAV2 Toggle" },
-                { "Button_FMS1_OI", "FMS1 Outer +" },
-                { "Button_FMS1_OD", "FMS1 Outer -" },
-                { "Button_FMS1_II", "FMS1 Inner +" },
-                { "Button_FMS1_ID", "FMS1 Inner -" },
-                { "Button_FMS1_TOG", "FMS1 Toggle" },
-                { "Button_FMS2_OI", "FMS2 Outer +" },
-                { "Button_FMS2_OD", "FMS2 Outer -" },
-                { "Button_FMS2_II", "FMS2 Inner +" },
-                { "Button_FMS2_ID", "FMS2 Inner -" },
-                { "Button_FMS2_TOG", "FMS2 Toggle" },
-                { "Button_AP_OI", "AP Outer +" },
-                { "Button_AP_OD", "AP Outer -" },
-                { "Button_AP_II", "AP Inner +" },
-                { "Button_AP_ID", "AP Inner -" },
-                { "Button_AP_TOG", "AP Toggle" },
-                { "Button_XPDR_OI", "XPDR Outer +" },
-                { "Button_XPDR_OD", "XPDR Outer -" },
-                { "Button_XPDR_II", "XPDR Inner +" },
-                { "Button_XPDR_ID", "XPDR Inner -" },
-                { "Button_XPDR_TOG", "XPDR Toggle" },
-                { "Button_FMS1_CRSR", "FMS1 CRSR" },
-                { "Button_FMS1_DCT", "FMS1 DCT" },
-                { "Button_FMS1_MENU", "FMS1 MENU" },
-                { "Button_FMS1_CLR", "FMS1 CLR" },
-                { "Button_FMS1_ENT", "FMS1 ENT" },
-                { "Button_FMS1_CDI", "FMS1 CDI" },
-                { "Button_FMS1_OBS", "FMS1 OBS" },
-                { "Button_FMS1_MSG", "FMS1 MSG" },
-                { "Button_FMS1_FPL", "FMS1 FPL" },
-                { "Button_FMS1_VNAV", "FMS1 VNAV" },
-                { "Button_FMS1_PROC", "FMS1 PROC" },
-                { "Button_FMS2_CRSR", "FMS2 CRSR" },
-                { "Button_FMS2_DCT", "FMS2 DCT" },
-                { "Button_FMS2_MENU", "FMS2 MENU" },
-                { "Button_FMS2_CLR", "FMS2 CLR" },
-                { "Button_FMS2_ENT", "FMS2 ENT" },
-                { "Button_FMS2_CDI", "FMS2 CDI" },
-                { "Button_FMS2_OBS", "FMS2 OBS" },
-                { "Button_FMS2_MSG", "FMS2 MSG" },
-                { "Button_FMS2_FPL", "FMS2 FPL" },
-                { "Button_FMS2_VNAV", "FMS2 VNAV" },
-                { "Button_FMS2_PROC", "FMS2 PROC" },
-                { "Button_AP_AP", "Autopilot Toggle" },
-                { "Button_AP_HDG", "Autopilot HDG" },
-                { "Button_AP_NAV", "Autopilot NAV" },
-                { "Button_AP_APR", "Autopilot APR" },
-                { "Button_AP_VS", "Autopilot VS" },
-                { "Button_AP_BC", "Autopilot BC" },
-            };
-
             OctaviButtonMatrix = new Dictionary<string, int>()
             {
                 { "Button_COM1_OI", 0 },
@@ -393,9 +320,9 @@ namespace MobiFlight.Joysticks.Octavi
             OctaviButtonMatrix = OctaviButtonMatrixCopy.ToDictionary(entry => entry.Key, entry => entry.Value);
 
         }
-    public List<(int, MobiFlightButton.InputEvent)> toButton(OctaviReport report)
+        public List<(int, MobiFlightButton.InputEvent)> toButton(OctaviReport report)
         {
-            List<(int, MobiFlightButton.InputEvent)> ButtonPresses = new List<(int, MobiFlightButton.InputEvent)>();
+            List<(int, MobiFlightButton.InputEvent)> buttonPresses = new List<(int, MobiFlightButton.InputEvent)>();
             uint pressed = report.buttonState & ~lastReport.buttonState; // rising edges
             uint released = lastReport.buttonState & ~report.buttonState; // falling edges
             byte extContentState = report.contextState;
@@ -409,35 +336,34 @@ namespace MobiFlight.Joysticks.Octavi
 
             // To Do: Replace contextState with extContentState in next block?
             // To Do: Translate to 
-            if (report.incrCoarse != 0 || report.incrFine != 0)
-                if (report.incrCoarse > 0) for (int i = 0; i < report.incrCoarse; i++) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 0).Value, MobiFlightButton.InputEvent.PRESS));
-                else if (report.incrCoarse < 0) for (int i = 0; i > report.incrCoarse; i--) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 1).Value, MobiFlightButton.InputEvent.PRESS));
-                if (report.incrFine > 0) for (int i = 0; i < report.incrFine; i++) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 2).Value, MobiFlightButton.InputEvent.PRESS));
-                else if (report.incrFine < 0) for (int i = 0; i > report.incrFine; i--) ButtonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 3).Value, MobiFlightButton.InputEvent.PRESS));
+            if (report.incrCoarse > 0) for (int i = 0; i < report.incrCoarse; i++) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 0).Value, MobiFlightButton.InputEvent.PRESS));
+            else if (report.incrCoarse < 0) for (int i = 0; i > report.incrCoarse; i--) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 1).Value, MobiFlightButton.InputEvent.PRESS));
+            if (report.incrFine > 0) for (int i = 0; i < report.incrFine; i++) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 2).Value, MobiFlightButton.InputEvent.PRESS));
+            else if (report.incrFine < 0) for (int i = 0; i > report.incrFine; i--) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 3).Value, MobiFlightButton.InputEvent.PRESS));
 
             if((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
             {
                 //if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV2)
                 if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2)
                 {
-                        shiftState = !shiftState; // FMS1&2 do not have shift modes for now, sorry
+                    shiftState = !shiftState; // FMS1&2 do not have shift modes for now, sorry
                 }
             }
-            foreach(uint HIDEvent in HIDEventAssignments.Keys)
+            foreach(uint hidEvent in HIDEventAssignments.Keys)
             {
-                if ((pressed & HIDEvent) != 0 || (released & HIDEvent) != 0)
+                if ((pressed & hidEvent) != 0 || (released & hidEvent) != 0)
                 {
-                    int ButtonPress = extContentState * 16 + (int)HIDEventAssignments[HIDEvent]; // find "full matrix" event index
-                    ButtonPress = OctaviButtonMatrix.ElementAt(ButtonPress).Value; // translate to existing Octavi "devices" in MF
-                    if (ButtonPress >= 0) { // if not "unassigned" (-1), then press the button!
-                        var inputEvent = (pressed & HIDEvent) != 0 ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
-                        ButtonPresses.Add((ButtonPress, inputEvent)); 
+                    int buttonPress = extContentState * 16 + (int)HIDEventAssignments[hidEvent]; // find "full matrix" event index
+                    buttonPress = OctaviButtonMatrix.ElementAt(buttonPress).Value; // translate to existing Octavi "devices" in MF
+                    if (buttonPress >= 0) { // if not "unassigned" (-1), then press the button!
+                        var inputEvent = (pressed & hidEvent) != 0 ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
+                        buttonPresses.Add((buttonPress, inputEvent)); 
                     }
                 }
             }
-            
+
             lastReport = report;
-        return ButtonPresses;
+            return buttonPresses;
         }
     }
 }

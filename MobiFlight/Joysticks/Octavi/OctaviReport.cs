@@ -48,7 +48,7 @@ namespace MobiFlight.Joysticks.Octavi
 
         }
 
-    public bool parseReport(byte[] inputBuffer)
+        public bool parseReport(byte[] inputBuffer)
         {
             // get Report ID
             reportID = inputBuffer[0];
