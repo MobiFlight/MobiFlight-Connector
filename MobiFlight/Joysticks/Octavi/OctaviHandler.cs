@@ -17,7 +17,7 @@ namespace MobiFlight.Joysticks.Octavi
         public List<string> OctaviButtonList = new List<string>();
         public Dictionary<int, int> ButtonAssignmentMatrix = new Dictionary<int, int>();
 
-        private Dictionary<uint, uint> HIDEventAssignments = new Dictionary<uint, uint>();
+        private Dictionary<OctaviReport.OctaviButtons, int> HidEventAssignments = new Dictionary<OctaviReport.OctaviButtons, int>();
 
         public OctaviHandler()
         {
@@ -281,20 +281,21 @@ namespace MobiFlight.Joysticks.Octavi
                 { "Button_XPDR^_PROC", 111 },
             };
 
-            HIDEventAssignments = new Dictionary<uint, uint>()
+            HidEventAssignments = new Dictionary<OctaviReport.OctaviButtons, int>()
             {
-                { (uint)OctaviReport.OctaviButton.HID_BTN_TOG, 4 },
-                { (uint)OctaviReport.OctaviButton.HID_ENC_SW, 5 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_DCT, 6 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_MENU, 7 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_CLR, 8 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_ENT, 9 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP, 10 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_HDG, 11 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_NAV, 12 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_APR, 13 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_ALT, 14 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_BC, 15 },
+                // 0, 1, 2 and 3 are the encoders
+                { OctaviReport.OctaviButtons.HID_BTN_TOG, 4 },
+                { OctaviReport.OctaviButtons.HID_ENC_SW, 5 },
+                { OctaviReport.OctaviButtons.HID_BTN_DCT, 6 },
+                { OctaviReport.OctaviButtons.HID_BTN_MENU, 7 },
+                { OctaviReport.OctaviButtons.HID_BTN_CLR, 8 },
+                { OctaviReport.OctaviButtons.HID_BTN_ENT, 9 },
+                { OctaviReport.OctaviButtons.HID_BTN_AP, 10 },
+                { OctaviReport.OctaviButtons.HID_BTN_AP_HDG, 11 },
+                { OctaviReport.OctaviButtons.HID_BTN_AP_NAV, 12 },
+                { OctaviReport.OctaviButtons.HID_BTN_AP_APR, 13 },
+                { OctaviReport.OctaviButtons.HID_BTN_AP_ALT, 14 },
+                { OctaviReport.OctaviButtons.HID_BTN_AP_BC, 15 },
             };
 
             int i = 0;
@@ -322,9 +323,9 @@ namespace MobiFlight.Joysticks.Octavi
         public List<(int, MobiFlightButton.InputEvent)> toButton(OctaviReport report)
         {
             List<(int, MobiFlightButton.InputEvent)> buttonPresses = new List<(int, MobiFlightButton.InputEvent)>();
-            uint pressed = report.buttonState & ~lastReport.buttonState; // rising edges
-            uint released = lastReport.buttonState & ~report.buttonState; // falling edges
-            byte extendedContextState = report.contextState; // Includes shift mode status
+            OctaviReport.OctaviButtons pressed = (OctaviReport.OctaviButtons)((uint) report.buttonState & ~(uint)lastReport.buttonState); // rising edges
+            OctaviReport.OctaviButtons released = (OctaviReport.OctaviButtons)((uint) lastReport.buttonState & ~(uint)report.buttonState); // falling edges
+            byte extendedContextState = (byte) report.contextState; // Includes shift mode status
 
             if (report.contextState != lastReport.contextState)
             {
@@ -364,21 +365,21 @@ namespace MobiFlight.Joysticks.Octavi
                 }
             }
 
-            if ((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
+            if (pressed.HasFlag(OctaviReport.OctaviButtons.HID_ENC_SW))
             {
-                if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2)
+                if (report.contextState != OctaviReport.OctaviState.STATE_FMS1 && report.contextState != OctaviReport.OctaviState.STATE_FMS2)
                 {
                     isInShiftMode = !isInShiftMode; // FMS1&2 do not have shift modes for now, sorry
                 }
             }
-            foreach(uint hidEvent in HIDEventAssignments.Keys)
+            foreach (OctaviReport.OctaviButtons button in Enum.GetValues(typeof(OctaviReport.OctaviButtons)))
             {
-                if ((pressed & hidEvent) != 0 || (released & hidEvent) != 0)
+                if (pressed.HasFlag(button) || released.HasFlag(button))
                 {
-                    int buttonIndex = extendedContextState * 16 + (int)HIDEventAssignments[hidEvent]; // find "full matrix" event index
-                    buttonIndex = OctaviButtonMatrix.ElementAt(buttonIndex).Value; // translate to existing Octavi "devices" in MF
+                    int lookupIndex = extendedContextState * 16 + HidEventAssignments[button]; // find "full matrix" event index
+                    int buttonIndex = OctaviButtonMatrix.ElementAt(lookupIndex).Value; // translate to existing Octavi "devices" in MF
                     if (buttonIndex >= 0) { // if not "unassigned" (-1), then press the button!
-                        var inputEvent = (pressed & hidEvent) != 0 ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
+                        var inputEvent = pressed.HasFlag(button) ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
                         buttonPresses.Add((buttonIndex, inputEvent)); 
                     }
                 }
