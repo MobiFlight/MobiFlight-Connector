@@ -10,10 +10,9 @@ namespace MobiFlight.Joysticks.Octavi
 {
     internal class OctaviHandler
     {
-        bool shiftState = false;
+        bool isInShiftMode = false;
         OctaviReport lastReport = new OctaviReport();
 
-        protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();
         public Dictionary<string, int> OctaviButtonMatrix;
         public List<string> OctaviButtonList = new List<string>();
         public Dictionary<int, int> ButtonAssignmentMatrix = new Dictionary<int, int>();
@@ -325,39 +324,62 @@ namespace MobiFlight.Joysticks.Octavi
             List<(int, MobiFlightButton.InputEvent)> buttonPresses = new List<(int, MobiFlightButton.InputEvent)>();
             uint pressed = report.buttonState & ~lastReport.buttonState; // rising edges
             uint released = lastReport.buttonState & ~report.buttonState; // falling edges
-            byte extContentState = report.contextState;
+            byte extendedContextState = report.contextState; // Includes shift mode status
 
-            if(report.contextState != lastReport.contextState)
+            if (report.contextState != lastReport.contextState)
             {
-                shiftState = false; // reset shift mode on context change
+                isInShiftMode = false; // reset shift mode on context change
             }
 
-            if (shiftState) extContentState += 8; // shift to second half of button events if shift is active
+            if (isInShiftMode) extendedContextState += 8; // shift to second half of button events if shift is active
 
-            // To Do: Replace contextState with extContentState in next block?
-            // To Do: Translate to 
-            if (report.incrCoarse > 0) for (int i = 0; i < report.incrCoarse; i++) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 0).Value, MobiFlightButton.InputEvent.PRESS));
-            else if (report.incrCoarse < 0) for (int i = 0; i > report.incrCoarse; i--) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 1).Value, MobiFlightButton.InputEvent.PRESS));
-            if (report.incrFine > 0) for (int i = 0; i < report.incrFine; i++) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 2).Value, MobiFlightButton.InputEvent.PRESS));
-            else if (report.incrFine < 0) for (int i = 0; i > report.incrFine; i--) buttonPresses.Add((OctaviButtonMatrix.ElementAt(extContentState * 16 + 3).Value, MobiFlightButton.InputEvent.PRESS));
-
-            if((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
+            // TODO: Replace contextState with extendedContextState in next block?
+            // TODO: Are encoder deltas ever more than 1 or less than -1? If not then these loops are unnecessary.
+            if (report.outerEncoderDelta > 0)
             {
-                //if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV2)
+                for (int i = 0; i < report.outerEncoderDelta; i++)
+                {
+                    buttonPresses.Add((OctaviButtonMatrix.ElementAt(extendedContextState * 16 + 0).Value, MobiFlightButton.InputEvent.PRESS));
+                }
+            }
+            else if (report.outerEncoderDelta < 0)
+            {
+                for (int i = 0; i > report.outerEncoderDelta; i--)
+                {
+                    buttonPresses.Add((OctaviButtonMatrix.ElementAt(extendedContextState * 16 + 1).Value, MobiFlightButton.InputEvent.PRESS));
+                }
+            }
+            if (report.innerEncoderDelta > 0)
+            {
+                for (int i = 0; i < report.innerEncoderDelta; i++)
+                {
+                    buttonPresses.Add((OctaviButtonMatrix.ElementAt(extendedContextState * 16 + 2).Value, MobiFlightButton.InputEvent.PRESS));
+                }
+            }
+            else if (report.innerEncoderDelta < 0)
+            {
+                for (int i = 0; i > report.innerEncoderDelta; i--)
+                {
+                    buttonPresses.Add((OctaviButtonMatrix.ElementAt(extendedContextState * 16 + 3).Value, MobiFlightButton.InputEvent.PRESS));
+                }
+            }
+
+            if ((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
+            {
                 if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2)
                 {
-                    shiftState = !shiftState; // FMS1&2 do not have shift modes for now, sorry
+                    isInShiftMode = !isInShiftMode; // FMS1&2 do not have shift modes for now, sorry
                 }
             }
             foreach(uint hidEvent in HIDEventAssignments.Keys)
             {
                 if ((pressed & hidEvent) != 0 || (released & hidEvent) != 0)
                 {
-                    int buttonPress = extContentState * 16 + (int)HIDEventAssignments[hidEvent]; // find "full matrix" event index
-                    buttonPress = OctaviButtonMatrix.ElementAt(buttonPress).Value; // translate to existing Octavi "devices" in MF
-                    if (buttonPress >= 0) { // if not "unassigned" (-1), then press the button!
+                    int buttonIndex = extendedContextState * 16 + (int)HIDEventAssignments[hidEvent]; // find "full matrix" event index
+                    buttonIndex = OctaviButtonMatrix.ElementAt(buttonIndex).Value; // translate to existing Octavi "devices" in MF
+                    if (buttonIndex >= 0) { // if not "unassigned" (-1), then press the button!
                         var inputEvent = (pressed & hidEvent) != 0 ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
-                        buttonPresses.Add((buttonPress, inputEvent)); 
+                        buttonPresses.Add((buttonIndex, inputEvent)); 
                     }
                 }
             }

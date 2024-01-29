@@ -9,11 +9,11 @@ namespace MobiFlight.Joysticks.Octavi
 {
     internal class OctaviReport
     {
-        public uint reportID;
+        public uint reportId;
         public uint buttonState;
         public byte contextState;
-        public sbyte incrCoarse;
-        public sbyte incrFine;
+        public sbyte outerEncoderDelta;
+        public sbyte innerEncoderDelta;
 
         public enum OctaviState : byte
         {
@@ -48,20 +48,18 @@ namespace MobiFlight.Joysticks.Octavi
 
         }
 
-        public bool parseReport(byte[] inputBuffer)
+        public void parseReport(byte[] inputBuffer)
         {
             // get Report ID
-            reportID = inputBuffer[0];
+            reportId = inputBuffer[0];
             // get 32 bit Button report field:
             buttonState = (uint)inputBuffer[1] + ((uint)inputBuffer[2] << 8) + ((uint)inputBuffer[3] << 16) + ((uint)inputBuffer[4] << 24);
-            // get coarse increment:
-            incrCoarse = (sbyte)inputBuffer[5];
-            // get fine increment:
-            incrFine = (sbyte)inputBuffer[6];
+            // get coarse increment/decrement:
+            outerEncoderDelta = (sbyte)inputBuffer[5];
+            // get fine increment/decrement:
+            innerEncoderDelta = (sbyte)inputBuffer[6];
             // get coarse increment:
             contextState = inputBuffer[7];
-
-            return true;
         }
     }
 }
