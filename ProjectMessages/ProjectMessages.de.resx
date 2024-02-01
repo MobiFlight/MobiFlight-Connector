@@ -660,12 +660,16 @@ Willst Du sie öffnen?</value>
 Do you want to open it?</comment>
   </data>
   <data name="uiMessageOpenConfigUnspecificTypeText" xml:space="preserve">
-    <value>Die Config enthält keine Information zu Board-Typ. Dein Board ist Typ "{1}".  Die Config ist vielleicht inkompatibel.
+    <value>Die Config enthält keine Information zu Board-Typ und ist vielleicht inkompatibel zu Deinem "{0}".
 
-Bist du sicher, dass du sie für Dein Board ({1}) laden willst? </value>
-    <comment>The config doesn't contain any board type information. Your board type is "{0}".
+Trotzdem laden? 
 
-Do you want to open it?</comment>
+Tipp: Speicher die Datei nach dem Öffnen damit sie zukünftig den Board-Typ enthält.</value>
+    <comment>This config doesn't specify a board type and may not be compatible with your "{0}".
+
+Open anyway?
+
+Tip: Save the file after opening to update the associated board for future use.</comment>
   </data>
   <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
     <value>Bearbeiten ist deaktiviert, weil die Firmware veraltet ist. Bitte aktualisiere auf die neueste Version.</value>
