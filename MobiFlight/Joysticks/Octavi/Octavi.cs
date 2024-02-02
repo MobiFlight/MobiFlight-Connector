@@ -1,23 +1,19 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
-using SharpDX.DirectInput;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace MobiFlight.Joysticks.Octavi
 {
     internal class Octavi : Joystick
     {
-        int VendorId = 0x04D8;
-        int ProductId = 0xE6D6;
+        readonly int VendorId = 0x04D8;
+        readonly int ProductId = 0xE6D6;
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
 
         protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
-
-        OctaviHandler octaviHandler = new OctaviHandler();
+        private readonly OctaviHandler octaviHandler = new OctaviHandler();
 
         public Octavi(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
         {
@@ -44,14 +40,15 @@ namespace MobiFlight.Joysticks.Octavi
         {
             var inputReceiver = sender as HidDeviceInputReceiver;
             byte[] inputReportBuffer = new byte[8];
-            
+
             while (inputReceiver.TryRead(inputReportBuffer, 0, out _))
             {
                 OctaviReport report = new OctaviReport();
                 report.parseReport(inputReportBuffer);
-                var buttons = octaviHandler.toButton(report);
-                foreach (var button in buttons) {
-                    TriggerButtonPress(button.Item1, button.Item2);
+                var buttonEvents = octaviHandler.DetectButtonEvents(report);
+                foreach (var (buttonIndex, inputEvent) in buttonEvents)
+                {
+                    TriggerButtonPress(buttonIndex, inputEvent);
                 }
             }
         }
@@ -94,7 +91,7 @@ namespace MobiFlight.Joysticks.Octavi
 
         protected override void EnumerateDevices()
         {
-            foreach (string entry in octaviHandler.OctaviButtonList)
+            foreach (string entry in octaviHandler.JoystickButtonNames)
             {
                 Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
             }

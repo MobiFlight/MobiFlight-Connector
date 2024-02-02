@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MobiFlight.Joysticks.Octavi
 {
@@ -41,7 +36,7 @@ namespace MobiFlight.Joysticks.Octavi
             HID_BTN_AP_NAV = (1 << 16),
             HID_BTN_AP_APR = (1 << 17),
             HID_BTN_AP_ALT = (1 << 18),
-            HID_BTN_AP_BC = (1 << 19)
+            HID_BTN_AP_VS = (1 << 19)
         };
 
         public OctaviReport()
