@@ -104,6 +104,7 @@
     <Compile Include="MobiFlight\MobiFlightLcdDisplayTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleTests.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierListTests.cs" />
+    <Compile Include="MobiFlight\Modifier\SubstringTests.cs" />
     <Compile Include="MobiFlight\OutputConfigItemTests.cs" />
     <Compile Include="MobiFlight\Modifier\ComparisonTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\CustomDeviceTests.cs" />
@@ -341,6 +342,14 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\MobiFlight\Modifier\Substring\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\Modifier\Substring\WriteXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\MobiFlight\Modifier\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -461,11 +470,11 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\Transformation\ReadXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\Modifier\Transformation\ReadXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\MobiFlight\Transformation\WriteXmlTest.1.xml">
+    <Content Include="assets\MobiFlight\Modifier\Transformation\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -54,15 +54,15 @@ namespace MobiFlight.Modifier.Tests
         [TestMethod()]
         public void GetSchemaTest()
         {
-            Transformation o = generateTestObject();
+            var o = generateTestObject();
             Assert.IsNull(o.GetSchema());
         }
 
         [TestMethod()]
         public void ReadXmlTest()
         {
-            Transformation o = new Transformation();
-            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\Transformation\ReadXmlTest.1.xml");
+            var o = new Transformation();
+            String s = System.IO.File.ReadAllText(@"assets\MobiFlight\Modifier\Transformation\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
             XmlReaderSettings settings = new XmlReaderSettings();
             settings.IgnoreWhitespace = true;
@@ -85,14 +85,14 @@ namespace MobiFlight.Modifier.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            Transformation o = generateTestObject();
+            var o = generateTestObject();
             xmlWriter.WriteStartElement("settings");
             o.WriteXml(xmlWriter);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
 
-            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\Transformation\WriteXmlTest.1.xml");
+            String result = System.IO.File.ReadAllText(@"assets\MobiFlight\Modifier\Transformation\WriteXmlTest.1.xml");
 
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
@@ -100,16 +100,16 @@ namespace MobiFlight.Modifier.Tests
         [TestMethod()]
         public void CloneTest()
         {
-            Transformation o = generateTestObject();
+            var o = generateTestObject();
 
-            Transformation c = (Transformation)o.Clone();
+            var c = (Transformation)o.Clone();
             Assert.AreEqual(o.Active, c.Active, "Active value differs");
             Assert.AreEqual(o.Expression, c.Expression, "Expression value differs");
         }
 
         private Transformation generateTestObject()
         {
-            Transformation t = new Transformation();
+            var t = new Transformation();
             t.Active = true;
             t.Expression = "$+1";
             return t;
@@ -118,8 +118,8 @@ namespace MobiFlight.Modifier.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            Transformation o1 = new Transformation();
-            Transformation o2 = new Transformation();
+            var o1 = new Transformation();
+            var o2 = new Transformation();
             Assert.IsTrue(o1.Equals(o2));
 
             o1 = generateTestObject();
