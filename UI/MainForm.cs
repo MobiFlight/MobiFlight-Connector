@@ -92,6 +92,16 @@ namespace MobiFlight.UI
             Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
+        private static void SetCurrentWorkingDirectory()
+        {
+            // Get the full path of the executable
+            string executablePath = Assembly.GetExecutingAssembly().Location;
+            // Extract the directory
+            string executableDirectory = Path.GetDirectoryName(executablePath);
+            // Set the current directory to the executable's directory
+            Directory.SetCurrentDirectory(executableDirectory);
+        }
+
         private void InitializeSettings()
         {
             UpgradeSettingsFromPreviousInstallation();
@@ -114,6 +124,9 @@ namespace MobiFlight.UI
 
             // then initialize components
             InitializeComponent();
+
+            // make sure to use app path as working dir
+            SetCurrentWorkingDirectory();
 
             // then restore settings
             InitializeSettings();

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Threading;
-using MobiFlight.UI;
+﻿using MobiFlight.UI;
+using System;
 using System.Configuration;
 using System.Globalization;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
