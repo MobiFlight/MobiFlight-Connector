@@ -329,7 +329,7 @@ namespace MobiFlight.UI
 
             // MSFS2020
             WasmModuleUpdater updater = new WasmModuleUpdater();
-            if (updater.AutoDetectCommunityFolder())
+            if (updater.AutoDetectCommunityFolder() && updater.WasmModulesAreDifferent())
             {
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
