@@ -1,10 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
+import { RouterProvider } from "react-router-dom"
 import './index.css'
+import './i18n';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import { router } from "./router"
+
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <React.Suspense fallback='Loading'>
+      <RouterProvider router={router} />
+    </React.Suspense>
+  </React.StrictMode>
+);
