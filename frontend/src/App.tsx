@@ -1,26 +1,23 @@
-import { useTranslation } from 'react-i18next';
 import './App.css'
-import { Link } from 'react-router-dom';
-import { Projects } from './fixtures/projects'
+import { Outlet } from 'react-router-dom';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+
+// import i18n (needs to be bundled ;)) 
+import './i18n';
 
 function App() {
-  const { t } = useTranslation();
-  const projects = Projects
-
   return (
     <>
-      <h1>{t('app.greeting')}</h1>
-      <h2>Projects</h2>
-      {
-        projects.map(p => {
-          return <div><Link key={p.filePath} to={`projects/${p.id}`}>
-            <p>{p.name}</p>
-            <p>Devices: {p.status.devices.count.toString()}</p>
-            <p>{p.status.sim.name}: {p.status.sim.status}</p>
-            </Link>
+      <div className='flex flex-row min-h-screen h-72 bg-gradient-to-r from-primary-600 via-blue-600 to-white-600"'>
+        <Sidebar />
+        <div className='w-full'>
+          <Navbar />
+          <div className='p-12'>
+          <Outlet />
           </div>
-        })
-      }
+        </div>
+      </div>
     </>
   )
 }

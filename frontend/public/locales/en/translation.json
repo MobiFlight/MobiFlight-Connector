@@ -1,40 +1,13 @@
 {
-	"home": {
-		"seo": {
-			"title": "We do what their developers hate to do!",
-			"description": "What developer likes to write tests?",
-			"keywords": "Kontakt, Testen, Software, Test, Automatisiert, Playwright, Selenium, Specflow"
-		}
-	},
-	"pricing": {
-		"seo": {
-			"title": "We have fantastic prices!",
-			"description": "Wählen sie aus unseren Paketen das passende aus",
-			"keywords": "Kontakt, Testen, Software, Test, Automatisiert, Playwright, Selenium, Specflow"
-		}
-	},
-	"hero1": "Be focused on your software development.",
-	"hero2": "We write your tests!",
-	"intro": "Facilitate your agile software development with our automated testing support. Our team uses Playwright, Selenium and Specflow to write efficient and reliable test suites. Let us take care of your testing so you can focus on your app development.",
-	"nav": {
-		"home": "Home",
-		"blog": "Blog",
-		"about": "About",
-		"services": "Services",
-		"prices": "Pricing",
-		"contact": "Contact",
-		"legal": "Legal disclaimer"
-	},
-	"comming": "Our homepage will soon be ready",
-	"router": "React Router enables _client side routing_. Client side routing allows your app to update the URL from a link click without making another request for another document from the server.",
-	"contact": {
-		"seo": {
-			"title": "Contact - we will love to test your software!",
-			"description": "Please contact us if you want to test your software. We will love to help you!",
-			"keywords": "Kontakt, Testen, Software, Test, Automatisiert, Playwright, Selenium, Specflow"
-		}
-	},
 	"app": {
-		"greeting":"Hello world"
+		"greeting":"hello Amelie"
+	},
+	"project": {
+		"configs" : "Configs",
+		"status" : "Status",
+		"status.files" : "Files",
+		"status.configs" : "Configs",
+		"status.devices" : "Devices"
+
 	}
 }

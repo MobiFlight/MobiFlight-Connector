@@ -1,37 +1,13 @@
 {
-	"home": {
-		"seo": {
-			"title": "Wir erledigen das, was ihre Entwickler nicht gerne tun!",
-			"description": "Welche Entwickler schreiben schon gerne Tests?",
-			"keywords": "Kontakt, Testen, Software, Test, Automatisiert, Playwright, Selenium, Specflow"
-		}
+	"app": {
+		"greeting":"hello Amelie"
 	},
-	"pricing": {
-		"seo": {
-			"title": "Unsere Preise lassen sich sehen",
-			"description": "Wählen sie aus unseren Paketen das passende aus",
-			"keywords": "Kontakt, Testen, Software, Test, Automatisiert, Playwright, Selenium, Specflow"
-		}
-	},
-	"hero1": "Konzentrieren Sie sich auf Ihre Softwareentwicklung.",
-	"hero2": "Wir schreiben Ihre Tests!",
-	"intro": "Erleichtern Sie Ihre agile Software-Entwicklung mit unserer Unterstützung beim automatisierten Testen. Unser Team setzt Playwright, Selenium und Specflow ein, um effiziente und zuverlässige Test-Suites zu schreiben. Überlassen Sie uns Ihre Tests, damit Sie sich auf Ihre App-Entwicklung konzentrieren können.",
-	"nav": {
-		"home": "Start",
-		"blog": "News",
-		"about": "Über uns",
-		"services": "Dienstleistungen",
-		"prices": "Preisliste",
-		"contact": "Kontakt",
-		"legal": "Rechtliche Hinweise"
-	},
-	"comming": "Unsere Homepage ist demnächst bereit",
-	"router": "React Router ermöglicht _client side routing_. Clientseitiges Routing ermöglicht es Ihrer Anwendung, die URL nach einem Link-Klick zu aktualisieren, ohne eine weitere Anfrage für ein anderes Dokument vom Server zu stellen.",
-	"contact": {
-		"seo": {
-			"title": "Kontakt - wir testen Ihre Software gerne!",
-			"description": "Kontaktieren Sie uns für weitere Informationen",
-			"keywords": "Kontakt, Testen, Software, Test, Automatisiert, Playwright, Selenium, Specflow"
-		}
+	"project": {
+		"configs" : "Configs",
+		"status" : "Status",
+		"status.files" : "Files",
+		"status.configs" : "Configs",
+		"status.devices" : "Devices"
+
 	}
 }
