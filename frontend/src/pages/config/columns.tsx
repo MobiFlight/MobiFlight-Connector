@@ -4,27 +4,55 @@ import { Switch } from "@/components/ui/switch"
 import { IConfigItem } from "@/types"
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
-import { IconDots } from "@tabler/icons-react"
+import {
+    IconArrowsSort
+    , IconDots
+} from "@tabler/icons-react"
 
 export const columns: ColumnDef<IConfigItem>[] = [
     {
         accessorKey: "Active",
-        header: () => <div className="text-slate-900">Active</div>,
+        header: () => <div>Active</div>,
         cell: ({ row }) => {
             return <Switch checked={row.getValue("Active") as boolean} />
         },
     },
     {
         accessorKey: "Description",
-        header: "Description",
+        cell: ({ row }) => {
+            const label = (row.getValue("Description") as String)
+            return <><p className="font-semibold">{label}</p></>
+        },
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Description
+                    <IconArrowsSort className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        }
     },
     {
         accessorKey: "Device",
         header: "Device",
+        cell: ({ row }) => {
+            const label = (row.getValue("Device") as String).split("/")[0]
+            const serial = (row.getValue("Device") as String).split("/")[1]
+            return <><p className="text-md font-semibold">{label}</p><p className="text-xs text-muted-foreground">{serial}</p></>
+        },
+        filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id))
+        },
     },
     {
         accessorKey: "Component",
         header: "Component",
+        filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id))
+        },
     },
     {
         accessorKey: "Type",

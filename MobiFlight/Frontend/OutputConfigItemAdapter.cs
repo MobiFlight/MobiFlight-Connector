@@ -12,7 +12,7 @@ namespace MobiFlight.Frontend
 
         private string DetermineComponent()
         {
-            var result = DeviceType.Output.ToString();
+            var result = item.Pin.DisplayPin;
             if (item.DisplayType == MobiFlightLedModule.TYPE) return item.LedModule.DisplayLedAddress;
             if (item.DisplayType == MobiFlightLcdDisplay.TYPE) return item.LcdDisplay.Address;
             if (item.DisplayType == MobiFlightServo.TYPE) return item.Servo.Address;

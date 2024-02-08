@@ -28,13 +28,13 @@ const ConfigPage = () => {
                 <IconPencil></IconPencil>
             </div>
 
-            <Tabs defaultValue="config-1">
-                <TabsList>
+            <Tabs defaultValue="config-1" className='mt-0'>
+                <TabsList className='mb-4 mt-0'>
                     <TabsTrigger value="config-1">Config one</TabsTrigger>
                     <TabsTrigger value="config-2">Autopilot</TabsTrigger>
                     <TabsTrigger value="config-3">Radio</TabsTrigger>
                 </TabsList>
-                <TabsContent value="config-1">
+                <TabsContent value="config-1" className='mt-0'>
                     <DataTable columns={columns} data={configItems} />
                 </TabsContent>
             </Tabs>
