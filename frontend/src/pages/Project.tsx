@@ -21,10 +21,9 @@ export default function ProjectPage() {
             <form action="" className='p-4 flex flex-row gap-4'>
                 <div className='w-auto'>Selected simulator</div>
                 <div className='font-bold'>{project?.status.sim.name}</div>
-
                 <div className='w-auto'>Linked aircraft</div>
                 {project?.linkedAircraft?.map(a => {
-                    return <div className='font-bold'>{a}</div>
+                    return <div key={a} className='font-bold'>{a}</div>
                 })
                 }
             </form>

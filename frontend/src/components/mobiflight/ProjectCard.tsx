@@ -3,6 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Project } from '@/fixtures/projects'
 import { Badge } from "@/components/ui/badge"
 import { Link } from 'react-router-dom'
+import { Switch } from '../ui/switch'
 
 type ProjectCardProps = {
     key: string
@@ -21,7 +22,7 @@ const ProjectCard = (props: ProjectCardProps) => {
                 <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col justify-between gap-0">
                         <p className='font-bold'>Aircraft</p>
-                        <p>{project.linkedAircraft?.join(', ')}</p>
+                        <p>{(project.linkedAircraft?.length || 0) > 0 ? project.linkedAircraft?.join(', ') : "None"}</p>
                     </div>
                     <div className="flex flex-row justify-between content-baseline text-center">
                         <div>
@@ -39,7 +40,8 @@ const ProjectCard = (props: ProjectCardProps) => {
                     </div>
                 </div>
             </CardContent>
-            <CardFooter className="flex justify-end">
+            <CardFooter className="flex justify-between">
+                <div className='flex gap-2 content-baseline'><Switch /><span>Auto run</span></div>
                 <Link to={`/projects/${project.id}`}><Button>Open</Button></Link>
             </CardFooter>
         </Card>

@@ -266,6 +266,9 @@
     <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\DeviceType.cs" />
+    <Compile Include="MobiFlight\Frontend\IConfigItem.cs" />
+    <Compile Include="MobiFlight\Frontend\InputConfigItemAdapter.cs" />
+    <Compile Include="MobiFlight\Frontend\OutputConfigItemAdapter.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />

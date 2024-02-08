@@ -1,5 +1,5 @@
 import './App.css'
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
 import { useMessage } from 'react-message-event';
@@ -9,9 +9,12 @@ import logo from './assets/mobiflight-logo-border.png'
 import './i18n';
 import { useEffect, useState } from 'react';
 import { Progress } from './components/ui/progress';
+import { create } from 'zustand'
+import * as Types from './types/index';
 
 interface ConfigLoadedEvent {
   filename: string
+  payload : Types.IConfigItem[]
 }
 
 interface EventMessage {
@@ -25,6 +28,7 @@ interface StatusBarUpdate {
 }
 
 function App() {
+  const navigate = useNavigate();
   const handleMessage = (message: any) => {
     var eventData = JSON.parse(message.data) as EventMessage
     console.log("Handle Message")
@@ -32,8 +36,16 @@ function App() {
     if(eventData.key == "StatusBarUpdate") {
       const update = eventData.payload as StatusBarUpdate
       setStartupProgress(update)
+    } 
+
+    if(eventData.key === "ConfigFile") {
+      const configFile = JSON.parse(message.data) as ConfigLoadedEvent
+      console.log(configFile.payload)
+      navigate(`/projects/1`);
     }
   }
+
+  const [queryParameters] = useSearchParams()
 
   const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>({ Value:0, Text: "Starting..." })
 
@@ -54,6 +66,11 @@ function App() {
     };
   }, []);
 
+  useEffect(()=>{
+    if (queryParameters.get("progress")=="100") setStartupProgress({ Value:100, Text: "Finished!" })
+  }, [])
+
+  
   return (
     <>
       {
