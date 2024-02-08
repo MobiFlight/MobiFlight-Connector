@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { Projects } from './../fixtures/projects'
 import ProjectCard from '@/components/mobiflight/ProjectCard';
 
-const StartPage = () => {
+const ConfigPage = () => {
+    const { t } = useTranslation();
     const projects = Projects
     return (
         <>
@@ -18,4 +20,4 @@ const StartPage = () => {
     )
 }
 
-export default StartPage
+export default ConfigPage

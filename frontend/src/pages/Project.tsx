@@ -3,10 +3,12 @@ import { Project, Projects } from '../fixtures/projects'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { IconPencil } from '@tabler/icons-react'
 import { useTranslation } from 'react-i18next';
+import { useConfigStore } from '@/stores/configFileStore';
 
 export default function ProjectPage() {
     const { t } = useTranslation();
     const params = useParams()
+    const { items } = useConfigStore()
     const project = Projects.find((p: Project) => p.id === params.id)
 
     return <div className='flex flex-col gap-4'>
@@ -35,9 +37,8 @@ export default function ProjectPage() {
                     <CardTitle>{t("project.configs")}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <p>{t("project.status.files")}: {project?.status.configs.files.toString()}</p>
-                    <p>{t("project.status.configs")}: {project?.status.configs.configs.toString()}</p>
-                    <p>{t("project.status")}: {project?.status.configs.status}</p>
+                    <p>{t("project.status.files")}: {items.length>0 ? 1 : 0}</p>
+                    <p>{t("project.status.configs")}: {items.length.toString()}</p>
                 </CardContent>
             </Card>
             <Card className="w-[350px]">

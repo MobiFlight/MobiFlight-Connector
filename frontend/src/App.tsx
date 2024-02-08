@@ -2,19 +2,20 @@ import './App.css'
 import { Outlet, useNavigate, useSearchParams } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Navbar from './components/Navbar';
-import { useMessage } from 'react-message-event';
 import logo from './assets/mobiflight-logo-border.png'
 
 // import i18n (needs to be bundled ;)) 
 import './i18n';
 import { useEffect, useState } from 'react';
 import { Progress } from './components/ui/progress';
-import { create } from 'zustand'
 import * as Types from './types/index';
+import { useConfigStore } from './stores/configFileStore';
 
 interface ConfigLoadedEvent {
-  filename: string
-  payload : Types.IConfigItem[]
+  payload : {
+    FileName : string
+    ConfigItems: Types.IConfigItem[]  
+  } 
 }
 
 interface EventMessage {
@@ -27,26 +28,31 @@ interface StatusBarUpdate {
   Value: number
 }
 
+
 function App() {
   const navigate = useNavigate();
+  const { setItems } = useConfigStore()
+
   const handleMessage = (message: any) => {
     var eventData = JSON.parse(message.data) as EventMessage
     console.log("Handle Message")
-    console.log(message)
     if(eventData.key == "StatusBarUpdate") {
       const update = eventData.payload as StatusBarUpdate
       setStartupProgress(update)
     } 
 
     if(eventData.key === "ConfigFile") {
+      setStartupProgress({ Value:100, Text: "Finished!" })
       const configFile = JSON.parse(message.data) as ConfigLoadedEvent
-      console.log(configFile.payload)
+      console.log("Config File Loaded")
+      console.log(configFile.payload.FileName)
+      console.log(configFile.payload.ConfigItems)
+      setItems(configFile.payload.ConfigItems)
       navigate(`/projects/1`);
     }
   }
 
   const [queryParameters] = useSearchParams()
-
   const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>({ Value:0, Text: "Starting..." })
 
   useEffect(() => {
