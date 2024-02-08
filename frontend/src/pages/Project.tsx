@@ -32,6 +32,7 @@ export default function ProjectPage() {
         </Card>
 
         <div className='flex flex-row gap-4'>
+            <Link to={`/projects/${project?.id}/configs`}>
             <Card className="w-[350px]">
                 <CardHeader>
                     <CardTitle>{t("project.configs")}</CardTitle>
@@ -41,6 +42,7 @@ export default function ProjectPage() {
                     <p>{t("project.status.configs")}: {items.length.toString()}</p>
                 </CardContent>
             </Card>
+            </Link>
             <Card className="w-[350px]">
                 <CardHeader>
                     <CardTitle>Devices</CardTitle>
