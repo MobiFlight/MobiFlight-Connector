@@ -11,7 +11,7 @@ const Start = () => {
             <div className='flex flex-row pt-4 w-full gap-4 flex-wrap max-w-full'>
                 {
                     projects.map(p => {
-                        return <ProjectCard project={p} />
+                        return <ProjectCard key={p.id} project={p} />
                     })
 
                 }

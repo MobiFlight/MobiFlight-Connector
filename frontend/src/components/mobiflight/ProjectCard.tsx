@@ -1,14 +1,11 @@
-import { Label } from '@radix-ui/react-label'
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@radix-ui/react-select'
-import React from 'react'
 import { Button } from '../ui/button'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../ui/card'
-import { Input } from '../ui/input'
 import { Project } from '@/fixtures/projects'
 import { Badge } from "@/components/ui/badge"
 import { Link } from 'react-router-dom'
 
 type ProjectCardProps = {
+    key: string
     project: Project
 }
 
@@ -18,16 +15,13 @@ const ProjectCard = (props: ProjectCardProps) => {
         <Card className="w-[350px]">
             <CardHeader>
                 <CardTitle>{project.name}</CardTitle>
-                <CardDescription><Badge className='bg-green-700' variant="default">{project.status.sim.name}</Badge></CardDescription>
-                {
-                    //<CardDescription>Deploy your new project in one-click.</CardDescription>
-                }
+                <div><Badge className='bg-green-700' variant="default">{project.status.sim.name}</Badge></div>
             </CardHeader>
             <CardContent>
                 <div className="grid w-full items-center gap-4">
                     <div className="flex flex-col justify-between gap-0">
                         <p className='font-bold'>Aircraft</p>
-                        <p>{ project.linkedAircraft?.join(', ') }</p>
+                        <p>{project.linkedAircraft?.join(', ')}</p>
                     </div>
                     <div className="flex flex-row justify-between content-baseline text-center">
                         <div>

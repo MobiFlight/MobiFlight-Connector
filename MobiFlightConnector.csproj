@@ -147,14 +147,14 @@
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.2277.86, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2277.86\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.2277.86, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2277.86\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.2277.86, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.2277.86\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Midi">
       <HintPath>lib\Midi.dll</HintPath>
@@ -248,6 +248,9 @@
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
@@ -971,6 +974,12 @@
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SimConnectMSFS\SimConnectCache.cs" />
+    <Compile Include="UI\Panels\UiPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\UiPanel.Designer.cs">
+      <DependentUpon>UiPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="VJoy\VJoyExceptions.cs" />
     <Compile Include="VJoy\VJoyHelper.cs" />
     <Compile Include="UI\Panels\Action\VJoyInputPanel.cs">
@@ -988,6 +997,9 @@
     <Compile Include="xplane\XplaneCacheInterface.cs" />
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
+    <EmbeddedResource Include="UI\Panels\UiPanel.resx">
+      <DependentUpon>UiPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1787,15 +1799,15 @@ xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
 del "$(TargetDir)\log.txt"
 del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.2277.86\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.2277.86\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.2277.86\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.2277.86\build\Microsoft.Web.WebView2.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

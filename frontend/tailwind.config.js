@@ -18,6 +18,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'hero-pattern': "url('assets/background-nologo.jpg')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

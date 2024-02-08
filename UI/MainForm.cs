@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System.IO;
+using MobiFlight.BrowserMessages;
 
 namespace MobiFlight.UI
 {
@@ -151,11 +152,12 @@ namespace MobiFlight.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            panelMain.Visible = false;
-            startupPanel.Visible = true;
+            panelMain.Visible = true;
+            inputsTabControl.SelectedTab = NewUITabPage;
+            startupPanel.Visible = false;
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
-            startupPanel.Dock = DockStyle.Fill;
+            //startupPanel.Dock = DockStyle.Fill;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -256,6 +258,10 @@ namespace MobiFlight.UI
             
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
+
+            ConfigLoaded += (s, config) => { 
+                MessageExchange.Instance.Publish(new Message<ConfigFile>(config));
+            };
         }
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
@@ -421,13 +427,16 @@ namespace MobiFlight.UI
 
             startupPanel.UpdateStatusText("Checking for Firmware Updates...");
             startupPanel.UpdateProgressBar(70);
+            startupPanel.UpdateProgressBarAndStatusText("Checking for Firmware Updates...", 70);
             CheckForFirmwareUpdates();
 
             startupPanel.UpdateStatusText("Loading last config...");
             startupPanel.UpdateProgressBar(90);
+            startupPanel.UpdateProgressBarAndStatusText("Loading last config...", 90);
             _autoloadConfig();
 
             startupPanel.UpdateProgressBar(100);
+            startupPanel.UpdateProgressBarAndStatusText("Finished.", 100);
             panelMain.Visible = true;
             startupPanel.Visible = false;
 
@@ -779,6 +788,7 @@ namespace MobiFlight.UI
                 var progress = startupPanel.GetProgressBar();
                 var progressIncrement = (75 - progress) / 2;
                 startupPanel.UpdateProgressBar(progress + progressIncrement);
+                startupPanel.UpdateProgressBarAndStatusText("Scanning for boards.", progress + progressIncrement);
 
                 return;
             }
