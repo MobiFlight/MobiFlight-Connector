@@ -13,7 +13,7 @@ type ProjectCardProps = {
 const ProjectCard = (props: ProjectCardProps) => {
     const project = props.project
     return (
-        <Card className="w-[350px]">
+        <Card className="w-[350px]  dark:border-gray-800 shadow-md">
             <CardHeader>
                 <CardTitle>{project.name}</CardTitle>
                 <div><Badge className='bg-green-700' variant="default">{project.status.sim.name}</Badge></div>
@@ -42,7 +42,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             </CardContent>
             <CardFooter className="flex justify-between">
                 <div className='flex gap-2 content-baseline'><Switch /><span>Auto run</span></div>
-                <Link to={`/projects/${project.id}`}><Button>Open</Button></Link>
+                <Link to={`/projects/${project.id}`}><Button variant="default">Open</Button></Link>
             </CardFooter>
         </Card>
     )

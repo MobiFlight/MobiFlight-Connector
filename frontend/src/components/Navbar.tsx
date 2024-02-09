@@ -2,11 +2,12 @@ import { IconBrandDiscord, IconBrandGithub, IconBrandPaypal, IconBrandYoutube } 
 //import HubHopLogo from '@/assets/hubhop-logo.svg'
 import HubHopIcon from './mobiflight/icons/HubHopIcon'
 import { Link } from 'react-router-dom'
+import MobiFlightIcon from '@/assets/mobiflight-logo-border.png'
 // import HubHopLogo from '@/assets/mobiflight-logo-border.png'
 
 const Navbar = () => {
   return (
-    <div className='flex flex-row h-12 bg-slate-600 justify-end items-center pr-12 gap-4'>
+    <div className='flex flex-row h-12 justify-end items-center pr-16 gap-4 shadow-gray-300 dark:shadow-gray-800 dark:shadow-lg shadow-md'>
       <div className='bg-purple-800 py-2 px-2'>
         <Link to="https://mobiflight.com/discord" target="_blank">
           <IconBrandDiscord className='h-8 w-8 text-white' />
@@ -33,6 +34,9 @@ const Navbar = () => {
           <div>Donate</div>
         </div>
       </Link>
+      <div>
+        <img src={MobiFlightIcon} className='w-12 h-12'/>
+      </div>
     </div>
   )
 }

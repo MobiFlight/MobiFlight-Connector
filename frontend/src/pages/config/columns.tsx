@@ -18,7 +18,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         accessorKey: "Active",
         header: () => <div>Active</div>,
         cell: ({ row }) => {
-            return <Switch checked={row.getValue("Active") as boolean} />
+            return <Switch className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={row.getValue("Active") as boolean} />
         },
     },
     {
