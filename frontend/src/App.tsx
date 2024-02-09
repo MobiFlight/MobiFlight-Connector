@@ -10,6 +10,8 @@ import { useEffect, useState } from 'react';
 import { Progress } from './components/ui/progress';
 import * as Types from './types/index';
 import { useConfigStore } from './stores/configFileStore';
+import { exec } from 'child_process';
+import { useGlobalSettingsStore } from './stores/globalSettingsStore';
 
 interface ConfigLoadedEvent {
   payload : {
@@ -32,11 +34,11 @@ interface StatusBarUpdate {
 function App() {
   const navigate = useNavigate();
   const { setItems, updateItem } = useConfigStore()
+  const { setSettings } = useGlobalSettingsStore()
 
   const handleMessage = (message: any) => {
     var eventData = JSON.parse(message.data) as EventMessage
-    console.log("Handle Message")
-    console.log(eventData.key)
+    console.log(`Handle Message -> ${eventData.key}`)
 
     if(eventData.key == "config.update") { 
       const updatedItem = eventData.payload as Types.IConfigItem
@@ -52,6 +54,12 @@ function App() {
       
       console.log(newList)
       return
+    }
+
+    if(eventData.key == "GlobalSettings") {
+      const settings = eventData.payload as Types.IGlobalSettings
+      console.log("Global Settings Loaded") 
+      setSettings(settings)
     }
 
     if(eventData.key == "StatusBarUpdate") {

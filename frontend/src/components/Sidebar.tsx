@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { DarkModeToggle } from './mobiflight/darkmode-toggle'
 import { IconDeviceGamepad2, IconList, IconSettings } from '@tabler/icons-react';
 import { Button } from './ui/button';
@@ -23,9 +23,11 @@ const Sidebar = (props: SidebarProps) => {
         
       </div>
       <div className='flex flex-col items-center gap-8'>
-      <Button variant="outline" className='w-12 h-12' size="icon">
-          <IconSettings></IconSettings>
+      <Link to="/settings">
+        <Button variant="outline" className='w-12 h-12' size="icon">
+            <IconSettings></IconSettings>
         </Button>
+      </Link>
       <DarkModeToggle></DarkModeToggle>
       </div>
     </div>

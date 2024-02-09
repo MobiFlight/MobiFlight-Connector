@@ -248,6 +248,7 @@
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\GlobalSettings.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />

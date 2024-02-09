@@ -1,6 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Frontend;
+using MobiFlight.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -42,7 +43,14 @@ namespace MobiFlight.UI.Panels
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
+            webView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
             RegisterMessageHandlers();
+        }
+
+        private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e)
+        {
+            var settings = new GlobalSettings(Properties.Settings.Default);
+            MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
         }
 
         private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
@@ -91,6 +99,14 @@ namespace MobiFlight.UI.Panels
                 if (!forwardedMessages.ToArray().Contains(message.key))
                     return;
 
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<GlobalSettings>>((message) =>
+            {
                 // do something with the config
                 // convert config to JSON object
                 var jsonEncodedMessage = JsonConvert.SerializeObject(message);
