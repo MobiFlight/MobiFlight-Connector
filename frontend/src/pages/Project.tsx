@@ -8,7 +8,7 @@ import { useConfigStore } from '@/stores/configFileStore';
 export default function ProjectPage() {
     const { t } = useTranslation();
     const params = useParams()
-    const { items } = useConfigStore()
+    const items = useConfigStore(state => state.items)
     const project = Projects.find((p: Project) => p.id === params.id)
 
     return <div className='flex flex-col gap-4'>

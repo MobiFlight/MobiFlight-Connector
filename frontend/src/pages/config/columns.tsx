@@ -9,6 +9,10 @@ import {
     , IconDots
 } from "@tabler/icons-react"
 
+const publishMessage = (message: any) => {
+    window.chrome?.webview?.postMessage(message)
+}
+
 export const columns: ColumnDef<IConfigItem>[] = [
     {
         accessorKey: "Active",
@@ -77,7 +81,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     {
         id: "actions",
         cell: ({ row }) => {
-            const payment = row.original
+            const item = row.original
 
             return (
                 <DropdownMenu>
@@ -89,7 +93,14 @@ export const columns: ColumnDef<IConfigItem>[] = [
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem onClick={()=>{
+                            publishMessage(
+                                { 
+                                    key: "config.edit", 
+                                    payload: item 
+                                }
+                            )
+                        }}>Edit</DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>Duplicate</DropdownMenuItem>
                         <DropdownMenuItem>Copy</DropdownMenuItem>

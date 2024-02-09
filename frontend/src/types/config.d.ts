@@ -1,4 +1,5 @@
 export default interface IConfigItem {
+    GUID: string;
     Active: boolean;
     Description: string;
     Device: string;

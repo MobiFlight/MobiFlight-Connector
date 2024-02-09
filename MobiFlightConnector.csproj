@@ -251,6 +251,8 @@
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\ConfigItemEdit.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\StatusBarUpdate.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
@@ -266,6 +268,7 @@
     <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\DeviceType.cs" />
+    <Compile Include="MobiFlight\Frontend\ConfigItem.cs" />
     <Compile Include="MobiFlight\Frontend\IConfigItem.cs" />
     <Compile Include="MobiFlight\Frontend\InputConfigItemAdapter.cs" />
     <Compile Include="MobiFlight\Frontend\OutputConfigItemAdapter.cs" />

@@ -1,4 +1,6 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.BrowserMessages;
+using MobiFlight.Frontend;
 using MobiFlight.UI.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,7 @@ namespace MobiFlight.UI.Panels
     {
         public event EventHandler SettingsChanged;
         public event EventHandler SettingsDialogRequested;
+        delegate void OpenConfigWizardForIdCallback(string guid);
         private object[] EditedItem = null;
 
         private int lastClickedRow = -1;
@@ -66,6 +69,12 @@ namespace MobiFlight.UI.Panels
                 var AtLeastOneRowSelectedAndNotLastRow = dataGridViewConfig.SelectedRows.Count > 0 && !dataGridViewConfig.SelectedRows[0].IsNewRow;
                 testToolStripMenuItem.Enabled = AtLeastOneRowSelectedAndNotLastRow;
             };
+
+            MessageExchange.Instance.Subscribe<Message<IConfigItem>>(message =>
+            {
+                if (message.key != "config.edit") return;
+                OpenConfigWizardForId(message.payload.GUID);
+            });
         }
 
         public ExecutionManager ExecutionManager { get; set; }
@@ -534,10 +543,36 @@ namespace MobiFlight.UI.Panels
                     // using the duplicated config 
                     // that the user edited with the wizard
                     dataRow["settings"] = wizard.Config;
-                    SettingsChanged?.Invoke(cfg, null);
+                    SettingsChanged?.Invoke(wizard.Config, null);
+
+                    var config = new OutputConfigItemAdapter(wizard.Config);
+                    config.GUID = dataRow["guid"].ToString();
+                    config.Description = dataRow["description"].ToString();
+                    config.Active = (bool)dataRow["active"];
+                    var message = new Message<IConfigItem>("config.update", config);
+                    MessageExchange.Instance.Publish(message);
+                    
                     RestoreValuesInGridView();
                 }
             };
+        }
+
+        private void OpenConfigWizardForId(string guid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new OpenConfigWizardForIdCallback(OpenConfigWizardForId), new object[] { guid });
+                return;
+            }
+
+            var dataRow = configDataTable.Select($"guid = '{guid}'").FirstOrDefault();
+            if (dataRow == null) return;
+
+            var cfg = dataRow["settings"] as OutputConfigItem;
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) => {
+                EditConfigWithWizard(dataRow, cfg, false);
+            }, null);
         }
 
         void wizard_SettingsDialogRequested(object sender, EventArgs e)

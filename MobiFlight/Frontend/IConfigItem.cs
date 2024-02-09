@@ -2,6 +2,7 @@
 {
     public interface IConfigItem
     {
+        string GUID { get; set; }
         bool Active { get; set; }
         string Description { get; set; }
         string Device { get; set; }

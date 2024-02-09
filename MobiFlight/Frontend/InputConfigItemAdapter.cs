@@ -15,6 +15,7 @@ namespace MobiFlight.Frontend
             return item.Name;
         }
 
+        public string GUID { get => item.GUID; set => item.GUID = value; }
         public bool Active { get => item.Active; set => item.Active = value; }
         public string Description { get => item.Description; set => item.Description = value; }
         public string Device { get => item.ModuleSerial; set => throw new System.NotImplementedException(); }

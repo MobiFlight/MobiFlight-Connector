@@ -31,11 +31,29 @@ interface StatusBarUpdate {
 
 function App() {
   const navigate = useNavigate();
-  const { setItems } = useConfigStore()
+  const { setItems, updateItem } = useConfigStore()
 
   const handleMessage = (message: any) => {
     var eventData = JSON.parse(message.data) as EventMessage
     console.log("Handle Message")
+    console.log(eventData.key)
+
+    if(eventData.key == "config.update") { 
+      const updatedItem = eventData.payload as Types.IConfigItem
+      const items = useConfigStore.getState().items
+      
+      console.log(updatedItem)
+      console.log(items)
+      updateItem(updatedItem)
+      
+      const newList = items.map((item) => {
+        return item.GUID === updatedItem.GUID ? updatedItem : item
+      })
+      
+      console.log(newList)
+      return
+    }
+
     if(eventData.key == "StatusBarUpdate") {
       const update = eventData.payload as StatusBarUpdate
       setStartupProgress(update)
@@ -45,8 +63,6 @@ function App() {
       setStartupProgress({ Value:100, Text: "Finished!" })
       const configFile = JSON.parse(message.data) as ConfigLoadedEvent
       console.log("Config File Loaded")
-      console.log(configFile.payload.FileName)
-      console.log(configFile.payload.ConfigItems)
       setItems(configFile.payload.ConfigItems)
       navigate(`/projects/1`);
     }

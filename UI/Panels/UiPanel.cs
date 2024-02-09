@@ -1,7 +1,9 @@
-﻿using MobiFlight.BrowserMessages;
-using MobiFlight.Config;
+﻿using Microsoft.Web.WebView2.Core;
+using MobiFlight.BrowserMessages;
+using MobiFlight.Frontend;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -39,7 +41,27 @@ namespace MobiFlight.UI.Panels
 #endif
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+            webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             RegisterMessageHandlers();
+        }
+
+        private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            try
+            {
+                var message = e.WebMessageAsJson;
+                var decodedMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<ConfigItem>>(message);
+                Log.Instance.log(decodedMessage.key, LogSeverity.Debug);
+
+                if (decodedMessage.key == "config.edit")
+                {
+                    MessageExchange.Instance.Publish(new Message<IConfigItem>(decodedMessage.key, decodedMessage.payload));
+                }
+            }
+            catch(Exception ex)
+            {
+                Log.Instance.log(ex.Message, LogSeverity.Error);
+            }   
         }
 
         private void RegisterMessageHandlers()
@@ -54,6 +76,21 @@ namespace MobiFlight.UI.Panels
 
             MessageExchange.Instance.Subscribe<Message<StatusBarUpdate>>((message) =>
             {
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<IConfigItem>>((message) =>
+            {
+                var forwardedMessages = new string[] {
+                    "config.update"
+                };
+
+                if (!forwardedMessages.ToArray().Contains(message.key))
+                    return;
+
                 // do something with the config
                 // convert config to JSON object
                 var jsonEncodedMessage = JsonConvert.SerializeObject(message);
