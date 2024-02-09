@@ -38,6 +38,7 @@ namespace MobiFlight.UI.Panels
             webView.Source = new Uri("http://localhost:5173");
 #endif
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
+            webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             RegisterMessageHandlers();
         }
 
