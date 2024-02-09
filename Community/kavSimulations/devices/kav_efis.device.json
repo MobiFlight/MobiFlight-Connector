@@ -35,6 +35,21 @@
         "id": 2,
         "label": "Show STD",
         "description": "0 = True, 1 = False"
+      },
+      {
+        "id": 3,
+        "label": "Show QNH Label",
+        "description": "1 = True, 0 = False"
+      },
+      {
+        "id": 4,
+        "label": "Show QFE Label",
+        "description": "1 = True, 0 = False"
+      },
+      {
+        "id": 5,
+        "label": "Show Value",
+        "description": "$ will be displayed"
       }
     ]
   }
