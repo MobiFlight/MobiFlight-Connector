@@ -1,12 +1,14 @@
-import React from 'react'
+import { DarkModeToggle } from './mobiflight/darkmode-toggle'
 
 type SidebarProps = {
-    className? : string
+  className?: string
 }
 
 const Sidebar = (props: SidebarProps) => {
   return (
-    <div className={`${props.className} text-primary-foreground bg-primary w-16`}>Sidebar</div>
+    <div className={`${props.className} bg-blue-950 w-16 flex flex-col justify-end items-center pb-8`}>
+      <DarkModeToggle></DarkModeToggle>
+    </div>
   )
 }
 
