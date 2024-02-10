@@ -226,8 +226,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             // the mfBtnPinComboBox is special in case "0" is not
             // available as pin on the board, e.g. Mega.
-            if (mfBtnPinComboBox.SelectedValue == null)
+
+            if (mfBtnPinComboBox.SelectedValue == null && mfBtnPinComboBox.Items.Count>0)
                 mfBtnPinComboBox.SelectedIndex = 0;
+
+            mfBtnPinComboBox.Enabled = true;
+            autoZeroCheckBox.Enabled = true;
+
+            if (mfBtnPinComboBox.Items.Count == 0)
+            {
+                mfBtnPinComboBox.Enabled = false;
+                autoZeroCheckBox.Enabled = false;
+                stepperPanelToolTip.SetToolTip(autoZeroPinGroupBox, i18n._tr("uiMessagePanelsStepperNoFreePins"));
+            }
 
             initialized = exInitialized;
         }
