@@ -142,8 +142,7 @@ namespace MobiFlight.Joysticks.Octavi
                 }
             }
 
-            // Encoders
-            // TODO: Should we add RELEASE events for the encoders too?
+            // Encoders (Note: No RELEASE events required for encoders)
             for (int i = 0; i < report.outerEncoderDelta; i++)
             {
                 buttonEvents.Add((encoderMappings[(report.contextState, isInShiftMode, OctaviEncoder.OUTER_INC)], MobiFlightButton.InputEvent.PRESS));
