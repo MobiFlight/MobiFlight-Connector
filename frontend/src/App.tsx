@@ -12,6 +12,7 @@ import * as Types from './types/index';
 import { useConfigStore } from './stores/configFileStore';
 import { exec } from 'child_process';
 import { useGlobalSettingsStore } from './stores/globalSettingsStore';
+import { useLogMessageStore } from './stores/logStore';
 
 interface ConfigLoadedEvent {
   payload : {
@@ -35,6 +36,7 @@ function App() {
   const navigate = useNavigate();
   const { setItems, updateItem } = useConfigStore()
   const { setSettings } = useGlobalSettingsStore()
+  const { addMessage } = useLogMessageStore()
 
   const handleMessage = (message: any) => {
     var eventData = JSON.parse(message.data) as EventMessage
@@ -73,6 +75,10 @@ function App() {
       console.log("Config File Loaded")
       setItems(configFile.payload.ConfigItems)
       navigate(`/projects/1`);
+    }
+
+    if(eventData.key === "LogMessage") {
+      addMessage(eventData.payload)
     }
   }
 
