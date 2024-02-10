@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card"
 import { Switch } from "@/components/ui/switch"
 import { useGlobalSettingsStore } from "@/stores/globalSettingsStore"
 import { IGlobalSettings } from "@/types"
