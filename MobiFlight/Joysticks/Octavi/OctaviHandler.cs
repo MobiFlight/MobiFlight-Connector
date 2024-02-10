@@ -1,439 +1,181 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace MobiFlight.Joysticks.Octavi
 {
     internal class OctaviHandler
     {
-        bool shiftState = false;
-        OctaviReport lastReport = new OctaviReport();
-        byte contextState = (byte)OctaviReport.OctaviState.STATE_COM1;
+        private bool isInShiftMode = false;
+        private OctaviReport lastReport = new OctaviReport();
+        private readonly List<string> buttons = new List<string>();
+        private readonly Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int> encoderMappings;
+        private readonly Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int> buttonMappings;
 
-        protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();
-        public Dictionary<string, int> OctaviButtonMatrix;
-        public List<string> OctaviButtonList = new List<string>();
-        public Dictionary<int, int> ButtonAssignmentMatrix = new Dictionary<int, int>();
+        private enum OctaviEncoder { OUTER_INC, OUTER_DEC, INNER_INC, INNER_DEC }
 
-        private Dictionary<uint, uint> HIDEventAssignments = new Dictionary<uint, uint>();
+        public IEnumerable<string> JoystickButtonNames { get; private set; }
 
         public OctaviHandler()
         {
-            OctaviButtons = new Dictionary<string, string>()
-            {
-                { "Button_COM1_OI", "COM1 Outer +" },
-                { "Button_COM1_OD", "COM1 Outer -" },
-                { "Button_COM1_II", "COM1 Inner +" },
-                { "Button_COM1_ID", "COM1 Inner -" },
-                { "Button_COM1_TOG", "COM1 Toggle" },
-                { "Button_COM2_OI", "COM2 Outer +" },
-                { "Button_COM2_OD", "COM2 Outer -" },
-                { "Button_COM2_II", "COM2 Inner +" },
-                { "Button_COM2_ID", "COM2 Inner -" },
-                { "Button_COM2_TOG", "COM2 Toggle" },
-                { "Button_NAV1_OI", "NAV1 Outer +" },
-                { "Button_NAV1_OD", "NAV1 Outer -" },
-                { "Button_NAV1_II", "NAV1 Inner +" },
-                { "Button_NAV1_ID", "NAV1 Inner -" },
-                { "Button_NAV1_TOG", "NAV1 Toggle" },
-                { "Button_NAV2_OI", "NAV2 Outer +" },
-                { "Button_NAV2_OD", "NAV2 Outer -" },
-                { "Button_NAV2_II", "NAV2 Inner +" },
-                { "Button_NAV2_ID", "NAV2 Inner -" },
-                { "Button_NAV2_TOG", "NAV2 Toggle" },
-                { "Button_FMS1_OI", "FMS1 Outer +" },
-                { "Button_FMS1_OD", "FMS1 Outer -" },
-                { "Button_FMS1_II", "FMS1 Inner +" },
-                { "Button_FMS1_ID", "FMS1 Inner -" },
-                { "Button_FMS1_TOG", "FMS1 Toggle" },
-                { "Button_FMS2_OI", "FMS2 Outer +" },
-                { "Button_FMS2_OD", "FMS2 Outer -" },
-                { "Button_FMS2_II", "FMS2 Inner +" },
-                { "Button_FMS2_ID", "FMS2 Inner -" },
-                { "Button_FMS2_TOG", "FMS2 Toggle" },
-                { "Button_AP_OI", "AP Outer +" },
-                { "Button_AP_OD", "AP Outer -" },
-                { "Button_AP_II", "AP Inner +" },
-                { "Button_AP_ID", "AP Inner -" },
-                { "Button_AP_TOG", "AP Toggle" },
-                { "Button_XPDR_OI", "XPDR Outer +" },
-                { "Button_XPDR_OD", "XPDR Outer -" },
-                { "Button_XPDR_II", "XPDR Inner +" },
-                { "Button_XPDR_ID", "XPDR Inner -" },
-                { "Button_XPDR_TOG", "XPDR Toggle" },
-                { "Button_FMS1_CRSR", "FMS1 CRSR" },
-                { "Button_FMS1_DCT", "FMS1 DCT" },
-                { "Button_FMS1_MENU", "FMS1 MENU" },
-                { "Button_FMS1_CLR", "FMS1 CLR" },
-                { "Button_FMS1_ENT", "FMS1 ENT" },
-                { "Button_FMS1_CDI", "FMS1 CDI" },
-                { "Button_FMS1_OBS", "FMS1 OBS" },
-                { "Button_FMS1_MSG", "FMS1 MSG" },
-                { "Button_FMS1_FPL", "FMS1 FPL" },
-                { "Button_FMS1_VNAV", "FMS1 VNAV" },
-                { "Button_FMS1_PROC", "FMS1 PROC" },
-                { "Button_FMS2_CRSR", "FMS2 CRSR" },
-                { "Button_FMS2_DCT", "FMS2 DCT" },
-                { "Button_FMS2_MENU", "FMS2 MENU" },
-                { "Button_FMS2_CLR", "FMS2 CLR" },
-                { "Button_FMS2_ENT", "FMS2 ENT" },
-                { "Button_FMS2_CDI", "FMS2 CDI" },
-                { "Button_FMS2_OBS", "FMS2 OBS" },
-                { "Button_FMS2_MSG", "FMS2 MSG" },
-                { "Button_FMS2_FPL", "FMS2 FPL" },
-                { "Button_FMS2_VNAV", "FMS2 VNAV" },
-                { "Button_FMS2_PROC", "FMS2 PROC" },
-                { "Button_AP_AP", "Autopilot Toggle" },
-                { "Button_AP_HDG", "Autopilot HDG" },
-                { "Button_AP_NAV", "Autopilot NAV" },
-                { "Button_AP_APR", "Autopilot APR" },
-                { "Button_AP_VS", "Autopilot VS" },
-                { "Button_AP_BC", "Autopilot BC" },
+            encoderMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int>();
+            buttonMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int>();
+
+            // All possible states of the Octavi IFR1
+            var contexts = new (OctaviReport.OctaviState state, bool isShifted, string name)[] {
+                // shifted
+                (OctaviReport.OctaviState.STATE_COM1, false, "COM1"),
+                (OctaviReport.OctaviState.STATE_COM2, false, "COM2"),
+                (OctaviReport.OctaviState.STATE_NAV1, false, "NAV1"),
+                (OctaviReport.OctaviState.STATE_NAV2, false, "NAV2"),
+                (OctaviReport.OctaviState.STATE_FMS1, false, "FMS1"),
+                (OctaviReport.OctaviState.STATE_FMS2, false, "FMS2"),
+                (OctaviReport.OctaviState.STATE_AP, false, "AP"),
+                (OctaviReport.OctaviState.STATE_XPDR, false, "XPDR"),
+                //unshifted
+                (OctaviReport.OctaviState.STATE_COM1, true, "COM1^"),
+                (OctaviReport.OctaviState.STATE_COM2, true, "COM2^"),
+                (OctaviReport.OctaviState.STATE_NAV1, true, "NAV1^"),
+                (OctaviReport.OctaviState.STATE_NAV2, true, "NAV2^"),
+                (OctaviReport.OctaviState.STATE_XPDR, true, "XPDR^"),
             };
 
-            OctaviButtonMatrix = new Dictionary<string, int>()
+            foreach (var context in contexts)
             {
-                { "Button_COM1_OI", 0 },
-                { "Button_COM1_OD", 1 },
-                { "Button_COM1_II", 2 },
-                { "Button_COM1_ID", 3 },
-                { "Button_COM1_TOG", 4 },
-                { "Button_COM1_CRSR", -1 },
-                { "Button_COM1_DCT", -1 },
-                { "Button_COM1_MENU", -1 },
-                { "Button_COM1_CLR", -1 },
-                { "Button_COM1_ENT", -1 },
-                { "Button_COM1_CDI", 106 },
-                { "Button_COM1_OBS", 107 },
-                { "Button_COM1_MSG", 108 },
-                { "Button_COM1_FPL", 109 },
-                { "Button_COM1_VNAV", 110 },
-                { "Button_COM1_PROC", 111 },
-                { "Button_COM2_OI", 16 },
-                { "Button_COM2_OD", 17 },
-                { "Button_COM2_II", 18 },
-                { "Button_COM2_ID", 19 },
-                { "Button_COM2_TOG", 20 },
-                { "Button_COM2_CRSR", 21 },
-                { "Button_COM2_DCT", -1 },
-                { "Button_COM2_MENU", -1 },
-                { "Button_COM2_CLR", -1 },
-                { "Button_COM2_ENT", -1 },
-                { "Button_COM2_CDI", 106 },
-                { "Button_COM2_OBS", 107 },
-                { "Button_COM2_MSG", 108 },
-                { "Button_COM2_FPL", 109 },
-                { "Button_COM2_VNAV", 110 },
-                { "Button_COM2_PROC", 111 },
-                { "Button_NAV1_OI", 32 },
-                { "Button_NAV1_OD", 33 },
-                { "Button_NAV1_II", 34 },
-                { "Button_NAV1_ID", 35 },
-                { "Button_NAV1_TOG", 36 },
-                { "Button_NAV1_CRSR", 37 },
-                { "Button_NAV1_DCT", -1 },
-                { "Button_NAV1_MENU", -1 },
-                { "Button_NAV1_CLR", -1 },
-                { "Button_NAV1_ENT", -1 },
-                { "Button_NAV1_CDI", 106 },
-                { "Button_NAV1_OBS", 107 },
-                { "Button_NAV1_MSG", 108 },
-                { "Button_NAV1_FPL", 109 },
-                { "Button_NAV1_VNAV", 110 },
-                { "Button_NAV1_PROC", 111 },
-                { "Button_NAV2_OI", 48 },
-                { "Button_NAV2_OD", 49 },
-                { "Button_NAV2_II", 50 },
-                { "Button_NAV2_ID", 51 },
-                { "Button_NAV2_TOG", 52 },
-                { "Button_NAV2_CRSR", 53 },
-                { "Button_NAV2_DCT", -1 },
-                { "Button_NAV2_MENU", -1 },
-                { "Button_NAV2_CLR", -1 },
-                { "Button_NAV2_ENT", -1 },
-                { "Button_NAV2_CDI", 106 },
-                { "Button_NAV2_OBS", 107 },
-                { "Button_NAV2_MSG", 108 },
-                { "Button_NAV2_FPL", 109 },
-                { "Button_NAV2_VNAV", 110 },
-                { "Button_NAV2_PROC", 111 },
-                { "Button_FMS1_OI", 64 },
-                { "Button_FMS1_OD", 65 },
-                { "Button_FMS1_II", 66 },
-                { "Button_FMS1_ID", 67 },
-                { "Button_FMS1_TOG", 68 },
-                { "Button_FMS1_CRSR", 69 },
-                { "Button_FMS1_DCT", 70 },
-                { "Button_FMS1_MENU", 71 },
-                { "Button_FMS1_CLR", 72 },
-                { "Button_FMS1_ENT", 73 },
-                { "Button_FMS1_CDI", 74 },
-                { "Button_FMS1_OBS", 75 },
-                { "Button_FMS1_MSG", 76 },
-                { "Button_FMS1_FPL", 77 },
-                { "Button_FMS1_VNAV", 78 },
-                { "Button_FMS1_PROC", 79 },
-                { "Button_FMS2_OI", 80 },
-                { "Button_FMS2_OD", 81 },
-                { "Button_FMS2_II", 82 },
-                { "Button_FMS2_ID", 83 },
-                { "Button_FMS2_TOG", 84 },
-                { "Button_FMS2_CRSR", 85 },
-                { "Button_FMS2_DCT", 86 },
-                { "Button_FMS2_MENU", 87 },
-                { "Button_FMS2_CLR", 88 },
-                { "Button_FMS2_ENT", 89 },
-                { "Button_FMS2_CDI", 90 },
-                { "Button_FMS2_OBS", 91 },
-                { "Button_FMS2_MSG", 92 },
-                { "Button_FMS2_FPL", 93 },
-                { "Button_FMS2_VNAV", 94 },
-                { "Button_FMS2_PROC", 95 },
-                { "Button_AP_OI", 96 },
-                { "Button_AP_OD", 97 },
-                { "Button_AP_II", 98 },
-                { "Button_AP_ID", 99 },
-                { "Button_AP_TOG", 100 },
-                { "Button_AP_CRSR", 101 },
-                { "Button_AP_DCT", -1 },
-                { "Button_AP_MENU", -1 },
-                { "Button_AP_CLR", -1 },
-                { "Button_AP_ENT", -1 },
-                { "Button_AP_CDI", 106 },
-                { "Button_AP_OBS", 107 },
-                { "Button_AP_MSG", 108 },
-                { "Button_AP_FPL", 109 },
-                { "Button_AP_VNAV", 110 },
-                { "Button_AP_PROC", 111 },
-                { "Button_XPDR_OI", 112 },
-                { "Button_XPDR_OD", 113 },
-                { "Button_XPDR_II", 114 },
-                { "Button_XPDR_ID", 115 },
-                { "Button_XPDR_TOG", 116 },
-                { "Button_XPDR_CRSR", 117 },
-                { "Button_XPDR_DCT", -1 },
-                { "Button_XPDR_MENU", -1 },
-                { "Button_XPDR_CLR", -1 },
-                { "Button_XPDR_ENT", -1 },
-                { "Button_XPDR_CDI", 106 },
-                { "Button_XPDR_OBS", 107 },
-                { "Button_XPDR_MSG", 108 },
-                { "Button_XPDR_FPL", 109 },
-                { "Button_XPDR_VNAV", 110 },
-                { "Button_XPDR_PROC", 111 },
-                { "Button_COM1^_OI", 128 },
-                { "Button_COM1^_OD", 129 },
-                { "Button_COM1^_II", 130 },
-                { "Button_COM1^_ID", 131 },
-                { "Button_COM1^_TOG", 132 },
-                { "Button_COM1^_CRSR", -1 },
-                { "Button_COM1^_DCT", -1 },
-                { "Button_COM1^_MENU", -1 },
-                { "Button_COM1^_CLR", -1 },
-                { "Button_COM1^_ENT", -1 },
-                { "Button_COM1^_CDI", 106 },
-                { "Button_COM1^_OBS", 107 },
-                { "Button_COM1^_MSG", 108 },
-                { "Button_COM1^_FPL", 109 },
-                { "Button_COM1^_VNAV", 110 },
-                { "Button_COM1^_PROC", 111 },
-                { "Button_COM2^_OI", 144 },
-                { "Button_COM2^_OD", 145 },
-                { "Button_COM2^_II", 146 },
-                { "Button_COM2^_ID", 147 },
-                { "Button_COM2^_TOG", 148 },
-                { "Button_COM2^_CRSR", -1 },
-                { "Button_COM2^_DCT", -1 },
-                { "Button_COM2^_MENU", -1 },
-                { "Button_COM2^_CLR", -1 },
-                { "Button_COM2^_ENT", -1 },
-                { "Button_COM2^_CDI", 106 },
-                { "Button_COM2^_OBS", 107 },
-                { "Button_COM2^_MSG", 108 },
-                { "Button_COM2^_FPL", 109 },
-                { "Button_COM2^_VNAV", 110 },
-                { "Button_COM2^_PROC", 111 },
-                { "Button_NAV1^_OI", 160 },
-                { "Button_NAV1^_OD", 161 },
-                { "Button_NAV1^_II", 162 },
-                { "Button_NAV1^_ID", 163 },
-                { "Button_NAV1^_TOG", 164 },
-                { "Button_NAV1^_CRSR", -1 },
-                { "Button_NAV1^_DCT", -1 },
-                { "Button_NAV1^_MENU", -1 },
-                { "Button_NAV1^_CLR", -1 },
-                { "Button_NAV1^_ENT", -1 },
-                { "Button_NAV1^_CDI", 106 },
-                { "Button_NAV1^_OBS", 107 },
-                { "Button_NAV1^_MSG", 108 },
-                { "Button_NAV1^_FPL", 109 },
-                { "Button_NAV1^_VNAV", 110 },
-                { "Button_NAV1^_PROC", 111 },
-                { "Button_NAV2^_OI", 176 },
-                { "Button_NAV2^_OD", 177 },
-                { "Button_NAV2^_II", 178 },
-                { "Button_NAV2^_ID", 179 },
-                { "Button_NAV2^_TOG", 180 },
-                { "Button_NAV2^_CRSR", -1 },
-                { "Button_NAV2^_DCT", -1 },
-                { "Button_NAV2^_MENU", -1 },
-                { "Button_NAV2^_CLR", -1 },
-                { "Button_NAV2^_ENT", -1 },
-                { "Button_NAV2^_CDI", 106 },
-                { "Button_NAV2^_OBS", 107 },
-                { "Button_NAV2^_MSG", 108 },
-                { "Button_NAV2^_FPL", 109 },
-                { "Button_NAV2^_VNAV", 110 },
-                { "Button_NAV2^_PROC", 111 },
-                { "Button_FMS1^_OI", -1 },
-                { "Button_FMS1^_OD", -1 },
-                { "Button_FMS1^_II", -1 },
-                { "Button_FMS1^_ID", -1 },
-                { "Button_FMS1^_TOG", -1 },
-                { "Button_FMS1^_CRSR", -1 },
-                { "Button_FMS1^_DCT", -1 },
-                { "Button_FMS1^_MENU", -1 },
-                { "Button_FMS1^_CLR", -1 },
-                { "Button_FMS1^_ENT", -1 },
-                { "Button_FMS1^_CDI", -1 },
-                { "Button_FMS1^_OBS", -1 },
-                { "Button_FMS1^_MSG", -1 },
-                { "Button_FMS1^_FPL", -1 },
-                { "Button_FMS1^_VNAV", -1 },
-                { "Button_FMS1^_PROC", -1 },
-                { "Button_FMS2^_OI", -1 },
-                { "Button_FMS2^_OD", -1 },
-                { "Button_FMS2^_II", -1 },
-                { "Button_FMS2^_ID", -1 },
-                { "Button_FMS2^_TOG", -1 },
-                { "Button_FMS2^_CRSR", -1 },
-                { "Button_FMS2^_DCT", -1 },
-                { "Button_FMS2^_MENU", -1 },
-                { "Button_FMS2^_CLR", -1 },
-                { "Button_FMS2^_ENT", -1 },
-                { "Button_FMS2^_CDI", -1 },
-                { "Button_FMS2^_OBS", -1 },
-                { "Button_FMS2^_MSG", -1 },
-                { "Button_FMS2^_FPL", -1 },
-                { "Button_FMS2^_VNAV", -1 },
-                { "Button_FMS2^_PROC", -1 },
-                { "Button_AP^_OI", 224 },
-                { "Button_AP^_OD", 225 },
-                { "Button_AP^_II", 226 },
-                { "Button_AP^_ID", 227 },
-                { "Button_AP^_TOG", 228 },
-                { "Button_AP^_CRSR", -1 },
-                { "Button_AP^_DCT", -1 },
-                { "Button_AP^_MENU", -1 },
-                { "Button_AP^_CLR", -1 },
-                { "Button_AP^_ENT", -1 },
-                { "Button_AP^_CDI", 106 },
-                { "Button_AP^_OBS", 107 },
-                { "Button_AP^_MSG", 108 },
-                { "Button_AP^_FPL", 109 },
-                { "Button_AP^_VNAV", 110 },
-                { "Button_AP^_PROC", 111 },
-                { "Button_XPDR^_OI", 240 },
-                { "Button_XPDR^_OD", 241 },
-                { "Button_XPDR^_II", 242 },
-                { "Button_XPDR^_ID", 243 },
-                { "Button_XPDR^_TOG", 244 },
-                { "Button_XPDR^_CRSR", -1 },
-                { "Button_XPDR^_DCT", -1 },
-                { "Button_XPDR^_MENU", -1 },
-                { "Button_XPDR^_CLR", -1 },
-                { "Button_XPDR^_ENT", -1 },
-                { "Button_XPDR^_CDI", 106 },
-                { "Button_XPDR^_OBS", 107 },
-                { "Button_XPDR^_MSG", 108 },
-                { "Button_XPDR^_FPL", 109 },
-                { "Button_XPDR^_VNAV", 110 },
-                { "Button_XPDR^_PROC", 111 },
-            };
+                // Encoders
+                encoderMappings.Add((context.state, context.isShifted, OctaviEncoder.OUTER_INC), ToButton($"Button_{context.name}_OI"));
+                encoderMappings.Add((context.state, context.isShifted, OctaviEncoder.OUTER_DEC), ToButton($"Button_{context.name}_OD"));
+                encoderMappings.Add((context.state, context.isShifted, OctaviEncoder.INNER_INC), ToButton($"Button_{context.name}_II"));
+                encoderMappings.Add((context.state, context.isShifted, OctaviEncoder.INNER_DEC), ToButton($"Button_{context.name}_ID"));
 
-            HIDEventAssignments = new Dictionary<uint, uint>()
-            {
-                { (uint)OctaviReport.OctaviButton.HID_BTN_TOG, 4 },
-                { (uint)OctaviReport.OctaviButton.HID_ENC_SW, 5 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_DCT, 6 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_MENU, 7 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_CLR, 8 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_ENT, 9 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP, 10 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_HDG, 11 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_NAV, 12 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_APR, 13 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_ALT, 14 },
-                { (uint)OctaviReport.OctaviButton.HID_BTN_AP_BC, 15 },
-            };
+                // TOG
+                buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_TOG), ToButton($"Button_{context.name}_TOG"));
 
-            int i = 0;
-            foreach(KeyValuePair<string, int> element in OctaviButtonMatrix)
-            {
-                if (element.Value == i)
+                // CRSR
+                if (context.state == OctaviReport.OctaviState.STATE_FMS1 ||
+                    context.state == OctaviReport.OctaviState.STATE_FMS2 ||
+                    context.state == OctaviReport.OctaviState.STATE_AP)
                 {
-                    ButtonAssignmentMatrix.Add(i, OctaviButtonList.Count);
-                    OctaviButtonList.Add(element.Key);
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_ENC_SW), ToButton($"Button_{context.name}_CRSR"));
                 }
-                i++;
-            }
-            Dictionary<string, int> OctaviButtonMatrixCopy = OctaviButtonMatrix.ToDictionary(entry => entry.Key, entry => entry.Value);
 
-            foreach (KeyValuePair<string, int> element in OctaviButtonMatrix)
-            {
-                if(element.Value != -1)
+                // DCT, MENU, CLR, ENT, CDI, OBS, MSG, FLP, VNAV, PROC
+                if (context.state == OctaviReport.OctaviState.STATE_FMS1 ||
+                    context.state == OctaviReport.OctaviState.STATE_FMS2)
                 {
-                    OctaviButtonMatrixCopy[element.Key] = ButtonAssignmentMatrix[element.Value];
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_DCT), ToButton($"Button_{context.name}_DCT"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_MENU), ToButton($"Button_{context.name}_MENU"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_CLR), ToButton($"Button_{context.name}_CLR"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_ENT), ToButton($"Button_{context.name}_ENT"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton($"Button_{context.name}_CDI"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton($"Button_{context.name}_OBS"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_NAV), ToButton($"Button_{context.name}_MSG"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_APR), ToButton($"Button_{context.name}_FPL"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_ALT), ToButton($"Button_{context.name}_VNAV"));
+                    buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_VS), ToButton($"Button_{context.name}_PROC"));
+                }
+
+                // AP, HDG, NAV, APR, ALT, VS (AP context only for now to not mess up the ordering of buttons)
+                if (context.state == OctaviReport.OctaviState.STATE_AP)
+                {
+                    AddAutopilotButtonMappings(context);
                 }
             }
-            OctaviButtonMatrix = OctaviButtonMatrixCopy.ToDictionary(entry => entry.Key, entry => entry.Value);
 
+            // AP, HDG, NAV, APR, ALT, VS (remaining Autopilot-enabled contexts)
+            foreach (var context in contexts)
+            {
+                if (context.state != OctaviReport.OctaviState.STATE_FMS1 &&
+                    context.state != OctaviReport.OctaviState.STATE_FMS2 &&
+                    context.state != OctaviReport.OctaviState.STATE_AP)
+                {
+                    AddAutopilotButtonMappings(context);
+                }
+            }
+
+            JoystickButtonNames = buttons.AsReadOnly();
         }
-    public List<int> toButton(OctaviReport report)
+
+        private void AddAutopilotButtonMappings((OctaviReport.OctaviState state, bool isShifted, string name) context)
         {
-            List<int> ButtonPresses = new List<int>();
-            uint pressed = report.buttonState & ~lastReport.buttonState; // only rising edges
-            byte extContentState = report.contextState;
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton("Button_AP_CDI"));     // TODO: rename to Button_AP_AP ?
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton("Button_AP_OBS")); // TODO: rename to Button_AP_HDG ?
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_NAV), ToButton("Button_AP_MSG")); // TODO: rename to Button_AP_NAV ?
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_APR), ToButton("Button_AP_FPL")); // TODO: rename to Button_AP_APR ?
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_ALT), ToButton("Button_AP_VNAV"));// TODO: rename to Button_AP_ALT ?
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_VS), ToButton("Button_AP_PROC")); // TODO: rename to Button_AP_VS ?
+        }
 
-            if(report.contextState != lastReport.contextState)
+        private int ToButton(string buttonName)
+        {
+            if (!buttons.Contains(buttonName))
             {
-                shiftState = false; // reset shift mode on context change
+                buttons.Add(buttonName);
             }
+            return buttons.IndexOf(buttonName);
+        }
 
-            if (shiftState) extContentState += 8; // shift to second half of button events if shift is active
+        public IEnumerable<(int buttonIndex, MobiFlightButton.InputEvent inputEvent)> DetectButtonEvents(OctaviReport report)
+        {
+            var buttonEvents = new List<(int buttonIndex, MobiFlightButton.InputEvent inputEvent)>();
 
-            // To Do: Replace contextState with extContentState in next block?
-            // To Do: Translate to 
-            if (report.incrCoarse != 0 || report.incrFine != 0)
-                if (report.incrCoarse > 0) for (int i = 0; i < report.incrCoarse; i++) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 0).Value);
-                else if (report.incrCoarse < 0) for (int i = 0; i > report.incrCoarse; i--) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 1).Value);
-                if (report.incrFine > 0) for (int i = 0; i < report.incrFine; i++) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 2).Value);
-                else if (report.incrFine < 0) for (int i = 0; i > report.incrFine; i--) ButtonPresses.Add(OctaviButtonMatrix.ElementAt(extContentState * 16 + 3).Value);
+            OctaviReport.OctaviButtons pressed = (OctaviReport.OctaviButtons)((uint)report.buttonState & ~(uint)lastReport.buttonState); // rising edges
+            OctaviReport.OctaviButtons released = (OctaviReport.OctaviButtons)((uint)lastReport.buttonState & ~(uint)report.buttonState); // falling edges
 
-            if((pressed & (uint)OctaviReport.OctaviButton.HID_ENC_SW)!=0)
+            // "Shift Mode" for supported contexts
+            if (report.contextState != lastReport.contextState)
             {
-                //if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_NAV2)
-                if (report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS1 && report.contextState != (byte)OctaviReport.OctaviState.STATE_FMS2)
+                isInShiftMode = false; // reset shift mode on context change
+            }
+            else if (pressed.HasFlag(OctaviReport.OctaviButtons.HID_ENC_SW))
+            {
+                switch (report.contextState)
                 {
-                        shiftState = !shiftState; // FMS1&2 do not have shift modes for now, sorry
+                    case OctaviReport.OctaviState.STATE_COM1:
+                    case OctaviReport.OctaviState.STATE_COM2:
+                    case OctaviReport.OctaviState.STATE_NAV1:
+                    case OctaviReport.OctaviState.STATE_NAV2:
+                    case OctaviReport.OctaviState.STATE_XPDR:
+                        isInShiftMode = !isInShiftMode;
+                        break;
+                    default:
+                        break;
                 }
             }
-            foreach(uint HIDEvent in HIDEventAssignments.Keys)
+
+            // Encoders
+            // TODO: Should we add RELEASE events for the encoders too?
+            for (int i = 0; i < report.outerEncoderDelta; i++)
             {
-                if ((pressed & HIDEvent) != 0)
+                buttonEvents.Add((encoderMappings[(report.contextState, isInShiftMode, OctaviEncoder.OUTER_INC)], MobiFlightButton.InputEvent.PRESS));
+            }
+            for (int i = 0; i > report.outerEncoderDelta; i--)
+            {
+                buttonEvents.Add((encoderMappings[(report.contextState, isInShiftMode, OctaviEncoder.OUTER_DEC)], MobiFlightButton.InputEvent.PRESS));
+            }
+            for (int i = 0; i < report.innerEncoderDelta; i++)
+            {
+                buttonEvents.Add((encoderMappings[(report.contextState, isInShiftMode, OctaviEncoder.INNER_INC)], MobiFlightButton.InputEvent.PRESS));
+            }
+            for (int i = 0; i > report.innerEncoderDelta; i--)
+            {
+                buttonEvents.Add((encoderMappings[(report.contextState, isInShiftMode, OctaviEncoder.INNER_DEC)], MobiFlightButton.InputEvent.PRESS));
+            }
+
+            // Buttons
+            foreach (OctaviReport.OctaviButtons button in Enum.GetValues(typeof(OctaviReport.OctaviButtons)))
+            {
+                if (pressed.HasFlag(button) || released.HasFlag(button))
                 {
-                    int ButtonPress = extContentState * 16 + (int)HIDEventAssignments[HIDEvent]; // find "full matrix" event index
-                    ButtonPress = OctaviButtonMatrix.ElementAt(ButtonPress).Value; // translate to existing Octavi "devices" in MF
-                    if (ButtonPress >= 0) ButtonPresses.Add(ButtonPress); // if not "unassigned" (-1), then press the button!
+                    if (buttonMappings.TryGetValue((report.contextState, isInShiftMode, button), out int buttonIndex))
+                    {
+                        var inputEvent = pressed.HasFlag(button) ? MobiFlightButton.InputEvent.PRESS : MobiFlightButton.InputEvent.RELEASE;
+                        buttonEvents.Add((buttonIndex, inputEvent));
+                    }
                 }
             }
-            
+
             lastReport = report;
-        return ButtonPresses;
+            return buttonEvents;
         }
     }
 }
