@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace MobiFlight
@@ -133,14 +134,15 @@ namespace MobiFlight
             Handle = handle;
         }
 
-        public void Connect()
+        public async void Connect()
         {
             var di = new SharpDX.DirectInput.DirectInput();
             Joysticks?.Clear();
             ExcludedJoysticks?.Clear();
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
-            var devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
+            // make this next call async so that it doesn't block the UI
+            var devices = await Task.Run(()=> di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
 
             foreach (var d in devices)
             {
