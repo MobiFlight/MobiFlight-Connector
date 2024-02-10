@@ -1,0 +1,1735 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
+      <active>false</active>
+      <description>FCU CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0045cac7-7b32-43e6-a8a9-a57dd4b45936">
+      <active>true</active>
+      <description>FCU - Speed Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/Speed" />
+        <test type="Float" value="-1" />
+        <modifiers>
+          <transformation active="True" expression="Round($,2)" />
+          <comparison active="False" value="0" operand="&lt;" ifValue="'---'" elseValue="$" />
+          <transformation active="True" expression="if(#==1, '---', $)" />
+          <padding active="True" direction="Left" length="3" character="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="18" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="97f70f49-f7c5-4c92-af0a-a88bcdab7ecc" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="1938a7b0-ef7f-47e8-a332-4e856afcdcb1" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="53041b63-611c-4bbf-a40b-8797b62db163">
+      <active>true</active>
+      <description>FCU - Mach Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/Speed" />
+        <test type="Float" value="-1" />
+        <modifiers>
+          <comparison active="True" value="10" operand="&lt;" ifValue="'0.0$'" elseValue="'0.$'" />
+          <comparison active="False" value="100" operand="&lt;" ifValue="'0.$'" elseValue="$" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="18" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="5c7d2d7c-d849-4a62-a2f5-7bddef3f1c57" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2db0b156-a792-416a-970c-b2f7d8b62458">
+      <active>true</active>
+      <description>FCU - SPD Dot</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="1" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="10" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="97f70f49-f7c5-4c92-af0a-a88bcdab7ecc">
+      <active>true</active>
+      <description>FCU - Set Speed Label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/airspeed" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="99" operand="&gt;" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="14" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5c7d2d7c-d849-4a62-a2f5-7bddef3f1c57">
+      <active>true</active>
+      <description>FCU - Set Mach Label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/airspeed" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="100" operand="&lt;" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="15" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1938a7b0-ef7f-47e8-a332-4e856afcdcb1">
+      <active>true</active>
+      <description>FCU Managed/Dashes</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/SpeedManaged" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2f565d5a-1394-4b72-ad04-7f22d0bb2b68">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6af2a5a4-41bb-47eb-aabc-8dbe958a5de1">
+      <active>true</active>
+      <description>FCU - HDG Show Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/heading_mag" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 0)" />
+          <comparison active="False" value="0" operand="&lt;" ifValue="'---'" elseValue="$" />
+          <transformation active="True" expression="if(#==1, '---', $)" />
+          <comparison active="True" value="360" operand="=" ifValue="0" elseValue="" />
+          <padding active="True" direction="Left" length="3" character="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="19" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="e9e662ce-3758-44c8-98bc-a9215ab4f238" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="e9e662ce-3758-44c8-98bc-a9215ab4f238">
+      <active>true</active>
+      <description>FCU - HDG Set/Unset Dot</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/LateralManaged" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="11" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5c5ddbfc-d1db-48f0-bc2e-d668b0882c47">
+      <active>true</active>
+      <description>FCU - HDG/TRK Toggle</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/Mode" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="13" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c4b60d5d-7c6e-4b78-a885-d772a6560224">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9605bc95-99b8-4396-9e62-a53e4158adb6">
+      <active>true</active>
+      <description>FCU - ALT Show Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/altitude" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="1000" operand="&lt;" ifValue="'00$'" elseValue="'$'" />
+          <comparison active="True" value="10000" operand="&lt;" ifValue="'0$'" elseValue="'$'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="20" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7a58c836-44b8-4c79-8703-25a73925c4fd">
+      <active>true</active>
+      <description>FCU - ALT Set/Unset Dot</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/AltitudeManaged" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="12" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e6bcd9b-5752-4b17-95a2-274231d30cac">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="284222fc-9b8d-4383-83a0-e13a718e0e90">
+      <active>true</active>
+      <description>FCU - VS Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/vertical_velocity" />
+        <test type="Float" value="-1.01" />
+        <modifiers>
+          <transformation active="True" expression="Round(Abs($/100), 0)" />
+          <comparison active="False" value="0" operand="=" ifValue="'00oo'" elseValue="$" />
+          <transformation active="True" expression="if($&lt;1 &amp;&amp; $&gt;=0, '00oo', $)" />
+          <transformation active="True" expression="'$oo'" />
+          <padding active="True" direction="Left" length="4" character="0" />
+          <transformation active="True" expression="if (# &lt; 0, '-$', '+$')" />
+          <transformation active="False" expression="if(#&lt;0, '-$', '+$')" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="21" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="ac4a3707-edb9-43d0-8888-8528cc9bc9e7" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="7f01367f-bbf2-491b-8711-eadbfb6c3a49" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="c7a379d3-0c74-4c5d-b236-00319c6204f2" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="c7a379d3-0c74-4c5d-b236-00319c6204f2">
+      <active>true</active>
+      <description>FCU -VS Value helper</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/vertical_velocity" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d439076e-a7a5-47b0-aed1-945a4d82156c">
+      <active>true</active>
+      <description>FCU - FPA Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/autopilot/vertical_velocity" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$/1000" />
+          <comparison active="True" value="0" operand="=" ifValue="'+0.0'" elseValue="$" />
+          <comparison active="True" value="0" operand="&gt;" ifValue="'+$'" elseValue="'$'" />
+          <padding active="True" direction="Right" length="6" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="21" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="ac4a3707-edb9-43d0-8888-8528cc9bc9e7" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="7f01367f-bbf2-491b-8711-eadbfb6c3a49" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="de956b07-4e88-4cbf-8bb8-a93814c94d2a" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="de956b07-4e88-4cbf-8bb8-a93814c94d2a">
+      <active>true</active>
+      <description>FCU - FPA Value helper</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/autopilot/fpa" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 1)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ac4a3707-edb9-43d0-8888-8528cc9bc9e7">
+      <active>true</active>
+      <description>FCU - VS Dashes</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/VSdashed" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="1" operand="=" ifValue="'-----'" elseValue="''" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="FCU LCD" messageType="21" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="f60e20ae-efd7-428f-9e1b-a1f66c7d8ed5" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f60e20ae-efd7-428f-9e1b-a1f66c7d8ed5">
+      <active>true</active>
+      <description>FCU - VS Dashes Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/VSdashed" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="&gt;=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7f01367f-bbf2-491b-8711-eadbfb6c3a49">
+      <active>true</active>
+      <description>FCU - VS/FPA Mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/Mode" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="83680898-7c53-4764-aa31-b0f6097aff14">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="db2fbafc-0142-400a-8005-df80f3a7964b">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9d91a242-ae2c-4eb2-80cc-91dd53b5a803">
+      <active>false</active>
+      <description>EFIS L CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="25ce1038-659a-4005-a90d-7a670f0387c2">
+      <active>true</active>
+      <description>EFIS L - Show QNH Value mbar</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/BaroL" />
+        <test type="Float" value="0.1234" />
+        <modifiers>
+          <transformation active="True" expression="$/100" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8660c2bd-f65b-47f2-8447-f47e03665a29">
+      <active>true</active>
+      <description>EFIS L - Show QNH Value hPa</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/BaroL" />
+        <test type="Float" value="0.1234" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="config" active="true" ref="b0a94e56-8b62-4d9a-934a-0d1f1fc740d7" operand="&lt;" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="25ce1038-659a-4005-a90d-7a670f0387c2" operand="&lt;" value="99" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f59ea400-6153-4f57-b1d8-b98f2cb11d1b">
+      <active>true</active>
+      <description>EFIS L - Show STD</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="if(#=-2, 'Std ', 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS L" messageType="5" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="cee1a6bc-625e-457c-892d-661bb2065e4a" operand="=" value="-2" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="cee1a6bc-625e-457c-892d-661bb2065e4a" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="dc853165-1e17-4813-a517-78de0d41a09f">
+      <active>true</active>
+      <description>EFIS L - Set QNH Label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=2, 1, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS L" messageType="3" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="cee1a6bc-625e-457c-892d-661bb2065e4a" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="82406b5f-8065-47d7-bff2-f930822a66e8">
+      <active>true</active>
+      <description>EFIS L - Set QFE Label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=1, 1, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS L" messageType="4" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="cee1a6bc-625e-457c-892d-661bb2065e4a" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="b0a94e56-8b62-4d9a-934a-0d1f1fc740d7">
+      <active>true</active>
+      <description>EFIS L - State Condition (0=inHg, 1=hPa)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/BaroTypeL" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cee1a6bc-625e-457c-892d-661bb2065e4a">
+      <active>true</active>
+      <description>EFIS L - Type Condition (-2=Std, 1=QFE, 2=QNH)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU1/BaroModeL" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="db35492f-9ee2-4416-ae9f-e9634186f91e">
+      <active>true</active>
+      <description>EFIS L - OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(?=1, 'Std ', if(@=0, #, !))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS L" messageType="5" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="25ce1038-659a-4005-a90d-7a670f0387c2" placeholder="#" testvalue="1" />
+          <configref active="True" ref="8660c2bd-f65b-47f2-8447-f47e03665a29" placeholder="!" testvalue="1" />
+          <configref active="True" ref="f59ea400-6153-4f57-b1d8-b98f2cb11d1b" placeholder="?" testvalue="1" />
+          <configref active="True" ref="b0a94e56-8b62-4d9a-934a-0d1f1fc740d7" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="3c7ca066-a861-40eb-a5e7-2089f21b0bc3">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="71072823-1f76-4eb6-8162-fe6d0cf80b1a">
+      <active>false</active>
+      <description>EFIS R CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0f445f39-2fb0-43c0-b107-b4459f12787f">
+      <active>true</active>
+      <description>EFIS R - Show QNH Value mbar</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU2/BaroR" />
+        <test type="Float" value="0.1234" />
+        <modifiers>
+          <transformation active="True" expression="$/100" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8b99410c-b231-4d94-98e6-9aeebe59d052">
+      <active>true</active>
+      <description>EFIS R - Show QNH Value hPa</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU2/BaroR" />
+        <test type="Float" value="0.1234" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="config" active="true" ref="b0a94e56-8b62-4d9a-934a-0d1f1fc740d7" operand="&lt;" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a9c996db-76cb-4e02-98bd-44df3da839a9" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="25ce1038-659a-4005-a90d-7a670f0387c2" operand="&lt;" value="99" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e1feaa06-bef8-41fd-956a-7c2ff3870bf0">
+      <active>true</active>
+      <description>EFIS R - Show STD</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="if(#=-2, 'Std ', 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS R" messageType="5" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="041e475d-9c34-4d5c-a2ab-9b30ffcd1061" operand="=" value="-2" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="041e475d-9c34-4d5c-a2ab-9b30ffcd1061" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="1e7ef961-e256-4b0e-aae0-cc6698e28399">
+      <active>true</active>
+      <description>EFIS R - Set QNH Label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=2, 1, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS R" messageType="3" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="041e475d-9c34-4d5c-a2ab-9b30ffcd1061" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="d304aec5-c890-429b-8cf1-098e7846117b">
+      <active>true</active>
+      <description>EFIS R - Set QFE Label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=1, 1, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS R" messageType="4" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="041e475d-9c34-4d5c-a2ab-9b30ffcd1061" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="a2efe54e-1ace-4a22-b7b5-a53ae7a582ca">
+      <active>true</active>
+      <description>EFIS R - State Condition (0=inHg, 1=hPa)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU2/BaroTypeR" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="041e475d-9c34-4d5c-a2ab-9b30ffcd1061">
+      <active>true</active>
+      <description>EFIS R - Type Condition (-2=Std, 1=QFE, 2=QNH)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/FMGS/FCU2/BaroModeR" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="68678f99-7996-4d5e-96f6-67c2fd06861e">
+      <active>true</active>
+      <description>EFIS R - OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(?=1, 'Std ', if(@=0, #, !))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-894-EA3" trigger="normal" customType="" customName="EFIS R" messageType="5" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0f445f39-2fb0-43c0-b107-b4459f12787f" placeholder="#" testvalue="1" />
+          <configref active="True" ref="8b99410c-b231-4d94-98e6-9aeebe59d052" placeholder="!" testvalue="1" />
+          <configref active="True" ref="e1feaa06-bef8-41fd-956a-7c2ff3870bf0" placeholder="?" testvalue="1" />
+          <configref active="True" ref="a2efe54e-1ace-4a22-b7b5-a53ae7a582ca" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="02dddcc3-509e-46cd-b051-f1e750b9d310">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7fe5b6a3-0f08-49cd-a22e-0e09a6901002">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2bb4c7f7-b0a9-4060-a0c2-f23155d0209f">
+      <active>false</active>
+      <description>OVERHEAD CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="24ad43e7-bbc5-4ea2-8293-9ecf4a289cfa">
+      <active>true</active>
+      <description>BAT 1 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(T)*100 + (U)*10 + (D)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Overhead/ SN-640-5FD" trigger="normal" customType="" customName="BAT 1" messageType="3" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="e0845c19-c0e0-47f4-bb7d-e33d3a5c62fd" placeholder="D" testvalue="1" />
+          <configref active="True" ref="f6c9ade9-0ecd-43f5-a5ec-7432c1921357" placeholder="U" testvalue="1" />
+          <configref active="True" ref="1d5b4f68-b209-4daa-9b41-a7054b2212ed" placeholder="T" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="1d5b4f68-b209-4daa-9b41-a7054b2212ed">
+      <active>true</active>
+      <description>BAT 1 TENS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Overhead/ElecBat1_Digit1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f6c9ade9-0ecd-43f5-a5ec-7432c1921357">
+      <active>true</active>
+      <description>BAT 1 UNITS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Overhead/ElecBat1_Digit2/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e0845c19-c0e0-47f4-bb7d-e33d3a5c62fd">
+      <active>true</active>
+      <description>BAT 1 DECIMALS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Overhead/ElecBat1_Digit4/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
+      <active>true</active>
+      <description>BAT 2 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(T)*100 + (U)*10 + (D)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Overhead/ SN-640-5FD" trigger="normal" customType="" customName="BAT 2" messageType="3" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="572ecb46-c48b-46cd-8220-c4480edbc896" placeholder="D" testvalue="1" />
+          <configref active="True" ref="3170820a-f8ff-4857-9a4a-a7c4386d1190" placeholder="U" testvalue="1" />
+          <configref active="True" ref="011e50dd-fe69-4dae-b1ac-4a9be15029d3" placeholder="T" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="011e50dd-fe69-4dae-b1ac-4a9be15029d3">
+      <active>true</active>
+      <description>BAT 2 TENS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Overhead/ElecBat2_Digit1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3170820a-f8ff-4857-9a4a-a7c4386d1190">
+      <active>true</active>
+      <description>BAT 2 UNITS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Overhead/ElecBat2_Digit2/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="572ecb46-c48b-46cd-8220-c4480edbc896">
+      <active>true</active>
+      <description>BAT 2 DECIMALS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Overhead/ElecBat2_Digit4/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="924e9a59-256b-4fd0-bbd2-b4a57d0de80b">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
+      <active>true</active>
+      <description>Radio ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'A'+'B'+'C'+'D'+'E'+'F'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Overhead/ SN-640-5FD" trigger="normal" customType="" customName="ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="40b9cb0b-9fd8-472e-9e72-967efb602bdb" placeholder="F" testvalue="1" />
+          <configref active="True" ref="ecd0d6cc-2cc0-4bca-8988-361b32846827" placeholder="E" testvalue="1" />
+          <configref active="True" ref="92a6434c-4527-4437-aa49-7e4a444e2957" placeholder="D" testvalue="1" />
+          <configref active="True" ref="7acedcbf-1f8d-438c-bf00-85e722dfe0c2" placeholder="C" testvalue="1" />
+          <configref active="True" ref="5a2c7678-3663-497c-bde0-8ab62639ee2f" placeholder="B" testvalue="1" />
+          <configref active="True" ref="5ee1c9e1-5df9-4a98-a5c5-9d2fe97705ae" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
+      <active>true</active>
+      <description>Radio STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'A'+'B'+'C'+'D'+'E'+'F'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Overhead/ SN-640-5FD" trigger="normal" customType="" customName="STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0890ad45-1fb2-4c8a-8490-27b9cabcff8e" placeholder="F" testvalue="1" />
+          <configref active="True" ref="5b64c779-cb03-4045-a54f-d35d9d9bc2d0" placeholder="E" testvalue="1" />
+          <configref active="True" ref="c3bead1c-f281-4fa2-bede-349fce2d7bf7" placeholder="D" testvalue="1" />
+          <configref active="True" ref="4a3f1316-e5db-431b-a573-b0bf8d8aac12" placeholder="C" testvalue="1" />
+          <configref active="True" ref="1be03ab3-b36f-46f7-9739-3dc68faa2fd8" placeholder="B" testvalue="1" />
+          <configref active="True" ref="2cb02c2a-1687-48dc-99c4-f92ce167759e" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
+      <active>true</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="12205975-3b9b-482a-925a-0ca56dc58b5d">
+      <active>false</active>
+      <description>- </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="32e151a4-4e34-4e2a-92ac-5cfda3e423b7">
+      <active>false</active>
+      <description>PEDESTAL CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
+      <active>true</active>
+      <description>RMP L ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'A'+'B'+'C'+'D'+'E'+'F'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP L ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="9a336718-dc70-40da-9811-0f34936aeca9" placeholder="F" testvalue="1" />
+          <configref active="True" ref="5faf01b2-4058-4eff-99f5-e9aac1369d3f" placeholder="E" testvalue="1" />
+          <configref active="True" ref="d9d43e3b-006e-4cf3-b72f-8cd249eb7c30" placeholder="D" testvalue="1" />
+          <configref active="True" ref="68470a1d-733a-4e2b-95d3-6549e0db48e4" placeholder="C" testvalue="1" />
+          <configref active="True" ref="392586bf-1888-44cb-a508-96bb83191d6a" placeholder="B" testvalue="1" />
+          <configref active="True" ref="09d86138-e2e1-498b-86b6-c36b4f6c5c1a" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
+      <active>true</active>
+      <description>RMP L STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'A'+'B'+'C'+'D'+'E'+'F'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP L STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="ef4d5d5e-5678-4f8f-80d7-e5df7716b574" placeholder="F" testvalue="1" />
+          <configref active="True" ref="ad45235d-c9ef-49b3-a2a6-fc13ddada9dd" placeholder="E" testvalue="1" />
+          <configref active="True" ref="c992994d-e3dd-4b5c-a5fa-2dc00c6f7f7d" placeholder="D" testvalue="1" />
+          <configref active="True" ref="7a10163f-27fd-4969-895f-1eef437c05e9" placeholder="C" testvalue="1" />
+          <configref active="True" ref="55d0dab9-f8ce-479d-9ad6-df514d1404ea" placeholder="B" testvalue="1" />
+          <configref active="True" ref="29539699-a0a4-4c98-970b-76c25a326f6d" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e54024c0-d139-4ed4-961f-e7bdad23dde2">
+      <active>true</active>
+      <description>RMP R Radio ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'A'+'B'+'C'+'D'+'E'+'F'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP R ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="a71fbb3c-0d95-4868-91aa-ef3be2613824" placeholder="F" testvalue="1" />
+          <configref active="True" ref="20be746b-9b67-446f-a12d-5e11f28db856" placeholder="E" testvalue="1" />
+          <configref active="True" ref="3e15c9d9-24bb-4220-ba1b-477b7dba80ab" placeholder="D" testvalue="1" />
+          <configref active="True" ref="725627dd-3b7f-439b-aa83-71e9897b948d" placeholder="C" testvalue="1" />
+          <configref active="True" ref="3cad5283-1698-4a25-8c40-019c05a98939" placeholder="B" testvalue="1" />
+          <configref active="True" ref="eb501ed1-ceeb-4df9-b32f-7f03354b2818" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="525c608f-02c4-4611-a084-e405d705754a">
+      <active>true</active>
+      <description>RMP R Radio STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'A'+'B'+'C'+'D'+'E'+'F'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP R STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="8c028f91-cfca-43d5-9bde-82d0f75c9d2f" placeholder="F" testvalue="1" />
+          <configref active="True" ref="489062e7-28a3-496d-9261-056f0c54a107" placeholder="E" testvalue="1" />
+          <configref active="True" ref="c8f666e1-a15a-4f04-8d27-efd444e0d75f" placeholder="D" testvalue="1" />
+          <configref active="True" ref="ca394099-7fed-47bc-801e-2d6288f64cde" placeholder="C" testvalue="1" />
+          <configref active="True" ref="3ee7b86f-0c1a-4611-9a27-84060362dd79" placeholder="B" testvalue="1" />
+          <configref active="True" ref="185429e9-1255-4f2c-8586-c53815cc5df0" placeholder="A" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="1f4f491c-b041-42b8-ad47-44dc05b388ae">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0829ae05-6b9c-495b-9729-90f75e1b51d7">
+      <active>true</active>
+      <description>TCAS Display Output</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/tcas/targets/modeC_code[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="TCAS" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="13bebeed-279e-4911-90ec-4298f4ef93e9">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2fdb098a-88a0-4733-a420-419ca5460a7c">
+      <active>true</active>
+      <description>Rudder Trim L</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=0,1,0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RUDDER TRIM" messageType="0" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="92825f72-3770-4121-b51e-a4e0d1684be1" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="86f644cf-debf-4e95-b235-b884e79ec358">
+      <active>true</active>
+      <description>Rudder Trim R</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=1,1,0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RUDDER TRIM" messageType="1" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="92825f72-3770-4121-b51e-a4e0d1684be1" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="90520bc7-1478-4f63-a047-63ec70c137c0">
+      <active>true</active>
+      <description>Rudder Trim Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'T'+'U'+'D'" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RUDDER TRIM" messageType="3" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="716d0f9b-161e-4511-91a2-577143236950" placeholder="D" testvalue="1" />
+          <configref active="True" ref="0aa0a52d-116f-42da-a7a4-5e261f3e2d4c" placeholder="U" testvalue="1" />
+          <configref active="True" ref="e775d08d-3bf0-432f-a94b-52d315142012" placeholder="T" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="b356b70d-5527-48ac-ae77-a6315c1a5a81">
+      <active>false</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>-</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+    <config guid="dafef1df-7dfc-44e7-8c3b-a0231b3d981b">
+      <active>false</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>-</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+    <config guid="d26d4a3a-1947-4d6c-b8aa-4af73e6485cc">
+      <active>true</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>RADIO FREQUENCY VARIABLES - - DO NOT ADJUST ANYTHING BELOW THIS LINE!</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+    <config guid="5ee1c9e1-5df9-4a98-a5c5-9d2fe97705ae">
+      <active>true</active>
+      <description>RMP3-C1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5a2c7678-3663-497c-bde0-8ab62639ee2f">
+      <active>true</active>
+      <description>RMP3-C3</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7acedcbf-1f8d-438c-bf00-85e722dfe0c2">
+      <active>true</active>
+      <description>RMP3-C5</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="92a6434c-4527-4437-aa49-7e4a444e2957">
+      <active>true</active>
+      <description>RMP3-C7</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC7/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ecd0d6cc-2cc0-4bca-8988-361b32846827">
+      <active>true</active>
+      <description>RMP3-C9</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC9/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="40b9cb0b-9fd8-472e-9e72-967efb602bdb">
+      <active>true</active>
+      <description>RMP3-C11</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitC11/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2cb02c2a-1687-48dc-99c4-f92ce167759e">
+      <active>true</active>
+      <description>RMP3-S1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitS1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1be03ab3-b36f-46f7-9739-3dc68faa2fd8">
+      <active>true</active>
+      <description>RMP3-S3</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitS3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4a3f1316-e5db-431b-a573-b0bf8d8aac12">
+      <active>true</active>
+      <description>RMP3-S5</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitS5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c3bead1c-f281-4fa2-bede-349fce2d7bf7">
+      <active>true</active>
+      <description>RMP3-S7</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitS7/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5b64c779-cb03-4045-a54f-d35d9d9bc2d0">
+      <active>true</active>
+      <description>RMP3-S9</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitS9/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0890ad45-1fb2-4c8a-8490-27b9cabcff8e">
+      <active>true</active>
+      <description>RMP3-S11</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP3/DigitS11/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dfd25a8c-fc7c-4724-8095-4f1babaa2500">
+      <active>false</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>-</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+    <config guid="09d86138-e2e1-498b-86b6-c36b4f6c5c1a">
+      <active>true</active>
+      <description>RMP1-C1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitC1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="392586bf-1888-44cb-a508-96bb83191d6a">
+      <active>true</active>
+      <description>RMP1-C3</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitC3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="68470a1d-733a-4e2b-95d3-6549e0db48e4">
+      <active>true</active>
+      <description>RMP1-C5</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitC5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d9d43e3b-006e-4cf3-b72f-8cd249eb7c30">
+      <active>true</active>
+      <description>RMP1-C7</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitC7/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5faf01b2-4058-4eff-99f5-e9aac1369d3f">
+      <active>true</active>
+      <description>RMP1-C9</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitC9/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9a336718-dc70-40da-9811-0f34936aeca9">
+      <active>true</active>
+      <description>RMP1-C11</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitC11/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="29539699-a0a4-4c98-970b-76c25a326f6d">
+      <active>true</active>
+      <description>RMP1-S1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitS1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="55d0dab9-f8ce-479d-9ad6-df514d1404ea">
+      <active>true</active>
+      <description>RMP1-S3</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitS3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7a10163f-27fd-4969-895f-1eef437c05e9">
+      <active>true</active>
+      <description>RMP1-S5</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitS5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c992994d-e3dd-4b5c-a5fa-2dc00c6f7f7d">
+      <active>true</active>
+      <description>RMP1-S7</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitS7/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ad45235d-c9ef-49b3-a2a6-fc13ddada9dd">
+      <active>true</active>
+      <description>RMP1-S9</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitS9/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ef4d5d5e-5678-4f8f-80d7-e5df7716b574">
+      <active>true</active>
+      <description>RMP1-S11</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP1/DigitS11/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="75482273-5da0-4316-ba19-ab15413864d4">
+      <active>false</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>-</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+    <config guid="eb501ed1-ceeb-4df9-b32f-7f03354b2818">
+      <active>true</active>
+      <description>RMP2-C1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitC1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3cad5283-1698-4a25-8c40-019c05a98939">
+      <active>true</active>
+      <description>RMP2-C3</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitC3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="725627dd-3b7f-439b-aa83-71e9897b948d">
+      <active>true</active>
+      <description>RMP2-C5</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitC5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3e15c9d9-24bb-4220-ba1b-477b7dba80ab">
+      <active>true</active>
+      <description>RMP2-C7</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitC7/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="20be746b-9b67-446f-a12d-5e11f28db856">
+      <active>true</active>
+      <description>RMP2-C9</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitC9/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a71fbb3c-0d95-4868-91aa-ef3be2613824">
+      <active>true</active>
+      <description>RMP2-C11</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitC11/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="185429e9-1255-4f2c-8586-c53815cc5df0">
+      <active>true</active>
+      <description>RMP2-S1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitS1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3ee7b86f-0c1a-4611-9a27-84060362dd79">
+      <active>true</active>
+      <description>RMP2-S3</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitS3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ca394099-7fed-47bc-801e-2d6288f64cde">
+      <active>true</active>
+      <description>RMP2-S5</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitS5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c8f666e1-a15a-4f04-8d27-efd444e0d75f">
+      <active>true</active>
+      <description>RMP2-S7</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitS7/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="489062e7-28a3-496d-9261-056f0c54a107">
+      <active>true</active>
+      <description>RMP2-S9</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitS9/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8c028f91-cfca-43d5-9bde-82d0f75c9d2f">
+      <active>true</active>
+      <description>RMP2-S11</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/RMP2/DigitS11/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a64864b1-84e7-48d1-9b96-72bb9e1ca1f2">
+      <active>false</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>-</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+    <config guid="92825f72-3770-4121-b51e-a4e0d1684be1">
+      <active>true</active>
+      <description>TRIM-D1 (L/R)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Pedestal/TrimmDigit1/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-11" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e775d08d-3bf0-432f-a94b-52d315142012">
+      <active>true</active>
+      <description>TRIM-D2 (TENS)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Pedestal/TrimmDigit2/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if($=0, 0, $-1)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0aa0a52d-116f-42da-a7a4-5e261f3e2d4c">
+      <active>true</active>
+      <description>TRIM-D3 (UNITS)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Pedestal/TrimmDigit3/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="716d0f9b-161e-4511-91a2-577143236950">
+      <active>true</active>
+      <description>TRIM-D5 (DECIMAL)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="MOKNY/FFA320/Aircraft/Cockpit/Pedestal/TrimmDigit5/State" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

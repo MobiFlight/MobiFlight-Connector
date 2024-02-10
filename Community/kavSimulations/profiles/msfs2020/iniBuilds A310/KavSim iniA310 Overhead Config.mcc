@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
+      <active>false</active>
+      <description>OVERHEAD CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="24ad43e7-bbc5-4ea2-8293-9ecf4a289cfa">
+      <active>true</active>
+      <description>BAT 1 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:ELECTRICAL BATTERY VOLTAGE, Volts)" UUID="8af569a4-67f0-4782-9672-4cff80dd8e81" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(Round($, 1))*10" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Overhead/ SN-94G-809" trigger="normal" customType="" customName="BAT 1" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
+      <active>true</active>
+      <description>BAT 2 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:ELECTRICAL BATTERY VOLTAGE, Volts)" UUID="8af569a4-67f0-4782-9672-4cff80dd8e81" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(Round($, 1))*10" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Overhead/ SN-94G-809" trigger="normal" customType="" customName="BAT 2" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="924e9a59-256b-4fd0-bbd2-b4a57d0de80b">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e7f555c-b2f4-4824-b9f6-6711a3a093ab">
+      <active>false</active>
+      <description>There is no working radio in the ini A310 Overhead. So, this references RMP Left </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
+      <active>true</active>
+      <description>Radio ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,KHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Overhead/ SN-94G-809" trigger="normal" customType="" customName="ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
+      <active>true</active>
+      <description>Radio STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,KHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Overhead/ SN-94G-809" trigger="normal" customType="" customName="STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7db8da5f-020b-4185-91cd-604111ba6edd">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>
