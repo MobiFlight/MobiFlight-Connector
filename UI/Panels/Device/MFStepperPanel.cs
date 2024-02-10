@@ -118,10 +118,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             if (mode == StepperMode.DRIVER)
             {
-                // with this mode Pin1 and Pin3 are the same
-                // with this mode Pin2 and Pin4 are the same
-                ComboBoxHelper.reassignPin(mfPin1ComboBox.SelectedItem.ToString(), pinList, ref stepper.Pin3);
-                ComboBoxHelper.reassignPin(mfPin2ComboBox.SelectedItem.ToString(), pinList, ref stepper.Pin4);
+                ComboBoxHelper.freePin(pinList, stepper.Pin3);
+                ComboBoxHelper.freePin(pinList, stepper.Pin4);
+                stepper.Pin3 = stepper.Pin1;
+                stepper.Pin4 = stepper.Pin2;
             } else if (stepper.Pin3 == stepper.Pin1 && stepper.Pin4 == stepper.Pin2) {
                 // we are switching back from an Easy Driver config
                 // so we have to assign two available pins
