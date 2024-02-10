@@ -97,12 +97,12 @@ namespace MobiFlight.Joysticks.Octavi
 
         private void AddAutopilotButtonMappings((OctaviReport.OctaviState state, bool isShifted, string name) context)
         {
-            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton("Button_AP_CDI"));     // TODO: rename to Button_AP_AP ?
-            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton("Button_AP_OBS")); // TODO: rename to Button_AP_HDG ?
-            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_NAV), ToButton("Button_AP_MSG")); // TODO: rename to Button_AP_NAV ?
-            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_APR), ToButton("Button_AP_FPL")); // TODO: rename to Button_AP_APR ?
-            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_ALT), ToButton("Button_AP_VNAV"));// TODO: rename to Button_AP_ALT ?
-            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_VS), ToButton("Button_AP_PROC")); // TODO: rename to Button_AP_VS ?
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton("Button_AP_AP"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton("Button_AP_HDG"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_NAV), ToButton("Button_AP_NAV"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_APR), ToButton("Button_AP_APR"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_ALT), ToButton("Button_AP_ALT"));
+            buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_VS), ToButton("Button_AP_VS"));
         }
 
         private int ToButton(string buttonName)
@@ -142,8 +142,7 @@ namespace MobiFlight.Joysticks.Octavi
                 }
             }
 
-            // Encoders
-            // TODO: Should we add RELEASE events for the encoders too?
+            // Encoders (Note: No RELEASE events required for encoders)
             for (int i = 0; i < report.outerEncoderDelta; i++)
             {
                 buttonEvents.Add((encoderMappings[(report.contextState, isInShiftMode, OctaviEncoder.OUTER_INC)], MobiFlightButton.InputEvent.PRESS));
