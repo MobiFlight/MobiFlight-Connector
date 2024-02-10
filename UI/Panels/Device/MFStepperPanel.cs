@@ -111,15 +111,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             var mode = (StepperMode) ModeComboBox.SelectedValue;
 
-            // We hide the combo boxes for Pin3 and Pin4
-            // because only Pin1 and Pin2 are needed for the driver
-            mfPin3Label.Visible = mfPin3ComboBox.Visible = mode != StepperMode.DRIVER;
-            mfPin4Label.Visible = mfPin4ComboBox.Visible = mode != StepperMode.DRIVER;
-
             if (mode == StepperMode.DRIVER)
             {
-                ComboBoxHelper.freePin(pinList, stepper.Pin3);
-                ComboBoxHelper.freePin(pinList, stepper.Pin4);
+                if (stepper.Pin1!=stepper.Pin3) { 
+                    ComboBoxHelper.freePin(pinList, stepper.Pin3);
+                }
+
+                if (stepper.Pin2!=stepper.Pin4) { 
+                    ComboBoxHelper.freePin(pinList, stepper.Pin4);
+                }
                 stepper.Pin3 = stepper.Pin1;
                 stepper.Pin4 = stepper.Pin2;
             } else if (stepper.Pin3 == stepper.Pin1 && stepper.Pin4 == stepper.Pin2) {
@@ -128,7 +128,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 stepper.Pin3 = pinList.FindAll(p => !p.Used)[0].Pin.ToString();
                 stepper.Pin4 = pinList.FindAll(p => !p.Used)[1].Pin.ToString();
             }
-            
+
+            // We hide the combo boxes for Pin3 and Pin4
+            // because only Pin1 and Pin2 are needed for the driver
+            mfPin3Label.Visible = mfPin3ComboBox.Visible = mode != StepperMode.DRIVER;
+            mfPin4Label.Visible = mfPin4ComboBox.Visible = mode != StepperMode.DRIVER;
+
             UpdateFreePinsInDropDowns();
         }
 
@@ -168,18 +173,13 @@ namespace MobiFlight.UI.Panels.Settings.Device
             ModeComboBox.DisplayMember = "Label";
         }
 
-        public MFStepperPanel(MobiFlight.Config.Stepper stepper, List<MobiFlightPin> Pins): this()
+        public MFStepperPanel(Stepper stepper, List<MobiFlightPin> Pins): this()
         {
             pinList = Pins; // Keep pin list stored
 
             this.stepper = stepper;
-            UpdateFreePinsInDropDowns();
-
             mfNameTextBox.Text = stepper.Name;
             autoZeroCheckBox.Checked = stepper.BtnPin == Stepper.AUTOHOME_NONE;
-
-            if (stepper.BtnPin != Stepper.AUTOHOME_NONE)
-                ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
 
             // Load the profile first
             StepperProfilePreset savedPreset = Profiles.Find(x => x.Value.id == stepper.Profile).Value;
@@ -196,6 +196,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             DefaultAccelerationTextBox.Text = Profiles.Find(x => (x.Value.id == stepper.Profile))
                                                           .Value.Acceleration.ToString();
+
+            UpdateFreePinsInDropDowns();
+            if (stepper.BtnPin != Stepper.AUTOHOME_NONE)
+                ComboBoxHelper.SetSelectedItem(mfBtnPinComboBox, stepper.BtnPin);
 
             initialized = true;
         }
@@ -219,8 +223,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
             initialized = false;    // inhibit value_Changed events
             ComboBoxHelper.BindMobiFlightFreePins(mfPin1ComboBox, pinList, stepper.Pin1);
             ComboBoxHelper.BindMobiFlightFreePins(mfPin2ComboBox, pinList, stepper.Pin2);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, stepper.Pin3);
-            ComboBoxHelper.BindMobiFlightFreePins(mfPin4ComboBox, pinList, stepper.Pin4);
+
+            if((StepperMode)ModeComboBox.SelectedValue != StepperMode.DRIVER)
+            {
+                ComboBoxHelper.BindMobiFlightFreePins(mfPin3ComboBox, pinList, stepper.Pin3);
+                ComboBoxHelper.BindMobiFlightFreePins(mfPin4ComboBox, pinList, stepper.Pin4);
+            }
 
             ComboBoxHelper.BindMobiFlightFreePins(mfBtnPinComboBox, pinList, stepper.BtnPin);
 
@@ -230,9 +238,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (mfBtnPinComboBox.SelectedValue == null && mfBtnPinComboBox.Items.Count>0)
                 mfBtnPinComboBox.SelectedIndex = 0;
 
-            mfBtnPinComboBox.Enabled = true;
+            mfBtnPinComboBox.Enabled = !autoZeroCheckBox.Checked;
             autoZeroCheckBox.Enabled = true;
 
+
+            // special case when we don't have any free pins left for the auto zero button
+            // in that case we totally disable the dropdown and show a tooltip
             if (mfBtnPinComboBox.Items.Count == 0)
             {
                 mfBtnPinComboBox.Enabled = false;
@@ -258,9 +269,16 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 if (comboBox == mfPin3ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.Pin3); } else
                 if (comboBox == mfPin4ComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.Pin4); }
+            } else
+            {
+                stepper.Pin3 = stepper.Pin1;
+                stepper.Pin4 = stepper.Pin2;
             }
             
-            if (comboBox == mfBtnPinComboBox) { ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.BtnPin); }
+            if (comboBox == mfBtnPinComboBox) { 
+                ComboBoxHelper.reassignPin(newPin, pinList, ref stepper.BtnPin); 
+            }
+
             // then the others are updated too 
             UpdateFreePinsInDropDowns();
 
