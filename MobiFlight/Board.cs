@@ -12,6 +12,13 @@ namespace MobiFlight
         Community
     }
 
+    public class DeviceConfigFile
+    {
+        public string Name;
+        public string Description;
+        public string File;
+    }
+
     /// <summary>
     /// Additional community information
     /// </summary>
@@ -196,6 +203,11 @@ namespace MobiFlight
         public Community Community;
 
         /// <summary>
+        /// 
+        /// </summary>
+        public DeviceConfigFile[] DeviceConfigs;
+
+        /// <summary>
         /// The image resource
         /// </summary>
         public Image BoardIcon;
@@ -362,7 +374,6 @@ namespace MobiFlight
             }
         }
 
-
         /// <summary>
         /// Migrates board definitions from older versions to newer versions.
         /// </summary>
@@ -416,6 +427,16 @@ namespace MobiFlight
         public string GetDefaultDeviceConfigFilePath()
         {
             return $@"{BasePath}\config\{Info.FirmwareBaseName}.mfmc";
+        }
+
+        /// <summary>
+        /// Get the full path for the specific device config file
+        /// This is needed when there are multiple device config files for a single board
+        /// </summary>
+        /// <returns>The full path to the device config</returns>
+        public string GetDeviceConfigFilePath(string deviceConfigFile)
+        {
+            return $@"{BasePath}\config\{deviceConfigFile}";
         }
     }
 }

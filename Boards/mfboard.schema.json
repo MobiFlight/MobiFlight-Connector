@@ -264,6 +264,39 @@
               "type": "string"
             }
           }
+        },
+        "DeviceConfigs": {
+          "$id": "#root/Info/DeviceConfigs",
+          "title": "DeviceConfigs",
+          "description": "A list of default device configs for this board.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "$id": "#root/Info/DeviceConfigs/items",
+            "title": "Items",
+            "description": "A default device config for the board.",
+            "type": "object",
+            "properties": {
+              "Name": {
+                "$id": "#root/Info/DeviceConfigs/items/Name",
+                "title": "Name",
+                "description": "The name of the device config.",
+                "type": "string"
+              },
+              "Description": {
+                "$id": "#root/Info/DeviceConfigs/items/Description",
+                "title": "Description",
+                "description": "The description of the device config.",
+                "type": "string"
+              },
+              "File": {
+                "$id": "#root/Info/DeviceConfigs/items/File",
+                "title": "Filename",
+                "description": "The file name of the device config, without the path.",
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },
