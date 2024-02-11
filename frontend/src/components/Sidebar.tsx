@@ -1,6 +1,6 @@
 import { NavLink, useParams } from 'react-router-dom';
 import { DarkModeToggle } from './mobiflight/darkmode-toggle'
-import { IconDeviceGamepad2, IconList, IconSettings } from '@tabler/icons-react';
+import { IconDeviceGamepad2, IconList, IconListSearch, IconSettings } from '@tabler/icons-react';
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 
@@ -11,7 +11,6 @@ type SidebarProps = {
 const Sidebar = (props: SidebarProps) => {
   const params = useParams()
   const activeClassNameProps = "dark:bg-gray-700"
-
 
   return (
     <div className={`${props.className} bg-primary dark:bg-slate-800 w-16 flex flex-col justify-between items-center pb-8 z-50`}>
@@ -29,6 +28,11 @@ const Sidebar = (props: SidebarProps) => {
 
       </div>
       <div className='flex flex-col items-center gap-8'>
+        <NavLink to="/log">
+          <Button variant="outline" className={cn(activeClassNameProps, `hover:border hover:border-gray-500 w-12 h-12`)} size="icon">
+            <IconListSearch></IconListSearch>
+          </Button>
+        </NavLink>
         <NavLink to="/settings">
           <Button variant="outline" className={cn(activeClassNameProps, `hover:border hover:border-gray-500 w-12 h-12`)} size="icon">
             <IconSettings></IconSettings>

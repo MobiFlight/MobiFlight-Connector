@@ -77,6 +77,8 @@ namespace MobiFlight.UI
 
             Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
+            Log.Instance.AddAppender(new LogAppenderWebView());
+
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logPanel1.Visible = Log.Instance.Enabled;

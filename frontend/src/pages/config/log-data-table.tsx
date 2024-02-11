@@ -20,9 +20,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { DataTableToolbar } from "@/components/ui/data-table-toolbar"
-import { IConfigItem, ILogMessage } from "@/types"
+import { ILogMessage } from "@/types"
 import { LogDataTableToolbar } from "@/components/ui/log-data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
@@ -30,7 +28,7 @@ interface DataTableProps<TData, TValue> {
     data: TData[]
 }
 
-export function DataTable<TData, TValue>({
+export function LogDataTable<TData, TValue>({
     columns,
     data,
 }: DataTableProps<TData, TValue>) {
@@ -53,18 +51,18 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="flex flex-col gap-4">
-            <div className="">
-                <DataTableToolbar table={table} items={ data as IConfigItem[] } />
+        <div className="flex flex-col gap-4 grow border-2 border-red-500">
+            <div className="flex-none">
+                <LogDataTableToolbar table={table} items={ data as ILogMessage[] } />
             </div>
-            <div className="rounded-md border">
-                <Table>
-                    <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white">
+            <div className="border border-white min-h-0 max-h-full p-5 overflow-hidden">
+                <Table className="h-[600] overflow-hidden">
+                    <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white group/header">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="hover:bg-slate-800">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="text-white">
+                                        <TableHead key={header.id} className="text-white text-center px-2">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -77,7 +75,7 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody className="h-96 overflow-scroll">
+                    <TableBody>
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow

@@ -12,12 +12,14 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: "2rem"
     },
     extend: {
+      screens: {
+        "2xl": "1400px",
+        "fhd": "1920px",
+        "uhd": "3840px",
+      },
       backgroundImage: {
         'hero-pattern': "url('assets/background-nologo.jpg')",
       },

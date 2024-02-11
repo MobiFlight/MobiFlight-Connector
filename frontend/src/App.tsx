@@ -13,6 +13,7 @@ import { useConfigStore } from './stores/configFileStore';
 import { exec } from 'child_process';
 import { useGlobalSettingsStore } from './stores/globalSettingsStore';
 import { useLogMessageStore } from './stores/logStore';
+import { log } from 'console';
 
 interface ConfigLoadedEvent {
   payload : {
@@ -78,7 +79,8 @@ function App() {
     }
 
     if(eventData.key === "LogMessage") {
-      addMessage(eventData.payload)
+      const logMessage = eventData.payload as Types.ILogMessage
+      addMessage(logMessage)
     }
   }
 
@@ -123,12 +125,10 @@ function App() {
         :
         <div className='flex flex-row min-h-screen h-72 bg-gradient-to-r from-primary-600 via-blue-600 to-white-600 "'>
           <Sidebar />
-          <div className='w-full'>
+          <div className='flex flex-col w-full h-full border-red-500  border-2'>
             <Navbar />
-            <div className='p-12 overflow-hidden'>
-              <div className='h-full p-4 overflow-auto'>
-                <Outlet />
-              </div>
+            <div className='grow p-12 border-blue-500 border-4 flex flex-col'>
+              <Outlet />
             </div>
           </div>
         </div>

@@ -6,7 +6,6 @@ const HubHopIcon = (
     props: HubHopIconProps
 ) => {
     const className = "stroke-current fill-none " + (props.className ? props.className : '')
-    console.log("props", props.className, className)
     return (
         <svg className={className}
             width="37.794998"

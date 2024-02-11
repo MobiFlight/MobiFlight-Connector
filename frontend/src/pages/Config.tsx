@@ -1,18 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { Project, Projects } from './../fixtures/projects'
-import ProjectCard from '@/components/mobiflight/ProjectCard';
 import { useConfigStore } from '@/stores/configFileStore';
 import { Link, useParams } from 'react-router-dom';
 import { IconPencil } from '@tabler/icons-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import ConfigListFilter from '@/components/mobiflight/ConfigListFilter';
 import { DataTable } from './config/data-table';
-import { columns } from './config/columns';
+import { columns } from './config/config-columns';
+import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 
 
 const ConfigPage = () => {
     const { t } = useTranslation();
-    const projects = Projects
     const params = useParams()
     const { items: configItems } = useConfigStore()
     const project = Projects.find((p: Project) => p.id === params.id)
@@ -35,6 +33,7 @@ const ConfigPage = () => {
                     <TabsTrigger value="config-3">Radio</TabsTrigger>
                 </TabsList>
                 <TabsContent value="config-1" className='mt-0'>
+                    {/* <DataTableToolbar table={table} items={configItems} /> */}
                     <DataTable columns={columns} data={configItems} />
                 </TabsContent>
             </Tabs>
