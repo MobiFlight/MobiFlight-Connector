@@ -463,6 +463,9 @@ namespace MobiFlight.SimConnectMSFS
             if (!IsConnected()) 
                 return simVarType;
 
+            if (simVarName == null)
+                return simVarType;  
+
             isFloat = SimVars.Exists(lvar => lvar.Name == simVarName);
             if(!isFloat)
             {
