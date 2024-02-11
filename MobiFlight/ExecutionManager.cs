@@ -1085,11 +1085,9 @@ namespace MobiFlight
             _autoConnectTimerRunning = true;
 
 #if ARCAZE
-            if (!arcazeCache.Available())
+            if (arcazeCache.Enabled && !arcazeCache.Available())
             {
-                Log.Instance.log("AutoConnect modules.", LogSeverity.Debug);
-                if (Properties.Settings.Default.ArcazeSupportEnabled)
-                    arcazeCache.connect(); //  _initializeArcaze();
+                arcazeCache.connect();    
             }
 #endif
 

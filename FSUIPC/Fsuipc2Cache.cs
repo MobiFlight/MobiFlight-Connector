@@ -92,7 +92,7 @@ namespace MobiFlight.FSUIPC
                 }
                 else if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_NOFS)
                 {
-                    Log.Instance.log("No FSUIPC found.", LogSeverity.Debug);
+                    // Log.Instance.log("No FSUIPC found.", LogSeverity.Debug);
                 }
                 else
                 {
