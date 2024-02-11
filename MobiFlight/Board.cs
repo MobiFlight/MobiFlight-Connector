@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 
 namespace MobiFlight
 {
@@ -424,19 +426,39 @@ namespace MobiFlight
         /// Get the name for the Default Config
         /// </summary>
         /// <returns>The </returns>
-        public string GetDefaultDeviceConfigFilePath()
+        protected string GetDefaultDeviceConfigFilePath()
         {
-            return $@"{BasePath}\config\{Info.FirmwareBaseName}.mfmc";
+            return Path.Combine(BasePath, "config", $"{Info.FirmwareBaseName}.mfmc") ;
         }
 
-        /// <summary>
-        /// Get the full path for the specific device config file
-        /// This is needed when there are multiple device config files for a single board
-        /// </summary>
-        /// <returns>The full path to the device config</returns>
-        public string GetDeviceConfigFilePath(string deviceConfigFile)
+        public IEnumerable<DeviceConfigFile> GetExistingDeviceConfigFiles()
         {
-            return $@"{BasePath}\config\{deviceConfigFile}";
+            // this is the fallback that we used before we had the DeviceConfigs property
+            if (Info.DeviceConfigs == null)
+            {
+                var DefaultDeviceConfigFile = GetDefaultDeviceConfigFilePath();
+                if (!File.Exists(DefaultDeviceConfigFile))
+                    return new List<DeviceConfigFile>();
+                
+                return new List<DeviceConfigFile>
+                {
+                    new DeviceConfigFile
+                    {
+                        Name = "Default",
+                        Description = "Default device configuration.",
+                        File = DefaultDeviceConfigFile
+                    }
+                };
+            }
+                
+            return Info.DeviceConfigs
+                    .Select(file => new DeviceConfigFile
+                    {
+                        Name = file.Name,
+                        Description = file.Description,
+                        File = Path.Combine(BasePath, "config", file.File)
+                    })
+                    .Where(file => File.Exists(file.File));
         }
     }
 }

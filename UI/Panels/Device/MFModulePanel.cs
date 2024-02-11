@@ -94,52 +94,36 @@ namespace MobiFlight.UI.Panels.Settings.Device
             else
                 buttonSupport.Enabled = false;
 
-
-
-            var defaultDeviceConfigFile = board.GetDefaultDeviceConfigFilePath();
-            var defaultDeviceConfigFileExists = defaultDeviceConfigFile != null && File.Exists(defaultDeviceConfigFile);
-            var specificDeviceConfigs = board.Info.DeviceConfigs?.Where(p => File.Exists(board.GetDeviceConfigFilePath(p.File)));
+            var specificDeviceConfigs = board.GetExistingDeviceConfigFiles();
             var atLeastOneSpecificConfigExists = specificDeviceConfigs.Count() > 0;
 
-            if (defaultDeviceConfigFileExists || specificDeviceConfigs.Count() > 0)
+            if (atLeastOneSpecificConfigExists)
             {
-                
                 buttonUploadDefaultConfig.Click += (s, e) =>
                 {
-                    if (!atLeastOneSpecificConfigExists)
-                    {
-                        UploadDefaultConfigRequested?.Invoke(this, defaultDeviceConfigFile);
-                    }
-
-                    else if (specificDeviceConfigs.Count() == 1)
+                    // if there is only one option, we just upload it
+                    if (specificDeviceConfigs.Count() == 1)
                     {
                         var profile = specificDeviceConfigs.First();
-                        var filePath = board.GetDeviceConfigFilePath(profile.File);
-                        UploadDefaultConfigRequested?.Invoke(this, filePath);
+                        UploadDefaultConfigRequested?.Invoke(this, profile.File);
                     }   
-
                     // since we have more options, we present a context menu
                     else
                     {
                         var menu = new ContextMenuStrip();
-                        foreach (var profile in board.Info.DeviceConfigs)
+                        foreach (var profile in specificDeviceConfigs)
                         {
-                            var filePath = board.GetDeviceConfigFilePath(profile.File);
-                            if(!File.Exists(filePath)) { 
-                                Log.Instance.log($"Device config file {filePath} does not exist", LogSeverity.Error);
-                                continue;
-                            }
                             var item = menu.Items.Add(profile.Name);
                             item.ToolTipText = profile.Description;
-                            item.Click += (sender, clickEvent) => UploadDefaultConfigRequested?.Invoke(this, filePath);
+                            item.Click += (sender, clickEvent) => UploadDefaultConfigRequested?.Invoke(this, profile.File);
                         }
                         menu.Show(buttonUploadDefaultConfig, new System.Drawing.Point(0, buttonUploadDefaultConfig.Height));
                     }
                 };
-                panel1.Visible = true;
+                UploadDeviceConfigPanel.Visible = true;
             } else
             {
-                panel1.Visible = false;
+                UploadDeviceConfigPanel.Visible = false;
             }
         }
 
