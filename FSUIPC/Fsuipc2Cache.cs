@@ -92,7 +92,9 @@ namespace MobiFlight.FSUIPC
                 }
                 else if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_NOFS)
                 {
-                    Log.Instance.log("No FSUIPC found.", LogSeverity.Debug);
+                    // We can enable this again once we have throttling for the log in place
+                    // But it doesn't make sense to log this every 10s
+                    // Log.Instance.log("No FSUIPC found.", LogSeverity.Debug);
                 }
                 else
                 {
