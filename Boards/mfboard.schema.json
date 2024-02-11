@@ -276,6 +276,11 @@
             "title": "Items",
             "description": "A default device config for the board.",
             "type": "object",
+            "required": [
+              "Name",
+              "Description",
+              "File"
+            ],
             "properties": {
               "Name": {
                 "$id": "#root/Info/DeviceConfigs/items/Name",
@@ -291,7 +296,7 @@
               },
               "File": {
                 "$id": "#root/Info/DeviceConfigs/items/File",
-                "title": "Filename",
+                "title": "File",
                 "description": "The file name of the device config, without the path.",
                 "type": "string"
               }
