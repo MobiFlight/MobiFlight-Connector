@@ -64,8 +64,11 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.inputsTabControl = new System.Windows.Forms.TabControl();
             this.OutputTabPage = new System.Windows.Forms.TabPage();
+            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
             this.InputTabPage = new System.Windows.Forms.TabPage();
+            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.NewUITabPage = new System.Windows.Forms.TabPage();
+            this.uiPanel1 = new MobiFlight.UI.Panels.UiPanel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -129,9 +132,6 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
-            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
-            this.uiPanel1 = new MobiFlight.UI.Panels.UiPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -148,6 +148,7 @@
             // 
             // menuStrip
             // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.extrasToolStripMenuItem,
@@ -382,6 +383,12 @@
             resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Name = "OutputTabPage";
             // 
+            // outputConfigPanel
+            // 
+            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
+            this.outputConfigPanel.ExecutionManager = null;
+            this.outputConfigPanel.Name = "outputConfigPanel";
+            // 
             // InputTabPage
             // 
             this.InputTabPage.Controls.Add(this.inputConfigPanel);
@@ -389,12 +396,24 @@
             this.InputTabPage.Name = "InputTabPage";
             this.InputTabPage.UseVisualStyleBackColor = true;
             // 
+            // inputConfigPanel
+            // 
+            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
+            this.inputConfigPanel.ExecutionManager = null;
+            this.inputConfigPanel.Name = "inputConfigPanel";
+            this.inputConfigPanel.OutputDataSetConfig = null;
+            // 
             // NewUITabPage
             // 
             this.NewUITabPage.Controls.Add(this.uiPanel1);
             resources.ApplyResources(this.NewUITabPage, "NewUITabPage");
             this.NewUITabPage.Name = "NewUITabPage";
             this.NewUITabPage.UseVisualStyleBackColor = true;
+            // 
+            // uiPanel1
+            // 
+            resources.ApplyResources(this.uiPanel1, "uiPanel1");
+            this.uiPanel1.Name = "uiPanel1";
             // 
             // tabPageImageList
             // 
@@ -454,6 +473,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripButton,
             this.toolStripSeparator1,
@@ -597,6 +617,7 @@
             // statusStrip2
             // 
             resources.ApplyResources(this.statusStrip2, "statusStrip2");
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ModulesStatusToolStripLabel,
             this.ModuleStatusIconToolStripLabel,
@@ -833,24 +854,6 @@
             this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.startupPanel, "startupPanel");
             this.startupPanel.Name = "startupPanel";
-            // 
-            // outputConfigPanel
-            // 
-            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
-            this.outputConfigPanel.ExecutionManager = null;
-            this.outputConfigPanel.Name = "outputConfigPanel";
-            // 
-            // inputConfigPanel
-            // 
-            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
-            this.inputConfigPanel.ExecutionManager = null;
-            this.inputConfigPanel.Name = "inputConfigPanel";
-            this.inputConfigPanel.OutputDataSetConfig = null;
-            // 
-            // uiPanel1
-            // 
-            resources.ApplyResources(this.uiPanel1, "uiPanel1");
-            this.uiPanel1.Name = "uiPanel1";
             // 
             // logPanel1
             // 

@@ -26,7 +26,7 @@ const ConfigPage = () => {
                 <IconPencil></IconPencil>
             </div>
 
-            <Tabs defaultValue="config-1" className='mt-0 overflow-y-auto flex flex-col'>
+            <Tabs defaultValue="config-1" className='grow flex flex-col overflow-y-auto'>
                 <div>
                     <TabsList className='mb-4 mt-0'>
                         <TabsTrigger value="config-1">Config one</TabsTrigger>
@@ -34,13 +34,10 @@ const ConfigPage = () => {
                         <TabsTrigger value="config-3">Radio</TabsTrigger>
                     </TabsList>
                 </div>
-                <TabsContent value="config-1" className='mt-0 flex flex-col overflow-y-auto'>
-                    {/* <DataTableToolbar table={table} items={configItems} /> */}
+                <TabsContent value="config-1" className='mt-0 flex flex-col grow overflow-y-auto'>                   
                     <DataTable columns={columns} data={configItems} />
                 </TabsContent>
             </Tabs>
-
-            
         </div>
     )
 }

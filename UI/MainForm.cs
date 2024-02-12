@@ -73,16 +73,16 @@ namespace MobiFlight.UI
 
         private void InitializeLogging()
         {
-            LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
+            //LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
 
-            Log.Instance.AddAppender(logAppenderTextBox);
+            //Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
             Log.Instance.AddAppender(new LogAppenderWebView());
 
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
-            logPanel1.Visible = Log.Instance.Enabled;
-            logSplitter.Visible = Log.Instance.Enabled;
+            //logPanel1.Visible = Log.Instance.Enabled;
+            //logSplitter.Visible = Log.Instance.Enabled;
 
             try
             {
@@ -688,11 +688,13 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
             }
 
+            // We don't need this anymore
+            /*
             if (e.SettingName == "LogEnabled")
             {
                 logPanel1.Visible = (bool) e.NewValue;
                 logSplitter.Visible = (bool) e.NewValue;
-            }
+            }*/
         }
 
         private void _autoloadConfig()

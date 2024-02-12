@@ -1,11 +1,10 @@
 import Headline2 from '@/components/mobiflight/H2'
 
 const TestPage = () => {
-  return (
-    <div className='overflow-y-auto flex flex-col gap-4'>
-        <Headline2>Test Page</Headline2>
-        <div className='overflow-y-auto'>
-            <div className=''>
+    return (
+        <div className='flex flex-col gap-4 overflow-y-auto'>
+            <Headline2>Test Page</Headline2>
+            <div className='overflow-y-auto'>
                 <ul>
                     <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor nemo labore, sapiente eveniet alias nihil! Necessitatibus, voluptate dolorem? Recusandae necessitatibus sint, consectetur tenetur molestias dolorum dignissimos debitis in id? Perferendis?</li>
                     <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor nemo labore, sapiente eveniet alias nihil! Necessitatibus, voluptate dolorem? Recusandae necessitatibus sint, consectetur tenetur molestias dolorum dignissimos debitis in id? Perferendis?</li>
@@ -62,8 +61,7 @@ const TestPage = () => {
                 </ul>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default TestPage
