@@ -290,12 +290,17 @@ namespace MobiFlight
 
             simConnectCache.Start();
             xplaneCache.Start();
+
+            // the timer has to be enabled before the 
+            // on start actions are executed
+            // otherwise the input events will not be executed.
+            timer.Enabled = true;
+            
+            // Now we can execute the on start actions
             OnStartActions();
 
             // Force all the modules awake whenver run is activated
             mobiFlightCache.KeepConnectedModulesAwake(true);
-
-            timer.Enabled = true;
         }
 
         public void Stop()
@@ -1362,7 +1367,7 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
             }
-            if (e.Type == DeviceType.InputShiftRegister)
+            else if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
                 // The inputKey gets the shifter external pin added to it if the input came from a shift register
