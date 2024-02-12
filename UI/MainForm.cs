@@ -266,6 +266,7 @@ namespace MobiFlight.UI
             else
             {
                 UpdateAircraft(aircraftName);
+                CheckAutoRun();
             }
         }
 
@@ -285,7 +286,7 @@ namespace MobiFlight.UI
                 !AutoLoadConfigs.ContainsKey(key))
             {
                 UpdateAutoLoadMenu();
-                CheckAutoRun();
+                
                 return;
             }
 
@@ -301,7 +302,6 @@ namespace MobiFlight.UI
             {
                 // we still have to update the menu correctly.
                 UpdateAutoLoadMenu();
-                CheckAutoRun();
                 return;
             }
 
@@ -315,7 +315,6 @@ namespace MobiFlight.UI
 
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
             LoadConfig(filename);
-            CheckAutoRun();
         }
 
         private void OnRepeatedStart()
