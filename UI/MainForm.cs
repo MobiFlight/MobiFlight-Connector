@@ -193,7 +193,6 @@ namespace MobiFlight.UI
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
             execManager.OnSimCacheConnectionLost += new EventHandler(SimCache_ConnectionLost);
             execManager.OnSimCacheConnected += new EventHandler(SimCache_Connected);
-            execManager.OnSimCacheConnected += new EventHandler(CheckAutoRun);
             execManager.OnSimCacheClosed += new EventHandler(SimCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
 
@@ -286,6 +285,7 @@ namespace MobiFlight.UI
                 !AutoLoadConfigs.ContainsKey(key))
             {
                 UpdateAutoLoadMenu();
+                CheckAutoRun();
                 return;
             }
 
@@ -301,6 +301,7 @@ namespace MobiFlight.UI
             {
                 // we still have to update the menu correctly.
                 UpdateAutoLoadMenu();
+                CheckAutoRun();
                 return;
             }
 
@@ -314,6 +315,7 @@ namespace MobiFlight.UI
 
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
             LoadConfig(filename);
+            CheckAutoRun();
         }
 
         private void OnRepeatedStart()
@@ -1031,10 +1033,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// gets triggered as soon as the fsuipc is connected
         /// </summary>        
-        void CheckAutoRun (object sender, EventArgs e)
+        void CheckAutoRun ()
         {            
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
+                execManager.Stop();
                 execManager.Start();
                 if (Properties.Settings.Default.MinimizeOnAutoRun)
                 {

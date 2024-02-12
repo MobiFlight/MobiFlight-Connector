@@ -1362,7 +1362,7 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
             }
-            if (e.Type == DeviceType.InputShiftRegister)
+            else if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
                 // The inputKey gets the shifter external pin added to it if the input came from a shift register
