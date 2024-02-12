@@ -51,18 +51,18 @@ export function LogDataTable<TData, TValue>({
     })
 
     return (
-        <div className="flex flex-col gap-4 grow border-2 border-red-500">
-            <div className="flex-none">
+        <div className="h-full flex flex-col gap-4 grow overflow-y-auto">
+            <div className="">
                 <LogDataTableToolbar table={table} items={ data as ILogMessage[] } />
             </div>
-            <div className="border border-white min-h-0 max-h-full p-5 overflow-hidden">
-                <Table className="h-[600] overflow-hidden">
-                    <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white group/header">
+            <div className="min-h-0 overflow-y-auto flex flex-col rounded-lg border">
+                <Table className="flex flex-col h-full">
+                    <TableHeader className="flex flex-col bg-slate-700 dark:bg-slate-800 text-white group/header w-full">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="hover:bg-slate-800">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="text-white text-center px-2">
+                                        <TableHead key={header.id} className="text-white px-2">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -75,7 +75,7 @@ export function LogDataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody>
+                    <TableBody className="h-full overflow-y-auto">
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow

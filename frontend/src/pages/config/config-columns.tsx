@@ -16,26 +16,27 @@ const publishMessage = (message: any) => {
 export const columns: ColumnDef<IConfigItem>[] = [
     {
         accessorKey: "Active",
-        header: () => <div>Active</div>,
+        header: () => <div className="w-11 text-center">Active</div>,
         cell: ({ row }) => {
-            return <Switch className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={row.getValue("Active") as boolean} />
+            return <Switch className="w-11 dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={row.getValue("Active") as boolean} />
         },
     },
     {
         accessorKey: "Description",
         cell: ({ row }) => {
             const label = (row.getValue("Description") as String)
-            return <><p className="font-semibold">{label}</p></>
+            return <div className="grow"><p className="font-semibold">{label}</p></div>
         },
         header: ({ column }) => {
             return (
-                <Button
+                <div className="grow"><Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Description
                     <IconArrowsSort className="ml-2 h-4 w-4" />
                 </Button>
+                </div>
             )
         }
     },

@@ -8,6 +8,7 @@ export const router = createBrowserRouter([
             { index: true, element: <Pages.StartPage /> },
             { path: "settings", element: <Pages.SettingsPage />, },
             { path: "log", element: <Pages.LogPage />, },
+            { path: "test", element: <Pages.TestPage />, },
             { path: "devices", element: <Pages.DevicesPage />, },
             { path: "projects/:id", element: <Pages.ProjectPage />, },
             { path: "projects/:id/configs", element: <Pages.ConfigPage />, },

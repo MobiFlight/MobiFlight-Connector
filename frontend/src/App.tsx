@@ -123,12 +123,16 @@ function App() {
           </div>
         </>
         :
-        <div className='flex flex-row min-h-screen h-72 bg-gradient-to-r from-primary-600 via-blue-600 to-white-600 "'>
+        <div className='flex flex-row h-svh'>
           <Sidebar />
-          <div className='flex flex-col w-full h-full border-red-500  border-2'>
+          <div className='flex flex-col grow border-2'>
             <Navbar />
-            <div className='grow p-12 border-blue-500 border-4 flex flex-col'>
+            <div className='grow p-12 flex flex-col overflow-hidden'>
               <Outlet />
+            </div>
+            <div className='flex flex-row justify-between p-1 bg-white dark:bg-zinc-800'>
+              <div className='text-xs text-gray-500'>Mobiflight</div>
+              <div className='text-xs text-gray-500'>Version 1.0.0</div>
             </div>
           </div>
         </div>

@@ -53,18 +53,18 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="flex flex-col gap-4">
+        <div className="h-full flex flex-col gap-4 grow">
             <div className="">
                 <DataTableToolbar table={table} items={ data as IConfigItem[] } />
             </div>
-            <div className="rounded-md border">
-                <Table>
-                    <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white">
+            <div className="min-h-0 flex flex-col rounded-lg border">
+                <Table className="flex flex-col h-full">
+                    <TableHeader className="flex flex-col bg-slate-700 dark:bg-slate-800 text-white group/header w-full">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="hover:bg-slate-800">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className="text-white">
+                                        <TableHead key={header.id} className="text-white px-2">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -77,7 +77,7 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody className="h-96 overflow-scroll">
+                    <TableBody className="h-full overflow-y-auto bg-white">
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow

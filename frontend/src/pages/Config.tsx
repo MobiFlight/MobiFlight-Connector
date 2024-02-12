@@ -16,7 +16,7 @@ const ConfigPage = () => {
     const project = Projects.find((p: Project) => p.id === params.id)
 
     return (
-        <div className='flex flex-col gap-4'>
+        <div className='h-full flex flex-col gap-4 overflow-y-auto'>
             <div className='flex flex-row gap-4 items-center'>
                 <Link to="/" className='scroll-m-20 text-3xl tracking-tight first:mt-0'>Projects</Link>
                 <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>&gt;</p>
@@ -26,13 +26,15 @@ const ConfigPage = () => {
                 <IconPencil></IconPencil>
             </div>
 
-            <Tabs defaultValue="config-1" className='mt-0'>
-                <TabsList className='mb-4 mt-0'>
-                    <TabsTrigger value="config-1">Config one</TabsTrigger>
-                    <TabsTrigger value="config-2">Autopilot</TabsTrigger>
-                    <TabsTrigger value="config-3">Radio</TabsTrigger>
-                </TabsList>
-                <TabsContent value="config-1" className='mt-0'>
+            <Tabs defaultValue="config-1" className='mt-0 overflow-y-auto flex flex-col'>
+                <div>
+                    <TabsList className='mb-4 mt-0'>
+                        <TabsTrigger value="config-1">Config one</TabsTrigger>
+                        <TabsTrigger value="config-2">Autopilot</TabsTrigger>
+                        <TabsTrigger value="config-3">Radio</TabsTrigger>
+                    </TabsList>
+                </div>
+                <TabsContent value="config-1" className='mt-0 flex flex-col overflow-y-auto'>
                     {/* <DataTableToolbar table={table} items={configItems} /> */}
                     <DataTable columns={columns} data={configItems} />
                 </TabsContent>

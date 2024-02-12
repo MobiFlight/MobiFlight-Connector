@@ -12,10 +12,10 @@ const determineLogLevelColor = (level: string) => {
 export const columns: ColumnDef<ILogMessage>[] = [
     {
         accessorKey: "Severity",
-        header: () => <div>Level</div>,
+        header: () => <div className="w-8">Level</div>,
         cell: ({ row }) => {
             const alertClassName = determineLogLevelColor(row.getValue("Severity"))
-            return (<div className="justify-center flex flex-row"><IconAlertCircle className={cn(alertClassName, "dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700")} /></div>)
+            return (<div className="w-8 justify-center flex flex-row"><IconAlertCircle className={cn(alertClassName, "dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700")} /></div>)
         },
         filterFn: (row, id, value) => {
             return value.includes(row.getValue(id))
@@ -25,25 +25,26 @@ export const columns: ColumnDef<ILogMessage>[] = [
         accessorKey: "Timestamp",
         cell: ({ row }) => {
             const label = (row.getValue("Timestamp") as String)
-            return <><p className="font-semibold">{label}</p></>
+            return <div className="w-64"><p className="font-semibold">{label}</p></div>
         },
         header: ({ column }) => {
             return (
-                <Button
+                <div className="w-64"><Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
                     Time
                     <IconArrowsSort className="opacity-0 group-hover/header:opacity-100 ml-2 h-4 w-4 animate-in animate-out duration-300 " />
                 </Button>
+                </div>
             )
         }
     },
     {
         accessorKey: "Message",
-        header: "Message",
+        header: ()=> <div className="grow">Messages</div>,
         cell: ({ row }) => {
-            return <><p className="text-md font-semibold">{row.getValue("Message")}</p></>
+            return <div className="grow"><p className="text-md font-semibold">{row.getValue("Message")}</p></div>
         }
     },
 ]
