@@ -114,6 +114,35 @@ namespace MobiFlight
                 }
             });
 
+            MessageExchange.Instance.Subscribe<FrontendRequest<GlobalSettings>>((settings) =>
+            {
+                // iterate through all properties of the settings object
+                // and set the equivalent property in Properties.Settings.Default
+                try
+                {
+                    foreach (var prop in settings.Request.GetType().GetProperties())
+                    {
+                        var value = prop.GetValue(settings.Request);
+                        var name = prop.Name;
+
+                        if (name == "RecentFiles")
+                        {
+                            Properties.Settings.Default.RecentFiles.Clear();
+                            Properties.Settings.Default.RecentFiles.AddRange((string[])value);
+                        } else
+                        {
+                            Properties.Settings.Default[name] = value;
+                        }
+                    }
+                    Properties.Settings.Default.Save();
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log(ex.Message, LogSeverity.Error);
+                }
+                MessageExchange.Instance.Publish(new Message<GlobalSettings>(new GlobalSettings(Properties.Settings.Default)));
+            });
+
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);

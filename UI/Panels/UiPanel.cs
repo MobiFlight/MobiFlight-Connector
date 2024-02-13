@@ -72,14 +72,23 @@ namespace MobiFlight.UI.Panels
 
                 if (decodedMessage.key == "ExecutionUpdate")
                 {
-                    var ExecutionUpdateRqquest = JsonConvert.DeserializeObject<BrowserMessages.Message<ExecutionState>>(message);
+                    var ExecutionUpdateRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<ExecutionState>>(message);
                     MessageExchange.Instance.Publish(new FrontendRequest<ExecutionUpdate>()
                         {
                             Request = new ExecutionUpdate
                             {
-                                State = ExecutionUpdateRqquest.payload
+                                State = ExecutionUpdateRequest.payload
                             }
                         });
+                }
+
+                if (decodedMessage.key == "GlobalSettingsUpdate")
+                {
+                    var GlobalSettingsUpdateRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<GlobalSettings>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<GlobalSettings>()
+                    {
+                        Request = GlobalSettingsUpdateRequest.payload
+                    });
                 }
             }
             catch(Exception ex)

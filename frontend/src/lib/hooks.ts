@@ -1,5 +1,5 @@
 import { ExecutionState } from "@/stores/executionStateStore"
-import { IConfigItem } from "@/types"
+import { IConfigItem, IGlobalSettings } from "@/types"
 
 export interface ExecutionUpdateMessage {
     key: "ExecutionUpdate"
@@ -11,7 +11,12 @@ export interface EditConfigMessage {
     payload: IConfigItem
 }
 
-export type MessageExchangeMessage = ExecutionUpdateMessage | EditConfigMessage	
+export interface GlobalSettingsUpdateMessage {
+    key: "GlobalSettingsUpdate"
+    payload: IGlobalSettings
+}
+
+export type MessageExchangeMessage = ExecutionUpdateMessage | EditConfigMessage	| GlobalSettingsUpdateMessage
 
 export const useMessageExchange = () => ({
     publish: (message: MessageExchangeMessage) => {

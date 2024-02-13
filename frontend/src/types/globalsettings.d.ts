@@ -8,7 +8,7 @@ export default interface IGlobalSettings {
     EnableJoystickSupport: boolean
     EnableMidiSupport: boolean
     ExcludedJoysticks: string[]
-    ExcludedMidiDevices: string[]
+    ExcludedMidiBoards: string[]
     FwAutoUpdateCheck: boolean
     HubHopAutoCheck: boolean
     IgnoredComPortsList: string
@@ -18,9 +18,6 @@ export default interface IGlobalSettings {
     LogLevel: string
     MinimizeOnAutoRun: boolean
     ModuleSettings: string
-    OfflineMode: boolean
-    PollInterval: number
     RecentFiles: string[]
     RecentFilesMaxCount: number
-    TestTimerInterval: number
 }

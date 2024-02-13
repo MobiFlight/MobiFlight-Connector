@@ -2005,6 +2005,8 @@ namespace MobiFlight.UI
         private void AutoRunToolStripButton_Click(object sender, EventArgs e)
         {
             setAutoRunValue(!Properties.Settings.Default.AutoRun);
+            var settings = new GlobalSettings(Properties.Settings.Default);
+            MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
         }
 
         private void setAutoRunValue(bool value)

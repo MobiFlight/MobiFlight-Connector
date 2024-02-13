@@ -14,7 +14,7 @@ namespace MobiFlight.BrowserMessages
         public bool EnableJoystickSupport { get; set; }
         public bool EnableMidiSupport { get; set; }
         public string ExcludedJoysticks { get; set; }
-        public string ExcludedMidiDevices { get; set; }
+        public string ExcludedMidiBoards { get; set; }
         public bool FwAutoUpdateCheck { get; set; }
         public bool HubHopAutoCheck { get; set; }
         public string IgnoredComPortsList { get; set; }
@@ -24,11 +24,12 @@ namespace MobiFlight.BrowserMessages
         public string LogLevel { get; set; }
         public bool MinimizeOnAutoRun { get; set; }
         public string ModuleSettings { get; set; }
-        public bool OfflineMode { get; set; }
-        public int PollInterval { get; set; }
         public string[] RecentFiles { get; set; }
         public int RecentFilesMaxCount { get; set; }
-        public int TestTimerInterval { get; set; }
+        
+        internal GlobalSettings()
+        {
+        }
 
         internal GlobalSettings(Settings settings)
         {
@@ -41,7 +42,7 @@ namespace MobiFlight.BrowserMessages
             EnableJoystickSupport = settings.EnableJoystickSupport;
             EnableMidiSupport = settings.EnableMidiSupport;
             ExcludedJoysticks = settings.ExcludedJoysticks;
-            ExcludedMidiDevices = settings.ExcludedMidiBoards;
+            ExcludedMidiBoards = settings.ExcludedMidiBoards;
             FwAutoUpdateCheck = settings.FwAutoUpdateCheck;
             HubHopAutoCheck = settings.HubHopAutoCheck;
             IgnoredComPortsList = settings.IgnoredComPortsList;
