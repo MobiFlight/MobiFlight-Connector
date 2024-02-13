@@ -126,7 +126,9 @@ function App() {
         <>
           <div className="fixed inset-0 bg-[url('/assets/background-nologo.jpg')]"></div>
           <div className='relative flex flex-col justify-center min-h-screen p-10 items-center gap-8'>
-            <img src={logo} className='w-48 h-48'/>
+            <div className='animate-low-bounce'>
+              <img src={logo} className='w-48 h-48'/>
+            </div>
             <Progress className="max-w-xl h-12" value={startupProgress.Value}></Progress>
             <p className="text-white">{startupProgress.Text}</p>
           </div>
