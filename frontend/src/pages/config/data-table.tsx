@@ -63,7 +63,7 @@ export function DataTable<TData, TValue>({
                 <DataTableToolbar table={table} items={ data as IConfigItem[] } />
             </div>
             <div className="flex flex-col grow overflow-y-auto border rounded-lg">
-                <Table className="h-full w-full">
+                <Table className="w-full">
                     <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white group/header">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="hover:bg-slate-800">

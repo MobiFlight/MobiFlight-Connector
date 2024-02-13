@@ -12,7 +12,7 @@ const ConfigPage = () => {
     const project = Projects.find((p: Project) => p.id === params.id)
 
     return (
-        <div className='h-full flex flex-col gap-4 overflow-y-auto'>
+        <div className='flex flex-col gap-4 overflow-y-auto'>
             <div className='flex flex-row gap-4 items-center'>
                 <Link to="/" className='scroll-m-20 text-3xl tracking-tight first:mt-0'>Projects</Link>
                 <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>&gt;</p>
