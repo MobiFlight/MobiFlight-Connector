@@ -2,6 +2,7 @@ import {
     ColumnDef,
     ColumnFiltersState,
     SortingState,
+    VisibilityState,
     flexRender,
     getCoreRowModel,
     getFacetedRowModel,
@@ -20,10 +21,8 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useState } from "react"
-import { Input } from "@/components/ui/input"
 import { DataTableToolbar } from "@/components/ui/data-table-toolbar"
-import { IConfigItem, ILogMessage } from "@/types"
-import { LogDataTableToolbar } from "@/components/ui/log-data-table-toolbar"
+import { IConfigItem } from "@/types"
 
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -36,11 +35,16 @@ export function DataTable<TData, TValue>({
 }: DataTableProps<TData, TValue>) {
     const [sorting, setSorting] = useState<SortingState>([])
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+        "Type": false,
+    })
+
     const table = useReactTable({
         data,
         columns,
         onSortingChange: setSorting,
         onColumnFiltersChange: setColumnFilters,
+        onColumnVisibilityChange: setColumnVisibility,
         getCoreRowModel: getCoreRowModel(),
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
@@ -48,8 +52,9 @@ export function DataTable<TData, TValue>({
         getFacetedUniqueValues: getFacetedUniqueValues(),
         state: {
             sorting,
-            columnFilters
-        },
+            columnFilters,
+            columnVisibility
+        }
     })
 
     return (
@@ -77,7 +82,7 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody className="overflow-y-auto bg-zinc-900">
+                    <TableBody className="overflow-y-auto dark:bg-zinc-900">
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow

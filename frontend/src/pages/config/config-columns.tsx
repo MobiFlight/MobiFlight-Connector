@@ -16,20 +16,20 @@ const publishMessage = (message: any) => {
 export const columns: ColumnDef<IConfigItem>[] = [
     {
         accessorKey: "Active",
-        header: () => <div className="w-11 text-center">Active</div>,
+        header: () => <div className="text-center">Active</div>,
         cell: ({ row }) => {
-            return <Switch className="w-11 dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={row.getValue("Active") as boolean} />
+            return <div className="text-center"><Switch className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={row.getValue("Active") as boolean} /></div>
         },
     },
     {
         accessorKey: "Description",
         cell: ({ row }) => {
             const label = (row.getValue("Description") as String)
-            return <div className="grow"><p className="font-semibold">{label}</p></div>
+            return <div><p className="font-semibold">{label}</p></div>
         },
         header: ({ column }) => {
             return (
-                <div className="grow"><Button
+                <div className="border-2"><Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
@@ -42,7 +42,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
     {
         accessorKey: "Device",
-        header: "Device",
+        header: () => <div className="w-20">Device</div>,
+        size: 80,
         cell: ({ row }) => {
             const label = (row.getValue("Device") as String).split("/")[0]
             const serial = (row.getValue("Device") as String).split("/")[1]
@@ -55,13 +56,25 @@ export const columns: ColumnDef<IConfigItem>[] = [
     {
         accessorKey: "Component",
         header: "Component",
+        cell: ({ row }) => {
+            const label = (row.getValue("Component") as String)
+            const type = (row.getValue("Type") as String)
+            return <><p className="text-md font-semibold">{label}</p><p className="text-xs text-muted-foreground">{type}</p></>
+        },
         filterFn: (row, id, value) => {
             return value.includes(row.getValue(id))
         },
     },
     {
         accessorKey: "Type",
-        header: "Type",
+        header: () => <div className="w-20">Type</div>,
+        cell: ({ row }) => {
+            const label = (row.getValue("Type") as String)
+            return <p className="text-md font-semibold">{label}</p>
+        },
+        filterFn: (row, id, value) => {
+            return value.includes(row.getValue(id))
+        },
     },
     {
         accessorKey: "Tags",
@@ -85,31 +98,33 @@ export const columns: ColumnDef<IConfigItem>[] = [
             const item = row.original
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <IconDots className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem onClick={()=>{
-                            publishMessage(
-                                { 
-                                    key: "config.edit", 
-                                    payload: item 
-                                }
-                            )
-                        }}>Edit</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                        <DropdownMenuItem>Copy</DropdownMenuItem>
-                        <DropdownMenuItem>Paste</DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>Test</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                <div className="relative">
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <IconDots className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={()=>{
+                                publishMessage(
+                                    { 
+                                        key: "config.edit", 
+                                        payload: item 
+                                    }
+                                )
+                            }}>Edit</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                            <DropdownMenuItem>Copy</DropdownMenuItem>
+                            <DropdownMenuItem>Paste</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Test</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </div>
             )
         },
     }

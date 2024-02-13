@@ -22,6 +22,7 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0
   const devices = [...new Set(items.map((item) => item.Device))].map((device) => ({ label: device.split("/")[0], value: device }))
   const components = [...new Set(items.map((item) => item.Component))].map((component) => ({ label: component, value: component }))
+  const types = [...new Set(items.map((item) => item.Type))].map((type) => ({ label: type, value: type }))
 
   return (
     <div className="flex items-center justify-between">
@@ -48,6 +49,13 @@ export function DataTableToolbar<TData>({
             options={components}
           />
         )}
+        {table.getColumn("Type") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("Type")}
+            title="Types"
+            options={types}
+          />
+        )} 
         {isFiltered && (
           <Button
             variant="ghost"

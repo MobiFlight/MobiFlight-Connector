@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { Project, Projects } from './../fixtures/projects'
 import { useConfigStore } from '@/stores/configFileStore';
 import { Link, useParams } from 'react-router-dom';
@@ -6,11 +5,8 @@ import { IconPencil } from '@tabler/icons-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DataTable } from './config/data-table';
 import { columns } from './config/config-columns';
-import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 
-
-const ConfigPage = () => {
-    const { t } = useTranslation();
+const ConfigPage = () => {    
     const params = useParams()
     const { items: configItems } = useConfigStore()
     const project = Projects.find((p: Project) => p.id === params.id)

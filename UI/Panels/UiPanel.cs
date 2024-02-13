@@ -38,7 +38,9 @@ namespace MobiFlight.UI.Panels
 #if DEBUG
             webView.Source = new Uri("http://localhost:5173");
 #else
-            webView.Source = new Uri("http://localhost:5173");
+            webView.CoreWebView2.SetVirtualHostNameToFolderMapping("mobiflight",
+            "frontend/dist", CoreWebView2HostResourceAccessKind.DenyCors);
+            webView.CoreWebView2.Navigate("https://mobiflight/index.html");
 #endif
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;

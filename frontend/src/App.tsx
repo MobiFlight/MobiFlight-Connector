@@ -10,10 +10,8 @@ import { useEffect, useState } from 'react';
 import { Progress } from './components/ui/progress';
 import * as Types from './types/index';
 import { useConfigStore } from './stores/configFileStore';
-import { exec } from 'child_process';
 import { useGlobalSettingsStore } from './stores/globalSettingsStore';
 import { useLogMessageStore } from './stores/logStore';
-import { log } from 'console';
 
 interface ConfigLoadedEvent {
   payload : {

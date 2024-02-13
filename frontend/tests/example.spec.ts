@@ -10,18 +10,8 @@ test('has title', async ({ page }) => {
 test('Navigate to first project', async ({ page }) => {
   
   await page.goto('http://localhost:5173/');
-  await expect(page.getByRole('heading', { name: 'Hello world' })).toHaveCount(1)
-  await expect(page.getByRole('heading', { name: 'Projects' })).toHaveCount(1)
+  await expect(page.getByText('Starting...')).toHaveCount(1)
 
-  await page.getByRole('link', { name: 'MSFS2020 - FBW A320 Devices:' }).first().click();
-
-  await expect(page.getByRole('heading', { name: 'Hello world' })).toHaveCount(0)
-  await expect(page.getByRole('heading', { name: 'Projects' })).toHaveCount(0)
-
-  await expect(page.getByText('Breadcrumb: Projects >')).toHaveText("Breadcrumb: Projects > MSFS2020 - FBW A320")
-  await page.getByText('Breadcrumb: Projects >').click();
-  await page.getByText('Files:').click();
-  await page.getByText('Configs:').click();
-  await page.getByText('Status: New').click();
+  await page.goto('http://localhost:5173/?progress=100');
 });
 

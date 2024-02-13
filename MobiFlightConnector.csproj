@@ -1785,6 +1785,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="frontend\dist\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">
       <Project>{00d85f0b-00a5-41fa-8a99-428c0199c663}</Project>
       <Name>CommandMessenger.Transport.Serial</Name>
