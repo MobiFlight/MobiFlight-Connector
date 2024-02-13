@@ -8,10 +8,7 @@ import {
     IconArrowsSort
     , IconDots
 } from "@tabler/icons-react"
-
-const publishMessage = (message: any) => {
-    window.chrome?.webview?.postMessage(message)
-}
+import { useMessageExchange } from "@/lib/hooks"
 
 export const columns: ColumnDef<IConfigItem>[] = [
     {
@@ -96,7 +93,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
         id: "actions",
         cell: ({ row }) => {
             const item = row.original
-
+            const { publish } = useMessageExchange()
+            
             return (
                 <div className="relative">
                     <DropdownMenu>
@@ -109,12 +107,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuItem onClick={()=>{
-                                publishMessage(
-                                    { 
-                                        key: "config.edit", 
-                                        payload: item 
-                                    }
-                                )
+                                publish({ key: "config.edit", payload: item })
                             }}>Edit</DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Duplicate</DropdownMenuItem>

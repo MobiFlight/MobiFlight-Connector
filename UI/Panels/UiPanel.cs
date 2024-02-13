@@ -1,7 +1,6 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Frontend;
-using MobiFlight.Properties;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -62,12 +61,25 @@ namespace MobiFlight.UI.Panels
             try
             {
                 var message = e.WebMessageAsJson;
-                var decodedMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<ConfigItem>>(message);
+                var decodedMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<object>>(message);
                 Log.Instance.log(decodedMessage.key, LogSeverity.Debug);
 
                 if (decodedMessage.key == "config.edit")
                 {
-                    MessageExchange.Instance.Publish(new Message<IConfigItem>(decodedMessage.key, decodedMessage.payload));
+                    var ConfigEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<ConfigItem>>(message);
+                    MessageExchange.Instance.Publish(new Message<IConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
+                }
+
+                if (decodedMessage.key == "ExecutionUpdate")
+                {
+                    var ExecutionUpdateRqquest = JsonConvert.DeserializeObject<BrowserMessages.Message<ExecutionState>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<ExecutionUpdate>()
+                        {
+                            Request = new ExecutionUpdate
+                            {
+                                State = ExecutionUpdateRqquest.payload
+                            }
+                        });
                 }
             }
             catch(Exception ex)
@@ -136,6 +148,14 @@ namespace MobiFlight.UI.Panels
                 }
                 // If not, run the action directly
                 processMessageAction();
+            });
+
+            MessageExchange.Instance.Subscribe<Message<ExecutionUpdate>>((message) =>
+            {
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
             });
         }
     }

@@ -191,6 +191,8 @@ namespace MobiFlight.UI
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
+            execManager.OnTestModeStarted += new EventHandler(ExecManager_TestModeStarted);
+            execManager.OnTestModeStopped += new EventHandler(ExecManager_TestModeStopped);
             execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
@@ -265,6 +267,7 @@ namespace MobiFlight.UI
                 MessageExchange.Instance.Publish(new Message<ConfigFile>(config));
             };
         }
+
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
             if (this.InvokeRequired)
@@ -1104,6 +1107,8 @@ namespace MobiFlight.UI
                 return;
             }
 
+            MessageExchange.Instance.Publish(new Message<ExecutionUpdate>(new ExecutionUpdate() { State = ExecutionState.Running}));
+
             runToolStripButton.Enabled  = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
@@ -1125,7 +1130,63 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
+            MessageExchange.Instance.Publish(new Message<ExecutionUpdate>(new ExecutionUpdate() { State = ExecutionState.Stopped }));
         } //timer_Stopped
+
+        /// <summary>
+        /// gets triggered when test mode is started via button, all states
+        /// are set for the other buttons accordingly.
+        /// </summary>
+        /// <remarks>
+        /// Why does this differ from normal run-Button handling?
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void runTestToolStripLabel_Click(object sender, EventArgs e)
+        {
+            execManager.TestModeStart();
+        }
+
+        /// <summary>
+        /// gets triggered when test mode is ended via stop button, all states
+        /// are set for the other buttons accordingly.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void stopTestToolStripButton_Click(object sender, EventArgs e)
+        {
+            execManager.TestModeStop();
+        }
+
+        private void ExecManager_TestModeStopped(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new EventHandler(ExecManager_TestModeStopped), new object[] { sender, e });
+                return;
+            }
+            MessageExchange.Instance.Publish(new Message<ExecutionUpdate>(new ExecutionUpdate() { State = ExecutionState.Stopped }));
+            stopToolStripButton.Visible = true;
+            stopTestToolStripButton.Visible = false;
+            stopTestToolStripButton.Enabled = false;
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
+            runToolStripButton.Enabled = RunIsAvailable();
+        }
+
+        private void ExecManager_TestModeStarted(object sender, EventArgs e)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new EventHandler(ExecManager_TestModeStarted), new object[] { sender, e });
+                return;
+            }
+            MessageExchange.Instance.Publish(new Message<ExecutionUpdate>(new ExecutionUpdate() { State = ExecutionState.Testing }));
+            stopToolStripButton.Visible = false;
+            stopTestToolStripButton.Visible = true;
+            stopTestToolStripButton.Enabled = true;
+            runTestToolStripButton.Enabled = TestRunIsAvailable();
+            runToolStripButton.Enabled = RunIsAvailable();
+        }
 
         private bool TestRunIsAvailable()
         {
@@ -1930,54 +1991,7 @@ namespace MobiFlight.UI
             saveToolStripMenuItem_Click(sender, e);
         } //saveToolStripButton_Click()
 
-        /// <summary>
-        /// gets triggered when test mode is started via button, all states
-        /// are set for the other buttons accordingly.
-        /// </summary>
-        /// <remarks>
-        /// Why does this differ from normal run-Button handling?
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void runTestToolStripLabel_Click(object sender, EventArgs e)
-        {
-            testModeTimer_Start();
-        }
-
-        private void testModeTimer_Start()
-        {
-            execManager.TestModeStart();
-            stopToolStripButton.Visible = false;
-            stopTestToolStripButton.Visible = true;
-            stopTestToolStripButton.Enabled = true;
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-            runToolStripButton.Enabled = RunIsAvailable();
-        }
-
-        /// <summary>
-        /// gets triggered when test mode is ended via stop button, all states
-        /// are set for the other buttons accordingly.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void stopTestToolStripButton_Click(object sender, EventArgs e)
-        {
-            testModeTimer_Stop();
-        }
-
-        /// <summary>
-        /// synchronize toolbaritems and other components with current testmodetimer state
-        /// </summary>
-        private void testModeTimer_Stop()
-        {
-            execManager.TestModeStop();
-            stopToolStripButton.Visible = true;
-            stopTestToolStripButton.Visible = false;
-            stopTestToolStripButton.Enabled = false;
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-            runToolStripButton.Enabled = RunIsAvailable();
-        }
-
+        
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)

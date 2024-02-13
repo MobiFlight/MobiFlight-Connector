@@ -12,6 +12,7 @@ import * as Types from './types/index';
 import { useConfigStore } from './stores/configFileStore';
 import { useGlobalSettingsStore } from './stores/globalSettingsStore';
 import { useLogMessageStore } from './stores/logStore';
+import { ExecutionState, useExecutionStateStore } from './stores/executionStateStore';
 
 interface ConfigLoadedEvent {
   payload : {
@@ -30,12 +31,17 @@ interface StatusBarUpdate {
   Value: number
 }
 
+interface ExecutionUpdate {
+  State: ExecutionState
+}
+
 
 function App() {
   const navigate = useNavigate();
   const { setItems, updateItem } = useConfigStore()
   const { setSettings } = useGlobalSettingsStore()
   const { addMessage } = useLogMessageStore()
+  const { setState } = useExecutionStateStore()
 
   const handleMessage = (message: any) => {
     var eventData = JSON.parse(message.data) as EventMessage
@@ -79,6 +85,11 @@ function App() {
     if(eventData.key === "LogMessage") {
       const logMessage = eventData.payload as Types.ILogMessage
       addMessage(logMessage)
+    }
+
+    if(eventData.key === "ExecutionUpdate") {
+      const update = eventData.payload as ExecutionUpdate
+      setState(update.State)
     }
   }
 
