@@ -138,7 +138,6 @@
             this.inputsTabControl.SuspendLayout();
             this.OutputTabPage.SuspendLayout();
             this.InputTabPage.SuspendLayout();
-            this.NewUITabPage.SuspendLayout();
             this.contextMenuStripNotifyIcon.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStripPanel.SuspendLayout();
@@ -359,6 +358,7 @@
             // panelMain
             // 
             resources.ApplyResources(this.panelMain, "panelMain");
+            this.panelMain.Controls.Add(this.uiPanel1);
             this.panelMain.Controls.Add(this.inputsTabControl);
             this.panelMain.Name = "panelMain";
             // 
@@ -405,7 +405,6 @@
             // 
             // NewUITabPage
             // 
-            this.NewUITabPage.Controls.Add(this.uiPanel1);
             resources.ApplyResources(this.NewUITabPage, "NewUITabPage");
             this.NewUITabPage.Name = "NewUITabPage";
             this.NewUITabPage.UseVisualStyleBackColor = true;
@@ -887,7 +886,6 @@
             this.inputsTabControl.ResumeLayout(false);
             this.OutputTabPage.ResumeLayout(false);
             this.InputTabPage.ResumeLayout(false);
-            this.NewUITabPage.ResumeLayout(false);
             this.contextMenuStripNotifyIcon.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
