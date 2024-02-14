@@ -6,6 +6,8 @@ namespace MobiFlight.Frontend
     public class OutputConfigItemAdapter : IConfigItem
     {
         private OutputConfigItem item;
+        private string rawValue;
+        private string modifiedValue;
         public OutputConfigItemAdapter(OutputConfigItem item) { 
             this.item = item;
         }
@@ -29,7 +31,7 @@ namespace MobiFlight.Frontend
         public string Type { get => item.DisplayType; set => throw new System.NotImplementedException(); }
         public string[] Tags { get => new List<string>().ToArray(); set => throw new System.NotImplementedException(); }
         public string[] Status { get => new List<string>().ToArray(); set => throw new System.NotImplementedException(); }
-        public string RawValue { get => "0"; set => throw new System.NotImplementedException(); }
-        public string ModifiedValue { get => "0"; set => throw new System.NotImplementedException(); }
+        public string RawValue { get => rawValue; set => rawValue = value; }
+        public string ModifiedValue { get => modifiedValue; set => modifiedValue = value; }
     }
 }

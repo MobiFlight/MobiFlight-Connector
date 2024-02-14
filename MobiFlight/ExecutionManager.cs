@@ -1,5 +1,6 @@
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
+using MobiFlight.Frontend;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.SimConnectMSFS;
@@ -89,6 +90,7 @@ namespace MobiFlight
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
         string ConfigItemInTestMode = null;
+        Dictionary<string, IConfigItem> lastUpdatedValues = new Dictionary<string, IConfigItem>();
 
         public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
@@ -518,6 +520,8 @@ namespace MobiFlight
                 !midiBoardManager.AreMidiBoardsConnected()
             ) return;
 
+
+
             // this is kind of sempahore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
@@ -533,6 +537,9 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.clearGetValues();
 #endif
+
+            var updatedValues = new Dictionary<string, IConfigItem>();
+
             // iterate over the config row by row
             foreach (DataGridViewRow row in dataGridViewConfig.Rows)
             {
@@ -594,6 +601,17 @@ namespace MobiFlight
                 ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
 
+                cfg.GUID = currentGuid;
+                cfg.Description = row.Cells["description"].Value.ToString();
+                cfg.Active = (bool)row.Cells["active"].Value;
+
+                // store the values for the input precondition checks
+                updatedValues[currentGuid] = new OutputConfigItemAdapter(cfg)
+                {
+                    RawValue = value.ToString(),
+                    ModifiedValue = processedValue.ToString()
+                };
+
                 row.DefaultCellStyle.ForeColor = Color.Empty;
 
                 row.Cells["fsuipcValueColumn"].Value = value.ToString();
@@ -615,6 +633,9 @@ namespace MobiFlight
                     row.ErrorText = $"{i18n._tr("uiMessageTransformError")}({ex.Message})";
                     continue;
                 }
+
+                // processedValue now has changed, so we need to update the value in the cache
+                updatedValues[currentGuid].ModifiedValue = processedValue.ToString();
 
                 row.Cells["arcazeValueColumn"].Value = processedValue.ToString();
 
@@ -661,6 +682,29 @@ namespace MobiFlight
             // this update will trigger potential writes to the offsets
             // that came from the inputs and are waiting to be written
             // fsuipcCache.Write();
+
+            if (updatedValues.Count > 0)
+            {
+                // we have to compare updatedValues with lastUpdatedValues
+                // and only publish the changes using the MessageExchange
+
+                var changedValues = updatedValues
+                                    .Where(
+                                        kv => (
+                                            !lastUpdatedValues.ContainsKey(kv.Key) ||
+                                            kv.Value.ModifiedValue != lastUpdatedValues[kv.Key].ModifiedValue ||
+                                            kv.Value.RawValue != lastUpdatedValues[kv.Key].RawValue
+                                        )
+                                    )
+                                    .ToDictionary(kv => kv.Key, kv => kv.Value);
+                if (changedValues.Count > 0)
+                {
+                    var update = new ConfigValueUpdate() { ConfigItems = changedValues.Values.ToList() };
+                    MessageExchange.Instance.Publish(new Message<ConfigValueUpdate>(update));
+                }
+            }
+
+            lastUpdatedValues = updatedValues;
 
             UpdateInputPreconditions();
 

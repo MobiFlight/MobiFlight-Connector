@@ -3,6 +3,7 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.Frontend;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -161,6 +162,13 @@ namespace MobiFlight.UI.Panels
 
             MessageExchange.Instance.Subscribe<Message<ExecutionUpdate>>((message) =>
             {
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<ConfigValueUpdate>>((message) => {
                 // do something with the config
                 // convert config to JSON object
                 var jsonEncodedMessage = JsonConvert.SerializeObject(message);

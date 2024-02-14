@@ -86,7 +86,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         header: "Raw Value",
     },
     {
-        accessorKey: "FinalValue",
+        accessorKey: "ModifiedValue",
         header: "Final Value",
     },
     {
