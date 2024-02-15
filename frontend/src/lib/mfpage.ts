@@ -1,4 +1,4 @@
-import { IConfigItem } from '@/types';
+import { IConfigItem, ILogMessage } from '@/types';
 import { ConfigLoadedEvent, Message, AppMessageKey, AppMessage } from '@/types/messages';
 import type { Page } from '@playwright/test';
 
@@ -55,5 +55,10 @@ export class MFPage {
             }
         ]
         await this.loadConfig({ FileName: "default", ConfigItems: configItems })
+    }
+
+    async addLogMessage(log: ILogMessage) {
+        var message: AppMessage = { key: "LogMessage", payload: log }
+        await this.publishMessage(message)
     }
 }
