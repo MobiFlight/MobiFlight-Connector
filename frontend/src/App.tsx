@@ -12,33 +12,7 @@ import * as Types from './types/index';
 import { useConfigStore } from './stores/configFileStore';
 import { useGlobalSettingsStore } from './stores/globalSettingsStore';
 import { useLogMessageStore } from './stores/logStore';
-import { ExecutionState, useExecutionStateStore } from './stores/executionStateStore';
-
-interface ConfigLoadedEvent {
-  payload: {
-    FileName: string
-    ConfigItems: Types.IConfigItem[]
-  }
-}
-
-interface EventMessage {
-  key: string,
-  payload: any
-}
-
-interface StatusBarUpdate {
-  Text: string
-  Value: number
-}
-
-interface ExecutionUpdate {
-  State: ExecutionState
-}
-
-interface ConfigValueUpdate {
-  ConfigItems: Types.IConfigItem[]
-}
-
+import { useExecutionStateStore } from './stores/executionStateStore';
 
 function App() {
   const navigate = useNavigate();
@@ -48,10 +22,10 @@ function App() {
   const { setState } = useExecutionStateStore()
 
   const handleMessage = (message: any) => {
-    var eventData = JSON.parse(message.data) as EventMessage
-    console.log(`Handle Message -> ${eventData.key}`)
+    var eventData = JSON.parse(message.data) as Types.AppMessage
+    console.log(`Handle AppMessage -> ${eventData.key}`)
 
-    if (eventData.key == "config.update") {
+    if (eventData.key == 'config.update') {
       const updatedItem = eventData.payload as Types.IConfigItem
       const items = useConfigStore.getState().items
 
@@ -74,15 +48,16 @@ function App() {
     }
 
     if (eventData.key == "StatusBarUpdate") {
-      const update = eventData.payload as StatusBarUpdate
+      const update = eventData.payload as Types.StatusBarUpdate
       setStartupProgress(update)
     }
 
     if (eventData.key === "ConfigFile") {
       setStartupProgress({ Value: 100, Text: "Finished!" })
-      const configFile = JSON.parse(message.data) as ConfigLoadedEvent
+      console.log(eventData.payload)
+      const configFile = eventData.payload as Types.ConfigLoadedEvent
       console.log("Config File Loaded")
-      setItems(configFile.payload.ConfigItems)
+      setItems(configFile.ConfigItems)
       navigate(`/projects/1`);
     }
 
@@ -92,13 +67,13 @@ function App() {
     }
 
     if (eventData.key === "ExecutionUpdate") {
-      const update = eventData.payload as ExecutionUpdate
+      const update = eventData.payload as Types.ExecutionUpdate
       setState(update.State)
     }
 
     if (eventData.key === "ConfigValueUpdate") {
       //console.log("Config Value Update")
-      const update = eventData.payload as ConfigValueUpdate
+      const update = eventData.payload as Types.ConfigValueUpdate
       console.log(update)
       // i want to update the items in state
       // and replace them with the new ones
@@ -112,11 +87,12 @@ function App() {
   }
 
   const [queryParameters] = useSearchParams()
-  const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>({ Value: 0, Text: "Starting..." })
+  const [startupProgress, setStartupProgress] = useState<Types.StatusBarUpdate>({ Value: 0, Text: "Starting..." })
 
   useEffect(() => {
     window.chrome?.webview?.addEventListener('message', handleMessage)
     return () => {
+      window.chrome?.webview?.removeEventListener('message', handleMessage)
       window.removeEventListener('beforeunload', handleMessage);
     };
   }, [])
@@ -134,7 +110,6 @@ function App() {
   useEffect(() => {
     if (queryParameters.get("progress") == "100") setStartupProgress({ Value: 100, Text: "Finished!" })
   }, [])
-
 
   return (
     <>
