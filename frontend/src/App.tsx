@@ -14,6 +14,7 @@ import { useGlobalSettingsStore } from "./stores/globalSettingsStore";
 import { useLogMessageStore } from "./stores/logStore";
 import { useExecutionStateStore } from "./stores/executionStateStore";
 import { useAppMessage } from "./lib/hooks";
+import { use } from "i18next";
 
 function App() {
   const navigate = useNavigate();
@@ -22,98 +23,54 @@ function App() {
   const { addMessage } = useLogMessageStore();
   const { setState } = useExecutionStateStore();
 
-  // useAppMessage("StatusBarUpdate", (message) => {
-  //   setStartupProgress(message.payload as Types.StatusBarUpdate);
-  // });
+  useAppMessage("StatusBarUpdate", (message) => {
+    setStartupProgress(message.payload as Types.StatusBarUpdate);
+  });
 
-  // useAppMessage("ConfigFile", (message) => {
-  //   setStartupProgress({ Value: 100, Text: "Finished!" });
-  //   const configFile = message.payload as Types.ConfigLoadedEvent;
-  //   setItems(configFile.ConfigItems);
-  //   navigate(`/projects/1`);
-  // });
+  useAppMessage("ConfigFile", (message) => {
+    setStartupProgress({ Value: 100, Text: "Finished!" });
+    const configFile = message.payload as Types.ConfigLoadedEvent;
+    setItems(configFile.ConfigItems);
+    navigate(`/projects/1`);
+  });
 
-  // useAppMessage("LogMessage", (message) => {
-  //   const logMessage = message.payload as Types.ILogMessage;
-  //   addMessage(logMessage);
-  // });
+  useAppMessage("LogMessage", (message) => {
+    const logMessage = message.payload as Types.ILogMessage;
+    addMessage(logMessage);
+  });
 
-  const handleMessage = (message: any) => {
-    var eventData = JSON.parse(message.data) as Types.AppMessage;
-    console.log(`Handle AppMessage -> ${eventData.key}`);
+  useAppMessage("ExecutionUpdate", (message) => {
+    const update = message.payload as Types.ExecutionUpdate;
+    setState(update.State);
+  });
 
-    if (eventData.key == "config.update") {
-      const updatedItem = eventData.payload as Types.IConfigItem;
-      const items = useConfigStore.getState().items;
+  useAppMessage("ConfigValueUpdate", (message) => {
+    const update = message.payload as Types.ConfigValueUpdate;
+    console.log(update);
+    const mergedItems = useConfigStore.getState().items.map((item) => {
+      const newItem = update.ConfigItems.find(
+        (newItem) => newItem.GUID === item.GUID
+      );
+      return newItem ? newItem : item;
+    });
+    setItems(mergedItems);
+  });
 
-      console.log(updatedItem);
-      console.log(items);
-      updateItem(updatedItem);
+  useAppMessage("GlobalSettings", (message) => {
+    const settings = message.payload as Types.IGlobalSettings;
+    console.log("Global Settings Loaded");
+    setSettings(settings);
+  });
 
-      const newList = items.map((item) => {
-        return item.GUID === updatedItem.GUID ? updatedItem : item;
-      });
-
-      console.log(newList);
-      return;
-    }
-
-    if (eventData.key == "GlobalSettings") {
-      const settings = eventData.payload as Types.IGlobalSettings;
-      console.log("Global Settings Loaded");
-      setSettings(settings);
-    }
-
-    if (eventData.key == "StatusBarUpdate") {
-      const update = eventData.payload as Types.StatusBarUpdate;
-      setStartupProgress(update);
-    }
-
-    if (eventData.key === "ConfigFile") {
-      setStartupProgress({ Value: 100, Text: "Finished!" });
-      const configFile = eventData.payload as Types.ConfigLoadedEvent;
-      setItems(configFile.ConfigItems);
-      navigate(`/projects/1`);
-    }
-
-    if (eventData.key === "LogMessage") {
-      const logMessage = eventData.payload as Types.ILogMessage;
-      addMessage(logMessage);
-    }
-
-    if (eventData.key === "ExecutionUpdate") {
-      const update = eventData.payload as Types.ExecutionUpdate;
-      setState(update.State);
-    }
-
-    if (eventData.key === "ConfigValueUpdate") {
-      //console.log("Config Value Update")
-      const update = eventData.payload as Types.ConfigValueUpdate;
-      console.log(update);
-      // i want to update the items in state
-      // and replace them with the new ones
-      // using GUID as the unique identifier
-      const mergedItems = useConfigStore.getState().items.map((item) => {
-        const newItem = update.ConfigItems.find(
-          (newItem) => newItem.GUID === item.GUID
-        );
-        return newItem ? newItem : item;
-      });
-      setItems(mergedItems);
-    }
-  };
+  useAppMessage("config.update", (message) => {
+    const updatedItem = message.payload as Types.IConfigItem;
+    updateItem(updatedItem);
+  });
 
   const [queryParameters] = useSearchParams();
   const [startupProgress, setStartupProgress] = useState<Types.StatusBarUpdate>(
     { Value: 0, Text: "Starting..." }
   );
-
-  useEffect(() => {
-    window.chrome?.webview?.addEventListener("message", handleMessage);
-    return () => {
-      window.chrome?.webview?.removeEventListener("message", handleMessage);
-    };
-  }, []);
 
   useEffect(() => {
     const handleBeforeUnload = (event: any) => {

@@ -14,20 +14,21 @@ export const useAppMessage = (
   key: AppMessageKey,
   onReceiveMessage: (message: any) => void
 ) => {
-  const callback = onReceiveMessage;
+  console.log(`Executing useAppMessage -> ${key}`);
   useEffect(() => {
-    // add an event listener for the message key
-    window.chrome?.webview?.addEventListener("message", (event: any) => {
-      // if the message key matches the key, call the callback
-      const appMessage = (JSON.parse(event.data) as AppMessage)
+    const onReveiveMessageHandler = (event: any) => {
+      const appMessage = (JSON.parse(event.data) as AppMessage);
       if (appMessage.key === key) {
         console.log(`Received AppMessage -> ${appMessage.key}`);
-        callback(appMessage);
+        onReceiveMessage(appMessage);
       }
-    });
+    }
+
+    // add an event listener for the message key
+    window.chrome?.webview?.addEventListener("message", onReveiveMessageHandler);
     return () => {
       // remove the event listener when the component is unmounted
-      window.chrome?.webview?.removeEventListener("message", onReceiveMessage);
+      window.chrome?.webview?.removeEventListener("message", onReveiveMessageHandler);
     };
   }, [key]);
 };
