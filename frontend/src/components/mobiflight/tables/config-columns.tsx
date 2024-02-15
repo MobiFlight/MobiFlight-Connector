@@ -13,13 +13,15 @@ import { useMessageExchange } from "@/lib/hooks"
 export const columns: ColumnDef<IConfigItem>[] = [
     {
         accessorKey: "Active",
-        header: () => <div className="text-center">Active</div>,
+        size: 5,
+        header: () => <div className="text-center border-2 border-orange-500">Active</div>,
         cell: ({ row }) => {
             return <div className="text-center"><Switch className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={row.getValue("Active") as boolean} /></div>
         },
     },
     {
         accessorKey: "Description",
+        size: 0,
         cell: ({ row }) => {
             const label = (row.getValue("Description") as String)
             return <div><p className="font-semibold">{label}</p></div>
@@ -51,6 +53,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         },
     },
     {
+        size: 80,
         accessorKey: "Component",
         header: "Component",
         cell: ({ row }) => {
@@ -63,6 +66,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         },
     },
     {
+        size: 80,
         accessorKey: "Type",
         header: () => <div className="w-20">Type</div>,
         cell: ({ row }) => {
@@ -74,22 +78,27 @@ export const columns: ColumnDef<IConfigItem>[] = [
         },
     },
     {
+        size: 80,
         accessorKey: "Tags",
         header: "Tags",
     },
     {
+        size: 80,
         accessorKey: "Status",
         header: "Status",
     },
     {
+        size: 80,
         accessorKey: "RawValue",
         header: "Raw Value",
     },
     {
+        size: 80,
         accessorKey: "ModifiedValue",
         header: "Final Value",
     },
     {
+        size: 80,
         id: "actions",
         cell: ({ row }) => {
             const item = row.original

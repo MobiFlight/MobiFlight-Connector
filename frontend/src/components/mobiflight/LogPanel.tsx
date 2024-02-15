@@ -1,5 +1,5 @@
-import { columns } from '@/pages/config/log-columns'
-import { LogDataTable } from '@/pages/config/log-data-table'
+import { columns } from '@/components/mobiflight/tables/log-columns'
+import { LogDataTable } from '@/components/mobiflight/tables/log-data-table'
 import { useLogMessageStore } from '@/stores/logStore'
 
 const LogPanel = () => {
