@@ -12,6 +12,7 @@ const determineLogLevelColor = (level: string) => {
 export const columns: ColumnDef<ILogMessage>[] = [
     {
         accessorKey: "Severity",
+        size: 75,
         header: () => <div className="w-8">Level</div>,
         cell: ({ row }) => {
             const alertClassName = determineLogLevelColor(row.getValue("Severity"))
@@ -23,8 +24,9 @@ export const columns: ColumnDef<ILogMessage>[] = [
     },
     {
         accessorKey: "Timestamp",
+        size: 150,
         cell: ({ row }) => {
-            const label = (row.getValue("Timestamp") as String)
+            const label = new Date(row.getValue("Timestamp") as string).toLocaleTimeString()
             return <div className="w-64"><p className="font-semibold">{label}</p></div>
         },
         header: ({ column }) => {
@@ -41,6 +43,7 @@ export const columns: ColumnDef<ILogMessage>[] = [
         }
     },
     {
+        size: 1,
         accessorKey: "Message",
         header: ()=> <div className="grow">Messages</div>,
         cell: ({ row }) => {

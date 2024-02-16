@@ -79,11 +79,11 @@ const TableHead = React.forwardRef<
   CustomThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
   <th    
-    ref={ref}    
+    ref={ref}  
+    style={{ "width": (props.size && props.size != 1)? `${props.size!.toString()}px` : "100%"}} 
     className={cn(
       "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
-      className,
-      props.size ? `w-[${props.size?.toString()}px]` : ""
+      className
     )}
     {...props}
   />
@@ -98,8 +98,7 @@ const TableCell = React.forwardRef<
     ref={ref}
     className={cn(
       "p-4 align-middle [&:has([role=checkbox])]:pr-0", 
-      className,
-      props.size ? `w-[${props.size?.toString()}px]` : "")}
+      className)}
     {...props}
   />
 ))

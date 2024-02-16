@@ -4,6 +4,7 @@ import { useLogMessageStore } from '@/stores/logStore'
 
 const LogPanel = () => {
     const { messages } = useLogMessageStore()
+    console.log(messages)
 
     return (
         <LogDataTable columns={columns} data={messages} />

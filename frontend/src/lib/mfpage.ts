@@ -26,7 +26,7 @@ export class MFPage {
 
     async publishMessage(message: Message) {
         var stringifiedObject = JSON.stringify(JSON.stringify(message))
-        await this.page.addScriptTag({ content: `console.log(${stringifiedObject});window.postMessage(${stringifiedObject}, "*")` })
+        await this.page.addScriptTag({ content: `window.postMessage(${stringifiedObject}, "*")` })
     }
 
     async finishInitialLoading() {

@@ -54,7 +54,12 @@ export function DataTable<TData, TValue>({
             sorting,
             columnFilters,
             columnVisibility
-        }
+        },
+        defaultColumn: {
+            size: 10, //starting column size
+            minSize: 1, //enforced during column resizing
+            maxSize: 250, //enforced during column resizing
+        },
     })
 
     return (
@@ -62,14 +67,14 @@ export function DataTable<TData, TValue>({
             <div className="">
                 <DataTableToolbar table={table} items={ data as IConfigItem[] } />
             </div>
-            <div className="flex flex-col grow overflow-y-auto border rounded-lg shadow-sm shadow-black">
-                <Table className="w-full table-fixed">
-                    <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white group/header">
+            <div className="flex flex-col grow overflow-y-auto border-2 border-primary rounded-lg">
+                <Table className="table-fixed">
+                    <TableHeader className="bg-slate-500 dark:bg-slate-800 text-white group/header">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="hover:bg-slate-800">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead size={header.getSize()} key={header.id} className="text-white z-50 px-2 sticky top-0 bg-slate-700 dark:bg-slate-800">
+                                        <TableHead size={header.column.getSize()} key={header.id} className="text-white z-50 px-2 sticky top-0 bg-primary dark:bg-slate-800">
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -90,7 +95,7 @@ export function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell size={cell.column.getSize()} key={cell.id} className="p-1" >
+                                        <TableCell key={cell.id} className="p-1" >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
