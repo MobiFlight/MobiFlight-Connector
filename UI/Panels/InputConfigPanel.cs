@@ -1,10 +1,13 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.BrowserMessages;
+using MobiFlight.Frontend;
 using MobiFlight.UI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -13,6 +16,7 @@ namespace MobiFlight.UI.Panels
     {
         public event EventHandler SettingsChanged;
         public event EventHandler SettingsDialogRequested;
+        delegate void OpenConfigWizardForIdCallback(string guid);
 
         private int lastClickedRow = -1;
         private List<String> SelectedGuids = new List<String>();
@@ -59,6 +63,12 @@ namespace MobiFlight.UI.Panels
 
             DropTimer.Interval = 400;
             DropTimer.Tick += DropTimer_Tick;
+
+            MessageExchange.Instance.Subscribe<Message<IConfigItem>>(message =>
+            {
+                if (message.key != "config.edit") return;
+                OpenConfigWizardForId(message.payload.GUID);
+            });
         }
 
         private void _editConfigWithInputWizard(DataRow dataRow, InputConfigItem cfg, bool create)
@@ -94,6 +104,12 @@ namespace MobiFlight.UI.Panels
                     RestoreValuesInGridView();
                 }
             };
+
+            MessageExchange.Instance.Subscribe<Message<IConfigItem>>(message =>
+            {
+                if (message.key != "config.edit") return;
+                OpenConfigWizardForId(message.payload.GUID);
+            });
         }
 
         void wizard_SettingsDialogRequested(object sender, EventArgs e)
@@ -101,6 +117,24 @@ namespace MobiFlight.UI.Panels
             //(sender as InputConfigWizard).Close();
             SettingsDialogRequested?.Invoke(sender, null);
             
+        }
+
+        private void OpenConfigWizardForId(string guid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new OpenConfigWizardForIdCallback(OpenConfigWizardForId), new object[] { guid });
+                return;
+            }
+
+            var dataRow = inputsDataTable.Select($"guid = '{guid}'").FirstOrDefault();
+            if (dataRow == null) return;
+
+            var cfg = dataRow["settings"] as InputConfigItem;
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) => {
+                _editConfigWithInputWizard(dataRow, cfg, false);
+            }, null);
         }
 
         /// <summary>
