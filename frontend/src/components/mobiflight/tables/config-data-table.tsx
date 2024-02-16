@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
             <div className="">
                 <DataTableToolbar table={table} items={ data as IConfigItem[] } />
             </div>
-            <div className="flex flex-col grow overflow-y-auto border-2 border-primary rounded-lg">
+            <div className="flex flex-col grow overflow-y-auto border border-primary rounded-lg">
                 <Table className="table-fixed">
                     <TableHeader className="bg-slate-500 dark:bg-slate-800 text-white group/header">
                         {table.getHeaderGroups().map((headerGroup) => (

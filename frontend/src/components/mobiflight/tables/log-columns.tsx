@@ -3,6 +3,7 @@ import { ILogMessage } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import { IconAlertCircle, IconArrowsSort } from "@tabler/icons-react"
 import { cn } from "@/lib/utils"
+import i18next from "i18next"
 
 const determineLogLevelColor = (level: string) => {
     level = level.toLowerCase()
@@ -26,7 +27,7 @@ export const columns: ColumnDef<ILogMessage>[] = [
         accessorKey: "Timestamp",
         size: 150,
         cell: ({ row }) => {
-            const label = new Date(row.getValue("Timestamp") as string).toLocaleTimeString()
+            const label = new Date(row.getValue("Timestamp") as string).toLocaleTimeString(i18next.language, { hour: '2-digit', minute: '2-digit', second: '2-digit' })
             return <div className="w-64"><p className="font-semibold">{label}</p></div>
         },
         header: ({ column }) => {
