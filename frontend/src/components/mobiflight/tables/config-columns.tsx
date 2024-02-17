@@ -137,7 +137,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         <p className="text-md font-semibold">{label}</p>
       ) : (
         <p className="text-xs text-muted-foreground">
-          <Badge className="dark:bg-green-800 bg-green-600">normal</Badge>
+          <Badge className="dark:border-green-600 dark:text-green-500 bg-green-600">normal</Badge>
         </p>
       );
     },
