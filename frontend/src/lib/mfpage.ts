@@ -1,5 +1,5 @@
 import { IConfigItem, ILogMessage } from '@/types';
-import { ConfigLoadedEvent, Message, AppMessageKey, AppMessage } from '@/types/messages';
+import { ConfigLoadedEvent, Message, AppMessage } from '@/types/messages';
 import type { Page } from '@playwright/test';
 
 export class MFPage {

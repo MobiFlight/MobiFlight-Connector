@@ -14,7 +14,6 @@ import { useGlobalSettingsStore } from "./stores/globalSettingsStore";
 import { useLogMessageStore } from "./stores/logStore";
 import { useExecutionStateStore } from "./stores/executionStateStore";
 import { useAppMessage } from "./lib/hooks";
-import { use } from "i18next";
 
 function App() {
   const navigate = useNavigate();
