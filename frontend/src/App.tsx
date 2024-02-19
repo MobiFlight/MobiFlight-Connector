@@ -14,6 +14,7 @@ import { useGlobalSettingsStore } from "./stores/globalSettingsStore";
 import { useLogMessageStore } from "./stores/logStore";
 import { useExecutionStateStore } from "./stores/executionStateStore";
 import { useAppMessage } from "./lib/hooks";
+import { useDevicesStore } from "./stores/deviceStateStore";
 
 function App() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function App() {
   const { setSettings } = useGlobalSettingsStore();
   const { addMessage } = useLogMessageStore();
   const { setState } = useExecutionStateStore();
+  const { setDevices } = useDevicesStore();
 
   useAppMessage("StatusBarUpdate", (message) => {
     setStartupProgress(message.payload as Types.StatusBarUpdate);
@@ -64,6 +66,11 @@ function App() {
   useAppMessage("config.update", (message) => {
     const updatedItem = message.payload as Types.IConfigItem;
     updateItem(updatedItem);
+  });
+
+  useAppMessage("DeviceUpdate", (message) => {
+    const update = message.payload as Types.DeviceUpdate;
+    setDevices(update.Devices);
   });
 
   const [queryParameters] = useSearchParams();

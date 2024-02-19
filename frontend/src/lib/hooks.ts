@@ -14,7 +14,6 @@ export const useAppMessage = (
   key: AppMessageKey,
   onReceiveMessage: (message: any) => void
 ) => {
-  console.log(`Executing useAppMessage -> ${key}`);
   useEffect(() => {
     const onReveiveMessageHandler = (event: any) => {
       const appMessage = (JSON.parse(event.data) as AppMessage);

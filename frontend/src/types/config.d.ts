@@ -1,12 +1,25 @@
-export default interface IConfigItem {
-    GUID: string;
-    Active: boolean;
-    Description: string;
-    Device: string;
-    Component: string;
+export interface IConfigItem {
+    GUID: string
+    Active: boolean
+    Description: string
+    Device: string
+    Component: string
+    Type: string
+    Tags: string[]
+    Status: string[]
+    RawValue: string
+    ModifiedValue: string
+}
+
+interface IDictionary<T> {
+    [Key: string]: T
+    getValues(): T[]
+    getKeys(): string[]
+}
+
+export interface IDeviceItem {
+    Id: string;
     Type: string;
-    Tags: string[];
-    Status: string[];
-    RawValue: string;
-    ModifiedValue: string;
+    Name: string;
+    MetaData: IDictionary<string>
 }

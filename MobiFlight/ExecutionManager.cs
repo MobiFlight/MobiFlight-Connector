@@ -209,13 +209,6 @@ namespace MobiFlight
             mobiFlightCache.Start();
         }
 
-        private void ModuleCache_ModuleConnected(object sender, EventArgs e)
-        {
-            TestModeStop();
-            Stop();
-            this.OnModuleConnected?.Invoke(sender, e);
-        }
-
         private void sim_AirCraftChanged(object sender, string e)
         {
             Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
@@ -1148,11 +1141,47 @@ namespace MobiFlight
             }
         } //timer_Tick()
 
+        private void ModuleCache_ModuleConnected(object sender, EventArgs e)
+        {
+            TestModeStop();
+            Stop();
+            this.OnModuleConnected?.Invoke(sender, e);
+            PublishMessageOfAllDevices();
+        }
+
+        private void PublishMessageOfAllDevices()
+        {
+            var deviceList = new DeviceList();
+            // add all mobiflight modules
+            mobiFlightCache.GetModules().ToList().ForEach(module =>
+            {
+                deviceList.Devices.Add(new MobiFlightModuleDeviceAdapter(module));
+            });
+            // add all compatible modules
+            mobiFlightCache.GetDetectedCompatibleModules().Where(m => !m.HasMfFirmware()).ToList().ForEach(module =>
+            {
+                deviceList.Devices.Add(new MobiFlightModuleInfoAdapter(module));
+            });
+            // add all joysticks
+            joystickManager.GetJoysticks().ToList().ForEach(joystick =>
+            {
+                deviceList.Devices.Add(new JoystickDeviceAdapter(joystick));
+            });
+            // add all midi boards
+            midiBoardManager.GetMidiBoards().ToList().ForEach(midiBoard =>
+            {
+                deviceList.Devices.Add(new MidiBoardDeviceAdapter(midiBoard));
+            });
+
+            MessageExchange.Instance.Publish(new Message<DeviceList>("DeviceUpdate", deviceList));
+        }
+
         void ModuleCache_ModuleRemoved(object sender, EventArgs e)
         {
             //_disconnectArcaze();
             this.OnModuleRemoved(sender, e);
             Stop();
+            PublishMessageOfAllDevices();
         }
 
         /// <summary>

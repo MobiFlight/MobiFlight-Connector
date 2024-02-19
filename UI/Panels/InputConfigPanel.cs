@@ -64,7 +64,7 @@ namespace MobiFlight.UI.Panels
             DropTimer.Interval = 400;
             DropTimer.Tick += DropTimer_Tick;
 
-            MessageExchange.Instance.Subscribe<Message<IConfigItem>>(message =>
+            MessageExchange.Instance.Subscribe<Message<ConfigItem>>(message =>
             {
                 if (message.key != "config.edit") return;
                 OpenConfigWizardForId(message.payload.GUID);

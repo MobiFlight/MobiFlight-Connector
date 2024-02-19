@@ -70,7 +70,7 @@ namespace MobiFlight.UI.Panels
                 testToolStripMenuItem.Enabled = AtLeastOneRowSelectedAndNotLastRow;
             };
 
-            MessageExchange.Instance.Subscribe<Message<IConfigItem>>(message =>
+            MessageExchange.Instance.Subscribe<Message<ConfigItem>>(message =>
             {
                 if (message.key != "config.edit") return;
                 OpenConfigWizardForId(message.payload.GUID);

@@ -68,7 +68,7 @@ namespace MobiFlight.UI.Panels
                 if (decodedMessage.key == "config.edit")
                 {
                     var ConfigEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<ConfigItem>>(message);
-                    MessageExchange.Instance.Publish(new Message<IConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
+                    MessageExchange.Instance.Publish(new Message<ConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
                 }
 
                 if (decodedMessage.key == "ExecutionUpdate")
@@ -173,6 +173,27 @@ namespace MobiFlight.UI.Panels
                 // convert config to JSON object
                 var jsonEncodedMessage = JsonConvert.SerializeObject(message);
                 webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<DeviceList>>((message) =>
+            {
+                // Define a lambda expression that encapsulates the common logic
+                System.Action processMessageAction = () =>
+                {
+                    // Convert config to JSON object
+                    var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                    webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+                };
+
+                // Check if invocation on the UI thread is required
+                if (webView.InvokeRequired)
+                {
+                    // If yes, use Invoke to run the action on the UI thread
+                    webView.Invoke(processMessageAction);
+                    return;
+                }
+                // If not, run the action directly
+                processMessageAction();
             });
         }
     }
