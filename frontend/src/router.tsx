@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
             { path: "devices", element: <Pages.DevicesPage />, },
             { path: "projects/:id", element: <Pages.ProjectPage />, },
             { path: "projects/:id/configs", element: <Pages.ConfigPage />, },
-            { path: "*", element: <Pages.ErrorPage /> }
-        ]
+        ],
     },
+    { path: "*", element: <Pages.ErrorPage /> },
 ]);

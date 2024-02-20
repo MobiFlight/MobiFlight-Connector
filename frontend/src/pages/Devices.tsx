@@ -1,25 +1,20 @@
 import H2 from "@/components/mobiflight/H2";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
 import { Switch } from "@/components/ui/switch";
 import { useDevicesStore } from "@/stores/deviceStateStore";
-import { CollapsibleTrigger } from "@radix-ui/react-collapsible";
 import { IconDots } from "@tabler/icons-react";
-import { useState } from "react";
 
 export default function DevicesPage() {
   const { devices } = useDevicesStore();
-  const [isOpen, setIsOpen] = useState<{ [Key: string]: boolean }>({});
   return (
-    <div>
+    <div className="flex flex-col overflow-y-auto">
       <H2>Devices</H2>
-      <div className="flex flex-row flex-wrap w-full gap-4">
+      <div className="flex flex-row flex-wrap w-full gap-4 overflow-y-auto">
         {devices?.map((device) => (
           <Card key={device.Id} className="w-96 border-4 border-transparent hover:border-gray-200 hover:bg-slate-100 hover:dark:border-primary ease-in-out transition-all hover:dark:bg-gray-700">
             <CardHeader className="flex flex-row gap-2 items-center">

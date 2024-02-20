@@ -80,8 +80,8 @@ function App() {
   );
 
   useEffect(() => {
-    const handleBeforeUnload = (event: any) => {
-      if ((event.which || event.keyCode) == 116) event.preventDefault();
+    const handleBeforeUnload = (event: KeyboardEvent) => {
+      if (event.key == "116") event.preventDefault();
     };
     window.addEventListener("keydown", handleBeforeUnload);
     return () => {
@@ -92,7 +92,7 @@ function App() {
   useEffect(() => {
     if (queryParameters.get("progress") == "100")
       setStartupProgress({ Value: 100, Text: "Finished!" });
-  }, []);
+  }, [queryParameters]);
 
   return (
     <>

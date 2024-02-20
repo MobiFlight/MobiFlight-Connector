@@ -2,9 +2,9 @@ import { AppMessageKey } from "@/types";
 import { AppMessage, FrontendMessageType } from "@/types/messages";
 import { useEffect } from "react";
 
-export const useMessageExchange = () => ({
+export const publishOnMessageExchange = () => ({
   publish: (message: FrontendMessageType) => {
-    window.chrome?.webview?.postMessage(message as any);
+    window.chrome?.webview?.postMessage(message);
   },
 });
 // create a useAppMessage hook that listens for messages
@@ -15,8 +15,8 @@ export const useAppMessage = (
   onReceiveMessage: (message: AppMessage) => void
 ) => {
   useEffect(() => {
-    const onReveiveMessageHandler = (event: any) => {
-      const appMessage = (JSON.parse(event.data) as AppMessage);
+    const onReveiveMessageHandler = (event: Event) => {
+      const appMessage = (JSON.parse((event as MessageEvent).data) as AppMessage);
       if (appMessage.key === key) {
         console.log(`Received AppMessage -> ${appMessage.key}`);
         onReceiveMessage(appMessage);
@@ -29,5 +29,5 @@ export const useAppMessage = (
       // remove the event listener when the component is unmounted
       window.chrome?.webview?.removeEventListener("message", onReveiveMessageHandler);
     };
-  }, [key]);
+  }, [key, onReceiveMessage]);
 };
