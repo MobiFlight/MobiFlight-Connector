@@ -121,9 +121,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
       return label != "" ? (
         <p className="text-md font-semibold">{label}</p>
       ) : (
-        <p className="text-xs text-muted-foreground">
+        <div className="text-xs text-muted-foreground">
           <Badge>Default</Badge>
-        </p>
+        </div>
       );
     },
   },

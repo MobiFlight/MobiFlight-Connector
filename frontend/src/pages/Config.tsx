@@ -1,4 +1,4 @@
-import { Project, Projects } from './../fixtures/projects'
+import { Project, Projects } from './../fixtures/data/projects'
 import { useConfigStore } from '@/stores/configFileStore';
 import { Link, useParams } from 'react-router-dom';
 import { IconPencil } from '@tabler/icons-react';

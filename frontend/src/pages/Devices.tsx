@@ -1,4 +1,5 @@
 import H2 from "@/components/mobiflight/H2";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,51 +7,43 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent } from "@/components/ui/collapsible";
+import { Switch } from "@/components/ui/switch";
 import { useDevicesStore } from "@/stores/deviceStateStore";
-import { IDictionary } from "@/types/config";
 import { CollapsibleTrigger } from "@radix-ui/react-collapsible";
+import { IconDots } from "@tabler/icons-react";
 import { useState } from "react";
 
 export default function DevicesPage() {
   const { devices } = useDevicesStore();
   const [isOpen, setIsOpen] = useState<{ [Key: string]: boolean }>({});
-
   return (
     <div>
       <H2>Devices</H2>
       <div className="flex flex-row flex-wrap w-full gap-4">
-        {devices.map((device) => (
-          <Card key={device.Id} className="w-96">
+        {devices?.map((device) => (
+          <Card key={device.Id} className="w-96 border-4 border-transparent hover:border-gray-200 hover:bg-slate-100 hover:dark:border-primary ease-in-out transition-all hover:dark:bg-gray-700">
             <CardHeader className="flex flex-row gap-2 items-center">
               {device?.MetaData && (
                 <div>
-                  {device?.MetaData["BoardIcon"] && (
-                    <img
-                      className="w-8 h-8"
-                      src={device.MetaData["BoardIcon"]}
-                    />
-                  )}
                   {device?.MetaData["Icon"] && (
-                    <img className="w-8 h-8" src={device.MetaData["Icon"]} />
+                    <img className="w-10 h-10" src={device.MetaData["Icon"]} />
                   )}
                 </div>
               )}
-              <div>{device.Name}</div>
+              <div className="flex flex-col mt-0">
+                <div className="text-xl font-semibold">{device.Name}</div>
+                <div className="text-sm">{device.Type}</div>
+              </div>
             </CardHeader>
             <CardContent>
               {device?.MetaData && (
-                <>
-                  <div>
-                    {device?.MetaData["BoardPicture"] && (
-                      <img src={device.MetaData["BoardPicture"]} />
-                    )}
-                    {device?.MetaData["Picture"] && (
-                      <img src={device.MetaData["Picture"]} />
-                    )}
-                  </div>
-                </>
+                <div className="h-60 overflow-hidden flex items-center">
+                  {device?.MetaData["Picture"] && (
+                    <img className="w-full" src={device.MetaData["Picture"]} />
+                  )}
+                </div>
               )}
-              <Collapsible
+              {/* <Collapsible
                 open={isOpen[device.Id]}
                 onOpenChange={(value: boolean) => {
                   setIsOpen({ deviceId: value });
@@ -64,9 +57,12 @@ export default function DevicesPage() {
                     </p>
                   ))}
                 </CollapsibleContent>
-              </Collapsible>
+              </Collapsible> */}
             </CardContent>
-            <CardFooter>{device.Type}</CardFooter>
+            <CardFooter className="flex justify-between">
+              <Switch>Active</Switch>
+              <IconDots className="cursor-pointer"></IconDots>
+            </CardFooter>
           </Card>
         ))}
       </div>

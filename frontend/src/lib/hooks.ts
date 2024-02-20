@@ -12,7 +12,7 @@ export const useMessageExchange = () => ({
 // the callback is called when a message is received
 export const useAppMessage = (
   key: AppMessageKey,
-  onReceiveMessage: (message: any) => void
+  onReceiveMessage: (message: AppMessage) => void
 ) => {
   useEffect(() => {
     const onReveiveMessageHandler = (event: any) => {

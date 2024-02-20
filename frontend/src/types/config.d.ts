@@ -13,13 +13,11 @@ export interface IConfigItem {
 
 interface IDictionary<T> {
     [Key: string]: T
-    getValues(): T[]
-    getKeys(): string[]
 }
 
 export interface IDeviceItem {
-    Id: string;
-    Type: string;
-    Name: string;
+    Id: string
+    Type: string
+    Name: string
     MetaData: IDictionary<string>
 }

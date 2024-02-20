@@ -69,6 +69,7 @@ function App() {
   });
 
   useAppMessage("DeviceUpdate", (message) => {
+    console.log(`Received a ${message.key} message`);
     const update = message.payload as Types.DeviceUpdate;
     setDevices(update.Devices);
   });

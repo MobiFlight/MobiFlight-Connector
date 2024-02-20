@@ -27,8 +27,8 @@ namespace MobiFlight.Frontend
 
             Dictionary<string, string> dict = new Dictionary<string, string>
             {
-                { "BoardIcon", GetDataImage(info.BoardIcon.Tag as string)},
-                { "BoardPicture", info.BoardPicture != null ? GetDataImage(info.BoardPicture.Tag as string) : null},
+                { "Icon", GetDataImage(info.BoardIcon.Tag as string)},
+                { "Picture", info.BoardPicture != null ? GetDataImage(info.BoardPicture.Tag as string) : null},
                 { "FriendlyName", info.FriendlyName },
                 { "CanInstallFirmware", info.CanInstallFirmware.ToString() },
                 { "CanResetBoard", info.CanResetBoard.ToString() },
