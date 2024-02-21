@@ -16,7 +16,7 @@ export interface GlobalSettingsUpdateMessage {
 export type FontendMessageKey = "ExecutionUpdate" | "config.edit" | "GlobalSettingsUpdate"
 export type FrontendMessageType = ExecutionUpdateMessage | EditConfigMessage | GlobalSettingsUpdateMessage
 
-export type AppMessageKey = "config.update" | "GlobalSettings" | "StatusBarUpdate" | "ConfigFile" | "LogMessage" | "ExecutionUpdate" | "ConfigValueUpdate"
+export type AppMessageKey = "config.update" | "GlobalSettings" | "StatusBarUpdate" | "ConfigFile" | "LogMessage" | "ExecutionUpdate" | "ConfigValueUpdate" | "DeviceUpdate"
 export type AppMessagePayload = ConfigLoadedEvent | EventMessage | StatusBarUpdate | ExecutionUpdate | ConfigValueUpdate | ILogMessage | IGlobalSettings | IConfigItem
 
 
@@ -41,6 +41,10 @@ export interface ExecutionUpdate {
 
 export interface ConfigValueUpdate {
     ConfigItems: Types.IConfigItem[]
+}
+
+export interface DeviceUpdate {
+    Devices: Types.IDeviceItem[]
 }
 
 export type Message = ConfigLoadedEvent | EventMessage | StatusBarUpdate | ExecutionUpdate | ConfigValueUpdate

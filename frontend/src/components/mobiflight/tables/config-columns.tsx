@@ -11,7 +11,7 @@ import { IConfigItem } from "@/types";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { IconArrowsSort, IconDots } from "@tabler/icons-react";
-import { useMessageExchange } from "@/lib/hooks";
+import { publishOnMessageExchange } from "@/lib/hooks";
 import { Badge } from "@/components/ui/badge";
 import DeviceIcon, { DeviceIconVariant } from "../icons/DeviceIcon";
 
@@ -37,7 +37,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Description",
     size: 1,
     cell: ({ row }) => {
-      const label = row.getValue("Description") as String;
+      const label = row.getValue("Description") as string;
       return (
         <div>
           <p className="font-semibold">{label}</p>
@@ -63,8 +63,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
     header: () => <div className="w-20">Device</div>,
     size: 200,
     cell: ({ row }) => {
-      const label = (row.getValue("Device") as String).split("/")[0];
-      const serial = (row.getValue("Device") as String).split("/")[1];
+      const label = (row.getValue("Device") as string).split("/")[0];
+      const serial = (row.getValue("Device") as string).split("/")[1];
       return (
         <>
           <p className="text-md font-semibold">{label}</p>
@@ -81,8 +81,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Component",
     header: "Component",
     cell: ({ row }) => {
-      const label = row.getValue("Component") as String;
-      const type = row.getValue("Type") as String;
+      const label = row.getValue("Component") as string;
+      const type = row.getValue("Type") as string;
       const icon = (
         <DeviceIcon variant={(type ?? "default") as DeviceIconVariant} />
       );
@@ -105,7 +105,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Type",
     header: () => <div className="w-20">Type</div>,
     cell: ({ row }) => {
-      const label = row.getValue("Type") as String;
+      const label = row.getValue("Type") as string;
       return <p className="text-md font-semibold">{label}</p>;
     },
     filterFn: (row, id, value) => {
@@ -117,13 +117,13 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Tags",
     header: "Tags",
     cell: ({ row }) => {
-      const label = row.getValue("Tags") as String;
+      const label = row.getValue("Tags") as string;
       return label != "" ? (
         <p className="text-md font-semibold">{label}</p>
       ) : (
-        <p className="text-xs text-muted-foreground">
+        <div className="text-xs text-muted-foreground">
           <Badge>Default</Badge>
-        </p>
+        </div>
       );
     },
   },
@@ -132,7 +132,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Status",
     header: "Status",
     cell: ({ row }) => {
-      const label = row.getValue("Status") as String;
+      const label = row.getValue("Status") as string;
       return label != "" ? (
         <p className="text-md font-semibold">{label}</p>
       ) : (
@@ -157,7 +157,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     id: "actions",
     cell: ({ row }) => {
       const item = row.original;
-      const { publish } = useMessageExchange();
+      const { publish } = publishOnMessageExchange();
 
       return (
         <div className="relative">

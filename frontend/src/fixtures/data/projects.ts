@@ -4,8 +4,8 @@ export interface Project {
   name: string
   linkedAircraft?: string[]
   status: {
-    configs: { files: Number, configs: Number, status: string }
-    devices: { count: Number, status: string }
+    configs: { files: number, configs: number, status: string }
+    devices: { count: number, status: string }
     sim: { name: string, status: string }
   }
 }

@@ -7,8 +7,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useTheme } from "@/components/ui/theme-provider"
 import { cn } from "@/lib/utils"
+import { useTheme } from "../ui/usetheme-hook"
 
 interface DarkModeToggleProps {
   className?: string

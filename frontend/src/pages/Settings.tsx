@@ -4,12 +4,12 @@ import { useGlobalSettingsStore } from "@/stores/globalSettingsStore"
 import { IGlobalSettings } from "@/types"
 import { useEffect, useState } from "react"
 import _ from "lodash"
-import { useMessageExchange } from "@/lib/hooks"
+import { publishOnMessageExchange } from "@/lib/hooks"
 
 export default function SettingsPage() {
     const { settings } = useGlobalSettingsStore()
     const [tempSettings, setTempSettings] = useState<IGlobalSettings>()
-    const { publish } = useMessageExchange()
+    const { publish } = publishOnMessageExchange()
 
     useEffect(() => {
         setTempSettings(useGlobalSettingsStore.getState().settings)

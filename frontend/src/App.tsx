@@ -14,6 +14,7 @@ import { useGlobalSettingsStore } from "./stores/globalSettingsStore";
 import { useLogMessageStore } from "./stores/logStore";
 import { useExecutionStateStore } from "./stores/executionStateStore";
 import { useAppMessage } from "./lib/hooks";
+import { useDevicesStore } from "./stores/deviceStateStore";
 
 function App() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function App() {
   const { setSettings } = useGlobalSettingsStore();
   const { addMessage } = useLogMessageStore();
   const { setState } = useExecutionStateStore();
+  const { setDevices } = useDevicesStore();
 
   useAppMessage("StatusBarUpdate", (message) => {
     setStartupProgress(message.payload as Types.StatusBarUpdate);
@@ -66,14 +68,20 @@ function App() {
     updateItem(updatedItem);
   });
 
+  useAppMessage("DeviceUpdate", (message) => {
+    console.log(`Received a ${message.key} message`);
+    const update = message.payload as Types.DeviceUpdate;
+    setDevices(update.Devices);
+  });
+
   const [queryParameters] = useSearchParams();
   const [startupProgress, setStartupProgress] = useState<Types.StatusBarUpdate>(
     { Value: 0, Text: "Starting..." }
   );
 
   useEffect(() => {
-    const handleBeforeUnload = (event: any) => {
-      if ((event.which || event.keyCode) == 116) event.preventDefault();
+    const handleBeforeUnload = (event: KeyboardEvent) => {
+      if (event.key == "116") event.preventDefault();
     };
     window.addEventListener("keydown", handleBeforeUnload);
     return () => {
@@ -84,7 +92,7 @@ function App() {
   useEffect(() => {
     if (queryParameters.get("progress") == "100")
       setStartupProgress({ Value: 100, Text: "Finished!" });
-  }, []);
+  }, [queryParameters]);
 
   return (
     <>

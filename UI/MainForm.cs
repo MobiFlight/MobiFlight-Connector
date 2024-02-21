@@ -2014,11 +2014,11 @@ namespace MobiFlight.UI
             Properties.Settings.Default.AutoRun = value;
             if (value)
             {
-                autoRunToolStripButton.Image = MobiFlight.Properties.Resources.lightbulb_on;
+                autoRunToolStripButton.Image = Properties.Resources.lightbulb_on;
             }
             else
             {
-                autoRunToolStripButton.Image = MobiFlight.Properties.Resources.lightbulb;
+                autoRunToolStripButton.Image = Properties.Resources.lightbulb;
             }
         }
 

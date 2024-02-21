@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "FlightSimBuilder G1000 PFD",
+  "Info": {
+    "Icon": "flightsimbuilder.icon.png",
+    "Picture": "flightsimbuilder.g1000.pfd.jpg",
+    "Manufacturer": "FlightSimBuilder",
+    "Website": "https://flightsimbuilder.com"
+  },
+  "Inputs": [
+  ]
+}

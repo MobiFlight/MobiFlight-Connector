@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { Project, Projects } from '../fixtures/projects'
+import { Project, Projects } from '../fixtures/data/projects'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { IconPencil } from '@tabler/icons-react'
 import { useTranslation } from 'react-i18next';

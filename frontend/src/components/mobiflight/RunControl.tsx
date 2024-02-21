@@ -3,10 +3,10 @@ import { IconPlayerPlay } from '@tabler/icons-react'
 import { Switch } from '../ui/switch'
 import { useGlobalSettingsStore } from '@/stores/globalSettingsStore'
 import { useExecutionStateStore } from '@/stores/executionStateStore'
-import { useMessageExchange } from '@/lib/hooks'
+import { publishOnMessageExchange } from '@/lib/hooks'
 
 const RunControl = () => {
-    const { publish } = useMessageExchange()
+    const { publish } = publishOnMessageExchange()
     const { state } = useExecutionStateStore()
     const { settings, updateSetting } = useGlobalSettingsStore()
 

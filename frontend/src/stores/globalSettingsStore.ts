@@ -1,9 +1,11 @@
 import { create } from 'zustand';
 import * as Types from '../types/index';
 
+type SettingUpdate = Partial<Types.IGlobalSettings>;
+
 interface GlobalSettingsState {
     settings: Types.IGlobalSettings
-    updateSetting: (setting : {}) => void
+    updateSetting: (setting : SettingUpdate) => void
     setSettings: (settings: Types.IGlobalSettings) => void
 }
 
