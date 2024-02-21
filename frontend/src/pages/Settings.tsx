@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 import { publishOnMessageExchange } from "@/lib/hooks";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { ComboBox } from "@/components/mobiflight/ComboBox";
 import { useBlocker } from "react-router";
 import {
@@ -18,7 +17,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 
@@ -95,10 +93,10 @@ export default function SettingsPage() {
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => blocker.reset()}>
+              <AlertDialogCancel onClick={() => blocker.reset?.()}>
                 Cancel
               </AlertDialogCancel>
-              <AlertDialogAction onClick={() => blocker.proceed()}>
+              <AlertDialogAction onClick={() => blocker.proceed?.()}>
                 Continue
               </AlertDialogAction>
             </AlertDialogFooter>
