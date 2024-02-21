@@ -1,8 +1,0 @@
-export { default as ErrorPage } from './Error'
-export { default as SettingsPage } from './Settings'
-export { default as ProjectPage } from './Project'
-export { default as StartPage } from './Start'
-export { default as ConfigPage } from './Config'
-export { default as DevicesPage } from './Devices'
-export { default as LogPage } from './Log'
-export { default as TestPage } from './Test'

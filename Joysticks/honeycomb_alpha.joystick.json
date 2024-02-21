@@ -1,12 +1,6 @@
 ﻿{
   "$schema": "./mfjoystick.schema.json",
   "InstanceName": "Alpha Flight Controls",
-  "Info": {
-    "Icon": "honeycomb.alpha.icon.png",
-    "Picture": "honeycomb.alpha.picture.png",
-    "Manufacturer": "Honeycomb Aeronautical",
-    "Website" : "https://flyhoneycomb.com/products/alpha-flight-controls"
-  },
   "Inputs": [
     {
       "Id": 1,

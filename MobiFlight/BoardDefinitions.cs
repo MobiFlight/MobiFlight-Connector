@@ -100,7 +100,6 @@ namespace MobiFlight
                     if (File.Exists(logoPath))
                     {
                         board.Info.BoardPicture = Image.FromFile(logoPath);
-                        board.Info.BoardPicture.Tag = logoPath;
                     }
 
                     // check if we have a more board specifc picture
@@ -108,14 +107,12 @@ namespace MobiFlight
                     if (File.Exists(logoPath))
                     {
                         board.Info.BoardPicture = Image.FromFile(logoPath);
-                        board.Info.BoardPicture.Tag = logoPath;
                     }
 
                     var boardIconPath = $@"{boardPath}\board-logo.png";
                     if (File.Exists(boardIconPath))
                     {
                         board.Info.BoardIcon = Image.FromFile(boardIconPath);
-                        board.Info.BoardIcon.Tag = boardIconPath;
                     }
                 },
                 onError: () => LoadingError = true

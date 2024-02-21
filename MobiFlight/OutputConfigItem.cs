@@ -19,15 +19,10 @@ namespace MobiFlight
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
         public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
-
-
-        public string GUID { get; set; }
-        public bool Active { get; set; }
-        public string Description { get; set; }
-
+        
         // this implements the FSUIPC Config Item Interface
         // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-        public SourceType           SourceType                  { get; set; }
+		public SourceType           SourceType                  { get; set; }
 		public FsuipcOffset         FSUIPC                      { get; set; }
 		public SimConnectValue      SimConnectValue             { get; set; }
 		public MobiFlightVariable   MobiFlightVariable          { get; set; }

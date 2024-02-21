@@ -25,9 +25,6 @@ namespace MobiFlight
         // only for backward compatibility during loading
         public const String TYPE_ANALOG_OLD = "Analog";
 
-        public string GUID { get; set; }
-        public bool Active { get; set; }
-        public string Description { get; set; }
         public string ModuleSerial { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

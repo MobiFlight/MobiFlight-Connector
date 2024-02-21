@@ -45,23 +45,21 @@ namespace MobiFlight.OutputConfig
             clone.DisplayLedBrightnessReference = DisplayLedBrightnessReference;
             clone.DisplayLedPaddingChar = DisplayLedPaddingChar;
             clone.DisplayLedModuleSize = DisplayLedModuleSize;
-            clone.DisplayLedDigits = new List<string>(DisplayLedDigits.ToArray());
+            clone.DisplayLedDigits = new List<string> (DisplayLedDigits.ToArray());
             clone.DisplayLedDecimalPoints = new List<string>(DisplayLedDecimalPoints.ToArray());
             return clone;
         }
 
         public override bool Equals(Object obj)
         {
-            if ((obj == null) || !(obj is LedModule)) return false;
-
-            bool digitsAreEqual = true && DisplayLedDigits?.Count == (obj as LedModule)?.DisplayLedDigits.Count;
+            bool digitsAreEqual = true && DisplayLedDigits.Count == (obj as LedModule).DisplayLedDigits.Count;
             if (digitsAreEqual)
                 for (int i = 0; i != DisplayLedDigits.Count; i++)
                 {
                     digitsAreEqual = digitsAreEqual && (DisplayLedDigits[i] == (obj as LedModule).DisplayLedDigits[i]);
                 }
 
-            bool pointsAreEqual = true && DisplayLedDecimalPoints.Count == (obj as LedModule)?.DisplayLedDecimalPoints.Count;
+            bool pointsAreEqual = true && DisplayLedDecimalPoints.Count == (obj as LedModule).DisplayLedDecimalPoints.Count;
             if (pointsAreEqual)
                 for (int i = 0; i != DisplayLedDecimalPoints.Count; i++)
                 {

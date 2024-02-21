@@ -8,7 +8,6 @@ using System.IO;
 using System.Threading.Tasks;
 using MobiFlight.UI.Panels;
 using System.Diagnostics;
-using MobiFlight.BrowserMessages;
 
 namespace MobiFlight
 {
@@ -18,13 +17,6 @@ namespace MobiFlight
         Info = 1,
         Warn = 2,
         Error = 3
-    }
-
-    public struct LogMessage
-    {
-        public DateTime Timestamp;
-        public string Message;
-        public string Severity;
     }
 
     public sealed class Log
@@ -123,25 +115,6 @@ namespace MobiFlight
             {
                     textBox.Text = DateTime.Now + "(" + DateTime.Now.Millisecond + ")" + ": " + message + Environment.NewLine + textBox.Text;
             }
-        }
-    }
-
-    public class LogAppenderWebView : ILogAppender
-    {
-        private LogPanel panel = null;
-        // This delegate enables asynchronous calls for setting
-        // the text property on a TextBox control.
-        delegate void logCallback(string message, LogSeverity severity);
-
-        public void log(string message, LogSeverity severity)
-        {
-            var m = new LogMessage
-            {
-                Timestamp = DateTime.Now,
-                Message = message,
-                Severity = severity.ToString()
-            };
-            MessageExchange.Instance.Publish<Message<LogMessage>>(new Message<LogMessage>(m));
         }
     }
 

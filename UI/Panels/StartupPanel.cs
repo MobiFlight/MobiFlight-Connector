@@ -1,5 +1,11 @@
-﻿using MobiFlight.BrowserMessages;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -8,7 +14,6 @@ namespace MobiFlight.UI.Panels
     {
         delegate void progressBarCallback(int percent);
         delegate void updateStatusTextCallback(String StatusText);
-        delegate void updateProgressBarAndStatusTextCallback(string text, int percent);
 
         public StartupPanel()
         {
@@ -46,21 +51,6 @@ namespace MobiFlight.UI.Panels
             }
         }
 
-        public void UpdateProgressBarAndStatusText(string text, int percent)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (progressBar.InvokeRequired)
-            {
-                progressBar.Invoke(new updateProgressBarAndStatusTextCallback(UpdateProgressBarAndStatusText), new object[] { text, percent });
-            }
-            else
-            {
-                MessageExchange.Instance.Publish(new Message<StatusBarUpdate>(new StatusBarUpdate(text, percent)));
-            }
-        }
-
         public int GetProgressBar()
         {
             return this.progressBar.Value;
@@ -76,5 +66,4 @@ namespace MobiFlight.UI.Panels
 
         }
     }
-    
 }

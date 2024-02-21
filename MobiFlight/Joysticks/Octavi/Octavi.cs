@@ -80,10 +80,10 @@ namespace MobiFlight.Joysticks.Octavi
 
         public override void Update()
         {
-            //if (Stream == null || inputReceiver == null)
-            //{
-            //    Connect();
-            //};
+            if (Stream == null || inputReceiver == null)
+            {
+                Connect();
+            };
             // We don't do anything else
             // because we have a callback for
             // handling the incoming reports

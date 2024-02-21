@@ -6,20 +6,12 @@ using System.Xml;
 using System.Data;
 using System.IO;
 using MobiFlight.InputConfig;
-using MobiFlight.Frontend;
 
 namespace MobiFlight
 {
     public class ConfigFile
     {
         public String FileName { get; set; }
-
-        // create read only property to get the output config items
-        public List<IConfigItem> ConfigItems
-        {
-            get { return GetConfigItems(); }
-        }
-
         System.Xml.XmlDocument xmlConfig = new System.Xml.XmlDocument();
 
         public ConfigFile(String FileName)
@@ -76,28 +68,15 @@ namespace MobiFlight
             return xReader;
         }
 
-        public List<IConfigItem> GetConfigItems()
-        {
-            var result = new List<IConfigItem>();
-            GetOutputConfigItems().ForEach(item => result.Add(new OutputConfigItemAdapter(item)));
-            GetInputConfigItems().ForEach(item => result.Add(new InputConfigItemAdapter(item)));
-
-            return result;
-        }
-
         public List<OutputConfigItem> GetOutputConfigItems()
         {
             List<OutputConfigItem> result = new List<OutputConfigItem>();
 
-            XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config");
+            XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config/settings");
             foreach(XmlNode item in outputs)
             {
                 OutputConfigItem config = new OutputConfigItem();
-                config.GUID = item.Attributes["guid"].Value;
-                config.Active = item.SelectSingleNode("active").InnerText == "true";
-                config.Description = item.SelectSingleNode("description").InnerText;
-
-                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
+                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
                 System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
                 config.ReadXml(xReader);
                 result.Add(config);
@@ -106,19 +85,15 @@ namespace MobiFlight
             return result;
         }
 
-        public List<InputConfigItem> GetInputConfigItems()
+        internal List<InputConfigItem> GetInputConfigItems()
         {
             List<InputConfigItem> result = new List<InputConfigItem>();
 
-            XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config");
+            XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config/settings");
             foreach (XmlNode item in inputs)
             {
                 InputConfigItem config = new InputConfigItem();
-                config.GUID = item.Attributes["guid"].Value;
-                config.Active = item.SelectSingleNode("active").InnerText == "true";
-                config.Description = item.SelectSingleNode("description").InnerText;
-
-                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
+                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
                 System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
                 xReader.Read();
                 config.ReadXml(xReader);
