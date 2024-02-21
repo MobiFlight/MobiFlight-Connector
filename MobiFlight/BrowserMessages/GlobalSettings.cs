@@ -26,6 +26,7 @@ namespace MobiFlight.BrowserMessages
         public string ModuleSettings { get; set; }
         public string[] RecentFiles { get; set; }
         public int RecentFilesMaxCount { get; set; }
+        public int TestTimerInterval { get; set; }
         
         internal GlobalSettings()
         {
@@ -56,9 +57,7 @@ namespace MobiFlight.BrowserMessages
             // Skip: PollInterval = settings.PollInterval;
             RecentFiles = settings.RecentFiles.Cast<string>().ToArray();
             RecentFilesMaxCount = settings.RecentFilesMaxCount;
-            // Skip: TestTimerInterval = settings.TestTimerInterval;
-
-
+            TestTimerInterval = settings.TestTimerInterval;
             // Properties.Settings.Default.AutoRetrigger = true;
             // Properties.Settings.Default.AutoRun = true;
             // Properties.Settings.Default.AutoLoadLinkedConfig = true;

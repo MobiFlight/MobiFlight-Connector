@@ -47,7 +47,6 @@ function App() {
 
   useAppMessage("ConfigValueUpdate", (message) => {
     const update = message.payload as Types.ConfigValueUpdate;
-    console.log(update);
     const mergedItems = useConfigStore.getState().items.map((item) => {
       const newItem = update.ConfigItems.find(
         (newItem) => newItem.GUID === item.GUID

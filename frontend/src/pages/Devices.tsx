@@ -16,7 +16,7 @@ export default function DevicesPage() {
       <H2>Devices</H2>
       <div className="flex flex-row flex-wrap w-full gap-4 overflow-y-auto">
         {devices?.map((device) => (
-          <Card key={device.Id} className="w-96 border-4 border-transparent hover:border-gray-200 hover:bg-slate-100 hover:dark:border-primary ease-in-out transition-all hover:dark:bg-gray-700">
+          <Card key={device.Id} className="w-96">
             <CardHeader className="flex flex-row gap-2 items-center">
               {device?.MetaData && (
                 <div>
