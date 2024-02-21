@@ -47,6 +47,7 @@
             this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyLogsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orphanedSerialsFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +67,8 @@
             this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
             this.InputTabPage = new System.Windows.Forms.TabPage();
             this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
+            this.NewUITabPage = new System.Windows.Forms.TabPage();
+            this.uiPanel1 = new MobiFlight.UI.Panels.UiPanel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -130,7 +133,6 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.copyLogsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -145,6 +147,7 @@
             // 
             // menuStrip
             // 
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.extrasToolStripMenuItem,
@@ -262,6 +265,12 @@
             resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
             this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
             // 
+            // copyLogsToClipboardToolStripMenuItem
+            // 
+            this.copyLogsToClipboardToolStripMenuItem.Name = "copyLogsToClipboardToolStripMenuItem";
+            resources.ApplyResources(this.copyLogsToClipboardToolStripMenuItem, "copyLogsToClipboardToolStripMenuItem");
+            this.copyLogsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyLogsToClipboardToolStripMenuItem_Click);
+            // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
             this.orphanedSerialsFinderToolStripMenuItem.Name = "orphanedSerialsFinderToolStripMenuItem";
@@ -349,6 +358,7 @@
             // panelMain
             // 
             resources.ApplyResources(this.panelMain, "panelMain");
+            this.panelMain.Controls.Add(this.uiPanel1);
             this.panelMain.Controls.Add(this.inputsTabControl);
             this.panelMain.Name = "panelMain";
             // 
@@ -356,6 +366,7 @@
             // 
             this.inputsTabControl.Controls.Add(this.OutputTabPage);
             this.inputsTabControl.Controls.Add(this.InputTabPage);
+            this.inputsTabControl.Controls.Add(this.NewUITabPage);
             resources.ApplyResources(this.inputsTabControl, "inputsTabControl");
             this.inputsTabControl.ImageList = this.tabPageImageList;
             this.inputsTabControl.Multiline = true;
@@ -391,6 +402,17 @@
             this.inputConfigPanel.ExecutionManager = null;
             this.inputConfigPanel.Name = "inputConfigPanel";
             this.inputConfigPanel.OutputDataSetConfig = null;
+            // 
+            // NewUITabPage
+            // 
+            resources.ApplyResources(this.NewUITabPage, "NewUITabPage");
+            this.NewUITabPage.Name = "NewUITabPage";
+            this.NewUITabPage.UseVisualStyleBackColor = true;
+            // 
+            // uiPanel1
+            // 
+            resources.ApplyResources(this.uiPanel1, "uiPanel1");
+            this.uiPanel1.Name = "uiPanel1";
             // 
             // tabPageImageList
             // 
@@ -450,6 +472,7 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripButton,
             this.toolStripSeparator1,
@@ -593,6 +616,7 @@
             // statusStrip2
             // 
             resources.ApplyResources(this.statusStrip2, "statusStrip2");
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ModulesStatusToolStripLabel,
             this.ModuleStatusIconToolStripLabel,
@@ -835,12 +859,6 @@
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
-            // copyLogsToClipboardToolStripMenuItem
-            // 
-            this.copyLogsToClipboardToolStripMenuItem.Name = "copyLogsToClipboardToolStripMenuItem";
-            resources.ApplyResources(this.copyLogsToClipboardToolStripMenuItem, "copyLogsToClipboardToolStripMenuItem");
-            this.copyLogsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyLogsToClipboardToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -987,6 +1005,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHubHop;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripMenuItem copyLogsToClipboardToolStripMenuItem;
+        private System.Windows.Forms.TabPage NewUITabPage;
+        private Panels.UiPanel uiPanel1;
     }
 }
 

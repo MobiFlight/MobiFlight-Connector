@@ -55,17 +55,38 @@ namespace MobiFlight
         }
     }
 
-    public class JoystickDefinition : IMigrateable
+    public class JoystickInfo
     {
         /// <summary>
-        /// List of inputs supported by the device.
+        /// The device's icon filename. Required.
         /// </summary>
-        public List<JoystickInput> Inputs;
+        public string Icon { get; set; }
+        /// <summary>
+        /// The device's picture filename. Required.
+        /// </summary>
+        public string Picture { get; set; }
+        /// <summary>
+        /// The device's manufacturer. Required.
+        /// </summary>
+        public string Manufacturer { get; set; }
+        /// <summary>
+        /// the device's website. Required.
+        /// </summary>
+        public string Website { get; set; }
+    }
 
+    public class JoystickDefinition : IMigrateable
+    {
+        public JoystickInfo Info { get; set; }
         /// <summary>
         /// Instance name for the device. This is used to match the definition with a connected device.
         /// </summary>
         public string InstanceName;
+
+        /// <summary>
+        /// List of inputs supported by the device.
+        /// </summary>
+        public List<JoystickInput> Inputs;
 
         /// <summary>
         /// List of options supported by the device.

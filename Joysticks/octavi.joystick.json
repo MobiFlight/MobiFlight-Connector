@@ -3,6 +3,12 @@
   "InstanceName": "Octavi",
   "VendorId": "0x04D8",
   "ProductId": "0xE6D6",
+  "Info": {
+    "Icon": "octavi.icon.png",
+    "Picture": "octavi.picture.png",
+    "Manufacturer": "Octavi",
+    "Website": "https://octavi.com"
+  },
   "Inputs": [
 
   ],

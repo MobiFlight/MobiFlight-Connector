@@ -15,6 +15,38 @@
       "type": "string",
       "description": "Instance name for the device. Required. This is used to match the definition with a connected device."
     },
+    "Info": {
+      "$id": "#root/Info",
+      "title": "Info",
+      "type": "object",
+      "required": ["Icon", "Picture", "Manufacturer", "Website"],
+      "properties": {
+        "Icon": {
+          "$id": "#root/Info/Icon",
+          "title": "Icon",
+          "type": "string",
+          "description": "The device's icon filename. Required."
+        },
+        "Product": {
+          "$id": "#root/Info/Picture",
+          "title": "Picture",
+          "type": "string",
+          "description": "The device's picture filename. Required."
+        },
+        "Manufacturer": {
+          "$id": "#root/Info/Manufacturer",
+          "title": "Manufacturer",
+          "type": "string",
+          "description": "The device's manufacturer. Required."
+        },
+        "Website": {
+          "$id": "#root/Info/Website",
+          "title": "Website",
+          "type": "string",
+          "description": "The device's website. Required."
+        }
+      }
+    },
     "Inputs": {
       "$id": "#root/Inputs",
       "title": "Inputs",

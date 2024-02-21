@@ -14,13 +14,15 @@ namespace MobiFlight.OutputConfig
         public String Address { get; set; }
         public List<String> Lines { get; set; }
 
-        public LcdDisplay ()
+        public LcdDisplay()
         {
             Lines = new List<string>();
         }
 
         public override bool Equals(object obj)
         {
+            if (obj == null || !(obj is LcdDisplay)) return false;
+
             bool linesAreEqual = true && Lines.Count == (obj as LcdDisplay).Lines.Count;
             if (linesAreEqual)
             for(int i=0; i!=Lines.Count; i++)
