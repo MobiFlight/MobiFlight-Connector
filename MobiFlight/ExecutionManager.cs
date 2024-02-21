@@ -1241,7 +1241,6 @@ namespace MobiFlight
                         OnSimUnavailable?.Invoke(LastDetectedSim, null);
                         LastDetectedSim = FlightSimType.NONE;
                     }
-                    Log.Instance.log("No Sim running.", LogSeverity.Debug);
                 }
             }
 
