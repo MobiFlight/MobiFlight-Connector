@@ -324,15 +324,12 @@ namespace MobiFlight.UI.Panels.Settings
 
             if (!isMobiFlightBoard)
             {
-                // TODO: Show an option to upload the VID PID compatible firmwares
                 var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId);
 
-                // we don't have ambiguous boards
                 // but we have a device like the pico
                 if (boards.Count == 0 && module.Board.UsbDriveSettings != null) 
                 {
-                    // at the moment we don't support
-                    // alternatives for the USB type device
+                    // find all alternatives for the USB type device
                     boards = BoardDefinitions.GetBoardsByUsbVolumeLabel(module.HardwareId);
                 }
 
