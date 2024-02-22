@@ -333,7 +333,7 @@ namespace MobiFlight.UI.Panels.Settings
                 {
                     // at the moment we don't support
                     // alternatives for the USB type device
-                    boards.Add(module.Board);
+                    boards = BoardDefinitions.GetBoardsByUsbVolumeLabel(module.HardwareId);
                 }
 
                 if (boards.Count > 0)
