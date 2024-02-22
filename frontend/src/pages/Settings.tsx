@@ -56,6 +56,11 @@ export default function SettingsPage() {
     setTempSettings(useGlobalSettingsStore.getState().settings);
   }, [settings]);
   /*
+        x - removed
+        / - included
+        > - moving to different view
+        ! - not editable by user
+
         x ArcazeSupportEnabled: boolean
         / AutoRetrigger: boolean
         / AutoRun: boolean
@@ -64,12 +69,12 @@ export default function SettingsPage() {
         / CommunityFeedback: boolean
         / EnableJoystickSupport: boolean
         / EnableMidiSupport: boolean
-        ExcludedJoysticks: string[]
-        ExcludedMidiDevices: string[]
+        > ExcludedJoysticks: string[] 
+        > ExcludedMidiDevices: string[] 
         / FwAutoUpdateCheck: boolean
         / HubHopAutoCheck: boolean
-        IgnoredComPortsList: string
-        Language: string
+        > IgnoredComPortsList: string
+        / Language: string
         / LogEnabled: boolean
         / LogJoystickAxis: boolean
         / LogLevel: string
