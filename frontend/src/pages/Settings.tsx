@@ -119,11 +119,11 @@ export default function SettingsPage() {
               <Button variant={"outline"} className="flex flex-row p-3">
                 {tempSettings?.RecentFilesMaxCount.toString()}
                 <div className="flex flex-col">
-                <IconChevronUp className="ml-2 h-4 w-4 shrink-0 opacity-50 hover:stroke-primary hover:opacity-100" onClick={()=>setTempSettings({
+                <IconChevronUp role="button" className="ml-2 h-4 w-4 shrink-0 opacity-50 hover:stroke-primary hover:opacity-100" onClick={()=>setTempSettings({
                     ...tempSettings,
                     RecentFilesMaxCount: Math.min(10,tempSettings!.RecentFilesMaxCount + 1),
                   } as IGlobalSettings)}/>
-                <IconChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50  hover:stroke-primary hover:opacity-100" onClick={()=>setTempSettings({
+                <IconChevronDown role="button" className="ml-2 h-4 w-4 shrink-0 opacity-50  hover:stroke-primary hover:opacity-100" onClick={()=>setTempSettings({
                     ...tempSettings,
                     RecentFilesMaxCount: Math.max(1,tempSettings!.RecentFilesMaxCount - 1),
                   } as IGlobalSettings)}/>
@@ -390,7 +390,6 @@ export default function SettingsPage() {
           disabled={_.isEqual(tempSettings, settings)}
           onClick={() => {
             if (!tempSettings) return;
-            console.log(tempSettings);
             publish({ key: "GlobalSettingsUpdate", payload: tempSettings });
           }}
         >

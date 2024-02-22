@@ -1,5 +1,5 @@
 import { MFPage } from "./mfpage";
-import * as Types from "./../types/index";
+import * as Types from "../../src/types/index";
 import { TestJoystick, TestMidiDevice, TestMobiflightBoard } from "./data/devices";
 
 export class DevicePage {
