@@ -39,7 +39,7 @@ namespace MobiFlight
         /// This is used for offering different community board options.
         /// </summary>
         /// <param name="volumeLabel">The volume label to match</param>
-        /// <returns>The first board definition matching the volumeLabel, or null if none found.</returns>
+        /// <returns>All board definitions matching the volumeLabel, or an empty list if none found.</returns>
         public static List<Board> GetBoardsByUsbVolumeLabel(String volumeLabel)
         {
             return boards.FindAll(board => board.UsbDriveSettings?.VolumeLabel == volumeLabel);
