@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 export const publishOnMessageExchange = () => ({
   publish: (message: FrontendMessageType) => {
+    console.log(`Publishing FrontendMessage -> ${message.key}`);
     window.chrome?.webview?.postMessage(message);
   },
 });
@@ -16,10 +17,14 @@ export const useAppMessage = (
 ) => {
   useEffect(() => {
     const onReveiveMessageHandler = (event: Event) => {
-      const appMessage = (JSON.parse((event as MessageEvent).data) as AppMessage);
-      if (appMessage.key === key) {
-        console.log(`Received AppMessage -> ${appMessage.key}`);
-        onReceiveMessage(appMessage);
+      try {
+        const appMessage = (JSON.parse((event as MessageEvent).data) as AppMessage);
+        if (appMessage.key === key) {
+          console.log(`Received AppMessage -> ${appMessage.key}`);
+          onReceiveMessage(appMessage);
+        }
+      } catch (error) {
+        // console.error("Error parsing message", error);
       }
     }
 

@@ -10,7 +10,6 @@ const RunControl = () => {
     const { state } = useExecutionStateStore()
     const { settings, updateSetting } = useGlobalSettingsStore()
 
-    console.log("Current state", state)
     return (
         <div className='flex gap-4 items-center'>
             <div className='bg-green-800 py-2 px-2 aria-disabled:bg-gray-600 cursor-pointer aria-disabled:cursor-not-allowed' aria-disabled={state == 'Running' || state == 'Testing'}

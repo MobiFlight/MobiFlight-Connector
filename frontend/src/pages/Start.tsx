@@ -1,4 +1,4 @@
-import { Projects } from './../fixtures/data/projects'
+import { Projects } from '../../tests/fixtures/data/projects'
 import ProjectCard from '@/components/mobiflight/ProjectCard';
 
 const StartPage = () => {

@@ -20,4 +20,5 @@ export default interface IGlobalSettings {
     ModuleSettings: string
     RecentFiles: string[]
     RecentFilesMaxCount: number
+    TestTimerInterval: number
 }
