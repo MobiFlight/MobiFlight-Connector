@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Web.Configuration;
 
 namespace MobiFlight.Frontend
 {
     public interface IDeviceElement
     {
-        DeviceType Type { get; set; }
+        string Type { get; set; }
         string Id { get; set; }
         string Name { get; set; }
     }
@@ -24,7 +22,7 @@ namespace MobiFlight.Frontend
 
     public class DeviceElement : IDeviceElement
     {
-        public DeviceType Type { get; set; }
+        public string Type { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
     }

@@ -13,7 +13,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { IconArrowsSort, IconDots } from "@tabler/icons-react";
 import { publishOnMessageExchange } from "@/lib/hooks";
 import { Badge } from "@/components/ui/badge";
-import DeviceIcon, { DeviceIconVariant } from "../icons/DeviceIcon";
+import DeviceIcon from "../icons/DeviceIcon";
+import { DeviceElementType } from "@/types/config";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -84,7 +85,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const label = row.getValue("Component") as string;
       const type = row.getValue("Type") as string;
       const icon = (
-        <DeviceIcon variant={(type ?? "default") as DeviceIconVariant} />
+        <DeviceIcon variant={(type ?? "default") as DeviceElementType} />
       );
       return (
         <div className="flex flex-row items-center gap-2">
@@ -136,9 +137,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
       return label != "" ? (
         <p className="text-md font-semibold">{label}</p>
       ) : (
-        <p className="text-xs text-muted-foreground">
+        <div className="text-xs text-muted-foreground">
           <Badge className="dark:border-green-600 dark:text-green-500 bg-green-600">normal</Badge>
-        </p>
+        </div>
       );
     },
   },

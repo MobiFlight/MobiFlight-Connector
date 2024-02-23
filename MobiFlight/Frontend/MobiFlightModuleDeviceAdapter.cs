@@ -6,6 +6,7 @@ namespace MobiFlight.Frontend
 {
     public class MobiFlightModuleDeviceAdapter : IDeviceItem
     {
+        public string DeviceType { get; set; }
         public string Type { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
@@ -14,11 +15,20 @@ namespace MobiFlight.Frontend
 
         public MobiFlightModuleDeviceAdapter(MobiFlightModule device)
         {
-            Type = device.Type;
+            Type = "MobiFlight";
             Id = device.Serial;
             Name = device.Name;
             MetaData = ConvertCommunityInfoToDictionary(device.Board.Info);
-            Elements = device.GetConnectedDevices().Select(d => new DeviceElement() { Id = d.Name, Name = d.Name, Type = d.Type }).ToArray();
+            Elements = CreateElementsList(device);
+            
+        }
+
+        private IDeviceElement[] CreateElementsList(MobiFlightModule device)
+        {
+            var result = new List<IDeviceElement>();
+            result.AddRange(device.GetConnectedOutputDevices().Select(d => new DeviceElement() { Id = d.Name, Name = d.Name, Type = d.Type.ToString() }).ToArray());
+            result.AddRange(device.GetConnectedInputDevices().Select(d => new DeviceElement() { Id = d.Name, Name = d.Name, Type = d.Type.ToString() }).ToArray());
+            return result.ToArray();
         }
 
         public Dictionary<string, string> ConvertCommunityInfoToDictionary(Info info)
@@ -34,7 +44,7 @@ namespace MobiFlight.Frontend
                 { "CanResetBoard", info.CanResetBoard.ToString() },
                 { "MobiFlightTypeLabel", info.MobiFlightTypeLabel?.ToString() },
                 { "CustomDeviceTypes", string.Join(";", info.CustomDeviceTypes) },
-                { "Project", info.Community?.Project },
+                { "Project", info.Community?.Project ?? "MobiFlight" },
                 { "Website", info.Community?.Website },
                 { "Docs", info.Community?.Docs },
                 { "Support", info.Community?.Support }

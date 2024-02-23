@@ -36,6 +36,7 @@ namespace MobiFlight.Frontend
             {
                 { "Icon", iconData },
                 { "Picture", pictureData },
+                { "Project", device.Definition.Info.Manufacturer },
                 { "Manufacturer", device.Definition.Info.Manufacturer },
                 { "Website", device.Definition.Info.Website },
                 { "VendorId", device.Definition.VendorId.ToString() },
@@ -47,12 +48,12 @@ namespace MobiFlight.Frontend
         {
            var inputs = device.GetAvailableDevicesAsListItems().Select(d => 
             new DeviceElement() { 
-                Id = d.Value.Name, Name = d.Value.Label, Type = d.Value.Type }).ToArray();
+                Id = d.Value.Name, Name = d.Value.Label, Type = d.Value.Type.ToString() }).ToArray();
 
            var outputs = device.GetAvailableDevicesAsListItems().Select(d => 
                       new DeviceElement()
                       {
-                Id = d.Value.Name, Name = d.Value.Label, Type = d.Value.Type }).ToArray();
+                Id = d.Value.Name, Name = d.Value.Label, Type = d.Value.Type.ToString() }).ToArray();
 
             return inputs.Concat(outputs).ToArray();
         }

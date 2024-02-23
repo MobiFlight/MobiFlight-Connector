@@ -13,6 +13,7 @@ namespace MobiFlight.Frontend
 
         public MidiBoardDeviceAdapter(MidiBoard device)
         {
+
             Type = "Midi";
             Id = device.Serial;
             Name = device.Name;
