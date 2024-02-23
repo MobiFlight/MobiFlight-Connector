@@ -1,5 +1,5 @@
 import DeviceIcon from "@/components/mobiflight/icons/DeviceIcon";
-import { DeviceElementTypes } from "../../types/deviceElements";
+import { DeviceElementTypes } from "../../types/deviceElements.d";
 
 const DeviceSelection = () => {
   const availableDeviceTypes = DeviceElementTypes;
