@@ -34,6 +34,18 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Finds board definitions by matching against USB drive volume label. This does not check for the
+        /// presence of a secondary file on the drive to confirm it is a supported USB drive.
+        /// This is used for offering different community board options.
+        /// </summary>
+        /// <param name="volumeLabel">The volume label to match</param>
+        /// <returns>All board definitions matching the volumeLabel, or an empty list if none found.</returns>
+        public static List<Board> GetBoardsByUsbVolumeLabel(String volumeLabel)
+        {
+            return boards.FindAll(board => board.UsbDriveSettings?.VolumeLabel == volumeLabel);
+        }
+
+        /// <summary>
         /// Finds a board definition by matching against the USB VID/PID.
         /// </summary>
         /// <param name="hardwareIdPattern">A RegEx of the VID/PID to match against.</param>
