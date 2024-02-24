@@ -52,22 +52,22 @@ namespace MobiFlight.Joysticks.Octavi
             encoderMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int>();
             buttonMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int>();
 
-            this.contexts = new List<context> {
-                 
-            };
-
-            foreach(OctaviReport.OctaviState state in Enum.GetValues(typeof(OctaviReport.OctaviState)))
+            this.contexts = new List<context>();
+            var octaviStateType = typeof(OctaviReport.OctaviState);
+            foreach(var state in Enum.GetValues(octaviStateType).Cast<OctaviReport.OctaviState>())
             {
-                context context = new context(state, false, stateNames.ElementAt((byte) state));
-                this.contexts.Add(context);
-            }
-    
-            foreach(JoystickInput input in definition.Inputs)
-            {
-                context context = new context((OctaviReport.OctaviState) input.Id, true, stateNames.ElementAt((byte) input.Id) + "^");
+                var stateName = Enum.GetName(octaviStateType, state).Replace("STATE_", "");
+                var context = new context(state, false, stateName);
                 this.contexts.Add(context);
             }
 
+            foreach (var input in definition.Inputs)
+            {
+                var state = (OctaviReport.OctaviState)input.Id;
+                var stateName = Enum.GetName(octaviStateType, state).Replace("STATE_", "");
+                var context = new context(state, true, stateName + "^");
+                this.contexts.Add(context);
+            }
             foreach (var context in contexts)
             {
                 // Encoders
