@@ -17,14 +17,14 @@ namespace MobiFlight.Joysticks.Octavi
         private enum OctaviEncoder { OUTER_INC, OUTER_DEC, INNER_INC, INNER_DEC }
 
         public IEnumerable<string> JoystickButtonNames { get; private set; }
-        public List<context> contexts;
-        public struct context
+        public List<Context> contexts;
+        public struct Context
         {
             public OctaviReport.OctaviState state;
             public bool isShifted;
             public string name;
 
-            public context(OctaviReport.OctaviState State, bool IsShifted, string Name)
+            public Context(OctaviReport.OctaviState State, bool IsShifted, string Name)
             {
                 state = State;
                 isShifted = IsShifted;
@@ -34,30 +34,18 @@ namespace MobiFlight.Joysticks.Octavi
 
         private JoystickDefinition definition;
 
-        List<string> stateNames = new List<string>()
-        {
-            "COM1",
-            "COM2",
-            "NAV1",
-            "NAV2",
-            "FMS1",
-            "FMS2",
-            "AP",
-            "XPDR"
-        };
-
         public OctaviHandler(JoystickDefinition definition = null)
         {
             this.definition = definition;
             encoderMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int>();
             buttonMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int>();
 
-            this.contexts = new List<context>();
+            this.contexts = new List<Context>();
             var octaviStateType = typeof(OctaviReport.OctaviState);
             foreach(var state in Enum.GetValues(octaviStateType).Cast<OctaviReport.OctaviState>())
             {
                 var stateName = Enum.GetName(octaviStateType, state).Replace("STATE_", "");
-                var context = new context(state, false, stateName);
+                var context = new Context(state, false, stateName);
                 this.contexts.Add(context);
             }
 
@@ -65,7 +53,7 @@ namespace MobiFlight.Joysticks.Octavi
             {
                 var state = (OctaviReport.OctaviState)input.Id;
                 var stateName = Enum.GetName(octaviStateType, state).Replace("STATE_", "");
-                var context = new context(state, true, stateName + "^");
+                var context = new Context(state, true, stateName + "^");
                 this.contexts.Add(context);
             }
             foreach (var context in contexts)
@@ -122,7 +110,7 @@ namespace MobiFlight.Joysticks.Octavi
             JoystickButtonNames = buttons.AsReadOnly();
         }
 
-        private void AddAutopilotButtonMappings(context context)
+        private void AddAutopilotButtonMappings(Context context)
         {
             buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton("Button_AP_AP"));
             buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton("Button_AP_HDG"));
