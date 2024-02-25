@@ -20,20 +20,35 @@ namespace MobiFlight.Joysticks.Octavi
 
         }
 
+        /// <summary>
+        /// Method is not called by regular Joystick Manager
+        /// This method is called implicitly when Update() is called
+        /// </summary>
         public void Connect()
         {
-            if (Device == null)
+            // Prevent reentry and parallel execution by multiple threads
+            lock (this)
             {
-                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
-                if (Device == null) return;
-            }
+                if (Device == null)
+                {
+                    Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+                    if (Device == null) return;
+                }
 
-            Stream = Device.Open();
-            Stream.ReadTimeout = System.Threading.Timeout.Infinite;
-            reportDescriptor = Device.GetReportDescriptor();
-            inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
-            inputReceiver.Received += InputReceiver_Received;
-            inputReceiver.Start(Stream);
+                if (Stream == null)
+                {
+                    Stream = Device.Open();
+                    Stream.ReadTimeout = System.Threading.Timeout.Infinite;
+                    reportDescriptor = Device.GetReportDescriptor();
+                }
+
+                if (inputReceiver == null)
+                {
+                    inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
+                    inputReceiver.Received += InputReceiver_Received;
+                    inputReceiver.Start(Stream);
+                }
+            }
         }
 
         private void InputReceiver_Received(object sender, System.EventArgs e)
@@ -80,10 +95,12 @@ namespace MobiFlight.Joysticks.Octavi
 
         public override void Update()
         {
-            //if (Stream == null || inputReceiver == null)
-            //{
-            //    Connect();
-            //};
+            // Octavi is not a DirectInput device
+            // so we have to connect it here.
+            if (Stream == null || inputReceiver == null)
+            {
+                Connect();
+            };
             // We don't do anything else
             // because we have a callback for
             // handling the incoming reports
@@ -99,10 +116,17 @@ namespace MobiFlight.Joysticks.Octavi
 
         public override void Shutdown()
         {
-            Stream.Close();
-            inputReceiver.Received -= InputReceiver_Received;
-            Stream = null;
-            inputReceiver = null;
+            if (Stream != null)
+            {
+                Stream.Close();
+                Stream = null;
+            }
+
+            if (inputReceiver != null)
+            {
+                inputReceiver.Received -= InputReceiver_Received;
+                inputReceiver = null;
+            }
         }
     }
 }
