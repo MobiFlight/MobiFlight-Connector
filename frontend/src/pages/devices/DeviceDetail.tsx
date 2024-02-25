@@ -1,32 +1,22 @@
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { useDevicesStore } from "@/stores/deviceStateStore";
-import { Switch } from "@/components/ui/switch";
-import { IconDots } from "@tabler/icons-react";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { MobiFlightDeviceEditPanel } from "./DeviceEditMobiFlight";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { H3 } from "@/components/mobiflight/H2";
-import DeviceSelection from "./DeviceSelection";
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
+import { useDevicesStore } from "@/stores/deviceStateStore"
+import { Switch } from "@/components/ui/switch"
+import { IconDots } from "@tabler/icons-react"
+import { useParams } from "react-router"
+import { Link, Outlet } from "react-router-dom"
+import { MobiFlightDeviceEditPanel } from "./DeviceEditMobiFlight"
+import { Button } from "@/components/ui/button"
+import { useState } from "react"
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { H3 } from "@/components/mobiflight/H2"
+import DeviceSelection from "./DeviceSelection"
 
 const DeviceDetailPage = () => {
-  const params = useParams();
-  const id = params.id;
-  const { devices } = useDevicesStore();
-  const device = devices.find((device) => device.Id === id);
-  const [isOpen, setIsOpen] = useState(false);
-  
+  const params = useParams()
+  const id = params.id
+  const { devices } = useDevicesStore()
+  const device = devices.find((device) => device.Id === id)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className="flex flex-col overflow-y-auto gap-4 select-none">
@@ -75,7 +65,7 @@ const DeviceDetailPage = () => {
           </Card>
         )}
         {device && device.Type === "MobiFlight" && (
-          <Card className="flex flex-col w-96 overflow-y-auto select-none bg-transparent shadow-none hover:border-none border-none">
+          <Card className="flex flex-col w-96 overflow-y-auto select-none bg-transparent shadow-none hover:border-none border-none hover:bg-transparent dark:hover:bg-zinc-700/10">
             <CardHeader className="flex flex-row gap-2 items-center text-2xl">
               Device settings
             </CardHeader>
@@ -85,7 +75,7 @@ const DeviceDetailPage = () => {
                 <DialogTrigger>
                   <Button>Add device</Button>
                 </DialogTrigger>
-                <DialogContent className="">
+                <DialogContent className="max-w-2xl items-center">
                   <H3>Select your new device</H3>
                   <DeviceSelection />
                 </DialogContent>
@@ -101,6 +91,9 @@ const DeviceDetailPage = () => {
             <div>Joystick</div>
           </Card>
         )}
+        <div>
+          <Outlet />
+        </div>
         {isOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <div className="bg-white p-4">Add device</div>
@@ -109,7 +102,7 @@ const DeviceDetailPage = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DeviceDetailPage;
+export default DeviceDetailPage

@@ -1,13 +1,20 @@
 import { cn } from "@/lib/utils";
-import { DeviceElementType } from "../../../types/config";
+import { DeviceElementType } from "../../../types/deviceElements.d";
 import {
   Icon123,
   IconAbc,
+  IconBox,
   IconBulb,
+  IconDashboard,
+  IconGauge,
   IconPower,
   IconQuestionMark,
   IconRefreshDot,
 } from "@tabler/icons-react";
+import IconDeviceAnalog from "./IconDeviceAnalog";
+import IconDeviceOutputShifter from "./IconDeviceOutputShifter";
+import IconDeviceInputShifter from "./IconDeviceInputShifter";
+import IconDeviceInputMultiplexer from "./IconDeviceInputMultiplexer";
 
 export type DeviceIconProps = {
   variant?: DeviceElementType;
@@ -25,23 +32,23 @@ const DeviceIcon = (props: DeviceIconProps) => {
   } else if (variant === "LcdDisplay") {
     icon = <IconAbc className={cn("stroke-pink-600", className) } />;
   } else if (variant === "ShiftRegister") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconDeviceOutputShifter className={cn("stroke-pink-600 fill-pink-600", className) } />;
   } else if (variant === "Stepper") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconGauge className={cn("stroke-pink-600", className) } />;
   } else if (variant === "Servo") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconDashboard className={cn("stroke-pink-600", className) } />;
   }else if (variant === "Button") {
     icon = <IconPower className={cn("stroke-teal-600", className) }/>;
   } else if (variant === "Encoder") {
     icon = <IconRefreshDot className={cn("stroke-teal-600", className) }/>;
   } else if (variant === "AnalogInput") {
-    icon = <IconRefreshDot className={cn("stroke-teal-600", className) }/>;
+    icon = <IconDeviceAnalog className={cn("stroke-teal-600 fill-teal-600 stroke-2", className) }/>;
   } else if (variant === "InputShiftRegister") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconDeviceInputShifter className={cn("stroke-teal-600 fill-teal-600", className) } />;
   } else if (variant === "InputMultiplexer") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconDeviceInputMultiplexer className={cn("stroke-teal-600 fill-teal-600", className) } />;
   } else if (variant === "CustomDevice") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconBox className={cn("stroke-pink-600", className) } />;
   }
 
   return <div className="inline-block">{icon}</div>;

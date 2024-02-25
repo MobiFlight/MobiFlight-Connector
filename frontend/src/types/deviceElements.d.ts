@@ -14,15 +14,15 @@ export type DeviceElementType =
 
 export const DeviceElementTypes: DeviceElementType[] = [
   "Button",
-  "Output",
   "Encoder",
+  "AnalogInput",
+  "InputShiftRegister",
+  "InputMultiplexer",
+  "Output",
   "LedModule",
   "Stepper",
   "Servo",
   "LcdDisplay",
   "ShiftRegister",
-  "AnalogInput",
-  "InputShiftRegister",
-  "InputMultiplexer",
   "CustomDevice",
 ];
