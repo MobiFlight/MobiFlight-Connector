@@ -1,3 +1,5 @@
+import { DeviceElementType } from "@/types/deviceElements.d";
+
 export interface IConfigItem {
   GUID: string;
   Active: boolean;
@@ -18,7 +20,7 @@ interface IDictionary<T> {
 export interface IDeviceElement {
   Id: string;
   Name: string;
-  Type: string;
+  Type: DeviceElementType;
 }
 
 export type DeviceType = "MobiFlight" | "Joystick" | "Midi";

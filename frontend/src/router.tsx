@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
             { path: "test", element: <Pages.TestPage />, },
             { path: "devices", element: <Pages.DevicesPage />, },
             { path: "devices/:type/:id", element: <Pages.DeviceDetailPage />, children: [
-                { path: "elements/:element", element: <Pages.DeviceElementDetailView />},
+                { path: "elements/:elementId", element: <Pages.DeviceElementDetailView />},
             ]},
             { path: "projects/:id", element: <Pages.ProjectPage />, },
             { path: "projects/:id/configs", element: <Pages.ConfigPage />, },

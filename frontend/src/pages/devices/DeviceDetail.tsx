@@ -14,10 +14,12 @@ import DeviceSelection from "./DeviceSelection"
 const DeviceDetailPage = () => {
   const params = useParams()
   const id = params.id
+  const elementId = params.elementId
   const { devices } = useDevicesStore()
   const device = devices.find((device) => device.Id === id)
   const [isOpen, setIsOpen] = useState(false)
-
+  const element = device?.Elements.find((element) => element.Id === elementId)
+  console.log(element)
   return (
     <div className="flex flex-col overflow-y-auto gap-4 select-none">
       <div className="flex flex-row gap-4 items-center">
@@ -28,9 +30,17 @@ const DeviceDetailPage = () => {
           Devices ({device?.Type})
         </Link>
         <p className="scroll-m-20 text-3xl tracking-tight first:mt-0">&gt;</p>
-        <p className="scroll-m-20 text-3xl tracking-tight first:mt-0 font-bold">
+        <p className={`scroll-m-20 text-3xl tracking-tight first:mt-0 ${element?'':'font-bold'}`}>
           {device?.Name}
         </p>
+        {element && (
+          <>
+            <p className="scroll-m-20 text-3xl tracking-tight first:mt-0">
+              &gt;
+            </p>
+            <p className="scroll-m-20 text-3xl tracking-tight first:mt-0 font-bold">{element.Name}</p>
+          </>
+        )}
       </div>
       <div className="flex flex-row gap-4 pb-4 overflow-auto">
         {!device && <div>Device not found</div>}
@@ -66,8 +76,8 @@ const DeviceDetailPage = () => {
         )}
         {device && device.Type === "MobiFlight" && (
           <Card className="flex flex-col w-96 overflow-y-auto select-none bg-transparent shadow-none hover:border-none border-none hover:bg-transparent dark:hover:bg-zinc-700/10">
-            <CardHeader className="flex flex-row gap-2 items-center text-2xl">
-              Device settings
+            <CardHeader className="flex flex-row items-center text-2xl">
+              Components
             </CardHeader>
             <MobiFlightDeviceEditPanel device={device} />
             <CardFooter className="p-6 px-4">
@@ -91,7 +101,7 @@ const DeviceDetailPage = () => {
             <div>Joystick</div>
           </Card>
         )}
-        <div>
+        <div className="grow">
           <Outlet />
         </div>
         {isOpen && (
