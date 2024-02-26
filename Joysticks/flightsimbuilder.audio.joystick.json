@@ -1,0 +1,12 @@
+﻿{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "FlightSimBuilder Audio Panel",
+  "Info": {
+    "Icon": "flightsimbuilder.icon.png",
+    "Picture": "flightsimbuilder.g1000.audio.jpg",
+    "Manufacturer": "FlightSimBuilder",
+    "Website": "https://flightsimbuilder.com"
+  },
+  "Inputs": [
+  ]
+}
