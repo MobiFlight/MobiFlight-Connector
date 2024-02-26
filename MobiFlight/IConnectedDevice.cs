@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlight
 {
@@ -9,7 +6,6 @@ namespace MobiFlight
     {
         String Name { get; }
         DeviceType Type { get; }
-
         void Stop();
     }
 }

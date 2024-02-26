@@ -1,3 +1,5 @@
+import { IDeviceItem } from "."
+
 export interface ExecutionUpdateMessage {
     key: "ExecutionUpdate"
     payload: ExecutionState
@@ -13,10 +15,18 @@ export interface GlobalSettingsUpdateMessage {
     payload: IGlobalSettings
 }
 
-export type FontendMessageKey = "ExecutionUpdate" | "config.edit" | "GlobalSettingsUpdate"
-export type FrontendMessageType = ExecutionUpdateMessage | EditConfigMessage | GlobalSettingsUpdateMessage
+export interface ElementEditMessage {
+    key: FrontendMessageKey
+    payload: {
+        device : IDeviceItem, 
+        element: IDeviceElement
+    }
+}
 
-export type AppMessageKey = "config.update" | "GlobalSettings" | "StatusBarUpdate" | "ConfigFile" | "LogMessage" | "ExecutionUpdate" | "ConfigValueUpdate" | "DeviceUpdate"
+export type FrontendMessageKey = "ExecutionUpdate" | "config.edit" | "GlobalSettingsUpdate" |"ElementEdit"
+export type FrontendMessageType = ExecutionUpdateMessage | EditConfigMessage | GlobalSettingsUpdateMessage | ElementEditMessage
+
+export type AppMessageKey = "config.update" | "GlobalSettings" | "StatusBarUpdate" | "ConfigFile" | "LogMessage" | "ExecutionUpdate" | "ConfigValueUpdate" | "DeviceUpdate" | "ElementEdit"
 export type AppMessagePayload = ConfigLoadedEvent | EventMessage | StatusBarUpdate | ExecutionUpdate | ConfigValueUpdate | ILogMessage | IGlobalSettings | IConfigItem
 
 

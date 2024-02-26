@@ -1,8 +1,8 @@
 import DeviceIcon from "@/components/mobiflight/icons/DeviceIcon"
-import { DeviceElementTypes } from "../../types/deviceElements.d"
+import { DeviceElementTypes } from "@/types/deviceElements.d"
 import { useTranslation } from "react-i18next"
 
-const DeviceSelection = () => {
+export const DeviceSelection = () => {
   const availableDeviceTypes = DeviceElementTypes
   const { t } = useTranslation()
 

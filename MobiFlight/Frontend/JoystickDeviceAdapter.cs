@@ -13,6 +13,8 @@ namespace MobiFlight.Frontend
         public Dictionary<string, string> MetaData { get; set; }
         public IDeviceElement[] Elements { get; set; }
 
+        public MobiFlightPin[] Pins { get; set; }
+
         public JoystickDeviceAdapter(Joystick device)
         {
             Type = "Joystick";
@@ -23,11 +25,11 @@ namespace MobiFlight.Frontend
         }
 
         private Dictionary<string, string> CreateMetaData(Joystick device)
-        {   
+        {
             if (device.Definition == null) return new Dictionary<string, string>();
             if (device.Definition?.Info == null) return new Dictionary<string, string>();
             var basePath = "./Joysticks";
-            var iconData = device.Definition.Info.Icon != null ? 
+            var iconData = device.Definition.Info.Icon != null ?
                 GetDataImage(Path.Combine(basePath, device.Definition.Info.Icon)) : null;
             var pictureData = device.Definition.Info.Picture != null ?
                 GetDataImage(Path.Combine(basePath, device.Definition.Info.Picture)) : null;
@@ -46,14 +48,21 @@ namespace MobiFlight.Frontend
 
         public IDeviceElement[] CreateElementsList(Joystick device)
         {
-           var inputs = device.GetAvailableDevicesAsListItems().Select(d => 
-            new DeviceElement() { 
-                Id = d.Value.Name, Name = d.Value.Label, Type = d.Value.Type.ToString() }).ToArray();
+            var inputs = device.GetAvailableDevicesAsListItems().Select(d =>
+             new DeviceElement()
+             {
+                 Id = d.Value.Name,
+                 Name = d.Value.Label,
+                 Type = d.Value.Type.ToString()
+             }).ToArray();
 
-           var outputs = device.GetAvailableDevicesAsListItems().Select(d => 
-                      new DeviceElement()
-                      {
-                Id = d.Value.Name, Name = d.Value.Label, Type = d.Value.Type.ToString() }).ToArray();
+            var outputs = device.GetAvailableDevicesAsListItems().Select(d =>
+                       new DeviceElement()
+                       {
+                           Id = d.Value.Name,
+                           Name = d.Value.Label,
+                           Type = d.Value.Type.ToString()
+                       }).ToArray();
 
             return inputs.Concat(outputs).ToArray();
         }

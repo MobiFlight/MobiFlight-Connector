@@ -50,7 +50,7 @@ namespace MobiFlight
             InputMultiplexerChange, // 30
             SetStepperSpeedAccel,   // 31
             SetCustomDevice,        // 32
-            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
+            DebugPrint = 0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public const string TYPE_COMPATIBLE = "Compatible";
@@ -90,16 +90,17 @@ namespace MobiFlight
         public String Port { get { return _comPort; } }
 
         private string _name;
-        public String Name {
+        public String Name
+        {
             get
             {
                 if (HasMfFirmware()) return _name;
                 return Board.Info.FriendlyName;
             }
-            set 
+            set
             {
                 _name = value;
-            } 
+            }
         }
 
         public string HardwareId { get; set; }
@@ -903,7 +904,7 @@ namespace MobiFlight
 
                 // With the support of Custom Devices
                 // we also introduced CoreVersion
-                if(InfoCommand.Arguments.Length>4)
+                if (InfoCommand.Arguments.Length > 4)
                 {
                     CoreVersion = InfoCommand.ReadStringArg();
                 }
@@ -1418,6 +1419,8 @@ namespace MobiFlight
                     //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[2]));
                     //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[3]));
                     //    break;
+                    case DeviceType.MultiplexerDriver:
+                        break;
 
                     default:
                         throw new NotImplementedException();

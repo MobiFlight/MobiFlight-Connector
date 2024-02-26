@@ -7,6 +7,7 @@ namespace MobiFlight.Frontend
         string Type { get; set; }
         string Id { get; set; }
         string Name { get; set; }
+        Dictionary<string, string> ConfigData { get; set; }
     }
 
     public interface IDeviceItem
@@ -18,6 +19,8 @@ namespace MobiFlight.Frontend
 
         IDeviceElement[] Elements { get; set; }
 
+        MobiFlightPin[] Pins { get; set; }
+
     }
 
     public class DeviceElement : IDeviceElement
@@ -25,5 +28,7 @@ namespace MobiFlight.Frontend
         public string Type { get; set; }
         public string Id { get; set; }
         public string Name { get; set; }
+
+        public Dictionary<string, string> ConfigData { get; set; }
     }
 }

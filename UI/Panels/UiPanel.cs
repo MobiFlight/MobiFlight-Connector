@@ -3,7 +3,6 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.Frontend;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,7 +14,7 @@ namespace MobiFlight.UI.Panels
         {
             get
             {
-                return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv");         
+                return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv");
             }
         }
         public UiPanel()
@@ -71,16 +70,22 @@ namespace MobiFlight.UI.Panels
                     MessageExchange.Instance.Publish(new Message<ConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
                 }
 
+                if (decodedMessage.key == "ElementEdit")
+                {
+                    var ElementEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceElementEditRequest>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceElementEditRequest>() { Request = ElementEditMessage.payload });
+                }
+
                 if (decodedMessage.key == "ExecutionUpdate")
                 {
                     var ExecutionUpdateRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<ExecutionState>>(message);
                     MessageExchange.Instance.Publish(new FrontendRequest<ExecutionUpdate>()
+                    {
+                        Request = new ExecutionUpdate
                         {
-                            Request = new ExecutionUpdate
-                            {
-                                State = ExecutionUpdateRequest.payload
-                            }
-                        });
+                            State = ExecutionUpdateRequest.payload
+                        }
+                    });
                 }
 
                 if (decodedMessage.key == "GlobalSettingsUpdate")
@@ -92,10 +97,10 @@ namespace MobiFlight.UI.Panels
                     });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
-            }   
+            }
         }
 
         private void RegisterMessageHandlers()
@@ -168,7 +173,16 @@ namespace MobiFlight.UI.Panels
                 webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
             });
 
-            MessageExchange.Instance.Subscribe<Message<ConfigValueUpdate>>((message) => {
+            MessageExchange.Instance.Subscribe<Message<ConfigValueUpdate>>((message) =>
+            {
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<DeviceElementEditResponse>>((message) =>
+            {
                 // do something with the config
                 // convert config to JSON object
                 var jsonEncodedMessage = JsonConvert.SerializeObject(message);

@@ -24,7 +24,7 @@ export const useAppMessage = (
           onReceiveMessage(appMessage);
         }
       } catch (error) {
-        // console.error("Error parsing message", error);
+        console.error("Error parsing message", error);
       }
     }
 

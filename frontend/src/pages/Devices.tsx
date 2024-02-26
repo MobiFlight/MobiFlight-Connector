@@ -41,10 +41,10 @@ export default function DevicesPage() {
               </CardHeader>
               <CardContent>
                 {device?.MetaData && (
-                  <div className="h-60 overflow-hidden flex items-center">
+                  <div className="h-60 flex items-center">
                     {device?.MetaData["Picture"] && (
                       <img
-                        className="w-full"
+                        className="w-full h-full object-contain"
                         src={device.MetaData["Picture"]}
                       />
                     )}

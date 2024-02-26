@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.Frontend
 {
@@ -10,6 +9,8 @@ namespace MobiFlight.Frontend
         public string Name { get; set; }
         public Dictionary<string, string> MetaData { get; set; }
         public IDeviceElement[] Elements { get; set; }
+
+        public MobiFlightPin[] Pins { get; set; }
 
         public MidiBoardDeviceAdapter(MidiBoard device)
         {

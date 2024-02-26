@@ -97,6 +97,14 @@ namespace MobiFlight
             this.dataGridViewConfig = dataGridViewConfig;
             this.inputsDataGridView = inputsDataGridView;
 
+            // Workaround, so that we get the latest device information
+            // when the user loads a new configuration
+            // TODO: REMOVE!!!
+            this.dataGridViewConfig.Rows.CollectionChanged += (s, e) =>
+            {
+                PublishMessageOfAllDevices();
+            };
+
             // Subscribe to frontend messages
             MessageExchange.Instance.Subscribe<FrontendRequest<ExecutionUpdate>>((update) =>
             {
@@ -131,7 +139,8 @@ namespace MobiFlight
                         {
                             Properties.Settings.Default.RecentFiles.Clear();
                             Properties.Settings.Default.RecentFiles.AddRange((string[])value);
-                        } else
+                        }
+                        else
                         {
                             Properties.Settings.Default[name] = value;
                         }
@@ -143,6 +152,19 @@ namespace MobiFlight
                     Log.Instance.log(ex.Message, LogSeverity.Error);
                 }
                 MessageExchange.Instance.Publish(new Message<GlobalSettings>(new GlobalSettings(Properties.Settings.Default)));
+            });
+
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceElementEditRequest>>(request =>
+            {
+                // find the device in the MobiFlightCache by serial
+                var device = mobiFlightCache.GetModuleBySerial(request.Request.Device.Id);
+                // find the element in the device
+                var element = device.GetConnectedInputDevices().First(d => d.Type.ToString() == request.Request.Element.Type && d.Name == request.Request.Element.Id);
+                var response = DeviceElementEditResponse.Create(element);
+
+                if (response == null)
+                    Log.Instance.log($"Could not create response for {device.Name}.{element.Name} of type {element.Name}", LogSeverity.Error);
+                MessageExchange.Instance.Publish(new Message<DeviceElementEditResponse>("ElementEdit", response));
             });
 
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
