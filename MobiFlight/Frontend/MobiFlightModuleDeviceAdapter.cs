@@ -75,7 +75,8 @@ namespace MobiFlight.Frontend
                     return new Dictionary<string, string>
                     {
                         { "PinLeft", (d as Encoder).PinLeft.ToString() },
-                        { "PinRight", (d as Encoder).PinRight.ToString() }
+                        { "PinRight", (d as Encoder).PinRight.ToString() },
+                        { "Model", (d as Encoder).EncoderType.ToString() }
                     };
                 case MobiFlight.DeviceType.InputMultiplexer:
                     return new Dictionary<string, string>
@@ -84,15 +85,16 @@ namespace MobiFlight.Frontend
                         { "PinS1", (d as InputMultiplexer).Selector.PinSx[1].ToString() },
                         { "PinS2", (d as InputMultiplexer).Selector.PinSx[2].ToString() },
                         { "PinS3", (d as InputMultiplexer).Selector.PinSx[3].ToString() },
-                        { "DataPin", (d as InputMultiplexer).DataPin.ToString() }
+                        { "PinData", (d as InputMultiplexer).DataPin.ToString() }
                     };
 
                 case MobiFlight.DeviceType.InputShiftRegister:
                     return new Dictionary<string, string>
                     {
-                        { "DataPin", (d as InputShiftRegister).DataPin.ToString() },
-                        { "ClockPin", (d as InputShiftRegister).ClockPin.ToString() },
-                        { "LatchPin", (d as InputShiftRegister).LatchPin.ToString() }
+                        { "PinData", (d as InputShiftRegister).DataPin.ToString() },
+                        { "PinClock", (d as InputShiftRegister).ClockPin.ToString() },
+                        { "PinLatch", (d as InputShiftRegister).LatchPin.ToString() },
+                        { "NumberOfModules", (d as InputShiftRegister).NumModules.ToString() }
                     };
                 case MobiFlight.DeviceType.LcdDisplay:
                     return new Dictionary<string, string>
@@ -105,9 +107,11 @@ namespace MobiFlight.Frontend
                 case MobiFlight.DeviceType.LedModule:
                     return new Dictionary<string, string>
                     {
-                        { "DataPin", (d as LedModule).DinPin.ToString() },
-                        { "ClockPin", (d as LedModule).ClkPin.ToString() },
-                        { "LatchPin", (d as LedModule).ClsPin.ToString() }
+                        { "Model", (d as LedModule).ModelType.ToString() },
+                        { "PinData", (d as LedModule).DinPin.ToString() },
+                        { "PinClock", (d as LedModule).ClkPin.ToString() },
+                        { "PinLatch", (d as LedModule).ClsPin.ToString() },
+                        { "NumberOfModules", (d as LedModule).NumModules.ToString() }
                     };
                 case MobiFlight.DeviceType.Output:
                     return new Dictionary<string, string>
@@ -118,15 +122,16 @@ namespace MobiFlight.Frontend
                 case MobiFlight.DeviceType.Servo:
                     return new Dictionary<string, string>
                     {
-                        { "DataPin", (d as Servo).DataPin.ToString() }
+                        { "Pin", (d as Servo).DataPin.ToString() }
                     };
 
                 case MobiFlight.DeviceType.ShiftRegister:
                     return new Dictionary<string, string>
                     {
-                        { "DataPin", (d as ShiftRegister).DataPin.ToString() },
-                        { "ClockPin", (d as ShiftRegister).ClockPin.ToString() },
-                        { "LatchPin", (d as ShiftRegister).LatchPin.ToString() }
+                        { "PinData", (d as ShiftRegister).DataPin.ToString() },
+                        { "PinClock", (d as ShiftRegister).ClockPin.ToString() },
+                        { "PinLatch", (d as ShiftRegister).LatchPin.ToString() },
+                        { "NumberOfModules", (d as ShiftRegister).NumModules.ToString() }
                     };
 
                 case MobiFlight.DeviceType.Stepper:
@@ -135,7 +140,11 @@ namespace MobiFlight.Frontend
                         { "Pin1", (d as Stepper).Pin1.ToString() },
                         { "Pin2", (d as Stepper).Pin2.ToString() },
                         { "Pin3", (d as Stepper).Pin3.ToString() },
-                        { "Pin4", (d as Stepper).Pin4.ToString() }
+                        { "Pin4", (d as Stepper).Pin4.ToString() },
+                        { "Mode", (d as Stepper).Mode.ToString() },
+                        { "PinHome", (d as Stepper).BtnPin.ToString() },
+                        { "Backlash", (d as Stepper).Backlash.ToString() },
+                        { "Profile", (d as Stepper).Profile.ToString() },
                     };
 
                 default:
