@@ -4,7 +4,31 @@
   "VendorId": "0x04D8",
   "ProductId": "0xE6D6",
   "Inputs": [
-
+    {
+      "Id": 0,
+      "Type": "Button",
+      "Label": "COM1"
+    },
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "COM2"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "NAV1"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "NAV2"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "XPDR"
+    }
   ],
   "Outputs": [
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Joysticks.Octavi
 {
@@ -14,31 +15,45 @@ namespace MobiFlight.Joysticks.Octavi
         private enum OctaviEncoder { OUTER_INC, OUTER_DEC, INNER_INC, INNER_DEC }
 
         public IEnumerable<string> JoystickButtonNames { get; private set; }
-
-        public OctaviHandler()
+        public List<Context> contexts;
+        public struct Context
         {
+            public OctaviReport.OctaviState state;
+            public bool isShifted;
+            public string name;
+
+            public Context(OctaviReport.OctaviState State, bool IsShifted, string Name)
+            {
+                state = State;
+                isShifted = IsShifted;
+                name = Name;
+            }
+        }
+
+        private JoystickDefinition definition;
+
+        public OctaviHandler(JoystickDefinition definition = null)
+        {
+            this.definition = definition;
             encoderMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviEncoder encoder), int>();
             buttonMappings = new Dictionary<(OctaviReport.OctaviState state, bool isShifted, OctaviReport.OctaviButtons button), int>();
 
-            // All possible states of the Octavi IFR1
-            var contexts = new (OctaviReport.OctaviState state, bool isShifted, string name)[] {
-                // shifted
-                (OctaviReport.OctaviState.STATE_COM1, false, "COM1"),
-                (OctaviReport.OctaviState.STATE_COM2, false, "COM2"),
-                (OctaviReport.OctaviState.STATE_NAV1, false, "NAV1"),
-                (OctaviReport.OctaviState.STATE_NAV2, false, "NAV2"),
-                (OctaviReport.OctaviState.STATE_FMS1, false, "FMS1"),
-                (OctaviReport.OctaviState.STATE_FMS2, false, "FMS2"),
-                (OctaviReport.OctaviState.STATE_AP, false, "AP"),
-                (OctaviReport.OctaviState.STATE_XPDR, false, "XPDR"),
-                //unshifted
-                (OctaviReport.OctaviState.STATE_COM1, true, "COM1^"),
-                (OctaviReport.OctaviState.STATE_COM2, true, "COM2^"),
-                (OctaviReport.OctaviState.STATE_NAV1, true, "NAV1^"),
-                (OctaviReport.OctaviState.STATE_NAV2, true, "NAV2^"),
-                (OctaviReport.OctaviState.STATE_XPDR, true, "XPDR^"),
-            };
+            this.contexts = new List<Context>();
+            var octaviStateType = typeof(OctaviReport.OctaviState);
+            foreach(var state in Enum.GetValues(octaviStateType).Cast<OctaviReport.OctaviState>())
+            {
+                var stateName = Enum.GetName(octaviStateType, state).Replace("STATE_", "");
+                var context = new Context(state, false, stateName);
+                this.contexts.Add(context);
+            }
 
+            foreach (var input in definition.Inputs)
+            {
+                var state = (OctaviReport.OctaviState)input.Id;
+                var stateName = Enum.GetName(octaviStateType, state).Replace("STATE_", "");
+                var context = new Context(state, true, stateName + "^");
+                this.contexts.Add(context);
+            }
             foreach (var context in contexts)
             {
                 // Encoders
@@ -51,9 +66,7 @@ namespace MobiFlight.Joysticks.Octavi
                 buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_TOG), ToButton($"Button_{context.name}_TOG"));
 
                 // CRSR
-                if (context.state == OctaviReport.OctaviState.STATE_FMS1 ||
-                    context.state == OctaviReport.OctaviState.STATE_FMS2 ||
-                    context.state == OctaviReport.OctaviState.STATE_AP)
+                if (!definition.Inputs.Any(JoystickInput => JoystickInput.Id == (int) context.state))
                 {
                     buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_ENC_SW), ToButton($"Button_{context.name}_CRSR"));
                 }
@@ -95,7 +108,7 @@ namespace MobiFlight.Joysticks.Octavi
             JoystickButtonNames = buttons.AsReadOnly();
         }
 
-        private void AddAutopilotButtonMappings((OctaviReport.OctaviState state, bool isShifted, string name) context)
+        private void AddAutopilotButtonMappings(Context context)
         {
             buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP), ToButton("Button_AP_AP"));
             buttonMappings.Add((context.state, context.isShifted, OctaviReport.OctaviButtons.HID_BTN_AP_HDG), ToButton("Button_AP_HDG"));
@@ -126,20 +139,9 @@ namespace MobiFlight.Joysticks.Octavi
             {
                 isInShiftMode = false; // reset shift mode on context change
             }
-            else if (pressed.HasFlag(OctaviReport.OctaviButtons.HID_ENC_SW))
+            else if (pressed.HasFlag(OctaviReport.OctaviButtons.HID_ENC_SW) && this.definition.Inputs.Any(JoystickInput => JoystickInput.Id == (int)report.contextState))
             {
-                switch (report.contextState)
-                {
-                    case OctaviReport.OctaviState.STATE_COM1:
-                    case OctaviReport.OctaviState.STATE_COM2:
-                    case OctaviReport.OctaviState.STATE_NAV1:
-                    case OctaviReport.OctaviState.STATE_NAV2:
-                    case OctaviReport.OctaviState.STATE_XPDR:
-                        isInShiftMode = !isInShiftMode;
-                        break;
-                    default:
-                        break;
-                }
+                isInShiftMode = !isInShiftMode;
             }
 
             // Encoders (Note: No RELEASE events required for encoders)
