@@ -167,14 +167,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
             else
             {
-                var analogInputConfig = new AnalogInputConfig();
-                analogInputConfig.onChange = config.AnalogInputConfig?.onChange;
-                analogPanel1.syncFromConfig(analogInputConfig);
-
-                var buttonInputConfig = new ButtonInputConfig();
-                buttonInputConfig.onPress = config.ButtonInputConfig?.onPress;
-                buttonInputConfig.onRelease = config.ButtonInputConfig?.onRelease;
-                buttonPanel1.syncFromConfig(buttonInputConfig);
+                analogPanel1.syncFromConfig(config.AnalogInputConfig);
+                buttonPanel1.syncFromConfig(config.ButtonInputConfig);
 
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
                 InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
