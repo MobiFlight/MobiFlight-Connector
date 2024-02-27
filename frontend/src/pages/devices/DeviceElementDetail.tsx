@@ -87,7 +87,13 @@ const DeviceElementDetailView = () => {
         )}
         {element.Type == "InputMultiplexer" && <InputMultiplexerForm />}
         {element.Type == "InputShiftRegister" && <InputShiftRegisterForm />}
-        {element.Type == "LcdDisplay" && <LcdForm />}
+        {element.Type == "LcdDisplay" && (
+          <LcdForm
+            device={device!}
+            element={element!}
+            setElement={setElement}
+          />
+        )}
         {element.Type == "LedModule" && (
           <LedModuleForm
             device={device!}

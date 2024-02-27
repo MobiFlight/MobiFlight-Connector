@@ -100,9 +100,10 @@ namespace MobiFlight.Frontend
                 case MobiFlight.DeviceType.LcdDisplay:
                     return new Dictionary<string, string>
                     {
-                        { "Address", (d as LcdDisplay).Address.ToString() },
+                        // format address as hex number
+                        { "Address", $"0x{(d as LcdDisplay).Address.ToString("X2")}" },
                         { "Lines", (d as LcdDisplay).Lines.ToString() },
-                        { "Cols", (d as LcdDisplay).Cols.ToString() }
+                        { "Columns", (d as LcdDisplay).Cols.ToString() }
                     };
 
                 case MobiFlight.DeviceType.LedModule:
