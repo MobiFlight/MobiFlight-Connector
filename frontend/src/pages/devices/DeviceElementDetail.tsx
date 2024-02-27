@@ -85,7 +85,14 @@ const DeviceElementDetailView = () => {
             setElement={setElement}
           />
         )}
-        {element.Type == "InputMultiplexer" && <InputMultiplexerForm />}
+        {element.Type == "InputMultiplexer" && (
+          <InputMultiplexerForm
+            device={device!}
+            element={element!}
+            setElement={setElement}
+            allowEditPinSx={false}
+          />
+        )}
         {element.Type == "InputShiftRegister" && (
           <InputShiftRegisterForm
             device={device!}
