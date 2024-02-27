@@ -28,7 +28,7 @@ const OutputShiftRegisterForm = (props: OutputShiftRegisterProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         <div className="w-1/4">
           <Label>Name</Label>
           <Input

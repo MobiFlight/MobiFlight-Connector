@@ -87,7 +87,7 @@ const DeviceDetailPage = () => {
               {device?.MetaData && (
                 <div className="h-96 overflow-hidden flex items-center">
                   {device?.MetaData["Picture"] && (
-                    <img className="w-full" src={device.MetaData["Picture"]} />
+                    <img className="w-full h-full object-contain" src={device.MetaData["Picture"]} />
                   )}
                 </div>
               )}
