@@ -96,6 +96,18 @@ namespace MobiFlight.UI.Panels
                         Request = GlobalSettingsUpdateRequest.payload
                     });
                 }
+
+                if (decodedMessage.key == "DeviceUpload")
+                {
+                    var DeviceListRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<MobiFlightModuleDeviceAdapter>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceUploadRequest>()
+                    {
+                        Request = new DeviceUploadRequest()
+                        {
+                            Device = DeviceListRequest.payload
+                        }
+                    });
+                }
             }
             catch (Exception ex)
             {
@@ -125,6 +137,21 @@ namespace MobiFlight.UI.Panels
             {
                 var forwardedMessages = new string[] {
                     "config.update"
+                };
+
+                if (!forwardedMessages.ToArray().Contains(message.key))
+                    return;
+
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<IDeviceItem>>((message) =>
+            {
+                var forwardedMessages = new string[] {
+                    "DeviceUpload"
                 };
 
                 if (!forwardedMessages.ToArray().Contains(message.key))

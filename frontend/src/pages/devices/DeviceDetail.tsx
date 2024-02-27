@@ -1,9 +1,9 @@
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { useDevicesStore } from "@/stores/deviceStateStore"
 import { Switch } from "@/components/ui/switch"
-import { IconDots } from "@tabler/icons-react"
+import { IconDots, IconInfoCircle } from "@tabler/icons-react"
 import { useParams } from "react-router"
-import { Link, Outlet, useOutletContext } from "react-router-dom"
+import { Link, Outlet, useBlocker, useLocation, useOutletContext } from "react-router-dom"
 import { MobiFlightDeviceEditPanel } from "@/components/mobiflight/edit/DeviceDetailMobiFlightElements"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
@@ -13,6 +13,8 @@ import { DeviceSelection } from "@/components/mobiflight/edit/DeviceSelection"
 import { IDeviceItem } from "@/types"
 import { IDeviceElement } from "@/types/config"
 import { publishOnMessageExchange } from "@/lib/hooks"
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
+import { DeviceUploadMessage } from "@/types/messages"
 
 export type DeviceDetailContext = {
   device: IDeviceItem
@@ -25,27 +27,68 @@ export function useDeviceDetailPageContext() {
 }
 
 const DeviceDetailPage = () => {
+  // we extract the base route for the current device
+  const baseRoute = useLocation().pathname.split("/elements")[0]
+  
+  // we will still be able to navigate to other elements while changes are made
+  // but as soon as we want to navigate to a different device or page
+  // blocker will prevent that
+  const blocker = useBlocker(
+    ({ currentLocation, nextLocation }) => {
+      console.log("Blocker > ", currentLocation, nextLocation)
+      return deviceHasChanged &&
+      nextLocation.pathname.indexOf(baseRoute) !== 0
+    }
+  );
+  
   const { publish } = publishOnMessageExchange()
   const params = useParams()
   const id = params.id
   const elementId = params.elementId
   const { devices } = useDevicesStore()
   const [ device, setDevice ] = useState(devices.find((device) => device.Id === id))
+  const [ deviceHasChanged, setDeviceHasChanged ] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const element = device?.Elements!.find((element) => element.Id === elementId)
 
   const updateDevice = (d: IDeviceItem) => {
     setDevice(d)
+    setDeviceHasChanged(true)
+  }
+
+  const uploadDeviceConfig = () => {
+    publish({ key: "DeviceUpload", payload: device } as DeviceUploadMessage)
   }
 
   
   useEffect(() => {
-    console.log(device)  
-  }, [device])
+    console.log("Device was updated from store")
+    setDeviceHasChanged(false)
+  }, [devices])
   
 
   return (
     <div className="flex flex-col overflow-y-auto gap-4 select-none">
+      {blocker && (
+        <AlertDialog open={blocker.state === "blocked"}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>You have unsaved changes</AlertDialogTitle>
+              <AlertDialogDescription>
+                You will lose all unsaved changes if you continue.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => blocker.reset?.()}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={() => blocker.proceed?.()}>
+                Continue
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      )}
       <div className="flex flex-row gap-4 items-center">
         <Link
           to="/devices"
@@ -66,7 +109,7 @@ const DeviceDetailPage = () => {
           </>
         )}
       </div>
-      <div className="flex flex-row gap-4 pb-4 overflow-auto">
+      <div className="flex flex-row gap-4 pb-4 overflow-auto items-start">
         {!device && <div>Device not found</div>}
         {device && (
           <Card className="w-3/12 hidden lg:block">
@@ -93,9 +136,20 @@ const DeviceDetailPage = () => {
               )}
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Switch>Active</Switch>
-              <IconDots className="cursor-pointer"></IconDots>
+                <Switch>Active</Switch>
+                <IconDots className="cursor-pointer"></IconDots>
             </CardFooter>
+              {
+                deviceHasChanged && (
+                  <div className="bg-green-200 dark:bg-green-950 p-4 rounded-md text-green-700 dark:text-green-600 flex flex-row justify-between items-center">
+                    <IconInfoCircle />
+                    <p>Device has been updated</p>
+                    <Button onClick={uploadDeviceConfig}>
+                      Upload changes
+                    </Button>
+                  </div>
+                )
+              }
           </Card>
         )}
         {device && device.Type === "MobiFlight" && (

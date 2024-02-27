@@ -179,6 +179,21 @@ namespace MobiFlight
                 }
             });
 
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceUploadRequest>>(request =>
+            {
+                var device = request.Request.Device;
+                var module = mobiFlightCache.GetModuleBySerial(device.Id);
+                if (module == null) return;
+
+                module.Config = device.ConvertElementsToConfig();
+                module.SaveConfig();
+
+                if (device != null)
+                {
+                    PublishMessageOfAllDevices();
+                }
+            });
+
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);

@@ -15,6 +15,11 @@ export interface GlobalSettingsUpdateMessage {
     payload: IGlobalSettings
 }
 
+export interface DeviceUploadMessage {
+    key: "DeviceUpload"
+    payload: IDeviceItem
+}
+
 export interface ElementEditMessage {
     key: FrontendMessageKey
     payload: {
@@ -24,7 +29,7 @@ export interface ElementEditMessage {
 }
 
 export type FrontendMessageKey = "ExecutionUpdate" | "config.edit" | "GlobalSettingsUpdate" |"ElementEdit"
-export type FrontendMessageType = ExecutionUpdateMessage | EditConfigMessage | GlobalSettingsUpdateMessage | ElementEditMessage
+export type FrontendMessageType = ExecutionUpdateMessage | EditConfigMessage | GlobalSettingsUpdateMessage | ElementEditMessage | DeviceUploadMessage
 
 export type AppMessageKey = "config.update" | "GlobalSettings" | "StatusBarUpdate" | "ConfigFile" | "LogMessage" | "ExecutionUpdate" | "ConfigValueUpdate" | "DeviceUpdate" | "ElementEdit"
 export type AppMessagePayload = ConfigLoadedEvent | EventMessage | StatusBarUpdate | ExecutionUpdate | ConfigValueUpdate | ILogMessage | IGlobalSettings | IConfigItem

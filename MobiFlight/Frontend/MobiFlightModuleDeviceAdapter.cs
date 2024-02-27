@@ -176,6 +176,116 @@ namespace MobiFlight.Frontend
             return dict;
         }
 
+        public MobiFlight.Config.Config ConvertElementsToConfig()
+        {
+            Config.Config config = new Config.Config();
+            config.ModuleType = this.DeviceType;
+            config.ModuleName = this.Name;
+            config.Items = Elements.Select(e => ConvertElementToConfig(e)).ToList();
+
+            return config;
+        }
+
+        private BaseDevice ConvertElementToConfig(IDeviceElement e)
+        {
+            BaseDevice result = null;
+
+            if (e.Type == MobiFlight.DeviceType.AnalogInput.ToString())
+            {
+                result = new AnalogInput()
+                {
+                    Pin = e.ConfigData["Pin"]
+                };
+            }
+            else if (e.Type == MobiFlight.DeviceType.Button.ToString())
+                result = new Button()
+                {
+                    Pin = e.ConfigData["Pin"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.CustomDevice.ToString())
+                result = new CustomDevice()
+                {
+                    Pins = e.ConfigData["Pins"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.Encoder.ToString())
+                result = new Encoder()
+                {
+                    PinLeft = e.ConfigData["PinLeft"],
+                    PinRight = e.ConfigData["PinRight"],
+                    EncoderType = e.ConfigData["Model"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.InputMultiplexer.ToString())
+                result = new InputMultiplexer()
+                {
+                    Selector = new MultiplexerDriver()
+                    {
+                        PinSx = new string[] { e.ConfigData["PinS0"], e.ConfigData["PinS1"], e.ConfigData["PinS2"], e.ConfigData["PinS3"] }
+                    },
+                    DataPin = e.ConfigData["PinData"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.InputShiftRegister.ToString())
+            {
+                result = new InputShiftRegister()
+                {
+                    DataPin = e.ConfigData["PinData"],
+                    ClockPin = e.ConfigData["PinClock"],
+                    LatchPin = e.ConfigData["PinLatch"],
+                    NumModules = e.ConfigData["NumberOfModules"]
+                };
+            }
+            else if (e.Type == MobiFlight.DeviceType.LcdDisplay.ToString())
+            {
+                result = new LcdDisplay()
+                {
+                    Address = Convert.ToByte(e.ConfigData["Address"], 16),
+                    Lines = Convert.ToByte(e.ConfigData["Lines"]),
+                    Cols = Convert.ToByte(e.ConfigData["Columns"])
+                };
+            }
+            else if (e.Type == MobiFlight.DeviceType.LedModule.ToString())
+                result = new LedModule()
+                {
+                    ModelType = e.ConfigData["Model"],
+                    DinPin = e.ConfigData["PinData"],
+                    ClkPin = e.ConfigData["PinClock"],
+                    ClsPin = e.ConfigData["PinLatch"],
+                    NumModules = e.ConfigData["NumberOfModules"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.Output.ToString())
+                result = new Output()
+                {
+                    Pin = e.ConfigData["Pin"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.Servo.ToString())
+                result = new Servo()
+                {
+                    DataPin = e.ConfigData["Pin"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.ShiftRegister.ToString())
+                result = new ShiftRegister()
+                {
+                    DataPin = e.ConfigData["PinData"],
+                    ClockPin = e.ConfigData["PinClock"],
+                    LatchPin = e.ConfigData["PinLatch"],
+                    NumModules = e.ConfigData["NumberOfModules"]
+                };
+            else if (e.Type == MobiFlight.DeviceType.Stepper.ToString())
+                result = new Stepper()
+                {
+                    Pin1 = e.ConfigData["Pin1"],
+                    Pin2 = e.ConfigData["Pin2"],
+                    Pin3 = e.ConfigData["Pin3"],
+                    Pin4 = e.ConfigData["Pin4"],
+                    Mode = int.Parse(e.ConfigData["Mode"]),
+                    BtnPin = e.ConfigData["AutoHome"] == "True" ? e.ConfigData["PinHome"] : "0",
+                    Backlash = int.Parse(e.ConfigData["Backlash"]),
+                    Profile = int.Parse(e.ConfigData["Profile"])
+                };
+
+            result.Name = e.Name;
+            return result;
+        }
+
         public string GetDataImage(string file)
         {
             var extension = System.IO.Path.GetExtension(file).Substring(1);
