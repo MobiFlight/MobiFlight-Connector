@@ -116,7 +116,13 @@ const DeviceElementDetailView = () => {
             setElement={setElement}
           />
         )}
-        {element.Type == "Stepper" && <StepperForm />}
+        {element.Type == "Stepper" && (
+          <StepperForm
+            device={device!}
+            element={element!}
+            setElement={setElement}
+          />
+        )}
       </CardContent>
       <CardFooter className="flex justify-between"></CardFooter>
     </Card>

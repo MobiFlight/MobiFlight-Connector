@@ -17,10 +17,9 @@ const ButtonForm = (props: ButtonFormProps) => {
   return (
     <>
       <div className="flex flex-col gap-8">
-        <div>
+        <div className="w-1/4">
           <Label>Name</Label>
           <Input
-            className="w-1/2"
             name="Name"
             value={element.Name}
             onChange={(e) => setElement({ ...element, Name: e.target.value })}

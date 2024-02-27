@@ -30,7 +30,7 @@ const RunControl = () => {
                 <IconPlayerStop className='h-8 w-8 text-white' />
             </div>
             <div className='flex items-center gap-2'>
-                <Switch className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700" checked={settings.AutoRun} onCheckedChange={() => updateSetting({ AutoRun: !settings.AutoRun })} />AutoRun
+                <Switch checked={settings.AutoRun} onCheckedChange={() => updateSetting({ AutoRun: !settings.AutoRun })} />AutoRun
             </div>
         </div>
     )

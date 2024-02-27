@@ -196,7 +196,7 @@ namespace MobiFlight.UI.Panels
                 {
                     // Convert config to JSON object
                     var jsonEncodedMessage = JsonConvert.SerializeObject(message);
-                    webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+                    webView.CoreWebView2?.PostWebMessageAsString(jsonEncodedMessage);
                 };
 
                 // Check if invocation on the UI thread is required

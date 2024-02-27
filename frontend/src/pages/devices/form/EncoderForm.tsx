@@ -44,7 +44,6 @@ const EncoderForm = (props: EncoderFormProps) => {
         <div className="w-1/4">
           <Label>Name</Label>
           <Input
-            className=""
             name="Name"
             value={element.Name}
             onChange={(e) => setElement({ ...element, Name: e.target.value })}

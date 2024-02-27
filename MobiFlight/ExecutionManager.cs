@@ -167,6 +167,18 @@ namespace MobiFlight
                 MessageExchange.Instance.Publish(new Message<DeviceElementEditResponse>("ElementEdit", response));
             });
 
+            MessageExchange.Instance.Subscribe<Message<MobiFlightModule>>(message =>
+            {
+                if (message.key == "OnAfterConfigUpload")
+                {
+                    var module = message.payload;
+                    if (module != null)
+                    {
+                        PublishMessageOfAllDevices();
+                    }
+                }
+            });
+
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);

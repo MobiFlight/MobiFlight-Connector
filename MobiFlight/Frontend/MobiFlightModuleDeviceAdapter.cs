@@ -35,20 +35,21 @@ namespace MobiFlight.Frontend
         private IDeviceElement[] CreateElementsList(MobiFlightModule device)
         {
             var result = new List<IDeviceElement>();
-            result.AddRange(device.Config.Items.Select(
-                d =>
-                {
-                    var element = new DeviceElement()
-                    {
-                        Id = d.Name,
-                        Name = d.Name,
-                        Type = d.Type.ToString()
-                    };
+            result.AddRange(device.Config.Items
+                  .Where(d => d.Type != MobiFlight.DeviceType.MultiplexerDriver)
+                  .Select(d =>
+                  {
+                      var element = new DeviceElement()
+                      {
+                          Id = d.Name,
+                          Name = d.Name,
+                          Type = d.Type.ToString()
+                      };
 
-                    element.ConfigData = ConvertConfigToDictionary(d);
+                      element.ConfigData = ConvertConfigToDictionary(d);
 
-                    return element;
-                }).ToArray());
+                      return element;
+                  }).ToArray());
             return result.ToArray();
         }
 
@@ -142,6 +143,7 @@ namespace MobiFlight.Frontend
                         { "Pin3", (d as Stepper).Pin3.ToString() },
                         { "Pin4", (d as Stepper).Pin4.ToString() },
                         { "Mode", (d as Stepper).Mode.ToString() },
+                        { "AutoHome", ((d as Stepper).BtnPin != "0").ToString() },
                         { "PinHome", (d as Stepper).BtnPin.ToString() },
                         { "Backlash", (d as Stepper).Backlash.ToString() },
                         { "Profile", (d as Stepper).Profile.ToString() },

@@ -29,10 +29,9 @@ const OutputShiftRegisterForm = (props: OutputShiftRegisterProps) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="w-1/2">
+        <div className="w-1/4">
           <Label>Name</Label>
           <Input
-            className="w-1/2"
             name="Name"
             value={element.Name}
             onChange={(e) => setElement({ ...element, Name: e.target.value })}

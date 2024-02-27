@@ -99,7 +99,7 @@ const DeviceDetailPage = () => {
           </Card>
         )}
         {device && device.Type === "MobiFlight" && (
-          <Card className="flex flex-col w-96 overflow-y-auto select-none bg-transparent shadow-none hover:border-none border-none hover:bg-transparent  dark:bg-zinc-700/10 dark:hover:bg-zinc-700/20">
+          <Card className="flex flex-col w-96 overflow-y-auto select-none bg-transparent shadow-lg hover:border-none border-none hover:bg-transparent  dark:bg-zinc-700/10 dark:hover:bg-zinc-700/20">
             <CardHeader className="flex flex-col mt-0">
                 <div className="text-xl font-semibold">Components</div>
                 <div className="text-sm">Some cool sub title here</div>

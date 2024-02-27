@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.BrowserMessages;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -9,8 +10,9 @@ namespace MobiFlight.UI.Dialogs
     {
         ExecutionManager execManager;
 
-        public List<MobiFlightModule> MobiFlightModulesForUpdate {
-            get { return mobiFlightPanel.modulesForUpdate; } 
+        public List<MobiFlightModule> MobiFlightModulesForUpdate
+        {
+            get { return mobiFlightPanel.modulesForUpdate; }
             set { mobiFlightPanel.modulesForUpdate = value; }
         }
         public List<MobiFlightModuleInfo> MobiFlightModulesForFlashing
@@ -50,18 +52,24 @@ namespace MobiFlight.UI.Dialogs
 
 #if MOBIFLIGHT
             mobiFlightPanel.Init(execManager.getMobiFlightModuleCache());
-            
-            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { 
+
+            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) =>
+            {
                 execManager.AutoConnectStop();
                 execManager.getMobiFlightModuleCache().PauseModuleScan();
             };
 
-            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => {
+            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) =>
+            {
                 execManager.getMobiFlightModuleCache().ResumeModuleScan();
-                execManager.AutoConnectStart(); 
+                execManager.AutoConnectStart();
             };
 
-            mobiFlightPanel.OnModuleConfigChanged += (object sender, EventArgs e) => { ; };
+            mobiFlightPanel.OnModuleConfigChanged += (object sender, EventArgs e) => {; };
+            mobiFlightPanel.OnAfterConfigUpload += (object sender, MobiFlightModule module) =>
+            {
+                MessageExchange.Instance.Publish(new Message<MobiFlightModule>("OnAfterConfigUpload", module));
+            };
 #endif
 
 #if !MOBIFLIGHT
@@ -74,16 +82,16 @@ namespace MobiFlight.UI.Dialogs
         /// <summary>
         /// Load all settings for each tab
         /// </summary>
-        private void loadSettings ()
-        {            
+        private void loadSettings()
+        {
             // TAB General            
             generalPanel.loadSettings();
-            
+
             // TAB Arcaze           
 #if ARCAZE
             arcazePanel.LoadSettings();
 #endif
-           
+
             // TAB MobiFlight           
             mobiFlightPanel.LoadSettings();
 
@@ -141,7 +149,7 @@ namespace MobiFlight.UI.Dialogs
             saveSettings();
         }
 
-        
+
 
         /// <summary>
         /// Validate settings, e.g. ensure that every Arcaze has been configured.
