@@ -56,7 +56,7 @@ const DeviceElementDetailView = () => {
   return (
     <Card className="grow  select-none bg-transparent shadow-none hover:border-none border-none hover:bg-transparent dark:bg-zinc-700/10 dark:hover:bg-zinc-700/40">
       <CardHeader className="flex flex-col mt-0">
-        <div className="flex flex-row gap-2 mt-0">
+        <div className="flex flex-row gap-2 mt-0 items-center">
           <DeviceIcon variant={element?.Type}></DeviceIcon>
           <div className="text-xl font-semibold">Edit {element?.Type}</div>
         </div>

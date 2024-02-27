@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { IDeviceElement, IDeviceItem } from "@/types"
 import { StepperProfilesPresets } from "@/types/deviceElements.d"
-import { IconHelp } from "@tabler/icons-react"
+import { IconArrowsLeftRight, IconHelp, IconRefresh } from "@tabler/icons-react"
 import { useEffect } from "react"
 
 type StepperFormProps = {
@@ -31,7 +31,8 @@ const StepperForm = (props: StepperFormProps) => {
       pin.Pin === parseInt(element.ConfigData["Pin1"]) ||
       pin.Pin === parseInt(element.ConfigData["Pin2"]) ||
       pin.Pin === parseInt(element.ConfigData["Pin3"]) ||
-      pin.Pin === parseInt(element.ConfigData["Pin4"])
+      pin.Pin === parseInt(element.ConfigData["Pin4"]) ||
+      pin.Pin === parseInt(element.ConfigData["PinHome"])
   )
 
   const ProfileOptions = ProfilePresets.map((p) => ({
@@ -45,20 +46,38 @@ const StepperForm = (props: StepperFormProps) => {
     { value: "2", label: "Driver mode" },
   ]
 
+  const ChangeProfile = (value: string) => {
+    // restore correct values for the selected profile
+    const profile = ProfilePresets.find((p) => p.value.id === value)
+    // and then update element
+    setElement({
+      ...element,
+      ConfigData: {
+        ...element.ConfigData,
+        Mode: profile!.value.Mode,
+        Backlash: profile!.value.Backlash.toString(),
+        Profile: profile!.value.id.toString(),
+      },
+    })
+  }
+
   // find a free pin for our AutoHome
   useEffect(() => {
     if (
       AutoHome &&
+      PinHome === "0" &&
       freePins.find((p) => p.Pin.toString() == PinHome) === undefined
     ) {
+      const realFreePins = freePins.filter((p) => !p.Used)
       setElement({
         ...element,
         ConfigData: {
           ...element.ConfigData,
-          PinHome: freePins[0].Pin.toString(),
+          PinHome: realFreePins[0].Pin.toString(),
         },
       })
     }
+    console.log("AutoHome", AutoHome, "PinHome", PinHome)
   }, [AutoHome])
 
   return (
@@ -81,12 +100,7 @@ const StepperForm = (props: StepperFormProps) => {
                 className="w-[360px]"
                 options={ProfileOptions}
                 value={Profile}
-                onSelect={(value) =>
-                  setElement({
-                    ...element,
-                    ConfigData: { ...element.ConfigData, Profile: value },
-                  })
-                }
+                onSelect={ChangeProfile}
               />
             </div>
           </div>
@@ -120,6 +134,19 @@ const StepperForm = (props: StepperFormProps) => {
               />
             </div>
           </div>
+          <IconArrowsLeftRight
+            className="stroke-primary text-primary  hover:stroke-blue-400  hover:text-blue-400 mt-8 cursor-pointer"
+            onClick={() => {
+              setElement({
+                ...element,
+                ConfigData: {
+                  ...element.ConfigData,
+                  Pin2: Pin1,
+                  Pin1: Pin2,
+                },
+              })
+            }}
+          />
           <div>
             <Label>Pin2</Label>
             <div className="w-1/3">
@@ -141,27 +168,56 @@ const StepperForm = (props: StepperFormProps) => {
           </div>
           {/* Pin3 and Pin4 are optional, so we only show them if they are used */}
           {Mode !== "2" && (
-            <div>
-              <Label>Pin3</Label>
-              <div className="w-1/3">
-                <ComboBox
-                  className="w-[120px]"
-                  options={freePins.map((pin) => ({
-                    value: pin.Pin.toString(),
-                    label: `${pin.Pin}${pin.isPWM ? " (PWM)" : ""}`,
-                  }))}
-                  value={Pin3}
-                  onSelect={(value) =>
-                    setElement({
-                      ...element,
-                      ConfigData: { ...element.ConfigData, Pin3: value },
-                    })
-                  }
-                />
+            <>
+              <IconArrowsLeftRight
+                className="stroke-primary text-primary  hover:stroke-blue-400  hover:text-blue-400 mt-8 cursor-pointer"
+                onClick={() => {
+                  setElement({
+                    ...element,
+                    ConfigData: {
+                      ...element.ConfigData,
+                      Pin3: Pin2,
+                      Pin2: Pin3,
+                    },
+                  })
+                }}
+              />
+              <div>
+                <Label>Pin3</Label>
+                <div className="w-1/3">
+                  <ComboBox
+                    className="w-[120px]"
+                    options={freePins.map((pin) => ({
+                      value: pin.Pin.toString(),
+                      label: `${pin.Pin}${pin.isPWM ? " (PWM)" : ""}`,
+                    }))}
+                    value={Pin3}
+                    onSelect={(value) =>
+                      setElement({
+                        ...element,
+                        ConfigData: { ...element.ConfigData, Pin3: value },
+                      })
+                    }
+                  />
+                </div>
               </div>
-            </div>
+            </>
           )}
           {Mode !== "2" && (
+            <>
+            <IconArrowsLeftRight
+              className="stroke-primary text-primary  hover:stroke-blue-400  hover:text-blue-400 mt-8 cursor-pointer"
+              onClick={() => {
+                setElement({
+                  ...element,
+                  ConfigData: {
+                    ...element.ConfigData,
+                    Pin3: Pin4,
+                    Pin4: Pin3,
+                  },
+                })
+              }}
+            />
             <div>
               <Label>Pin4</Label>
               <div className="w-1/3">
@@ -181,7 +237,17 @@ const StepperForm = (props: StepperFormProps) => {
                 />
               </div>
             </div>
+            </>
           )}
+          <div className="cursor-pointer stroke-primary text-primary  hover:stroke-blue-400  hover:text-blue-400 mt-8 ">
+            <a
+              onClick={() => {}}
+              className="flex flex-row mb-2 gap-2 items-center"
+            >
+              <IconRefresh />
+              <p>Change direction</p>
+            </a>
+          </div>
         </div>
         <div className="flex flex-row gap-4 items-center h-12">
           <div className="flex flex-row items-center gap-4">
