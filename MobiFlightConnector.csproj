@@ -1078,6 +1078,9 @@
     <None Include="MidiBoards\BoardEditorConfigs\xtouchmini\LayerB.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="MidiBoards\apckey25.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MidiBoards\intech_ef44.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
