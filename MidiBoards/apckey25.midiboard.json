@@ -3,6 +3,78 @@
   "InstanceName": "APC Key 25",
   "Inputs": [
     {
+      "Label": "Button 1_%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 32, 33, 34, 35, 36, 37, 38, 39 ]
+    },
+    {
+      "Label": "Button 2_%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 24, 25, 26, 27, 28, 29, 30, 31 ]
+    },
+    {
+      "Label": "Button 3_%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 16, 17, 18, 19, 20, 21, 22, 23 ]
+    },
+    {
+      "Label": "Button 4_%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 8, 9, 10, 11, 12, 13, 14, 15 ]
+    },
+    {
+      "Label": "Button 5_%",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+    },
+    {
+      "Label": "Function %",
+      "LabelIds": [ "STOP ALL", "SHIFT", "PLAY", "REC" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 81, 98, 91, 93 ]
+    },
+    {
+      "Label": "Function %",
+      "LabelIds": [ "SUSTAIN" ],
+      "InputType": "Button",
+      "MessageType": "CC",
+      "MessageChannel": 2,
+      "MessageIds": [ 64 ]
+    },
+    {
+      "Label": "Horizontal Circle %",
+      "LabelIds": [ "1", "2", "3", "4", "5", "6", "7", "8" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 64, 65, 66, 67, 68, 69, 70, 71 ]
+    },
+    {
+      "Label": "Vertical Circle %",
+      "LabelIds": [ "1", "2", "3", "4", "5" ],
+      "InputType": "Button",
+      "MessageType": "Note",
+      "MessageChannel": 1,
+      "MessageIds": [ 82, 83, 84, 85, 86 ]
+    },
+    {
       "Label": "Knob 1_%",
       "LabelIds": [ "1", "2", "3", "4" ],
       "InputType": "LimitedKnob",
