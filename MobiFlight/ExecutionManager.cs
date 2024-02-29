@@ -154,19 +154,6 @@ namespace MobiFlight
                 MessageExchange.Instance.Publish(new Message<GlobalSettings>(new GlobalSettings(Properties.Settings.Default)));
             });
 
-            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceElementEditRequest>>(request =>
-            {
-                // find the device in the MobiFlightCache by serial
-                var device = mobiFlightCache.GetModuleBySerial(request.Request.Device.Id);
-                // find the element in the device
-                var element = device.GetConnectedInputDevices().First(d => d.Type.ToString() == request.Request.Element.Type && d.Name == request.Request.Element.Id);
-                var response = DeviceElementEditResponse.Create(element);
-
-                if (response == null)
-                    Log.Instance.log($"Could not create response for {device.Name}.{element.Name} of type {element.Name}", LogSeverity.Error);
-                MessageExchange.Instance.Publish(new Message<DeviceElementEditResponse>("ElementEdit", response));
-            });
-
             MessageExchange.Instance.Subscribe<Message<MobiFlightModule>>(message =>
             {
                 if (message.key == "OnAfterConfigUpload")
@@ -184,7 +171,6 @@ namespace MobiFlight
                 var device = request.Request.Device;
                 var module = mobiFlightCache.GetModuleBySerial(device.Id);
                 if (module == null) return;
-
                 module.Config = device.ConvertElementsToConfig();
                 module.SaveConfig();
 
@@ -193,6 +179,23 @@ namespace MobiFlight
                     PublishMessageOfAllDevices();
                 }
             });
+
+            //MessageExchange.Instance.Subscribe<FrontendRequest<DeviceElementCreateRequest>>(request =>
+            //{
+            //    var elementType = request.Request.ElementType;
+            //    var device = request.Request.Device;
+            //    var module = mobiFlightCache.GetModuleBySerial(device.Id);
+            //    if (module == null) return;
+            //    if (!Enum.TryParse(elementType, out DeviceType deviceType)) return;
+
+            //    var deviceConfig = module.CreateDeviceWithDefaultConfig(deviceType);
+            //    MessageExchange.Instance.Publish(new Message<DeviceElementCreateResponse>(new DeviceElementCreateResponse
+            //    {
+            //        Device = device,
+            //        Element = MobiFlightModuleDeviceAdapter.CreateElement(deviceConfig)
+            //    }));
+
+            //});
 
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);

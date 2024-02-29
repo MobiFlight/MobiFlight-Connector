@@ -36,8 +36,6 @@ const EncoderForm = (props: EncoderFormProps) => {
     { value: "4", label: "4 detent per cycle" },
   ]
 
-  console.log("EncoderForm", element, device, PinLeft, PinRight, freePins)
-
   return (
     <>
       <div className="flex flex-col gap-8">

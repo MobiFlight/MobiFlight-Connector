@@ -1,20 +1,21 @@
 import DeviceIcon from "@/components/mobiflight/icons/DeviceIcon"
-import { IDeviceItem } from "@/types"
+import { IDeviceElement, IDeviceItem } from "@/types"
 import { DeviceElementType } from "@/types/index"
 import { IconDotsVertical, IconTrash } from "@tabler/icons-react"
 import { NavLink } from "react-router-dom"
 
 export type MobiFlightDeviceEditPanelProps = {
   device: IDeviceItem
+  onElementDelete: (device: IDeviceElement) => void
 }
 
 export const MobiFlightDeviceEditPanel = (
   props: MobiFlightDeviceEditPanelProps
 ) => {
-  const device = props.device
+  const { device, onElementDelete } = props
   
   return (
-    <div className="w-full flex flex-col p-4 overflow-y-auto gap-2">
+    <div className="w-full h-full flex flex-col p-4 overflow-y-auto gap-2 overscroll-contain">
       {(device?.Elements ?? []).map((element) => {
         return (
           <NavLink
@@ -37,7 +38,7 @@ export const MobiFlightDeviceEditPanel = (
                 ></DeviceIcon>
                 <div className="grow">{element.Name}</div>
                 <div className="group-hover:opacity-100 opacity-0">
-                  <IconTrash className="text-gray-400"></IconTrash>
+                  <IconTrash className="text-gray-400" onClick={()=>{onElementDelete(element)}}></IconTrash>
                 </div>
               </div>
             </div>

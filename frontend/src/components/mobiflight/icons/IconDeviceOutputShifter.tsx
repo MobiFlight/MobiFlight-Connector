@@ -1,10 +1,15 @@
+import { cn } from "@/lib/utils"
+
 type IconDeviceOutputShifterProps = {
   className?: string
 }
 
 const IconDeviceOutputShifter = (props: IconDeviceOutputShifterProps) => {
-  const className =
-    "stroke-current fill-current" + (props.className ? props.className : "")
+  const className = cn(
+    "stroke-current fill-current ",
+    props.className
+  )
+  
   return (
     <svg
       className={className}

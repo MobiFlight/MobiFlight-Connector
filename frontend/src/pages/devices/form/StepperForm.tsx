@@ -25,7 +25,7 @@ const StepperForm = (props: StepperFormProps) => {
   const Mode = element.ConfigData["Mode"]
   const Backlash = element.ConfigData["Backlash"]
   const Profile = element.ConfigData["Profile"]
-  const freePins = device.Pins.filter(
+  const freePins = device.Pins!.filter(
     (pin) =>
       !pin.Used ||
       pin.Pin === parseInt(element.ConfigData["Pin1"]) ||
@@ -77,7 +77,6 @@ const StepperForm = (props: StepperFormProps) => {
         },
       })
     }
-    console.log("AutoHome", AutoHome, "PinHome", PinHome)
   }, [AutoHome])
 
   return (

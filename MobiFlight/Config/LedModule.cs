@@ -6,7 +6,7 @@ namespace MobiFlight.Config
 {
     public class LedModule : BaseDevice
     {
-        public const string MODEL_TYPE_MAX72xx   = "0";
+        public const string MODEL_TYPE_MAX72xx = "0";
         public const string MODEL_TYPE_TM1637_4DIGIT = "253";
         public const string MODEL_TYPE_TM1637_6DIGIT = "254";
 
@@ -28,7 +28,7 @@ namespace MobiFlight.Config
 
         public LedModule(LedModuleDeprecated module)
         {
-            Name = module.Name; 
+            Name = module.Name;
             _type = DeviceType.LedModule;
             ModelType = MODEL_TYPE_MAX72xx;
             DinPin = module.DinPin;
@@ -42,7 +42,7 @@ namespace MobiFlight.Config
         {
             return base.ToInternal() + Separator
                  + ModelType + Separator
-                 + DinPin + Separator                 
+                 + DinPin + Separator
                  + ClsPin + Separator
                  + ClkPin + Separator
                  + Brightness + Separator
@@ -59,7 +59,7 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
             ModelType = paramList[1];
-            DinPin = paramList[2];            
+            DinPin = paramList[2];
             ClsPin = paramList[3];
             ClkPin = paramList[4];
             Byte.TryParse(paramList[5], out byte brightness);
@@ -89,7 +89,19 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return $"{Type}:{Name} TypeId:{ModelType} DinPin:{DinPin} ClsPin:{ClsPin} ClkPin:{ClkPin} Brightness:{Brightness} NumModules:{NumModules}";            
+            return $"{Type}:{Name} TypeId:{ModelType} DinPin:{DinPin} ClsPin:{ClsPin} ClkPin:{ClkPin} Brightness:{Brightness} NumModules:{NumModules}";
+        }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            DinPin = freePins.ElementAt(0).Pin.ToString();
+            ClsPin = freePins.ElementAt(1).Pin.ToString();
+            ClkPin = freePins.ElementAt(2).Pin.ToString();
+            // these are the default settings for the MAX72xx
+            ModelType = MODEL_TYPE_MAX72xx;
+            Brightness = 15;
+            NumModules = "1";
+            return this;
         }
     }
 }

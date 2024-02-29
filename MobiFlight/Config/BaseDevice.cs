@@ -15,11 +15,12 @@ namespace MobiFlight.Config
 
         public String Label
         {
-            get { return Name; } 
+            get { return Name; }
         }
 
         virtual public String ToInternal() { return ((int)_type).ToString(); }
         virtual public bool FromInternal(String value) { throw new NotImplementedException(); }
+        virtual public BaseDevice InitWithFreePins(MobiFlightPin[] freePins) { return this; }
 
         [XmlAttribute]
         public DeviceType Type

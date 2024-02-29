@@ -725,8 +725,7 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightServo.TYPE, tempModule.Board.ModuleLimits.MaxServos);
                         }
-                        cfgItem = new MobiFlight.Config.Servo();
-                        (cfgItem as MobiFlight.Config.Servo).DataPin = freePinList.ElementAt(0).Pin.ToString();
+                        cfgItem = new MobiFlight.Config.Servo().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "stepperToolStripMenuItem":
                     case "addStepperToolStripMenuItem":
@@ -734,12 +733,7 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightStepper.TYPE, tempModule.Board.ModuleLimits.MaxSteppers);
                         }
-                        cfgItem = new MobiFlight.Config.Stepper();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin1 = freePinList.ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin2 = freePinList.ElementAt(1).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin3 = freePinList.ElementAt(2).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Stepper).Pin4 = freePinList.ElementAt(3).Pin.ToString();
-                        //(cfgItem as MobiFlight.Config.Stepper).BtnPin = getModuleFromTree().GetFreePins().ElementAt(4).ToString();
+                        cfgItem = new MobiFlight.Config.Stepper().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "ledOutputToolStripMenuItem":
                     case "addOutputToolStripMenuItem":
@@ -748,8 +742,7 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightOutput.TYPE, tempModule.Board.ModuleLimits.MaxOutputs);
                         }
 
-                        cfgItem = new MobiFlight.Config.Output();
-                        (cfgItem as MobiFlight.Config.Output).Pin = freePinList.ElementAt(0).Pin.ToString();
+                        cfgItem = new MobiFlight.Config.Output().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "ledSegmentToolStripMenuItem":
                     case "addLedModuleToolStripMenuItem":
@@ -758,10 +751,7 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightLedModule.TYPE, tempModule.Board.ModuleLimits.MaxLedSegments);
                         }
 
-                        cfgItem = new MobiFlight.Config.LedModule();
-                        (cfgItem as MobiFlight.Config.LedModule).DinPin = freePinList.ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClsPin = freePinList.ElementAt(1).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.LedModule).ClkPin = freePinList.ElementAt(2).Pin.ToString();
+                        cfgItem = new MobiFlight.Config.LedModule().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "analogDeviceToolStripMenuItem1":
                     case "analogDeviceToolStripMenuItem":
@@ -769,8 +759,8 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightAnalogInput.TYPE, tempModule.Board.ModuleLimits.MaxAnalogInputs);
                         }
-                        cfgItem = new MobiFlight.Config.AnalogInput();
-                        (cfgItem as MobiFlight.Config.AnalogInput).Pin = freePinList.FindAll(x => x.isAnalog == true).ElementAt(0).Pin.ToString();
+                        // throws an exception if no analog pins are available anymore
+                        cfgItem = new MobiFlight.Config.AnalogInput().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "buttonToolStripMenuItem":
                     case "addButtonToolStripMenuItem":
@@ -780,7 +770,7 @@ namespace MobiFlight.UI.Panels.Settings
                         }
 
                         cfgItem = new MobiFlight.Config.Button();
-                        (cfgItem as MobiFlight.Config.Button).Pin = freePinList.ElementAt(0).Pin.ToString();
+                        (cfgItem as MobiFlight.Config.Button).InitWithFreePins(freePinList.ToArray());
                         break;
                     case "encoderToolStripMenuItem":
                     case "addEncoderToolStripMenuItem":
@@ -789,9 +779,7 @@ namespace MobiFlight.UI.Panels.Settings
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightEncoder.TYPE, tempModule.Board.ModuleLimits.MaxEncoders);
                         }
 
-                        cfgItem = new MobiFlight.Config.Encoder();
-                        (cfgItem as MobiFlight.Config.Encoder).PinLeft = freePinList.ElementAt(0).Pin.ToString();
-                        (cfgItem as MobiFlight.Config.Encoder).PinRight = freePinList.ElementAt(1).Pin.ToString();
+                        cfgItem = new MobiFlight.Config.Encoder().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "inputShiftRegisterToolStripMenuItem":
                     case "addInputShiftRegisterToolStripMenuItem":
@@ -799,10 +787,7 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightInputShiftRegister.TYPE, tempModule.Board.ModuleLimits.MaxInputShifters);
                         }
-                        cfgItem = new MobiFlight.Config.InputShiftRegister();
-                        (cfgItem as MobiFlight.Config.InputShiftRegister).DataPin = freePinList.ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.InputShiftRegister).ClockPin = freePinList.ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.InputShiftRegister).LatchPin = freePinList.ElementAt(2).ToString();
+                        cfgItem = new MobiFlight.Config.InputShiftRegister().InitWithFreePins(freePinList.ToArray());
                         break;
                     case "inputMultiplexerToolStripMenuItem":
                     case "addInputMultiplexerToolStripMenuItem":
@@ -824,7 +809,7 @@ namespace MobiFlight.UI.Panels.Settings
 
                         CheckIfI2CPinsAreAvailable(tempModule);
 
-                        cfgItem = new MobiFlight.Config.LcdDisplay();
+                        cfgItem = new MobiFlight.Config.LcdDisplay().InitWithFreePins(freePinList.ToArray());
                         break;
 
                     case "ShiftRegisterToolStripMenuItem":
@@ -833,10 +818,7 @@ namespace MobiFlight.UI.Panels.Settings
                         {
                             throw new MaximumDeviceNumberReachedMobiFlightException(MobiFlightShiftRegister.TYPE, tempModule.Board.ModuleLimits.MaxShifters);
                         }
-                        cfgItem = new MobiFlight.Config.ShiftRegister();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).DataPin = freePinList.ElementAt(0).ToString();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).ClockPin = freePinList.ElementAt(1).ToString();
-                        (cfgItem as MobiFlight.Config.ShiftRegister).LatchPin = freePinList.ElementAt(2).ToString();
+                        cfgItem = new MobiFlight.Config.ShiftRegister().InitWithFreePins(freePinList.ToArray());
                         break;
 
                     default:

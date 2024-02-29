@@ -50,21 +50,6 @@ export default function DevicesPage() {
                     )}
                   </div>
                 )}
-                {/* <Collapsible
-                open={isOpen[device.Id]}
-                onOpenChange={(value: boolean) => {
-                  setIsOpen({ deviceId: value });
-                }}
-              >
-                <CollapsibleTrigger>Meta Data</CollapsibleTrigger>
-                <CollapsibleContent>
-                  {Object.keys(device?.MetaData ?? {}).map((key: string) => (
-                    <p>
-                      {key} : {device.MetaData[key]}
-                    </p>
-                  ))}
-                </CollapsibleContent>
-              </Collapsible> */}
               </CardContent>
             </NavLink>
             <CardFooter className="flex justify-between">

@@ -1,10 +1,14 @@
+import { cn } from "@/lib/utils"
+
 type IconDeviceInputMultiplexerProps = {
   className?: string
 }
 
 const IconDeviceInputMultiplexer = (props: IconDeviceInputMultiplexerProps) => {
-  const className =
-    "stroke-current fill-current" + (props.className ? props.className : "")
+  const className = cn(
+    "stroke-current fill-current ",
+    props.className
+  )
   return (
     <svg
       className={className}

@@ -15,13 +15,24 @@ import {
 } from "./form"
 import DeviceIcon from "@/components/mobiflight/icons/DeviceIcon"
 import { useDeviceDetailPageContext } from "./DeviceDetail"
-import { IDeviceElement } from "@/types/config"
+import { IDeviceElement } from "@/types/deviceElements"
+import { useNavigate } from "react-router-dom"
+import { use } from "i18next"
+import { useEffect } from "react"
 
 const DeviceElementDetailView = () => {
+  const navigate = useNavigate()
   const { element, device, updateDevice } = useDeviceDetailPageContext()
+
+  // useEffect(() => {
+  //   if (element?.Type === undefined) {
+  //     navigate(`/devices/${device?.Type}/${device?.Id}`)
+  //   }
+  // }, [element])
+
   const setElement = (element: IDeviceElement) => {
     const formerElement = device!.Elements!.find((e) => e.Id === element.Id)
-    var updatePins = device.Pins
+    var updatePins = device.Pins!
 
     // determine which config data elements have changed
     // and update the pin information accordingly
@@ -63,29 +74,29 @@ const DeviceElementDetailView = () => {
         <div className="text-sm">Some cool sub title here</div>
       </CardHeader>
       <CardContent>
-        {element.Type == "AnalogInput" && (
+        {element?.Type == "AnalogInput" && (
           <AnalogInputForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "Button" && (
+        {element?.Type == "Button" && (
           <ButtonForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "CustomDevice" && <CustomDeviceForm />}
-        {element.Type == "Encoder" && (
+        {element?.Type == "CustomDevice" && <CustomDeviceForm />}
+        {element?.Type == "Encoder" && (
           <EncoderForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "InputMultiplexer" && (
+        {element?.Type == "InputMultiplexer" && (
           <InputMultiplexerForm
             device={device!}
             element={element!}
@@ -93,49 +104,49 @@ const DeviceElementDetailView = () => {
             allowEditPinSx={false}
           />
         )}
-        {element.Type == "InputShiftRegister" && (
+        {element?.Type == "InputShiftRegister" && (
           <InputShiftRegisterForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "LcdDisplay" && (
+        {element?.Type == "LcdDisplay" && (
           <LcdForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "LedModule" && (
+        {element?.Type == "LedModule" && (
           <LedModuleForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "Output" && (
+        {element?.Type == "Output" && (
           <OutputForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "Servo" && (
+        {element?.Type == "Servo" && (
           <ServoForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "ShiftRegister" && (
+        {element?.Type == "ShiftRegister" && (
           <OutputShiftRegisterForm
             device={device!}
             element={element!}
             setElement={setElement}
           />
         )}
-        {element.Type == "Stepper" && (
+        {element?.Type == "Stepper" && (
           <StepperForm
             device={device!}
             element={element!}

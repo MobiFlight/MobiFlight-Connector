@@ -17,38 +17,39 @@ import IconDeviceInputShifter from "./IconDeviceInputShifter";
 import IconDeviceInputMultiplexer from "./IconDeviceInputMultiplexer";
 
 export type DeviceIconProps = {
-  variant?: DeviceElementType;
-  className?: string;
+  variant?: DeviceElementType
+  disabled?: boolean
+  className?: string
 };
 
 const DeviceIcon = (props: DeviceIconProps) => {
-  const { variant, className } = props;
+  const { variant, disabled, className } = props;
 
   let icon = <IconQuestionMark className={className}/>
   if (variant === "Output") {
-    icon = <IconBulb className={cn("stroke-pink-600", className) } />;
+    icon = <IconBulb className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (variant === "LedModule") {
-    icon = <Icon123 className={cn("stroke-pink-600", className) } />;
+    icon = <Icon123 className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (variant === "LcdDisplay") {
-    icon = <IconAbc className={cn("stroke-pink-600", className) } />;
+    icon = <IconAbc className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (variant === "ShiftRegister") {
-    icon = <IconDeviceOutputShifter className={cn("stroke-pink-600 fill-pink-600", className) } />;
+    icon = <IconDeviceOutputShifter className={cn("stroke-pink-600 fill-pink-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
   } else if (variant === "Stepper") {
-    icon = <IconGauge className={cn("stroke-pink-600", className) } />;
+    icon = <IconGauge className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (variant === "Servo") {
-    icon = <IconDashboard className={cn("stroke-pink-600", className) } />;
+    icon = <IconDashboard className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   }else if (variant === "Button") {
-    icon = <IconPower className={cn("stroke-teal-600", className) }/>;
+    icon = <IconPower className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) }/>;
   } else if (variant === "Encoder") {
-    icon = <IconRefreshDot className={cn("stroke-teal-600", className) }/>;
+    icon = <IconRefreshDot className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) }/>;
   } else if (variant === "AnalogInput") {
-    icon = <IconDeviceAnalog className={cn("stroke-teal-600 fill-teal-600 stroke-2", className) }/>;
+    icon = <IconDeviceAnalog className={cn("stroke-teal-600 fill-teal-600 stroke-2", disabled?"stroke-slate-400 fill-slate-400":"", className) }/>;
   } else if (variant === "InputShiftRegister") {
-    icon = <IconDeviceInputShifter className={cn("stroke-teal-600 fill-teal-600", className) } />;
+    icon = <IconDeviceInputShifter className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
   } else if (variant === "InputMultiplexer") {
-    icon = <IconDeviceInputMultiplexer className={cn("stroke-teal-600 fill-teal-600", className) } />;
+    icon = <IconDeviceInputMultiplexer className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
   } else if (variant === "CustomDevice") {
-    icon = <IconBox className={cn("stroke-pink-600", className) } />;
+    icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   }
 
   return <div className="inline-block">{icon}</div>;

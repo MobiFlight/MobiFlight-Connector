@@ -1,10 +1,15 @@
+import { cn } from "@/lib/utils"
+
 type IconDeviceAnalogProps = {
   className?: string
 }
 
 const IconDeviceAnalog = (props: IconDeviceAnalogProps) => {
-  const className =
-    "stroke-current fill-current " + (props.className ? props.className : "")
+  const className = cn(
+    "stroke-current fill-current ",
+    props.className
+  )
+  
   return (
     <svg
       className={className}

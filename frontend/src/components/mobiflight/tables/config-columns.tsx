@@ -14,7 +14,7 @@ import { IconArrowsSort, IconDots } from "@tabler/icons-react";
 import { publishOnMessageExchange } from "@/lib/hooks";
 import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "../icons/DeviceIcon";
-import { DeviceElementType } from "@/types/config";
+import { DeviceElementType } from "@/types/deviceElements";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {

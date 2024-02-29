@@ -27,6 +27,38 @@ export const DeviceElementTypes: DeviceElementType[] = [
   "CustomDevice",
 ];
 
+export const DeviceElementRequiredPins: { [key in DeviceElementType]: { Pins: number, PwmPins: number, i2c: boolean } } = {
+  "Button": { Pins: 1, PwmPins: 0 },
+  "Encoder": { Pins: 2, PwmPins: 0 },
+  "AnalogInput": { Pins: 1, PwmPins: 0 },
+  "InputShiftRegister": { Pins: 4, PwmPins: 0 },
+  "InputMultiplexer": { Pins: 4, PwmPins: 0 },
+  "Output": { Pins: 1, PwmPins: 0 },
+  "LedModule": { Pins: 1, PwmPins: 0 },
+  "Stepper": { Pins: 4, PwmPins: 0 },
+  "Servo": { Pins: 1, PwmPins: 1 },
+  "LcdDisplay": { Pins: 0, PwmPins: 0, i2c: true},
+  "ShiftRegister": { Pins: 4, PwmPins: 0 },
+  "CustomDevice": { Pins: 1, PwmPins: 0 },
+};
+
+
+export interface IDeviceElement {
+  Id: string;
+  Name: string;
+  Type: DeviceElementType;
+  ConfigData: IDictionary<string>
+}
+
+export interface ButtonElement extends IDeviceElement {
+  Type: "Button";
+  ConfigData: {
+    Pin: string;
+    Pullup: string;
+  };
+
+}
+
 export type StepperProfilePreset = {
   id : string
   Mode: string

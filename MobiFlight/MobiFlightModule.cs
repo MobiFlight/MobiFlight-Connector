@@ -1444,5 +1444,63 @@ namespace MobiFlight
         {
             return ToMobiFlightModuleInfo().FirmwareRequiresUpdate();
         }
+
+        //public BaseDevice CreateDeviceWithDefaultConfig(DeviceType type)
+        //{
+        //    var device = new BaseDevice();
+        //    var freePins = GetFreePins().ToArray();
+
+        //    switch (type)
+        //    {
+        //        case DeviceType.Output:
+        //            device = new Output();
+        //            break;
+        //        case DeviceType.LedModule:
+        //            device = new LedModule();
+        //            break;
+        //        case DeviceType.Stepper:
+        //            device = new Stepper();
+        //            break;
+        //        case DeviceType.Servo:
+        //            device = new Servo();
+        //            break;
+        //        case DeviceType.Button:
+        //            device = new Button();
+        //            break;
+        //        case DeviceType.Encoder:
+        //            device = new Config.Encoder();
+        //            break;
+        //        case DeviceType.InputShiftRegister:
+        //            device = new InputShiftRegister();
+        //            break;
+        //        case DeviceType.LcdDisplay:
+        //            device = new LcdDisplay();
+        //            break;
+        //        case DeviceType.ShiftRegister:
+        //            device = new ShiftRegister();
+        //            break;
+        //        case DeviceType.InputMultiplexer:
+        //            var driver = GetConnectedInputDevices().FirstOrDefault(d => d.Type == DeviceType.MultiplexerDriver);
+        //            if (driver == null)
+        //            {
+        //                driver = new MultiplexerDriver();
+        //            }
+        //            device = new InputMultiplexer(driver as MultiplexerDriver);
+        //            break;
+        //        case DeviceType.AnalogInput:
+        //            device = new AnalogInput();
+        //            break;
+        //        case DeviceType.CustomDevice:
+        //            device = new CustomDevice();
+        //            // this is more complicated :(
+        //            break;
+        //        default:
+        //            throw new NotImplementedException();
+        //    }
+
+        //    device.InitWithFreePins(freePins);
+        //    device.Name = GenerateUniqueDeviceName(Config.Items.Select(d => d.Name).ToArray(), device.Name);
+        //    return device;
+        //}
     }
 }

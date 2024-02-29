@@ -70,11 +70,11 @@ namespace MobiFlight.UI.Panels
                     MessageExchange.Instance.Publish(new Message<ConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
                 }
 
-                if (decodedMessage.key == "ElementEdit")
-                {
-                    var ElementEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceElementEditRequest>>(message);
-                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceElementEditRequest>() { Request = ElementEditMessage.payload });
-                }
+                //if (decodedMessage.key == "ElementCreate")
+                //{
+                //    var ElementEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceElementCreateRequest>>(message);
+                //    MessageExchange.Instance.Publish(new FrontendRequest<DeviceElementCreateRequest>() { Request = ElementEditMessage.payload });
+                //}
 
                 if (decodedMessage.key == "ExecutionUpdate")
                 {
@@ -208,7 +208,7 @@ namespace MobiFlight.UI.Panels
                 webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
             });
 
-            MessageExchange.Instance.Subscribe<Message<DeviceElementEditResponse>>((message) =>
+            MessageExchange.Instance.Subscribe<Message<DeviceElementCreateResponse>>((message) =>
             {
                 // do something with the config
                 // convert config to JSON object

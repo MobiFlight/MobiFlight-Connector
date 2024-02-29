@@ -13,15 +13,8 @@ export interface IConfigItem {
   ModifiedValue: string;
 }
 
-interface IDictionary<T> {
+export interface IDictionary<T> {
   [Key: string]: T;
-}
-
-export interface IDeviceElement {
-  Id: string;
-  Name: string;
-  Type: DeviceElementType;
-  ConfigData: IDictionary<string>
 }
 
 export type DeviceType = "MobiFlight" | "Joystick" | "Midi";
@@ -39,6 +32,6 @@ export interface IDeviceItem {
   Type: DeviceType;
   Name: string;
   MetaData: IDictionary<string>;  
-  Elements?: IDeviceElement[];
-  Pins: ElementPin[];
+  Elements: IDeviceElement[];
+  Pins?: ElementPin[];
 }

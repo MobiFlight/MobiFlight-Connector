@@ -29,7 +29,6 @@ const LedModuleForm = (props: LedModuleFormProps) => {
     label: `${i + 1}`,
   }))
 
-  console.log(element.ConfigData)
   return (
     <>
       <div className="flex flex-col gap-8">

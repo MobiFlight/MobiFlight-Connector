@@ -14,28 +14,28 @@ namespace MobiFlight.Config
 
         const ushort _paramCount = 3;
 
-        public AnalogInput() { Name = "Analog Input"; _type  = DeviceType.AnalogInput; }
+        public AnalogInput() { Name = "Analog Input"; _type = DeviceType.AnalogInput; }
 
         override public String ToInternal()
         {
             return base.ToInternal() + Separator
                     + Pin + Separator
                     + Sensitivity + Separator
-                    + Name                    
+                    + Name
                     + End;
         }
 
         override public bool FromInternal(String value)
         {
-            if (value.Length==value.IndexOf(End)+1) value = value.Substring(0,value.Length-1);
+            if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);
 
             String[] paramList = value.Split(Separator);
-            if (paramList.Count() != _paramCount+1)
+            if (paramList.Count() != _paramCount + 1)
             {
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
-            
-            Pin = paramList[1];            
+
+            Pin = paramList[1];
             Sensitivity = paramList[2];
             Name = paramList[3];
 
@@ -57,6 +57,17 @@ namespace MobiFlight.Config
         public override string ToString()
         {
             return $"{Type}:{Name} Pin:{Pin} Sensitivity:{Sensitivity}";
+        }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            var analogPins = freePins.Where(p => p.isAnalog);
+            if (analogPins.Count() == 0)
+            {
+                throw new ArgumentException("No free analog pins available");
+            }
+            Pin = freePins[0].Pin.ToString();
+            return this;
         }
     }
 }

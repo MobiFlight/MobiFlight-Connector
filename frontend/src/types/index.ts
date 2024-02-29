@@ -1,5 +1,5 @@
-export type { IConfigItem, IDeviceItem, IDeviceElement, DeviceType } from "./config"
-export type { DeviceElementType } from "./deviceElements"
+export type { IConfigItem, IDeviceItem, DeviceType } from "./config"
+export type { IDeviceElement, DeviceElementType } from "./deviceElements"
 export type { default as IGlobalSettings } from "./globalsettings"
 export type { LogLevel, ILogMessage } from "./log"
 export type {

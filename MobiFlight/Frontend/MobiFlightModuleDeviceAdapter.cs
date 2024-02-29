@@ -39,21 +39,25 @@ namespace MobiFlight.Frontend
                   .Where(d => d.Type != MobiFlight.DeviceType.MultiplexerDriver)
                   .Select(d =>
                   {
-                      var element = new DeviceElement()
-                      {
-                          Id = d.Name,
-                          Name = d.Name,
-                          Type = d.Type.ToString()
-                      };
-
-                      element.ConfigData = ConvertConfigToDictionary(d);
-
-                      return element;
+                      return CreateElement(d);
                   }).ToArray());
             return result.ToArray();
         }
 
-        private Dictionary<string, string> ConvertConfigToDictionary(BaseDevice d)
+        public static IDeviceElement CreateElement(BaseDevice device)
+        {
+            var element = new DeviceElement()
+            {
+                Id = device.Name,
+                Name = device.Name,
+                Type = device.Type.ToString()
+            };
+
+            element.ConfigData = ConvertConfigToDictionary(device);
+            return element;
+        }
+
+        public static Dictionary<string, string> ConvertConfigToDictionary(BaseDevice d)
         {
             switch (d.Type)
             {
@@ -113,7 +117,9 @@ namespace MobiFlight.Frontend
                         { "PinData", (d as LedModule).DinPin.ToString() },
                         { "PinClock", (d as LedModule).ClkPin.ToString() },
                         { "PinLatch", (d as LedModule).ClsPin.ToString() },
-                        { "NumberOfModules", (d as LedModule).NumModules.ToString() }
+                        { "NumberOfModules", (d as LedModule).NumModules.ToString() },
+                        { "Brightness", (d as LedModule).Brightness.ToString() }
+
                     };
                 case MobiFlight.DeviceType.Output:
                     return new Dictionary<string, string>
@@ -249,7 +255,8 @@ namespace MobiFlight.Frontend
                     DinPin = e.ConfigData["PinData"],
                     ClkPin = e.ConfigData["PinClock"],
                     ClsPin = e.ConfigData["PinLatch"],
-                    NumModules = e.ConfigData["NumberOfModules"]
+                    NumModules = e.ConfigData["NumberOfModules"],
+                    Brightness = Byte.Parse(e.ConfigData["Brightness"])
                 };
             else if (e.Type == MobiFlight.DeviceType.Output.ToString())
                 result = new Output()

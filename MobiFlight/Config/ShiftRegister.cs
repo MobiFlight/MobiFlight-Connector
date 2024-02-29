@@ -65,5 +65,13 @@ namespace MobiFlight.Config
         {
             return $"{Type}:{Name} LatchPin:{LatchPin} ClockPin:{ClockPin} DataPin:{DataPin} NumModules:{NumModules}";
         }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            DataPin = freePins[0].Pin.ToString();
+            ClockPin = freePins[1].Pin.ToString();
+            LatchPin = freePins[2].Pin.ToString();
+            return this;
+        }
     }
 }

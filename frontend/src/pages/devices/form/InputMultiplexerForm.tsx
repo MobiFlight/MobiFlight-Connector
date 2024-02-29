@@ -64,7 +64,6 @@ const InputMultiplexerForm = (props: InputMultiplexerProps) => {
               <div className="p-2 bg-gray-200 dark:bg-background rounded-sm border text-center">{PinS3}</div>
             </div>
             <Button variant={"ghost"} onClick={() => {
-              console.log(`/devices/${device.Id}/elements/${firstMultiplexer!.Id}`)
               navigate(`/devices/${device.Type}/${device.Id}/elements/${firstMultiplexer!.Id}`)
             }}>Edit shared settings</Button>
           </div>
