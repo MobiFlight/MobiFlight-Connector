@@ -34,6 +34,17 @@ export const TestJoystick: Types.IDeviceItem = {
       Docs: "https://mobiflight.com/docs/",
       Support: "https://mobiflight.com/discord",
     },
+    Pins: [
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 2, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 3, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 4, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 5, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 6, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 7, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 8, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 9, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 10, Used : false }
+    ],
     Elements: []
   };
   

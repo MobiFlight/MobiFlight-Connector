@@ -38,7 +38,7 @@ export const MobiFlightDeviceEditPanel = (
                 ></DeviceIcon>
                 <div className="grow">{element.Name}</div>
                 <div className="group-hover:opacity-100 opacity-0">
-                  <IconTrash className="text-gray-400" onClick={()=>{onElementDelete(element)}}></IconTrash>
+                  <IconTrash role="button" className="text-gray-400" onClick={()=>{onElementDelete(element)}}></IconTrash>
                 </div>
               </div>
             </div>

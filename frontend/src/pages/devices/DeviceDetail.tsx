@@ -72,7 +72,7 @@ const DeviceDetailPage = () => {
   };
 
   const onElementDelete = (element: IDeviceElement) => {
-    const updatedElements = device!.Elements!.filter(
+    const updatedElements = device!.Elements.filter(
       (e) => e.Id !== element.Id,
     );
 
@@ -85,7 +85,7 @@ const DeviceDetailPage = () => {
         return { ...pin, Used: false };
       }
       return pin;
-    });
+    }) ?? []
 
     console.log("Freed pins", freedPins);
     console.log("Used pins", usedPins);
@@ -150,7 +150,7 @@ const DeviceDetailPage = () => {
         </AlertDialog>
       )}
       {/* Breadcrumb */}
-      <div className="flex flex-row items-center gap-4">
+      <div className="flex flex-row items-center gap-4" role="navigation">
         <Link
           to="/devices"
           className="scroll-m-20 text-3xl tracking-tight first:mt-0"

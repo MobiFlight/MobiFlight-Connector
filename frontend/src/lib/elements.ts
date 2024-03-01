@@ -42,10 +42,9 @@ const createUniqueName = (
   elementType: DeviceElementType,
   device: IDeviceItem
 ) => {
-  return (
-    elementType +
-    device.Elements!.filter((element) => element.Type === elementType).length
-  )
+  const existingElements  = device.Elements!.filter((element) => element.Type === elementType).length
+  const suffix = existingElements > 0 ? " " + existingElements.toString() : ""
+  return (`${elementType}${suffix}`)
 }
 
 const createUniqueId = (
@@ -93,6 +92,7 @@ function createEncoder(element: IDeviceElement, device: IDeviceItem) {
   return {
     ...element,
     ConfigData: {
+      Model: "0",
       PinLeft: freePins[0].Pin.toString(),
       PinRight: freePins[1].Pin.toString(),
     },
