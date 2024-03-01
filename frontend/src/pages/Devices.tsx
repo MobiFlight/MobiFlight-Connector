@@ -1,9 +1,5 @@
 import DeviceSummaryCard from "@/components/mobiflight/DeviceSummaryCard";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
 import { useDevicesStore } from "@/stores/deviceStateStore";
-import { IconDots } from "@tabler/icons-react";
-import { NavLink } from "react-router-dom";
 
 export default function DevicesPage() {
   const { devices } = useDevicesStore();

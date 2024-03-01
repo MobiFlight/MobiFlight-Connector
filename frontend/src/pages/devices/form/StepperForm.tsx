@@ -77,7 +77,7 @@ const StepperForm = (props: StepperFormProps) => {
         },
       })
     }
-  }, [AutoHome])
+  }, [AutoHome, PinHome, freePins, element, setElement])
 
   return (
     <>
@@ -252,7 +252,7 @@ const StepperForm = (props: StepperFormProps) => {
           <div className="flex flex-row items-center gap-4">
             <Switch
               checked={AutoHome}
-              onCheckedChange={(_) =>
+              onCheckedChange={() =>
                 setElement({
                   ...element,
                   ConfigData: {

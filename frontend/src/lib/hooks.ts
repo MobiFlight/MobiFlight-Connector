@@ -1,7 +1,7 @@
-import { AppMessageKey, DeviceElementType } from "@/types"
+import { AppMessageKey, IDeviceElement, IDeviceItem } from "@/types"
 import { AppMessage, FrontendMessageType } from "@/types/messages"
 import { useEffect } from "react"
-import { IDictionary } from "@/types/config"
+import { useOutletContext } from "react-router-dom"
 
 export const publishOnMessageExchange = () => ({
   publish: (message: FrontendMessageType) => {
@@ -41,4 +41,14 @@ export const useAppMessage = (
       )
     }
   }, [key, onReceiveMessage])
+}
+
+export type DeviceDetailContext = {
+  device: IDeviceItem;
+  element: IDeviceElement;
+  updateDevice: (device: IDeviceItem) => void;
+};
+
+export function useDeviceDetailPageContext() {
+  return useOutletContext<DeviceDetailContext>();
 }

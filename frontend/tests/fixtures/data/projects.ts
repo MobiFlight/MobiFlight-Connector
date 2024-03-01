@@ -1,14 +1,4 @@
-export interface Project {
-  id: string
-  filePath: string
-  name: string
-  linkedAircraft?: string[]
-  status: {
-    configs: { files: number, configs: number, status: string }
-    devices: { count: number, status: string }
-    sim: { name: string, status: string }
-  }
-}
+import { Project } from "@/types";
 
 export const Projects: Project[] = [
   { id: "1", filePath: `C:\\temp`, name: "FBW A320", linkedAircraft: [ "FBW A320*"], status: { configs: { files: 0, configs: 0, status: "New" }, devices: { "count": 5, status: "OK" }, sim: { name: "MSFS2020", status: "OK" } } },

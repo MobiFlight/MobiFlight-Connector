@@ -1,4 +1,5 @@
 import { DeviceElementType, IDeviceElement, IDeviceItem } from "@/types"
+import { IDictionary } from "@/types/config"
 
 const createElement = (elementType: DeviceElementType, device: IDeviceItem) => {
   const element = {
@@ -82,6 +83,8 @@ function createButton(element: IDeviceElement, device: IDeviceItem) {
 }
 
 function createCustomDevice(element: IDeviceElement, device: IDeviceItem) {
+  element.Type
+  device.Elements
   throw new Error("Function not implemented.")
 }
 
@@ -188,7 +191,7 @@ function createOutput(element: IDeviceElement, device: IDeviceItem) {
 
 export default createElement
 
-function createStepper(element: { Id: string; Name: string; Type: DeviceElementType; ConfigData: {} }, device: IDeviceItem) {
+function createStepper(element: { Id: string; Name: string; Type: DeviceElementType; ConfigData: IDictionary<string> }, device: IDeviceItem) {
   const freePins = device.Pins!.filter((pin) => !pin.Used)
   return {
     ...element,
@@ -201,7 +204,7 @@ function createStepper(element: { Id: string; Name: string; Type: DeviceElementT
     },
   }
 }
-function createServo(element: { Id: string; Name: string; Type: DeviceElementType; ConfigData: {} }, device: IDeviceItem) {
+function createServo(element: { Id: string; Name: string; Type: DeviceElementType; ConfigData: IDictionary<string> }, device: IDeviceItem) {
   const freePins = device.Pins!.filter((pin) => !pin.Used)
   return {
     ...element,

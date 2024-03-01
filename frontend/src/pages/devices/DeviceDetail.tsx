@@ -1,20 +1,17 @@
 import {
   Card,
   CardHeader,
-  CardContent,
   CardFooter,
 } from "@/components/ui/card";
 import { useDevicesStore } from "@/stores/deviceStateStore";
-import { Switch } from "@/components/ui/switch";
-import { IconDots, IconInfoCircle } from "@tabler/icons-react";
+import { IconInfoCircle } from "@tabler/icons-react";
 import { useParams } from "react-router";
 import {
   Link,
   Outlet,
   useBlocker,
   useLocation,
-  useNavigate,
-  useOutletContext,
+  useNavigate
 } from "react-router-dom";
 import { MobiFlightDeviceEditPanel } from "@/components/mobiflight/edit/DeviceDetailMobiFlightElements";
 import { Button } from "@/components/ui/button";
@@ -39,31 +36,7 @@ import {
   DeviceElementCreateResponse,
   DeviceUploadMessage,
 } from "@/types/messages";
-import {
-  ContextMenu,
-  ContextMenuContent,
-  ContextMenuItem,
-  ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import DeviceSummaryCard from "@/components/mobiflight/DeviceSummaryCard";
-
-export type DeviceDetailContext = {
-  device: IDeviceItem;
-  element: IDeviceElement;
-  updateDevice: (device: IDeviceItem) => void;
-};
-
-export function useDeviceDetailPageContext() {
-  return useOutletContext<DeviceDetailContext>();
-}
 
 const DeviceDetailPage = () => {
   // we extract the base route for the current device
@@ -72,7 +45,7 @@ const DeviceDetailPage = () => {
   // we will still be able to navigate to other elements while changes are made
   // but as soon as we want to navigate to a different device or page
   // blocker will prevent that
-  const blocker = useBlocker(({ currentLocation, nextLocation }) => {
+  const blocker = useBlocker(({ nextLocation }) => {
     return deviceHasChanged && nextLocation.pathname.indexOf(baseRoute) !== 0;
   });
 
@@ -152,7 +125,7 @@ const DeviceDetailPage = () => {
   useEffect(() => {
     setDeviceHasChanged(false);
     setDevice(devices.find(device => device.Id === id))
-  }, [devices]);
+  }, [devices, id]);
 
   return (
     <div className="flex select-none flex-col gap-4 overflow-y-auto">

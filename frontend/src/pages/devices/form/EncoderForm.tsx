@@ -1,13 +1,10 @@
 import { ComboBox } from "@/components/mobiflight/ComboBox"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { IDeviceElement, IDeviceItem } from "@/types"
 import {
-  IconArrowLeftRight,
   IconArrowsLeftRight,
   IconHelp,
-  IconRefresh,
 } from "@tabler/icons-react"
 
 type EncoderFormProps = {
@@ -21,7 +18,7 @@ const EncoderForm = (props: EncoderFormProps) => {
   const PinLeft = element.ConfigData["PinLeft"]
   const PinRight = element.ConfigData["PinRight"]
   const Model = element.ConfigData["Model"]
-  const freePins = device.Pins.filter(
+  const freePins = device.Pins!.filter(
     (pin) =>
       !pin.Used ||
       pin.Pin === parseInt(element.ConfigData["PinLeft"]) ||

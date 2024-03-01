@@ -1,6 +1,6 @@
 import { Button } from '../ui/button'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../ui/card'
-import { Project } from '@/fixtures/projects'
+import { Project } from '@/types'
 import { Badge } from "@/components/ui/badge"
 import { Link } from 'react-router-dom'
 import { Switch } from '../ui/switch'

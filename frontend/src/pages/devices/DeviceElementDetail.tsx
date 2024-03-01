@@ -14,25 +14,14 @@ import {
   StepperForm,
 } from "./form"
 import DeviceIcon from "@/components/mobiflight/icons/DeviceIcon"
-import { useDeviceDetailPageContext } from "./DeviceDetail"
+import { useDeviceDetailPageContext } from "@/lib/hooks"
 import { IDeviceElement } from "@/types/deviceElements"
-import { useNavigate } from "react-router-dom"
-import { use } from "i18next"
-import { useEffect } from "react"
 
 const DeviceElementDetailView = () => {
-  const navigate = useNavigate()
   const { element, device, updateDevice } = useDeviceDetailPageContext()
-
-  // useEffect(() => {
-  //   if (element?.Type === undefined) {
-  //     navigate(`/devices/${device?.Type}/${device?.Id}`)
-  //   }
-  // }, [element])
-
   const setElement = (element: IDeviceElement) => {
     const formerElement = device!.Elements!.find((e) => e.Id === element.Id)
-    var updatePins = device.Pins!
+    const updatePins = device.Pins!
 
     // determine which config data elements have changed
     // and update the pin information accordingly

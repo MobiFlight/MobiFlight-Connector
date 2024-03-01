@@ -1,5 +1,3 @@
-import { DeviceElementType } from "@/types/deviceElements.d";
-
 export interface IConfigItem {
   GUID: string;
   Active: boolean;

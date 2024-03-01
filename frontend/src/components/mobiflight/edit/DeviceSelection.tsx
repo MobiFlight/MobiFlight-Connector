@@ -1,5 +1,4 @@
 import DeviceIcon from "@/components/mobiflight/icons/DeviceIcon"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks"
 import { cn } from "@/lib/utils"
 import { IDeviceItem } from "@/types"
 import {
@@ -10,7 +9,6 @@ import {
 } from "@/types/deviceElements.d"
 import { DeviceElementCreateResponse } from "@/types/messages"
 import createElement from "@/lib/elements"
-import { use } from "i18next"
 import { useTranslation } from "react-i18next"
 
 interface DeviceSelectionProps {

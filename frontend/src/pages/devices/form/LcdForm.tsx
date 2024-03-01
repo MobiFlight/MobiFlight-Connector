@@ -3,7 +3,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { IDeviceElement, IDeviceItem } from "@/types"
 import { IconHelp } from "@tabler/icons-react"
-import React from "react"
 
 type LcdFormProps = {
   device: IDeviceItem
@@ -12,7 +11,7 @@ type LcdFormProps = {
 }
 
 const LcdForm = (props: LcdFormProps) => {
-  const { element, device, setElement } = props
+  const { element, setElement } = props
   const Address = element.ConfigData["Address"]
   const Rows = element.ConfigData["Lines"]
   const Columns = element.ConfigData["Columns"]
