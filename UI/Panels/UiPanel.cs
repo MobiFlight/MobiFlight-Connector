@@ -35,11 +35,11 @@ namespace MobiFlight.UI.Panels
                 await webView.EnsureCoreWebView2Async(null);
             }
 #if DEBUG
-            webView.Source = new Uri("http://localhost:5173");
+            webView.Source = new Uri("http://localhost:5173/index.html");
 #else
             webView.CoreWebView2.SetVirtualHostNameToFolderMapping("mobiflight",
             "frontend/dist", CoreWebView2HostResourceAccessKind.DenyCors);
-            webView.CoreWebView2.Navigate("https://mobiflight/index.html");
+            webView.CoreWebView2.Navigate("http://mobiflight/index.html");
             webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
             webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
