@@ -17,14 +17,14 @@ const InputShiftRegisterForm = (props: InputShiftRegisterProps) => {
   const PinClock = element.ConfigData["PinClock"]
   const NumberOfModules = element.ConfigData["NumberOfModules"]
   const NumberOfModulesOptions = Array.from({length:8}, (_, i)=> ({ value: `${i+1}`, label: `${i+1}` }) )
-	const freePins = device.Pins.filter(
+	const freePins = device.Pins!.filter(
     (pin) =>
       !pin.Used ||
       pin.Pin === parseInt(element.ConfigData["PinData"]) ||
       pin.Pin === parseInt(element.ConfigData["PinClock"]) ||
       pin.Pin === parseInt(element.ConfigData["PinLatch"])
   )
-
+  
   return (
     <>
       <div className="flex flex-col gap-8">

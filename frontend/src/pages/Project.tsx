@@ -1,9 +1,10 @@
 import { Link, useParams } from 'react-router-dom';
-import { Project, Projects } from '../../tests/fixtures/data/projects'
+import { Projects } from '../../tests/fixtures/data/projects'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { IconPencil } from '@tabler/icons-react'
 import { useTranslation } from 'react-i18next';
 import { useConfigStore } from '@/stores/configFileStore';
+import { Project } from '@/types';
 
 export default function ProjectPage() {
     const { t } = useTranslation();

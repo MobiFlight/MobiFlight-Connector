@@ -12,7 +12,7 @@ type ServoFormProps = {
 const ServoForm = (props: ServoFormProps) => {
   const { element, device, setElement } = props
   const pin = element.ConfigData["Pin"]
-  const freePins = device.Pins.filter((pin) => !pin.Used || pin.Pin === parseInt(element.ConfigData["Pin"]))
+  const freePins = device.Pins!.filter((pin) => !pin.Used || pin.Pin === parseInt(element.ConfigData["Pin"]))
 	
   return (
     <>

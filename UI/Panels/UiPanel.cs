@@ -114,28 +114,11 @@ namespace MobiFlight.UI.Panels
 
                 if (decodedMessage.key == "DeviceFileSaveRequest")
                 {
-                    // Define a lambda expression that encapsulates the common logic
-                    System.Action processMessageAction = () =>
+                    var DeviceFileSaveRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceFileSaveRequest>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceFileSaveRequest>()
                     {
-                        var DeviceFileSaveRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<MobiFlightModuleDeviceAdapter>>(message);
-                        MessageExchange.Instance.Publish(new FrontendRequest<DeviceFileSaveRequest>()
-                        {
-                            Request = new DeviceFileSaveRequest()
-                            {
-                                Device = DeviceFileSaveRequest.payload
-                            }
-                        });
-                    };
-
-                    // Check if invocation on the UI thread is required
-                    if (webView.InvokeRequired)
-                    {
-                        // If yes, use Invoke to run the action on the UI thread
-                        webView.Invoke(processMessageAction);
-                        return;
-                    }
-                    // If not, run the action directly
-                    processMessageAction();
+                        Request = DeviceFileSaveRequest.payload
+                    });
                 }
             }
             catch (Exception ex)

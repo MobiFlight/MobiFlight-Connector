@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { IDeviceElement, IDeviceItem } from "@/types"
 import { IconArrowsLeftRight } from "@tabler/icons-react"
-import React from "react"
 import { useNavigate } from "react-router-dom"
 
 type InputMultiplexerProps = {
@@ -23,8 +22,8 @@ const InputMultiplexerForm = (props: InputMultiplexerProps) => {
   const PinS3 = element.ConfigData["PinS3"]
   const PinData = element.ConfigData["PinData"]
   const firstMultiplexer = device.Elements?.find(e=>e.Type === "InputMultiplexer")
-  const allowEditPinSx = firstMultiplexer?.Id === element.Id ?? false
-  const freePins = device.Pins.filter(
+  const allowEditPinSx = firstMultiplexer?.Id === element.Id
+  const freePins = device.Pins!.filter(
     (pin) =>
       !pin.Used ||
       pin.Pin === parseInt(element.ConfigData["PinS0"]) ||

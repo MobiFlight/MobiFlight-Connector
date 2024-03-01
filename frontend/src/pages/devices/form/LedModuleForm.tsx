@@ -16,7 +16,7 @@ const LedModuleForm = (props: LedModuleFormProps) => {
   const PinData = element.ConfigData["PinData"]
   const PinLatch = element.ConfigData["PinLatch"]
   const PinClock = element.ConfigData["PinClock"]
-  const freePins = device.Pins.filter(
+  const freePins = device.Pins!.filter(
     (pin) =>
       !pin.Used ||
       pin.Pin === parseInt(element.ConfigData["PinData"]) ||

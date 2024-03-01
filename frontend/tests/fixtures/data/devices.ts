@@ -13,6 +13,7 @@ export const TestJoystick: Types.IDeviceItem = {
       VendorId: "123",
       ProductId: "456",
     },
+    Elements: []
   };
   
   export const TestMobiflightBoard: Types.IDeviceItem = {
@@ -33,6 +34,7 @@ export const TestJoystick: Types.IDeviceItem = {
       Docs: "https://mobiflight.com/docs/",
       Support: "https://mobiflight.com/discord",
     },
+    Elements: []
   };
   
   export const TestMidiDevice: Types.IDeviceItem = {
@@ -46,4 +48,5 @@ export const TestJoystick: Types.IDeviceItem = {
       Manufacturer: "Midi",
       Website: "http://midi.com",
     },
+    Elements: []
   };

@@ -2,7 +2,7 @@ import { ComboBox } from "@/components/mobiflight/ComboBox"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { IDeviceItem } from "@/types"
-import { IDeviceElement } from "@/types/config"
+import { IDeviceElement } from "@/types"
 
 type OutputFormProps = {
   device: IDeviceItem
@@ -13,7 +13,7 @@ type OutputFormProps = {
 const OutputForm = (props : OutputFormProps) => {
 	const { element, device, setElement } = props
   const pin = element.ConfigData["Pin"]
-  const freePins = device.Pins.filter((pin) => !pin.Used || pin.Pin === parseInt(element.ConfigData["Pin"]))
+  const freePins = device.Pins!.filter((pin) => !pin.Used || pin.Pin === parseInt(element.ConfigData["Pin"]))
 
 	return (
 <>

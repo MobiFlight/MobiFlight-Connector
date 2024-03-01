@@ -18,7 +18,7 @@ const OutputShiftRegisterForm = (props: OutputShiftRegisterProps) => {
   const NumberOfModules = element.ConfigData["NumberOfModules"]
   const NumberOfModulesOptions = Array.from({length:8}, (_, i)=> ({ value: `${i+1}`, label: `${i+1}` }) )
   
-  const freePins = device.Pins.filter(
+  const freePins = device.Pins!.filter(
     (pin) =>
       !pin.Used ||
       pin.Pin === parseInt(element.ConfigData["PinData"]) ||

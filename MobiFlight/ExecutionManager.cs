@@ -208,6 +208,21 @@ namespace MobiFlight
                 }
             });
 
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceFileSaveRequest>>(request =>
+            {
+                var device = request.Request.Device;
+                var config = mobiFlightCache.GetModuleBySerial(device.Id).Config;
+
+                SaveFileDialog fd = new SaveFileDialog();
+                fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
+                fd.FileName = device.Name + ".mfmc";
+
+                if (DialogResult.OK == fd.ShowDialog())
+                {
+                    config.SaveToFile(fd.FileName);
+                }
+            });
+
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);

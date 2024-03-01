@@ -2,7 +2,6 @@ import { ComboBox } from '@/components/mobiflight/ComboBox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { IDeviceElement, IDeviceItem } from '@/types'
-import React from 'react'
 
 type AnalogInputFormProps = {
   device: IDeviceItem
