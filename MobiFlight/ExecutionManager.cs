@@ -180,22 +180,33 @@ namespace MobiFlight
                 }
             });
 
-            //MessageExchange.Instance.Subscribe<FrontendRequest<DeviceElementCreateRequest>>(request =>
-            //{
-            //    var elementType = request.Request.ElementType;
-            //    var device = request.Request.Device;
-            //    var module = mobiFlightCache.GetModuleBySerial(device.Id);
-            //    if (module == null) return;
-            //    if (!Enum.TryParse(elementType, out DeviceType deviceType)) return;
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceFirmwareUpdateRequest>>(request =>
+            {
+                var device = request.Request.Device;
+                var module = mobiFlightCache.GetModuleBySerial(device.Id);
+                // Perform the firmware update for the device
+            });
 
-            //    var deviceConfig = module.CreateDeviceWithDefaultConfig(deviceType);
-            //    MessageExchange.Instance.Publish(new Message<DeviceElementCreateResponse>(new DeviceElementCreateResponse
-            //    {
-            //        Device = device,
-            //        Element = MobiFlightModuleDeviceAdapter.CreateElement(deviceConfig)
-            //    }));
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceFileOpenRequest>>(request =>
+            {
+                var fd = new OpenFileDialog();
+                fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
 
-            //});
+                if (DialogResult.OK == fd.ShowDialog())
+                {
+                    var device = request.Request.Device;
+                    var newConfig = Config.Config.LoadFromFile(fd.FileName);
+                    var module = mobiFlightCache.GetModuleBySerial(device.Id);
+                    if (module == null)
+                    {
+                        // send some kind of error message back to the frontend
+                    };
+                    module.Config = newConfig;
+                    module.LoadConfig();
+                    module.SaveConfig();
+                    PublishMessageOfAllDevices();
+                }
+            });
 
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);

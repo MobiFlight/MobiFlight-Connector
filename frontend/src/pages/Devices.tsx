@@ -1,10 +1,5 @@
-import H2 from "@/components/mobiflight/H2";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
+import DeviceSummaryCard from "@/components/mobiflight/DeviceSummaryCard";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { useDevicesStore } from "@/stores/deviceStateStore";
 import { IconDots } from "@tabler/icons-react";
@@ -21,42 +16,7 @@ export default function DevicesPage() {
       </div>
       <div className="flex flex-row flex-wrap w-full gap-4 overflow-y-auto">
         {devices?.map((device) => (
-          <Card key={device.Id} className="w-96">
-            <NavLink to={`/devices/${device.Type}/${device.Id}`}>
-              <CardHeader className="flex flex-row gap-2 items-center">
-                {device?.MetaData && (
-                  <div>
-                    {device?.MetaData["Icon"] && (
-                      <img
-                        className="w-10 h-10"
-                        src={device.MetaData["Icon"]}
-                      />
-                    )}
-                  </div>
-                )}
-                <div className="flex flex-col mt-0">
-                  <div className="text-xl font-semibold">{device.Name}</div>
-                  <div className="text-sm">{device.MetaData.Project}</div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {device?.MetaData && (
-                  <div className="h-60 flex items-center">
-                    {device?.MetaData["Picture"] && (
-                      <img
-                        className="w-full h-full object-contain"
-                        src={device.MetaData["Picture"]}
-                      />
-                    )}
-                  </div>
-                )}
-              </CardContent>
-            </NavLink>
-            <CardFooter className="flex justify-between">
-              <Switch>Active</Switch>
-              <IconDots className="cursor-pointer"></IconDots>
-            </CardFooter>
-          </Card>
+          <DeviceSummaryCard className="w-96 h-[]" key={device.Id} device={device}></DeviceSummaryCard>
         ))}
       </div>
     </div>

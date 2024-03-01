@@ -40,11 +40,11 @@ namespace MobiFlight.UI.Panels
             webView.CoreWebView2.SetVirtualHostNameToFolderMapping("mobiflight",
             "frontend/dist", CoreWebView2HostResourceAccessKind.DenyCors);
             webView.CoreWebView2.Navigate("https://mobiflight/index.html");
+            webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
-            // webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            //webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             webView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
             RegisterMessageHandlers();
@@ -69,12 +69,6 @@ namespace MobiFlight.UI.Panels
                     var ConfigEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<ConfigItem>>(message);
                     MessageExchange.Instance.Publish(new Message<ConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
                 }
-
-                //if (decodedMessage.key == "ElementCreate")
-                //{
-                //    var ElementEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceElementCreateRequest>>(message);
-                //    MessageExchange.Instance.Publish(new FrontendRequest<DeviceElementCreateRequest>() { Request = ElementEditMessage.payload });
-                //}
 
                 if (decodedMessage.key == "ExecutionUpdate")
                 {
@@ -107,6 +101,41 @@ namespace MobiFlight.UI.Panels
                             Device = DeviceListRequest.payload
                         }
                     });
+                }
+
+                if (decodedMessage.key == "DeviceFileOpenRequest")
+                {
+                    var DeviceFileOpenRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceFileOpenRequest>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceFileOpenRequest>()
+                    {
+                        Request = DeviceFileOpenRequest.payload
+                    });
+                }
+
+                if (decodedMessage.key == "DeviceFileSaveRequest")
+                {
+                    // Define a lambda expression that encapsulates the common logic
+                    System.Action processMessageAction = () =>
+                    {
+                        var DeviceFileSaveRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<MobiFlightModuleDeviceAdapter>>(message);
+                        MessageExchange.Instance.Publish(new FrontendRequest<DeviceFileSaveRequest>()
+                        {
+                            Request = new DeviceFileSaveRequest()
+                            {
+                                Device = DeviceFileSaveRequest.payload
+                            }
+                        });
+                    };
+
+                    // Check if invocation on the UI thread is required
+                    if (webView.InvokeRequired)
+                    {
+                        // If yes, use Invoke to run the action on the UI thread
+                        webView.Invoke(processMessageAction);
+                        return;
+                    }
+                    // If not, run the action directly
+                    processMessageAction();
                 }
             }
             catch (Exception ex)
@@ -201,14 +230,6 @@ namespace MobiFlight.UI.Panels
             });
 
             MessageExchange.Instance.Subscribe<Message<ConfigValueUpdate>>((message) =>
-            {
-                // do something with the config
-                // convert config to JSON object
-                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
-                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
-            });
-
-            MessageExchange.Instance.Subscribe<Message<DeviceElementCreateResponse>>((message) =>
             {
                 // do something with the config
                 // convert config to JSON object

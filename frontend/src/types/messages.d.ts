@@ -6,7 +6,10 @@ export type FrontendMessageKey =
   | "ExecutionUpdate"
   | "config.edit"
   | "GlobalSettingsUpdate"
-  | "ElementCreate"
+  | "DeviceUpload"
+  | "DeviceFirmwareUpdateRequest"
+  | "DeviceFileOpenRequest"
+  | "DeviceFileSaveRequest"
 
 export type FrontendMessageType =
   | ExecutionUpdateMessage
@@ -14,6 +17,9 @@ export type FrontendMessageType =
   | GlobalSettingsUpdateMessage
   | ElementCreateMessage
   | DeviceUploadMessage
+  | DeviceFirmwareUpdateRequestMessage
+  | DeviceFileOpenRequest
+  | DeviceFileSaveRequest
 
 // ExecutionUpdateMessage
 // is sent to the backend
@@ -51,16 +57,25 @@ export interface DeviceUploadMessage {
   payload: IDeviceItem
 }
 
-// ElementCreateMessage
+// DeviceUploadMessage
 // is sent to the backend
-// when a new element shall be created
-// the expected response will be a ElementCreated message
-export interface ElementCreateMessage {
-  key: "ElementCreate"
-  payload: {
-    device: IDeviceItem
-    elementType: DeviceElementType
-  }
+// when the new device configuration shall be uploaded
+export interface DeviceFirmwareUpdateRequestMessage {
+  key: "DeviceFirmwareUpdateRequest"
+  payload: IDeviceItem
+}
+
+// DeviceUploadMessage
+// is sent to the backend
+// when the new device configuration shall be uploaded
+export interface DeviceFileOpenRequest {
+  key: "DeviceFileOpenRequest"
+  payload: IDeviceItem
+}
+
+export interface DeviceFileSaveRequestRequest {
+  key: "DeviceFileSaveRequestRequest"
+  payload: IDeviceItem
 }
 
 export type AppMessageKey =

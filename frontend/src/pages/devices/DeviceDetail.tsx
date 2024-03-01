@@ -1,8 +1,13 @@
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
-import { useDevicesStore } from "@/stores/deviceStateStore"
-import { Switch } from "@/components/ui/switch"
-import { IconDots, IconInfoCircle } from "@tabler/icons-react"
-import { useParams } from "react-router"
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { useDevicesStore } from "@/stores/deviceStateStore";
+import { Switch } from "@/components/ui/switch";
+import { IconDots, IconInfoCircle } from "@tabler/icons-react";
+import { useParams } from "react-router";
 import {
   Link,
   Outlet,
@@ -10,16 +15,16 @@ import {
   useLocation,
   useNavigate,
   useOutletContext,
-} from "react-router-dom"
-import { MobiFlightDeviceEditPanel } from "@/components/mobiflight/edit/DeviceDetailMobiFlightElements"
-import { Button } from "@/components/ui/button"
-import { useEffect, useState } from "react"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { H3 } from "@/components/mobiflight/H2"
-import { DeviceSelection } from "@/components/mobiflight/edit/DeviceSelection"
-import { IDeviceItem } from "@/types"
-import { IDeviceElement } from "@/types/deviceElements"
-import { publishOnMessageExchange } from "@/lib/hooks"
+} from "react-router-dom";
+import { MobiFlightDeviceEditPanel } from "@/components/mobiflight/edit/DeviceDetailMobiFlightElements";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { H3 } from "@/components/mobiflight/H2";
+import { DeviceSelection } from "@/components/mobiflight/edit/DeviceSelection";
+import { IDeviceItem } from "@/types";
+import { IDeviceElement } from "@/types/deviceElements";
+import { publishOnMessageExchange } from "@/lib/hooks";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,94 +34,128 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
 import {
   DeviceElementCreateResponse,
   DeviceUploadMessage,
-} from "@/types/messages"
+} from "@/types/messages";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import DeviceSummaryCard from "@/components/mobiflight/DeviceSummaryCard";
 
 export type DeviceDetailContext = {
-  device: IDeviceItem
-  element: IDeviceElement
-  updateDevice: (device: IDeviceItem) => void
-}
+  device: IDeviceItem;
+  element: IDeviceElement;
+  updateDevice: (device: IDeviceItem) => void;
+};
 
 export function useDeviceDetailPageContext() {
-  return useOutletContext<DeviceDetailContext>()
+  return useOutletContext<DeviceDetailContext>();
 }
 
 const DeviceDetailPage = () => {
   // we extract the base route for the current device
-  const baseRoute = useLocation().pathname.split("/elements")[0]
+  const baseRoute = useLocation().pathname.split("/elements")[0];
 
   // we will still be able to navigate to other elements while changes are made
   // but as soon as we want to navigate to a different device or page
   // blocker will prevent that
   const blocker = useBlocker(({ currentLocation, nextLocation }) => {
-    return deviceHasChanged && nextLocation.pathname.indexOf(baseRoute) !== 0
-  })
+    return deviceHasChanged && nextLocation.pathname.indexOf(baseRoute) !== 0;
+  });
 
-  const { publish } = publishOnMessageExchange()
-  const navigate = useNavigate()
-  const params = useParams()
-  const id = params.id
-  const elementId = params.elementId
-  const { devices } = useDevicesStore()
+  const { publish } = publishOnMessageExchange();
+  const navigate = useNavigate();
+  const params = useParams();
+  const id = params.id;
+  const elementId = params.elementId;
+  const { devices } = useDevicesStore();
   const [device, setDevice] = useState(
-    devices.find((device) => device.Id === id)
-  )
-  const [deviceHasChanged, setDeviceHasChanged] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const element = device?.Elements!.find((element) => element.Id === elementId)
+    devices.find((device) => device.Id === id),
+  );
+  const [deviceHasChanged, setDeviceHasChanged] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const element = device?.Elements!.find((element) => element.Id === elementId);
 
   const updateDevice = (d: IDeviceItem) => {
-    setDevice(d)
-    setDeviceHasChanged(true)
-  }
+    setDevice(d);
+    setDeviceHasChanged(true);
+  };
 
   const uploadDeviceConfig = () => {
-    publish({ key: "DeviceUpload", payload: device } as DeviceUploadMessage)
-  }
+    publish({ key: "DeviceUpload", payload: device } as DeviceUploadMessage);
+  };
 
-  const onElementDelete = (element:IDeviceElement) => {
-    const updatedElements = device!.Elements!.filter((e) => e.Id !== element.Id)
+  const onElementDelete = (element: IDeviceElement) => {
+    const updatedElements = device!.Elements!.filter(
+      (e) => e.Id !== element.Id,
+    );
+
+    const freedPins : string[] = Object.keys(element.ConfigData)
+      .filter((k) => k.indexOf("Pin") > -1)
+      .map((key) => element.ConfigData[key]);
+
+    const usedPins = device!.Pins!.map((pin) => {
+      if (freedPins.indexOf(pin.Pin.toString()) > -1) {
+        return { ...pin, Used: false };
+      }
+      return pin;
+    });
+
+    console.log("Freed pins", freedPins);
+    console.log("Used pins", usedPins);
+
     updateDevice({
       ...device!,
       Elements: updatedElements,
-    })    
-  }
+      Pins: usedPins
+    });
+  };
 
   const onElementAdded = (message: DeviceElementCreateResponse) => {
     // get the updated pins
     // by convention we use PinXXX as the key for any pin
     const usedPins = Object.keys(message.Element.ConfigData)
       .filter((k) => k.indexOf("Pin") > -1)
-      .map((key) => message.Element.ConfigData[key])
+      .map((key) => message.Element.ConfigData[key]);
 
     const updatePins = device!.Pins!.map((pin) => {
       if (usedPins.indexOf(pin.Pin.toString()) > -1) {
-        return { ...pin, Used: true }
+        return { ...pin, Used: true };
       }
-      return pin
-    })
+      return pin;
+    });
 
     updateDevice({
       ...device!,
       Elements: [...device!.Elements!, message.Element],
       Pins: updatePins,
-    })
-    setIsOpen(false)
+    });
+    setIsOpen(false);
     navigate(
-      `/devices/${device?.Type}/${device!.Id}/elements/${message.Element.Id}`
-    )
-  }
+      `/devices/${device?.Type}/${device!.Id}/elements/${message.Element.Id}`,
+    );
+  };
 
   useEffect(() => {
-    setDeviceHasChanged(false)
-  }, [devices])
+    setDeviceHasChanged(false);
+    setDevice(devices.find(device => device.Id === id))
+  }, [devices]);
 
   return (
-    <div className="flex flex-col overflow-y-auto gap-4 select-none">
+    <div className="flex select-none flex-col gap-4 overflow-y-auto">
       {blocker && (
         <AlertDialog open={blocker.state === "blocked"}>
           <AlertDialogContent>
@@ -137,7 +176,8 @@ const DeviceDetailPage = () => {
           </AlertDialogContent>
         </AlertDialog>
       )}
-      <div className="flex flex-row gap-4 items-center">
+      {/* Breadcrumb */}
+      <div className="flex flex-row items-center gap-4">
         <Link
           to="/devices"
           className="scroll-m-20 text-3xl tracking-tight first:mt-0"
@@ -155,61 +195,38 @@ const DeviceDetailPage = () => {
             <p className="scroll-m-20 text-3xl tracking-tight first:mt-0">
               &gt;
             </p>
-            <p className="scroll-m-20 text-3xl tracking-tight first:mt-0 font-bold">
+            <p className="scroll-m-20 text-3xl font-bold tracking-tight first:mt-0">
               {element.Name}
             </p>
           </>
         )}
       </div>
-      <div className="flex flex-row gap-4 pb-4 overflow-auto items-start">
+      {deviceHasChanged && (
+        <div className="flex flex-row items-center gap-4 rounded-md bg-green-200 p-4 text-green-700 dark:bg-green-950 dark:text-green-600">
+          <IconInfoCircle />
+          <p>Device has been updated</p>
+          <Button onClick={uploadDeviceConfig}>Upload changes</Button>
+        </div>
+      )}
+      <div className="flex flex-col gap-4 overflow-auto pb-4 lg:flex-row">
         {!device && <div>Device not found</div>}
+        {/* Device summary card */}
         {device && (
-          <Card className="w-3/12 hidden lg:block">
-            <CardHeader className="flex flex-row gap-2 items-center">
-              {device?.MetaData && (
-                <div>
-                  {device?.MetaData["Icon"] && (
-                    <img className="w-10 h-10" src={device.MetaData["Icon"]} />
-                  )}
-                </div>
-              )}
-              <div className="flex flex-col mt-0">
-                <div className="text-xl font-semibold">{device.Name}</div>
-                <div className="text-sm">{device.Type}</div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {device?.MetaData && (
-                <div className="h-96 overflow-hidden flex items-center">
-                  {device?.MetaData["Picture"] && (
-                    <img
-                      className="w-full h-full object-contain"
-                      src={device.MetaData["Picture"]}
-                    />
-                  )}
-                </div>
-              )}
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <Switch>Active</Switch>
-              <IconDots className="cursor-pointer"></IconDots>
-            </CardFooter>
-            {deviceHasChanged && (
-              <div className="bg-green-200 dark:bg-green-950 p-4 rounded-md text-green-700 dark:text-green-600 flex flex-row justify-between items-center">
-                <IconInfoCircle />
-                <p>Device has been updated</p>
-                <Button onClick={uploadDeviceConfig}>Upload changes</Button>
-              </div>
-            )}
-          </Card>
+          <div className="flex w-auto flex-col lg:w-3/12">
+            <DeviceSummaryCard device={device}></DeviceSummaryCard>
+          </div>
         )}
+        {/* Element information for MobiFlight Boards */}
         {device && device.Type === "MobiFlight" && (
-          <Card className="flex flex-col w-96 overflow-y-auto select-none bg-transparent shadow-lg hover:border-none border-none hover:bg-transparent  dark:bg-zinc-700/10 dark:hover:bg-zinc-700/20">
-            <CardHeader className="flex flex-col mt-0">
+          <Card className="flex w-auto select-none flex-col border-none bg-transparent shadow-lg hover:border-none hover:bg-transparent dark:bg-zinc-700/10 dark:hover:bg-zinc-700/20  lg:w-96 lg:overflow-y-auto">
+            <CardHeader className="mt-0 flex flex-col">
               <div className="text-xl font-semibold">Components</div>
               <div className="text-sm">Some cool sub title here</div>
             </CardHeader>
-            <MobiFlightDeviceEditPanel device={device} onElementDelete={onElementDelete}/>
+            <MobiFlightDeviceEditPanel
+              device={device}
+              onElementDelete={onElementDelete}
+            />
             <CardFooter className="p-6 px-4">
               <Dialog open={isOpen} onOpenChange={setIsOpen}>
                 <Button onClick={() => setIsOpen(true)}>Add device</Button>
@@ -228,14 +245,16 @@ const DeviceDetailPage = () => {
             </CardFooter>
           </Card>
         )}
+        {/* Element information for Joysticks */}
         {device && device.Type == "Joystick" && (
           <Card className="w-96">
-            <CardHeader className="flex flex-row gap-2 items-center text-2xl">
+            <CardHeader className="flex flex-row items-center gap-2 text-2xl">
               Settings
             </CardHeader>
             <div>Joystick</div>
           </Card>
         )}
+        {/* Element detail information as outlet */}
         <div className="grow">
           <Outlet
             context={{
@@ -246,14 +265,14 @@ const DeviceDetailPage = () => {
           />
         </div>
         {isOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-4">Add device</div>
             <Button onClick={() => setIsOpen(false)}>Close</Button>
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DeviceDetailPage
+export default DeviceDetailPage;

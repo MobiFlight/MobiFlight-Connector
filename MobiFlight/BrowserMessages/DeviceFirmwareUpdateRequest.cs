@@ -2,7 +2,7 @@
 
 namespace MobiFlight.BrowserMessages
 {
-    public class DeviceUploadRequest
+    public class DeviceFirmwareUpdateRequest
     {
         public MobiFlightModuleDeviceAdapter Device { get; set; }
     }

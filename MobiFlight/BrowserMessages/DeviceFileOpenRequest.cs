@@ -2,8 +2,9 @@
 
 namespace MobiFlight.BrowserMessages
 {
-    public class DeviceUploadRequest
+    public class DeviceFileOpenRequest
     {
+        public bool IgnoreTypeMismatch { get; set; }
         public MobiFlightModuleDeviceAdapter Device { get; set; }
     }
 }
