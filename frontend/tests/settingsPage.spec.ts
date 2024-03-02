@@ -301,5 +301,5 @@ test("Settings are showing the default settings correctly", async ({
   await page.getByRole('heading', { name: 'You have unsaved changes' }).click();
   await page.getByRole('button', { name: 'Cancel' }).click();
   await page.getByRole("button", { name: "Save changes" }).click();
-  expect(page.getByRole("button", { name: "Save changes" })).toBeDisabled();
+  await expect(page.getByRole("button", { name: "Save changes" })).toBeDisabled();
 });
