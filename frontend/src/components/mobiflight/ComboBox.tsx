@@ -59,6 +59,7 @@ export function ComboBox(props: ComboBoxProps) {
           <CommandGroup>
             {options.map((option) => (
               <CommandItem
+                role="option"
                 key={option.value}
                 value={option.value}
                 onSelect={() => {
