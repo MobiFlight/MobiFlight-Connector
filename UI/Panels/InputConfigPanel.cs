@@ -20,7 +20,7 @@ namespace MobiFlight.UI.Panels
 
         private int lastClickedRow = -1;
         private List<String> SelectedGuids = new List<String>();
-    
+
         private Point DataGridTopLeftPoint = new Point();
         private Point DataGridBottomRightPoint = new Point();
         private Rectangle RectangleMouseDown;
@@ -116,7 +116,7 @@ namespace MobiFlight.UI.Panels
         {
             //(sender as InputConfigWizard).Close();
             SettingsDialogRequested?.Invoke(sender, null);
-            
+
         }
 
         private void OpenConfigWizardForId(string guid)
@@ -132,7 +132,8 @@ namespace MobiFlight.UI.Panels
 
             var cfg = dataRow["settings"] as InputConfigItem;
             // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
-            System.Threading.SynchronizationContext.Current.Post((_) => {
+            System.Threading.SynchronizationContext.Current.Post((_) =>
+            {
                 _editConfigWithInputWizard(dataRow, cfg, false);
             }, null);
         }
@@ -142,7 +143,7 @@ namespace MobiFlight.UI.Panels
         /// </summary>        
         void configDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            if (e.Action == DataRowAction.Add || 
+            if (e.Action == DataRowAction.Add ||
                 e.Action == DataRowAction.Delete)
                 SettingsChanged?.Invoke(sender, null);
         } //configDataTable_RowChanged
@@ -172,7 +173,7 @@ namespace MobiFlight.UI.Panels
                     bool create = false;
                     DataRow row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView)?.Row;
 
-                    if (row == null) 
+                    if (row == null)
                         break;
 
                     // the row had been saved but no config object has been created
@@ -291,7 +292,7 @@ namespace MobiFlight.UI.Panels
                 row.Selected = false;
             }
         }
-        
+
         /// <summary>
         /// Is sorting in DataGridView active.
         /// </summary>        
@@ -331,12 +332,12 @@ namespace MobiFlight.UI.Panels
         }
 
         private void inputsDataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
-        { 
+        {
             if (e.ListChangedType == ListChangedType.Reset)
             {
                 inputsDataGridView.ClearSelection(); // necessary because on sorting reset, callback is called twice
                 foreach (DataGridViewRow row in (sender as DataGridView).Rows)
-                {                   
+                {
                     if (row.DataBoundItem as DataRowView == null) continue;
 
                     DataRow currentRow = (row.DataBoundItem as DataRowView).Row;
@@ -443,7 +444,7 @@ namespace MobiFlight.UI.Panels
                 if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
                 int index = dgv.CurrentRow.Index;
 
-                PasteFromClipboard(index+1);
+                PasteFromClipboard(index + 1);
             }
 
             else if (e.KeyCode == Keys.C && e.Control)
@@ -488,14 +489,14 @@ namespace MobiFlight.UI.Panels
         }
 
         private void ActivateAutoColumnWidth()
-        {       
+        {
             inputsDataGridView.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             inputsDataGridView.Columns["inputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             inputsDataGridView.Columns["inputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void DeactivateAutoColumnWidth()
-        {           
+        {
             inputsDataGridView.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             inputsDataGridView.Columns["inputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             inputsDataGridView.Columns["inputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -523,42 +524,46 @@ namespace MobiFlight.UI.Panels
                     var moduleName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
                     row["moduleSerial"] = moduleName;
 
-                    if (cfg.Name=="") continue;
+                    if (cfg.Name == "") continue;
 
                     // Input shift registers show their name in the grid as the shifter name + configured pin for clarity.
                     if (cfg.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
                     {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.ExtPin}";
                     }
-                    else if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
+                    else if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER)
+                    {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
                     }
-                    else if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
+                    else if (Joystick.IsJoystickSerial(cfg.ModuleSerial))
+                    {
                         var j = ExecutionManager.GetJoystickManager().GetJoystickBySerial(serialNumber);
                         if (j != null)
                         {
                             row["inputName"] = j.MapDeviceNameToLabel(cfg.Name);
-                        } else
+                        }
+                        else
                         {
                             row["inputName"] = cfg.Name;
                         }
                     }
-                    else if (MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial)) {
+                    else if (MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial))
+                    {
                         // Map not by board instance, but by midiboard type. Works also when board is not connected.
                         row["inputName"] = ExecutionManager.GetMidiBoardManager().MapDeviceNameToLabel(moduleName, cfg.Name);
                     }
-                    else 
+                    else
                     {
                         row["inputName"] = cfg.Name;
                     }
-                    row["inputType"] = cfg.Type;                   
+                    row["inputType"] = cfg.Type;
                 }
             }
             ActivateAutoColumnWidth();
         } //_restoreValuesInGridView()
 
         private void inputsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {           
+        {
             DataGridViewRow gridrow = inputsDataGridView.Rows[e.RowIndex];
             DataRowView rowview = (DataRowView)gridrow.DataBoundItem;
 
@@ -566,14 +571,14 @@ namespace MobiFlight.UI.Panels
             if (rowview == null) return;
 
             DataRow row = rowview.Row;
-            if (row.RowState==DataRowState.Detached)
+            if (row.RowState == DataRowState.Detached)
                 row.Table.Rows.Add(row);
 
             if (EditedItem != null &&
                 (   // this is the checkbox
                     (bool)row.ItemArray[0] != (bool)EditedItem[0] ||
                     // this is the description text
-                    row.ItemArray[1] as string != EditedItem[1] as string                    
+                    row.ItemArray[1] as string != EditedItem[1] as string
                 )
             )
             {
@@ -609,7 +614,7 @@ namespace MobiFlight.UI.Panels
                 DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
                 if (currentRow == null) continue;
 
-                bool Active = (bool) currentRow["active"];
+                bool Active = (bool)currentRow["active"];
                 String Description = currentRow["description"] as String;
                 InputConfigItem cfg = currentRow["settings"] as InputConfigItem;
                 CopyToClipboard(Active, Description, cfg);
@@ -622,7 +627,7 @@ namespace MobiFlight.UI.Panels
             foreach (DataGridViewRow row in inputsDataGridView.SelectedRows)
             {
                 int index = row.Index;
-                PasteFromClipboard(index+1);
+                PasteFromClipboard(index + 1);
                 return;
             }
         }
@@ -784,7 +789,7 @@ namespace MobiFlight.UI.Panels
             {
                 Size dragSize = SystemInformation.DragSize;
                 dragSize.Width = dragSize.Width * 5;
-                dragSize.Height = dragSize.Height * 5;               
+                dragSize.Height = dragSize.Height * 5;
                 Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
                 RectangleMouseDown = new Rectangle(location, dragSize);
                 DataGridTopLeftPoint.X = inputsDataGridView.Location.X;
@@ -807,13 +812,13 @@ namespace MobiFlight.UI.Panels
                 if (RectangleMouseDown == Rectangle.Empty || RectangleMouseDown.Contains(e.X, e.Y)) return;
 
                 if (!IsSortingActive())
-                {                    
+                {
                     // Only select Row which is to be moved, needed because of active multiselect
                     inputsDataGridView.ClearSelection();
                     inputsDataGridView.Rows[RowIndexMouseDown].Selected = true;
                     inputsDataGridView.CurrentCell = inputsDataGridView.Rows[RowIndexMouseDown].Cells["inputDescription"];
                     // Start drag and drop
-                    inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);           
+                    inputsDataGridView.DoDragDrop(inputsDataTable.Rows[RowIndexMouseDown], DragDropEffects.Move);
                 }
                 else
                 {
@@ -964,15 +969,15 @@ namespace MobiFlight.UI.Panels
 
         private void inputsDataGridView_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
         {
-            if (e.Action == DragAction.Cancel || e.Action == DragAction.Drop) 
-            {               
+            if (e.Action == DragAction.Cancel || e.Action == DragAction.Drop)
+            {
                 if (CurrentCursorBitmap != null)
                 {
                     CurrentCursorBitmap.Dispose();
                     CurrentCursorBitmap = null;
                 }
-                DropTimer.Start();                             
-            }                   
+                DropTimer.Start();
+            }
         }
 
         private void DropTimer_Tick(object sender, EventArgs e)
