@@ -50,7 +50,7 @@ namespace MobiFlight
             InputMultiplexerChange, // 30
             SetStepperSpeedAccel,   // 31
             SetCustomDevice,        // 32
-            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
+            DebugPrint = 0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public const string TYPE_COMPATIBLE = "Compatible";
@@ -90,16 +90,17 @@ namespace MobiFlight
         public String Port { get { return _comPort; } }
 
         private string _name;
-        public String Name {
+        public String Name
+        {
             get
             {
                 if (HasMfFirmware()) return _name;
                 return Board.Info.FriendlyName;
             }
-            set 
+            set
             {
                 _name = value;
-            } 
+            }
         }
 
         public string HardwareId { get; set; }
@@ -903,7 +904,7 @@ namespace MobiFlight
 
                 // With the support of Custom Devices
                 // we also introduced CoreVersion
-                if(InfoCommand.Arguments.Length>4)
+                if (InfoCommand.Arguments.Length > 4)
                 {
                     CoreVersion = InfoCommand.ReadStringArg();
                 }
@@ -1418,6 +1419,8 @@ namespace MobiFlight
                     //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[2]));
                     //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[3]));
                     //    break;
+                    case DeviceType.MultiplexerDriver:
+                        break;
 
                     default:
                         throw new NotImplementedException();
@@ -1441,5 +1444,63 @@ namespace MobiFlight
         {
             return ToMobiFlightModuleInfo().FirmwareRequiresUpdate();
         }
+
+        //public BaseDevice CreateDeviceWithDefaultConfig(DeviceType type)
+        //{
+        //    var device = new BaseDevice();
+        //    var freePins = GetFreePins().ToArray();
+
+        //    switch (type)
+        //    {
+        //        case DeviceType.Output:
+        //            device = new Output();
+        //            break;
+        //        case DeviceType.LedModule:
+        //            device = new LedModule();
+        //            break;
+        //        case DeviceType.Stepper:
+        //            device = new Stepper();
+        //            break;
+        //        case DeviceType.Servo:
+        //            device = new Servo();
+        //            break;
+        //        case DeviceType.Button:
+        //            device = new Button();
+        //            break;
+        //        case DeviceType.Encoder:
+        //            device = new Config.Encoder();
+        //            break;
+        //        case DeviceType.InputShiftRegister:
+        //            device = new InputShiftRegister();
+        //            break;
+        //        case DeviceType.LcdDisplay:
+        //            device = new LcdDisplay();
+        //            break;
+        //        case DeviceType.ShiftRegister:
+        //            device = new ShiftRegister();
+        //            break;
+        //        case DeviceType.InputMultiplexer:
+        //            var driver = GetConnectedInputDevices().FirstOrDefault(d => d.Type == DeviceType.MultiplexerDriver);
+        //            if (driver == null)
+        //            {
+        //                driver = new MultiplexerDriver();
+        //            }
+        //            device = new InputMultiplexer(driver as MultiplexerDriver);
+        //            break;
+        //        case DeviceType.AnalogInput:
+        //            device = new AnalogInput();
+        //            break;
+        //        case DeviceType.CustomDevice:
+        //            device = new CustomDevice();
+        //            // this is more complicated :(
+        //            break;
+        //        default:
+        //            throw new NotImplementedException();
+        //    }
+
+        //    device.InitWithFreePins(freePins);
+        //    device.Name = GenerateUniqueDeviceName(Config.Items.Select(d => d.Name).ToArray(), device.Name);
+        //    return device;
+        //}
     }
 }

@@ -244,11 +244,16 @@
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
+    <Compile Include="Core\Manager.cs" />
     <Compile Include="HubHop\HubHopType.cs" />
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\BrowserMessages\ConfigValueUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\DeviceFileSaveRequest.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\DeviceFileOpenRequest.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\DeviceFirmwareUpdateRequest.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\DeviceElementEditRequest.cs" />
     <Compile Include="MobiFlight\BrowserMessages\DeviceList.cs" />
     <Compile Include="MobiFlight\BrowserMessages\FrontendRequest.cs" />
     <Compile Include="MobiFlight\BrowserMessages\ExecutionUpdate.cs" />
@@ -1085,6 +1090,9 @@
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\flightsimbuilder.audio.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\flightsimbuilder.pfd.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1179,10 +1187,16 @@
     <Content Include="Boards\board-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Boards\mobiflight_mega.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Boards\mobiflight_micro.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Boards\mobiflight_raspberrypico.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Joysticks\flightsimbuilder.g1000.audio.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Joysticks\flightsimbuilder.g1000.pfd.jpg">
@@ -1195,6 +1209,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Joysticks\octavi.picture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Joysticks\saitek.av8r.picture.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Joysticks\saitek.icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="mobiflight.ico" />

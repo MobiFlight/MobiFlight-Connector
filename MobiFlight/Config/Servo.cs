@@ -7,7 +7,7 @@ namespace MobiFlight.Config
     public class Servo : BaseDevice
     {
         const ushort _paramCount = 2;
-        
+
         [XmlAttribute]
         public String DataPin = "1";
 
@@ -31,7 +31,7 @@ namespace MobiFlight.Config
 
             DataPin = paramList[1];
             Name = paramList[2];
-            
+
             return true;
         }
         public override bool Equals(object obj)
@@ -50,6 +50,12 @@ namespace MobiFlight.Config
         public override string ToString()
         {
             return $"{Type}:{Name} DataPin:{DataPin}";
+        }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            DataPin = freePins[0].Pin.ToString();
+            return this;
         }
     }
 }

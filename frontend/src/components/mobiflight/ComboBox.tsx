@@ -15,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface ComboBoxProps {
   className?: string;
@@ -54,9 +55,11 @@ export function ComboBox(props: ComboBoxProps) {
         <Command>
           {showFilter && <CommandInput placeholder="Select level..." />}
           <CommandEmpty>No framework found.</CommandEmpty>
+          <ScrollArea className="max-h-[300px]">
           <CommandGroup>
             {options.map((option) => (
               <CommandItem
+                role="option"
                 key={option.value}
                 value={option.value}
                 onSelect={() => {
@@ -74,6 +77,7 @@ export function ComboBox(props: ComboBoxProps) {
               </CommandItem>
             ))}
           </CommandGroup>
+          </ScrollArea>
         </Command>
       </PopoverContent>
     </Popover>

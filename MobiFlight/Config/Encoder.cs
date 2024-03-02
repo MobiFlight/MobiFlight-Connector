@@ -61,5 +61,12 @@ namespace MobiFlight.Config
         {
             return $"{Type}:{Name} PinLeft:{PinLeft} PinRight:{PinRight} EncoderType:{EncoderType}";
         }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            PinLeft = freePins[0].Pin.ToString();
+            PinRight = freePins[1].Pin.ToString();
+            return this;
+        }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
+﻿using MobiFlight.Frontend;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Data;
 using System.IO;
-using MobiFlight.InputConfig;
-using MobiFlight.Frontend;
+using System.Xml;
 
 namespace MobiFlight
 {
@@ -38,7 +35,7 @@ namespace MobiFlight
             xmlConfig.RemoveAll();
             XmlDeclaration xmlDeclaration = xmlConfig.CreateXmlDeclaration("1.0", "UTF-8", "yes");
             xmlConfig.InsertBefore(xmlDeclaration, xmlConfig.DocumentElement);
-            
+
             XmlElement root = xmlConfig.CreateElement("MobiflightConnector");
             // Create a new element and add it to the document.
             StringWriter sw = new StringWriter();
@@ -70,7 +67,7 @@ namespace MobiFlight
             // first try the new way... if this fails try the old way
             System.Xml.XmlNode outputConfig = xmlConfig.DocumentElement.SelectSingleNode(xpath);
             if (outputConfig == null) throw new InvalidExpressionException();
-            
+
             System.IO.StringReader reader = new System.IO.StringReader(outputConfig.OuterXml);
             System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
             return xReader;
@@ -90,7 +87,7 @@ namespace MobiFlight
             List<OutputConfigItem> result = new List<OutputConfigItem>();
 
             XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config");
-            foreach(XmlNode item in outputs)
+            foreach (XmlNode item in outputs)
             {
                 OutputConfigItem config = new OutputConfigItem();
                 config.GUID = item.Attributes["guid"].Value;
@@ -131,7 +128,7 @@ namespace MobiFlight
         public XmlReader getInputConfig()
         {
             XmlReader result = null;
-            
+
             try
             {
                 if (xmlConfig.DocumentElement == null) OpenFile();
@@ -152,7 +149,7 @@ namespace MobiFlight
         public XmlReader getOutputConfig()
         {
             XmlReader result = null;
-            
+
             bool fallback = false;
             try
             {
@@ -195,7 +192,7 @@ namespace MobiFlight
                     throw new Exception("Error: Loading config");
                 }
             }
-          
+
             return result;
         }
     }

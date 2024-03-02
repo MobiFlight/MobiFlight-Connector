@@ -33,14 +33,14 @@ namespace MobiFlight.Config
 
         public Stepper(StepperDeprecatedV2 stepper)
         {
-            _type   = DeviceType.Stepper;
-            Name    = stepper.Name;
-            Pin1    = stepper.Pin1;
-            Pin2    = stepper.Pin2;
-            Pin3    = stepper.Pin3;
-            Pin4    = stepper.Pin4;
-            BtnPin  = stepper.BtnPin;
-            Mode    = 0;
+            _type = DeviceType.Stepper;
+            Name = stepper.Name;
+            Pin1 = stepper.Pin1;
+            Pin2 = stepper.Pin2;
+            Pin3 = stepper.Pin3;
+            Pin4 = stepper.Pin4;
+            BtnPin = stepper.BtnPin;
+            Mode = 0;
             Backlash = 0;
             Deactivate = false;
             Profile = 0; // 0 is the fallback profile (Classic 28BYJ)
@@ -65,21 +65,21 @@ namespace MobiFlight.Config
         {
             if (value.Length == value.IndexOf(End) + 1) value = value.Substring(0, value.Length - 1);
             String[] paramList = value.Split(Separator);
-            if (paramList.Count() != _paramCount+1)
+            if (paramList.Count() != _paramCount + 1)
             {
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            Pin1        = paramList[1];
-            Pin2        = paramList[2];
-            Pin3        = paramList[3];
-            Pin4        = paramList[4];
-            BtnPin      = paramList[5];
-            Mode        = int.Parse(paramList[6]);
-            Backlash    = int.Parse(paramList[7]);
-            Deactivate  = paramList[8] == "1";
-            Profile     = int.Parse(paramList[9]);
-            Name        = paramList[10];
+            Pin1 = paramList[1];
+            Pin2 = paramList[2];
+            Pin3 = paramList[3];
+            Pin4 = paramList[4];
+            BtnPin = paramList[5];
+            Mode = int.Parse(paramList[6]);
+            Backlash = int.Parse(paramList[7]);
+            Deactivate = paramList[8] == "1";
+            Profile = int.Parse(paramList[9]);
+            Name = paramList[10];
 
             return true;
         }
@@ -108,6 +108,19 @@ namespace MobiFlight.Config
         public override string ToString()
         {
             return $"{Type}: {Name} Pin1: {Pin1} Pin2: {Pin2} Pin3: {Pin3} Pin4: {Pin4} BtnPin: {BtnPin} Mode: {Mode} Backlash: {Backlash} Deactivate: {Deactivate} Profile: {Profile}";
+        }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            Pin1 = freePins[0].Pin.ToString();
+            Pin2 = freePins[1].Pin.ToString();
+            Pin3 = freePins[2].Pin.ToString();
+            Pin4 = freePins[3].Pin.ToString();
+
+            // we don't set the BtnPin here
+            // because by default this is 0 
+            // and AUTO HOME will be disabled
+            return this;
         }
     }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.Frontend
 {
@@ -12,13 +11,15 @@ namespace MobiFlight.Frontend
         public Dictionary<string, string> MetaData { get; set; }
         public IDeviceElement[] Elements { get; set; }
 
+        public MobiFlightPin[] Pins { get; set; }
+
         public MobiFlightModuleInfoAdapter(IModuleInfo device)
         {
             Type = device.Type;
             Id = device.Serial;
             Name = device.Name;
             MetaData = ConvertCommunityInfoToDictionary(BoardDefinitions.GetBoardByFriendlyName(device.Name)?.Info);
-            
+            Pins = new MobiFlightPin[0];
         }
 
         public Dictionary<string, string> ConvertCommunityInfoToDictionary(Info info)

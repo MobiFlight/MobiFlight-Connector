@@ -45,9 +45,11 @@ namespace MobiFlight.UI
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
         public event EventHandler<string> CurrentFilenameChanged;
 
-        public string CurrentFileName {
+        public string CurrentFileName
+        {
             get { return currentFileName; }
-            set {
+            set
+            {
                 if (currentFileName == value) return;
                 currentFileName = value;
                 CurrentFilenameChanged?.Invoke(this, value);
@@ -259,11 +261,12 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
-            
+
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
 
-            ConfigLoaded += (s, config) => { 
+            ConfigLoaded += (s, config) =>
+            {
                 MessageExchange.Instance.Publish(new Message<ConfigFile>(config));
             };
         }
@@ -297,7 +300,7 @@ namespace MobiFlight.UI
                 !AutoLoadConfigs.ContainsKey(key))
             {
                 UpdateAutoLoadMenu();
-                
+
                 return;
             }
 
@@ -361,7 +364,7 @@ namespace MobiFlight.UI
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
                 msfsForm.StartPosition = FormStartPosition.CenterParent;
-                if (msfsForm.ShowDialog()==DialogResult.OK)
+                if (msfsForm.ShowDialog() == DialogResult.OK)
                 {
                     InstallWasmModule();
                 }
@@ -369,7 +372,8 @@ namespace MobiFlight.UI
             }
 
             // if the user is not participating yet, ask for permission
-            if (!Properties.Settings.Default.CommunityFeedback) { 
+            if (!Properties.Settings.Default.CommunityFeedback)
+            {
                 CommunityFeedbackStartupForm cfpForm = new CommunityFeedbackStartupForm();
                 cfpForm.StartPosition = FormStartPosition.CenterParent;
                 if (cfpForm.ShowDialog() == DialogResult.OK)
@@ -473,7 +477,7 @@ namespace MobiFlight.UI
         {
             var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
             UpdateHubHopTimestampInStatusBar(lastModification);
-            
+
             if (lastModification > DateTime.UtcNow.AddDays(-7)) return;
             // we could provide a warning icon or so.
             if (!Properties.Settings.Default.HubHopAutoCheck) return;
@@ -493,10 +497,10 @@ namespace MobiFlight.UI
         private void CheckForWasmModuleUpdate()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
-            
+
         }
 
-        void CheckForFirmwareUpdates ()
+        void CheckForFirmwareUpdates()
         {
             MobiFlightCache mfCache = execManager.getMobiFlightModuleCache();
 
@@ -612,7 +616,7 @@ namespace MobiFlight.UI
             execManager.OnModuleConnected += dlg.UpdateConnectedModule;
             execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
 
-            switch(SelectedTab)
+            switch (SelectedTab)
             {
                 case "mobiFlightTabPage":
                     dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
@@ -701,7 +705,7 @@ namespace MobiFlight.UI
         }
 
         private void _autoloadConfig()
-        {            
+        {
             if (cmdLineParams.ConfigFile != null)
             {
                 if (!System.IO.File.Exists(cmdLineParams.ConfigFile))
@@ -718,7 +722,7 @@ namespace MobiFlight.UI
                 {
                     LoadConfig(cmdLineParams.ConfigFile);
                     return;
-                }                
+                }
             }
 
             _autoloadLastConfig();
@@ -771,14 +775,14 @@ namespace MobiFlight.UI
                     {
                     }
                 }
-            }           
- 
+            }
+
             execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
         }
 #endif
 
         private void Module_Connected(object sender, EventArgs e)
-        {   
+        {
             if (InvokeRequired)
             {
                 this.Invoke(new EventHandler(Module_Connected), new object[] { sender, e });
@@ -815,7 +819,7 @@ namespace MobiFlight.UI
             {
                 PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
                 return;
-            } 
+            }
 
             // The board already has MF firmware
             if (!module.FirmwareRequiresUpdate()) return;
@@ -871,7 +875,7 @@ namespace MobiFlight.UI
         /// </summary>
         private bool RunIsAvailable()
         {
-            return 
+            return
                 // We are not already running
                 !execManager.IsStarted() && !execManager.TestModeIsStarted();
         }
@@ -903,7 +907,7 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnSimAvailable(object sender, EventArgs e)
         {
-            FlightSimType flightSim = (FlightSimType) sender;
+            FlightSimType flightSim = (FlightSimType)sender;
 
             switch (flightSim)
             {
@@ -983,7 +987,8 @@ namespace MobiFlight.UI
                     Log.Instance.log("Connected to SimConnect (MSFS2020).", LogSeverity.Info);
                 }
 
-                if ((sender as SimConnectCache).IsConnected()) { 
+                if ((sender as SimConnectCache).IsConnected())
+                {
                     simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
                     simConnectToolStripMenuItem.Image = Properties.Resources.check;
                     simConnectToolStripMenuItem.Enabled = true;
@@ -1014,14 +1019,15 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), FlightSimConnectionMethod.XPLANE.ToString());
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod]}].", LogSeverity.Info);
             }
-            else if (sender.GetType() == typeof(Fsuipc2Cache)) { 
+            else if (sender.GetType() == typeof(Fsuipc2Cache))
+            {
 
                 Fsuipc2Cache c = sender as Fsuipc2Cache;
                 switch (FlightSim.FlightSimConnectionMethod)
                 {
                     case FlightSimConnectionMethod.FSUIPC:
                         CurrentConnectionMethod = FlightSimConnectionMethod.FSUIPC;
-                        FsuipcToolStripMenuItem.Text = i18n._tr("fsuipcStatus") + " ("+ FlightSim.FlightSimType.ToString() +")";
+                        FsuipcToolStripMenuItem.Text = i18n._tr("fsuipcStatus") + " (" + FlightSim.FlightSimType.ToString() + ")";
                         break;
 
                     case FlightSimConnectionMethod.XPLANE:
@@ -1049,8 +1055,8 @@ namespace MobiFlight.UI
         /// <summary>
         /// gets triggered as soon as the fsuipc is connected
         /// </summary>        
-        void CheckAutoRun ()
-        {            
+        void CheckAutoRun()
+        {
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
                 execManager.Stop();
@@ -1081,7 +1087,7 @@ namespace MobiFlight.UI
                 _showError(i18n._tr("uiMessageSimConnectConnectionLost"));
                 UpdateSimConnectStatusIcon();
             }
-            else if(sender.GetType() == typeof(XplaneCache))
+            else if (sender.GetType() == typeof(XplaneCache))
             {
                 _showError(i18n._tr("uiMessageXplaneConnectionLost"));
                 UpdateXplaneDirectConnectStatusIcon();
@@ -1090,7 +1096,7 @@ namespace MobiFlight.UI
             {
                 _showError(i18n._tr("uiMessageFsuipcConnectionLost"));
                 if (execManager.GetSimConnectCache().IsConnected())
-                UpdateFsuipcStatusIcon();
+                    UpdateFsuipcStatusIcon();
             }
 
             UpdateSeparatorInStatusMenu();
@@ -1107,9 +1113,9 @@ namespace MobiFlight.UI
                 return;
             }
 
-            MessageExchange.Instance.Publish(new Message<ExecutionUpdate>(new ExecutionUpdate() { State = ExecutionState.Running}));
+            MessageExchange.Instance.Publish(new Message<ExecutionUpdate>(new ExecutionUpdate() { State = ExecutionState.Running }));
 
-            runToolStripButton.Enabled  = RunIsAvailable();
+            runToolStripButton.Enabled = RunIsAvailable();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
             updateNotifyContextMenu(execManager.IsStarted());
@@ -1120,9 +1126,9 @@ namespace MobiFlight.UI
         /// </summary>
         void ExecManager_Stopped(object sender, EventArgs e)
         {
-            if(InvokeRequired)
+            if (InvokeRequired)
             {
-                Invoke(new EventHandler(ExecManager_Stopped), new object[] { sender, e});
+                Invoke(new EventHandler(ExecManager_Stopped), new object[] { sender, e });
                 return;
             }
 
@@ -1286,11 +1292,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// present errors to user via message dialog or when minimized via balloon
         /// </summary>        
-        private void _showError (string msg)
+        private void _showError(string msg)
         {
             if (this.WindowState != FormWindowState.Minimized)
             {
-                TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning); 
+                TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -1301,31 +1307,31 @@ namespace MobiFlight.UI
         /// <summary>
         /// handles the resize event
         /// </summary>
-        private void MainForm_Resize (object sender, EventArgs e)
+        private void MainForm_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Maximized) return;
 
-            minimizeMainForm (FormWindowState.Minimized == this.WindowState);
+            minimizeMainForm(FormWindowState.Minimized == this.WindowState);
         } //MainForm_Resize()
 
         /// <summary>
         /// handles minimize event
         /// </summary>        
-        protected void minimizeMainForm (bool minimized)
+        protected void minimizeMainForm(bool minimized)
         {
             if (minimized)
             {
                 notifyIcon.Visible = true;
                 notifyIcon.BalloonTipTitle = i18n._tr("uiMessageMFConnectorInterfaceActive");
                 notifyIcon.BalloonTipText = i18n._tr("uiMessageApplicationIsRunningInBackgroundMode");
-                notifyIcon.ShowBalloonTip(1000);               
+                notifyIcon.ShowBalloonTip(1000);
                 this.Hide();
             }
             else
             {
-                notifyIcon.Visible = false;                
+                notifyIcon.Visible = false;
                 this.Show();
-                if (this.WindowState!=FormWindowState.Normal)
+                if (this.WindowState != FormWindowState.Normal)
                     this.WindowState = FormWindowState.Normal;
                 this.BringToFront();
             }
@@ -1360,7 +1366,7 @@ namespace MobiFlight.UI
         /// opens file dialog when clicking on according button
         /// </summary>
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
 
@@ -1422,7 +1428,7 @@ namespace MobiFlight.UI
                 recentDocumentsToolStripMenuItem.DropDownItems.Add(current);
             }
 
-            recentDocumentsToolStripMenuItem.Enabled = recentDocumentsToolStripMenuItem.DropDownItems.Count > 0;           
+            recentDocumentsToolStripMenuItem.Enabled = recentDocumentsToolStripMenuItem.DropDownItems.Count > 0;
         } //_updateRecentFilesMenuItems()
 
         /// <summary>
@@ -1440,7 +1446,7 @@ namespace MobiFlight.UI
             {
                 saveToolStripButton_Click(saveToolStripButton, new EventArgs());
             };
-            LoadConfig((sender as ToolStripMenuItem).Text);            
+            LoadConfig((sender as ToolStripMenuItem).Text);
         } //recentMenuItem_Click()
 
         /// <summary>
@@ -1606,13 +1612,14 @@ namespace MobiFlight.UI
             foreach (InputConfigItem item in configFile.GetInputConfigItems())
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
-                    !serials.Contains(item.ModuleSerial) && 
-                    !NotConnectedJoysticks.Contains(item.ModuleSerial)) { 
+                    !serials.Contains(item.ModuleSerial) &&
+                    !NotConnectedJoysticks.Contains(item.ModuleSerial))
+                {
                     NotConnectedJoysticks.Add(item.ModuleSerial);
                 }
             }
 
-            if (NotConnectedJoysticks.Count>0)
+            if (NotConnectedJoysticks.Count > 0)
             {
                 TimeoutMessageDialog tmd = new TimeoutMessageDialog();
                 tmd.HasCancelButton = false;
@@ -1637,7 +1644,7 @@ namespace MobiFlight.UI
 
             foreach (MidiBoard mb in execManager.GetMidiBoardManager().GetMidiBoards())
             {
-                serials.Add($"{mb.Name} {SerialNumber.SerialSeparator}{mb.Serial}");        
+                serials.Add($"{mb.Name} {SerialNumber.SerialSeparator}{mb.Serial}");
             }
 
             if (configFile == null) return;
@@ -1689,7 +1696,7 @@ namespace MobiFlight.UI
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
             List<string> serials = new List<string>();
-            
+
             foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
             {
                 serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
@@ -1714,7 +1721,8 @@ namespace MobiFlight.UI
                     TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 // do nothing
                 Log.Instance.log($"Orphaned serials exception: {ex.Message}", LogSeverity.Error);
             }
@@ -1722,11 +1730,12 @@ namespace MobiFlight.UI
 
         private void SetTitle(string title)
         {
-            string NewTitle = "MobiFlight Connector ("+ Version +")";
-            if (VersionBeta.Split('.')[3]!="0") {
+            string NewTitle = "MobiFlight Connector (" + Version + ")";
+            if (VersionBeta.Split('.')[3] != "0")
+            {
                 NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
             }
-            if (title!=null && title!="")
+            if (title != null && title != "")
             {
                 NewTitle = title + " - " + NewTitle;
             }
@@ -1734,7 +1743,7 @@ namespace MobiFlight.UI
             Text = NewTitle;
         }
 
-        public static String DisplayVersion ()
+        public static String DisplayVersion()
         {
             if (VersionBeta.Split('.')[3] != "0")
             {
@@ -1754,7 +1763,7 @@ namespace MobiFlight.UI
 
         private void _setFilenameInTitle(string fileName)
         {
-            SetTitle(fileName.Substring(fileName.LastIndexOf('\\')+1));
+            SetTitle(fileName.Substring(fileName.LastIndexOf('\\') + 1));
         }
 
         /// <summary>
@@ -1762,8 +1771,9 @@ namespace MobiFlight.UI
         /// data from legacy config files
         /// </summary>
         private void _applyBackwardCompatibilityLoading()
-        {            
-            foreach (DataRow row in outputConfigPanel.ConfigDataTable.Rows) {
+        {
+            foreach (DataRow row in outputConfigPanel.ConfigDataTable.Rows)
+            {
                 if (row["settings"].GetType() == typeof(System.DBNull))
                 {
                     OutputConfigItem cfgItem = new OutputConfigItem();
@@ -1817,7 +1827,7 @@ namespace MobiFlight.UI
                     row["settings"] = cfgItem;
                 }
             }
-        } 
+        }
 
         /// <summary>
         /// saves the current config to filename
@@ -1865,7 +1875,7 @@ namespace MobiFlight.UI
 
             if (execManager.GetSimConnectCache().IsConnected())
                 simConnectToolStripMenuItem.Image = Properties.Resources.check;
-            else 
+            else
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
 
             UpdateSeparatorInStatusMenu();
@@ -1873,7 +1883,7 @@ namespace MobiFlight.UI
 
         private void UpdateSeparatorInStatusMenu()
         {
-            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Enabled || xPlaneDirectToolStripMenuItem.Enabled|| FsuipcToolStripMenuItem.Enabled;
+            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Enabled || xPlaneDirectToolStripMenuItem.Enabled || FsuipcToolStripMenuItem.Enabled;
         }
 
         private void UpdateXplaneDirectConnectStatusIcon()
@@ -1894,7 +1904,7 @@ namespace MobiFlight.UI
 
             if (execManager.GetXlpaneConnectCache().IsConnected())
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.check;
-            else 
+            else
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
 
             UpdateSeparatorInStatusMenu();
@@ -1935,13 +1945,13 @@ namespace MobiFlight.UI
         /// triggers the save dialog if user clicks on according buttons
         /// </summary>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {            
+        {
             SaveFileDialog fd = new SaveFileDialog();
             fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc";
             if (DialogResult.OK == fd.ShowDialog())
             {
                 SaveConfig(fd.FileName);
-            }            
+            }
         } //saveToolStripMenuItem_Click()
 
         /// <summary>
@@ -1959,9 +1969,9 @@ namespace MobiFlight.UI
         /// </summary>
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if ( MessageBox.Show(
+            if (MessageBox.Show(
                        i18n._tr("uiMessageConfirmNewConfig"),
-                       i18n._tr("uiMessageConfirmNewConfigTitle"), 
+                       i18n._tr("uiMessageConfirmNewConfigTitle"),
                        MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 execManager.Stop();
@@ -1991,7 +2001,7 @@ namespace MobiFlight.UI
             saveToolStripMenuItem_Click(sender, e);
         } //saveToolStripButton_Click()
 
-        
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
@@ -2033,7 +2043,7 @@ namespace MobiFlight.UI
                 // only cancel closing if not saved before
                 // which is indicated by empty CurrentFilename
                 e.Cancel = (CurrentFileName == null);
-                saveToolStripButton_Click(saveToolStripButton, new EventArgs());                
+                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
             };
         }
 
@@ -2049,7 +2059,7 @@ namespace MobiFlight.UI
 
         private void donateToolStripButton_Click(object sender, EventArgs e)
         {
-            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");               
+            Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }
 
         /// taken from
@@ -2095,7 +2105,7 @@ namespace MobiFlight.UI
                 // Do what you want here
                 e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
                 if (saveToolStripButton.Enabled)
-                saveToolStripButton_Click(null, null);
+                    saveToolStripButton_Click(null, null);
             }
         }
 
@@ -2124,7 +2134,8 @@ namespace MobiFlight.UI
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
 
-            try {
+            try
+            {
 
                 if (!updater.AutoDetectCommunityFolder())
                 {
@@ -2154,7 +2165,9 @@ namespace MobiFlight.UI
                     return;
                 }
 
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
             }
 
@@ -2172,23 +2185,24 @@ namespace MobiFlight.UI
             Control MainForm = this;
 
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
-            var t = new Task(() => {
-                    if (!updater.AutoDetectCommunityFolder())
-                    {
-                        Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
-                        return;
-                    }
-
-                    if (updater.InstallWasmEvents())
-                    {
-                        progressForm.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        progressForm.DialogResult = DialogResult.No;
-                        Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
-                    }
+            var t = new Task(() =>
+            {
+                if (!updater.AutoDetectCommunityFolder())
+                {
+                    Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
+                    return;
                 }
+
+                if (updater.InstallWasmEvents())
+                {
+                    progressForm.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    progressForm.DialogResult = DialogResult.No;
+                    Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
+                }
+            }
             );
 
             t.Start();
@@ -2198,7 +2212,8 @@ namespace MobiFlight.UI
                    i18n._tr("uiMessageWasmEventsInstallationSuccessful"),
                    i18n._tr("uiMessageWasmUpdater"),
                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            } else
+            }
+            else
             {
                 TimeoutMessageDialog.Show(
                     i18n._tr("uiMessageWasmEventsInstallationError"),
@@ -2216,7 +2231,8 @@ namespace MobiFlight.UI
             Control MainForm = this;
 
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
-            var t = new Task(() => {
+            var t = new Task(() =>
+            {
                 if (updater.DownloadHubHopPresets())
                 {
                     Msfs2020HubhopPresetListSingleton.Instance.Clear();
@@ -2290,7 +2306,8 @@ namespace MobiFlight.UI
             {
                 OutputTabPage.ImageKey = "mf-output.png";
                 InputTabPage.ImageKey = "mf-input-inactive.png";
-            } else
+            }
+            else
             {
                 OutputTabPage.ImageKey = "mf-output-inactive.png";
                 InputTabPage.ImageKey = "mf-input.png";
@@ -2379,7 +2396,7 @@ namespace MobiFlight.UI
             toolStripAircraftDropDownButton.Image = null;
 
             if (!AutoLoadConfigs.Remove(key)) return;
-            
+
             SaveAutoLoadConfig();
         }
 

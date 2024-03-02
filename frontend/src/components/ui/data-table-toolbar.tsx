@@ -1,5 +1,3 @@
-"use client"
-
 import { IconX } from "@tabler/icons-react"
 import { Table } from "@tanstack/react-table"
 

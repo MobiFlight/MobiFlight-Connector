@@ -3,7 +3,6 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.Frontend;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -15,7 +14,7 @@ namespace MobiFlight.UI.Panels
         {
             get
             {
-                return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv");         
+                return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv");
             }
         }
         public UiPanel()
@@ -36,16 +35,16 @@ namespace MobiFlight.UI.Panels
                 await webView.EnsureCoreWebView2Async(null);
             }
 #if DEBUG
-            webView.Source = new Uri("http://localhost:5173");
+            webView.Source = new Uri("http://localhost:5173/index.html");
 #else
             webView.CoreWebView2.SetVirtualHostNameToFolderMapping("mobiflight",
             "frontend/dist", CoreWebView2HostResourceAccessKind.DenyCors);
-            webView.CoreWebView2.Navigate("https://mobiflight/index.html");
+            webView.CoreWebView2.Navigate("http://mobiflight/index.html");
+            webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+            webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
 #endif
             webView.CoreWebView2.Settings.IsWebMessageEnabled = true;
             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
-            // webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
-            //webView.CoreWebView2.Settings.AreBrowserAcceleratorKeysEnabled = false;
             webView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             webView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
             RegisterMessageHandlers();
@@ -75,12 +74,12 @@ namespace MobiFlight.UI.Panels
                 {
                     var ExecutionUpdateRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<ExecutionState>>(message);
                     MessageExchange.Instance.Publish(new FrontendRequest<ExecutionUpdate>()
+                    {
+                        Request = new ExecutionUpdate
                         {
-                            Request = new ExecutionUpdate
-                            {
-                                State = ExecutionUpdateRequest.payload
-                            }
-                        });
+                            State = ExecutionUpdateRequest.payload
+                        }
+                    });
                 }
 
                 if (decodedMessage.key == "GlobalSettingsUpdate")
@@ -91,11 +90,41 @@ namespace MobiFlight.UI.Panels
                         Request = GlobalSettingsUpdateRequest.payload
                     });
                 }
+
+                if (decodedMessage.key == "DeviceUpload")
+                {
+                    var DeviceListRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<MobiFlightModuleDeviceAdapter>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceUploadRequest>()
+                    {
+                        Request = new DeviceUploadRequest()
+                        {
+                            Device = DeviceListRequest.payload
+                        }
+                    });
+                }
+
+                if (decodedMessage.key == "DeviceFileOpenRequest")
+                {
+                    var DeviceFileOpenRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceFileOpenRequest>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceFileOpenRequest>()
+                    {
+                        Request = DeviceFileOpenRequest.payload
+                    });
+                }
+
+                if (decodedMessage.key == "DeviceFileSaveRequest")
+                {
+                    var DeviceFileSaveRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<DeviceFileSaveRequest>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<DeviceFileSaveRequest>()
+                    {
+                        Request = DeviceFileSaveRequest.payload
+                    });
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
-            }   
+            }
         }
 
         private void RegisterMessageHandlers()
@@ -120,6 +149,21 @@ namespace MobiFlight.UI.Panels
             {
                 var forwardedMessages = new string[] {
                     "config.update"
+                };
+
+                if (!forwardedMessages.ToArray().Contains(message.key))
+                    return;
+
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<IDeviceItem>>((message) =>
+            {
+                var forwardedMessages = new string[] {
+                    "DeviceUpload"
                 };
 
                 if (!forwardedMessages.ToArray().Contains(message.key))
@@ -168,7 +212,8 @@ namespace MobiFlight.UI.Panels
                 webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
             });
 
-            MessageExchange.Instance.Subscribe<Message<ConfigValueUpdate>>((message) => {
+            MessageExchange.Instance.Subscribe<Message<ConfigValueUpdate>>((message) =>
+            {
                 // do something with the config
                 // convert config to JSON object
                 var jsonEncodedMessage = JsonConvert.SerializeObject(message);
@@ -182,7 +227,7 @@ namespace MobiFlight.UI.Panels
                 {
                     // Convert config to JSON object
                     var jsonEncodedMessage = JsonConvert.SerializeObject(message);
-                    webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+                    webView.CoreWebView2?.PostWebMessageAsString(jsonEncodedMessage);
                 };
 
                 // Check if invocation on the UI thread is required

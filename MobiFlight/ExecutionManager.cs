@@ -97,6 +97,14 @@ namespace MobiFlight
             this.dataGridViewConfig = dataGridViewConfig;
             this.inputsDataGridView = inputsDataGridView;
 
+            // Workaround, so that we get the latest device information
+            // when the user loads a new configuration
+            // TODO: REMOVE!!!
+            this.dataGridViewConfig.Rows.CollectionChanged += (s, e) =>
+            {
+                PublishMessageOfAllDevices();
+            };
+
             // Subscribe to frontend messages
             MessageExchange.Instance.Subscribe<FrontendRequest<ExecutionUpdate>>((update) =>
             {
@@ -131,7 +139,8 @@ namespace MobiFlight
                         {
                             Properties.Settings.Default.RecentFiles.Clear();
                             Properties.Settings.Default.RecentFiles.AddRange((string[])value);
-                        } else
+                        }
+                        else
                         {
                             Properties.Settings.Default[name] = value;
                         }
@@ -143,6 +152,75 @@ namespace MobiFlight
                     Log.Instance.log(ex.Message, LogSeverity.Error);
                 }
                 MessageExchange.Instance.Publish(new Message<GlobalSettings>(new GlobalSettings(Properties.Settings.Default)));
+            });
+
+            MessageExchange.Instance.Subscribe<Message<MobiFlightModule>>(message =>
+            {
+                if (message.key == "OnAfterConfigUpload")
+                {
+                    var module = message.payload;
+                    if (module != null)
+                    {
+                        PublishMessageOfAllDevices();
+                    }
+                }
+            });
+
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceUploadRequest>>(request =>
+            {
+                var device = request.Request.Device;
+                var module = mobiFlightCache.GetModuleBySerial(device.Id);
+                if (module == null) return;
+                module.Config = device.ConvertElementsToConfig();
+                module.SaveConfig();
+
+                if (device != null)
+                {
+                    PublishMessageOfAllDevices();
+                }
+            });
+
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceFirmwareUpdateRequest>>(request =>
+            {
+                var device = request.Request.Device;
+                var module = mobiFlightCache.GetModuleBySerial(device.Id);
+                // Perform the firmware update for the device
+            });
+
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceFileOpenRequest>>(request =>
+            {
+                var fd = new OpenFileDialog();
+                fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
+
+                if (DialogResult.OK == fd.ShowDialog())
+                {
+                    var device = request.Request.Device;
+                    var newConfig = Config.Config.LoadFromFile(fd.FileName);
+                    var module = mobiFlightCache.GetModuleBySerial(device.Id);
+                    if (module == null)
+                    {
+                        // send some kind of error message back to the frontend
+                    };
+                    module.Config = newConfig;
+                    module.LoadConfig();
+                    module.SaveConfig();
+                    PublishMessageOfAllDevices();
+                }
+            });
+
+            MessageExchange.Instance.Subscribe<FrontendRequest<DeviceFileSaveRequest>>(request =>
+            {
+                var device = request.Request.Device;
+                var config = mobiFlightCache.GetModuleBySerial(device.Id).Config;
+
+                SaveFileDialog fd = new SaveFileDialog();
+                fd.Filter = "Mobiflight Module Config (*.mfmc)|*.mfmc";
+                fd.FileName = device.Name + ".mfmc";
+
+                if (DialogResult.OK == fd.ShowDialog())
+                {
+                    config.SaveToFile(fd.FileName);
+                }
             });
 
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);

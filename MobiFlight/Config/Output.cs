@@ -30,7 +30,7 @@ namespace MobiFlight.Config
             }
 
             Pin = paramList[1];
-            Name= paramList[2];
+            Name = paramList[2];
 
             return true;
         }
@@ -50,6 +50,12 @@ namespace MobiFlight.Config
         public override string ToString()
         {
             return $"{Type}:{Name} Pin:{Pin}";
+        }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            Pin = freePins[0].Pin.ToString();
+            return this;
         }
     }
 }

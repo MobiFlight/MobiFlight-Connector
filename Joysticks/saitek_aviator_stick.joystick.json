@@ -3,10 +3,16 @@
   "InstanceName": "Saitek Aviator Stick",
   "VendorId": 1699,
   "ProductId": 1121,
+  "Info": {
+    "Icon": "saitek.icon.png",
+    "Picture": "saitek.av8r.picture.png",
+    "Manufacturer": "Saitek",
+    "Website": "https://saitek.com"
+  },
   "Inputs": [
     {
       "Id": 5,
-      "Type":  "Button",
+      "Type": "Button",
       "Label": "Button - T1"
     },
     {

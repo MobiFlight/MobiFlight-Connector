@@ -27,8 +27,9 @@ namespace MobiFlight.Config
             Selector = null;
         }
 
-        public InputMultiplexer(MobiFlight.Config.MultiplexerDriver muxSelector) { 
-            Name = "Multiplexer"; 
+        public InputMultiplexer(MobiFlight.Config.MultiplexerDriver muxSelector)
+        {
+            Name = "Multiplexer";
             _type = DeviceType.InputMultiplexer;
             _muxClient = true;
             Selector = muxSelector;
@@ -61,9 +62,9 @@ namespace MobiFlight.Config
                 throw new ArgumentException("Param count does not match. " + paramList.Count() + " given, " + _paramCount + " expected");
             }
 
-            DataPin     = paramList[1];
-            NumBytes    = paramList[6];
-            Name        = paramList[7];
+            DataPin = paramList[1];
+            NumBytes = paramList[6];
+            Name = paramList[7];
 
             return true;
         }
@@ -87,11 +88,22 @@ namespace MobiFlight.Config
         {
             return $"{Type}:{Name} DataPin:{DataPin} NumBytes:{NumBytes} Selector:{this.Selector}";
         }
-        
+
         public static String GetMultiplexerDriverConfig(String value)
         {
             String[] paramList = value.Split(Separator);
             return ((int)DeviceType.MultiplexerDriver).ToString() + Separator + paramList[2] + Separator + paramList[3] + Separator + paramList[4] + Separator + paramList[5] + End;
+        }
+
+        public override BaseDevice InitWithFreePins(MobiFlightPin[] freePins)
+        {
+            Selector.PinSx[0] = freePins[0].Pin.ToString();
+            Selector.PinSx[1] = freePins[1].Pin.ToString();
+            Selector.PinSx[2] = freePins[2].Pin.ToString();
+            Selector.PinSx[3] = freePins[3].Pin.ToString();
+            DataPin = freePins[4].Pin.ToString();
+
+            return this;
         }
     }
 }

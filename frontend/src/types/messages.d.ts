@@ -1,50 +1,151 @@
+import { IDeviceItem } from "."
+
+// FrontendMessages are messages
+// that are sent from the frontend to the backend
+export type FrontendMessageKey =
+  | "ExecutionUpdate"
+  | "config.edit"
+  | "GlobalSettingsUpdate"
+  | "DeviceUpload"
+  | "DeviceFirmwareUpdateRequest"
+  | "DeviceFileOpenRequest"
+  | "DeviceFileSaveRequest"
+
+export type FrontendMessageType =
+  | ExecutionUpdateMessage
+  | EditConfigMessage
+  | GlobalSettingsUpdateMessage
+  | ElementCreateMessage
+  | DeviceUploadMessage
+  | DeviceFirmwareUpdateRequestMessage
+  | DeviceFileOpenRequest
+  | DeviceFileSaveRequest
+
+// ExecutionUpdateMessage
+// is sent to the backend
+// when execution state shall change, e.g.
+// when the user starts or stops MobiFlight
 export interface ExecutionUpdateMessage {
-    key: "ExecutionUpdate"
-    payload: ExecutionState
+  key: "ExecutionUpdate"
+  payload: ExecutionState
 }
 
+// EditConfigMessage
+// is sent to the backend
+// when a config item shall be edited
 export interface EditConfigMessage {
-    key: "config.edit"
-    payload: IConfigItem
+  key: "config.edit"
+  payload: IConfigItem
 }
 
+// GlobalSettingsUpdateMessage
+// is sent to the backend
+// when global settings shall be updated
+// the expected response will be a GlobalSettings message
+// this is currently the only message
+// that is also used by the backend
 export interface GlobalSettingsUpdateMessage {
-    key: "GlobalSettingsUpdate"
-    payload: IGlobalSettings
+  key: "GlobalSettingsUpdate"
+  payload: IGlobalSettings
 }
 
-export type FontendMessageKey = "ExecutionUpdate" | "config.edit" | "GlobalSettingsUpdate"
-export type FrontendMessageType = ExecutionUpdateMessage | EditConfigMessage | GlobalSettingsUpdateMessage
+// DeviceUploadMessage
+// is sent to the backend
+// when the new device configuration shall be uploaded
+export interface DeviceUploadMessage {
+  key: "DeviceUpload"
+  payload: IDeviceItem
+}
 
-export type AppMessageKey = "config.update" | "GlobalSettings" | "StatusBarUpdate" | "ConfigFile" | "LogMessage" | "ExecutionUpdate" | "ConfigValueUpdate" | "DeviceUpdate"
-export type AppMessagePayload = ConfigLoadedEvent | EventMessage | StatusBarUpdate | ExecutionUpdate | ConfigValueUpdate | ILogMessage | IGlobalSettings | IConfigItem
+// DeviceUploadMessage
+// is sent to the backend
+// when the new device configuration shall be uploaded
+export interface DeviceFirmwareUpdateRequestMessage {
+  key: "DeviceFirmwareUpdateRequest"
+  payload: IDeviceItem
+}
 
+// DeviceUploadMessage
+// is sent to the backend
+// when the new device configuration shall be uploaded
+export interface DeviceFileOpenRequest {
+  key: "DeviceFileOpenRequest"
+  payload: IDeviceItem
+}
 
+export interface DeviceFileSaveRequestRequest {
+  key: "DeviceFileSaveRequestRequest"
+  payload: IDeviceItem
+}
+
+export type AppMessageKey =
+  | "config.update"
+  | "GlobalSettings"
+  | "StatusBarUpdate"
+  | "ConfigFile"
+  | "LogMessage"
+  | "ExecutionUpdate"
+  | "ConfigValueUpdate"
+  | "DeviceUpdate"
+  | "DeviceElementCreateResponse"
+
+export type AppMessagePayload =
+  | ConfigLoadedEvent
+  | EventMessage
+  | StatusBarUpdate
+  | ExecutionUpdate
+  | ConfigValueUpdate
+  | ILogMessage
+  | IGlobalSettings
+  | IConfigItem
+
+// AppMessage is the message format
+// when receiving messages from the backend
 export type AppMessage = {
-    key: AppMessageKey
-    payload: AppMessagePayload
+  key: AppMessageKey
+  payload: AppMessagePayload
 }
 
+// ConfigLoadedEvent
+// is sent from the backend
+// when the config file was loaded
+// the payload contains the config items
 export interface ConfigLoadedEvent {
-    FileName: string
-    ConfigItems: Types.IConfigItem[]
+  FileName: string
+  ConfigItems: Types.IConfigItem[]
 }
 
+// StatusBarUpdate
+// the status bar shall be updated
+// with a new text and value
+// this happens during startup
 export interface StatusBarUpdate {
-    Text: string
-    Value: number
+  Text: string
+  Value: number
 }
 
+// ExecutionUpdate
+// the execution state has changed
 export interface ExecutionUpdate {
-    State: ExecutionState
+  State: ExecutionState
 }
 
 export interface ConfigValueUpdate {
-    ConfigItems: Types.IConfigItem[]
+  ConfigItems: Types.IConfigItem[]
 }
 
+// DeviceUpdate
+// a device was updated
 export interface DeviceUpdate {
-    Devices: Types.IDeviceItem[]
+  Devices: Types.IDeviceItem[]
 }
 
-export type Message = ConfigLoadedEvent | EventMessage | StatusBarUpdate | ExecutionUpdate | ConfigValueUpdate
+export interface DeviceElementCreateResponse {
+  Device: IDeviceItem
+  Element: IDeviceElement
+}
+
+// Not sure what this is for
+// but we are using it in the tests
+// for mocking the chrome API
+export type Message = AppMessagePayload

@@ -1,8 +1,13 @@
-import { NavLink, useParams } from 'react-router-dom';
-import { DarkModeToggle } from './mobiflight/darkmode-toggle'
-import { IconDeviceGamepad2, IconList, IconListSearch, IconSettings } from '@tabler/icons-react';
-import { Button } from './ui/button';
-import { cn } from '@/lib/utils';
+import { NavLink, useParams } from "react-router-dom"
+import { DarkModeToggle } from "./mobiflight/darkmode-toggle"
+import {
+  IconDeviceGamepad2,
+  IconList,
+  IconListSearch,
+  IconSettings,
+} from "@tabler/icons-react"
+import { Button } from "./ui/button"
+import { cn } from "@/lib/utils"
 
 type SidebarProps = {
   className?: string
@@ -10,34 +15,109 @@ type SidebarProps = {
 
 const Sidebar = (props: SidebarProps) => {
   const params = useParams()
-  const activeClassNameProps = "dark:bg-gray-700"
+  const normalClassNameProps =
+    "border-none hover:bg-gray-200 w-12 h-12 group/side"
+  const activeClassNameProps =
+    "dark:bg-gray-700 border-none bg-primary stroke-white"
 
   return (
-    <div className={cn(`bg-primary dark:bg-slate-800 min-w-16 w-16 flex flex-col justify-between items-center pb-8 z-50`, props.className)}>
-      <div className='flex flex-col items-center gap-8 pt-24'>
-        <NavLink to={`/projects/${params.id}/configs`}>
-          <Button variant="outline" className={cn(activeClassNameProps, `hover:border hover:border-gray-500 w-12 h-12`)} size="icon">
-            <IconList></IconList>
-          </Button>
-        </NavLink>
-        <NavLink to={`/devices`}>
-          <Button variant="outline" className={cn(activeClassNameProps, `hover:border hover:border-gray-500 w-12 h-12`)} size="icon">
-            <IconDeviceGamepad2></IconDeviceGamepad2>
-          </Button>
-        </NavLink>
-
+    <div
+      className={cn(
+        `bg-zinc-400 dark:bg-slate-800 min-w-16 w-16 flex flex-col justify-between items-center pb-8 z-50`,
+        props.className
+      )}
+    >
+      <div className="flex flex-col items-center gap-8 pt-24">
+        <NavLink
+          to={`/projects/${params.id}/configs`}
+          children={(nav) => (
+            <Button
+              variant="outline"
+              className={
+                nav.isActive
+                  ? `${activeClassNameProps} ${normalClassNameProps}`
+                  : normalClassNameProps
+              }
+              size="icon"
+            >
+              <IconList
+                className={
+                  nav.isActive
+                    ? `stroke-white group-hover/side:stroke-blue-900`
+                    : "group-hover/side:stroke-blue-900"
+                }
+              ></IconList>
+            </Button>
+          )}
+        ></NavLink>
+        <NavLink
+          to={`/devices`}
+          children={(nav) => (
+            <Button
+              variant="outline"
+              className={
+                nav.isActive
+                  ? `${activeClassNameProps} ${normalClassNameProps}`
+                  : normalClassNameProps
+              }
+              size="icon"
+            >
+              <IconDeviceGamepad2
+                className={
+                  nav.isActive
+                    ? `stroke-white group-hover/side:stroke-blue-900`
+                    : "group-hover/side:stroke-blue-900"
+                }
+              ></IconDeviceGamepad2>
+            </Button>
+          )}
+        ></NavLink>
       </div>
-      <div className='flex flex-col items-center gap-8'>
-        <NavLink to="/log">
-          <Button variant="outline" className={cn(activeClassNameProps, `hover:border hover:border-gray-500 w-12 h-12`)} size="icon">
-            <IconListSearch></IconListSearch>
-          </Button>
-        </NavLink>
-        <NavLink to="/settings">
-          <Button variant="outline" className={cn(activeClassNameProps, `hover:border hover:border-gray-500 w-12 h-12`)} size="icon">
-            <IconSettings></IconSettings>
-          </Button>
-        </NavLink>
+      <div className="flex flex-col items-center gap-8">
+        <NavLink
+          to="/log"
+          children={(nav) => (
+            <Button
+              variant="outline"
+              className={
+                nav.isActive
+                  ? `${activeClassNameProps} ${normalClassNameProps}`
+                  : normalClassNameProps
+              }
+              size="icon"
+            >
+              <IconListSearch
+                className={
+                  nav.isActive
+                    ? `stroke-white group-hover/side:stroke-blue-900`
+                    : "group-hover/side:stroke-blue-900"
+                }
+              ></IconListSearch>
+            </Button>
+          )}
+        ></NavLink>
+        <NavLink
+          to="/settings"
+          children={(nav) => (
+            <Button
+              variant="outline"
+              className={
+                nav.isActive
+                  ? `${activeClassNameProps} ${normalClassNameProps}`
+                  : normalClassNameProps
+              }
+              size="icon"
+            >
+              <IconSettings
+                className={
+                  nav.isActive
+                    ? `stroke-white group-hover/side:stroke-blue-900`
+                    : "group-hover/side:stroke-blue-900"
+                }
+              ></IconSettings>
+            </Button>
+          )}
+        ></NavLink>
         <DarkModeToggle className="hover:border hover:border-gray-500"></DarkModeToggle>
       </div>
     </div>

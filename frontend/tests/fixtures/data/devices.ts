@@ -13,11 +13,12 @@ export const TestJoystick: Types.IDeviceItem = {
       VendorId: "123",
       ProductId: "456",
     },
+    Elements: []
   };
   
   export const TestMobiflightBoard: Types.IDeviceItem = {
     Id: "SN-123-456",
-    Type: "MobiFlight Mega",
+    Type: "MobiFlight",
     Name: "MobiFlight Mega 1",
     MetaData: {
       Icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiQAABYkAZsVxhQAAAMWSURBVDhPzVVLTBNRFJ1vC5SW1lIMUBKiICYQLSCJxKCirogmLjBu3JFo4kYXLty5N3Fj/G1cGRNjNOrKheG3wIB8SuUjAgUCBUGgnU6nncynM96Z99oZKjtZeDLJ3HvfvPPeO/feN2TrzTHiIEDh9z/jwIjIUM9oPKVoOvYRDrkZljHWUFQtkVLtgxQJoywYBbMYhiGjr0/rhJ6POlmq+8HMQiwDdnW5M/KyTVI0NESShIOhzt4Ji5JWMItqqCkBLlgf5qMHoglegUl8Jnv7ajW4+SFg4TPq/Jp48oirYBbV3ugxGfdAkDRN0wNe9nK7H4dy6JvgNF0/F/JiPwfqTNM+RKqqw+Z7uiqxb0N/OKHrRGezRbS0IT5+H6NCR904kAMILKtaRsreulKFQzYMz/KlxXQwUIR9gnj1ZevhmzWKILEviFnFzI8ka2DfuHQYxXeTCjIAmwn5165s3w5g7GeqzEVbdTQ+n2IZgzUtaaKUvXstiOKRJQEZgJEZXpS1zmYf9kGErL4Vl90lZrEgjMzyyODTaqjOXeV3gj2zkqYg5zn0TXIOmuxoKsM+lA9NfnvROvysxSKaXk4jI7Yj3bteg+wnH9bt2egdTwR8bG2lJVAemAjKz2FWEKDC60AqJAV17beEShwAO92Myy31+2QZwKBX7wTn9xiFD2isdSHj6aeNjhPWKfrCHEh6Ya/SXfe/e10GCV5tIJwoL8OkeTx6u9oZsnTtD3NQQedtRHOrmckFYWo5DQ8mmowKAa8D2QjvBrdZmmw7blUZpDlY4QwGjCQgfB6Je1wMbhHwY9sSVIfPvWdHzz+uN9e78xmDO2BxXWypK8W+iaHppMOsGIBBNBDmQGlfKdYIADUVXhQu2k4xGOGg1wtabHYlDelHtkEEKsIpPCU0CgGg5IudlF2Ov1ssEhUykkbB/WTCIIpEUzRNHqspRqE4r4zO8TRFnmqwMj38gy/3MPYWG5pKFjmwxACyuvsrXBcwbSepyOYFBsf0ewy9thIKXCbGRyQBqYC1odeI3E0GMkP3Yge++c/+IgTxB2rNQDxQu8X/AAAAAElFTkSuQmCC",
@@ -33,11 +34,23 @@ export const TestJoystick: Types.IDeviceItem = {
       Docs: "https://mobiflight.com/docs/",
       Support: "https://mobiflight.com/discord",
     },
+    Pins: [
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 2, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 3, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 4, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 5, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 6, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 7, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 8, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 9, Used : false },
+      { isAnalog : false, isI2C : false, isPWM : true, Pin : 10, Used : false }
+    ],
+    Elements: []
   };
   
   export const TestMidiDevice: Types.IDeviceItem = {
     Id: "125",
-    Type: "MidiDevice",
+    Type: "Midi",
     Name: "Midi Device 1",
     MetaData: {
       Icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiQAABYkAZsVxhQAAAMWSURBVDhPzVVLTBNRFJ1vC5SW1lIMUBKiICYQLSCJxKCirogmLjBu3JFo4kYXLty5N3Fj/G1cGRNjNOrKheG3wIB8SuUjAgUCBUGgnU6nncynM96Z99oZKjtZeDLJ3HvfvPPeO/feN2TrzTHiIEDh9z/jwIjIUM9oPKVoOvYRDrkZljHWUFQtkVLtgxQJoywYBbMYhiGjr0/rhJ6POlmq+8HMQiwDdnW5M/KyTVI0NESShIOhzt4Ji5JWMItqqCkBLlgf5qMHoglegUl8Jnv7ajW4+SFg4TPq/Jp48oirYBbV3ugxGfdAkDRN0wNe9nK7H4dy6JvgNF0/F/JiPwfqTNM+RKqqw+Z7uiqxb0N/OKHrRGezRbS0IT5+H6NCR904kAMILKtaRsreulKFQzYMz/KlxXQwUIR9gnj1ZevhmzWKILEviFnFzI8ka2DfuHQYxXeTCjIAmwn5165s3w5g7GeqzEVbdTQ+n2IZgzUtaaKUvXstiOKRJQEZgJEZXpS1zmYf9kGErL4Vl90lZrEgjMzyyODTaqjOXeV3gj2zkqYg5zn0TXIOmuxoKsM+lA9NfnvROvysxSKaXk4jI7Yj3bteg+wnH9bt2egdTwR8bG2lJVAemAjKz2FWEKDC60AqJAV17beEShwAO92Myy31+2QZwKBX7wTn9xiFD2isdSHj6aeNjhPWKfrCHEh6Ya/SXfe/e10GCV5tIJwoL8OkeTx6u9oZsnTtD3NQQedtRHOrmckFYWo5DQ8mmowKAa8D2QjvBrdZmmw7blUZpDlY4QwGjCQgfB6Je1wMbhHwY9sSVIfPvWdHzz+uN9e78xmDO2BxXWypK8W+iaHppMOsGIBBNBDmQGlfKdYIADUVXhQu2k4xGOGg1wtabHYlDelHtkEEKsIpPCU0CgGg5IudlF2Ov1ssEhUykkbB/WTCIIpEUzRNHqspRqE4r4zO8TRFnmqwMj38gy/3MPYWG5pKFjmwxACyuvsrXBcwbSepyOYFBsf0ewy9thIKXCbGRyQBqYC1odeI3E0GMkP3Yge++c/+IgTxB2rNQDxQu8X/AAAAAElFTkSuQmCC",
@@ -46,4 +59,5 @@ export const TestJoystick: Types.IDeviceItem = {
       Manufacturer: "Midi",
       Website: "http://midi.com",
     },
+    Elements: []
   };

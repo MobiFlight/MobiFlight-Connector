@@ -1,10 +1,11 @@
-import { Project, Projects } from '../../tests/fixtures/data/projects'
+import { Projects } from '../../tests/fixtures/data/projects'
 import { useConfigStore } from '@/stores/configFileStore';
 import { Link, useParams } from 'react-router-dom';
 import { IconPencil } from '@tabler/icons-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DataTable } from '../components/mobiflight/tables/config-data-table';
 import { columns } from '../components/mobiflight/tables/config-columns';
+import { Project } from '@/types';
 
 const ConfigPage = () => {    
     const params = useParams()
