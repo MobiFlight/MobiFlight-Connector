@@ -43,8 +43,8 @@ jobs:
         shell: pwsh
 
       - name: Build frontend
-        working-directory: ${{env.GITHUB_WORKSPACE}}/frontend
-        run: npm install && npm run build
+        working-directory: ${{env.GITHUB_WORKSPACE}}
+        run: cd frontend; npm install; npm run build
 
       - name: Build core
         working-directory: ${{env.GITHUB_WORKSPACE}}
