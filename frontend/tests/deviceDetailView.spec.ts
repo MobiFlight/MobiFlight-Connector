@@ -1,4 +1,3 @@
-import exp from "constants"
 import { test, expect } from "./fixtures"
 
 test.beforeEach(async ({ devicePage, page }) => {
@@ -7,7 +6,7 @@ test.beforeEach(async ({ devicePage, page }) => {
   await devicePage.mfPage.finishInitialLoading()
 })
 
-test("Device detail navigation works", async ({ devicePage, page }) => {
+test("Device detail navigation works", async ({ page }) => {
   await page.locator("a:nth-child(2) > .inline-flex").first().click()
   await page.getByRole("link", { name: "MobiFlight Mega 1 MobiFlight" }).click()
   await expect(
@@ -15,7 +14,7 @@ test("Device detail navigation works", async ({ devicePage, page }) => {
   ).toHaveCount(1)
 })
 
-test("Device Button add and remove works", async ({ devicePage, page }) => {
+test("Device Button add and remove works", async ({ page }) => {
   await page.locator("a:nth-child(2) > .inline-flex").first().click()
   await page.getByRole("link", { name: "MobiFlight Mega 1 MobiFlight" }).click()
   // now we are on the detail page
@@ -41,7 +40,7 @@ test("Device Button add and remove works", async ({ devicePage, page }) => {
   await expect(page.getByRole("link", { name: "My Button" })).toHaveCount(0)
 })
 
-test("Device Encoder add and remove works", async ({ devicePage, page }) => {
+test("Device Encoder add and remove works", async ({ page }) => {
   await page.locator("a:nth-child(2) > .inline-flex").first().click()
   await page.getByRole("link", { name: "MobiFlight Mega 1 MobiFlight" }).click()
   // now we are on the detail page
