@@ -1,31 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
 
 namespace MobiFlight.UI.Dialogs
 {
     public partial class OrphanedSerialsDialog : Form
     {
         List<string> moduleSerials = null;
-        DataTable configDataTable = null;
-        DataTable realConfigDataTable = null;
-        DataTable inputDataTable = null;
-        DataTable realInputDataTable = null;
+        List<OutputConfigItem> configDataTable = null;
+        List<OutputConfigItem> realConfigDataTable = null;
+        List<InputConfigItem> inputDataTable = null;
+        List<InputConfigItem> realInputDataTable = null;
         bool changed = false;
 
-        public OrphanedSerialsDialog(List<string> serials, DataTable dataTable, DataTable inputDataTable)
+        public OrphanedSerialsDialog(List<string> serials, List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems)
         {
             this.moduleSerials = serials;
-            this.configDataTable = dataTable.Copy();
-            this.realConfigDataTable = dataTable;
-            this.inputDataTable = inputDataTable.Copy();
-            this.realInputDataTable = inputDataTable;
+            this.configDataTable = outputConfigItems.ToArray().ToList();
+            this.realConfigDataTable = outputConfigItems;
+            this.inputDataTable = inputConfigItems.ToArray().ToList();
+            this.realInputDataTable = inputConfigItems;
             InitializeComponent();
             updateOrphanedList();
         }
@@ -33,22 +28,22 @@ namespace MobiFlight.UI.Dialogs
         protected void updateOrphanedList()
         {
             List<String> configSerials = new List<string>();
-            
+
             connectedModulesComboBox.Items.Clear();
             orphanedSerialsListBox.Items.Clear();
 
             foreach (String serial in moduleSerials)
             {
-                connectedModulesComboBox.Items.Add(serial);                
+                connectedModulesComboBox.Items.Add(serial);
             }
 
-            foreach (DataRow row in configDataTable.Rows) {
-                OutputConfigItem cfg = row["settings"] as OutputConfigItem;
-                if (cfg.DisplaySerial != "" && 
-                    cfg.DisplaySerial  != "-" && 
+            foreach (var cfg in configDataTable)
+            {
+                if (cfg.DisplaySerial != "" &&
+                    cfg.DisplaySerial != "-" &&
                     !Joystick.IsJoystickSerial(cfg.DisplaySerial) &&
-                    !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&  
-                    !configSerials.Contains(cfg.DisplaySerial) && 
+                    !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&
+                    !configSerials.Contains(cfg.DisplaySerial) &&
                     !moduleSerials.Contains(cfg.DisplaySerial))
                 {
                     configSerials.Add(cfg.DisplaySerial);
@@ -56,9 +51,8 @@ namespace MobiFlight.UI.Dialogs
                 }
             }
 
-            foreach (DataRow row in inputDataTable.Rows)
+            foreach (var cfg in inputDataTable)
             {
-                InputConfigItem cfg = row["settings"] as InputConfigItem;
                 if (cfg != null &&
                     cfg.ModuleSerial != "" &&
                     cfg.ModuleSerial != "-" &&
@@ -77,23 +71,19 @@ namespace MobiFlight.UI.Dialogs
 
         protected void replaceSerialBySerial(String oldSerial, String newSerial)
         {
-            foreach (DataRow row in configDataTable.Rows)
+            foreach (var cfg in configDataTable)
             {
-                OutputConfigItem cfg = row["settings"] as OutputConfigItem;
                 if (cfg?.DisplaySerial == oldSerial)
                 {
                     cfg.DisplaySerial = newSerial;
-                    row["settings"] = cfg;
                 }
             }
 
-            foreach (DataRow row in inputDataTable.Rows)
+            foreach (var cfg in inputDataTable)
             {
-                InputConfigItem cfg = row["settings"] as InputConfigItem;
                 if (cfg?.ModuleSerial == oldSerial)
                 {
                     cfg.ModuleSerial = newSerial;
-                    row["settings"] = cfg;
                 }
             }
         }
@@ -110,14 +100,14 @@ namespace MobiFlight.UI.Dialogs
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            for (int i=0; i!=realConfigDataTable.Rows.Count;++i)
+            for (int i = 0; i != realConfigDataTable.Count; ++i)
             {
-                realConfigDataTable.Rows[i]["settings"] = configDataTable.Rows[i]["settings"];                
+                realConfigDataTable[i] = configDataTable[i];
             }
 
-            for (int i = 0; i != realInputDataTable.Rows.Count; ++i)
+            for (int i = 0; i != realInputDataTable.Count; ++i)
             {
-                realInputDataTable.Rows[i]["settings"] = inputDataTable.Rows[i]["settings"];
+                realInputDataTable[i] = inputDataTable[i];
             }
             //realConfigDataTable = configDataTable;
             DialogResult = DialogResult.OK;
@@ -132,7 +122,7 @@ namespace MobiFlight.UI.Dialogs
         {
             if (orphanedSerialsListBox.SelectedItem == null || connectedModulesComboBox.SelectedItem == null) return;
 
-            replaceSerialBySerial(orphanedSerialsListBox.SelectedItem.ToString(), 
+            replaceSerialBySerial(orphanedSerialsListBox.SelectedItem.ToString(),
                                   connectedModulesComboBox.SelectedItem.ToString());
             changed = true;
             updateOrphanedList();

@@ -1,14 +1,22 @@
 ﻿using MobiFlight.Frontend;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace MobiFlight
 {
+    [XmlRoot("MobiFlightConnector")]
     public class ConfigFile
     {
+        [XmlElement("outputs")]
+        public List<OutputConfigItem> OutputConfigItems { get; set; } = new List<OutputConfigItem>();
+
+        [XmlElement("inputs")]
+        public List<InputConfigItem> InputConfigItems { get; set; } = new List<InputConfigItem>();
+
+        [XmlIgnore]
         public String FileName { get; set; }
 
         // create read only property to get the output config items
@@ -18,66 +26,22 @@ namespace MobiFlight
         }
 
         System.Xml.XmlDocument xmlConfig = new System.Xml.XmlDocument();
-
         public ConfigFile(String FileName)
         {
             this.FileName = FileName;
         }
-
         public void OpenFile()
         {
             if (FileName == null) throw new Exception("File yet not set");
             xmlConfig.Load(FileName);
+            OutputConfigItems = GetOutputConfigItems();
+            InputConfigItems = GetInputConfigItems();
         }
-
-        public void SaveFile(DataSet outputConfig, DataSet inputConfig)
-        {
-            xmlConfig.RemoveAll();
-            XmlDeclaration xmlDeclaration = xmlConfig.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            xmlConfig.InsertBefore(xmlDeclaration, xmlConfig.DocumentElement);
-
-            XmlElement root = xmlConfig.CreateElement("MobiflightConnector");
-            // Create a new element and add it to the document.
-            StringWriter sw = new StringWriter();
-            outputConfig.WriteXml(sw, XmlWriteMode.IgnoreSchema);
-            string s = sw.ToString();
-            XmlDocument tmpDoc = new XmlDocument();
-            tmpDoc.LoadXml(s);
-
-            XmlElement outputs = xmlConfig.CreateElement("outputs");
-            outputs.InnerXml = tmpDoc.DocumentElement.SelectSingleNode("/outputs").InnerXml;
-
-            sw = new StringWriter();
-            inputConfig.WriteXml(sw, XmlWriteMode.IgnoreSchema);
-            s = sw.ToString();
-            tmpDoc = new XmlDocument();
-            tmpDoc.LoadXml(s);
-
-            XmlElement inputs = xmlConfig.CreateElement("inputs");
-            inputs.InnerXml = tmpDoc.DocumentElement.SelectSingleNode("/inputs").InnerXml;
-
-            root.AppendChild(outputs);
-            root.AppendChild(inputs);
-            xmlConfig.AppendChild(root);
-            xmlConfig.Save(FileName);
-        }
-
-        private XmlReader getConfig(String xpath)
-        {
-            // first try the new way... if this fails try the old way
-            System.Xml.XmlNode outputConfig = xmlConfig.DocumentElement.SelectSingleNode(xpath);
-            if (outputConfig == null) throw new InvalidExpressionException();
-
-            System.IO.StringReader reader = new System.IO.StringReader(outputConfig.OuterXml);
-            System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-            return xReader;
-        }
-
         public List<IConfigItem> GetConfigItems()
         {
             var result = new List<IConfigItem>();
-            GetOutputConfigItems().ForEach(item => result.Add(new OutputConfigItemAdapter(item)));
-            GetInputConfigItems().ForEach(item => result.Add(new InputConfigItemAdapter(item)));
+            OutputConfigItems.ForEach(item => result.Add(new OutputConfigItemAdapter(item)));
+            InputConfigItems.ForEach(item => result.Add(new InputConfigItemAdapter(item)));
 
             return result;
         }
@@ -125,75 +89,76 @@ namespace MobiFlight
             return result;
         }
 
-        public XmlReader getInputConfig()
+        internal void SaveFile(List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems)
         {
-            XmlReader result = null;
-
-            try
+            XmlSerializer serializer = new XmlSerializer(typeof(ConfigFile));
+            using (StreamWriter writer = new StreamWriter(FileName))
             {
-                if (xmlConfig.DocumentElement == null) OpenFile();
-
-                result = getConfig("/MobiflightConnector/inputs");
+                serializer.Serialize(writer, this);
             }
-            catch (InvalidExpressionException e)
-            {
-                throw e;
-            }
-            catch (Exception e)
-            {
-                throw new ConfigErrorException("Error reading config", e);
-            }
-            return result;
         }
 
-        public XmlReader getOutputConfig()
-        {
-            XmlReader result = null;
+        // <summary>
+        // due to the new settings-node there must be some routine to load 
+        // data from legacy config files
+        // </summary>
+        //private void _applyBackwardCompatibilityLoading()
+        //{
+        //    foreach (DataRow row in outputConfigPanel.ConfigDataTable.Rows)
+        //    {
+        //        if (row["settings"].GetType() == typeof(System.DBNull))
+        //        {
+        //            OutputConfigItem cfgItem = new OutputConfigItem();
 
-            bool fallback = false;
-            try
-            {
-                if (xmlConfig.DocumentElement == null) OpenFile();
-                result = getConfig("/MobiflightConnector/outputs");
-            }
-            catch (InvalidExpressionException e)
-            {
-                fallback = true;
-            }
-            catch (Exception e)
-            {
-                throw new ConfigErrorException("Error reading config", e);
-            }
+        //            if (row["fsuipcOffset"].GetType() != typeof(System.DBNull))
+        //                cfgItem.FSUIPC.Offset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
 
-            if (fallback)
-            {
-                fallback = false;
-                // fallback for old configs
-                try
-                {
-                    result = getConfig("/MobiflightConnector");
-                }
-                catch (Exception ex)
-                {
-                    fallback = true;
-                }
-            }
+        //            if (row["fsuipcSize"].GetType() != typeof(System.DBNull))
+        //                cfgItem.FSUIPC.Size = Byte.Parse(row["fsuipcSize"].ToString());
 
-            if (fallback)
-            {
-                fallback = false;
-                // fallback for old configs
-                try
-                {
-                    result = getConfig("/ArcazeUsbConnector");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error: Loading config");
-                }
-            }
+        //            if (row["mask"].GetType() != typeof(System.DBNull))
+        //                cfgItem.FSUIPC.Mask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
 
-            return result;
-        }
+        //             comparison
+        //            if (row["comparison"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.Modifiers.Comparison.Active = true;
+        //                cfgItem.Modifiers.Comparison.Operand = row["comparison"].ToString();
+        //            }
+
+        //            if (row["comparisonValue"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.Modifiers.Comparison.Value = row["comparisonValue"].ToString();
+        //            }
+
+        //            if (row["converter"].GetType() != typeof(System.DBNull))
+        //            {
+        //                if (row["converter"].ToString() == "Boolean")
+        //                {
+        //                    cfgItem.Modifiers.Comparison.IfValue = "1";
+        //                    cfgItem.Modifiers.Comparison.ElseValue = "0";
+        //                }
+        //            }
+
+        //            if (row["trigger"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.DisplayTrigger = row["trigger"].ToString();
+        //            }
+
+        //            if (row["usbArcazePin"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.DisplayType = MobiFlightOutput.TYPE;
+        //                cfgItem.Pin.DisplayPin = row["usbArcazePin"].ToString();
+        //            }
+
+        //            if (row["arcazeSerial"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.DisplaySerial = row["arcazeSerial"].ToString();
+        //            }
+
+        //            row["settings"] = cfgItem;
+        //        }
+        //    }
+        //}
     }
 }
