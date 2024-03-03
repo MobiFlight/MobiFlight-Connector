@@ -23,7 +23,6 @@ export const useAppMessage = (
           (event as MessageEvent).data
         ) as AppMessage
         if (appMessage.key === key) {
-          console.log(`Received AppMessage -> ${appMessage.key}`)
           onReceiveMessage(appMessage)
         }
       } catch (error) {

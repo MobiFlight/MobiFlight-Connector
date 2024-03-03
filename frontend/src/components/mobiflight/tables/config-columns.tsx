@@ -87,6 +87,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const icon = (
         <DeviceIcon variant={(type ?? "default") as DeviceElementType} />
       );
+      console.log("type", type);
       return (
         <div className="flex flex-row items-center gap-2">
           <div>{icon}</div>
@@ -147,11 +148,23 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "RawValue",
     header: "Raw Value",
+    cell: ({ row }) => {
+      const label = row.getValue("RawValue") as string;
+      return (
+        <div className="text-md truncate">{label}</div>
+      )
+    },
   },
   {
     size: 100,
     accessorKey: "ModifiedValue",
     header: "Final Value",
+    cell: ({ row }) => {
+      const label = row.getValue("ModifiedValue") as string;
+      return (
+        <div className="text-md truncate">{label}</div>
+      )
+    },
   },
   {
     size: 80,

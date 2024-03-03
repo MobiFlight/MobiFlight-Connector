@@ -3,6 +3,7 @@ export type DeviceElementType =
   | "Output"
   | "Encoder"
   | "LedModule"
+  | "Display Module"
   | "Stepper"
   | "Servo"
   | "LcdDisplay"
@@ -20,6 +21,7 @@ export const DeviceElementTypes: DeviceElementType[] = [
   "InputMultiplexer",
   "Output",
   "LedModule",
+  "Display Module",
   "Stepper",
   "Servo",
   "LcdDisplay",
