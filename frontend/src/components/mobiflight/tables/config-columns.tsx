@@ -87,7 +87,6 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const icon = (
         <DeviceIcon variant={(type ?? "default") as DeviceElementType} />
       );
-      console.log("type", type);
       return (
         <div className="flex flex-row items-center gap-2">
           <div>{icon}</div>

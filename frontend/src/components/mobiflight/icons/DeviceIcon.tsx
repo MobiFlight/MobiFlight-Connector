@@ -28,7 +28,7 @@ const DeviceIcon = (props: DeviceIconProps) => {
   let icon = <IconQuestionMark className={className}/>
   if (variant === "Output") {
     icon = <IconBulb className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  } else if (variant === "LedModule" || variant === "Display Module") {
+  } else if (variant === "LedModule") {
     icon = <Icon123 className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (variant === "LcdDisplay") {
     icon = <IconAbc className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
