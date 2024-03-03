@@ -1,12 +1,7 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight.Base;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -20,14 +15,14 @@ namespace MobiFlight.UI.Panels.Config
             checkBoxUse.Checked = true;
         }
 
-        public void SetDataView(DataView dv)
+        public void SetDataView(List<OutputConfigItem> outputConfigs)
         {
-            configRefComboBox.DataSource = dv;
-            configRefComboBox.ValueMember = "guid";
-            configRefComboBox.DisplayMember = "description";
+            configRefComboBox.DataSource = outputConfigs;
+            configRefComboBox.ValueMember = "GUID";
+            configRefComboBox.DisplayMember = "Description";
         }
 
-        public void SetPlaceholder (String placeholder)
+        public void SetPlaceholder(String placeholder)
         {
             textBoxPlaceholder.Text = placeholder;
         }
@@ -35,8 +30,9 @@ namespace MobiFlight.UI.Panels.Config
         internal void syncFromConfig(ConfigRef config)
         {
             checkBoxUse.Checked = config.Active;
-            
-            try {
+
+            try
+            {
                 // if we have a null value, it might have happened
                 // that we use to have a reference that got deleted
                 // and the dialog was loaded and saved again.
@@ -49,8 +45,9 @@ namespace MobiFlight.UI.Panels.Config
                     configRefComboBox.Text = "Select reference";
                     errorProvider1.SetError(configRefComboBox, "No valid reference");
                 }
-                else {
-                    configRefComboBox.SelectedValue = config.Ref;                    
+                else
+                {
+                    configRefComboBox.SelectedValue = config.Ref;
                 }
 
                 if (configRefComboBox.SelectedValue == null)
@@ -63,7 +60,7 @@ namespace MobiFlight.UI.Panels.Config
                 // precondition could not be loaded, reference not valid anymore
                 Log.Instance.log($"ConfigRef could not be loaded: {ex.Message}", LogSeverity.Error);
             }
-            
+
             textBoxPlaceholder.Text = config.Placeholder;
             textBoxTestValue.Text = config.TestValue;
         }

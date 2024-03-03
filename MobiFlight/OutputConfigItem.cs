@@ -27,30 +27,30 @@ namespace MobiFlight
 
         // this implements the FSUIPC Config Item Interface
         // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-        public SourceType           SourceType                  { get; set; }
-		public FsuipcOffset         FSUIPC                      { get; set; }
-		public SimConnectValue      SimConnectValue             { get; set; }
-		public MobiFlightVariable   MobiFlightVariable          { get; set; }
+        public SourceType SourceType { get; set; }
+        public FsuipcOffset FSUIPC { get; set; }
+        public SimConnectValue SimConnectValue { get; set; }
+        public MobiFlightVariable MobiFlightVariable { get; set; }
 
-        public XplaneDataRef        XplaneDataRef               { get; set; }
-		public string               Value                       { get; set; }	
+        public XplaneDataRef XplaneDataRef { get; set; }
+        public string Value { get; set; }
 
-        public ConnectorValue       TestValue                   { get; set; }
-        public ModifierList         Modifiers                   { get; set; }
-		public string               DisplayType                 { get; set; }
-		public string               DisplaySerial               { get; set; }
-		public OutputConfig.Pin     Pin                         { get; set; }
-		public OutputConfig.LedModule   LedModule               { get; set; }
-		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
-		public List<string>         BcdPins                     { get; set; }
-        public OutputConfig.Servo   Servo { get; set; }
+        public ConnectorValue TestValue { get; set; }
+        public ModifierList Modifiers { get; set; }
+        public string DisplayType { get; set; }
+        public string DisplaySerial { get; set; }
+        public OutputConfig.Pin Pin { get; set; }
+        public OutputConfig.LedModule LedModule { get; set; }
+        public OutputConfig.LcdDisplay LcdDisplay { get; set; }
+        public List<string> BcdPins { get; set; }
+        public OutputConfig.Servo Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
-        public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
-        public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
-        public string       DisplayTrigger                      { get; set; }
-        public PreconditionList   Preconditions                 { get; set; }
-        public ConfigRefList      ConfigRefs                    { get; set; }     
-        
+        public OutputConfig.ShiftRegister ShiftRegister { get; set; }
+        public OutputConfig.CustomDevice CustomDevice { get; set; } = new OutputConfig.CustomDevice();
+        public string DisplayTrigger { get; set; }
+        public PreconditionList Preconditions { get; set; }
+        public ConfigRefList ConfigRefs { get; set; }
+
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
@@ -78,9 +78,12 @@ namespace MobiFlight
         }
 
         public override bool Equals(object obj)
-        { 
+        {
             return (
                 obj != null && obj is OutputConfigItem &&
+                this.GUID == (obj as OutputConfigItem).GUID &&
+                this.Active == (obj as OutputConfigItem).Active &&
+                this.Description == (obj as OutputConfigItem).Description &&
                 this.DisplayType == (obj as OutputConfigItem).DisplayType &&
                 this.DisplaySerial == (obj as OutputConfigItem).DisplaySerial &&
                 this.SourceType == (obj as OutputConfigItem).SourceType &&
@@ -117,7 +120,7 @@ namespace MobiFlight
                 ((this.ButtonInputConfig == null && (obj as OutputConfigItem).ButtonInputConfig == null) || (
                 this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as OutputConfigItem).ButtonInputConfig))) &&
                 //===
-                ((this.AnalogInputConfig==null&&(obj as OutputConfigItem).AnalogInputConfig == null) || (
+                ((this.AnalogInputConfig == null && (obj as OutputConfigItem).AnalogInputConfig == null) || (
                 this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as OutputConfigItem).AnalogInputConfig)))
             );
         }
@@ -132,14 +135,17 @@ namespace MobiFlight
             if (reader.ReadToDescendant("source"))
             {
                 // try to read it as FSUIPC Offset
-                if (reader["type"] == "SimConnect") {
+                if (reader["type"] == "SimConnect")
+                {
                     SourceType = SourceType.SIMCONNECT;
                     this.SimConnectValue.ReadXml(reader);
-                } else if (reader["type"] == "Variable")
+                }
+                else if (reader["type"] == "Variable")
                 {
                     SourceType = SourceType.VARIABLE;
                     this.MobiFlightVariable.ReadXml(reader);
-                } else if (reader["type"] == "XplaneDataRef")
+                }
+                else if (reader["type"] == "XplaneDataRef")
                 {
                     SourceType = SourceType.XPLANE;
                     this.XplaneDataRef.ReadXml(reader);
@@ -149,7 +155,7 @@ namespace MobiFlight
                     SourceType = SourceType.FSUIPC;
                     this.FSUIPC.ReadXml(reader);
 
-                    if(FSUIPC.OffsetType == FSUIPCOffsetType.String)
+                    if (FSUIPC.OffsetType == FSUIPCOffsetType.String)
                     {
                         // this is a special case for backward compatibility
                         // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
@@ -194,7 +200,8 @@ namespace MobiFlight
             if (reader.LocalName == "modifiers")
             {
                 Modifiers.ReadXml(reader);
-            } else if (reader.LocalName == "comparison")
+            }
+            else if (reader.LocalName == "comparison")
             {
                 // backward compatibility when we have comparison
                 // as a single node instead of modifiers
@@ -349,29 +356,29 @@ namespace MobiFlight
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("source");
-                if (SourceType == SourceType.FSUIPC)
-                    this.FSUIPC.WriteXml(writer);
-                else if (SourceType == SourceType.VARIABLE)
-                    this.MobiFlightVariable.WriteXml(writer);
-                else if (SourceType == SourceType.XPLANE)
-                    this.XplaneDataRef.WriteXml(writer);
-                else
-                    this.SimConnectValue.WriteXml(writer);
+            if (SourceType == SourceType.FSUIPC)
+                this.FSUIPC.WriteXml(writer);
+            else if (SourceType == SourceType.VARIABLE)
+                this.MobiFlightVariable.WriteXml(writer);
+            else if (SourceType == SourceType.XPLANE)
+                this.XplaneDataRef.WriteXml(writer);
+            else
+                this.SimConnectValue.WriteXml(writer);
             writer.WriteEndElement();
 
             writer.WriteStartElement("test");
-                writer.WriteAttributeString("type", TestValue.type.ToString());
-                writer.WriteAttributeString("value", TestValue.ToString());
+            writer.WriteAttributeString("type", TestValue.type.ToString());
+            writer.WriteAttributeString("value", TestValue.ToString());
             writer.WriteEndElement();
 
             Modifiers.WriteXml(writer);
 
             writer.WriteStartElement("display");
-                writer.WriteAttributeString("type", DisplayType);
-                writer.WriteAttributeString("serial", DisplaySerial);
+            writer.WriteAttributeString("type", DisplayType);
+            writer.WriteAttributeString("serial", DisplaySerial);
 
-                if ( DisplayTrigger != null)
-                    writer.WriteAttributeString("trigger", DisplayTrigger);
+            if (DisplayTrigger != null)
+                writer.WriteAttributeString("trigger", DisplayTrigger);
 
             if (DisplayType == ArcazeLedDigit.TYPE)
             {
@@ -422,7 +429,7 @@ namespace MobiFlight
             {
                 Pin.WriteXml(writer);
             }
-                                
+
             writer.WriteEndElement(); // end of display
 
             Preconditions.WriteXml(writer);
@@ -438,41 +445,44 @@ namespace MobiFlight
         public object Clone()
         {
             OutputConfigItem clone = new OutputConfigItem();
-            clone.SourceType                = this.SourceType;
-            clone.FSUIPC                    = this.FSUIPC.Clone() as FsuipcOffset;
-            clone.SimConnectValue           = this.SimConnectValue.Clone() as SimConnectValue;
-            clone.MobiFlightVariable        = this.MobiFlightVariable.Clone() as MobiFlightVariable;
-            clone.XplaneDataRef             = this.XplaneDataRef.Clone() as XplaneDataRef;
+            clone.GUID = GUID;
+            clone.Active = Active;
+            clone.Description = Description;
+            clone.SourceType = this.SourceType;
+            clone.FSUIPC = this.FSUIPC.Clone() as FsuipcOffset;
+            clone.SimConnectValue = this.SimConnectValue.Clone() as SimConnectValue;
+            clone.MobiFlightVariable = this.MobiFlightVariable.Clone() as MobiFlightVariable;
+            clone.XplaneDataRef = this.XplaneDataRef.Clone() as XplaneDataRef;
 
 
             //clone.Transform                 = this.Transform.Clone() as Transformation;
             //clone.Comparison                = this.Comparison.Clone() as Comparison;
 
-            clone.DisplayType               = this.DisplayType;
-            clone.DisplaySerial             = this.DisplaySerial;
+            clone.DisplayType = this.DisplayType;
+            clone.DisplaySerial = this.DisplaySerial;
 
-            clone.LedModule                 = this.LedModule.Clone() as OutputConfig.LedModule;
+            clone.LedModule = this.LedModule.Clone() as OutputConfig.LedModule;
 
-            clone.Pin                       = this.Pin.Clone() as OutputConfig.Pin;
-            
-            clone.BcdPins                   = new List<string>(this.BcdPins);
+            clone.Pin = this.Pin.Clone() as OutputConfig.Pin;
 
-            clone.DisplayTrigger            = this.DisplayTrigger;
-            clone.Servo                     = Servo.Clone() as OutputConfig.Servo;
-            clone.Stepper                   = Stepper.Clone() as OutputConfig.Stepper;
+            clone.BcdPins = new List<string>(this.BcdPins);
 
-            clone.ShiftRegister             = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
-            clone.CustomDevice              = CustomDevice.Clone() as OutputConfig.CustomDevice;
+            clone.DisplayTrigger = this.DisplayTrigger;
+            clone.Servo = Servo.Clone() as OutputConfig.Servo;
+            clone.Stepper = Stepper.Clone() as OutputConfig.Stepper;
 
-            clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
-            clone.Preconditions             = Preconditions.Clone() as PreconditionList;
+            clone.ShiftRegister = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
+            clone.CustomDevice = CustomDevice.Clone() as OutputConfig.CustomDevice;
 
-            clone.ConfigRefs                = ConfigRefs.Clone() as ConfigRefList;
-            clone.ButtonInputConfig         = this.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
-            clone.AnalogInputConfig         = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
+            clone.LcdDisplay = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
+            clone.Preconditions = Preconditions.Clone() as PreconditionList;
 
-            clone.Modifiers                 = this.Modifiers.Clone() as ModifierList;
-            clone.TestValue                 = this.TestValue.Clone() as ConnectorValue;
+            clone.ConfigRefs = ConfigRefs.Clone() as ConfigRefList;
+            clone.ButtonInputConfig = this.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
+            clone.AnalogInputConfig = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
+
+            clone.Modifiers = this.Modifiers.Clone() as ModifierList;
+            clone.TestValue = this.TestValue.Clone() as ConnectorValue;
             return clone;
         }
     }

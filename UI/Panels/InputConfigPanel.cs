@@ -1,13 +1,9 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.BrowserMessages;
-using MobiFlight.Frontend;
-using MobiFlight.UI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -16,7 +12,6 @@ namespace MobiFlight.UI.Panels
     {
         public event EventHandler SettingsChanged;
         public event EventHandler SettingsDialogRequested;
-        delegate void OpenConfigWizardForIdCallback(string guid);
 
         private int lastClickedRow = -1;
         private List<String> SelectedGuids = new List<String>();
@@ -63,54 +58,8 @@ namespace MobiFlight.UI.Panels
 
             DropTimer.Interval = 400;
             DropTimer.Tick += DropTimer_Tick;
-
-            MessageExchange.Instance.Subscribe<Message<ConfigItem>>(message =>
-            {
-                if (message.key != "config.edit") return;
-                OpenConfigWizardForId(message.payload.GUID);
-            });
         }
 
-        private void _editConfigWithInputWizard(DataRow dataRow, InputConfigItem cfg, bool create)
-        {
-            // refactor!!! dependency to arcaze cache etc not nice
-            InputConfigWizard wizard = new InputConfigWizard(
-                                ExecutionManager,
-                                cfg,
-#if ARCAZE
-                                ExecutionManager.getModuleCache(),
-                                ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
-#endif
-                                OutputDataSetConfig,
-                                dataRow["guid"].ToString(),
-                                dataRow["description"].ToString()
-                                )
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
-
-            wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
-            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (dataRow == null) return;
-
-                if (wizard.ConfigHasChanged())
-                {
-                    // we have to update the config
-                    // using the duplicated config 
-                    // that the user edited with the wizard
-                    dataRow["settings"] = wizard.Config;
-                    SettingsChanged?.Invoke(cfg, null);
-                    RestoreValuesInGridView();
-                }
-            };
-
-            MessageExchange.Instance.Subscribe<Message<IConfigItem>>(message =>
-            {
-                if (message.key != "config.edit") return;
-                OpenConfigWizardForId(message.payload.GUID);
-            });
-        }
 
         void wizard_SettingsDialogRequested(object sender, EventArgs e)
         {
@@ -119,24 +68,7 @@ namespace MobiFlight.UI.Panels
 
         }
 
-        private void OpenConfigWizardForId(string guid)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new OpenConfigWizardForIdCallback(OpenConfigWizardForId), new object[] { guid });
-                return;
-            }
 
-            var dataRow = inputsDataTable.Select($"guid = '{guid}'").FirstOrDefault();
-            if (dataRow == null) return;
-
-            var cfg = dataRow["settings"] as InputConfigItem;
-            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
-            System.Threading.SynchronizationContext.Current.Post((_) =>
-            {
-                _editConfigWithInputWizard(dataRow, cfg, false);
-            }, null);
-        }
 
         /// <summary>
         /// enables the save button in toolbar after the user has changed config data
@@ -155,49 +87,7 @@ namespace MobiFlight.UI.Panels
         /// <param name="e"></param>
         private void inputsDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            // handle clicks on header cells or row-header cells
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            switch (inputsDataGridView[e.ColumnIndex, e.RowIndex].OwningColumn.Name)
-            {
-                case "inputEditButtonColumn":
-                    bool isNew = inputsDataGridView.Rows[e.RowIndex].IsNewRow;
-                    if (isNew)
-                    {
-                        MessageBox.Show(i18n._tr("uiMessageConfigLineNotSavedYet"),
-                                        i18n._tr("Hint"));
-                        return;
-                    } //if
-
-                    InputConfigItem cfg;
-                    bool create = false;
-                    DataRow row = (inputsDataGridView.Rows[e.RowIndex].DataBoundItem as DataRowView)?.Row;
-
-                    if (row == null)
-                        break;
-
-                    // the row had been saved but no config object has been created
-                    // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                    if (row["settings"].GetType() == typeof(System.DBNull))
-                    {
-                        row["settings"] = new InputConfigItem();
-                    }
-
-                    cfg = row["settings"] as InputConfigItem;
-
-                    _editConfigWithInputWizard(
-                             row,
-                             cfg,
-                             create);
-
-                    inputsDataGridView.EndEdit();
-                    break;
-
-                case "inputActive":
-                    // always end editing to store changes
-                    inputsDataGridView.EndEdit();
-                    break;
-            }
         }
 
         /// <summary>
@@ -398,45 +288,7 @@ namespace MobiFlight.UI.Panels
             }
             else if (e.KeyCode == Keys.Return)
             {
-                // handle clicks on header cells or row-header cells
-                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
-
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-
-                if (!dgv.CurrentRow.Cells[cellIndex].IsInEditMode)
-                {
-                    if (dgv.Name == inputsDataGridView.Name)
-                    {
-                        dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
-
-                        InputConfigItem cfg;
-                        DataRow row = null;
-                        bool create = false;
-
-                        if (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem == null)
-                        {
-                            return;
-                        }
-
-                        row = (inputsDataGridView.Rows[dgv.CurrentRow.Index].DataBoundItem as DataRowView).Row;
-
-                        // the row had been saved but no config object has been created
-                        // TODO: move this logic to an appropriate event, e.g. when leaving the gridrow focus of the new row
-                        if (row["settings"].GetType() == typeof(System.DBNull))
-                        {
-                            row["settings"] = new InputConfigItem();
-                        }
-
-                        cfg = row["settings"] as InputConfigItem;
-
-                        _editConfigWithInputWizard(
-                                 row,
-                                 cfg,
-                                 create);
-                        inputsDataGridView.EndEdit();
-                    }
-                }
+                // Removed the double cell click event
             }
             else if (e.KeyCode == Keys.V && e.Control)
             {
