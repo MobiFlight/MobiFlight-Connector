@@ -1,12 +1,9 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Config;
 using MobiFlight.InputConfig;
-using MobiFlight.OutputConfig;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.OutputWizard
@@ -48,9 +45,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
             InitializeComponent();
         }
 
-        public void SetConfigRefsDataView(DataView dv, string filterGuid)
+        public void SetConfigRefsDataView(List<OutputConfigItem> outputConfigs, string filterGuid)
         {
-            displayLedDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
+            displayLedDisplayPanel.SetConfigRefsDataView(outputConfigs, filterGuid);
         }
 
         public bool ConfigHasChanged()
@@ -61,7 +58,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         public void Init(ExecutionManager executionManager)
         {
             _execManager = executionManager;
-            _initDisplayPanels();            
+            _initDisplayPanels();
         }
 
         public void SetModules(List<ListItem> ModuleList)
@@ -94,8 +91,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayPanelHeight = 0;
             displayLcdDisplayPanel.AutoSize = false;
 
-            displayPanels.ForEach(control => { 
-                groupBoxDisplaySettings.Controls.Add (control);
+            displayPanels.ForEach(control =>
+            {
+                groupBoxDisplaySettings.Controls.Add(control);
                 control.Dock = DockStyle.Top;
 
                 if (control.Height > 0 && (control.Height > displayPanelHeight)) displayPanelHeight = control.Height;
@@ -198,7 +196,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
         }
         internal void syncToConfig()
         {
-            if (OutputTypeIsDisplay()) 
+            if (OutputTypeIsDisplay())
             {
                 if (displayTypeComboBox.SelectedItem == null) return;
 
@@ -242,7 +240,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 }
             }
             else if (OutputTypeIsInputAction())
-            { 
+            {
                 config.DisplayType = "InputAction";
 
                 if (analogPanel1.Enabled)
@@ -251,7 +249,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     analogPanel1.ToConfig(tmpConfig);
                     config.AnalogInputConfig = tmpConfig;
                     config.ButtonInputConfig = null;
-                } else
+                }
+                else
                 {
                     ButtonInputConfig tmpConfig = new ButtonInputConfig();
                     buttonPanel1.ToConfig(tmpConfig);
@@ -303,9 +302,9 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // type of module
                 else if (serial.IndexOf("SN") != 0)
                 {
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" } );
-                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE } );
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE } );
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                    deviceTypeOptions.Add(new ListItem() { Value = ArcazeLedDigit.TYPE, Label = ArcazeLedDigit.TYPE });
+                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
                 }
                 // update the available types depending on the 
                 // type of module
@@ -314,7 +313,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     MobiFlightModule module = _execManager.getMobiFlightModuleCache()
                                                           .GetModuleBySerial(serial);
 
-                    if (module != null) { 
+                    if (module != null)
+                    {
                         foreach (DeviceType devType in module.GetConnectedOutputDeviceTypes())
                         {
                             switch (devType)
@@ -342,7 +342,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
                                 case DeviceType.CustomDevice:
                                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightCustomDevice.TYPE, Label = MobiFlightCustomDevice.TYPE });
-                                break;
+                                    break;
 
                                 case DeviceType.ShiftRegister:
                                     deviceTypeOptions.Add(new ListItem() { Value = MobiFlightShiftRegister.TYPE, Label = MobiFlightShiftRegister.TYPE });
@@ -494,8 +494,8 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 displayPinPanel.Enabled = panelEnabled;
                 displayPinPanel.Height = displayPanelHeight;
-            } 
-            
+            }
+
             else if (SelectedItemValue == ArcazeBcd4056.TYPE)
             {
                 displayBcdPanel.Enabled = panelEnabled;
@@ -563,7 +563,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             List<ListItem<MobiFlightCustomDevice>> customDevices = new List<ListItem<MobiFlightCustomDevice>>();
 
 
-            if (module!=null)
+            if (module != null)
             {
                 foreach (IConnectedDevice device in module.GetConnectedDevices())
                 {
@@ -732,7 +732,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     var maxdigits = 8;
 
                     if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_4DIGIT) { maxdigits = 4; }
-                    else 
+                    else
                     if (dev.ModelType == MobiFlight.Config.LedModule.MODEL_TYPE_TM1637_6DIGIT) { maxdigits = 6; }
 
                     for (int i = 2; i < maxdigits; i++)
@@ -759,11 +759,12 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 MobiFlightModule module = _execManager.getMobiFlightModuleCache()
                                                       .GetModuleBySerial(serial);
 
-                if (module == null) {
+                if (module == null)
+                {
                     // we want to execute the catch block below
                     // GetModuleBySerial used to throw this exception
                     // see #1157
-                    throw new IndexOutOfRangeException(); 
+                    throw new IndexOutOfRangeException();
                 }
 
                 MobiFlightStepper stepper = module.GetStepper(stepperAddress);
@@ -776,7 +777,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 // the module with that serial is currently not connected
                 // so we cannot lookup anything sensible
                 Log.Instance.log($"Trying to show stepper config but module {config.DisplaySerial} is not connected. Using default profile.", LogSeverity.Error);
-                stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p=>p.Value.id == 0).Value);
+                stepperPanel.setStepperProfile(MFStepperPanel.Profiles.Find(p => p.Value.id == 0).Value);
             }
         }
 
@@ -826,7 +827,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             int numModules = 0;
 
-            if(module!= null)
+            if (module != null)
             {
                 foreach (IConnectedDevice device in module.GetConnectedDevices())
                 {
@@ -835,7 +836,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                     numModules = (device as MobiFlightShiftRegister).NumberOfShifters;
                 }
             }
-            
+
             displayShiftRegisterPanel.SetNumModules(numModules);
         }
 
@@ -870,7 +871,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 {
                     Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Error);
                     e.Cancel = true;
-                    
+
                     displayLedDisplayPanel.displayLedAddressComboBox.Focus();
                     displayError(displayLedDisplayPanel.displayLedAddressComboBox, i18n._tr("uiMessageConfigWizard_ProvideLedDisplayAddress"));
                     DisplayPanelValidatingError?.Invoke(this, EventArgs.Empty);
@@ -923,7 +924,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 InputTypeButtonRadioButton.Checked = config.AnalogInputConfig?.onChange == null;
                 InputTypeAnalogRadioButton.Checked = config.AnalogInputConfig?.onChange != null;
-            } 
+            }
         }
 
         private void InputTypeButtonRadioButton_CheckedChanged(object sender, EventArgs e)

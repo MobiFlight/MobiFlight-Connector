@@ -21,11 +21,14 @@ using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System.IO;
 using MobiFlight.BrowserMessages;
+using MobiFlight.Frontend;
 
 namespace MobiFlight.UI
 {
     public partial class MainForm : Form
     {
+        delegate void OpenInputConfigWizardForIdCallback(string guid);
+        delegate void OpenOutputConfigWizardForIdCallback(string guid);
         private delegate void UpdateAircraftCallback(string aircraftName);
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
@@ -160,6 +163,129 @@ namespace MobiFlight.UI
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
             //startupPanel.Dock = DockStyle.Fill;
+
+            MessageExchange.Instance.Subscribe<Message<ConfigItem>>(message =>
+            {
+                if (message.key != "config.edit") return;
+                OpenInputConfigWizardForId(message.payload.GUID);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<ConfigItem>>(message =>
+            {
+                if (message.key != "config.edit") return;
+                OpenOutputConfigWizardForId(message.payload.GUID);
+            });
+        }
+
+        private void OpenOutputConfigWizardForId(string guid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new OpenOutputConfigWizardForIdCallback(OpenOutputConfigWizardForId), new object[] { guid });
+                return;
+            }
+
+            var cfg = execManager.OutputConfigItems.Find(c => c.GUID == guid);
+            if (cfg == null) return;
+
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
+            {
+                EditConfigWithWizard(cfg, false);
+            }, null);
+        }
+
+        private void EditConfigWithWizard(OutputConfigItem cfg, bool create)
+        {
+            // refactor!!! dependency to arcaze cache etc not nice
+            ConfigWizard wizard = new ConfigWizard(execManager,
+                                            cfg,
+#if ARCAZE
+                                            execManager.getModuleCache(),
+                                            execManager.getModuleCache().GetArcazeModuleSettings(),
+#endif
+                                            execManager.OutputConfigItems,
+                                            cfg.GUID,
+                                            cfg.Description
+                                          )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+            wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
+
+            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (wizard.ConfigHasChanged())
+                {
+                    // we have to update the config
+                    // using the duplicated config 
+                    // that the user edited with the wizard
+                    var index = execManager.OutputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
+                    execManager.OutputConfigItems[index] = wizard.Config;
+                    OutputConfigPanel_SettingsChanged(wizard.Config, null);
+
+
+                    var config = new OutputConfigItemAdapter(wizard.Config);
+                    var message = new Message<IConfigItem>("config.update", config);
+                    MessageExchange.Instance.Publish(message);
+                }
+            };
+        }
+
+        private void OpenInputConfigWizardForId(string guid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new OpenInputConfigWizardForIdCallback(OpenInputConfigWizardForId), new object[] { guid });
+                return;
+            }
+
+            var cfg = execManager.InputConfigItems.Find(c => c.GUID == guid);
+            if (cfg == null) return;
+
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
+            {
+                _editConfigWithInputWizard(cfg, false);
+            }, null);
+        }
+
+        private void _editConfigWithInputWizard(InputConfigItem cfg, bool create)
+        {
+            // refactor!!! dependency to arcaze cache etc not nice
+            InputConfigWizard wizard = new InputConfigWizard(
+                                execManager,
+                                cfg,
+#if ARCAZE
+                                execManager.getModuleCache(),
+                                execManager.getModuleCache().GetArcazeModuleSettings(),
+#endif
+                                execManager.OutputConfigItems,
+                                cfg.GUID,
+                                cfg.Description
+                                )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+
+            wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
+            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (wizard.ConfigHasChanged())
+                {
+                    // we have to update the config
+                    // using the duplicated config 
+                    // that the user edited with the wizard
+                    var index = execManager.InputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
+                    execManager.InputConfigItems[index] = wizard.Config;
+
+                    var config = new InputConfigItemAdapter(wizard.Config);
+                    var message = new Message<IConfigItem>("config.update", config);
+                    MessageExchange.Instance.Publish(message);
+
+                    InputConfigPanel_SettingsChanged(cfg, null);
+                }
+            };
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
