@@ -1,4 +1,5 @@
-﻿using MobiFlight.Frontend;
+﻿using MobiFlight.Base;
+using MobiFlight.Frontend;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,12 +21,16 @@ namespace MobiFlight
         public String FileName { get; set; }
 
         // create read only property to get the output config items
+        [XmlIgnore]
         public List<IConfigItem> ConfigItems
         {
             get { return GetConfigItems(); }
         }
 
         System.Xml.XmlDocument xmlConfig = new System.Xml.XmlDocument();
+
+        public ConfigFile() { }
+
         public ConfigFile(String FileName)
         {
             this.FileName = FileName;
@@ -33,6 +38,7 @@ namespace MobiFlight
         public void OpenFile()
         {
             if (FileName == null) throw new Exception("File yet not set");
+
             xmlConfig.Load(FileName);
             OutputConfigItems = GetOutputConfigItems();
             InputConfigItems = GetInputConfigItems();
@@ -89,12 +95,27 @@ namespace MobiFlight
             return result;
         }
 
-        internal void SaveFile(List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems)
+        public void SaveFile()
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(ConfigFile));
+            SaveFile(OutputConfigItems, InputConfigItems);
+        }
+
+        private void SaveFile(List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(ConfigFileWrapperXML));
+            XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+            namespaces.Add("", "");
+            //namespaces.Add("xsd", "https://www.w3.org/2001/XMLSchema");
+
+            var XmlConfig = new ConfigFileWrapperXML();
+            XmlConfig.outputConfigs = new List<OutputConfigFileXmlElement>();
+            outputConfigItems.ForEach(item => XmlConfig.outputConfigs.Add(new OutputConfigFileXmlElement() { guid = item.GUID, active = item.Active, description = item.Description, settings = item }));
+            XmlConfig.inputConfigs = new List<InputConfigFileXmlElement>();
+            inputConfigItems.ForEach(item => XmlConfig.inputConfigs.Add(new InputConfigFileXmlElement() { guid = item.GUID, active = item.Active, description = item.Description, settings = item }));
+
             using (StreamWriter writer = new StreamWriter(FileName))
             {
-                serializer.Serialize(writer, this);
+                serializer.Serialize(writer, XmlConfig, namespaces);
             }
         }
 

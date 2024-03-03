@@ -1863,13 +1863,14 @@ namespace MobiFlight.UI
             // TODO: outputConfigPanel.ApplyBackwardCompatibilitySaving();
 
             ConfigFile configFile = new ConfigFile(fileName);
+            configFile.OutputConfigItems = execManager.OutputConfigItems;
+            configFile.InputConfigItems = execManager.InputConfigItems;
 
             // Issue 1401: Saving the file can result in an UnauthorizedAccessException, so catch any
             // errors during save and show it in a dialog instead of crashing.
             try
             {
-                configFile.SaveFile(execManager.OutputConfigItems, execManager.InputConfigItems);
-                // configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
+                configFile.SaveFile();
             }
             catch (Exception ex)
             {
