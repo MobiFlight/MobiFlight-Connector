@@ -34,7 +34,7 @@ export const DeviceElementRequiredPins: { [key in DeviceElementType]: { Pins: nu
   "InputShiftRegister": { Pins: 4, PwmPins: 0 },
   "InputMultiplexer": { Pins: 4, PwmPins: 0 },
   "Output": { Pins: 1, PwmPins: 0 },
-  "LedModule": { Pins: 1, PwmPins: 0 },
+  "LedModule": { Pins: 4, PwmPins: 0 },
   "Stepper": { Pins: 4, PwmPins: 0 },
   "Servo": { Pins: 1, PwmPins: 1 },
   "LcdDisplay": { Pins: 0, PwmPins: 0, i2c: true},

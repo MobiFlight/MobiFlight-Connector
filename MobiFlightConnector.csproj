@@ -233,6 +233,7 @@
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
+    <Compile Include="Base\ConfigFileWrapperXML.cs" />
     <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\ConfigRefList.cs" />
     <Compile Include="Base\DPIUtil.cs" />

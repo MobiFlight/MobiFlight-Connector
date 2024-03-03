@@ -14,7 +14,7 @@ namespace MobiFlight
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");   
+        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
         public const String TYPE_NOTSET = "-";
         public const String TYPE_BUTTON = MobiFlightButton.TYPE;
@@ -70,7 +70,8 @@ namespace MobiFlight
                 result.AddRange(inputShiftRegister.GetInputActionsByType(type));
             }
 
-            if (inputMultiplexer != null) {
+            if (inputMultiplexer != null)
+            {
                 result.AddRange(inputMultiplexer.GetInputActionsByType(type));
             }
             return result;
@@ -152,7 +153,7 @@ namespace MobiFlight
                         Preconditions.Add(tmp);
                     } while (reader.LocalName == "precondition");
                 }
-                if (reader.NodeType != XmlNodeType.EndElement) 
+                if (reader.NodeType != XmlNodeType.EndElement)
                     reader.Read(); // this should be the corresponding "end" node
 
                 if (reader.NodeType == XmlNodeType.EndElement)
@@ -237,6 +238,9 @@ namespace MobiFlight
         public object Clone()
         {
             InputConfigItem clone = new InputConfigItem();
+            clone.GUID = GUID;
+            clone.Active = Active;
+            clone.Description = Description;
             clone.ModuleSerial = ModuleSerial;
             clone.Name = Name;
             clone.Type = Type;
@@ -277,7 +281,7 @@ namespace MobiFlight
             switch (Type)
             {
                 case TYPE_BUTTON:
-                    if (button != null)                
+                    if (button != null)
                         button.execute(cacheCollection, e, configRefs);
                     break;
                 case TYPE_ENCODER:
@@ -299,7 +303,7 @@ namespace MobiFlight
                     if (analog != null)
                         analog.execute(cacheCollection, e, configRefs);
                     break;
-            }            
+            }
         }
 
         public Dictionary<String, int> GetStatistics()
@@ -313,7 +317,8 @@ namespace MobiFlight
                 if (button != null)
                     result = button?.GetStatistics();
 
-            } else if (Type == TYPE_ENCODER)
+            }
+            else if (Type == TYPE_ENCODER)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
@@ -334,18 +339,22 @@ namespace MobiFlight
         public override bool Equals(object obj)
         {
             bool areSame = (obj != null && obj is InputConfigItem) &&
+                            GUID == (obj as InputConfigItem).GUID &&
+                            Active == (obj as InputConfigItem).Active &&
+                            Description == (obj as InputConfigItem).Description &&
                             ModuleSerial == (obj as InputConfigItem).ModuleSerial &&
                             Name == (obj as InputConfigItem).Name &&
                             Type == (obj as InputConfigItem).Type;
 
-            if (areSame) {
+            if (areSame)
+            {
                 areSame = areSame && ((button == null && (obj as InputConfigItem).button == null) || (button != null && button.Equals((obj as InputConfigItem).button)));
                 areSame = areSame && ((encoder == null && (obj as InputConfigItem).encoder == null) || (encoder != null && encoder.Equals((obj as InputConfigItem).encoder)));
                 areSame = areSame && ((analog == null && (obj as InputConfigItem).analog == null) || (analog != null && analog.Equals((obj as InputConfigItem).analog)));
                 areSame = areSame && ((inputShiftRegister == null && (obj as InputConfigItem).inputShiftRegister == null) || (inputShiftRegister != null && inputShiftRegister.Equals((obj as InputConfigItem).inputShiftRegister)));
                 areSame = areSame && ((inputMultiplexer == null && (obj as InputConfigItem).inputMultiplexer == null) || (inputMultiplexer != null && inputMultiplexer.Equals((obj as InputConfigItem).inputMultiplexer)));
 
-                areSame = areSame && 
+                areSame = areSame &&
                             Preconditions.Equals((obj as InputConfigItem).Preconditions) &&
                             ConfigRefs.Equals((obj as InputConfigItem).ConfigRefs);
             }

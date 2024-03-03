@@ -1,13 +1,9 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.BrowserMessages;
-using MobiFlight.Frontend;
-using MobiFlight.UI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -16,7 +12,6 @@ namespace MobiFlight.UI.Panels
     {
         public event EventHandler SettingsChanged;
         public event EventHandler SettingsDialogRequested;
-        delegate void OpenConfigWizardForIdCallback(string guid);
         private object[] EditedItem = null;
 
         private int lastClickedRow = -1;
@@ -49,17 +44,18 @@ namespace MobiFlight.UI.Panels
             dataGridViewConfig.Columns["EditButtonColumn"].DefaultCellStyle.NullValue = "...";
 
             dataGridViewConfig.RowsAdded += new DataGridViewRowsAddedEventHandler(DataGridViewConfig_RowsAdded);
-            
+
             configDataTable.RowChanged += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
             configDataTable.RowDeleted += new DataRowChangeEventHandler(ConfigDataTable_RowChanged);
-            configDataTable.TableCleared += new DataTableClearEventHandler((o,a)=> { SettingsChanged?.Invoke(this, null); });
+            configDataTable.TableCleared += new DataTableClearEventHandler((o, a) => { SettingsChanged?.Invoke(this, null); });
 
             Helper.DoubleBufferedDGV(dataGridViewConfig, true);
 
             DropTimer.Interval = 400;
             DropTimer.Tick += DropTimer_Tick;
 
-            dataGridViewConfig.SelectionChanged += (s, e) => {
+            dataGridViewConfig.SelectionChanged += (s, e) =>
+            {
                 if (testToolStripMenuItem.Checked)
                 {
                     // this disables the currently tested item
@@ -69,12 +65,6 @@ namespace MobiFlight.UI.Panels
                 var AtLeastOneRowSelectedAndNotLastRow = dataGridViewConfig.SelectedRows.Count > 0 && !dataGridViewConfig.SelectedRows[0].IsNewRow;
                 testToolStripMenuItem.Enabled = AtLeastOneRowSelectedAndNotLastRow;
             };
-
-            MessageExchange.Instance.Subscribe<Message<ConfigItem>>(message =>
-            {
-                if (message.key != "config.edit") return;
-                OpenConfigWizardForId(message.payload.GUID);
-            });
         }
 
         public ExecutionManager ExecutionManager { get; set; }
@@ -224,12 +214,12 @@ namespace MobiFlight.UI.Panels
         {
             lastClickedRow = e.RowIndex;
 
-            if (e.Button == MouseButtons.Right) 
+            if (e.Button == MouseButtons.Right)
             {
-                if (dataGridViewConfig.IsCurrentCellInEditMode) return; 
+                if (dataGridViewConfig.IsCurrentCellInEditMode) return;
 
                 dataGridViewConfig.EndEdit();
-                
+
                 if (e.RowIndex != -1)
                 {
                     if (!(sender as DataGridView).Rows[e.RowIndex].Selected)
@@ -245,7 +235,8 @@ namespace MobiFlight.UI.Panels
                     // the current one becomes selected in any case
                     (sender as DataGridView).Rows[e.RowIndex].Selected = true;
                 }
-            } else
+            }
+            else
             {
                 if (e.RowIndex == -1)
                 {
@@ -300,8 +291,8 @@ namespace MobiFlight.UI.Panels
                 // duplicate row 
                 // link to new config item 
                 DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
-                if (currentRow == null) continue; 
-                
+                if (currentRow == null) continue;
+
                 DataRow newRow = configDataTable.NewRow();
 
                 foreach (DataColumn col in configDataTable.Columns)
@@ -351,7 +342,7 @@ namespace MobiFlight.UI.Panels
         {
             DataGridView dgv = (sender as DataGridView);
             int cellIndex = 2;
-            
+
             // do something
             // toggle active if current key is a simple character
             if (e.KeyCode.ToString().Length == 1 && !e.Control)
@@ -367,7 +358,7 @@ namespace MobiFlight.UI.Panels
                     dgv.BeginEdit(true);
                     if (e.KeyCode != Keys.F2)
                     {
-                        
+
                         (dgv.EditingControl as TextBox).Text = (e.Shift || Control.IsKeyLocked(Keys.CapsLock)) ? e.KeyCode.ToString() : e.KeyCode.ToString().ToLower();
                         (dgv.EditingControl as TextBox).Select(1, 0);
                     }
@@ -518,61 +509,12 @@ namespace MobiFlight.UI.Panels
         /// <param name="create"></param>
         private void EditConfigWithWizard(DataRow dataRow, OutputConfigItem cfg, bool create)
         {
-            // refactor!!! dependency to arcaze cache etc not nice
-            ConfigWizard wizard = new ConfigWizard(ExecutionManager,
-                                            cfg,
-#if ARCAZE
-                                            ExecutionManager.getModuleCache(),
-                                            ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
-#endif
-                                            dataSetConfig,
-                                            dataRow["guid"].ToString(),
-                                            dataRow["description"].ToString()
-                                          )
-            {
-                StartPosition = FormStartPosition.CenterParent
-            };
-            wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
 
-            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (dataRow == null) return;
-
-                if (wizard.ConfigHasChanged()) {
-                    // we have to update the config
-                    // using the duplicated config 
-                    // that the user edited with the wizard
-                    dataRow["settings"] = wizard.Config;
-                    SettingsChanged?.Invoke(wizard.Config, null);
-
-                    var config = new OutputConfigItemAdapter(wizard.Config);
-                    config.GUID = dataRow["guid"].ToString();
-                    config.Description = dataRow["description"].ToString();
-                    config.Active = (bool)dataRow["active"];
-                    var message = new Message<IConfigItem>("config.update", config);
-                    MessageExchange.Instance.Publish(message);
-                    
-                    RestoreValuesInGridView();
-                }
-            };
         }
 
         private void OpenConfigWizardForId(string guid)
         {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new OpenConfigWizardForIdCallback(OpenConfigWizardForId), new object[] { guid });
-                return;
-            }
 
-            var dataRow = configDataTable.Select($"guid = '{guid}'").FirstOrDefault();
-            if (dataRow == null) return;
-
-            var cfg = dataRow["settings"] as OutputConfigItem;
-            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
-            System.Threading.SynchronizationContext.Current.Post((_) => {
-                EditConfigWithWizard(dataRow, cfg, false);
-            }, null);
         }
 
         void wizard_SettingsDialogRequested(object sender, EventArgs e)
@@ -587,10 +529,10 @@ namespace MobiFlight.UI.Panels
         /// </summary>        
         void ConfigDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            if (e.Action==DataRowAction.Add ||
+            if (e.Action == DataRowAction.Add ||
                 //e.Action == DataRowAction.Change ||
-                e.Action == DataRowAction.Delete) 
-                    SettingsChanged?.Invoke(sender, null);
+                e.Action == DataRowAction.Delete)
+                SettingsChanged?.Invoke(sender, null);
 
         } //configDataTable_RowChanged
 
@@ -611,14 +553,14 @@ namespace MobiFlight.UI.Panels
         }
 
         private void ActivateAutoColumnWidth()
-        {                   
+        {
             dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void DeactivateAutoColumnWidth()
-        {                   
+        {
             dataGridViewConfig.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewConfig.Columns["OutputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewConfig.Columns["OutputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
@@ -645,7 +587,7 @@ namespace MobiFlight.UI.Panels
                     if (cfgItem.DisplaySerial != null && cfgItem.DisplaySerial != "-")
                     {
                         row["arcazeSerial"] = SerialNumber.ExtractDeviceName(cfgItem.DisplaySerial);
-                    
+
                         row["OutputType"] = cfgItem.DisplayType;
 
                         // only exception for the type label
@@ -680,12 +622,13 @@ namespace MobiFlight.UI.Panels
                                 break;
 
                         }
-                    } else if(cfgItem.DisplayType=="InputAction")
+                    }
+                    else if (cfgItem.DisplayType == "InputAction")
                     {
                         row["OutputType"] = cfgItem.DisplayType;
-                        if (cfgItem.ButtonInputConfig!=null)
+                        if (cfgItem.ButtonInputConfig != null)
                         {
-                            if (cfgItem.ButtonInputConfig.onRelease!=null)
+                            if (cfgItem.ButtonInputConfig.onRelease != null)
                                 row["OutputName"] = cfgItem.ButtonInputConfig.onRelease.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
                             if (cfgItem.ButtonInputConfig.onPress != null)
                                 row["OutputName"] = cfgItem.ButtonInputConfig.onPress.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
@@ -750,7 +693,7 @@ namespace MobiFlight.UI.Panels
 
             if (EditedItem != null &&
                 (   // this is the checkbox
-                    (bool)row.ItemArray[0]!= (bool)EditedItem[0] || 
+                    (bool)row.ItemArray[0] != (bool)EditedItem[0] ||
                     // this is the description text
                     row.ItemArray[9] as string != EditedItem[9] as string)
             )
@@ -785,8 +728,8 @@ namespace MobiFlight.UI.Panels
                 if (row.IsNewRow) continue;
 
                 DataRow currentRow = (row.DataBoundItem as DataRowView)?.Row;
-                if (currentRow == null) continue; 
-                
+                if (currentRow == null) continue;
+
                 bool Active = (bool)currentRow["active"];
                 String Description = currentRow["description"] as String;
                 OutputConfigItem cfg = currentRow["settings"] as OutputConfigItem;
@@ -801,7 +744,7 @@ namespace MobiFlight.UI.Panels
             foreach (DataGridViewRow row in dataGridViewConfig.SelectedRows)
             {
                 int index = row.Index;
-                PasteFromClipboard(index+1);
+                PasteFromClipboard(index + 1);
                 return;
             }
         }
@@ -882,9 +825,9 @@ namespace MobiFlight.UI.Panels
                 foreach (DataGridViewCell cell in dataGridViewConfig.Rows[rowIndex].Cells)
                 {
                     cell.Style.BackColor = color;
-                    cell.Style.Padding = new Padding(0,0,0,0);
+                    cell.Style.Padding = new Padding(0, 0, 0, 0);
                 }
-            }            
+            }
         }
 
         private void AdjustDragTargetHighlight(int rowIndex)
@@ -932,9 +875,9 @@ namespace MobiFlight.UI.Panels
                 dragSize.Height = dragSize.Height * 5;
                 Point location = new Point(e.X - (dragSize.Width / 2), e.Y - (dragSize.Height / 2));
                 RectangleMouseDown = new Rectangle(location, dragSize);
-                DataGridTopLeftPoint = dataGridViewConfig.Location;           
+                DataGridTopLeftPoint = dataGridViewConfig.Location;
                 DataGridBottomRightPoint.X = dataGridViewConfig.Location.X + dataGridViewConfig.Width;
-                DataGridBottomRightPoint.Y = dataGridViewConfig.Location.Y + dataGridViewConfig.Height;                
+                DataGridBottomRightPoint.Y = dataGridViewConfig.Location.Y + dataGridViewConfig.Height;
             }
             else
             {
@@ -1050,9 +993,9 @@ namespace MobiFlight.UI.Panels
                     // This now corrects the position of the cursor using the offset,
                     // so that the cursor won't show displaced
                     Cursor.Position = new Point(Cursor.Position.X - offsetX, Cursor.Position.Y);
-                }                
+                }
             }
-                
+
             else
                 Cursor.Current = Cursors.Default;
         }
@@ -1135,7 +1078,7 @@ namespace MobiFlight.UI.Panels
         {
             var isTestOn = testToolStripMenuItem.Checked;
 
-            if (isTestOn && ItemInTestMode!=null)
+            if (isTestOn && ItemInTestMode != null)
             {
                 ExecutionManager.ExecuteTestOff(ItemInTestMode, true);
                 ItemInTestMode = null;
