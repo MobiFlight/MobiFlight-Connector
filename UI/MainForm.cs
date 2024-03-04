@@ -1682,6 +1682,8 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.ConfigLoaded(configFile);
             AppTelemetry.Instance.TrackBoardStatistics(execManager);
             AppTelemetry.Instance.TrackSettings();
+            var settings = new GlobalSettings(Properties.Settings.Default);
+            MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
 
             ConfigLoaded?.Invoke(this, configFile);
         }
