@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="fbbec3ed-672a-4347-acef-42022cddb42d">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT FAIL_LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:switch_799_73X, number) 0 &gt;" UUID="d92a97f8-6bb4-4205-98a4-a3992678621c" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech ATC/ SN-B4E-6E0" trigger="normal" pin="CPT_ATC_FAIL_LED" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="de1ca47a-270a-4cdb-82d3-111daa2da8da">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:TRANSPONDER CODE:1,number)" UUID="db3bd1a4-4c3c-4e3e-a9aa-3480bf0f4a70" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech ATC/ SN-B4E-6E0" trigger="normal" ledAddress="CPT_ATC_DISPLAY" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c38b9d64-36f0-443a-aefc-b08e83ac40c5">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:BL_Pedestal, number)" UUID="6cf89bcd-3f58-4ae8-812b-7702eebc6732" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="-1" operand="!=" ifValue="1" elseValue="1" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech ATC/ SN-B4E-6E0" trigger="normal" pin="CPT_ATC_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="2a5e5cea-5e1f-4546-a11c-f38e08c91202">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT LEFT ENC-INNER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_L_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="80508 (&gt;K:ROTOR_BRAKE)" presetId="1ecf2c49-0cee-4bd0-8540-eb05bae5bb66" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="80507 (&gt;K:ROTOR_BRAKE)" presetId="f689f223-9fa5-4c1b-8866-bac231fa96a4" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a5e5753e-4c6f-494e-bf0b-168bc76813b7">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT LEFT ENC-OUTER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_L_OUT_EN" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="80408 (&gt;K:ROTOR_BRAKE)" presetId="2a32d18c-ab33-4563-95dc-aea28df82105" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="80407 (&gt;K:ROTOR_BRAKE)" presetId="18c9238e-546d-44dc-9621-fde951212383" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3981ab5c-3b8c-4bf3-8531-6f1fcc726023">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT RIGHT ENC_INNER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_R_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="80808 (&gt;K:ROTOR_BRAKE)" presetId="875ffe37-4a8c-4d08-807d-aa53228fd078" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="80807 (&gt;K:ROTOR_BRAKE)" presetId="c16ee78c-697d-4de4-8a9e-c6d473d85260" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1820eebf-0cfc-47af-9aca-e8b71d101134">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT RIGHT ENC_OUTER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_R_OUT_EN" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="80708 (&gt;K:ROTOR_BRAKE)" presetId="edf46d1c-438d-4219-b3b5-cde2bbc5898b" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="80707 (&gt;K:ROTOR_BRAKE)" presetId="7c60e33f-0b94-4103-ab53-44bd713b76ea" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a8759a04-9c6e-4310-8568-00d9853ec3b9">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT IDENT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="MSFS2020CustomInputAction" command="80601 (&gt;K:ROTOR_BRAKE)" presetId="0c75c5e2-2768-43a2-a1be-e8ba57727ba7" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c66f1c17-73bd-43ae-a537-dbc0f972ecf5">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT XPNDR SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="79801 (&gt;K:ROTOR_BRAKE)" presetId="e9e2bb87-8ede-4cb2-83b1-b8b24e1cabf3" />
+          <onRelease type="MSFS2020CustomInputAction" command="79801 (&gt;K:ROTOR_BRAKE)" presetId="e9e2bb87-8ede-4cb2-83b1-b8b24e1cabf3" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b2bfa214-dcce-41eb-b00f-e6389fdfebce">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT STANBY - ROT SW.</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="MSFS2020CustomInputAction" command="0 (L:switch_800_73X) - 10 div s0&#xD;&#xA;:1&#xD;&#xA;l0 0 &gt; if{ 80007 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xD;&#xA;l0 0 &lt; if{ 80008 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="84c39a02-74c8-4745-8c00-9082f1af5179" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="634ec196-1605-42de-ae4e-3fed8a86f0d8">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT ALT - ROT SW.</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="10 (L:switch_800_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 80007 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 80008 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="5670bdbb-5ef0-4464-98dd-a8002f52e188" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="42d66756-98cd-40f1-b690-88acf0695b5f">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT XPNDR  - ROT SW.</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="MSFS2020CustomInputAction" command="20 (L:switch_800_73X) - 10 div s0&#xD;&#xA;:1&#xD;&#xA;l0 0 &gt; if{ 80007 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xD;&#xA;l0 0 &lt; if{ 80008 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="0f99b078-a26e-409a-afd0-c1a940734a23" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d3c8e7c6-5852-4955-b53a-c2acf9f97ae4">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT TA_ONLY - ROT SW.</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="30 (L:switch_800_73X) - 10 div s0&#xD;&#xA;:1&#xD;&#xA;l0 0 &gt; if{ 80007 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xD;&#xA;l0 0 &lt; if{ 80008 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="a9b8bcf5-98bc-429f-a838-5e3c6ae6604c" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6d374e24-28f6-47f1-b979-40a0e67248d6">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT TA/RA - ROT SW.</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="40 (L:switch_800_73X) - 10 div s0&#xD;&#xA;:1&#xD;&#xA;l0 0 &gt; if{ 80007 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xD;&#xA;l0 0 &lt; if{ 80008 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="1326f1e8-99bb-4a3e-8ee6-68e511038a5e" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1e08634b-161d-44c1-913c-dcbf9867eeab">
+      <active>true</active>
+      <description>MSFS2020_ATC_CPT ALT SOURCE SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_ALT_TG" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="80301 (&gt;K:ROTOR_BRAKE)" presetId="dcff9a0d-8199-4dac-9bdc-11033fbf77ad" />
+          <onRelease type="MSFS2020CustomInputAction" command="80301 (&gt;K:ROTOR_BRAKE)" presetId="dcff9a0d-8199-4dac-9bdc-11033fbf77ad" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

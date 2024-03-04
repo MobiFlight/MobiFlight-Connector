@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="5b746665-a6aa-4bf4-a7eb-f73d87765a64">
+      <active>true</active>
+      <description>XP11 EFIS FO Adjustable Backlighting - Turn Main Panel Brightness Knob -&gt; CHECK YOUTUBE VIDEO FOR MORE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/switches/panel_brightness_ratio[1]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="-1" operand="!=" ifValue="1" elseValue="1" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech EFIS FO/ SN-194-665" trigger="normal" pin="FO_EFIS_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="1e727689-eea7-4bf9-8550-e1a8102ea0c6">
+      <active>true</active>
+      <description>XP11 EFIS FO MINS Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_MINS_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="laminar/B738/pfd/dh_copilot_dn" expression="" />
+          <onLeftFast type="XplaneInputAction" inputType="Command" path="laminar/B738/pfd/dh_copilot_dn" expression="" />
+          <onRight type="XplaneInputAction" inputType="Command" path="laminar/B738/pfd/dh_copilot_up" expression="" />
+          <onRightFast type="XplaneInputAction" inputType="Command" path="laminar/B738/pfd/dh_copilot_up" expression="" />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="755eaeb9-cef3-4a66-b1fc-2228bdb4a2f8">
+      <active>true</active>
+      <description>XP11 EFIS FO MINS Rotary Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/minimums_dn" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/minimums_up" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="02885888-32d2-426b-a477-a412dc0cb0bb">
+      <active>true</active>
+      <description>XP11 EFIS FO RST Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/rst_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d2a2e75b-c224-4038-a1c8-53530fcaf8b7">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="46111060-085c-4998-bef3-118c5263dc71">
+      <active>true</active>
+      <description>XP11 EFIS FO BARO Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_BARO_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="laminar/B738/copilot/barometer_down" expression="" />
+          <onLeftFast type="XplaneInputAction" inputType="Command" path="laminar/B738/copilot/barometer_down" expression="" />
+          <onRight type="XplaneInputAction" inputType="Command" path="laminar/B738/copilot/barometer_up" expression="" />
+          <onRightFast type="XplaneInputAction" inputType="Command" path="laminar/B738/copilot/barometer_up" expression="" />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="47bfdfeb-0033-4067-9962-8e79b61e6f14">
+      <active>true</active>
+      <description>XP11 EFIS FO BARO Rotary Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/baro_in_hpa_dn" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/baro_in_hpa_up" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e5c71f12-6112-46f0-9ac4-b0f953f4fc38">
+      <active>true</active>
+      <description>XP11 EFIS FO STD Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/std_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8a31b0f7-0791-459f-aacd-f3e0a4ae480d">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="e6203ac7-d297-4d7d-958d-0017436584f3">
+      <active>true</active>
+      <description>XP11 EFIS FO WXR Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/wxr_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d42b9f03-caaf-4e67-a500-c9e9e01a58cf">
+      <active>true</active>
+      <description>XP11 EFIS FO STA Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/sta_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="28b55fe0-6e39-4a30-a463-b07a74bf947d">
+      <active>true</active>
+      <description>XP11 EFIS FO WPT Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/wpt_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4c52456a-e6fb-4c6a-9563-1a0684a64470">
+      <active>true</active>
+      <description>XP11 EFIS FO APT Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/arpt_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="707deb63-407c-4891-8694-2431eb304d67">
+      <active>true</active>
+      <description>XP11 EFIS FO DATA Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/data_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b017de88-7d54-44cc-82dd-235a060e87d8">
+      <active>true</active>
+      <description>XP11 EFIS FO POS Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/pos_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fc7f808c-4302-4dd8-b70f-6d4e11633df0">
+      <active>true</active>
+      <description>XP11 EFIS FO TERR Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/terr_press" expression="" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="99cd4e55-351c-49c1-a6af-8c28998106b8">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="2639a16d-bd87-4182-9475-6932aa515a16">
+      <active>true</active>
+      <description>XP11 EFIS FO VOR 1 Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_VOR1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor1_off_up" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor1_off_dn" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="084e3ded-3dc2-4000-bf6d-36aeba184728">
+      <active>true</active>
+      <description>XP11 EFIS FO ADF 1 Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_ADF1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor1_off_dn" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor1_off_up" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="72c278e3-fefc-47d6-891d-3ad77822881e">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="da055ecd-dc4c-4a1b-8858-41c634a1524b">
+      <active>true</active>
+      <description>XP11 EFIS FO VOR 2 Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_VOR2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor2_off_up" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor2_off_dn" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f617f6f2-66ae-491b-ba70-12071e0cc795">
+      <active>true</active>
+      <description>XP11 EFIS FO ADF 2 Switch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_ADF2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor2_off_dn" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/vor2_off_up" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e4991492-6a39-4722-a7a4-1d73002bf89a">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="d7d82ac3-b945-48c8-a9e7-154d16aa094f">
+      <active>true</active>
+      <description>XP11 EFIS FO FPV Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_FPV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/fpv_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="580bdaf3-f8ba-4ee0-8eb9-f3964560e5a4">
+      <active>true</active>
+      <description>XP11 EFIS FO MTRS Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_MTRS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/EFIS_control/fo/push_button/mtrs_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c96244de-2206-40a3-8ed8-624b1f15b5cb">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="6084206e-99e8-41c3-b5ac-a8598f73d4b9">
+      <active>true</active>
+      <description>XP11 EFIS FO Map Mode APP to VOR and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS_control/fo/map_mode_pos" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS_control/fo/map_mode_pos" expression="1" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="false" ref="7a413169-3880-454a-834e-b16bf50d5a0b" operand="!=" value="=" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="54b94532-002d-4f37-b76a-8641268eed79">
+      <active>true</active>
+      <description>XP11 EFIS FO Map Mode VOR to MAP and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS_control/fo/map_mode_pos" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS_control/fo/map_mode_pos" expression="2" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="27d580e7-5876-4066-8772-68ac099725ad">
+      <active>true</active>
+      <description>XP11 EFIS FO Map Mode MAP to PLN and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS_control/fo/map_mode_pos" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS_control/fo/map_mode_pos" expression="3" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1374b0bc-3f8f-49a4-b6dc-5b53d183091c">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="907142b5-45a3-45da-ad3e-18f866a6037b">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 5 to 10 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="1" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c2de01ba-c030-4ec8-8923-588c0ef355ef">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 10 to 20 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="2" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e81be3a2-89a9-40e9-8fe4-e88489a9fbe5">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 20 to 40 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="2" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="3" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ee0b1721-881c-453e-a632-fc74ceb6930b">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 40 to 80 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="3" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="4" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cbdf306a-a9c3-4353-a7e1-aa2fe93ce185">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 80 to 160 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="4" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="5" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b61b0057-7497-4815-a2df-7ca8b109d41e">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 160 to 320 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="5" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="6" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bd398a13-f8c8-480b-b9be-a15e9db571cc">
+      <active>true</active>
+      <description>XP11 EFIS FO Range 320 to 640 and back again</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech EFIS FO/ SN-194-665" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="6" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/EFIS/fo/map_range" expression="7" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>
