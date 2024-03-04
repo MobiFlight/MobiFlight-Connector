@@ -5,45 +5,45 @@
     "Type": "KAV_FCU",
     "Author": "Jak Kav",
     "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
-    "Version": "1.0.1"
+    "Version": "1.5.0"
   },
   "Config": {
     "Pins": [
       "Data",
-      "CS",
-      "CLK"
+      "CLK",
+      "CS"
     ],
     "isI2C": false
   },
   "MessageTypes": [
     {
       "id": 0,
-      "label": "Show Speed Value",
+      "label": "Show Speed Value (LEGACY)",
       "description": "$ will be displayed as Speed value"
     },
     {
       "id": 1,
-      "label": "Show Mach Value",
+      "label": "Show Mach Value (LEGACY)",
       "description": "$ will be displayed as Mach value"
     },
     {
       "id": 2,
-      "label": "Show Heading Value",
+      "label": "Show Heading Value (LEGACY)",
       "description": "$ will be displayed as Heading value"
     },
     {
       "id": 3,
-      "label": "Show Altitude",
+      "label": "Show Altitude (LEGACY)",
       "description": "$ will be displayed as Altitude"
     },
     {
       "id": 4,
-      "label": "Show Vertical",
+      "label": "Show Vertical (LEGACY)",
       "description": "$ will be displayed as Vertical"
     },
     {
       "id": 5,
-      "label": "Show FPA",
+      "label": "Show FPA (LEGACY)",
       "description": "$ will be displayed as FPA"
     },
     {
@@ -108,27 +108,27 @@
     },
     {
       "id": 18,
-      "label": "Show Speed/Mach/Dash Value",
-      "description": "$ will be displayed as Speed value, neg. values show dashes"
+      "label": "(v2.5.3+) Show Speed/Mach (STRING)",
+      "description": "$ will be displayed as Speed value. Negative values show dashes"
     },
     {
       "id": 19,
-      "label": "Show Heading/Dash Value",
-      "description": "$ will be displayed as Heading value, neg. values show dashes"
+      "label": "(v2.5.3+) Show Heading (STRING)",
+      "description": "$ will be displayed as Heading value. Negative values show dashes"
     },
     {
       "id": 20,
-      "label": "Show Altitude as String",
+      "label": "(v2.5.3+) Show Altitude (STRING)",
       "description": "$ will be displayed as Altitude"
     },
     {
       "id": 21,
-      "label": "Show Vertical/FPA/Dash",
-      "description": "$ will be displayed as Vertical/FPA/Dash"
+      "label": "(v2.5.3+) Show Vertical/FPA (STRING)",
+      "description": "$ will be displayed as Vertical/FPA"
     },
     {
       "id": 22,
-      "label": "Toggle Speed/Mach mode",
+      "label": "(v2.5.3+) Toggle Speed/Mach mode",
       "description": "$ = 1 will display Mach labels, $ = 2 will display Speed labels"
     }
   ]

@@ -6,22 +6,22 @@
   <CustomDevice Name="FCU LCD" CustomType="KAV_FCU" Pins="" Config="">
     <ConfiguredPins>
       <string>8</string>
-      <string>12</string>
       <string>11</string>
+      <string>12</string>
     </ConfiguredPins>
   </CustomDevice>
   <CustomDevice Name="EFIS L" CustomType="KAV_EFIS" Pins="" Config="">
     <ConfiguredPins>
       <string>34</string>
-      <string>32</string>
       <string>33</string>
+      <string>32</string>
     </ConfiguredPins>
   </CustomDevice>
   <CustomDevice Name="EFIS R" CustomType="KAV_EFIS" Pins="" Config="">
     <ConfiguredPins>
       <string>37</string>
-      <string>35</string>
       <string>36</string>
+      <string>35</string>
     </ConfiguredPins>
   </CustomDevice>
 </Config>

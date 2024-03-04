@@ -20,7 +20,7 @@
     "FirmwareBaseName": "kav_raspberrypico",
     "FirmwareExtension": "uf2",
     "FriendlyName": "Kav RaspiPico",
-    "LatestFirmwareVersion": "2.5.3",
+    "LatestFirmwareVersion": "2.5.4",
     "MobiFlightType": "Kav RaspiPico",
     "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
     "CustomDeviceTypes": [
