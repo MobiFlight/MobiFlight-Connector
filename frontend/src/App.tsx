@@ -16,9 +16,7 @@ import { useExecutionStateStore } from "./stores/executionStateStore"
 import { useAppMessage, useNotification } from "./lib/hooks"
 import { useDevicesStore } from "./stores/deviceStateStore"
 import { Toaster } from "./components/ui/sonner"
-import { ExternalToast, toast } from "sonner"
-import { useTranslation } from "react-i18next"
-import { InterpolationMap } from "i18next"
+import { toast } from "sonner"
 
 function App() {
   const navigate = useNavigate()
@@ -27,7 +25,6 @@ function App() {
   const { addMessage } = useLogMessageStore()
   const { setState } = useExecutionStateStore()
   const { setDevices } = useDevicesStore()
-  const { t } = useTranslation()
   const { prepareForToast } = useNotification()
 
   useAppMessage("StatusBarUpdate", (message) => {
@@ -79,7 +76,7 @@ function App() {
   })
 
   useAppMessage("Notification", (message) => {
-    var { title, options } = prepareForToast(message)
+    const { title, options } = prepareForToast(message)
     toast(title, options)
   })
 

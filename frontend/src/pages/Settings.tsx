@@ -54,7 +54,7 @@ export default function SettingsPage() {
 
   useEffect(() => {
     setTempSettings(useGlobalSettingsStore.getState().settings);
-  }, [useGlobalSettingsStore.getState().settings]);
+  }, [settings]);
   /*
         x - removed
         / - included
