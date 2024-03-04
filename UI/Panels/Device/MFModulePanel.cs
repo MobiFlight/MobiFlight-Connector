@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Web.UI.WebControls;
-using System.Security.Policy;
-using System.Web;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
@@ -41,18 +36,18 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 moduleNameTextBox.Text = i18n._tr("uiLabelModuleNAME_UNKNOWN");
                 moduleNameTextBox.ReadOnly = true;
-            } 
+            }
             FirmwareValueLabel.Text = module.Version;
             SerialValueLabel.Text = module.Serial != string.Empty ? module.Serial : " - ";
 
             TypeValueLabel.Text = module.Board.Info.MobiFlightTypeLabel ?? module.Type;
-            if(module.Type==MobiFlightModule.TYPE_COMPATIBLE)
+            if (module.Type == MobiFlightModule.TYPE_COMPATIBLE)
             {
-                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId).FindAll(b => b.PartnerLevel==BoardPartnerLevel.Core);
-                var tooltipLabel = string.Join(" / ",boards.Select(b=>b.Info.FriendlyName).ToList());
+                var boards = BoardDefinitions.GetBoardsByHardwareId(module.HardwareId).FindAll(b => b.PartnerLevel == BoardPartnerLevel.Core);
+                var tooltipLabel = string.Join(" / ", boards.Select(b => b.Info.FriendlyName).ToList());
                 toolTip1.SetToolTip(TypeValueLabel, tooltipLabel);
                 TypeValueLabel.Text = i18n._tr("uiLabelModuleTYPE_COMPATIBLE") + $" ({tooltipLabel})";
-            } 
+            }
 
             PortValueLabel.Text = module.Port;
 
@@ -72,7 +67,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (board.Info.Community?.Project != null)
                 labelProjectValue.Text = board.Info.Community.Project;
             else
-                labelProjectValue.Text= "Unknown";
+                labelProjectValue.Text = "Unknown";
 
             if (board.Info.BoardPicture != null)
             {
@@ -82,7 +77,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             {
                 pictureBoxLogo.Visible = false;
             }
-            
+
 
             if (board.Info.Community?.Website != null)
                 buttonWebsite.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Website)); };
@@ -93,25 +88,42 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 buttonDocs.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Docs)); };
             else
                 buttonDocs.Enabled = false;
-            
+
             if (board.Info.Community?.Support != null)
                 buttonSupport.Click += (s, e) => { Process.Start(CreateRedirectTarget(board.Info.Community.Support)); };
             else
                 buttonSupport.Enabled = false;
 
+            var specificDeviceConfigs = board.GetExistingDeviceConfigFiles();
+            var atLeastOneSpecificConfigExists = specificDeviceConfigs.Count() > 0;
 
-            
-            var defaultDeviceConfigFile = board.GetDefaultDeviceConfigFilePath();
-            if (defaultDeviceConfigFile != null && File.Exists(defaultDeviceConfigFile))
+            if (atLeastOneSpecificConfigExists)
             {
                 buttonUploadDefaultConfig.Click += (s, e) =>
                 {
-                    UploadDefaultConfigRequested?.Invoke(this, defaultDeviceConfigFile);
+                    // if there is only one option, we just upload it
+                    if (specificDeviceConfigs.Count() == 1)
+                    {
+                        var profile = specificDeviceConfigs.First();
+                        UploadDefaultConfigRequested?.Invoke(this, profile.File);
+                    }   
+                    // since we have more options, we present a context menu
+                    else
+                    {
+                        var menu = new ContextMenuStrip();
+                        foreach (var profile in specificDeviceConfigs)
+                        {
+                            var item = menu.Items.Add(profile.Name);
+                            item.ToolTipText = profile.Description;
+                            item.Click += (sender, clickEvent) => UploadDefaultConfigRequested?.Invoke(this, profile.File);
+                        }
+                        menu.Show(buttonUploadDefaultConfig, new System.Drawing.Point(0, buttonUploadDefaultConfig.Height));
+                    }
                 };
-                panel1.Visible = true;
+                UploadDeviceConfigPanel.Visible = true;
             } else
             {
-                panel1.Visible = false;
+                UploadDeviceConfigPanel.Visible = false;
             }
         }
 

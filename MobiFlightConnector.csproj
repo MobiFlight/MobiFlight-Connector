@@ -1060,6 +1060,9 @@
     <None Include="Joysticks\octavi.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\t.a320_pilot.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1073,6 +1076,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\xtouchmini\LayerB.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\apckey25.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\intech_ef44.midiboard.json">

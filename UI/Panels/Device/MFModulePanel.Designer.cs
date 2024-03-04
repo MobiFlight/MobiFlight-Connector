@@ -45,7 +45,7 @@
             this.labelProjectValue = new System.Windows.Forms.Label();
             this.groupBoxDetails = new System.Windows.Forms.GroupBox();
             this.labelProject = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.UploadDeviceConfigPanel = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonUploadDefaultConfig = new System.Windows.Forms.Button();
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
@@ -55,7 +55,7 @@
             this.groupBoxName.SuspendLayout();
             this.groupBoxInformation.SuspendLayout();
             this.groupBoxDetails.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.UploadDeviceConfigPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -139,7 +139,7 @@
             resources.ApplyResources(this.groupBoxDetails, "groupBoxDetails");
             this.groupBoxDetails.Controls.Add(this.labelProjectValue);
             this.groupBoxDetails.Controls.Add(this.labelProject);
-            this.groupBoxDetails.Controls.Add(this.panel1);
+            this.groupBoxDetails.Controls.Add(this.UploadDeviceConfigPanel);
             this.groupBoxDetails.Controls.Add(this.pictureBoxLogo);
             this.groupBoxDetails.Controls.Add(this.buttonSupport);
             this.groupBoxDetails.Controls.Add(this.buttonDocs);
@@ -154,10 +154,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.buttonUploadDefaultConfig);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
+            this.UploadDeviceConfigPanel.Controls.Add(this.label1);
+            this.UploadDeviceConfigPanel.Controls.Add(this.buttonUploadDefaultConfig);
+            resources.ApplyResources(this.UploadDeviceConfigPanel, "panel1");
+            this.UploadDeviceConfigPanel.Name = "panel1";
             // 
             // label1
             // 
@@ -208,7 +208,7 @@
             this.groupBoxInformation.PerformLayout();
             this.groupBoxDetails.ResumeLayout(false);
             this.groupBoxDetails.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.UploadDeviceConfigPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -233,7 +233,7 @@
         private System.Windows.Forms.Button buttonWebsite;
         private System.Windows.Forms.Button buttonSupport;
         private System.Windows.Forms.Button buttonDocs;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel UploadDeviceConfigPanel;
         private System.Windows.Forms.PictureBox pictureBoxLogo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonUploadDefaultConfig;

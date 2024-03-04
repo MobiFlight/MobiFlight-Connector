@@ -1144,6 +1144,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are not enough pins available to use the auto-zero option. .
+        /// </summary>
+        internal static string uiMessagePanelsStepperNoFreePins {
+            get {
+                return ResourceManager.GetString("uiMessagePanelsStepperNoFreePins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Precondition is not satisfied.
         /// </summary>
         internal static string uiMessagePreconditionNotSatisfied {

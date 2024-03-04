@@ -6,6 +6,10 @@ changelog:
     - title: New Feature 🎉
       labels:
         - feature
+    - title: Firmware & profile updates 🚀
+      labels:
+        - firmware
+        - profile
     - title: Improvement ✨
       labels:
         - enhancement

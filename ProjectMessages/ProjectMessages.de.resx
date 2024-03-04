@@ -675,4 +675,8 @@ Tip: Save the file after opening to update the associated board for future use.<
     <value>Bearbeiten ist deaktiviert, weil die Firmware veraltet ist. Bitte aktualisiere auf die neueste Version.</value>
     <comment>Editing is disabled due to outdated firmware. Please update to the latest version.</comment>
   </data>
+  <data name="uiMessagePanelsStepperNoFreePins" xml:space="preserve">
+    <value>Es sind nicht genug Pins frei, um die Auto-Zero Funktion zu nutzen.</value>
+    <comment>There are not enough pins available to use the auto-zero option.</comment>
+  </data>
 </root>
