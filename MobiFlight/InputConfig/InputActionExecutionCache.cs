@@ -35,14 +35,16 @@ namespace MobiFlight.InputConfig
 
             LastInputActionEventArgs[HashKey] = args;
 
-            if (args.Value==1)
+            if (args.Value == 1)
             {
-                config.onPress?.execute(cacheCollection, args, configRefsInputEventArgs);
-            } else
-            {
-                config.onRelease?.execute(cacheCollection, args, configRefsInputEventArgs);
+                args.Value = (int)MobiFlightButton.InputEvent.PRESS;
             }
-
+            else
+            {
+                args.Value = (int)MobiFlightButton.InputEvent.RELEASE;
+            }
+            config.execute(cacheCollection, args, configRefsInputEventArgs);
+           
             return true;
         }
 

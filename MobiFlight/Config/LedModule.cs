@@ -89,14 +89,7 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return Type + ":" + Name
-                        + " TypeId:" + ModelType
-                        + " DinPin:" + DinPin
-                        + " ClsPin:" + ClsPin
-                        + " ClkPin:" + ClkPin
-                        + " Brightness:" + Brightness
-                        + " NumModules:" + NumModules;
-                        
+            return $"{Type}:{Name} TypeId:{ModelType} DinPin:{DinPin} ClsPin:{ClsPin} ClkPin:{ClkPin} Brightness:{Brightness} NumModules:{NumModules}";            
         }
     }
 }

@@ -77,6 +77,8 @@
             this.guidDataColumn = new System.Data.DataColumn();
             this.outputDataColumn = new System.Data.DataColumn();
             this.outputTypeDataColumn = new System.Data.DataColumn();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewConfig)).BeginInit();
             this.dataGridViewContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetConfig)).BeginInit();
@@ -120,7 +122,7 @@
             dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewConfig.DefaultCellStyle = dataGridViewCellStyle10;
             resources.ApplyResources(this.dataGridViewConfig, "dataGridViewConfig");
             this.dataGridViewConfig.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnF2;
@@ -185,7 +187,7 @@
             // 
             // moduleSerial
             // 
-            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.moduleSerial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.moduleSerial.DataPropertyName = "arcazeSerial";
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ControlLight;
             this.moduleSerial.DefaultCellStyle = dataGridViewCellStyle3;
@@ -197,7 +199,7 @@
             // 
             // OutputName
             // 
-            this.OutputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.OutputName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.OutputName.DataPropertyName = "OutputName";
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.OutputName.DefaultCellStyle = dataGridViewCellStyle4;
@@ -208,6 +210,7 @@
             // 
             // OutputType
             // 
+            this.OutputType.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.OutputType.DataPropertyName = "OutputType";
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ControlLight;
             this.OutputType.DefaultCellStyle = dataGridViewCellStyle5;
@@ -266,7 +269,9 @@
             this.pasteToolStripMenuItem,
             this.toolStripMenuItem1,
             this.duplicateRowToolStripMenuItem,
-            this.deleteRowToolStripMenuItem});
+            this.deleteRowToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.testToolStripMenuItem});
             this.dataGridViewContextMenuStrip.Name = "dataGridViewContextMenuStrip";
             resources.ApplyResources(this.dataGridViewContextMenuStrip, "dataGridViewContextMenuStrip");
             this.dataGridViewContextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(this.DataGridViewContextMenuStrip_Opening);
@@ -431,6 +436,17 @@
             this.outputTypeDataColumn.ColumnMapping = System.Data.MappingType.Hidden;
             this.outputTypeDataColumn.ColumnName = "OutputType";
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
+            // 
+            // testToolStripMenuItem
+            // 
+            resources.ApplyResources(this.testToolStripMenuItem, "testToolStripMenuItem");
+            this.testToolStripMenuItem.Name = "testToolStripMenuItem";
+            this.testToolStripMenuItem.Click += new System.EventHandler(this.testToolStripMenuItem_Click);
+            // 
             // OutputConfigPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -484,5 +500,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn fsuipcValueColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn arcazeValueColumn;
         private System.Windows.Forms.DataGridViewButtonColumn EditButtonColumn;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem testToolStripMenuItem;
     }
 }

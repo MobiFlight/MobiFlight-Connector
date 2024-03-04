@@ -1,113 +1,73 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
-using SharpDX.DirectInput;
-using System.Collections.Generic;
+using HidSharp.Reports.Input;
 
 namespace MobiFlight.Joysticks.Octavi
 {
     internal class Octavi : Joystick
     {
-        int VendorId = 0x04D8;
-        int ProductId = 0xE6D6;
+        readonly int VendorId = 0x04D8;
+        readonly int ProductId = 0xE6D6;
         HidStream Stream { get; set; }
         HidDevice Device { get; set; }
 
-        protected HidSharp.Reports.Input.HidDeviceInputReceiver inputReceiver;
+        protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
+        private readonly OctaviHandler octaviHandler;
+        private readonly JoystickDefinition Definition;
 
-        protected Dictionary<string, string> OctaviButtons = new Dictionary<string, string>();
-
-        OctaviHandler octaviHandler = new OctaviHandler();
-
-        public Octavi(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition) {
-
-            OctaviButtons  = new Dictionary<string, string>()
-            {
-                { "Button_COM1_OI", "COM1 Outer +" },
-                { "Button_COM1_OD", "COM1 Outer -" },
-                { "Button_COM1_II", "COM1 Inner +" },
-                { "Button_COM1_ID", "COM1 Inner -" },
-                { "Button_COM1_TOG", "COM1 Toggle" },
-                { "Button_COM2_OI", "COM2 Outer +" },
-                { "Button_COM2_OD", "COM2 Outer -" },
-                { "Button_COM2_II", "COM2 Inner +" },
-                { "Button_COM2_ID", "COM2 Inner -" },
-                { "Button_COM2_TOG", "COM2 Toggle" },
-                { "Button_NAV1_OI", "NAV1 Outer +" },
-                { "Button_NAV1_OD", "NAV1 Outer -" },
-                { "Button_NAV1_II", "NAV1 Inner +" },
-                { "Button_NAV1_ID", "NAV1 Inner -" },
-                { "Button_NAV1_TOG", "NAV1 Toggle" },
-                { "Button_NAV2_OI", "NAV2 Outer +" },
-                { "Button_NAV2_OD", "NAV2 Outer -" },
-                { "Button_NAV2_II", "NAV2 Inner +" },
-                { "Button_NAV2_ID", "NAV2 Inner -" },
-                { "Button_NAV2_TOG", "NAV2 Toggle" },
-                { "Button_FMS1_OI", "FMS1 Outer +" },
-                { "Button_FMS1_OD", "FMS1 Outer -" },
-                { "Button_FMS1_II", "FMS1 Inner +" },
-                { "Button_FMS1_ID", "FMS1 Inner -" },
-                { "Button_FMS1_TOG", "FMS1 Toggle" },
-                { "Button_FMS2_OI", "FMS2 Outer +" },
-                { "Button_FMS2_OD", "FMS2 Outer -" },
-                { "Button_FMS2_II", "FMS2 Inner +" },
-                { "Button_FMS2_ID", "FMS2 Inner -" },
-                { "Button_FMS2_TOG", "FMS2 Toggle" },
-                { "Button_AP_OI", "AP Outer +" },
-                { "Button_AP_OD", "AP Outer -" },
-                { "Button_AP_II", "AP Inner +" },
-                { "Button_AP_ID", "AP Inner -" },
-                { "Button_AP_TOG", "AP Toggle" },
-                { "Button_XPDR_OI", "XPDR Outer +" },
-                { "Button_XPDR_OD", "XPDR Outer -" },
-                { "Button_XPDR_II", "XPDR Inner +" },
-                { "Button_XPDR_ID", "XPDR Inner -" },
-                { "Button_XPDR_TOG", "XPDR Toggle" },
-                { "Button_FMS1_CRSR", "FMS1 CRSR" },
-                { "Button_FMS1_DCT", "FMS1 DCT" },
-                { "Button_FMS1_MENU", "FMS1 MENU" },
-                { "Button_FMS1_CLR", "FMS1 CLR" },
-                { "Button_FMS1_ENT", "FMS1 ENT" },
-                { "Button_FMS1_CDI", "FMS1 CDI" },
-                { "Button_FMS1_OBS", "FMS1 OBS" },
-                { "Button_FMS1_MSG", "FMS1 MSG" },
-                { "Button_FMS1_FPL", "FMS1 FPL" },
-                { "Button_FMS1_VNAV", "FMS1 VNAV" },
-                { "Button_FMS1_PROC", "FMS1 PROC" },
-                { "Button_FMS2_CRSR", "FMS2 CRSR" },
-                { "Button_FMS2_DCT", "FMS2 DCT" },
-                { "Button_FMS2_MENU", "FMS2 MENU" },
-                { "Button_FMS2_CLR", "FMS2 CLR" },
-                { "Button_FMS2_ENT", "FMS2 ENT" },
-                { "Button_FMS2_CDI", "FMS2 CDI" },
-                { "Button_FMS2_OBS", "FMS2 OBS" },
-                { "Button_FMS2_MSG", "FMS2 MSG" },
-                { "Button_FMS2_FPL", "FMS2 FPL" },
-                { "Button_FMS2_VNAV", "FMS2 VNAV" },
-                { "Button_FMS2_PROC", "FMS2 PROC" },
-                { "Button_AP_AP", "Autopilot Toggle" },
-                { "Button_AP_HDG", "Autopilot HDG" },
-                { "Button_AP_NAV", "Autopilot NAV" },
-                { "Button_AP_APR", "Autopilot APR" },
-                { "Button_AP_VS", "Autopilot VS" },
-                { "Button_AP_BC", "Autopilot BC" },
-            };
+        public Octavi(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+        {
+            this.Definition = definition;
+            octaviHandler = new OctaviHandler(this.Definition);
         }
 
+        /// <summary>
+        /// Method is not called by regular Joystick Manager
+        /// This method is called implicitly when Update() is called
+        /// </summary>
         public void Connect()
         {
-            if (Device == null)
+            // Prevent reentry and parallel execution by multiple threads
+            lock (this)
             {
-                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
-                if (Device == null) return;
-            }
-            
-            Stream = Device.Open();
-            Stream.ReadTimeout = System.Threading.Timeout.Infinite;
+                if (Device == null)
+                {
+                    Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+                    if (Device == null) return;
+                }
 
-            reportDescriptor = Device.GetReportDescriptor();
-            inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
-            inputReceiver.Start(Stream);
+                if (Stream == null)
+                {
+                    Stream = Device.Open();
+                    Stream.ReadTimeout = System.Threading.Timeout.Infinite;
+                    reportDescriptor = Device.GetReportDescriptor();
+                }
+
+                if (inputReceiver == null)
+                {
+                    inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
+                    inputReceiver.Received += InputReceiver_Received;
+                    inputReceiver.Start(Stream);
+                }
+            }
+        }
+
+        private void InputReceiver_Received(object sender, System.EventArgs e)
+        {
+            var inputReceiver = sender as HidDeviceInputReceiver;
+            byte[] inputReportBuffer = new byte[8];
+
+            while (inputReceiver.TryRead(inputReportBuffer, 0, out _))
+            {
+                OctaviReport report = new OctaviReport();
+                report.parseReport(inputReportBuffer);
+                var buttonEvents = octaviHandler.DetectButtonEvents(report);
+                foreach (var (buttonIndex, inputEvent) in buttonEvents)
+                {
+                    TriggerButtonPress(buttonIndex, inputEvent);
+                }
+            }
         }
 
         protected override void SendData(byte[] data)
@@ -122,7 +82,7 @@ namespace MobiFlight.Joysticks.Octavi
             RequiresOutputUpdate = false;
         }
 
-        protected void TriggerButtonPress(int i)
+        protected void TriggerButtonPress(int i, MobiFlightButton.InputEvent inputEvent)
         {
             TriggerButtonPressed(this, new InputEventArgs()
             {
@@ -131,57 +91,43 @@ namespace MobiFlight.Joysticks.Octavi
                 DeviceLabel = Buttons[i].Label,
                 Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
                 Type = DeviceType.Button,
-                Value = 0
+                Value = (int)inputEvent
             });
         }
 
         public override void Update()
         {
-            byte[] streambuffer = null;
-            byte[] inputReportBuffer = new byte[8];
-            Report report;
-
-            if (Stream == null)
+            // Octavi is not a DirectInput device
+            // so we have to connect it here.
+            if (Stream == null || inputReceiver == null)
             {
                 Connect();
             };
-
-            int n = 0;
-            while(inputReceiver.TryRead(inputReportBuffer, 0, out report))
-            {
-                n++;
-                OctaviReport OReport = new OctaviReport();
-                OReport.parseReport(inputReportBuffer);
-                List<int> btnz = octaviHandler.toButton(OReport);
-                foreach(int i in btnz) TriggerButtonPress(i);
-            }
-            if(n>1)
-            {
-
-            }
-            if (streambuffer != null)
-            {
-                sbyte outerknob = (sbyte) streambuffer[5];
-                sbyte innerknob = (sbyte) streambuffer[6];
-
-                if (innerknob < 0)
-                {
-                    TriggerButtonPress(0);
-                }
-                else if (innerknob > 0)
-                {
-                    TriggerButtonPress(1);
-                }
-            }
-
-            
+            // We don't do anything else
+            // because we have a callback for
+            // handling the incoming reports
         }
 
         protected override void EnumerateDevices()
         {
-            foreach (string entry in octaviHandler.OctaviButtonList)
+            foreach (string entry in octaviHandler.JoystickButtonNames)
             {
-                    Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
+                Buttons.Add(new JoystickDevice() { Name = entry, Label = entry, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
+            }
+        }
+
+        public override void Shutdown()
+        {
+            if (Stream != null)
+            {
+                Stream.Close();
+                Stream = null;
+            }
+
+            if (inputReceiver != null)
+            {
+                inputReceiver.Received -= InputReceiver_Received;
+                inputReceiver = null;
             }
         }
     }

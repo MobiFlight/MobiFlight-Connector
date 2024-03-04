@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MobiFlight.Joysticks.Octavi
 {
     internal class OctaviReport
     {
-        public uint reportID;
-        public uint buttonState;
-        public byte contextState;
-        public sbyte incrCoarse;
-        public sbyte incrFine;
+        public uint reportId;
+        public OctaviButtons buttonState;
+        public OctaviState contextState;
+        public sbyte outerEncoderDelta;
+        public sbyte innerEncoderDelta;
 
         public enum OctaviState : byte
         {
@@ -27,7 +22,8 @@ namespace MobiFlight.Joysticks.Octavi
             STATE_XPDR
         };
 
-        public enum OctaviButton
+        [Flags]
+        public enum OctaviButtons : uint
         {
             HID_BTN_DCT = (1 << 4),
             HID_BTN_MENU = (1 << 5),
@@ -40,7 +36,7 @@ namespace MobiFlight.Joysticks.Octavi
             HID_BTN_AP_NAV = (1 << 16),
             HID_BTN_AP_APR = (1 << 17),
             HID_BTN_AP_ALT = (1 << 18),
-            HID_BTN_AP_BC = (1 << 19)
+            HID_BTN_AP_VS = (1 << 19)
         };
 
         public OctaviReport()
@@ -48,20 +44,18 @@ namespace MobiFlight.Joysticks.Octavi
 
         }
 
-    public bool parseReport(byte[] inputBuffer)
+        public void parseReport(byte[] inputBuffer)
         {
             // get Report ID
-            reportID = inputBuffer[0];
+            reportId = inputBuffer[0];
             // get 32 bit Button report field:
-            buttonState = (uint)inputBuffer[1] + ((uint)inputBuffer[2] << 8) + ((uint)inputBuffer[3] << 16) + ((uint)inputBuffer[4] << 24);
+            buttonState = (OctaviReport.OctaviButtons)((uint)inputBuffer[1] + ((uint)inputBuffer[2] << 8) + ((uint)inputBuffer[3] << 16) + ((uint)inputBuffer[4] << 24));
+            // get coarse increment/decrement:
+            outerEncoderDelta = (sbyte)inputBuffer[5];
+            // get fine increment/decrement:
+            innerEncoderDelta = (sbyte)inputBuffer[6];
             // get coarse increment:
-            incrCoarse = (sbyte)inputBuffer[5];
-            // get fine increment:
-            incrFine = (sbyte)inputBuffer[6];
-            // get coarse increment:
-            contextState = inputBuffer[7];
-
-            return true;
+            contextState = (OctaviReport.OctaviState)inputBuffer[7];
         }
     }
 }

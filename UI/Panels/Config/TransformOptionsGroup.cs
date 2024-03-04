@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
 {
     public partial class TransformOptionsGroup : UserControl
     {
-        public event EventHandler ModifyTabLink;
         protected Boolean PanelMode = true;
 
         public TransformOptionsGroup()
@@ -67,11 +59,6 @@ namespace MobiFlight.UI.Panels.Config
         internal void syncToConfig(IFsuipcConfigItem config)
         {
             config.Value = fsuipcValueTextBox.Text;
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            ModifyTabLink?.Invoke(this, EventArgs.Empty);
         }
     }
 }

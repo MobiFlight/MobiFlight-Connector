@@ -46,9 +46,25 @@ namespace MobiFlight.Config
             return true;
         }
 
+        public override bool Equals(object obj)
+        {
+            InputShiftRegister other = obj as InputShiftRegister;
+            if (other == null)
+            {
+                return false;
+            }
+
+            return this.Name == other.Name
+                && this.LatchPin == other.LatchPin
+                && this.ClockPin == other.ClockPin
+                && this.DataPin == other.DataPin
+                && this.NumModules == other.NumModules
+                ;
+        }
+
         public override string ToString()
         {
-            return $"{Type}:{Name}";
+            return $"{Type}:{Name} LatchPin:{LatchPin} ClockPin:{ClockPin} DataPin:{DataPin} NumModules:{NumModules}";
         }
     }
 }

@@ -140,12 +140,21 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
+            joystickManager.SetHandle(handle);
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
-            joystickManager.Connect(handle);
+            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };            
+            if (Properties.Settings.Default.EnableJoystickSupport)
+            {
+                joystickManager.Connect();
+            }
+
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
-            midiBoardManager.Connect();
+            if (Properties.Settings.Default.EnableMidiSupport)
+            {
+                midiBoardManager.Connect();
+            }
+
             mobiFlightCache.Start();
         }
 
@@ -277,14 +286,21 @@ namespace MobiFlight
 
         public void Start()
         {
+            if (timer.Enabled) return;
+
             simConnectCache.Start();
             xplaneCache.Start();
+
+            // the timer has to be enabled before the 
+            // on start actions are executed
+            // otherwise the input events will not be executed.
+            timer.Enabled = true;
+            
+            // Now we can execute the on start actions
             OnStartActions();
 
             // Force all the modules awake whenver run is activated
             mobiFlightCache.KeepConnectedModulesAwake(true);
-
-            timer.Enabled = true;
         }
 
         public void Stop()
@@ -414,9 +430,15 @@ namespace MobiFlight
 
 #if SIMCONNECT
             simConnectCache.Disconnect();
-#endif
-            joystickManager.Shutdown();
-            midiBoardManager.Shutdown();
+#endif            
+            if (Properties.Settings.Default.EnableJoystickSupport)
+            {
+                joystickManager.Shutdown();
+            }
+            if (Properties.Settings.Default.EnableMidiSupport)
+            {
+                midiBoardManager.Shutdown();
+            }
             this.OnShutdown?.Invoke(this, new EventArgs());
         }
 
@@ -698,8 +720,7 @@ namespace MobiFlight
             }
             else
             {
-                result.type = FSUIPCOffsetType.Float;
-                result.Float64 = simConnectCache.GetSimVar(cfg.SimConnectValue.Value);
+                result.type = simConnectCache.GetSimVar(cfg.SimConnectValue.Value, out result.String, out result.Float64);
             }
 
             return result;
@@ -1068,25 +1089,12 @@ namespace MobiFlight
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
 
-
-            if (
 #if ARCAZE
-                !arcazeCache.Available() &&
-#endif
-#if MOBIFLIGHT
-                !mobiFlightCache.Available()
-#endif
-                )
+            if (arcazeCache.Enabled && !arcazeCache.Available())
             {
-                Log.Instance.log("AutoConnect modules.", LogSeverity.Debug);
-#if ARCAZE
-                if (Properties.Settings.Default.ArcazeSupportEnabled)
-                    arcazeCache.connect(); //  _initializeArcaze();
-#endif
-#if MOBIFLIGHT
-                // await mobiFlightCache.connectAsync();
-#endif
+                arcazeCache.connect();    
             }
+#endif
 
             // Check only for available sims if not in Offline mode.
             if (true) { 
@@ -1133,7 +1141,6 @@ namespace MobiFlight
                         OnSimUnavailable?.Invoke(LastDetectedSim, null);
                         LastDetectedSim = FlightSimType.NONE;
                     }
-                    Log.Instance.log("No Sim running.", LogSeverity.Debug);
                 }
             }
 
@@ -1227,7 +1234,7 @@ namespace MobiFlight
                 try
                 {
                     var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
-                    ExecuteTestOn(cfg, currentGuid, null);
+                    ExecuteTestOn(cfg, currentGuid, cfg.TestValue);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1317,6 +1324,10 @@ namespace MobiFlight
                     ExecuteDisplay(value?.ToString() ?? "1", cfg);
                     break;
 
+                case MobiFlightCustomDevice.TYPE:
+                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
+                    break;
+
                 case "InputAction":
                     // Do nothing for the InputAction
                     break;
@@ -1355,7 +1366,7 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
             }
-            if (e.Type == DeviceType.InputShiftRegister)
+            else if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
                 // The inputKey gets the shifter external pin added to it if the input came from a shift register

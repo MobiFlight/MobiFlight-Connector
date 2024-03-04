@@ -9,15 +9,6 @@ namespace MobiFlight.Modifier.Tests
 {
     class TransformationForDeprecatedTest : Transformation
     {
-        public string ProtectedApply(double value, List<ConfigRefValue> configRefs)
-        {
-            return base.Apply(value.ToString(), configRefs);
-        }
-
-        public string ProtectedApply(string value, List<ConfigRefValue> configRefs)
-        {
-            return base.Apply(value, configRefs);
-        }
     }
 
     [TestClass()]
@@ -34,21 +25,39 @@ namespace MobiFlight.Modifier.Tests
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
             // Number type
+            var ConnectValue = new ConnectorValue() { Float64 = 1 };
+            
             t.Expression = "$*0.5";
-            Assert.AreEqual("0.5", t.ProtectedApply(1, configRefs));
+            Assert.AreEqual(0.5, t.Apply(ConnectValue, configRefs).Float64);
+            
             t.Expression = "$*2";
-            Assert.AreEqual("2", t.ProtectedApply(1, configRefs));
-            t.Expression = "$*2";
-            Assert.AreEqual("2.4", t.ProtectedApply(1.2, configRefs));
+            Assert.AreEqual(2, t.Apply(ConnectValue, configRefs).Float64);
+
             t.Expression = "$*2.0";
-            Assert.AreEqual("2", t.ProtectedApply(1, configRefs));
+            Assert.AreEqual(2, t.Apply(ConnectValue, configRefs).Float64);
+
+            t.Expression = "$*2";
+            ConnectValue.Float64 = 1.2;
+            Assert.AreEqual(2.4, t.Apply(ConnectValue, configRefs).Float64);
+            
             t.Expression = "Round(14.6,0)";
-            Assert.AreEqual("15", t.ProtectedApply(1, configRefs));
+            Assert.AreEqual(15, t.Apply(ConnectValue, configRefs).Float64);
 
             // Test strings
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
             t.Expression = "'Hello'";
-            Assert.AreEqual("Hello", t.ProtectedApply(0, configRefs));
+            ConnectValue.Float64 = 0;
+            Assert.AreEqual(FSUIPCOffsetType.String, t.Apply(ConnectValue, configRefs).type);
+            Assert.AreEqual("Hello", t.Apply(ConnectValue, configRefs).String);
+            Assert.AreEqual(0, t.Apply(ConnectValue, configRefs).Float64);
+
+            // test 0.000 format
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/1628
+            t.Expression = "if($=0,'0.000',1)";
+            var step1Result = t.Apply(ConnectValue, configRefs);
+            Assert.AreEqual("0.000", step1Result.String);
+            t.Expression = "if('$'=1,2,'$')";
+            Assert.AreEqual("0.000", t.Apply(step1Result, configRefs).String);
         }
 
         [TestMethod()]

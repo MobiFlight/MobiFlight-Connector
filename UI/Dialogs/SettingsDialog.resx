@@ -205,7 +205,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="arcazePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -217,7 +217,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="arcazePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 509</value>
+    <value>557, 579</value>
   </data>
   <data name="arcazePanel.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -226,7 +226,7 @@
     <value>arcazePanel</value>
   </data>
   <data name="&gt;&gt;arcazePanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.ArcazePanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;arcazePanel.Parent" xml:space="preserve">
     <value>ArcazeTabPage</value>
@@ -241,7 +241,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="ArcazeTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>563, 515</value>
+    <value>563, 585</value>
   </data>
   <data name="ArcazeTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -259,7 +259,7 @@
     <value>tabControl1</value>
   </data>
   <data name="&gt;&gt;ArcazeTabPage.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <metadata name="mfTreeViewImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>696, 17</value>
@@ -403,7 +403,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 541</value>
+    <value>557, 579</value>
   </data>
   <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -412,7 +412,7 @@
     <value>generalPanel</value>
   </data>
   <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
     <value>generalTabPage</value>
@@ -427,7 +427,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="generalTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>563, 547</value>
+    <value>563, 585</value>
   </data>
   <data name="generalTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -457,7 +457,7 @@
     <value>1, 1, 1, 1</value>
   </data>
   <data name="mobiFlightPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 509</value>
+    <value>557, 579</value>
   </data>
   <data name="mobiFlightPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -466,7 +466,7 @@
     <value>mobiFlightPanel</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.MobiFlightPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Settings.MobiFlightPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Parent" xml:space="preserve">
     <value>mobiFlightTabPage</value>
@@ -481,7 +481,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="mobiFlightTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>563, 515</value>
+    <value>563, 585</value>
   </data>
   <data name="mobiFlightTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -501,6 +501,60 @@
   <data name="&gt;&gt;mobiFlightTabPage.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="peripheralsPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="peripheralsPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 2</value>
+  </data>
+  <data name="peripheralsPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>559, 581</value>
+  </data>
+  <data name="peripheralsPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;peripheralsPanel.Name" xml:space="preserve">
+    <value>peripheralsPanel</value>
+  </data>
+  <data name="&gt;&gt;peripheralsPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Settings.PeripheralsPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;peripheralsPanel.Parent" xml:space="preserve">
+    <value>peripheralsTabPage</value>
+  </data>
+  <data name="&gt;&gt;peripheralsPanel.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="peripheralsTabPage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
+  </data>
+  <data name="peripheralsTabPage.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="peripheralsTabPage.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 2, 2, 2</value>
+  </data>
+  <data name="peripheralsTabPage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>563, 585</value>
+  </data>
+  <data name="peripheralsTabPage.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="peripheralsTabPage.Text" xml:space="preserve">
+    <value>Peripherals</value>
+  </data>
+  <data name="&gt;&gt;peripheralsTabPage.Name" xml:space="preserve">
+    <value>peripheralsTabPage</value>
+  </data>
+  <data name="&gt;&gt;peripheralsTabPage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;peripheralsTabPage.Parent" xml:space="preserve">
+    <value>tabControl1</value>
+  </data>
+  <data name="&gt;&gt;peripheralsTabPage.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
@@ -508,7 +562,7 @@
     <value>0, 0</value>
   </data>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>571, 573</value>
+    <value>571, 611</value>
   </data>
   <data name="tabControl1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -523,7 +577,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="firmwareSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>116, 22</value>

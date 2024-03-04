@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="7ede31e0-58cd-4e4b-ac62-06b91429b2df">
+      <active>true</active>
+      <description>XP12_CPT_ADF_ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/adf1_freq_hz" />
+        <modifiers>
+          <transformation active="True" expression="$*10" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CPT_ADF_v3/ SN-5e1-a10" trigger="normal" ledAddress="CPT_ADF_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="94a1f88b-732b-4350-aa59-7cb6034dbbfa">
+      <active>true</active>
+      <description>XP12_CPT_ADF_STANDBY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/adf1_stdby_freq_hz" />
+        <modifiers>
+          <transformation active="True" expression="$*10" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="CPT_ADF_v3/ SN-5e1-a10" trigger="normal" ledAddress="CPT_ADF_STANDBY" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="11c7416a-e6e0-47d3-8ae3-30b4c9e5fed4">
+      <active>true</active>
+      <description>XP12_CPT_ADF_BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="-1" operand="!=" ifValue="1" elseValue="1" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="CPT_ADF_v3/ SN-5e1-a10" trigger="normal" pin="CPT_ADF_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="7253e98f-337d-43c5-9f4b-894eb0aa77f8">
+      <active>true</active>
+      <description>XP12_CPT_ADF_INNER_ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v3/ SN-5e1-a10" name="CPT_ADF_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_adf1_ones_tens_down" expression="$" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_adf1_ones_tens_up" expression="$" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0234c9c0-9fd9-49bb-ba9e-5ceb8be07e91">
+      <active>true</active>
+      <description>XP12_CPT_ADF_OUTER_ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v3/ SN-5e1-a10" name="CPT_ADF_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/stby_adf1_hundreds_thous_down" expression="$" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/stby_adf1_hundreds_thous_up" expression="$" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="857c0b91-ce7b-4380-bc39-afd325ae3e60">
+      <active>true</active>
+      <description>XP12_CPT_ADF_TFR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v3/ SN-5e1-a10" name="CPT_ADF_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/radios/adf1_standy_flip" expression="$" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="684b4d22-98f2-47a8-aa10-f10c4586c23f">
+      <active>true</active>
+      <description> XP12_CPT_ADF_TONE_SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v3/ SN-5e1-a10" name="CPT_ADF_ADF_ANT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="7ede31e0-58cd-4e4b-ac62-06b91429b2df" placeholder="P" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="a70ab5df-e65e-4f9f-b975-1e112e9119b2">
+      <active>true</active>
+      <description>XP12_CPT_ADF_ADF-ANT_SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="CPT_ADF_v3/ SN-5e1-a10" name="CPT_ADF_TONE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/toggle_switch/adf_ant1" expression="0" />
+          <onRelease type="XplaneInputAction" inputType="DataRef" path="laminar/B738/toggle_switch/adf_ant1" expression="1" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

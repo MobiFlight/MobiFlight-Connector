@@ -164,6 +164,20 @@ namespace MobiFlight
                 File.Delete(FileName);
         }
 
+        public void CopyToClipboard()
+        {
+            if (File.Exists(FileName))
+            {
+                string fileContents = File.ReadAllText(FileName);
+                System.Windows.Forms.Clipboard.SetText(fileContents);
+            }
+            else
+            {
+                // File doesn't exist so throw an exception.
+                throw new FileLoadException(FileName);
+            }
+        }
+
         public async void log(string message, LogSeverity severity)
         {
             await Task.Run(() =>

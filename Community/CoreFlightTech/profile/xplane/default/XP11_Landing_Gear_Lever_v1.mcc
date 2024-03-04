@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="912965e2-9be5-4506-9f21-d15b4e417fbd">
+      <active>true</active>
+      <description>XP11_LEFT GEAR GREEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/annunciator/left_gear_safe" />
+        <modifiers>
+          <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Left_Green" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a65bb0f2-7681-4123-82ec-2526f5aa545d">
+      <active>true</active>
+      <description>XP11_LEFT GEAR RED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/annunciator/left_gear_transit" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Left_Red" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="70cd40d4-e38f-49b7-a673-baafed9cdedb">
+      <active>true</active>
+      <description>XP11_NOSE GEAR GREEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/annunciator/nose_gear_safe" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Nose_Green" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c3a5a79e-e8c5-48b1-8135-7e1ec64d253e">
+      <active>true</active>
+      <description>XP11_NOSE GEAR RED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/annunciator/nose_gear_transit" />
+        <modifiers>
+          <transformation active="False" expression="(A:AUTOPILOT AVAILABLE,Bool)" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Nose_Red" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0c4b9d26-da77-494b-af69-f63a1f084a5e">
+      <active>true</active>
+      <description>XP11_RIGHT GEAR GREEN</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/annunciator/right_gear_safe" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Right_Green" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fd9d233f-cd22-42a3-8582-63e0eb2094db">
+      <active>true</active>
+      <description>XP11_RIGHT GEAR RED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/annunciator/right_gear_transit" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="1" operand="=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Right_Red" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c59765d8-ead2-4abb-9269-d9a20c7cee64">
+      <active>false</active>
+      <description>XP11_Gear_Lever_BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="-1" operand="!=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="LandingGearLever/ SN-5e1-a10" trigger="normal" pin="Backlight" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="be1ad87d-0e75-4856-b77c-507fb7201923">
+      <active>true</active>
+      <description>XP11_LG UP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="LandingGearLever/ SN-5e1-a10" name="UP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/actuator/gear_handle" expression="2" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b8a2f555-b7e3-45be-8684-782551954e3c">
+      <active>true</active>
+      <description>XP11_LG OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="LandingGearLever/ SN-5e1-a10" name="OFF" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/actuator/gear_handle" expression="1" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5780e6d3-ae7b-49f6-bbd9-4e2b53281774">
+      <active>true</active>
+      <description>XP11_LG DOWN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="LandingGearLever/ SN-5e1-a10" name="DOWN" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="laminar/B738/actuator/gear_handle" expression="0" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

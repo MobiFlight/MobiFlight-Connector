@@ -1,13 +1,15 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
     public class Config
     {
-        public String ModuleName = "";
+        public string ModuleType = "";
+        public string ModuleName = "";
         public int PowerSavingTime = 60 * 10; // => 10 Minutes Default
 
         [XmlElement(typeof(Button))]
@@ -215,6 +217,23 @@ namespace MobiFlight.Config
 
             }
             return this;
+        }
+
+        public static Config LoadFromFile(string fileName)
+        {
+            TextReader textReader = new StreamReader(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(Config));
+            var config = (Config)serializer.Deserialize(textReader);
+            textReader.Close();
+            return config;
+        }
+
+        public void SaveToFile(string fileName)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+            TextWriter textWriter = new StreamWriter(fileName);
+            serializer.Serialize(textWriter, this);
+            textWriter.Close();
         }
     }
 }

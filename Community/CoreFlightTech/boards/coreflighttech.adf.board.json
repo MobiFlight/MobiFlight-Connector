@@ -1,0 +1,176 @@
+{
+  "$schema": "./mfboard.schema.json",
+  "AvrDudeSettings": {
+    "Attempts": 1,
+    "Device": "atmega328p",
+    "BaudRates": ["115200", "57600"],
+    "Programmer": "arduino",
+    "Timeout": 20000
+  },
+  "Connection": {
+    "ConnectionDelay": 1750,
+    "DelayAfterFirmwareUpdate": 0,
+    "DtrEnable": true,
+    "EEPROMSize": 286,
+    "ExtraConnectionRetry": true,
+    "ForceResetOnFirmwareUpdate": false,
+    "MessageSize": 64,
+    "TimeoutForFirmwareUpdate": 60000
+  },
+  "HardwareIds": [
+    "^VID_10C4&PID_EA60",
+    "^VID_2341&PID_0043",
+    "^VID_2A03&PID_0043",
+    "^VID_2341&PID_0243",
+    "^VID_2341&PID_0001",
+    "^VID_1A86&PID_7523",
+    "^VID_0403&PID_6001",
+    "^VID_0403\\+PID_6001\\+.+"
+  ],
+  "Info": {
+    "CanInstallFirmware": true,
+    "CanResetBoard": true,
+    "FriendlyName": "CoreFlightTech ADF",
+    "FirmwareBaseName": "coreflighttech_adf_nano",
+    "FirmwareExtension": "hex",
+    "LatestFirmwareVersion": "1.0.0",
+    "MobiFlightType": "CoreFlightTech ADF",
+    "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex",
+    "Community": {
+      "Project": "CoreFlightTech",
+      "Website": "https://coreflighttech.com/product/b737-adf-radio-module-panel/",
+      "Docs": "https://coreflighttech.com/fly-core-flight-technologies/blog-and-downloads/",
+      "Support": "https://coreflighttech.com/contact-us/"
+    }
+  },
+  "ModuleLimits": {
+    "MaxAnalogInputs": 6,
+    "MaxButtons": 18,
+    "MaxEncoders": 9,
+    "MaxInputShifters": 6,
+    "MaxLcdI2C": 2,
+    "MaxLedSegments": 6,
+    "MaxOutputs": 18,
+    "MaxServos": 8,
+    "MaxShifters": 6,
+    "MaxSteppers": 4,
+    "MaxInputMultiplexer": 6,
+    "MaxCustomDevices": 0
+  },
+  "Pins": [
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 2
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 3
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 4
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 5
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 6
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 7
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 8
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 9
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 10
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": true,
+      "Pin": 11
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 12
+    },
+    {
+      "isAnalog": false,
+      "isI2C": false,
+      "isPWM": false,
+      "Pin": 13
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A0",
+      "Pin": 14
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A1",
+      "Pin": 15
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A2",
+      "Pin": 16
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A3",
+      "Pin": 17
+    },
+    {
+      "isAnalog": true,
+      "isI2C": true,
+      "isPWM": false,
+      "Name": "A4",
+      "Pin": 18
+    },
+    {
+      "isAnalog": true,
+      "isI2C": true,
+      "isPWM": false,
+      "Name": "A5",
+      "Pin": 19
+    }
+  ]
+}

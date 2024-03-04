@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Management;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.CustomDevices
 {
@@ -96,7 +92,7 @@ namespace MobiFlight.CustomDevices
         /// <summary>
         /// The identifier for the message type. Unique in the scope of the device.
         /// </summary>
-        public string Id;
+        public int Id;
 
         /// <summary>
         /// The label for the message type which is used in the config wizard UI.
@@ -114,7 +110,7 @@ namespace MobiFlight.CustomDevices
         }
     }
 
-    public class CustomDevice
+    public class CustomDevice : IMigrateable
     {
         /// <summary>
         /// General device information properties.
@@ -130,6 +126,15 @@ namespace MobiFlight.CustomDevices
         /// List of MessageTypes supported by the device.
         /// </summary>
         public List<MessageType> MessageTypes = new List<MessageType>();
+
+        /// <summary>
+        /// Base path for custom firmware
+        /// </summary>
+        public String BasePath;
+
+        // Nothing to migrate currently but the method implementation is required
+        // when using JsonBoardObject to load definitions from JSON.
+        public void Migrate() { }
 
         public override string ToString()
         {

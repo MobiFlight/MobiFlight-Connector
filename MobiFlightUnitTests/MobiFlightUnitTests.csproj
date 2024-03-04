@@ -76,6 +76,7 @@
     <Compile Include="Base\SerialNumberTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
+    <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleInfoTests.cs" />
@@ -468,6 +469,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\MobiFlight\Config\Config\UnitTest.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -20,6 +20,7 @@ using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace MobiFlight.UI
 {
@@ -67,10 +68,11 @@ namespace MobiFlight.UI
 
         public event EventHandler<ConfigFile> ConfigLoaded;
 
+        private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
+
         private void InitializeLogging()
         {
             LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
-            LogAppenderFile logAppenderFile = new LogAppenderFile();
 
             Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
@@ -88,6 +90,16 @@ namespace MobiFlight.UI
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
             Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
+        }
+
+        private static void SetCurrentWorkingDirectory()
+        {
+            // Get the full path of the executable
+            string executablePath = Assembly.GetExecutingAssembly().Location;
+            // Extract the directory
+            string executableDirectory = Path.GetDirectoryName(executablePath);
+            // Set the current directory to the executable's directory
+            Directory.SetCurrentDirectory(executableDirectory);
         }
 
         private void InitializeSettings()
@@ -113,6 +125,9 @@ namespace MobiFlight.UI
             // then initialize components
             InitializeComponent();
 
+            // make sure to use app path as working dir
+            SetCurrentWorkingDirectory();
+
             // then restore settings
             InitializeSettings();
 
@@ -120,10 +135,10 @@ namespace MobiFlight.UI
             InitializeLogging();
 
             // Initialize the board configurations
-            BoardDefinitions.Load();
+            BoardDefinitions.LoadDefinitions();
 
             // Initialize the custom device configurations
-            CustomDevices.CustomDeviceDefinitions.Load();
+            CustomDevices.CustomDeviceDefinitions.LoadDefinitions();
 
             // configure tracking correctly
             InitializeTracking();
@@ -176,10 +191,9 @@ namespace MobiFlight.UI
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
-            execManager.OnSimCacheConnectionLost += new EventHandler(fsuipcCache_ConnectionLost);
-            execManager.OnSimCacheConnected += new EventHandler(fsuipcCache_Connected);
-            execManager.OnSimCacheConnected += new EventHandler(checkAutoRun);
-            execManager.OnSimCacheClosed += new EventHandler(fsuipcCache_Closed);
+            execManager.OnSimCacheConnectionLost += new EventHandler(SimCache_ConnectionLost);
+            execManager.OnSimCacheConnected += new EventHandler(SimCache_Connected);
+            execManager.OnSimCacheClosed += new EventHandler(SimCache_Closed);
             execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
 
             // working hypothesis: we don't need this at all.
@@ -239,8 +253,7 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
-            execManager.AutoConnectStart();
-
+            
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
@@ -253,6 +266,7 @@ namespace MobiFlight.UI
             else
             {
                 UpdateAircraft(aircraftName);
+                CheckAutoRun();
             }
         }
 
@@ -272,6 +286,7 @@ namespace MobiFlight.UI
                 !AutoLoadConfigs.ContainsKey(key))
             {
                 UpdateAutoLoadMenu();
+                
                 return;
             }
 
@@ -330,7 +345,7 @@ namespace MobiFlight.UI
 
             // MSFS2020
             WasmModuleUpdater updater = new WasmModuleUpdater();
-            if (updater.AutoDetectCommunityFolder())
+            if (updater.AutoDetectCommunityFolder() && updater.WasmModulesAreDifferent())
             {
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
@@ -434,6 +449,10 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackStart();
 
             InitialLookupFinished = true;
+
+            // Now we are done with all initialization stuff
+            // and now we are ready to look for sims
+            execManager.AutoConnectStart();
         }
 
         private void CheckForHubhopUpdate()
@@ -843,7 +862,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void fsuipcCache_Closed(object sender, EventArgs e)
+        void SimCache_Closed(object sender, EventArgs e)
         {
             if (sender.GetType() == typeof(SimConnectCache))
             {
@@ -921,7 +940,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>        
-        void fsuipcCache_Connected(object sender, EventArgs e)
+        void SimCache_Connected(object sender, EventArgs e)
         {
             // Typically the information in this static object is correct
             // only in the case of FSUIPC it might actually be not correct
@@ -1013,10 +1032,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// gets triggered as soon as the fsuipc is connected
         /// </summary>        
-        void checkAutoRun (object sender, EventArgs e)
+        void CheckAutoRun ()
         {            
             if (Properties.Settings.Default.AutoRun || cmdLineParams.AutoRun)
             {
+                execManager.Stop();
                 execManager.Start();
                 if (Properties.Settings.Default.MinimizeOnAutoRun)
                 {
@@ -1028,7 +1048,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows message to user and stops execution of timer
         /// </summary>
-        void fsuipcCache_ConnectionLost(object sender, EventArgs e)
+        void SimCache_ConnectionLost(object sender, EventArgs e)
         {
             execManager.Stop();
 
@@ -1484,7 +1504,6 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.TrackSettings();
 
             ConfigLoaded?.Invoke(this, configFile);
-                 
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
@@ -2378,6 +2397,26 @@ namespace MobiFlight.UI
             };
 
             LoadConfig(linkedFile);
+        }
+
+        private void copyLogsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                logAppenderFile.CopyToClipboard();
+            }
+            catch (FileLoadException ex)
+            {
+                MessageBox.Show("No logs available to copy. Make sure logging is enabled in settings then try again.", "Copy to clipboard");
+                return;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Unable to copy logs to the clipboard: {ex.Message}", "Copy to clipboard");
+                return;
+            }
+
+            MessageBox.Show("Logs successfully copied to the clipboard.", "Copy to clipboard");
         }
     }
 

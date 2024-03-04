@@ -165,6 +165,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.Schema.3.0.15\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>packages\protobuf-net.3.1.33\lib\net462\protobuf-net.dll</HintPath>
     </Reference>
@@ -259,6 +262,7 @@
     <Compile Include="MobiFlight\Config\AnalogInput.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
+    <Compile Include="MobiFlight\DeviceType.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
@@ -278,6 +282,7 @@
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
+    <Compile Include="MobiFlight\JsonBackedObject.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinition.cs" />
@@ -301,6 +306,8 @@
     <Compile Include="MobiFlight\Modifier\Blink.cs" />
     <Compile Include="MobiFlight\Modifier\FsuipcStringModifierList.cs" />
     <Compile Include="MobiFlight\Modifier\ModifierList.cs" />
+    <Compile Include="MobiFlight\FirmwareFeature.cs" />
+    <Compile Include="MobiFlight\InputEventArgs.cs" />
     <Compile Include="MobiFlight\Monitors\DeviceMonitor.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviHandler.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\OctaviReport.cs" />
@@ -647,6 +654,12 @@
     <Compile Include="UI\Panels\Device\MFShiftRegisterPanel.Designer.cs">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Settings\PeripheralsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\PeripheralsPanel.Designer.cs">
+      <DependentUpon>PeripheralsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -988,13 +1001,7 @@
     <None Include="Boards\arduino_uno.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Boards\kav_mega.board.json.inactive">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Boards\mfboard.schema.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Boards\mobiflight_genericI2C_mega.board.json.inactive">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Boards\raspberrypi_pico.board.json">
@@ -1002,15 +1009,6 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
-    <None Include="Devices\kav_efis.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Devices\mobiflight.genericI2C.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Devices\kav_fcu.device.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1032,22 +1030,19 @@
     <None Include="examples\tutorial-episode2.mcc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\kav_mega_2_5_0.hex">
+    <None Include="firmware\mobiflight_mega_2_5_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_mega_2_5_0.hex">
+    <None Include="firmware\mobiflight_micro_2_5_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_micro_2_5_0.hex">
+    <None Include="firmware\mobiflight_nano_2_5_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_nano_2_5_0.hex">
+    <None Include="firmware\mobiflight_raspberrypico_2_5_1.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="firmware\mobiflight_raspberrypico_2_5_0.uf2">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="firmware\mobiflight_uno_2_5_0.hex">
+    <None Include="firmware\mobiflight_uno_2_5_1.hex">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="firmware\reset.arduino_mega_1_0_2.hex">
@@ -1065,6 +1060,9 @@
     <None Include="Joysticks\octavi.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\t.a320_pilot.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1078,6 +1076,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\xtouchmini\LayerB.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\apckey25.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\intech_ef44.midiboard.json">
@@ -1147,6 +1148,9 @@
     <None Include="Boards\README.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
@@ -1297,6 +1301,12 @@
       <DependentUpon>MFInputMultiplexerPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFModulePanel.ar-LY.resx">
+      <DependentUpon>MFModulePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Device\MFModulePanel.de.resx">
+      <DependentUpon>MFModulePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFMultiplexerDriverSubPanel.de.resx">
       <DependentUpon>MFMultiplexerDriverSubPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -1420,6 +1430,12 @@
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\PeripheralsPanel.de.resx">
+      <DependentUpon>PeripheralsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Settings\PeripheralsPanel.resx">
+      <DependentUpon>PeripheralsPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.de.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1450,6 +1466,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\FsuipcConfigPanel.de.resx">
       <DependentUpon>FsuipcConfigPanel.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\InterpolationPanel.de.resx">
       <DependentUpon>InterpolationPanel.cs</DependentUpon>
@@ -1516,6 +1533,7 @@
     <None Include="Resources\mobiflight_icon_out_shifter.png" />
     <None Include="Resources\mobiflight_icon_out_stepper.png" />
     <None Include="Resources\mobiflight_icon_out_customdevice.png" />
+    <Content Include="Resources\hint-bulb.png" />
     <Content Include="Resources\module-pico.png" />
     <Content Include="Resources\output.png" />
     <None Include="Resources\port-deactivated.png" />
@@ -1744,6 +1762,11 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Release\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Community\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj">

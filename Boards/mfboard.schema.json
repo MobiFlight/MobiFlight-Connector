@@ -5,6 +5,7 @@
   "title": "Root",
   "type": "object",
   "required": [ "Connection", "HardwareIds", "Info", "ModuleLimits", "Pins" ],
+  "additionalProperties": false,
   "properties": {
     "AvrDudeSettings": {
       "$id": "#root/AvrDudeSettings",
@@ -12,6 +13,7 @@
       "type": "object",
       "description": "Settings for flashing Arduino devices with avrdude.",
       "required": [ "BaudRates", "Device", "Programmer" ],
+      "additionalProperties": false,
       "properties": {
         "Attempts": {
           "$id": "#root/AvrDudeSettings/Attempts",
@@ -86,6 +88,7 @@
         "ForceResetOnFirmwareUpdate",
         "MessageSize"
       ],
+      "additionalProperties": false,
       "properties": {
         "ConnectionDelay": {
           "$id": "#root/Connection/ConnectionDelay",
@@ -165,6 +168,7 @@
         "LatestFirmwareVersion",
         "MobiFlightType"
       ],
+      "additionalProperties": false,
       "properties": {
         "CanInstallFirmware": {
           "$id": "#root/Info/CanInstallFirmware",
@@ -179,13 +183,13 @@
           "type": "boolean"
         },
         "FirmwareBaseName": {
-          "$id": "#root/UsbDriveSettings/FirmwareBaseName",
+          "$id": "#root/Info/FirmwareBaseName",
           "title": "FirmwareBaseName",
           "description": "Base name for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
           "type": "string"
         },
         "FirmwareExtension": {
-          "$id": "#root/UsbDriveSettings/FirmwareExtension",
+          "$id": "#root/Info/FirmwareExtension",
           "title": "FirmwareExtension",
           "description": "File extension for firmware files. The final filename is of the form {FirmwareBaseName}_{Version}.{FirmwareExtension}.",
           "type": "string"
@@ -208,6 +212,12 @@
           "description": "The type of the board as provided by the MobiFlight firmware.",
           "type": "string"
         },
+        "MobiFlightTypeLabel": {
+          "$id": "#root/Info/MobiFlightTypeLabel",
+          "title": "MobiFlightTypeLabel",
+          "description": "If present, this Label is used in the UI instead of the internal MobiFlightType.",
+          "type": "string"
+        },
         "CustomDeviceTypes": {
           "$id": "#root/Info/CustomDeviceTypes",
           "title": "CustomDeviceTypes",
@@ -220,6 +230,78 @@
           "title": "Resetfirmwarefile",
           "description": "Firmware filename to reset the board. Deprecated. Use Info.ResetFirmwareFile instead.",
           "type": "string"
+        },
+        "Community": {
+          "$id": "#root/Info/Community",
+          "title": "Community",
+          "description": "Additional community information",
+          "type": "object",
+          "default": [],
+          "additionalProperties": false,
+          "properties": {
+            "Project": {
+              "$id": "#root/Info/Community/Project",
+              "title": "Project",
+              "description": "The project's name.",
+              "type": "string"
+            },
+            "Website": {
+              "$id": "#root/Info/Community/Website",
+              "title": "Website",
+              "description": "The project's website.",
+              "type": "string"
+            },
+            "Docs": {
+              "$id": "#root/Info/Community/Docs",
+              "title": "Docs",
+              "description": "The project's documentation.",
+              "type": "string"
+            },
+            "Support": {
+              "$id": "#root/Info/Community/Support",
+              "title": "Support",
+              "description": "The project's support, e.g. Discord Server link.",
+              "type": "string"
+            }
+          }
+        },
+        "DeviceConfigs": {
+          "$id": "#root/Info/DeviceConfigs",
+          "title": "DeviceConfigs",
+          "description": "A list of default device configs for this board.",
+          "type": "array",
+          "default": [],
+          "items": {
+            "$id": "#root/Info/DeviceConfigs/items",
+            "title": "Items",
+            "description": "A default device config for the board.",
+            "type": "object",
+            "required": [
+              "Name",
+              "Description",
+              "File"
+            ],
+            "properties": {
+              "Name": {
+                "$id": "#root/Info/DeviceConfigs/items/Name",
+                "title": "Name",
+                "description": "The name of the device config.",
+                "type": "string"
+              },
+              "Description": {
+                "$id": "#root/Info/DeviceConfigs/items/Description",
+                "title": "Description",
+                "description": "The description of the device config.",
+                "type": "string"
+              },
+              "File": {
+                "$id": "#root/Info/DeviceConfigs/items/File",
+                "title": "File",
+                "description": "The file name of the device config, without the path.",
+                "type": "string"
+              }
+            }
+          }
         }
       }
     },
@@ -240,6 +322,7 @@
         "MaxSteppers",
         "MaxInputMultiplexer"
       ],
+      "additionalProperties": false,
       "properties": {
         "MaxAnalogInputs": {
           "$id": "#root/ModuleLimits/MaxAnalogInputs",
@@ -303,8 +386,14 @@
         },
         "MaxInputMultiplexer": {
           "$id": "#root/ModuleLimits/MaxInputMultiplexer",
-          "title": "MaxInputMuxes",
+          "title": "MaxInputMultiplexer",
           "description": "Maximum number of digital input multiplexers supported by the board.",
+          "type": "integer"
+        },
+        "MaxCustomDevices": {
+          "$id": "#root/ModuleLimits/MaxCustomDevices",
+          "title": "MaxCustomDevices",
+          "description": "Maximum number of custom devices supported by the board.",
           "type": "integer"
         }
       }
@@ -361,8 +450,9 @@
       "type": "object",
       "description": "Settings for flashing devices via a mounted USB drive.",
       "required": [ "VerificationFileName", "VolumeLabel" ],
+      "additionalProperties": false,
       "properties": {
-        "Settings": {
+        "VerificationFileName": {
           "$id": "#root/UsbDriveSettings/VerificationFileName",
           "title": "VerificationFileName",
           "description": "The name of a file that must be present in the root directory of the USB drive for it to be considered, a match and able to be flashed.",

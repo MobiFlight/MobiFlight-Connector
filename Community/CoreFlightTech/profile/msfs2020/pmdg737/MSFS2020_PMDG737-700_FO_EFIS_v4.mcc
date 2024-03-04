@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="38676835-96ca-4284-89a2-f13ed3568bc0">
+      <active>true</active>
+      <description>FO EFIS BACKLIGHT SETTING - CHECK YOUR VIDEO FOR SETTING</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:BL_MainCA, number)" UUID="b9c3c4d8-af5c-4aef-98ac-5b84ce3b6729" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="-1" operand="!=" ifValue="255" elseValue="" />
+          <interpolation active="False">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="FO_EFIS_v5_1/ SN-1ab-865" trigger="normal" pin="FO_EFIS_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="29018f35-4170-40a0-9e85-9b7f720f8ffc">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 5</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="MSFS2020CustomInputAction" command="0 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="78dc3692-880c-4363-9cc5-0cc124ea5647" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c5168126-6fe2-49c4-9b11-a1024c1b98cf">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 10</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="10 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="784ac35a-e0e9-4011-bb95-ca8f4a3ca982" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6de5e458-9f19-4d5d-8c76-b6099efbbc77">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 20</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="MSFS2020CustomInputAction" command="20 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="99026bab-667a-4ce9-a976-a1ad9b050e13" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4b05404b-0d57-4f38-a773-1c1a9c146226">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 40</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="30 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="e7e6fd58-18e1-4a72-84c4-edaae07edffd" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="91fc0faf-c621-43df-9da3-a3daf72687e6">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 80</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="40 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="2f6a181c-5c37-46f7-a38d-4434417ddc85" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fc0a67a0-1076-4f5b-a4cc-ce90d264eebe">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 160</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="MSFS2020CustomInputAction" command="50 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="c6323538-8dc1-4891-a9a4-6c29eabe287f" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="20cfa3bd-6ddb-4930-b782-c3a9e04f35e3">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 320</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="60 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="653478ab-f945-4f9f-8d89-b51886495fce" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1e44ec15-6526-4f11-9096-672e71e31af6">
+      <active>true</active>
+      <description>FO EFIS MAP RANGE 640</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="MSFS2020CustomInputAction" command="70 (L:switch_417_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41707 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41708 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="4d551f07-6361-49d3-a0a1-78171e450903" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0f00874d-8006-4f34-9258-e65d8f85da89">
+      <active>true</active>
+      <description>FO EFIS MODE APP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="MSFS2020CustomInputAction" command="0 (L:switch_415_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41507 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41508 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="75b13cc5-5545-4ff7-a9ea-63591161a928" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9a11440b-5a17-41b5-ac34-11c811c57f1b">
+      <active>true</active>
+      <description>FO EFIS MODE VOR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="10 (L:switch_415_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41507 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41508 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="3e4618b8-ae94-476d-91e7-baf6b7a7ed46" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b76b6308-0b0d-4336-9719-919fe87560e2">
+      <active>true</active>
+      <description>FO EFIS MODE MAP</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="MSFS2020CustomInputAction" command="20 (L:switch_415_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41507 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41508 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="3668e433-64ff-4233-ba9c-776b1bbb1a9d" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="48336ba0-6ba7-42a7-a6d7-d52bc95e3979">
+      <active>true</active>
+      <description>FO EFIS MODE PLN</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="30 (L:switch_415_73X) - 10 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41507 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41508 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="79ef8f87-31e3-4a6b-b78f-8da4f4476efb" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="683cefa6-708e-430d-8a7a-4e8ed1e5d79d">
+      <active>true</active>
+      <description>FO EFIS RST BUTTON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="41301 (&gt;K:ROTOR_BRAKE)" presetId="-" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ff847c3e-e3c2-441e-9261-507800e34df9">
+      <active>true</active>
+      <description>FO EFIS STD BUTTON</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="MSFS2020CustomInputAction" command="42301 (&gt;K:ROTOR_BRAKE)" presetId="-" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="beb5c16b-4212-4266-b1c8-db70b46dc070">
+      <active>true</active>
+      <description>FO EFIS IN/HPA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="MSFS2020CustomInputAction" command="(L:switch_422_73X) 0 != if{ 42201 (&gt;K:ROTOR_BRAKE) }" presetId="0" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:switch_422_73X) 0 == if{ 42201 (&gt;K:ROTOR_BRAKE) }" presetId="0" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90947679-b2eb-44b3-9a1b-b3b54ff27125">
+      <active>true</active>
+      <description>FO EFIS RADIO/BARO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux2" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="(L:switch_412_73X) 0 == if{ 41201 (&gt;K:ROTOR_BRAKE) }" presetId="82693d96-8a1f-41cc-a527-b776befbfe42" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:switch_412_73X) 0 != if{ 41201 (&gt;K:ROTOR_BRAKE) }" presetId="39c31e48-81e7-484a-a8a9-57474687fa2f" />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="34fa40fa-8ccc-495e-8400-4b8659454f7b">
+      <active>true</active>
+      <description>FO EFIS WXR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="0">
+          <onPress type="MSFS2020CustomInputAction" command="42501 (&gt;K:ROTOR_BRAKE)" presetId="f5a310a4-ca00-4360-863d-afa30e9f67b2" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="00da5958-9c54-4b65-8b6b-ca2fa3745d20">
+      <active>true</active>
+      <description>FO EFIS STA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1">
+          <onPress type="MSFS2020CustomInputAction" command="42601 (&gt;K:ROTOR_BRAKE)" presetId="1c763bb3-5f00-45a7-a342-e9ed650be5ce" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ee6e7d7c-d89c-4959-9744-f1ca271a7279">
+      <active>true</active>
+      <description>FO EFIS WPT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="2">
+          <onPress type="MSFS2020CustomInputAction" command="42701 (&gt;K:ROTOR_BRAKE)" presetId="3840b596-ed40-44a3-a506-a1f749256730" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3c58fe70-7a40-460a-af3c-ce2177ae2a4e">
+      <active>true</active>
+      <description>FO EFIS APT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="MSFS2020CustomInputAction" command="42801 (&gt;K:ROTOR_BRAKE)" presetId="5df1b020-b1df-46ba-9438-e26fcdaf6afe" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="935df8b3-d59f-48a4-9ee4-de4b30884f91">
+      <active>true</active>
+      <description>FO EFIS DATA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="MSFS2020CustomInputAction" command="42901 (&gt;K:ROTOR_BRAKE)" presetId="19342f09-5734-4d27-8f23-a9b5db9f2183" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="41c8a4ba-3a9b-4f5c-ac8a-1c9d9f524db9">
+      <active>true</active>
+      <description>FO EFIS POS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="MSFS2020CustomInputAction" command="43001 (&gt;K:ROTOR_BRAKE)" presetId="1d78e7f0-ff8c-4075-810d-aec8771234d4" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="87bc8923-f614-4012-b854-6d94ecf1cf66">
+      <active>true</active>
+      <description>FO EFIS TERR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_InMux3" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="MSFS2020CustomInputAction" command="43101 (&gt;K:ROTOR_BRAKE)" presetId="b51685d5-3084-4b47-9032-40c867061871" />
+          <onRelease />
+        </inputMultiplexer>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="83e052f9-be70-4948-821b-7d57caaa820b">
+      <active>true</active>
+      <description>FO EFIS VOR1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_VOR1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (L:switch_414_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="14f260e4-9f3f-41b8-b92e-70f61d0e499a" />
+          <onRelease type="MSFS2020CustomInputAction" command="50 (L:switch_414_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="1c29a9a9-5e85-4a94-af3a-0d497bc8844b" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="33712923-e345-4e26-bb97-5c6c8d6bc10a">
+      <active>true</active>
+      <description>FO EFIS VOR2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_VOR2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (L:switch_424_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 42401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 42402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="42c125c6-abc2-4448-a09c-a9946d139e1b" />
+          <onRelease type="MSFS2020CustomInputAction" command="50 (L:switch_424_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 42401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 42402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="eda10e87-383a-4f12-8a0b-9a19c31ed192" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="282eb802-3a43-4b10-ad0e-c74d43af4c2e">
+      <active>true</active>
+      <description>FO EFIS ADF1</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_ADF1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="100 (L:switch_414_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="d522da17-2b19-45ff-bb32-a8ec013573bf" />
+          <onRelease type="MSFS2020CustomInputAction" command="50 (L:switch_414_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 41401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 41402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="1c29a9a9-5e85-4a94-af3a-0d497bc8844b" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5fee9232-19c7-4997-bc89-258161c4bb30">
+      <active>true</active>
+      <description>FO EFIS ADF2</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_ADF2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="100 (L:switch_424_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 42401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 42402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="9d28a011-2363-4fd5-ac2b-33572cf8bfe3" />
+          <onRelease type="MSFS2020CustomInputAction" command="50 (L:switch_424_73X) - 50 div s0&#xA;:1&#xA;l0 0 &gt; if{ 42401 (&gt;K:ROTOR_BRAKE) l0 -- s0 g1 }&#xA;l0 0 &lt; if{ 42402 (&gt;K:ROTOR_BRAKE) l0 ++ s0 g1 }" presetId="eda10e87-383a-4f12-8a0b-9a19c31ed192" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2d792fde-7830-44fa-88f9-355005781d7b">
+      <active>true</active>
+      <description>FO EFIS MTRS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_MTRS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="42001 (&gt;K:ROTOR_BRAKE)" presetId="509aa839-b86f-4a55-b8aa-f5d8927c9598" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="927976fe-c31f-4da8-ae9b-f5858c5193ba">
+      <active>true</active>
+      <description>FO EFIS FPV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_FPV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="41901 (&gt;K:ROTOR_BRAKE)" presetId="fc722895-8e2b-4343-b580-d832449a735c" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="88620743-325f-455e-9a8f-49640eec1528">
+      <active>true</active>
+      <description>FO EFIS MINS ENCODER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_MINS_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="41107 (&gt;K:ROTOR_BRAKE)" presetId="b77587d7-91e7-47d6-8d91-48df6d20554e" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="41108 (&gt;K:ROTOR_BRAKE)" presetId="9ff822ac-2826-497b-a227-2f7a63cee84c" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a4d76b95-25d3-46e0-b552-7a7712332fe1">
+      <active>true</active>
+      <description>FO EFIS BARO ENCODER</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_EFIS_v5_1/ SN-1ab-865" name="FO_EFIS_BARO_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="42107 (&gt;K:ROTOR_BRAKE)" presetId="f7edf7da-cf58-4d8d-8c09-f9db58d05d64" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="42108 (&gt;K:ROTOR_BRAKE)" presetId="b800b510-9886-4557-b9df-a3c8c5a1cdc2" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

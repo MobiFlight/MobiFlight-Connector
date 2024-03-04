@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             InitializeComponent();
             configRefComboBox.Text = "Select reference";
+            checkBoxUse.Checked = true;
         }
 
         public void SetDataView(DataView dv)
@@ -28,12 +29,12 @@ namespace MobiFlight.UI.Panels.Config
 
         public void SetPlaceholder (String placeholder)
         {
-            textBox1.Text = placeholder;
+            textBoxPlaceholder.Text = placeholder;
         }
 
         internal void syncFromConfig(ConfigRef config)
         {
-            checkBox1.Checked = config.Active;
+            checkBoxUse.Checked = config.Active;
             
             try {
                 // if we have a null value, it might have happened
@@ -63,15 +64,17 @@ namespace MobiFlight.UI.Panels.Config
                 Log.Instance.log($"ConfigRef could not be loaded: {ex.Message}", LogSeverity.Error);
             }
             
-            textBox1.Text = config.Placeholder;
+            textBoxPlaceholder.Text = config.Placeholder;
+            textBoxTestValue.Text = config.TestValue;
         }
 
         internal ConfigRef syncToConfig(ConfigRef config)
         {
-            config.Active = checkBox1.Checked;
+            config.Active = checkBoxUse.Checked;
             if (configRefComboBox.SelectedValue != null)
                 config.Ref = configRefComboBox.SelectedValue.ToString();
-            config.Placeholder = textBox1.Text;
+            config.Placeholder = textBoxPlaceholder.Text;
+            config.TestValue = textBoxTestValue.Text.Trim();
             return config;
         }
 

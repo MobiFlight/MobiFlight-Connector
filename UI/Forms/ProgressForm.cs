@@ -1,20 +1,13 @@
 ﻿using MobiFlight.Base;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Forms
 {
     public partial class ProgressForm : Form
     {
-        delegate void VoidDelegate(); 
-        Timer timer = new Timer();
+        delegate void VoidDelegate();
+        System.Windows.Forms.Timer timer = new Timer();
 
         public ProgressForm()
         {
@@ -36,7 +29,10 @@ namespace MobiFlight.UI.Forms
         public void OnProgressUpdated(object sender, ProgressUpdateEvent e)
         {
             if (this.InvokeRequired)
+            {
                 this.Invoke(new EventHandler<ProgressUpdateEvent>(OnProgressUpdated), new object[] { sender, e });
+                return;
+            }
 
             timer.Start();  
             progressBar1.Value = e.Current;
@@ -46,8 +42,7 @@ namespace MobiFlight.UI.Forms
 
             if (e.Current == e.Total)
             {
-                if (this.InvokeRequired)
-                    this.Invoke(new EventHandler<ProgressUpdateEvent>(OnProgressCompleted), new object[] { sender, e });
+                OnProgressCompleted(sender, e);
             }
         }
 

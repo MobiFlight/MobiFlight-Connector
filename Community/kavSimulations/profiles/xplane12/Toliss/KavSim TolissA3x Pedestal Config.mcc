@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="32e151a4-4e34-4e2a-92ac-5cfda3e423b7">
+      <active>false</active>
+      <description>PEDESTAL CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0e7f555c-b2f4-4824-b9f6-6711a3a093ab">
+      <active>false</active>
+      <description>RMP L</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f07151d4-fea6-4492-8e1d-8c6e489b630c">
+      <active>true</active>
+      <description>RMP L ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/RMP1Freq" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($*1000, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP L ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f89ecf3a-dbd2-4c0b-9f79-cc6b797c227a">
+      <active>true</active>
+      <description>RMP L STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/RMP1StbyFreq" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($*1000, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP L STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ae5cbf0f-12bc-41f9-9691-6959303bc6e1">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5b661d13-f348-4284-8373-be2b1a8b313c">
+      <active>false</active>
+      <description>RMP R</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e54024c0-d139-4ed4-961f-e7bdad23dde2">
+      <active>true</active>
+      <description>RMP R Radio ACTIVE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/RMP2Freq" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($*1000, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP R ACTIVE" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="525c608f-02c4-4611-a084-e405d705754a">
+      <active>true</active>
+      <description>RMP R Radio STBY CRS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/RMP2StbyFreq" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($*1000, 0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RMP R STBY-CRS" messageType="2" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1f4f491c-b041-42b8-ad47-44dc05b388ae">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0829ae05-6b9c-495b-9729-90f75e1b51d7">
+      <active>true</active>
+      <description>TCAS Display Output</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/tcas/targets/modeC_code[0]" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="TCAS" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="13bebeed-279e-4911-90ec-4298f4ef93e9">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2fdb098a-88a0-4733-a420-419ca5460a7c">
+      <active>true</active>
+      <description>Rudder Trim L</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/YawTrimPosition" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if($&lt;=0,1,0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RUDDER TRIM" messageType="0" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="86f644cf-debf-4e95-b235-b884e79ec358">
+      <active>true</active>
+      <description>Rudder Trim R</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/YawTrimPosition" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if($&gt;0,1,0)" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RUDDER TRIM" messageType="1" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90520bc7-1478-4f63-a047-63ec70c137c0">
+      <active>true</active>
+      <description>Rudder Trim Value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="AirbusFBW/YawTrimPosition" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($,1)" />
+          <transformation active="True" expression="$*10" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-2G6-C0F" trigger="normal" customType="" customName="RUDDER TRIM" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

@@ -72,9 +72,13 @@ namespace MobiFlight.UI.Panels
                                 ExecutionManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                 OutputDataSetConfig,
-                                dataRow["guid"].ToString()
-                                );
-            wizard.StartPosition = FormStartPosition.CenterParent;
+                                dataRow["guid"].ToString(),
+                                dataRow["description"].ToString()
+                                )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+
             wizard.SettingsDialogRequested += new EventHandler(wizard_SettingsDialogRequested);
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -449,12 +453,28 @@ namespace MobiFlight.UI.Panels
                 e.Row["guid"] = Guid.NewGuid();
         }
 
+        private void ActivateAutoColumnWidth()
+        {       
+            inputsDataGridView.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            inputsDataGridView.Columns["inputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            inputsDataGridView.Columns["inputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
+
+        private void DeactivateAutoColumnWidth()
+        {           
+            inputsDataGridView.Columns["moduleSerial"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            inputsDataGridView.Columns["inputName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            inputsDataGridView.Columns["inputType"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+        }
+
         /// <summary>
         /// use the settings from the config object and initialize the grid cells 
         /// this is needed after loading and saving configs
         /// </summary>
         public void RestoreValuesInGridView()
         {
+            // Needed for performance reasons
+            DeactivateAutoColumnWidth();
             foreach (DataRow row in ConfigDataTable.Rows)
             {
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
@@ -500,6 +520,7 @@ namespace MobiFlight.UI.Panels
                     row["inputType"] = cfg.Type;                   
                 }
             }
+            ActivateAutoColumnWidth();
         } //_restoreValuesInGridView()
 
         private void inputsDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -716,6 +737,8 @@ namespace MobiFlight.UI.Panels
         {
             ChangeRowBackgroundColor(RowCurrentDragHighlight, Color.Empty);
             ChangeRowBackgroundColor(RowNeighbourDragHighlight, Color.Empty);
+            RowCurrentDragHighlight = 0;
+            RowNeighbourDragHighlight = 0;
         }
 
         private void inputsDataGridView_MouseDown(object sender, MouseEventArgs e)

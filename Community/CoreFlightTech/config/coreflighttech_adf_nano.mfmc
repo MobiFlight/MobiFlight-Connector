@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech ADF</ModuleName>
+  <ModuleType>CoreFlightTech ADF</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <LedModule Name="CPT_ADF_STANDBY" DinPin="7" ClsPin="6" ClkPin="8" Brightness="15" NumModules="1" />
+  <LedModule Name="CPT_ADF_ACTIVE" DinPin="10" ClsPin="9" ClkPin="12" Brightness="15" NumModules="1" />
+  <Encoder Name="CPT_ADF_OUT_ENC" PinLeft="2" PinRight="3" EncoderType="2" />
+  <Encoder Name="CPT_ADF_IN_ENC" PinLeft="4" PinRight="5" EncoderType="2" />
+  <Button Name="CPT_ADF_TFR" Pin="16" />
+  <Output Name="CPT_ADF_BLIGHT" Pin="11" />
+  <Button Name="CPT_ADF_ADF_ANT" Pin="18" />
+  <Button Name="CPT_ADF_TONE" Pin="19" />
+</Config>

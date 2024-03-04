@@ -28,7 +28,7 @@ namespace MobiFlight.Tests
         {
             byte CommandId = (byte)MobiFlightModule.Command.SetCustomDevice;
             string value = "12345678";
-            var messageType = "3";
+            var messageType = 3;
 
             var module = new MobiFlightCustomDevice()
             {

@@ -1,6 +1,5 @@
 ﻿using CommandMessenger;
 using CommandMessenger.Transport.Serial;
-using FSUIPC;
 using MobiFlight.Config;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
@@ -12,69 +11,10 @@ using System.Threading;
 
 namespace MobiFlight
 {
-    public class InputEventArgs : EventArgs, ICloneable
-    {
-        public string Serial { get; set; }
-        public string DeviceId { get; set; }
-        public string DeviceLabel { get; set; }
-        public string Name { get; set; }
-        public DeviceType Type { get; set; }
-        public int? ExtPin { get; set; }
-        public int Value { get; set; }
-
-        public String StrValue { get; set; }
-
-        public readonly DateTime Time = DateTime.Now;
-
-        public object Clone()
-        {
-            InputEventArgs clone = new InputEventArgs();
-            clone.Serial = Serial;
-            clone.DeviceId = DeviceId;
-            clone.DeviceLabel = DeviceLabel;
-            clone.Name = Name;
-            clone.Type = Type;
-            clone.ExtPin = ExtPin;
-            clone.Value = Value;
-            clone.StrValue = StrValue;
-            return clone;
-        }
-    }
-
-    public class FirmwareFeature
-    {
-        public const string GenerateSerial = "1.3.0";
-        public const string SetName = "1.6.0";
-        public const string LedModuleTypeTM1637 = "2.4.2";
-        public const string CustomDevices = "2.4.2";
-    }
-
-    // This is the list of recognized commands. These can be commands that can either be sent or received. 
-    // In order to receive, attach a callback function to these events
-    public enum DeviceType
-    {
-        NotSet,              // 0 
-        Button,              // 1
-        EncoderSingleDetent, // 2 (retained for backwards compatibility, use Encoder for new configs)
-        Output,              // 3
-        LedModuleDeprecated, // 4
-        StepperDeprecatedV1, // 5
-        Servo,               // 6
-        LcdDisplay,          // 7
-        Encoder,             // 8
-        StepperDeprecatedV2, // 9
-        ShiftRegister,       // 10
-        AnalogInput,         // 11
-        InputShiftRegister,  // 12
-        MultiplexerDriver,   // 13  Not a proper device, but index required for update events
-        InputMultiplexer, 	 // 14
-        Stepper,             // 15
-        LedModule,           // 16
-        CustomDevice         // 17        
-    }
-
     public class MobiFlightModule : IModule, IOutputModule
     {
+        // This is the list of recognized commands. These can be commands that can either be sent or received. 
+        // In order to receive, attach a callback function to these events
         public enum Command
         {
             InitModule,             // 0
@@ -148,7 +88,20 @@ namespace MobiFlight
 
         String _comPort = "COM3";
         public String Port { get { return _comPort; } }
-        public String Name { get; set; }
+
+        private string _name;
+        public String Name {
+            get
+            {
+                if (HasMfFirmware()) return _name;
+                return Board.Info.FriendlyName;
+            }
+            set 
+            {
+                _name = value;
+            } 
+        }
+
         public string HardwareId { get; set; }
 
         public String Type
@@ -173,6 +126,8 @@ namespace MobiFlight
         }
         public String Serial { get; set; }
         public String Version { get; set; }
+        public string CoreVersion { get; set; }
+
         public bool HasMfFirmware()
         {
             return !String.IsNullOrEmpty(Version);
@@ -275,7 +230,7 @@ namespace MobiFlight
 
         public MobiFlightModule(String port, Board board)
         {
-            Name = "Unknown";
+            Name = board.Info.FriendlyName;
             Version = null; // this is simply unknown, in case of an unflashed Arduino
             Serial = null; // this is simply unknown, in case of an unflashed Arduino
             _comPort = port;
@@ -284,7 +239,7 @@ namespace MobiFlight
 
         public MobiFlightModule(MobiFlightModuleInfo moduleInfo)
         {
-            Name = moduleInfo.Name ?? "Unknown";
+            Name = moduleInfo.Name ?? moduleInfo.Board.Info.FriendlyName;
             Version = moduleInfo.Version;
             Serial = moduleInfo.Serial;
             _comPort = moduleInfo.Port;
@@ -356,11 +311,11 @@ namespace MobiFlight
             shiftRegisters.Clear();
             customDevices.Clear();
 
-            
+
             foreach (Config.BaseDevice device in Config.Items)
             {
                 if (device == null) continue; // Can happen during development if trying with an older firmware, which prevents you from starting.
-                
+
                 try
                 {
                     switch (device.Type)
@@ -380,7 +335,7 @@ namespace MobiFlight
 
                             device.Name = GenerateUniqueDeviceName(ledModules.Keys.ToArray(), device.Name);
                             var dev = device as Config.LedModule;
-                            
+
                             ledModules.Add(device.Name, new MobiFlightLedModule()
                             {
                                 CmdMessenger = _cmdMessenger,
@@ -472,11 +427,12 @@ namespace MobiFlight
 
                         case DeviceType.CustomDevice:
                             device.Name = GenerateUniqueDeviceName(customDevices.Keys.ToArray(), device.Name);
-                            customDevices.Add(device.Name, new MobiFlightCustomDevice() {
-                                    CmdMessenger = _cmdMessenger,
-                                    DeviceNumber = customDevices.Count,
-                                    Name = device.Name,
-                                    CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Config.CustomDevice).CustomType)
+                            customDevices.Add(device.Name, new MobiFlightCustomDevice()
+                            {
+                                CmdMessenger = _cmdMessenger,
+                                DeviceNumber = customDevices.Count,
+                                Name = device.Name,
+                                CustomDevice = CustomDevices.CustomDeviceDefinitions.GetDeviceByType((device as Config.CustomDevice).CustomType)
                             });
                             break;
                     }
@@ -485,7 +441,7 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Unable to load config for {Board.Info.FriendlyName} ({Port}) > {device.Name}: {ex.Message}", LogSeverity.Error);
                 }
-            } 
+            }
         }
 
         public static string GenerateUniqueDeviceName(String[] Keys, String Name)
@@ -552,7 +508,7 @@ namespace MobiFlight
                 {
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = 1200, DtrEnable = true } // object initializer
                 };
- 
+
                 tmpSerial.Connect();
                 tmpSerial.Disconnect();
                 tmpSerial.Dispose();
@@ -620,13 +576,14 @@ namespace MobiFlight
             }
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = enc, 
-                    DeviceLabel = enc, 
-                    Type = DeviceType.Encoder, 
-                    Value = value 
+                OnInputDeviceAction(this, new InputEventArgs()
+                {
+                    Serial = this.Serial,
+                    Name = Name,
+                    DeviceId = enc,
+                    DeviceLabel = enc,
+                    Type = DeviceType.Encoder,
+                    Value = value
                 });
             //addLog("Enc: " + enc + ":" + pos);
         }
@@ -650,14 +607,15 @@ namespace MobiFlight
             }
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = deviceId, 
-                    DeviceLabel = deviceId, 
-                    Type = DeviceType.InputShiftRegister, 
-                    ExtPin = channel, 
-                    Value = state 
+                OnInputDeviceAction(this, new InputEventArgs()
+                {
+                    Serial = this.Serial,
+                    Name = Name,
+                    DeviceId = deviceId,
+                    DeviceLabel = deviceId,
+                    Type = DeviceType.InputShiftRegister,
+                    ExtPin = channel,
+                    Value = state
                 });
         }
 
@@ -680,13 +638,14 @@ namespace MobiFlight
             }
 
             if (OnInputDeviceAction != null)
-                OnInputDeviceAction(this, new InputEventArgs() { 
-                    Serial = this.Serial, 
-                    Name = Name, 
-                    DeviceId = deviceId, 
+                OnInputDeviceAction(this, new InputEventArgs()
+                {
+                    Serial = this.Serial,
+                    Name = Name,
+                    DeviceId = deviceId,
                     DeviceLabel = deviceId,
-                    Type = DeviceType.InputMultiplexer, 
-                    ExtPin = channel, 
+                    Type = DeviceType.InputMultiplexer,
+                    ExtPin = channel,
                     Value = state
                 });
         }
@@ -697,7 +656,8 @@ namespace MobiFlight
             String button = arguments.ReadStringArg();
             String strState = arguments.ReadStringArg();
 
-            if (!int.TryParse(strState, out int state)) {
+            if (!int.TryParse(strState, out int state))
+            {
                 Log.Instance.log($"Unable to convert {strState} to an integer.", LogSeverity.Error);
                 return;
             }
@@ -885,9 +845,9 @@ namespace MobiFlight
             return true;
         }
 
-        internal bool setCustomDevice(string deviceName, string messageType, string value)
+        internal bool setCustomDevice(string deviceName, int messageType, string value)
         {
-            String key = "CustomDevice_" + deviceName + messageType;
+            String key = $"CustomDevice_{deviceName}{messageType}";
             String cachedValue = value;
 
             if (lastValue.ContainsKey(key) &&
@@ -941,6 +901,13 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
+                // With the support of Custom Devices
+                // we also introduced CoreVersion
+                if(InfoCommand.Arguments.Length>4)
+                {
+                    CoreVersion = InfoCommand.ReadStringArg();
+                }
+
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
@@ -956,8 +923,32 @@ namespace MobiFlight
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
 
-            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}, {Serial}.", LogSeverity.Debug);
+            // With the support of Custom Devices
+            // we also introduced CoreVersion
+            // if a CoreVersion was not provided 
+            // we determine a fallback version
+            if (String.IsNullOrEmpty(CoreVersion))
+            {
+                CoreVersion = FallbackCoreVersion(Version, Board);
+            }
+
+            Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Debug);
             return devInfo;
+        }
+
+        /// <summary>
+        /// Determine a sensible CoreVersion if not present
+        /// </summary>
+        /// <param name="version">Firmware version</param>
+        /// <param name="board">The current Board information</param>
+        /// <returns>CoreVersion, or null if no guess possible</returns>
+        private static string FallbackCoreVersion(string version, Board board)
+        {
+            if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
+
+            // Official partner boards were only built with > 2.5.0
+            if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "2.5.0";
+            return null;
         }
 
         public bool SaveName()
@@ -1081,9 +1072,18 @@ namespace MobiFlight
             result[MobiFlightInputMultiplexer.TYPE] = inputMultiplexers.Count;
             result[MobiFlightCustomDevice.TYPE] = customDevices.Count;
 
-            foreach(var device in customDevices.Values)
+            foreach (var device in customDevices.Values)
             {
-                var customDeviceType = device.CustomDevice.Info.Type;
+                // Issue 1423: Handle the case where an Arduino with custom
+                // devices in the config is connected, but the corresponding
+                // custom device and board json files are missing on the desktop.
+                var customDeviceType = device.CustomDevice?.Info.Type;
+
+                if (String.IsNullOrEmpty(customDeviceType))
+                {
+                    continue;
+                }
+
                 var statisticsKey = $"CustomDevice.{customDeviceType}";
                 if (!result.ContainsKey(statisticsKey))
                     result[statisticsKey] = 0;
@@ -1425,7 +1425,8 @@ namespace MobiFlight
             }
 
             // Mark all the used pins as used in the result list.
-            foreach (byte pinNo in usedPins) {
+            foreach (byte pinNo in usedPins)
+            {
                 MobiFlightPin pin = ResultPins.Find(resultPin => resultPin.Pin == pinNo);
                 if (pin != null) pin.Used = true;
             }

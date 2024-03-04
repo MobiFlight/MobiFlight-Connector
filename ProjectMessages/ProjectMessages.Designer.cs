@@ -664,7 +664,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
+        ///   Looks up a localized string similar to Resetting {0} on {1} (Module {2}/{3}).
         /// </summary>
         internal static string uiMessageFirmwareResetStatus {
             get {
@@ -691,7 +691,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Board reset.
+        ///   Looks up a localized string similar to Board Reset.
         /// </summary>
         internal static string uiMessageFirmwareResetTitle {
             get {
@@ -1093,6 +1093,39 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Board type warning.
+        /// </summary>
+        internal static string uiMessageOpenConfigIncompatibleTypeHint {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigIncompatibleTypeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The config was created for a &quot;{0}&quot; board. Your selected board is a &quot;{1}&quot;. The config may be incompatible, check before uploading.
+        ///
+        ///Open anyway?.
+        /// </summary>
+        internal static string uiMessageOpenConfigIncompatibleTypeText {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigIncompatibleTypeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This config doesn&apos;t specify a board type and may not be compatible with your &quot;{0}&quot;.
+        ///
+        ///Open anyway?
+        ///
+        ///Tip: Save the file after opening to update the associated board for future use..
+        /// </summary>
+        internal static string uiMessageOpenConfigUnspecificTypeText {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigUnspecificTypeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value must be a number and greater than 0..
         /// </summary>
         internal static string uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0 {
@@ -1107,6 +1140,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessagePanelsStepperInputRevolutionsMustNonEmpty {
             get {
                 return ResourceManager.GetString("uiMessagePanelsStepperInputRevolutionsMustNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are not enough pins available to use the auto-zero option. .
+        /// </summary>
+        internal static string uiMessagePanelsStepperNoFreePins {
+            get {
+                return ResourceManager.GetString("uiMessagePanelsStepperNoFreePins", resourceCulture);
             }
         }
         
@@ -1170,6 +1212,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageSelectedModuleDoesNotContainAnyOutputDevices {
             get {
                 return ResourceManager.GetString("uiMessageSelectedModuleDoesNotContainAnyOutputDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing is disabled due to outdated firmware. Please update to the latest version..
+        /// </summary>
+        internal static string uiMessageSettingsDialogFirmwareRequiresUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageSettingsDialogFirmwareRequiresUpdate", resourceCulture);
             }
         }
         

@@ -117,35 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>303, 8</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>||   Test-Wert</value>
   </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>29, 20</value>
+  <data name="checkBox1.Text" xml:space="preserve">
+    <value>nutze</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>als</value>
-  </data>
-  <data name="configRefComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>85, 5</value>
-  </data>
-  <data name="configRefComboBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>210, 28</value>
-  </data>
-  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>73, 27</value>
-  </data>
-  <data name="checkBox1.Text" xml:space="preserve">
-    <value>nimm</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>382, 40</value>
-  </data>
-  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>340, 6</value>
-  </data>
-  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>38, 26</value>
   </data>
 </root>
