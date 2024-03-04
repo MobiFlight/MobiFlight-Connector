@@ -240,6 +240,15 @@ namespace MobiFlight.UI.Panels
                 // If not, run the action directly
                 processMessageAction();
             });
+
+            MessageExchange.Instance.Subscribe<Message<Notification>>((message) =>
+            {
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
         }
     }
 }

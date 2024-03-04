@@ -27,7 +27,7 @@ namespace MobiFlight.BrowserMessages
         public string[] RecentFiles { get; set; }
         public int RecentFilesMaxCount { get; set; }
         public int TestTimerInterval { get; set; }
-        
+
         internal GlobalSettings()
         {
         }

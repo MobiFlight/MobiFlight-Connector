@@ -60,7 +60,7 @@ const DeviceDetailPage = () => {
   );
   const [deviceHasChanged, setDeviceHasChanged] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const element = device?.Elements!.find((element) => element.Id === elementId);
+  const element = device?.Elements?.find((element) => element.Id === elementId);
 
   const updateDevice = (d: IDeviceItem) => {
     setDevice(d);
@@ -86,9 +86,6 @@ const DeviceDetailPage = () => {
       }
       return pin;
     }) ?? []
-
-    console.log("Freed pins", freedPins);
-    console.log("Used pins", usedPins);
 
     updateDevice({
       ...device!,
@@ -190,7 +187,7 @@ const DeviceDetailPage = () => {
           </div>
         )}
         {/* Element information for MobiFlight Boards */}
-        {device && device.Type === "MobiFlight" && (
+        {device && device.Type === "MobiFlight" && device.Elements && (
           <Card className="flex w-auto select-none flex-col border-none bg-transparent shadow-lg hover:border-none hover:bg-transparent dark:bg-zinc-700/10 dark:hover:bg-zinc-700/20  lg:w-96 lg:overflow-y-auto">
             <CardHeader className="mt-0 flex flex-col">
               <div className="text-xl font-semibold">Components</div>

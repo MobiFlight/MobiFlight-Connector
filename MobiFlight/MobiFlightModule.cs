@@ -1326,7 +1326,7 @@ namespace MobiFlight
 
             List<byte> usedPins = new List<byte>();
 
-            foreach (Config.BaseDevice device in Config.Items)
+            foreach (Config.BaseDevice device in Config?.Items ?? new List<BaseDevice>())
             {
                 String deviceName = device.Name;
                 switch (device.Type)

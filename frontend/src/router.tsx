@@ -7,7 +7,7 @@ export const router = createBrowserRouter([
         path: "/", element: <App />, children: [
             { index: true, element: <Pages.StartPage /> },
             { path: "index.html", element: <Pages.StartPage /> },
-            { path: "settings", element: <Pages.SettingsPage />, },
+            { path: "settings", element: <Pages.SettingsPage />, errorElement: <Pages.ErrorPage />},
             { path: "log", element: <Pages.LogPage />, },
             { path: "test", element: <Pages.TestPage />, },
             { path: "devices", element: <Pages.DevicesPage />, },

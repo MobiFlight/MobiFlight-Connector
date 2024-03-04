@@ -88,6 +88,7 @@ export type AppMessageKey =
   | "ConfigValueUpdate"
   | "DeviceUpdate"
   | "DeviceElementCreateResponse"
+  | "Notification"
 
 export type AppMessagePayload =
   | ConfigLoadedEvent
@@ -98,6 +99,7 @@ export type AppMessagePayload =
   | ILogMessage
   | IGlobalSettings
   | IConfigItem
+  | Notification
 
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -144,6 +146,13 @@ export interface DeviceElementCreateResponse {
   Device: IDeviceItem
   Element: IDeviceElement
 }
+
+export interface Notification {
+  Type: string
+  Value: IDeviceItem | IDeviceElement | IConfigItem | string | undefined
+  Action: string | undefined
+}
+
 
 // Not sure what this is for
 // but we are using it in the tests
