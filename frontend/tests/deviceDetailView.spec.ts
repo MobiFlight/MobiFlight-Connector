@@ -1,7 +1,7 @@
 import { test, expect } from "./fixtures"
 
 test.beforeEach(async ({ devicePage, page }) => {
-  await page.goto("http://localhost:5173/")
+  await page.goto("http://localhost:5173/", { waitUntil: 'networkidle'})
   await devicePage.useDefaultDeviceList()
   await devicePage.mfPage.finishInitialLoading()
 })
