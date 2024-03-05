@@ -122,11 +122,11 @@ export default function SettingsPage() {
             <div className="flex flex-row gap-4 items-center justify-between">
               <label className="w-56">Number of recent files</label>
               <Button variant={"outline"} className="flex flex-row p-3">
-                {tempSettings?.RecentFilesMaxCount.toString()}
+                {tempSettings?.RecentFilesMaxCount}
                 <div className="flex flex-col">
                 <IconChevronUp role="button" className="ml-2 h-4 w-4 shrink-0 opacity-50 hover:stroke-primary hover:opacity-100" onClick={()=>setTempSettings({
                     ...tempSettings,
-                    RecentFilesMaxCount: Math.min(10,tempSettings!.RecentFilesMaxCount + 1),
+                    RecentFilesMaxCount: Math.min(10, (tempSettings?.RecentFilesMaxCount ?? 5) + 1),
                   } as IGlobalSettings)}/>
                 <IconChevronDown role="button" className="ml-2 h-4 w-4 shrink-0 opacity-50  hover:stroke-primary hover:opacity-100" onClick={()=>setTempSettings({
                     ...tempSettings,
@@ -204,7 +204,7 @@ export default function SettingsPage() {
                   { value: "100", label: "100ms" },
                   { value: "50", label: "50ms" },
                 ]}
-                value={tempSettings?.TestTimerInterval.toString() ?? "250"}
+                value={tempSettings?.TestTimerInterval?.toString() ?? "250"}
                 onSelect={onTestTimerIntervalChange}
               ></ComboBox>
             </div>
@@ -253,22 +253,22 @@ export default function SettingsPage() {
               </label>
               <ComboBox
                 className="w-32"
-                value={tempSettings?.LogLevel ?? "info"}
+                value={tempSettings?.LogLevel ?? "Info"}
                 options={[
                   {
-                    value: "debug",
+                    value: "Debug",
                     label: "Debug",
                   },
                   {
-                    value: "info",
+                    value: "Info",
                     label: "Info",
                   },
                   {
-                    value: "warn",
+                    value: "Warn",
                     label: "Warning",
                   },
                   {
-                    value: "error",
+                    value: "Error",
                     label: "Error",
                   },
                 ]}

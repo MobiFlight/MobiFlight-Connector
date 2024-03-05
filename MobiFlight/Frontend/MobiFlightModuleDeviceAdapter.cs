@@ -35,12 +35,13 @@ namespace MobiFlight.Frontend
         private IDeviceElement[] CreateElementsList(MobiFlightModule device)
         {
             var result = new List<IDeviceElement>();
-            result.AddRange(device.Config.Items
-                  .Where(d => d.Type != MobiFlight.DeviceType.MultiplexerDriver)
-                  .Select(d =>
-                  {
-                      return CreateElement(d);
-                  }).ToArray());
+            if (device.Config != null)
+                result.AddRange(device.Config.Items
+                      .Where(d => d.Type != MobiFlight.DeviceType.MultiplexerDriver)
+                      .Select(d =>
+                      {
+                          return CreateElement(d);
+                      }).ToArray());
             return result.ToArray();
         }
 

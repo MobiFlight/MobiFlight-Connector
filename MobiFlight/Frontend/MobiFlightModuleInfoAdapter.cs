@@ -16,7 +16,7 @@ namespace MobiFlight.Frontend
         public MobiFlightModuleInfoAdapter(IModuleInfo device)
         {
             Type = device.Type;
-            Id = device.Serial;
+            Id = device.Port;
             Name = device.Name;
             MetaData = ConvertCommunityInfoToDictionary(BoardDefinitions.GetBoardByFriendlyName(device.Name)?.Info);
             Pins = new MobiFlightPin[0];

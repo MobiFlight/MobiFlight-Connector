@@ -263,6 +263,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\ConfigItemEdit.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\StatusBarUpdate.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />

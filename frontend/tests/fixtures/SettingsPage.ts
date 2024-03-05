@@ -48,7 +48,7 @@ export class SettingsPage {
       Language: "system",
       LogEnabled: true,
       LogJoystickAxis: true,
-      LogLevel: "debug",
+      LogLevel: "Debug",
       MinimizeOnAutoRun: true,
       ModuleSettings: "",
       RecentFiles: [],

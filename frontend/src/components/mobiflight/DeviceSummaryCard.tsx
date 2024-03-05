@@ -31,7 +31,6 @@ const DeviceSummaryCard = (props: DeviceSummaryCardProps) => {
   const usedPercentage = device.Pins
     ? Math.round((usedPins * 100) / device.Pins!.length)
     : 0
-  console.log(usedPins, usedPercentage)
 
   const uploadConfigRequest = () => {
     console.log("Upload config request")

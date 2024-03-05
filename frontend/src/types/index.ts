@@ -14,4 +14,5 @@ export type {
   Message,
   DeviceUpdate,
   GlobalSettingsUpdateMessage,
+  Notification
 } from "./messages"

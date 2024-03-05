@@ -411,6 +411,12 @@ namespace MobiFlight.UI
             {
                 UpdateAutoLoadMenu();
 
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "sim.aircraft.changed",
+                    Value = aircraftName
+                }));
+
                 return;
             }
 
@@ -438,6 +444,14 @@ namespace MobiFlight.UI
             }
 
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "sim.config.autoloaded",
+                Value = aircraftName,
+                Action = "navigate"
+            }));
+
             LoadConfig(filename);
         }
 
@@ -598,10 +612,17 @@ namespace MobiFlight.UI
             tmd.Message = i18n._tr("uiMessageHubHopAutoUpdate");
             tmd.Text = i18n._tr("uiTitleHubhopAutoUpdate");
 
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "hubhop.update",
+                Action = "update"
+            }));
+            /*
             if (tmd.ShowDialog() == DialogResult.OK)
             {
                 downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
             }
+            */
         }
 
         private void CheckForWasmModuleUpdate()
@@ -672,30 +693,12 @@ namespace MobiFlight.UI
         }
         private void PerformFirmwareInstallProcess(List<MobiFlightModuleInfo> modulesForFlashing)
         {
-            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-            tmd.StartPosition = FormStartPosition.CenterParent;
-            tmd.DefaultDialogResult = DialogResult.Cancel;
-            tmd.Message = i18n._tr("uiMessageUpdateArduinoOkCancel");
-            tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
-
-            if (tmd.ShowDialog() == DialogResult.OK)
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
             {
-                if (ShowSettingsDialog("mobiFlightTabPage", null, modulesForFlashing, null) == System.Windows.Forms.DialogResult.OK)
-                {
-                }
-            }
-            else
-            {
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.DefaultDialogResult = DialogResult.Cancel;
-                tmd.Message = i18n._tr("uiMessageUpdateArduinoFwAutoDisableYesNo");
-                tmd.Text = i18n._tr("Hint");
-
-                if (tmd.ShowDialog() == DialogResult.OK)
-                {
-                    Properties.Settings.Default.FwAutoUpdateCheck = false;
-                };
-            }
+                Type = "firmware.install.possible",
+                Value = modulesForFlashing.Count(),
+                Action = "navigate"
+            }));
         }
 
         private void PerformFirmwareUpdateProcess(MobiFlightModule module)
@@ -705,18 +708,12 @@ namespace MobiFlight.UI
 
         private void PerformFirmwareUpdateProcess(List<MobiFlightModule> modulesForUpdate)
         {
-            TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-            tmd.StartPosition = FormStartPosition.CenterParent;
-            tmd.DefaultDialogResult = DialogResult.Cancel;
-            tmd.Message = i18n._tr("uiMessageUpdateOldFirmwareOkCancel");
-            tmd.Text = i18n._tr("uiMessageUpdateOldFirmwareTitle");
-
-            if (tmd.ShowDialog() == DialogResult.OK)
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
             {
-                if (ShowSettingsDialog("mobiFlightTabPage", null, null, modulesForUpdate) == System.Windows.Forms.DialogResult.OK)
-                {
-                }
-            };
+                Type = "firmware.update.possible",
+                Value = modulesForUpdate.Count(),
+                Action = "navigate"
+            }));
         }
 
         private DialogResult ShowSettingsDialog(String SelectedTab, MobiFlightModuleInfo SelectedBoard, List<MobiFlightModuleInfo> BoardsForFlashing, List<MobiFlightModule> BoardsForUpdate)
@@ -924,6 +921,14 @@ namespace MobiFlight.UI
             // in such cases we don't want the auto-detect feature
             if (SettingsDialogActive) return;
 
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "device.connected",
+                Value = new MobiFlightModuleDeviceAdapter(module),
+                Action = "navigate"
+            }));
+
+
             // This board is not flashed yet
             if (module.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
             {
@@ -947,6 +952,11 @@ namespace MobiFlight.UI
             }
             // _disconnectArcaze();
             UpdateStatusBarModuleInformation();
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "device.removed",
+                Value = new MobiFlightModuleInfoAdapter(sender as IModuleInfo),
+            }));
 
             // Todo: Show this error outside of the context of firmware update
             // _showError(string.Format(i18n._tr("uiMessageModuleRemoved"), (sender as MobiFlightModuleInfo)?.Name ?? "Unknown", (sender as MobiFlightModuleInfo)?.Port ?? "???"));
@@ -976,6 +986,13 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(ModuleCache_Available), new object[] { sender, e });
                 return;
             }
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "device.available",
+                Value = new MobiFlightModuleInfoAdapter(sender as IModuleInfo),
+            }));
+
             UpdateStatusBarModuleInformation();
             runTestToolStripButton.Enabled = TestRunIsAvailable();
         }
@@ -995,16 +1012,22 @@ namespace MobiFlight.UI
         /// </summary>
         void SimCache_Closed(object sender, EventArgs e)
         {
+            var simName = FlightSim.SimNames[FlightSim.FlightSimType];
+            var simConnectionMethod = FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod];
+
             if (sender.GetType() == typeof(SimConnectCache))
             {
+                simConnectionMethod = FlightSim.SimConnectionNames[FlightSimConnectionMethod.SIMCONNECT];
                 UpdateSimConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(XplaneCache))
             {
+                simConnectionMethod = FlightSim.SimConnectionNames[FlightSimConnectionMethod.XPLANE];
                 UpdateXplaneDirectConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(Fsuipc2Cache))
             {
+                simConnectionMethod = FlightSim.SimConnectionNames[FlightSimConnectionMethod.FSUIPC];
                 UpdateFsuipcStatusIcon();
             }
 
@@ -1013,6 +1036,12 @@ namespace MobiFlight.UI
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
 
             runToolStripButton.Enabled = RunIsAvailable();
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "sim.connection.closed",
+                Value = simConnectionMethod
+            }));
         }
 
         private void ExecManager_OnSimAvailable(object sender, EventArgs e)
@@ -1158,6 +1187,12 @@ namespace MobiFlight.UI
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
             }
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "sim.connection.established",
+                Value = FlightSim.SimNames[FlightSim.FlightSimType]
+            }));
 
             UpdateSeparatorInStatusMenu();
         }
@@ -1679,6 +1714,8 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.ConfigLoaded(configFile);
             AppTelemetry.Instance.TrackBoardStatistics(execManager);
             AppTelemetry.Instance.TrackSettings();
+            var settings = new GlobalSettings(Properties.Settings.Default);
+            MessageExchange.Instance.Publish(new Message<GlobalSettings>(settings));
 
             ConfigLoaded?.Invoke(this, configFile);
         }
@@ -1715,21 +1752,31 @@ namespace MobiFlight.UI
                 }
             }
 
-            if (NotConnectedJoysticks.Count > 0)
+            if (NotConnectedJoysticks.Count > 1)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-                tmd.HasCancelButton = false;
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.Message = string.Format(
-                                    i18n._tr("uiMessageNotConnectedJoysticksInConfigFound"),
-                                    string.Join("\n", NotConnectedJoysticks)
-                                    );
-                tmd.Text = i18n._tr("Hint");
-                tmd.ShowDialog();
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "joystick.multipleMissing",
+                    Value = NotConnectedJoysticks.Count,
+                    Action = "navigate"
+                }));
+            }
+            if (NotConnectedJoysticks.Count == 1)
+            {
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "joystick.missing",
+                    Value = NotConnectedJoysticks[0],
+                    Action = "navigate"
+                }));
             }
             else if (showNotNecessaryMessage)
             {
-                TimeoutMessageDialog.Show(i18n._tr("uiMessageNoNotConnectedJoysticksInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "joystick.missing.ok",
+                    Value = null
+                }));
             }
         }
 
@@ -1767,19 +1814,20 @@ namespace MobiFlight.UI
 
             if (NotConnectedMidiBoards.Count > 0)
             {
-                TimeoutMessageDialog tmd = new TimeoutMessageDialog();
-                tmd.HasCancelButton = false;
-                tmd.StartPosition = FormStartPosition.CenterParent;
-                tmd.Message = string.Format(
-                                    i18n._tr("uiMessageNotConnectedMidiBoardsInConfigFound"),
-                                    string.Join("\n", NotConnectedMidiBoards)
-                                    );
-                tmd.Text = i18n._tr("Hint");
-                tmd.ShowDialog();
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "midi.missing",
+                    Value = NotConnectedMidiBoards.Count,
+                    Action = "navigate"
+                }));
             }
             else if (showNotNecessaryMessage)
             {
-                TimeoutMessageDialog.Show(i18n._tr("uiMessageNoNotConnectedMidiBoardsInConfigFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "midi.missing.ok",
+                    Value = NotConnectedMidiBoards.Count,
+                }));
             }
         }
 
@@ -1800,14 +1848,26 @@ namespace MobiFlight.UI
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
-                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
                     {
-                        saveToolStripButton.Enabled = opd.HasChanged();
-                    }
+                        Type = "device.missing",
+                        Value = null,
+                        Action = "navigate"
+                    }));
                 }
+                //{
+                //    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                //    {
+                //        saveToolStripButton.Enabled = opd.HasChanged();
+                //    }
+                //}
                 else if (showNotNecessaryMessage)
                 {
-                    TimeoutMessageDialog.Show(i18n._tr("uiMessageNoOrphanedSerialsFound"), i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                    {
+                        Type = "device.missing.ok",
+                        Value = null,
+                    }));
                 }
             }
             catch (Exception ex)
