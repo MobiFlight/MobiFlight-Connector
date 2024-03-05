@@ -73,4 +73,8 @@ export class MFPage {
     const message: AppMessage = { key: "LogMessage", payload: log };
     await this.publishMessage(message);
   }
+
+  async gotoStartPage() {
+    await this.page.goto("http://localhost:5173/", { waitUntil: "networkidle" });
+  }
 }

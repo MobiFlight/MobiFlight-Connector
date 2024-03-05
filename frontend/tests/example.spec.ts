@@ -2,7 +2,7 @@ import { test, expect } from './fixtures';
 import * as Types from './../src/types';
 
 test('Go beyond progress bar', async ({ mfPage, page }) => {
-  await page.goto('http://localhost:5173/');
+  await mfPage.gotoStartPage()
   await mfPage.publishMessage({ key: "StatusBarUpdate", payload: { Value: 50, Text: "Loading!" } })
   // expect the progressBar to show 50%
   await expect(page.getByRole('progressbar')).toHaveCount(1)  
@@ -13,7 +13,7 @@ test('Go beyond progress bar', async ({ mfPage, page }) => {
 });
 
 test('Go to configs', async ({ mfPage, page }) => {
-  await page.goto('http://localhost:5173/');
+  await mfPage.gotoStartPage()
   await mfPage.finishInitialLoading()
   await mfPage.loadDefaultConfig()
   await page.locator('.inline-flex').first().click();
@@ -23,7 +23,7 @@ test('Go to configs', async ({ mfPage, page }) => {
 });
 
 test('Log messages are displayed correctly', async ({ mfPage, page }) => {
-  await mfPage.page.goto('http://localhost:5173/');
+  await mfPage.gotoStartPage()
   await mfPage.finishInitialLoading()
   const logMessage1:Types.ILogMessage = { Message: "This is a 1sttest message",  Severity: 'debug', Timestamp: new Date()}
   await mfPage.addLogMessage(logMessage1)

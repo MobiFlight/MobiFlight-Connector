@@ -2,7 +2,7 @@ import { test, expect } from "./fixtures";
 
 test("Device list is displayed correctly", async ({ devicePage, page }) => {
   let imageLoadError = false;
-  await page.goto("http://localhost:5173/");
+  await devicePage.mfPage.gotoStartPage()
   page.on("console", (msg) => {
     // check for net::ERR_INVALID_URL error
     // this error is thrown when the image url is not correct
