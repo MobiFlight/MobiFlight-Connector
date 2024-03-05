@@ -998,16 +998,22 @@ namespace MobiFlight.UI
         /// </summary>
         void SimCache_Closed(object sender, EventArgs e)
         {
+            var simName = FlightSim.SimNames[FlightSim.FlightSimType];
+            var simConnectionMethod = FlightSim.SimConnectionNames[FlightSim.FlightSimConnectionMethod];
+
             if (sender.GetType() == typeof(SimConnectCache))
             {
+                simConnectionMethod = FlightSim.SimConnectionNames[FlightSimConnectionMethod.SIMCONNECT];
                 UpdateSimConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(XplaneCache))
             {
+                simConnectionMethod = FlightSim.SimConnectionNames[FlightSimConnectionMethod.XPLANE];
                 UpdateXplaneDirectConnectStatusIcon();
             }
             else if (sender.GetType() == typeof(Fsuipc2Cache))
             {
+                simConnectionMethod = FlightSim.SimConnectionNames[FlightSimConnectionMethod.FSUIPC];
                 UpdateFsuipcStatusIcon();
             }
 
@@ -1016,6 +1022,12 @@ namespace MobiFlight.UI
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
 
             runToolStripButton.Enabled = RunIsAvailable();
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "sim.connection.closed",
+                Value = simConnectionMethod
+            }));
         }
 
         private void ExecManager_OnSimAvailable(object sender, EventArgs e)
@@ -1161,6 +1173,12 @@ namespace MobiFlight.UI
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
             }
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "sim.connection.established",
+                Value = FlightSim.SimNames[FlightSim.FlightSimType]
+            }));
 
             UpdateSeparatorInStatusMenu();
         }
