@@ -15,6 +15,7 @@ import { publishOnMessageExchange } from "@/lib/hooks";
 import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "../icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -170,7 +171,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
     id: "actions",
     cell: ({ row }) => {
       const item = row.original;
-      const { publish } = publishOnMessageExchange();
+      const params = useParams()
+      const navigate = useNavigate()
 
       return (
         <div className="relative">
@@ -185,7 +187,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => {
-                  publish({ key: "config.edit", payload: item });
+                  const navigateTo = `/projects/${params.id}/configs/${item.GUID}`
+                  console.log(navigateTo)
+                  navigate(navigateTo)
                 }}
               >
                 Edit

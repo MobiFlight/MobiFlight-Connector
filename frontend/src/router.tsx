@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
             ]},
             { path: "projects/:id", element: <Pages.ProjectPage />, },
             { path: "projects/:id/configs", element: <Pages.ConfigPage />, },
+            { path: "projects/:projectId/configs/:configId", element: <Pages.ConfigDetailPage />, },
         ],
     },
     { path: "*", element: <Pages.ErrorPage /> },
