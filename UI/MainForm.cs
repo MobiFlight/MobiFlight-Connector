@@ -411,6 +411,12 @@ namespace MobiFlight.UI
             {
                 UpdateAutoLoadMenu();
 
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "sim.aircraft.changed",
+                    Value = aircraftName
+                }));
+
                 return;
             }
 
@@ -438,6 +444,14 @@ namespace MobiFlight.UI
             }
 
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
+
+            MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+            {
+                Type = "sim.config.autoloaded",
+                Value = aircraftName,
+                Action = "navigate"
+            }));
+
             LoadConfig(filename);
         }
 

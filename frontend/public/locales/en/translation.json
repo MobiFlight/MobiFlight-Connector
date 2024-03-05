@@ -74,6 +74,16 @@
         "established.description" : "MobiFlight is now connected to {{Value}}.",
         "closed.title" : "Simulator connection closed",
         "closed.description" : "The connection to the simulator ({{Value}}) was closed."
+      },
+      "config.autoloaded" : {
+        "title" : "MobiFlight configuration loaded",
+        "description" : "The configuration for {{Value}} was loaded automatically.",
+        "action.label" : "Manage configuration",
+        "action.navigate" : "/"
+      },
+      "aircraft.changed": {
+        "title" : "Aircraft changed",
+        "description" : "The aircraft was changed to {{Value}}."
       }
     }
   }

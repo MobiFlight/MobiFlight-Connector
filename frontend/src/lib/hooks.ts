@@ -64,7 +64,7 @@ export function useNotification() {
       const keys: InterpolationMap<string> = {}
 
       if (typeof notification.Value === "string") {
-        keys["Data"] = notification.Value
+        keys["Value"] = notification.Value
       } else {
         Object.keys(notification.Value ?? {}).forEach(key => {
           keys[key] = notification.Value[key]?.toString()
