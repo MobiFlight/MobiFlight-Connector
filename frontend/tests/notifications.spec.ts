@@ -3,7 +3,6 @@ import { test, expect } from "./fixtures"
 import { TestMobiflightBoard } from "./fixtures/data/devices"
 
 test("Notification with string {{Value}} and no Button is displayed correctly", async ({ devicePage, page }) => {
-  let imageLoadError = false
   await devicePage.mfPage.gotoStartPage()
   await devicePage.mfPage.loadDefaultConfig()
   await devicePage.useDefaultDeviceList()
@@ -22,7 +21,6 @@ test("Notification with string {{Value}} and no Button is displayed correctly", 
 })
 
 test("Notification without {{Value}} and Button is working correctly", async ({ devicePage, page }) => {
-  let imageLoadError = false
   await devicePage.mfPage.gotoStartPage()
   await devicePage.mfPage.loadDefaultConfig()
   await devicePage.useDefaultDeviceList()
@@ -44,7 +42,6 @@ test("Notification without {{Value}} and Button is working correctly", async ({ 
 })
 
 test("Notification with IDeviceItem {{Value}} is working correctly", async ({ devicePage, page }) => {
-  let imageLoadError = false
   await devicePage.mfPage.gotoStartPage()
   await devicePage.mfPage.loadDefaultConfig()
   await devicePage.useDefaultDeviceList()
