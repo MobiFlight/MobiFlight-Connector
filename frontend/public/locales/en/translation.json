@@ -37,9 +37,9 @@
     "hubhop": {
       "update": {
         "title": "Perform HubHop update",
-        "description": "You HubHop presets are older than 7 days.",
+        "description": "Your HubHop presets are older than 7 days.",
         "action.label": "Update now",
-        "action.navigate": "/hubhop/update"
+        "action.navigate": "/settings"
       }
     },
     "device": {

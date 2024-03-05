@@ -1,4 +1,4 @@
-import { IConfigItem, ILogMessage } from "@/types";
+import { IConfigItem, ILogMessage, Notification } from "@/types";
 import { ConfigLoadedEvent, Message, AppMessage } from "@/types/messages";
 import type { Page } from "@playwright/test";
 
@@ -76,5 +76,13 @@ export class MFPage {
 
   async gotoStartPage() {
     await this.page.goto("http://localhost:5173/", { waitUntil: "networkidle" });
+  }
+
+  async postNotification(notification: Notification) {
+    const message: AppMessage = {
+      key: "Notification",
+      payload: notification,
+    };
+    await this.publishMessage(message);
   }
 }
