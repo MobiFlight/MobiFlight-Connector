@@ -290,6 +290,7 @@
     <Compile Include="MobiFlight\Frontend\OutputConfigItemAdapter.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
+    <Compile Include="MobiFlight\Frontend\IModifier.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputMultiplexerConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionExecutionCache.cs" />
@@ -782,7 +783,6 @@
       <DependentUpon>FirmwareUpdateProcess.cs</DependentUpon>
     </Compile>
     <Compile Include="MobiFlight\IConnectedDevice.cs" />
-    <Compile Include="MobiFlight\InputConfig\BaseInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\ButtonInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\EncoderInputConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\LuaMacroInputAction.cs" />

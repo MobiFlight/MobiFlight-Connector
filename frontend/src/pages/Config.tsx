@@ -15,9 +15,9 @@ const ConfigPage = () => {
     return (
         <div className='flex flex-col gap-4 overflow-y-auto'>
             <div className='flex flex-row gap-4 items-center'>
-                <Link to="/" className='scroll-m-20 text-3xl tracking-tight first:mt-0'>Projects</Link>
+                <Link to="/" className='scroll-m-20 text-3xl tracking-tight first:mt-0'>Project</Link>
                 <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>&gt;</p>
-                <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>{project?.name}</p>
+                <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>{project?.name ?? "Default"}</p>
                 <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>&gt;</p>
                 <p className='scroll-m-20 text-3xl tracking-tight first:mt-0 font-bold'>Configs</p>
                 <IconPencil></IconPencil>

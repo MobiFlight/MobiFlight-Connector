@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -15,6 +13,7 @@ namespace MobiFlight.Base
         public int Count { get { return Preconditions.Count; } }
         public bool ExecuteOnFalse = false;
         public String FalseCaseValue = "";
+        public List<Precondition> Items { get { return Preconditions; } }
 
         public object Clone()
         {
@@ -39,7 +38,7 @@ namespace MobiFlight.Base
             Preconditions.Add(p);
         }
 
-        public void Remove (Precondition p)
+        public void Remove(Precondition p)
         {
             Preconditions.Remove(p);
         }
@@ -72,7 +71,7 @@ namespace MobiFlight.Base
             }
 
             // read to the end of preconditions-node
-            if (reader.LocalName=="preconditions")
+            if (reader.LocalName == "preconditions")
                 reader.Read();
         }
 
@@ -81,7 +80,7 @@ namespace MobiFlight.Base
             writer.WriteStartElement("preconditions");
 
             if (ExecuteOnFalse) writer.WriteAttributeString("executeOnFalse", ExecuteOnFalse.ToString());
-            if (FalseCaseValue!="") writer.WriteAttributeString("falseCaseValue", FalseCaseValue);
+            if (FalseCaseValue != "") writer.WriteAttributeString("falseCaseValue", FalseCaseValue);
 
             foreach (Precondition p in Preconditions)
             {
@@ -92,16 +91,16 @@ namespace MobiFlight.Base
 
         public override bool Equals(object obj)
         {
-            bool areEqual = 
-                obj != null && 
-                obj is PreconditionList && 
+            bool areEqual =
+                obj != null &&
+                obj is PreconditionList &&
                 (Count == (obj as PreconditionList).Count) &&
                 ExecuteOnFalse == (obj as PreconditionList).ExecuteOnFalse &&
                 FalseCaseValue == (obj as PreconditionList).FalseCaseValue
                 ;
             if (areEqual)
             {
-                for (int i=0; i!=Count; i++)
+                for (int i = 0; i != Count; i++)
                 {
                     areEqual = areEqual && (Preconditions[i].Equals((obj as PreconditionList).Preconditions[i]));
                 }

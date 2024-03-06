@@ -1,52 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
     public class LedModule
     {
         // the display stuff
-        public string DisplayLedAddress { get; set; }
-        public byte DisplayLedConnector { get; set; }
-        public byte DisplayLedModuleSize { get; set; }
-        public bool DisplayLedPadding { get; set; }
-        public string DisplayLedPaddingChar { get; set; }
-        public List<string> DisplayLedDigits { get; set; }
-        public List<string> DisplayLedDecimalPoints { get; set; }
-        public bool DisplayLedReverseDigits { get; set; }
-        public string DisplayLedBrightnessReference { get; set; }
+        public string Address { get; set; }
+        public byte Connector { get; set; }
+        public byte ModuleSize { get; set; }
+        public bool Padding { get; set; }
+        public string PaddingChar { get; set; }
+        public List<string> Digits { get; set; }
+        public List<string> DecimalPoints { get; set; }
+        public bool ReverseDigits { get; set; }
+        public string BrightnessReference { get; set; }
 
         public LedModule()
         {
-            DisplayLedConnector = 1;
-            DisplayLedAddress = "0";
-            DisplayLedPadding = false;
-            DisplayLedReverseDigits = false;
-            DisplayLedBrightnessReference = string.Empty;
-            DisplayLedPaddingChar = "0";
-            DisplayLedModuleSize = 8;
-            DisplayLedDigits = new List<string>();
-            DisplayLedDecimalPoints = new List<string>();
+            Connector = 1;
+            Address = "0";
+            Padding = false;
+            ReverseDigits = false;
+            BrightnessReference = string.Empty;
+            PaddingChar = "0";
+            ModuleSize = 8;
+            Digits = new List<string>();
+            DecimalPoints = new List<string>();
         }
 
         public object Clone()
         {
             LedModule clone = new LedModule();
-            clone.DisplayLedConnector = DisplayLedConnector;
-            clone.DisplayLedAddress = DisplayLedAddress;
-            clone.DisplayLedPadding = DisplayLedPadding;
-            clone.DisplayLedReverseDigits = DisplayLedReverseDigits;
-            clone.DisplayLedBrightnessReference = DisplayLedBrightnessReference;
-            clone.DisplayLedPaddingChar = DisplayLedPaddingChar;
-            clone.DisplayLedModuleSize = DisplayLedModuleSize;
-            clone.DisplayLedDigits = new List<string>(DisplayLedDigits.ToArray());
-            clone.DisplayLedDecimalPoints = new List<string>(DisplayLedDecimalPoints.ToArray());
+            clone.Connector = Connector;
+            clone.Address = Address;
+            clone.Padding = Padding;
+            clone.ReverseDigits = ReverseDigits;
+            clone.BrightnessReference = BrightnessReference;
+            clone.PaddingChar = PaddingChar;
+            clone.ModuleSize = ModuleSize;
+            clone.Digits = new List<string>(Digits.ToArray());
+            clone.DecimalPoints = new List<string>(DecimalPoints.ToArray());
             return clone;
         }
 
@@ -54,29 +50,29 @@ namespace MobiFlight.OutputConfig
         {
             if ((obj == null) || !(obj is LedModule)) return false;
 
-            bool digitsAreEqual = true && DisplayLedDigits?.Count == (obj as LedModule)?.DisplayLedDigits.Count;
+            bool digitsAreEqual = true && Digits?.Count == (obj as LedModule)?.Digits.Count;
             if (digitsAreEqual)
-                for (int i = 0; i != DisplayLedDigits.Count; i++)
+                for (int i = 0; i != Digits.Count; i++)
                 {
-                    digitsAreEqual = digitsAreEqual && (DisplayLedDigits[i] == (obj as LedModule).DisplayLedDigits[i]);
+                    digitsAreEqual = digitsAreEqual && (Digits[i] == (obj as LedModule).Digits[i]);
                 }
 
-            bool pointsAreEqual = true && DisplayLedDecimalPoints.Count == (obj as LedModule)?.DisplayLedDecimalPoints.Count;
+            bool pointsAreEqual = true && DecimalPoints.Count == (obj as LedModule)?.DecimalPoints.Count;
             if (pointsAreEqual)
-                for (int i = 0; i != DisplayLedDecimalPoints.Count; i++)
+                for (int i = 0; i != DecimalPoints.Count; i++)
                 {
-                    pointsAreEqual = pointsAreEqual && (DisplayLedDecimalPoints[i] == (obj as LedModule).DisplayLedDecimalPoints[i]);
+                    pointsAreEqual = pointsAreEqual && (DecimalPoints[i] == (obj as LedModule).DecimalPoints[i]);
                 }
 
             return
                 (obj != null) && (obj is LedModule) &&
-                (this.DisplayLedConnector             == (obj as LedModule).DisplayLedConnector) &&
-                (this.DisplayLedAddress               == (obj as LedModule).DisplayLedAddress) &&
-                (this.DisplayLedPadding               == (obj as LedModule).DisplayLedPadding) &&
-                (this.DisplayLedReverseDigits         == (obj as LedModule).DisplayLedReverseDigits) &&
-                (this.DisplayLedBrightnessReference   == (obj as LedModule).DisplayLedBrightnessReference) &&
-                (this.DisplayLedPaddingChar           == (obj as LedModule).DisplayLedPaddingChar) &&
-                (this.DisplayLedModuleSize            == (obj as LedModule).DisplayLedModuleSize) &&
+                (this.Connector == (obj as LedModule).Connector) &&
+                (this.Address == (obj as LedModule).Address) &&
+                (this.Padding == (obj as LedModule).Padding) &&
+                (this.ReverseDigits == (obj as LedModule).ReverseDigits) &&
+                (this.BrightnessReference == (obj as LedModule).BrightnessReference) &&
+                (this.PaddingChar == (obj as LedModule).PaddingChar) &&
+                (this.ModuleSize == (obj as LedModule).ModuleSize) &&
                 (digitsAreEqual) &&
                 (pointsAreEqual);
         }
@@ -85,72 +81,72 @@ namespace MobiFlight.OutputConfig
         {
             if (reader["ledAddress"] != null && reader["ledAddress"] != "")
             {
-                DisplayLedAddress = reader["ledAddress"];
+                Address = reader["ledAddress"];
             }
 
             if (reader["ledConnector"] != null && reader["ledConnector"] != "")
             {
-                DisplayLedConnector = byte.Parse(reader["ledConnector"]);
+                Connector = byte.Parse(reader["ledConnector"]);
             }
 
             if (reader["ledModuleSize"] != null && reader["ledModuleSize"] != "")
             {
-                DisplayLedModuleSize = byte.Parse(reader["ledModuleSize"]);
+                ModuleSize = byte.Parse(reader["ledModuleSize"]);
             }
 
             if (reader["ledPadding"] != null && reader["ledPadding"] != "")
             {
-                DisplayLedPadding = Boolean.Parse(reader["ledPadding"]);
+                Padding = Boolean.Parse(reader["ledPadding"]);
             }
 
             if (reader["ledReverseDigits"] != null && reader["ledReverseDigits"] != "")
             {
-                DisplayLedReverseDigits = Boolean.Parse(reader["ledReverseDigits"]);
+                ReverseDigits = Boolean.Parse(reader["ledReverseDigits"]);
             }
             if (reader["ledBrightnessRef"] != null && reader["ledBrightnessRef"] != "")
             {
-                DisplayLedBrightnessReference = reader["ledBrightnessRef"];
+                BrightnessReference = reader["ledBrightnessRef"];
             }
 
             if (reader["ledPaddingChar"] != null && reader["ledPaddingChar"] != "")
             {
-                DisplayLedPaddingChar = reader["ledPaddingChar"];
+                PaddingChar = reader["ledPaddingChar"];
             }
 
             // ignore empty values
             if (reader["ledDigits"] != null && reader["ledDigits"] != "")
             {
-                DisplayLedDigits = reader["ledDigits"].Split(',').ToList();
+                Digits = reader["ledDigits"].Split(',').ToList();
             }
 
             // ignore empty values
             if (reader["ledDecimalPoints"] != null && reader["ledDecimalPoints"] != "")
             {
-                DisplayLedDecimalPoints = reader["ledDecimalPoints"].Split(',').ToList();
+                DecimalPoints = reader["ledDecimalPoints"].Split(',').ToList();
             }
         }
 
         internal void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("ledAddress", DisplayLedAddress);
-            writer.WriteAttributeString("ledConnector", DisplayLedConnector.ToString());
-            writer.WriteAttributeString("ledModuleSize", DisplayLedModuleSize.ToString());
-            writer.WriteAttributeString("ledPadding", DisplayLedPadding.ToString());
-            if (DisplayLedReverseDigits)
-                writer.WriteAttributeString("ledReverseDigits", DisplayLedReverseDigits.ToString());
-            if (!string.IsNullOrEmpty(DisplayLedBrightnessReference))
-                writer.WriteAttributeString("ledBrightnessRef", DisplayLedBrightnessReference.ToString());
+            writer.WriteAttributeString("ledAddress", Address);
+            writer.WriteAttributeString("ledConnector", Connector.ToString());
+            writer.WriteAttributeString("ledModuleSize", ModuleSize.ToString());
+            writer.WriteAttributeString("ledPadding", Padding.ToString());
+            if (ReverseDigits)
+                writer.WriteAttributeString("ledReverseDigits", ReverseDigits.ToString());
+            if (!string.IsNullOrEmpty(BrightnessReference))
+                writer.WriteAttributeString("ledBrightnessRef", BrightnessReference.ToString());
 
-            writer.WriteAttributeString("ledPaddingChar", DisplayLedPaddingChar);
+            writer.WriteAttributeString("ledPaddingChar", PaddingChar);
 
-            if (DisplayLedDigits.Count > 0)
+            if (Digits.Count > 0)
             {
-                writer.WriteAttributeString("ledDigits", String.Join(",", DisplayLedDigits));
+                writer.WriteAttributeString("ledDigits", String.Join(",", Digits));
             }
 
-            if (DisplayLedDecimalPoints.Count > 0)
+            if (DecimalPoints.Count > 0)
             {
-                writer.WriteAttributeString("ledDecimalPoints", String.Join(",", DisplayLedDecimalPoints));
+                writer.WriteAttributeString("ledDecimalPoints", String.Join(",", DecimalPoints));
             }
         }
     }

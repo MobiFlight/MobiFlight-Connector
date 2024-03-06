@@ -600,7 +600,7 @@ namespace MobiFlight.UI.Panels
                         switch (cfgItem.DisplayType)
                         {
                             case MobiFlightLedModule.TYPE:
-                                row["OutputName"] = cfgItem.LedModule.DisplayLedAddress;
+                                row["OutputName"] = cfgItem.LedModule.Address;
                                 break;
                             case MobiFlightOutput.TYPE:
                                 row["OutputName"] = cfgItem.Pin.DisplayPin;

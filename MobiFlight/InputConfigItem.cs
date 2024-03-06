@@ -1,6 +1,7 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
+using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
 using System.Xml;
@@ -39,12 +40,15 @@ namespace MobiFlight
         public PreconditionList Preconditions { get; set; }
         public ConfigRefList ConfigRefs { get; set; }
 
+        public ModifierList Modifiers { get; set; }
+
         public InputConfigItem()
         {
-            Preconditions = new PreconditionList();
             Type = TYPE_NOTSET;
 
+            Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
+            Modifiers = new ModifierList();
         }
 
         public List<InputAction> GetInputActionsByType(System.Type type)

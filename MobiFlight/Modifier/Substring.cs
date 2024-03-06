@@ -1,13 +1,5 @@
-﻿using MobiFlight.OutputConfig;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -17,11 +9,16 @@ namespace MobiFlight.Modifier
         public int Start = 0;
         public int End = 7;
 
+        public Substring()
+        {
+            Type = "Substring";
+        }
+
         public override void ReadXml(XmlReader reader)
         {
             if (reader["active"] != null)
                 Active = bool.Parse(reader["active"]);
-            
+
             if (reader["start"] != null)
                 Start = int.Parse(reader["start"]);
 
@@ -32,9 +29,9 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("substring");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("start", Start.ToString());
-                writer.WriteAttributeString("end", End.ToString());
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("start", Start.ToString());
+            writer.WriteAttributeString("end", End.ToString());
             writer.WriteEndElement();
         }
 

@@ -115,13 +115,13 @@ namespace MobiFlight.Base.Tests
 
             PreconditionList o = new PreconditionList();
             o.Add(new Precondition() { 
-                PreconditionType = "config",
-                PreconditionLabel = "TestPreCon",
-                PreconditionActive = true,
-                PreconditionRef = "TestRef",
-                PreconditionOperand = "<",
-                PreconditionValue = "TestValue",
-                PreconditionLogic = "or"
+                Type = "config",
+                Label = "TestPreCon",
+                Active = true,
+                Ref = "TestRef",
+                Operand = "<",
+                Value = "TestValue",
+                Logic = "or"
             });
             o.ExecuteOnFalse = true;
             o.FalseCaseValue = "1";

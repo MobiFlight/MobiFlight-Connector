@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
 
 // from InputMultiplexerConfig
 
@@ -25,7 +22,8 @@ namespace MobiFlight.InputConfig
         /// Copy constructor, this allows to reuse the clone method in derived classes
         /// </summary>
         /// <param name="copyFrom"></param>
-        protected InputMultiplexerConfig(InputMultiplexerConfig copyFrom) : base(copyFrom) {
+        protected InputMultiplexerConfig(InputMultiplexerConfig copyFrom) : base(copyFrom)
+        {
             this.DataPin = copyFrom.DataPin;
         }
 

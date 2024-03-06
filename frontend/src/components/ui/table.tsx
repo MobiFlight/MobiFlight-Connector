@@ -80,7 +80,7 @@ const TableHead = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <th    
     ref={ref}  
-    style={{ "width": (props.size && props.size != 1)? `${props.size!.toString()}px` : "100%"}} 
+    // style={{ "width": (props.size && props.size != 1)? `${props.size!.toString()}px` : "100%"}} 
     className={cn(
       "h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0",
       className

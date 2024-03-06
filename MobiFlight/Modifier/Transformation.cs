@@ -8,6 +8,11 @@ namespace MobiFlight.Modifier
     {
         public String Expression = "$";
 
+        public Transformation()
+        {
+            Type = "Transformation";
+        }
+
         public override void ReadXml(XmlReader reader)
         {
             if (reader["active"] != null)
@@ -20,8 +25,8 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("transformation");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("expression", Expression);
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("expression", Expression);
             writer.WriteEndElement();
         }
 

@@ -23,33 +23,11 @@ const Sidebar = (props: SidebarProps) => {
   return (
     <div
       className={cn(
-        `bg-zinc-400 dark:bg-slate-800 min-w-16 w-16 flex flex-col justify-between items-center pb-8 z-50`,
-        props.className
+        `z-50 flex w-16 min-w-16 flex-col items-center justify-between bg-zinc-400 pb-8 dark:bg-slate-800`,
+        props.className,
       )}
     >
       <div className="flex flex-col items-center gap-8 pt-24">
-        <NavLink
-          to={`/projects/${params.id}/configs`}
-          children={(nav) => (
-            <Button
-              variant="outline"
-              className={
-                nav.isActive
-                  ? `${activeClassNameProps} ${normalClassNameProps}`
-                  : normalClassNameProps
-              }
-              size="icon"
-            >
-              <IconList
-                className={
-                  nav.isActive
-                    ? `stroke-white group-hover/side:stroke-blue-900`
-                    : "group-hover/side:stroke-blue-900"
-                }
-              ></IconList>
-            </Button>
-          )}
-        ></NavLink>
         <NavLink
           to={`/devices`}
           children={(nav) => (
@@ -69,6 +47,28 @@ const Sidebar = (props: SidebarProps) => {
                     : "group-hover/side:stroke-blue-900"
                 }
               ></IconDeviceGamepad2>
+            </Button>
+          )}
+        ></NavLink>
+        <NavLink
+          to={`/projects/${params.id}/configs`}
+          children={(nav) => (
+            <Button
+              variant="outline"
+              className={
+                nav.isActive
+                  ? `${activeClassNameProps} ${normalClassNameProps}`
+                  : normalClassNameProps
+              }
+              size="icon"
+            >
+              <IconList
+                className={
+                  nav.isActive
+                    ? `stroke-white group-hover/side:stroke-blue-900`
+                    : "group-hover/side:stroke-blue-900"
+                }
+              ></IconList>
             </Button>
           )}
         ></NavLink>

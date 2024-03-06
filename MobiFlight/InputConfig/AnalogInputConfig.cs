@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -10,13 +8,12 @@ namespace MobiFlight.InputConfig
 
     public class AnalogInputConfig : IXmlSerializable, ICloneable
     {
-        public InputAction onChange;        
-
+        public InputAction onChange;
 
         public object Clone()
         {
             AnalogInputConfig clone = new AnalogInputConfig();
-            if (onChange != null) clone.onChange = (InputAction) onChange.Clone();
+            if (onChange != null) clone.onChange = (InputAction)onChange.Clone();
             return clone;
         }
 
@@ -37,7 +34,7 @@ namespace MobiFlight.InputConfig
                 reader.Read(); // Closing onChange
             }
 
-            if (reader.NodeType == XmlNodeType.EndElement) 
+            if (reader.NodeType == XmlNodeType.EndElement)
                 reader.Read(); // this should be the corresponding "end" node
         }
 
@@ -56,8 +53,8 @@ namespace MobiFlight.InputConfig
             writer.WriteEndElement();
         }
 
-        internal void execute(CacheCollection cacheCollection, 
-                                InputEventArgs args, 
+        internal void execute(CacheCollection cacheCollection,
+                                InputEventArgs args,
                                 List<ConfigRefValue> configRefs)
         {
             if (onChange != null)

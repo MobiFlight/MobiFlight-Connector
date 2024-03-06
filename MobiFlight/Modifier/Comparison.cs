@@ -1,13 +1,7 @@
-﻿using MobiFlight.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -25,9 +19,9 @@ namespace MobiFlight.Modifier
         public string IfValue { get; set; }
         public string ElseValue { get; set; }
 
-        public Comparison() 
+        public Comparison()
         {
-            Active = false;
+            Type = "Comparison";
             Operand = OPERAND_EQUAL;
             Value = "";
             IfValue = "";
@@ -38,11 +32,11 @@ namespace MobiFlight.Modifier
         {
             return (
                 obj != null && (obj is Comparison) &&
-                this.Active     == (obj as Comparison).Active &&
-                this.Operand    == (obj as Comparison).Operand &&
-                this.Value      == (obj as Comparison).Value &&
-                this.IfValue    == (obj as Comparison).IfValue &&
-                this.ElseValue  == (obj as Comparison).ElseValue
+                this.Active == (obj as Comparison).Active &&
+                this.Operand == (obj as Comparison).Operand &&
+                this.Value == (obj as Comparison).Value &&
+                this.IfValue == (obj as Comparison).IfValue &&
+                this.ElseValue == (obj as Comparison).ElseValue
             );
         }
 
@@ -65,11 +59,11 @@ namespace MobiFlight.Modifier
         {
             writer.WriteStartElement("comparison");
 
-                writer.WriteAttributeString("active",   Active.ToString());
-                writer.WriteAttributeString("value",    Value);
-                writer.WriteAttributeString("operand",  Operand);
-                writer.WriteAttributeString("ifValue",  IfValue);
-                writer.WriteAttributeString("elseValue",ElseValue);
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("value", Value);
+            writer.WriteAttributeString("operand", Operand);
+            writer.WriteAttributeString("ifValue", IfValue);
+            writer.WriteAttributeString("elseValue", ElseValue);
 
             writer.WriteEndElement();
         }
@@ -96,7 +90,7 @@ namespace MobiFlight.Modifier
             }
 
             Double value = connectorValue.Float64;
-            
+
             if (Value == "")
             {
                 return result;
@@ -153,12 +147,13 @@ namespace MobiFlight.Modifier
             try
             {
                 result.Float64 = Double.Parse(comparisonResult);
-                if (result.Float64.ToString()!=comparisonResult.ToString())
+                if (result.Float64.ToString() != comparisonResult.ToString())
                 {
                     result.String = comparisonResult;
                     result.type = FSUIPCOffsetType.String;
                 }
-            } catch(FormatException e)
+            }
+            catch (FormatException e)
             {
                 result.type = FSUIPCOffsetType.String;
                 result.String = comparisonResult;

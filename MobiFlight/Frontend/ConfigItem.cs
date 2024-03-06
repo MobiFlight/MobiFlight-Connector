@@ -1,4 +1,6 @@
-﻿namespace MobiFlight.Frontend
+﻿using MobiFlight.Modifier;
+
+namespace MobiFlight.Frontend
 {
     public class ConfigItem : IConfigItem
     {
@@ -12,5 +14,9 @@
         public string[] Status { get; set; }
         public string RawValue { get; set; }
         public string ModifiedValue { get; set; }
+        public ConfigContext Context { get; set; }
+        public ModifierBase[] Modifiers { get; set; }
+        public ConfigEvent Event { get; set; }
+        public ConfigAction Action { get; set; }
     }
 }

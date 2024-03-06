@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -17,6 +13,11 @@ namespace MobiFlight.Modifier
         public int OffDurationInMs = 500;
         public long FirstExecutionTime = 0;
 
+        public Blink()
+        {
+            Type = "Blink";
+        }
+
         public override void ReadXml(XmlReader reader)
         {
             if (reader["active"] != null)
@@ -24,11 +25,11 @@ namespace MobiFlight.Modifier
             // read precondition settings if present
             if (reader["blinkValue"] != null)
                 BlinkValue = reader["blinkValue"] as String;
-            
+
             if (reader["onOffSequence"] != null)
             {
                 OnOffSequence.Clear();
-                foreach(string s in reader["onOffSequence"].Split(','))
+                foreach (string s in reader["onOffSequence"].Split(','))
                 {
                     OnOffSequence.Add(int.Parse(s));
                 }
@@ -38,9 +39,9 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("blink");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("blinkValue", BlinkValue);
-                writer.WriteAttributeString("onOffSequence", string.Join(",", OnOffSequence));
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("blinkValue", BlinkValue);
+            writer.WriteAttributeString("onOffSequence", string.Join(",", OnOffSequence));
             writer.WriteEndElement();
         }
 
@@ -74,9 +75,10 @@ namespace MobiFlight.Modifier
 
             bool IsOn = true;
 
-            foreach(var time in OnOffSequence)
+            foreach (var time in OnOffSequence)
             {
-                if (Now > time) {
+                if (Now > time)
+                {
                     Now -= time;
                     IsOn = !IsOn;
                     continue;
@@ -115,7 +117,7 @@ namespace MobiFlight.Modifier
 
         public override string ToSummaryLabel()
         {
-            return $"Blink value: \"{BlinkValue}\", ON-OFF-Sequence: {String.Join((", "), OnOffSequence.Select(s => s+" ms"))}";
+            return $"Blink value: \"{BlinkValue}\", ON-OFF-Sequence: {String.Join((", "), OnOffSequence.Select(s => s + " ms"))}";
         }
     }
 }

@@ -16,15 +16,15 @@ namespace MobiFlight.OutputConfig.Tests
         {
             LedModule o = new LedModule();
             Assert.IsNotNull(o);
-            Assert.AreEqual(1,o.DisplayLedConnector);
-            Assert.AreEqual("0",o.DisplayLedAddress);
-            Assert.AreEqual(false,o.DisplayLedPadding);
-            Assert.AreEqual(false,o.DisplayLedReverseDigits);
-            Assert.AreEqual(string.Empty, o.DisplayLedBrightnessReference);
-            Assert.AreEqual("0",o.DisplayLedPaddingChar);
-            Assert.AreEqual(8, o.DisplayLedModuleSize);
-            Assert.IsNotNull(o.DisplayLedDigits);
-            Assert.IsNotNull(o.DisplayLedDecimalPoints);
+            Assert.AreEqual(1,o.Connector);
+            Assert.AreEqual("0",o.Address);
+            Assert.AreEqual(false,o.Padding);
+            Assert.AreEqual(false,o.ReverseDigits);
+            Assert.AreEqual(string.Empty, o.BrightnessReference);
+            Assert.AreEqual("0",o.PaddingChar);
+            Assert.AreEqual(8, o.ModuleSize);
+            Assert.IsNotNull(o.Digits);
+            Assert.IsNotNull(o.DecimalPoints);
         }
 
         [TestMethod()]
@@ -35,27 +35,27 @@ namespace MobiFlight.OutputConfig.Tests
 
             Assert.IsTrue(o1.Equals(o2));
 
-            o1.DisplayLedConnector = 2;
-            o1.DisplayLedAddress = "1";
-            o1.DisplayLedPadding = true;
-            o1.DisplayLedReverseDigits = true;
-            o1.DisplayLedBrightnessReference = "DisplayLedBrightnessReference";
-            o1.DisplayLedPaddingChar = " ";
-            o1.DisplayLedModuleSize = 4;
-            o1.DisplayLedDigits = new List<string>() { "1", "2" }; ;
-            o1.DisplayLedDecimalPoints = new List<string>() { "3", "4" }; ;
+            o1.Connector = 2;
+            o1.Address = "1";
+            o1.Padding = true;
+            o1.ReverseDigits = true;
+            o1.BrightnessReference = "DisplayLedBrightnessReference";
+            o1.PaddingChar = " ";
+            o1.ModuleSize = 4;
+            o1.Digits = new List<string>() { "1", "2" }; ;
+            o1.DecimalPoints = new List<string>() { "3", "4" }; ;
 
             Assert.IsFalse(o1.Equals(o2));
 
-            o2.DisplayLedConnector = 2;
-            o2.DisplayLedAddress = "1";
-            o2.DisplayLedPadding = true;
-            o2.DisplayLedReverseDigits = true;
-            o2.DisplayLedBrightnessReference = "DisplayLedBrightnessReference";
-            o2.DisplayLedPaddingChar = " ";
-            o2.DisplayLedModuleSize = 4;
-            o2.DisplayLedDigits = new List<string>() { "1", "2" }; ;
-            o2.DisplayLedDecimalPoints = new List<string>() { "3", "4" }; ;
+            o2.Connector = 2;
+            o2.Address = "1";
+            o2.Padding = true;
+            o2.ReverseDigits = true;
+            o2.BrightnessReference = "DisplayLedBrightnessReference";
+            o2.PaddingChar = " ";
+            o2.ModuleSize = 4;
+            o2.Digits = new List<string>() { "1", "2" }; ;
+            o2.DecimalPoints = new List<string>() { "3", "4" }; ;
 
             Assert.IsTrue(o1.Equals(o2));
         }

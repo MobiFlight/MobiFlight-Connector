@@ -20,7 +20,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "Active",
-    size: 75,
+    meta: {
+      className: "w-[80px]",
+    },
     header: () => (
       <div className="text-center">Active</div>
     ),
@@ -37,7 +39,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     accessorKey: "Description",
-    size: 1,
+    meta: {
+      className: "hidden xl:table-cell",
+    },
     cell: ({ row }) => {
       const label = row.getValue("Description") as string;
       return (
@@ -61,16 +65,18 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
+    meta: {
+      className: "w-[200px]",
+    },
     accessorKey: "Device",
-    header: () => <div className="w-20">Device</div>,
-    size: 200,
+    header: () => <div>Device</div>,
     cell: ({ row }) => {
       const label = (row.getValue("Device") as string).split("/")[0];
       const serial = (row.getValue("Device") as string).split("/")[1];
       return (
         <>
-          <p className="text-md font-semibold">{label}</p>
-          <p className="text-xs text-muted-foreground">{serial}</p>
+          <p className="text-md font-semibold truncate">{label}</p>
+          <p className="text-xs text-muted-foreground truncate">{serial}</p>
         </>
       );
     },
@@ -79,7 +85,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 200,
+    meta: {
+      className: "w-[200px]",
+    },
     accessorKey: "Component",
     header: "Component",
     cell: ({ row }) => {
@@ -92,8 +100,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
         <div className="flex flex-row items-center gap-2">
           <div>{icon}</div>
           <div className="flex flex-col">
-            <p className="text-md font-semibold">{label}</p>
-            <p className="text-xs text-muted-foreground">{type}</p>
+            <p className="text-md font-semibold truncate">{label}</p>
+            <p className="text-xs text-muted-foreground truncate">{type}</p>
           </div>
         </div>
       );
@@ -103,9 +111,11 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 80,
+    meta: {
+      className: "w-20",
+    },
     accessorKey: "Type",
-    header: () => <div className="w-20">Type</div>,
+    header: () => <div>Type</div>,
     cell: ({ row }) => {
       const label = row.getValue("Type") as string;
       return <p className="text-md font-semibold">{label}</p>;
@@ -115,9 +125,11 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 300,
+    meta: { 
+      className: "hidden 2xl:table-cell w-[150px] 3xl:w-[250px]"
+    },
     accessorKey: "Tags",
-    header: "Tags",
+    header: () => <div>Tags</div>,
     cell: ({ row }) => {
       const label = row.getValue("Tags") as string;
       return label != "" ? (
@@ -130,7 +142,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 100,
+    meta: {
+      className: "w-[120px]",
+    },
     accessorKey: "Status",
     header: "Status",
     cell: ({ row }) => {
@@ -145,7 +159,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 100,
+    meta: {
+      className: "w-[120px]",
+    },
     accessorKey: "RawValue",
     header: "Raw Value",
     cell: ({ row }) => {
@@ -156,7 +172,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 100,
+    meta: {
+      className: "w-[120px]",
+    },
     accessorKey: "ModifiedValue",
     header: "Final Value",
     cell: ({ row }) => {
@@ -167,7 +185,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 80,
+    meta: {
+      className: "w-[80px]",
+    },
     id: "actions",
     cell: ({ row }) => {
       const item = row.original;

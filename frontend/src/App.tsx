@@ -34,6 +34,7 @@ function App() {
   useAppMessage("ConfigFile", (message) => {
     setStartupProgress({ Value: 100, Text: "Finished!" })
     const configFile = message.payload as Types.ConfigLoadedEvent
+    console.log(configFile)
     setItems(configFile.ConfigItems)
     navigate(`/projects/1`)
   })

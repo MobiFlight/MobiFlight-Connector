@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -14,27 +11,34 @@ namespace MobiFlight.Modifier
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
 
+        [JsonProperty]
         SortedDictionary<double, double> Values = new SortedDictionary<double, double>();
+
+        [JsonIgnore]
         public int Count { get { return Values.Count; } }
+
+        [JsonIgnore]
         public double Max { get { return max; } }
+
+        [JsonIgnore]
         public double Min { get { return min; } }
-        
+
         protected double max = double.MinValue;
         protected double min = double.MaxValue;
 
         public Interpolation()
         {
-            Active = false;
+            Type = "Interpolation";
         }
-        
-        public void Add (double x, double y)
+
+        public void Add(double x, double y)
         {
             if (Values.ContainsKey(x))
                 throw new XvalueAlreadyExistsException();
             if (y > Max) max = y;
             if (y < Min) min = y;
 
-            Values.Add(x, y); 
+            Values.Add(x, y);
         }
 
         public SortedDictionary<double, double> GetValues()
@@ -75,7 +79,7 @@ namespace MobiFlight.Modifier
                 // load a list
                 do
                 {
-                    Values.Add(double.Parse(reader["x"], serializationCulture), 
+                    Values.Add(double.Parse(reader["x"], serializationCulture),
                                double.Parse(reader["y"], serializationCulture));
                     reader.ReadToNextSibling("value");
                 } while (reader.LocalName == "value");
@@ -98,8 +102,8 @@ namespace MobiFlight.Modifier
                 case FSUIPCOffsetType.String:
                     // we can't apply interpolation to a string
                     break;
-            } 
-                
+            }
+
             return result;
         }
 
@@ -149,7 +153,7 @@ namespace MobiFlight.Modifier
         override public void WriteXml(XmlWriter writer)
         {
             if (Count == 0) return;
-            
+
             writer.WriteStartElement("interpolation");
 
             writer.WriteAttributeString("active", Active.ToString());
@@ -176,7 +180,7 @@ namespace MobiFlight.Modifier
             if (interpolation == null) return false;
 
             bool valuesAreSame = (Values.Count == interpolation.Count);
-           
+
             if (valuesAreSame)
             {
                 foreach (double x in Values.Keys)
@@ -204,7 +208,7 @@ namespace MobiFlight.Modifier
             var secondLastValue = Values[secondLastKey];
             var lastValue = Values[lastKey];
 
-            return new Tuple<double, double>(lastKey-secondLastKey+lastKey, lastValue-secondLastValue+lastValue);
+            return new Tuple<double, double>(lastKey - secondLastKey + lastKey, lastValue - secondLastValue + lastValue);
         }
     }
 

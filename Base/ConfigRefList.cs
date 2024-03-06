@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Base
 {
     public class ConfigRefList : ICloneable, IEnumerable
     {
         List<ConfigRef> list = new List<ConfigRef>();
+        public List<ConfigRef> Items { get { return list; } }
 
         public int Count { get { return list.Count; } }
 
@@ -26,7 +24,7 @@ namespace MobiFlight.Base
         public object Clone()
         {
             ConfigRefList c = new ConfigRefList();
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 c.Add(item.Clone() as ConfigRef);
             }

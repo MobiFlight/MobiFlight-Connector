@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -15,6 +10,11 @@ namespace MobiFlight.Modifier
         public char Character = ' ';
         public int Length = 5;
         public PaddingDirection Direction = PaddingDirection.Left;
+
+        public Padding()
+        {
+            Type = "Padding";
+        }
 
         public override void ReadXml(XmlReader reader)
         {
@@ -29,7 +29,7 @@ namespace MobiFlight.Modifier
                     Direction = direction;
                 }
             }
-            
+
             if (reader["length"] != null)
                 Length = int.Parse(reader["length"]);
 
@@ -40,10 +40,10 @@ namespace MobiFlight.Modifier
         public override void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("padding");
-                writer.WriteAttributeString("active", Active.ToString());
-                writer.WriteAttributeString("direction", Direction.ToString());
-                writer.WriteAttributeString("length", Length.ToString());
-                writer.WriteAttributeString("character", Character.ToString());
+            writer.WriteAttributeString("active", Active.ToString());
+            writer.WriteAttributeString("direction", Direction.ToString());
+            writer.WriteAttributeString("length", Length.ToString());
+            writer.WriteAttributeString("character", Character.ToString());
             writer.WriteEndElement();
         }
 
@@ -113,7 +113,7 @@ namespace MobiFlight.Modifier
                     break;
 
                 case PaddingDirection.Right:
-                    value =  (value.PadRight(Length, Character));
+                    value = (value.PadRight(Length, Character));
                     break;
             }
 

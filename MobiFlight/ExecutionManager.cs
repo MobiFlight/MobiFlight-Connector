@@ -647,10 +647,6 @@ namespace MobiFlight
                 ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
 
-                //cfg.GUID = currentGuid;
-                //cfg.Description = row.Cells["description"].Value.ToString();
-                //cfg.Active = (bool)row.Cells["active"].Value;
-
                 // store the values for the input precondition checks
                 updatedValues[currentGuid] = new OutputConfigItemAdapter(cfg)
                 {
@@ -678,6 +674,8 @@ namespace MobiFlight
 
                 // processedValue now has changed, so we need to update the value in the cache
                 updatedValues[currentGuid].ModifiedValue = processedValue.ToString();
+                cfg.Value = processedValue.ToString();
+
                 try
                 {
                     // check preconditions
@@ -764,25 +762,25 @@ namespace MobiFlight
 
             foreach (Precondition p in cfg.Preconditions)
             {
-                if (!p.PreconditionActive)
+                if (!p.Active)
                 {
                     continue;
                 }
 
                 OutputConfigItem tmp = new OutputConfigItem();
 
-                switch (p.PreconditionType)
+                switch (p.Type)
                 {
 #if ARCAZE
                     case "pin":
-                        string serial = SerialNumber.ExtractSerial(p.PreconditionSerial);
-                        string val = arcazeCache.getValue(serial, p.PreconditionPin, "repeat");
+                        string serial = SerialNumber.ExtractSerial(p.Serial);
+                        string val = arcazeCache.getValue(serial, p.Pin, "repeat");
 
                         result = p.Evaluate(val, currentValue);
                         break;
 #endif
                     case "variable":
-                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.PreconditionRef);
+                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.Ref);
                         if (variableValue == null) break;
 
                         result = p.Evaluate(variableValue);
@@ -792,7 +790,7 @@ namespace MobiFlight
                         foreach (var outputConfig in OutputConfigItems)
                         {
                             // here we just don't have a match
-                            if (outputConfig.GUID != p.PreconditionRef) continue;
+                            if (outputConfig.GUID != p.Ref) continue;
 
                             // if inactive ignore?
                             if (!outputConfig.Active) break;
@@ -822,7 +820,7 @@ namespace MobiFlight
                     finalResult &= result;
                 }
 
-                logicOr = (p.PreconditionLogic == "or");
+                logicOr = (p.Logic == "or");
             } // foreach
 
             return finalResult;
@@ -909,14 +907,14 @@ namespace MobiFlight
                 switch (cfg.DisplayType)
                 {
                     case ArcazeLedDigit.TYPE:
-                        var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count, cfg.LedModule.DisplayLedPaddingChar[0]);
-                        if (cfg.LedModule.DisplayLedPadding) val = value.PadLeft(cfg.LedModule.DisplayLedPadding ? cfg.LedModule.DisplayLedDigits.Count : 0, cfg.LedModule.DisplayLedPaddingChar[0]);
+                        var val = value.PadRight(cfg.LedModule.Digits.Count, cfg.LedModule.PaddingChar[0]);
+                        if (cfg.LedModule.Padding) val = value.PadLeft(cfg.LedModule.Padding ? cfg.LedModule.Digits.Count : 0, cfg.LedModule.PaddingChar[0]);
                         arcazeCache.setDisplay(
                             serial,
-                            cfg.LedModule.DisplayLedAddress,
-                            cfg.LedModule.DisplayLedConnector,
-                            cfg.LedModule.DisplayLedDigits,
-                            cfg.LedModule.DisplayLedDecimalPoints,
+                            cfg.LedModule.Address,
+                            cfg.LedModule.Connector,
+                            cfg.LedModule.Digits,
+                            cfg.LedModule.DecimalPoints,
                             val);
                         break;
 
@@ -941,35 +939,35 @@ namespace MobiFlight
                     case ArcazeLedDigit.TYPE:
                         var decimalCount = value.Count(c => c == '.');
 
-                        var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count + decimalCount, cfg.LedModule.DisplayLedPaddingChar[0]);
-                        var decimalPoints = new List<string>(cfg.LedModule.DisplayLedDecimalPoints);
+                        var val = value.PadRight(cfg.LedModule.Digits.Count + decimalCount, cfg.LedModule.PaddingChar[0]);
+                        var decimalPoints = new List<string>(cfg.LedModule.DecimalPoints);
 
-                        if (cfg.LedModule.DisplayLedPadding)
+                        if (cfg.LedModule.Padding)
                         {
-                            val = value.PadLeft(cfg.LedModule.DisplayLedPadding
-                                    ? cfg.LedModule.DisplayLedDigits.Count + decimalCount
-                                    : 0, cfg.LedModule.DisplayLedPaddingChar[0]);
+                            val = value.PadLeft(cfg.LedModule.Padding
+                                    ? cfg.LedModule.Digits.Count + decimalCount
+                                    : 0, cfg.LedModule.PaddingChar[0]);
                         }
 
-                        if (!string.IsNullOrEmpty(cfg.LedModule.DisplayLedBrightnessReference))
+                        if (!string.IsNullOrEmpty(cfg.LedModule.BrightnessReference))
                         {
-                            string refValue = FindValueForRef(cfg.LedModule.DisplayLedBrightnessReference);
+                            string refValue = FindValueForRef(cfg.LedModule.BrightnessReference);
 
                             mobiFlightCache.SetDisplayBrightness(
                                 serial,
-                                cfg.LedModule.DisplayLedAddress,
-                                cfg.LedModule.DisplayLedConnector,
+                                cfg.LedModule.Address,
+                                cfg.LedModule.Connector,
                                 refValue
                                 );
                         }
 
-                        var reverse = cfg.LedModule.DisplayLedReverseDigits;
+                        var reverse = cfg.LedModule.ReverseDigits;
 
                         mobiFlightCache.SetDisplay(
                             serial,
-                            cfg.LedModule.DisplayLedAddress,
-                            cfg.LedModule.DisplayLedConnector,
-                            cfg.LedModule.DisplayLedDigits,
+                            cfg.LedModule.Address,
+                            cfg.LedModule.Connector,
+                            cfg.LedModule.Digits,
                             decimalPoints,
                             val,
                             reverse);
@@ -1439,7 +1437,7 @@ namespace MobiFlight
                     break;
 
                 default:
-                    offCfg.LedModule.DisplayLedDecimalPoints = new List<string>();
+                    offCfg.LedModule.DecimalPoints = new List<string>();
                     ExecuteDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
                     break;
             }

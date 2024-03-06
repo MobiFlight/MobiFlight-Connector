@@ -64,17 +64,17 @@ export function DataTable<TData, TValue>({
 
     return (
         <div className="flex flex-col gap-4 grow overflow-y-auto">
-            <div className="">
+            <div className="px-1 py-2">
                 <DataTableToolbar table={table} items={ data as IConfigItem[] } />
             </div>
-            <div className="flex flex-col grow overflow-y-auto border border-primary rounded-lg">
+            <div className="flex flex-col grow overflow-y-auto border rounded-lg">
                 <Table className="table-fixed">
-                    <TableHeader className="bg-slate-500 dark:bg-slate-800 text-white group/header">
+                    <TableHeader className="group/header">
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} className="hover:bg-slate-800">
+                            <TableRow key={headerGroup.id} className="">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead size={header.column.getSize()} key={header.id} className="text-white z-50 px-2 sticky top-0 bg-primary dark:bg-slate-800">
+                                        <TableHead key={header.id} className={`z-50 sticky top-0 ${(header.column.columnDef?.meta as {className:string})?.className ?? ""}`}>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
                             </TableRow>
                         ))}
                     </TableHeader>
-                    <TableBody className="overflow-y-auto dark:bg-zinc-900">
+                    <TableBody className="overflow-y-auto">
                         {table.getRowModel().rows?.length ? (
                             table.getRowModel().rows.map((row) => (
                                 <TableRow
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="p-1" >
+                                        <TableCell key={cell.id} className={`${(cell.column.columnDef?.meta as {className:string})?.className}`} >
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
