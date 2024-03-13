@@ -15,6 +15,8 @@ import {
   useParams,
 } from "react-router-dom"
 import { FsuipcEventSettings, SimConnectVarEventSettings, VariableEventSettings, XplaneEventSettings } from "@/types/config"
+import { Projects } from "@/../tests/fixtures/data/projects"
+import { Project } from "@/types"
 
 const ConfigDetailPage = () => {
   const { configId, projectId } = useParams()
@@ -27,6 +29,7 @@ const ConfigDetailPage = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const [activeEdit, setActiveEdit] = useState<string>("")
+  const project = Projects.find((p: Project) => p.id === projectId)
 
   useEffect(() => {
     console.log(config)
@@ -37,8 +40,11 @@ const ConfigDetailPage = () => {
     <div className="flex flex-col gap-8">
       {/* Breadcrumb */}
       <div className="flex flex-row items-center gap-4" role="navigation">
+        <Link to="/" className='scroll-m-20 text-3xl tracking-tight first:mt-0'>Project</Link>
+                <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>&gt;</p>
+                <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>{project?.name ?? "Default"}</p>
         <Link
-          to={`/configs/${projectId}`}
+          to={`/project/${projectId}/configs`}
           className="scroll-m-20 text-3xl tracking-tight first:mt-0"
         >
           Configs
