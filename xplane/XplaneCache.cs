@@ -151,5 +151,10 @@ namespace MobiFlight.xplane
             XPlaneCommand xPlaneCommand = new XPlaneCommand(command, command);
             Connector?.SendCommand(xPlaneCommand);
         }
+
+        public void UpdateConfig()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

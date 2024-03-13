@@ -1593,6 +1593,10 @@ namespace MobiFlight
             return simConnectCache;
         }
 
+        public XplaneCache GetXplaneCache()
+        {
+            return xplaneCache;
+        }
 
         public Fsuipc2Cache GetFsuipcConnectCache()
         {

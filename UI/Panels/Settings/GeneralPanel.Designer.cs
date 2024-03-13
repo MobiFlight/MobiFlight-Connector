@@ -60,6 +60,11 @@
             this.autoRetriggerCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBoxHubHopAutoCheck = new System.Windows.Forms.GroupBox();
             this.checkBoxHubHopAutoCheck = new System.Windows.Forms.CheckBox();
+            this.RemoteConnectionGroupBox = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.remoteConnectionComboBox = new System.Windows.Forms.ComboBox();
+            this.remoteConnectionTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.BetaUpdatesGroupBox.SuspendLayout();
             this.languageGroupBox.SuspendLayout();
             this.debugGroupBox.SuspendLayout();
@@ -73,6 +78,7 @@
             this.SpeedTableLayoutPanel.SuspendLayout();
             this.autoRetriggerGoupBox.SuspendLayout();
             this.groupBoxHubHopAutoCheck.SuspendLayout();
+            this.RemoteConnectionGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // BetaUpdatesGroupBox
@@ -287,11 +293,47 @@
             this.checkBoxHubHopAutoCheck.Name = "checkBoxHubHopAutoCheck";
             this.checkBoxHubHopAutoCheck.UseVisualStyleBackColor = true;
             // 
+            // RemoteConnectionGroupBox
+            // 
+            this.RemoteConnectionGroupBox.Controls.Add(this.label7);
+            this.RemoteConnectionGroupBox.Controls.Add(this.remoteConnectionTextBox);
+            this.RemoteConnectionGroupBox.Controls.Add(this.label4);
+            this.RemoteConnectionGroupBox.Controls.Add(this.remoteConnectionComboBox);
+            resources.ApplyResources(this.RemoteConnectionGroupBox, "RemoteConnectionGroupBox");
+            this.RemoteConnectionGroupBox.Name = "RemoteConnectionGroupBox";
+            this.RemoteConnectionGroupBox.TabStop = false;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // remoteConnectionComboBox
+            // 
+            this.remoteConnectionComboBox.FormattingEnabled = true;
+            this.remoteConnectionComboBox.Items.AddRange(new object[] {
+            resources.GetString("remoteConnectionComboBox.Items"),
+            resources.GetString("remoteConnectionComboBox.Items1"),
+            resources.GetString("remoteConnectionComboBox.Items2")});
+            resources.ApplyResources(this.remoteConnectionComboBox, "remoteConnectionComboBox");
+            this.remoteConnectionComboBox.Name = "remoteConnectionComboBox";
+            // 
+            // remoteConnectionTextBox
+            // 
+            resources.ApplyResources(this.remoteConnectionTextBox, "remoteConnectionTextBox");
+            this.remoteConnectionTextBox.Name = "remoteConnectionTextBox";
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
             // GeneralPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.SpeedTableLayoutPanel);
+            this.Controls.Add(this.RemoteConnectionGroupBox);
             this.Controls.Add(this.languageGroupBox);
             this.Controls.Add(this.groupBoxHubHopAutoCheck);
             this.Controls.Add(this.autoRetriggerGoupBox);
@@ -319,6 +361,8 @@
             this.autoRetriggerGoupBox.PerformLayout();
             this.groupBoxHubHopAutoCheck.ResumeLayout(false);
             this.groupBoxHubHopAutoCheck.PerformLayout();
+            this.RemoteConnectionGroupBox.ResumeLayout(false);
+            this.RemoteConnectionGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -356,5 +400,10 @@
         private System.Windows.Forms.Label labelExecutionSlow;
         private System.Windows.Forms.Label labelExecutionFast;
         private System.Windows.Forms.Label labelExplainExecution;
+        private System.Windows.Forms.GroupBox RemoteConnectionGroupBox;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox remoteConnectionComboBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox remoteConnectionTextBox;
     }
 }

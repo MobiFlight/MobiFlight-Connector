@@ -295,7 +295,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;languageGroupBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="LogJoystickAxisCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1007,7 +1007,145 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;groupBoxHubHopAutoCheck.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>227, 22</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 18</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>IP Address:Port</value>
+  </data>
+  <data name="label7.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>RemoteConnectionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="remoteConnectionTextBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>327, 19</value>
+  </data>
+  <data name="remoteConnectionTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 20</value>
+  </data>
+  <data name="remoteConnectionTextBox.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionTextBox.Name" xml:space="preserve">
+    <value>remoteConnectionTextBox</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionTextBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionTextBox.Parent" xml:space="preserve">
+    <value>RemoteConnectionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionTextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 21</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 18</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Try remote sim</value>
+  </data>
+  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>RemoteConnectionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>2</value>
+  </data>
+  <data name="remoteConnectionComboBox.Items" xml:space="preserve">
+    <value>System Default</value>
+  </data>
+  <data name="remoteConnectionComboBox.Items1" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="remoteConnectionComboBox.Items2" xml:space="preserve">
+    <value>Deutsch</value>
+  </data>
+  <data name="remoteConnectionComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 18</value>
+  </data>
+  <data name="remoteConnectionComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>119, 21</value>
+  </data>
+  <data name="remoteConnectionComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionComboBox.Name" xml:space="preserve">
+    <value>remoteConnectionComboBox</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionComboBox.Parent" xml:space="preserve">
+    <value>RemoteConnectionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;remoteConnectionComboBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="RemoteConnectionGroupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="RemoteConnectionGroupBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 350</value>
+  </data>
+  <data name="RemoteConnectionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>455, 45</value>
+  </data>
+  <data name="RemoteConnectionGroupBox.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="RemoteConnectionGroupBox.Text" xml:space="preserve">
+    <value>Remote Connection</value>
+  </data>
+  <data name="&gt;&gt;RemoteConnectionGroupBox.Name" xml:space="preserve">
+    <value>RemoteConnectionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;RemoteConnectionGroupBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;RemoteConnectionGroupBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;RemoteConnectionGroupBox.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
