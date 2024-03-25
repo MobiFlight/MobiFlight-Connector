@@ -64,6 +64,19 @@ export class MFPage {
         Status: [],
         RawValue: "10",
         ModifiedValue: "11",
+        Modifiers: [],
+        Context: {
+          ConfigReferences:[],
+          Preconditions:[]
+        },
+        Action: {
+          Settings: {},
+          Type: "SIMCONNECT"
+        },
+        Event: {
+          Settings: { UUID: "123", Value: "1", VarType: "CODE"},
+          Type: "SIMCONNECT"
+        }
       },
     ];
     await this.loadConfig({ FileName: "default", ConfigItems: configItems });

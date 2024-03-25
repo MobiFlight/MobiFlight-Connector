@@ -2,8 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
+  DialogHeader
 } from "@/components/ui/dialog"
 
 import msfs2020 from "@/assets/sims/msfs2020-logo.png"
@@ -28,7 +27,6 @@ interface ConfigDetailEventViewProps {
 
 const ConfigDetailEventView = (props: ConfigDetailEventViewProps) => {
   const {
-    config,
     editMode,
     className,
     onEnterEditMode,

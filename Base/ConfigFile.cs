@@ -67,10 +67,17 @@ namespace MobiFlight
                 config.Active = item.SelectSingleNode("active").InnerText == "true";
                 config.Description = item.SelectSingleNode("description").InnerText;
 
-                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
-                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-                config.ReadXml(xReader);
-                result.Add(config);
+                try
+                {
+                    var reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
+                    var xReader = System.Xml.XmlReader.Create(reader);
+                    config.ReadXml(xReader);
+                    result.Add(config);
+                }
+                catch (Exception ex)
+                {
+                    //
+                }
             }
 
             return result;
@@ -88,11 +95,18 @@ namespace MobiFlight
                 config.Active = item.SelectSingleNode("active").InnerText == "true";
                 config.Description = item.SelectSingleNode("description").InnerText;
 
-                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
-                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-                xReader.Read();
-                config.ReadXml(xReader);
-                result.Add(config);
+                try
+                {
+                    var reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
+                    var xReader = System.Xml.XmlReader.Create(reader);
+                    xReader.Read();
+                    config.ReadXml(xReader);
+                    result.Add(config);
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
 
             return result;

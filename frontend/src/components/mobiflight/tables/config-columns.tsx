@@ -11,11 +11,10 @@ import { IConfigItem } from "@/types";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { IconArrowsSort, IconDots } from "@tabler/icons-react";
-import { publishOnMessageExchange } from "@/lib/hooks";
 import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "../icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {

@@ -11,7 +11,6 @@ import { useEffect, useState } from "react"
 import {
   Link,
   useLocation,
-  useNavigate,
   useParams,
 } from "react-router-dom"
 import { FsuipcEventSettings, SimConnectVarEventSettings, VariableEventSettings, XplaneEventSettings } from "@/types/config"
@@ -25,10 +24,9 @@ const ConfigDetailPage = () => {
   )
 
   const [testValue, setTestValue] = useState("1")
-  const [testResultValue, setTestResultValue] = useState("1")
-  const navigate = useNavigate()
+  const [testResultValue] = useState("1")
   const location = useLocation()
-  const [activeEdit, setActiveEdit] = useState<string>("")
+  const [_, setActiveEdit] = useState<string>("")
   const project = Projects.find((p: Project) => p.id === projectId)
 
   useEffect(() => {
