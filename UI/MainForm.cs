@@ -261,7 +261,7 @@ namespace MobiFlight.UI
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new UpdateAircraftCallback(UpdateAircraft), new object[] { aircraftName });
+                this.Invoke(new EventHandler<string>(ExecManager_OnSimAircraftChanged), new object[] { sender, aircraftName });
             }
             else
             {
