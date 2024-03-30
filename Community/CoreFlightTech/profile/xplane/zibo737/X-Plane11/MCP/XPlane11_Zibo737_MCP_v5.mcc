@@ -1,0 +1,785 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="09506c6a-06a5-4594-90c3-cabdef18cbe4">
+      <active>true</active>
+      <description>XP11_MCP AP A/T Arm LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/autothrottle_arm_pos" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="at" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4adceb95-6862-4fb9-97fc-a880998b4f0e">
+      <active>true</active>
+      <description>XP11_MCP AP FDL LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/master_capt_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="fdL" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dfa1856c-2970-4192-baf6-9b00382ed82e">
+      <active>true</active>
+      <description>XP11_MCP AP A/T N1 Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/n1_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="n1" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3c518f61-2f8f-4580-9008-2f2403501207">
+      <active>true</active>
+      <description>XP11_MCP AP A/T Speed Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/speed_status1" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="speed" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e825e7de-92a1-4ec9-ac9e-9b064e9da25b">
+      <active>true</active>
+      <description>XP11_MCP AP LVL CHG Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/lvl_chg_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="lvl_chg" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b734b978-e4be-43ae-bd1e-1f4a8c8e5a46">
+      <active>true</active>
+      <description>XP11_MCP AP HDG SEL Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/heading_mode" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="hdg_sel" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a174bb3a-ce82-49e8-802a-888b5e951ad8">
+      <active>true</active>
+      <description>XP11_MCP AP LNAV Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/lnav_status2" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="lnav" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="257180b3-944d-47c7-b7e0-69335ff7b999">
+      <active>true</active>
+      <description>XP11_MCP AP VOR/LOC Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/vorloc_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="vorloc" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b90adc38-0349-4762-944c-ec2e5fad2fdf">
+      <active>true</active>
+      <description>XP11_MCP AP APP Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/app_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="app" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f0784f5d-9e73-4fae-951e-7990369e7118">
+      <active>true</active>
+      <description>XP11_MCP AP ALT HLD Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/alt_hld_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="alt_hld" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5e8596ce-d19d-4f3f-a229-becdd8209517">
+      <active>true</active>
+      <description>XP11_MCP AP V/S Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/vs_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="vs" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5f7bb4e1-3b7c-4580-94dc-52a4fb769464">
+      <active>true</active>
+      <description>XP11_MCP AP CMD A Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/cmd_a_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="cmda" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2ce8258f-749d-4bd8-88a1-07af74ac38ec">
+      <active>true</active>
+      <description>XP11_MCP AP CMD B Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/cmd_b_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="cmdb" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="290fc623-c038-4b19-b24f-255528c4c65d">
+      <active>true</active>
+      <description>XP11_MCP AP CWS A Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/cws_a_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="cwsa" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5f753b85-3417-4788-ad8e-4601457eb4f2">
+      <active>true</active>
+      <description>XP11_MCP AP CWS B Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/cws_b_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="cwsb" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ce7253a1-c2b8-46da-8b82-7f2a8c9c3fe6">
+      <active>true</active>
+      <description>XP11_MCP AP FDR LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/master_fo_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="fdR" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8429962f-8561-4d49-aeb9-0ad187f692e2">
+      <active>true</active>
+      <description>XP11_MCP AP Captain's CRS Display</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/course_pilot" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="360" operand="=" ifValue="0" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" ledAddress="MAX1" ledConnector="1" ledModuleSize="8" ledPadding="True" ledBrightnessRef="5b746665-a6aa-4bf4-a7eb-f73d87765a64" ledPaddingChar="0" ledDigits="5,6,7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b6ca9602-b4e8-4c7c-8cd1-a8467b545fe3">
+      <active>true</active>
+      <description>XP11_MCP AP IAS/MACH Display</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/autopilot/airspeed_dial_kts_mach" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=0,' ',$)" />
+          <comparison active="True" value="1" operand="&lt;" ifValue="Round($,2)*100" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" ledAddress="MAX1" ledConnector="1" ledModuleSize="8" ledPadding="True" ledBrightnessRef="5b746665-a6aa-4bf4-a7eb-f73d87765a64" ledPaddingChar=" " ledDigits="0,1,2" />
+        <preconditions>
+          <precondition type="config" active="false" ref="90d70064-8caf-4b9b-a9d0-246d33faee21" operand="=" value="1" logic="or" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="90d70064-8caf-4b9b-a9d0-246d33faee21" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="dff8ff5f-7786-4c54-ac15-6b5614be29b0">
+      <active>true</active>
+      <description>XP11_MCP AP HDG Display</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/mcp_hdg_dial" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="360" operand="=" ifValue="0" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" ledAddress="MAX2" ledConnector="1" ledModuleSize="8" ledPadding="True" ledBrightnessRef="5b746665-a6aa-4bf4-a7eb-f73d87765a64" ledPaddingChar="0" ledDigits="5,6,7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="53797921-1b47-40db-abd2-412064f308da">
+      <active>true</active>
+      <description>XP11_MCP AP ALT Display</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/mcp_alt_dial" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" ledAddress="MAX2" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5e677f45-0f15-4858-9f06-445224822cfa">
+      <active>true</active>
+      <description>XP11_MCP AP V/S Display</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/autopilot/vvi_dial_fpm" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="0" operand="=" ifValue="&quot; &quot;" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" ledAddress="MAX3" ledConnector="1" ledModuleSize="8" ledPadding="True" ledBrightnessRef="5b746665-a6aa-4bf4-a7eb-f73d87765a64" ledPaddingChar=" " ledDigits="3,4,5,6,7" />
+        <preconditions>
+          <precondition type="config" active="true" ref="f9bf7c18-83e9-47bf-bc03-2669a32e7084" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cf20be13-f81b-4199-8be4-060c44dff832">
+      <active>true</active>
+      <description>XP11_MCP AP FO CRS Display</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/course_copilot" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" ledAddress="MAX3" ledConnector="1" ledModuleSize="8" ledPadding="True" ledBrightnessRef="5b746665-a6aa-4bf4-a7eb-f73d87765a64" ledPaddingChar="0" ledDigits="0,1,2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="678f8e9f-bf13-4788-b341-8584635a5ea1">
+      <active>true</active>
+      <description>XP11_MCP MCP Adjustable Backlighting - Turn Main Brightness Knob-&gt; CHECK YOUTUBE VIDEO FOR MORE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/electric/panel_brightness[0]" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$*2" />
+          <comparison active="False" value="-1" operand="!=" ifValue="1" elseValue="1" />
+          <interpolation active="True">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="Backlight_Pin" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8f9b5f4c-27f0-489c-92e7-eb11c83a443e">
+      <active>true</active>
+      <description>XP11_MCP AP VNAV Press LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/vnav_status2" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech MCP/ SN-124-5EB" trigger="normal" pin="vnav" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90d70064-8caf-4b9b-a9d0-246d33faee21">
+      <active>true</active>
+      <description>XP11_MCP Show_IAS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/show_ias" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f9bf7c18-83e9-47bf-bc03-2669a32e7084">
+      <active>true</active>
+      <description>XP11_MCP Show_VS</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/autopilot/vs_status" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6e2aa99a-5d50-41fc-b8b1-7dc191e399d8">
+      <active>true</active>
+      <description>XP11_MCP HDG Press</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="HDG_B" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="-" trigger="normal" pin="fdL" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="e4a56497-a4fd-43fc-8d76-7032dd8b0c17">
+      <active>true</active>
+      <description>XP11_MCP AP F/D Left Toggle</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="FDL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/flight_director_toggle" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/flight_director_toggle" expression="" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="false" ref="09506c6a-06a5-4594-90c3-cabdef18cbe4" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="False" ref="09506c6a-06a5-4594-90c3-cabdef18cbe4" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f1f69077-1a9f-413b-8ebf-39695bf9032f">
+      <active>true</active>
+      <description>XP11_MCP AP A/T N1 Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="N1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/n1_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c1391270-c01f-4413-8173-c06f4c6c4066">
+      <active>true</active>
+      <description>XP11_MCP AP A/T Speed Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="SPD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/speed_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8ef61669-96e7-4ece-9232-50120bdbe821">
+      <active>true</active>
+      <description>XP11_MCP AP A/T LVL CHG Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="LVL_CHG" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/lvl_chg_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="131b3d97-8c8f-42e0-9e79-bb4dc6dfdbab">
+      <active>true</active>
+      <description>XP11_MCP AP C/O Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="CO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/change_over_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3461208e-5b8e-40f4-8447-9f0095961aa3">
+      <active>true</active>
+      <description>XP11_MCP AP VNAV Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="VNAV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/vnav_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4dab27bc-10b8-45bf-82c1-9169f401a8d2">
+      <active>true</active>
+      <description>XP11_MCP AP HDG SEL Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="HDG_SEL" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/hdg_sel_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="3271acc3-ba22-406a-81f3-f7d1ad2f8a9e">
+      <active>true</active>
+      <description>XP11_MCP AP LNAV Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="LNAV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/lnav_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4d5ea3af-c077-4d77-927d-facbc74b21e5">
+      <active>true</active>
+      <description>XP11_MCP AP VOR/LOC Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="VORLOC" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/vorloc_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="06ed2578-f63d-4466-a351-6d62936f2ace">
+      <active>true</active>
+      <description>XP11_MCP AP APP Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="APP" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/app_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bec1a925-9ce2-40aa-a58e-917d0df1213d">
+      <active>true</active>
+      <description>XP11_MCP AP C/O </description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="CO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/buttons/autopilot/change_over_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7c58f0de-3789-46de-8e14-8f11594a4a4e">
+      <active>true</active>
+      <description>XP11_MCP AP Captain's CRS Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_CRS_L" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/course_pilot_up" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/course_pilot_dn" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e6b206ea-74cb-4ee1-bbb7-01d4e311414e">
+      <active>true</active>
+      <description>XP11_MCP AP FDR Toggle</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="FDR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/flight_director_fo_toggle" expression="1" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/flight_director_fo_toggle" expression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5119e32b-1a93-48f5-ba78-465c53a854f8">
+      <active>true</active>
+      <description>XP11_MCP AP FO CRS</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_CRS_R" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/course_copilot_up" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/course_copilot_dn" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="531c5534-3a1c-4802-bfd8-632d4dd7239f">
+      <active>true</active>
+      <description>XP11_MCP AP IAS/MACH Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_IASMACH" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/autopilot/airspeed_up" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/autopilot/airspeed_down" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bb19e1b1-72e7-4288-bc3e-b9a176214022">
+      <active>true</active>
+      <description>XP11_MCP AP HDG Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_HEADING" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/autopilot/heading_up" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/autopilot/heading_down" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="6e2aa99a-5d50-41fc-b8b1-7dc191e399d8" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="718e0ce7-edf0-4144-8d78-2b337403dac3">
+      <active>true</active>
+      <description>XP11_MCP AP ALT Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_ALTITUDE" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/altitude_up" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/altitude_dn" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6858dcb4-5d78-4f2d-bd0d-6028f7d484ed">
+      <active>true</active>
+      <description>XP11_MCP AP V/S Encoder</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_VS" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/autopilot/vertical_speed_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/autopilot/vertical_speed_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="08f186e8-05cd-4484-ac50-01259e48dcd5">
+      <active>true</active>
+      <description>XP11_MCP AP ALT Hold Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ALT_HLD" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/alt_hld_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e1612128-b661-4fa3-9b92-85f38be87278">
+      <active>true</active>
+      <description>XP11_MCP AP V/S Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="VS" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/vs_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="63737a74-7539-4556-8718-93f84be8b264">
+      <active>true</active>
+      <description>XP11_MCP AP CMD A</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="CMDA" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/cmd_a_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2ac21abe-4fba-474a-9238-325e3a1d10c4">
+      <active>true</active>
+      <description>XP11_MCP AP CMD B</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="CMDB" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/cmd_b_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e7ef37f0-da6c-484e-986c-a76de72d76ac">
+      <active>true</active>
+      <description>XP11_MCP AP CWS A</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="CWSA" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/cws_a_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6a956af1-fbed-47b0-9864-3119e4343270">
+      <active>true</active>
+      <description>XP11_MCP AP CWS B</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="CWSB" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/cws_b_press" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c0213aed-60d6-4576-bfc2-61f16e2e929c">
+      <active>true</active>
+      <description>XP11_MCP AP Disengage</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="DISENGAGE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/disconnect_toggle" expression="" />
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/disconnect_toggle" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b4b09924-7d43-494b-b08c-584ca065be60">
+      <active>true</active>
+      <description>XP11_MCP AP SPD INTV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="SPD_INTV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/spd_interv" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2ddba910-d154-43fa-a0df-fdc016248198">
+      <active>true</active>
+      <description>XP11_MCP AP ALT INTV</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ALT_INTV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/alt_interv" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="08980239-a193-4f59-8540-95af4f1fe635">
+      <active>true</active>
+      <description>XP11_MCP AP HDG SYNC Press</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="Heading Sync" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="Command" path="sim/autopilot/heading_sync" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5d287330-b4ad-45ca-af60-9862219143d7">
+      <active>true</active>
+      <description>XP11_MCP HDG Button</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="HeadingEnc_Btn" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="VariableInputAction" varType="number" varName="HDG_B" varExpression="1" />
+          <onRelease type="VariableInputAction" varType="number" varName="HDG_B" varExpression="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e601b8e9-4551-4f23-80d4-600f532200c9">
+      <active>true</active>
+      <description>XP11_MCP AP Bank limit</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech MCP/ SN-124-5EB" name="ENC_HEADING" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/bank_angle_up" expression="if($&gt;=0,$-1,0)" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="laminar/B738/autopilot/bank_angle_dn" expression="if($&lt;=4,$+1,4)" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="6e2aa99a-5d50-41fc-b8b1-7dc191e399d8" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>
