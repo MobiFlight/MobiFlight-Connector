@@ -55,6 +55,11 @@
       "id": 6,
       "label": "Set value w/ 'L' or 'R'",
       "description": "$ will set the value of the display with the 'L' or 'R' character"
+    },
+    {
+      "id": 7,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all Segments, $ = 0 will clear display"
     }
   ]
 }

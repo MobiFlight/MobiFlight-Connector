@@ -50,6 +50,11 @@
       "id": 5,
       "label": "(v2.5.4+) Show Value (STRING)",
       "description": "$ will be displayed"
+    },
+    {
+      "id": 6,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all EFIS Segments, $ = 0 will clear display"
     }
   ]
 }
