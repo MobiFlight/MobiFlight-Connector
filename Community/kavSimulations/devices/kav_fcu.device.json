@@ -130,6 +130,11 @@
       "id": 22,
       "label": "(v2.5.3+) Toggle Speed/Mach mode",
       "description": "$ = 1 will display Mach labels, $ = 2 will display Speed labels"
+    },
+    {
+      "id": 23,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all FCU Segments, $ = 0 will clear display"
     }
   ]
 }

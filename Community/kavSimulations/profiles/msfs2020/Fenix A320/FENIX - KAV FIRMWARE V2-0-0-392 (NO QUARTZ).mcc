@@ -1,0 +1,508 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="5a1bf488-659d-4c25-98bf-ffd43dd20a94">
+      <active>false</active>
+      <description>FCU CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="56756680-25cd-4f2b-9ca1-2065fd60574a">
+      <active>true</active>
+      <description>SPD</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_SPEED)" UUID="ee3f0a8c-fb85-430b-8659-5597c6b66a4f" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=1, '---', if($&lt;100, '0.$', $))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="18" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="7a059f7e-49f0-44e5-b136-eac092e40b71" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="7a059f7e-49f0-44e5-b136-eac092e40b71">
+      <active>true</active>
+      <description>SPD DASHES</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:B_FCU_SPEED_DASHED)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a08b884c-9512-4967-86bb-79104ebf3139">
+      <active>true</active>
+      <description>SPD DOT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_SPEED_MANAGED)" UUID="28029cad-8379-419c-ba1f-589cada617fa" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="10" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="26917f9f-f6ab-40d7-b2f8-e0591e555713">
+      <active>true</active>
+      <description>SPD/MACH LABEL</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_SPEED_MODE)" UUID="0" />
+        <test type="Float" value="-1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="22" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c41a732e-f9da-4f45-bc34-367b79c03ed1">
+      <active>true</active>
+      <description>HDG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_HEADING)" UUID="f9fd0ffc-5343-4427-9399-21d308a99703" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=1, '---', $)" />
+          <padding active="True" direction="Left" length="3" character="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="19" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="0b4cfecd-ead9-4d96-94c6-adbad24f1605" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="0b4cfecd-ead9-4d96-94c6-adbad24f1605">
+      <active>true</active>
+      <description>HDG DASHES</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:B_FCU_HEADING_DASHED)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="964e2b28-50ce-46a1-aa19-62cbd1d3a4b0">
+      <active>true</active>
+      <description>HDG DOT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_HEADING_MANAGED)" UUID="28029cad-8379-419c-ba1f-589cada617fa" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="11" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a36e07dd-8ce2-4382-8bf1-bcb722bac0c5">
+      <active>true</active>
+      <description>HDG/VS TRK/FPA</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_HEADING_VS_MODE)" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$-1" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="13" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f1c2f225-8f50-40d3-a842-19809c2455c1">
+      <active>true</active>
+      <description>ALT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_ALTITUDE)" UUID="d2cdad8d-8c2e-4620-ba30-6f2c35d326de" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <padding active="True" direction="Left" length="5" character="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="20" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6dbfae93-a3ae-412c-8c91-8283c72c312a">
+      <active>true</active>
+      <description>ALT DOT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_ALTITUDE_MANAGED)" UUID="bca70365-cd7c-4408-ad8e-4d7c5f578166" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="12" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="16bfb36a-a310-4029-886d-d049badb7cb8">
+      <active>true</active>
+      <description>VS HELPER</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_VS)" UUID="aa0d539d-855c-4473-a338-4212c7b3734a" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'$'" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="72813ded-7551-4727-901d-22ec46d256a0">
+      <active>true</active>
+      <description>VS OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_VS)" UUID="aa0d539d-855c-4473-a338-4212c7b3734a" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Abs($/100)" />
+          <comparison active="True" value="0" operand="=" ifValue="00oo" elseValue="$oo" />
+          <padding active="True" direction="Left" length="4" character="0" />
+          <transformation active="True" expression="if(#&lt;0, '-$', '+$')" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="16bfb36a-a310-4029-886d-d049badb7cb8" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="c23ba13d-a813-466d-83bd-b8ff1f068c5a">
+      <active>true</active>
+      <description>FPA HELPER</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_VS)" UUID="aa0d539d-855c-4473-a338-4212c7b3734a" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$/1000" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="430204f0-ff72-48be-9e3c-33513bbafff4">
+      <active>true</active>
+      <description>FPA OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_VS)" UUID="aa0d539d-855c-4473-a338-4212c7b3734a" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$/1000" />
+          <transformation active="True" expression="Round(Abs($), 1)" />
+          <transformation active="True" expression="if(Round($,1) - Round($,0) = 0, '$.0   0', '$   0')" />
+          <transformation active="True" expression="if(#&lt;0, '-$', '+$')" />
+          <padding active="True" direction="Right" length="6" character=" " />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="c23ba13d-a813-466d-83bd-b8ff1f068c5a" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="6e144e29-e107-41e3-af41-ab557cfecee5">
+      <active>true</active>
+      <description>VS/FPA OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_HEADING_VS_MODE)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="False" value="0" operand="=" ifValue="'#'" elseValue="'!'" />
+          <transformation active="True" expression="if(?=1, '-----', if($=0, '#', '!'))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="FCU LCD" messageType="21" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="430204f0-ff72-48be-9e3c-33513bbafff4" placeholder="#" testvalue="1" />
+          <configref active="True" ref="72813ded-7551-4727-901d-22ec46d256a0" placeholder="!" testvalue="1" />
+          <configref active="True" ref="980ef639-80df-4fca-a066-25498555dda5" placeholder="?" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="980ef639-80df-4fca-a066-25498555dda5">
+      <active>true</active>
+      <description>VS DASHES</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:B_FCU_VERTICALSPEED_DASHED)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d2ae8663-e548-450d-94f9-5d0dc18d3e61">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bbabe107-23c8-458a-86a2-6a295aa73f59">
+      <active>true</active>
+      <description>EFIS L CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4be04554-95e4-42c7-8bdf-a2b71bb89823">
+      <active>true</active>
+      <description>EFIS L inHg</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_EFIS1_BARO_INCH)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 2)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="70993333-77ff-4afb-b4c0-4760ab112ba3">
+      <active>true</active>
+      <description>EFIS L hPa</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_EFIS1_BARO_HPA)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 0)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="877b36f5-fedc-4607-b284-b68e349926ec">
+      <active>true</active>
+      <description>EFIS L STD</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_EFIS1_QNH)" UUID="0468d4e6-7488-4c67-a41a-23ede3e89391" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="13379caf-2018-4f23-a1c8-0c0dc75316ba">
+      <active>true</active>
+      <description>EFIS L MODE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:S_FCU_EFIS1_BARO_MODE)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c384033-19a9-49d6-ad2d-b60ee61fe5c2">
+      <active>true</active>
+      <description>EFIS L QNH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_EFIS1_QNH)" UUID="0468d4e6-7488-4c67-a41a-23ede3e89391" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="EFIS L" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b6511dcf-1d8d-4431-8b5c-52897334a75b">
+      <active>true</active>
+      <description>EFIS L QFE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_EFIS1_QFE)" UUID="-" />
+        <test type="String" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="72290261-e478-409a-a3fa-8648c30776e4">
+      <active>true</active>
+      <description>EFIS L OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(?=0, 'Std ', if(@=1, !, #))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="EFIS L" messageType="5" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="4be04554-95e4-42c7-8bdf-a2b71bb89823" placeholder="#" testvalue="1" />
+          <configref active="True" ref="70993333-77ff-4afb-b4c0-4760ab112ba3" placeholder="!" testvalue="1" />
+          <configref active="True" ref="877b36f5-fedc-4607-b284-b68e349926ec" placeholder="?" testvalue="1" />
+          <configref active="True" ref="13379caf-2018-4f23-a1c8-0c0dc75316ba" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="65265b30-007f-45d4-ae97-fada5b70709e">
+      <active>false</active>
+      <description>-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="54f46104-80c3-46f7-a164-33c6d044e5e9">
+      <active>false</active>
+      <description>EFIS R CONFIG</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8afcb990-dd40-4f72-b331-8ff8328e3e24">
+      <active>true</active>
+      <description>EFIS R inHg</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_EFIS2_BARO_INCH)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 2)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ef130492-6348-4671-97e0-b31678fa8648">
+      <active>true</active>
+      <description>EFIS R hPa</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_FCU_EFIS2_BARO_HPA)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 0)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="94bb40ed-a955-4596-9f0a-9a6cd93b9fdc">
+      <active>true</active>
+      <description>EFIS R STD</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_EFIS2_QNH)" UUID="0468d4e6-7488-4c67-a41a-23ede3e89391" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7f9fe683-b793-4f69-a168-01901b662e1d">
+      <active>true</active>
+      <description>EFIS R MODE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:S_FCU_EFIS2_BARO_MODE)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b2d2dbc2-a9c2-4ee3-8c55-523817c64b67">
+      <active>true</active>
+      <description>EFIS R QNH</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_EFIS2_QNH)" UUID="0468d4e6-7488-4c67-a41a-23ede3e89391" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="EFIS R" messageType="3" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b4f68c38-bc1b-463d-a814-1892686b0340">
+      <active>true</active>
+      <description>EFIS R QFE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:I_FCU_EFIS2_QFE)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fd6a9f1c-04ad-4570-a85f-90abd69fda3c">
+      <active>true</active>
+      <description>EFIS R OUTPUT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.2, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="" UUID="-" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(?=0, 'Std ', if(@=1, !, #))" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Glareshield/ SN-E98-277" trigger="normal" customType="" customName="EFIS R" messageType="5" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="8afcb990-dd40-4f72-b331-8ff8328e3e24" placeholder="#" testvalue="1" />
+          <configref active="True" ref="ef130492-6348-4671-97e0-b31678fa8648" placeholder="!" testvalue="1" />
+          <configref active="True" ref="94bb40ed-a955-4596-9f0a-9a6cd93b9fdc" placeholder="?" testvalue="1" />
+          <configref active="True" ref="7f9fe683-b793-4f69-a168-01901b662e1d" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="7d62d0b5-04bb-4dbd-bcf1-48e4feba521e">
+      <active>false</active>
+      <converter>Boolean</converter>
+      <comparison>=</comparison>
+      <description>-</description>
+      <fsuipcSize>1</fsuipcSize>
+      <trigger>change</trigger>
+      <arcazeSerial>-</arcazeSerial>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

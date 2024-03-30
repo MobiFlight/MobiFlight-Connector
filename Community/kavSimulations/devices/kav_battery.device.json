@@ -40,6 +40,11 @@
       "id": 3,
       "label": "Set value w/ V",
       "description": "$ will set the value of the LCD with 'V' character enabled"
+    },
+    {
+      "id": 4,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all Segments, $ = 0 will clear display"
     }
   ]
 }

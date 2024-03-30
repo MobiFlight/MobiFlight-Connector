@@ -40,6 +40,11 @@
       "id": 3,
       "label": "Set value TCAS",
       "description": "$ will show the value on the display for TCAS"
+    },
+    {
+      "id": 4,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all Segments, $ = 0 will clear display"
     }
   ]
 }
