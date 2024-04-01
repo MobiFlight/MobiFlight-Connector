@@ -25,9 +25,9 @@
   <Button Name="DISENGAGE" Pin="25" />
   <Button Name="FDR" Pin="27" />
   <Encoder Name="ENC_CRS_L" PinLeft="52" PinRight="53" EncoderType="1" />
-  <Encoder Name="ENC_IASMACH" PinLeft="37" PinRight="39" EncoderType="1" />
+  <Encoder Name="ENC_IASMACH" PinLeft="39" PinRight="37" EncoderType="1" />
   <Encoder Name="ENC_HEADING" PinLeft="32" PinRight="33" EncoderType="1" />
-  <Encoder Name="ENC_ALTITUDE" PinLeft="14" PinRight="15" EncoderType="1" />
+  <Encoder Name="ENC_ALTITUDE" PinLeft="15" PinRight="14" EncoderType="1" />
   <Encoder Name="ENC_VS" PinLeft="13" PinRight="12" EncoderType="1" />
   <Encoder Name="ENC_CRS_R" PinLeft="26" PinRight="29" EncoderType="1" />
   <LedModule Name="MAX1" ModelType="0" DinPin="46" ClsPin="47" ClkPin="48" Brightness="10" NumModules="1" />
