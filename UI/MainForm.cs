@@ -864,6 +864,12 @@ namespace MobiFlight.UI
         /// </summary>
         void SimCache_Closed(object sender, EventArgs e)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new EventHandler(SimCache_Closed), new object[] { sender, e });
+                return;
+            }
+
             if (sender.GetType() == typeof(SimConnectCache))
             {
                 UpdateSimConnectStatusIcon();
@@ -942,6 +948,12 @@ namespace MobiFlight.UI
         /// </summary>        
         void SimCache_Connected(object sender, EventArgs e)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new EventHandler(SimCache_Connected), new object[] { sender, e});
+                return;
+            }
+
             // Typically the information in this static object is correct
             // only in the case of FSUIPC it might actually be not correct
             // because we can have a native connection and a fsuipc connection at the same time
@@ -1026,6 +1038,7 @@ namespace MobiFlight.UI
                 );
             }
 
+            UpdateAllConnectionIcons();
             UpdateSeparatorInStatusMenu();
         }
 
@@ -1050,6 +1063,12 @@ namespace MobiFlight.UI
         /// </summary>
         void SimCache_ConnectionLost(object sender, EventArgs e)
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new EventHandler(SimCache_ConnectionLost), new object[] { sender, e });
+                return;
+            }
+
             execManager.Stop();
 
             if (!execManager.SimAvailable())

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Caching;
 using XPlaneConnector;
@@ -16,11 +17,16 @@ namespace MobiFlight.xplane
         public event EventHandler OnUpdateFrequencyPerSecondChanged;
         public event EventHandler<string> AircraftChanged;
 
+        private DateTime LastHeartBeat = DateTime.MinValue;
+        private readonly TimeSpan HeartbeatTimeout = TimeSpan.FromSeconds(5);
+        private CancellationTokenSource cancellationTokenSource;
+
         private bool _simConnectConnected = false;
         private bool _connected = false;
         private int _updateFrequencyPerSecond = 10;
         private string _detectedAircraft = string.Empty;
-        public int UpdateFrequencyPerSecond { 
+        public int UpdateFrequencyPerSecond
+        {
             get { return _updateFrequencyPerSecond; }
             set
             {
@@ -34,47 +40,111 @@ namespace MobiFlight.xplane
 
         Dictionary<String, DataRefElement> SubscribedDataRefs = new Dictionary<String, DataRefElement>();
 
-        public bool Connect()
+        public XplaneCache()
         {
-            if (Connector == null) Connector = new XPlaneConnector.XPlaneConnector();
-            
-            Connector.OnLog += (m) =>
-            {
-                // Log.Instance.log(m, LogSeverity.Debug);
-            };
-
             OnUpdateFrequencyPerSecondChanged += (v, e) =>
             {
                 Log.Instance.log($"update frequency changed: {v} per second.", LogSeverity.Debug);
                 Connector?.Stop();
                 Connector?.Start();
             };
+        }
+
+        public bool Connect()
+        {
+            // create the connector only now
+            // because it will start the connection immediately
+            if (Connector == null) Connector = new XPlaneConnector.XPlaneConnector();
+#if DEBUG
+            Connector.OnLog += (m) =>
+            {
+                // Log.Instance.log(m, LogSeverity.Debug);
+            };
+#endif
 
             SubscribedDataRefs.Clear();
-            _connected = true;
-
-            Connected?.Invoke(this, new EventArgs());
-
-            CheckForAircraftName();
+            StartMonitoringHeartBeat();
 
             return _connected;
+        }
+
+        private void StartMonitoringHeartBeat()
+        {
+            if (Connector == null) return;
+            if (cancellationTokenSource != null && !cancellationTokenSource.Token.IsCancellationRequested) return;
+
+            Connector.Start();
+            Connector.Unsubscribe("sim/time/local_time_sec");
+            Connector.Subscribe(new DataRefElement() { DataRef = "sim/time/local_time_sec", Frequency = 1, Value = 0 }, 1, (e, v) =>
+            {
+                if (!_connected)
+                {
+                    _connected = true;
+                    Connected?.Invoke(this, new EventArgs());
+                }
+                UpdateHeartBeat();
+                CheckForAircraftName();
+            });
+            CheckForHeartBeatTimeout();
+
+            Log.Instance.log("Heartbeat monitoring started", LogSeverity.Debug);
+        }
+
+        private void CheckForHeartBeatTimeout()
+        {
+            cancellationTokenSource = new CancellationTokenSource();
+            InitHeartBeat();
+
+            Task.Run(async () =>
+            {
+                while (!cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    await Task.Delay(1000, cancellationTokenSource.Token).ConfigureAwait(false); // Check heartbeat every second
+                    var elapsedSinceLastHeartBeat = DateTime.Now - LastHeartBeat;
+                    if (elapsedSinceLastHeartBeat > HeartbeatTimeout)
+                    {
+                        OnHeartBeatTimeout();
+                        return;
+                    }
+                }
+                Log.Instance.log("Heartbeat monitoring stopped with CancellationToken", LogSeverity.Debug);
+            }, cancellationTokenSource.Token);
+        }
+
+        public void StopMonitoringHeartBeat()
+        {
+            cancellationTokenSource?.Cancel();
+            Log.Instance.log("Heartbeat monitoring stopped", LogSeverity.Debug);
+        }
+
+        private void OnHeartBeatTimeout()
+        {
+            if (_connected)
+            {
+                Log.Instance.log("Heartbeat timeout", LogSeverity.Warn);
+                StopMonitoringHeartBeat();
+                Stop();
+                Disconnect();
+            }
         }
 
         public void CheckForAircraftName()
         {
             if (!_connected) return;
-            // just start the connector
-            Connector?.Start();
-            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[0]", Frequency = 1, Value = 0 }, 1, (e, v) =>
-            {
-                Log.Instance.log($"sim/aircraft/view/acf_ui_name[0] = {v}", LogSeverity.Debug);
-                UpdateAircraftSubscription();
-            });
-            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[2]", Frequency = 1, Value = 0 }, 1, (e, v) =>
-            {
-                Log.Instance.log($"sim/aircraft/view/acf_ui_name[2] = {v}", LogSeverity.Debug);
-                UpdateAircraftSubscription();
-            });
+            UpdateAircraftSubscription();
+        }
+
+        private void InitHeartBeat()
+        {
+            LastHeartBeat = DateTime.Now;
+        }
+
+        private void UpdateHeartBeat()
+        {
+            LastHeartBeat = DateTime.Now;
+#if DEBUG
+            Log.Instance.log("Heartbeat received", LogSeverity.Debug);
+#endif  
         }
 
         private void UpdateAircraftSubscription()
@@ -89,6 +159,7 @@ namespace MobiFlight.xplane
             Connector.Subscribe(datarefAircraftName, 1, (e1, v1) =>
             {
                 if (_detectedAircraft == v1) return;
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name = {v1}", LogSeverity.Debug);
                 _detectedAircraft = v1;
                 AircraftChanged?.Invoke(this, _detectedAircraft);
             });
@@ -99,9 +170,12 @@ namespace MobiFlight.xplane
             if (_connected)
             {
                 _connected = false;
+                Connector.Dispose();
+                Connector = null;
+
                 Closed?.Invoke(this, new EventArgs());
             }
-            
+            _detectedAircraft = string.Empty;
             return _connected;
         }
 
@@ -114,12 +188,13 @@ namespace MobiFlight.xplane
         {
             SubscribedDataRefs.Clear();
             Connector?.Start();
+            StartMonitoringHeartBeat();
         }
 
         public void Stop()
         {
+            StopMonitoringHeartBeat();
             Connector?.Stop();
-            CheckForAircraftName();
         }
 
         public void Clear()
@@ -134,7 +209,8 @@ namespace MobiFlight.xplane
             if (!SubscribedDataRefs.ContainsKey(dataRefPath))
             {
                 SubscribedDataRefs.Add(dataRefPath, new DataRefElement() { DataRef = dataRefPath, Frequency = UpdateFrequencyPerSecond, Value = 0 });
-                Connector.Subscribe(SubscribedDataRefs[dataRefPath], UpdateFrequencyPerSecond, (e, v) => {
+                Connector.Subscribe(SubscribedDataRefs[dataRefPath], UpdateFrequencyPerSecond, (e, v) =>
+                {
                     SubscribedDataRefs[e.DataRef].Value = v;
                 });
             }
