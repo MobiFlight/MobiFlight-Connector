@@ -182,7 +182,7 @@ namespace MobiFlight.UI.Panels
             {
                 pwmPinPanel.Enabled = pwmPinPanel.Visible 
                                     = Module.getPwmPins()
-                                            .Find(x => x.Pin == (byte)(item as MobiFlightOutput).Pin) != null;
+                                            .Find(x => x.Pin == (uint)(item as MobiFlightOutput).Pin) != null;
                 return;
             }
         }
