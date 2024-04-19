@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
     public class Transformation : ModifierBase
     {
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
         public String Expression = "$";
-        public int SubStrStart = 0;
-        public int SubStrEnd = 7;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -23,12 +15,6 @@ namespace MobiFlight.Modifier
             // read precondition settings if present
             if (reader["expression"] != null)
                 Expression = reader["expression"] as String;
-            
-            if (reader["substrStart"] != null)
-                SubStrStart = int.Parse(reader["substrStart"]);
-
-            if (reader["substrEnd"] != null)
-                SubStrEnd = int.Parse(reader["substrEnd"]);
         }
 
         public override void WriteXml(XmlWriter writer)
@@ -36,8 +22,6 @@ namespace MobiFlight.Modifier
             writer.WriteStartElement("transformation");
                 writer.WriteAttributeString("active", Active.ToString());
                 writer.WriteAttributeString("expression", Expression);
-                writer.WriteAttributeString("substrStart", SubStrStart.ToString());
-                writer.WriteAttributeString("substrEnd", SubStrEnd.ToString());
             writer.WriteEndElement();
         }
 
@@ -46,8 +30,6 @@ namespace MobiFlight.Modifier
             Transformation Clone = new Transformation();
             Clone.Active = Active;
             Clone.Expression = Expression;
-            Clone.SubStrStart = SubStrStart;
-            Clone.SubStrEnd = SubStrEnd;
             return Clone;
         }
 
@@ -56,47 +38,19 @@ namespace MobiFlight.Modifier
             return
                 obj != null && obj is Transformation &&
                 this.Active == (obj as Transformation).Active &&
-                this.Expression == (obj as Transformation).Expression &&
-                this.SubStrStart == (obj as Transformation).SubStrStart &&
-                this.SubStrEnd == (obj as Transformation).SubStrEnd;
+                this.Expression == (obj as Transformation).Expression;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)
         {
-            ConnectorValue result = value;
+            var result = value.Clone() as ConnectorValue;
 
-            switch (value.type)
+            string exp = Expression.Replace("$", value.Float64.ToString());
+
+            if (value.type == FSUIPCOffsetType.String)
             {
-                case FSUIPCOffsetType.Float:
-                case FSUIPCOffsetType.Integer:
-                    string tmpValue = Apply(value.Float64, configRefs);
-                    if (Double.TryParse(tmpValue, out value.Float64))
-                    {
-                        value.Float64 = value.Float64;
-                    } 
-                    else 
-                    {
-                        // Expression has now made this a string
-                        value.type = FSUIPCOffsetType.String;
-                        value.String = tmpValue;
-                    }
-                    break;
-
-                case FSUIPCOffsetType.String:
-                    value.String = Apply(value.String);
-                    break;
+                exp = Expression.Replace("$", value.String);
             }
-
-            return result;
-        }
-
-
-        protected string Apply(double value, List<ConfigRefValue> configRefs)
-        {
-            string result = value.ToString();
-
-            // we have to use the US culture because "." must be used as decimal separator
-            string exp = Expression.Replace("$", value.ToString());
 
             foreach (ConfigRefValue configRef in configRefs)
             {
@@ -104,7 +58,7 @@ namespace MobiFlight.Modifier
             }
 
             var ce = new NCalc.Expression(exp);
-            string ncalcResult = null;
+            string ncalcResult;
             try
             {
                 ncalcResult = ce.Evaluate().ToString();
@@ -115,27 +69,26 @@ namespace MobiFlight.Modifier
                 throw new Exception(i18n._tr("uiMessageErrorOnParsingExpression"));
             }
 
-            if (ncalcResult!=null)
+            if (ncalcResult != null)
             {
-                double dValue;
-                if (double.TryParse(ncalcResult, out dValue)) {
-                    result = dValue.ToString();
+                if (double.TryParse(ncalcResult, out result.Float64) && result.Float64.ToString().Length == ncalcResult.Length)
+                {
+                    result.type = FSUIPCOffsetType.Float;
+                    result.String = result.Float64.ToString();
                 }
                 else
-                    result = ncalcResult;
+                {
+                    result.type = FSUIPCOffsetType.String;
+                    result.String = ncalcResult;
+                }
             }
 
             return result;
         }
 
-        protected string Apply(string value)
+        public override string ToSummaryLabel()
         {
-            if (SubStrStart > value.Length) return "";
-
-            int length = (SubStrEnd - SubStrStart);
-            if (SubStrEnd > value.Length) length = value.Length - SubStrStart;
-
-            return value.Substring(SubStrStart, length);
+            return $"Expression: {Expression}";
         }
     }
 }

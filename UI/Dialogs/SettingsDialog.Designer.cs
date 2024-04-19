@@ -63,6 +63,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.mobiFlightTabPage = new System.Windows.Forms.TabPage();
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
+            this.peripheralsTabPage = new System.Windows.Forms.TabPage();
+            this.peripheralsPanel = new MobiFlight.UI.Panels.Settings.PeripheralsPanel();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +76,7 @@
             this.generalTabPage.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
+            this.peripheralsTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -269,6 +272,7 @@
             // 
             this.tabControl1.Controls.Add(this.generalTabPage);
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
+            this.tabControl1.Controls.Add(this.peripheralsTabPage);
             this.tabControl1.Controls.Add(this.ArcazeTabPage);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
@@ -285,6 +289,18 @@
             // 
             resources.ApplyResources(this.mobiFlightPanel, "mobiFlightPanel");
             this.mobiFlightPanel.Name = "mobiFlightPanel";
+            // 
+            // peripheralsTabPage
+            // 
+            this.peripheralsTabPage.Controls.Add(this.peripheralsPanel);
+            resources.ApplyResources(this.peripheralsTabPage, "peripheralsTabPage");
+            this.peripheralsTabPage.Name = "peripheralsTabPage";
+            this.peripheralsTabPage.UseVisualStyleBackColor = true;
+            // 
+            // peripheralsPanel
+            // 
+            resources.ApplyResources(this.peripheralsPanel, "peripheralsPanel");
+            this.peripheralsPanel.Name = "peripheralsPanel";
             // 
             // firmwareSettingsToolStripMenuItem
             // 
@@ -311,8 +327,8 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tabControl1);
             this.Name = "SettingsDialog";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Load += new System.EventHandler(this.SettingsDialog_Load);
@@ -323,6 +339,7 @@
             this.generalTabPage.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
+            this.peripheralsTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -368,5 +385,7 @@
         private Panels.Settings.ArcazePanel arcazePanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
+        private System.Windows.Forms.TabPage peripheralsTabPage;
+        private Panels.Settings.PeripheralsPanel peripheralsPanel;
     }
 }

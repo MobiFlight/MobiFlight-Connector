@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="7ede31e0-58cd-4e4b-ac62-06b91429b2df">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_ACTIVE_1</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x02D4" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <modifiers>
+          <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="FO_ADF_v2/ SN-6a5-d97" trigger="normal" ledAddress="FO_ADF_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="1,2,3" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2a504343-07a1-4430-b221-33da43bf6f29">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_ACTIVE_2</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x02D6" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <modifiers>
+          <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="FO_ADF_v2/ SN-6a5-d97" trigger="normal" ledAddress="FO_ADF_ACTIVE" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="94a1f88b-732b-4350-aa59-7cb6034dbbfa">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_STANDBY -&gt; NOT ACCESABLE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x02D6" offsetType="Integer" size="2" mask="0xFFFF" bcdMode="False" />
+        <modifiers>
+          <transformation active="True" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="False" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="Display Module" serial="FO_ADF_v2/ SN-6a5-d97" trigger="normal" ledAddress="FO_ADF_STANDBY" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="0,1,2,3" ledDecimalPoints="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="11c7416a-e6e0-47d3-8ae3-30b4c9e5fed4">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="FSUIPC" offset="0x0000" offsetType="Integer" size="1" mask="0x00FF" bcdMode="False" />
+        <modifiers>
+          <transformation active="False" expression="$" substrStart="0" substrEnd="7" />
+          <comparison active="True" value="-1" operand="!=" ifValue="200" elseValue="0" />
+          <interpolation active="False">
+            <value x="0" y="0" />
+            <value x="1" y="255" />
+          </interpolation>
+        </modifiers>
+        <display type="Output" serial="FO_ADF_v2/ SN-6a5-d97" trigger="normal" pin="FO_ADF_BLIGHT" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="7253e98f-337d-43c5-9f4b-894eb0aa77f8">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_INNER_ENC</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_ADF_v2/ SN-6a5-d97" name="FO_ADF_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="PmdgEventIdInputAction" eventId="70454" param="536870912" aircraft="B737" />
+          <onLeftFast />
+          <onRight type="PmdgEventIdInputAction" eventId="70454" param="2147483648" aircraft="B737" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0234c9c0-9fd9-49bb-ba9e-5ceb8be07e91">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_OUTER_ENC -&gt; CONTROLS MIDDLE KNOB IN THE SIM.</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_ADF_v2/ SN-6a5-d97" name="FO_ADF_OUT_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="PmdgEventIdInputAction" eventId="70455" param="536870912" aircraft="B737" />
+          <onLeftFast />
+          <onRight type="PmdgEventIdInputAction" eventId="70455" param="2147483648" aircraft="B737" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="857c0b91-ce7b-4380-bc39-afd325ae3e60">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_TFR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_ADF_v2/ SN-6a5-d97" name="FO_ADF_TFR" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="70459" param="536870912" aircraft="B737" />
+          <onRelease />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="684b4d22-98f2-47a8-aa10-f10c4586c23f">
+      <active>true</active>
+      <description> P3D_PMDG737_FO_ADF_TONE_SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_ADF_v2/ SN-6a5-d97" name="FO_ADF_TONE" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="70452" param="0" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="70452" param="1" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a70ab5df-e65e-4f9f-b975-1e112e9119b2">
+      <active>true</active>
+      <description>P3D_PMDG737_FO_ADF_ADF-ANT_SWITCH</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=9.7.1.0, Culture=neutral, PublicKeyToken=null" serial="FO_ADF_v2/ SN-6a5-d97" name="FO_ADF_ADF_ANT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="PmdgEventIdInputAction" eventId="70450" param="536870912" aircraft="B737" />
+          <onRelease type="PmdgEventIdInputAction" eventId="70450" param="2147483648" aircraft="B737" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

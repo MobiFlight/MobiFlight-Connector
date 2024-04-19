@@ -127,7 +127,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="BetaUpdateCheckBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 17</value>
+    <value>12, 19</value>
   </data>
   <data name="BetaUpdateCheckBox.Size" type="System.Drawing.Size, System.Drawing">
     <value>258, 17</value>
@@ -154,13 +154,13 @@
     <value>Top</value>
   </data>
   <data name="BetaUpdatesGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 108</value>
+    <value>0, 102</value>
   </data>
   <data name="BetaUpdatesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 53</value>
+    <value>480, 53</value>
   </data>
   <data name="BetaUpdatesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+    <value>2</value>
   </data>
   <data name="BetaUpdatesGroupBox.Text" xml:space="preserve">
     <value>Beta Versions</value>
@@ -175,7 +175,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;BetaUpdatesGroupBox.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label9.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -190,7 +190,7 @@
     <value>96, 49</value>
   </data>
   <data name="label9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>267, 16</value>
+    <value>292, 16</value>
   </data>
   <data name="label9.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -226,7 +226,7 @@
     <value>147, 21</value>
   </data>
   <data name="languageComboBox.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;languageComboBox.Name" xml:space="preserve">
     <value>languageComboBox</value>
@@ -274,13 +274,13 @@
     <value>Top</value>
   </data>
   <data name="languageGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 269</value>
+    <value>0, 330</value>
   </data>
   <data name="languageGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 81</value>
+    <value>480, 77</value>
   </data>
   <data name="languageGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>5</value>
   </data>
   <data name="languageGroupBox.Text" xml:space="preserve">
     <value>Language</value>
@@ -427,10 +427,10 @@
     <value>0, 51</value>
   </data>
   <data name="debugGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 57</value>
+    <value>480, 51</value>
   </data>
   <data name="debugGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>1</value>
   </data>
   <data name="debugGroupBox.Text" xml:space="preserve">
     <value>Logging</value>
@@ -445,66 +445,63 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;debugGroupBox.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
-  <data name="label8.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+  <data name="labelTestModeFast.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
-  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelTestModeFast.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 42</value>
   </data>
-  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
-    <value>99, 41</value>
+  <data name="labelTestModeFast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 14</value>
   </data>
-  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 13</value>
-  </data>
-  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelTestModeFast.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
+  <data name="labelTestModeFast.Text" xml:space="preserve">
     <value>Very Fast</value>
   </data>
-  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="labelTestModeFast.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopRight</value>
   </data>
-  <data name="&gt;&gt;label8.Name" xml:space="preserve">
-    <value>label8</value>
+  <data name="&gt;&gt;labelTestModeFast.Name" xml:space="preserve">
+    <value>labelTestModeFast</value>
   </data>
-  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelTestModeFast.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelTestModeFast.Parent" xml:space="preserve">
     <value>testModeSpeedGroupBox</value>
   </data>
-  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelTestModeFast.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="labelTestModeSlow.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 41</value>
+  <data name="labelTestModeSlow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 43</value>
   </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>117, 13</value>
+  <data name="labelTestModeSlow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
   </data>
-  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+  <data name="labelTestModeSlow.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="label6.Text" xml:space="preserve">
+  <data name="labelTestModeSlow.Text" xml:space="preserve">
     <value>Slow</value>
   </data>
-  <data name="&gt;&gt;label6.Name" xml:space="preserve">
-    <value>label6</value>
+  <data name="&gt;&gt;labelTestModeSlow.Name" xml:space="preserve">
+    <value>labelTestModeSlow</value>
   </data>
-  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelTestModeSlow.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelTestModeSlow.Parent" xml:space="preserve">
     <value>testModeSpeedGroupBox</value>
   </data>
-  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelTestModeSlow.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="testModeSpeedTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -517,7 +514,7 @@
     <value>3, 16</value>
   </data>
   <data name="testModeSpeedTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>216, 45</value>
+    <value>228, 45</value>
   </data>
   <data name="testModeSpeedTrackBar.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -538,13 +535,13 @@
     <value>Fill</value>
   </data>
   <data name="testModeSpeedGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 3</value>
+    <value>243, 3</value>
   </data>
   <data name="testModeSpeedGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>222, 160</value>
+    <value>234, 107</value>
   </data>
   <data name="testModeSpeedGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>1</value>
   </data>
   <data name="testModeSpeedGroupBox.Text" xml:space="preserve">
     <value>Test mode speed</value>
@@ -565,19 +562,19 @@
     <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 24</value>
+    <value>14, 24</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 18</value>
+    <value>242, 18</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>0</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>Set the number of files shown in the list to</value>
   </data>
   <data name="label1.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>TopRight</value>
+    <value>MiddleRight</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -598,7 +595,7 @@
     <value>38, 20</value>
   </data>
   <data name="recentFilesNumericUpDown.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;recentFilesNumericUpDown.Name" xml:space="preserve">
     <value>recentFilesNumericUpDown</value>
@@ -619,10 +616,10 @@
     <value>0, 0</value>
   </data>
   <data name="recentFilesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 51</value>
+    <value>480, 51</value>
   </data>
   <data name="recentFilesGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>0</value>
   </data>
   <data name="recentFilesGroupBox.Text" xml:space="preserve">
     <value>Recent files</value>
@@ -637,7 +634,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;recentFilesGroupBox.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="CommunityFeedbackCheckBox.CheckAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>TopLeft</value>
@@ -652,7 +649,7 @@
     <value>467, 31</value>
   </data>
   <data name="CommunityFeedbackCheckBox.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="CommunityFeedbackCheckBox.Text" xml:space="preserve">
     <value>Yes, I want to participate in Community Feedback Program and help to improve MobiFlight.
@@ -677,13 +674,13 @@
     <value>Top</value>
   </data>
   <data name="CommunityFeedbackGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 161</value>
+    <value>0, 155</value>
   </data>
   <data name="CommunityFeedbackGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 57</value>
+    <value>480, 57</value>
   </data>
   <data name="CommunityFeedbackGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>3</value>
   </data>
   <data name="CommunityFeedbackGroupBox.Text" xml:space="preserve">
     <value>Community Feedback Program</value>
@@ -698,105 +695,90 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;CommunityFeedbackGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
-  <data name="label3.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
-  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>152, 41</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>59, 13</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Very Fast</value>
-  </data>
-  <data name="label3.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>9, 41</value>
-  </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>30, 13</value>
-  </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Slow</value>
-  </data>
-  <data name="label2.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>ConfigExecutionGroupBox</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="labelExplainExecution.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="labelExplainExecution.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 61</value>
   </data>
-  <data name="label5.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 3, 0, 0</value>
+  <data name="labelExplainExecution.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 43</value>
   </data>
-  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 96</value>
+  <data name="labelExplainExecution.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
-  <data name="label5.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="label5.Text" xml:space="preserve">
+  <data name="labelExplainExecution.Text" xml:space="preserve">
     <value>You can control the execution speed, e.g., if you experience some lag in your input. Very fast settings might impact performance.</value>
   </data>
-  <data name="&gt;&gt;label5.Name" xml:space="preserve">
-    <value>label5</value>
+  <data name="&gt;&gt;labelExplainExecution.Name" xml:space="preserve">
+    <value>labelExplainExecution</value>
   </data>
-  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+  <data name="&gt;&gt;labelExplainExecution.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;labelExplainExecution.Parent" xml:space="preserve">
     <value>ConfigExecutionGroupBox</value>
   </data>
-  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;labelExplainExecution.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelExecutionFast.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="labelExecutionFast.Location" type="System.Drawing.Point, System.Drawing">
+    <value>125, 42</value>
+  </data>
+  <data name="labelExecutionFast.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 15</value>
+  </data>
+  <data name="labelExecutionFast.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="labelExecutionFast.Text" xml:space="preserve">
+    <value>Very Fast</value>
+  </data>
+  <data name="labelExecutionFast.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>TopRight</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionFast.Name" xml:space="preserve">
+    <value>labelExecutionFast</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionFast.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionFast.Parent" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionFast.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelExecutionSlow.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelExecutionSlow.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 43</value>
+  </data>
+  <data name="labelExecutionSlow.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="labelExecutionSlow.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="labelExecutionSlow.Text" xml:space="preserve">
+    <value>Slow</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionSlow.Name" xml:space="preserve">
+    <value>labelExecutionSlow</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionSlow.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionSlow.Parent" xml:space="preserve">
+    <value>ConfigExecutionGroupBox</value>
+  </data>
+  <data name="&gt;&gt;labelExecutionSlow.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
@@ -809,10 +791,10 @@
     <value>3, 16</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>215, 45</value>
+    <value>228, 45</value>
   </data>
   <data name="fsuipcPollIntervalTrackBar.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;fsuipcPollIntervalTrackBar.Name" xml:space="preserve">
     <value>fsuipcPollIntervalTrackBar</value>
@@ -833,10 +815,10 @@
     <value>3, 3</value>
   </data>
   <data name="ConfigExecutionGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 160</value>
+    <value>234, 107</value>
   </data>
   <data name="ConfigExecutionGroupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>0</value>
   </data>
   <data name="ConfigExecutionGroupBox.Text" xml:space="preserve">
     <value>Config Execution Speed</value>
@@ -860,7 +842,7 @@
     <value>Fill</value>
   </data>
   <data name="SpeedTableLayoutPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 350</value>
+    <value>0, 407</value>
   </data>
   <data name="SpeedTableLayoutPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
@@ -869,10 +851,10 @@
     <value>1</value>
   </data>
   <data name="SpeedTableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 166</value>
+    <value>480, 113</value>
   </data>
   <data name="SpeedTableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="&gt;&gt;SpeedTableLayoutPanel.Name" xml:space="preserve">
     <value>SpeedTableLayoutPanel</value>
@@ -887,7 +869,34 @@
     <value>0</value>
   </data>
   <data name="SpeedTableLayoutPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="testModeSpeedGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ConfigExecutionGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="testModeSpeedGroupBox" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="ConfigExecutionGroupBox" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,Percent,50" /&gt;&lt;Rows Styles="Percent,50,Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 42</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>193, 17</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="minimizeOnAutoRunCheckbox.Text" xml:space="preserve">
+    <value>Minimize to system tray on AutoRun</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Name" xml:space="preserve">
+    <value>minimizeOnAutoRunCheckbox</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.Parent" xml:space="preserve">
+    <value>autoRetriggerGoupBox</value>
+  </data>
+  <data name="&gt;&gt;minimizeOnAutoRunCheckbox.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="autoRetriggerCheckBox.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -914,22 +923,22 @@
     <value>autoRetriggerGoupBox</value>
   </data>
   <data name="&gt;&gt;autoRetriggerCheckBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="autoRetriggerGoupBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <data name="autoRetriggerGoupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 218</value>
+    <value>0, 212</value>
   </data>
   <data name="autoRetriggerGoupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 51</value>
+    <value>480, 67</value>
   </data>
   <data name="autoRetriggerGoupBox.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="autoRetriggerGoupBox.Text" xml:space="preserve">
-    <value>Auto-Retrigger</value>
+    <value>Run options</value>
   </data>
   <data name="&gt;&gt;autoRetriggerGoupBox.Name" xml:space="preserve">
     <value>autoRetriggerGoupBox</value>
@@ -941,6 +950,63 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;autoRetriggerGoupBox.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>232, 17</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="checkBoxHubHopAutoCheck.Text" xml:space="preserve">
+    <value>Check HubHop presets on application start.</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHubHopAutoCheck.Name" xml:space="preserve">
+    <value>checkBoxHubHopAutoCheck</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHubHopAutoCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHubHopAutoCheck.Parent" xml:space="preserve">
+    <value>groupBoxHubHopAutoCheck</value>
+  </data>
+  <data name="&gt;&gt;checkBoxHubHopAutoCheck.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBoxHubHopAutoCheck.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="groupBoxHubHopAutoCheck.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 279</value>
+  </data>
+  <data name="groupBoxHubHopAutoCheck.Size" type="System.Drawing.Size, System.Drawing">
+    <value>480, 51</value>
+  </data>
+  <data name="groupBoxHubHopAutoCheck.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="groupBoxHubHopAutoCheck.Text" xml:space="preserve">
+    <value>HubHop</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHubHopAutoCheck.Name" xml:space="preserve">
+    <value>groupBoxHubHopAutoCheck</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHubHopAutoCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHubHopAutoCheck.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHubHopAutoCheck.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -950,7 +1016,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>455, 516</value>
+    <value>480, 520</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>GeneralPanel</value>

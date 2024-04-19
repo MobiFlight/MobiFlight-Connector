@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Ports;
-using System.Threading.Tasks;
+using System.Linq;
 
 namespace MobiFlight
 {
@@ -16,11 +13,6 @@ namespace MobiFlight
          */
         public static String ArduinoIdePath { get; set; }
         public static String AvrPath { get { return "hardware\\tools\\avr"; } }
-
-        /***
-         * C:\\Users\\SEBAST~1\\AppData\\Local\\Temp\\build2060068306446321513.tmp\\cmd_test_mega.cpp.hex
-         **/
-        public static String FirmwarePath { get; set; }
 
         public static bool IsValidArduinoIdePath(string path)
         {
@@ -67,29 +59,31 @@ namespace MobiFlight
         public static bool UpdateFirmware(MobiFlightModule module, String FirmwareName)
         {
             bool result = false;
-            String Port = "";
+            string UploadPort = string.Empty;
             
             // Only COM ports get toggled
             if (module.Port.StartsWith("COM"))
             { 
-                Port = module.InitUploadAndReturnUploadPort();
+                UploadPort = module.InitUploadAndReturnUploadPort();
                 if (module.Connected) module.Disconnect();
             }
 
             try
             {
+                var FullFirmwarePath = Path.Combine(Directory.GetCurrentDirectory(), module.Board.BasePath, "firmware", FirmwareName);
+
                 if (module.Board.AvrDudeSettings != null)
                 {
-                    while (!SerialPort.GetPortNames().Contains(Port))
+                    while (!SerialPort.GetPortNames().Contains(UploadPort))
                     {
                         System.Threading.Thread.Sleep(100);
                     }
 
-                    RunAvrDude(Port, module.Board, FirmwareName);
+                    RunAvrDude(UploadPort, module.Board, FullFirmwarePath);
                 }
                 else if (module.Board.UsbDriveSettings != null)
                 {
-                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName);
+                    FlashViaUsbDrive(module.Port, module.Board, FirmwareName, FullFirmwarePath);
                 }
                 else
                 {
@@ -101,6 +95,7 @@ namespace MobiFlight
                     System.Threading.Thread.Sleep(module.Board.Connection.DelayAfterFirmwareUpdate);
                 }
 
+                Log.Instance.log($"Firmware update for {module.Board.Info.MobiFlightType} ({module.Port}) completed successfully", LogSeverity.Info);
                 result = true;
             }
             catch
@@ -110,13 +105,13 @@ namespace MobiFlight
             return result;
         }
 
-        public static void RunAvrDude(String port, Board board, String firmwareName) 
+        public static void RunAvrDude(String port, Board board, String fullFirmwarePath) 
         {
             String message = "";
-
-            if (!IsValidFirmwareFilepath(FirmwarePath + "\\" + firmwareName))
+            
+            if (!IsValidFirmwareFilepath(fullFirmwarePath))
             {
-                message = $"Firmware not found: {FirmwarePath}\\{firmwareName}.";
+                message = $"Firmware not found: {fullFirmwarePath}.";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -125,21 +120,43 @@ namespace MobiFlight
             
             //verboseLevel = " -v -v -v -v";
 
-            String FullAvrDudePath = $@"{ArduinoIdePath}\{AvrPath}";
+            // Process() requires an absolute, rather than relative, path when using UseShellExecute = false
+            var FullAvrDudePath = Path.GetFullPath(Path.Combine(ArduinoIdePath, AvrPath));
 
             foreach (var baudRate in board.AvrDudeSettings.BaudRates)
             {
-                var proc1 = new ProcessStartInfo();
+                var p = new Process();
+
                 var attempts = board.AvrDudeSettings.Attempts != null ? $" -x attempts={board.AvrDudeSettings.Attempts}" : "";
+                var avrDudeConfPath = Path.Combine(FullAvrDudePath, "etc", "avrdude.conf");
+
                 string anyCommand =
-                    $@"-C""{FullAvrDudePath}\etc\avrdude.conf""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{FirmwarePath}\{firmwareName}"":i";
-                proc1.UseShellExecute = true;
-                proc1.WorkingDirectory = $@"""{FullAvrDudePath}""";
-                proc1.FileName = $@"""{FullAvrDudePath}\bin\avrdude""";
-                proc1.Arguments = anyCommand;
-                proc1.WindowStyle = ProcessWindowStyle.Hidden;
-                Log.Instance.log($"{proc1.FileName} {anyCommand}", LogSeverity.Debug);
-                Process p = Process.Start(proc1);
+                    $@"-C""{avrDudeConfPath}""{verboseLevel}{attempts} -p{board.AvrDudeSettings.Device} -c{board.AvrDudeSettings.Programmer} -P{port} -b{baudRate} -D -Uflash:w:""{fullFirmwarePath}"":i";
+
+                // StandardOutput and StandardError can only be captured when UseShellExecute is false
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.WorkingDirectory = FullAvrDudePath;
+                p.StartInfo.FileName = Path.Combine(FullAvrDudePath, "bin", "avrdude");
+                p.StartInfo.Arguments = anyCommand;
+
+                // When UseShellExecute is false the CreateNoWindow flag has to be used to hide the window
+                p.StartInfo.CreateNoWindow = true;
+
+                // Without setting these to true the output won't get captured
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.RedirectStandardError = true;
+
+                // Output and Error text is read asynchronously to avoid known deadlock issues. It appears
+                // all avrdude output is sent to stderr :(
+                p.OutputDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+                p.ErrorDataReceived += (sender, args) => Log.Instance.log(args.Data, LogSeverity.Debug);
+
+                Log.Instance.log($"{p.StartInfo.FileName} {anyCommand}", LogSeverity.Debug);
+
+                p.Start();
+                p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
+
                 if (p.WaitForExit(board.AvrDudeSettings.Timeout))
                 {
                     Log.Instance.log($"Firmware upload exit code: {p.ExitCode}.", LogSeverity.Debug);
@@ -147,13 +164,13 @@ namespace MobiFlight
                     if (p.ExitCode == 0) return;
 
                     // process terminated but with an error.
-                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                    message = $"ExitCode: {p.ExitCode} => Something went wrong when flashing with command \n {p.StartInfo.FileName} {anyCommand}.";
                 }
                 else
                 {
                     // we timed out;
                     p.Kill();
-                    message = $"avrdude timed out! Something went wrong when flashing with command \n {proc1.FileName} {anyCommand}.";
+                    message = $"avrdude timed out! Something went wrong when flashing with command \n {p.StartInfo.FileName} {anyCommand}.";
                 }
                 Log.Instance.log(message, LogSeverity.Error);
             }
@@ -161,15 +178,14 @@ namespace MobiFlight
             throw new Exception(message);
         }
 
-        public static void FlashViaUsbDrive(String port, Board board, String firmwareName)
+        public static void FlashViaUsbDrive(String port, Board board, string firmwareName, String fullFirmwarePath)
         {
-            String FullFirmwarePath = $"{FirmwarePath}\\{firmwareName}";
             String message = "";
             DriveInfo driveInfo;
 
-            if (!IsValidFirmwareFilepath(FullFirmwarePath))
+            if (!IsValidFirmwareFilepath(fullFirmwarePath))
             {
-                message = $"Firmware not found: {FullFirmwarePath}";
+                message = $"Firmware not found: {fullFirmwarePath}";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new FileNotFoundException(message);
             }
@@ -194,7 +210,7 @@ namespace MobiFlight
                 // USB devices. What's needed for flashing however is a single USB drive whose volume label
                 // matches the volume lable in the .board.json of the device we toggled the COM port on.
                 // Attempt to find it.
-                var matchingBoard = boards.Where(b => b.Name == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
+                var matchingBoard = boards.Where(b => b.HardwareId == board.UsbDriveSettings.VolumeLabel).FirstOrDefault();
 
                 if (matchingBoard == null)
                 {
@@ -204,7 +220,7 @@ namespace MobiFlight
                 }
 
                 // At this point we quite likely have the USB drive we need, and the HardwareId is the drive letter.
-                driveInfo = new DriveInfo(matchingBoard.HardwareId);
+                driveInfo = new DriveInfo(matchingBoard.Port);
             }
             // For boards that were already a drive letter just get the drive info based off that.
             else
@@ -239,12 +255,12 @@ namespace MobiFlight
             var destination = $"{driveInfo.RootDirectory.FullName}{firmwareName}";
             try
             {
-                Log.Instance.log($"Copying {FullFirmwarePath} to {destination}", LogSeverity.Debug);
-                File.Copy(FullFirmwarePath, destination);
+                Log.Instance.log($"Copying {fullFirmwarePath} to {destination}", LogSeverity.Debug);
+                File.Copy(fullFirmwarePath, destination);
             }
             catch (Exception e)
             {
-                message = $"Unable to copy {FullFirmwarePath} to {destination}: {e.Message}";
+                message = $"Unable to copy {fullFirmwarePath} to {destination}: {e.Message}";
                 Log.Instance.log(message, LogSeverity.Error);
                 throw new Exception(message);
             }

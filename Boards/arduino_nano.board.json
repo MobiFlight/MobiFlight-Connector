@@ -33,22 +33,23 @@
     "FirmwareBaseName": "mobiflight_nano",
     "FirmwareExtension": "hex",
     "FriendlyName": "Arduino Nano",
-    "LatestFirmwareVersion": "2.4.1",
+    "LatestFirmwareVersion": "2.5.1",
     "MobiFlightType": "MobiFlight Nano",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 6,
+    "MaxAnalogInputs": 8,
     "MaxButtons": 18,
     "MaxEncoders": 9,
-    "MaxInputShifters": 2,
+    "MaxInputShifters": 6,
     "MaxLcdI2C": 2,
-    "MaxLedSegments": 1,
+    "MaxLedSegments": 6,
     "MaxOutputs": 18,
-    "MaxServos": 2,
-    "MaxShifters": 2,
-    "MaxSteppers": 2,
-    "MaxInputMultiplexer": 3
+    "MaxServos": 8,
+    "MaxShifters": 6,
+    "MaxSteppers": 4,
+    "MaxInputMultiplexer": 6,
+    "MaxCustomDevices": 0
   },
   "Pins": [
     {
@@ -164,6 +165,20 @@
       "isPWM": false,
       "Name": "A5",
       "Pin": 19
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A6",
+      "Pin": 20
+    },
+    {
+      "isAnalog": true,
+      "isI2C": false,
+      "isPWM": false,
+      "Name": "A7",
+      "Pin": 21
     }
   ]
 }

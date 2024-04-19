@@ -376,6 +376,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay:.
+        /// </summary>
+        internal static string uiLabelDelay {
+            get {
+                return ResourceManager.GetString("uiLabelDelay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Double-click row to add new config....
         /// </summary>
         internal static string uiLabelDoubleClickToAddConfig {
@@ -385,29 +394,65 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not a valid value.
+        /// </summary>
+        internal static string uiLabelDuplicateNotAValidValue {
+            get {
+                return ResourceManager.GetString("uiLabelDuplicateNotAValidValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate x values are not valid.
+        /// </summary>
+        internal static string uiLabelInterpolationDuplicateXvalueNotAllowed {
+            get {
+                return ResourceManager.GetString("uiLabelInterpolationDuplicateXvalueNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible module.
+        /// </summary>
+        internal static string uiLabelModuleNAME_UNKNOWN {
+            get {
+                return ResourceManager.GetString("uiLabelModuleNAME_UNKNOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compatible.
+        /// </summary>
+        internal static string uiLabelModuleTYPE_COMPATIBLE {
+            get {
+                return ResourceManager.GetString("uiLabelModuleTYPE_COMPATIBLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No aircraft detected.
+        /// </summary>
+        internal static string uiLabelNoAircraftDetected_ {
+            get {
+                return ResourceManager.GetString("uiLabelNoAircraftDetected.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ms, repeat every.
+        /// </summary>
+        internal static string uiLabelRepeatPress {
+            get {
+                return ResourceManager.GetString("uiLabelRepeatPress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application is now running in the background..
         /// </summary>
         internal static string uiMessageApplicationIsRunningInBackgroundMode {
             get {
                 return ResourceManager.GetString("uiMessageApplicationIsRunningInBackgroundMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An Arcaze module has been removed..
-        /// </summary>
-        internal static string uiMessageAraceUSBHasBeenRemoved {
-            get {
-                return ResourceManager.GetString("uiMessageAraceUSBHasBeenRemoved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The connection to the arcaze module got lost.
-        /// </summary>
-        internal static string uiMessageArcazeConnectionLost {
-            get {
-                return ResourceManager.GetString("uiMessageArcazeConnectionLost", resourceCulture);
             }
         }
         
@@ -569,6 +614,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drag and Drop is not available when list is sorted..
+        /// </summary>
+        internal static string uiMessageDragDropNotAllowed {
+            get {
+                return ResourceManager.GetString("uiMessageDragDropNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred on parsing your value formula. Please review and correct any errors..
         /// </summary>
         internal static string uiMessageErrorOnParsingExpression {
@@ -610,7 +664,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updating {0} on {1} (Module {2}/{3}).
+        ///   Looks up a localized string similar to Resetting {0} on {1} (Module {2}/{3}).
         /// </summary>
         internal static string uiMessageFirmwareResetStatus {
             get {
@@ -637,7 +691,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Board reset.
+        ///   Looks up a localized string similar to Board Reset.
         /// </summary>
         internal static string uiMessageFirmwareResetTitle {
             get {
@@ -762,6 +816,17 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your HubHop presets are older than 7 days.
+        ///
+        ///Would you like to update?.
+        /// </summary>
+        internal static string uiMessageHubHopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopAutoUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error on downloading HubHop presets. Please check the Log for more information..
         /// </summary>
         internal static string uiMessageHubHopUpdateError {
@@ -852,6 +917,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessageModuleFound {
             get {
                 return ResourceManager.GetString("uiMessageModuleFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The board &quot;{0}&quot; ({1}) disconnected..
+        /// </summary>
+        internal static string uiMessageModuleRemoved {
+            get {
+                return ResourceManager.GetString("uiMessageModuleRemoved", resourceCulture);
             }
         }
         
@@ -1019,6 +1093,39 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Board type warning.
+        /// </summary>
+        internal static string uiMessageOpenConfigIncompatibleTypeHint {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigIncompatibleTypeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The config was created for a &quot;{0}&quot; board. Your selected board is a &quot;{1}&quot;. The config may be incompatible, check before uploading.
+        ///
+        ///Open anyway?.
+        /// </summary>
+        internal static string uiMessageOpenConfigIncompatibleTypeText {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigIncompatibleTypeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This config doesn&apos;t specify a board type and may not be compatible with your &quot;{0}&quot;.
+        ///
+        ///Open anyway?
+        ///
+        ///Tip: Save the file after opening to update the associated board for future use..
+        /// </summary>
+        internal static string uiMessageOpenConfigUnspecificTypeText {
+            get {
+                return ResourceManager.GetString("uiMessageOpenConfigUnspecificTypeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value must be a number and greater than 0..
         /// </summary>
         internal static string uiMessagePanelsStepperInputRevolutionsMustBeGreaterThan0 {
@@ -1033,6 +1140,15 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiMessagePanelsStepperInputRevolutionsMustNonEmpty {
             get {
                 return ResourceManager.GetString("uiMessagePanelsStepperInputRevolutionsMustNonEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are not enough pins available to use the auto-zero option. .
+        /// </summary>
+        internal static string uiMessagePanelsStepperNoFreePins {
+            get {
+                return ResourceManager.GetString("uiMessagePanelsStepperNoFreePins", resourceCulture);
             }
         }
         
@@ -1100,7 +1216,16 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the current firmware first..
+        ///   Looks up a localized string similar to Editing is disabled due to outdated firmware. Please update to the latest version..
+        /// </summary>
+        internal static string uiMessageSettingsDialogFirmwareRequiresUpdate {
+            get {
+                return ResourceManager.GetString("uiMessageSettingsDialogFirmwareRequiresUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The current firmware does not support this function. Please update to the latest firmware now!.
         /// </summary>
         internal static string uiMessageSettingsDialogFirmwareVersionTooLowException {
             get {
@@ -1378,6 +1503,24 @@ namespace MobiFlight.ProjectMessages {
         internal static string uiSettingsMobiFlightChangeRequiresRestart {
             get {
                 return ResourceManager.GetString("uiSettingsMobiFlightChangeRequiresRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HubHop Preset Update.
+        /// </summary>
+        internal static string uiTitleHubhopAutoUpdate {
+            get {
+                return ResourceManager.GetString("uiTitleHubhopAutoUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html.
+        /// </summary>
+        internal static string WebsiteHelpNcalc {
+            get {
+                return ResourceManager.GetString("WebsiteHelpNcalc", resourceCulture);
             }
         }
         

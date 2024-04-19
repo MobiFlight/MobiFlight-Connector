@@ -45,10 +45,13 @@
             this.mfIntensityTrackBar = new System.Windows.Forms.TrackBar();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.mfDisplayTypeComboBox = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.mfIntensityGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mfIntensityTrackBar)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -153,7 +156,6 @@
             // 
             // mfIntensityTrackBar
             // 
-            this.mfIntensityTrackBar.BackColor = System.Drawing.SystemColors.ControlLightLight;
             resources.ApplyResources(this.mfIntensityTrackBar, "mfIntensityTrackBar");
             this.mfIntensityTrackBar.Maximum = 15;
             this.mfIntensityTrackBar.Minimum = 1;
@@ -174,6 +176,21 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.TextChanged += new System.EventHandler(this.value_Changed);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.mfDisplayTypeComboBox);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // mfDisplayTypeComboBox
+            // 
+            this.mfDisplayTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mfDisplayTypeComboBox.FormattingEnabled = true;
+            resources.ApplyResources(this.mfDisplayTypeComboBox, "mfDisplayTypeComboBox");
+            this.mfDisplayTypeComboBox.Name = "mfDisplayTypeComboBox";
+            this.mfDisplayTypeComboBox.SelectedValueChanged += new System.EventHandler(this.mfDisplayTypeComboBox_SelectedValueChanged);
+            // 
             // MFLedSegmentPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -181,6 +198,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.mfIntensityGroupBox);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox3);
             this.Name = "MFLedSegmentPanel";
             this.groupBox1.ResumeLayout(false);
             this.mfIntensityGroupBox.ResumeLayout(false);
@@ -188,28 +206,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.mfIntensityTrackBar)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox mfIntensityGroupBox;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label mfPin1Label;
         private System.Windows.Forms.ComboBox mfPin1ComboBox;
         private System.Windows.Forms.Label mfPin2Label;
         private System.Windows.Forms.ComboBox mfPin2ComboBox;
-        private System.Windows.Forms.GroupBox mfIntensityGroupBox;
         private System.Windows.Forms.TrackBar mfIntensityTrackBar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label mfPin3Label;
         private System.Windows.Forms.ComboBox mfPin3ComboBox;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label numberOfModulesLabel;
         private System.Windows.Forms.ComboBox mfNumModulesComboBox;
-
+        private System.Windows.Forms.ComboBox mfDisplayTypeComboBox;
     }
 }

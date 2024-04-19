@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech ATC</ModuleName>
+  <ModuleType>CoreFlightTech ATC</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <MultiplexerDriver Name="MultiplexerDriver" PinSx="14 15 16 20" />
+  <Output Name="CPT_ATC_FAIL_LED" Pin="19" />
+  <InputMultiplexer Name="CPT_ATC_MUX1" DataPin="17" NumBytes="1">
+    <Selector Name="MultiplexerDriver" PinSx="14 15 16 20" />
+  </InputMultiplexer>
+  <Encoder Name="CPT_ATC_L_IN_ENC" PinLeft="13" PinRight="12" EncoderType="2" />
+  <Encoder Name="CPT_ATC_L_OUT_EN" PinLeft="10" PinRight="11" EncoderType="2" />
+  <Encoder Name="CPT_ATC_R_IN_ENC" PinLeft="7" PinRight="8" EncoderType="2" />
+  <Encoder Name="CPT_ATC_R_OUT_EN" PinLeft="5" PinRight="6" EncoderType="2" />
+  <LedModule Name="CPT_ATC_DISPLAY" DinPin="3" ClsPin="4" ClkPin="2" Brightness="15" NumModules="1" />
+  <Output Name="CPT_ATC_BLIGHT" Pin="9" />
+  <Button Name="CPT_ATC_ALT_TG" Pin="18" />
+</Config>

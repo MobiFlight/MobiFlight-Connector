@@ -6,7 +6,56 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class JoystickDefinition
+    using Newtonsoft.Json;
+    using System;
+
+    public class HexStringToNumberConverter : JsonConverter
+    {
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(int) || objectType == typeof(long);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.String)
+            {
+                string valueString = reader.Value.ToString();
+                // If the string starts with 0x then it is hex and should be converted. Otherwise assume it is decimal and convert normally.
+                if (valueString.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+                {
+                    valueString = valueString.Substring(2);
+                    return Convert.ToInt32(valueString, 16);
+                }
+                else
+                {
+                    return Convert.ToInt32(valueString);
+                }
+            }
+            // This handles backwards compatibility for old files where it was stored as an integer.
+            else if (reader.TokenType == JsonToken.Integer)
+            {
+                return Convert.ToInt32(reader.Value.ToString());
+            }
+
+            throw new JsonSerializationException("Unexpected token type: " + reader.TokenType);
+        }
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            if (value is int || value is long)
+            {
+                string hexString = $"0x{Convert.ToString(Convert.ToInt64(value), 16)}";
+                writer.WriteValue(hexString);
+            }
+            else
+            {
+                throw new JsonSerializationException("Unexpected value type: " + value.GetType());
+            }
+        }
+    }
+
+    public class JoystickDefinition : IMigrateable
     {
         /// <summary>
         /// List of inputs supported by the device.
@@ -26,11 +75,13 @@ namespace MobiFlight
         /// <summary>
         /// The device's USB ProductId. Required if Outputs are provided.
         /// </summary>
+        [JsonConverter(typeof(HexStringToNumberConverter))]
         public int ProductId;
 
         /// <summary>
         /// The device's USB VendorId. Required if Outputs are provided.
         /// </summary>
+        [JsonConverter(typeof(HexStringToNumberConverter))]
         public int VendorId;
 
         /// <summary>

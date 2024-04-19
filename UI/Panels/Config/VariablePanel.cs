@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
 {
     public partial class VariablePanel : UserControl
     {
+        public event EventHandler ModifyTabLink;
+
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
 
         public VariablePanel()
@@ -21,7 +17,6 @@ namespace MobiFlight.UI.Panels.Config
 
             // hide the string options.
             transformOptionsGroup1.setMode(true);
-            transformOptionsGroup1.ShowSubStringPanel(false);
 
             List<ListItem> options = new List<ListItem>();
             options.Add(new ListItem() { Value = MobiFlightVariable.TYPE_NUMBER, Label = "Number" });
@@ -76,8 +71,6 @@ namespace MobiFlight.UI.Panels.Config
 
         private void TypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            transformOptionsGroup1.ShowMultiplyPanel(MobiFlightVariable.TYPE_NUMBER == (sender as ComboBox).SelectedValue.ToString());
-            transformOptionsGroup1.ShowSubStringPanel(MobiFlightVariable.TYPE_STRING == (sender as ComboBox).SelectedValue.ToString());
         }
 
         private void NameTextBox_SelectedValueChanged(object sender, EventArgs e)

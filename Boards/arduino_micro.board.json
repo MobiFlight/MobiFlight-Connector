@@ -26,23 +26,24 @@
     "CanResetBoard": true,
     "FirmwareBaseName": "mobiflight_micro",
     "FirmwareExtension": "hex",
-    "FriendlyName": "Arduino Micro Pro",
-    "LatestFirmwareVersion": "2.4.1",
+    "FriendlyName": "Arduino Pro Micro",
+    "LatestFirmwareVersion": "2.5.1",
     "MobiFlightType": "MobiFlight Micro",
     "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"
   },
   "ModuleLimits": {
-    "MaxAnalogInputs": 5,
+    "MaxAnalogInputs": 9,
     "MaxButtons": 18,
     "MaxEncoders": 9,
-    "MaxInputShifters": 2,
+    "MaxInputShifters": 6,
     "MaxLcdI2C": 2,
-    "MaxLedSegments": 1,
+    "MaxLedSegments": 6,
     "MaxOutputs": 18,
-    "MaxServos": 3,
-    "MaxShifters": 2,
-    "MaxSteppers": 3,
-    "MaxInputMultiplexer": 3
+    "MaxServos": 8,
+    "MaxShifters": 6,
+    "MaxSteppers": 4,
+    "MaxInputMultiplexer": 6,
+    "MaxCustomDevices": 0
   },
   "Pins": [
     {
@@ -106,7 +107,7 @@
       "Pin": 9
     },
     {
-      "isAnalog": false,
+      "isAnalog": true,
       "isI2C": false,
       "isPWM": true,
       "Pin": 10
@@ -128,12 +129,6 @@
       "isI2C": false,
       "isPWM": false,
       "Pin": 16
-    },
-    {
-      "isAnalog": false,
-      "isI2C": false,
-      "isPWM": false,
-      "Pin": 17
     },
     {
       "isAnalog": true,

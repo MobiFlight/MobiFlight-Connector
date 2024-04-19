@@ -1,28 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight;
-using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Modifier.Tests
 {
     class TransformationForDeprecatedTest : Transformation
     {
-        public string ProtectedApply(double value, List<ConfigRefValue> configRefs)
-        {
-            return base.Apply(value, configRefs);
-        }
-
-        public string ProtectedApply(string value)
-        {
-            return base.Apply(value);
-        }
     }
 
     [TestClass()]
@@ -38,26 +24,40 @@ namespace MobiFlight.Modifier.Tests
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
+            // Number type
+            var ConnectValue = new ConnectorValue() { Float64 = 1 };
+            
             t.Expression = "$*0.5";
-            Assert.AreEqual("0.5", t.ProtectedApply(1, configRefs));
+            Assert.AreEqual(0.5, t.Apply(ConnectValue, configRefs).Float64);
+            
             t.Expression = "$*2";
-            Assert.AreEqual("2", t.ProtectedApply(1, configRefs));
-            t.Expression = "$*2";
-            Assert.AreEqual("2.4", t.ProtectedApply(1.2, configRefs));
+            Assert.AreEqual(2, t.Apply(ConnectValue, configRefs).Float64);
+
             t.Expression = "$*2.0";
-            Assert.AreEqual("2", t.ProtectedApply(1, configRefs));
+            Assert.AreEqual(2, t.Apply(ConnectValue, configRefs).Float64);
+
+            t.Expression = "$*2";
+            ConnectValue.Float64 = 1.2;
+            Assert.AreEqual(2.4, t.Apply(ConnectValue, configRefs).Float64);
+            
             t.Expression = "Round(14.6,0)";
-            Assert.AreEqual("15", t.ProtectedApply(1, configRefs));
+            Assert.AreEqual(15, t.Apply(ConnectValue, configRefs).Float64);
 
-            // test the substring stuff
-            t.SubStrStart = 1;
-            t.SubStrEnd = 5;
-            string test = "UnitTest";
-            Assert.AreEqual("nitT", t.ProtectedApply(test));
+            // Test strings
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
+            t.Expression = "'Hello'";
+            ConnectValue.Float64 = 0;
+            Assert.AreEqual(FSUIPCOffsetType.String, t.Apply(ConnectValue, configRefs).type);
+            Assert.AreEqual("Hello", t.Apply(ConnectValue, configRefs).String);
+            Assert.AreEqual(0, t.Apply(ConnectValue, configRefs).Float64);
 
-            // if SubStrEnd > length 
-            t.SubStrEnd = 10;
-            Assert.AreEqual("nitTest", t.ProtectedApply(test));
+            // test 0.000 format
+            // https://github.com/MobiFlight/MobiFlight-Connector/issues/1628
+            t.Expression = "if($=0,'0.000',1)";
+            var step1Result = t.Apply(ConnectValue, configRefs);
+            Assert.AreEqual("0.000", step1Result.String);
+            t.Expression = "if('$'=1,2,'$')";
+            Assert.AreEqual("0.000", t.Apply(step1Result, configRefs).String);
         }
 
         [TestMethod()]
@@ -82,8 +82,6 @@ namespace MobiFlight.Modifier.Tests
 
             Assert.AreEqual(o.Active, true, "Active value differs");
             Assert.AreEqual(o.Expression, "$+2", "Expression value differs");
-            Assert.AreEqual(o.SubStrStart, 3, "SubStrStartvalue differs");
-            Assert.AreEqual(o.SubStrEnd, 10, "SubStrEnd value differs");
         }
 
         [TestMethod()]
@@ -116,8 +114,6 @@ namespace MobiFlight.Modifier.Tests
             Transformation c = (Transformation)o.Clone();
             Assert.AreEqual(o.Active, c.Active, "Active value differs");
             Assert.AreEqual(o.Expression, c.Expression, "Expression value differs");
-            Assert.AreEqual(o.SubStrStart, c.SubStrStart, "SubStrStartvalue differs");
-            Assert.AreEqual(o.SubStrEnd, c.SubStrEnd, "SubStrEnd value differs");
         }
 
         private Transformation generateTestObject()
@@ -125,8 +121,6 @@ namespace MobiFlight.Modifier.Tests
             Transformation t = new Transformation();
             t.Active = true;
             t.Expression = "$+1";
-            t.SubStrStart = 1;
-            t.SubStrEnd = 5;
             return t;
         }
 

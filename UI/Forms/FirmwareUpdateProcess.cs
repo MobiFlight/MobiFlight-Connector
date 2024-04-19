@@ -25,9 +25,7 @@ namespace MobiFlight.UI.Forms
         List<MobiFlightModule> FailedModules = new List<MobiFlightModule>();
 
         public int TotalModuleCount { get; set; }
-
         private int NumberOfModulesForFirmwareUpdate = 0;
-        private bool UpdateResult = true;
 
         public FirmwareUpdateProcess()
         {
@@ -54,7 +52,7 @@ namespace MobiFlight.UI.Forms
         {
             var Message = i18n._tr("uiMessageFirmwareUpdateStatus");
             if (ResetMode) Message = i18n._tr("uiMessageFirmwareResetStatus");
-
+            
             StatusLabel.Text = string.Format(
                                     Message,
                                     module.Name,
@@ -96,17 +94,19 @@ namespace MobiFlight.UI.Forms
 
         async void UpdateOrResetModule(MobiFlightModule module, bool IsUpdate)
         {
+            Text = i18n._tr("uiMessageFirmwareUploadTitle");
             var MessageComplete = i18n._tr("uiMessageFirmwareUpdateComplete");
             var MessageTimeout = i18n._tr("uiMessageFirmwareUpdateTimeout");
 
             if (!IsUpdate)
             {
+                Text = i18n._tr("uiMessageFirmwareResetTitle");
                 MessageComplete = i18n._tr("uiMessageFirmwareResetComplete");
                 MessageTimeout = i18n._tr("uiMessageFirmwareResetTimeout");
             }
 
             String arduinoIdePath = Properties.Settings.Default.ArduinoIdePathDefault;
-            String firmwarePath = Directory.GetCurrentDirectory() + "\\firmware";
+            
             if (!MobiFlightFirmwareUpdater.IsValidArduinoIdePath(arduinoIdePath))
             {
                 MessageBox.Show(
@@ -116,11 +116,9 @@ namespace MobiFlight.UI.Forms
             }
 
             OnBeforeFirmwareUpdate?.Invoke(module, null);
-            module.Disconnect();
 
             MobiFlightFirmwareUpdater.ArduinoIdePath = arduinoIdePath;
-            MobiFlightFirmwareUpdater.FirmwarePath = firmwarePath;
-
+            
             var task = Task<bool>.Run(() => {
                 bool UpdateResult;
                 if (IsUpdate)
@@ -129,6 +127,7 @@ namespace MobiFlight.UI.Forms
                     UpdateResult = MobiFlightFirmwareUpdater.Reset(module);
                 return UpdateResult;
             });
+            
             if (await Task.WhenAny(task, Task.Delay(module.Board.Connection.TimeoutForFirmwareUpdate)) == task)
             {
                 NumberOfModulesForFirmwareUpdate--;

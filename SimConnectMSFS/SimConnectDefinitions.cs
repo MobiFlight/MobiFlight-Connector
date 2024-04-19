@@ -13,6 +13,12 @@ namespace MobiFlight.SimConnectMSFS
         public float data;
     }
 
+    public struct ClientDataStringValue
+    {
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 128)]
+        public String data;
+    }
+
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ClientDataString
     {
@@ -42,11 +48,23 @@ namespace MobiFlight.SimConnectMSFS
 
     }
 
+    public class StringSimVar
+    {
+        public UInt32 ID { get; set; }
+        public String Name { get; set; }
+        public String Data { get; set; }
+    }
+
     public enum SIMCONNECT_CLIENT_DATA_ID
     {
         MOBIFLIGHT_LVARS,
         MOBIFLIGHT_CMD,
-        MOBIFLIGHT_RESPONSE
+        MOBIFLIGHT_RESPONSE,
+        MOBIFLIGHT_STRINGVAR,
+        RUNTIME_LVARS,
+        RUNTIME_CMD,
+        RUNTIME_RESPONSE,
+        RUNTIME_STRINGVAR
     }
 
     public enum SIMCONNECT_REQUEST_ID
@@ -56,7 +74,9 @@ namespace MobiFlight.SimConnectMSFS
 
     public enum SIMCONNECT_DEFINE_ID
     {
-        Dummy = 0
+        INIT_CLIENT = 0,
+        RUNTIME_CLIENT = 1,
+        AIRCRAFT_NAME = 2
     }
 
     public enum SIMCONNECT_NOTIFICATION_GROUP_ID

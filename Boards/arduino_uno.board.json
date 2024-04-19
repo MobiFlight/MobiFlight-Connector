@@ -3,7 +3,7 @@
   "AvrDudeSettings": {
     "Attempts": 1,
     "Device": "atmega328p",
-    "BaudRates": [ "115200" ],
+    "BaudRates": ["115200"],
     "Programmer": "arduino",
     "Timeout": 15000
   },
@@ -17,6 +17,7 @@
     "MessageSize": 64
   },
   "HardwareIds": [
+    "^VID_10C4&PID_EA60",
     "^VID_2341&PID_0043",
     "^VID_2A03&PID_0043",
     "^VID_2341&PID_0243",
@@ -31,7 +32,7 @@
     "FriendlyName": "Arduino Uno",
     "FirmwareBaseName": "mobiflight_uno",
     "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "2.4.1",
+    "LatestFirmwareVersion": "2.5.1",
     "MobiFlightType": "MobiFlight Uno",
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
   },
@@ -39,14 +40,15 @@
     "MaxAnalogInputs": 6,
     "MaxButtons": 18,
     "MaxEncoders": 9,
-    "MaxInputShifters": 2,
+    "MaxInputShifters": 6,
     "MaxLcdI2C": 2,
-    "MaxLedSegments": 1,
+    "MaxLedSegments": 6,
     "MaxOutputs": 18,
-    "MaxServos": 2,
-    "MaxShifters": 2,
-    "MaxSteppers": 2,
-    "MaxInputMultiplexer": 3
+    "MaxServos": 8,
+    "MaxShifters": 6,
+    "MaxSteppers": 4,
+    "MaxInputMultiplexer": 6,
+    "MaxCustomDevices": 0
   },
   "Pins": [
     {

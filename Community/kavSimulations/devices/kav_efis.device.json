@@ -1,0 +1,61 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Kav's EFIS LCD",
+    "Type": "KAV_EFIS",
+    "Author": "Jak Kav",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+    "Version": "1.5.0"
+  },
+  "Config": {
+    "Pins": [
+      "Data",
+      "CLK",
+      "CS"
+    ],
+    "isI2C": false
+  },
+  "MessageTypes": [
+    {
+      "id": -1,
+      "label": "Clear display",
+      "description": "will clear the display"
+    },
+    {
+      "id": 0,
+      "label": "Show QNH Value",
+      "description": "$ will be displayed as QNH value"
+    },
+    {
+      "id": 1,
+      "label": "Show QFE Value",
+      "description": "$ will be displayed as QFE value"
+    },
+    {
+      "id": 2,
+      "label": "Show STD",
+      "description": "0 = True, 1 = False"
+    },
+    {
+      "id": 3,
+      "label": "Show QNH Label",
+      "description": "1 = True, 0 = False"
+    },
+    {
+      "id": 4,
+      "label": "Show QFE Label",
+      "description": "1 = True, 0 = False"
+    },
+    {
+      "id": 5,
+      "label": "(v2.5.4+) Show Value (STRING)",
+      "description": "$ will be displayed"
+    },
+    {
+      "id": 6,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all EFIS Segments, $ = 0 will clear display"
+    }
+  ]
+}
+  

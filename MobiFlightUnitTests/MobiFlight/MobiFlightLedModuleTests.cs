@@ -99,11 +99,12 @@ namespace MobiFlight.Tests
 
             mask = 254;
             value = "12345608";
+            var expectedValue = "1234560";
             mockTransport.Clear();
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
 
-            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{value},{points},{mask};";
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},{expectedValue},{points},{mask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, $"Sending same mask, and value changed in masked area. Mask in Mock should be \"{mask}\"");
 
             // #
@@ -241,6 +242,28 @@ namespace MobiFlight.Tests
             module.Display(0, value, points, mask);
             WaitForQueueUpdate();
             DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},11880500,32,{mask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+
+            value = "1234";
+            points = 0;
+            mask = 8 + 4 + 2 + 1;
+            var reverseMask = 128 + 64 + 32 + 16;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask, true);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},4321,0,{reverseMask};";
+            Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
+
+            module.ClearState();
+            value = "123456";
+            points = 0;
+            mask = 8 + 4 + 2 + 1;
+            reverseMask = 128 + 64 + 32 + 16;
+            mockTransport.Clear();
+            module.Display(0, value, points, mask, true);
+            WaitForQueueUpdate();
+            DataExpected = $"{CommandId},{ModuleIndex},{SubModuleIndex},4321,0,{reverseMask};";
             Assert.AreEqual(DataExpected, mockTransport.DataWrite, "Decimal point not set correctly");
         }
 

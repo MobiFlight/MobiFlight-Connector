@@ -1,0 +1,140 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Kav's FCU LCD",
+    "Type": "KAV_FCU",
+    "Author": "Jak Kav",
+    "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
+    "Version": "1.5.0"
+  },
+  "Config": {
+    "Pins": [
+      "Data",
+      "CLK",
+      "CS"
+    ],
+    "isI2C": false
+  },
+  "MessageTypes": [
+    {
+      "id": 0,
+      "label": "Show Speed Value (LEGACY)",
+      "description": "$ will be displayed as Speed value"
+    },
+    {
+      "id": 1,
+      "label": "Show Mach Value (LEGACY)",
+      "description": "$ will be displayed as Mach value"
+    },
+    {
+      "id": 2,
+      "label": "Show Heading Value (LEGACY)",
+      "description": "$ will be displayed as Heading value"
+    },
+    {
+      "id": 3,
+      "label": "Show Altitude (LEGACY)",
+      "description": "$ will be displayed as Altitude"
+    },
+    {
+      "id": 4,
+      "label": "Show Vertical (LEGACY)",
+      "description": "$ will be displayed as Vertical"
+    },
+    {
+      "id": 5,
+      "label": "Show FPA (LEGACY)",
+      "description": "$ will be displayed as FPA"
+    },
+    {
+      "id": 6,
+      "label": "Show speed dashes",
+      "description": "1 = speed dashes will be shown"
+    },
+    {
+      "id": 7,
+      "label": "Show heading dashes",
+      "description": "1 = heading dashes will be shown"
+    },
+    {
+      "id": 8,
+      "label": "Show altitude dashes",
+      "description": "1 = altitude dashes will be shown"
+    },
+    {
+      "id": 9,
+      "label": "Show vertical speed dashes",
+      "description": "1 = vertical speed dashes will be shown"
+    },
+    {
+      "id": 10,
+      "label": "Show speed dot",
+      "description": "1 = speed dot will be shown, 0 = not shown"
+    },
+    {
+      "id": 11,
+      "label": "Show heading dot",
+      "description": "1 = heading dot will be shown, 0 = not shown"
+    },
+    {
+      "id": 12,
+      "label": "Show altitude dot",
+      "description": "1 = altitude dot will be shown, 0 = not shown"
+    },
+    {
+      "id": 13,
+      "label": "Toggle Trk/Hdg Mode",
+      "description": "0 = set heading mode, 1 = set Track Mode"
+    },
+    {
+      "id": 14,
+      "label": "Set Speed Label",
+      "description": "1 = set speed label, 0 = clear speed label"
+    },
+    {
+      "id": 15,
+      "label": "Set Mach Label",
+      "description": "1 = set mach label, 0 = clear mach label"
+    },
+    {
+      "id": 16,
+      "label": "Set Speed only",
+      "description": "$ will be displayed as Speed"
+    },
+    {
+      "id": 17,
+      "label": "Clear or Reset LCD",
+      "description": "0 = Clear LCD, 1 = Reset starting labels"
+    },
+    {
+      "id": 18,
+      "label": "(v2.5.3+) Show Speed/Mach (STRING)",
+      "description": "$ will be displayed as Speed value. Negative values show dashes"
+    },
+    {
+      "id": 19,
+      "label": "(v2.5.3+) Show Heading (STRING)",
+      "description": "$ will be displayed as Heading value. Negative values show dashes"
+    },
+    {
+      "id": 20,
+      "label": "(v2.5.3+) Show Altitude (STRING)",
+      "description": "$ will be displayed as Altitude"
+    },
+    {
+      "id": 21,
+      "label": "(v2.5.3+) Show Vertical/FPA (STRING)",
+      "description": "$ will be displayed as Vertical/FPA"
+    },
+    {
+      "id": 22,
+      "label": "(v2.5.3+) Toggle Speed/Mach mode",
+      "description": "$ = 1 will display Mach labels, $ = 2 will display Speed labels"
+    },
+    {
+      "id": 23,
+      "label": "(v2.5.3+) Annunciator Test Mode",
+      "description": "$ = 1 will display all FCU Segments, $ = 0 will clear display"
+    }
+  ]
+}

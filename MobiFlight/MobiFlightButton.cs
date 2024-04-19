@@ -11,9 +11,10 @@ namespace MobiFlight
         public const string TYPE = "Button";
         public enum InputEvent
         {
-            PRESS,
-            RELEASE,
-            REPEAT
+            PRESS = 0,
+            RELEASE = 1,
+            LONG_RELEASE = 2,
+            HOLD = 3
         }
 
         public string Name { get; set; }
@@ -32,8 +33,8 @@ namespace MobiFlight
                     eventAction = InputEvent.RELEASE.ToString();
                     break;
 
-                case (int)InputEvent.REPEAT:
-                    eventAction = InputEvent.REPEAT.ToString();
+                case (int)InputEvent.LONG_RELEASE:
+                    eventAction = InputEvent.LONG_RELEASE.ToString();
                     break;
             }
 

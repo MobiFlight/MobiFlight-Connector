@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>MobiFlight Mega</ModuleType>
+  <ModuleName>UnitTest</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="Output" Pin="2" />
+  <LedModule Name="LedModule" ModelType="0" DinPin="3" ClsPin="5" ClkPin="4" Brightness="15" NumModules="1" />
+  <Servo Name="Servo" DataPin="6" />
+  <Stepper Name="Stepper" Pin1="7" Pin2="8" Pin3="9" Pin4="10" BtnPin="0" Mode="0" Backlash="0" Deactivate="false" Profile="0" />
+  <LcdDisplay Name="LcdDisplay" Address="39" Cols="16" Lines="2" />
+  <ShiftRegister Name="ShiftRegister" LatchPin="13" ClockPin="12" DataPin="11" NumModules="1" />
+  <Button Name="Button" Pin="14" />
+  <Encoder Name="Encoder" PinLeft="15" PinRight="16" EncoderType="0" />
+  <AnalogInput Name="Analog Input" Pin="54" Sensitivity="5" />
+  <InputShiftRegister Name="InputShifter" LatchPin="19" ClockPin="18" DataPin="17" NumModules="1" />
+  <InputMultiplexer Name="Multiplexer" DataPin="26" NumBytes="2">
+    <Selector Name="MultiplexerDriver" PinSx="22 23 24 25" />
+  </InputMultiplexer>
+</Config>

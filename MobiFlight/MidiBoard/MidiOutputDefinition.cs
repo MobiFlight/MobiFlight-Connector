@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace MobiFlight
 {
@@ -34,7 +35,7 @@ namespace MobiFlight
         /// <summary>
         /// The midi message ids. Possible value range from 0 to 127. Required.
         /// </summary>
-        public byte[] MessageIds;
+        public List<byte> MessageIds;
 
         /// <summary>
         /// Midi message value for turning on the LED. Required.

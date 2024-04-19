@@ -6,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MobiFlight.UI.Panels.Config;
+using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Action
 {
-    public partial class JeehellInputPanel : UserControl
+    public partial class JeehellInputPanel : UserControl, IPanelConfigSync
     {
         public String PresetFile { get; set; }
         private DataTable Data;
@@ -102,9 +104,11 @@ namespace MobiFlight.UI.Panels.Action
             }
         }
 
-        internal void syncFromConfig(InputConfig.JeehellInputAction jeehellInputAction)
+        public void syncFromConfig(object config)
         {
+            JeehellInputAction jeehellInputAction = config as JeehellInputAction;
             if (jeehellInputAction == null) return;
+            
             DataRow[] rows = Data.Select("EventId = '" + jeehellInputAction.EventId.ToString() + "'");
             if (rows.Length > 0)
             {
@@ -115,9 +119,9 @@ namespace MobiFlight.UI.Panels.Action
             }
         }
 
-        internal InputConfig.InputAction ToConfig()
+        public InputConfig.InputAction ToConfig()
         {
-            MobiFlight.InputConfig.JeehellInputAction result = new InputConfig.JeehellInputAction();
+            JeehellInputAction result = new JeehellInputAction();
             if (currentRow != null)
             {
                 result.EventId = Byte.Parse(currentRow["EventId"].ToString());

@@ -136,9 +136,6 @@
     <value>FSUIPC is connected.</value>
     <comment>Displayed in status</comment>
   </data>
-  <data name="uiMessageAraceUSBHasBeenRemoved" xml:space="preserve">
-    <value>An Arcaze module has been removed.</value>
-  </data>
   <data name="uiMessageNoModuleFound" xml:space="preserve">
     <value>No modules found</value>
   </data>
@@ -154,8 +151,8 @@
   <data name="Hint" xml:space="preserve">
     <value>Hint</value>
   </data>
-  <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
-    <value>The connection to the arcaze module got lost</value>
+  <data name="uiMessageModuleRemoved" xml:space="preserve">
+    <value>The board "{0}" ({1}) disconnected.</value>
   </data>
   <data name="uiMessageMFConnectorInterfaceActive" xml:space="preserve">
     <value>MFConnector still active</value>
@@ -329,7 +326,7 @@ You should configure them now.</value>
     <value>Nice! You updated successfully from {1} to {2}.</value>
   </data>
   <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
-    <value>The current firmware does not support this function. Please update to the current firmware first.</value>
+    <value>The current firmware does not support this function. Please update to the latest firmware now!</value>
   </data>
   <data name="uiMessageDeviceNameContainsInvalidCharsOrTooLong" xml:space="preserve">
     <value>The name for the device is not valid or too long (max. {1} characters). Don't use the following characters:
@@ -510,7 +507,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>{0} ({1}) firmware reset completed ({2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
-    <value>Updating {0} on {1} (Module {2}/{3})</value>
+    <value>Resetting {0} on {1} (Module {2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
     <value>{0} ({1}) firmware reset timed out ({2}/{3})</value>
@@ -525,7 +522,7 @@ Respective configs won't work until joysticks are connected and you have restart
     <value>The board reset was successful!</value>
   </data>
   <data name="uiMessageFirmwareResetTitle" xml:space="preserve">
-    <value>Board reset</value>
+    <value>Board Reset</value>
   </data>
   <data name="uiMessageRestartRequired" xml:space="preserve">
     <value>This change will require a restart of MobiFlight to become effective.</value>
@@ -590,5 +587,61 @@ Respective configs won't work until midiboards are connected and you have restar
 {0}
 
 That midiboard cannot be used until other application is terminated and MobiFlight is restarted.</value>
+  </data>
+  <data name="WebsiteHelpNcalc" xml:space="preserve">
+    <value>https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html</value>
+  </data>
+  <data name="uiLabelNoAircraftDetected." xml:space="preserve">
+    <value>No aircraft detected</value>
+  </data>
+  <data name="uiLabelModuleTYPE_COMPATIBLE" xml:space="preserve">
+    <value>Compatible</value>
+  </data>
+  <data name="uiLabelModuleNAME_UNKNOWN" xml:space="preserve">
+    <value>Compatible module</value>
+  </data>
+  <data name="uiLabelDelay" xml:space="preserve">
+    <value>Delay:</value>
+  </data>
+  <data name="uiLabelRepeatPress" xml:space="preserve">
+    <value>ms, repeat every</value>
+  </data>
+  <data name="uiLabelDuplicateNotAValidValue" xml:space="preserve">
+    <value>Not a valid value</value>
+  </data>
+  <data name="uiLabelInterpolationDuplicateXvalueNotAllowed" xml:space="preserve">
+    <value>Duplicate x values are not valid</value>
+  </data>
+  <data name="uiMessageHubHopAutoUpdate" xml:space="preserve">
+    <value>Your HubHop presets are older than 7 days.
+
+Would you like to update?</value>
+  </data>
+  <data name="uiTitleHubhopAutoUpdate" xml:space="preserve">
+    <value>HubHop Preset Update</value>
+  </data>
+  <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
+    <value>Drag and Drop is not available when list is sorted.</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeHint" xml:space="preserve">
+    <value>Board type warning</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeText" xml:space="preserve">
+    <value>The config was created for a "{0}" board. Your selected board is a "{1}". The config may be incompatible, check before uploading.
+
+Open anyway?</value>
+  </data>
+  <data name="uiMessageOpenConfigUnspecificTypeText" xml:space="preserve">
+    <value>This config doesn't specify a board type and may not be compatible with your "{0}".
+
+Open anyway?
+
+Tip: Save the file after opening to update the associated board for future use.</value>
+  </data>
+  <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
+    <value>Editing is disabled due to outdated firmware. Please update to the latest version.</value>
+  </data>
+  <data name="uiMessagePanelsStepperNoFreePins" xml:space="preserve">
+    <value>There are not enough pins available to use the auto-zero option. </value>
   </data>
 </root>

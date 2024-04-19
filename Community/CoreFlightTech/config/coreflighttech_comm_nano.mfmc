@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech COMM (CPT)</ModuleName>
+  <ModuleType>CoreFlightTech COMM</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <LedModule Name="CPT_COM_STANDBY" DinPin="7" ClsPin="6" ClkPin="8" Brightness="15" NumModules="1" />
+  <LedModule Name="CPT_COM_ACTIVE" DinPin="10" ClsPin="9" ClkPin="12" Brightness="15" NumModules="1" />
+  <Encoder Name="CPT_COM_OUT_ENC" PinLeft="2" PinRight="3" EncoderType="2" />
+  <Encoder Name="CPT_COM_IN_ENC" PinLeft="4" PinRight="5" EncoderType="2" />
+  <Button Name="CPT_COM_TFR" Pin="18" />
+  <Output Name="CPT_COM_BLIGHT" Pin="11" />
+  <Button Name="CPT_COM_TEST" Pin="19" />
+</Config>

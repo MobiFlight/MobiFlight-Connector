@@ -29,18 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FsuipcConfigPanel));
-            this.fsuipcMoreOptionsGroupBox = new System.Windows.Forms.GroupBox();
-            this.valuePanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.fsuipcValueTextBox = new System.Windows.Forms.TextBox();
-            this.SubstringPanel = new System.Windows.Forms.Panel();
-            this.SubstringTransformationCheckBox = new System.Windows.Forms.CheckBox();
-            this.SubStringToTextBox = new System.Windows.Forms.TextBox();
-            this.SubStringToLabel = new System.Windows.Forms.Label();
-            this.SubStringFromTextBox = new System.Windows.Forms.TextBox();
-            this.multiplyPanel = new System.Windows.Forms.Panel();
-            this.TransformationCheckBox = new System.Windows.Forms.CheckBox();
-            this.fsuipcMultiplyTextBox = new System.Windows.Forms.TextBox();
             this.maskAndBcdPanel = new System.Windows.Forms.Panel();
             this.maskEditorButton = new System.Windows.Forms.Button();
             this.fsuipcBcdModeCheckBox = new System.Windows.Forms.CheckBox();
@@ -61,102 +49,23 @@
             this.presetsDataSet = new System.Data.DataSet();
             this.presetDataTable = new System.Data.DataTable();
             this.description = new System.Data.DataColumn();
-            this.ValuePlaceholderLabel = new System.Windows.Forms.Label();
             this.settingsColumn = new System.Data.DataColumn();
-            this.fsuipcMoreOptionsGroupBox.SuspendLayout();
-            this.valuePanel.SuspendLayout();
-            this.SubstringPanel.SuspendLayout();
-            this.multiplyPanel.SuspendLayout();
+            this.panelModifierHint = new System.Windows.Forms.Panel();
+            this.panelModifierHintFloatLayout = new System.Windows.Forms.Panel();
+            this.buttonModifyTab = new System.Windows.Forms.Button();
+            this.labelModifierHint = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
             this.maskAndBcdPanel.SuspendLayout();
             this.fsuipcBaseSettingsGroupBox.SuspendLayout();
             this.offsetPanel.SuspendLayout();
             this.fsuipcLoadPresetGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).BeginInit();
+            this.panelModifierHint.SuspendLayout();
+            this.panelModifierHintFloatLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // fsuipcMoreOptionsGroupBox
-            // 
-            resources.ApplyResources(this.fsuipcMoreOptionsGroupBox, "fsuipcMoreOptionsGroupBox");
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.valuePanel);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.SubstringPanel);
-            this.fsuipcMoreOptionsGroupBox.Controls.Add(this.multiplyPanel);
-            this.fsuipcMoreOptionsGroupBox.Name = "fsuipcMoreOptionsGroupBox";
-            this.fsuipcMoreOptionsGroupBox.TabStop = false;
-            // 
-            // valuePanel
-            // 
-            resources.ApplyResources(this.valuePanel, "valuePanel");
-            this.valuePanel.Controls.Add(this.ValuePlaceholderLabel);
-            this.valuePanel.Controls.Add(this.label5);
-            this.valuePanel.Controls.Add(this.fsuipcValueTextBox);
-            this.valuePanel.Name = "valuePanel";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // fsuipcValueTextBox
-            // 
-            resources.ApplyResources(this.fsuipcValueTextBox, "fsuipcValueTextBox");
-            this.fsuipcValueTextBox.Name = "fsuipcValueTextBox";
-            this.fsuipcValueTextBox.TextChanged += new System.EventHandler(this.fsuipcValueTextBox_TextChanged);
-            this.fsuipcValueTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcValueTextBox_Validating);
-            // 
-            // SubstringPanel
-            // 
-            resources.ApplyResources(this.SubstringPanel, "SubstringPanel");
-            this.SubstringPanel.Controls.Add(this.SubstringTransformationCheckBox);
-            this.SubstringPanel.Controls.Add(this.SubStringToTextBox);
-            this.SubstringPanel.Controls.Add(this.SubStringToLabel);
-            this.SubstringPanel.Controls.Add(this.SubStringFromTextBox);
-            this.SubstringPanel.Name = "SubstringPanel";
-            // 
-            // SubstringTransformationCheckBox
-            // 
-            this.SubstringTransformationCheckBox.Checked = true;
-            this.SubstringTransformationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            resources.ApplyResources(this.SubstringTransformationCheckBox, "SubstringTransformationCheckBox");
-            this.SubstringTransformationCheckBox.Name = "SubstringTransformationCheckBox";
-            this.SubstringTransformationCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // SubStringToTextBox
-            // 
-            resources.ApplyResources(this.SubStringToTextBox, "SubStringToTextBox");
-            this.SubStringToTextBox.Name = "SubStringToTextBox";
-            // 
-            // SubStringToLabel
-            // 
-            resources.ApplyResources(this.SubStringToLabel, "SubStringToLabel");
-            this.SubStringToLabel.Name = "SubStringToLabel";
-            // 
-            // SubStringFromTextBox
-            // 
-            resources.ApplyResources(this.SubStringFromTextBox, "SubStringFromTextBox");
-            this.SubStringFromTextBox.Name = "SubStringFromTextBox";
-            // 
-            // multiplyPanel
-            // 
-            resources.ApplyResources(this.multiplyPanel, "multiplyPanel");
-            this.multiplyPanel.Controls.Add(this.TransformationCheckBox);
-            this.multiplyPanel.Controls.Add(this.fsuipcMultiplyTextBox);
-            this.multiplyPanel.Name = "multiplyPanel";
-            // 
-            // TransformationCheckBox
-            // 
-            this.TransformationCheckBox.Checked = true;
-            this.TransformationCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            resources.ApplyResources(this.TransformationCheckBox, "TransformationCheckBox");
-            this.TransformationCheckBox.Name = "TransformationCheckBox";
-            this.TransformationCheckBox.UseVisualStyleBackColor = true;
-            this.TransformationCheckBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // fsuipcMultiplyTextBox
-            // 
-            resources.ApplyResources(this.fsuipcMultiplyTextBox, "fsuipcMultiplyTextBox");
-            this.fsuipcMultiplyTextBox.Name = "fsuipcMultiplyTextBox";
-            this.fsuipcMultiplyTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.fsuipcMultiplyTextBox_Validating);
             // 
             // maskAndBcdPanel
             // 
@@ -303,33 +212,59 @@
             // 
             this.description.ColumnName = "description";
             // 
-            // ValuePlaceholderLabel
-            // 
-            resources.ApplyResources(this.ValuePlaceholderLabel, "ValuePlaceholderLabel");
-            this.ValuePlaceholderLabel.Name = "ValuePlaceholderLabel";
-            // 
             // settingsColumn
             // 
             this.settingsColumn.Caption = "settings";
             this.settingsColumn.ColumnName = "settings";
             this.settingsColumn.DataType = typeof(object);
             // 
+            // panelModifierHint
+            // 
+            this.panelModifierHint.Controls.Add(this.panelModifierHintFloatLayout);
+            this.panelModifierHint.Controls.Add(this.pictureBox1);
+            resources.ApplyResources(this.panelModifierHint, "panelModifierHint");
+            this.panelModifierHint.Name = "panelModifierHint";
+            // 
+            // panelModifierHintFloatLayout
+            // 
+            resources.ApplyResources(this.panelModifierHintFloatLayout, "panelModifierHintFloatLayout");
+            this.panelModifierHintFloatLayout.Controls.Add(this.buttonModifyTab);
+            this.panelModifierHintFloatLayout.Controls.Add(this.labelModifierHint);
+            this.panelModifierHintFloatLayout.Name = "panelModifierHintFloatLayout";
+            // 
+            // buttonModifyTab
+            // 
+            resources.ApplyResources(this.buttonModifyTab, "buttonModifyTab");
+            this.buttonModifyTab.Name = "buttonModifyTab";
+            this.buttonModifyTab.UseVisualStyleBackColor = true;
+            this.buttonModifyTab.Click += new System.EventHandler(this.ButtonModifyTab_Click);
+            // 
+            // labelModifierHint
+            // 
+            resources.ApplyResources(this.labelModifierHint, "labelModifierHint");
+            this.labelModifierHint.Name = "labelModifierHint";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::MobiFlight.Properties.Resources.hint_bulb;
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.TabStop = false;
+            // 
+            // transformOptionsGroup1
+            // 
+            resources.ApplyResources(this.transformOptionsGroup1, "transformOptionsGroup1");
+            this.transformOptionsGroup1.Name = "transformOptionsGroup1";
+            // 
             // FsuipcConfigPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.fsuipcMoreOptionsGroupBox);
+            this.Controls.Add(this.panelModifierHint);
+            this.Controls.Add(this.transformOptionsGroup1);
             this.Controls.Add(this.fsuipcBaseSettingsGroupBox);
             this.Controls.Add(this.fsuipcLoadPresetGroupBox);
             this.Name = "FsuipcConfigPanel";
-            this.fsuipcMoreOptionsGroupBox.ResumeLayout(false);
-            this.fsuipcMoreOptionsGroupBox.PerformLayout();
-            this.valuePanel.ResumeLayout(false);
-            this.valuePanel.PerformLayout();
-            this.SubstringPanel.ResumeLayout(false);
-            this.SubstringPanel.PerformLayout();
-            this.multiplyPanel.ResumeLayout(false);
-            this.multiplyPanel.PerformLayout();
             this.maskAndBcdPanel.ResumeLayout(false);
             this.maskAndBcdPanel.PerformLayout();
             this.fsuipcBaseSettingsGroupBox.ResumeLayout(false);
@@ -339,14 +274,16 @@
             this.fsuipcLoadPresetGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.presetsDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetDataTable)).EndInit();
+            this.panelModifierHint.ResumeLayout(false);
+            this.panelModifierHintFloatLayout.ResumeLayout(false);
+            this.panelModifierHintFloatLayout.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.GroupBox fsuipcMoreOptionsGroupBox;
         private System.Windows.Forms.GroupBox fsuipcBaseSettingsGroupBox;
         private System.Windows.Forms.GroupBox fsuipcLoadPresetGroupBox;
         private System.Windows.Forms.Button fsuipcPresetUseButton;
@@ -356,9 +293,6 @@
         private System.Data.DataTable presetDataTable;
         private System.Data.DataColumn description;
         private System.Data.DataColumn settingsColumn;
-        private System.Windows.Forms.Panel valuePanel;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox fsuipcValueTextBox;
         private System.Windows.Forms.Panel offsetPanel;
         private System.Windows.Forms.Label fsuipcTypeLabel;
         private System.Windows.Forms.ComboBox fsuipcOffsetTypeComboBox;
@@ -366,19 +300,16 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox fsuipcSizeComboBox;
         private System.Windows.Forms.TextBox fsuipcOffsetTextBox;
-        private System.Windows.Forms.Panel multiplyPanel;
-        private System.Windows.Forms.TextBox fsuipcMultiplyTextBox;
         private System.Windows.Forms.Panel maskAndBcdPanel;
         private System.Windows.Forms.Button maskEditorButton;
         private System.Windows.Forms.CheckBox fsuipcBcdModeCheckBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox fsuipcMaskTextBox;
-        private System.Windows.Forms.Panel SubstringPanel;
-        private System.Windows.Forms.TextBox SubStringToTextBox;
-        private System.Windows.Forms.Label SubStringToLabel;
-        private System.Windows.Forms.TextBox SubStringFromTextBox;
-        private System.Windows.Forms.CheckBox TransformationCheckBox;
-        private System.Windows.Forms.CheckBox SubstringTransformationCheckBox;
-        private System.Windows.Forms.Label ValuePlaceholderLabel;
+        private TransformOptionsGroup transformOptionsGroup1;
+        private System.Windows.Forms.Panel panelModifierHint;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button buttonModifyTab;
+        private System.Windows.Forms.Panel panelModifierHintFloatLayout;
+        private System.Windows.Forms.Label labelModifierHint;
     }
 }

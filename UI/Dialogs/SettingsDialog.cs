@@ -1,28 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-//using SimpleSolutions.Usb;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using MobiFlight.UI.Forms;
-using MobiFlight.UI.Panels.Settings;
-using MobiFlight.Base;
-using Microsoft.ApplicationInsights.DataContracts;
 
 namespace MobiFlight.UI.Dialogs
 {
     public partial class SettingsDialog : Form
     {
-
         ExecutionManager execManager;
-        int lastSelectedIndex = -1;
 
         public List<MobiFlightModule> MobiFlightModulesForUpdate {
             get { return mobiFlightPanel.modulesForUpdate; } 
@@ -65,14 +50,24 @@ namespace MobiFlight.UI.Dialogs
 
 #if MOBIFLIGHT
             mobiFlightPanel.Init(execManager.getMobiFlightModuleCache());
-            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { execManager.AutoConnectStop(); };
-            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => { execManager.AutoConnectStart(); };
+            
+            mobiFlightPanel.OnBeforeFirmwareUpdate += (object sender, EventArgs e) => { 
+                execManager.AutoConnectStop();
+                execManager.getMobiFlightModuleCache().PauseModuleScan();
+            };
+
+            mobiFlightPanel.OnAfterFirmwareUpdate += (object sender, EventArgs e) => {
+                execManager.getMobiFlightModuleCache().ResumeModuleScan();
+                execManager.AutoConnectStart(); 
+            };
+
             mobiFlightPanel.OnModuleConfigChanged += (object sender, EventArgs e) => { ; };
 #endif
 
 #if !MOBIFLIGHT
             tabControl1.TabPages.Remove(mobiFlightTabPage);
 #endif
+            peripheralsPanel.Init(execManager.GetJoystickManager(), execManager.GetMidiBoardManager());
             loadSettings();
         }
 
@@ -80,22 +75,20 @@ namespace MobiFlight.UI.Dialogs
         /// Load all settings for each tab
         /// </summary>
         private void loadSettings ()
-        {
-            //
-            // TAB General
-            //
+        {            
+            // TAB General            
             generalPanel.loadSettings();
-
-            //
-            // TAB Arcaze
-            //
+            
+            // TAB Arcaze           
 #if ARCAZE
             arcazePanel.LoadSettings();
 #endif
-            //
-            // TAB MobiFlight
-            //
+           
+            // TAB MobiFlight           
             mobiFlightPanel.LoadSettings();
+
+            // TAB Joystick & Midi
+            peripheralsPanel.LoadSettings();
         }
 
         /// <summary>
@@ -112,6 +105,9 @@ namespace MobiFlight.UI.Dialogs
 #endif
             // MobiFlight Tab
             mobiFlightPanel.SaveSettings();
+
+            // TAB Joystick & Midi
+            peripheralsPanel.SaveSettings();
 
             // Save all Settings
             Properties.Settings.Default.Save();
@@ -187,6 +183,19 @@ namespace MobiFlight.UI.Dialogs
         private void SettingsDialog_Load(object sender, EventArgs e)
         {
             TabPage current = tabControl1.SelectedTab;
+        }
+
+        internal void UpdateConnectedModule(object sender, EventArgs e)
+        {
+            if (!(sender is MobiFlightModule)) return;
+
+            var info = (sender as MobiFlightModule).ToMobiFlightModuleInfo();
+            mobiFlightPanel.UpdateNewlyConnectedModule(info);
+        }
+
+        internal void UpdateRemovedModule(object sender, EventArgs e)
+        {
+            mobiFlightPanel.UpdateRemovedModule(sender as MobiFlightModuleInfo);
         }
     }
 }

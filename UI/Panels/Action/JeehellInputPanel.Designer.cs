@@ -41,13 +41,13 @@
             // 
             // fsuipcLoadPresetGroupBox
             // 
-            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label5);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.hintLabel);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.ValueTextBox);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.label1);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.EventIdLabel);
             this.fsuipcLoadPresetGroupBox.Controls.Add(this.fsuipcPresetComboBox);
+            resources.ApplyResources(this.fsuipcLoadPresetGroupBox, "fsuipcLoadPresetGroupBox");
             this.fsuipcLoadPresetGroupBox.Name = "fsuipcLoadPresetGroupBox";
             this.fsuipcLoadPresetGroupBox.TabStop = false;
             // 

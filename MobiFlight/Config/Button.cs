@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -54,7 +52,7 @@ namespace MobiFlight.Config
 
         public override string ToString()
         {
-            return Type + ":" + Name + " Pin:" + Pin;
+            return $"{Type}:{Name} Pin:{Pin}";
         }
     }
 }

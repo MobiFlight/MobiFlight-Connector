@@ -155,22 +155,19 @@ namespace MobiFlight.SimConnectMSFS
 
             string installedWASM;
             string mobiflightWASM;
-            string installedEvents;
-            string mobiflightEvents;
 
             if (CommunityFolder == null) return true;
 
-
-            if (!File.Exists(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleName}"))
+            string wasmModulePath = Path.Combine(CommunityFolder, @"mobiflight-event-module\modules\", WasmModuleName);
+            if (!File.Exists(wasmModulePath))
+            { 
                 return true;
+            }
 
             installedWASM = CalculateMD5(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleName}");
             mobiflightWASM = CalculateMD5($@".\MSFS2020-module\mobiflight-event-module\modules\{WasmModuleName}");
 
-            installedEvents = CalculateMD5(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmEventsTxtFile}");
-            mobiflightEvents = CalculateMD5($@".\MSFS2020-module\mobiflight-event-module\modules\{WasmEventsTxtFile}");
-
-            return (installedWASM != mobiflightWASM || installedEvents != mobiflightEvents);
+            return installedWASM != mobiflightWASM;
         }
 
         public bool InstallWasmEvents()
@@ -280,6 +277,20 @@ namespace MobiFlight.SimConnectMSFS
             progress.Current = 100;
             DownloadAndInstallProgress?.Invoke(this, progress);
             return true;
+        }
+
+        static public DateTime HubHopPresetTimestamp()
+        {
+            var lastModified = DateTime.MinValue;
+            try
+            {
+                lastModified = System.IO.File.GetLastWriteTimeUtc($@"{WasmEventsHubHopFolder}\{WasmEventsHubHopFileName}");
+            }catch(Exception) 
+            {
+                Log.Instance.log("Could not check presets for creation date.", LogSeverity.Error);
+            }
+                
+            return lastModified;
         }
 
         private bool DownloadSingleFile(Uri uri, String filename, String targetPath)

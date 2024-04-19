@@ -1,26 +1,44 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.Joysticks.Octavi;
+using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Timers;
 
 namespace MobiFlight
 {
     public class JoystickManager
     {
-        private readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
+        // Set to true if any errors occurred when loading the definition files.
+        // Used as part of the unit test automation to determine if the checked-in
+        // JSON files are valid.
+        public bool LoadingError = false;
+
+        private static readonly SharpDX.DirectInput.DeviceType[] SupportedDeviceTypes =
+        {
+            SharpDX.DirectInput.DeviceType.Joystick,
+            SharpDX.DirectInput.DeviceType.Gamepad,
+            SharpDX.DirectInput.DeviceType.Driving,
+            SharpDX.DirectInput.DeviceType.Flight,
+            SharpDX.DirectInput.DeviceType.FirstPerson,
+            SharpDX.DirectInput.DeviceType.Supplemental
+        };
+
+        private List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        readonly Timer PollTimer = new Timer();
-        readonly List<Joystick> joysticks = new List<Joystick>();
+        private readonly Timer PollTimer = new Timer();        
+        private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
+        private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
+        private IntPtr Handle;
 
-        public JoystickManager ()
+        public JoystickManager()
         {
-            PollTimer.Interval = 50;
-            PollTimer.Tick += PollTimer_Tick;
+            PollTimer.Interval = 20;
+            PollTimer.Elapsed += PollTimer_Tick;
             LoadDefinitions();
         }
 
@@ -37,43 +55,39 @@ namespace MobiFlight
         /// <summary>
         /// Loads all joystick definitions from disk.
         /// </summary>
-        private void LoadDefinitions()
+        public void LoadDefinitions()
         {
-            foreach (var definitionFile in Directory.GetFiles("Joysticks", "*.joystick.json"))
-            {
-                try
-                {
-                    var joystick = JsonConvert.DeserializeObject<JoystickDefinition>(File.ReadAllText(definitionFile));
-                    joystick.Migrate();
-                    Definitions.Add(joystick);
-                    Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Unable to load {definitionFile}: {ex.Message}", LogSeverity.Error);
-                }
-            }
-
+            Definitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
+                onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
+                onError: () => LoadingError = true
+            );
         }
 
         public bool JoysticksConnected()
         {
-            return joysticks.Count > 0;
+            return Joysticks.Count > 0;
         }
 
         private void PollTimer_Tick(object sender, EventArgs e)
         {
             try
             {
-                lock (joysticks) { 
-                    foreach (MobiFlight.Joystick js in joysticks)
+                lock (Joysticks)
+                {
+                    foreach (MobiFlight.Joystick js in Joysticks.Values)
                     {
                         js?.Update();
                     }
                 }
-            } catch (InvalidOperationException)
+            }
+            catch (InvalidOperationException)
             {
                 // this exception is thrown when a joystick is disconnected and removed from the list of joysticks
+            }
+            catch (Exception ex)
+            {
+                // something else has happened
+                Log.Instance.log($"An exception occured during update {ex.Message}", LogSeverity.Error);
             }
         }
 
@@ -85,56 +99,109 @@ namespace MobiFlight
         public void Shutdown()
         {
             PollTimer.Stop();
+            foreach (var js in Joysticks.Values)
+            {
+                js.Shutdown();
+            }
+            Joysticks.Clear();
+            ExcludedJoysticks.Clear();
         }
 
         public void Stop()
         {
-            foreach (var j in joysticks)
+            foreach (var j in Joysticks.Values)
             {
                 j.Stop();
             }
         }
 
-        public List<MobiFlight.Joystick> GetJoysticks()
+        /// <summary>
+        /// Returns the list of Joysticks sorted by name
+        /// </summary>
+        /// <returns>List of currently connected joysticks</returns>
+        public List<Joystick> GetJoysticks()
         {
-            return joysticks;
+            return Joysticks.Values.OrderBy(j=>j.Name).ToList();
         }
 
-        public void Connect(IntPtr Handle)
+        public List<Joystick> GetExcludedJoysticks()
+        {
+            return ExcludedJoysticks;
+        }
+
+        public void SetHandle(IntPtr handle)
+        {
+            Handle = handle;
+        }
+
+        public async void Connect()
         {
             var di = new SharpDX.DirectInput.DirectInput();
-            joysticks?.Clear();
+            Joysticks?.Clear();
+            ExcludedJoysticks?.Clear();
+            List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
-            var devices = di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList();
+            // make this next call async so that it doesn't block the UI
+            var devices = await Task.Run(()=> di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
 
             foreach (var d in devices)
             {
                 Log.Instance.log($"Found attached DirectInput device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
 
-                if (!IsSupportedDeviceType(d)) continue;
+                if (!SupportedDeviceTypes.Contains(d.Type))
+                {
+                    Log.Instance.log($"Skipping unsupported device: {d.InstanceName} Type: {d.Type} SubType: {d.Subtype}.", LogSeverity.Debug);
+                    continue;
+                }
 
-                var js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));                        
+                MobiFlight.Joystick js;
+                if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
+                {
+                    js = new Octavi(
+                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), 
+                            // statically set this to Octavi
+                            // until we might support (Octavi|IFR1) or similar
+                            GetDefinitionByInstanceName("Octavi")
+                         );
+                }
+                else
+                {
+                    js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                }
 
-                if (!HasAxisOrButtons(js)) continue;
+                if (!HasAxisOrButtons(js))
+                {
+                    Log.Instance.log($"Skipping device with no buttons or axis: {d.InstanceName}.", LogSeverity.Debug);
+                    continue;
+                }
 
-                Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
-                js.Connect(Handle); 
-                joysticks.Add(js);
-                js.OnButtonPressed += Js_OnButtonPressed;
-                js.OnAxisChanged += Js_OnAxisChanged;
-                js.OnDisconnected += Js_OnDisconnected;
+                // Check against exclusion list
+                if (settingsExcludedJoysticks.Contains(js.Name))
+                {
+                    Log.Instance.log($"Ignore attached joystick device: {js.Name}.", LogSeverity.Info);
+                    ExcludedJoysticks.Add(js);
+                }
+                else
+                {
+                    Log.Instance.log($"Adding attached joystick device: {d.InstanceName} Buttons: {js.Capabilities.ButtonCount} Axis: {js.Capabilities.AxeCount}.", LogSeverity.Info);
+                    js.Connect(Handle);
+                    Joysticks.TryAdd(js.Serial, js);
+                    js.OnButtonPressed += Js_OnButtonPressed;
+                    js.OnDisconnected += Js_OnDisconnected;
+                }       
             }
 
-            joysticks.Sort((j1, j2) => j1.Name.CompareTo(j2.Name));
-            Connected?.Invoke(this, null);
+            if (JoysticksConnected())
+            {
+                Connected?.Invoke(this, null);
+            }
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)
         {
             var js = sender as Joystick;
             Log.Instance.log($"Joystick disconnected: {js.Name}.", LogSeverity.Info);
-            lock (joysticks)
-                joysticks.Remove(js);            
+            Joysticks.TryRemove(js.Serial, out _);
         }
 
         private bool HasAxisOrButtons(Joystick js)
@@ -144,21 +211,6 @@ namespace MobiFlight
                 js.Capabilities.ButtonCount > 0;
         }
 
-        private bool IsSupportedDeviceType(DeviceInstance d)
-        {
-            return
-                d.Type == SharpDX.DirectInput.DeviceType.Joystick ||
-                d.Type == SharpDX.DirectInput.DeviceType.Gamepad ||
-                d.Type == SharpDX.DirectInput.DeviceType.Flight ||
-                d.Type == SharpDX.DirectInput.DeviceType.Supplemental ||
-                d.Type == SharpDX.DirectInput.DeviceType.FirstPerson;
-        }
-
-        private void Js_OnAxisChanged(object sender, InputEventArgs e)
-        {
-            OnButtonPressed?.Invoke(sender, e);
-        }
-
         private void Js_OnButtonPressed(object sender, InputEventArgs e)
         {
             OnButtonPressed?.Invoke(sender, e);
@@ -166,17 +218,17 @@ namespace MobiFlight
 
         internal Joystick GetJoystickBySerial(string serial)
         {
-            return joysticks.Find(js => js.Serial == serial);
+            return Joysticks.Values.ToList().Find(js => js.Serial == serial);
         }
 
         public Dictionary<String, int> GetStatistics()
         {
             var result = new Dictionary<string, int>
             {
-                ["Joysticks.Count"] = joysticks.Count()
+                ["Joysticks.Count"] = Joysticks.Count()
             };
 
-            foreach (var joystick in joysticks)
+            foreach (var joystick in Joysticks.Values)
             {
                 var key = $"Joysticks.Model.{joystick.Name}";
 

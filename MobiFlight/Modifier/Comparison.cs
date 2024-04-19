@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace MobiFlight.Modifier
         public Comparison() 
         {
             Active = false;
-            Operand = "";
+            Operand = OPERAND_EQUAL;
             Value = "";
             IfValue = "";
             ElseValue = "";
@@ -90,7 +91,7 @@ namespace MobiFlight.Modifier
 
             if (connectorValue.type == FSUIPCOffsetType.String)
             {
-                result.String = ExecuteStringComparison(connectorValue);
+                result.String = ExecuteStringComparison(connectorValue, configRefs);
                 return result;
             }
 
@@ -165,14 +166,21 @@ namespace MobiFlight.Modifier
 
             return result;
         }
-        private string ExecuteStringComparison(ConnectorValue connectorValue)
+        private string ExecuteStringComparison(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
             string result = connectorValue.String;
             string value = connectorValue.String;
 
             string comparisonValue = Value;
-            string comparisonIfValue = IfValue;
-            string comparisonElseValue = ElseValue;
+            string comparisonIfValue = !String.IsNullOrEmpty(IfValue) ? IfValue : value;
+            string comparisonElseValue = !String.IsNullOrEmpty(ElseValue) ? ElseValue : value;
+
+            foreach (ConfigRefValue configRef in configRefs)
+            {
+                comparisonValue = comparisonValue.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+                comparisonIfValue = comparisonIfValue.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+                comparisonElseValue = comparisonElseValue.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
+            }
 
             switch (Operand)
             {
@@ -184,7 +192,14 @@ namespace MobiFlight.Modifier
                     break;
             }
 
+            result = result.Replace("$", value.ToString());
+
             return result;
+        }
+
+        public override string ToSummaryLabel()
+        {
+            return $"Compare: If current value {Operand} {Value} then {IfValue} else {ElseValue}";
         }
     }
 }

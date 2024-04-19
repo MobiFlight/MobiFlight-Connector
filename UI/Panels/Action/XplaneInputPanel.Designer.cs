@@ -46,7 +46,7 @@
             this.hubHopPresetPanel1.Name = "hubHopPresetPanel1";
             this.hubHopPresetPanel1.PresetFile = "Presets\\msfs2020_hubhop_presets.json";
             this.hubHopPresetPanel1.PresetFileUser = "Presets\\msfs2020_simvars_user.cip";
-            this.hubHopPresetPanel1.Size = new System.Drawing.Size(603, 189);
+            this.hubHopPresetPanel1.Size = new System.Drawing.Size(603, 186);
             this.hubHopPresetPanel1.TabIndex = 31;
             // 
             // XplaneInputPanel

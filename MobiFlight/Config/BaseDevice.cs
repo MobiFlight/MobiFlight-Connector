@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
@@ -15,6 +12,11 @@ namespace MobiFlight.Config
 
         [XmlAttribute]
         public String Name { get; set; }
+
+        public String Label
+        {
+            get { return Name; } 
+        }
 
         virtual public String ToInternal() { return ((int)_type).ToString(); }
         virtual public bool FromInternal(String value) { throw new NotImplementedException(); }

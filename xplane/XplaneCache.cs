@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Caching;
 using XPlaneConnector;
 
 namespace MobiFlight.xplane
@@ -13,10 +14,12 @@ namespace MobiFlight.xplane
         public event EventHandler Connected;
         public event EventHandler ConnectionLost;
         public event EventHandler OnUpdateFrequencyPerSecondChanged;
+        public event EventHandler<string> AircraftChanged;
 
         private bool _simConnectConnected = false;
         private bool _connected = false;
         private int _updateFrequencyPerSecond = 10;
+        private string _detectedAircraft = string.Empty;
         public int UpdateFrequencyPerSecond { 
             get { return _updateFrequencyPerSecond; }
             set
@@ -37,7 +40,7 @@ namespace MobiFlight.xplane
             
             Connector.OnLog += (m) =>
             {
-                Log.Instance.log(m, LogSeverity.Debug);
+                // Log.Instance.log(m, LogSeverity.Debug);
             };
 
             OnUpdateFrequencyPerSecondChanged += (v, e) =>
@@ -51,9 +54,46 @@ namespace MobiFlight.xplane
             _connected = true;
 
             Connected?.Invoke(this, new EventArgs());
-          
+
+            CheckForAircraftName();
+
             return _connected;
         }
+
+        public void CheckForAircraftName()
+        {
+            if (!_connected) return;
+            // just start the connector
+            Connector?.Start();
+            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[0]", Frequency = 1, Value = 0 }, 1, (e, v) =>
+            {
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name[0] = {v}", LogSeverity.Debug);
+                UpdateAircraftSubscription();
+            });
+            Connector.Subscribe(new DataRefElement() { DataRef = "sim/aircraft/view/acf_ui_name[2]", Frequency = 1, Value = 0 }, 1, (e, v) =>
+            {
+                Log.Instance.log($"sim/aircraft/view/acf_ui_name[2] = {v}", LogSeverity.Debug);
+                UpdateAircraftSubscription();
+            });
+        }
+
+        private void UpdateAircraftSubscription()
+        {
+            var datarefAircraftName = new StringDataRefElement();
+            datarefAircraftName.DataRef = "sim/aircraft/view/acf_ui_name";
+            datarefAircraftName.Frequency = 1;
+            datarefAircraftName.Value = string.Empty;
+            datarefAircraftName.StringLenght = 64;
+
+            Connector.Unsubscribe(datarefAircraftName.DataRef);
+            Connector.Subscribe(datarefAircraftName, 1, (e1, v1) =>
+            {
+                if (_detectedAircraft == v1) return;
+                _detectedAircraft = v1;
+                AircraftChanged?.Invoke(this, _detectedAircraft);
+            });
+        }
+
         public bool Disconnect()
         {
             if (_connected)
@@ -79,6 +119,7 @@ namespace MobiFlight.xplane
         public void Stop()
         {
             Connector?.Stop();
+            CheckForAircraftName();
         }
 
         public void Clear()

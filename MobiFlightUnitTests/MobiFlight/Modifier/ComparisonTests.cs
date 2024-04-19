@@ -21,7 +21,7 @@ namespace MobiFlight.Modifier.Tests
             Assert.IsNotNull(o, "Object is null");
             Assert.AreEqual(false, o.Active, "Active not true");
             Assert.AreEqual("", o.Value, "Value not empty");
-            Assert.AreEqual("", o.Operand, "Operand not empty");
+            Assert.AreEqual(Comparison.OPERAND_EQUAL, o.Operand, "Operand not empty");
             Assert.AreEqual("", o.IfValue, "IfValue not empty");
             Assert.AreEqual("", o.ElseValue, "ElseValue not empty");
         }
@@ -164,6 +164,19 @@ namespace MobiFlight.Modifier.Tests
 
             Assert.AreEqual(FSUIPCOffsetType.String, c.Apply(value, new List<ConfigRefValue>()).type);
             Assert.AreEqual("'works!'", c.Apply(value, new List<ConfigRefValue>()).String);
+
+            c.Active = true;
+            c.Operand = "=";
+            c.Value = "Hello";
+            c.IfValue = "$ world!";
+            c.ElseValue = "$ welt!";
+
+            value.type = FSUIPCOffsetType.String;
+            value.Float64 = 0;
+            value.String = "Hello";
+
+            Assert.AreEqual(FSUIPCOffsetType.String, c.Apply(value, new List<ConfigRefValue>()).type);
+            Assert.AreEqual("Hello world!", c.Apply(value, new List<ConfigRefValue>()).String);
 
         }
     }

@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="327aa442-2ceb-42ee-bf19-1d7f0d209f35">
+      <active>true</active>
+      <description>XP11_ATC XPNDR FAIL LED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/transponder/indicators/xpond_fail" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech ATC/ SN-B4E-6E0" trigger="normal" pin="Fail_Led" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="db937a75-0fd5-4231-aab6-808aea42ccae">
+      <active>true</active>
+      <description>XP11_ATC TRANSPONDER DISPLAY</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit2/radios/actuators/transponder_code" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="Display Module" serial="CoreFlightTech ATC/ SN-B4E-6E0" trigger="normal" ledAddress="CPT_ATC_DISPLAY" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2,3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7496e48f-57b3-4be5-814e-39d83996ec69">
+      <active>true</active>
+      <description>XP11_ATC BACKLIGHT</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="True" value="-1" operand="!=" ifValue="1" elseValue="1" />
+        </modifiers>
+        <display type="Output" serial="CoreFlightTech ATC/ SN-B4E-6E0" trigger="normal" pin="CPT_ATC_BLIGHT" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="88244c23-0c35-4977-b35d-4846255524e0">
+      <active>true</active>
+      <description>XP11_ATC Transponder Knob Position -Ref. Variable-</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="laminar/B738/knob/transponder_pos" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="False" expression="$" />
+          <comparison active="False" value="" operand="" ifValue="" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="b4a5c54d-0cc8-4a5f-86e4-1eca2147b668">
+      <active>true</active>
+      <description>XP11_ATC Encoder 1000s Up/Down</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_L_OUT_EN" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_thousands_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_thousands_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c1194d6b-8d44-4030-8fb6-e04a26c000f5">
+      <active>true</active>
+      <description>XP11_ATC Encoder 100s Up/Down</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_L_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_hundreds_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_hundreds_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="70c5cbcb-d93e-4833-b51e-356b95cc589b">
+      <active>true</active>
+      <description>XP11_ATC Encoder 1s Up/Down</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_R_OUT_EN" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_ones_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_ones_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="30527999-19b5-428c-b1de-3c5bfc0e1cf4">
+      <active>true</active>
+      <description>XP11_ATC Encoder 10s Up/Down</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_R_IN_ENC" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_tens_down" expression="" />
+          <onLeftFast />
+          <onRight type="XplaneInputAction" inputType="Command" path="sim/radios/transponder_tens_up" expression="" />
+          <onRightFast />
+        </encoder>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4e31b1a0-4a78-487e-8dd6-065a81715282">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="2aa65c3b-895e-4eb4-aea5-d8cdf53b107a">
+      <active>true</active>
+      <description>XP11_ATC - STBY -&gt; ALT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_up" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="False" ref="88244c23-0c35-4977-b35d-4846255524e0" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="138141cf-0ddc-4548-94bc-8c1658ceb5dd">
+      <active>true</active>
+      <description>XP11_ATC - ALT_OFF -&gt; STBY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="7">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_dn" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="31745876-ce26-4c56-997e-7f4c7450645b">
+      <active>true</active>
+      <description>XP11_ATC - ALT_OFF -&gt; XPNDR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_up" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="966eb214-66f6-47c7-a670-1cfe706ee471">
+      <active>true</active>
+      <description>XP11_ATC - XPNDR -&gt; ALT_OFF</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="6">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_dn" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="3" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8f7168d1-2b37-4bea-b44b-ee591833d110">
+      <active>true</active>
+      <description>XP11_ATC - XPNDR -&gt; TA_ONLY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="4">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_up" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="3" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0af23ba9-657b-45e1-a010-0332e4521461">
+      <active>true</active>
+      <description>XP11_ATC - TA_ONLY -&gt; XPNDR</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="5">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_dn" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="4" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f4789b93-5d87-47ae-8c39-f610d7da90fe">
+      <active>true</active>
+      <description>XP11_ATC - TA_ONLY -&gt; TA/RA</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onPress type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_up" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="4" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="377d090c-c0c1-4df5-8233-9d09ab6c934a">
+      <active>true</active>
+      <description>XP11_ATC - TA/RA -&gt; TA_ONLY</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="3">
+          <onRelease type="XplaneInputAction" inputType="Command" path="laminar/B738/knob/transponder_mode_dn" expression="" />
+        </inputMultiplexer>
+        <preconditions>
+          <precondition type="config" active="true" ref="88244c23-0c35-4977-b35d-4846255524e0" operand="=" value="5" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c417652b-3c66-4f58-86cc-2d5c18c9f97e">
+      <active>false</active>
+      <description />
+    </config>
+    <config guid="1bae92e8-9070-46af-884c-f9614b493888">
+      <active>true</active>
+      <description>XP11_ATC - ALT SOURCE TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_ALT_TG" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="XplaneInputAction" inputType="DataRef" path="" expression="" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a25441b4-48c2-4183-8361-dd737de96bb6">
+      <active>true</active>
+      <description>XP11_ATC - XPNDR TOGGLE</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.1.4.3, Culture=neutral, PublicKeyToken=null" serial="CoreFlightTech ATC/ SN-B4E-6E0" name="CPT_ATC_MUX1" type="InputMultiplexer" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <inputMultiplexer DataPin="1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

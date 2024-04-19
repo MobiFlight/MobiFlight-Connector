@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
 using FSUIPC;
 
 namespace MobiFlight.FSUIPC
@@ -15,6 +12,7 @@ namespace MobiFlight.FSUIPC
         public event EventHandler Connected;
 
         public event EventHandler ConnectionLost;
+        public event EventHandler<string> AircraftChanged;
 
         Dictionary<Int32, Offset<Byte>> __cacheByte = new Dictionary<Int32, Offset<Byte>>();        
         Dictionary<Int32, Offset<Int16>> __cacheShort = new Dictionary<Int32, Offset<Int16>>();
@@ -43,8 +41,13 @@ namespace MobiFlight.FSUIPC
         bool _offsetsRegistered = false;
         bool __isProcessed = false;
 
+        private string _detectedAircraft = string.Empty;
+        private System.Timers.Timer _aircraftNameTimer;
+
         public Fsuipc2Cache()
         {
+            _aircraftNameTimer = new System.Timers.Timer(5000);
+            _aircraftNameTimer.Elapsed += (s, e) => { CheckForAircraftName(); };
         }
 
         public void Clear()
@@ -57,6 +60,16 @@ namespace MobiFlight.FSUIPC
             return FSUIPCConnection.IsOpen;
         }
 
+        private void CheckForAircraftName()
+        {
+            Clear();
+            var aircraft = getStringValue(0x3D00, 255);
+            if (aircraft == _detectedAircraft) return;
+
+            _detectedAircraft = aircraft;
+            AircraftChanged?.Invoke(this, _detectedAircraft);
+        }
+
         public bool Connect()
         {
             try {
@@ -67,7 +80,9 @@ namespace MobiFlight.FSUIPC
                     FSUIPCConnection.Open();
                     this.Connected(this, new EventArgs());
                     // Opened OK 
+                    _aircraftNameTimer.Enabled = true;
                 }
+                
             } catch (FSUIPCException ex) {            
                 // Badness occurred - 
                 // show the error message 
@@ -77,7 +92,9 @@ namespace MobiFlight.FSUIPC
                 }
                 else if (ex.FSUIPCErrorCode == FSUIPCError.FSUIPC_ERR_NOFS)
                 {
-                    Log.Instance.log("No FSUIPC found.", LogSeverity.Warn);
+                    // We can enable this again once we have throttling for the log in place
+                    // But it doesn't make sense to log this every 10s
+                    // Log.Instance.log("No FSUIPC found.", LogSeverity.Debug);
                 }
                 else
                 {
@@ -94,6 +111,8 @@ namespace MobiFlight.FSUIPC
         {
             try
             {
+                _aircraftNameTimer.Enabled = false;
+
                 if (IsConnected())
                 {
                     FSUIPCConnection.Close();
@@ -433,10 +452,17 @@ namespace MobiFlight.FSUIPC
 
         public void setOffset(int offset, string value)
         {
+            // +1 needed because fsuipc string must end with 0x00 and last char is auto set by library
+            int stringLength = value.Length + 1; 
             if (!__cacheString.ContainsKey(offset))
             {
-                __cacheString[offset] = new Offset<String>(offset,value.Length);
-                _offsetsRegistered = true;
+                __cacheString[offset] = new Offset<String>(offset, stringLength);
+                _offsetsRegistered = true;                
+            }
+            else if (__cacheString[offset].DataLength != (stringLength))
+            {
+                __cacheString[offset].Disconnect();
+                __cacheString[offset] = new Offset<String>(offset, stringLength);
             }
 
             __cacheString[offset].Value = value;

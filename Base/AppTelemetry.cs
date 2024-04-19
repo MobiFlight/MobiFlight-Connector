@@ -126,6 +126,17 @@ namespace MobiFlight.Base
         {
             EventTelemetry trackingEvent = new EventTelemetry("Settings");
             trackingEvent.Metrics["Settings.BetaUpdates"] = Properties.Settings.Default.BetaUpdates ? 1 : 0;
+            trackingEvent.Metrics["Settings.AutoRun"] = Properties.Settings.Default.AutoRun ? 1 : 0;
+            trackingEvent.Metrics["Settings.MinimizeOnAutoRun"] = Properties.Settings.Default.MinimizeOnAutoRun ? 1 : 0;
+            trackingEvent.Metrics["Settings.AutoLoadLinkedConfig"] = Properties.Settings.Default.AutoLoadLinkedConfig ? 1 : 0;
+            trackingEvent.Metrics["Settings.AutoRetrigger"] = Properties.Settings.Default.AutoRetrigger ? 1 : 0;
+            trackingEvent.Metrics["Settings.RecentFilesMaxCount"] = Properties.Settings.Default.RecentFilesMaxCount;
+            trackingEvent.Metrics["Settings.ExecutionSpeed"] = Properties.Settings.Default.PollInterval;
+            trackingEvent.Metrics["Settings.TestModeSpeed"] = Properties.Settings.Default.TestTimerInterval;
+            trackingEvent.Metrics["Settings.HubHopAutoCheck"] = Properties.Settings.Default.HubHopAutoCheck ? 1 : 0;
+            trackingEvent.Metrics["Settings.EnableJoystickSupport"] = Properties.Settings.Default.EnableJoystickSupport ? 1 : 0;
+            trackingEvent.Metrics["Settings.EnableMidiSupport"] = Properties.Settings.Default.EnableMidiSupport ? 1 : 0;
+
             Dictionary<String, int> Statistics = Log.Instance.GetStatistics();
 
             foreach (String key in Log.Instance.GetStatistics().Keys)

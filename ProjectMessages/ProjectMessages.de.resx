@@ -136,9 +136,6 @@
     <value>FSUIPC ist verbunden.</value>
     <comment>Displayed in status</comment>
   </data>
-  <data name="uiMessageAraceUSBHasBeenRemoved" xml:space="preserve">
-    <value>Ein Arcaze Modul wurde entfernt.</value>
-  </data>
   <data name="uiMessageNoModuleFound" xml:space="preserve">
     <value>Keine Module gefunden</value>
   </data>
@@ -154,8 +151,9 @@
   <data name="Hint" xml:space="preserve">
     <value>Hinweis</value>
   </data>
-  <data name="uiMessageArcazeConnectionLost" xml:space="preserve">
-    <value>Die Verbindung mit einem Arcaze Modul wurde unterbrochen.</value>
+  <data name="uiMessageModuleRemoved" xml:space="preserve">
+    <value>Das Board "{0}" ({1}) wurde entfernt</value>
+    <comment>The board "{0}" ({1}) disconnected.</comment>
   </data>
   <data name="uiMessageMFConnectorInterfaceActive" xml:space="preserve">
     <value>MFConnector noch aktiv</value>
@@ -323,7 +321,7 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
     <value>Du hast die aktuellste Version {0}. Kein Update notwendig.</value>
   </data>
   <data name="uiMessageSettingsDialogFirmwareVersionTooLowException" xml:space="preserve">
-    <value>Die Firmware auf diesem Board unterstützt die Funktion noch nicht. Update auf die aktuellste Firmware zuerst!</value>
+    <value>Die Firmware auf diesem Board unterstützt die Funktion noch nicht. Update jetzt auf die aktuellste Firmware!</value>
   </data>
   <data name="uiMessageDeviceNameContainsInvalidCharsOrTooLong" xml:space="preserve">
     <value>Ungültiger Name oder zu lang (max. {1} Zeichen). Die folgenden Buchstaben können nicht verwendet werden:
@@ -499,7 +497,7 @@ Respective input actions won't work until they are connected and you have restar
     <value>{0} ({1}) Firmware Reset fertig. ({2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetStatus" xml:space="preserve">
-    <value>Update von {0} an {1} (Modul {2}/{3})</value>
+    <value>Reset von {0} an {1} (Modul {2}/{3})</value>
   </data>
   <data name="uiMessageFirmwareResetTimeout" xml:space="preserve">
     <value>{0} ({1}) Firmware Reset time out. ({2}/{3})</value>
@@ -605,5 +603,80 @@ Dieses Midiboard kann nicht verwendet werden bis die andere Applikation beendet 
 {0}
 
 That midiboard cannot be used until other application is terminated and MobiFlight is restarted.</comment>
+  </data>
+  <data name="WebsiteHelpNcalc" xml:space="preserve">
+    <value>https://www.mobiflight.com/en/tutorials/community-guides/expression-syntax-guide.html</value>
+  </data>
+  <data name="uiLabelNoAircraftDetected." xml:space="preserve">
+    <value>Kein Flugzeug detektiert.</value>
+    <comment>No aircraft detected</comment>
+  </data>
+  <data name="uiLabelModuleTYPE_COMPATIBLE" xml:space="preserve">
+    <value>Kompatibel</value>
+  </data>
+  <data name="uiLabelModuleNAME_UNKNOWN" xml:space="preserve">
+    <value>Kompatibles Modul</value>
+    <comment>Compatible board</comment>
+  </data>
+  <data name="uiLabelDelay" xml:space="preserve">
+    <value>Verzögerung:</value>
+    <comment>Delay:</comment>
+  </data>
+  <data name="uiLabelRepeatPress" xml:space="preserve">
+    <value>ms, erneut jede</value>
+    <comment>ms, repeat every</comment>
+  </data>
+  <data name="uiLabelDuplicateNotAValidValue" xml:space="preserve">
+    <value>Ungültiger Wert</value>
+    <comment>Not a valid value</comment>
+  </data>
+  <data name="uiLabelInterpolationDuplicateXvalueNotAllowed" xml:space="preserve">
+    <value>Doppelte x-Werte sind nicht gültig.</value>
+    <comment>Duplicate x values are not valid</comment>
+  </data>
+  <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
+    <value>Drag and Drop ist nicht verfügbar, wenn die Liste sortiert ist.</value>
+    <comment>Drag and Drop is not available when list is sorted.</comment>
+  </data>
+  <data name="uiMessageHubHopAutoUpdate" xml:space="preserve">
+    <value>Deine HubHop Presets sind älter als 7 Tage.
+
+Möchtest Du sie aktualisieren?</value>
+    <comment>Your HubHop presets are older than 7 days.\n\nWould you like to update?</comment>
+  </data>
+  <data name="uiTitleHubhopAutoUpdate" xml:space="preserve">
+    <value>HubHop Preset Update</value>
+    <comment>HubHop Preset Update</comment>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeHint" xml:space="preserve">
+    <value>Inkompatible Konfiguration</value>
+  </data>
+  <data name="uiMessageOpenConfigIncompatibleTypeText" xml:space="preserve">
+    <value>Die Config wurde für ein Board von Typ "{0}" gemacht. Dein Board ist Typ "{1}". Die Config ist vielleicht inkompatibel.
+
+Willst Du sie öffnen?</value>
+    <comment>The config was created for a "{0}" board type. Your board type is "{1}". The config might be incompatible.
+
+Do you want to open it?</comment>
+  </data>
+  <data name="uiMessageOpenConfigUnspecificTypeText" xml:space="preserve">
+    <value>Die Config enthält keine Information zu Board-Typ und ist vielleicht inkompatibel zu Deinem "{0}".
+
+Trotzdem laden? 
+
+Tipp: Speicher die Datei nach dem Öffnen damit sie zukünftig den Board-Typ enthält.</value>
+    <comment>This config doesn't specify a board type and may not be compatible with your "{0}".
+
+Open anyway?
+
+Tip: Save the file after opening to update the associated board for future use.</comment>
+  </data>
+  <data name="uiMessageSettingsDialogFirmwareRequiresUpdate" xml:space="preserve">
+    <value>Bearbeiten ist deaktiviert, weil die Firmware veraltet ist. Bitte aktualisiere auf die neueste Version.</value>
+    <comment>Editing is disabled due to outdated firmware. Please update to the latest version.</comment>
+  </data>
+  <data name="uiMessagePanelsStepperNoFreePins" xml:space="preserve">
+    <value>Es sind nicht genug Pins frei, um die Auto-Zero Funktion zu nutzen.</value>
+    <comment>There are not enough pins available to use the auto-zero option.</comment>
   </data>
 </root>

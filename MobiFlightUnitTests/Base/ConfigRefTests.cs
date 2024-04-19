@@ -35,17 +35,20 @@ namespace MobiFlight.Base.Tests
             // the first one is empty so the values should not be initialized
             Assert.IsNull(o.Ref, "Ref is not null");
             Assert.IsNull(o.Placeholder, "Placeholder is not null");
+            Assert.IsNotNull(o.TestValue, "TestValue is null");
+            Assert.AreEqual(o.TestValue, "1", "TestValue is not matching");
 
-            
             o.ReadXml(xmlReader);
             // the second one is set so the values should be initialized
             Assert.AreEqual(o.Ref, "d88beacf-a305-4964-a4be-caf6693e18eb", "Ref is not matching");
             Assert.AreEqual(o.Placeholder, "?", "Placeholder is not matching");
+            Assert.AreEqual(o.TestValue, "1", "TestValue is not matching");
 
             o.ReadXml(xmlReader);
             // the second one is set so the values should be initialized
             Assert.AreEqual(o.Ref, "2ab3b1b5-fbd2-4b8c-9366-ad948fff8135", "Ref is not matching");
             Assert.AreEqual(o.Placeholder, "#", "Placeholder is not matching");
+            Assert.AreEqual(o.TestValue, "5", "TestValue is not matching");
 
             o = new ConfigRef(); // we have to make sure to use a new one otherwise 
                                  // it would hold the information from last read
@@ -88,6 +91,7 @@ namespace MobiFlight.Base.Tests
             o.Active = true;
             o.Ref = "Ref123";
             o.Placeholder = "#";
+            o.TestValue = "5";
 
             ConfigRef c = o.Clone() as ConfigRef;
 
@@ -95,6 +99,7 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(o.Active, c.Active, "Active not the same");
             Assert.AreEqual(o.Ref, c.Ref, "Ref not the same");
             Assert.AreEqual(o.Placeholder, c.Placeholder, "Placeholder not the same");
+            Assert.AreEqual(o.TestValue, c.TestValue, "TestValue not the same");
         }
 
         [TestMethod()]
@@ -107,11 +112,13 @@ namespace MobiFlight.Base.Tests
             o1.Placeholder = "#";
             o1.Ref = "Ref123";
             o1.Active = true;
+            o1.TestValue = "5";
             Assert.IsFalse(o1.Equals(o2));
 
             o2.Placeholder = "#";
             o2.Ref = "Ref123";
             o2.Active = true;
+            o2.TestValue = "5";
             Assert.IsTrue(o1.Equals(o2));
         }
     }

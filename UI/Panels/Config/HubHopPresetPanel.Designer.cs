@@ -30,6 +30,9 @@
         {
             this.FilterGroupBox = new System.Windows.Forms.GroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.TextFilterPanel = new System.Windows.Forms.Panel();
+            this.FilterTextBox = new System.Windows.Forms.TextBox();
+            this.FilterLabel = new System.Windows.Forms.Label();
             this.FilterVendorPanel = new System.Windows.Forms.Panel();
             this.VendorComboBox = new System.Windows.Forms.ComboBox();
             this.VendorLabel = new System.Windows.Forms.Label();
@@ -39,9 +42,6 @@
             this.SystemFilterPanel = new System.Windows.Forms.Panel();
             this.SystemComboBox = new System.Windows.Forms.ComboBox();
             this.SystemLabel = new System.Windows.Forms.Label();
-            this.TextFilterPanel = new System.Windows.Forms.Panel();
-            this.FilterTextBox = new System.Windows.Forms.TextBox();
-            this.FilterLabel = new System.Windows.Forms.Label();
             this.ResetButton = new System.Windows.Forms.Button();
             this.PresetGroupBox = new System.Windows.Forms.GroupBox();
             this.ExpertSettingsPanel = new System.Windows.Forms.Panel();
@@ -73,10 +73,10 @@
             this.ShowExpertSettingsCheckBox = new System.Windows.Forms.CheckBox();
             this.FilterGroupBox.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.TextFilterPanel.SuspendLayout();
             this.FilterVendorPanel.SuspendLayout();
             this.AircraftFilterPanel.SuspendLayout();
             this.SystemFilterPanel.SuspendLayout();
-            this.TextFilterPanel.SuspendLayout();
             this.PresetGroupBox.SuspendLayout();
             this.ExpertSettingsPanel.SuspendLayout();
             this.Msfs2020Panel.SuspendLayout();
@@ -119,6 +119,36 @@
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(70, 0, 0, 0);
             this.flowLayoutPanel1.Size = new System.Drawing.Size(594, 46);
             this.flowLayoutPanel1.TabIndex = 16;
+            // 
+            // TextFilterPanel
+            // 
+            this.TextFilterPanel.Controls.Add(this.FilterTextBox);
+            this.TextFilterPanel.Controls.Add(this.FilterLabel);
+            this.TextFilterPanel.Location = new System.Drawing.Point(72, 2);
+            this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2);
+            this.TextFilterPanel.Name = "TextFilterPanel";
+            this.TextFilterPanel.Size = new System.Drawing.Size(113, 40);
+            this.TextFilterPanel.TabIndex = 20;
+            // 
+            // FilterTextBox
+            // 
+            this.FilterTextBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.FilterTextBox.Location = new System.Drawing.Point(0, 13);
+            this.FilterTextBox.Name = "FilterTextBox";
+            this.FilterTextBox.Size = new System.Drawing.Size(113, 20);
+            this.FilterTextBox.TabIndex = 9;
+            // 
+            // FilterLabel
+            // 
+            this.FilterLabel.AutoSize = true;
+            this.FilterLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.FilterLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.FilterLabel.Location = new System.Drawing.Point(0, 0);
+            this.FilterLabel.Name = "FilterLabel";
+            this.FilterLabel.Size = new System.Drawing.Size(41, 13);
+            this.FilterLabel.TabIndex = 10;
+            this.FilterLabel.Text = "Search";
+            this.FilterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // FilterVendorPanel
             // 
@@ -218,36 +248,6 @@
             this.SystemLabel.TabIndex = 4;
             this.SystemLabel.Text = "System";
             this.SystemLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // TextFilterPanel
-            // 
-            this.TextFilterPanel.Controls.Add(this.FilterTextBox);
-            this.TextFilterPanel.Controls.Add(this.FilterLabel);
-            this.TextFilterPanel.Location = new System.Drawing.Point(72, 2);
-            this.TextFilterPanel.Margin = new System.Windows.Forms.Padding(2);
-            this.TextFilterPanel.Name = "TextFilterPanel";
-            this.TextFilterPanel.Size = new System.Drawing.Size(113, 40);
-            this.TextFilterPanel.TabIndex = 20;
-            // 
-            // FilterTextBox
-            // 
-            this.FilterTextBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.FilterTextBox.Location = new System.Drawing.Point(0, 13);
-            this.FilterTextBox.Name = "FilterTextBox";
-            this.FilterTextBox.Size = new System.Drawing.Size(113, 20);
-            this.FilterTextBox.TabIndex = 9;
-            // 
-            // FilterLabel
-            // 
-            this.FilterLabel.AutoSize = true;
-            this.FilterLabel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.FilterLabel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.FilterLabel.Location = new System.Drawing.Point(0, 0);
-            this.FilterLabel.Name = "FilterLabel";
-            this.FilterLabel.Size = new System.Drawing.Size(41, 13);
-            this.FilterLabel.TabIndex = 10;
-            this.FilterLabel.Text = "Search";
-            this.FilterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // ResetButton
             // 
@@ -409,6 +409,7 @@
             // 
             this.ValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValueTextBox.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ValueTextBox.Location = new System.Drawing.Point(75, 21);
             this.ValueTextBox.Name = "ValueTextBox";
             this.ValueTextBox.Size = new System.Drawing.Size(461, 20);
@@ -472,6 +473,7 @@
             // 
             this.SimVarNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.SimVarNameTextBox.Font = new System.Drawing.Font("Cascadia Mono", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SimVarNameTextBox.Location = new System.Drawing.Point(75, 3);
             this.SimVarNameTextBox.MaxLength = 1024;
             this.SimVarNameTextBox.Multiline = true;
@@ -596,14 +598,14 @@
             this.FilterGroupBox.ResumeLayout(false);
             this.FilterGroupBox.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.TextFilterPanel.ResumeLayout(false);
+            this.TextFilterPanel.PerformLayout();
             this.FilterVendorPanel.ResumeLayout(false);
             this.FilterVendorPanel.PerformLayout();
             this.AircraftFilterPanel.ResumeLayout(false);
             this.AircraftFilterPanel.PerformLayout();
             this.SystemFilterPanel.ResumeLayout(false);
             this.SystemFilterPanel.PerformLayout();
-            this.TextFilterPanel.ResumeLayout(false);
-            this.TextFilterPanel.PerformLayout();
             this.PresetGroupBox.ResumeLayout(false);
             this.PresetGroupBox.PerformLayout();
             this.ExpertSettingsPanel.ResumeLayout(false);

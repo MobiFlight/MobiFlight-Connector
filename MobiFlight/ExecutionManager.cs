@@ -1,20 +1,14 @@
+using MobiFlight.Base;
+using MobiFlight.FSUIPC;
+using MobiFlight.InputConfig;
+using MobiFlight.SimConnectMSFS;
+using MobiFlight.xplane;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Data;
 using System.Drawing;
-using MobiFlight;
-using MobiFlight.FSUIPC;
-using MobiFlight.Base;
-using MobiFlight.SimConnectMSFS;
-using MobiFlight.Config;
-using MobiFlight.OutputConfig;
-using MobiFlight.InputConfig;
-using MobiFlight.xplane;
-using System.Globalization;
-using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MobiFlight
 {
@@ -32,12 +26,13 @@ namespace MobiFlight
         public event EventHandler OnSimCacheClosed;
         public event EventHandler OnSimCacheConnected;
         public event EventHandler OnSimCacheConnectionLost;
+        public event EventHandler<string> OnSimAircraftChanged;
 
-        public event EventHandler OnModulesConnected;
-        public event EventHandler OnModulesDisconnected;
-        /* public event EventHandler OnModuleRemoved; */
-        public event EventHandler OnModuleConnectionLost;
-        public event EventHandler OnModuleLookupFinished;
+        public event EventHandler OnModuleConnected;
+        public event EventHandler OnModuleRemoved;
+        public event EventHandler OnModuleCacheAvailable;
+        public event EventHandler OnShutdown;
+        public event EventHandler OnInitialModuleLookupFinished;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -92,6 +87,8 @@ namespace MobiFlight
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
+        string ConfigItemInTestMode = null;
+
         public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
         {
             this.dataGridViewConfig = dataGridViewConfig;
@@ -100,28 +97,33 @@ namespace MobiFlight
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
+            fsuipcCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if SIMCONNECT
             simConnectCache.SetHandle(handle);
             simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
+            simConnectCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 #endif
 
             xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
             xplaneCache.Connected += new EventHandler(simConnect_Connected);
             xplaneCache.Closed += new EventHandler(simConnect_Closed);
+            xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
-            arcazeCache.Connected += new EventHandler(ArcazeCache_Connected);
-            arcazeCache.Closed += new EventHandler(ArcazeCache_Closed);
-            arcazeCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
+            arcazeCache.Closed += new EventHandler(ModuleCache_Closed);
+            arcazeCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
+            arcazeCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             arcazeCache.Enabled = Properties.Settings.Default.ArcazeSupportEnabled;
 #endif
 
-            mobiFlightCache.Connected += new EventHandler(ArcazeCache_Connected);
-            mobiFlightCache.Closed += new EventHandler(ArcazeCache_Closed);
-            mobiFlightCache.ConnectionLost += new EventHandler(ArcazeCache_ConnectionLost);
+            mobiFlightCache.OnAvailable += new EventHandler(ModuleCache_Available);
+            mobiFlightCache.Closed += new EventHandler(ModuleCache_Closed);
+            mobiFlightCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
+            mobiFlightCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
 
             timer.Tick += new EventHandler(timer_Tick);
@@ -138,12 +140,35 @@ namespace MobiFlight
 #if MOBIFLIGHT
             mobiFlightCache.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
 #endif
+            joystickManager.SetHandle(handle);
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };
-            joystickManager.Connect(handle);
+            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };            
+            if (Properties.Settings.Default.EnableJoystickSupport)
+            {
+                joystickManager.Connect();
+            }
+
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (o, e) => { midiBoardManager.Startup(); };
-            midiBoardManager.Connect();            
+            if (Properties.Settings.Default.EnableMidiSupport)
+            {
+                midiBoardManager.Connect();
+            }
+
+            mobiFlightCache.Start();
+        }
+
+        private void ModuleCache_ModuleConnected(object sender, EventArgs e)
+        {
+            TestModeStop();
+            Stop();
+            this.OnModuleConnected?.Invoke(sender, e);
+        }
+
+        private void sim_AirCraftChanged(object sender, string e)
+        {
+            Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
+            OnSimAircraftChanged?.Invoke(sender, e);
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -224,7 +249,7 @@ namespace MobiFlight
 
         void mobiFlightCache_LookupFinished(object sender, EventArgs e)
         {
-            OnModuleLookupFinished?.Invoke(sender, e);
+            OnInitialModuleLookupFinished?.Invoke(sender, e);
         }
 
         public void SetPollInterval(int value)
@@ -248,36 +273,51 @@ namespace MobiFlight
                 ;
         }
 
-        public bool ModulesConnected()
+        public bool ModulesAvailable()
         {
 #if MOBIFLIGHT
             return
 #if ARCAZE
-                arcazeCache.isConnected() ||
+                arcazeCache.Available() ||
 #endif
-                mobiFlightCache.isConnected();
-#else
-            return arcazeCache.isConnected();
+                mobiFlightCache.Available();
 #endif
         }
 
         public void Start()
         {
+            if (timer.Enabled) return;
+
             simConnectCache.Start();
             xplaneCache.Start();
-            OnStartActions();
+
+            // the timer has to be enabled before the 
+            // on start actions are executed
+            // otherwise the input events will not be executed.
             timer.Enabled = true;
+            
+            // Now we can execute the on start actions
+            OnStartActions();
+
+            // Force all the modules awake whenver run is activated
+            mobiFlightCache.KeepConnectedModulesAwake(true);
         }
 
         public void Stop()
         {
             timer.Enabled = false;
             isExecuting = false;
+#if ARCAZE
+            arcazeCache.Clear();
+#endif
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
+            inputCache.Clear();
+            inputActionExecutionCache.Clear();
+            mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearErrorMessages();
         }
 
@@ -369,28 +409,37 @@ namespace MobiFlight
 #if ARCAZE
             result.AddRange(arcazeCache.getModuleInfo());
 #endif
-            result.AddRange(mobiFlightCache.getModuleInfo());
+            result.AddRange(mobiFlightCache.GetModuleInfo());
             return result;
         }
 
+        /// <summary>
+        /// Shuts down all managers and caches and stops all threads for safe shutdown.
+        /// </summary>
         public void Shutdown()
         {
             autoConnectTimer.Stop();
 #if ARCAZE
-            arcazeCache.disconnect();
+            arcazeCache.Shutdown();
 #endif
 
 #if MOBIFLIGHT
-            mobiFlightCache.disconnect();
+            mobiFlightCache.Shutdown();
 #endif
             fsuipcCache.Disconnect();
 
 #if SIMCONNECT
             simConnectCache.Disconnect();
-#endif
-            joystickManager.Shutdown();
-            midiBoardManager.Shutdown();
-            this.OnModulesDisconnected?.Invoke(this, new EventArgs());
+#endif            
+            if (Properties.Settings.Default.EnableJoystickSupport)
+            {
+                joystickManager.Shutdown();
+            }
+            if (Properties.Settings.Default.EnableMidiSupport)
+            {
+                midiBoardManager.Shutdown();
+            }
+            this.OnShutdown?.Invoke(this, new EventArgs());
         }
 
 #if ARCAZE
@@ -398,7 +447,7 @@ namespace MobiFlight
         {
 
             arcazeCache.updateModuleSettings(arcazeSettings);
-            arcazeCache.disconnect();
+            arcazeCache.Shutdown();
         }
 #endif
 
@@ -409,10 +458,10 @@ namespace MobiFlight
         {
             if (
 #if ARCAZE
-                !arcazeCache.isConnected() &&
+                !arcazeCache.Available() &&
 #endif
 #if MOBIFLIGHT
-                !mobiFlightCache.isConnected() &&
+                !mobiFlightCache.Available() &&
 
 #endif
                 !joystickManager.JoysticksConnected() &&
@@ -460,6 +509,13 @@ namespace MobiFlight
                     // this can happen if a user activates (checkbox) a newly created config
                     continue;
                 }
+
+                // Don't execute a config that we are currently manually testing.
+                var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
+                if (ConfigItemInTestMode!=null && ConfigItemInTestMode == currentGuid)
+                {
+                    continue;
+                } 
 
                 // If not connected to FSUIPC show an error message
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
@@ -512,28 +568,28 @@ namespace MobiFlight
 
                 row.Cells["arcazeValueColumn"].Value = processedValue.ToString();
 
-                // check preconditions
-                if (!CheckPrecondition(cfg, processedValue))
+                try
                 {
-                    if (!cfg.Preconditions.ExecuteOnFalse)
+                    // check preconditions
+                    if (!CheckPrecondition(cfg, processedValue))
                     {
-                        row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                        continue;
+                        if (!cfg.Preconditions.ExecuteOnFalse)
+                        {
+                            row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            processedValue.type = FSUIPCOffsetType.String;
+                            processedValue.String = cfg.Preconditions.FalseCaseValue;
+                        }
                     }
                     else
                     {
-                        processedValue.type = FSUIPCOffsetType.String;
-                        processedValue.String = cfg.Preconditions.FalseCaseValue;
+                        if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
+                            row.ErrorText = "";
                     }
-                }
-                else
-                {
-                    if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
-                        row.ErrorText = "";
-                }
-
-                try
-                {
+                
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
                 catch(JoystickNotConnectedException jEx)
@@ -664,8 +720,7 @@ namespace MobiFlight
             }
             else
             {
-                result.type = FSUIPCOffsetType.Float;
-                result.Float64 = simConnectCache.GetSimVar(cfg.SimConnectValue.Value);
+                result.type = simConnectCache.GetSimVar(cfg.SimConnectValue.Value, out result.String, out result.Float64);
             }
 
             return result;
@@ -763,7 +818,7 @@ namespace MobiFlight
                         {
                             string refValue = FindValueForRef(cfg.LedModule.DisplayLedBrightnessReference);
 
-                            mobiFlightCache.setDisplayBrightness(
+                            mobiFlightCache.SetDisplayBrightness(
                                 serial,
                                 cfg.LedModule.DisplayLedAddress,
                                 cfg.LedModule.DisplayLedConnector,
@@ -771,22 +826,16 @@ namespace MobiFlight
                                 );
                         }
 
-                        if (cfg.LedModule.DisplayLedReverseDigits)
-                        {
-                            val = new string(val.ToCharArray().Reverse().ToArray());
-                            for (int i = 0; i != decimalPoints.Count; i++)
-                            {
-                                decimalPoints[i] = (cfg.LedModule.DisplayLedDigits.Count - int.Parse(decimalPoints[i]) - 1).ToString();
-                            };
-                        }
+                        var reverse = cfg.LedModule.DisplayLedReverseDigits;
 
-                        mobiFlightCache.setDisplay(
+                        mobiFlightCache.SetDisplay(
                             serial,
                             cfg.LedModule.DisplayLedAddress,
                             cfg.LedModule.DisplayLedConnector,
                             cfg.LedModule.DisplayLedDigits,
                             decimalPoints,
-                            val);
+                            val,
+                            reverse);
 
                         break;
 
@@ -797,7 +846,7 @@ namespace MobiFlight
                     //    break;
 
                     case MobiFlightStepper.TYPE:
-                        mobiFlightCache.setStepper(
+                        mobiFlightCache.SetStepper(
                             serial,
                             cfg.Stepper.Address,
                             value,
@@ -810,7 +859,7 @@ namespace MobiFlight
                         break;
 
                     case MobiFlightServo.TYPE:
-                        mobiFlightCache.setServo(
+                        mobiFlightCache.SetServo(
                             serial,
                             cfg.Servo.Address,
                             value,
@@ -821,7 +870,7 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.LcdDisplay.Type:
-                        mobiFlightCache.setLcdDisplay(
+                        mobiFlightCache.SetLcdDisplay(
                             serial,
                             cfg.LcdDisplay,
                             value,
@@ -837,12 +886,16 @@ namespace MobiFlight
                             if (outputValueShiftRegister != "0" && !cfg.Pin.DisplayPinPWM)
                                 outputValueShiftRegister = cfg.Pin.DisplayPinBrightness.ToString();
                           
-                            mobiFlightCache.setShiftRegisterOutput(
+                            mobiFlightCache.SetShiftRegisterOutput(
                                 serial,
                                 cfg.ShiftRegister.Address,
                                 cfg.ShiftRegister.Pin,
                                 outputValueShiftRegister);
                         }
+                        break;
+
+                    case OutputConfig.CustomDevice.Type:
+                        mobiFlightCache.Set(serial, cfg.CustomDevice, value);
                         break;
 
                     case "InputAction":
@@ -886,7 +939,7 @@ namespace MobiFlight
                         if (outputValue != "0" && !cfg.Pin.DisplayPinPWM)
                             outputValue = cfg.Pin.DisplayPinBrightness.ToString();
 
-                        mobiFlightCache.setValue(serial,
+                        mobiFlightCache.SetValue(serial,
                             cfg.Pin.DisplayPin,
                             outputValue);
                         break;
@@ -969,7 +1022,7 @@ namespace MobiFlight
         /// </summary>
         void timer_Started(object sender, EventArgs e)
         {
-            this.OnStarted(this, new EventArgs());
+            OnStarted?.Invoke(this, new EventArgs());
         } //timer_Started()
 
         /// <summary>
@@ -977,14 +1030,7 @@ namespace MobiFlight
         /// </summary>
         void timer_Stopped(object sender, EventArgs e)
         {
-            // just forget about current states if timer gets stopped
-#if ARCAZE
-            arcazeCache.Clear();
-#endif
-            inputCache.Clear();
-            inputActionExecutionCache.Clear();
-
-            this.OnStopped(this, new EventArgs());
+            OnStopped?.Invoke(this, new EventArgs());
         } //timer_Stopped
 
         /// <summary>
@@ -995,40 +1041,40 @@ namespace MobiFlight
             try
             {
                 ExecuteConfig();
+                mobiFlightCache.KeepConnectedModulesAwake();
                 this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Error on config execution: {ex.Message}", LogSeverity.Error);
-                isExecuting = false;
-                timer.Enabled = false;
+                Stop();
             }
         } //timer_Tick()
 
-        void ArcazeCache_ConnectionLost(object sender, EventArgs e)
+        void ModuleCache_ModuleRemoved(object sender, EventArgs e)
         {
             //_disconnectArcaze();
-            this.OnModuleConnectionLost(sender, e);
+            this.OnModuleRemoved(sender, e);
             Stop();
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Closed(object sender, EventArgs e)
+        void ModuleCache_Closed(object sender, EventArgs e)
         {
             TestModeStop();
-            this.OnModulesDisconnected?.Invoke(sender, e);
+            this.OnShutdown?.Invoke(sender, e);
         }
 
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
-        void ArcazeCache_Connected(object sender, EventArgs e)
+        void ModuleCache_Available(object sender, EventArgs e)
         {
             TestModeStop();
             Stop();
-            this.OnModulesConnected?.Invoke(sender, e);
+            this.OnModuleCacheAvailable?.Invoke(sender, e);
         }
 
         /// <summary>
@@ -1038,30 +1084,17 @@ namespace MobiFlight
         /// auto connect is only done if current timer is not running since we suppose that an established
         /// connection was already available before the timer was started
         /// </remarks>
-        async void AutoConnectTimer_TickAsync(object sender, EventArgs e)
+        void AutoConnectTimer_TickAsync(object sender, EventArgs e)
         {
             if (_autoConnectTimerRunning) return;
             _autoConnectTimerRunning = true;
 
-
-            if (
 #if ARCAZE
-                !arcazeCache.isConnected() &&
-#endif
-#if MOBIFLIGHT
-                !mobiFlightCache.isConnected()
-#endif
-                )
+            if (arcazeCache.Enabled && !arcazeCache.Available())
             {
-                Log.Instance.log("AutoConnect modules.", LogSeverity.Debug);
-#if ARCAZE
-                if (Properties.Settings.Default.ArcazeSupportEnabled)
-                    arcazeCache.connect(); //  _initializeArcaze();
-#endif
-#if MOBIFLIGHT
-                await mobiFlightCache.connectAsync();
-#endif
+                arcazeCache.connect();    
             }
+#endif
 
             // Check only for available sims if not in Offline mode.
             if (true) { 
@@ -1073,16 +1106,30 @@ namespace MobiFlight
                         OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
                     }
 
-                    Log.Instance.log("AutoConnect sim.", LogSeverity.Debug);
-
                     if (!fsuipcCache.IsConnected())
+                    {
+                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
+                        {
+                            // we don't want to spam the log
+                            // in case we have an active connection
+                            // through a different type
+                            Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
+                        }
+                            
                         fsuipcCache.Connect();
+                    }
 #if SIMCONNECT
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
+                    {
+                        Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
                         simConnectCache.Connect();
+                    }
 #endif
                     if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
+                    {
+                        Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
                         xplaneCache.Connect();
+                    }
                     // we return here to prevent the disabling of the timer
                     // so that autostart-feature can work properly
                     _autoConnectTimerRunning = false;
@@ -1092,9 +1139,8 @@ namespace MobiFlight
                 {
                     if (LastDetectedSim != FlightSimType.NONE) {
                         OnSimUnavailable?.Invoke(LastDetectedSim, null);
-                        LastDetectedSim = FlightSim.FlightSimType;
+                        LastDetectedSim = FlightSimType.NONE;
                     }
-                    Log.Instance.log("No Sim running.", LogSeverity.Debug);
                 }
             }
 
@@ -1112,7 +1158,7 @@ namespace MobiFlight
         /// <param name="sender"></param>
         /// <param name="args"></param>
         void testModeTimer_Tick(object sender, EventArgs args)
-        {
+        {            
             DataGridViewRow lastRow = dataGridViewConfig.Rows[(testModeIndex - 1 + dataGridViewConfig.RowCount) % dataGridViewConfig.RowCount];
 
             string serial = "";
@@ -1134,7 +1180,7 @@ namespace MobiFlight
                 lastRow.Selected = false;
                 try
                 {
-                    ExecuteTestOff(cfg);
+                    ExecuteTestOff(cfg, true);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1187,7 +1233,8 @@ namespace MobiFlight
 
                 try
                 {
-                    ExecuteTestOn(cfg);
+                    var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
+                    ExecuteTestOn(cfg, currentGuid, cfg.TestValue);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1207,9 +1254,13 @@ namespace MobiFlight
         }
 
 
-        public void ExecuteTestOff(OutputConfigItem cfg)
+        public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
+            if (ResetConfigItemInTest)
+                ConfigItemInTestMode = null;
+
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
+            
             if (offCfg.DisplayType == null) return;
 
             switch (offCfg.DisplayType)
@@ -1240,26 +1291,41 @@ namespace MobiFlight
             }
         }
 
-        public void ExecuteTestOn(OutputConfigItem cfg)
+        public void ExecuteTestOn(OutputConfigItem cfg, string configGuid, ConnectorValue value = null)
         {
+            ConfigItemInTestMode = configGuid;
+
             if (cfg.DisplayType == null) return;
 
             switch (cfg.DisplayType)
             {
+                // the following execute displays assume that
+                //
+                // case 1) inside the config wizard, when we hit the test button
+                // we will have an actual connector value, we use it - even if it is the empty string.
+                //
+                // case 2) when we trigger the global test mode
+                // we won't have an actual connector value, and then
+                // we will use a static test string, that is specific to the device.
                 case MobiFlightStepper.TYPE:
-                    ExecuteDisplay(cfg.Stepper.TestValue.ToString(), cfg);
+                    ExecuteDisplay(value?.ToString() ?? cfg.Stepper.TestValue.ToString(), cfg);
                     break;
 
                 case MobiFlightServo.TYPE:
-                    ExecuteDisplay(cfg.Servo.Max, cfg);
+                    ExecuteDisplay(value?.ToString() ?? cfg.Servo.Max, cfg);
                     break;
 
+                case ArcazeLedDigit.TYPE:
                 case OutputConfig.LcdDisplay.Type:
-                    ExecuteDisplay("1234567890", cfg);
+                    ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
                     break;
                 
                 case MobiFlightShiftRegister.TYPE:
-                    ExecuteDisplay("1", cfg);
+                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
+                    break;
+
+                case MobiFlightCustomDevice.TYPE:
+                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
                     break;
 
                 case "InputAction":
@@ -1267,7 +1333,7 @@ namespace MobiFlight
                     break;
 
                 default:
-                    ExecuteDisplay(cfg.DisplayType == ArcazeLedDigit.TYPE ? "12345678" : "255", cfg);
+                    ExecuteDisplay(value?.ToString() ?? "255", cfg);
                     break;
             }
         }
@@ -1300,7 +1366,7 @@ namespace MobiFlight
             {
                 eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
             }
-            if (e.Type == DeviceType.InputShiftRegister)
+            else if (e.Type == DeviceType.InputShiftRegister)
             {
                 eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
                 // The inputKey gets the shifter external pin added to it if the input came from a shift register
@@ -1409,26 +1475,30 @@ namespace MobiFlight
 
                 DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
 
-                if (!(bool)row["active"]) continue;
-
-                // if there are preconditions check and skip if necessary
-                if (tuple.Item1.Preconditions.Count > 0)
+                if (!(bool)row["active"])
                 {
-                    if (!CheckPrecondition(tuple.Item1, currentValue))
-                    {
-                        tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                        continue;
-                    }
-                    else
-                    {
-                        tuple.Item2.ErrorText = "";
-                    }
+                    Log.Instance.log($"{msgEventLabel} => skipping \"{row["description"]}\", config not active.", LogSeverity.Warn);
+                    continue;
                 }
-#if SIMCONNECT
-                Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
 
                 try
                 {
+                    // if there are preconditions check and skip if necessary
+                    if (tuple.Item1.Preconditions.Count > 0)
+                    {
+                        if (!CheckPrecondition(tuple.Item1, currentValue))
+                        {
+                            tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            continue;
+                        }
+                        else
+                        {
+                            tuple.Item2.ErrorText = "";
+                        }
+                    }
+
+                    Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
+                
                     tuple.Item1.execute(
                         cacheCollection,
                         e,
@@ -1439,8 +1509,6 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
                 }
-#endif
-
             }
 
             //fsuipcCache.ForceUpdate();
@@ -1523,6 +1591,17 @@ namespace MobiFlight
         public SimConnectCache GetSimConnectCache()
         {
             return simConnectCache;
+        }
+
+
+        public Fsuipc2Cache GetFsuipcConnectCache()
+        {
+            return fsuipcCache;
+        }
+
+        public XplaneCache GetXlpaneConnectCache()
+        {
+            return xplaneCache;
         }
 
 

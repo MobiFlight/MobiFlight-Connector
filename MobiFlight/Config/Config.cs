@@ -1,15 +1,15 @@
 ﻿using MobiFlight.Config.Compatibility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Config
 {
     public class Config
     {
-        public String ModuleName = "";
+        public string ModuleType = "";
+        public string ModuleName = "";
         public int PowerSavingTime = 60 * 10; // => 10 Minutes Default
 
         [XmlElement(typeof(Button))]
@@ -24,6 +24,7 @@ namespace MobiFlight.Config
         [XmlElement(typeof(ShiftRegister))]
         [XmlElement(typeof(InputMultiplexer))]
         [XmlElement(typeof(MultiplexerDriver))]
+        [XmlElement(typeof(CustomDevice))]
         public List<BaseDevice> Items = new List<BaseDevice>();
 
         public Config() { }
@@ -44,8 +45,9 @@ namespace MobiFlight.Config
                 // Its data is embedded (redundantly) in mux client devices
 
                 String current = item.ToInternal();
-                
-                if ((message.Length + current.Length) > MaxMessageLength && message.Length > 0) {
+
+                if ((message.Length + current.Length) > MaxMessageLength && message.Length > 0)
+                {
                     result.Add(message);
                     message = "";
                 }
@@ -132,6 +134,13 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
+                        // backward compatibility
+                        case DeviceType.LedModuleDeprecated:
+                            currentItem = new MobiFlight.Config.LedModuleDeprecated();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            currentItem = new MobiFlight.Config.LedModule(currentItem as MobiFlight.Config.LedModuleDeprecated);
+                            break;
+
                         case DeviceType.LcdDisplay:
                             currentItem = new MobiFlight.Config.LcdDisplay();
                             currentItem.FromInternal(item + BaseDevice.End);
@@ -150,13 +159,12 @@ namespace MobiFlight.Config
                         case DeviceType.InputMultiplexer:
                             // If the multiplexerDriver is to be implicitly defined by clients:
                             // Build multiplexerDriver if none found yet 
-                            if (multiplexerDriver == null) {
+                            if (multiplexerDriver == null)
+                            {
                                 // Store it, so another clients will not create a new one
                                 multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
                                 // The MultiplexerDriver is registered as a "ghost" device in Config's items list; it won't be shown in the GUI tree.
                                 Items.Add(multiplexerDriver);
-                            //} else {
-                            //    multiplexerDriver.registerClient();
                             }
                             multiplexerDriver.FromInternal(InputMultiplexer.GetMultiplexerDriverConfig(item + BaseDevice.End));
 
@@ -174,18 +182,10 @@ namespace MobiFlight.Config
                             currentItem.FromInternal(item + BaseDevice.End);
                             break;
 
-                        // If the multiplexerDriver is to be explicitly defined by its own config line,
-                        // following 'case' is required:
-
-                        //case DeviceType.MultiplexerDriver:
-                            //if (multiplexerDriver == null) {
-                            //  multiplexerDriver = new MobiFlight.Config.MultiplexerDriver();
-                            //  currentItem = multiplexerDriver;
-                            //  currentItem.FromInternal(item + BaseDevice.End);
-	                        //} else {
-	                        //  multiplexerDriver.registerClient();
-                            //}
-                            //break;
+                        case DeviceType.CustomDevice:
+                            currentItem = new MobiFlight.Config.CustomDevice();
+                            currentItem.FromInternal(item + BaseDevice.End);
+                            break;
                     }
 
                     if (currentItem != null)
@@ -207,9 +207,33 @@ namespace MobiFlight.Config
                     else
                         return this;
                 }
+                catch (Exception ex)
+                {
+                    if (throwException)
+                        throw new Exception("Config not valid.", ex);
+                    else
+                        return this;
+                }
 
             }
             return this;
+        }
+
+        public static Config LoadFromFile(string fileName)
+        {
+            TextReader textReader = new StreamReader(fileName);
+            XmlSerializer serializer = new XmlSerializer(typeof(Config));
+            var config = (Config)serializer.Deserialize(textReader);
+            textReader.Close();
+            return config;
+        }
+
+        public void SaveToFile(string fileName)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(MobiFlight.Config.Config));
+            TextWriter textWriter = new StreamWriter(fileName);
+            serializer.Serialize(textWriter, this);
+            textWriter.Close();
         }
     }
 }

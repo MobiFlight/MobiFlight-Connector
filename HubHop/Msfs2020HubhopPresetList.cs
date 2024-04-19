@@ -69,12 +69,27 @@ public class Msfs2020HubhopPreset
             try
             {
                 Items = JsonConvert.DeserializeObject<List<Msfs2020HubhopPreset>>
-                                (File.ReadAllText(Msfs2020HubhopPreset), new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                                (File.ReadAllText(Msfs2020HubhopPreset),
+                                new JsonSerializerSettings()
+                                {
+                                    NullValueHandling = NullValueHandling.Ignore,
+                                    // Issue 1283: Add an explicit error handler so individual bad records get skipped instead of
+                                    // having the entire load fail just because of one bad record.
+                                    Error = (sender, args) =>
+                                     {
+                                         Log.Instance.log($"Unable to parse HubHop preset: {args.ErrorContext.Error.Message}", LogSeverity.Error);
+                                         args.ErrorContext.Handled = true;
+                                     }
+                                });
                 LoadedFile = Msfs2020HubhopPreset;
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Unable to load {Msfs2020HubhopPreset}: {ex.Message}", LogSeverity.Error);
+
+                // Issue 1283: Make sure the Items list is at least an empty list so the rest of the code doesn't
+                // have to do all sorts of null value checking.
+                Items = new List<Msfs2020HubhopPreset>();
             }
         }
 
@@ -114,7 +129,7 @@ public class Msfs2020HubhopPreset
         {
             List<Msfs2020HubhopPreset> temp;
 
-                temp = Items.FindAll(x => (x.presetType & presetType) > 0);
+            temp = Items.FindAll(x => (x.presetType & presetType) > 0);
             
             if (selectedVendor != null)
                 temp = temp.FindAll(x => x.vendor == selectedVendor);

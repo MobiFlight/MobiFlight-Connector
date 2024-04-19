@@ -38,7 +38,7 @@
       "InputType": "Fader",
       "MessageType": "CC",
       "MessageChannel": 11,
-      "MessageIds": [ 0 ]
+      "MessageIds": [ 9 ]
     },
     {
       "Label": "Button % - Layer B",

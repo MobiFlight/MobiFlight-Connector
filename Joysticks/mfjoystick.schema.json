@@ -27,11 +27,11 @@
         "type": "object",
         "required": [ "Id", "Label", "Type"],
         "properties": {
-          "Name": {
+          "Id": {
             "$id": "#root/Inputs/items/Id",
             "title": "Id",
             "description": "The input's unique identifier on the joystick. Required.",
-            "type": "string"
+            "type": "integer"
           },
           "Label": {
             "$id": "#root/Inputs/items/Label",
@@ -59,28 +59,28 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": ["Name", "Label", "Byte", "Bit"],
+        "required": ["Id", "Label", "Byte", "Bit"],
         "properties": {
-          "Name": {
-            "$id": "#root/Inputs/items/Name",
-            "title": "Name",
-            "description": "Device's name for the input. Required.",
+          "Id": {
+            "$id": "#root/Outputs/items/Id",
+            "title": "Id",
+            "description": "The unique identifier for the output. Required.",
             "type": "string"
           },
           "Label": {
-            "$id": "#root/Inputs/items/Label",
+            "$id": "#root/Outputs/items/Label",
             "title": "Label",
-            "description": "Label for the input. Required.",
+            "description": "Label for the output. Required.",
             "type": "string"
           },
           "Byte": {
-            "$id": "#root/Inputs/items/Byte",
+            "$id": "#root/Outputs/items/Byte",
             "title": "Byte",
             "description": "Byte location of the output. Required.",
             "type": "number"
           },
           "Bit": {
-            "$id": "#root/Inputs/items/Bit",
+            "$id": "#root/Outputs/items/Bit",
             "title": "Bit",
             "description": "Bit location within the byte of the output. Required.",
             "type": "number"
@@ -91,14 +91,16 @@
     "ProductId": {
       "$id": "#Root/VendorId",
       "title": "VendorId",
-      "type": "number",
-      "description": "The device's USB VendorId. Required if Outputs are provided."
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]+$",
+      "description": "The device's USB VendorId as a hexadcimal, e.g. `0x123A`. Required if Outputs are provided."
     },
     "VendorId": {
       "$id": "#Root/ProductId",
       "title": "ProductId",
-      "type": "number",
-      "description": "The device's USB ProductId. Required if Outputs are provided."
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]+$",
+      "description": "The device's USB ProductId as a hexadecimal, e.g. `0x234A`. Required if Outputs are provided."
     }
   }
 }

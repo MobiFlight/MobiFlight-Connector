@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>miniCOCKPIT miniFCU mega</ModuleType>
+  <ModuleName>miniCOCKPIT miniFCU</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="AP1" Pin="58" />
+  <Output Name="AP2" Pin="59" />
+  <Button Name="AP1 Button" Pin="40" />
+  <Button Name="AP2 Button" Pin="42" />
+  <Output Name="LOC" Pin="57" />
+  <Output Name="ATHR" Pin="60" />
+  <Output Name="EXPED" Pin="61" />
+  <Output Name="APPR" Pin="62" />
+  <Button Name="MACH Button" Pin="43" />
+  <Button Name="TRK Button" Pin="36" />
+  <Button Name="METRIC Button" Pin="38" />
+  <Button Name="APPR Button" Pin="39" />
+  <Button Name="EXPED Button" Pin="44" />
+  <Button Name="ATHR Button" Pin="46" />
+  <Button Name="LOC Button" Pin="34" />
+  <Button Name="SPD PUSH" Pin="22" />
+  <Button Name="SPD PULL" Pin="23" />
+  <Button Name="HDG PUSH" Pin="25" />
+  <Button Name="HDG PULL" Pin="24" />
+  <Button Name="ALT PUSH" Pin="68" />
+  <Button Name="ALT PULL" Pin="69" />
+  <Button Name="ALTINC" Pin="67" />
+  <Button Name="VS PUSH" Pin="66" />
+  <Button Name="VS PULL" Pin="45" />
+  <Encoder Name="SPD Encoder" PinLeft="28" PinRight="29" EncoderType="4" />
+  <Encoder Name="HDG Encoder" PinLeft="27" PinRight="26" EncoderType="4" />
+  <Encoder Name="ALT Encoder" PinLeft="33" PinRight="32" EncoderType="4" />
+  <Encoder Name="VS Encoder" PinLeft="37" PinRight="35" EncoderType="4" />
+  <CustomDevice Name="miniFCU LCD" CustomType="miniCOCKPIT_miniFCU" Pins="2|5|4|3" Config="">
+    <ConfiguredPins>
+      <string>2</string>
+      <string>5</string>
+      <string>4</string>
+      <string>3</string>
+    </ConfiguredPins>
+  </CustomDevice>
+</Config>

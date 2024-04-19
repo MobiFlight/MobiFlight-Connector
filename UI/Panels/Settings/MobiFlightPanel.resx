@@ -190,6 +190,15 @@
   <data name="inputMultiplexerToolStripMenuItem.Text" xml:space="preserve">
     <value>Digital Input Multiplexer</value>
   </data>
+  <data name="toolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 6</value>
+  </data>
+  <data name="addCustomDevicesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="addCustomDevicesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Custom Devices</value>
+  </data>
   <data name="addToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>196, 22</value>
   </data>
@@ -269,7 +278,7 @@
     <value>Don't ignore COM port</value>
   </data>
   <data name="mfModuleSettingsContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 270</value>
+    <value>197, 292</value>
   </data>
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Name" xml:space="preserve">
     <value>mfModuleSettingsContextMenuStrip</value>
@@ -289,7 +298,7 @@
     <value>459, 17</value>
   </metadata>
   <data name="mfTreeViewImageList.ImageSize" type="System.Drawing.Size, System.Drawing">
-    <value>16, 16</value>
+    <value>24, 24</value>
   </data>
   <data name="mfModulesTreeView.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 16</value>
@@ -456,17 +465,17 @@
   <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
     <value>199, 6</value>
   </data>
-  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
-  </data>
-  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
-    <value>Encoder</value>
-  </data>
   <data name="addButtonToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 22</value>
   </data>
   <data name="addButtonToolStripMenuItem.Text" xml:space="preserve">
     <value>Button</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="addEncoderToolStripMenuItem.Text" xml:space="preserve">
+    <value>Encoder</value>
   </data>
   <data name="analogDeviceToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
     <value>202, 22</value>
@@ -485,6 +494,15 @@
   </data>
   <data name="addInputMultiplexerToolStripMenuItem.Text" xml:space="preserve">
     <value>Digital Input Multiplexer</value>
+  </data>
+  <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 6</value>
+  </data>
+  <data name="customDevicesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 22</value>
+  </data>
+  <data name="customDevicesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Custom Devices</value>
   </data>
   <data name="addDeviceToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
@@ -621,6 +639,9 @@
   <data name="IgnoredComPortsLabel.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="IgnoredComPortsLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="IgnoredComPortsLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>33, 86</value>
   </data>
@@ -694,7 +715,7 @@
     <value>4</value>
   </data>
   <data name="IgnoreComPortsCheckBox.Text" xml:space="preserve">
-    <value>Ignore the following COM ports on start</value>
+    <value>Ignore the following COM ports</value>
   </data>
   <metadata name="CompatibleBoardScanToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1057, 17</value>
@@ -736,10 +757,10 @@
     <value>3</value>
   </data>
   <data name="FwAutoInstallCheckBox.Text" xml:space="preserve">
-    <value>Scan for compatible boards on start</value>
+    <value>Scan for compatible boards and upload latest firmware</value>
   </data>
   <data name="FwAutoInstallCheckBox.ToolTip" xml:space="preserve">
-    <value>When enabled MobiFlight asks to upload the firmware if it finds a compatible board on startup.</value>
+    <value>When enabled MobiFlight asks to upload the latest firmware if it finds a compatible board.</value>
   </data>
   <data name="&gt;&gt;FwAutoInstallCheckBox.Name" xml:space="preserve">
     <value>FwAutoInstallCheckBox</value>
@@ -874,6 +895,18 @@
     <value>inputMultiplexerToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;inputMultiplexerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem7.Name" xml:space="preserve">
+    <value>toolStripMenuItem7</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addCustomDevicesToolStripMenuItem.Name" xml:space="preserve">
+    <value>addCustomDevicesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addCustomDevicesToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;removeToolStripMenuItem.Name" xml:space="preserve">
@@ -1044,16 +1077,16 @@
   <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;addEncoderToolStripMenuItem.Name" xml:space="preserve">
-    <value>addEncoderToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;addButtonToolStripMenuItem.Name" xml:space="preserve">
     <value>addButtonToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;addButtonToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Name" xml:space="preserve">
+    <value>addEncoderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addEncoderToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;analogDeviceToolStripMenuItem1.Name" xml:space="preserve">
@@ -1074,6 +1107,18 @@
   <data name="&gt;&gt;addInputMultiplexerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Name" xml:space="preserve">
+    <value>toolStripMenuItem6</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;customDevicesToolStripMenuItem.Name" xml:space="preserve">
+    <value>customDevicesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;customDevicesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;removeDeviceToolStripButton.Name" xml:space="preserve">
     <value>removeDeviceToolStripButton</value>
   </data>
@@ -1086,6 +1131,12 @@
   <data name="&gt;&gt;toolStripSeparator4.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;UpdateFirmwareToolStripButton.Name" xml:space="preserve">
+    <value>UpdateFirmwareToolStripButton</value>
+  </data>
+  <data name="&gt;&gt;UpdateFirmwareToolStripButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;errorProvider1.Name" xml:space="preserve">
     <value>errorProvider1</value>
   </data>
@@ -1097,12 +1148,6 @@
   </data>
   <data name="&gt;&gt;CompatibleBoardScanToolTip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;UpdateFirmwareToolStripButton.Name" xml:space="preserve">
-    <value>UpdateFirmwareToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;UpdateFirmwareToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MobiFlightPanel</value>

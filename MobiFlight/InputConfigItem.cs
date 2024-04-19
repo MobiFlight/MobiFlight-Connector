@@ -1,13 +1,10 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.Config;
+using MobiFlight.InputConfig;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MobiFlight;
-using MobiFlight.InputConfig;
-using MobiFlight.Base;
-using MobiFlight.Config;
 
 namespace MobiFlight
 {
@@ -17,7 +14,8 @@ namespace MobiFlight
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
+        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");   
+
         public const String TYPE_NOTSET = "-";
         public const String TYPE_BUTTON = MobiFlightButton.TYPE;
         public const String TYPE_ENCODER = MobiFlightEncoder.TYPE;
@@ -276,7 +274,7 @@ namespace MobiFlight
             switch (Type)
             {
                 case TYPE_BUTTON:
-                    if (button != null)
+                    if (button != null)                
                         button.execute(cacheCollection, e, configRefs);
                     break;
                 case TYPE_ENCODER:
@@ -298,7 +296,7 @@ namespace MobiFlight
                     if (analog != null)
                         analog.execute(cacheCollection, e, configRefs);
                     break;
-            }
+            }            
         }
 
         public Dictionary<String, int> GetStatistics()

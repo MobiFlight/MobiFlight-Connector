@@ -1,14 +1,10 @@
-﻿using System;
+﻿using CommandMessenger;
+using MobiFlight.Base;
+using MobiFlight.Config;
+using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Windows.Forms.Design;
-using CommandMessenger;
-using Newtonsoft.Json.Linq;
-using SharpDX.DirectInput;
 
 namespace MobiFlight
 {
@@ -30,6 +26,7 @@ namespace MobiFlight
                 ClearState();
             }
         }
+        public string ModelType { get; set; }
 
         List<LedModuleState> _state = new List<LedModuleState>();
 
@@ -54,6 +51,7 @@ namespace MobiFlight
         {
             Brightness = 15;
             SubModules = 1;
+            ModelType = LedModule.MODEL_TYPE_MAX72xx;
         }
 
         protected void Initialize()
@@ -62,9 +60,15 @@ namespace MobiFlight
             _initialized = true;
         }
 
-        public void Display(int subModule, String value, byte points, byte mask)
+        public void Display(int subModule, String value, byte points, byte mask, bool reverse = false)
         {
+            try
+            {
+
+            
             if (!_initialized) Initialize();
+
+            if (subModule > 1 && ModelType != LedModule.MODEL_TYPE_MAX72xx) return;
 
             var command = new SendCommand((int)MobiFlightModule.Command.SetModule);
 
@@ -77,11 +81,21 @@ namespace MobiFlight
             }
 
             // clamp and reverse the string
-            if (value.Length > 8) value = value.Substring(0, 8);
+            var maxLength = Math.Min(mask.HammingWeight(), (byte) 8);
+            if (value.Length > maxLength) value = value.Substring(0, maxLength);
+
+            if (reverse)
+            {
+                value = new string(value.ToCharArray().Reverse().ToArray());
+                points = points.Reverse();
+                mask = mask.Reverse();
+            }
 
             // cache hit
-            if (_state[subModule] == null || !_state[subModule].DisplayRequiresUpdate(value, points, mask))
-                return;
+            lock(_state) { 
+                if (_state[subModule] == null || !_state[subModule].DisplayRequiresUpdate(value, points, mask))
+                    return;
+            }
 
             command.AddArgument(this.ModuleNumber);
             command.AddArgument(subModule);            
@@ -92,7 +106,12 @@ namespace MobiFlight
             Log.Instance.log($"Command: SetModule <{(int)MobiFlightModule.Command.SetModule},{this.ModuleNumber},{subModule},{value},{points},{mask};>.", LogSeverity.Debug);
 
             // Send command
+            System.Threading.Thread.Sleep(1);
             CmdMessenger.SendCommand(command);
+            }
+            catch(Exception ex) {
+                Log.Instance.log($"Exception {ex.Message}", LogSeverity.Debug);
+            }
         }
 
         private string ReplacePointsBySpaces(string value)
@@ -242,10 +261,14 @@ namespace MobiFlight
 
         public void ClearState()
         {
-            _state.Clear();
-            for (int i = 0; i < SubModules; i++)
+            // we can have cross-thread issues during startup
+            lock (_state)
             {
-                _state.Add(new LedModuleState());
+                _state.Clear();
+                for (int i = 0; i < SubModules; i++)
+                {
+                    _state.Add(new LedModuleState());
+                }
             }
         }
     }
