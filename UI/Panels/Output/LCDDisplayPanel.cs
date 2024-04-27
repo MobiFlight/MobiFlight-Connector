@@ -34,7 +34,15 @@ namespace MobiFlight.UI.Panels
 
             DisplayComboBox.Enabled = ports.Count > 0;
         }
-        
+
+        public void DisableOutputDefinition()
+        {
+            label2.Visible = false;
+            panel2.Visible = false;
+            label3.Visible = false;
+            lcdDisplayTextBox.Text = string.Empty;
+        }
+
         internal void syncFromConfig(OutputConfigItem config)
         {
             // preselect display stuff

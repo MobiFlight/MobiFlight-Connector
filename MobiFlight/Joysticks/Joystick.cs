@@ -265,6 +265,11 @@ namespace MobiFlight
             return result;
         }
 
+        public virtual List<IBaseDevice> GetAvailableLcdDevices()
+        {
+            return new List<IBaseDevice>();
+        }
+
         public virtual void Update()
         {           
             if (DIJoystick == null) return;
@@ -424,6 +429,19 @@ namespace MobiFlight
                 RequiresOutputUpdate = true;
                 return;
             }
+        }
+
+        public virtual void SetLcdDisplay(string value, string address)
+        {
+            // Do nothing in base class
+        }
+
+
+        public virtual IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
+        {
+            List<DeviceType> result = new List<DeviceType>();
+            result.Add(DeviceType.Output);
+            return result;
         }
 
         protected virtual void SendData(byte[] data)

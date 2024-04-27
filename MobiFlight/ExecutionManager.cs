@@ -727,31 +727,40 @@ namespace MobiFlight
         }
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
-        {
+        {            
             string serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
 
-            if (serial == "" && 
-                cfg.DisplayType!="InputAction") 
+            if (serial == "" && cfg.DisplayType != "InputAction") 
                 return value.ToString();
 
-            if (serial.IndexOf(Joystick.SerialPrefix)==0)
+            if (SerialNumber.IsJoystickSerial(serial) && cfg.DisplayType != "InputAction")
             {
                 Joystick joystick = joystickManager.GetJoystickBySerial(serial);
                 if(joystick != null)
                 {
-                    byte state = 0;
-                    if (value != "0") state = 1;
+                    switch (cfg.DisplayType)
+                    {
+                        case OutputConfig.LcdDisplay.Type:
+                            joystick.SetLcdDisplay(value, cfg.LcdDisplay.Address);                            
+                            break;
 
-                    joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
-                    joystick.UpdateOutputDeviceStates();
-                    joystick.Update();
-                } else
+                        default: // LED Output                          
+                            byte state = 0;
+                            if (value != "0") state = 1;
+
+                            joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
+                            joystick.UpdateOutputDeviceStates();
+                            joystick.Update();
+                            break;
+                    }
+                } 
+                else
                 {
                     var joystickName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
                     throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
                 }
             }
-            else if (serial.IndexOf(MidiBoard.SerialPrefix) == 0)
+            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DisplayType != "InputAction")
             {
                 MidiBoard midiBoard = midiBoardManager.GetMidiBoardBySerial(serial);
                 if (midiBoard != null)

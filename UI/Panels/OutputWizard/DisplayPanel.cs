@@ -287,7 +287,22 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 }
                 else if (serial.IndexOf(Joystick.SerialPrefix) == 0)
                 {
-                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });
+                    Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
+                    if (joystick != null)
+                    {
+                        foreach (var deviceType in joystick.GetConnectedOutputDeviceTypes())
+                        {
+                            switch (deviceType) 
+                            {
+                                case DeviceType.Output:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightOutput.TYPE, Label = "LED / Output" });                                    
+                                    break;
+                                case DeviceType.LcdDisplay:
+                                    deviceTypeOptions.Add(new ListItem() { Value = MobiFlightLcdDisplay.TYPE, Label = MobiFlightLcdDisplay.TYPE });
+                                    break;
+                            }
+                        }                        
+                    }
                 }
                 else if (serial.IndexOf(MidiBoard.SerialPrefix) == 0)
                 {
@@ -446,13 +461,34 @@ namespace MobiFlight.UI.Panels.OutputWizard
             displayPinPanel.displayPinBrightnessPanel.Enabled = false;
 
             List<ListItem> outputs = new List<ListItem>();
-            foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
-                outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
-
+            List<ListItem> lcdDisplays = new List<ListItem>();
+            
+            foreach (var deviceType in joystick.GetConnectedOutputDeviceTypes())
+            {
+                switch (deviceType)
+                {
+                    case DeviceType.Output:
+                        foreach (var device in joystick.GetAvailableOutputDevicesAsListItems())
+                            outputs.Add(new ListItem() { Value = device.Label, Label = device.Label });
+                        break;
+                    case DeviceType.LcdDisplay:
+                        foreach (var device in joystick.GetAvailableLcdDevices())
+                        {
+                            int Cols = (device as MobiFlight.Config.LcdDisplay).Cols;
+                            int Lines = (device as MobiFlight.Config.LcdDisplay).Lines;
+                            lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
+                        }                            
+                        break;
+                }
+            }
+            
             displayPinPanel.WideStyle = true;
             displayPinPanel.EnablePWMSelect(false);
             displayPinPanel.SetPorts(new List<ListItem>());
             displayPinPanel.SetPins(outputs);
+
+            displayLcdDisplayPanel.DisableOutputDefinition();
+            displayLcdDisplayPanel.SetAddresses(lcdDisplays);            
 
             return true;
         }
