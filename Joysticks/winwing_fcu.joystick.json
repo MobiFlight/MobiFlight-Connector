@@ -1,0 +1,153 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING FCU",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB10",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "SPD MACH"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "LOC"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "HDG TRK - V/S FPA"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "AP1"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "AP2"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "A/THR"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "EXPED"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "METRIC ALT"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "APPR"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "SPD DEC"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "SPD INC"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "SPD PUSH"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "SPD PULL"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "HDG DEC"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "HDG INC"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "HDG PUSH"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "HDG PULL"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "ALT DEC"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "ALT INC"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "ALT PUSH"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "ALT PULL"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "VS DEC"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "VS DEC"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "VS PUSH"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "VS PULL"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "ALT 100"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "ALT 1000"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "FD"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "T.O CONFIG"
+    }
+  ]
+}

@@ -741,7 +741,7 @@ namespace MobiFlight
                     switch (cfg.DisplayType)
                     {
                         case OutputConfig.LcdDisplay.Type:
-                            joystick.SetLcdDisplay(value, cfg.LcdDisplay.Address);                            
+                            joystick.SetLcdDisplay(cfg.LcdDisplay.Address, value);                            
                             break;
 
                         default: // LED Output                          
@@ -917,7 +917,8 @@ namespace MobiFlight
                             fsuipcCache = fsuipcCache,
                             simConnectCache = simConnectCache,
                             moduleCache = mobiFlightCache,
-                            xplaneCache = xplaneCache
+                            xplaneCache = xplaneCache,
+                            joystickManager = joystickManager
                         };
                         
                         if (cfg.ButtonInputConfig != null)
@@ -1471,7 +1472,8 @@ namespace MobiFlight
                 fsuipcCache = fsuipcCache,
                 simConnectCache = simConnectCache,
                 xplaneCache = xplaneCache,
-                moduleCache = mobiFlightCache
+                moduleCache = mobiFlightCache,
+                joystickManager = joystickManager
             };
 
             foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
@@ -1624,7 +1626,8 @@ namespace MobiFlight
                     fsuipcCache = fsuipcCache,
                     simConnectCache = simConnectCache,
                     xplaneCache = xplaneCache,
-                    moduleCache = mobiFlightCache
+                    moduleCache = mobiFlightCache,
+                    joystickManager = joystickManager,
                 }, null, null);
             }            
         }

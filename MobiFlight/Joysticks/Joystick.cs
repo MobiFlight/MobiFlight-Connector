@@ -32,6 +32,7 @@ namespace MobiFlight
 
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
+        private object StateLock = new object();
         private JoystickState State = null;
         private HidStream Stream;
 
@@ -93,7 +94,6 @@ namespace MobiFlight
         {
             foreach (DeviceObjectInstance device in this.DIJoystick.GetObjects())
             {
-
                 this.DIJoystick.GetObjectInfoById(device.ObjectId);
 
                 int offset = device.Offset;
@@ -180,7 +180,7 @@ namespace MobiFlight
             return result;
         }
 
-        public void Connect(IntPtr handle)
+        virtual public void Connect(IntPtr handle)
         {
             EnumerateDevices();
             EnumerateOutputDevices();
@@ -189,12 +189,10 @@ namespace MobiFlight
             DIJoystick.Acquire();            
         }
 
-        virtual protected void EnumerateOutputDevices()
+        private void EnumerateOutputDevices()
         {
-            Lights.Clear();
-            
-            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));
-            return;
+            Lights.Clear();            
+            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));            
         }
 
         public List<ListItem<IBaseDevice>> GetAvailableDevicesAsListItems()
@@ -255,7 +253,7 @@ namespace MobiFlight
             Stream = Device.Open();
         }
 
-        public List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
+        public virtual List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
         {
             List<ListItem<IBaseDevice>> result = new List<ListItem<IBaseDevice>>();
             Lights.ForEach((item) =>
@@ -279,13 +277,16 @@ namespace MobiFlight
                 DIJoystick.Poll();
 
                 JoystickState newState = DIJoystick.GetCurrentState();
-                UpdateButtons(newState);
-                UpdateAxis(newState);
-                UpdatePOV(newState);
-                UpdateOutputDeviceStates();
+                lock (StateLock)
+                {
+                    UpdateButtons(newState);
+                    UpdateAxis(newState);
+                    UpdatePOV(newState);
+                    UpdateOutputDeviceStates();
 
-                // at the very end update our state
-                State = newState;
+                    // at the very end update our state
+                    State = newState;
+                }
             }
             catch(SharpDX.SharpDXException ex)
             {
@@ -294,6 +295,14 @@ namespace MobiFlight
                     DIJoystick.Unacquire();
                     OnDisconnected?.Invoke(this, null);
                 }
+            }
+        }
+
+        public virtual void Retrigger()
+        {
+            lock (StateLock)
+            {
+                State = null;
             }
         }
 
@@ -418,7 +427,7 @@ namespace MobiFlight
             return UsageMap[usage];
         }
 
-        public void SetOutputDeviceState(string name, byte state)
+        public virtual void SetOutputDeviceState(string name, byte state)
         {
             foreach(var light in Lights)
             {
@@ -431,7 +440,7 @@ namespace MobiFlight
             }
         }
 
-        public virtual void SetLcdDisplay(string value, string address)
+        public virtual void SetLcdDisplay(string address, string value)
         {
             // Do nothing in base class
         }
@@ -462,7 +471,7 @@ namespace MobiFlight
             RequiresOutputUpdate = false;
         }
 
-        public void UpdateOutputDeviceStates()
+        public virtual void UpdateOutputDeviceStates()
         {
             var data = new byte[] { 0, 0, 0, 0, 0 };
 

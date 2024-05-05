@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Joysticks.Octavi;
+using MobiFlight.Joysticks.WinwingFcu;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -158,12 +159,19 @@ namespace MobiFlight
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     js = new Octavi(
-                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), 
+                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
                             // statically set this to Octavi
                             // until we might support (Octavi|IFR1) or similar
                             GetDefinitionByInstanceName("Octavi")
                          );
                 }
+                else if (d.InstanceName == "WINWING FCU")
+                {
+                    js = new WinwingFcu(
+                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
+                            GetDefinitionByInstanceName("WINWING FCU")
+                         );
+                }                
                 else
                 {
                     js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
