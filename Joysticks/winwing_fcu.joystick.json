@@ -7,47 +7,47 @@
     {
       "Id": 1,
       "Type": "Button",
-      "Label": "SPD MACH"
+      "Label": "MACH Button"
     },
     {
       "Id": 2,
       "Type": "Button",
-      "Label": "LOC"
+      "Label": "LOC Button"
     },
     {
       "Id": 3,
       "Type": "Button",
-      "Label": "HDG TRK - V/S FPA"
+      "Label": "TRK Button"
     },
     {
       "Id": 4,
       "Type": "Button",
-      "Label": "AP1"
+      "Label": "AP1 Button"
     },
     {
       "Id": 5,
       "Type": "Button",
-      "Label": "AP2"
+      "Label": "AP2 Button"
     },
     {
       "Id": 6,
       "Type": "Button",
-      "Label": "A/THR"
+      "Label": "A/THR Button"
     },
     {
       "Id": 7,
       "Type": "Button",
-      "Label": "EXPED"
+      "Label": "EXPED Button"
     },
     {
       "Id": 8,
       "Type": "Button",
-      "Label": "METRIC ALT"
+      "Label": "METRIC Button"
     },
     {
       "Id": 9,
       "Type": "Button",
-      "Label": "APPR"
+      "Label": "APPR Button"
     },
     {
       "Id": 10,
@@ -117,7 +117,7 @@
     {
       "Id": 23,
       "Type": "Button",
-      "Label": "VS DEC"
+      "Label": "VS INC"
     },
     {
       "Id": 24,
@@ -142,12 +142,12 @@
     {
       "Id": 28,
       "Type": "Button",
-      "Label": "FD"
+      "Label": "FD Button"
     },
     {
       "Id": 29,
       "Type": "Button",
-      "Label": "T.O CONFIG"
+      "Label": "T.O CONFIG Button"
     }
   ]
 }

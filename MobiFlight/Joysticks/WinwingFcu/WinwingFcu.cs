@@ -38,12 +38,9 @@ namespace MobiFlight.Joysticks.WinwingFcu
 
         private WinwingDisplayControl DisplayControl = new WinwingDisplayControl();
         
-        private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
-        private Dictionary<string, string> LcdCurrentValues = new Dictionary<string, string>();
+        private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();        
         private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
-        private Dictionary<string, byte> LedCurrentValues = new Dictionary<string, byte>();
-
-
+  
         public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
         {
             Definition = definition;
@@ -53,13 +50,11 @@ namespace MobiFlight.Joysticks.WinwingFcu
             // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames) 
             {
-                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter
-                LcdCurrentValues.Add(displayName, string.Empty);
+                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter   
             }
             foreach (string ledName in ledNames)
             {
-                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter
-                LedCurrentValues.Add(ledName, 255);
+                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
             }
         }
 
@@ -132,8 +127,7 @@ namespace MobiFlight.Joysticks.WinwingFcu
         }
 
         private void ExecuteEncoderTrigger(int increment, int id)
-        {
-            JoystickDevice device = EncoderButtonsToTrigger[id]; ;            
+        {           
             for (int i = 0; i < Math.Abs(increment); i++)
             {
                 // For encoder buttons only send press event 
@@ -225,20 +219,14 @@ namespace MobiFlight.Joysticks.WinwingFcu
 
         public override void SetLcdDisplay(string address, string value)
         {
-            if (LcdCurrentValues[address] != value)
-            {               
-                DisplayControl.SetDisplay(address, value);
-                LcdCurrentValues[address] = value;
-            }
+            // Check for value change is done inside the library
+            DisplayControl.SetDisplay(address, value);
         }
 
         public override void SetOutputDeviceState(string name, byte state)
         {
-            if (LedCurrentValues[name] != state) 
-            {
-                DisplayControl.SetLed(name, state);
-                LedCurrentValues[name] = state;
-            }          
+            // Check for value change is done inside the library
+            DisplayControl.SetLed(name, state);      
         }
 
         public override List<IBaseDevice> GetAvailableLcdDevices()
