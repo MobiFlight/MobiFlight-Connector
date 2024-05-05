@@ -45,8 +45,7 @@ namespace MobiFlight.UI.Dialogs
             foreach (DataRow row in configDataTable.Rows) {
                 OutputConfigItem cfg = row["settings"] as OutputConfigItem;
                 if (cfg.DisplaySerial != "" && 
-                    cfg.DisplaySerial  != "-" && 
-                    !Joystick.IsJoystickSerial(cfg.DisplaySerial) &&
+                    cfg.DisplaySerial  != "-" &&              
                     !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&  
                     !configSerials.Contains(cfg.DisplaySerial) && 
                     !moduleSerials.Contains(cfg.DisplaySerial))
@@ -61,8 +60,7 @@ namespace MobiFlight.UI.Dialogs
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
                 if (cfg != null &&
                     cfg.ModuleSerial != "" &&
-                    cfg.ModuleSerial != "-" &&
-                    !Joystick.IsJoystickSerial(cfg.ModuleSerial) &&
+                    cfg.ModuleSerial != "-" &&        
                     !MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&
                     !moduleSerials.Contains(cfg.ModuleSerial))
