@@ -156,25 +156,19 @@ namespace MobiFlight
                 }
 
                 MobiFlight.Joystick js;
+                SharpDX.DirectInput.Joystick diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
-                    js = new Octavi(
-                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
-                            // statically set this to Octavi
-                            // until we might support (Octavi|IFR1) or similar
-                            GetDefinitionByInstanceName("Octavi")
-                         );
+                    // statically set this to Octavi until we might support (Octavi|IFR1) or similar
+                    js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
                 }
-                else if (d.InstanceName == "WINWING FCU")
-                {
-                    js = new WinwingFcu(
-                            new SharpDX.DirectInput.Joystick(di, d.InstanceGuid),
-                            GetDefinitionByInstanceName("WINWING FCU")
-                         );
+                else if (diJoystick.Properties.VendorId == 0x4098 && diJoystick.Properties.ProductId == 0xBB10)
+                {                                       
+                    js = new WinwingFcu(diJoystick, GetDefinitionByInstanceName("WINWING FCU"));
                 }                
                 else
                 {
-                    js = new Joystick(new SharpDX.DirectInput.Joystick(di, d.InstanceGuid), GetDefinitionByInstanceName(d.InstanceName));
+                    js = new Joystick(diJoystick, GetDefinitionByInstanceName(d.InstanceName));
                 }
 
                 if (!HasAxisOrButtons(js))
