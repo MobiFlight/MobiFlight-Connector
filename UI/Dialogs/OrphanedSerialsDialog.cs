@@ -1,27 +1,27 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
 
 namespace MobiFlight.UI.Dialogs
 {
     public partial class OrphanedSerialsDialog : Form
     {
-        List<string> moduleSerials = null;
-        DataTable configDataTable = null;
-        DataTable realConfigDataTable = null;
-        DataTable inputDataTable = null;
-        DataTable realInputDataTable = null;
-        bool changed = false;
+        private List<string> allSerials = new List<string>();
+        private List<string> moduleSerials = new List<string>();
+        private List<string> arcazeSerials = new List<string>();
+        private List<string> joystickSerials = new List<string>();
+        private List<string> midiSerials = new List<string>();
+        private DataTable configDataTable = null;
+        private DataTable realConfigDataTable = null;
+        private DataTable inputDataTable = null;
+        private DataTable realInputDataTable = null;
+        private bool changed = false;
 
         public OrphanedSerialsDialog(List<string> serials, DataTable dataTable, DataTable inputDataTable)
         {
-            this.moduleSerials = serials;
+            this.allSerials = serials;
             this.configDataTable = dataTable.Copy();
             this.realConfigDataTable = dataTable;
             this.inputDataTable = inputDataTable.Copy();
@@ -32,14 +32,31 @@ namespace MobiFlight.UI.Dialogs
 
         protected void updateOrphanedList()
         {
-            List<String> configSerials = new List<string>();
+            List<string> configSerials = new List<string>();
             
             connectedModulesComboBox.Items.Clear();
             orphanedSerialsListBox.Items.Clear();
 
-            foreach (String serial in moduleSerials)
+            foreach (string serial in allSerials)
             {
-                connectedModulesComboBox.Items.Add(serial);                
+                connectedModulesComboBox.Items.Add(serial);
+                string serialNumber = SerialNumber.ExtractSerial(serial);                
+                if (SerialNumber.IsJoystickSerial(serialNumber))
+                {
+                    joystickSerials.Add(serial);
+                }
+                else if (SerialNumber.IsMidiBoardSerial(serialNumber)) 
+                {
+                    midiSerials.Add(serial);
+                }
+                else if (SerialNumber.IsMobiFlightSerial(serialNumber))
+                {
+                    moduleSerials.Add(serial);
+                }
+                else
+                {
+                    arcazeSerials.Add(serial);
+                }
             }
 
             foreach (DataRow row in configDataTable.Rows) {
@@ -48,7 +65,7 @@ namespace MobiFlight.UI.Dialogs
                     cfg.DisplaySerial  != "-" &&              
                     !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&  
                     !configSerials.Contains(cfg.DisplaySerial) && 
-                    !moduleSerials.Contains(cfg.DisplaySerial))
+                    !allSerials.Contains(cfg.DisplaySerial))
                 {
                     configSerials.Add(cfg.DisplaySerial);
                     orphanedSerialsListBox.Items.Add(cfg.DisplaySerial);
@@ -63,7 +80,7 @@ namespace MobiFlight.UI.Dialogs
                     cfg.ModuleSerial != "-" &&        
                     !MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial) &&
                     !configSerials.Contains(cfg.ModuleSerial) &&
-                    !moduleSerials.Contains(cfg.ModuleSerial))
+                    !allSerials.Contains(cfg.ModuleSerial))
                 {
                     configSerials.Add(cfg.ModuleSerial);
                     orphanedSerialsListBox.Items.Add(cfg.ModuleSerial);
@@ -73,7 +90,7 @@ namespace MobiFlight.UI.Dialogs
             if (connectedModulesComboBox.Items.Count > 0) connectedModulesComboBox.SelectedIndex = 0;
         }
 
-        protected void replaceSerialBySerial(String oldSerial, String newSerial)
+        protected void replaceSerialBySerial(string oldSerial, string newSerial)
         {
             foreach (DataRow row in configDataTable.Rows)
             {
@@ -122,8 +139,36 @@ namespace MobiFlight.UI.Dialogs
         }
 
         private void orphanedSerialsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            connectedModulesAssignButton.Enabled = (orphanedSerialsListBox.Items.Count > 0);
+        {   
+            if (orphanedSerialsListBox.Items.Count > 0 || orphanedSerialsListBox.SelectedItem == null)
+            {
+                connectedModulesAssignButton.Enabled = true;
+
+                // Filter for selected serial type          
+                connectedModulesComboBox.Items.Clear();
+                string selectedSerial = SerialNumber.ExtractSerial((string)orphanedSerialsListBox.SelectedItem);
+                if (SerialNumber.IsMobiFlightSerial(selectedSerial))
+                {
+                    connectedModulesComboBox.Items.AddRange(moduleSerials.ToArray());
+                }
+                else if (SerialNumber.IsJoystickSerial(selectedSerial))
+                {
+                    connectedModulesComboBox.Items.AddRange(joystickSerials.ToArray());
+                }
+                else if (SerialNumber.IsMidiBoardSerial(selectedSerial))
+                {
+                    connectedModulesComboBox.Items.AddRange(midiSerials.ToArray());
+                }
+                else
+                {
+                    connectedModulesComboBox.Items.AddRange(arcazeSerials.ToArray());
+                }
+                if (connectedModulesComboBox.Items.Count > 0) connectedModulesComboBox.SelectedIndex = 0;
+            }
+            else
+            {
+                connectedModulesAssignButton.Enabled = false;
+            }
         }
 
         private void connectedModulesAssignButton_Click(object sender, EventArgs e)
