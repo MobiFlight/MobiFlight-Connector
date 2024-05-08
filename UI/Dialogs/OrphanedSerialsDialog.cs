@@ -8,11 +8,11 @@ namespace MobiFlight.UI.Dialogs
 {
     public partial class OrphanedSerialsDialog : Form
     {
-        private List<string> allSerials = new List<string>();
-        private List<string> moduleSerials = new List<string>();
-        private List<string> arcazeSerials = new List<string>();
-        private List<string> joystickSerials = new List<string>();
-        private List<string> midiSerials = new List<string>();
+        private List<string> allConnectedSerials = new List<string>();
+        private List<string> connectedModuleSerials = new List<string>();
+        private List<string> connectedArcazeSerials = new List<string>();
+        private List<string> connectedJoystickSerials = new List<string>();
+        private List<string> connectedMidiSerials = new List<string>();
         private DataTable configDataTable = null;
         private DataTable realConfigDataTable = null;
         private DataTable inputDataTable = null;
@@ -21,11 +21,33 @@ namespace MobiFlight.UI.Dialogs
 
         public OrphanedSerialsDialog(List<string> serials, DataTable dataTable, DataTable inputDataTable)
         {
-            this.allSerials = serials;
+            this.allConnectedSerials = serials;
             this.configDataTable = dataTable.Copy();
             this.realConfigDataTable = dataTable;
             this.inputDataTable = inputDataTable.Copy();
             this.realInputDataTable = inputDataTable;
+
+            foreach (string serial in allConnectedSerials)
+            {
+                string serialNumber = SerialNumber.ExtractSerial(serial);
+                if (SerialNumber.IsJoystickSerial(serialNumber))
+                {
+                    connectedJoystickSerials.Add(serial);
+                }
+                else if (SerialNumber.IsMidiBoardSerial(serialNumber))
+                {
+                    connectedMidiSerials.Add(serial);
+                }
+                else if (SerialNumber.IsMobiFlightSerial(serialNumber))
+                {
+                    connectedModuleSerials.Add(serial);
+                }
+                else
+                {
+                    connectedArcazeSerials.Add(serial);
+                }
+            }
+
             InitializeComponent();
             updateOrphanedList();
         }
@@ -37,57 +59,48 @@ namespace MobiFlight.UI.Dialogs
             connectedModulesComboBox.Items.Clear();
             orphanedSerialsListBox.Items.Clear();
 
-            foreach (string serial in allSerials)
+            foreach (string serial in allConnectedSerials)
             {
                 connectedModulesComboBox.Items.Add(serial);
-                string serialNumber = SerialNumber.ExtractSerial(serial);                
-                if (SerialNumber.IsJoystickSerial(serialNumber))
-                {
-                    joystickSerials.Add(serial);
-                }
-                else if (SerialNumber.IsMidiBoardSerial(serialNumber)) 
-                {
-                    midiSerials.Add(serial);
-                }
-                else if (SerialNumber.IsMobiFlightSerial(serialNumber))
-                {
-                    moduleSerials.Add(serial);
-                }
-                else
-                {
-                    arcazeSerials.Add(serial);
-                }
             }
 
-            foreach (DataRow row in configDataTable.Rows) {
+            foreach (DataRow row in configDataTable.Rows) 
+            {
                 OutputConfigItem cfg = row["settings"] as OutputConfigItem;
-                if (cfg.DisplaySerial != "" && 
-                    cfg.DisplaySerial  != "-" &&              
-                    !MidiBoard.IsMidiBoardSerial(cfg.DisplaySerial) &&  
-                    !configSerials.Contains(cfg.DisplaySerial) && 
-                    !allSerials.Contains(cfg.DisplaySerial))
-                {
-                    configSerials.Add(cfg.DisplaySerial);
-                    orphanedSerialsListBox.Items.Add(cfg.DisplaySerial);
-                }
+                CheckAndAddConfigSerial(cfg.DisplaySerial, configSerials);
             }
 
             foreach (DataRow row in inputDataTable.Rows)
             {
                 InputConfigItem cfg = row["settings"] as InputConfigItem;
-                if (cfg != null &&
-                    cfg.ModuleSerial != "" &&
-                    cfg.ModuleSerial != "-" &&        
-                    !MidiBoard.IsMidiBoardSerial(cfg.ModuleSerial) &&
-                    !configSerials.Contains(cfg.ModuleSerial) &&
-                    !allSerials.Contains(cfg.ModuleSerial))
+                if (cfg != null)
                 {
-                    configSerials.Add(cfg.ModuleSerial);
-                    orphanedSerialsListBox.Items.Add(cfg.ModuleSerial);
+                    CheckAndAddConfigSerial(cfg.ModuleSerial, configSerials);
                 }
             }
 
             if (connectedModulesComboBox.Items.Count > 0) connectedModulesComboBox.SelectedIndex = 0;
+        }
+
+        private void CheckAndAddConfigSerial(string configSerial, List<string> configSerials)
+        {
+            if (configSerial != "" && 
+                configSerial != "-" &&
+                !MidiBoard.IsMidiBoardSerial(configSerial) &&
+                !configSerials.Contains(configSerial) &&
+                !allConnectedSerials.Contains(configSerial))
+            {
+                string serialNumber = SerialNumber.ExtractSerial(configSerial);
+                bool showOrphanedJoystick = SerialNumber.IsJoystickSerial(serialNumber) && connectedJoystickSerials.Count > 0;
+                bool showOrphanedModule = SerialNumber.IsMobiFlightSerial(serialNumber) && connectedModuleSerials.Count > 0;
+                bool showOrphanedArcaze = SerialNumber.IsArcazeSerial(serialNumber) && connectedArcazeSerials.Count > 0;
+
+                if (showOrphanedJoystick || showOrphanedModule || showOrphanedArcaze)
+                { 
+                    configSerials.Add(configSerial);
+                    orphanedSerialsListBox.Items.Add(configSerial);
+                }
+            }
         }
 
         protected void replaceSerialBySerial(string oldSerial, string newSerial)
@@ -149,19 +162,19 @@ namespace MobiFlight.UI.Dialogs
                 string selectedSerial = SerialNumber.ExtractSerial((string)orphanedSerialsListBox.SelectedItem);
                 if (SerialNumber.IsMobiFlightSerial(selectedSerial))
                 {
-                    connectedModulesComboBox.Items.AddRange(moduleSerials.ToArray());
+                    connectedModulesComboBox.Items.AddRange(connectedModuleSerials.ToArray());
                 }
                 else if (SerialNumber.IsJoystickSerial(selectedSerial))
                 {
-                    connectedModulesComboBox.Items.AddRange(joystickSerials.ToArray());
+                    connectedModulesComboBox.Items.AddRange(connectedJoystickSerials.ToArray());
                 }
                 else if (SerialNumber.IsMidiBoardSerial(selectedSerial))
                 {
-                    connectedModulesComboBox.Items.AddRange(midiSerials.ToArray());
+                    connectedModulesComboBox.Items.AddRange(connectedMidiSerials.ToArray());
                 }
                 else
                 {
-                    connectedModulesComboBox.Items.AddRange(arcazeSerials.ToArray());
+                    connectedModulesComboBox.Items.AddRange(connectedArcazeSerials.ToArray());
                 }
                 if (connectedModulesComboBox.Items.Count > 0) connectedModulesComboBox.SelectedIndex = 0;
             }
