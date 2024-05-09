@@ -47,6 +47,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
             var displayNames = DisplayControl.GetDisplayNames();
             var ledNames = DisplayControl.GetLedNames();
 
+            DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
+
             // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames) 
             {
@@ -55,6 +57,14 @@ namespace MobiFlight.Joysticks.WinwingFcu
             foreach (string ledName in ledNames)
             {
                 LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
+            }
+        }
+
+        private void DisplayControl_ErrorMessageCreated(object sender, string e)
+        {
+            if (!string.IsNullOrEmpty(e))
+            {
+                Log.Instance.log(e, LogSeverity.Error);
             }
         }
 
@@ -81,7 +91,7 @@ namespace MobiFlight.Joysticks.WinwingFcu
                 InputReceiver.Received += InputReceiver_Received;
                 InputReceiver.Start(Stream);
             }
-
+            
             DisplayControl.Connect();
         }
 
