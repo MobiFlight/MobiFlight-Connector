@@ -13,6 +13,7 @@ namespace MobiFlight.InputConfig
         public SimConnectMSFS.SimConnectCacheInterface simConnectCache;
         public MobiFlightCacheInterface moduleCache;
         public XplaneCacheInterface xplaneCache;
+        public JoystickManager joystickManager;
     }
 
     abstract public class InputAction : IXmlSerializable, ICloneable

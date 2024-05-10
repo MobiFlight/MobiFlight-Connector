@@ -1494,8 +1494,8 @@ namespace MobiFlight.UI
             // always put this after "normal" initialization
             // savetoolstripbutton may be set to "enabled"
             // if user has changed something
-            _checkForOrphanedSerials(false);
             _checkForOrphanedJoysticks(false);
+            _checkForOrphanedSerials(false);            
             _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
@@ -1516,8 +1516,8 @@ namespace MobiFlight.UI
                 serials.Add($"{j.Name} {SerialNumber.SerialSeparator}{j.Serial}");
             }
 
-            if (configFile == null) return;
-
+            if (configFile == null) return;        
+           
             foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
             {
                 if (item.DisplaySerial.Contains(Joystick.SerialPrefix) &&
@@ -1616,10 +1616,16 @@ namespace MobiFlight.UI
             List<string> serials = new List<string>();
             
             foreach (IModuleInfo moduleInfo in execManager.GetAllConnectedModulesInfo())
-            {
+            {                
                 serials.Add($"{moduleInfo.Name}{SerialNumber.SerialSeparator}{moduleInfo.Serial}");
             }
 
+            foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
+            {
+                // Extra space between Name and Separator is necessary!
+                serials.Add($"{joystick.Name} {SerialNumber.SerialSeparator}{joystick.Serial}");
+            }
+            
             if (serials.Count == 0) return;
 
             try
