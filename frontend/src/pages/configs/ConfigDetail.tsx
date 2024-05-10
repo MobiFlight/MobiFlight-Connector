@@ -8,14 +8,17 @@ import { useConfigStore } from "@/stores/configFileStore"
 import { Label } from "@radix-ui/react-label"
 import { IconHelp, IconPlus } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
+import { Link, useLocation, useParams } from "react-router-dom"
 import {
-  Link,
-  useLocation,
-  useParams,
-} from "react-router-dom"
-import { FsuipcEventSettings, SimConnectVarEventSettings, VariableEventSettings, XplaneEventSettings } from "@/types/config"
+  FsuipcEventSettings,
+  SimConnectVarEventSettings,
+  VariableEventSettings,
+  XplaneEventSettings,
+} from "@/types/config"
 import { Projects } from "@/../tests/fixtures/data/projects"
 import { Project } from "@/types"
+import ConfigDetailEvent from "./ConfigDetailEvent"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const ConfigDetailPage = () => {
   const { configId, projectId } = useParams()
@@ -26,7 +29,7 @@ const ConfigDetailPage = () => {
   const [testValue, setTestValue] = useState("1")
   const [testResultValue] = useState("1")
   const location = useLocation()
-  const [_, setActiveEdit] = useState<string>("")
+  const [activeEdit, setActiveEdit] = useState<string>("")
   const project = Projects.find((p: Project) => p.id === projectId)
 
   useEffect(() => {
@@ -38,9 +41,13 @@ const ConfigDetailPage = () => {
     <div className="flex flex-col gap-8">
       {/* Breadcrumb */}
       <div className="flex flex-row items-center gap-4" role="navigation">
-        <Link to="/" className='scroll-m-20 text-3xl tracking-tight first:mt-0'>Project</Link>
-                <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>&gt;</p>
-                <p className='scroll-m-20 text-3xl tracking-tight first:mt-0'>{project?.name ?? "Default"}</p>
+        <Link to="/" className="scroll-m-20 text-3xl tracking-tight first:mt-0">
+          Project
+        </Link>
+        <p className="scroll-m-20 text-3xl tracking-tight first:mt-0">&gt;</p>
+        <p className="scroll-m-20 text-3xl tracking-tight first:mt-0">
+          {project?.name ?? "Default"}
+        </p>
         <Link
           to={`/project/${projectId}/configs`}
           className="scroll-m-20 text-3xl tracking-tight first:mt-0"
@@ -82,85 +89,73 @@ const ConfigDetailPage = () => {
         </div>
       </div>
 
-      {/* <ConfigDetailEvent
-          config={config!}
-          editMode={activeEdit === "event"}
-          onCancelEditMode={() => setActiveEdit(``)}
-          onEnterEditMode={() => setActiveEdit(`event`)}
-          onSaveEditMode={() => {}}
-        ></ConfigDetailEvent> */}
-      {/* Event, Modify, Action, Context */}
-
       <div className="just flex flex-row gap-4">
-        <div className="grid grid-cols-3 w-2/3 gap-4">
-          <Card>
-            <CardHeader className="pt-3">
-              <h2 className="text-2xl">Event</h2>
-              <p className="text-xs">Define device or simulator events</p>
-            </CardHeader>
-            <CardContent className="">
-              <div>{config?.Event.Type}</div>
-              <div>
-                {config?.Event.Type === "SIMCONNECT" ? (config?.Event.Settings as SimConnectVarEventSettings).Value : ""}
-                {config?.Event.Type === "FSUIPC" ? (config?.Event.Settings as FsuipcEventSettings).Offset : ""}
-                {config?.Event.Type === "VARIABLE" ? (config?.Event.Settings as VariableEventSettings).Name : ""}
-                {config?.Event.Type === "XPLANE" ? (config?.Event.Settings as XplaneEventSettings).Path : ""}
-              </div>
-            </CardContent>
-            <CardFooter className="py-0">
-              <Button onClick={() => setActiveEdit(`modify`)}>Edit</Button>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader className="">
-              <h3 className="text-xl">Modifiers</h3>
-              <p className="text-xs">Modify your event value (optional)</p>
-            </CardHeader>
-            <CardContent className="text-center">
-              {
-                config?.Modifiers.map((m, i) => (
-                  <div key={i}>{m.Type}</div>
-                ))
-              }
-            </CardContent>
-            <CardFooter className="flex flex-row items-center justify-between">
-              <Button onClick={() => setActiveEdit(`modify`)}>Edit</Button>
-              <IconHelp>Learn more</IconHelp>
-            </CardFooter>
-          </Card>
-          <Card>
-            <CardHeader className="">
-              <h3 className="text-xl">Action</h3>
-              <p className="text-xs">Do something with your sim or device</p>
-            </CardHeader>
-            <CardContent className="text-center">
-              {
-                config?.Action.Type
-              }
-            </CardContent>
-            <CardFooter className="flex flex-row items-center justify-between">
-              <Button onClick={() => setActiveEdit(`action`)}>Edit</Button>
-              <IconHelp>Learn more</IconHelp>
-            </CardFooter>
-          </Card>
-        </div>
-        <Card className="w-1/3 bg-background">
-          <CardHeader className="">
-            <h3 className="text-xl">Context</h3>
-            <p className="text-xs">Define when this config will be applied</p>
-          </CardHeader>
-          <CardContent className="text-center align-middle">
-            {
-              config?.Context.Preconditions.map((p, i) => (
-                <div key={i}>{p.Type}</div>
-              ))
-            }
-          </CardContent>
-          <CardFooter className="flex flex-row items-center justify-between">
-            <Button onClick={() => setActiveEdit(`context`)}>Edit</Button>
-            <IconHelp>Learn more</IconHelp>
-          </CardFooter>
-        </Card>
+        <Tabs defaultValue="tab-event" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="tab-event">Event</TabsTrigger>
+            <TabsTrigger value="tab-modifiers">Modifiers</TabsTrigger>
+            <TabsTrigger value="tab-action">Action</TabsTrigger>
+            <TabsTrigger value="tab-context">Context</TabsTrigger>
+          </TabsList>
+          <TabsContent value="tab-event">
+            <ConfigDetailEvent
+              config={config!}
+              editMode={activeEdit === "event"}
+              onCancelEditMode={() => {}}
+              onEnterEditMode={() => {}}
+              onSaveEditMode={() => {}}
+            ></ConfigDetailEvent>
+          </TabsContent>
+          <TabsContent value="tab-modifiers">
+            <Card>
+              <CardHeader className="">
+                <h3 className="text-xl">Modifiers</h3>
+                <p className="text-xs">Modify your event value (optional)</p>
+              </CardHeader>
+              <CardContent className="text-center">
+                {config?.Modifiers.map((m, i) => <div key={i}>{m.Type}</div>)}
+              </CardContent>
+              <CardFooter className="flex flex-row items-center justify-between">
+                <Button onClick={() => setActiveEdit(`modify`)}>Edit</Button>
+                <IconHelp>Learn more</IconHelp>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          <TabsContent value="tab-action">
+            <Card>
+              <CardHeader className="">
+                <h3 className="text-xl">Action</h3>
+                <p className="text-xs">Do something with your sim or device</p>
+              </CardHeader>
+              <CardContent className="text-center">
+                {config?.Action.Type}
+              </CardContent>
+              <CardFooter className="flex flex-row items-center justify-between">
+                <Button onClick={() => setActiveEdit(`action`)}>Edit</Button>
+                <IconHelp>Learn more</IconHelp>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+          <TabsContent value="tab-context">
+            <Card className="w-1/3 bg-background">
+              <CardHeader className="">
+                <h3 className="text-xl">Context</h3>
+                <p className="text-xs">
+                  Define when this config will be applied
+                </p>
+              </CardHeader>
+              <CardContent className="text-center align-middle">
+                {config?.Context.Preconditions.map((p, i) => (
+                  <div key={i}>{p.Type}</div>
+                ))}
+              </CardContent>
+              <CardFooter className="flex flex-row items-center justify-between">
+                <Button onClick={() => setActiveEdit(`context`)}>Edit</Button>
+                <IconHelp>Learn more</IconHelp>
+              </CardFooter>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col">
