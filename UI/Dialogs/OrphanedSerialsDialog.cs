@@ -85,17 +85,17 @@ namespace MobiFlight.UI.Dialogs
         private void CheckAndAddConfigSerial(string configSerial, List<string> configSerials)
         {
             if (configSerial != "" && 
-                configSerial != "-" &&
-                !MidiBoard.IsMidiBoardSerial(configSerial) &&
+                configSerial != "-" &&              
                 !configSerials.Contains(configSerial) &&
                 !allConnectedSerials.Contains(configSerial))
             {
                 string serialNumber = SerialNumber.ExtractSerial(configSerial);
                 bool showOrphanedJoystick = SerialNumber.IsJoystickSerial(serialNumber) && connectedJoystickSerials.Count > 0;
                 bool showOrphanedModule = SerialNumber.IsMobiFlightSerial(serialNumber) && connectedModuleSerials.Count > 0;
+                bool showOrphanedMidi = SerialNumber.IsMidiBoardSerial(serialNumber) && connectedModuleSerials.Count > 0;
                 bool showOrphanedArcaze = SerialNumber.IsArcazeSerial(serialNumber) && connectedArcazeSerials.Count > 0;
 
-                if (showOrphanedJoystick || showOrphanedModule || showOrphanedArcaze)
+                if (showOrphanedJoystick || showOrphanedModule || showOrphanedArcaze || showOrphanedMidi)
                 { 
                     configSerials.Add(configSerial);
                     orphanedSerialsListBox.Items.Add(configSerial);

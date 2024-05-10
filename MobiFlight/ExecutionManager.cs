@@ -744,10 +744,13 @@ namespace MobiFlight
                             joystick.SetLcdDisplay(cfg.LcdDisplay.Address, value);                            
                             break;
 
+                        case "-":
+                            // do nothing
+                            break;
+
                         default: // LED Output                          
                             byte state = 0;
                             if (value != "0") state = 1;
-
                             joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
                             joystick.UpdateOutputDeviceStates();
                             joystick.Update();
