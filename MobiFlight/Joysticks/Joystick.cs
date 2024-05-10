@@ -180,7 +180,7 @@ namespace MobiFlight
             return result;
         }
 
-        virtual public void Connect(IntPtr handle)
+        public virtual void Connect(IntPtr handle)
         {
             EnumerateDevices();
             EnumerateOutputDevices();
@@ -189,10 +189,10 @@ namespace MobiFlight
             DIJoystick.Acquire();            
         }
 
-        private void EnumerateOutputDevices()
+        protected virtual void EnumerateOutputDevices()
         {
-            Lights.Clear();            
-            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));            
+            Lights.Clear();
+            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));
         }
 
         public List<ListItem<IBaseDevice>> GetAvailableDevicesAsListItems()
