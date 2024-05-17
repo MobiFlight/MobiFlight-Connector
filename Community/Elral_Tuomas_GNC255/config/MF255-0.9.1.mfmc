@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>Elral_Tuomas GNC255 Pico</ModuleType>
+  <ModuleName>MF GNC255</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Output Name="backlight" Pin="6" />
+  <Button Name="swap" Pin="0" />
+  <Button Name="kHz push" Pin="3" />
+  <Button Name="btn 1" Pin="7" />
+  <Button Name="btn 2" Pin="8" />
+  <Button Name="btn 3" Pin="9" />
+  <Button Name="btn 4" Pin="10" />
+  <Button Name="btn 5" Pin="11" />
+  <Button Name="btn 6" Pin="12" />
+  <Button Name="btn 7" Pin="13" />
+  <Button Name="com push" Pin="14" />
+  <Button Name="nav push" Pin="15" />
+  <AnalogInput Name="com vol" Pin="26" Sensitivity="20" />
+  <AnalogInput Name="nav vol" Pin="27" Sensitivity="20" />
+  <AnalogInput Name="photocell" Pin="28" Sensitivity="20" />
+  <Encoder Name="MHz" PinLeft="1" PinRight="2" EncoderType="2" />
+  <Encoder Name="kHz" PinLeft="4" PinRight="5" EncoderType="2" />
+  <CustomDevice Name="GNC255 OLED" CustomType="ELRAL_TUOMAS_GNC255" Pins="17|20|21" Config="">
+    <ConfiguredPins>
+      <string>17</string>
+      <string>20</string>
+      <string>21</string>
+    </ConfiguredPins>
+  </CustomDevice>
+</Config>
