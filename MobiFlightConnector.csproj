@@ -1015,6 +1015,13 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
+    <None Include="Community\MadMonkey\boards\mini_overhead_panel_raspberry_pico.board.json" />
+    <None Include="Community\MadMonkey\config\Mini OverheadSMD.mfmc" />
+    <None Include="Community\MadMonkey\firmware\mini_overhead_panel_raspberrypico_1_0_0.uf2" />
+    <None Include="Community\MadMonkey\firmware\reset.raspberry_pico_flash_nuke.uf2" />
+    <None Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - FBW.mcc" />
+    <None Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - Fenix.mcc" />
+    <None Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - Toliss.mcc" />
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
