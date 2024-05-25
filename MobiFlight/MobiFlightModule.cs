@@ -288,7 +288,7 @@ namespace MobiFlight
             }
             catch (Exception ex)
             {
-                Log.Instance.Log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
             }
             // if (!this.Connected) return;
             // ResetBoard();
