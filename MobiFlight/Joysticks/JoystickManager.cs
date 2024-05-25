@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.WinwingFcu;
+using MobiFlight.Joysticks.VKB;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -75,7 +76,7 @@ namespace MobiFlight
             {
                 lock (Joysticks)
                 {
-                    foreach (MobiFlight.Joystick js in Joysticks.Values)
+                    foreach (Joystick js in Joysticks.Values)
                     {
                         js?.Update();
                     }
@@ -155,7 +156,7 @@ namespace MobiFlight
                     continue;
                 }
 
-                MobiFlight.Joystick js;
+                Joystick js;
                 SharpDX.DirectInput.Joystick diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
@@ -163,9 +164,15 @@ namespace MobiFlight
                     js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
                 }
                 else if (diJoystick.Properties.VendorId == 0x4098 && diJoystick.Properties.ProductId == 0xBB10)
-                {                                       
+                {
                     js = new WinwingFcu(diJoystick, GetDefinitionByInstanceName("WINWING FCU"));
-                }                
+                }
+                else if (diJoystick.Properties.VendorId == 0x231D)
+                {
+                    // VKB devices are highly configurable. DirectInput names can have old values cached in the registry, but HID names seem to be immune to that.
+                    // Also trim the extraneous whitespaces on VKB device names.
+                    js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(VKBDevice.GetMatchingHidDevice(diJoystick).GetProductName().Trim()));
+                }
                 else
                 {
                     js = new Joystick(diJoystick, GetDefinitionByInstanceName(d.InstanceName));

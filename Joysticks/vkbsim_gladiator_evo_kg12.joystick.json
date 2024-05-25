@@ -1,0 +1,112 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "VKBsim Gladiator EVO KG12",
+  "VendorId": "0x231D",
+  "ProductId": "0x0600",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "B2 Hat Down"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "B2 Hat Left"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "B2 Hat Right"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "B2 Hat Up"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "B1 Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "A Trigger"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Paddle Switch"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Ring Finger Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "En1 Up"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "En1 Down"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Sw1 Up"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Sw1 Down"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "F1"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "F2"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "F3"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "Unused Button 16"
+    },
+    {
+      "Id": 1000,
+      "Type": "Button",
+      "Label": "En1 Up"
+    },
+    {
+      "Id": 1005,
+      "Type": "Button",
+      "Label": "En1 Down"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Sys - Blue",
+      "Id": "Sys.Blue",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "Sys - Red",
+      "Id": "Sys.Red",
+      "Byte": 0,
+      "Bit": 1
+    }
+  ]
+}

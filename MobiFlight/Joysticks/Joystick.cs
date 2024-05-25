@@ -292,8 +292,7 @@ namespace MobiFlight
             {
                 if (ex.Descriptor.ApiCode=="InputLost")
                 {
-                    DIJoystick.Unacquire();
-                    OnDisconnected?.Invoke(this, null);
+                    OnDeviceRemoved();
                 }
             }
         }
@@ -487,8 +486,7 @@ namespace MobiFlight
             catch (System.IO.IOException)
             {
                 // this happens when the device is removed.
-                DIJoystick.Unacquire();
-                OnDisconnected?.Invoke(this, null);
+                OnDeviceRemoved();
             }
         }
 
@@ -505,6 +503,13 @@ namespace MobiFlight
         public virtual void Shutdown()
         {
             // nothing to do
+        }
+
+        protected virtual void OnDeviceRemoved()
+        {
+            DIJoystick.Unacquire();
+            OnDisconnected?.Invoke(this, null);
+
         }
     }
 }
