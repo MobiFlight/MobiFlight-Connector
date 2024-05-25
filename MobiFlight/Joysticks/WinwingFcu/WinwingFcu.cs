@@ -1,18 +1,24 @@
-﻿using HidSharp;
-using HidSharp.Reports;
-using HidSharp.Reports.Input;
+﻿using Device.Net;
+using Hid.Net;
+using Hid.Net.Windows;
 using MobiFlight.Config;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Joysticks.WinwingFcu
 {
+    internal class HidBuffer
+    {
+        public Report HidReport { get; set; }
+    }
+
     internal class WinwingFcu : Joystick
     {
-        readonly int VendorId = 0x4098;
-        readonly int ProductId = 0xBB10;
-        HidStream Stream { get; set; }
-        HidDevice Device { get; set; }
+        readonly uint VendorId = 0x4098;
+        readonly uint ProductId = 0xBB10;
+        IHidDevice Device { get; set; }
 
         private const int SPD_DEC = 10;
         private const int SPD_INC = 11;
@@ -28,18 +34,17 @@ namespace MobiFlight.Joysticks.WinwingFcu
         private Dictionary<int, JoystickDevice> EncoderButtonsToTrigger = new Dictionary<int, JoystickDevice>();
         private List<int> EncoderIncDecButtons = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC }; 
   
-        protected HidDeviceInputReceiver InputReceiver;
-        protected ReportDescriptor ReportDescriptor;
         private JoystickDefinition Definition;
         private volatile bool DoInitialize = true;
+        private volatile bool DoReadHidReports = false;
         private WinwingFcuReport CurrentReport = new WinwingFcuReport();
-        private WinwingFcuReport PreviousReport = new WinwingFcuReport();        
-        private byte[] InputReportBuffer = new byte[64];
-
+        private WinwingFcuReport PreviousReport = new WinwingFcuReport();
+        private HidBuffer HidDataBuffer = new HidBuffer();
         private WinwingDisplayControl DisplayControl = new WinwingDisplayControl();
         
         private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();        
         private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
+       
   
         public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
         {
@@ -68,32 +73,28 @@ namespace MobiFlight.Joysticks.WinwingFcu
             }
         }
 
-        public override void Connect(IntPtr handle)
+
+        public async override void Connect(IntPtr handle)
         {
             base.Connect(handle);
-
-            if (Device == null)
-            {
-                Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
-                if (Device == null) return;
-            }
-
-            if (Stream == null)
-            {
-                Stream = Device.Open();
-                Stream.ReadTimeout = System.Threading.Timeout.Infinite;
-                ReportDescriptor = Device.GetReportDescriptor();
-            }
-
-            if (InputReceiver == null)
-            {
-                InputReceiver = ReportDescriptor.CreateHidDeviceInputReceiver();
-                InputReceiver.Received += InputReceiver_Received;
-                InputReceiver.Start(Stream);
-            }
-            
             DisplayControl.Connect();
+
+            var hidFactory = new FilterDeviceDefinition(vendorId: VendorId, productId: ProductId).CreateWindowsHidDeviceFactory();
+            var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
+            Device = (IHidDevice)await hidFactory.GetDeviceAsync(deviceDefinitions.First()).ConfigureAwait(false);
+            await Device.InitializeAsync().ConfigureAwait(false);
+            DoReadHidReports = true;
+
+            await Task.Run(async () =>
+            {
+                while (DoReadHidReports)
+                {                                      
+                    HidDataBuffer.HidReport = await Device.ReadReportAsync().ConfigureAwait(false);                                                                
+                    InputReportReceived(HidDataBuffer);                                     
+                }
+            });
         }
+
 
         // EnumerateInputDevices
         protected override void EnumerateDevices()
@@ -169,38 +170,34 @@ namespace MobiFlight.Joysticks.WinwingFcu
             }
         }
 
-        private void InputReceiver_Received(object sender, System.EventArgs e)
+        private void InputReportReceived(HidBuffer hidBuffer)
         {
-            var inputReceiver = sender as HidDeviceInputReceiver;
-            while (inputReceiver.TryRead(InputReportBuffer, 0, out _))
+            CurrentReport.ParseReport(hidBuffer);
+            if (CurrentReport.ReportId == BUTTONS_REPORT)
             {
-                CurrentReport.ParseReport(InputReportBuffer);
-                if (CurrentReport.ReportId == BUTTONS_REPORT)
-                {                    
-                    if (DoInitialize)
-                    {                        
-                        CurrentReport.CopyTo(PreviousReport);
-                        PreviousReport.ButtonState = ~PreviousReport.ButtonState; // to retrigger
-                        DoInitialize = false;
-                    }
-
-                    // Detect and Trigger Button Events
-                    uint pressed = CurrentReport.ButtonState & ~PreviousReport.ButtonState; // rising edges
-                    uint released = PreviousReport.ButtonState & ~CurrentReport.ButtonState; // falling edges
-                    CheckForButtonTrigger(pressed, MobiFlightButton.InputEvent.PRESS);
-                    CheckForButtonTrigger(released, MobiFlightButton.InputEvent.RELEASE);
-
-                    // Detect and Trigger Encoder Turns
-                    int spdIncrement = CurrentReport.SpdEncoderValue - PreviousReport.SpdEncoderValue;
-                    CheckForEncoderTrigger(spdIncrement, SPD_DEC, SPD_INC);
-                    int hdgIncrement = CurrentReport.HdgEncoderValue - PreviousReport.HdgEncoderValue;
-                    CheckForEncoderTrigger(hdgIncrement, HDG_DEC, HDG_INC);
-                    int altIncrement = CurrentReport.AltEncoderValue - PreviousReport.AltEncoderValue;
-                    CheckForEncoderTrigger(altIncrement, ALT_DEC, ALT_INC);
-                    int vsIncrement = CurrentReport.VsEncoderValue - PreviousReport.VsEncoderValue;
-                    CheckForEncoderTrigger(vsIncrement, VS_DEC, VS_INC);
+                if (DoInitialize)
+                {
                     CurrentReport.CopyTo(PreviousReport);
+                    PreviousReport.ButtonState = ~PreviousReport.ButtonState; // to retrigger
+                    DoInitialize = false;
                 }
+
+                // Detect and Trigger Button Events
+                uint pressed = CurrentReport.ButtonState & ~PreviousReport.ButtonState; // rising edges
+                uint released = PreviousReport.ButtonState & ~CurrentReport.ButtonState; // falling edges
+                CheckForButtonTrigger(pressed, MobiFlightButton.InputEvent.PRESS);
+                CheckForButtonTrigger(released, MobiFlightButton.InputEvent.RELEASE);
+
+                // Detect and Trigger Encoder Turns
+                int spdIncrement = CurrentReport.SpdEncoderValue - PreviousReport.SpdEncoderValue;
+                CheckForEncoderTrigger(spdIncrement, SPD_DEC, SPD_INC);
+                int hdgIncrement = CurrentReport.HdgEncoderValue - PreviousReport.HdgEncoderValue;
+                CheckForEncoderTrigger(hdgIncrement, HDG_DEC, HDG_INC);
+                int altIncrement = CurrentReport.AltEncoderValue - PreviousReport.AltEncoderValue;
+                CheckForEncoderTrigger(altIncrement, ALT_DEC, ALT_INC);
+                int vsIncrement = CurrentReport.VsEncoderValue - PreviousReport.VsEncoderValue;
+                CheckForEncoderTrigger(vsIncrement, VS_DEC, VS_INC);
+                CurrentReport.CopyTo(PreviousReport);
             }
         }
 
@@ -266,17 +263,12 @@ namespace MobiFlight.Joysticks.WinwingFcu
 
         public override void Shutdown()
         {
-            DisplayControl.Shutdown();
-            if (Stream != null)
+            DoReadHidReports = false;
+            DisplayControl.Shutdown();              
+            if (Device != null) 
             {
-                Stream.Close();
-                Stream = null;
-            }
-
-            if (InputReceiver != null)
-            {
-                InputReceiver.Received -= InputReceiver_Received;
-                InputReceiver = null;
+                Device.Close();
+                Device = null;
             }
         }
     }
