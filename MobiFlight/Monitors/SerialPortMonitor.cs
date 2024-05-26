@@ -129,6 +129,8 @@ namespace MobiFlight.Monitors
                 var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx); // Find the COM port.
                 var portName = portNameMatch?.Value.Trim(new char[] { '(', ')' }); // Remove the surrounding ().
 
+                Log.Instance.log($"Detected {queryObj["Caption"].ToString()}", LogSeverity.Debug);
+
                 if (portName == null)
                 {
                     //Log.Instance.log($"Device has no port information: {hardwareId}.", LogSeverity.Error);
