@@ -191,7 +191,8 @@ namespace MobiFlight
             { "AP1", 0x05 },
             { "AP2", 0x07 },
             { "ATHR", 0x09 },
-            { "APPR", 0x0D }
+            { "APPR", 0x0D },
+            { "EXPED", 0x0b }
         };
 
         private Dictionary<string, Action<string>> DisplayList = new Dictionary<string, Action<string>>();
@@ -658,7 +659,7 @@ namespace MobiFlight
                 ErrorMessageCreated?.Invoke(this, $"Error setting Winwing FCU LED name='{led}' to value='{state}'. Please check input.");
             }
         }
-
+        
         private void SetAnnunciatorLightOnOff(string annLight)
         {
             int myAnnLight = (int)Convert.ToDouble(annLight, CultureInfo.InvariantCulture);
