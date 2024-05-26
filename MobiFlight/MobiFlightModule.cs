@@ -268,6 +268,8 @@ namespace MobiFlight
                     CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
                 };
 
+                Log.Instance.log($"Connecting to {_comPort} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
+
                 _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', Board.Connection.MessageSize);
 
                 // Attach the callbacks to the Command Messenger
