@@ -79,7 +79,7 @@ namespace MobiFlight.Monitors
             var regex = new Regex(@"(?<id>VID_\S*)"); // Pattern to match the VID/PID of the connected devices
 
             // Code from https://stackoverflow.com/questions/45165299/wmi-get-list-of-all-serial-com-ports-including-virtual-ports
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_SerialPort");
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_PnPEntity WHERE ClassGuid=\"{4d36e978-e325-11ce-bfc1-08002be10318}\"");
             foreach (ManagementObject queryObj in searcher.Get().Cast<ManagementObject>())
             {
                 // At this point we have a list of possibly valid connected devices. Since everything at this point
@@ -92,7 +92,7 @@ namespace MobiFlight.Monitors
                 // Either will work with how the BoardDefinitions class and existing board definition files do regular expression
                 // lookups so just grab the first one in the array every time. Note the use of '?' to handle the (never seen)
                 // case where no hardware IDs are available.
-                var rawHardwareID = (queryObj["PNPDeviceID"] as string[])?[0];
+                var rawHardwareID = (queryObj["HardwareID"] as string[])?[0];
 
                 if (String.IsNullOrEmpty(rawHardwareID))
                 {
