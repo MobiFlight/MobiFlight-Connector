@@ -126,10 +126,11 @@ namespace MobiFlight.Monitors
                 // COM port in the full name of the device surrounded by (), for example:
                 //
                 // USB Serial Device (COM22)
-                var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx); // Find the COM port.
-                var portName = portNameMatch?.Value.Trim(new char[] { '(', ')' }); // Remove the surrounding ().
+                // var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx); // Find the COM port.
+                // var portName = portNameMatch?.Value.Trim(new char[] { '(', ')' }); // Remove the surrounding ().
 
-                Log.Instance.log($"Detected {queryObj["Caption"].ToString()} ({queryObj["DeviceID"]?.ToString()})", LogSeverity.Debug);
+                var portName = queryObj["DeviceID"]?.ToString();
+                Log.Instance.log($"Detected {queryObj["Caption"].ToString()} - {queryObj["DeviceID"]?.ToString()}", LogSeverity.Debug);
 
                 if (portName == null)
                 {
