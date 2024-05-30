@@ -40,7 +40,7 @@
       "LatestFirmwareVersion": "1.0.0",
       "FriendlyName": "miniCOCKPIT miniFCU",
       "MobiFlightType": "miniCOCKPIT miniFCU mega",
-      "ResetFirmwareFile": "reset.miniFCU_1_0_0.ino.hex",
+      "ResetFirmwareFile": "reset.miniFCU_1_0_1.ino.hex",
       "CustomDeviceTypes": [
         "miniCOCKPIT_miniFCU"
       ],
