@@ -23,18 +23,18 @@ namespace MobiFlight.Joysticks.WinwingFcu
             targetReport.VsEncoderValue = this.VsEncoderValue;              
         }
 
-        public void ParseReport(byte[] buffer)
+        public void ParseReport(HidBuffer hidBuffer)
         {
-            // get Report ID
-            ReportId = buffer[0];
-            if (ReportId == BUTTONS_REPORT) 
+            byte[] data = hidBuffer.HidReport.TransferResult.Data;           
+            ReportId = hidBuffer.HidReport.ReportId;
+            if (ReportId == BUTTONS_REPORT)
             {
-                // get 32 bit Button report field - First 4 bytes: uint:  [4][3][2][1]
-                ButtonState = ((uint)buffer[1] + ((uint)buffer[2] << 8) + ((uint)buffer[3] << 16) + ((uint)buffer[4] << 24));
-                SpdEncoderValue = (ushort)(buffer[13] | (buffer[14] << 8)); // create an ushort from bytes 13 and 14
-                HdgEncoderValue = (ushort)(buffer[15] | (buffer[16] << 8));
-                AltEncoderValue = (ushort)(buffer[17] | (buffer[18] << 8));
-                VsEncoderValue  = (ushort)(buffer[19] | (buffer[20] << 8));                          
+                // get 32 bit Button report field - First 4 bytes: uint:  [3][2][1][0]
+                ButtonState = ((uint)data[0] + ((uint)data[1] << 8) + ((uint)data[2] << 16) + ((uint)data[3] << 24));
+                SpdEncoderValue = (ushort)(data[12] | (data[13] << 8)); // create an ushort from bytes 13 and 14
+                HdgEncoderValue = (ushort)(data[14] | (data[15] << 8));
+                AltEncoderValue = (ushort)(data[16] | (data[17] << 8));
+                VsEncoderValue = (ushort)(data[18] | (data[19] << 8));
             }
         }
     }

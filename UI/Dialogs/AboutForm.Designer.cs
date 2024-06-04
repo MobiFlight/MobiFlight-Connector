@@ -42,12 +42,14 @@
             this.licenseReferenceControl6 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl5 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl2 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.licenseReferenceControl7 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl4 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl3 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl1 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.label5 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.licenseReferenceControl7 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.licenseReferenceControl8 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.licenseReferenceControl9 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -114,6 +116,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.licenseReferenceControl9);
+            this.panel2.Controls.Add(this.licenseReferenceControl8);
             this.panel2.Controls.Add(this.licenseReferenceControl6);
             this.panel2.Controls.Add(this.licenseReferenceControl5);
             this.panel2.Controls.Add(this.licenseReferenceControl2);
@@ -147,8 +151,16 @@
             resources.ApplyResources(this.licenseReferenceControl2, "licenseReferenceControl2");
             this.licenseReferenceControl2.Library = "SharpDX";
             this.licenseReferenceControl2.LibraryLink = "https://www.nuget.org/packages/SharpDX/";
-            this.licenseReferenceControl2.LicenseLink = "http://sharpdx.org/License.txt";
+            this.licenseReferenceControl2.LicenseLink = "https://github.com/sharpdx/SharpDX/blob/master/LICENSE";
             this.licenseReferenceControl2.Name = "licenseReferenceControl2";
+            // 
+            // licenseReferenceControl7
+            // 
+            resources.ApplyResources(this.licenseReferenceControl7, "licenseReferenceControl7");
+            this.licenseReferenceControl7.Library = "NewtonSoft JSON.NET Schema";
+            this.licenseReferenceControl7.LibraryLink = "https://www.nuget.org/packages/Newtonsoft.Json.Schema";
+            this.licenseReferenceControl7.LicenseLink = "https://www.nuget.org/packages/Newtonsoft.Json.Schema/3.0.15/License";
+            this.licenseReferenceControl7.Name = "licenseReferenceControl7";
             // 
             // licenseReferenceControl4
             // 
@@ -185,13 +197,21 @@
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
-            // licenseReferenceControl7
+            // licenseReferenceControl8
             // 
-            resources.ApplyResources(this.licenseReferenceControl7, "licenseReferenceControl7");
-            this.licenseReferenceControl7.Library = "NewtonSoft JSON.NET Schema";
-            this.licenseReferenceControl7.LibraryLink = "https://www.nuget.org/packages/Newtonsoft.Json.Schema";
-            this.licenseReferenceControl7.LicenseLink = "https://www.nuget.org/packages/Newtonsoft.Json.Schema/3.0.15/License";
-            this.licenseReferenceControl7.Name = "licenseReferenceControl7";
+            resources.ApplyResources(this.licenseReferenceControl8, "licenseReferenceControl8");
+            this.licenseReferenceControl8.Library = "HidSharp";
+            this.licenseReferenceControl8.LibraryLink = "https://www.nuget.org/packages/HidSharp";
+            this.licenseReferenceControl8.LicenseLink = "https://www.zer7.com/files/oss/hidsharp/LICENSE.txt";
+            this.licenseReferenceControl8.Name = "licenseReferenceControl8";
+            // 
+            // licenseReferenceControl9
+            // 
+            resources.ApplyResources(this.licenseReferenceControl9, "licenseReferenceControl9");
+            this.licenseReferenceControl9.Library = "Device.Net";
+            this.licenseReferenceControl9.LibraryLink = "https://www.nuget.org/packages/Device.Net";
+            this.licenseReferenceControl9.LicenseLink = "https://github.com/MelbourneDeveloper/Device.Net/blob/main/LICENSE";
+            this.licenseReferenceControl9.Name = "licenseReferenceControl9";
             // 
             // AboutForm
             // 
@@ -231,5 +251,7 @@
         private System.Windows.Forms.Panel panel3;
         private Panels.About.LicenseReferenceControl licenseReferenceControl6;
         private Panels.About.LicenseReferenceControl licenseReferenceControl7;
+        private Panels.About.LicenseReferenceControl licenseReferenceControl9;
+        private Panels.About.LicenseReferenceControl licenseReferenceControl8;
     }
 }
