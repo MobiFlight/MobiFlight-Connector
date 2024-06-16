@@ -1,0 +1,683 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="ee45cc03-b403-460b-94c1-07947fda08cf">
+      <active>false</active>
+      <description>==== MAIN FREQUENCIES ==============================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dc6cc44e-57c8-4971-ac37-59915f6a62d0">
+      <active>true</active>
+      <description>Com1 active frequency</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQUENCY:1,kHz)" UUID="b5a95362-411e-422d-9e6e-598b8b0bdcdf" />
+        <test type="String" value="118.600" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <transformation active="True" expression="Round($,3) + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="1" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ca11b25a-7ce6-4180-b3fb-81912907aa79">
+      <active>true</active>
+      <description>Com1 standby frequency</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQUENCY:1,kHz)" UUID="0c6afa60-4a6e-405d-91a5-1d7ba95bfe11" />
+        <test type="String" value="aaaaaaa" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 +0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="2" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c9a5ab9f-2ee3-4c5a-962f-acb6d7fe382f">
+      <active>true</active>
+      <description>NAV1 has reception</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV HAS NAV:1,Bool)" UUID="14a9706d-54e0-42ea-abaa-cea7d030610c" />
+        <test type="String" value="" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="86f9f830-f1c7-454b-b211-f995f2d55cfa" placeholder="X" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="51ef80aa-4e44-4b8c-a55b-82cfb05027c3">
+      <active>true</active>
+      <description>Nav1 active frequency</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV ACTIVE FREQUENCY:1,MHz)" UUID="37a19dbf-bfc5-4193-ac3e-591772069e42" />
+        <test type="String" value="118.600" />
+        <modifiers>
+          <transformation active="True" expression="Round($,2)+0.001" />
+          <padding active="True" direction="Right" length="6" character="0" />
+          <padding active="True" direction="Right" length="7" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="1" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6e75da1e-0f14-4705-8596-3161ac829ff6">
+      <active>true</active>
+      <description>Nav1 standby frequency</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV STANDBY FREQUENCY:1,MHz)" UUID="73a2f48d-d613-4b7b-b30d-8065bc150f98" />
+        <test type="String" value="117.099999" />
+        <modifiers>
+          <transformation active="True" expression="Round($,2)+0.0001" />
+          <padding active="True" direction="Right" length="6" character="0" />
+          <padding active="True" direction="Right" length="7" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="2" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ace4d948-a54a-4ffb-a7ba-93b8e62f7815">
+      <active>false</active>
+      <description>==== UTILITY VARIABLES ===============================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="197a138d-b0c6-48d7-91aa-753f6492ff59">
+      <active>true</active>
+      <description>CIRCUIT PANEL ON (we have power)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:CIRCUIT GENERAL PANEL ON,Bool)" UUID="b73129b8-7d1f-4497-bd62-7018642a87f1" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="Output" serial="-" trigger="normal" pin="backlight" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="01ac33f8-f6a3-4e8c-9743-d641ec73e0bb">
+      <active>true</active>
+      <description>Com1 active frequency ICAO ID</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQ IDENT:1,String)" UUID="bc6c7409-4ae5-424d-a392-6da583b60a5f" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="0" operand="=" ifValue="COM" elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="662bc10a-bf84-4e8a-a698-50fcf7ddef3b">
+      <active>true</active>
+      <description>Com1 standby station ICAO ID</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQ IDENT:1,String)" UUID="0" />
+        <test type="String" value="COM" />
+        <modifiers>
+          <comparison active="False" value="COM" operand="=" ifValue="   " elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1053f982-69f9-4b4f-ad11-6f0ba36181a3">
+      <active>true</active>
+      <description>Com1 active station type</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQ TYPE:1,String)" UUID="0" />
+        <test type="String" value="" />
+        <modifiers>
+          <comparison active="True" value="0" operand="=" ifValue="ACTIVE" elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="86f9f830-f1c7-454b-b211-f995f2d55cfa" placeholder="X" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="ce583a2d-23d2-48ee-a9e6-c6bc5ba17218">
+      <active>true</active>
+      <description>Com1 standby station type</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQ TYPE:1,String)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="86f9f830-f1c7-454b-b211-f995f2d55cfa">
+      <active>true</active>
+      <description>Com1 active station name</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM ACTIVE FREQ NAME:1,String)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b36a020-1f1e-48f1-b7c0-2f8333e1bb61">
+      <active>true</active>
+      <description>COM1 standby station name</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:COM STANDBY FREQ NAME:1,String)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4f092dab-d982-4aa1-bee0-7279fad305b6">
+      <active>true</active>
+      <description>NAV1 active station ICAO ID</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV IDENT:1,String)" UUID="bc6c7409-4ae5-424d-a392-6da583b60a5f" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0fcb638e-1b90-4404-9125-ea42e61b539b">
+      <active>true</active>
+      <description>NAV1 active station name</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV NAME:1,String)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a421f22d-ad1a-4f99-95e5-f697107041cd">
+      <active>false</active>
+      <description>==== VOLUMES AND BACKLIGHT =========================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="29ece771-e911-42de-90b9-da678de25bae">
+      <active>true</active>
+      <description>COM1 VOLUME &gt; MF VAR &gt; interpolate &gt; set </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="com 1 volume" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="20" y="100" />
+            <value x="1000" y="0" />
+          </interpolation>
+        </modifiers>
+        <display type="InputAction" serial="-" trigger="normal">
+          <analog>
+            <onChange type="MSFS2020CustomInputAction" command="@ (&gt;K:COM1_VOLUME_SET)" presetId="605b1d74-cd53-448c-bc53-b4b79e591fe1" />
+          </analog>
+        </display>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1a66d28b-f53f-446d-8ac7-f757a2a642f5">
+      <active>true</active>
+      <description>NAV1 VOLUME &gt; MF VAR &gt; interpolate &gt; set </description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="nav 1 volume" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="20" y="100" />
+            <value x="1000" y="0" />
+          </interpolation>
+        </modifiers>
+        <display type="InputAction" serial="-" trigger="normal">
+          <analog>
+            <onChange type="MSFS2020CustomInputAction" command="@ (&gt;K:NAV1_VOLUME_SET_EX1)" presetId="3da9b0c7-5e94-4319-8dd6-e39a745eb551" />
+          </analog>
+        </display>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="531f9f2b-588c-4628-b0e1-c61db86a5c57">
+      <active>false</active>
+      <description>LCD display brightness</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="photocell" varExpression="$" />
+        <test type="Float" value="255" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="70" y="16" />
+            <value x="640" y="180" />
+          </interpolation>
+          <transformation active="False" expression="if(!&lt;2, 0, $)" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="6" value="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="197a138d-b0c6-48d7-91aa-753f6492ff59" placeholder="#" testvalue="1" />
+          <configref active="True" ref="29ece771-e911-42de-90b9-da678de25bae" placeholder="!" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="7a245044-3b97-4569-abee-2bd96c895ad6">
+      <active>false</active>
+      <description>Backlight brightness</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="photocell" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="#/8" />
+        </modifiers>
+        <display type="Output" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" pin="backlight" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="531f9f2b-588c-4628-b0e1-c61db86a5c57" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="8e266f53-04a5-4ea2-bf60-39c02a2d2ab0">
+      <active>true</active>
+      <description>NAV OBS (CRS/VOR radial)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV OBS:1,Degrees)" UUID="6bbf319a-5031-477e-ba46-8a24936f7d25" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="82496c22-667b-4535-82a0-ec073bbf9939">
+      <active>true</active>
+      <description>NAV DME VALUE</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV DME:1,Nautical miles)" UUID="29a5199a-298d-45d9-bd7f-bc64c4603443" />
+        <test type="Float" value="1.353532" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 1)" />
+          <transformation active="True" expression="$+0.01" />
+          <padding active="True" direction="Left" length="6" character=" " />
+          <substring active="True" start="0" end="5" />
+          <transformation active="True" expression="'$NM'" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4cd5d57e-cc79-4e31-93e9-5ad125d9e820">
+      <active>true</active>
+      <description>NAV DME SPEED</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV DMESPEED:1,Knots)" UUID="c4e33180-5afe-49c5-9f96-fb9e391278f7" />
+        <test type="Float" value="999" />
+        <modifiers>
+          <transformation active="True" expression="Round($, 0)" />
+          <comparison active="True" value="999" operand="&gt;" ifValue="--" elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a9167e29-2975-4f31-9587-b81064d2d571">
+      <active>false</active>
+      <description>==== CONTEXTS ======================================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="90ee9cba-8973-4e67-ae02-f5bf3e5f599d">
+      <active>true</active>
+      <description>CONTEXT: Com/Nav mode (0=com, 1=nav)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="gnc255-mode" varExpression="$" />
+        <test type="Float" value="0" />
+        <modifiers />
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="5" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a0782f14-511f-4b2d-b11c-ef2d0fe86667">
+      <active>true</active>
+      <description>CONTEXT: Emergency HOLD</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cd009dbd-1de1-4f84-b829-92d55703e6ae">
+      <active>true</active>
+      <description>CONTEXT: NAV &amp; DME available AND NAV mode</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV HAS DME:1,Bool)" UUID="4b8fb048-1db7-44ad-8b5e-d1bdb95edccb" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if($=1,#,0)" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="90ee9cba-8973-4e67-ae02-f5bf3e5f599d" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="f4ae6445-cead-4b97-a751-de6ba29b9fba">
+      <active>true</active>
+      <description>CONTEXT: NAV MODE active</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue="1" elseValue="0" />
+        </modifiers>
+        <display type="" serial="-" trigger="change" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="891ccac0-7419-428d-a5bb-fb9f9cb45abb">
+      <active>false</active>
+      <description>================================== SPECIAL LABELS ===================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1f7998b3-6be9-4505-950a-da19b2315c25">
+      <active>true</active>
+      <description>Com1 active text label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="'# !'" />
+          <padding active="True" direction="Right" length="18" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="3" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="01ac33f8-f6a3-4e8c-9743-d641ec73e0bb" placeholder="#" testvalue="1" />
+          <configref active="True" ref="1053f982-69f9-4b4f-ad11-6f0ba36181a3" placeholder="!" testvalue="1" />
+          <configref active="True" ref="86f9f830-f1c7-454b-b211-f995f2d55cfa" placeholder="&amp;" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="9b617ed1-a2f1-4d3e-b20a-7a7fa2878cf6">
+      <active>true</active>
+      <description>Nav1 acrtive ident label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:NAV IDENT:1,String)" UUID="0" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="if(!=1, '# ?', ' ')" />
+          <padding active="True" direction="Right" length="18" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="3" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="4f092dab-d982-4aa1-bee0-7279fad305b6" placeholder="#" testvalue="1" />
+          <configref active="True" ref="c9a5ab9f-2ee3-4c5a-962f-acb6d7fe382f" placeholder="!" testvalue="1" />
+          <configref active="True" ref="0fcb638e-1b90-4404-9125-ea42e61b539b" placeholder="?" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="6ba3d8fd-0037-40f8-8e6e-b22a2216e2a8">
+      <active>true</active>
+      <description>Nav1 standby ident label (not implemented in MSFS2020, so blank)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="''" />
+          <padding active="True" direction="Right" length="16" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="4" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1c9d8564-a490-4561-b681-bfd7c638029d">
+      <active>true</active>
+      <description>Com1 standby text label</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="MyVar" varExpression="$" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="'# !'" />
+          <padding active="True" direction="Right" length="16" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E4632881575D3729" trigger="normal" customType="" customName="GNC255 OLED" messageType="4" value="$" />
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="662bc10a-bf84-4e8a-a698-50fcf7ddef3b" placeholder="#" testvalue="1" />
+          <configref active="True" ref="ce583a2d-23d2-48ee-a9e6-c6bc5ba17218" placeholder="!" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="22d546a2-9316-4ce7-beae-692722ac873c">
+      <active>true</active>
+      <description>com MHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:COM_RADIO_WHOLE_DEC)" presetId="ec154767-41ce-4a2f-865b-3e6fe7c90c89" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:COM_RADIO_WHOLE_INC)" presetId="e1a79c8b-2e4a-49b2-9284-d1cf0adc5707" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="01154066-cc51-4748-83c1-5094be41946a">
+      <active>true</active>
+      <description>com kHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:COM_RADIO_FRACT_DEC)" presetId="04725cc3-7346-4f5d-ad89-c1ffaaa6e978" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:COM_RADIO_FRACT_INC)" presetId="6b78a3e2-e3dc-411b-bb2d-224b011a2644" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e8901da9-897e-4531-b412-70efb582038e">
+      <active>true</active>
+      <description>nav MHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:NAV1_RADIO_WHOLE_DEC)" presetId="bcb45f55-c67a-44b9-a951-096e450ccec7" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:NAV1_RADIO_WHOLE_INC)" presetId="1ae481bc-bea6-4f58-a683-01c9d0c38e32" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ef86ab47-e76e-4d47-8dbe-742e6ecf998f">
+      <active>true</active>
+      <description>nav kHz</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:NAV1_RADIO_FRACT_DEC)" presetId="f92f319c-75e2-471e-845a-764540c65040" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:NAV1_RADIO_FRACT_INC)" presetId="91d424e5-4d6a-48a0-a435-153331c604b3" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="428773cf-fa3f-4d0c-ad48-01d2e222c5d5">
+      <active>true</active>
+      <description>com swap</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:COM1_RADIO_SWAP)" presetId="584f3009-7de6-4d76-8814-3a4e61aaeb08" />
+        </button>
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="32c79c95-3d03-443a-bfa8-f076f1dd307a">
+      <active>true</active>
+      <description>nav swap</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:NAV1_RADIO_SWAP)" presetId="72e5dd2a-4e9d-4d61-940a-e523202f8dd0" />
+        </button>
+        <preconditions>
+          <precondition type="variable" active="true" ref="gnc255-mode" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e21fbb60-63c2-4f8f-b6fa-ac56716a3caa">
+      <active>true</active>
+      <description>photocell</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="photocell" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="VariableInputAction" varType="number" varName="photocell" varExpression="@" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2cd55994-8adc-4d08-9a30-504e843ac59b">
+      <active>true</active>
+      <description>com/nav mode</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="btn 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="VariableInputAction" varType="number" varName="gnc255-mode" varExpression="if($=1,0,1)" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="581fe55a-5aac-49de-9d56-9457433ba11c">
+      <active>true</active>
+      <description>com volume</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="VariableInputAction" varType="number" varName="com 1 volume" varExpression="@" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2b455af9-bba5-461f-8153-3b1d0c084302">
+      <active>true</active>
+      <description>nav volume</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="VariableInputAction" varType="number" varName="nav 1 volume" varExpression="@" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1815dd46-cbdb-4b8d-af05-9a2c0a55f8fa">
+      <active>true</active>
+      <description>COM squelch</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="com push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:RADIO_COMMNAV1_TEST_TOGGLE)" presetId="9fe48811-90ea-4b56-8712-ee93a180d4a5" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1bebd178-4eb5-4486-b755-3fdcfa2d7e88">
+      <active>true</active>
+      <description>NAV ID</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E4632881575D3729" name="nav push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(&gt;K:RADIO_VOR1_IDENT_TOGGLE)" presetId="db2fc654-eb8c-45f1-a26b-c9f172accc1d" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

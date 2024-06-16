@@ -1021,6 +1021,16 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
+    <None Include="Community\Elral_Tuomas_GNC255\boards\mobiflight_GNC255_pico.board.json" />
+    <None Include="Community\Elral_Tuomas_GNC255\config\MF255-0.9.1.mfmc" />
+    <None Include="Community\Elral_Tuomas_GNC255\devices\mobiflight.gnc255.device.json" />
+    <None Include="Community\Elral_Tuomas_GNC255\firmware\gnc255_raspberrypico_0_9_1.uf2" />
+    <None Include="Community\Elral_Tuomas_GNC255\firmware\reset.arduino_mega_1_0_2.hex" />
+    <None Include="Community\Elral_Tuomas_GNC255\firmware\reset.raspberry_pico_flash_nuke.uf2" />
+    <None Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\gnc255-msfs2020-1.2.mcc" />
+    <None Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\S-5.2_GENERIC_GNC255-V12_DEV_COM1-2NAV1-2ADFQNHXPDR.mcc" />
+    <None Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\X-1.6_FENIX_A320_-_GNC255-V5_VHF1-2-3_QNH_XPDR.mcc" />
+    <None Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\X-5.2_COMANCHE_250_-_GNC255-V3_COM1-2NAV1-2ADFQNHXPDR.mcc" />
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1166,6 +1176,8 @@
     <Content Include="Boards\board-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\boards\board-logo.png" />
+    <Content Include="Community\Elral_Tuomas_GNC255\boards\gnc255_raspberrypico.png" />
     <Content Include="mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
