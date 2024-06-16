@@ -129,9 +129,11 @@ namespace MobiFlight.Monitors
                 var portNameMatch = Regex.Match(queryObj["Caption"].ToString(), portNameRegEx); // Find the COM port.
                 var portName = portNameMatch?.Value.Trim(new char[] { '(', ')' }); // Remove the surrounding ().
 
-                if (portName == null)
+                if (string.IsNullOrEmpty(portName))
                 {
-                    //Log.Instance.log($"Device has no port information: {hardwareId}.", LogSeverity.Error);
+                    // Issue 1778: If someone renames the device in Device Manager and removes the COM
+                    // port from the device name then this will be blank. Log an error and continue.
+                    Log.Instance.log($"Detected {queryObj["Caption"].ToString()} but it has no COM port in its name.", LogSeverity.Error);
                     continue;
                 }
 
