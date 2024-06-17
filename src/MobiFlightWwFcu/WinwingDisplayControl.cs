@@ -162,7 +162,10 @@ namespace MobiFlight
         private byte[] LightMessage = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 3, 0x49, 3, 0, 0, 0, 0, 0, 0 };
 
         // 02 01 00 00 00 01 00 00 00 00 00 00 00 00
-        private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0, 0, 0, 0, 0, 0, 0, 0 };
+        private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
+
+        // 02 01 00 00 00 01 02 00 00 00 00 00 00 00
+        private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
 
         private const string SPEED = "Speed Value";
         private const string MACH = "Mach Value";
@@ -703,6 +706,11 @@ namespace MobiFlight
         private void SetLcdBrightness(string brightness)
         {
             SetBrightnessInternal(0x01, brightness);
+        }
+
+        public void SendRequestFirmware()
+        {
+            WriteStream(RequestFirmwareMessage, 0, 14);
         }
 
         public List<string> GetLedNames()
