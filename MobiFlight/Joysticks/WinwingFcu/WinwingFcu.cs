@@ -84,6 +84,7 @@ namespace MobiFlight.Joysticks.WinwingFcu
             Device = (IHidDevice)await hidFactory.GetDeviceAsync(deviceDefinitions.First()).ConfigureAwait(false);
             await Device.InitializeAsync().ConfigureAwait(false);
             DoReadHidReports = true;
+            DisplayControl.SendRequestFirmware();
 
             await Task.Run(async () =>
             {
