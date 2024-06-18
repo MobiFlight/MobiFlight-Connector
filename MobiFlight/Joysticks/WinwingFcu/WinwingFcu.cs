@@ -89,9 +89,17 @@ namespace MobiFlight.Joysticks.WinwingFcu
             await Task.Run(async () =>
             {
                 while (DoReadHidReports)
-                {                                      
-                    HidDataBuffer.HidReport = await Device.ReadReportAsync().ConfigureAwait(false);                                                                
-                    InputReportReceived(HidDataBuffer);                                     
+                {
+                    try
+                    {
+                        HidDataBuffer.HidReport = await Device.ReadReportAsync().ConfigureAwait(false);
+                        InputReportReceived(HidDataBuffer);
+                    }
+                    catch 
+                    {
+                        // Exception when disconnecting fcu while mobiflight is running.
+                        Shutdown();
+                    }
                 }
             });
         }
@@ -114,7 +122,7 @@ namespace MobiFlight.Joysticks.WinwingFcu
                 {
                     EncoderButtonsToTrigger[input.Id] = device;
                 }
-                Log.Instance.log($"Added WINGWING FCU Id: {input.Id} Axis: {input.Name} Label: {input.Label}.", LogSeverity.Debug);
+                Log.Instance.log($"Added WINWING FCU Id: {input.Id} Axis: {input.Name} Label: {input.Label}.", LogSeverity.Debug);
             }
         }
 

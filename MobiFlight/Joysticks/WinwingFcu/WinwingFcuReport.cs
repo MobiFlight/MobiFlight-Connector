@@ -54,9 +54,10 @@ namespace MobiFlight.Joysticks.WinwingFcu
                 // Is firmware report
                 if (data[5] == 0x02 && data[4] == 0x05 && data[0] == 0x10)
                 {
+                    Log.Instance.log($"WINWING FCU Firmware: v{data[9].ToString("X2")}.{data[8].ToString("X2")}", LogSeverity.Debug);
                     if (data[9] == 1 && data[8] < 0x16)
                     {
-                        IsFirmwareGreaterOrEqual_1_16 = false;
+                        IsFirmwareGreaterOrEqual_1_16 = false;                        
                     }
                 }
             }
