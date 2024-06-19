@@ -26,6 +26,7 @@
             Fast = 3,
             UltraFast = 4
         };
+
         private readonly JoystickOutputDevice[] LedChannels = new JoystickOutputDevice[3];
         private bool dirty = true; // There have been changes since the last time the values were sent to the device
                                    // Initialized as true to ensure that no output gets ignored.
@@ -34,13 +35,20 @@
         private bool greenred = false; // Special handling of green/red LEDs to get a decent amber when both are on
         private readonly byte LedId = 0;
         private const byte defaultBrightness = 5; // VKB LEDs have 7 brightness levels, but MobiFlight does not support PWM on HIDs
+
         public VKBLed(byte id)
         {
             LedId = id;
         }
+
         public void AddChannel(JoystickOutput output)
         {
-            if (LedChannels[output.Bit] != null) return;
+            // Check if channel already exists
+            if (LedChannels[output.Bit] != null)
+            {
+                return;
+            }
+
             LedChannels[output.Bit] = new JoystickOutputDevice
             {
                 Label = output.Label,
@@ -49,6 +57,7 @@
                 Bit = output.Bit,
                 State = 0
             };
+
             // Green/Red LEDs need special treatment, so let us track that:
             if (LedChannels[0] != null
              && LedChannels[0].Label.Contains("Green") // feels like a dirty hack, but requires no additional config data
@@ -58,19 +67,26 @@
                 greenred = true;
             }
         }
+
         public void SetState(byte channel, byte state)
         {
             used = true; // Ensure that the LED state is only sent if an output is associated with the LED.
-            if (LedChannels[channel].State != state) dirty = true;
+            if (LedChannels[channel].State != state)
+            {
+                dirty = true;
+            }
             LedChannels[channel].State = state;
         }
+
         public byte[] Serialize()
         {
-            byte[] LedBlock = new byte[] { 0, 0, 0, 0 };
-            FlashPattern pattern = FlashPattern.Off;
-            ColorMode colmode = ColorMode.Color1;
-            byte[,] ColorIntensity = new byte[2, 3] { { 0, 0, 0 }, { 0, 0, 0 } };
+            // Collect the states of each channel and turn it into an LED command block
+            var LedBlock = new byte[] { 0, 0, 0, 0 };
+            var pattern = FlashPattern.Off;
+            var colmode = ColorMode.Color1;
+            var ColorIntensity = new byte[2, 3] { { 0, 0, 0 }, { 0, 0, 0 } };
             int activeLeds = 0;
+            // Count used channels (to compensate for multiplex dimming on bi-color LEDs) and ensure the LED turns on
             foreach (JoystickOutputDevice channel in LedChannels)
             {
                 if ((channel?.State ?? 0) != 0)
@@ -79,18 +95,24 @@
                     activeLeds++;
                 }
             }
+
+            // Handle different LED Types:
+
+            // Check for RGB LED
             if (LedChannels[2] != null)
             {
-                // RGB LED, use Color1 with RGB values;
+                // With RGB LEDs, use Color1 with RGB values;
                 foreach (JoystickOutputDevice channel in LedChannels)
                 {
                     ColorIntensity[0, channel.Bit] = (byte)(channel.State * defaultBrightness);
                 }
             }
+
+            // Check for green/red bicolor LED
             else if (greenred)
             {
                 // Green/Red LEDs need special treatment, due to the always-green feature and the overpowering green at high intensities
-                int color = ((LedChannels[0].State != 0) ? 1 : 0) + ((LedChannels[1].State != 0) ? 2 : 0); // 0: off, 1: green, 2: red, 3: amber
+                var color = ((LedChannels[0].State != 0) ? 1 : 0) + ((LedChannels[1].State != 0) ? 2 : 0); // 0: off, 1: green, 2: red, 3: amber
                 byte brightnessG = defaultBrightness;
                 byte brightnessR = defaultBrightness;
                 switch (color)
@@ -125,15 +147,20 @@
                 ColorIntensity[0, 1] = brightnessG;
                 ColorIntensity[1, 1] = brightnessR;
             }
+
+            // Handle other LED types
             else
             {
                 // Single or bicolor LED, other than red/green LEDs
                 byte brightness = defaultBrightness;
-                if (activeLeds > 1) brightness = 7; // Since Color1+2 means the controller is alternating between both colors (like PWM), we need to increase
-                                                    // the brightness over the base brightness.
+                if (activeLeds > 1)
+                {
+                    brightness = 7; // Since Color1+2 means the controller is alternating between both colors (like PWM),
+                                    // we need to increase the brightness over the base brightness.
+                }
                 for (int col = 0; col < ColorIntensity.GetLength(0); col++)
                 {
-                    byte[] channelstate = new byte[2] { (LedChannels[0]?.State ?? 0), (LedChannels[1]?.State ?? 0) };
+                    var channelstate = new byte[2] { (LedChannels[0]?.State ?? 0), (LedChannels[1]?.State ?? 0) };
                     if (channelstate[0] != 0)
                     {
                         ColorIntensity[0, col] = (byte)(channelstate[0] * brightness);
@@ -155,14 +182,17 @@
                     ColorIntensity[1, col] = (byte)((LedChannels[1]?.State ?? 0) * brightness);
                 }
             }
+
             // Serialize the block into a tightly-packed structure with several 3-bit variables - USB is LSB-first.
             LedBlock[0] = LedId;
             LedBlock[1] = (byte)(ColorIntensity[0, 0] | ColorIntensity[0, 1] << 3 | (ColorIntensity[0, 2] & 0x03) << 6);
             LedBlock[2] = (byte)(ColorIntensity[0, 2] >> 2 | ColorIntensity[1, 0] << 1 | ColorIntensity[1, 1] << 4 | (ColorIntensity[1, 2] & 0x01) << 7);
             LedBlock[3] = (byte)(ColorIntensity[1, 2] >> 1 | (byte)pattern << 2 | (byte)colmode << 5);
-            dirty = false;
+            dirty = false; // The message will get sent out, so we can consider the current state the new base state.
+
             return LedBlock;
         }
+
         public bool IsChanged()
         {
             return dirty && used; // The values have changed since the last message was sent.

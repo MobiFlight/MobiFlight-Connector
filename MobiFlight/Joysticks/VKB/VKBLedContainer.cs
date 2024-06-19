@@ -8,17 +8,23 @@ namespace MobiFlight.Joysticks.VKB
     {
         private readonly SortedList<byte, VKBLed> Leds = new SortedList<byte, VKBLed>();
         private readonly Dictionary<String, (byte, byte)> Labels = new Dictionary<string, (byte, byte)>();
+
         public void AddChannel(JoystickOutput output)
         {
+            // If this is the first channel of the LED, we need to create the LED first.
             if (!Leds.ContainsKey(output.Byte))
+            {
                 Leds.Add(output.Byte, new VKBLed(output.Byte));
+            }
+
             Leds[output.Byte].AddChannel(output);
             Labels.Add(output.Label, (output.Byte, output.Bit));
         }
+
         public void UpdateState (string Label, byte State)
         {
             // Find the LED and its color channel and update it.
-            String[] updateLabels = Label.Split('|'); // Multiple output pin support
+            var updateLabels = Label.Split('|'); // Multiple output pin support
             foreach (String updateLabel in updateLabels)
             {
                 if (Labels.ContainsKey(updateLabel))
@@ -28,15 +34,12 @@ namespace MobiFlight.Joysticks.VKB
                 }
             }
         }
+
         public byte[] CreateMessage()
             // Serialize an entire feature report by iterating over all LEDs.
         {
             int LedCount = 0;
-            foreach(KeyValuePair<byte,VKBLed> entry in Leds)
-            {
-                if (entry.Value.IsChanged()) LedCount++;
-            }
-            byte[] buffer = new byte[129]; // Length defined by report descriptor.
+            var buffer = new byte[129]; // Length defined by report descriptor.
             buffer[0] = 0x59; // Report ID
             buffer[1] = 0xA5; // Header preamble
             buffer[2] = 0x0A; // Opcode
@@ -46,14 +49,25 @@ namespace MobiFlight.Joysticks.VKB
             int bufferoffset = 8;
             foreach (KeyValuePair<byte, VKBLed> entry in Leds)
             {
-                if (!entry.Value.IsChanged()) continue;
+                // Only include changed LEDs
+                if (!entry.Value.IsChanged())
+                {
+                    continue;
+                }
+
                 Buffer.BlockCopy(entry.Value.Serialize(), 0, buffer, bufferoffset, 4); // Serialize single LED
                 bufferoffset += 4;
-                if (bufferoffset > 126) break; // We are not able to update more than that at once without
-                                               // exceeding our buffer. But next call, only the remaning LEDs
-                                               // ought to still return true on IsChanged().
-                                               // In practice, we are more likely to deal with single LEDs here anyway.
+                LedCount++;
+                // We are not able to update more LEDs than we can fit into the report. Once we have hit the limit, we need to
+                // leave the remaining LEDs for the next report. Since they are not expected to change again that quickly, we
+                // can still expect to be able to empty our buffer eventually. Practically, single LEDs should be more common
+                // than more LEDs than we can fit.
+                if (bufferoffset > 126)
+                {
+                    break;
+                }
             }
+            buffer[7] = (byte)LedCount;
             return buffer;
         }
     }

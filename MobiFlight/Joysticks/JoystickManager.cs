@@ -157,7 +157,7 @@ namespace MobiFlight
                 }
 
                 Joystick js;
-                SharpDX.DirectInput.Joystick diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
+                var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
@@ -171,7 +171,13 @@ namespace MobiFlight
                 {
                     // VKB devices are highly configurable. DirectInput names can have old values cached in the registry, but HID names seem to be immune to that.
                     // Also trim the extraneous whitespaces on VKB device names.
-                    js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(VKBDevice.GetMatchingHidDevice(diJoystick).GetProductName().Trim()));
+                    var hidDevice = VKBDevice.GetMatchingHidDevice(diJoystick);
+                    string productName = d.InstanceName;
+                    if (hidDevice != null)
+                    {
+                        productName = hidDevice.GetProductName();
+                    }
+                    js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(productName.Trim()));
                 }
                 else
                 {
@@ -241,7 +247,11 @@ namespace MobiFlight
             {
                 var key = $"Joysticks.Model.{joystick.Name}";
 
-                if (!result.ContainsKey(key)) result[key] = 0;
+                if (!result.ContainsKey(key))
+                {
+                    result[key] = 0;
+                }
+
                 result[key] += 1;
             }
 
