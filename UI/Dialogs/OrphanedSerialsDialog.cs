@@ -79,8 +79,8 @@ namespace MobiFlight.UI.Dialogs
 
         private void CheckAndAddConfigSerial(string configSerial, List<string> configSerials)
         {
-            if (configSerial != "" && 
-                configSerial != "-" &&              
+            if (configSerial != "" &&
+                configSerial != "-" &&
                 !configSerials.Contains(configSerial) &&
                 !allConnectedSerials.Contains(configSerial))
             {
