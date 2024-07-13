@@ -1,34 +1,23 @@
-﻿using HidSharp;
+﻿using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Threading;
-using System.Xml.Linq;
 
 namespace MobiFlight
 {
-    internal class MsgEntry
-    {
-        public byte StartPos;
-        public byte[] Mask;
-        public byte[] Data;
-    }
-
     public class WinwingDisplayControl
     {
         // f0 00 0e 12 10bb0000 04 010000 44 8f 32 00000100000002 000000000000000000000000000000000000000000000000000000000000000000000000000000000000
         // 0  1  2  3  4 5 6 7  8  9      12 13 14 15
 
-        private readonly int VendorId = 0x4098;
-        private readonly int ProductId = 0xBB10;
-        private HidStream Stream { get; set; }
-        private HidDevice Device { get; set; }
+        private int ProductId = 0xBB10;
+
+        private WinWingMessageSender MessageSender = null;
 
         private Thread HeartbeatThread = null;
         private volatile bool DoExecuteHeartbeat = false;
-        private object StreamLock = new object();
 
         public event EventHandler<string> ErrorMessageCreated;
 
@@ -204,6 +193,19 @@ namespace MobiFlight
 
         public WinwingDisplayControl()
         {
+            Init();
+        }
+
+        public WinwingDisplayControl(int productId)
+        {
+            ProductId = productId;
+            Init();
+        }
+
+        private void Init()
+        {
+            MessageSender = new WinWingMessageSender(ProductId);
+
             DisplayList.Add(SPEED, SetSpeed);
             DisplayList.Add(MACH, SetMachSpeed);
             DisplayList.Add(MACH_MODE, SetMachModeOnOff);
@@ -221,26 +223,26 @@ namespace MobiFlight
             DisplayList.Add(TRK_MODE, SetTrackFpaModeOnOff);
             DisplayList.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
             DisplayList.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
-            DisplayList.Add(LCD_BRIGHTNESS, SetLcdBrightness); 
+            DisplayList.Add(LCD_BRIGHTNESS, SetLcdBrightness);
             DisplayList.Add(LED_BRIGHTNESS, SetLedBrightness);
-           
+
             foreach (var displayName in GetDisplayNames())
             {
                 LcdCurrentValues.Add(displayName, string.Empty);
             }
 
-            foreach (var ledName in GetLedNames()) 
+            foreach (var ledName in GetLedNames())
             {
                 LedCurrentValues.Add(ledName, 255);
             }
-            
+
             DisplayTestMessage.AddRange(new byte[64]);
             SetValuesMessage.AddRange(new byte[64]);
             ConfirmMessage.AddRange(new byte[64]);
-            Init();
+            PrepareMessages();
         }
 
-        private void InitDisplayMessage(string id, List<byte> message, Dictionary<string, MsgEntry> data)
+        private void PrepareDisplayMessage(string id, List<byte> message, Dictionary<string, MsgEntry> data)
         {            
             foreach (var entry in DisplayHeader.Values)
             {
@@ -255,25 +257,22 @@ namespace MobiFlight
             }
         }
 
-        private void Init()
+        private void PrepareMessages()
         {
             // Init TestModeMessage
-            InitDisplayMessage("Test", DisplayTestMessage, DisplayTestModeData);
+            PrepareDisplayMessage("Test", DisplayTestMessage, DisplayTestModeData);
 
             // Init SetValuesMessage
-            InitDisplayMessage("SetValues", SetValuesMessage, DisplaySetValuesData);
+            PrepareDisplayMessage("SetValues", SetValuesMessage, DisplaySetValuesData);
 
             // Init ConfirmMessage
-            InitDisplayMessage("Confirm", ConfirmMessage, new Dictionary<string, MsgEntry>());
+            PrepareDisplayMessage("Confirm", ConfirmMessage, new Dictionary<string, MsgEntry>());
         }
 
         public void Connect()
         {
-            Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
-            if (Device == null) return;
-            Stream = Device.Open();
-            Stream.ReadTimeout = System.Threading.Timeout.Infinite;
-         
+            MessageSender.Connect();
+
             SendDisplayMessage(SetValuesMessage); // Init display
             SetBacklightBrightness("20");
             SetLcdBrightness("100");
@@ -284,18 +283,17 @@ namespace MobiFlight
         {
             try
             {
-                if (Stream != null)
-                {                    
+                if (MessageSender.IsConnected())
+                {
                     StopHeartbeat();
-                    ResetDisplay();
+                    EmptyDisplay();
                     SetBacklightBrightness("0");
                     SetLcdBrightness("0");
                     foreach (var ledName in LedIdentifiers.Keys)
                     {
                         SetLed(ledName, 0);
                     }
-                    Stream.Close();
-                    Stream = null;
+                    MessageSender.Shutdown();
                 }
             }
             catch
@@ -343,7 +341,7 @@ namespace MobiFlight
             SendDisplayMessage(DisplayTestMessage);
         }
 
-        private void ResetDisplay()
+        private void EmptyDisplay()
         {
             var resetMsg = new MsgEntry { StartPos = 25, Mask = new byte[18], Data = new byte[18] };
             SetBytesDisplayMessage(resetMsg, SetValuesMessage);
@@ -742,8 +740,7 @@ namespace MobiFlight
             }
         }
 
-        // "AllOn", "AllOff", "Half1On", "Half2On"
-        // TODO Set to private for MobiFlight DLL Build
+        // "AllOn", "AllOff", "Half1On", "Half2On"        
         private void LcdTest(string command)
         {
             PrepareAndSendDisplayTestMessage(DisplayTestCommands[command]);
@@ -752,30 +749,13 @@ namespace MobiFlight
 
         private void SendDisplayMessage(List<byte> message)
         {
-            SendDisplayMessageToFcu(message);
-            SendDisplayMessageToFcu(ConfirmMessage); // Always at that second message
-        }
-
-        private void SendDisplayMessageToFcu(List<byte> message)
-        {
-            Counter.Data[0]++;
-            TimeBlock.Data = GetTimeAsBytes();
-            SetBytesDisplayMessage(TimeBlock, message);
-            SetBytesDisplayMessage(Counter, message);
-    
-            WriteStream(message.ToArray(), 0, 64);
+            MessageSender.SendDisplayMessage(message);
+            MessageSender.SendDisplayMessage(ConfirmMessage); // Always at that second message
         }
 
         private void WriteStream(byte[] buffer, int offset, int count)
         {
-            if (Stream == null)
-            {
-                throw new ApplicationException("WinwingDisplayControl cannot send data. Not connected to device. Stream is null.");
-            }
-            lock (StreamLock)
-            {
-                Stream.Write(buffer, offset, count);
-            }
+            MessageSender.WriteStream(buffer, offset, count);
         }
 
 
@@ -790,14 +770,5 @@ namespace MobiFlight
             }
         }
 
-        private byte[] GetTimeAsBytes()
-        {
-            DateTime time = DateTime.Now;
-            byte[] timeBytes = new byte[3];
-            timeBytes[0] = (byte)(time.Millisecond / 4);
-            timeBytes[1] = (byte)(time.Second * 3);
-            timeBytes[2] = (byte)time.Minute;
-            return timeBytes;
-        }
     }
 }
