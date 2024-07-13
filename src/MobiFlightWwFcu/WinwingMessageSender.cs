@@ -16,6 +16,10 @@ namespace MobiFlightWwFcu
         private MsgEntry TimeBlock = new MsgEntry { StartPos = 12, Mask = new byte[3], Data = new byte[] { 0x01, 0x00, 0x00 } };
         private MsgEntry Counter = new MsgEntry { StartPos = 2, Mask = new byte[1], Data = new byte[] { 0x00 } };
 
+        private byte[] LightControlMessage = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 3, 0x49, 3, 0, 0, 0, 0, 0, 0 };
+        private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
+        private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
+
         internal WinWingMessageSender(int productId)
         {
             ProductId = productId;
@@ -58,6 +62,33 @@ namespace MobiFlightWwFcu
             SetBytesDisplayMessage(Counter, message);
 
             WriteStream(message.ToArray(), 0, 64);
+        }
+
+        /// <summary>
+        /// Send a light control message
+        /// </summary>
+        /// <param name="destination">Destination device as 2 bytes</param>
+        /// <param name="data">Data as 2 bytes</param>
+        internal void SendLightControlMessage(byte[] destination, byte[] data) 
+        {
+            // Update message
+            LightControlMessage[1] = destination[0];
+            LightControlMessage[2] = destination[1];
+            LightControlMessage[7] = data[0];
+            LightControlMessage[8] = data[1];
+
+            // Send message
+            WriteStream(LightControlMessage, 0, 14);
+        }
+
+        internal void SendHeartBeatMessage()
+        {
+            WriteStream(HeartBeatMessage, 0, 14);
+        }
+
+        internal void SendRequestFirmwareMessage()
+        {
+            WriteStream(RequestFirmwareMessage, 0, 14);
         }
 
         internal void WriteStream(byte[] buffer, int offset, int count)

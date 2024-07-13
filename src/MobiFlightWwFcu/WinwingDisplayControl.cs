@@ -63,10 +63,6 @@ namespace MobiFlight
         };
         // ---------------------------
 
-
-        private MsgEntry TimeBlock = new MsgEntry { StartPos = 12, Mask = new byte[3], Data = new byte[] { 0x01, 0x00, 0x00 } };
-        private MsgEntry Counter = new MsgEntry { StartPos = 2, Mask = new byte[1], Data = new byte[] { 0x00 } };
-
         private Dictionary<char, byte[]> SpeedNumberCodes = new Dictionary<char, byte[]>()
         {
             { '*', new byte[] { 0x00 } },
@@ -148,13 +144,8 @@ namespace MobiFlight
         private List<byte> DisplayTestMessage = new List<byte>();
         private List<byte> SetValuesMessage = new List<byte>();
         private List<byte> ConfirmMessage = new List<byte>();
-        private byte[] LightMessage = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 3, 0x49, 3, 0, 0, 0, 0, 0, 0 };
 
-        // 02 01 00 00 00 01 00 00 00 00 00 00 00 00
-        private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
-
-        // 02 01 00 00 00 01 02 00 00 00 00 00 00 00
-        private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
+        private byte[] LightMessageData = new byte[2];
 
         private const string SPEED = "Speed Value";
         private const string MACH = "Mach Value";
@@ -326,9 +317,9 @@ namespace MobiFlight
                 if (DoExecuteHeartbeat)
                 {
                     // Do the pattern like in recording
-                    WriteStream(HeartBeatMessage, 0, 14);
+                    MessageSender.SendHeartBeatMessage();                  
                     Thread.Sleep(450);
-                    WriteStream(HeartBeatMessage, 0, 14);
+                    MessageSender.SendHeartBeatMessage();
                 }
                 Thread.Sleep(2550);
             }
@@ -643,16 +634,9 @@ namespace MobiFlight
                 if (!string.IsNullOrEmpty(led) && LedCurrentValues[led] != state)
                 {
                     LedCurrentValues[led] = state;
-                    LightMessage[5] = 0x03; // length
-                    LightMessage[6] = 0x49; // light control command
-                    LightMessage[7] = LedIdentifiers[led];
-                    LightMessage[8] = state == 0 ? (byte)0 : (byte)1;
-                    LightMessage[9] = 0x00;
-                    LightMessage[10] = 0x00;
-                    LightMessage[11] = 0x00;
-                    LightMessage[12] = 0x00;
-                    LightMessage[13] = 0x00;
-                    WriteStream(LightMessage, 0, 14);
+                    LightMessageData[0] = LedIdentifiers[led];
+                    LightMessageData[1] = state == 0 ? (byte)0 : (byte)1;
+                    MessageSender.SendLightControlMessage(WinwingConstants.DEST_FCU, LightMessageData);
                 }
             }
             catch
@@ -679,16 +663,10 @@ namespace MobiFlight
             // Input should be 0 to 100 percent - scale to 0..255
             int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));           
             byte byteValue = value >= 255 ? (byte)255 : (byte)value;
-            LightMessage[5] = 0x03; // length
-            LightMessage[6] = 0x49; // light control command
-            LightMessage[7] = type; 
-            LightMessage[8] = byteValue;
-            LightMessage[9] = 0x00;
-            LightMessage[10] = 0x00;
-            LightMessage[11] = 0x00;
-            LightMessage[12] = 0x00;
-            LightMessage[13] = 0x00;
-            WriteStream(LightMessage, 0, 14);
+
+            LightMessageData[0] = type;
+            LightMessageData[1] = byteValue;
+            MessageSender.SendLightControlMessage(WinwingConstants.DEST_FCU, LightMessageData);
         }
 
         private void SetLedBrightness(string brightness)
@@ -708,7 +686,7 @@ namespace MobiFlight
 
         public void SendRequestFirmware()
         {
-            WriteStream(RequestFirmwareMessage, 0, 14);
+            MessageSender.SendRequestFirmwareMessage();           
         }
 
         public List<string> GetLedNames()
@@ -752,12 +730,6 @@ namespace MobiFlight
             MessageSender.SendDisplayMessage(message);
             MessageSender.SendDisplayMessage(ConfirmMessage); // Always at that second message
         }
-
-        private void WriteStream(byte[] buffer, int offset, int count)
-        {
-            MessageSender.WriteStream(buffer, offset, count);
-        }
-
 
         private void SetBytesDisplayMessage(MsgEntry msgEntry, List<byte> message)
         {
