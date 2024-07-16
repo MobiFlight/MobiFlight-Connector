@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinWingMessageSender
+    internal class WinwingMessageSender
     {
         private readonly int VendorId = 0x4098;
         private int ProductId = 0xBB10;
@@ -20,7 +20,7 @@ namespace MobiFlightWwFcu
         private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
         private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
 
-        internal WinWingMessageSender(int productId)
+        internal WinwingMessageSender(int productId)
         {
             ProductId = productId;
         }

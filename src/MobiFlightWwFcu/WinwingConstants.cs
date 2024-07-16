@@ -8,5 +8,8 @@ namespace MobiFlightWwFcu
     {
         internal static readonly byte[] DEST_FCU = new byte[] { 0x10, 0xbb };
         internal static readonly byte[] DEST_EFISL = new byte[] { 0x0d, 0xcf };
+
+        internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
+        internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
     }
 }
