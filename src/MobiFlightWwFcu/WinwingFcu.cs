@@ -155,10 +155,9 @@ namespace MobiFlightWwFcu
             { "AltNoDot",       new MsgEntry { StartPos = 40, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },
         };
 
-        private List<byte> DisplayTestMessage = new List<byte>();
-        private List<byte> SetValuesMessage = new List<byte>();
-        private List<byte> ConfirmMessage = new List<byte>();
-
+        private byte[] DisplayTestMessage = new byte[64];
+        private byte[] SetValuesMessage = new byte[64];
+        private byte[] ConfirmMessage = new byte[64];
 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
         {
@@ -169,7 +168,6 @@ namespace MobiFlightWwFcu
             { "APPR", 0x0D },
             { "EXPED", 0x0b }
         };
-
 
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
@@ -208,9 +206,6 @@ namespace MobiFlightWwFcu
                 LedCurrentValuesCache.Add(ledName, 255);
             }
 
-            DisplayTestMessage.AddRange(new byte[64]);
-            SetValuesMessage.AddRange(new byte[64]);
-            ConfirmMessage.AddRange(new byte[64]);
             PrepareMessages();
         }
 
@@ -303,7 +298,7 @@ namespace MobiFlightWwFcu
         }
 
 
-        private void PrepareDisplayMessage(string id, List<byte> message, Dictionary<string, MsgEntry> data)
+        private void PrepareDisplayMessage(string id, byte[] message, Dictionary<string, MsgEntry> data)
         {
             foreach (var entry in DisplayHeader.Values)
             {
@@ -638,13 +633,13 @@ namespace MobiFlightWwFcu
         }
 
 
-        private void SendDisplayMessage(List<byte> message)
+        private void SendDisplayMessage(byte[] message)
         {
             MessageSender.SendDisplayMessage(message);
             MessageSender.SendDisplayMessage(ConfirmMessage); // Always at that second message
         }
 
-        private void SetBytesDisplayMessage(MsgEntry msgEntry, List<byte> message)
+        private void SetBytesDisplayMessage(MsgEntry msgEntry, byte[] message)
         {
             byte setPos = msgEntry.StartPos;
             for (int i = 0; i < msgEntry.Data.Length; i++)

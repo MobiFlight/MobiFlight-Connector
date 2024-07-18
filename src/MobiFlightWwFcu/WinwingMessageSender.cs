@@ -12,10 +12,8 @@ namespace MobiFlightWwFcu
         private HidDevice Device { get; set; }
 
         private object StreamLock = new object();
-
-        private MsgEntry TimeBlock = new MsgEntry { StartPos = 12, Mask = new byte[3], Data = new byte[] { 0x01, 0x00, 0x00 } };
-        private MsgEntry Counter = new MsgEntry { StartPos = 2, Mask = new byte[1], Data = new byte[] { 0x00 } };
-
+        
+        private byte Counter = 0;
         private byte[] LightControlMessage = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 3, 0x49, 3, 0, 0, 0, 0, 0, 0 };
         private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
         private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
@@ -54,14 +52,14 @@ namespace MobiFlightWwFcu
             }
         }
 
-        internal void SendDisplayMessage(List<byte> message)
+        internal void SendDisplayMessage(byte[] message)
         {
-            Counter.Data[0]++;  
-            TimeBlock.Data = GetTimeAsBytes();
-            SetBytesDisplayMessage(TimeBlock, message);
-            SetBytesDisplayMessage(Counter, message);
-
-            WriteStream(message.ToArray(), 0, 64);
+            byte[] time = GetTimeAsBytes();
+            message[2] = ++Counter;
+            message[12] = time[0];
+            message[13] = time[1];
+            message[14] = time[2];        
+            WriteStream(message, 0, 64);
         }
 
         /// <summary>
@@ -100,17 +98,6 @@ namespace MobiFlightWwFcu
             lock (StreamLock)
             {
                 Stream.Write(buffer, offset, count);
-            }
-        }
-
-        private void SetBytesDisplayMessage(MsgEntry msgEntry, List<byte> message)
-        {
-            byte setPos = msgEntry.StartPos;
-            for (int i = 0; i < msgEntry.Data.Length; i++)
-            {
-                message[setPos] &= msgEntry.Mask[i];
-                message[setPos] |= msgEntry.Data[i];
-                setPos++;
             }
         }
 
