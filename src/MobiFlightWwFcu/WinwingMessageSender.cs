@@ -1,6 +1,5 @@
 ﻿using HidSharp;
 using System;
-using System.Collections.Generic;
 
 namespace MobiFlightWwFcu
 {
@@ -52,6 +51,10 @@ namespace MobiFlightWwFcu
             }
         }
 
+        /// <summary>
+        /// Send display message
+        /// </summary>
+        /// <param name="message">Message with 64 bytes. First byte report id 0xf0</param>
         internal void SendDisplayMessage(byte[] message)
         {
             byte[] time = GetTimeAsBytes();
