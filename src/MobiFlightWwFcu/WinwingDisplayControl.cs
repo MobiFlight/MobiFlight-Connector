@@ -701,6 +701,7 @@ namespace MobiFlight
         private void SetBacklightBrightness(string brightness) 
         {
             SetBrightnessInternal(0x00, brightness);
+            SetBrightnessInternal(0x1e, brightness);
         }
 
         private void SetLcdBrightness(string brightness)
