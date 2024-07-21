@@ -14,8 +14,8 @@ namespace MobiFlight
         private WinwingMessageSender MessageSender = null;     
         private List<IWinwingDevice> WinwingDevices = new List<IWinwingDevice>();
 
-        private Dictionary<string, IWinwingDevice> LedNameToDeviceMapping = new Dictionary<string, IWinwingDevice>();
-        private Dictionary<string, IWinwingDevice> DisplayNameToDeviceMapping = new Dictionary<string, IWinwingDevice>();
+        private Dictionary<string, IWinwingDevice> LedNameToDeviceMapping;
+        private Dictionary<string, List<IWinwingDevice>> DisplayNameToDeviceMapping;
 
         private Thread HeartbeatThread = null;
         private volatile bool DoExecuteHeartbeat = false;
@@ -43,18 +43,28 @@ namespace MobiFlight
             }
             foreach (var displayName in device.GetDisplayNames())
             {
-                DisplayNameToDeviceMapping.Add(displayName, device);
+                if (!DisplayNameToDeviceMapping.ContainsKey(displayName))
+                {
+                    DisplayNameToDeviceMapping.Add(displayName, new List<IWinwingDevice>() { device });
+                }
+                else
+                {
+                    DisplayNameToDeviceMapping[displayName].Add(device);
+                }
             }
         }
 
         private void Init()
         {
+            LedNameToDeviceMapping = new Dictionary<string, IWinwingDevice>();
+            DisplayNameToDeviceMapping = new Dictionary<string, List<IWinwingDevice>>();
+
             MessageSender = new WinwingMessageSender(ProductId);
             AddDevice(new WinwingFcu(MessageSender));
 
             if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISL)
-            {                
-                // TODO Add EfisL Device
+            {
+                AddDevice(new WinwingEfis(MessageSender, "Left"));
             }
         }
 
@@ -167,7 +177,10 @@ namespace MobiFlight
             {
                 try
                 {
-                    DisplayNameToDeviceMapping[name].SetDisplay(name, value);       
+                    foreach (var device in DisplayNameToDeviceMapping[name])
+                    {
+                        device.SetDisplay(name, value);
+                    }                
                 }
                 catch
                 {

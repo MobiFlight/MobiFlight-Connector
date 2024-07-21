@@ -35,17 +35,18 @@ namespace MobiFlightWwFcu
         private const string LCD_BRIGHTNESS = "LCD Percentage";
         private const string LED_BRIGHTNESS = "LED Percentage";
 
-        // ----------
+        // --------------------
         private Dictionary<string, MsgEntry> DisplayHeader = new Dictionary<string, MsgEntry>()
         {
-            { "ReportId",       new MsgEntry { StartPos = 0, Mask = new byte[1], Data = new byte[] { 0xF0 } } },
+            { "ReportId",       new MsgEntry { StartPos = 0, Mask = new byte[1], Data = new byte[] { 0xf0 } } },
             { "Reserve",        new MsgEntry { StartPos = 1, Mask = new byte[1], Data = new byte[] { 0x00 } } },
             { "Counter",        new MsgEntry { StartPos = 2, Mask = new byte[1], Data = new byte[] { 0x00 } } },
             //{ "MessageLength",new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x12 } } },
-            { "HeaderBlock1",   new MsgEntry { StartPos = 4, Mask = new byte[4], Data = new byte[] { 0x10, 0xbb, 0x00, 0x00 } } },
-            //{ "MessageId",    new MsgEntry { StartPos = 8, Mask = new byte[1], Data = new byte[] { 0x02 } } },
-            { "HeaderBlock2",   new MsgEntry { StartPos = 9, Mask = new byte[3], Data = new byte[] { 0x01, 0x00, 0x00 } } },
-            { "TimeBlock",      new MsgEntry { StartPos = 12, Mask = new byte[3], Data = new byte[] { 0x01, 0x00, 0x00 } } },
+            { "DestAddress",    new MsgEntry { StartPos = 4, Mask = new byte[2], Data = new byte[] { 0x10, 0xbb } } },
+            { "HeaderBlock1",   new MsgEntry { StartPos = 6, Mask = new byte[2], Data = new byte[] { 0x00, 0x00 } } },
+            //{ "MessageId",    new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x02, 0x01 } } },
+            //{ "HeaderBlock2",   new MsgEntry { StartPos = 10, Mask = new byte[2], Data = new byte[] { 0x00, 0x00 } } },
+            //{ "TimeBlock",      new MsgEntry { StartPos = 12, Mask = new byte[3], Data = new byte[] { 0x00, 0x00, 0x00 } } },
         };
         private Dictionary<string, MsgEntry> DisplayHeaderMessageLength = new Dictionary<string, MsgEntry>()
         {
@@ -53,11 +54,12 @@ namespace MobiFlightWwFcu
             { "Confirm",        new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x11 } } },
             { "Test",          new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x12 } } },
         };
+
         private Dictionary<string, MsgEntry> DisplayHeaderMessageIds = new Dictionary<string, MsgEntry>()
         {
-            { "SetValues",      new MsgEntry { StartPos = 8, Mask = new byte[1], Data = new byte[] { 0x02 } } },
-            { "Confirm",        new MsgEntry { StartPos = 8, Mask = new byte[1], Data = new byte[] { 0x03 } } },
-            { "Test",          new MsgEntry { StartPos = 8, Mask = new byte[1], Data = new byte[] { 0x04 } } },
+            { "SetValues",      new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x02, 0x01 } } },
+            { "Confirm",        new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x03, 0x01 } } },
+            { "Test",           new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x04, 0x01 } } },
         };
         // -----------------------
 
@@ -290,6 +292,7 @@ namespace MobiFlightWwFcu
         private void SetBacklightBrightness(string brightness)
         {
             SetBrightnessInternal(0x00, brightness);
+            SetBrightnessInternal(0x1e, brightness);
         }
 
         private void SetLcdBrightness(string brightness)

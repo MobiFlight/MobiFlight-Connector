@@ -65,6 +65,11 @@ namespace MobiFlightWwFcu
             WriteStream(message, 0, 64);
         }
 
+        // TODO Idee: Man könnte mehrere Messages mitbringen, und wenn die zweite noch reinpasst, dann macht er nur eine draus.
+        // Das funktioniert beim Setzen des Displays für die Efis. Da ist hinten in der Message noch genügend Platz.
+        // Dazu muss er die Payload Length auswerten und danach weitermachen. Und dann auch auch noch die MessageLength
+        // anpassen. Alles etwas kompliziert.
+
         /// <summary>
         /// Send a light control message
         /// </summary>
