@@ -12,7 +12,6 @@ namespace MobiFlight.UI.Dialogs
         private List<string> connectedModuleSerials = new List<string>();
         private List<string> connectedArcazeSerials = new List<string>();
         private List<string> connectedJoystickSerials = new List<string>();
-        private List<string> connectedMidiSerials = new List<string>();
         private DataTable configDataTable = null;
         private DataTable realConfigDataTable = null;
         private DataTable inputDataTable = null;
@@ -33,10 +32,6 @@ namespace MobiFlight.UI.Dialogs
                 if (SerialNumber.IsJoystickSerial(serialNumber))
                 {
                     connectedJoystickSerials.Add(serial);
-                }
-                else if (SerialNumber.IsMidiBoardSerial(serialNumber))
-                {
-                    connectedMidiSerials.Add(serial);
                 }
                 else if (SerialNumber.IsMobiFlightSerial(serialNumber))
                 {
@@ -84,18 +79,17 @@ namespace MobiFlight.UI.Dialogs
 
         private void CheckAndAddConfigSerial(string configSerial, List<string> configSerials)
         {
-            if (configSerial != "" && 
-                configSerial != "-" &&              
+            if (configSerial != "" &&
+                configSerial != "-" &&
                 !configSerials.Contains(configSerial) &&
                 !allConnectedSerials.Contains(configSerial))
             {
                 string serialNumber = SerialNumber.ExtractSerial(configSerial);
                 bool showOrphanedJoystick = SerialNumber.IsJoystickSerial(serialNumber) && connectedJoystickSerials.Count > 0;
-                bool showOrphanedModule = SerialNumber.IsMobiFlightSerial(serialNumber) && connectedModuleSerials.Count > 0;
-                bool showOrphanedMidi = SerialNumber.IsMidiBoardSerial(serialNumber) && connectedModuleSerials.Count > 0;
+                bool showOrphanedModule = SerialNumber.IsMobiFlightSerial(serialNumber) && connectedModuleSerials.Count > 0;        
                 bool showOrphanedArcaze = SerialNumber.IsArcazeSerial(serialNumber) && connectedArcazeSerials.Count > 0;
 
-                if (showOrphanedJoystick || showOrphanedModule || showOrphanedArcaze || showOrphanedMidi)
+                if (showOrphanedJoystick || showOrphanedModule || showOrphanedArcaze)
                 { 
                     configSerials.Add(configSerial);
                     orphanedSerialsListBox.Items.Add(configSerial);
@@ -167,10 +161,6 @@ namespace MobiFlight.UI.Dialogs
                 else if (SerialNumber.IsJoystickSerial(selectedSerial))
                 {
                     connectedModulesComboBox.Items.AddRange(connectedJoystickSerials.ToArray());
-                }
-                else if (SerialNumber.IsMidiBoardSerial(selectedSerial))
-                {
-                    connectedModulesComboBox.Items.AddRange(connectedMidiSerials.ToArray());
                 }
                 else
                 {
