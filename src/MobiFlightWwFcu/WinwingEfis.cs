@@ -9,22 +9,22 @@ namespace MobiFlightWwFcu
     {
         private WinwingMessageSender MessageSender = null;
 
-        private string EfisType = "Left";
+        private WinwingEfisType EfisTypeAsEnum = WinwingEfisType.Left;
+        private string EfisType;
+
         private byte[] DestinationAddressLighting;
 
         // https://docs.flybywiresim.com/pilots-corner/airliner-flying-guide/altitude-refs/
         private string BaroHpa { get => $"hPa Value {EfisType}"; }
         private string BaroInHg { get => $"inHg Value {EfisType}"; }
-        private string BaroInHgOnOff { get => $"inHg On/Off {EfisType}"; }
-        private string BaroStd { get => $"STD On/Off {EfisType}"; }
-        private string Qfe { get => $"QFE On/Off {EfisType}"; }
+        private string BaroInHgOnOff { get => $"inHg Mode On/Off {EfisType}"; }
+        private string BaroStd { get => $"STD Mode On/Off {EfisType}"; }
+        private string Qfe { get => $"QFE Mode On/Off {EfisType}"; }
 
         private const string ANN_LIGHT = "LCD Test On/Off";
         private const string BACK_BRIGHTNESS = "Backlight Percentage";
         private const string LCD_BRIGHTNESS = "LCD Percentage";
         private const string LED_BRIGHTNESS = "LED Percentage";
-
-        private bool IsInHg = false;
 
         private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
         {
@@ -47,6 +47,9 @@ namespace MobiFlightWwFcu
             { '7', new byte[] { 0x70 } },
             { '8', new byte[] { 0x7f } },
             { '9', new byte[] { 0x7b } },
+            { 'S', new byte[] { 0b01011011 } },
+            { 't', new byte[] { 0b00001111 } },
+            { 'd', new byte[] { 0b01101110 } },
         };
 
         //                          Time                         Baro    Qxx
@@ -61,6 +64,7 @@ namespace MobiFlightWwFcu
             { "BaroOnes",       new MsgEntry { StartPos = 28, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7a } } },
             { "InHgDecPoint",   new MsgEntry { StartPos = 26, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b10000000 } } },
             { "InHgNoDecPoint", new MsgEntry { StartPos = 26, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b00000000 } } },
+            { "NoBaro",         new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x00 } } },
             { "QfeBaro",        new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x01 } } },
             { "QnhBaro",        new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x02 } } },
         };
@@ -77,10 +81,11 @@ namespace MobiFlightWwFcu
         private byte[] SetValuesMessage = new byte[64];
         private byte[] ConfirmMessage = new byte[64];
 
-        public WinwingEfis(WinwingMessageSender sender, string efisType)
+        public WinwingEfis(WinwingMessageSender sender, WinwingEfisType efisTypeAsEnum)
         {
             MessageSender = sender;
-            EfisType = efisType;
+            EfisTypeAsEnum = efisTypeAsEnum;
+            EfisType = efisTypeAsEnum.ToString();
 
             int DEST_ADDRESS_POS = 4;
             int PAYLOAD_LENGTH_POS = 17;
@@ -104,7 +109,7 @@ namespace MobiFlightWwFcu
                 SetBytesDisplayMessage(entry, SetValuesMessage);
             }
 
-            if (efisType == "Left")
+            if (EfisTypeAsEnum == WinwingEfisType.Left)
             {
                 DestinationAddressLighting = WinwingConstants.DEST_EFISL;
                 WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);
@@ -197,9 +202,10 @@ namespace MobiFlightWwFcu
         {
             LcdCurrentValuesCache[BaroHpa] = string.Empty;
             LcdCurrentValuesCache[BaroInHg] = string.Empty;
+            LcdCurrentValuesCache[Qfe] = string.Empty;
         }
 
-        private void SetBaroInternal(char[] baroChars, bool isInHg)
+        private void SetBaroInternal(char[] baroChars, bool isInHg, bool isStd)
         {
             var baroThousands = DisplaySetValuesData["BaroThousands"];
             var baroHundreds = DisplaySetValuesData["BaroHundreds"];
@@ -214,13 +220,21 @@ namespace MobiFlightWwFcu
             SetBytesDisplayMessage(baroHundreds, SetValuesMessage);
             SetBytesDisplayMessage(baroTens, SetValuesMessage);
             SetBytesDisplayMessage(baroOnes, SetValuesMessage);
-            if (isInHg)
+            if (!isStd)
             {
-                SetBytesDisplayMessage(DisplaySetValuesData["InHgDecPoint"], SetValuesMessage);
+                if (isInHg)
+                {
+                    SetBytesDisplayMessage(DisplaySetValuesData["InHgDecPoint"], SetValuesMessage);
+                }
+                else
+                {
+                    SetBytesDisplayMessage(DisplaySetValuesData["InHgNoDecPoint"], SetValuesMessage);
+                }
             }
             else
-            {
+            {                
                 SetBytesDisplayMessage(DisplaySetValuesData["InHgNoDecPoint"], SetValuesMessage);
+                SetBytesDisplayMessage(DisplaySetValuesData["NoBaro"], SetValuesMessage);
             }
 
             SendDisplayMessage(SetValuesMessage);
@@ -232,7 +246,7 @@ namespace MobiFlightWwFcu
             {
                 int myBaro = (int)Convert.ToDouble(baro, CultureInfo.InvariantCulture);
                 char[] baroChars = myBaro.ToString("D4", CultureInfo.InvariantCulture).ToCharArray();
-                SetBaroInternal(baroChars, false);
+                SetBaroInternal(baroChars, false, false);
             }
         }
 
@@ -242,7 +256,7 @@ namespace MobiFlightWwFcu
             {
                 int myBaro = (int)(Convert.ToDouble(baro, CultureInfo.InvariantCulture) * 100);
                 char[] baroChars = myBaro.ToString("D4", CultureInfo.InvariantCulture).ToCharArray();
-                SetBaroInternal(baroChars, true);
+                SetBaroInternal(baroChars, true, false);
             }
         }
 
@@ -255,8 +269,8 @@ namespace MobiFlightWwFcu
         {
             int isBaroStd = (int)Convert.ToDouble(baroStd, CultureInfo.InvariantCulture);
             if (isBaroStd == 1)
-            {
-                //SetBytesDisplayMessage(DisplaySetValuesData["TODO STD"], SetValuesMessage);
+            {                
+                SetBaroInternal(new char[] { 'S', 't', 'd', '*' }, false, true);
             }
             ResetBaroCache();
             SendDisplayMessage(SetValuesMessage);
@@ -264,16 +278,19 @@ namespace MobiFlightWwFcu
 
         private void SetQfeOnOff(string qfe)
         {
-            int isQfe = (int)Convert.ToDouble(qfe, CultureInfo.InvariantCulture);
-            if (isQfe == 1)
+            if (LcdCurrentValuesCache[BaroStd] != "1")
             {
-                SetBytesDisplayMessage(DisplaySetValuesData["QfeBaro"], SetValuesMessage);
+                int isQfe = (int)Convert.ToDouble(qfe, CultureInfo.InvariantCulture);
+                if (isQfe == 1)
+                {
+                    SetBytesDisplayMessage(DisplaySetValuesData["QfeBaro"], SetValuesMessage);
+                }
+                else
+                {
+                    SetBytesDisplayMessage(DisplaySetValuesData["QnhBaro"], SetValuesMessage);
+                }
+                SendDisplayMessage(SetValuesMessage);
             }
-            else
-            {
-                SetBytesDisplayMessage(DisplaySetValuesData["QnhBaro"], SetValuesMessage);
-            }           
-            SendDisplayMessage(SetValuesMessage);
         }
 
         private void PrepareAndSendDisplayTestMessage(MsgEntry entry)

@@ -64,7 +64,7 @@ namespace MobiFlight
 
             if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISL)
             {
-                AddDevice(new WinwingEfis(MessageSender, "Left"));
+                AddDevice(new WinwingEfis(MessageSender, WinwingEfisType.Left));
             }
         }
 
@@ -103,8 +103,10 @@ namespace MobiFlight
         {
             if (HeartbeatThread == null)
             {
-                Thread thread = new Thread(ExecuteHeartbeat);
-                thread.IsBackground = true;
+                Thread thread = new Thread(ExecuteHeartbeat)
+                {
+                    IsBackground = true
+                };
                 thread.Start();
             }
             DoExecuteHeartbeat = true;                  
@@ -153,7 +155,7 @@ namespace MobiFlight
 
         public List<string> GetLedNames()
         {
-            List<string> ledNames = new List<string>();
+            var ledNames = new List<string>();
             foreach (var device in WinwingDevices)
             {
                 ledNames.AddRange(device.GetLedNames());
@@ -163,12 +165,18 @@ namespace MobiFlight
 
         public List<string> GetDisplayNames()
         {
-            List<string> displayNames = new List<string>(); 
+            var displayDict = new Dictionary<string, string>();
             foreach (var device in WinwingDevices)
             {
-                displayNames.AddRange(device.GetDisplayNames());
+                foreach (var name in device.GetDisplayNames())
+                {
+                    if (!displayDict.ContainsKey(name))
+                    {
+                        displayDict.Add(name, name);
+                    }
+                }
             }            
-            return displayNames;
+            return displayDict.Keys.ToList();
         }
 
         public void SetDisplay(string name, string value)

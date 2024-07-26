@@ -105,7 +105,7 @@ namespace MobiFlightWwFcu
             }
             lock (StreamLock)
             {
-                Stream.Write(buffer, offset, count);
+                Stream.Write(buffer, offset, count);                
             }
         }
 
