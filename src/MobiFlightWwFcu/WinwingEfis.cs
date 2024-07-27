@@ -52,10 +52,13 @@ namespace MobiFlightWwFcu
             { 'd', new byte[] { 0b01101110 } },
         };
 
-        //                          Time                         Baro    Qxx
-        // f0000b1a0dbf000002010000 eb7d1c 0000 0900000000000000 607d605b 02 00000000000000000000000000000000000000000000000000000000000000000000
-        // 0               xx       12     15   17    20      24 25       29 30   
-   
+        //                          Time                           Baro    Qxx
+        // f0000b 1a 0dbf 000002010000 eb7d1c 00000900000000000000 607d605b02 00000000000000000000000000000000000000000000000000000000000000000000
+        // 0                  xx       12     15  17    20      24 25      29 30   
+
+        // f00009 2b 0dbf 000002010000 83ef1a 00000900000000000000 607d606302 0dbf 0000 0301 0000 83ef1a 0000000000000000000000000000000000000000000000
+        //                                                                    Start of message 2 refresh
+
         private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
         {
             { "BaroThousands",  new MsgEntry { StartPos = 25, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
@@ -67,6 +70,7 @@ namespace MobiFlightWwFcu
             { "NoBaro",         new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x00 } } },
             { "QfeBaro",        new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x01 } } },
             { "QnhBaro",        new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x02 } } },
+            { "RefreshMessage", new MsgEntry { StartPos = 30, Mask = new byte[6], Data = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x03, 0x01 } } },
         };
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
@@ -78,8 +82,8 @@ namespace MobiFlightWwFcu
         private byte[] LightMessageData = new byte[2];
 
         private byte[] DisplayTestMessage = new byte[64];
-        private byte[] SetValuesMessage = new byte[64];
-        private byte[] ConfirmMessage = new byte[64];
+        // Refresh is done as a second message as part of SetValuesMessage.
+        private byte[] SetValuesMessage = new byte[64];      
 
         public WinwingEfis(WinwingMessageSender sender, WinwingEfisType efisTypeAsEnum)
         {
@@ -88,6 +92,7 @@ namespace MobiFlightWwFcu
             EfisType = efisTypeAsEnum.ToString();
 
             int DEST_ADDRESS_POS = 4;
+            int DEST_ADDRESS_MSG2_POS = 30;
             int PAYLOAD_LENGTH_POS = 17;
             
             // Init DisplayTestMessage. MessageLength: 0x12, MessageId: 0x04, 0x01
@@ -100,10 +105,6 @@ namespace MobiFlightWwFcu
             initSetValues.CopyTo(SetValuesMessage, 0);
             SetValuesMessage[PAYLOAD_LENGTH_POS] = 0x09;
 
-            // Init ConfirmMessage MessageLength: 0x11, MessageId: 0x03, 0x01
-            byte[] initConfirmValues = new byte[] { 0xf0, 0x00, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x03, 0x01 };
-            initConfirmValues.CopyTo(ConfirmMessage, 0);
-
             foreach (var entry in DisplaySetValuesData.Values)
             {
                 SetBytesDisplayMessage(entry, SetValuesMessage);
@@ -112,9 +113,9 @@ namespace MobiFlightWwFcu
             if (EfisTypeAsEnum == WinwingEfisType.Left)
             {
                 DestinationAddressLighting = WinwingConstants.DEST_EFISL;
-                WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);
+                WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);                              
                 WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_POS);
-                WinwingConstants.DEST_EFISL.CopyTo(ConfirmMessage, DEST_ADDRESS_POS);
+                WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_MSG2_POS);         
             }            
            
             LedIdentifiers = new Dictionary<string, byte>()
@@ -308,8 +309,7 @@ namespace MobiFlightWwFcu
 
         private void SendDisplayMessage(byte[] message)
         {
-            MessageSender.SendDisplayMessage(message);
-            MessageSender.SendDisplayMessage(ConfirmMessage); // Always at that second message
+            MessageSender.SendTwoDisplayMessagesInOne(message);
         }
 
         private void SetAnnunciatorLightOnOff(string annLight)

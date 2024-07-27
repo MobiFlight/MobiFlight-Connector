@@ -65,10 +65,26 @@ namespace MobiFlightWwFcu
             WriteStream(message, 0, 64);
         }
 
-        // TODO Idee: Man könnte mehrere Messages mitbringen, und wenn die zweite noch reinpasst, dann macht er nur eine draus.
-        // Das funktioniert beim Setzen des Displays für die Efis. Da ist hinten in der Message noch genügend Platz.
-        // Dazu muss er die Payload Length auswerten und danach weitermachen. Und dann auch auch noch die MessageLength
-        // anpassen. Alles etwas kompliziert.
+        internal void SendTwoDisplayMessagesInOne(byte[] message)
+        {
+            byte[] time = GetTimeAsBytes();
+            message[2] = ++Counter;
+            message[12] = time[0];
+            message[13] = time[1];
+            message[14] = time[2];
+
+            int startData = 21;
+            int dataLength = message[17]; // data length message 1
+            int startNextMessage = startData + dataLength; // start message 2
+            int timeOffsetMessageTwo = startNextMessage + 8;
+
+            // Use same message id for message 2
+            message[timeOffsetMessageTwo] = time[0];
+            message[timeOffsetMessageTwo + 1] = time[1];
+            message[timeOffsetMessageTwo + 2] = time[2];
+
+            WriteStream(message, 0, 64);
+        }
 
         /// <summary>
         /// Send a light control message
@@ -97,7 +113,7 @@ namespace MobiFlightWwFcu
             WriteStream(RequestFirmwareMessage, 0, 14);
         }
 
-        internal void WriteStream(byte[] buffer, int offset, int count)
+        private void WriteStream(byte[] buffer, int offset, int count)
         {
             if (Stream == null)
             {
@@ -105,7 +121,7 @@ namespace MobiFlightWwFcu
             }
             lock (StreamLock)
             {
-                Stream.Write(buffer, offset, count);                
+                Stream.Write(buffer, offset, count);
             }
         }
 

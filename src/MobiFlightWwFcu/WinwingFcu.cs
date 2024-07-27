@@ -51,14 +51,14 @@ namespace MobiFlightWwFcu
         private Dictionary<string, MsgEntry> DisplayHeaderMessageLength = new Dictionary<string, MsgEntry>()
         {
             { "SetValues",      new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x31 } } },
-            { "Confirm",        new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x11 } } },
+            { "Refresh",        new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x11 } } },
             { "Test",          new MsgEntry { StartPos = 3, Mask = new byte[1], Data = new byte[] { 0x12 } } },
         };
 
         private Dictionary<string, MsgEntry> DisplayHeaderMessageIds = new Dictionary<string, MsgEntry>()
         {
             { "SetValues",      new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x02, 0x01 } } },
-            { "Confirm",        new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x03, 0x01 } } },
+            { "Refresh",        new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x03, 0x01 } } },
             { "Test",           new MsgEntry { StartPos = 8, Mask = new byte[2], Data = new byte[] { 0x04, 0x01 } } },
         };
         // -----------------------
@@ -159,7 +159,7 @@ namespace MobiFlightWwFcu
 
         private byte[] DisplayTestMessage = new byte[64];
         private byte[] SetValuesMessage = new byte[64];
-        private byte[] ConfirmMessage = new byte[64];
+        private byte[] RefreshMessage = new byte[64];
 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
         {
@@ -324,8 +324,8 @@ namespace MobiFlightWwFcu
             // Init SetValuesMessage
             PrepareDisplayMessage("SetValues", SetValuesMessage, DisplaySetValuesData);
 
-            // Init ConfirmMessage
-            PrepareDisplayMessage("Confirm", ConfirmMessage, new Dictionary<string, MsgEntry>());
+            // Init RefreshMessage
+            PrepareDisplayMessage("Refresh", RefreshMessage, new Dictionary<string, MsgEntry>());
         }
 
         private void PrepareAndSendDisplayTestMessage(MsgEntry entry)
@@ -639,7 +639,7 @@ namespace MobiFlightWwFcu
         private void SendDisplayMessage(byte[] message)
         {
             MessageSender.SendDisplayMessage(message);
-            MessageSender.SendDisplayMessage(ConfirmMessage); // Always at that second message
+            MessageSender.SendDisplayMessage(RefreshMessage); // Always at that second message
         }
 
         private void SetBytesDisplayMessage(MsgEntry msgEntry, byte[] message)

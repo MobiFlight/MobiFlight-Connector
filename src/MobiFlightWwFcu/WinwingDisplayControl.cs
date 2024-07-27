@@ -120,16 +120,23 @@ namespace MobiFlight
 
         private void ExecuteHeartbeat()
         {
-            while (true)
+            try
             {
-                if (DoExecuteHeartbeat)
+                while (true)
                 {
-                    // Do the pattern like in recording
-                    MessageSender.SendHeartBeatMessage();                  
-                    Thread.Sleep(450);
-                    MessageSender.SendHeartBeatMessage();
+                    if (DoExecuteHeartbeat)
+                    {
+                        // Do the pattern like in recording
+                        MessageSender.SendHeartBeatMessage();
+                        Thread.Sleep(450);
+                        MessageSender.SendHeartBeatMessage();
+                    }
+                    Thread.Sleep(2550);
                 }
-                Thread.Sleep(2550);
+            }
+            catch (Exception ex) 
+            {                
+                ErrorMessageCreated?.Invoke(this, $"Error on Winwing FCU Heartbeat. Exception: {ex.Message}");
             }
         }
      
