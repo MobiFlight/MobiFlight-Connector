@@ -55,6 +55,16 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Finds a JoystickDefinition by the device's product id.
+        /// </summary>
+        /// <param name="productId">The product id of the device.</param>
+        /// <returns>The first definition matching the product id, or null if none found.</returns>
+        private JoystickDefinition GetDefinitionByProductId(int productId)
+        {
+            return Definitions.Find(definition => definition.ProductId == productId);
+        }
+
+        /// <summary>
         /// Loads all joystick definitions from disk.
         /// </summary>
         public void LoadDefinitions()
@@ -158,16 +168,19 @@ namespace MobiFlight
 
                 Joystick js;
                 var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
+                int productId = diJoystick.Properties.ProductId;
+                int vendorId = diJoystick.Properties.VendorId;
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
                     js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
                 }
-                else if (diJoystick.Properties.VendorId == 0x4098 && diJoystick.Properties.ProductId == 0xBB10)
+                else if (vendorId == 0x4098 && productId == 0xBB10)
                 {
-                    js = new WinwingFcu(diJoystick, GetDefinitionByInstanceName("WINWING FCU"));
+                    var joystickDef = GetDefinitionByProductId(productId);
+                    js = new WinwingFcu(diJoystick, joystickDef, productId);
                 }
-                else if (diJoystick.Properties.VendorId == 0x231D)
+                else if (vendorId == 0x231D)
                 {
                     // VKB devices are highly configurable. DirectInput names can have old values cached in the registry, but HID names seem to be immune to that.
                     // Also trim the extraneous whitespaces on VKB device names.
