@@ -28,10 +28,10 @@ namespace MobiFlightWwFcu
 
         private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
         {
-            { "AllOn",          new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x02 } } },
-            { "AllOff",         new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x06 } } },
-            { "Half1On",        new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x07 } } },
-            { "Half2On",        new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x09 } } },
+            { "AllOn",    new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x02 } } },
+            { "AllOff",   new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x06 } } },
+            { "Half1On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x07 } } },
+            { "Half2On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x09 } } },
         };
 
         private Dictionary<char, byte[]> BaroNumberCodes = new Dictionary<char, byte[]>()
@@ -57,7 +57,7 @@ namespace MobiFlightWwFcu
         // 0                  xx       12     15  17    20      24 25      29 30   
 
         // f00009 2b 0dbf 000002010000 83ef1a 00000900000000000000 607d606302 0dbf 0000 0301 0000 83ef1a 0000000000000000000000000000000000000000000000
-        //                                                                    Start of message 2 refresh
+        //                                                                    Start of command 2 refresh
 
         private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
         {
@@ -82,7 +82,7 @@ namespace MobiFlightWwFcu
         private byte[] LightMessageData = new byte[2];
 
         private byte[] DisplayTestMessage = new byte[64];
-        // Refresh is done as a second message as part of SetValuesMessage.
+        // Refresh is done as a second command as part of SetValuesMessage.
         private byte[] SetValuesMessage = new byte[64];      
 
         public WinwingEfis(WinwingMessageSender sender, WinwingEfisType efisTypeAsEnum)
@@ -92,7 +92,7 @@ namespace MobiFlightWwFcu
             EfisType = efisTypeAsEnum.ToString();
 
             int DEST_ADDRESS_POS = 4;
-            int DEST_ADDRESS_MSG2_POS = 30;
+            int DEST_ADDRESS_CMD2_POS = 30;
             int PAYLOAD_LENGTH_POS = 17;
             
             // Init DisplayTestMessage. MessageLength: 0x12, MessageId: 0x04, 0x01
@@ -115,7 +115,7 @@ namespace MobiFlightWwFcu
                 DestinationAddressLighting = WinwingConstants.DEST_EFISL;
                 WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);                              
                 WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_POS);
-                WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_MSG2_POS);         
+                WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_CMD2_POS);         
             }            
            
             LedIdentifiers = new Dictionary<string, byte>()
@@ -309,7 +309,7 @@ namespace MobiFlightWwFcu
 
         private void SendDisplayMessage(byte[] message)
         {
-            MessageSender.SendTwoDisplayMessagesInOne(message);
+            MessageSender.SendTwoDisplayCommandsInOneMessage(message);
         }
 
         private void SetAnnunciatorLightOnOff(string annLight)

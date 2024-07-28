@@ -65,7 +65,7 @@ namespace MobiFlightWwFcu
             WriteStream(message, 0, 64);
         }
 
-        internal void SendTwoDisplayMessagesInOne(byte[] message)
+        internal void SendTwoDisplayCommandsInOneMessage(byte[] message)
         {
             byte[] time = GetTimeAsBytes();
             message[2] = ++Counter;
@@ -74,14 +74,14 @@ namespace MobiFlightWwFcu
             message[14] = time[2];
 
             int startData = 21;
-            int dataLength = message[17]; // data length message 1
-            int startNextMessage = startData + dataLength; // start message 2
-            int timeOffsetMessageTwo = startNextMessage + 8;
+            int dataLength = message[17]; // data length command 1
+            int startNextCommand = startData + dataLength; // start command 2
+            int timeOffsetCommandTwo = startNextCommand + 8;
 
             // Use same message id for message 2
-            message[timeOffsetMessageTwo] = time[0];
-            message[timeOffsetMessageTwo + 1] = time[1];
-            message[timeOffsetMessageTwo + 2] = time[2];
+            message[timeOffsetCommandTwo] = time[0];
+            message[timeOffsetCommandTwo + 1] = time[1];
+            message[timeOffsetCommandTwo + 2] = time[2];
 
             WriteStream(message, 0, 64);
         }
