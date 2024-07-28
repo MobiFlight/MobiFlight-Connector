@@ -22,12 +22,6 @@ namespace MobiFlight
 
         public event EventHandler<string> ErrorMessageCreated;
 
-              
-        public WinwingDisplayControl()
-        {
-            Init();
-        }
-
         public WinwingDisplayControl(int productId)
         {
             ProductId = productId;
@@ -64,7 +58,7 @@ namespace MobiFlight
 
             if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISL)
             {
-                AddDevice(new WinwingEfis(MessageSender, WinwingEfisType.Left));
+                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
             }
         }
 

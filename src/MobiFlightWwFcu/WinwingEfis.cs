@@ -8,9 +8,7 @@ namespace MobiFlightWwFcu
     internal class WinwingEfis : IWinwingDevice
     {
         private WinwingMessageSender MessageSender = null;
-
-        private WinwingEfisType EfisTypeAsEnum = WinwingEfisType.Left;
-        private string EfisType;
+        private string EfisType = WinwingConstants.EFISL_NAME;
 
         private byte[] DestinationAddressLighting;
 
@@ -85,11 +83,10 @@ namespace MobiFlightWwFcu
         // Refresh is done as a second command as part of SetValuesMessage.
         private byte[] SetValuesMessage = new byte[64];      
 
-        public WinwingEfis(WinwingMessageSender sender, WinwingEfisType efisTypeAsEnum)
+        public WinwingEfis(WinwingMessageSender sender, string efisType)
         {
             MessageSender = sender;
-            EfisTypeAsEnum = efisTypeAsEnum;
-            EfisType = efisTypeAsEnum.ToString();
+            EfisType = efisType;
 
             int DEST_ADDRESS_POS = 4;
             int DEST_ADDRESS_CMD2_POS = 30;
@@ -110,7 +107,7 @@ namespace MobiFlightWwFcu
                 SetBytesDisplayMessage(entry, SetValuesMessage);
             }
 
-            if (EfisTypeAsEnum == WinwingEfisType.Left)
+            if (EfisType == WinwingConstants.EFISL_NAME)
             {
                 DestinationAddressLighting = WinwingConstants.DEST_EFISL;
                 WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);                              
