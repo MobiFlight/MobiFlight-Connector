@@ -113,7 +113,14 @@ namespace MobiFlightWwFcu
                 WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);                              
                 WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_POS);
                 WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_CMD2_POS);         
-            }            
+            }
+            else if (EfisType == WinwingConstants.EFISR_NAME) 
+            {
+                DestinationAddressLighting = WinwingConstants.DEST_EFISR;
+                WinwingConstants.DEST_EFISR.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);
+                WinwingConstants.DEST_EFISR.CopyTo(SetValuesMessage, DEST_ADDRESS_POS);
+                WinwingConstants.DEST_EFISR.CopyTo(SetValuesMessage, DEST_ADDRESS_CMD2_POS);
+            }
            
             LedIdentifiers = new Dictionary<string, byte>()
             {

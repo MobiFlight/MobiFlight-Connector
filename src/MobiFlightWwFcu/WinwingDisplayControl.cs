@@ -60,6 +60,15 @@ namespace MobiFlight
             {
                 AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
             }
+            else if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISR)
+            {
+                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+            }
+            else if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISL_EFISR)
+            {
+                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
+                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+            }
         }
 
 
