@@ -5,7 +5,7 @@
     "Type": "KAV_FCU",
     "Author": "Jak Kav",
     "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
-    "Version": "1.5.0"
+    "Version": "1.5.1"
   },
   "Config": {
     "Pins": [
@@ -18,54 +18,55 @@
   "MessageTypes": [
     {
       "id": 0,
-      "label": "Show Speed Value (LEGACY)",
+      "label": "(deprecated) Show Speed Value (LEGACY)",
       "description": "$ will be displayed as Speed value"
     },
     {
       "id": 1,
-      "label": "Show Mach Value (LEGACY)",
+      "label": "(deprecated) Show Mach Value (LEGACY)",
       "description": "$ will be displayed as Mach value"
     },
     {
       "id": 2,
-      "label": "Show Heading Value (LEGACY)",
+      "label": "(deprecated) Show Heading Value (LEGACY)",
       "description": "$ will be displayed as Heading value"
     },
     {
       "id": 3,
-      "label": "Show Altitude (LEGACY)",
+      "label": "(deprecated) Show Altitude (LEGACY)",
       "description": "$ will be displayed as Altitude"
     },
     {
       "id": 4,
-      "label": "Show Vertical (LEGACY)",
+      "label": "(deprecated) Show Vertical (LEGACY)",
       "description": "$ will be displayed as Vertical"
     },
     {
       "id": 5,
-      "label": "Show FPA (LEGACY)",
+      "label": "(deprecated) Show FPA (LEGACY)",
       "description": "$ will be displayed as FPA"
     },
     {
       "id": 6,
-      "label": "Show speed dashes",
+      "label": "(deprecated) Show speed dashes",
       "description": "1 = speed dashes will be shown"
     },
     {
       "id": 7,
-      "label": "Show heading dashes",
+      "label": "(deprecated) Show heading dashes",
       "description": "1 = heading dashes will be shown"
     },
     {
       "id": 8,
-      "label": "Show altitude dashes",
+      "label": "(deprecated) Show altitude dashes",
       "description": "1 = altitude dashes will be shown"
     },
     {
       "id": 9,
-      "label": "Show vertical speed dashes",
+      "label": "(deprecated) Show vertical speed dashes",
       "description": "1 = vertical speed dashes will be shown"
     },
+
     {
       "id": 10,
       "label": "Show speed dot",
@@ -98,13 +99,13 @@
     },
     {
       "id": 16,
-      "label": "Set Speed only",
+      "label": "(deprecated) Set Speed only",
       "description": "$ will be displayed as Speed"
     },
     {
       "id": 17,
-      "label": "Clear or Reset LCD",
-      "description": "0 = Clear LCD, 1 = Reset starting labels"
+      "label": "Clear or restore display",
+      "description": "$ = 1 will clear the display, $ = 0 will restore the display"
     },
     {
       "id": 18,
