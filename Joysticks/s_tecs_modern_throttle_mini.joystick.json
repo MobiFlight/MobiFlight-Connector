@@ -1,0 +1,236 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "S-TECS MODERN THROTTLE MINI",
+  "VendorId": "0x231D",
+  "ProductId": "0x012B",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Sys"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Start"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Mode 1"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Mode 2"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Mode 3"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Mode 4"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Mode 5"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "MTG-L Aft Trigger"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "MTG-L Forward Trigger"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "MTG-L Weapon Select"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "MTG-L RST"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "MTG-L Front Encoder Up"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "MTG-L Front Encoder Down"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "MTG-L Side Encoder Fwd"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "MTG-L Side Encoder Aft"
+    },
+    {
+      "Id": 1000,
+      "Type": "Button",
+      "Label": "MTG-L Front Encoder Up"
+    },
+    {
+      "Id": 1005,
+      "Type": "Button",
+      "Label": "MTG-L Front Encoder Down"
+    },
+    {
+      "Id": 1010,
+      "Type": "Button",
+      "Label": "MTG-L Side Encoder Fwd"
+    },
+    {
+      "Id": 1015,
+      "Type": "Button",
+      "Label": "MTG-L Side Encoder Aft"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "MTG-R Aft Trigger"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "MTG-R Forward Trigger"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "MTG-R ENT"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "MTG-R OTS Push"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "MTG-R BRK Push"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "MTG-R MB1 Push"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "MTG-R RADIO Push"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "MTG-R MB2 Push"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "MTG-R OP EXEC Push"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "MTG-R BRK Up"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "MTG-R BRK Down"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "MTG-R BRK Fwd"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "MTG-R BRK Aft"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "On - Blue",
+      "Id": "On.Blue",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "On - Red",
+      "Id": "On.Red",
+      "Byte": 0,
+      "Bit": 1
+    },
+    {
+      "Label": "Frame - Red",
+      "Id": "Frame.Red",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "Frame - Green",
+      "Id": "Frame.Green",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "Frame - Blue",
+      "Id": "Frame.Blue",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "DNT - Red",
+      "Id": "DNT.Red",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "DNT - Green",
+      "Id": "DNT.Green",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "DNT - Blue",
+      "Id": "DNT.Blue",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "Lock - Red",
+      "Id": "Lock.Red",
+      "Byte": 3,
+      "Bit": 0
+    },
+    {
+      "Label": "Lock - Green",
+      "Id": "Lock.Green",
+      "Byte": 3,
+      "Bit": 1
+    },
+    {
+      "Label": "Lock - Blue",
+      "Id": "Lock.Blue",
+      "Byte": 3,
+      "Bit": 2
+    }
+  ]
+}

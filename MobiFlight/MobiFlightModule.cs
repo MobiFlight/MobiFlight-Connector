@@ -50,7 +50,7 @@ namespace MobiFlight
             InputMultiplexerChange, // 30
             SetStepperSpeedAccel,   // 31
             SetCustomDevice,        // 32
-            DebugPrint =0xFF         // 255 for Debug Print from Firmware to log/terminal
+            DebugPrint = 0xFF         // 255 for Debug Print from Firmware to log/terminal
         };
 
         public const string TYPE_COMPATIBLE = "Compatible";
@@ -90,16 +90,17 @@ namespace MobiFlight
         public String Port { get { return _comPort; } }
 
         private string _name;
-        public String Name {
+        public String Name
+        {
             get
             {
                 if (HasMfFirmware()) return _name;
                 return Board.Info.FriendlyName;
             }
-            set 
+            set
             {
                 _name = value;
-            } 
+            }
         }
 
         public string HardwareId { get; set; }
@@ -255,34 +256,42 @@ namespace MobiFlight
                 return;
             }
 
-            // Create Serial Port object
-            int baudRate = 115200;
-            //baudRate = 57600;
-            _transportLayer = new SerialTransport()
-            //_transportLayer = new SerialPortManager
+            try
             {
-                //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
-                CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
-            };
+                // Create Serial Port object
+                int baudRate = 115200;
+                //baudRate = 57600;
+                _transportLayer = new SerialTransport()
+                //_transportLayer = new SerialPortManager
+                {
+                    //CurrentSerialSettings = { PortName = _comPort, BaudRate = 115200, DtrEnable = dtrEnable } // object initializer
+                    CurrentSerialSettings = { PortName = _comPort, BaudRate = baudRate, DtrEnable = Board.Connection.DtrEnable } // object initializer
+                };
 
-            _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', Board.Connection.MessageSize);
+                Log.Instance.log($"Connecting to {_comPort} - Baud rate: {baudRate}, DtrEnable: {Board.Connection.DtrEnable}", LogSeverity.Debug);
 
-            // Attach the callbacks to the Command Messenger
-            AttachCommandCallBacks();
+                _cmdMessenger = new CmdMessenger(_transportLayer, BoardType.Bit16, ',', ';', '\\', Board.Connection.MessageSize);
 
-            // Start listening    
-            var status = _cmdMessenger.Connect();
-            Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
-            //this.Connected = status;
-            this.connected = true;
+                // Attach the callbacks to the Command Messenger
+                AttachCommandCallBacks();
 
-            // this sleep helps during initialization
-            // without this line modules did not connect properly
-            if (Board.Connection.ConnectionDelay > 0)
-            {
-                System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
+                // Start listening    
+                var status = _cmdMessenger.Connect();
+                Log.Instance.log($"MobiflightModule.connect: Connected to {Name} at {_comPort} of type {Board.Info.MobiFlightType} (DTR=>{_transportLayer.CurrentSerialSettings.DtrEnable}).", LogSeverity.Info);
+                //this.Connected = status;
+                this.connected = true;
+
+                // this sleep helps during initialization
+                // without this line modules did not connect properly
+                if (Board.Connection.ConnectionDelay > 0)
+                {
+                    System.Threading.Thread.Sleep(Board.Connection.ConnectionDelay);
+                }
             }
-
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error connecting to device: {ex.Message}", LogSeverity.Error);
+            }
             // if (!this.Connected) return;
             // ResetBoard();
             // LoadConfig();
@@ -903,7 +912,7 @@ namespace MobiFlight
 
                 // With the support of Custom Devices
                 // we also introduced CoreVersion
-                if(InfoCommand.Arguments.Length>4)
+                if (InfoCommand.Arguments.Length > 4)
                 {
                     CoreVersion = InfoCommand.ReadStringArg();
                 }

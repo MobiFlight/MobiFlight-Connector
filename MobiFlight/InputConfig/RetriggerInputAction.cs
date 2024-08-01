@@ -36,8 +36,13 @@ namespace MobiFlight.InputConfig
             // only execute if not happened last 1 seconds
             if (DateTime.Now.Ticks  - lastExecution.Ticks < 50000000) return;
 
-            foreach (MobiFlightModule module in cacheCollection.moduleCache.GetModules()) {
+            foreach (MobiFlightModule module in cacheCollection.moduleCache.GetModules()) 
+            {
                 module.Retrigger();
+            }
+            foreach (Joystick joystick in cacheCollection.joystickManager.GetJoysticks())
+            {
+                joystick.Retrigger();
             }
 
             lastExecution = DateTime.Now;

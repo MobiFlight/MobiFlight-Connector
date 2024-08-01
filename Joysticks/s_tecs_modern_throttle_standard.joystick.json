@@ -1,0 +1,378 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "S-TECS MODERN THROTTLE STANDARD",
+  "VendorId": "0x231D",
+  "ProductId": "0x012D",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Sys"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Start"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Mode 1"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Mode 2"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Mode 3"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Mode 4"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Mode 5"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "MTG-L Aft Trigger"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "MTG-L Forward Trigger"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "MTG-L Weapon Select"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "MTG-L RST"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "MTG-L Front Encoder Up"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "MTG-L Front Encoder Down"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "MTG-L Side Encoder Fwd"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "MTG-L Side Encoder Aft"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "MTG-R Aft Trigger"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "MTG-R Forward Trigger"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "MTG-R ENT"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "MTG-R OTS Push"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "MTG-R BRK Push"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "MTG-R MB1 Push"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "MTG-R RADIO Push"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "MTG-R MB2 Push"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "MTG-R OP EXEC Push"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "MTG-R BRK Up"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "MTG-R BRK Down"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "MTG-R BRK Fwd"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "MTG-R BRK Aft"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "MTG-R MB1 Left"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "MTG-R MB1 Right"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "MTG-R MB1 Down"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "MTG-R MB1 Up"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "MTG-R RADIO Down"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "MTG-R RADIO Up"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "STEM A1"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "STEM A2"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "STEM C1"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "STEM B1"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "STEM B2"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "STEM B3"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "STEM B4"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "STEM B5"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "STEM Sw1 Up"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "STEM Sw1 Center"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "STEM Sw1 Down"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "STEM Sw2 Up"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "STEM Sw2 Center"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "STEM Sw2 Down"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "STEM TGL Up"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "STEM TGL Dn"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "STEM En1 CCW"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "STEM En1 CW"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "STEM En2 CCW"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "STEM En2 CW"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "STEM En1 Push"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "STEM En2 Push"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "STEM Lever Up"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "STEM Lever Down"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "On - Blue",
+      "Id": "On.Blue",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "On - Red",
+      "Id": "On.Red",
+      "Byte": 0,
+      "Bit": 1
+    },
+    {
+      "Label": "Frame - Red",
+      "Id": "Frame.Red",
+      "Byte": 1,
+      "Bit": 0
+    },
+    {
+      "Label": "Frame - Green",
+      "Id": "Frame.Green",
+      "Byte": 1,
+      "Bit": 1
+    },
+    {
+      "Label": "Frame - Blue",
+      "Id": "Frame.Blue",
+      "Byte": 1,
+      "Bit": 2
+    },
+    {
+      "Label": "DNT - Red",
+      "Id": "DNT.Red",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "DNT - Green",
+      "Id": "DNT.Green",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "DNT - Blue",
+      "Id": "DNT.Blue",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "Lock - Red",
+      "Id": "Lock.Red",
+      "Byte": 3,
+      "Bit": 0
+    },
+    {
+      "Label": "Lock - Green",
+      "Id": "Lock.Green",
+      "Byte": 3,
+      "Bit": 1
+    },
+    {
+      "Label": "Lock - Blue",
+      "Id": "Lock.Blue",
+      "Byte": 3,
+      "Bit": 2
+    },
+    {
+      "Label": "STEM On - Blue",
+      "Id": "STEM.On.Blue",
+      "Byte": 10,
+      "Bit": 0
+    },
+    {
+      "Label": "STEM On - Red",
+      "Id": "STEM.On.Red",
+      "Byte": 10,
+      "Bit": 1
+    }
+  ]
+}

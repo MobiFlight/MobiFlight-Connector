@@ -1,0 +1,562 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "VKBsim Gladiator NXT R SEM THQx2",
+  "VendorId": "0x231D",
+  "ProductId": "0x0224",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Trigger Soft"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Trigger Hard"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "A2"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "B1"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "D1"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "A3 Up"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "A3 Right"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "A3 Down"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "A3 Left"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "A3 Push"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "A4 Up"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "A4 Right"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "A4 Down"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "A4 Left"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "A4 Push"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "C1 Up"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "C1 Right"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "C1 Down"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "C1 Left"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "C1 Push"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Rapid Fire Up"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Rapid Fire Down"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "En1 Up"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "En1 Down"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "En2 Up"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "En2 Down"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "F1"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "F2"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "F3"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "A1 Push"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "Unused Button 31"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Unused Button 32"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Unused Button 33"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Unused Button 34"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Unused Button 35"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "Unused Button 36"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "Unused Button 37"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "Unused Button 38"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "Unused Button 39"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "Unused Button 40"
+    },
+    {
+      "Id": 1000,
+      "Type": "Button",
+      "Label": "En1 Up"
+    },
+    {
+      "Id": 1005,
+      "Type": "Button",
+      "Label": "En1 Down"
+    },
+    {
+      "Id": 1010,
+      "Type": "Button",
+      "Label": "En2 Up"
+    },
+    {
+      "Id": 1015,
+      "Type": "Button",
+      "Label": "En2 Down"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "SEM A1"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "SEM A2"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "SEM B1"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "SEM B2"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "SEM B3"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "SEM Sw1 Up"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "SEM Sw1 Center"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "SEM Sw1 Down"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "SEM Sw2 Up"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "SEM Sw2 Center"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "SEM Sw2 Down"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "SEM Start"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "SEM Mode 1"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "SEM Mode 2"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "SEM Mode 3"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "SEM Mode 4"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "SEM C1"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "SEM Flaps 3"
+    },
+    {
+      "Id": 59,
+      "Type": "Button",
+      "Label": "SEM Flaps 2"
+    },
+    {
+      "Id": 60,
+      "Type": "Button",
+      "Label": "SEM Flaps 1"
+    },
+    {
+      "Id": 61,
+      "Type": "Button",
+      "Label": "SEM Flaps 0"
+    },
+    {
+      "Id": 62,
+      "Type": "Button",
+      "Label": "SEM Gear Down"
+    },
+    {
+      "Id": 63,
+      "Type": "Button",
+      "Label": "SEM Gear Neutral"
+    },
+    {
+      "Id": 64,
+      "Type": "Button",
+      "Label": "SEM Gear Up"
+    },
+    {
+      "Id": 65,
+      "Type": "Button",
+      "Label": "THQ A1"
+    },
+    {
+      "Id": 66,
+      "Type": "Button",
+      "Label": "THQ A2"
+    },
+    {
+      "Id": 67,
+      "Type": "Button",
+      "Label": "THQ A3"
+    },
+    {
+      "Id": 68,
+      "Type": "Button",
+      "Label": "THQ A4"
+    },
+    {
+      "Id": 69,
+      "Type": "Button",
+      "Label": "THQ B1"
+    },
+    {
+      "Id": 70,
+      "Type": "Button",
+      "Label": "THQ C1"
+    },
+    {
+      "Id": 71,
+      "Type": "Button",
+      "Label": "THQ C2"
+    },
+    {
+      "Id": 72,
+      "Type": "Button",
+      "Label": "THQ B2"
+    },
+    {
+      "Id": 73,
+      "Type": "Button",
+      "Label": "THQ 2 A1"
+    },
+    {
+      "Id": 74,
+      "Type": "Button",
+      "Label": "THQ 2 A2"
+    },
+    {
+      "Id": 75,
+      "Type": "Button",
+      "Label": "THQ 2 A3"
+    },
+    {
+      "Id": 76,
+      "Type": "Button",
+      "Label": "THQ 2 A4"
+    },
+    {
+      "Id": 77,
+      "Type": "Button",
+      "Label": "THQ 2 B1"
+    },
+    {
+      "Id": 78,
+      "Type": "Button",
+      "Label": "THQ 2 C1"
+    },
+    {
+      "Id": 79,
+      "Type": "Button",
+      "Label": "THQ 2 C2"
+    },
+    {
+      "Id": 80,
+      "Type": "Button",
+      "Label": "THQ 2 B2"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Sys - Blue",
+      "Id": "Sys.Blue",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "Sys - Red",
+      "Id": "Sys.Red",
+      "Byte": 0,
+      "Bit": 1
+    },
+    {
+      "Label": "SCG Oval - Red",
+      "Id": "SCG.Oval.Red",
+      "Byte": 10,
+      "Bit": 0
+    },
+    {
+      "Label": "SCG Oval - Green",
+      "Id": "SCG.Oval.Green",
+      "Byte": 10,
+      "Bit": 1
+    },
+    {
+      "Label": "SCG Oval - Blue",
+      "Id": "SCG.Oval.Blue",
+      "Byte": 10,
+      "Bit": 2
+    },
+    {
+      "Label": "SCG Round",
+      "Id": "SCG.Round",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM A1 - Green",
+      "Id": "SEM.A1.Green",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM A1 - Red",
+      "Id": "SEM.A1.Red",
+      "Byte": 12,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM A2 - Green",
+      "Id": "SEM.A2.Green",
+      "Byte": 13,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM A2 - Red",
+      "Id": "SEM.A2.Red",
+      "Byte": 13,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM B1 - Green",
+      "Id": "SEM.B1.Green",
+      "Byte": 14,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM B1 - Red",
+      "Id": "SEM.B1.Red",
+      "Byte": 14,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM B2 - Green",
+      "Id": "SEM.B2.Green",
+      "Byte": 15,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM B2 - Red",
+      "Id": "SEM.B2.Red",
+      "Byte": 15,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM B3 - Green",
+      "Id": "SEM.B3.Green",
+      "Byte": 16,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM B3 - Red",
+      "Id": "SEM.B3.Red",
+      "Byte": 16,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM Gear Left - Green",
+      "Id": "SEM.GearL.Green",
+      "Byte": 17,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM Gear Left - Red",
+      "Id": "SEM.GearL.Red",
+      "Byte": 17,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM Gear Center - Green",
+      "Id": "SEM.GearC.Green",
+      "Byte": 18,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM Gear Center - Red",
+      "Id": "SEM.GearC.Red",
+      "Byte": 18,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM Gear Right - Green",
+      "Id": "SEM.GearR.Green",
+      "Byte": 19,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM Gear Right - Red",
+      "Id": "SEM.GearR.Red",
+      "Byte": 19,
+      "Bit": 1
+    }
+  ]
+}
