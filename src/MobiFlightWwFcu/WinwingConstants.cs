@@ -12,8 +12,8 @@ namespace MobiFlightWwFcu
 
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
-        internal const int PRODUCT_ID_FCU_EFISR = 0xAAAA;
-        internal const int PRODUCT_ID_FCU_EFISL_EFISR = 0xCCCC;
+        internal const int PRODUCT_ID_FCU_EFISR = 0xBC1E;
+        internal const int PRODUCT_ID_FCU_EFISL_EFISR = 0xBA01;
 
         // Renaming would be a breaking change, since this names are used in mobi configuration.
         internal const string EFISL_NAME = "Left";
