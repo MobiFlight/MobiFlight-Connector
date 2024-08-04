@@ -207,7 +207,7 @@ namespace MobiFlight.UI.Panels.Config
                 try
                 {
                     PresetList.Load(PresetFile);
-                    FilterPresetList();
+                    FilterPresetListDelayedByMs(20);                    
                 }
                 catch (Exception e)
                 {
@@ -590,6 +590,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             String SelectedValue = null;
             Msfs2020HubhopPreset selectedPreset = null;
+            int maxItemsCombobox = 3000;
 
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             if (PresetComboBox.SelectedIndex > 0)
@@ -601,20 +602,30 @@ namespace MobiFlight.UI.Panels.Config
                     FilteredPresetList.Items.Add(selectedPreset);
                 }
             }
-
             PresetComboBox.DataSource = null;
-            PresetComboBox.DataSource = FilteredPresetList.Items;
+            if (FilteredPresetList.Items.Count > maxItemsCombobox)
+            {
+                int MatchesFound = FilteredPresetList.Items.Count - 1;
+
+                PresetComboBox.DataSource = FilteredPresetList.Items.GetRange(0, maxItemsCombobox);           
+                MatchLabel.Text = $"Max {maxItemsCombobox} of {MatchesFound} shown." + $"{Environment.NewLine}Please extend filter.";
+            }
+            else
+            {
+                PresetComboBox.DataSource = FilteredPresetList.Items;
+            }
+
             PresetComboBox.ValueMember = "id";
             PresetComboBox.DisplayMember = "label";
 
             if (SelectedValue != null)
-            {                
+            {
                 PresetComboBox.SelectedValue = SelectedValue;
 
                 // we didn't find the preset within the current
                 // list
                 if (PresetComboBox.SelectedValue == null)
-                PresetComboBox.SelectedIndex = 0;
+                    PresetComboBox.SelectedIndex = 0;
             }
             else
             {
@@ -625,7 +636,6 @@ namespace MobiFlight.UI.Panels.Config
 
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
-
         private void UpdateValues(ComboBox cb, String[] valueList)
         {
             String SelectedValue = null;
