@@ -5,7 +5,7 @@
     "Type": "KAV_EFIS",
     "Author": "Jak Kav",
     "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
-    "Version": "1.5.0"
+    "Version": "1.5.1"
   },
   "Config": {
     "Pins": [
@@ -17,23 +17,18 @@
   },
   "MessageTypes": [
     {
-      "id": -1,
-      "label": "Clear display",
-      "description": "will clear the display"
-    },
-    {
       "id": 0,
-      "label": "Show QNH Value",
+      "label": "(deprecated) Show QNH Value",
       "description": "$ will be displayed as QNH value"
     },
     {
       "id": 1,
-      "label": "Show QFE Value",
+      "label": "(deprecated) Show QFE Value",
       "description": "$ will be displayed as QFE value"
     },
     {
       "id": 2,
-      "label": "Show STD",
+      "label": "(deprecated) Show STD",
       "description": "0 = True, 1 = False"
     },
     {
@@ -55,6 +50,11 @@
       "id": 6,
       "label": "(v2.5.3+) Annunciator Test Mode",
       "description": "$ = 1 will display all EFIS Segments, $ = 0 will clear display"
+    },
+    {
+      "id": 7,
+      "label": "(v2.5.4+) Clear or restore display",
+      "description": "$ = 1 will clear the display, $ = 0 will restore the display"
     }
   ]
 }

@@ -5,7 +5,7 @@
     "Type": "KAV_BATTERY",
     "Author": "Jak Kav",
     "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
-    "Version" : "1.0.0"
+    "Version" : "1.0.1"
   },
   "Config": {
     "Pins": [
@@ -17,35 +17,39 @@
   },
   "MessageTypes": [
     {
-      "id": -1,
-      "label": "Clear display",
-      "description": "will clear the display"
-    },
-    {
       "id": 0,
-      "label": "Set volt symbol",
+      "label": "(deprecated) Set volt symbol",
       "description": "$ will set the volt symbol (0/1)"
     },
     {
       "id": 1,
-      "label": "Set dot",
+      "label": "(deprecated) Set dot",
       "description": "$ will be the dot (0/1)"
     },
     {
       "id": 2,
-      "label": "Set value",
+      "label": "(deprecated) Set value",
       "description": "$ will set the value of the LCD"
     },
     {
       "id": 3,
-      "label": "Set value w/ V",
+      "label": "(deprecated) Set value w/ V",
       "description": "$ will set the value of the LCD with 'V' character enabled"
     },
     {
       "id": 4,
       "label": "(v2.5.3+) Annunciator Test Mode",
       "description": "$ = 1 will display all Segments, $ = 0 will clear display"
+    },
+    {
+      "id": 5,
+      "label": "(v2.5.4+) Set display",
+      "description": "$ as string will be displayed, V gets set if first char is 'V'"
+    },
+    {
+      "id": 6,
+      "label": "(v2.5.4+) Clear or restore display",
+      "description": "$ = 1 will clear the display, $ = 0 will restore the display"
     }
   ]
 }
-  
