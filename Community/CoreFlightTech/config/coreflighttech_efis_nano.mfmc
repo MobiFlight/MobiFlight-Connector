@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ModuleName>CoreFlightTech EFIS</ModuleName>
+  <ModuleName>CoreFlightTech EFIS (CPT)</ModuleName>
   <ModuleType>CoreFlightTech EFIS</ModuleType>
   <PowerSavingTime>600</PowerSavingTime>
   <InputMultiplexer Name="CPT_EFIS_InMux1" DataPin="5" NumBytes="1">
@@ -19,6 +19,6 @@
   <Button Name="CPT_EFIS_VOR2" Pin="17" />
   <Button Name="CPT_EFIS_MTRS" Pin="18" />
   <Button Name="CPT_EFIS_FPV" Pin="19" />
-  <Encoder Name="CPT_EFIS_MINS_EN" PinLeft="8" PinRight="7" EncoderType="0" />
-  <Encoder Name="CPT_EFS_BARO_EN" PinLeft="10" PinRight="9" EncoderType="0" />
+  <Encoder Name="CPT_EFIS_MINS_EN" PinLeft="8" PinRight="7" EncoderType="1" />
+  <Encoder Name="CPT_EFS_BARO_EN" PinLeft="10" PinRight="9" EncoderType="1" />
 </Config>
