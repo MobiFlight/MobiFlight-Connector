@@ -827,6 +827,16 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max {0} of {1} shown. 
+        ///Please extend filter..
+        /// </summary>
+        internal static string uiMessageHubHopPanelMaxItems {
+            get {
+                return ResourceManager.GetString("uiMessageHubHopPanelMaxItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error on downloading HubHop presets. Please check the Log for more information..
         /// </summary>
         internal static string uiMessageHubHopUpdateError {

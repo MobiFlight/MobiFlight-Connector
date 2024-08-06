@@ -590,7 +590,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             String SelectedValue = null;
             Msfs2020HubhopPreset selectedPreset = null;
-            int maxItemsCombobox = 3000;
+            int maxItemsCombobox = 1500;
 
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             if (PresetComboBox.SelectedIndex > 0)
@@ -606,9 +606,8 @@ namespace MobiFlight.UI.Panels.Config
             if (FilteredPresetList.Items.Count > maxItemsCombobox)
             {
                 int MatchesFound = FilteredPresetList.Items.Count - 1;
-
-                PresetComboBox.DataSource = FilteredPresetList.Items.GetRange(0, maxItemsCombobox);           
-                MatchLabel.Text = $"Max {maxItemsCombobox} of {MatchesFound} shown." + $"{Environment.NewLine}Please extend filter.";
+                PresetComboBox.DataSource = FilteredPresetList.Items.GetRange(0, maxItemsCombobox);                           
+                MatchLabel.Text = String.Format(i18n._tr("uiMessageHubHopPanelMaxItems"), maxItemsCombobox, MatchesFound);
             }
             else
             {
