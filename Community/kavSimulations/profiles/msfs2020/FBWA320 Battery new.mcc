@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="39d63975-6219-4fe7-a5c2-e877236963af">
+      <active>true</active>
+      <description>BAT 1 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_ELEC_BAT_1_POTENTIAL, number)" UUID="8dbded6c-d3be-4bbe-a64d-797dd82be063" />
+        <test type="Float" value="100" />
+        <modifiers>
+          <transformation active="True" expression="(Round($, 1))" />
+          <transformation active="True" expression="'V' + $" />
+        </modifiers>
+        <display type="CustomDevice" serial="KAV Overhead/ SN-94G-809" trigger="normal" customType="" customName="BAT 1" messageType="5" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2aa0d031-ca0a-43a9-847e-b3c78a1d39a9">
+      <active>true</active>
+      <description>BAT 2 Voltage</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_ELEC_BAT_2_POTENTIAL, number)" UUID="bde5d497-107f-4e7e-b14c-9acc2d7be333" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="(Round($, 1))" />
+          <transformation active="True" expression="'V' + $" />
+        </modifiers>
+        <display type="CustomDevice" serial="KAV Overhead/ SN-94G-809" trigger="normal" customType="" customName="BAT 1" messageType="5" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

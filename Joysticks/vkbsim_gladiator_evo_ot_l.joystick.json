@@ -1,0 +1,256 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "VKBsim Gladiator EVO OT L",
+  "VendorId": "0x231D",
+  "ProductId": "0x3201",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Trigger Soft"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Trigger Hard"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "A2"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "B1"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "D1"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "A3 Up"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "A3 Right"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "A3 Down"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "A3 Left"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "A3 Push"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "A4 Up"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "A4 Right"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "A4 Down"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "A4 Left"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "A4 Push"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "C1 Up"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "C1 Right"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "C1 Down"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "C1 Left"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "C1 Push"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "Rapid Fire Up"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Rapid Fire Down"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "En1 Up"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "En1 Down"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "Sw1 Up"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "Sw1 Down"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "F1"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "F2"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "F3"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "A1 Push"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "Unused Button 31"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Unused Button 32"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Unused Button 33"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Unused Button 34"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Unused Button 35"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "Unused Button 36"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "Unused Button 37"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "Unused Button 38"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "Unused Button 39"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "Unused Button 40"
+    },
+    {
+      "Id": 1000,
+      "Type": "Button",
+      "Label": "En1 Up"
+    },
+    {
+      "Id": 1005,
+      "Type": "Button",
+      "Label": "En1 Down"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Sys - Blue",
+      "Id": "Sys.Blue",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "Sys - Red",
+      "Id": "Sys.Red",
+      "Byte": 0,
+      "Bit": 1
+    },
+    {
+      "Label": "SCG Oval - Red",
+      "Id": "SCG.Oval.Red",
+      "Byte": 10,
+      "Bit": 0
+    },
+    {
+      "Label": "SCG Oval - Green",
+      "Id": "SCG.Oval.Green",
+      "Byte": 10,
+      "Bit": 1
+    },
+    {
+      "Label": "SCG Oval - Blue",
+      "Id": "SCG.Oval.Blue",
+      "Byte": 10,
+      "Bit": 2
+    },
+    {
+      "Label": "SCG Round",
+      "Id": "SCG.Round",
+      "Byte": 11,
+      "Bit": 0
+    }
+  ]
+}

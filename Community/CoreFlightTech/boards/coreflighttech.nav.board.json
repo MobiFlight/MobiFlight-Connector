@@ -39,9 +39,21 @@
     "Community": {
       "Project": "CoreFlightTech",
       "Website": "https://coreflighttech.com/product/b737-nav-radio-module-2/",
-      "Docs": "https://coreflighttech.com/fly-core-flight-technologies/blog-and-downloads/",
+      "Docs": "https://coreflighttech.com/2022/11/12/how-to-connect-nav-radio-module-mobiflight-msfs2020-xp11-p3d-fsx/",
       "Support": "https://coreflighttech.com/contact-us/"
-    }
+    },
+    "DeviceConfigs": [
+      {
+        "Name": "Boeing 737 NAV- Captain",
+        "Description": "Boeing 737 NAV for the captain side",
+        "File": "coreflighttech_nav_nano.mfmc"
+      },
+      {
+        "Name": "Boeing 737 NAV - First Officer",
+        "Description": "Boeing 737 NAV for the first officer side",
+        "File": "coreflighttech_nav_fo_nano.mfmc"
+      }
+    ]
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 6,

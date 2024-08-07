@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="c4d5cfec-8aa4-49e9-a994-7ca4fc9d9f9a">
+      <active>true</active>
+      <description>Rudder Trim value</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_HYD_RUDDER_TRIM_FEEDBACK_ANGLE)" UUID="c8351461-2213-4eb0-9a77-fc7a2c27d677" />
+        <test type="String" value="" />
+        <modifiers />
+        <display type="-" serial="Kav Mega Pedesta/ SN-346-31C" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7c3e6edc-f0b7-4757-8abf-44d581c5ddd7">
+      <active>true</active>
+      <description>Rudder Trim</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.3.0.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_HYD_RUDDER_TRIM_FEEDBACK_ANGLE)" UUID="c8351461-2213-4eb0-9a77-fc7a2c27d677" />
+        <test type="String" value="" />
+        <modifiers>
+          <transformation active="True" expression="Abs($)" />
+          <padding active="True" direction="Left" length="3" character="0" />
+          <transformation active="True" expression="if (# &lt; 0, 'L' + '$', 'R' + '$')" />
+        </modifiers>
+        <display type="CustomDevice" serial="Kav Mega Pedesta/ SN-346-31C" trigger="normal" customType="" customName="RUDDER TRIM" messageType="8" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="c4d5cfec-8aa4-49e9-a994-7ca4fc9d9f9a" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>
