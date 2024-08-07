@@ -55,13 +55,14 @@ namespace MobiFlight
         }
 
         /// <summary>
-        /// Finds a JoystickDefinition by the device's product id.
+        /// Finds a JoystickDefinition by the device's vendor and product id.
         /// </summary>
+        /// <param name="vendorId">The vendor id of the device.</param>
         /// <param name="productId">The product id of the device.</param>
         /// <returns>The first definition matching the product id, or null if none found.</returns>
-        private JoystickDefinition GetDefinitionByProductId(int productId)
+        private JoystickDefinition GetDefinitionByProductId(int vendorId, int productId)
         {
-            return Definitions.Find(definition => definition.ProductId == productId);
+            return Definitions.Find(def => (def.ProductId == productId && def.VendorId == vendorId));
         }
 
         /// <summary>
@@ -168,8 +169,8 @@ namespace MobiFlight
 
                 Joystick js;
                 var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
-                int productId = diJoystick.Properties.ProductId;
-                int vendorId = diJoystick.Properties.VendorId;
+                var productId = diJoystick.Properties.ProductId;
+                var vendorId = diJoystick.Properties.VendorId;
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
@@ -177,7 +178,7 @@ namespace MobiFlight
                 }
                 else if (vendorId == 0x4098 && productId == 0xBB10)
                 {
-                    var joystickDef = GetDefinitionByProductId(productId);
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
                     js = new WinwingFcu(diJoystick, joystickDef, productId);
                 }
                 else if (vendorId == 0x231D)
