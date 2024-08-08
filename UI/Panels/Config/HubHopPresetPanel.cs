@@ -200,7 +200,7 @@ namespace MobiFlight.UI.Panels.Config
                 try
                 {
                     PresetList.Load(PresetFile);
-                    FilterPresetList();                                 
+                    FilterPresetList();
                 }
                 catch (Exception e)
                 {
