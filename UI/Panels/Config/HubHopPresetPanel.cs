@@ -3,17 +3,10 @@ using MobiFlight.HubHop;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -207,7 +200,7 @@ namespace MobiFlight.UI.Panels.Config
                 try
                 {
                     PresetList.Load(PresetFile);
-                    FilterPresetListDelayedByMs(20);                    
+                    FilterPresetList();                                 
                 }
                 catch (Exception e)
                 {
@@ -432,6 +425,12 @@ namespace MobiFlight.UI.Panels.Config
             if ((sender as ComboBox).SelectedItem == null) return;
             Msfs2020HubhopPreset selectedItem = (sender as ComboBox).SelectedItem as Msfs2020HubhopPreset;
 
+            if (selectedItem.id == "Load all")
+            {
+                UpdatePresetComboBoxValues(loadAllItems: true);
+                return;
+            }
+
             Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == selectedItem.id);
             if (selectedPreset == null) return;
             DescriptionTextBox.Text = selectedPreset?.description?.ToCRLF();
@@ -583,10 +582,10 @@ namespace MobiFlight.UI.Panels.Config
                 UpdateValues(SystemComboBox, FilteredPresetList.AllSystems(hubhopType).ToArray());
             }
 
-            UpdatePresetComboBoxValues();
+            UpdatePresetComboBoxValues(loadAllItems: false);
         }
 
-        private void UpdatePresetComboBoxValues()
+        private void UpdatePresetComboBoxValues(bool loadAllItems)
         {
             String SelectedValue = null;
             Msfs2020HubhopPreset selectedPreset = null;
@@ -603,11 +602,19 @@ namespace MobiFlight.UI.Panels.Config
                 }
             }
             PresetComboBox.DataSource = null;
-            if (FilteredPresetList.Items.Count > maxItemsCombobox)
+            if (!loadAllItems && FilteredPresetList.Items.Count > maxItemsCombobox)
             {
-                int MatchesFound = FilteredPresetList.Items.Count - 1;
-                PresetComboBox.DataSource = FilteredPresetList.Items.GetRange(0, maxItemsCombobox);                           
-                MatchLabel.Text = String.Format(i18n._tr("uiMessageHubHopPanelMaxItems"), maxItemsCombobox, MatchesFound);
+                var MatchesFound = FilteredPresetList.Items.Count - 1;
+                var presetItems = FilteredPresetList.Items.GetRange(0, maxItemsCombobox);
+                presetItems.Add(new Msfs2020HubhopPreset()
+                {
+                    label = "====== Load all items ======",
+                    id = "Load all",
+                    code = "",
+                    description = "Load all items."
+                });
+
+                PresetComboBox.DataSource = presetItems;
             }
             else
             {

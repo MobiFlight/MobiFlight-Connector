@@ -679,10 +679,4 @@ Tip: Save the file after opening to update the associated board for future use.<
     <value>Es sind nicht genug Pins frei, um die Auto-Zero Funktion zu nutzen.</value>
     <comment>There are not enough pins available to use the auto-zero option.</comment>
   </data>
-  <data name="uiMessageHubHopPanelMaxItems" xml:space="preserve">
-    <value>Max {0} von {1} angezeigt. 
-Bitte Filter erweitern.</value>
-    <comment>Max {0} of {1} shown. 
-Please extend filter.</comment>
-  </data>
 </root>

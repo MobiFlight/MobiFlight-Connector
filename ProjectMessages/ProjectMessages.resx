@@ -644,8 +644,4 @@ Tip: Save the file after opening to update the associated board for future use.<
   <data name="uiMessagePanelsStepperNoFreePins" xml:space="preserve">
     <value>There are not enough pins available to use the auto-zero option. </value>
   </data>
-  <data name="uiMessageHubHopPanelMaxItems" xml:space="preserve">
-    <value>Max {0} of {1} shown. 
-Please extend filter.</value>
-  </data>
 </root>
