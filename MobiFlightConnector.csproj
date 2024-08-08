@@ -1334,6 +1334,7 @@
     </Content>
     <Content Include="Community\Elral_Tuomas_GNC255\boards\board-logo.png" />
     <Content Include="Community\Elral_Tuomas_GNC255\boards\gnc255_raspberrypico.png" />
+    <Content Include="Community\MadMonkey\logo.png" />
     <Content Include="mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
