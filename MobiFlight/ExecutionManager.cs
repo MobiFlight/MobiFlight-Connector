@@ -315,7 +315,12 @@ namespace MobiFlight
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
-            inputCache.Clear();
+
+	    lock(inputCache)
+	    {
+		inputCache.Clear();
+	    }
+            
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearErrorMessages();
@@ -1479,52 +1484,55 @@ namespace MobiFlight
                 joystickManager = joystickManager
             };
 
-            foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
-            {
-                if ((tuple.Item2.DataBoundItem as DataRowView) == null)
-                {
-                    Log.Instance.log("mobiFlightCache_OnButtonPressed: tuple.Item2.DataBoundItem is NULL", LogSeverity.Debug);
-                    continue;
-                }
-
-                DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
-
-                if (!(bool)row["active"])
-                {
-                    Log.Instance.log($"{msgEventLabel} => skipping \"{row["description"]}\", config not active.", LogSeverity.Warn);
-                    continue;
-                }
-
-                try
-                {
-                    // if there are preconditions check and skip if necessary
-                    if (tuple.Item1.Preconditions.Count > 0)
-                    {
-                        if (!CheckPrecondition(tuple.Item1, currentValue))
-                        {
-                            tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                            continue;
-                        }
-                        else
-                        {
-                            tuple.Item2.ErrorText = "";
-                        }
-                    }
-
-                    Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
-                
-                    tuple.Item1.execute(
-                        cacheCollection,
-                        e,
-                        GetRefs(tuple.Item1.ConfigRefs))
-                        ;
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
-                }
-            }
-
+		    lock(inputCache)
+		    {
+				foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
+	            {
+	                if ((tuple.Item2.DataBoundItem as DataRowView) == null)
+	                {
+	                    Log.Instance.log("mobiFlightCache_OnButtonPressed: tuple.Item2.DataBoundItem is NULL", LogSeverity.Debug);
+	                    continue;
+	                }
+	
+	                DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
+	
+	                if (!(bool)row["active"])
+	                {
+	                    Log.Instance.log($"{msgEventLabel} => skipping \"{row["description"]}\", config not active.", LogSeverity.Warn);
+	                    continue;
+	                }
+	
+	                try
+	                {
+	                    // if there are preconditions check and skip if necessary
+	                    if (tuple.Item1.Preconditions.Count > 0)
+	                    {
+	                        if (!CheckPrecondition(tuple.Item1, currentValue))
+	                        {
+	                            tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+	                            continue;
+	                        }
+	                        else
+	                        {
+	                            tuple.Item2.ErrorText = "";
+	                        }
+	                    }
+	
+	                    Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
+	                
+	                    tuple.Item1.execute(
+	                        cacheCollection,
+	                        e,
+	                        GetRefs(tuple.Item1.ConfigRefs))
+	                        ;
+	                }
+	                catch (Exception ex)
+	                {
+	                    Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
+	                }
+	            }	    
+		    }
+            
             //fsuipcCache.ForceUpdate();
         }
 
