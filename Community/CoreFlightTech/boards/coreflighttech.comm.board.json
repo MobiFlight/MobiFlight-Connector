@@ -39,9 +39,21 @@
     "Community": {
       "Project": "CoreFlightTech",
       "Website": "https://coreflighttech.com/product/b737-comm-radio-module/",
-      "Docs": "https://coreflighttech.com/fly-core-flight-technologies/blog-and-downloads/",
+      "Docs": "https://coreflighttech.com/2022/11/12/how-to-connect-comm-radio-module-mobiflight-msfs2020-xp11-p3d-fsx/",
       "Support": "https://coreflighttech.com/contact-us/"
-    }
+    },
+    "DeviceConfigs": [
+      {
+        "Name": "Boeing 737 COMM - Captain",
+        "Description": "Boeing 737 COMM for the captain side",
+        "File": "coreflighttech_comm_nano.mfmc"
+      },
+      {
+        "Name": "Boeing 737 COMM - First Officer",
+        "Description": "Boeing 737 COMM for the first officer side",
+        "File": "coreflighttech_comm_fo_nano.mfmc"
+      }
+    ]
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 6,

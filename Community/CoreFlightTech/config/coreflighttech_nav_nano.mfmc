@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ModuleName>CoreFlightTech NAV</ModuleName>
+  <ModuleName>CoreFlightTech NAV (CPT)</ModuleName>
   <ModuleType>CoreFlightTech NAV</ModuleType>
   <PowerSavingTime>600</PowerSavingTime>
   <LedModule Name="CPT_NAV_STANDBY" DinPin="7" ClsPin="6" ClkPin="8" Brightness="15" NumModules="1" />

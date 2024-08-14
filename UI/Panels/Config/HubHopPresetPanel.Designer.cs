@@ -545,10 +545,9 @@
             this.MatchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.MatchLabel.Location = new System.Drawing.Point(425, 3);
             this.MatchLabel.Name = "MatchLabel";
-            this.MatchLabel.Size = new System.Drawing.Size(169, 18);
+            this.MatchLabel.Size = new System.Drawing.Size(169, 40);
             this.MatchLabel.TabIndex = 16;
             this.MatchLabel.Text = "{0} Presets match";
-            this.MatchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // PresetComboBox
             // 

@@ -16,8 +16,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
 
     internal class WinwingFcu : Joystick
     {
-        readonly uint VendorId = 0x4098;
-        readonly uint ProductId = 0xBB10;
+        private readonly int VendorId = 0x4098;
+        private int ProductId = 0xBB10;
         IHidDevice Device { get; set; }
 
         private const int SPD_DEC = 10;
@@ -40,15 +40,17 @@ namespace MobiFlight.Joysticks.WinwingFcu
         private WinwingFcuReport CurrentReport = new WinwingFcuReport();
         private WinwingFcuReport PreviousReport = new WinwingFcuReport();
         private HidBuffer HidDataBuffer = new HidBuffer();
-        private WinwingDisplayControl DisplayControl = new WinwingDisplayControl();
-        
+        private WinwingDisplayControl DisplayControl;
+
         private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();        
         private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
-       
-  
-        public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+
+
+        public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId) : base(joystick, def)
         {
-            Definition = definition;
+            Definition = def;
+            ProductId = productId;
+            DisplayControl = new WinwingDisplayControl(productId);
             var displayNames = DisplayControl.GetDisplayNames();
             var ledNames = DisplayControl.GetLedNames();
 
@@ -79,7 +81,7 @@ namespace MobiFlight.Joysticks.WinwingFcu
             base.Connect(handle);
             DisplayControl.Connect();
 
-            var hidFactory = new FilterDeviceDefinition(vendorId: VendorId, productId: ProductId).CreateWindowsHidDeviceFactory();
+            var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
             var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
             Device = (IHidDevice)await hidFactory.GetDeviceAsync(deviceDefinitions.First()).ConfigureAwait(false);
             await Device.InitializeAsync().ConfigureAwait(false);
@@ -126,21 +128,20 @@ namespace MobiFlight.Joysticks.WinwingFcu
             }
         }
 
-        private bool IsBitSet(uint intToCheck, int buttonId)
-        {
-            int pos = buttonId - 1;
-            return (intToCheck & (1 << pos)) != 0;
-        }
-
-        private void CheckForButtonTrigger(uint changes, MobiFlightButton.InputEvent inputEvent)
+        private void CheckForButtonTrigger(uint changes, MobiFlightButton.InputEvent inputEvent, int offset)
         {
             if (changes > 0)
             {
-                foreach (var button in ButtonsToTrigger)
+                for (int i = 0; i < 32; i++)
                 {
-                    if (IsBitSet(intToCheck: changes, buttonId: button.Key))
+                    if ((changes & (1 << i)) != 0) // IsBitSet
                     {
-                        TriggerButtonPress(button.Value, inputEvent);
+                        // Button IDs start with 1
+                        bool hasValue = ButtonsToTrigger.TryGetValue((i + offset + 1), out var button);
+                        if (hasValue)
+                        {
+                            TriggerButtonPress(button, inputEvent);
+                        }
                     }
                 }
             }
@@ -188,14 +189,24 @@ namespace MobiFlight.Joysticks.WinwingFcu
                 {
                     CurrentReport.CopyTo(PreviousReport);
                     PreviousReport.ButtonState = ~PreviousReport.ButtonState; // to retrigger
+                    PreviousReport.ButtonState2 = ~PreviousReport.ButtonState2; // to retrigger
+                    PreviousReport.ButtonState3 = ~PreviousReport.ButtonState3; // to retrigger
                     DoInitialize = false;
                 }
 
                 // Detect and Trigger Button Events
                 uint pressed = CurrentReport.ButtonState & ~PreviousReport.ButtonState; // rising edges
                 uint released = PreviousReport.ButtonState & ~CurrentReport.ButtonState; // falling edges
-                CheckForButtonTrigger(pressed, MobiFlightButton.InputEvent.PRESS);
-                CheckForButtonTrigger(released, MobiFlightButton.InputEvent.RELEASE);
+                uint pressed2 = CurrentReport.ButtonState2 & ~PreviousReport.ButtonState2; // rising edges
+                uint released2 = PreviousReport.ButtonState2 & ~CurrentReport.ButtonState2; // falling edges
+                uint pressed3 = CurrentReport.ButtonState3 & ~PreviousReport.ButtonState3; // rising edges
+                uint released3 = PreviousReport.ButtonState3 & ~CurrentReport.ButtonState3; // falling edges
+                CheckForButtonTrigger(pressed, MobiFlightButton.InputEvent.PRESS, 0);
+                CheckForButtonTrigger(released, MobiFlightButton.InputEvent.RELEASE, 0);
+                CheckForButtonTrigger(pressed2, MobiFlightButton.InputEvent.PRESS, 32);
+                CheckForButtonTrigger(released2, MobiFlightButton.InputEvent.RELEASE, 32);
+                CheckForButtonTrigger(pressed3, MobiFlightButton.InputEvent.PRESS, 64);
+                CheckForButtonTrigger(released3, MobiFlightButton.InputEvent.RELEASE, 64);
 
                 // Detect and Trigger Encoder Turns
                 int spdIncrement = CurrentReport.SpdEncoderValue - PreviousReport.SpdEncoderValue;

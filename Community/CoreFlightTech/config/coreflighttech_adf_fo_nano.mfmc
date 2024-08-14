@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ModuleName>CoreFlightTech ADF FO</ModuleName>
+  <ModuleName>CoreFlightTech ADF (FO)</ModuleName>
   <ModuleType>CoreFlightTech ADF</ModuleType>
   <PowerSavingTime>600</PowerSavingTime>
   <LedModule Name="FO_ADF_STANDBY" DinPin="7" ClsPin="6" ClkPin="8" Brightness="15" NumModules="1" />

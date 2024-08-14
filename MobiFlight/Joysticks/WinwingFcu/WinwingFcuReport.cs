@@ -6,6 +6,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
     {
         public uint ReportId { get; set; }
         public uint ButtonState { get; set; }
+        public uint ButtonState2 { get; set; }
+        public uint ButtonState3 { get; set; }
         public ushort SpdEncoderValue { get; set; }
         public ushort HdgEncoderValue { get; set; }
         public ushort AltEncoderValue { get; set; }
@@ -19,6 +21,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
         {
             targetReport.ReportId = this.ReportId;
             targetReport.ButtonState = this.ButtonState;
+            targetReport.ButtonState2 = this.ButtonState2;
+            targetReport.ButtonState3 = this.ButtonState3;
             targetReport.SpdEncoderValue = this.SpdEncoderValue;
             targetReport.AltEncoderValue = this.AltEncoderValue;
             targetReport.HdgEncoderValue = this.HdgEncoderValue;
@@ -33,6 +37,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
             {
                 // get 32 bit Button report field - First 4 bytes: uint:  [3][2][1][0]
                 ButtonState = ((uint)data[0] + ((uint)data[1] << 8) + ((uint)data[2] << 16) + ((uint)data[3] << 24));
+                ButtonState2 = ((uint)data[4] + ((uint)data[5] << 8) + ((uint)data[6] << 16) + ((uint)data[7] << 24));
+                ButtonState3 = ((uint)data[8] + ((uint)data[9] << 8) + ((uint)data[10] << 16) + ((uint)data[11] << 24));
 
                 if (IsFirmwareGreaterOrEqual_1_16) // Since firmware v1.16
                 {
@@ -54,13 +60,17 @@ namespace MobiFlight.Joysticks.WinwingFcu
                 // Is firmware report
                 if (data[5] == 0x02 && data[4] == 0x05 && data[0] == 0x10)
                 {
-                    Log.Instance.log($"WINWING FCU Firmware: v{data[9].ToString("X2")}.{data[8].ToString("X2")}", LogSeverity.Debug);
+                    LogFirmware(data, "WINWING FCU");
                     if (data[9] == 1 && data[8] < 0x16)
                     {
                         IsFirmwareGreaterOrEqual_1_16 = false;                        
                     }
                 }
             }
+        }
+        private void LogFirmware(byte[] data, string device)
+        {
+            Log.Instance.log($"{device} Firmware: v{data[9].ToString("X2")}.{data[8].ToString("X2")}", LogSeverity.Debug);
         }
     }
 }
