@@ -393,7 +393,7 @@ namespace MobiFlight.UI.Panels.Config
                     code = Code,
                     description = "This is a customized preset or custom code."
                 };
-                FilteredPresetList.Items.Add(CustomPreset);
+                FilteredPresetList.Items.Insert(0, CustomPreset);
                 FilteredPresetListChanged();
                 // We have found the original preset
                 InitializeComboBoxesWithPreset(CustomPreset);
