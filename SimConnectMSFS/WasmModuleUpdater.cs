@@ -40,6 +40,7 @@ namespace MobiFlight.SimConnectMSFS
         public event EventHandler<ProgressUpdateEvent> DownloadAndInstallProgress;
 
         public String CommunityFolder { get; set; }
+        public string CommunityFolder2024 { get; set; }
 
         private String ExtractCommunityFolderFromUserCfg(String UserCfg)
         {
@@ -63,32 +64,55 @@ namespace MobiFlight.SimConnectMSFS
             char[] charsToTrim = { '"' };
             
             InstalledPackagesPath = InstalledPackagesPath.TrimEnd(charsToTrim);
-            
-            if (Directory.Exists(InstalledPackagesPath + @"\Community"))
+
+            string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
+            if (Directory.Exists(targetPath))
             {
-                CommunityFolder = InstalledPackagesPath + @"\Community";
+                CommunityFolder = targetPath;
             }
 
             return CommunityFolder;
         }
+
         public bool AutoDetectCommunityFolder()
         {
-            string searchpath = Environment.GetEnvironmentVariable("AppData") + @"\Microsoft Flight Simulator\UserCfg.opt";
+            // Find the 2020 community folder
+            CommunityFolder = ExtractCommunityFolderPath(new string[] {
+                Path.Combine(Environment.GetEnvironmentVariable("AppData"), "Microsoft Flight Simulator"),
+                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), @"Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\") }
+                );
 
-            if (!File.Exists(searchpath))
-            {
-                searchpath = Environment.GetEnvironmentVariable("LocalAppData") + @"\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\UserCfg.opt";
-                if (!File.Exists(searchpath))
-                {
-                    return false;
-                }
-            }
+            // Find the 2024 community folder
+            CommunityFolder2024 = ExtractCommunityFolderPath(new string[] {
+                Path.Combine(Environment.GetEnvironmentVariable("AppData"), "Microsoft Flight Simulator 2024"),
+                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), @"Packages\Microsoft.FlightSimulator_UNKNOWN\LocalCache\") }
+                );
 
-            CommunityFolder = ExtractCommunityFolderFromUserCfg(searchpath);
-            return true;
+            return CommunityFolder != null || CommunityFolder2024 != null;
         }
 
-        public bool InstallWasmModule()
+        /// <summary>
+        /// Finds the community folder path inside the UserCfg.opt file
+        /// </summary>
+        /// <param name="basePaths">An array of paths to search for the UserCfg.opts file in</param>
+        /// <returns>The path to the community folder or null if not found</returns>
+        private string ExtractCommunityFolderPath(string[] basePaths)
+        {
+            foreach (string basePath in basePaths)
+            {
+                string userCfgPath = Path.Combine(basePath, "UserCfg.opt");
+                if (!File.Exists(userCfgPath))
+                {
+                    continue;
+                }
+
+                return ExtractCommunityFolderFromUserCfg(userCfgPath);
+            }
+
+            return null;
+        }
+
+        public bool InstallWasmModule(string communityFolder)
         {
             if (!Directory.Exists(WasmModuleFolder))
             {
@@ -96,25 +120,25 @@ namespace MobiFlight.SimConnectMSFS
                 return false;
             }
 
-            if (!Directory.Exists(CommunityFolder))
+            if (!Directory.Exists(communityFolder))
             {
-                Log.Instance.log($"WASM module cannot be installed. Community folder {CommunityFolder} not found.", LogSeverity.Error);
+                Log.Instance.log($"WASM module cannot be installed. Community folder {communityFolder} not found.", LogSeverity.Error);
                 return false;
             }
 
-            String destFolder = CommunityFolder + @"\mobiflight-event-module";
+            String destFolder = Path.Combine(communityFolder, @"\mobiflight-event-module");
             CopyFolder(new DirectoryInfo(WasmModuleFolder), new DirectoryInfo(destFolder));
 
             // Remove the old Wasm File
-            DeleteOldWasmFile();
+            DeleteOldWasmFile(communityFolder);
 
             Log.Instance.log("WASM module has been installed successfully.", LogSeverity.Info);
             return true;
         }
 
-        private void DeleteOldWasmFile()
+        private void DeleteOldWasmFile(string communityFolder)
         {
-            String installedWASM = CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleNameOld}";
+            String installedWASM = Path.Combine(communityFolder, @"\mobiflight-event-module\modules", WasmModuleNameOld);
             if(System.IO.File.Exists(installedWASM))
                 System.IO.File.Delete(installedWASM);
         }
@@ -149,23 +173,23 @@ namespace MobiFlight.SimConnectMSFS
             }   
         }
 
-        public bool WasmModulesAreDifferent()
+        public bool WasmModulesAreDifferent(string communityFolder)
         {
             Console.WriteLine("Check if WASM module needs to be updated");
 
             string installedWASM;
             string mobiflightWASM;
 
-            if (CommunityFolder == null) return true;
+            if (communityFolder == null) return true;
 
-            string wasmModulePath = Path.Combine(CommunityFolder, @"mobiflight-event-module\modules\", WasmModuleName);
+            string wasmModulePath = Path.Combine(communityFolder, @"\mobiflight-event-module\modules\", WasmModuleName);
             if (!File.Exists(wasmModulePath))
             { 
                 return true;
             }
 
-            installedWASM = CalculateMD5(CommunityFolder + $@"\mobiflight-event-module\modules\{WasmModuleName}");
-            mobiflightWASM = CalculateMD5($@".\MSFS2020-module\mobiflight-event-module\modules\{WasmModuleName}");
+            installedWASM = CalculateMD5(Path.Combine(communityFolder, @"\mobiflight-event-module\modules\", WasmModuleName));
+            mobiflightWASM = CalculateMD5(Path.Combine(@".\MSFS2020-module\mobiflight-event-module\modules\", WasmModuleName));
 
             return installedWASM != mobiflightWASM;
         }

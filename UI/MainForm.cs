@@ -345,7 +345,8 @@ namespace MobiFlight.UI
 
             // MSFS2020
             WasmModuleUpdater updater = new WasmModuleUpdater();
-            if (updater.AutoDetectCommunityFolder() && updater.WasmModulesAreDifferent())
+
+            if (updater.AutoDetectCommunityFolder() && (updater.WasmModulesAreDifferent(updater.CommunityFolder) || updater.WasmModulesAreDifferent(updater.CommunityFolder2024)))
             {
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
@@ -2099,6 +2100,10 @@ namespace MobiFlight.UI
         private static void InstallWasmModule()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
+            bool Is2020Different = false;
+            bool Is2024Different = false;
+            bool Update2020Successful = false;
+            bool Update2024Successful = false;
 
             try {
 
@@ -2111,7 +2116,11 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                if (!updater.WasmModulesAreDifferent())
+                Is2020Different = updater.WasmModulesAreDifferent(updater.CommunityFolder);
+                Is2024Different = updater.WasmModulesAreDifferent(updater.CommunityFolder2024);
+
+                // If neither are different then just tell the user and return, doing nothing.
+                if (!Is2020Different && !Is2020Different)
                 {
                     TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
@@ -2120,7 +2129,20 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                if (updater.InstallWasmModule())
+                // Try updating the 2020 install
+                if (Is2020Different)
+                {
+                    Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
+                }
+
+                // Try updating the 2024 install
+                if (Is2024Different)
+                {
+                    Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
+                }
+
+                // If either update is successful then show the success dialog.
+                if (Update2020Successful || Update2024Successful)
                 {
                     TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
@@ -2129,7 +2151,6 @@ namespace MobiFlight.UI
 
                     return;
                 }
-
             } catch (Exception ex) {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
             }
