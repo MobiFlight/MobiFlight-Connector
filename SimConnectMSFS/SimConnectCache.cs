@@ -371,7 +371,15 @@ namespace MobiFlight.SimConnectMSFS
 
         internal void Stop()
         {
-            WasmModuleClient.Stop(m_oSimConnect, WasmRuntimeClientData);
+            try
+            {
+                WasmModuleClient.Stop(m_oSimConnect, WasmRuntimeClientData);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Unable to stop WasmModule: {e.Message}", LogSeverity.Error);
+            }
+
             ClearSimVars();
         }
 
