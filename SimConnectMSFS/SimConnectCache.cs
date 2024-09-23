@@ -212,7 +212,7 @@ namespace MobiFlight.SimConnectMSFS
                     // Listen to exceptions
                     m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
                     // Listen to exceptions
-                    Log.Instance.log("SimConnect (MSFS2020) instantiated", LogSeverity.Debug);
+                    Log.Instance.log("SimConnect (MSFS2020/2024) instantiated", LogSeverity.Debug);
                 }
             }
             catch (COMException ex)

@@ -136,7 +136,7 @@
     <value>1</value>
   </data>
   <data name="DescriptionLabel.Text" xml:space="preserve">
-    <value>Your Custom Code that will be executed in MSFS2020</value>
+    <value>The code that will be executed in MSFS2020/2024</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
     <value>DescriptionLabel</value>

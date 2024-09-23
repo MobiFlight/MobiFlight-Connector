@@ -892,7 +892,7 @@ namespace MobiFlight.UI
             switch (flightSim)
             {
                 case FlightSimType.MSFS2020:
-                    SimProcessDetectedToolStripMenuItem.Text = "MSFS2020 Detected";
+                    SimProcessDetectedToolStripMenuItem.Text = "MSFS2020/2024 Detected";
                     SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
@@ -959,19 +959,19 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
-                SimProcessDetectedToolStripMenuItem.Text = "MSFS2020 Detected";
+                SimProcessDetectedToolStripMenuItem.Text = "MSFS2020/2024 Detected";
 
                 if ((sender as SimConnectCache).IsSimConnectConnected())
                 {
-                    simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS2020)";
-                    Log.Instance.log("Connected to SimConnect (MSFS2020).", LogSeverity.Info);
+                    simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS2020/2024)";
+                    Log.Instance.log("Connected to SimConnect (MSFS2020/2024).", LogSeverity.Info);
                 }
 
                 if ((sender as SimConnectCache).IsConnected()) { 
-                    simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
+                    simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020/2024)";
                     simConnectToolStripMenuItem.Image = Properties.Resources.check;
                     simConnectToolStripMenuItem.Enabled = true;
-                    Log.Instance.log("Connected to WASM Module (MSFS2020).", LogSeverity.Info);
+                    Log.Instance.log("Connected to WASM Module (MSFS2020/2024).", LogSeverity.Info);
 
                     if (!execManager.GetFsuipcConnectCache().IsConnected())
                     {
