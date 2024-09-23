@@ -136,7 +136,7 @@
     <value>1</value>
   </data>
   <data name="DescriptionLabel.Text" xml:space="preserve">
-    <value>The code that will be executed in MSFS2020/2024</value>
+    <value>The code that will be executed in Microsoft Flight Simulator</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
     <value>DescriptionLabel</value>

@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label2.Padding = new System.Windows.Forms.Padding(3);
             this.label2.Size = new System.Drawing.Size(598, 26);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Define the sim variable name that you would like to read from MSFS2020/2024.";
+            this.label2.Text = "Define the sim variable name that you would like to read from Microsoft Flight Simulator.";
             // 
             // groupBox1
             // 
@@ -57,7 +57,7 @@ namespace MobiFlight.UI.Panels.Config
             this.groupBox1.Size = new System.Drawing.Size(604, 530);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "SimConnect (MSFS2020/2024)";
+            this.groupBox1.Text = "SimConnect (MSFS)";
             // 
             // HubHopPresetPanel
             // 
