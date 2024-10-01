@@ -12,7 +12,7 @@ namespace MobiFlight
     public class MobiFlightLcdDisplay : IConnectedDevice
     {
         public const string TYPE = "LcdDisplay";
-        
+        public const char DisplayEscapeChar = (char)28; //character 'FS' (File separator), surelly not used by users
         public CmdMessenger CmdMessenger { get; set; }
         public int Address  { get; set; }
         public int Cols     { get; set; }
@@ -102,6 +102,11 @@ namespace MobiFlight
                     result += new string(' ', Cols);
                 }
 
+            }
+
+            if (lcdConfig.EscapeChar != null)
+            {
+                result = result.Replace(lcdConfig.EscapeChar.Value, DisplayEscapeChar);
             }
             return result;
         }

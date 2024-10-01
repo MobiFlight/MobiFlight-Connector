@@ -13,6 +13,7 @@ namespace MobiFlight.OutputConfig
         public const string Type = "LcdDisplay";
         public String Address { get; set; }
         public List<String> Lines { get; set; }
+        public char? EscapeChar { get; set; } = null;
 
         public LcdDisplay ()
         {
@@ -31,7 +32,8 @@ namespace MobiFlight.OutputConfig
             return (
                 obj != null && obj is LcdDisplay &&
                 this.Address == (obj as LcdDisplay).Address &&
-                linesAreEqual
+                linesAreEqual &&
+                EscapeChar == (obj as LcdDisplay).EscapeChar
             );
         }
 
@@ -43,6 +45,7 @@ namespace MobiFlight.OutputConfig
             {
                 clone.Lines.Add(line);
             }
+            clone.EscapeChar = EscapeChar;
 
             return clone;
         }
@@ -58,6 +61,12 @@ namespace MobiFlight.OutputConfig
             {
                 Address = reader["address"].ToString();
             }
+
+            if (reader["escapechar"] != null && reader["escapechar"] != "")
+            {
+                EscapeChar = reader["escapechar"].ToString()[0];
+            }
+
             reader.Read();
 
             if (reader.LocalName == "line")
@@ -84,10 +93,17 @@ namespace MobiFlight.OutputConfig
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("address", Address);
+            if (EscapeChar != null)
+            {
+                writer.WriteAttributeString("escapechar", EscapeChar.Value.ToString());
+            }
 
-            foreach (string line in Lines) {
+            foreach (string line in Lines)
+            {
                 writer.WriteElementString("line", line);
             }
+
+         
         }
     }
 }

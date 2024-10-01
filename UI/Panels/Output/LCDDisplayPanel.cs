@@ -13,11 +13,8 @@ namespace MobiFlight.UI.Panels
 {
     public partial class LCDDisplayPanel : UserControl
     {
-        DataView dv;
         int Cols = 16;
         int Lines = 2;
-        static byte MAX_CONFIG_REFS = 6;
-        static string[] CONFIG_REFS_PLACEHOLDER = { "#", "§", "&", "?", "@", "^", "%" };
 
         public LCDDisplayPanel()
         {
@@ -56,6 +53,8 @@ namespace MobiFlight.UI.Panels
             }
             if (config.LcdDisplay.Lines.Count > 0)
                 lcdDisplayTextBox.Lines = config.LcdDisplay.Lines.ToArray();
+
+            EscapeCharTextBox.Text = config.LcdDisplay.EscapeChar?.ToString() ?? "";
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
@@ -70,6 +69,8 @@ namespace MobiFlight.UI.Panels
             {
                 config.LcdDisplay.Lines.Add(line);
             }
+
+            config.LcdDisplay.EscapeChar = string.IsNullOrWhiteSpace(EscapeCharTextBox.Text) ? (char?)null : EscapeCharTextBox.Text[0];
             return config;
         }
 

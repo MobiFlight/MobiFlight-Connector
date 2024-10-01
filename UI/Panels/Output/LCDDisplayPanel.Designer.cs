@@ -41,6 +41,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.EscapeCharTextBox = new System.Windows.Forms.TextBox();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -50,6 +52,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.EscapeCharTextBox);
+            this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.DisplayComboBox);
             this.panel3.Controls.Add(this.panel4);
@@ -126,6 +130,16 @@
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // EscapeCharTextBox
+            // 
+            resources.ApplyResources(this.EscapeCharTextBox, "EscapeCharTextBox");
+            this.EscapeCharTextBox.Name = "EscapeCharTextBox";
+            // 
             // LCDDisplayPanel
             // 
             resources.ApplyResources(this, "$this");
@@ -135,6 +149,7 @@
             this.Controls.Add(this.label4);
             this.Name = "LCDDisplayPanel";
             this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -161,5 +176,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox EscapeCharTextBox;
     }
 }
