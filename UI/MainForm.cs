@@ -797,6 +797,10 @@ namespace MobiFlight.UI
             // This board is not flashed yet
             if (module.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
             {
+                // We can install firmware on this device but the user
+                // has asked us not to auto scan devices so we bail
+                if (!Properties.Settings.Default.FwAutoUpdateCheck) return;
+
                 PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
                 return;
             } 
