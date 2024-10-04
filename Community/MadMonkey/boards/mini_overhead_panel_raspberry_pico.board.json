@@ -19,14 +19,14 @@
       "CanResetBoard": true,
       "FirmwareBaseName": "mini_overhead_panel_raspberrypico",
       "FirmwareExtension": "uf2",
-      "FriendlyName": "Mini Overhead Panel RaspiPico",
+      "FriendlyName": "Mini Overhead Panel",
       "LatestFirmwareVersion": "1.0.0",
       "MobiFlightType": "Mini Overhead Panel RaspiPico",
       "ResetFirmwareFile": "reset.raspberry_pico_flash_nuke.uf2",
       "CustomDeviceTypes": [],
       "Community": {
-        "Project": "Mini Overhead Panel",
-        "Website": "https://github.com/MobiFlight/mobiflight-panels/tree/main/aircraft/airbus-a32x/overhead/mini-overhead",
+        "Project": "Mini Overhead Panel - by MadMonkey",
+        "Website": "https://shop.mobiflight.com/product/a320-mini-overhead-panel-by-madmonkey",
         "Docs": "https://github.com/MobiFlight/mobiflight-panels/tree/main/aircraft/airbus-a32x/overhead/mini-overhead",
         "Support": "https://discord.com/channels/608690978081210392/1222144387979546746"
       },
