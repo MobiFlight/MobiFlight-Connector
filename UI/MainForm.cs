@@ -89,6 +89,7 @@ namespace MobiFlight.UI
             {
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
+            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
             Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
