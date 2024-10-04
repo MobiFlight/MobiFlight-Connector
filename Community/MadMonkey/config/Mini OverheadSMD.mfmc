@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>Mini Overhead Panel RaspiPico</ModuleType>
+  <ModuleName>Mini OverheadSMD</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <ShiftRegister Name="ShiftRegister" LatchPin="12" ClockPin="13" DataPin="14" NumModules="2" />
+  <Button Name="Nose TO" Pin="0" />
+  <Button Name="Land Retract" Pin="1" />
+  <Button Name="Land On" Pin="2" />
+  <Button Name="Seatbelts Off" Pin="3" />
+  <Button Name="Seatbelts On" Pin="4" />
+  <Output Name="Backlight Brt" Pin="5" />
+  <Button Name="Smoking Off" Pin="6" />
+  <Button Name="Smoking On" Pin="7" />
+  <Button Name="Fuel Pump" Pin="8" />
+  <Button Name="APU Master" Pin="9" />
+  <Button Name="APU Start" Pin="10" />
+  <Button Name="APU Bleed" Pin="11" />
+  <Output Name="Annunciator Brt" Pin="15" />
+  <Button Name="Ext Pwr" Pin="16" />
+  <Button Name="Battery" Pin="17" />
+  <Button Name="Anti Ice" Pin="18" />
+  <Button Name="Ext Light Off" Pin="19" />
+  <Button Name="Ext Light On" Pin="20" />
+  <Button Name="Nose Off" Pin="21" />
+  <Button Name="ADIRS ATT" Pin="22" />
+  <Button Name="ADIRS NAV" Pin="26" />
+  <Button Name="ADIRS Off" Pin="27" />
+  <Button Name="Calls" Pin="28" />
+</Config>
