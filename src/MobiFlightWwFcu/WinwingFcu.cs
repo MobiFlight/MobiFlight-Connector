@@ -367,7 +367,7 @@ namespace MobiFlightWwFcu
             LcdCurrentValuesCache[FPA] = string.Empty;
         }
 
-        private void SetSpeedInternal(char[] speedChars, bool isMach)
+        private void SetSpeedInternal(char[] speedChars)
         {
             var speedHundreds = DisplaySetValuesData["SpeedHundreds"];
             var speedTens = DisplaySetValuesData["SpeedTens"];
@@ -379,14 +379,6 @@ namespace MobiFlightWwFcu
             SetBytesDisplayMessage(speedHundreds, SetValuesMessage);
             SetBytesDisplayMessage(speedTens, SetValuesMessage);
             SetBytesDisplayMessage(speedOnes, SetValuesMessage);
-            if (isMach)
-            {
-                SetBytesDisplayMessage(DisplaySetValuesData["MachDecPoint"], SetValuesMessage);
-            }
-            else
-            {
-                SetBytesDisplayMessage(DisplaySetValuesData["MachNoDecPoint"], SetValuesMessage);
-            }
 
             SendDisplayMessage(SetValuesMessage);
         }
@@ -395,14 +387,14 @@ namespace MobiFlightWwFcu
         {
             int mySpeed = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
             char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            SetSpeedInternal(speedChars, false);
+            SetSpeedInternal(speedChars);
         }
 
         private void SetMachSpeed(string speed)
         {
             int mySpeed = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
             char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            SetSpeedInternal(speedChars, true);
+            SetSpeedInternal(speedChars);
         }
 
         private void SetSpeedDotOnOff(string speedDot)
@@ -421,10 +413,10 @@ namespace MobiFlightWwFcu
 
         private void SetSpeedDashes(string speedDashes)
         {
-            int myDashes = (int)Convert.ToDouble(speedDashes, CultureInfo.InvariantCulture);
+            int myDashes = (int)Convert.ToDouble(speedDashes, CultureInfo.InvariantCulture);            
             if (myDashes == 1)
             {
-                SetSpeedInternal(new char[] { '-', '-', '-' }, false);
+                SetSpeedInternal(new char[] { '-', '-', '-' });
             }
             else if (myDashes == 0)
             {
@@ -438,10 +430,12 @@ namespace MobiFlightWwFcu
             if (myMachMode == 1)
             {
                 SetBytesDisplayMessage(DisplaySetValuesData["MachLabel"], SetValuesMessage);
+                SetBytesDisplayMessage(DisplaySetValuesData["MachDecPoint"], SetValuesMessage);
             }
             else if (myMachMode == 0)
             {
                 SetBytesDisplayMessage(DisplaySetValuesData["SpeedLabel"], SetValuesMessage);
+                SetBytesDisplayMessage(DisplaySetValuesData["MachNoDecPoint"], SetValuesMessage);
             }
             else if (myMachMode == 2)
             {
