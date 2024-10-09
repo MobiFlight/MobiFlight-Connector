@@ -176,7 +176,7 @@ namespace MobiFlight
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
                     js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
                 }
-                else if (vendorId == 0x4098 && productId == 0xBB10)
+                else if (vendorId == 0x4098 && (productId == 0xBB10 || productId == 0xBC1D || productId == 0xBC1E || productId == 0xBA01))
                 {
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
                     js = new WinwingFcu(diJoystick, joystickDef, productId);

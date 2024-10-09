@@ -1,0 +1,303 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING FCU-320 + EFIS-320L",
+  "VendorId": "0x4098",
+  "ProductId": "0xBC1D",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "MACH Button"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "LOC Button"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "TRK Button"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "AP1 Button"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "AP2 Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "A/THR Button"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "EXPED Button"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "METRIC Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "APPR Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "SPD DEC"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "SPD INC"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "SPD PUSH"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "SPD PULL"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "HDG DEC"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "HDG INC"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "HDG PUSH"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "HDG PULL"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "ALT DEC"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "ALT INC"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "ALT PUSH"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "ALT PULL"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "VS DEC"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "VS INC"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "VS PUSH"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "VS PULL"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "ALT 100"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "ALT 1000"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "FD Button"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "T.O CONFIG Button"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "FD Left Button"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "LS Left Button"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "CSTR Left Button"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "WPT Left Button"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "VORD Left Button"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "NDB Left Button"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "ARPT Left Button"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "BARO Left PUSH"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "BARO Left PULL"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "BARO Left DEC"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "BARO Left INC"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "inHg Left"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "hPa Left"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "ND LS Left"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "ND VOR Left"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "ND NAV Left"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "ND ARC Left"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "ND PLAN Left"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "RANGE 10 Left"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "RANGE 20 Left"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "RANGE 40 Left"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "RANGE 80 Left"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "RANGE 160 Left"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "RANGE 320 Left"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "NAV1 ADF Left"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "NAV1 OFF Left"
+    },
+    {
+      "Id": 59,
+      "Type": "Button",
+      "Label": "NAV1 VOR Left"
+    },
+    {
+      "Id": 60,
+      "Type": "Button",
+      "Label": "NAV2 ADF Left"
+    },
+    {
+      "Id": 61,
+      "Type": "Button",
+      "Label": "NAV2 OFF Left"
+    },
+    {
+      "Id": 62,
+      "Type": "Button",
+      "Label": "NAV2 VOR Left"
+    }
+  ]
+}
