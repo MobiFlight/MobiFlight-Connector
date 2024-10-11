@@ -563,6 +563,10 @@ namespace MobiFlight.UI
             startupPanel.UpdateProgressBarAndStatusText("Checking for Firmware Updates...", 70);
             CheckForFirmwareUpdates();
 
+            startupPanel.UpdateStatusText("Loading HubHop presets...");
+            startupPanel.UpdateProgressBar(80);
+            startupPanel.UpdateProgressBarAndStatusText("Loading HubHop presets...", 80);
+            
             startupPanel.UpdateStatusText("Loading last config...");
             startupPanel.UpdateProgressBar(90);
             startupPanel.UpdateProgressBarAndStatusText("Loading last config...", 90);
@@ -582,6 +586,30 @@ namespace MobiFlight.UI
 
             CheckForWasmModuleUpdate();
             CheckForHubhopUpdate();
+            // Load HubHop Presets
+            Msfs2020HubhopPresetListSingleton.Instance.PresetListChanged += (s, ev) =>
+            {
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "hubhop.update",
+                    Value = "MSFS2020 hubhop events loaded"
+                }));
+
+                MessageExchange.Instance.Publish(new Message<Msfs2020HubhopPresetList>(s as Msfs2020HubhopPresetList));
+            };
+            XplaneHubhopPresetListSingleton.Instance.PresetListChanged += (s, ev) =>
+            {
+                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
+                {
+                    Type = "hubhop.update",
+                    Value = "xplane hubhop events loaded"
+                }));
+
+                MessageExchange.Instance.Publish(new Message<Msfs2020HubhopPresetList>(s as Msfs2020HubhopPresetList));
+            };
+
+            Msfs2020HubhopPresetListSingleton.Instance.Load(@"Presets\msfs2020_hubhop_presets.json");
+            XplaneHubhopPresetListSingleton.Instance.Load(@"Presets\xplane_hubhop_presets.json");
 
             UpdateAllConnectionIcons();
 

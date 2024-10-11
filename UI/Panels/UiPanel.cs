@@ -1,6 +1,7 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Frontend;
+using MobiFlight.HubHop;
 using Newtonsoft.Json;
 using System;
 using System.Linq;
@@ -242,6 +243,14 @@ namespace MobiFlight.UI.Panels
             });
 
             MessageExchange.Instance.Subscribe<Message<Notification>>((message) =>
+            {
+                // do something with the config
+                // convert config to JSON object
+                var jsonEncodedMessage = JsonConvert.SerializeObject(message);
+                webView.CoreWebView2.PostWebMessageAsString(jsonEncodedMessage);
+            });
+
+            MessageExchange.Instance.Subscribe<Message<Msfs2020HubhopPresetList>>((message) =>
             {
                 // do something with the config
                 // convert config to JSON object

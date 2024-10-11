@@ -27,7 +27,10 @@ export const useAppMessage = (
         ) as AppMessage
         if (appMessage.key === key) {
           onReceiveMessage(appMessage)
-        }
+        } 
+        // else {
+        //   console.log(`Received message with key ${appMessage.key}`)
+        // }
       } catch (error) {
         console.error("Error parsing message", error)
       }

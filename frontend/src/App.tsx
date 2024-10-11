@@ -17,6 +17,7 @@ import { useAppMessage, useNotification } from "./lib/hooks"
 import { useDevicesStore } from "./stores/deviceStateStore"
 import { Toaster } from "./components/ui/sonner"
 import { toast } from "sonner"
+import { useMsfsPresetStore } from "./stores/msfsPresetStore"
 
 function App() {
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ function App() {
   const { setState } = useExecutionStateStore()
   const { setDevices } = useDevicesStore()
   const { prepareForToast } = useNotification()
+  const { setPresets } = useMsfsPresetStore()
 
   useAppMessage("StatusBarUpdate", (message) => {
     setStartupProgress(message.payload as Types.StatusBarUpdate)
@@ -62,8 +64,14 @@ function App() {
 
   useAppMessage("GlobalSettings", (message) => {
     const settings = message.payload as Types.IGlobalSettings
-    console.log("Global Settings Loaded")
+    console.log("Global Settings Loaded")    
     setSettings(settings)
+  })
+
+  useAppMessage("Msfs2020HubhopPresetList", (message) => {
+    const presets = message.payload.Items as Types.Preset[]
+    setPresets(presets)
+    console.log("MSFS2020 HubHop Presets loaded")
   })
 
   useAppMessage("config.update", (message) => {

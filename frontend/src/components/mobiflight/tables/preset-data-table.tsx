@@ -2,11 +2,13 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -20,20 +22,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useState } from "react";
-import { ILogMessage } from "@/types";
-import { LogDataTableToolbar } from "./log-data-table-toolbar";
+import { PresetDataTableToolbar } from "./preset-table-toolbar";
+import { Preset } from "@/types";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function LogDataTable<TData, TValue>({
+export function PresetDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    "vendor": false, 
+    "aircraft": false, 
+    "system": false, 
+  })
+
   const table = useReactTable({
     data,
     columns,
@@ -44,9 +53,12 @@ export function LogDataTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    onColumnVisibilityChange: setColumnVisibility,
+    // getPaginationRowModel: getPaginationRowModel(), //load client-side pagination code
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
     },
     defaultColumn: {
         size: 10, //starting column size
@@ -58,9 +70,10 @@ export function LogDataTable<TData, TValue>({
   return (
     <div className="flex flex-col gap-4 grow overflow-y-auto">
       <div className="">
-        <LogDataTableToolbar table={table} items={data as ILogMessage[]} />
+        <PresetDataTableToolbar table={table} items={data as Preset[]} />
       </div>
       <div className="flex flex-col overflow-y-auto border rounded-lg">
+      <ScrollArea className="h-[200px] rounded-md border">
         <Table className="w-full table-fixed">
           <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white group/header">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -115,6 +128,7 @@ export function LogDataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </ScrollArea>
       </div>
     </div>
   );

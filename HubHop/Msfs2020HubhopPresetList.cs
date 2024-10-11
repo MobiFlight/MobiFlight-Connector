@@ -45,6 +45,7 @@ public class Msfs2020HubhopPreset
 
     public class Msfs2020HubhopPresetList
     {
+        public event EventHandler PresetListChanged;
         public List<Msfs2020HubhopPreset> Items = new List<Msfs2020HubhopPreset>();
         String LoadedFile = null;
 
@@ -91,6 +92,8 @@ public class Msfs2020HubhopPreset
                 // have to do all sorts of null value checking.
                 Items = new List<Msfs2020HubhopPreset>();
             }
+
+            PresetListChanged?.Invoke(this, new EventArgs());
         }
 
         public List<String> AllVendors(HubHopType presetType)

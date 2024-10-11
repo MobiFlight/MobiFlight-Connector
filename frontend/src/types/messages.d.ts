@@ -89,6 +89,7 @@ export type AppMessageKey =
   | "DeviceUpdate"
   | "DeviceElementCreateResponse"
   | "Notification"
+  | "Msfs2020HubhopPresetList"
 
 export type AppMessagePayload =
   | ConfigLoadedEvent

@@ -21,7 +21,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useState } from "react"
-import { DataTableToolbar } from "@/components/ui/data-table-toolbar"
+import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 
 interface DataTableProps<TData, TValue> {

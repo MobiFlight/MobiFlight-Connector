@@ -9,7 +9,7 @@ namespace MobiFlight
 {
     static class Program
     {
-        static Mutex mutex = new Mutex(true, "{57699317-1D72-4B54-82BC-CF6B38254550}");
+        static Mutex mutex = new Mutex(true, "{57699317-1D72-4B54-82BC-CF6B38254551}");
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>

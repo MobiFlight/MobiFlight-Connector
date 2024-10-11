@@ -22,7 +22,7 @@ export function LogDataTableToolbar<TData>({
   
   return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
+      <div className="flex flex-1 items-center space-x-2 h-auto">
         <Input
           placeholder="Filter items..."
           value={(table.getColumn("Message")?.getFilterValue() as string) ?? ""}
@@ -40,7 +40,7 @@ export function LogDataTableToolbar<TData>({
         )}
         {isFiltered && (
           <Button
-            variant="ghost"
+            variant="default"
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >

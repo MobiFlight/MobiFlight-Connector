@@ -16,3 +16,4 @@ export type {
   GlobalSettingsUpdateMessage,
   Notification
 } from "./messages"
+export type { Preset } from "./preset"

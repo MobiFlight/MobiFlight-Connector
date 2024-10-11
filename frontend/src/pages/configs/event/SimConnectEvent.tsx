@@ -1,4 +1,6 @@
 import { ComboBox } from "@/components/mobiflight/ComboBox"
+import PresetPanel from "@/components/mobiflight/PresetPanel"
+import { PresetDataTable } from "@/components/mobiflight/tables/preset-data-table"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -18,11 +20,6 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
     system: ["Electrical", "Hydraulics", "Fuel", "Engine", "APU"],
   }
 
-  const [searchValue, setSearchValue] = React.useState("")
-  const [vendor, setVendor] = React.useState("Microsoft")
-  const [aircraft, setAircraft] = React.useState("A320")
-  const [system, setSystem] = React.useState("Electrical")
-
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row h-auto items-center gap-4">
@@ -30,34 +27,9 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
         <Textarea  value={ (config.Event.Settings as SimConnectVarEventSettings).Value }>
         </Textarea>
       </div>
-      <div className="flex flex-row h-auto items-center gap-4">
-        <Label className="w-16">Search</Label>
-        <Input
-          value={searchValue}
-          className="w-auto"
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
-        <Label>Vendor</Label>
-        <ComboBox
-          options={options.vendor.map((v) => ({ label: v, value: v }))}
-          onSelect={() => {}}
-          value={vendor}
-        ></ComboBox>
-        <Label>Aircraft</Label>
-        <ComboBox
-          options={options.aircraft.map((v) => ({ label: v, value: v }))}
-          onSelect={() => {}}
-          value={aircraft}
-        ></ComboBox>
-        <Label>System</Label>
-        <ComboBox
-          options={options.system.map((v) => ({ label: v, value: v }))}
-          onSelect={() => {}}
-          value={system}
-        ></ComboBox>
-
-        <Button>Reset</Button>
-
+      <div className="flex flex-row h-auto items-center gap-4 align-text-top">
+        <Label className="w-16">Presets</Label>
+        <PresetPanel />
       </div>
     </div>
   )
