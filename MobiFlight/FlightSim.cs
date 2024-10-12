@@ -85,6 +85,15 @@ namespace MobiFlight
                 return true;
             }
 
+            proc = "flightsimulator2024beta";
+            // check for msfs2024 tech alpha
+            if (Process.GetProcessesByName(proc).Length > 0)
+            {
+                FlightSimConnectionMethod = FlightSimConnectionMethod.FSUIPC;
+                FlightSimType = FlightSimType.MSFS2020;
+                return true;
+            }
+
             proc = "wideclient";
             // check for FSUIPC wide client
             if (Process.GetProcessesByName(proc).Length > 0)
