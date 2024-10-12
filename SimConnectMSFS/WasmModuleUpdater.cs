@@ -73,11 +73,12 @@ namespace MobiFlight.SimConnectMSFS
         }
         public bool AutoDetectCommunityFolder()
         {
-            string searchpath = Environment.GetEnvironmentVariable("AppData") + @"\Microsoft Flight Simulator\UserCfg.opt";
+            // Looking for MSFS2024 tech alpha first
+            string searchpath = Environment.GetEnvironmentVariable("LocalAppData") + @"\Packages\Microsoft.LimitlessBeta_8wekyb3d8bbwe\LocalCache\UserCfg.opt";
 
             if (!File.Exists(searchpath))
             {
-                searchpath = Environment.GetEnvironmentVariable("LocalAppData") + @"\Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\UserCfg.opt";
+                searchpath = Environment.GetEnvironmentVariable("AppData") + @"\Microsoft Flight Simulator\UserCfg.opt";
                 if (!File.Exists(searchpath))
                 {
                     return false;
