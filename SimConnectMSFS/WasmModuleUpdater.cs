@@ -85,7 +85,7 @@ namespace MobiFlight.SimConnectMSFS
             // Find the 2024 community folder
             CommunityFolder2024 = ExtractCommunityFolderPath(new string[] {
                 Path.Combine(Environment.GetEnvironmentVariable("AppData"), "Microsoft Flight Simulator 2024"),
-                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), @"Packages\Microsoft.FlightSimulator_UNKNOWN\LocalCache\") }
+                Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), @"Packages\Microsoft.LimitlessBeta_8wekyb3d8bbwe\LocalCache\") }
                 );
 
             return CommunityFolder != null || CommunityFolder2024 != null;

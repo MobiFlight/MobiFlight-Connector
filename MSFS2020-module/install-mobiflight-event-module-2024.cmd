@@ -1,8 +1,8 @@
 setLocal EnableDelayedExpansion
 @echo off
-IF EXIST "%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_UNKNOWN\LocalCache\UserCfg.opt" (
+IF EXIST "%LOCALAPPDATA%\Packages\Microsoft.LimitlessBeta_8wekyb3d8bbwe\LocalCache\UserCfg.opt" (
 	echo store version
-	SET TOSEARCH="%LOCALAPPDATA%\Packages\Microsoft.FlightSimulator_UNKNOWN\LocalCache\UserCfg.opt"
+	SET TOSEARCH="%LOCALAPPDATA%\Packages\Microsoft.LimitlessBeta_8wekyb3d8bbwe\LocalCache\UserCfg.opt"
 ) ELSE (
 	echo normal version
 	SET TOSEARCH="%appdata%\Microsoft Flight Simulator 2024\UserCfg.opt"
