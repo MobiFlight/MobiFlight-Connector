@@ -17,7 +17,8 @@ import { useAppMessage, useNotification } from "./lib/hooks"
 import { useDevicesStore } from "./stores/deviceStateStore"
 import { Toaster } from "./components/ui/sonner"
 import { toast } from "sonner"
-import { useMsfsPresetStore } from "./stores/msfsPresetStore"
+import { useMsfsPresetStore, useXplanePresetStore } from "./stores/presetStore"
+import { FlightSimType } from "./types/flightsim"
 
 function App() {
   const navigate = useNavigate()
@@ -27,7 +28,8 @@ function App() {
   const { setState } = useExecutionStateStore()
   const { setDevices } = useDevicesStore()
   const { prepareForToast } = useNotification()
-  const { setPresets } = useMsfsPresetStore()
+  const { setPresets: setMsfsPresets } = useMsfsPresetStore()
+  const { setPresets: setXplanePresets } = useXplanePresetStore()
 
   useAppMessage("StatusBarUpdate", (message) => {
     setStartupProgress(message.payload as Types.StatusBarUpdate)
@@ -69,9 +71,13 @@ function App() {
   })
 
   useAppMessage("Msfs2020HubhopPresetList", (message) => {
-    const presets = message.payload.Items as Types.Preset[]
-    setPresets(presets)
-    console.log("MSFS2020 HubHop Presets loaded")
+    const presets = message.payload as { FlightSimType: FlightSimType, Items: Types.Preset[] }
+
+    if (presets.FlightSimType === FlightSimType.MSFS2020)
+      setMsfsPresets(presets.Items)
+    else if (presets.FlightSimType === FlightSimType.XPLANE)
+      setXplanePresets(presets.Items)
+    console.log("HubHop Presets loaded")
   })
 
   useAppMessage("config.update", (message) => {

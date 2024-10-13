@@ -589,22 +589,13 @@ namespace MobiFlight.UI
             // Load HubHop Presets
             Msfs2020HubhopPresetListSingleton.Instance.PresetListChanged += (s, ev) =>
             {
-                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
-                {
-                    Type = "hubhop.update",
-                    Value = "MSFS2020 hubhop events loaded"
-                }));
-
+                (s as Msfs2020HubhopPresetList).FlightSimType = FlightSimType.MSFS2020;
                 MessageExchange.Instance.Publish(new Message<Msfs2020HubhopPresetList>(s as Msfs2020HubhopPresetList));
             };
+
             XplaneHubhopPresetListSingleton.Instance.PresetListChanged += (s, ev) =>
             {
-                MessageExchange.Instance.Publish(new Message<Notification>(new Notification()
-                {
-                    Type = "hubhop.update",
-                    Value = "xplane hubhop events loaded"
-                }));
-
+                (s as Msfs2020HubhopPresetList).FlightSimType = FlightSimType.XPLANE;
                 MessageExchange.Instance.Publish(new Message<Msfs2020HubhopPresetList>(s as Msfs2020HubhopPresetList));
             };
 

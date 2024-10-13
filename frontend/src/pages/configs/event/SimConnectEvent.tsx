@@ -4,7 +4,7 @@ import {
 } from "@/components/mobiflight/tables/preset-columns"
 import { PresetDataTable } from "@/components/mobiflight/tables/preset-data-table"
 import { Textarea } from "@/components/ui/textarea"
-import { useMsfsPresetStore } from "@/stores/msfsPresetStore"
+import { useMsfsPresetStore } from "@/stores/presetStore"
 import { IConfigItem, Preset } from "@/types"
 import { SimConnectVarEventSettings } from "@/types/config"
 import { Label } from "@radix-ui/react-label"
