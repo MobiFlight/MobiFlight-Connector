@@ -5,10 +5,9 @@ import msfs2020 from "@/assets/sims/msfs2020-logo.png"
 import mfLogo from "@/assets/mobiflight-logo-border.png"
 import deviceInput from "@/assets/ui/hand-flipping-switch.png"
 
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { IconHelp } from "@tabler/icons-react"
 import { useNavigate } from "react-router-dom"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { IConfigItem } from "@/types"
 import {
@@ -34,18 +33,26 @@ interface ConfigDetailEventViewProps {
 }
 
 const ConfigDetailEvent = (props: ConfigDetailEventViewProps) => {
-  const {
-    config,
-    editMode,
-    className,
-    onEnterEditMode,
-    onCancelEditMode,
-    onSaveEditMode,
-  } = props
+  const { config, editMode, className } = props
   const [dialogOpen, setDialogOpen] = useState(false)
   const navigate = useNavigate()
 
   const [tempConfig, setTempConfig] = useState(config)
+
+  const onTypeChanged = useCallback((value: string) => {
+    setTempConfig({
+      ...config,
+      Event: {
+        Type: value as IConfigEvent["Type"],
+        Settings: config.Event.Settings,
+      },
+    })
+  }, [])
+
+  const onSimConnectChanged = useCallback((value: IConfigItem) => {
+    console.log("onSimConnectChanged", value.Event.Settings)
+    setTempConfig(value)
+  }, [])
 
   const OutputEventOptions = {
     SIMCONNECT: "MSFS 2020",
@@ -67,15 +74,7 @@ const ConfigDetailEvent = (props: ConfigDetailEventViewProps) => {
             <div className="w-16">Type:</div>
             <div>
               <Select
-                onValueChange={(value) => {
-                  setTempConfig({
-                    ...config,
-                    Event: {
-                      Type: value as IConfigEvent["Type"],
-                      Settings: config.Event.Settings,
-                    },
-                  })
-                }}
+                onValueChange={onTypeChanged}
                 defaultValue={config.Event.Type}
               >
                 <SelectTrigger className="w-[180px]">
@@ -93,7 +92,10 @@ const ConfigDetailEvent = (props: ConfigDetailEventViewProps) => {
           </div>
           <div>
             {tempConfig.Event.Type === "SIMCONNECT" && (
-              <SimConnectEvent config={config}></SimConnectEvent>
+              <SimConnectEvent
+                config={tempConfig}
+                updateConfigItem={onSimConnectChanged}
+              ></SimConnectEvent>
             )}
             {tempConfig.Event.Type === "VARIABLE" && (
               <MobiFlightVariable></MobiFlightVariable>

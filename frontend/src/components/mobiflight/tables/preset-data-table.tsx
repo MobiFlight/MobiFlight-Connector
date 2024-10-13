@@ -8,7 +8,6 @@ import {
   getFacetedRowModel,
   getFacetedUniqueValues,
   getFilteredRowModel,
-  getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
@@ -73,17 +72,14 @@ export function PresetDataTable<TData, TValue>({
         <PresetDataTableToolbar table={table} items={data as Preset[]} />
       </div>
       <div className="flex flex-col overflow-y-auto border rounded-lg">
-      <ScrollArea className="h-[200px] rounded-md border">
-        <Table className="w-full table-fixed">
-          <TableHeader className="bg-slate-700 dark:bg-slate-800 text-white group/header">
+      <ScrollArea className="h-[300px] min-h-[200px] max-h-[400px] rounded-md border">
+        <Table className="w-full">
+          <TableHeader className="sticky top-0 bg-slate-700 dark:bg-slate-800 text-white group/header">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-slate-800">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      size={header.column.getSize()}
-                      key={header.id}
-                      className="text-white px-2 sticky top-0 bg-slate-700 dark:bg-slate-800"
+                    <TableHead key={header.id} className={`text-white px-2 bg-slate-700 dark:bg-slate-800 ${(header.column.columnDef?.meta as {className:string})?.className ?? ""}`}
                     >
                       {header.isPlaceholder
                         ? null
@@ -106,7 +102,7 @@ export function PresetDataTable<TData, TValue>({
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id} className="p-2">
+                      <TableCell key={cell.id} className={`p-2 ${(cell.column.columnDef?.meta as {className:string})?.className}`} >
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()

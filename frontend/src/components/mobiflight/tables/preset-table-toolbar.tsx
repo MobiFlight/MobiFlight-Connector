@@ -70,6 +70,11 @@ export function PresetDataTableToolbar<TData>({
           </Button>
         )}
       </div>
+      { table.getFilteredRowModel().rows.length > 0 && 
+        <div>
+          { table.getFilteredRowModel().rows.length } /  {table.getCoreRowModel().rows.length} items
+        </div>
+      }
     </div>
   )
 }

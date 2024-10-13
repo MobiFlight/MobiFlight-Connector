@@ -9,12 +9,6 @@ import { Label } from "@radix-ui/react-label"
 import { IconHelp, IconPlus } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
-import {
-  FsuipcEventSettings,
-  SimConnectVarEventSettings,
-  VariableEventSettings,
-  XplaneEventSettings,
-} from "@/types/config"
 import { Projects } from "@/../tests/fixtures/data/projects"
 import { Project } from "@/types"
 import ConfigDetailEvent from "./ConfigDetailEvent"

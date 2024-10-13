@@ -1,35 +1,53 @@
-import { ComboBox } from "@/components/mobiflight/ComboBox"
-import PresetPanel from "@/components/mobiflight/PresetPanel"
+import {
+  getPresetColumns,
+  PresetColumnsProps,
+} from "@/components/mobiflight/tables/preset-columns"
 import { PresetDataTable } from "@/components/mobiflight/tables/preset-data-table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { IConfigItem } from "@/types"
+import { useMsfsPresetStore } from "@/stores/msfsPresetStore"
+import { IConfigItem, Preset } from "@/types"
 import { SimConnectVarEventSettings } from "@/types/config"
 import { Label } from "@radix-ui/react-label"
-import React from "react"
+import { useCallback, useMemo } from "react"
 
 interface ISimConnectEventProps {
   config: IConfigItem
+  updateConfigItem: (config: IConfigItem) => void
 }
+
 const SimConnectEvent = (props: ISimConnectEventProps) => {
-  const { config } = props
-  const options = {
-    vendor: ["Microsoft", "Asobo", "iniBuilds", "PMDG", "Aerosoft"],
-    aircraft: ["A320", "B747", "B787", "C172", "B737"],
-    system: ["Electrical", "Hydraulics", "Fuel", "Engine", "APU"],
-  }
+  const { config, updateConfigItem } = props
+  const presets = useMsfsPresetStore().presets.filter((preset) => preset.presetType === "Output")
+
+  const onUse = useCallback((preset: Preset) => {
+    updateConfigItem({
+      ...config,
+      Event: {
+        ...config.Event,
+        Settings: {
+          ...(config.Event.Settings as SimConnectVarEventSettings),
+          Value: preset.code,
+        },
+      },
+    })
+  }, [])
+
+  const columns = useMemo(() => getPresetColumns({ onUse: onUse } as PresetColumnsProps), [])
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row h-auto items-center gap-4">
-        <Label className="w-16">Code</Label>
-        <Textarea  value={ (config.Event.Settings as SimConnectVarEventSettings).Value }>
-        </Textarea>
-      </div>
-      <div className="flex flex-row h-auto items-center gap-4 align-text-top">
+      <div className="flex h-auto flex-row items-center gap-4 align-text-top">
         <Label className="w-16">Presets</Label>
-        <PresetPanel />
+        <div>
+        <PresetDataTable columns={columns} data={presets}></PresetDataTable>
+        </div>
+      </div>
+      <div className="flex h-auto flex-row items-center gap-4">
+        <Label className="w-16">Code</Label>
+        <Textarea
+          readOnly={true}
+          value={(config.Event.Settings as SimConnectVarEventSettings).Value}
+        ></Textarea>
       </div>
     </div>
   )
