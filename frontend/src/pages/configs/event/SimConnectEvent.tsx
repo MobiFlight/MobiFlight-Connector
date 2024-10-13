@@ -12,15 +12,17 @@ import { useCallback, useMemo } from "react"
 
 interface ISimConnectEventProps {
   config: IConfigItem
-  updateConfigItem: (config: IConfigItem) => void
+  onChange: (config: IConfigItem) => void
 }
 
 const SimConnectEvent = (props: ISimConnectEventProps) => {
-  const { config, updateConfigItem } = props
-  const presets = useMsfsPresetStore().presets.filter((preset) => preset.presetType === "Output")
-
+  const { config, onChange } = props
+  const presets = useMsfsPresetStore().presets.filter(
+    (preset) => preset.presetType === "Output",
+  )
+  
   const onUse = useCallback((preset: Preset) => {
-    updateConfigItem({
+    onChange({
       ...config,
       Event: {
         ...config.Event,
@@ -32,21 +34,41 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
     })
   }, [])
 
-  const columns = useMemo(() => getPresetColumns({ onUse: onUse } as PresetColumnsProps), [])
+  const onTextareaChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      const newValue = e.target.value
+      onChange({
+        ...config,
+        Event: {
+          ...config.Event,
+          Settings: {
+            ...(config.Event.Settings as SimConnectVarEventSettings),
+            Value: newValue,
+          },
+        },
+      })
+    },
+    [],
+  )
+
+  const columns = useMemo(
+    () => getPresetColumns({ onUse: onUse } as PresetColumnsProps),
+    [],
+  )
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex h-auto flex-row items-center gap-4 align-text-top">
         <Label className="w-16">Presets</Label>
         <div>
-        <PresetDataTable columns={columns} data={presets}></PresetDataTable>
+          <PresetDataTable columns={columns} data={presets}></PresetDataTable>
         </div>
       </div>
       <div className="flex h-auto flex-row items-center gap-4">
         <Label className="w-16">Code</Label>
         <Textarea
-          readOnly={true}
-          value={(config.Event.Settings as SimConnectVarEventSettings).Value}
+          onChange={onTextareaChange}
+          value={ (config.Event.Settings as SimConnectVarEventSettings).Value }
         ></Textarea>
       </div>
     </div>

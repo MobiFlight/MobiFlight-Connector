@@ -5,7 +5,7 @@ import msfs2020 from "@/assets/sims/msfs2020-logo.png"
 import mfLogo from "@/assets/mobiflight-logo-border.png"
 import deviceInput from "@/assets/ui/hand-flipping-switch.png"
 
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { IconHelp } from "@tabler/icons-react"
 import { useNavigate } from "react-router-dom"
 import { cn } from "@/lib/utils"
@@ -22,6 +22,7 @@ import SimConnectEvent from "./event/SimConnectEvent"
 import MobiFlightVariable from "./event/MobiFlightVariable"
 import XplaneEvent from "./event/Xplane"
 import FSUIPC from "./event/FSUIPC"
+import _ from "lodash"
 
 interface ConfigDetailEventViewProps {
   config: IConfigItem
@@ -30,29 +31,45 @@ interface ConfigDetailEventViewProps {
   onEnterEditMode: () => void
   onCancelEditMode: () => void
   onSaveEditMode: () => void
+  onChange: (config : IConfigItem) => void
 }
 
 const ConfigDetailEvent = (props: ConfigDetailEventViewProps) => {
-  const { config, editMode, className } = props
+  const { config, editMode, className, onChange } = props
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [configHasChanged, setConfigHasChanged] = useState(false)
+
   const navigate = useNavigate()
 
   const [tempConfig, setTempConfig] = useState(config)
 
   const onTypeChanged = useCallback((value: string) => {
-    setTempConfig({
-      ...config,
+    const newConfig = {
+      ...tempConfig,
       Event: {
+        ...tempConfig.Event,
         Type: value as IConfigEvent["Type"],
-        Settings: config.Event.Settings,
       },
-    })
+    }
+    setTempConfig(newConfig)
+    onChange(tempConfig)
   }, [])
 
   const onSimConnectChanged = useCallback((value: IConfigItem) => {
-    console.log("onSimConnectChanged", value.Event.Settings)
-    setTempConfig(value)
+    const newConfig = {
+      ...tempConfig,
+      Event: {
+        ... tempConfig.Event,
+        Settings: value.Event.Settings,
+      },
+    }
+    setTempConfig(newConfig)
+    onChange(newConfig)
   }, [])
+
+  useEffect(() => {
+    setConfigHasChanged(!_.isEqual(config, tempConfig))
+  }, [config, tempConfig])
 
   const OutputEventOptions = {
     SIMCONNECT: "MSFS 2020",
@@ -66,7 +83,7 @@ const ConfigDetailEvent = (props: ConfigDetailEventViewProps) => {
       <Card>
         <CardHeader>
           <h2 className="">
-            Select one type of event from the set of options:
+            Select one type of event from the set of options: { configHasChanged ? "true" : "false" }
           </h2>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
@@ -94,7 +111,7 @@ const ConfigDetailEvent = (props: ConfigDetailEventViewProps) => {
             {tempConfig.Event.Type === "SIMCONNECT" && (
               <SimConnectEvent
                 config={tempConfig}
-                updateConfigItem={onSimConnectChanged}
+                onChange={onSimConnectChanged}
               ></SimConnectEvent>
             )}
             {tempConfig.Event.Type === "VARIABLE" && (
