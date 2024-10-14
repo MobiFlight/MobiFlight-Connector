@@ -21,7 +21,7 @@ import { H3 } from "@/components/mobiflight/H2";
 import { DeviceSelection } from "@/components/mobiflight/edit/DeviceSelection";
 import { IDeviceItem } from "@/types";
 import { IDeviceElement } from "@/types/deviceElements";
-import { publishOnMessageExchange } from "@/lib/hooks";
+import { usePublishOnMessageExchange } from "@/lib/hooks";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,7 +49,7 @@ const DeviceDetailPage = () => {
     return deviceHasChanged && nextLocation.pathname.indexOf(baseRoute) !== 0;
   });
 
-  const { publish } = publishOnMessageExchange();
+  const { publish } = usePublishOnMessageExchange();
   const navigate = useNavigate();
   const params = useParams();
   const id = params.id;

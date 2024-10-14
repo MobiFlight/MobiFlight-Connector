@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
-import { publishOnMessageExchange } from "@/lib/hooks"
+import { usePublishOnMessageExchange } from "@/lib/hooks"
 import { cn } from "@/lib/utils"
 import { NavLink } from "react-router-dom"
 import ConditionalWrapper from "./ConditionalWrapper"
@@ -24,7 +24,7 @@ export type DeviceSummaryCardProps = {
 
 const DeviceSummaryCard = (props: DeviceSummaryCardProps) => {
   const { device, className, navLink } = props
-  const { publish } = publishOnMessageExchange()
+  const { publish } = usePublishOnMessageExchange()
   const usedPins = device.Pins
     ? device.Pins?.filter((pin) => pin.Used).length
     : 0

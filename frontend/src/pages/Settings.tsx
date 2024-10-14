@@ -4,7 +4,7 @@ import { useGlobalSettingsStore } from "@/stores/globalSettingsStore";
 import { IGlobalSettings } from "@/types";
 import { useEffect, useState } from "react";
 import _ from "lodash";
-import { publishOnMessageExchange } from "@/lib/hooks";
+import { usePublishOnMessageExchange } from "@/lib/hooks";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ComboBox } from "@/components/mobiflight/ComboBox";
 import { useBlocker } from "react-router";
@@ -23,7 +23,7 @@ import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 export default function SettingsPage() {
   const { settings } = useGlobalSettingsStore();
   const [tempSettings, setTempSettings] = useState<IGlobalSettings>();
-  const { publish } = publishOnMessageExchange();
+  const { publish } = usePublishOnMessageExchange();
   
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
