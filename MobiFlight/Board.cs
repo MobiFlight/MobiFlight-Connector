@@ -413,15 +413,24 @@ namespace MobiFlight
                 {
                     Info.FirmwareExtension = "hex";
                 }
+            }
 
-                // Issue 1838:
-                // Handle undefined TimeoutForFirmwareUpdate by setting it to the value for Timeout. This is done in the
-                // AvrDudeSettings not null case to ensure AvrDudeSettings.Timeout is valid.
-                if (Connection.TimeoutForFirmwareUpdate == 0)
+            // Issue 1838:
+            // Handle undefined TimeoutForFirmwareUpdate by setting it to the value for Timeout.
+            if (Connection.TimeoutForFirmwareUpdate == 0)
+            {
+                // This test is required to ensure AvrDudeSettings actually exists. It may not, for example when
+                // loading a board.json file for something like a Pico.
+                if (AvrDudeSettings != null)
                 {
-                    Connection.TimeoutForFirmwareUpdate = AvrDudeSettings.Timeout != 0 ? AvrDudeSettings.Timeout : 15000;
+                    Connection.TimeoutForFirmwareUpdate = AvrDudeSettings.Timeout != 0 ? AvrDudeSettings.Timeout : 1500;
+                }
+                else
+                {
+                    Connection.TimeoutForFirmwareUpdate = 15000;
                 }
             }
+
         }
 #pragma warning restore CS0612 // Type or member is obsolete
 
