@@ -139,7 +139,7 @@ namespace MobiFlight
         /// <summary>
         /// Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board.
         /// </summary>
-        public int TimeoutForFirmwareUpdate = 15000;
+        public int TimeoutForFirmwareUpdate;
     }
 
     /// <summary>
@@ -412,6 +412,14 @@ namespace MobiFlight
                 if (!String.IsNullOrEmpty(Info.FirmwareExtension))
                 {
                     Info.FirmwareExtension = "hex";
+                }
+
+                // Issue 1838:
+                // Handle undefined TimeoutForFirmwareUpdate by setting it to the value for Timeout. This is done in the
+                // AvrDudeSettings not null case to ensure AvrDudeSettings.Timeout is valid.
+                if (Connection.TimeoutForFirmwareUpdate == 0)
+                {
+                    Connection.TimeoutForFirmwareUpdate = AvrDudeSettings.Timeout != 0 ? AvrDudeSettings.Timeout : 15000;
                 }
             }
         }
