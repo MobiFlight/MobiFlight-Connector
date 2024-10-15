@@ -220,6 +220,37 @@ namespace MobiFlight
                 }
             });
 
+            MessageExchange.Instance.Subscribe<FrontendRequest<ConfigItemUpdate>>(message =>
+            {
+                var item = message.Request.ConfigItem;
+                if (!InputConfigItem.TypeIsInputAction(item.Type))
+                {
+                    var outputItem = OutputConfigItemAdapter.FromConfigItem(item as ConfigItem);
+                    var existingItem = OutputConfigItems.FirstOrDefault(i => i.GUID == outputItem.GUID);
+                    if (existingItem != null)
+                    {
+                        existingItem.CopyFrom(outputItem);
+                    }
+                    else
+                    {
+                        OutputConfigItems.Add(outputItem);
+                    }
+                }
+                else if (InputConfigItem.TypeIsInputAction(item.Type))
+                {
+                    var inputItem = InputConfigItemAdapter.FromConfigItem(item as ConfigItem);
+                    var existingItem = InputConfigItems.FirstOrDefault(i => i.GUID == inputItem.GUID);
+                    if (existingItem != null)
+                    {
+                        existingItem.CopyFrom(inputItem);
+                    }
+                    else
+                    {
+                        InputConfigItems.Add(inputItem);
+                    }
+                }
+            });
+
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);

@@ -14,6 +14,7 @@ export type FrontendMessageKey =
 export type FrontendMessageType =
   | ExecutionUpdateMessage
   | EditConfigMessage
+  | UpdateConfigMessage
   | GlobalSettingsUpdateMessage
   | ElementCreateMessage
   | DeviceUploadMessage
@@ -35,6 +36,11 @@ export interface ExecutionUpdateMessage {
 // when a config item shall be edited
 export interface EditConfigMessage {
   key: "config.edit"
+  payload: IConfigItem
+}
+
+export interface UpdateConfigMessage {
+  key: "config.update"
   payload: IConfigItem
 }
 

@@ -250,6 +250,7 @@
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\ConfigItemUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\ConfigValueUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\DeviceFileSaveRequest.cs" />
     <Compile Include="MobiFlight\BrowserMessages\DeviceFileOpenRequest.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\DeviceType.cs" />
     <Compile Include="MobiFlight\Frontend\ConfigItem.cs" />
+    <Compile Include="MobiFlight\Modifier\Converter\ModifierBaseConverter.cs" />
     <Compile Include="MobiFlight\Frontend\IDeviceItem.cs" />
     <Compile Include="MobiFlight\Frontend\IConfigItem.cs" />
     <Compile Include="MobiFlight\Frontend\InputConfigItemAdapter.cs" />

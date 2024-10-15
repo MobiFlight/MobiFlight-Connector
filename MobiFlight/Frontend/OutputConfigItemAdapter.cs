@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Modifier;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Frontend
 {
@@ -11,6 +12,23 @@ namespace MobiFlight.Frontend
         public OutputConfigItemAdapter(OutputConfigItem item)
         {
             this.item = item;
+        }
+
+        public static OutputConfigItem FromConfigItem(ConfigItem item)
+        {
+            var result = new OutputConfigItem();
+            result.GUID = item.GUID;
+            result.Active = item.Active;
+            result.Description = item.Description;
+            result.DisplaySerial = item.Device;
+            result.DisplayType = item.Type;
+
+            // There are still properties to be set
+
+            item.Context.Preconditions.ForEach(p => result.Preconditions.Add(p));
+            item.Context.ConfigRefs.ForEach(c => result.ConfigRefs.Add(c));
+            item.Modifiers.ToList().ForEach(m => result.Modifiers.Items.Add(m));
+            return result;
         }
 
         private string DetermineComponent()

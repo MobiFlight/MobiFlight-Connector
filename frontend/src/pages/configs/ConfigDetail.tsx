@@ -7,31 +7,43 @@ import { Switch } from "@/components/ui/switch"
 import { useConfigStore } from "@/stores/configFileStore"
 import { Label } from "@radix-ui/react-label"
 import { IconHelp, IconPlus } from "@tabler/icons-react"
-import { useEffect, useState } from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
+import { useCallback, useEffect, useState } from "react"
+import { Link, useParams } from "react-router-dom"
 import { Projects } from "@/../tests/fixtures/data/projects"
 import { Project } from "@/types"
 import ConfigDetailEvent from "./ConfigDetailEvent"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { isEqual } from "lodash"
+import { usePublishOnMessageExchange } from "@/lib/hooks"
+import { UpdateConfigMessage } from "@/types/messages"
 
 const ConfigDetailPage = () => {
+  const { publish } = usePublishOnMessageExchange();
+  
   const { configId, projectId } = useParams()
-  const config = useConfigStore((state) =>
-    state.items.find((c) => c.GUID === configId),
-  )
+  const items = useConfigStore((state) => state.items) 
+  const updateItem = useConfigStore((state) => state.updateItem)  
+  const config = items.find((item) => item.GUID === configId)
 
+  const [tempConfig, setTempConfig] = useState({ ...config! })
   const [configHasChanged, setConfigHasChanged] = useState(false);
 
   const [testValue, setTestValue] = useState("1")
   const [testResultValue] = useState("1")
-  const location = useLocation()
   const [activeEdit, setActiveEdit] = useState<string>("")
   const project = Projects.find((p: Project) => p.id === projectId)
 
   useEffect(() => {
-    console.log(location.pathname)
-  }, [config, location])
+    const hasChanged = !isEqual(config, tempConfig)
+    console.log("Config has changed", hasChanged)
+    setConfigHasChanged(hasChanged)
+  }, [config, tempConfig])  
+
+  const saveChanges = useCallback(() => {
+    console.log("Saving changes", tempConfig)
+    updateItem(tempConfig)
+    publish({ key: "config.update", payload: tempConfig } as UpdateConfigMessage);
+  },[tempConfig])
 
   return (
     <div className="flex flex-col gap-8">
@@ -58,7 +70,7 @@ const ConfigDetailPage = () => {
         </p>
         {
           configHasChanged && <div>
-            <Button variant="default">Save changes</Button>
+            <Button variant="default" onClick={saveChanges}>Save changes</Button>
             <Button variant="ghost">Discard changes</Button>
           </div>
         }
@@ -107,7 +119,7 @@ const ConfigDetailPage = () => {
               onEnterEditMode={() => {}}
               onSaveEditMode={() => {}}
               onChange={(newConfig) => {
-                setConfigHasChanged(!isEqual(config, newConfig)) 
+                setTempConfig(newConfig)
               }}
             ></ConfigDetailEvent>
           </TabsContent>

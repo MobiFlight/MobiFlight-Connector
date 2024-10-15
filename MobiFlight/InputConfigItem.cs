@@ -51,6 +51,15 @@ namespace MobiFlight
             Modifiers = new ModifierList();
         }
 
+        public static bool TypeIsInputAction(string type)
+        {
+            return type == TYPE_BUTTON || 
+                   type == TYPE_ENCODER || 
+                   type == TYPE_INPUT_SHIFT_REGISTER || 
+                   type == TYPE_INPUT_MULTIPLEXER || 
+                   type == TYPE_ANALOG;
+        }
+
         public List<InputAction> GetInputActionsByType(System.Type type)
         {
             List<InputAction> result = new List<InputAction>();
@@ -242,37 +251,7 @@ namespace MobiFlight
         public object Clone()
         {
             InputConfigItem clone = new InputConfigItem();
-            clone.GUID = GUID;
-            clone.Active = Active;
-            clone.Description = Description;
-            clone.ModuleSerial = ModuleSerial;
-            clone.Name = Name;
-            clone.Type = Type;
-
-            if (button != null)
-                clone.button = (ButtonInputConfig)this.button.Clone();
-
-            if (encoder != null)
-                clone.encoder = (EncoderInputConfig)this.encoder.Clone();
-
-            if (inputShiftRegister != null)
-                clone.inputShiftRegister = (InputShiftRegisterConfig)this.inputShiftRegister.Clone();
-
-            if (inputMultiplexer != null)
-                clone.inputMultiplexer = (InputMultiplexerConfig)this.inputMultiplexer.Clone();
-
-            if (analog != null)
-                clone.analog = (AnalogInputConfig)this.analog.Clone();
-
-            foreach (Precondition p in Preconditions)
-            {
-                clone.Preconditions.Add(p.Clone() as Precondition);
-            }
-
-            foreach (ConfigRef configRef in ConfigRefs)
-            {
-                clone.ConfigRefs.Add(configRef.Clone() as ConfigRef);
-            }
+            clone.CopyFrom(this);
 
             return clone;
         }
@@ -364,6 +343,41 @@ namespace MobiFlight
             }
 
             return areSame;
+        }
+
+        internal void CopyFrom(InputConfigItem inputItem)
+        {
+            GUID = inputItem.GUID;
+            Active = inputItem.Active;
+            Description = inputItem.Description;
+            ModuleSerial = inputItem.ModuleSerial;
+            Name = inputItem.Name;
+            Type = inputItem.Type;
+
+            if (button != null)
+                button = (ButtonInputConfig)inputItem.button.Clone();
+
+            if (encoder != null)
+                encoder = (EncoderInputConfig)inputItem.encoder.Clone();
+
+            if (inputShiftRegister != null)
+                inputShiftRegister = (InputShiftRegisterConfig)inputItem.inputShiftRegister.Clone();
+
+            if (inputMultiplexer != null)
+                inputMultiplexer = (InputMultiplexerConfig)inputItem.inputMultiplexer.Clone();
+
+            if (analog != null)
+                analog = (AnalogInputConfig)inputItem.analog.Clone();
+
+            foreach (Precondition p in Preconditions)
+            {
+                Preconditions.Add(p.Clone() as Precondition);
+            }
+
+            foreach (ConfigRef configRef in ConfigRefs)
+            {
+                ConfigRefs.Add(configRef.Clone() as ConfigRef);
+            }
         }
     }
 }

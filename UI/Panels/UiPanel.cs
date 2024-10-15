@@ -71,6 +71,15 @@ namespace MobiFlight.UI.Panels
                     MessageExchange.Instance.Publish(new Message<ConfigItem>(ConfigEditMessage.key, ConfigEditMessage.payload));
                 }
 
+                if (decodedMessage.key == "config.update")
+                {
+                    var ConfigEditMessage = JsonConvert.DeserializeObject<BrowserMessages.Message<ConfigItem>>(message);
+                    MessageExchange.Instance.Publish(new FrontendRequest<ConfigItemUpdate>()
+                    {
+                        Request = new ConfigItemUpdate(ConfigEditMessage.payload)
+                    }) ;
+                }
+
                 if (decodedMessage.key == "ExecutionUpdate")
                 {
                     var ExecutionUpdateRequest = JsonConvert.DeserializeObject<BrowserMessages.Message<ExecutionState>>(message);

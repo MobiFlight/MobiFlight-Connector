@@ -1,4 +1,6 @@
 ﻿using MobiFlight.Modifier;
+using MobiFlight.Modifier.Converter;
+using Newtonsoft.Json;
 
 namespace MobiFlight.Frontend
 {
@@ -15,6 +17,8 @@ namespace MobiFlight.Frontend
         public string RawValue { get; set; }
         public string ModifiedValue { get; set; }
         public ConfigContext Context { get; set; }
+
+        [JsonConverter(typeof(ModifierBaseConverter))]
         public ModifierBase[] Modifiers { get; set; }
         public ConfigEvent Event { get; set; }
         public ConfigAction Action { get; set; }

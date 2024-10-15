@@ -445,45 +445,47 @@ namespace MobiFlight
         public object Clone()
         {
             OutputConfigItem clone = new OutputConfigItem();
-            clone.GUID = GUID;
-            clone.Active = Active;
-            clone.Description = Description;
-            clone.SourceType = this.SourceType;
-            clone.FSUIPC = this.FSUIPC.Clone() as FsuipcOffset;
-            clone.SimConnectValue = this.SimConnectValue.Clone() as SimConnectValue;
-            clone.MobiFlightVariable = this.MobiFlightVariable.Clone() as MobiFlightVariable;
-            clone.XplaneDataRef = this.XplaneDataRef.Clone() as XplaneDataRef;
-
-
-            //clone.Transform                 = this.Transform.Clone() as Transformation;
-            //clone.Comparison                = this.Comparison.Clone() as Comparison;
-
-            clone.DisplayType = this.DisplayType;
-            clone.DisplaySerial = this.DisplaySerial;
-
-            clone.LedModule = this.LedModule.Clone() as OutputConfig.LedModule;
-
-            clone.Pin = this.Pin.Clone() as OutputConfig.Pin;
-
-            clone.BcdPins = new List<string>(this.BcdPins);
-
-            clone.DisplayTrigger = this.DisplayTrigger;
-            clone.Servo = Servo.Clone() as OutputConfig.Servo;
-            clone.Stepper = Stepper.Clone() as OutputConfig.Stepper;
-
-            clone.ShiftRegister = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
-            clone.CustomDevice = CustomDevice.Clone() as OutputConfig.CustomDevice;
-
-            clone.LcdDisplay = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
-            clone.Preconditions = Preconditions.Clone() as PreconditionList;
-
-            clone.ConfigRefs = ConfigRefs.Clone() as ConfigRefList;
-            clone.ButtonInputConfig = this.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
-            clone.AnalogInputConfig = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
-
-            clone.Modifiers = this.Modifiers.Clone() as ModifierList;
-            clone.TestValue = this.TestValue.Clone() as ConnectorValue;
+            clone.CopyFrom(this);
+            
             return clone;
+        }
+
+        internal void CopyFrom(OutputConfigItem outputItem)
+        {
+            GUID = outputItem.GUID;
+            Active = outputItem.Active;
+            Description = outputItem.Description;
+            SourceType = outputItem.SourceType;
+            FSUIPC = outputItem.FSUIPC.Clone() as FsuipcOffset;
+            SimConnectValue = outputItem.SimConnectValue.Clone() as SimConnectValue;
+            MobiFlightVariable = outputItem.MobiFlightVariable.Clone() as MobiFlightVariable;
+            XplaneDataRef = outputItem.XplaneDataRef.Clone() as XplaneDataRef;
+
+            DisplayType = outputItem.DisplayType;
+            DisplaySerial = outputItem.DisplaySerial;
+
+            LedModule = outputItem.LedModule.Clone() as OutputConfig.LedModule;
+
+            Pin = outputItem.Pin.Clone() as OutputConfig.Pin;
+
+            BcdPins = new List<string>(outputItem.BcdPins);
+
+            DisplayTrigger = outputItem.DisplayTrigger;
+            Servo = outputItem.Servo.Clone() as OutputConfig.Servo;
+            Stepper = outputItem.Stepper.Clone() as OutputConfig.Stepper;
+
+            ShiftRegister = outputItem.ShiftRegister.Clone() as OutputConfig.ShiftRegister;
+            CustomDevice = outputItem.CustomDevice.Clone() as OutputConfig.CustomDevice;
+
+            LcdDisplay = outputItem.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
+            Preconditions = outputItem.Preconditions.Clone() as PreconditionList;
+
+            ConfigRefs = outputItem.ConfigRefs.Clone() as ConfigRefList;
+            ButtonInputConfig = outputItem.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
+            AnalogInputConfig = outputItem.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
+
+            Modifiers = outputItem.Modifiers.Clone() as ModifierList;
+            TestValue = outputItem.TestValue.Clone() as ConnectorValue;
         }
     }
 
