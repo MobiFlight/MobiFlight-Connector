@@ -8,13 +8,12 @@ import { useConfigStore } from "@/stores/configFileStore"
 import { Label } from "@radix-ui/react-label"
 import { IconHelp, IconPlus } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
-import { Link, useBlocker, useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { Projects } from "@/../tests/fixtures/data/projects"
 import { Project } from "@/types"
 import ConfigDetailEvent from "./ConfigDetailEvent"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { isEqual } from "lodash"
-import { SimConnectVarEventSettings } from "@/types/config"
 
 const ConfigDetailPage = () => {
   const { configId, projectId } = useParams()
@@ -22,7 +21,7 @@ const ConfigDetailPage = () => {
     state.items.find((c) => c.GUID === configId),
   )
 
-  const [eventHasChanged, setEventHasChanged] = useState(false);
+  const [configHasChanged, setConfigHasChanged] = useState(false);
 
   const [testValue, setTestValue] = useState("1")
   const [testResultValue] = useState("1")
@@ -57,6 +56,12 @@ const ConfigDetailPage = () => {
         >
           {config?.Description}
         </p>
+        {
+          configHasChanged && <div>
+            <Button variant="default">Save changes</Button>
+            <Button variant="ghost">Discard changes</Button>
+          </div>
+        }
       </div>
       {/* General options */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-32">
@@ -89,7 +94,7 @@ const ConfigDetailPage = () => {
       <div className="just flex flex-row gap-4">
         <Tabs defaultValue="tab-event" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="tab-event">Event{ eventHasChanged && <Badge>!</Badge>}</TabsTrigger>
+            <TabsTrigger value="tab-event">Event{ configHasChanged && <Badge className="ml-2">!</Badge>}</TabsTrigger>
             <TabsTrigger value="tab-modifiers">Modifiers</TabsTrigger>
             <TabsTrigger value="tab-action">Action</TabsTrigger>
             <TabsTrigger value="tab-context">Context</TabsTrigger>
@@ -102,7 +107,7 @@ const ConfigDetailPage = () => {
               onEnterEditMode={() => {}}
               onSaveEditMode={() => {}}
               onChange={(newConfig) => {
-                setEventHasChanged(!isEqual(config, newConfig)) 
+                setConfigHasChanged(!isEqual(config, newConfig)) 
               }}
             ></ConfigDetailEvent>
           </TabsContent>
