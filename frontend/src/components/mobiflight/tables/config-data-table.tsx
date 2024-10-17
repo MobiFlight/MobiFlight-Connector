@@ -69,12 +69,12 @@ export function DataTable<TData, TValue>({
             </div>
             <div className="flex flex-col grow overflow-y-auto border rounded-lg">
                 <Table className="table-fixed">
-                    <TableHeader className="group/header">
+                    <TableHeader className="group/header z-10">
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="">
                                 {headerGroup.headers.map((header) => {
                                     return (
-                                        <TableHead key={header.id} className={`z-50 sticky top-0 ${(header.column.columnDef?.meta as {className:string})?.className ?? ""}`}>
+                                        <TableHead key={header.id} className={`sticky top-0 ${(header.column.columnDef?.meta as {className:string})?.className ?? ""}`}>
                                             {header.isPlaceholder
                                                 ? null
                                                 : flexRender(
