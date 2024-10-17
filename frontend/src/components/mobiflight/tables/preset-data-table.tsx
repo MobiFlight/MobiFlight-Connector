@@ -20,19 +20,22 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PresetDataTableToolbar } from "./preset-table-toolbar";
-import { Preset } from "@/types";
+import { IConfigItem, Preset } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { SimConnectVarEventSettings } from "@/types/config";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  config: IConfigItem
 }
 
 export function PresetDataTable<TData, TValue>({
   columns,
   data,
+  config
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -66,6 +69,19 @@ export function PresetDataTable<TData, TValue>({
     },
   });
 
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  // Trigger scroll to the selected row when the selectedRowId changes
+  useEffect(() => {
+    if (tableRef.current) {
+      const rowIndex = data.findIndex(row => (row as Preset).code == (config.Event.Settings as SimConnectVarEventSettings).Value);
+      const rowElement = tableRef.current.querySelector(`[data-row-index="${rowIndex}"]`)
+      if (rowElement) {
+        rowElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }, [config, data]);
+
   return (
     <div className="flex flex-col gap-4 grow overflow-y-auto">
       <div className="">
@@ -73,7 +89,7 @@ export function PresetDataTable<TData, TValue>({
       </div>
       <div className="flex flex-col overflow-y-auto border rounded-lg">
       <ScrollArea className="h-[300px] min-h-[200px] max-h-[400px] rounded-md border">
-        <Table className="w-full">
+        <Table ref={tableRef} className="w-full">
           <TableHeader className="sticky top-0 bg-slate-700 dark:bg-slate-800 text-white group/header">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-slate-800">
@@ -93,13 +109,15 @@ export function PresetDataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="overflow-y-auto">
+          <TableBody className="overflow-y-auto bg-white">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
                 return (
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    data-row-index={row.index}
+                    className={(config.Event.Settings as SimConnectVarEventSettings).Value === (row.original as Preset).code ? "bg-blue-200 hover:bg-blue-300" : "" }
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id} className={`p-2 ${(cell.column.columnDef?.meta as {className:string})?.className}`} >

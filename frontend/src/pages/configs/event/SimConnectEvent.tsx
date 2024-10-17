@@ -33,7 +33,7 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
         },
       },
     })
-  }, [])
+  }, [config])
 
   const onTextareaChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,7 +49,7 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
         },
       })
     },
-    [],
+    [config],
   )
 
   const columns = useMemo(
@@ -62,7 +62,7 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
       <div className="flex h-auto flex-row items-center gap-4 align-text-top">
         <Label className="w-16">Presets</Label>
         <div>
-          <PresetDataTable columns={columns} data={presets}></PresetDataTable>
+          <PresetDataTable columns={columns} data={presets} config={config}></PresetDataTable>
         </div>
       </div>
       <div className="flex h-auto flex-row items-center gap-4">

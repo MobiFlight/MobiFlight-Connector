@@ -71,8 +71,8 @@ export function PresetDataTableToolbar<TData>({
         )}
       </div>
       { table.getFilteredRowModel().rows.length > 0 && 
-        <div>
-          { table.getFilteredRowModel().rows.length } /  {table.getCoreRowModel().rows.length} items
+        <div className="text-sm">
+          { table.getFilteredRowModel().rows.length } items
         </div>
       }
     </div>

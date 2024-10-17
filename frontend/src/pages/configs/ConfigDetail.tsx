@@ -35,7 +35,6 @@ const ConfigDetailPage = () => {
 
   useEffect(() => {
     const hasChanged = !isEqual(config, tempConfig)
-    console.log("Config has changed", hasChanged)
     setConfigHasChanged(hasChanged)
   }, [config, tempConfig])  
 
