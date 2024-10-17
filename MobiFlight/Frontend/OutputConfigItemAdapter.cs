@@ -1,4 +1,7 @@
 ﻿using MobiFlight.Modifier;
+using MobiFlight.OutputConfig;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -24,7 +27,12 @@ namespace MobiFlight.Frontend
             result.DisplayType = item.Type;
 
             // There are still properties to be set
-
+            switch (Enum.Parse(typeof(SourceType), item.Event.Type))
+            {
+                case SourceType.SIMCONNECT:
+                    result.SimConnectValue = (item.Event.Settings as JObject).ToObject<SimConnectValue>();
+                    break;
+            }
             item.Context.Preconditions.ForEach(p => result.Preconditions.Add(p));
             item.Context.ConfigRefs.ForEach(c => result.ConfigRefs.Add(c));
             item.Modifiers.ToList().ForEach(m => result.Modifiers.Items.Add(m));

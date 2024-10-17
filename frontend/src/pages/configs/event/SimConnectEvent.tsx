@@ -27,8 +27,9 @@ const SimConnectEvent = (props: ISimConnectEventProps) => {
       Event: {
         ...config.Event,
         Settings: {
-          ...(config.Event.Settings as SimConnectVarEventSettings),
+          UUID: preset.id!,
           Value: preset.code,
+          VarType: "CODE"
         },
       },
     })
