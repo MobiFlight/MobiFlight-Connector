@@ -85,8 +85,8 @@ namespace MobiFlight
                 return true;
             }
 
-            proc = "flightsimulator2024beta";
-            // check for msfs2024 tech alpha
+            proc = "flightsimulator2024";
+            // check for msfs2024
             if (Process.GetProcessesByName(proc).Length > 0)
             {
                 FlightSimConnectionMethod = FlightSimConnectionMethod.FSUIPC;
