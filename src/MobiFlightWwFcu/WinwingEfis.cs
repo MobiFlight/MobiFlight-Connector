@@ -26,10 +26,10 @@ namespace MobiFlightWwFcu
 
         private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
         {
-            { "AllOn",    new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x02 } } },
-            { "AllOff",   new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x06 } } },
-            { "Half1On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x07 } } },
-            { "Half2On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x09 } } },
+            { "AllOn",    new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x23 } } },
+            { "AllOff",   new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x24 } } },
+            { "Half1On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x25 } } },
+            { "Half2On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x26 } } },
         };
 
         private Dictionary<char, byte[]> BaroNumberCodes = new Dictionary<char, byte[]>()
