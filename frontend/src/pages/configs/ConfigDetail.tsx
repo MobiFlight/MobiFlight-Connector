@@ -16,6 +16,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { isEqual } from "lodash"
 import { usePublishOnMessageExchange } from "@/lib/hooks"
 import { UpdateConfigMessage } from "@/types/messages"
+import ConfigDetailModifyView from "./ConfigDetailModify"
 
 const ConfigDetailPage = () => {
   const { publish } = usePublishOnMessageExchange();
@@ -123,19 +124,13 @@ const ConfigDetailPage = () => {
             ></ConfigDetailEvent>
           </TabsContent>
           <TabsContent value="tab-modifiers">
-            <Card>
-              <CardHeader className="">
-                <h3 className="text-xl">Modifiers</h3>
-                <p className="text-xs">Modify your event value (optional)</p>
-              </CardHeader>
-              <CardContent className="text-center">
-                {config?.Modifiers.map((m, i) => <div key={i}>{m.Type}</div>)}
-              </CardContent>
-              <CardFooter className="flex flex-row items-center justify-between">
-                <Button onClick={() => setActiveEdit(`modify`)}>Edit</Button>
-                <IconHelp>Learn more</IconHelp>
-              </CardFooter>
-            </Card>
+            <ConfigDetailModifyView
+              config={config!}
+              editMode={activeEdit === "modifiers"}
+              onChange={(newConfig) => {
+                // setTempConfig(newConfig)
+              }}
+            ></ConfigDetailModifyView>
           </TabsContent>
           <TabsContent value="tab-action">
             <Card>

@@ -7,6 +7,13 @@ interface Transformation extends IModifier {
   Expression: string
 }
 
+interface Comparison extends IModifier {
+  Operand: string
+  Value: string
+  IfValue: string
+  ElseValue: string
+}
+
 interface Substring extends IModifier {
   Start: number
   End: number
