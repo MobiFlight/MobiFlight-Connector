@@ -88,8 +88,8 @@ export function PresetDataTable<TData, TValue>({
         <PresetDataTableToolbar table={table} items={data as Preset[]} />
       </div>
       <div className="flex flex-col overflow-y-auto border rounded-lg">
-      <ScrollArea className="h-[300px] min-h-[200px] max-h-[400px] rounded-md border">
-        <Table ref={tableRef} className="w-full">
+      <ScrollArea className="h-[300px] min-h-[200px] max-h-[400px] rounded-md border bg-background">
+        <Table ref={tableRef} className="w-full ">
           <TableHeader className="sticky top-0 bg-slate-700 dark:bg-slate-800 text-white group/header">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id} className="hover:bg-slate-800">
@@ -109,7 +109,7 @@ export function PresetDataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="overflow-y-auto bg-white">
+          <TableBody className="overflow-y-auto bg-background">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => {
                 return (
