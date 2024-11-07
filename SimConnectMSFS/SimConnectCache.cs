@@ -5,6 +5,7 @@ using HidSharp.Utility;
 using Microsoft.FlightSimulator.SimConnect;
 using System.Text.RegularExpressions;
 using MobiFlight.Base;
+using Newtonsoft.Json;
 
 namespace MobiFlight.SimConnectMSFS
 {
@@ -371,7 +372,15 @@ namespace MobiFlight.SimConnectMSFS
 
         internal void Stop()
         {
-            WasmModuleClient.Stop(m_oSimConnect, WasmRuntimeClientData);
+            try
+            {
+                WasmModuleClient.Stop(m_oSimConnect, WasmRuntimeClientData);
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log($"Unable to stop WasmModule: {e.Message} {JsonConvert.SerializeObject(WasmRuntimeClientData)}", LogSeverity.Error);
+            }
+
             ClearSimVars();
         }
 

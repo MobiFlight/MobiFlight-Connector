@@ -34,7 +34,9 @@ namespace MobiFlight.UI.Dialogs
             await webView.ExecuteScriptAsync($"" +
                 $"document.getElementById('repository-container-header').remove();" +
                 $"document.getElementsByClassName('js-header-wrapper')[0].remove();" +
-                $"document.getElementsByClassName('footer')[0].remove();");
+                $"document.getElementsByClassName('footer')[0].remove();" +
+                @"document.getElementsByClassName('Box-footer')[0].childNodes.forEach((item, i)=>{{ if (i>0) item.remove(); }});"
+                );
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -89,6 +89,7 @@ namespace MobiFlight.UI
             {
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
+            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
             Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
@@ -797,6 +798,10 @@ namespace MobiFlight.UI
             // This board is not flashed yet
             if (module.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
             {
+                // We can install firmware on this device but the user
+                // has asked us not to auto scan devices so we bail
+                if (!Properties.Settings.Default.FwAutoUpdateCheck) return;
+
                 PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
                 return;
             } 
