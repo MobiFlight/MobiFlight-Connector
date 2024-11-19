@@ -293,6 +293,12 @@ namespace MobiFlight.SimConnectMSFS
             return lastModified;
         }
 
+        static public bool HubHopPresetsPresent()
+        {
+            return System.IO.File.Exists($@"{WasmEventsHubHopFolder}\{WasmEventsHubHopFileName}") &&
+                   System.IO.File.Exists($@"{WasmEventsHubHopFolder}\{WasmEventsXplaneHubHopFileName}");
+        }
+
         private bool DownloadSingleFile(Uri uri, String filename, String targetPath)
         {
             SecurityProtocolType oldType = System.Net.ServicePointManager.SecurityProtocol;

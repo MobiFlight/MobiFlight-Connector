@@ -458,6 +458,13 @@ namespace MobiFlight.UI
 
         private void CheckForHubhopUpdate()
         {
+            
+            if (!WasmModuleUpdater.HubHopPresetsPresent())
+            {
+                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+                return;
+            }
+
             var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
             UpdateHubHopTimestampInStatusBar(lastModification);
             
@@ -465,6 +472,7 @@ namespace MobiFlight.UI
             // we could provide a warning icon or so.
             if (!Properties.Settings.Default.HubHopAutoCheck) return;
             // we haven't updated hubhop events in more than 7 days.
+            
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.StartPosition = FormStartPosition.CenterParent;
             tmd.DefaultDialogResult = DialogResult.Cancel;
@@ -2195,7 +2203,8 @@ namespace MobiFlight.UI
             WasmModuleUpdater updater = new WasmModuleUpdater();
             ProgressForm progressForm = new ProgressForm();
             Control MainForm = this;
-
+            
+            progressForm.Text = i18n._tr("uiTitleHubhopAutoUpdate");
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             var t = new Task(() => {
                 if (updater.DownloadHubHopPresets())
