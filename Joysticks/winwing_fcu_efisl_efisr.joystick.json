@@ -422,7 +422,7 @@
     {
       "Id": 89,
       "Type": "Button",
-      "Label": "NAV1 ADF Right"
+      "Label": "NAV1 VOR Right"
     },
     {
       "Id": 90,
@@ -432,12 +432,12 @@
     {
       "Id": 91,
       "Type": "Button",
-      "Label": "NAV1 VOR Right"
+      "Label": "NAV1 ADF Right"
     },
     {
       "Id": 92,
       "Type": "Button",
-      "Label": "NAV2 ADF Right"
+      "Label": "NAV2 VOR Right"
     },
     {
       "Id": 93,
@@ -447,7 +447,7 @@
     {
       "Id": 94,
       "Type": "Button",
-      "Label": "NAV2 VOR Right"
+      "Label": "NAV2 ADF Right"
     }
   ]
 }
