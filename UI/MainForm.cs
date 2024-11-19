@@ -2125,7 +2125,7 @@ namespace MobiFlight.UI
                 Is2024Different = updater.WasmModulesAreDifferent(updater.CommunityFolder2024);
 
                 // If neither are different then just tell the user and return, doing nothing.
-                if (!Is2020Different && !Is2020Different)
+                if (!Is2020Different && !Is2024Different)
                 {
                     TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
