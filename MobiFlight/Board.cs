@@ -423,7 +423,7 @@ namespace MobiFlight
                 // loading a board.json file for something like a Pico.
                 if (AvrDudeSettings != null)
                 {
-                    Connection.TimeoutForFirmwareUpdate = AvrDudeSettings.Timeout != 0 ? AvrDudeSettings.Timeout : 1500;
+                    Connection.TimeoutForFirmwareUpdate = AvrDudeSettings.Timeout != 0 ? AvrDudeSettings.Timeout : 15000;
                 }
                 else
                 {
