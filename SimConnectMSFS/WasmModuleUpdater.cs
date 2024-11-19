@@ -126,7 +126,7 @@ namespace MobiFlight.SimConnectMSFS
                 return false;
             }
 
-            String destFolder = Path.Combine(communityFolder, @"\mobiflight-event-module");
+            String destFolder = Path.Combine(communityFolder, @"mobiflight-event-module");
             CopyFolder(new DirectoryInfo(WasmModuleFolder), new DirectoryInfo(destFolder));
 
             // Remove the old Wasm File
@@ -138,7 +138,7 @@ namespace MobiFlight.SimConnectMSFS
 
         private void DeleteOldWasmFile(string communityFolder)
         {
-            String installedWASM = Path.Combine(communityFolder, @"\mobiflight-event-module\modules", WasmModuleNameOld);
+            String installedWASM = Path.Combine(communityFolder, @"mobiflight-event-module\modules", WasmModuleNameOld);
             if(System.IO.File.Exists(installedWASM))
                 System.IO.File.Delete(installedWASM);
         }
@@ -182,13 +182,13 @@ namespace MobiFlight.SimConnectMSFS
 
             if (communityFolder == null) return true;
 
-            string wasmModulePath = Path.Combine(communityFolder, @"\mobiflight-event-module\modules\", WasmModuleName);
+            string wasmModulePath = Path.Combine(communityFolder, @"mobiflight-event-module\modules\", WasmModuleName);
             if (!File.Exists(wasmModulePath))
             { 
                 return true;
             }
 
-            installedWASM = CalculateMD5(Path.Combine(communityFolder, @"\mobiflight-event-module\modules\", WasmModuleName));
+            installedWASM = CalculateMD5(Path.Combine(communityFolder, @"mobiflight-event-module\modules\", WasmModuleName));
             mobiflightWASM = CalculateMD5(Path.Combine(@".\MSFS2020-module\mobiflight-event-module\modules\", WasmModuleName));
 
             return installedWASM != mobiflightWASM;
