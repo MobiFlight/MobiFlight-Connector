@@ -183,7 +183,7 @@
     <value>Download latest presets</value>
   </data>
   <data name="hubHopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="hubHopToolStripMenuItem.Text" xml:space="preserve">
     <value>HubHop</value>
@@ -201,28 +201,28 @@
     <value>Update events.txt (Legacy)</value>
   </data>
   <data name="mSFS2020ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="mSFS2020ToolStripMenuItem.Text" xml:space="preserve">
     <value>Microsoft Flight Simulator</value>
   </data>
   <data name="copyLogsToClipboardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="copyLogsToClipboardToolStripMenuItem.Text" xml:space="preserve">
     <value>Copy logs to clipboard</value>
   </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="orphanedSerialsFinderToolStripMenuItem.Text" xml:space="preserve">
     <value>Manage orphaned serials</value>
   </data>
   <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 6</value>
+    <value>209, 6</value>
   </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 22</value>
+    <value>212, 22</value>
   </data>
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Settings</value>
@@ -7523,28 +7523,28 @@
     <value>Not Found</value>
   </data>
   <data name="SimProcessDetectedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="SimProcessDetectedToolStripMenuItem.Text" xml:space="preserve">
     <value>No Sim Running</value>
   </data>
   <data name="separatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>158, 6</value>
   </data>
   <data name="FsuipcToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="FsuipcToolStripMenuItem.Text" xml:space="preserve">
     <value>FSUIPC</value>
   </data>
   <data name="simConnectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="simConnectToolStripMenuItem.Text" xml:space="preserve">
     <value>SimConnect</value>
   </data>
   <data name="xPlaneDirectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="xPlaneDirectToolStripMenuItem.Text" xml:space="preserve">
     <value>X-Plane (direct)</value>
@@ -7643,7 +7643,7 @@
     <value>|</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>573, 17</value>
+    <value>604, 17</value>
   </data>
   <data name="toolStripStatusLabel.Text" xml:space="preserve">
     <value>Status Info...</value>
@@ -7880,7 +7880,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>126</value>
+    <value>232</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
