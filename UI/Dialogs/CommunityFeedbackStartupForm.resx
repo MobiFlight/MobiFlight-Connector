@@ -7147,7 +7147,7 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>MobiFlight Support for MSFS2020 </value>
+    <value>MobiFlight Support for Microsoft Flight Simulator </value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>CommunityFeedbackStartupForm</value>
