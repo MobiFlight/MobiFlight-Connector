@@ -64,10 +64,10 @@
             "FSUIPC Macro",
             "Keyboard"});
             this.ActionTypeComboBox.Location = new System.Drawing.Point(109, 6);
-            this.ActionTypeComboBox.MaximumSize = new System.Drawing.Size(140, 0);
+            this.ActionTypeComboBox.MaximumSize = new System.Drawing.Size(122, 0);
             this.ActionTypeComboBox.MinimumSize = new System.Drawing.Size(47, 0);
             this.ActionTypeComboBox.Name = "ActionTypeComboBox";
-            this.ActionTypeComboBox.Size = new System.Drawing.Size(140, 21);
+            this.ActionTypeComboBox.Size = new System.Drawing.Size(122, 21);
             this.ActionTypeComboBox.TabIndex = 19;
             // 
             // fsuipcOffsetActionTypePanel
