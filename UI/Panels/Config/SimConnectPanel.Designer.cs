@@ -44,7 +44,7 @@ namespace MobiFlight.UI.Panels.Config
             this.label2.Padding = new System.Windows.Forms.Padding(3);
             this.label2.Size = new System.Drawing.Size(598, 26);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Define the sim variable name that you would like to read from Microsoft Flight Simulator.";
+            this.label2.Text = "Specify the sim variable to read from Microsoft Flight Simulator.";
             // 
             // groupBox1
             // 
