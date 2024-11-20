@@ -458,6 +458,13 @@ namespace MobiFlight.UI
 
         private void CheckForHubhopUpdate()
         {
+            
+            if (!WasmModuleUpdater.HubHopPresetsPresent())
+            {
+                DownloadHubHopPresets();
+                return;
+            }
+
             var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
             UpdateHubHopTimestampInStatusBar(lastModification);
             
@@ -465,6 +472,7 @@ namespace MobiFlight.UI
             // we could provide a warning icon or so.
             if (!Properties.Settings.Default.HubHopAutoCheck) return;
             // we haven't updated hubhop events in more than 7 days.
+            
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.StartPosition = FormStartPosition.CenterParent;
             tmd.DefaultDialogResult = DialogResult.Cancel;
@@ -473,7 +481,7 @@ namespace MobiFlight.UI
 
             if (tmd.ShowDialog() == DialogResult.OK)
             {
-                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+                DownloadHubHopPresets();
             }
         }
 
@@ -2190,12 +2198,13 @@ namespace MobiFlight.UI
             progressForm.Dispose();
         }
 
-        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DownloadHubHopPresets()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
             ProgressForm progressForm = new ProgressForm();
             Control MainForm = this;
 
+            progressForm.Text = i18n._tr("uiTitleHubhopAutoUpdate");
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             var t = new Task(() => {
                 if (updater.DownloadHubHopPresets())
@@ -2232,6 +2241,12 @@ namespace MobiFlight.UI
             };
 
             progressForm.Dispose();
+
+        }
+
+        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DownloadHubHopPresets();
         }
 
         private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
