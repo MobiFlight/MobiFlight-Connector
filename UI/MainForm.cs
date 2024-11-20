@@ -461,7 +461,7 @@ namespace MobiFlight.UI
             
             if (!WasmModuleUpdater.HubHopPresetsPresent())
             {
-                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+                DownloadHubHopPresets();
                 return;
             }
 
@@ -481,7 +481,7 @@ namespace MobiFlight.UI
 
             if (tmd.ShowDialog() == DialogResult.OK)
             {
-                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+                DownloadHubHopPresets();
             }
         }
 
@@ -2198,12 +2198,12 @@ namespace MobiFlight.UI
             progressForm.Dispose();
         }
 
-        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DownloadHubHopPresets()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
             ProgressForm progressForm = new ProgressForm();
             Control MainForm = this;
-            
+
             progressForm.Text = i18n._tr("uiTitleHubhopAutoUpdate");
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             var t = new Task(() => {
@@ -2241,6 +2241,12 @@ namespace MobiFlight.UI
             };
 
             progressForm.Dispose();
+
+        }
+
+        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DownloadHubHopPresets();
         }
 
         private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
