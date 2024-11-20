@@ -295,8 +295,8 @@ namespace MobiFlight.SimConnectMSFS
 
         static public bool HubHopPresetsPresent()
         {
-            return System.IO.File.Exists($@"{WasmEventsHubHopFolder}\{WasmEventsHubHopFileName}") &&
-                   System.IO.File.Exists($@"{WasmEventsHubHopFolder}\{WasmEventsXplaneHubHopFileName}");
+            return System.IO.File.Exists(Path.Combine(WasmEventsHubHopFolder, WasmEventsHubHopFileName)) &&
+                   System.IO.File.Exists(Path.Combine(WasmEventsHubHopFolder, WasmEventsXplaneHubHopFileName));
         }
 
         private bool DownloadSingleFile(Uri uri, String filename, String targetPath)
