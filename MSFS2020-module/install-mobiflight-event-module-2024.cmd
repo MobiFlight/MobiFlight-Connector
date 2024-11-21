@@ -1,6 +1,6 @@
 setLocal EnableDelayedExpansion
 @echo off
-IF EXIST "%LOCALAPPDATA%\Packages\Microsoft.LimitlessBeta_8wekyb3d8bbwe\LocalCache\UserCfg.opt" (
+IF EXIST "%LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\UserCfg.opt" (
 	echo store version
 	SET TOSEARCH="%LOCALAPPDATA%\Packages\Microsoft.Limitless_8wekyb3d8bbwe\LocalCache\UserCfg.opt"
 ) ELSE (
