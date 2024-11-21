@@ -81,12 +81,14 @@ namespace MobiFlight.SimConnectMSFS
 
         public bool AutoDetectCommunityFolder()
         {
+            Log.Instance.log("Attempting to auto-detect community folder location for MSFS 2020", LogSeverity.Debug);
             // Find the 2020 community folder
             CommunityFolder = ExtractCommunityFolderPath(new string[] {
                 Path.Combine(Environment.GetEnvironmentVariable("AppData"), "Microsoft Flight Simulator"),
                 Path.Combine(Environment.GetEnvironmentVariable("LocalAppData"), @"Packages\Microsoft.FlightSimulator_8wekyb3d8bbwe\LocalCache\") }
                 );
 
+            Log.Instance.log("Attempting to auto-detect community folder location for MSFS 2024", LogSeverity.Debug);
             // Find the 2024 community folder
             CommunityFolder2024 = ExtractCommunityFolderPath(new string[] {
                 Path.Combine(Environment.GetEnvironmentVariable("AppData"), "Microsoft Flight Simulator 2024"),
