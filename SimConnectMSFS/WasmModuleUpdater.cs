@@ -122,7 +122,7 @@ namespace MobiFlight.SimConnectMSFS
         {
             if (!Directory.Exists(WasmModuleFolder))
             {
-                Log.Instance.log($"WASM module cannot be installed. WASM module folder {WasmModuleFolder} not found.", LogSeverity.Error);
+                Log.Instance.log($"WASM module cannot be installed. WASM module folder '{WasmModuleFolder}' not found.", LogSeverity.Error);
                 return false;
             }
 
