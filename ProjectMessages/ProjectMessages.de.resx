@@ -411,8 +411,8 @@ Du kannst es jederzeit wieder in den Einstellungen aktivieren </value>
     <value>Du hast das aktuelle MobiFlight WASM Modul bereits installiert.</value>
   </data>
   <data name="uiMessageWasmUpdateCommunityFolderNotFound" xml:space="preserve">
-    <value>MSFS2020 Community Verzeichnis nicht gefunden. WASM Module kann nicht automatisch kopiert werden. Bitte kopiere das Verzeichnis manuell an die richtige Stelle.</value>
-    <comment>MSFS2020 Community Folder was not found. Can't install WASM Module automatically. Please copy the folder manually.</comment>
+    <value>Microsoft Flight Simulator Community Verzeichnis nicht gefunden. WASM Module kann nicht automatisch kopiert werden. Bitte kopiere das Verzeichnis manuell an die richtige Stelle.</value>
+    <comment>Microsoft Flight Simulator Community Folder was not found. Can't install WASM Module automatically. Please copy the folder manually.</comment>
   </data>
   <data name="uiMessageWasmUpdateInstallationError" xml:space="preserve">
     <value>MobiFlight WASM Module konnte nicht installiert werden. Bitte checke das Log für weitere Details.</value>

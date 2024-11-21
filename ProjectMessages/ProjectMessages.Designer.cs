@@ -1435,7 +1435,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MSFS2020 Community Folder was not found. Can&apos;t install WASM Module automatically. Please copy the folder manually..
+        ///   Looks up a localized string similar to Microsoft Flight Simulator Community Folder was not found. Can&apos;t install WASM Module automatically. Please copy the folder manually..
         /// </summary>
         internal static string uiMessageWasmUpdateCommunityFolderNotFound {
             get {
