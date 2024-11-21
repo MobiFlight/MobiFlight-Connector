@@ -44,6 +44,8 @@ namespace MobiFlight.SimConnectMSFS
 
         private String ExtractCommunityFolderFromUserCfg(String UserCfg)
         {
+            Log.Instance.log($"Attempting to extract community folder path from {UserCfg}", LogSeverity.Debug);
+
             string CommunityFolder = null;
             string line;
             string InstalledPackagesPath = "";
@@ -66,6 +68,9 @@ namespace MobiFlight.SimConnectMSFS
             InstalledPackagesPath = InstalledPackagesPath.TrimEnd(charsToTrim);
 
             string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
+
+            Log.Instance.log($"Detected community folder path from UserCfg.opt: {targetPath}", LogSeverity.Debug);
+
             if (Directory.Exists(targetPath))
             {
                 CommunityFolder = targetPath;
@@ -103,6 +108,7 @@ namespace MobiFlight.SimConnectMSFS
                 string userCfgPath = Path.Combine(basePath, "UserCfg.opt");
                 if (!File.Exists(userCfgPath))
                 {
+                    Log.Instance.log($"No UserCfg found at {userCfgPath}", LogSeverity.Debug);
                     continue;
                 }
 
