@@ -128,7 +128,7 @@ namespace MobiFlight.SimConnectMSFS
 
             if (!Directory.Exists(communityFolder))
             {
-                Log.Instance.log($"WASM module cannot be installed. Community folder {communityFolder} not found.", LogSeverity.Error);
+                Log.Instance.log($"WASM module cannot be installed. Community folder '{communityFolder}' not found.", LogSeverity.Error);
                 return false;
             }
 
