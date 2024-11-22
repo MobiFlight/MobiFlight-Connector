@@ -340,7 +340,7 @@
     <value>NoControl</value>
   </data>
   <data name="OffsetTypeVariableRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>270, 5</value>
+    <value>242, 5</value>
   </data>
   <data name="OffsetTypeVariableRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 17</value>
@@ -373,13 +373,13 @@
     <value>119, 5</value>
   </data>
   <data name="OffsetTypeSimConnectRadioButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 17</value>
+    <value>120, 17</value>
   </data>
   <data name="OffsetTypeSimConnectRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="OffsetTypeSimConnectRadioButton.Text" xml:space="preserve">
-    <value>SimConnect (MSFS2020)</value>
+    <value>SimConnect (MSFS)</value>
   </data>
   <data name="&gt;&gt;OffsetTypeSimConnectRadioButton.Name" xml:space="preserve">
     <value>OffsetTypeSimConnectRadioButton</value>
@@ -400,7 +400,7 @@
     <value>NoControl</value>
   </data>
   <data name="OffsetTypeFsuipRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 5</value>
+    <value>362, 5</value>
   </data>
   <data name="OffsetTypeFsuipRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>94, 17</value>
@@ -430,7 +430,7 @@
     <value>NoControl</value>
   </data>
   <data name="OffsetTypeXplaneRadioButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>496, 5</value>
+    <value>468, 5</value>
   </data>
   <data name="OffsetTypeXplaneRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 17</value>

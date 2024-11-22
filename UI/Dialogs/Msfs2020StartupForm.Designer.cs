@@ -55,7 +55,8 @@ namespace MobiFlight.UI.Dialogs
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(149, 140);
             this.label2.TabIndex = 3;
-            this.label2.Text = "You have to install the MobiFlight WASM Module to use MobiFlight with MSFS2020.";
+            this.label2.Text = "You have to install the MobiFlight WASM Module to use MobiFlight with Microsoft F" +
+    "light Simulator.";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // label1
@@ -88,7 +89,7 @@ namespace MobiFlight.UI.Dialogs
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(149, 60);
             this.label3.TabIndex = 5;
-            this.label3.Text = "MobiFlight \r\nWASM Module\r\nfor MSFS2020";
+            this.label3.Text = "MobiFlight \r\nWASM Module\r\nfor Microsoft Flight Simulator";
             // 
             // label4
             // 
@@ -117,7 +118,7 @@ namespace MobiFlight.UI.Dialogs
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Msfs2020StartupForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "MobiFlight Support for MSFS2020 ";
+            this.Text = "MobiFlight Support for Microsoft Flight Simulator";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

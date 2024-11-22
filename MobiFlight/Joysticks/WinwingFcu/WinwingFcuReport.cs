@@ -12,6 +12,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
         public ushort HdgEncoderValue { get; set; }
         public ushort AltEncoderValue { get; set; }
         public ushort VsEncoderValue { get; set; }
+        public ushort BaroLeftEncoderValue { get; set; }
+        public ushort BaroRightEncoderValue { get; set; }
 
         private const uint BUTTONS_REPORT = 1;
         private const uint DEVICE_REPORT = 2;
@@ -27,6 +29,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
             targetReport.AltEncoderValue = this.AltEncoderValue;
             targetReport.HdgEncoderValue = this.HdgEncoderValue;
             targetReport.VsEncoderValue = this.VsEncoderValue;
+            targetReport.BaroLeftEncoderValue = this.BaroLeftEncoderValue;
+            targetReport.BaroRightEncoderValue = this.BaroRightEncoderValue;
         }
 
         public void ParseReport(HidBuffer hidBuffer)
@@ -46,6 +50,8 @@ namespace MobiFlight.Joysticks.WinwingFcu
                     HdgEncoderValue = (ushort)(data[30] | (data[31] << 8));
                     AltEncoderValue = (ushort)(data[32] | (data[33] << 8));
                     VsEncoderValue  = (ushort)(data[34] | (data[35] << 8));
+                    BaroLeftEncoderValue = (ushort)(data[36] | (data[37] << 8));
+                    BaroRightEncoderValue = (ushort)(data[38] | (data[39] << 8));
                 }
                 else // old firmware
                 {
@@ -58,16 +64,28 @@ namespace MobiFlight.Joysticks.WinwingFcu
             else if (ReportId == DEVICE_REPORT)
             {
                 // Is firmware report
-                if (data[5] == 0x02 && data[4] == 0x05 && data[0] == 0x10)
+                if (data[5] == 0x02 && data[4] == 0x05)
                 {
-                    LogFirmware(data, "WINWING FCU");
-                    if (data[9] == 1 && data[8] < 0x16)
+                    if (data[0] == 0x10 && data[1] == 0xcb)
                     {
-                        IsFirmwareGreaterOrEqual_1_16 = false;                        
+                        LogFirmware(data, "WINWING FCU");
+                        if (data[9] == 1 && data[8] < 0x16)
+                        {
+                            IsFirmwareGreaterOrEqual_1_16 = false;
+                        }
+                    }
+                    else if (data[0] == 0x0d && data[1] == 0xcf)
+                    {
+                        LogFirmware(data, "WINWING EFIS-L");
+                    }
+                    else if (data[0] == 0x0e && data[1] == 0xcf)
+                    {
+                        LogFirmware(data, "WINWING EFIS-R");
                     }
                 }
             }
         }
+
         private void LogFirmware(byte[] data, string device)
         {
             Log.Instance.log($"{device} Firmware: v{data[9].ToString("X2")}.{data[8].ToString("X2")}", LogSeverity.Debug);

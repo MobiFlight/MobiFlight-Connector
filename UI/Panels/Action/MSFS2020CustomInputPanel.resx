@@ -136,7 +136,7 @@
     <value>1</value>
   </data>
   <data name="DescriptionLabel.Text" xml:space="preserve">
-    <value>Your Custom Code that will be executed in MSFS2020</value>
+    <value>The code that will execute in Microsoft Flight Simulator</value>
   </data>
   <data name="&gt;&gt;DescriptionLabel.Name" xml:space="preserve">
     <value>DescriptionLabel</value>
@@ -187,7 +187,7 @@
     <value>hubHopPresetPanel1</value>
   </data>
   <data name="&gt;&gt;hubHopPresetPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.HubHopPresetPanel, MFConnector, Version=9.5.0.3, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.HubHopPresetPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;hubHopPresetPanel1.Parent" xml:space="preserve">
     <value>$this</value>

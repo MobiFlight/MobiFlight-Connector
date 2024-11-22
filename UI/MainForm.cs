@@ -89,6 +89,7 @@ namespace MobiFlight.UI
             {
                 Log.Instance.log("Unknown log level.", LogSeverity.Error);
             }
+            Log.Instance.log($"MobiFlight version {CurrentVersion()}", LogSeverity.Info);
             Log.Instance.log($"Logger initialized {Log.Instance.Severity}", LogSeverity.Info);
         }
 
@@ -345,7 +346,8 @@ namespace MobiFlight.UI
 
             // MSFS2020
             WasmModuleUpdater updater = new WasmModuleUpdater();
-            if (updater.AutoDetectCommunityFolder() && updater.WasmModulesAreDifferent())
+
+            if (updater.AutoDetectCommunityFolder() && (updater.WasmModulesAreDifferent(updater.CommunityFolder) || updater.WasmModulesAreDifferent(updater.CommunityFolder2024)))
             {
                 // MSFS2020 installed
                 Msfs2020StartupForm msfsForm = new Msfs2020StartupForm();
@@ -457,6 +459,13 @@ namespace MobiFlight.UI
 
         private void CheckForHubhopUpdate()
         {
+            
+            if (!WasmModuleUpdater.HubHopPresetsPresent())
+            {
+                DownloadHubHopPresets();
+                return;
+            }
+
             var lastModification = WasmModuleUpdater.HubHopPresetTimestamp();
             UpdateHubHopTimestampInStatusBar(lastModification);
             
@@ -464,6 +473,7 @@ namespace MobiFlight.UI
             // we could provide a warning icon or so.
             if (!Properties.Settings.Default.HubHopAutoCheck) return;
             // we haven't updated hubhop events in more than 7 days.
+            
             TimeoutMessageDialog tmd = new TimeoutMessageDialog();
             tmd.StartPosition = FormStartPosition.CenterParent;
             tmd.DefaultDialogResult = DialogResult.Cancel;
@@ -472,7 +482,7 @@ namespace MobiFlight.UI
 
             if (tmd.ShowDialog() == DialogResult.OK)
             {
-                downloadHubHopPresetsToolStripMenuItem_Click(this, EventArgs.Empty);
+                DownloadHubHopPresets();
             }
         }
 
@@ -796,6 +806,10 @@ namespace MobiFlight.UI
             // This board is not flashed yet
             if (module.ToMobiFlightModuleInfo()?.FirmwareInstallPossible() ?? false)
             {
+                // We can install firmware on this device but the user
+                // has asked us not to auto scan devices so we bail
+                if (!Properties.Settings.Default.FwAutoUpdateCheck) return;
+
                 PerformFirmwareInstallProcess(module.ToMobiFlightModuleInfo());
                 return;
             } 
@@ -891,7 +905,7 @@ namespace MobiFlight.UI
             switch (flightSim)
             {
                 case FlightSimType.MSFS2020:
-                    SimProcessDetectedToolStripMenuItem.Text = "MSFS2020 Detected";
+                    SimProcessDetectedToolStripMenuItem.Text = "MSFS Detected";
                     SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
                     break;
 
@@ -958,19 +972,19 @@ namespace MobiFlight.UI
 
             if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
-                SimProcessDetectedToolStripMenuItem.Text = "MSFS2020 Detected";
+                SimProcessDetectedToolStripMenuItem.Text = "MSFS Detected";
 
                 if ((sender as SimConnectCache).IsSimConnectConnected())
                 {
-                    simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS2020)";
-                    Log.Instance.log("Connected to SimConnect (MSFS2020).", LogSeverity.Info);
+                    simConnectToolStripMenuItem.Text = "SimConnect OK. Waiting for WASM Module. (MSFS)";
+                    Log.Instance.log("Connected to SimConnect (MSFS).", LogSeverity.Info);
                 }
 
                 if ((sender as SimConnectCache).IsConnected()) { 
-                    simConnectToolStripMenuItem.Text = "WASM Module (MSFS2020)";
+                    simConnectToolStripMenuItem.Text = "WASM Module (MSFS)";
                     simConnectToolStripMenuItem.Image = Properties.Resources.check;
                     simConnectToolStripMenuItem.Enabled = true;
-                    Log.Instance.log("Connected to WASM Module (MSFS2020).", LogSeverity.Info);
+                    Log.Instance.log("Connected to WASM Module (MSFS).", LogSeverity.Info);
 
                     if (!execManager.GetFsuipcConnectCache().IsConnected())
                     {
@@ -2099,6 +2113,10 @@ namespace MobiFlight.UI
         private static void InstallWasmModule()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
+            bool Is2020Different = false;
+            bool Is2024Different = false;
+            bool Update2020Successful = false;
+            bool Update2024Successful = false;
 
             try {
 
@@ -2111,7 +2129,11 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                if (!updater.WasmModulesAreDifferent())
+                Is2020Different = updater.WasmModulesAreDifferent(updater.CommunityFolder);
+                Is2024Different = updater.WasmModulesAreDifferent(updater.CommunityFolder2024);
+
+                // If neither are different then just tell the user and return, doing nothing.
+                if (!Is2020Different && !Is2024Different)
                 {
                     TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
@@ -2120,7 +2142,20 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                if (updater.InstallWasmModule())
+                // Try updating the 2020 install
+                if (Is2020Different)
+                {
+                    Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
+                }
+
+                // Try updating the 2024 install
+                if (Is2024Different)
+                {
+                    Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
+                }
+
+                // If either update is successful then show the success dialog.
+                if (Update2020Successful || Update2024Successful)
                 {
                     TimeoutMessageDialog.Show(
                        i18n._tr("uiMessageWasmUpdateInstallationSuccessful"),
@@ -2129,7 +2164,6 @@ namespace MobiFlight.UI
 
                     return;
                 }
-
             } catch (Exception ex) {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
             }
@@ -2185,12 +2219,13 @@ namespace MobiFlight.UI
             progressForm.Dispose();
         }
 
-        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DownloadHubHopPresets()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
             ProgressForm progressForm = new ProgressForm();
             Control MainForm = this;
 
+            progressForm.Text = i18n._tr("uiTitleHubhopAutoUpdate");
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
             var t = new Task(() => {
                 if (updater.DownloadHubHopPresets())
@@ -2227,6 +2262,12 @@ namespace MobiFlight.UI
             };
 
             progressForm.Dispose();
+
+        }
+
+        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DownloadHubHopPresets();
         }
 
         private void UpdateHubHopTimestampInStatusBar(DateTime lastModification)
