@@ -82,5 +82,11 @@ namespace MobiFlight.UI.Panels.Settings.Device
             if (Changed != null)
                 Changed(encoder, new EventArgs());
         }
+
+        private void mfSwapButton_Click(object sender, EventArgs e)
+        {
+            (encoder.PinLeft, encoder.PinRight) = (encoder.PinRight, encoder.PinLeft);
+            UpdateFreePinsInDropDowns();
+        }
     }
 }
