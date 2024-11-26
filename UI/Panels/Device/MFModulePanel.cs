@@ -51,7 +51,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             PortValueLabel.Text = module.Port;
 
-            DisplayDetails(module.Board);
+            groupBoxDetails.Visible = false;
+
+            if (module.HasMfFirmware())
+            {
+                DisplayDetails(module.Board);
+            }
 
             initialized = true;
         }
@@ -63,6 +68,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
                 groupBoxDetails.Visible = false;
                 return;
             }
+
+            groupBoxDetails.Visible = true;
 
             if (board.Info.Community?.Project != null)
                 labelProjectValue.Text = board.Info.Community.Project;
