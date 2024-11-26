@@ -19,6 +19,7 @@ namespace MobiFlight
         public string Name;
         public string Description;
         public string File;
+        public bool DefaultUpload = true;
     }
 
     /// <summary>
@@ -445,7 +446,7 @@ namespace MobiFlight
         /// <returns>The </returns>
         protected string GetDefaultDeviceConfigFilePath()
         {
-            return Path.Combine(BasePath, "config", $"{Info.FirmwareBaseName}.mfmc") ;
+            return Path.Combine(BasePath, "config", $"{Info.FirmwareBaseName}.mfmc");
         }
 
         public IEnumerable<DeviceConfigFile> GetExistingDeviceConfigFiles()
@@ -456,7 +457,7 @@ namespace MobiFlight
                 var DefaultDeviceConfigFile = GetDefaultDeviceConfigFilePath();
                 if (!File.Exists(DefaultDeviceConfigFile))
                     return new List<DeviceConfigFile>();
-                
+
                 return new List<DeviceConfigFile>
                 {
                     new DeviceConfigFile
@@ -467,13 +468,22 @@ namespace MobiFlight
                     }
                 };
             }
-                
+
+            var configFolder = Path.Combine(BasePath, "config");
+
+            if (PartnerLevel==BoardPartnerLevel.Core)
+            {
+                // for the built-in boards, the folder structure is not the same as for community boards
+                configFolder = Path.Combine(BasePath, "Boards/config");
+            }
+
+
             return Info.DeviceConfigs
-                    .Select(file => new DeviceConfigFile
+                    .Select(file => new DeviceConfigFile()
                     {
                         Name = file.Name,
                         Description = file.Description,
-                        File = Path.Combine(BasePath, "config", file.File)
+                        File = Path.Combine(configFolder, file.File)
                     })
                     .Where(file => File.Exists(file.File));
         }

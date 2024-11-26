@@ -105,7 +105,10 @@ namespace MobiFlight.UI.Panels.Settings.Device
                     if (specificDeviceConfigs.Count() == 1)
                     {
                         var profile = specificDeviceConfigs.First();
-                        UploadDefaultConfigRequested?.Invoke(this, profile.File);
+                        if(profile.DefaultUpload)
+                        {
+                            UploadDefaultConfigRequested?.Invoke(this, profile.File);
+                        }
                     }   
                     // since we have more options, we present a context menu
                     else

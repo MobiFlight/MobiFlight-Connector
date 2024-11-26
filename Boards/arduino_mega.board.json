@@ -2,7 +2,7 @@
   "$schema": "./mfboard.schema.json",
   "AvrDudeSettings": {
     "Device": "atmega2560",
-    "BaudRates": ["115200"],
+    "BaudRates": [ "115200" ],
     "Programmer": "wiring",
     "Timeout": 15000
   },
@@ -40,7 +40,27 @@
     "LatestFirmwareVersion": "2.5.1",
     "FriendlyName": "Arduino Mega 2560",
     "MobiFlightType": "MobiFlight Mega",
-    "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex"
+    "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
+    "Community": {
+      "Project": "MobiFlight Mega",
+      "Website": "https://shop.mobiflight.com/product/arduino-mega-2560-pro-mini-usb-c",
+      "Docs": "https://www.youtube.com/watch?v=pS8KGfYRNrY&t=94s",
+      "Support": "https://mobiflight.com/discord"
+    },
+    "DeviceConfigs": [
+      {
+        "Name": "Prototyping Board (Latest version)",
+        "Description": "The device definitions for the Prototyping Board from the Community Shop",
+        "File": "prototyping-board-latest.mega.mfmc",
+        "DefaultUpload": false
+      },
+      {
+        "Name": "Prototyping Board v2.0",
+        "Description": "The device definitions for the Prototyping Board from the Community Shop",
+        "File": "prototyping-board-latest.mega.mfmc",
+        "DefaultUpload": false
+      }
+    ]
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 16,
@@ -54,7 +74,7 @@
     "MaxShifters": 6,
     "MaxSteppers": 10,
     "MaxInputMultiplexer": 6,
-    "MaxCustomDevices" : 0
+    "MaxCustomDevices": 0
   },
   "Pins": [
     {
