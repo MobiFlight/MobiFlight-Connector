@@ -35,7 +35,13 @@
     "FriendlyName": "Arduino Nano",
     "LatestFirmwareVersion": "2.5.1",
     "MobiFlightType": "MobiFlight Nano",
-    "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex"
+    "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex",
+    "Community": {
+      "Project": "MobiFlight Nano",
+      "Website": "https://shop.mobiflight.com/product/arduino-nano-usb-c",
+      "Docs": "https://www.youtube.com/watch?v=pS8KGfYRNrY&t=94s",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 8,

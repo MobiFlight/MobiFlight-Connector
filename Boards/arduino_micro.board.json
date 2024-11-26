@@ -29,7 +29,13 @@
     "FriendlyName": "Arduino Pro Micro",
     "LatestFirmwareVersion": "2.5.1",
     "MobiFlightType": "MobiFlight Micro",
-    "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex"
+    "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex",
+    "Community": {
+      "Project": "MobiFlight Pro Micro",
+      "Website": "https://shop.mobiflight.com/product/arduino-pro-micro-usb-c",
+      "Docs": "https://www.youtube.com/watch?v=pS8KGfYRNrY&t=94s",
+      "Support": "https://mobiflight.com/discord"
+    }
   },
   "ModuleLimits": {
     "MaxAnalogInputs": 9,
