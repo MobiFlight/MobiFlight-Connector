@@ -242,6 +242,7 @@ namespace MobiFlight
         {
             Name = moduleInfo.Name ?? moduleInfo.Board.Info.FriendlyName;
             Version = moduleInfo.Version;
+            CoreVersion = moduleInfo.CoreVersion;
             Serial = moduleInfo.Serial;
             _comPort = moduleInfo.Port;
             Board = moduleInfo.Board;
@@ -914,7 +915,8 @@ namespace MobiFlight
                 // we also introduced CoreVersion
                 if (InfoCommand.Arguments.Length > 4)
                 {
-                    CoreVersion = InfoCommand.ReadStringArg();
+                    devInfo.CoreVersion = InfoCommand.ReadStringArg();
+                    CoreVersion = devInfo.CoreVersion;
                 }
 
                 Name = devInfo.Name;
@@ -1260,6 +1262,7 @@ namespace MobiFlight
                 Type = Type,
                 Port = Port,
                 Version = Version,
+                CoreVersion = CoreVersion,
                 HardwareId = HardwareId,
                 Board = Board
             };
@@ -1297,7 +1300,7 @@ namespace MobiFlight
             if (IsPullRequestBuild) return true;
 
             System.Version minVersion = new System.Version(FirmwareFeature);
-            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(CoreVersion != null ? CoreVersion : "0.0.0");
 
             return (currentVersion.CompareTo(minVersion) >= 0);
         }
