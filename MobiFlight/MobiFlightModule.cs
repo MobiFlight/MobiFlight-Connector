@@ -911,9 +911,6 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
-                // With the support of Community Devices we also introduced CoreVersion
-                // If no CoreVersion is available, it must be a board with FW version
-                // below 2.5.0. Fot this boards CoreVersion is always the same as Version
                 if (InfoCommand.Arguments.Length > 4)
                 {
                     devInfo.CoreVersion = InfoCommand.ReadStringArg();
@@ -924,9 +921,9 @@ namespace MobiFlight
                     // we also introduced CoreVersion
                     // if a CoreVersion was not provided 
                     // we determine a fallback version
-                    devInfo.CoreVersion = FallbackCoreVersion(Version, Board);
-                    // if no guess is possibel, set CoreVersion to Version
-                    // this reflectes all boards with FW version below 2.5.0
+                    devInfo.CoreVersion = FallbackCoreVersion(devInfo.Version, devInfo.Board);
+                    // if no guess is possible, set CoreVersion to Version
+                    // this reflectes all standard boards with FW version below 2.5.0
                     if (String.IsNullOrEmpty(devInfo.CoreVersion))
                     {
                         devInfo.CoreVersion = devInfo.Version;
@@ -948,15 +945,6 @@ namespace MobiFlight
             // where there was no firmware installed.
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
-
-            // With the support of Custom Devices
-            // we also introduced CoreVersion
-            // if a CoreVersion was not provided 
-            // we determine a fallback version
-            if (String.IsNullOrEmpty(CoreVersion))
-            {
-                CoreVersion = FallbackCoreVersion(Version, Board);
-            }
 
             Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Debug);
             return devInfo;
