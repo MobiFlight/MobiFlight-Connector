@@ -1287,7 +1287,7 @@ namespace MobiFlight
         public bool GenerateNewSerial()
         {
             System.Version minVersion = new System.Version("1.3.0");
-            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(CoreVersion != null ? CoreVersion : "0.0.0");
             if (currentVersion.CompareTo(minVersion) < 0)
             {
                 throw new FirmwareVersionTooLowException(minVersion, currentVersion);
