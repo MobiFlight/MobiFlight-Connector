@@ -188,7 +188,7 @@ namespace MobiFlight.SimConnectMSFS
             string installedWASM;
             string mobiflightWASM;
 
-            if (communityFolder == null) return true;
+            if (String.IsNullOrEmpty(communityFolder)) return true;
 
             string wasmModulePath = Path.Combine(communityFolder, @"mobiflight-event-module\modules\", WasmModuleName);
             if (!File.Exists(wasmModulePath))
