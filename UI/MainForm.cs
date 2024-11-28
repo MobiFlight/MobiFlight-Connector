@@ -2149,6 +2149,10 @@ namespace MobiFlight.UI
                     {
                         Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
                     }
+                    else 
+                    {
+                        Log.Instance.log("WASM install for MSFS2020 is already up-to-date.", LogSeverity.Info);
+                    }
                 }
                 else
                 {
@@ -2161,6 +2165,10 @@ namespace MobiFlight.UI
                     if (Is2024Different)
                     {
                         Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
+                    }
+                    else 
+                    {
+                        Log.Instance.log("WASM install for MSFS2024 is already up-to-date.", LogSeverity.Info);
                     }
                 }
                 else
