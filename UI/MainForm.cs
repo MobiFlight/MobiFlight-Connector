@@ -2143,16 +2143,31 @@ namespace MobiFlight.UI
                 }
 
                 // Try updating the 2020 install
-                if (Is2020Different && !String.IsNullOrEmpty(updater.CommunityFolder))
+                if (!String.IsNullOrEmpty(updater.CommunityFolder))
                 {
-                    Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
+                    if (Is2020Different) 
+                    {
+                        Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
+                    }
+                }
+                else
+                {
+                    Log.Instance.log("Skipping WASM install for MSFS2020 since no community folder was found. This likely means MSFS2020 is not installed.", LogSeverity.Info);
                 }
 
                 // Try updating the 2024 install
-                if (Is2024Different && !String.IsNullOrEmpty(updater.CommunityFolder2024))
+                if (!String.IsNullOrEmpty(updater.CommunityFolder2024))
                 {
-                    Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
+                    if (Is2024Different)
+                    {
+                        Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
+                    }
                 }
+                else
+                {
+                    Log.Instance.log("Skipping WASM install for MSFS2024 since no community folder was found. This likely means MSFS2024 is not installed.", LogSeverity.Info);
+                }
+
 
                 // If either update is successful then show the success dialog.
                 if (Update2020Successful || Update2024Successful)
