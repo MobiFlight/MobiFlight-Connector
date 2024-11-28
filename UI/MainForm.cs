@@ -2143,13 +2143,13 @@ namespace MobiFlight.UI
                 }
 
                 // Try updating the 2020 install
-                if (Is2020Different)
+                if (Is2020Different && !String.IsNullOrEmpty(updater.CommunityFolder))
                 {
                     Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
                 }
 
                 // Try updating the 2024 install
-                if (Is2024Different)
+                if (Is2024Different && !String.IsNullOrEmpty(updater.CommunityFolder2024))
                 {
                     Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
                 }
