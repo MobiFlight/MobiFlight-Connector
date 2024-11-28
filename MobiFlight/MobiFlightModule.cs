@@ -911,17 +911,32 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
-                // With the support of Custom Devices
-                // we also introduced CoreVersion
+                // With the support of Community Devices we also introduced CoreVersion
+                // If no CoreVersion is available, it must be a board with FW version
+                // below 2.5.0. Fot this boards CoreVersion is always the same as Version
                 if (InfoCommand.Arguments.Length > 4)
                 {
                     devInfo.CoreVersion = InfoCommand.ReadStringArg();
-                    CoreVersion = devInfo.CoreVersion;
+                }
+                else
+                {
+                    // With the support of Custom Devices
+                    // we also introduced CoreVersion
+                    // if a CoreVersion was not provided 
+                    // we determine a fallback version
+                    devInfo.CoreVersion = FallbackCoreVersion(Version, Board);
+                    // if no guess is possibel, set CoreVersion to Version
+                    // this reflectes all boards with FW version below 2.5.0
+                    if (String.IsNullOrEmpty(devInfo.CoreVersion))
+                    {
+                        devInfo.CoreVersion = devInfo.Version;
+                    }
                 }
 
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
+                CoreVersion = devInfo.CoreVersion;
             }
 
             // Get the board specifics based on the MobiFlight type returned by the firmware. If there's no match,
