@@ -922,6 +922,12 @@ namespace MobiFlight
                     // if a CoreVersion was not provided 
                     // we determine a fallback version
                     devInfo.CoreVersion = FallbackCoreVersion(devInfo.Version, devInfo.Board, devInfo.CoreVersion);
+                    // if FallbackCoreVersion() is not required, delete everything above and uncomment below
+                    // also delete FallbackCoreVersion()
+                    //
+                    // Set CoreVersion to Version
+                    // this reflectes all standard boards with FW version below 2.5.0
+                    // devInfo.CoreVersion = devInfo.Version
                 }
 
                 Name = devInfo.Name;
