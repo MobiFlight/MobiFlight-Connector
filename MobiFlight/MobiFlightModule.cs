@@ -921,13 +921,7 @@ namespace MobiFlight
                     // we also introduced CoreVersion
                     // if a CoreVersion was not provided 
                     // we determine a fallback version
-                    devInfo.CoreVersion = FallbackCoreVersion(devInfo.Version, devInfo.Board);
-                    // if no guess is possible, set CoreVersion to Version
-                    // this reflectes all standard boards with FW version below 2.5.0
-                    if (String.IsNullOrEmpty(devInfo.CoreVersion))
-                    {
-                        devInfo.CoreVersion = devInfo.Version;
-                    }
+                    devInfo.CoreVersion = FallbackCoreVersion(devInfo.Version, devInfo.Board, devInfo.CoreVersion);
                 }
 
                 Name = devInfo.Name;
@@ -956,13 +950,15 @@ namespace MobiFlight
         /// <param name="version">Firmware version</param>
         /// <param name="board">The current Board information</param>
         /// <returns>CoreVersion, or null if no guess possible</returns>
-        private static string FallbackCoreVersion(string version, Board board)
+        private static string FallbackCoreVersion(string version, Board board, string CoreVersion)
         {
             if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
 
             // Official partner boards were only built with > 2.5.0
             if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "2.5.0";
-            return null;
+            // if no guess is possible, set CoreVersion to Version
+            // this reflectes all standard boards with FW version below 2.5.0
+            return CoreVersion;
         }
 
         public bool SaveName()
