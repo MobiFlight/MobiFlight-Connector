@@ -140,7 +140,6 @@ namespace MobiFlight.SimConnectMSFS
             // Remove the old Wasm File
             DeleteOldWasmFile(communityFolder);
 
-            Log.Instance.log("WASM module has been installed successfully.", LogSeverity.Info);
             return true;
         }
 
