@@ -248,6 +248,13 @@ namespace MobiFlight
             HardwareId = moduleInfo.HardwareId;
         }
 
+        public object Clone()
+        {
+            var clone = new MobiFlightModule(this.ToMobiFlightModuleInfo());
+            clone.CoreVersion = this.CoreVersion;
+            return clone;
+        }
+
         public void Connect()
         {
             if (this.Connected)
@@ -957,7 +964,7 @@ namespace MobiFlight
 
             // Official partner boards were only built with > 2.5.0
             if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "2.5.0";
-            return null;
+            return version;
         }
 
         public bool SaveName()
@@ -1281,7 +1288,7 @@ namespace MobiFlight
         public bool GenerateNewSerial()
         {
             System.Version minVersion = new System.Version("1.3.0");
-            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(CoreVersion != null ? CoreVersion : "0.0.0");
             if (currentVersion.CompareTo(minVersion) < 0)
             {
                 throw new FirmwareVersionTooLowException(minVersion, currentVersion);
@@ -1297,7 +1304,7 @@ namespace MobiFlight
             if (IsPullRequestBuild) return true;
 
             System.Version minVersion = new System.Version(FirmwareFeature);
-            System.Version currentVersion = new System.Version(Version != null ? Version : "0.0.0");
+            System.Version currentVersion = new System.Version(CoreVersion != null ? CoreVersion : "0.0.0");
 
             return (currentVersion.CompareTo(minVersion) >= 0);
         }
