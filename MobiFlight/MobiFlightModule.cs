@@ -932,6 +932,14 @@ namespace MobiFlight
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
 
+            // we also introduced CoreVersion
+            // if a CoreVersion was not provided 
+            // we determine a fallback version
+            if (String.IsNullOrEmpty(CoreVersion))
+            {
+                CoreVersion = FallbackCoreVersion(Version, Board);
+            }
+
             Log.Instance.log($"Retrieved board: {Type}, {Name}, {Version}/{CoreVersion}, {Serial}.", LogSeverity.Debug);
             return devInfo;
         }
