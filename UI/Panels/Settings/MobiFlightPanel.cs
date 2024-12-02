@@ -1282,8 +1282,7 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode moduleNode = getModuleNode();
             if (moduleNode == null) return null;
 
-            var module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
-            module.CoreVersion = (moduleNode.Tag as MobiFlightModule).CoreVersion;
+            var module = (moduleNode.Tag as MobiFlightModule).Clone() as MobiFlightModule;
 
             // Generate config
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
@@ -1294,6 +1293,8 @@ namespace MobiFlight.UI.Panels.Settings
             module.Config = newConfig;
             return module;
         }
+
+
 
         /// <summary>
         /// Tell whether a device requires the presence of a MultiplexerDriver 

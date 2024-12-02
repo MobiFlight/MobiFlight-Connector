@@ -247,7 +247,12 @@ namespace MobiFlight
             Board = moduleInfo.Board;
             HardwareId = moduleInfo.HardwareId;
         }
-
+        public object Clone()
+        {
+            var clone = new MobiFlightModule(this.ToMobiFlightModuleInfo());
+            clone.CoreVersion = this.CoreVersion;
+            return clone;
+        }
         public void Connect()
         {
             if (this.Connected)
