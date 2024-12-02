@@ -242,7 +242,6 @@ namespace MobiFlight
         {
             Name = moduleInfo.Name ?? moduleInfo.Board.Info.FriendlyName;
             Version = moduleInfo.Version;
-            CoreVersion = moduleInfo.CoreVersion;
             Serial = moduleInfo.Serial;
             _comPort = moduleInfo.Port;
             Board = moduleInfo.Board;
@@ -911,29 +910,16 @@ namespace MobiFlight
                     devInfo.Version = "1.0.0";
                 }
 
+                // With the support of Custom Devices
+                // we also introduced CoreVersion
                 if (InfoCommand.Arguments.Length > 4)
                 {
-                    devInfo.CoreVersion = InfoCommand.ReadStringArg();
-                }
-                else
-                {
-                    // With the support of Custom Devices
-                    // we also introduced CoreVersion
-                    // if a CoreVersion was not provided 
-                    // we determine a fallback version
-                    devInfo.CoreVersion = FallbackCoreVersion(devInfo.Version, devInfo.Board, devInfo.CoreVersion);
-                    // if FallbackCoreVersion() is not required, delete everything above and uncomment below
-                    // also delete FallbackCoreVersion()
-                    //
-                    // Set CoreVersion to Version
-                    // this reflectes all standard boards with FW version below 2.5.0
-                    // devInfo.CoreVersion = devInfo.Version
+                    CoreVersion = InfoCommand.ReadStringArg();
                 }
 
                 Name = devInfo.Name;
                 Version = devInfo.Version;
                 Serial = devInfo.Serial;
-                CoreVersion = devInfo.CoreVersion;
             }
 
             // Get the board specifics based on the MobiFlight type returned by the firmware. If there's no match,
@@ -956,15 +942,13 @@ namespace MobiFlight
         /// <param name="version">Firmware version</param>
         /// <param name="board">The current Board information</param>
         /// <returns>CoreVersion, or null if no guess possible</returns>
-        private static string FallbackCoreVersion(string version, Board board, string CoreVersion)
+        private static string FallbackCoreVersion(string version, Board board)
         {
             if (board?.PartnerLevel == BoardPartnerLevel.Core) return version;
 
             // Official partner boards were only built with > 2.5.0
             if (board?.PartnerLevel == BoardPartnerLevel.Partner) return "2.5.0";
-            // if no guess is possible, set CoreVersion to Version
-            // this reflectes all standard boards with FW version below 2.5.0
-            return CoreVersion;
+            return version;
         }
 
         public bool SaveName()
@@ -1267,7 +1251,6 @@ namespace MobiFlight
                 Type = Type,
                 Port = Port,
                 Version = Version,
-                CoreVersion = CoreVersion,
                 HardwareId = HardwareId,
                 Board = Board
             };

@@ -5,7 +5,7 @@ namespace MobiFlight
     public class MobiFlightModuleInfo : IModuleInfo
     {
         String _version = null;
-        String _coreversion = null;
+ //       String _coreversion = null;
         public String Type { get; set; }
         public String Serial { get; set; }
         public String Port { get; set; }
@@ -18,14 +18,14 @@ namespace MobiFlight
             get { return _version; }
             set { _version = value; }
         }
- 
+/*
         public String CoreVersion
         {
             get { return _coreversion; }
             set { _coreversion = value; 
             }
         }
-
+*/
         public bool HasMfFirmware()
         {
             return !String.IsNullOrEmpty(Version);
