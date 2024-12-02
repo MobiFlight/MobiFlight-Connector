@@ -1294,8 +1294,6 @@ namespace MobiFlight.UI.Panels.Settings
             return module;
         }
 
-
-
         /// <summary>
         /// Tell whether a device requires the presence of a MultiplexerDriver 
         /// </summary>
