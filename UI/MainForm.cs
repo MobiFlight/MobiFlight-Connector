@@ -2122,7 +2122,8 @@ namespace MobiFlight.UI
             bool Update2020Successful = false;
             bool Update2024Successful = false;
 
-            try {
+            try
+            {
 
                 if (!updater.AutoDetectCommunityFolder())
                 {
@@ -2156,17 +2157,9 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                // Try updating the 2020 install
-                if (Is2020Different)
-                {
-                    Update2020Successful = updater.InstallWasmModule(updater.CommunityFolder);
-                }
-
-                // Try updating the 2024 install
-                if (Is2024Different)
-                {
-                    Update2024Successful = updater.InstallWasmModule(updater.CommunityFolder2024);
-                }
+                // Install for both versions
+                Update2020Successful = HandleWasmInstall(updater, Is2020Different, updater.CommunityFolder, "2020");
+                Update2024Successful = HandleWasmInstall(updater, Is2024Different, updater.CommunityFolder2024, "2024");
 
                 // If either update is successful then show the success dialog.
                 if (Update2020Successful || Update2024Successful)
@@ -2178,7 +2171,8 @@ namespace MobiFlight.UI
 
                     return;
                 }
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
             }
 
@@ -2187,6 +2181,38 @@ namespace MobiFlight.UI
                 i18n._tr("uiMessageWasmUpdateInstallationError"),
                 i18n._tr("uiMessageWasmUpdater"),
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        /// <summary>
+        /// Handles all the necessary and log messages for installing the WASM with different versions of MSFS.
+        /// </summary>
+        /// <param name="updater">The WASM updater to use</param>
+        /// <param name="isDifferent">True if the versions of WASM were different</param>
+        /// <param name="communityFolder">The path to the community folder</param>
+        /// <param name="msfsVersion">The version of MSFS, either "2020" or "2024"</param>
+        /// <returns></returns>
+        private static bool HandleWasmInstall(WasmModuleUpdater updater, bool isDifferent, string communityFolder, string msfsVersion)
+        {
+            if (String.IsNullOrEmpty(communityFolder))
+            {
+                Log.Instance.log($"Skipping WASM install for MSFS{msfsVersion} since no community folder was found. This likely means MSFS{msfsVersion} is not installed.", LogSeverity.Info);
+                return false;
+            }
+
+            if (!isDifferent)
+            {
+                Log.Instance.log($"WASM module for MSFS{msfsVersion} is already up-to-date.", LogSeverity.Info);
+                return false;
+            }
+
+            bool result = updater.InstallWasmModule(communityFolder);
+
+            if (result)
+            {
+                Log.Instance.log($"Successfully installed WASM module for MSFS{msfsVersion}.", LogSeverity.Info);
+            }
+
+            return result;
         }
 
         private void downloadLatestEventsToolStripMenuItem_Click(object sender, EventArgs e)
