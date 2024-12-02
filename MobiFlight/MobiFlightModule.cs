@@ -932,6 +932,7 @@ namespace MobiFlight
             devInfo.Board = BoardDefinitions.GetBoardByMobiFlightType(devInfo.Type) ?? Board;
             Board = devInfo.Board;
 
+            // With the support of Custom Devices
             // we also introduced CoreVersion
             // if a CoreVersion was not provided 
             // we determine a fallback version
