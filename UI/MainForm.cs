@@ -2179,27 +2179,23 @@ namespace MobiFlight.UI
         /// <returns></returns>
         private static bool HandleWasmInstall(WasmModuleUpdater updater, bool isDifferent, string communityFolder, string msfsVersion)
         {
-            bool result = false;
-
-            if (!String.IsNullOrEmpty(communityFolder))
-            {
-                if (isDifferent)
-                {
-                    result = updater.InstallWasmModule(communityFolder);
-
-                    if (result)
-                    {
-                        Log.Instance.log($"Successfully installed WASM module for MSFS{msfsVersion}.", LogSeverity.Info);
-                    }
-                }
-                else
-                {
-                    Log.Instance.log($"WASM module for MSFS{msfsVersion} is already up-to-date.", LogSeverity.Info);
-                }
-            }
-            else
+            if (String.IsNullOrEmpty(communityFolder))
             {
                 Log.Instance.log($"Skipping WASM install for MSFS{msfsVersion} since no community folder was found. This likely means MSFS{msfsVersion} is not installed.", LogSeverity.Info);
+                return false;
+            }
+
+            if (!isDifferent)
+            {
+                Log.Instance.log($"WASM module for MSFS{msfsVersion} is already up-to-date.", LogSeverity.Info);
+                return false;
+            }
+
+            bool result = updater.InstallWasmModule(communityFolder);
+
+            if (result)
+            {
+                Log.Instance.log($"Successfully installed WASM module for MSFS{msfsVersion}.", LogSeverity.Info);
             }
 
             return result;
