@@ -1282,7 +1282,8 @@ namespace MobiFlight.UI.Panels.Settings
             TreeNode moduleNode = getModuleNode();
             if (moduleNode == null) return null;
 
-            var module = (moduleNode.Tag as MobiFlightModule);
+            var module = new MobiFlightModule((moduleNode.Tag as MobiFlightModule).ToMobiFlightModuleInfo());
+            module.CoreVersion = (moduleNode.Tag as MobiFlightModule).CoreVersion;
 
             // Generate config
             MobiFlight.Config.Config newConfig = new MobiFlight.Config.Config();
