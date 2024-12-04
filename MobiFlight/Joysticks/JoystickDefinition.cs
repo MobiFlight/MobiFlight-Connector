@@ -114,5 +114,10 @@ namespace MobiFlight
             }
 #pragma warning restore CS0618 // Type or member is obsolete
         }
+
+        public override string ToString()
+        {
+            return String.Join(", ", this.InstanceNames);
+        }
     }
 }
