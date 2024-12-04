@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "VKBSim NXT THQ",
+  "InstanceNames": ["VKBSim NXT THQ"],
   "VendorId": "0x231D",
   "ProductId": "0x2210",
   "Inputs": [

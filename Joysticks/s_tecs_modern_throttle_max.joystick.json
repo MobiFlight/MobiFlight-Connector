@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "S-TECS MODERN THROTTLE MAX",
+  "InstanceNames": ["S-TECS MODERN THROTTLE MAX"],
   "VendorId": "0x231D",
   "ProductId": "0x012E",
   "Inputs": [

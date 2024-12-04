@@ -4,7 +4,7 @@
   "$id": "https://mobiflight.com/hid.schema.json",
   "title": "Root",
   "type": "object",
-  "required": ["InstanceName"],
+  "required": ["InstanceNames"],
   "dependentRequired": {
     "Outputs": ["VendorId", "ProductId"]
   },
@@ -13,7 +13,20 @@
       "$id": "#root/InstanceName",
       "title": "InstanceName",
       "type": "string",
-      "description": "Instance name for the device. Required. This is used to match the definition with a connected device."
+      "description": "Instance name for the device. Obsolete. Use InstanceNames instead."
+    },
+    "InstanceNames": {
+      "$id": "#root/InstanceNames",
+      "title": "InstanceNames",
+      "description": "List of instance names for the device. Required.",
+      "type": "array",
+      "default": [],
+      "items": {
+        "$id": "#root/Inputs/items",
+        "title": "Items",
+        "type": "string",
+        "description":  "A string that identifies a specific joystick device."
+      }
     },
     "Inputs": {
       "$id": "#root/Inputs",

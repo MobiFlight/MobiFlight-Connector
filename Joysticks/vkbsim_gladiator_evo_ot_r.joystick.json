@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "VKBsim Gladiator EVO OT R",
+  "InstanceNames": ["VKBsim Gladiator EVO OT R"],
   "VendorId": "0x231D",
   "ProductId": "0x3200",
   "Inputs": [

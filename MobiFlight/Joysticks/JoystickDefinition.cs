@@ -68,6 +68,11 @@ namespace MobiFlight
         public string InstanceName;
 
         /// <summary>
+        /// Instance names for the device. This is used to match the definition with a connected device.
+        /// </summary>
+        public List<string> InstanceNames = new List<string>();
+
+        /// <summary>
         /// List of options supported by the device.
         /// </summary>
         public List<JoystickOutput> Outputs;
@@ -98,6 +103,13 @@ namespace MobiFlight
         /// <summary>
         /// Migrates values from a prior version of the JSON schema to the newest version.
         /// </summary>
-        public void Migrate() { }
+        public void Migrate() {
+
+            // Migrate a single InstanceName to a list of InstanceNames
+            if (this.InstanceName != null)
+            {
+                this.InstanceNames.Add(this.InstanceName);
+            }
+        }
     }
 }

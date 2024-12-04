@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "WINWING FCU-320 + EFIS-320L + EFIS-320R",
+  "InstanceNames": ["WINWING FCU-320 + EFIS-320L + EFIS-320R"],
   "VendorId": "0x4098",
   "ProductId": "0xBA01",
   "Inputs": [

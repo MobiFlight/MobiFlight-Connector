@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "T.A320 Pilot",
+  "InstanceNames": ["T.A320 Pilot"],
   "VendorId":  "0x044F",
   "ProductId": "0x0405",
   "Inputs": [

@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "Alpha Flight Controls",
+  "InstanceNames": ["Alpha Flight Controls"],
   "Inputs": [
     {
       "Id": 1,

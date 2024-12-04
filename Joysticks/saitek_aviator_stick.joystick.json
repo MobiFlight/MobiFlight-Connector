@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "Saitek Aviator Stick",
+  "InstanceNames": ["Saitek Aviator Stick"],
   "VendorId": 1699,
   "ProductId": 1121,
   "Inputs": [

@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "VKBsim Gladiator NXT F14",
+  "InstanceNames": ["VKBsim Gladiator NXT F14"],
   "VendorId": "0x231D",
   "ProductId": "0x0A00",
   "Inputs": [

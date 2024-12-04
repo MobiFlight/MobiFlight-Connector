@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "Bravo Throttle Quadrant",
+  "InstanceNames": ["Bravo Throttle Quadrant"],
   "VendorId": "0x294B",
   "ProductId": "0x1901",
   "Inputs": [

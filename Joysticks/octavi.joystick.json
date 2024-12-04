@@ -1,6 +1,6 @@
 {
   "$schema": "./mfjoystick.schema.json",
-  "InstanceName": "Octavi",
+  "InstanceNames": ["Octavi"],
   "VendorId": "0x04D8",
   "ProductId": "0xE6D6",
   "Inputs": [

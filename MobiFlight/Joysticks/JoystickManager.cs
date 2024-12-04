@@ -51,7 +51,7 @@ namespace MobiFlight
         /// <returns>The first definition matching the instanceMae, or null if none found.</returns>
         private JoystickDefinition GetDefinitionByInstanceName(String instanceName)
         {
-            return Definitions.Find(definition => definition.InstanceName == instanceName);
+            return Definitions.Find(definition => definition.InstanceNames.Contains(instanceName));
         }
 
         /// <summary>
