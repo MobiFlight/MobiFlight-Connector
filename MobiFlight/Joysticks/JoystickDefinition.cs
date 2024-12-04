@@ -65,6 +65,7 @@ namespace MobiFlight
         /// <summary>
         /// Instance name for the device. This is used to match the definition with a connected device.
         /// </summary>
+        [Obsolete("Use InstanceNames list property instead.")]
         public string InstanceName;
 
         /// <summary>
@@ -106,10 +107,12 @@ namespace MobiFlight
         public void Migrate() {
 
             // Migrate a single InstanceName to a list of InstanceNames
+#pragma warning disable CS0618 // Type or member is obsolete
             if (this.InstanceName != null)
             {
                 this.InstanceNames.Add(this.InstanceName);
             }
+#pragma warning restore CS0618 // Type or member is obsolete
         }
     }
 }
