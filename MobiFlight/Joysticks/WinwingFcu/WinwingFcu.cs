@@ -33,11 +33,15 @@ namespace MobiFlight.Joysticks.WinwingFcu
         private const int BAROR_DEC = 74;
         private const int BAROR_INC = 75;
         private const uint BUTTONS_REPORT = 1;
+        
+        private static readonly List<int> EncoderIncDecButtons 
+            = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC, BAROL_DEC, BAROL_INC, BAROR_DEC, BAROR_INC };
+
+        private static readonly List<string> EncoderNames = new List<string>
+            { "SPD Knob", "HDG Knob", "ALT Knob", "VS Knob", "BARO Left Knob", "BARO Right Knob" };
 
         private Dictionary<int, JoystickDevice>  ButtonsToTrigger = new Dictionary<int, JoystickDevice>();
         private Dictionary<int, JoystickDevice> EncoderButtonsToTrigger = new Dictionary<int, JoystickDevice>();
-        private List<int> EncoderIncDecButtons 
-            = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC, BAROL_DEC, BAROL_INC, BAROR_DEC, BAROR_INC }; 
   
         private JoystickDefinition Definition;
         private volatile bool DoInitialize = true;
@@ -68,6 +72,11 @@ namespace MobiFlight.Joysticks.WinwingFcu
             foreach (string ledName in ledNames)
             {
                 LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
+            }
+            
+            foreach (var encoder in EncoderNames)
+            {
+                Axes.Add(new JoystickDevice() { Name = encoder, Label = encoder, Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
             }
         }
 
@@ -160,7 +169,7 @@ namespace MobiFlight.Joysticks.WinwingFcu
             }
         }
 
-        private void CheckForEncoderTrigger(int increment, int idDec, int idInc)
+        private void CheckForEncoderTrigger(int increment, int idDec, int idInc, string name)
         {                       
             if (increment != 0)
             {
@@ -181,6 +190,16 @@ namespace MobiFlight.Joysticks.WinwingFcu
                 {
                     ExecuteEncoderTrigger(increment, idDec);
                 }
+                
+                TriggerButtonPressed(this, new InputEventArgs()
+                {
+                    Name = Name,
+                    DeviceId = name,
+                    DeviceLabel = name,
+                    Serial = SerialPrefix + DIJoystick.Information.InstanceGuid,
+                    Type = DeviceType.AnalogInput,
+                    Value = increment
+                });
             }
         }
 
@@ -214,17 +233,17 @@ namespace MobiFlight.Joysticks.WinwingFcu
 
                 // Detect and Trigger Encoder Turns
                 int spdIncrement = CurrentReport.SpdEncoderValue - PreviousReport.SpdEncoderValue;
-                CheckForEncoderTrigger(spdIncrement, SPD_DEC, SPD_INC);
+                CheckForEncoderTrigger(spdIncrement, SPD_DEC, SPD_INC, EncoderNames[0]);
                 int hdgIncrement = CurrentReport.HdgEncoderValue - PreviousReport.HdgEncoderValue;
-                CheckForEncoderTrigger(hdgIncrement, HDG_DEC, HDG_INC);
+                CheckForEncoderTrigger(hdgIncrement, HDG_DEC, HDG_INC, EncoderNames[1]);
                 int altIncrement = CurrentReport.AltEncoderValue - PreviousReport.AltEncoderValue;
-                CheckForEncoderTrigger(altIncrement, ALT_DEC, ALT_INC);
+                CheckForEncoderTrigger(altIncrement, ALT_DEC, ALT_INC, EncoderNames[2]);
                 int vsIncrement = CurrentReport.VsEncoderValue - PreviousReport.VsEncoderValue;
-                CheckForEncoderTrigger(vsIncrement, VS_DEC, VS_INC);
+                CheckForEncoderTrigger(vsIncrement, VS_DEC, VS_INC, EncoderNames[3]);
                 int baroLeftIncrement = CurrentReport.BaroLeftEncoderValue - PreviousReport.BaroLeftEncoderValue;
-                CheckForEncoderTrigger(baroLeftIncrement, BAROL_DEC, BAROL_INC);
+                CheckForEncoderTrigger(baroLeftIncrement, BAROL_DEC, BAROL_INC, EncoderNames[4]);
                 int baroRightIncrement = CurrentReport.BaroRightEncoderValue - PreviousReport.BaroRightEncoderValue;
-                CheckForEncoderTrigger(baroRightIncrement, BAROR_DEC, BAROR_INC);
+                CheckForEncoderTrigger(baroRightIncrement, BAROR_DEC, BAROR_INC, EncoderNames[5]);
                 CurrentReport.CopyTo(PreviousReport);
             }
         }

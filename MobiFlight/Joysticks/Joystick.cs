@@ -22,8 +22,8 @@ namespace MobiFlight
         public event ButtonEventHandler OnButtonPressed; 
         public event EventHandler OnDisconnected;
 
-        protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
-        private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
+        protected readonly List<JoystickDevice> Buttons = new List<JoystickDevice>();
+        protected readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
         private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
         private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
