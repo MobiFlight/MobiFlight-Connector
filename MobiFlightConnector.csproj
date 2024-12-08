@@ -132,8 +132,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ArcazeHid.dll</HintPath>
     </Reference>
+    <Reference Include="Device.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Device.Net.4.2.1\lib\net45\Device.Net.dll</HintPath>
+    </Reference>
     <Reference Include="fsuipcClient, Version=3.3.3.403, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
       <HintPath>packages\FSUIPCClientDLL.3.3.3\lib\net462\fsuipcClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Hid.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Hid.Net.4.2.1\lib\net45\Hid.Net.dll</HintPath>
     </Reference>
     <Reference Include="HidSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\HidSharp.2.1.0\lib\net35\HidSharp.dll</HintPath>
@@ -286,6 +292,11 @@
     <Compile Include="MobiFlight\Joysticks\JoystickInput.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickOutput.cs" />
     <Compile Include="MobiFlight\Joysticks\Octavi\Octavi.cs" />
+    <Compile Include="MobiFlight\Joysticks\VKB\VKBDevice.cs" />
+    <Compile Include="MobiFlight\Joysticks\VKB\VKBEncoder.cs" />
+    <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
+    <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
     <Compile Include="MobiFlight\Joysticks\WinwingFcu\WinwingFcu.cs" />
     <Compile Include="MobiFlight\Joysticks\WinwingFcu\WinwingFcuReport.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />
@@ -1063,6 +1074,150 @@
     <None Include="firmware\reset.raspberry_pico_flash_nuke.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_max.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_max_stem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_max_stem_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_mini.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_mini_plus.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_standard.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\s_tecs_modern_throttle_standard_stem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_f14.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_kg12.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_l.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_l_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_ot_l.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_ot_l_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_ot_r.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_ot_r_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_sem_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_sem_thq.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_sem_thqx2.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_thq.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_evo_r_thqx2.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_f14.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_kg12.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_l.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_l_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_ot_l.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_ot_l_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_ot_r.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_ot_r_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_sem_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_sem_thq.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_sem_thqx2.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_thq.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_gladiator_nxt_r_thqx2.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_sem.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_sem_thq.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_sem_thqx2.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_sem_thqx2_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_sem_thqx3.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_thq.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_thqx2_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\vkbsim_nxt_thqx3_fsm_ga.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\winwing_fcu.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1070,6 +1225,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\t.a320_pilot.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_fcu_efisl.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_fcu_efisl_efisr.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_fcu_efisr.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">

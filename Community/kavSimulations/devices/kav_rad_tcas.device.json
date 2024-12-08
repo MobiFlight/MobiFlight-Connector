@@ -5,7 +5,7 @@
     "Type": "KAV_RAD_TCAS",
     "Author": "Jak Kav",
     "URL": "https://github.com/MobiFlight/MobiFlight-CustomDevices/tree/main/KAV_Simulation/EFIS_FCU",
-    "Version" : "1.0.0"
+    "Version" : "1.0.1"
   },
   "Config": {
     "Pins": [
@@ -15,37 +15,42 @@
     ],
     "isI2C": false
   },
-  "MessageTypes": [
-    {
-      "id": -1,
-      "label": "Clear display",
-      "description": "will clear the display"
-    },
-    {
-      "id": 0,
-      "label": "Set dot",
-      "description": "$ sets the dot to show or hide (0/1)"
-    },
-    {
-      "id": 1,
-      "label": "Set pattern",
-      "description": "$ will show the aircraft 'test' pattern (0/1)"
-    },
-    {
-      "id": 2,
-      "label": "Set value radio",
-      "description": "$ will show the value on the display for radio"
-    },
-    {
-      "id": 3,
-      "label": "Set value TCAS",
-      "description": "$ will show the value on the display for TCAS"
-    },
-    {
-      "id": 4,
-      "label": "(v2.5.3+) Annunciator Test Mode",
-      "description": "$ = 1 will display all Segments, $ = 0 will clear display"
-    }
-  ]
-}
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "(deprecated) Set dot",
+        "description": "$ sets the dot to show or hide (0/1)"
+      },
+      {
+        "id": 1,
+        "label": "(deprecated) Set pattern",
+        "description": "$ will show the aircraft 'test' pattern (0/1)"
+      },
+      {
+        "id": 2,
+        "label": "(deprecated) Set value radio",
+        "description": "$ will show the value on the display for radio"
+      },
+      {
+        "id": 3,
+        "label": "Set value TCAS",
+        "description": "$ will show the value on the display for TCAS"
+      },
+      {
+        "id": 4,
+        "label": "(v2.5.4+) Annunciator Test Mode",
+        "description": "$ = 1 will display all EFIS Segments, $ = 0 will clear display"
+      },
+      {
+        "id": 5,
+        "label": "(v2.5.4+) Set value for Radio or TCAS",
+        "description": "$ will show the value on the display"
+      },
+      {
+        "id": 6,
+        "label": "(v2.5.4+) Clear or restore display",
+      "description": "$ = 1 will clear the display, $ = 0 will restore the display"
+      }
+    ]
+  }
   

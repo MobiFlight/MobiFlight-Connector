@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="8290c85f-e9b0-4ab0-b550-e854ec3e6a5d">
+      <active>true</active>
+      <description>Backlight Brt</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:LIGHT POTENTIOMETER:86, Percent)" UUID="e6ad0436-c249-443a-bb47-d24a13342b9d" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="$*2.55" />
+        </modifiers>
+        <display type="Output" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" pin="Backlight Brt" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="848e5b07-7bc1-4ed7-94e4-7e5fc7b98144">
+      <active>true</active>
+      <description>Annunciator Brt</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="220" />
+        </modifiers>
+        <display type="Output" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" pin="Annunciator Brt" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="40556edf-03fd-41fc-b426-c4164febd7cc">
+      <active>true</active>
+      <description>Anti Ice Fault</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="c55ea4a6-c670-4a83-b47e-086ef4a8c6a1" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 12" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c3eb7c99-a767-4774-8e94-03c4ffbf8632">
+      <active>true</active>
+      <description>Anti Ice On</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:ENG ANTI ICE:1, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_1_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="658fd326-1f2c-4fea-93a1-fc2b1064ec18" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 13" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b09759ad-b2fb-4802-bdce-3f8dfb948ed5">
+      <active>true</active>
+      <description>Battery Fault</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_ELEC_BAT_1_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * 0 &gt; (A:CIRCUIT GENERAL PANEL ON, Bool) and" UUID="7c09cb56-a0f1-4621-871c-65e708c2e2c1" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 11" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8946ac1a-d38d-40db-b2bd-33bc8f414315">
+      <active>true</active>
+      <description>Battery Off</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_ELEC_BAT_1_PB_IS_AUTO, Bool) ! (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="c23bb5cd-c1d6-4709-9071-4ee07cf80abe" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 10" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2f6b129b-3aee-44c1-9e44-c8f7e08a910a">
+      <active>true</active>
+      <description>Ext Pwr Avail</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:EXTERNAL POWER AVAILABLE:1, Bool) (A:EXTERNAL POWER ON:1, Bool) ! and (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="1cb53187-0a3a-4fcc-81a4-7b933a62aab2" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 9" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9904365a-677a-4073-8e66-c1119b63a21f">
+      <active>true</active>
+      <description>Ext Pwr On</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:EXTERNAL POWER AVAILABLE:1, Bool) (A:EXTERNAL POWER ON:1, Bool) and (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_DC_BAT_BUS_IS_POWERED, Bool) and 1 and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="f85ffab7-0a49-427e-8227-a3a3cdad9a89" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 8" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="6cbd5995-48ed-48da-866e-d83245ec36bd">
+      <active>true</active>
+      <description>APU Bleed Fault</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_PNEU_APU_BLEED_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="f8b15932-9b0e-45b8-b033-dc0597b1508c" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 7" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="51e8dcf9-cc1f-4b60-a6ea-431cc2beb9e4">
+      <active>true</active>
+      <description>APU Bleed On</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="14548f87-407f-4e41-81bd-ccc169d7c284" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 6" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1b08b790-61b7-4d4a-8dd2-5c1bc95f5d88">
+      <active>true</active>
+      <description>APU Start Avail</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_APU_START_PB_IS_AVAILABLE, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="2beeccb3-6515-4c93-9928-7332a5f1170e" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 5" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="82375353-8509-4048-ae99-ff0837994051">
+      <active>true</active>
+      <description>APU Start On</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_APU_START_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="01beacc5-017b-42d2-82fd-bc20a3d5838b" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 4" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c12b4e95-feb6-4618-b4b0-d89a03f3396d">
+      <active>true</active>
+      <description>APU Master Fault</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_APU_MASTER_SW_PB_HAS_FAULT, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="3704dec9-e29f-4e58-a540-bb2bdc5fd7f5" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 3" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5df8bd0a-bf44-4de4-a123-ae2325612a89">
+      <active>true</active>
+      <description>APU Master On</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_APU_MASTER_SW_PB_IS_ON, Bool) (L:A32NX_OVHD_INTLT_ANN) 0 == or 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) (L:A32NX_ELEC_AC_STAT_INV_BUS_IS_POWERED, Bool) or and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="1844b80b-faa6-4464-8908-1244d2cb9d7b" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 2" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a96bd40f-aa59-4f6c-a256-13b067b38356">
+      <active>true</active>
+      <description>Fuel Pump Fault</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:A32NX_OVHD_INTLT_ANN) 0 == 1 and (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="a7ec8def-8398-4104-a61d-08a5bf4ebf2d" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 1" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="92bc32f4-8298-44d6-a810-d9c4db608656">
+      <active>true</active>
+      <description>Fuel Pump Off</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:FUELSYSTEM PUMP SWITCH:2, Enum) 0 == (L:A32NX_OVHD_INTLT_ANN) 0 == or (L:A32NX_ELEC_AC_ESS_SHED_BUS_IS_POWERED, Bool) and (L:A32NX_OVHD_INTLT_ANN, number) 2 == if{ 0.1 } els{ 1 } * (A:CIRCUIT GENERAL PANEL ON, Bool) *" UUID="4f215d3d-87e8-4204-905d-44e044f2e57a" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="ShiftRegister" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" trigger="normal" shiftRegister="ShiftRegister" registerOutputPin="Output 0" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="591de15d-7ebf-4260-8e34-c14933bba0bf">
+      <active>true</active>
+      <description>Battery</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Battery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:A32NX_OVHD_ELEC_BAT_2_PB_IS_AUTO, Bool) ! (&gt;L:A32NX_OVHD_ELEC_BAT_2_PB_IS_AUTO) &#xA;(L:A32NX_OVHD_ELEC_BAT_1_PB_IS_AUTO, Bool) ! (&gt;L:A32NX_OVHD_ELEC_BAT_1_PB_IS_AUTO) " presetId="c2b23777-a70f-4f58-a762-86f17fa84574" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="983ec1b4-ed04-4fd8-a8e5-ade7542de53b">
+      <active>true</active>
+      <description>Calls</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Calls" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:PUSH_OVHD_CALLS_ALL)" presetId="dbfc9a78-00f9-477b-9731-7d11dc956aa5" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="58a7eadf-b056-4505-bafe-e6453fc37c57">
+      <active>true</active>
+      <description>APU Master</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="APU Master" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:A32NX_OVHD_APU_MASTER_SW_PB_IS_ON, Bool) ! (&gt;L:A32NX_OVHD_APU_MASTER_SW_PB_IS_ON) " presetId="6e2c0773-9e0f-416b-8e0c-fb37e2b2f793" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fc38bb7c-d5b6-4c54-a492-f7bc6c64fad7">
+      <active>true</active>
+      <description>Anti Ice</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Anti Ice" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:XMLVAR_Momentary_PUSH_OVHD_ANTIICE_WING_Pressed) ! (&gt;L:XMLVAR_Momentary_PUSH_OVHD_ANTIICE_WING_Pressed)&#xA;(&gt;K:TOGGLE_STRUCTURAL_DEICE)&#xA;(L:XMLVAR_Momentary_PUSH_OVHD_ANTIICE_ENG2_Pressed) ! (&gt;L:XMLVAR_Momentary_PUSH_OVHD_ANTIICE_ENG2_Pressed)&#xA;(&gt;K:ANTI_ICE_TOGGLE_ENG2)&#xA;(L:XMLVAR_Momentary_PUSH_OVHD_ANTIICE_ENG1_Pressed) ! (&gt;L:XMLVAR_Momentary_PUSH_OVHD_ANTIICE_ENG1_Pressed)&#xA;(&gt;K:ANTI_ICE_TOGGLE_ENG1)" presetId="3a97c92c-6194-4638-aca3-dacffcc3f44e" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bd786d18-195d-4cf1-a909-e42e0f8c63ed">
+      <active>true</active>
+      <description>Ext Pwr</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Ext Pwr" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(A:EXTERNAL POWER AVAILABLE:1,bool) (A:EXTERNAL POWER ON:1,bool) ! and &#xA;if{ 1 (&gt;K:TOGGLE_EXTERNAL_POWER) } els{ &#xA;(A:EXTERNAL POWER ON:1,bool) if{ 1 (&gt;K:TOGGLE_EXTERNAL_POWER) } }" presetId="0d34aedb-539c-49a7-a4cc-de3182e36bf0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="765ef8e7-20e8-4b31-9e23-54985750275f">
+      <active>true</active>
+      <description>APU Bleed</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="APU Bleed" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, bool) ! (&gt;L:A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON, bool)" presetId="4a41792d-c6ab-44f0-a555-cb9081c2a4a8" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_PNEUMATIC_APU_BLEED) 0 == if{ 0 (&gt;L:S_OH_PNEUMATIC_APU_BLEED_Anim) } (L:S_OH_PNEUMATIC_APU_BLEED) 1 == if{ 2 (&gt;L:S_OH_PNEUMATIC_APU_BLEED_Anim) }" presetId="e44cc6ca-d4bb-4865-94c6-ca39e7070486" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8dc82a43-57a1-42ec-9255-440460e2679b">
+      <active>true</active>
+      <description>APU Start</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="APU Start" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:A32NX_OVHD_APU_MASTER_SW_PB_IS_ON, Bool) if{ 1 (&gt;L:A32NX_OVHD_APU_START_PB_IS_ON) }" presetId="8ed639e8-e1cd-4832-be14-8402211dfca5" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="78c32ab4-f4f9-403c-becf-bc89dffc84cc">
+      <active>true</active>
+      <description>Fuel Pumps</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Fuel Pump" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="6 (&gt;K:FUELSYSTEM_PUMP_TOGGLE)&#xA;3 (&gt;K:FUELSYSTEM_PUMP_TOGGLE)&#xA;10 (&gt;K:FUELSYSTEM_VALVE_TOGGLE)&#xA;9 (&gt;K:FUELSYSTEM_VALVE_TOGGLE)&#xA;5 (&gt;K:FUELSYSTEM_PUMP_TOGGLE)&#xA;2 (&gt;K:FUELSYSTEM_PUMP_TOGGLE)" presetId="5f87af52-a1d0-4fe8-baa7-622648a6d135" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="aacd8317-76a0-4574-92c9-326ef667f753">
+      <active>true</active>
+      <description>Strobe</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Ext Light On" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:LIGHTING_STROBE_0)&#xA;0 (&gt;L:STROBE_0_Auto) 1 0 r (&gt;K:2:STROBES_SET)" presetId="b16d3396-e6a2-4d00-a193-81068b7240fa" />
+          <onRelease type="MSFS2020CustomInputAction" command="2 (&gt;L:LIGHTING_STROBE_0)&#xA;0 (&gt;L:STROBE_0_Auto) 0 0 r (&gt;K:2:STROBES_SET)" presetId="909a1e70-5ea4-4d9c-b043-7ed97e60c364" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ec436f58-603e-4a7b-ad7e-0e7f4ff45fb4">
+      <active>true</active>
+      <description>Beacon</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Ext Light Off" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;K:BEACON_LIGHTS_SET)" presetId="00928f01-b8eb-4e44-b9a7-c42a03d36ece" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;K:BEACON_LIGHTS_SET)" presetId="78cfa5f3-ee46-4bea-a2b1-2a2d8ead8972" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b533cd36-52db-415b-9dfa-dc35ac85092f">
+      <active>true</active>
+      <description>Nose TO</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Nose TO" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:LIGHTING_LANDING_1) &#xA;1 1 r (&gt;K:2:LANDING_LIGHTS_SET) &#xA;0 1 r (&gt;K:2:TAXI_LIGHTS_SET)" presetId="b214b197-fb87-4222-a373-91bffd60158b" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:LIGHTING_LANDING_1) &#xA;0 1 r (&gt;K:2:LANDING_LIGHTS_SET) &#xA;1 1 r (&gt;K:2:TAXI_LIGHTS_SET)&#xA;" presetId="76696abc-dcce-4148-be15-663bb3493f21" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c62db97f-4f2e-4c29-a9f3-ec723b6852cf">
+      <active>true</active>
+      <description>Nose Taxi</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Nose Off" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:LIGHTING_LANDING_1) &#xA;0 1 r (&gt;K:2:LANDING_LIGHTS_SET) &#xA;0 1 r (&gt;K:2:TAXI_LIGHTS_SET)" presetId="2f8c9856-b323-4174-b707-01f5b6e07bc3" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:LIGHTING_LANDING_1) &#xA;0 1 r (&gt;K:2:LANDING_LIGHTS_SET) &#xA;1 1 r (&gt;K:2:TAXI_LIGHTS_SET)&#xA;" presetId="76696abc-dcce-4148-be15-663bb3493f21" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f54c7e7b-e643-4737-937d-16bdb4e430eb">
+      <active>true</active>
+      <description>Land On</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Land On" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:LIGHTING_LANDING_3) &#xA;0 (&gt;L:LANDING_3_Retracted) 1 3 r (&gt;K:2:LANDING_LIGHTS_SET)&#xA;0 (&gt;L:LIGHTING_LANDING_2)&#xA;0 (&gt;L:LANDING_2_Retracted) 1 2 r (&gt;K:2:LANDING_LIGHTS_SET)" presetId="abfe3fe0-f18c-4352-abea-17fbfdcb141d" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:LIGHTING_LANDING_3) &#xA;0 (&gt;L:LANDING_3_Retracted) 0 3 r (&gt;K:2:LANDING_LIGHTS_SET)&#xA;1 (&gt;L:LIGHTING_LANDING_2)&#xA;0 (&gt;L:LANDING_2_Retracted) 0 2 r (&gt;K:2:LANDING_LIGHTS_SET)" presetId="ae2c7e4c-9778-41f2-8198-cd7529dae092" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2fef314d-6fff-4a8e-b3ab-57d7222a8d56">
+      <active>true</active>
+      <description>Land Retract</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Land Retract" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:LIGHTING_LANDING_3) &#xA;1 (&gt;L:LANDING_3_Retracted) 0 3 r (&gt;K:2:LANDING_LIGHTS_SET)&#xA;2 (&gt;L:LIGHTING_LANDING_2)&#xA;1 (&gt;L:LANDING_2_Retracted) 0 2 r (&gt;K:2:LANDING_LIGHTS_SET)" presetId="96181372-4acf-4c03-8c54-69c9ad85f05d" />
+          <onRelease type="MSFS2020CustomInputAction" command="1 (&gt;L:LIGHTING_LANDING_3) &#xA;0 (&gt;L:LANDING_3_Retracted) 0 3 r (&gt;K:2:LANDING_LIGHTS_SET)&#xA;1 (&gt;L:LIGHTING_LANDING_2)&#xA;0 (&gt;L:LANDING_2_Retracted) 0 2 r (&gt;K:2:LANDING_LIGHTS_SET)" presetId="ae2c7e4c-9778-41f2-8198-cd7529dae092" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="db0f1b01-a91a-4f96-9f9d-92c96dff3ef3">
+      <active>true</active>
+      <description>Seatbelts</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Seatbelts On" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(A:CABIN SEATBELTS ALERT SWITCH, bool) ! if{ (&gt;K:CABIN_SEATBELTS_ALERT_SWITCH_TOGGLE) }" presetId="f6941e58-ffa8-4e04-aabc-9f8515e94c0f" />
+          <onRelease type="MSFS2020CustomInputAction" command="(A:CABIN SEATBELTS ALERT SWITCH, bool) if{ (&gt;K:CABIN_SEATBELTS_ALERT_SWITCH_TOGGLE) }" presetId="4f2687b6-3b70-49b3-9dbc-4f3f3b9b86ec" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0b0accdf-ce2a-4406-97b0-a7f083a985f8">
+      <active>true</active>
+      <description>No Smoking</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Smoking On" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:XMLVAR_SWITCH_OVHD_INTLT_EMEREXIT_Position)&#xA;0 (&gt;L:XMLVAR_SWITCH_OVHD_INTLT_NOSMOKING_Position, number)" presetId="3abe58cd-33f2-4134-ae4d-7c7a52020197" />
+          <onRelease type="MSFS2020CustomInputAction" command="2 (&gt;L:XMLVAR_SWITCH_OVHD_INTLT_NOSMOKING_Position, number)&#xA;2 (&gt;L:XMLVAR_SWITCH_OVHD_INTLT_EMEREXIT_Position)" presetId="853c9228-8aef-4b4d-9944-e6a421f46639" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7212660c-daeb-4aa5-8305-9273b2615657">
+      <active>true</active>
+      <description>ADIRS Off</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="ADIRS Off" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 (&gt;L:A32NX_OVHD_ADIRS_IR_3_MODE_SELECTOR_KNOB)&#xA;0 (&gt;L:A32NX_OVHD_ADIRS_IR_2_MODE_SELECTOR_KNOB)&#xA;0 (&gt;L:A32NX_OVHD_ADIRS_IR_1_MODE_SELECTOR_KNOB)" presetId="2f08a28c-ea54-4b50-89ae-da55f3110670" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ef3c3abc-aec5-419b-8e19-3d1f6206ec85">
+      <active>true</active>
+      <description>ADIRS Nav</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="ADIRS NAV" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="1 (&gt;L:A32NX_OVHD_ADIRS_IR_3_MODE_SELECTOR_KNOB)&#xA;1 (&gt;L:A32NX_OVHD_ADIRS_IR_2_MODE_SELECTOR_KNOB)&#xA;1 (&gt;L:A32NX_OVHD_ADIRS_IR_1_MODE_SELECTOR_KNOB)" presetId="238d1227-e73d-45c2-affa-fcb5f032f8af" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a5a6f0c1-f4c0-4cff-aeef-a5d2284ef920">
+      <active>true</active>
+      <description>ADIRS ATT</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="ADIRS ATT" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="2 (&gt;L:A32NX_OVHD_ADIRS_IR_3_MODE_SELECTOR_KNOB)&#xA;2 (&gt;L:A32NX_OVHD_ADIRS_IR_2_MODE_SELECTOR_KNOB)&#xA;2 (&gt;L:A32NX_OVHD_ADIRS_IR_1_MODE_SELECTOR_KNOB)" presetId="3f1c1fb4-0041-4bf0-af28-c117c250081e" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b6264b44-b763-4f08-b00b-e49a1be73f21">
+      <active>true</active>
+      <description>Crew Oxygen</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Fuel Pump" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:PUSH_OVHD_OXYGEN_CREW, Bool) ! (&gt;L:PUSH_OVHD_OXYGEN_CREW)" presetId="a38eee62-a73e-42f9-9ca8-3d2c7e3df8fe" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="14efa9c9-a432-412f-a3ff-ce000087727f">
+      <active>true</active>
+      <description>Nav Light</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.1.0, Culture=neutral, PublicKeyToken=null" serial="Mini OverheadSMD/ SN-E4627CA7130D1D33" name="Battery" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="0 1 (&gt;K:2:NAV_LIGHTS_SET) 0 1 (&gt;K:2:LOGO_LIGHTS_SET)" presetId="e1e74d64-5c8a-49f9-a573-73ba0790b658" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

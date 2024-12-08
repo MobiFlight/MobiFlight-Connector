@@ -96,11 +96,6 @@ namespace MobiFlight
             {
                 this.DIJoystick.GetObjectInfoById(device.ObjectId);
 
-                int offset = device.Offset;
-                int usage = device.Usage;
-                ObjectAspect aspect = device.Aspect;
-                String name = device.Name;
-
                 bool IsAxis = (device.ObjectId.Flags & DeviceObjectTypeFlags.AbsoluteAxis) > 0;
                 bool IsButton = (device.ObjectId.Flags & DeviceObjectTypeFlags.Button) > 0;
                 bool IsPOV = (device.ObjectId.Flags & DeviceObjectTypeFlags.PointOfViewController) > 0;
@@ -108,48 +103,84 @@ namespace MobiFlight
 
                 if (IsAxis && Axes.Count < DIJoystick.Capabilities.AxeCount)
                 {
-                    String axisName;
-                    string axisLabel = "Unknown";
-                    try
-                    {
-                        var OffsetAxisName = GetAxisNameForUsage(usage);
-                        axisName = $"{AxisPrefix} {OffsetAxisName}";
-                        axisLabel = MapDeviceNameToLabel($"{AxisPrefix} {OffsetAxisName}");
-
-                    } catch (ArgumentOutOfRangeException)
-                    {
-                        Log.Instance.log($"Axis can't be mapped: {DIJoystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {axisLabel}.", LogSeverity.Error);
-                        continue;
-                    }
-                    Axes.Add(new JoystickDevice() { Name = axisName, Label = axisLabel, Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis});
-                    Log.Instance.log($"Added {DIJoystick.Information.InstanceName} Aspect {aspect} + Offset: {offset} Usage: {usage} Axis: {name} Label: {axisLabel}.", LogSeverity.Debug);
-
+                    RegisterAxis(device);
                 }
                 else if (IsButton)
                 {
-                    // Use the device.Usage value so this is consistent with how Axes are referenced and avoid ID collisions
-                    // when looking up names in the the .joystick.json file.
-                    var buttonName = $"{ButtonPrefix} {device.Usage}";
-                    var buttonLabel = MapDeviceNameToLabel(buttonName);
-                    Buttons.Add(new JoystickDevice() { Name = buttonName, Label = buttonLabel, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
-                    Log.Instance.log($"Added {DIJoystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {buttonLabel}.", LogSeverity.Debug);
+                    RegisterButton(device);
                 }
                 else if (IsPOV)
                 {
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}U", Label = $"{name} (↑)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UR", Label = $"{name} (↗)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}R", Label = $"{name} (→)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DR", Label = $"{name} (↘)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}D", Label = $"{name} (↓)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DL", Label = $"{name} (↙)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}L", Label = $"{name} (←)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
-                    POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+                    RegisterPOV(device);
                 }
                 else
                 {
                     break;
                 }
             }
+        }
+
+        protected virtual void RegisterAxis(DeviceObjectInstance device)
+        {
+            String axisName;
+            string axisLabel = "Unknown";
+            try
+            {
+                var OffsetAxisName = GetAxisNameForUsage(device.Usage);
+                axisName = $"{AxisPrefix} {OffsetAxisName}";
+                axisLabel = MapDeviceNameToLabel($"{AxisPrefix} {OffsetAxisName}");
+
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                LogAddInputError(device, axisLabel, "Axis can't be mapped");
+                return;
+            }
+            Axes.Add(new JoystickDevice() { Name = axisName, Label = axisLabel, Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
+            LogInputAdded(device, axisLabel);
+        }
+
+        protected virtual void RegisterButton(DeviceObjectInstance device)
+        {
+            // Use the device.Usage value so this is consistent with how Axes are referenced and avoid ID collisions
+            // when looking up names in the the .joystick.json file.
+            var buttonName = $"{ButtonPrefix} {device.Usage}";
+            var buttonLabel = MapDeviceNameToLabel(buttonName);
+            Buttons.Add(new JoystickDevice() { Name = buttonName, Label = buttonLabel, Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
+            LogInputAdded(device, buttonLabel);
+        }
+
+        protected virtual void RegisterPOV(DeviceObjectInstance device)
+        {
+            String name = device.Name;
+
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}U", Label = $"{name} (↑)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UR", Label = $"{name} (↗)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}R", Label = $"{name} (→)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DR", Label = $"{name} (↘)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}D", Label = $"{name} (↓)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}DL", Label = $"{name} (↙)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}L", Label = $"{name} (←)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            POV.Add(new JoystickDevice() { Name = $"{PovPrefix} {name}UL", Label = $"{name} (↖)", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.POV });
+            LogInputAdded(device, name);
+        }
+
+        protected void LogInputAdded(DeviceObjectInstance device, string label)
+        {
+            int offset = device.Offset;
+            int usage = device.Usage;
+            ObjectAspect aspect = device.Aspect;
+            String name = device.Name;
+            Log.Instance.log($"Added {DIJoystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Button: {name} Label: {label}.", LogSeverity.Debug);
+        }
+
+        protected void LogAddInputError(DeviceObjectInstance device, string label, string errmsg)
+        {
+            int offset = device.Offset;
+            int usage = device.Usage;
+            ObjectAspect aspect = device.Aspect;
+            String name = device.Name;
+            Log.Instance.log($"{errmsg}: {DIJoystick.Information.InstanceName} Aspect: {aspect} Offset: {offset} Usage: {usage} Axis: {name} Label: {label}.", LogSeverity.Error);
         }
 
         public string MapDeviceNameToLabel(string deviceName)
@@ -160,7 +191,6 @@ namespace MobiFlight
             {
                 return input.Label;
             }
-
             string result = string.Empty;
              
             if (deviceName.StartsWith(ButtonPrefix))
@@ -216,31 +246,32 @@ namespace MobiFlight
 
         private List<JoystickDevice> GetButtonsSorted()
         {
-            var buttons = Buttons.ToArray().ToList();
-            buttons.Sort(SortByPositionInDefintion);
-            return Buttons;
+            return Buttons.OrderBy(button => GetIndexForJoystickDevice(button)).ToList();
         }
 
         private List<JoystickDevice> GetAxisSorted()
         {
-            var axes = Axes.ToArray().ToList();
-            Axes.Sort(SortByPositionInDefintion);
-
-            return Axes;
+            return Axes.OrderBy(axis => GetIndexForJoystickDevice(axis)).ToList();
         }
 
-        public int GetIndexForKey(string key)
+        public virtual int GetIndexForKey(string key)
         {
-            return Definition?.Inputs?.FindIndex(input => input.Name == key) ?? 0;
+            // -2 = definition not found / no inputs in definition
+            // -1 = index not found
+            // 0 or greater: valid index
+            return Definition?.Inputs?.FindIndex(input => input.Name == key) ?? -2;
         }
 
-        int SortByPositionInDefintion(JoystickDevice b1, JoystickDevice b2)
+        public int GetIndexForJoystickDevice(JoystickDevice button)
         {
-            if (GetIndexForKey(b1.Name) == GetIndexForKey(b2.Name)) return 0;
-            if (GetIndexForKey(b1.Name) > GetIndexForKey(b2.Name)) return 1;
-            return -1;
+            var index = GetIndexForKey(button.Name);
+            // Ensure items in definition appear first
+            if(index < 0)
+            {
+                index = Int32.MaxValue; // force undefined stuff to the end of the list
+            }
+            return index;
         }
-
 
         private void Connect()
         {
@@ -292,8 +323,7 @@ namespace MobiFlight
             {
                 if (ex.Descriptor.ApiCode=="InputLost")
                 {
-                    DIJoystick.Unacquire();
-                    OnDisconnected?.Invoke(this, null);
+                    OnDeviceRemoved();
                 }
             }
         }
@@ -487,8 +517,7 @@ namespace MobiFlight
             catch (System.IO.IOException)
             {
                 // this happens when the device is removed.
-                DIJoystick.Unacquire();
-                OnDisconnected?.Invoke(this, null);
+                OnDeviceRemoved();
             }
         }
 
@@ -505,6 +534,13 @@ namespace MobiFlight
         public virtual void Shutdown()
         {
             // nothing to do
+        }
+
+        protected virtual void OnDeviceRemoved()
+        {
+            DIJoystick.Unacquire();
+            OnDisconnected?.Invoke(this, null);
+
         }
     }
 }

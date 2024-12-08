@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.WinwingFcu;
+using MobiFlight.Joysticks.VKB;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -54,6 +55,17 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Finds a JoystickDefinition by the device's vendor and product id.
+        /// </summary>
+        /// <param name="vendorId">The vendor id of the device.</param>
+        /// <param name="productId">The product id of the device.</param>
+        /// <returns>The first definition matching the product id, or null if none found.</returns>
+        private JoystickDefinition GetDefinitionByProductId(int vendorId, int productId)
+        {
+            return Definitions.Find(def => (def.ProductId == productId && def.VendorId == vendorId));
+        }
+
+        /// <summary>
         /// Loads all joystick definitions from disk.
         /// </summary>
         public void LoadDefinitions()
@@ -75,7 +87,7 @@ namespace MobiFlight
             {
                 lock (Joysticks)
                 {
-                    foreach (MobiFlight.Joystick js in Joysticks.Values)
+                    foreach (Joystick js in Joysticks.Values)
                     {
                         js?.Update();
                     }
@@ -155,17 +167,32 @@ namespace MobiFlight
                     continue;
                 }
 
-                MobiFlight.Joystick js;
-                SharpDX.DirectInput.Joystick diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
+                Joystick js;
+                var diJoystick = new SharpDX.DirectInput.Joystick(di, d.InstanceGuid);
+                var productId = diJoystick.Properties.ProductId;
+                var vendorId = diJoystick.Properties.VendorId;
                 if (d.InstanceName == "Octavi" || d.InstanceName == "IFR1")
                 {
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
                     js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
                 }
-                else if (diJoystick.Properties.VendorId == 0x4098 && diJoystick.Properties.ProductId == 0xBB10)
-                {                                       
-                    js = new WinwingFcu(diJoystick, GetDefinitionByInstanceName("WINWING FCU"));
-                }                
+                else if (vendorId == 0x4098 && (productId == 0xBB10 || productId == 0xBC1D || productId == 0xBC1E || productId == 0xBA01))
+                {
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
+                    js = new WinwingFcu(diJoystick, joystickDef, productId);
+                }
+                else if (vendorId == 0x231D)
+                {
+                    // VKB devices are highly configurable. DirectInput names can have old values cached in the registry, but HID names seem to be immune to that.
+                    // Also trim the extraneous whitespaces on VKB device names.
+                    var hidDevice = VKBDevice.GetMatchingHidDevice(diJoystick);
+                    string productName = d.InstanceName;
+                    if (hidDevice != null)
+                    {
+                        productName = hidDevice.GetProductName();
+                    }
+                    js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(productName.Trim()));
+                }
                 else
                 {
                     js = new Joystick(diJoystick, GetDefinitionByInstanceName(d.InstanceName));
@@ -234,7 +261,11 @@ namespace MobiFlight
             {
                 var key = $"Joysticks.Model.{joystick.Name}";
 
-                if (!result.ContainsKey(key)) result[key] = 0;
+                if (!result.ContainsKey(key))
+                {
+                    result[key] = 0;
+                }
+
                 result[key] += 1;
             }
 

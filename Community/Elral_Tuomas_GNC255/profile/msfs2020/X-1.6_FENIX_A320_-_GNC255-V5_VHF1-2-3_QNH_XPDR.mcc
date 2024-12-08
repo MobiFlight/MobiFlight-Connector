@@ -1,0 +1,1256 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="ace4d948-a54a-4ffb-a7ba-93b8e62f7815">
+      <active>false</active>
+      <description>==== UTILITY VARIABLES ===============================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="0" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - DISPLAY MODE (VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VHF1-2-3)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="01ac33f8-f6a3-4e8c-9743-d641ec73e0bb">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STATION IDENT (ACT: VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VHF1-2-3) sp0&#xA;l0 0 == if{ (A:COM ACTIVE FREQ IDENT:1,String) }&#xA;l0 1 == if{ (A:COM ACTIVE FREQ IDENT:2,String) }&#xA;l0 2 == if{ (A:COM ACTIVE FREQ IDENT:3,String) }" UUID="0" />
+        <test type="String" value="" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue=" " elseValue="" />
+          <comparison active="True" value="0" operand="=" ifValue=" " elseValue="" />
+          <comparison active="True" value="COM" operand="=" ifValue=" " elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="662bc10a-bf84-4e8a-a698-50fcf7ddef3b">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STATION IDENT (STBY: VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VHF1-2-3) sp0&#xA;l0 0 == if{ (A:COM STANDBY FREQ IDENT:1,String) }&#xA;l0 1 == if{ (A:COM STANDBY FREQ IDENT:2,String) }&#xA;l0 2 == if{ (A:COM STANDBY FREQ IDENT:3,String) }" UUID="0" />
+        <test type="String" value="" />
+        <modifiers>
+          <comparison active="True" value="" operand="=" ifValue=" " elseValue="" />
+          <comparison active="True" value="0" operand="=" ifValue=" " elseValue="" />
+          <comparison active="True" value="COM" operand="=" ifValue=" " elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9d21745e-6762-4b54-818b-44b598333f99">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STATION TYPE (ACT: VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VHF1-2-3) sp0&#xA;l0 0 == if{ (A:COM ACTIVE FREQ TYPE:1,String) }&#xA;l0 1 == if{ (A:COM ACTIVE FREQ TYPE:2,String) }&#xA;l0 2 == if{ (A:COM ACTIVE FREQ TYPE:3,String) }" UUID="-" />
+        <test type="String" value="" />
+        <modifiers>
+          <comparison active="True" value="0" operand="=" ifValue=" " elseValue="" />
+          <comparison active="True" value="ACTIVE" operand="=" ifValue=" " elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ce583a2d-23d2-48ee-a9e6-c6bc5ba17218">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STATION TYPE (STBY: VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:VHF1-2-3) sp0&#xA;l0 0 == if{ (A:COM STANDBY FREQ TYPE:1,String) }&#xA;l0 1 == if{ (A:COM STANDBY FREQ TYPE:2,String) }&#xA;l0 2 == if{ (A:COM STANDBY FREQ TYPE:3,String) }" UUID="-" />
+        <test type="String" value="" />
+        <modifiers>
+          <comparison active="True" value="0" operand="=" ifValue=" " elseValue="" />
+          <comparison active="True" value="STANDBY" operand="=" ifValue=" " elseValue="$" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a7dddd78-be4d-427a-98fc-4421524c9b40">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO MODE (VHF&lt;&gt;QNH/XPDR)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - RADIO MODE (VHF&lt;&gt;QNH/XPDR)" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a2f3891b-c83f-4b86-9932-07f49a272764">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO MODE (QNH&lt;&gt;XPDR)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - RADIO MODE (QNH&lt;&gt;XPDR)" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions>
+          <precondition type="config" active="true" ref="229965da-f886-4735-9b41-f4fa2ecedc5f" operand="&gt;=" value="3" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f6326c45-19a9-4381-ab16-c3ee665f0976">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - DIGIT (XPDR:1000&lt;&gt;100&lt;&gt;10&lt;&gt;1)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - DIGIT (XPDR:1000&lt;&gt;100&lt;&gt;10&lt;&gt;1)" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8d93d12f-6d83-495d-a6d6-bc5af2a83f1f">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - QNH (BLINK STATUS)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'QNH_'" />
+          <blink active="True" blinkValue="QNH&gt;" onOffSequence="750,750" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ee2909de-02b4-446b-9a1f-6496a3845a86">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (BLINK STATUS)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'XPDR_'" />
+          <blink active="True" blinkValue="XPDR&gt;" onOffSequence="750,750" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4d117bf2-82fc-47c9-bf20-f0ecea7ce176">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - QNH MODE (INHG&lt;&gt;HPA)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:S_FCU_EFIS1_BARO_MODE)" UUID="b192b3b7-e6ee-444a-8349-bd9fa0c074f6" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="fcbc04b6-7da2-41d1-b5f6-c6f4af4d5c10">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - QNH MODE (QNH&lt;&gt;STD)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:S_FCU_EFIS1_BARO_STD)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="1d575898-cfe2-487f-b988-7373e5934596">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - QNH (VALUE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(@=1,' STD ',if(?=1,'#','!+0.001'))" />
+          <padding active="True" direction="Right" length="5" character=" " />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="5fb03ca5-5a61-4aee-99dd-4a381489cac0" placeholder="#" testvalue="1" />
+          <configref active="True" ref="c8b0e850-8cdf-4c69-ac6a-92633f69c938" placeholder="!" testvalue="1" />
+          <configref active="True" ref="4d117bf2-82fc-47c9-bf20-f0ecea7ce176" placeholder="?" testvalue="1" />
+          <configref active="True" ref="fcbc04b6-7da2-41d1-b5f6-c6f4af4d5c10" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="5fb03ca5-5a61-4aee-99dd-4a381489cac0">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - HPA (VALUE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:KOHLSMAN SETTING MB:1,Millibars)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($+0.0001,0)" />
+          <comparison active="True" value="1" operand="&lt;" ifValue="' 0000'" elseValue="" />
+          <comparison active="True" value="1000" operand="&lt;" ifValue="' 0$'" elseValue="' $'" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c8b0e850-8cdf-4c69-ac6a-92633f69c938">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - INHG (VALUE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:KOHLSMAN SETTING HG:1,inHg)" UUID="2f595653-50dd-4394-8895-af62769febe5" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="Round($,2)+0.0001" />
+          <comparison active="True" value="1" operand="&lt;" ifValue="'00.00'" elseValue="" />
+          <padding active="True" direction="Right" length="5" character=" " />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="15712687-55bd-44a8-a682-baf2a97c0281">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (VALUE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(A:TRANSPONDER CODE:1, Number)" UUID="d52e9a47-61c3-496b-b918-c5aa2fcf4ee7" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <comparison active="True" value="10" operand="&lt;" ifValue="'000$'" elseValue="" />
+          <comparison active="True" value="100" operand="&lt;" ifValue="'00$'" elseValue="" />
+          <comparison active="True" value="1000" operand="&lt;" ifValue="'0$'" elseValue="" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="96815cac-7936-482b-8c80-41ac91229fc2">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (IDENT)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:S_XPDR_IDENT)" UUID="0" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c7aa4c61-2bb0-427c-8b34-30cee5cec089">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (MODE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:S_XPDR_MODE)" UUID="d52e9a47-61c3-496b-b918-c5aa2fcf4ee7" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=1,'|IDENT',if($=0,'|STBY',if($=1,'|TA','|TA-RA')))" />
+        </modifiers>
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="96815cac-7936-482b-8c80-41ac91229fc2" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="8264856f-c3ea-4731-9774-9d4610f8a955">
+      <active>false</active>
+      <description> ==== DISPLAY OUTPUTS ===============================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="0" />
+        <modifiers />
+        <display type="-" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="89d868c9-e07c-47a4-a279-8bc2a7b11765">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - ACTIVE LABEL (ACTIVE:)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'\\RACTIVE:'" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="9" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4cd7a1f6-7d99-4700-b861-69f450722809">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - ACTIVE LABEL (VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=0,'\\CVHF1',if(#=1,'\\CVHF2','\\CVHF3'))" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="12" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="479d4b45-fb73-4e14-a40e-73911de3ae9a">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STANDBY LABEL (STANDBY:)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="'\\RSTANDBY:'" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="10" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c10fdf81-a5f6-41c5-8cf2-6781b9f30673">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STANDBY LABEL (VHF1/2/3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(#=0,'\\CVHF1',if(#=1,'\\CVHF2','\\CVHF3'))" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="11" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="1e7372c0-4b2b-4cad-92cf-c71f7d918eaf">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STANDBY FREQUENCY (VHF2)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_PED_RMP2_STDBY)" UUID="b3475234-371d-4160-b21b-fedbd9ba3a4a" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+          <comparison active="True" value="0.00010" operand="=" ifValue="000.000" elseValue="" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="2" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="dc6cc44e-57c8-4971-ac37-59915f6a62d0">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - ACTIVE FREQUENCY (VHF1)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_PED_RMP1_ACTIVE)" UUID="2da8c86e-37ae-45b1-a9d2-98a81812a682" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+          <comparison active="True" value="0.00010" operand="=" ifValue="000.000" elseValue="" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="1" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9ee196c5-1954-4d4d-a807-16c2f4d5c559">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - ACTIVE FREQUENCY (VHF2)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_PED_RMP2_ACTIVE)" UUID="c7fb8fa1-701c-4532-b7bc-d7efae5d82bb" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+          <comparison active="True" value="0.00010" operand="=" ifValue="000.000" elseValue="" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="1" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ced06ad7-4a5f-4bef-8c8b-e4b5a7466261">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - ACTIVE FREQUENCY (VHF3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_PED_RMP3_ACTIVE)" UUID="72cc385d-873d-4e9b-8ac5-46711d25ecec" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+          <comparison active="True" value="0.00010" operand="=" ifValue="000.000" elseValue="" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="1" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="ca11b25a-7ce6-4180-b3fb-81912907aa79">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STANDBY FREQUENCY (VHF1)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_PED_RMP1_STDBY)" UUID="ad5a6328-0b5d-45f1-908d-66e1b72129fc" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+          <comparison active="True" value="0.00010" operand="=" ifValue="000.000" elseValue="" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="2" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8d802ecb-9cc8-4378-a164-ef385fb408c9">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STANDBY FREQUENCY (VHF3)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="(L:N_PED_RMP3_STDBY)" UUID="17d8848e-d41a-4897-b53d-d5e8989079b7" />
+        <test type="Float" value="0" />
+        <modifiers>
+          <transformation active="True" expression="$/1000 + 0.0001" />
+          <padding active="True" direction="Right" length="7" character="0" />
+          <comparison active="True" value="0.00010" operand="=" ifValue="000.000" elseValue="" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="2" value="$" />
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f01e9843-014a-4e6a-88f9-1b900932b5cd">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - ACTIVE LABEL (VHF1/2/3: IDENT-TYPE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(@=2,if(?='118.000','DATA',if(?='121.500','EMERGENCY','#-!')),'#-!')" />
+          <padding active="True" direction="Right" length="18" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="3" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="9d21745e-6762-4b54-818b-44b598333f99" placeholder="!" testvalue="1" />
+          <configref active="True" ref="01ac33f8-f6a3-4e8c-9743-d641ec73e0bb" placeholder="#" testvalue="1" />
+          <configref active="True" ref="ced06ad7-4a5f-4bef-8c8b-e4b5a7466261" placeholder="?" testvalue="1" />
+          <configref active="True" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="458f382c-1800-40d0-8ebb-5fa2dd6da5fc">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - STANDBY LABEL (VHF1/2/3: IDENT-TYPE)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="if(@=2,if(?='118.000','DATA',if(?='121.500','EMERGENCY','#-!')),'#-!')" />
+          <padding active="True" direction="Right" length="18" character=" " />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="4" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="ce583a2d-23d2-48ee-a9e6-c6bc5ba17218" placeholder="!" testvalue="1" />
+          <configref active="True" ref="662bc10a-bf84-4e8a-a698-50fcf7ddef3b" placeholder="#" testvalue="1" />
+          <configref active="True" ref="8d802ecb-9cc8-4378-a164-ef385fb408c9" placeholder="?" testvalue="1" />
+          <configref active="True" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" placeholder="@" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="059756a4-c755-474a-b682-b57e63ee7420">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - LABEL (QNH)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="" UUID="-" />
+        <test type="String" value="" />
+        <modifiers>
+          <transformation active="True" expression="if(@=0,if(%+#=2,'!?|INHG','QNH:?|INHG'),if(%+#=2,'!?|HPA','QNH:?|HPA'))" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="13" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="a2f3891b-c83f-4b86-9932-07f49a272764" placeholder="#" testvalue="1" />
+          <configref active="True" ref="8d93d12f-6d83-495d-a6d6-bc5af2a83f1f" placeholder="!" testvalue="1" />
+          <configref active="True" ref="1d575898-cfe2-487f-b988-7373e5934596" placeholder="?" testvalue="1" />
+          <configref active="True" ref="4d117bf2-82fc-47c9-bf20-f0ecea7ce176" placeholder="@" testvalue="1" />
+          <configref active="True" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" placeholder="%" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="3c5cb9a4-22c8-46e7-b461-1d8367a7dbb7">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - LABEL (XPDR)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="CODE" Value="" UUID="-" />
+        <test type="String" value="" />
+        <modifiers>
+          <transformation active="True" expression="if(%+#=3,'!?@','XPDR:?@')" />
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="14" value="$" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="a2f3891b-c83f-4b86-9932-07f49a272764" placeholder="#" testvalue="1" />
+          <configref active="True" ref="ee2909de-02b4-446b-9a1f-6496a3845a86" placeholder="!" testvalue="1" />
+          <configref active="True" ref="15712687-55bd-44a8-a682-baf2a97c0281" placeholder="?" testvalue="1" />
+          <configref active="True" ref="c7aa4c61-2bb0-427c-8b34-30cee5cec089" placeholder="@" testvalue="1" />
+          <configref active="True" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" placeholder="%" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+    <config guid="a421f22d-ad1a-4f99-95e5-f697107041cd">
+      <active>false</active>
+      <description>==== BRIGHTNESS =========================================================</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="SimConnect" VarType="LVAR" Value="" />
+        <test type="Float" value="1" />
+        <modifiers />
+        <display type="" serial="" pin="" pinBrightness="255" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="de01a76a-c4c9-4c5b-979c-2db61403c5ee">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - VOLUME BAR (COM)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - RADIO VOLUME (COM)" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="20" y="255" />
+            <value x="1023" y="0" />
+          </interpolation>
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="7" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0d1f7be1-f724-4ac1-a525-bf2e0d2f3ae6">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - VOLUME BAR (NAV)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - RADIO VOLUME (NAV)" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="20" y="255" />
+            <value x="1023" y="0" />
+          </interpolation>
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="8" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="531f9f2b-588c-4628-b0e1-c61db86a5c57">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS (OLED DISPLAY)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - PHOTOCELL" varExpression="$" />
+        <test type="Float" value="16" />
+        <modifiers>
+          <interpolation active="True">
+            <value x="70" y="16" />
+            <value x="640" y="180" />
+          </interpolation>
+        </modifiers>
+        <display type="CustomDevice" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" customType="" customName="GNC255 OLED" messageType="6" value="$" />
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="7a245044-3b97-4569-abee-2bd96c895ad6">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS (BUTTONS BACKLIGHT)</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="Variable" varType="number" varName="GNC255 - PHOTOCELL" varExpression="$" />
+        <test type="Float" value="1" />
+        <modifiers>
+          <transformation active="True" expression="#/8" />
+        </modifiers>
+        <display type="Output" serial="MF GNC255/ SN-E463288157083C2B" trigger="normal" pin="backlight" pinBrightness="255" pinPwm="True" />
+        <preconditions />
+        <configrefs>
+          <configref active="True" ref="531f9f2b-588c-4628-b0e1-c61db86a5c57" placeholder="#" testvalue="1" />
+        </configrefs>
+      </settings>
+    </config>
+  </outputs>
+  <inputs>
+    <config guid="5f76205c-1a86-4c18-bfcb-7ce9171fea96">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO MODE (VHF1&lt;&gt;2&lt;&gt;3)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="MSFS2020CustomInputAction" command="(L:VHF1-2-3) 1 + 3 % (&gt;L:VHF1-2-3)" presetId="0" />
+          <onLongRelease longReleaseDelay="350" type="MSFS2020CustomInputAction" command="" presetId="-" />
+          <onHold holdDelay="500" repeatDelay="0" type="MSFS2020CustomInputAction" command="{ (L:VHF1-2-3) 1 - 3 % } 0 &lt; if{ (L:VHF1-2-3) 2 + 3 % (&gt;L:VHF1-2-3) } els{ (L:VHF1-2-3) 1 - 3 % (&gt;L:VHF1-2-3) }" presetId="0" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f7a38677-0ca0-4e16-ab6e-f3de819b5753">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO MODE (VHF1&lt;&gt;2&lt;&gt;3)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="btn 2" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="MSFS2020CustomInputAction" command="(L:VHF1-2-3) 1 + 3 % (&gt;L:VHF1-2-3)" presetId="0" />
+          <onLongRelease longReleaseDelay="350" type="MSFS2020CustomInputAction" command="" presetId="-" />
+          <onHold holdDelay="500" repeatDelay="0" type="MSFS2020CustomInputAction" command="{ (L:VHF1-2-3) 1 - 3 % } 0 &lt; if{ (L:VHF1-2-3) 2 + 3 % (&gt;L:VHF1-2-3) } els{ (L:VHF1-2-3) 1 - 3 % (&gt;L:VHF1-2-3) }" presetId="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="326e46e3-d01d-41cf-9079-192736028b9f">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO MODE (VHF&lt;&gt;QNH/XPDR)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="btn 4" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="VariableInputAction" varType="number" varName="GNC255 - RADIO MODE (VHF&lt;&gt;QNH/XPDR)" varExpression="if($=2,0,2)" />
+          <onLongRelease longReleaseDelay="350" type="MSFS2020CustomInputAction" command="0 (&gt;L:S_XPDR_IDENT)" presetId="d252034a-b58f-481d-bf78-f94ae5c63f0a" />
+          <onHold holdDelay="1000" repeatDelay="0" type="MSFS2020CustomInputAction" command="1 (&gt;L:S_XPDR_IDENT)" presetId="f9153751-ccc2-4fe6-aa5d-6241d7bc0d70" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="07dfc2de-4a36-436e-a627-448a0dc6ff85">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO MODE (QNH&lt;&gt;XPDR)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="VariableInputAction" varType="number" varName="GNC255 - RADIO MODE (QNH&lt;&gt;XPDR)" varExpression="if($=1,0,1)" />
+          <onLeftFast />
+          <onRight type="VariableInputAction" varType="number" varName="GNC255 - RADIO MODE (QNH&lt;&gt;XPDR)" varExpression="if($=1,0,1)" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="be9c27d1-43c0-4806-8c33-7c2dc90fdf97">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - QNH MODE (HPA&lt;&gt;INHG  |  HOLD: QNH&lt;&gt;STD)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_FCU_EFIS1_BARO_MODE) ! (&gt;L:S_FCU_EFIS1_BARO_MODE)" presetId="0" />
+          <onLongRelease longReleaseDelay="350" type="MSFS2020CustomInputAction" command="" presetId="-" />
+          <onHold holdDelay="500" repeatDelay="0" type="MSFS2020CustomInputAction" command="(L:S_FCU_EFIS1_BARO_STD) ! (&gt;L:S_FCU_EFIS1_BARO_STD)" presetId="0" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="65a8d1e0-b4b0-4ffa-b1d6-d288b98c6789">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - QNH VALUE (HPA/INHG, LINKED)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_FCU_EFIS1_BARO) -- (&gt;L:E_FCU_EFIS1_BARO)" presetId="e0b99d1f-7b67-4294-8596-24d3b78291d7" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_FCU_EFIS1_BARO) ++ (&gt;L:E_FCU_EFIS1_BARO)" presetId="ac381b74-3f8d-493d-b3f8-4b1d6eb84aa3" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="bd3a87e2-8748-40ad-941f-fd5de57306b3">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - DIGIT (XPDR:1000&lt;&gt;100&lt;&gt;10&lt;&gt;1)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="VariableInputAction" varType="number" varName="GNC255 - DIGIT (XPDR:1000&lt;&gt;100&lt;&gt;10&lt;&gt;1)" varExpression="($+1)%4" />
+          <onLongRelease longReleaseDelay="350" type="VariableInputAction" varType="number" varName="GNC255 - DIGIT (XPDR:1000&lt;&gt;100&lt;&gt;10&lt;&gt;1)" varExpression="if(($-1)%4&lt;0,($+3)%4,($-1)%4)" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="22d546a2-9316-4ce7-beae-692722ac873c">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO WHOLE (VHF1, MHz)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_PED_RMP1_OUTER) -- (&gt;L:E_PED_RMP1_OUTER) (&gt;K:COM_RADIO_WHOLE_DEC)" presetId="0" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_PED_RMP1_OUTER) ++ (&gt;L:E_PED_RMP1_OUTER) (&gt;K:COM_RADIO_WHOLE_INC)" presetId="0" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="aca6cbb8-efe5-4be0-844d-4714dbef32ad">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO WHOLE (VHF2, MHz)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_PED_RMP2_OUTER) -- (&gt;L:E_PED_RMP2_OUTER) (&gt;K:COM2_RADIO_WHOLE_DEC)" presetId="0" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_PED_RMP2_OUTER) ++ (&gt;L:E_PED_RMP2_OUTER) (&gt;K:COM2_RADIO_WHOLE_INC)" presetId="0" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="8b95763f-53f0-47ef-9bdf-b57abafd81a5">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO WHOLE (VHF3, MHz)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="MHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_PED_RMP3_OUTER) -- (&gt;L:E_PED_RMP3_OUTER) (&gt;K:COM3_RADIO_WHOLE_DEC)" presetId="0" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_PED_RMP3_OUTER) ++ (&gt;L:E_PED_RMP3_OUTER) (&gt;K:COM3_RADIO_WHOLE_INC)" presetId="0" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="01154066-cc51-4748-83c1-5094be41946a">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO FRACT (VHF1, KHz)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_PED_RMP1_INNER) -- (&gt;L:E_PED_RMP1_INNER) (&gt;K:COM_RADIO_FRACT_DEC)" presetId="ba1c3d75-ee9d-44a2-8681-af89b51e572a" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_PED_RMP1_INNER) ++ (&gt;L:E_PED_RMP1_INNER) (&gt;K:COM_RADIO_FRACT_INC)" presetId="c87ca833-fe86-4207-bfc3-efb87f78e6ec" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d8967c8d-3af6-49da-8ba7-6978339f8480">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO FRACT (VHF2, KHz)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_PED_RMP2_INNER) -- (&gt;L:E_PED_RMP2_INNER) (&gt;K:COM2_RADIO_FRACT_DEC)" presetId="0" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_PED_RMP2_INNER) ++ (&gt;L:E_PED_RMP2_INNER) (&gt;K:COM2_RADIO_FRACT_INC)" presetId="0" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c1334225-9862-4438-a35b-21faa698f19a">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO FRACT (VHF3, KHz)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(L:E_PED_RMP3_INNER) -- (&gt;L:E_PED_RMP3_INNER) (&gt;K:COM3_RADIO_FRACT_DEC)" presetId="0" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(L:E_PED_RMP3_INNER) ++ (&gt;L:E_PED_RMP3_INNER) (&gt;K:COM3_RADIO_FRACT_INC)" presetId="0" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="428773cf-fa3f-4d0c-ad48-01d2e222c5d5">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO TRANSFER (VHF1)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_PED_RMP1_XFER) ++ (&gt;L:S_PED_RMP1_XFER)" presetId="3aac28e2-80db-4347-b2e7-e901a76b60e7" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_PED_RMP1_XFER) ++ (&gt;L:S_PED_RMP1_XFER)" presetId="3aac28e2-80db-4347-b2e7-e901a76b60e7" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="0" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="43b877c5-2696-4439-9893-8ca94f48c7a6">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO TRANSFER (VHF2)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_PED_RMP2_XFER) ++ (&gt;L:S_PED_RMP2_XFER)" presetId="2f70513b-49aa-489f-89fa-614106bd040f" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_PED_RMP2_XFER) ++ (&gt;L:S_PED_RMP2_XFER)" presetId="2f70513b-49aa-489f-89fa-614106bd040f" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="76fff136-ca64-4931-ab28-5b4e7cda1189">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO TRANSFER (VHF3)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="swap" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="(L:S_PED_RMP3_XFER) ++ (&gt;L:S_PED_RMP3_XFER)" presetId="5fd29442-80d7-4a68-936e-55cb45a4fc22" />
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_PED_RMP3_XFER) ++ (&gt;L:S_PED_RMP3_XFER)" presetId="5fd29442-80d7-4a68-936e-55cb45a4fc22" />
+        </button>
+        <preconditions>
+          <precondition type="config" active="true" ref="ec0fedfb-25e4-4c69-a062-ec0ac9e77d32" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="460a3442-301b-440d-846a-0159538f07d0">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (1000)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_1000_DEC)" presetId="231098f4-3bd6-4b8b-8c98-005bba9dccc1" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_1000_INC)" presetId="7dc3e8c0-3078-4bc3-bc13-69eca712de52" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="f6326c45-19a9-4381-ab16-c3ee665f0976" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4775b481-795c-46cc-97cb-375c740d5874">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (100)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_100_DEC)" presetId="978c1cf0-8dbc-4d07-aacf-640aca78bde9" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_100_INC)" presetId="6cc8e06e-748e-4b01-ad8e-2807a899e58c" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="f6326c45-19a9-4381-ab16-c3ee665f0976" operand="=" value="1" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="0917e02c-8ceb-4601-aa0a-ce97c4edc23d">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (10)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_10_DEC)" presetId="4bd8d51a-8bce-43e0-8de3-8510ef4af071" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_10_INC)" presetId="7fece887-9baa-4c89-b29a-2e8f9b14684d" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="f6326c45-19a9-4381-ab16-c3ee665f0976" operand="=" value="2" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f1c75de7-f723-431f-ae36-87be1077f583">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - XPDR (1)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="kHz" type="Encoder" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <encoder>
+          <onLeft type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_1_DEC)" presetId="03d314e6-bc23-4a44-b2d5-6ac922f3f6c1" />
+          <onLeftFast />
+          <onRight type="MSFS2020CustomInputAction" command="(&gt;K:XPNDR_1_INC)" presetId="be08f72f-7e9f-4d8e-bfd9-19cd926596c1" />
+          <onRightFast />
+        </encoder>
+        <preconditions>
+          <precondition type="config" active="true" ref="a7dddd78-be4d-427a-98fc-4421524c9b40" operand="=" value="2" logic="and" />
+          <precondition type="config" active="true" ref="a2f3891b-c83f-4b86-9932-07f49a272764" operand="=" value="1" logic="and" />
+          <precondition type="config" active="true" ref="f6326c45-19a9-4381-ab16-c3ee665f0976" operand="=" value="3" logic="and" />
+        </preconditions>
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e21fbb60-63c2-4f8f-b6fa-ac56716a3caa">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO PHOTOCELL (DISPLAY &amp; BUTTON BRIGHTNESS CONTROL)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="photocell" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="VariableInputAction" varType="number" varName="GNC255 - PHOTOCELL" varExpression="@" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="22068cf6-2aaf-44fb-a3ed-422fc3601f87">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO VOLUME (COM)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="VariableInputAction" varType="number" varName="GNC255 - RADIO VOLUME (COM)" varExpression="@" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="e4662937-ada0-4273-9703-24dd2894ecab">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - RADIO VOLUME (NAV)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="VariableInputAction" varType="number" varName="GNC255 - RADIO VOLUME (NAV)" varExpression="@" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="581fe55a-5aac-49de-9d56-9457433ba11c">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS ND (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_DISPLAY_BRIGHTNESS_CI)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d380f251-5896-4f8b-8d4a-7fa6077e0baa">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS PFD (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_DISPLAY_BRIGHTNESS_CO)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f046f2aa-5b96-4046-b607-27841e8b7bc7">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS ND (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_DISPLAY_BRIGHTNESS_FI)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9f62b1a8-4863-4000-a3ae-bed2ba3efbda">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS PFD (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_DISPLAY_BRIGHTNESS_FO)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="389729f9-fd65-4b71-ac77-bd1af628893a">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS ECAM (UPPER)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_DISPLAY_BRIGHTNESS_ECAM_U)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a55bf6f9-4b4f-4878-b9e7-f699153ac001">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS ECAM (LOWER)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_DISPLAY_BRIGHTNESS_ECAM_L)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="9c9f4a74-c739-4ea9-bb50-44e604dd0a6a">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS FCU</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_FCU_LIGHTING_TEXT)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d5a2d7fb-b13f-4ac6-9a78-cbd966228ee7">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS INTEG LT (OVH)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_OH_LIGHTING_OVD)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="f7dd6dd5-9ca2-40fa-946a-3815e5618031">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS INTEG LT (FCU)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_FCU_LIGHTING)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="4dab9404-a805-4ef8-9ada-0a04cd07f846">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS INTEG LT (MAIN &amp; PEDESTAL)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_PED_LIGHTING_PEDESTAL)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d9570bd7-2356-42d1-bf0d-4afe1ec7f631">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS MIP FLOOD LT (MAIN)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_MIP_LIGHTING_FLOOD_MAIN)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="10d64c30-710b-4a6e-8b77-53de9262a6fe">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS MIP FLOOD LT (PEDESTAL)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_MIP_LIGHTING_FLOOD_PEDESTAL)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d0216491-ef2e-426f-b130-aecab85c4beb">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS MIP MAP LT (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_MIP_LIGHTING_MAP_L)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="df557520-3a25-49c9-aa02-c6c1c5876871">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS MIP MAP LT (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_MIP_LIGHTING_MAP_R)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="03cb7e10-2c76-4525-9209-5acb13d6e210">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - SWITCH MIP CONSOLE LT (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ sp0&#xA;l0 1000 &gt; if{ 0 g1 }&#xA;l0 600 &gt;= if{ 1 g1 }&#xA;2 :1 (&gt;L:S_MIP_LIGHT_CONSOLEFLOOR_CAPT)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="efdba0a9-5431-446b-9051-71537cd31a91">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - SWITCH MIP CONSOLE LT (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ sp0&#xA;l0 1000 &gt; if{ 0 g1 }&#xA;l0 600 &gt;= if{ 1 g1 }&#xA;2 :1 (&gt;L:S_MIP_LIGHT_CONSOLEFLOOR_FO)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="42db2f2e-b7c6-4bb0-8a28-646456ae0615">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS CHART LT (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_CHART_LIGHT_TEMP_CAPT)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="cd10199b-d8ab-4b35-bc77-9702de2b6ed3">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS CHART LT (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_CHART_LIGHT_TEMP_FO)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="d719eecc-0d8c-40f2-a7a8-dc20526f79e0">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - SWITCH CHART LT (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 &lt; if{0} els{1} (&gt;L:S_CHART_LIGHT_TEMP_CAPT)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="46d02cd6-f6f8-4c78-aec3-f2b40dce7373">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - SWITCH CHART LT (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 &lt; if{0} els{1} (&gt;L:S_CHART_LIGHT_TEMP_FO)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="5ff77ba2-45cd-4cde-af28-b3de5d359653">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS READING LT (CAPT)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_OH_LIGHTING_READING_CAPT)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="a606af4a-9601-41da-b8b4-5d25bd8554c5">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS READING LT (FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav vol" type="AnalogInput" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <analog>
+          <onChange type="MSFS2020CustomInputAction" command="@ 1000 - -990 / 0 max 1 min (&gt;L:A_OH_LIGHTING_READING_FO)" presetId="0" />
+        </analog>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="2de0c8f1-a53b-496b-b444-4e152a8dd27b">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS MDCU UP (CAPT &amp; FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="com push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="1 d (&gt;L:S_CDU1_BRIGHTNESS_UP) (&gt;L:S_CDU2_BRIGHTNESS_UP)" presetId="0" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 d (&gt;L:S_CDU1_BRIGHTNESS_UP) (&gt;L:S_CDU2_BRIGHTNESS_UP)" presetId="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="b95f0512-1f80-4523-8510-1fedaa9ac65c">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - BRIGHTNESS MDCU DOWN (CAPT &amp; FO)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="nav push" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onPress type="MSFS2020CustomInputAction" command="1 d (&gt;L:S_CDU1_BRIGHTNESS_DOWN) (&gt;L:S_CDU2_BRIGHTNESS_DOWN)" presetId="0" />
+          <onRelease type="MSFS2020CustomInputAction" command="0 d (&gt;L:S_CDU1_BRIGHTNESS_DOWN) (&gt;L:S_CDU2_BRIGHTNESS_DOWN)" presetId="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+    <config guid="c8b5f774-261e-4ec2-a6b5-87cfa1782ce8">
+      <active>true</active>
+      <description>FENIX A320 - GNC255 - EXT LT (DOME)</description>
+      <settings msdata:InstanceType="MobiFlight.InputConfigItem, MFConnector, Version=10.2.2.0, Culture=neutral, PublicKeyToken=null" serial="MF GNC255/ SN-E463288157083C2B" name="btn 1" type="Button" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <button>
+          <onRelease type="MSFS2020CustomInputAction" command="(L:S_OH_INT_LT_DOME) 1 + 3 % (&gt;L:S_OH_INT_LT_DOME)" presetId="0" />
+          <onLongRelease longReleaseDelay="350" type="MSFS2020CustomInputAction" command="" presetId="-" />
+          <onHold holdDelay="500" repeatDelay="0" type="MSFS2020CustomInputAction" command="{ (L:S_OH_INT_LT_DOME) 1 - 3 % } 0 &lt; if{ (L:S_OH_INT_LT_DOME) 2 + 3 % (&gt;L:S_OH_INT_LT_DOME) } els{ (L:S_OH_INT_LT_DOME) 1 - 3 % (&gt;L:S_OH_INT_LT_DOME) }" presetId="0" />
+        </button>
+        <preconditions />
+        <configrefs />
+      </settings>
+    </config>
+  </inputs>
+</MobiflightConnector>

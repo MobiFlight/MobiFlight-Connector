@@ -1,0 +1,612 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "VKBSim NXT SEM THQx2 FSM.GA",
+  "VendorId": "0x231D",
+  "ProductId": "0x2224",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "SEM A1"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "SEM A2"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "SEM B1"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "SEM B2"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "SEM B3"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "SEM Sw1 Up"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "SEM Sw1 Center"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "SEM Sw1 Down"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "SEM Sw2 Up"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "SEM Sw2 Center"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "SEM Sw2 Down"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "SEM Start"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "SEM Mode 1"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "SEM Mode 2"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "SEM Mode 3"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "SEM Mode 4"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "SEM C1"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "SEM Flaps 3"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "SEM Flaps 2"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "SEM Flaps 1"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "SEM Flaps 0"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "SEM Gear Down"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "SEM Gear Neutral"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "SEM Gear Up"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "THQ A1"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "THQ A2"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "THQ A3"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "THQ A4"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "THQ B1"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "THQ C1"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "THQ C2"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "THQ B2"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "THQ 2 A1"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "THQ 2 A2"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "THQ 2 A3"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "THQ 2 A4"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "THQ 2 B1"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "THQ 2 C1"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "THQ 2 C2"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "THQ 2 B2"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "FSM.GA HDG"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "FSM.GA TRK"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "FSM.GA NAV"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "FSM.GA APR"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "FSM.GA ALT"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "FSM.GA LVL"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "FSM.GA VNAV"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "FSM.GA IAS"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "FSM.GA AP"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "FSM.GA FD"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "FSM.GA YD"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "FSM.GA VS"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "FSM.GA Avionic"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "FSM.GA Landing Lights"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "FSM.GA Strobe"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "FSM.GA Nav Lights"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "FSM.GA HDG TRK CCW"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "FSM.GA HDG TRK CW"
+    },
+    {
+      "Id": 59,
+      "Type": "Button",
+      "Label": "FSM.GA ALT SEL CCW"
+    },
+    {
+      "Id": 60,
+      "Type": "Button",
+      "Label": "FSM.GA ALT SEL CW"
+    },
+    {
+      "Id": 61,
+      "Type": "Button",
+      "Label": "FSM.GA VS Nose Down"
+    },
+    {
+      "Id": 62,
+      "Type": "Button",
+      "Label": "FSM.GA VS Nose Up"
+    },
+    {
+      "Id": 63,
+      "Type": "Button",
+      "Label": "FSM.GA HDG TRK Push"
+    },
+    {
+      "Id": 64,
+      "Type": "Button",
+      "Label": "FSM.GA ALT SEL Push"
+    },
+    {
+      "Id": 1000,
+      "Type": "Button",
+      "Label": "FSM.GA HDG TRK CCW"
+    },
+    {
+      "Id": 1005,
+      "Type": "Button",
+      "Label": "FSM.GA HDG TRK CW"
+    },
+    {
+      "Id": 1010,
+      "Type": "Button",
+      "Label": "FSM.GA ALT SEL CCW"
+    },
+    {
+      "Id": 1015,
+      "Type": "Button",
+      "Label": "FSM.GA ALT SEL CW"
+    },
+    {
+      "Id": 1020,
+      "Type": "Button",
+      "Label": "FSM.GA VS Nose Down"
+    },
+    {
+      "Id": 1025,
+      "Type": "Button",
+      "Label": "FSM.GA VS Nose Up"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Sys - Blue",
+      "Id": "Sys.Blue",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "Sys - Red",
+      "Id": "Sys.Red",
+      "Byte": 0,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM A1 - Green",
+      "Id": "SEM.A1.Green",
+      "Byte": 10,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM A1 - Red",
+      "Id": "SEM.A1.Red",
+      "Byte": 10,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM A2 - Green",
+      "Id": "SEM.A2.Green",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM A2 - Red",
+      "Id": "SEM.A2.Red",
+      "Byte": 11,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM B1 - Green",
+      "Id": "SEM.B1.Green",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM B1 - Red",
+      "Id": "SEM.B1.Red",
+      "Byte": 12,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM B2 - Green",
+      "Id": "SEM.B2.Green",
+      "Byte": 13,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM B2 - Red",
+      "Id": "SEM.B2.Red",
+      "Byte": 13,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM B3 - Green",
+      "Id": "SEM.B3.Green",
+      "Byte": 14,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM B3 - Red",
+      "Id": "SEM.B3.Red",
+      "Byte": 14,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM Gear Left - Green",
+      "Id": "SEM.GearL.Green",
+      "Byte": 15,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM Gear Left - Red",
+      "Id": "SEM.GearL.Red",
+      "Byte": 15,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM Gear Center - Green",
+      "Id": "SEM.GearC.Green",
+      "Byte": 16,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM Gear Center - Red",
+      "Id": "SEM.GearC.Red",
+      "Byte": 16,
+      "Bit": 1
+    },
+    {
+      "Label": "SEM Gear Right - Green",
+      "Id": "SEM.GearR.Green",
+      "Byte": 17,
+      "Bit": 0
+    },
+    {
+      "Label": "SEM Gear Right - Red",
+      "Id": "SEM.GearR.Red",
+      "Byte": 17,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA HDG - Green",
+      "Id": "FSMGA.HDG.Green",
+      "Byte": 18,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA HDG - Red",
+      "Id": "FSMGA.HDG.Red",
+      "Byte": 18,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA TRK - Green",
+      "Id": "FSMGA.TRK.Green",
+      "Byte": 19,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA TRK - Red",
+      "Id": "FSMGA.TRK.Red",
+      "Byte": 19,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA NAV - Green",
+      "Id": "FSMGA.NAV.Green",
+      "Byte": 20,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA NAV - Red",
+      "Id": "FSMGA.NAV.Red",
+      "Byte": 20,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA APR - Green",
+      "Id": "FSMGA.APR.Green",
+      "Byte": 21,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA APR - Red",
+      "Id": "FSMGA.APR.Red",
+      "Byte": 21,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA ALT - Green",
+      "Id": "FSMGA.ALT.Green",
+      "Byte": 22,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA ALT - Red",
+      "Id": "FSMGA.ALT.Red",
+      "Byte": 22,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA LVL - Green",
+      "Id": "FSMGA.LVL.Green",
+      "Byte": 23,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA LVL - Red",
+      "Id": "FSMGA.LVL.Red",
+      "Byte": 23,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA VNAV - Green",
+      "Id": "FSMGA.VNAV.Green",
+      "Byte": 24,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA VNAV - Red",
+      "Id": "FSMGA.VNAV.Red",
+      "Byte": 24,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA IAS - Green",
+      "Id": "FSMGA.IAS.Green",
+      "Byte": 25,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA IAS - Red",
+      "Id": "FSMGA.IAS.Red",
+      "Byte": 25,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA AP - Green",
+      "Id": "FSMGA.AP.Green",
+      "Byte": 26,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA AP - Red",
+      "Id": "FSMGA.AP.Red",
+      "Byte": 26,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA FD - Green",
+      "Id": "FSMGA.FD.Green",
+      "Byte": 27,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA FD - Red",
+      "Id": "FSMGA.FD.Red",
+      "Byte": 27,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA YD - Green",
+      "Id": "FSMGA.YD.Green",
+      "Byte": 28,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA YD - Red",
+      "Id": "FSMGA.YD.Red",
+      "Byte": 28,
+      "Bit": 1
+    },
+    {
+      "Label": "FSM.GA VS - Green",
+      "Id": "FSMGA.VS.Green",
+      "Byte": 29,
+      "Bit": 0
+    },
+    {
+      "Label": "FSM.GA VS - Red",
+      "Id": "FSMGA.VS.Red",
+      "Byte": 29,
+      "Bit": 1
+    }
+  ]
+}

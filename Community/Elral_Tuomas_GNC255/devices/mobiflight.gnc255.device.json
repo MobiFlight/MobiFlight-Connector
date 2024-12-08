@@ -1,0 +1,91 @@
+{
+  "$schema": "./mfdevice.schema.json",
+  "Info": {
+    "Label": "Garmin GNC255",
+    "Type": "ELRAL_TUOMAS_GNC255",
+    "Author": "Elral/Tuomas",
+    "URL": "https://github.com/elral/MF_GNC255",
+    "Version": "1.0.1"
+  },
+  "Config": {
+    "Pins": [
+      "CS",
+      "D/C",
+      "Reset"
+    ],
+    "isI2C": false
+  },
+  "MessageTypes": [
+    {
+      "id": 1,
+      "label": "Set Active Frequency",
+      "description": "$ will be displayed on the device as Active Frequency\n\\R or \\C as leading chars will align right or center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 2,
+      "label": "Set Standby Frequency",
+      "description": "$ will be displayed on the device as Standby Frequency\n\\R or \\C as leading chars will align right or center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 3,
+      "label": "Set Active Station",
+      "description": "$ will be displayed on the device below Active Frequency, e.g. active station ICAO code\n\\R or \\C as leading chars will align right or center\n\\L starts on beginning of line\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 4,
+      "label": "Set Standby Station",
+      "description": "$ will be displayed on the device below Standby Frequency, e.g. standby station ICAO code\n\\R or \\C as leading chars will align right or center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 5,
+      "label": "Set Mode",
+      "description": "0 -> COM Mode, 1 -> NAV Mode\n!!Depracated!! Use Set Label Mode area instead"
+    },
+    {
+      "id": 6,
+      "label": "Set Brightness",
+      "description": "$ sets OLED display pixel brightness (0 - 255)"
+    },
+    {
+      "id": 7,
+      "label": "Set COM Volume",
+      "description": "$ sets COM volume (0 - 255)"
+    },
+    {
+      "id": 8,
+      "label": "Set NAV Volume",
+      "description": "$ sets NAV volume (0 - 255)"
+    },
+    {
+      "id": 9,
+      "label": "Set Label Active",
+      "description": "$ will be displayed as Active label\n\\R or \\C as leading chars will align right or center\nWithin Modify Tab use double \\\\"
+    },
+
+    {
+      "id": 10,
+      "label": "Set Label Standby",
+      "description": "$ will be displayed as Standby label\n\\R or \\C as leading chars will align right or center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 11,
+      "label": "Set Label Mode",
+      "description": "$ will be displayed as Mode label\n\\R or \\C as leading chars will align right or center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 12,
+      "label": "Set Spare area above Active label",
+      "description": "$ will be displayed above Active label\n\\R or \\C as leading chars will align rightor center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 13,
+      "label": "Set Spare line below Station Active",
+      "description": "$ will be displayed below Stations Active\n\\R or \\C as leading chars will align rightor center\nWithin Modify Tab use double \\\\"
+    },
+    {
+      "id": 14,
+      "label": "Set Spare line below Station Standby",
+      "description": "$ will be displayed below Stations Standby\n\\R or \\C as leading chars will align right or center\n\\L starts on beginning of line\nWithin Modify Tab use double \\\\"
+    }
+  ]
+}

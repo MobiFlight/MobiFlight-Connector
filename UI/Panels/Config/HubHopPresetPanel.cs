@@ -3,17 +3,10 @@ using MobiFlight.HubHop;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -68,7 +61,7 @@ namespace MobiFlight.UI.Panels.Config
             AVarExamplePanel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
             ExampleLabel.Visible = panelMode == HubHopPanelMode.Output && FlightSimType == FlightSimType.MSFS2020;
             ValuePanel.Visible = panelMode == HubHopPanelMode.Input && FlightSimType == FlightSimType.XPLANE;
-            HintLabelPresetCodeLabel.Visible = FlightSimType == FlightSimType.MSFS2020;
+            HintLabelPresetCodeLabel.Visible = FlightSimType == FlightSimType.MSFS2020 && panelMode == HubHopPanelMode.Input;
 
             if (panelMode == HubHopPanelMode.Input)
             {
@@ -400,7 +393,7 @@ namespace MobiFlight.UI.Panels.Config
                     code = Code,
                     description = "This is a customized preset or custom code."
                 };
-                FilteredPresetList.Items.Add(CustomPreset);
+                FilteredPresetList.Items.Insert(0, CustomPreset);
                 FilteredPresetListChanged();
                 // We have found the original preset
                 InitializeComboBoxesWithPreset(CustomPreset);
@@ -431,6 +424,12 @@ namespace MobiFlight.UI.Panels.Config
         {
             if ((sender as ComboBox).SelectedItem == null) return;
             Msfs2020HubhopPreset selectedItem = (sender as ComboBox).SelectedItem as Msfs2020HubhopPreset;
+
+            if (selectedItem.id == "Load all")
+            {
+                UpdatePresetComboBoxValues(loadAllItems: true);
+                return;
+            }
 
             Msfs2020HubhopPreset selectedPreset = FilteredPresetList.Items.Find(x => x.id == selectedItem.id);
             if (selectedPreset == null) return;
@@ -583,13 +582,14 @@ namespace MobiFlight.UI.Panels.Config
                 UpdateValues(SystemComboBox, FilteredPresetList.AllSystems(hubhopType).ToArray());
             }
 
-            UpdatePresetComboBoxValues();
+            UpdatePresetComboBoxValues(loadAllItems: false);
         }
 
-        private void UpdatePresetComboBoxValues()
+        private void UpdatePresetComboBoxValues(bool loadAllItems)
         {
             String SelectedValue = null;
             Msfs2020HubhopPreset selectedPreset = null;
+            int maxItemsCombobox = 1500;
 
             PresetComboBox.SelectedIndexChanged -= PresetComboBox_SelectedIndexChanged;
             if (PresetComboBox.SelectedIndex > 0)
@@ -601,20 +601,37 @@ namespace MobiFlight.UI.Panels.Config
                     FilteredPresetList.Items.Add(selectedPreset);
                 }
             }
-
             PresetComboBox.DataSource = null;
-            PresetComboBox.DataSource = FilteredPresetList.Items;
+            if (!loadAllItems && FilteredPresetList.Items.Count > maxItemsCombobox)
+            {
+                var MatchesFound = FilteredPresetList.Items.Count - 1;
+                var presetItems = FilteredPresetList.Items.GetRange(0, maxItemsCombobox);
+                presetItems.Add(new Msfs2020HubhopPreset()
+                {
+                    label = "====== Load all items ======",
+                    id = "Load all",
+                    code = "",
+                    description = "Load all items."
+                });
+
+                PresetComboBox.DataSource = presetItems;
+            }
+            else
+            {
+                PresetComboBox.DataSource = FilteredPresetList.Items;
+            }
+
             PresetComboBox.ValueMember = "id";
             PresetComboBox.DisplayMember = "label";
 
             if (SelectedValue != null)
-            {                
+            {
                 PresetComboBox.SelectedValue = SelectedValue;
 
                 // we didn't find the preset within the current
                 // list
                 if (PresetComboBox.SelectedValue == null)
-                PresetComboBox.SelectedIndex = 0;
+                    PresetComboBox.SelectedIndex = 0;
             }
             else
             {
@@ -625,7 +642,6 @@ namespace MobiFlight.UI.Panels.Config
 
             PresetComboBox.SelectedIndexChanged += PresetComboBox_SelectedIndexChanged;
         }
-
         private void UpdateValues(ComboBox cb, String[] valueList)
         {
             String SelectedValue = null;

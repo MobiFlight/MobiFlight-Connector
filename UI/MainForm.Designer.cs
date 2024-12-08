@@ -47,6 +47,7 @@
             this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyLogsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orphanedSerialsFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +131,6 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.copyLogsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -261,6 +261,12 @@
             this.downloadLatestEventsToolStripMenuItem.Name = "downloadLatestEventsToolStripMenuItem";
             resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
             this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
+            // 
+            // copyLogsToClipboardToolStripMenuItem
+            // 
+            this.copyLogsToClipboardToolStripMenuItem.Name = "copyLogsToClipboardToolStripMenuItem";
+            resources.ApplyResources(this.copyLogsToClipboardToolStripMenuItem, "copyLogsToClipboardToolStripMenuItem");
+            this.copyLogsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyLogsToClipboardToolStripMenuItem_Click);
             // 
             // orphanedSerialsFinderToolStripMenuItem
             // 
@@ -834,12 +840,6 @@
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
-            // 
-            // copyLogsToClipboardToolStripMenuItem
-            // 
-            this.copyLogsToClipboardToolStripMenuItem.Name = "copyLogsToClipboardToolStripMenuItem";
-            resources.ApplyResources(this.copyLogsToClipboardToolStripMenuItem, "copyLogsToClipboardToolStripMenuItem");
-            this.copyLogsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyLogsToClipboardToolStripMenuItem_Click);
             // 
             // MainForm
             // 
