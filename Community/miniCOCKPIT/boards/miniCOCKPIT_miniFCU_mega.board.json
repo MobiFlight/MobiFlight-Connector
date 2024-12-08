@@ -4,7 +4,7 @@
       "Device": "atmega2560",
       "BaudRates": [ "115200" ],
       "Programmer": "wiring",
-      "Timeout": 15000
+      "Timeout": 25000
     },
     "Connection": {
       "ConnectionDelay": 1250,
@@ -40,7 +40,7 @@
     "LatestFirmwareVersion": "1.0.0",
     "FriendlyName": "miniCOCKPIT miniFCU",
     "MobiFlightType": "miniCOCKPIT miniFCU mega",
-    "ResetFirmwareFile": "reset.miniFCU_20240426.ino.hex",
+    "ResetFirmwareFile": "reset.miniFCU_20241117.ino.hex",
     "CustomDeviceTypes": [
       "miniCOCKPIT_miniFCU"
     ],
