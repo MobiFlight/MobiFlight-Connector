@@ -647,6 +647,6 @@ Tip: Save the file after opening to update the associated board for future use.<
   <data name="uiMessageWasmMSFSRunning" xml:space="preserve">
     <value>The WASM module cannot be installed while Microsoft Flight Simulator is running.
 
-Close MSFS then try installing the module again.</value>
+Close MSFS and install the WASM module via menu "Extras" &gt; "Microsoft Flight Simulator" &gt; "Install WASM module"</value>
   </data>
 </root>

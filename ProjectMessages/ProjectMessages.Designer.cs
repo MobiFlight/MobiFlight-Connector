@@ -1428,7 +1428,7 @@ namespace MobiFlight.ProjectMessages {
         /// <summary>
         ///   Looks up a localized string similar to The WASM module cannot be installed while Microsoft Flight Simulator is running.
         ///
-        ///Close MSFS then try installing the module again..
+        ///Close MSFS and install the WASM module via menu &quot;Extras&quot; &gt; &quot;Microsoft Flight Simulator&quot; &gt; &quot;Install WASM module&quot;.
         /// </summary>
         internal static string uiMessageWasmMSFSRunning {
             get {
