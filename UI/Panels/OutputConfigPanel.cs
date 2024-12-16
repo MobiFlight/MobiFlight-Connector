@@ -349,7 +349,8 @@ namespace MobiFlight.UI.Panels
             {
 
                 // handle clicks on header cells or row-header cells
-                if (dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
+                // Issue 1863: Check for null (nothing in the grid) so there's no crash
+                if (dgv.CurrentRow == null || dgv.CurrentRow.Index < 0 || dgv.CurrentCell.ColumnIndex < 0) return;
 
                 dgv.CurrentCell = dgv[cellIndex, dgv.CurrentRow.Index];
 
