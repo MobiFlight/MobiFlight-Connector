@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using CommandMessenger;
@@ -27,17 +28,31 @@ namespace MobiFlight
 
         public CmdMessenger CmdMessenger { get; set; }
         public int Pin { get; set; }
-        
-        public MobiFlightOutput() { }
+
+        public int OutputNumber { get; set; }
+
+        public MobiFlightOutput() {
+            OutputNumber = 0;
+        }
 
         public void Set(int value)
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
-            command.AddArgument(Pin);
             command.AddArgument(value);
-            // Send command
-            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{Pin},{value};>.", LogSeverity.Debug);
 
+            //if (HasFirmwareFeature(FirmwareFeature.Output_DeviceID))
+            {
+                command.AddArgument(OutputNumber);
+                Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{OutputNumber},{value};>.", LogSeverity.Debug);
+            }
+        /*
+            else
+            {
+                command.AddArgument(Pin);
+                Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{Pin},{value};>.", LogSeverity.Debug);
+            }
+         */
+            // Send command
             CmdMessenger.SendCommand(command);
         }
 
@@ -45,5 +60,6 @@ namespace MobiFlight
         {
             Set(0);
         }
+
     }
 }
