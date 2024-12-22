@@ -31,27 +31,22 @@ namespace MobiFlight
 
         public int OutputNumber { get; set; }
 
-        public MobiFlightOutput() {
-            OutputNumber = 0;
-        }
+        public bool sendDeviceID { get; set; }
+        public MobiFlightOutput() { }
 
         public void Set(int value)
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
-            command.AddArgument(value);
+            int output;
 
-            //if (HasFirmwareFeature(FirmwareFeature.Output_DeviceID))
-            {
-                command.AddArgument(OutputNumber);
-                Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{OutputNumber},{value};>.", LogSeverity.Debug);
-            }
-        /*
+            if (sendDeviceID)
+                output = OutputNumber;
             else
-            {
-                command.AddArgument(Pin);
-                Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{Pin},{value};>.", LogSeverity.Debug);
-            }
-         */
+                output = Pin;
+
+            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{output},{value};>.", LogSeverity.Debug);
+            command.AddArgument(output);
+            command.AddArgument(value);
             // Send command
             CmdMessenger.SendCommand(command);
         }
