@@ -31,6 +31,7 @@ namespace MobiFlight
         public int OutputNumber { get; set; }
 
         public bool sendDeviceID { get; set; }
+
         public MobiFlightOutput() { }
 
         public void Set(int value)
@@ -44,6 +45,7 @@ namespace MobiFlight
                 output = Pin;
 
             Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{output},{value};>.", LogSeverity.Debug);
+
             command.AddArgument(output);
             command.AddArgument(value);
             // Send command
@@ -54,6 +56,5 @@ namespace MobiFlight
         {
             Set(0);
         }
-
     }
 }
