@@ -395,7 +395,8 @@ namespace MobiFlight
                             {
                                 CmdMessenger = _cmdMessenger,
                                 Name = device.Name,
-                                Pin = pin
+                                Pin = pin,
+                                OutputNumber = outputs.Count
                             });
                             break;
                         case DeviceType.LcdDisplay:
