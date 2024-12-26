@@ -206,6 +206,7 @@ namespace MobiFlight.UI
             execManager.OnModuleRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
+            execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
 
             moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -260,6 +261,17 @@ namespace MobiFlight.UI
             moduleToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
+
+        private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
+        {
+            JoystickToolStripDropDownButton.DropDownItems.Clear();
+            foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
+            {
+                var item = new ToolStripMenuItem(joystick.Name);
+                JoystickToolStripDropDownButton.DropDownItems.Add(item);
+            }
+        }
+
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
             if (this.InvokeRequired)
@@ -1159,7 +1171,6 @@ namespace MobiFlight.UI
             bool modulesFound = false;
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
             moduleToolStripDropDownButton.DropDownItems.Clear();
-            JoystickToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
 #if ARCAZE
             // TODO: refactor!!!
@@ -1180,12 +1191,6 @@ namespace MobiFlight.UI
                 modulesFound = true;
             }
 #endif
-            foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
-            {
-                var item = new ToolStripMenuItem(joystick.Name);
-                JoystickToolStripDropDownButton.DropDownItems.Add(item);
-            }
-
             if (modulesFound)
             {
                 moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");

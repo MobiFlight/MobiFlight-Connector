@@ -33,6 +33,7 @@ namespace MobiFlight
         public event EventHandler OnModuleCacheAvailable;
         public event EventHandler OnShutdown;
         public event EventHandler OnInitialModuleLookupFinished;
+        public event EventHandler OnJoystickConnectedFinished;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -142,7 +143,10 @@ namespace MobiFlight
 #endif
             joystickManager.SetHandle(handle);
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { joystickManager.Startup(); };            
+            joystickManager.Connected += (o, e) => { 
+                joystickManager.Startup();
+                OnJoystickConnectedFinished?.Invoke(null, null);
+            };            
             if (Properties.Settings.Default.EnableJoystickSupport)
             {
                 joystickManager.Connect();
