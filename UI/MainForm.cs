@@ -1159,6 +1159,7 @@ namespace MobiFlight.UI
             bool modulesFound = false;
             ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
             moduleToolStripDropDownButton.DropDownItems.Clear();
+            JoystickToolStripDropDownButton.DropDownItems.Clear();
             moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
 #if ARCAZE
             // TODO: refactor!!!
@@ -1179,6 +1180,12 @@ namespace MobiFlight.UI
                 modulesFound = true;
             }
 #endif
+            foreach (var joystick in execManager.GetJoystickManager().GetJoysticks())
+            {
+                var item = new ToolStripMenuItem(joystick.Name);
+                JoystickToolStripDropDownButton.DropDownItems.Add(item);
+            }
+
             if (modulesFound)
             {
                 moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");

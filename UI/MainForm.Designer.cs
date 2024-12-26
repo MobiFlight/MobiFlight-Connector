@@ -100,6 +100,9 @@
             this.ModuleStatusIconToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.moduleToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.dividerToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.JoystickStatusToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.JoystickToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.dividerToolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SimStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SimConnectionIconStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -600,10 +603,13 @@
             // 
             resources.ApplyResources(this.statusStrip2, "statusStrip2");
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.JoystickStatusToolStripLabel,
+            this.JoystickToolStripDropDownButton,
+            this.dividerToolStripStatusLabel1,
             this.ModulesStatusToolStripLabel,
             this.ModuleStatusIconToolStripLabel,
             this.moduleToolStripDropDownButton,
-            this.dividerToolStripStatusLabel1,
+            this.dividerToolStripStatusLabel2,
             this.SimStatusToolStripStatusLabel,
             this.toolStripStatusLabel3,
             this.SimConnectionIconStatusToolStripStatusLabel,
@@ -642,6 +648,23 @@
             this.dividerToolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
             this.dividerToolStripStatusLabel1.Name = "dividerToolStripStatusLabel1";
             resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
+            // 
+            // JoystickStatusToolStripLabel
+            // 
+            this.JoystickStatusToolStripLabel.Name = "JoystickStatusToolStripLabel";
+            resources.ApplyResources(this.JoystickStatusToolStripLabel, "JoystickStatusToolStripLabel");
+            // 
+            // JoystickToolStripDropDownButton
+            // 
+            this.JoystickToolStripDropDownButton.Name = "JoystickToolStripDropDownButton";
+            resources.ApplyResources(this.JoystickToolStripDropDownButton, "JoystickToolStripDropDownButton");
+            // 
+            // dividerToolStripStatusLabel2
+            // 
+            this.dividerToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.dividerToolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.dividerToolStripStatusLabel2.Name = "dividerToolStripStatusLabel2";
+            resources.ApplyResources(this.dividerToolStripStatusLabel2, "dividerToolStripStatusLabel2");
             // 
             // SimStatusToolStripStatusLabel
             // 
@@ -908,6 +931,9 @@
         private System.Windows.Forms.ToolStripStatusLabel ModulesStatusToolStripLabel;
         private System.Windows.Forms.ToolStripStatusLabel ModuleStatusIconToolStripLabel;
         private System.Windows.Forms.ToolStripDropDownButton moduleToolStripDropDownButton;
+        private System.Windows.Forms.ToolStripStatusLabel JoystickStatusToolStripLabel;
+        private System.Windows.Forms.ToolStripDropDownButton JoystickToolStripDropDownButton;
+        private System.Windows.Forms.ToolStripStatusLabel dividerToolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
