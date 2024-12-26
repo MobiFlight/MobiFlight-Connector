@@ -44,6 +44,8 @@ namespace MobiFlight.UI
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
         public event EventHandler<string> CurrentFilenameChanged;
 
+        private bool IsMSFSRunning = false;
+
         public string CurrentFileName {
             get { return currentFileName; }
             set {
@@ -907,6 +909,7 @@ namespace MobiFlight.UI
                 case FlightSimType.MSFS2020:
                     SimProcessDetectedToolStripMenuItem.Text = "MSFS Detected";
                     SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
+                    IsMSFSRunning = true;
                     break;
 
                 case FlightSimType.FS9:
@@ -947,6 +950,7 @@ namespace MobiFlight.UI
 
             SimProcessDetectedToolStripMenuItem.Text = "No sim running.";
             SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;
+            IsMSFSRunning = false;
 
             UpdateAllConnectionIcons();
         }
@@ -2110,7 +2114,7 @@ namespace MobiFlight.UI
             InstallWasmModule();
         }
 
-        private static void InstallWasmModule()
+        private void InstallWasmModule()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
             bool Is2020Different = false;
@@ -2140,6 +2144,16 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Issue 1872: If the sim is running warn the user then bail
+                if (IsMSFSRunning)
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmMSFSRunning"), 
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 

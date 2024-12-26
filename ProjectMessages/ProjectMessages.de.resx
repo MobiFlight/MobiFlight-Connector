@@ -196,8 +196,8 @@ Alle ungespeicherten Änderungen gehen dabei verloren.</value>
   <data name="Offset" xml:space="preserve">
     <value>Offset</value>
   </data>
-  <data name="uiLabelDoubleClickToAddConfig" xml:space="preserve">
-    <value>Doppelklicken für neuen Eintrag...</value>
+  <data name="Label_Precondition_ConfigItem" xml:space="preserve">
+    <value>Config Eintrag</value>
   </data>
   <data name="DefaultFileName" xml:space="preserve">
     <value>neu</value>
@@ -221,17 +221,17 @@ Möchten Sie die Änderungen jetzt speichern?</value>
   <data name="ConfigErrorException_WritingDisplay" xml:space="preserve">
     <value>Fehler beim Schreiben von Werten auf das Display Modul. Bitte prüfen Sie Ihre Konfigurationsdatei.</value>
   </data>
-  <data name="Please_Choose" xml:space="preserve">
-    <value>Bitte wählen</value>
+  <data name="edit" xml:space="preserve">
+    <value>Bearbeiten</value>
   </data>
   <data name="Label_Precondition_ArcazePin" xml:space="preserve">
     <value>Pin</value>
   </data>
-  <data name="Label_Precondition_ConfigItem" xml:space="preserve">
-    <value>Config Eintrag</value>
-  </data>
   <data name="Label_Precondition_None" xml:space="preserve">
     <value>Keine</value>
+  </data>
+  <data name="Please_Choose" xml:space="preserve">
+    <value>Bitte wählen</value>
   </data>
   <data name="Please_select_a_pin" xml:space="preserve">
     <value>Bitte wählen Sie einen Pin.</value>
@@ -241,6 +241,9 @@ Möchten Sie die Änderungen jetzt speichern?</value>
   </data>
   <data name="uiException_ConfigItemNotFound" xml:space="preserve">
     <value>Config object ist null.</value>
+  </data>
+  <data name="uiLabelDoubleClickToAddConfig" xml:space="preserve">
+    <value>Doppelklicken für neuen Eintrag...</value>
   </data>
   <data name="uiMessageConfigLineNotSavedYet" xml:space="preserve">
     <value>Der Zeile wurde noch nicht gespeichert und kann daher nicht bearbeitet werden.
@@ -278,9 +281,6 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   <data name="uiMessagePreconditionNotSatisfied" xml:space="preserve">
     <value>Vorbedingung ist nicht erfüllt.</value>
   </data>
-  <data name="edit" xml:space="preserve">
-    <value>Bearbeiten</value>
-  </data>
   <data name="WebsiteUrlHelp" xml:space="preserve">
     <value>https://www.mobiflight.com/de/dokumentation/software.html</value>
   </data>
@@ -292,6 +292,12 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   </data>
   <data name="uiMessageNoOrphanedSerialsFound" xml:space="preserve">
     <value>Es sind keine verwaisten Serial-Einträge in der aktuellen Konfiguration enthalten.</value>
+  </data>
+  <data name="fsuipcStatus" xml:space="preserve">
+    <value>FSUIPC Status</value>
+  </data>
+  <data name="xpuipcStatus" xml:space="preserve">
+    <value>XPUIPC Status</value>
   </data>
   <data name="uiMessageCmdParamConfigFileDoesNotExist" xml:space="preserve">
     <value>Die als Parameter übergebene Config-Datei existiert nicht.</value>
@@ -313,9 +319,6 @@ Führen Sie die Konfiguration jetzt unbedingt durch.</value>
   </data>
   <data name="uiMessageSelectedModuleDoesNotContainAnyInputDevices" xml:space="preserve">
     <value>Das ausgewählte Modul enthält keine Eingabegeräte. Möchtest Du welche konfigurieren?</value>
-  </data>
-  <data name="xpuipcStatus" xml:space="preserve">
-    <value>XPUIPC Status</value>
   </data>
   <data name="uiMessageNoUpdateNecessary" xml:space="preserve">
     <value>Du hast die aktuellste Version {0}. Kein Update notwendig.</value>
@@ -493,6 +496,14 @@ Respective input actions won't work until they are connected and you have restar
     <value>Diese Änderung benötigt einen Neustart von MobiFlight.</value>
     <comment>This change will require a restart of MobiFlight to become effective.</comment>
   </data>
+  <data name="uiI2CPinInUse" xml:space="preserve">
+    <value>{0} braucht Pin {1} welcher bereits verwendet wird. Lösche die Zuordnung und versuche es mit {0} nochmal.</value>
+    <comment>{0} requires the use of pin {1} which is already assigned to another module. Remove the pin assignment from the other module then try adding {0} again.</comment>
+  </data>
+  <data name="uiI2CPinInUseHint" xml:space="preserve">
+    <value>I2C Pin in Verwendung</value>
+    <comment>I2C pin in use</comment>
+  </data>
   <data name="uiMessageFirmwareResetComplete" xml:space="preserve">
     <value>{0} ({1}) Firmware Reset fertig. ({2}/{3})</value>
   </data>
@@ -507,17 +518,6 @@ Respective input actions won't work until they are connected and you have restar
   </data>
   <data name="uiMessageFirmwareUpdateTimeout" xml:space="preserve">
     <value>{0} ({1}) Firmware Update time out ({2}/{3})</value>
-  </data>
-  <data name="fsuipcStatus" xml:space="preserve">
-    <value>FSUIPC Status</value>
-  </data>
-  <data name="uiI2CPinInUse" xml:space="preserve">
-    <value>{0} braucht Pin {1} welcher bereits verwendet wird. Lösche die Zuordnung und versuche es mit {0} nochmal.</value>
-    <comment>{0} requires the use of pin {1} which is already assigned to another module. Remove the pin assignment from the other module then try adding {0} again.</comment>
-  </data>
-  <data name="uiI2CPinInUseHint" xml:space="preserve">
-    <value>I2C Pin in Verwendung</value>
-    <comment>I2C pin in use</comment>
   </data>
   <data name="uiMessageFirmwareResetSuccessful" xml:space="preserve">
     <value>Der Reset Deines Boards war erfolgreich.</value>
@@ -634,10 +634,6 @@ That midiboard cannot be used until other application is terminated and MobiFlig
     <value>Doppelte x-Werte sind nicht gültig.</value>
     <comment>Duplicate x values are not valid</comment>
   </data>
-  <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
-    <value>Drag and Drop ist nicht verfügbar, wenn die Liste sortiert ist.</value>
-    <comment>Drag and Drop is not available when list is sorted.</comment>
-  </data>
   <data name="uiMessageHubHopAutoUpdate" xml:space="preserve">
     <value>Deine HubHop Presets sind älter als 7 Tage.
 
@@ -647,6 +643,10 @@ Möchtest Du sie aktualisieren?</value>
   <data name="uiTitleHubhopAutoUpdate" xml:space="preserve">
     <value>HubHop Preset Update</value>
     <comment>HubHop Preset Update</comment>
+  </data>
+  <data name="uiMessageDragDropNotAllowed" xml:space="preserve">
+    <value>Drag and Drop ist nicht verfügbar, wenn die Liste sortiert ist.</value>
+    <comment>Drag and Drop is not available when list is sorted.</comment>
   </data>
   <data name="uiMessageOpenConfigIncompatibleTypeHint" xml:space="preserve">
     <value>Inkompatible Konfiguration</value>
@@ -678,5 +678,11 @@ Tip: Save the file after opening to update the associated board for future use.<
   <data name="uiMessagePanelsStepperNoFreePins" xml:space="preserve">
     <value>Es sind nicht genug Pins frei, um die Auto-Zero Funktion zu nutzen.</value>
     <comment>There are not enough pins available to use the auto-zero option.</comment>
+  </data>
+  <data name="uiMessageWasmMSFSRunning" xml:space="preserve">
+    <value>Das WASM Modul kann nicht installiert werden, solange Microsoft Flight Simulator läuft.
+
+
+Schließe MSFS und führe die Installation erneut aus: "Extras" &gt; "Microsoft Flight Simulator" &gt; "Install WASM module".</value>
   </data>
 </root>
