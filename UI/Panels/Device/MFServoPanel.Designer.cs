@@ -62,7 +62,7 @@
             this.mfPinComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mfPinComboBox.FormattingEnabled = true;
             this.mfPinComboBox.Location = new System.Drawing.Point(18, 19);
-            this.mfPinComboBox.MaxLength = 2;
+            this.mfPinComboBox.MaxLength = 5;
             this.mfPinComboBox.Name = "mfPinComboBox";
             this.mfPinComboBox.Size = new System.Drawing.Size(45, 21);
             this.mfPinComboBox.TabIndex = 13;

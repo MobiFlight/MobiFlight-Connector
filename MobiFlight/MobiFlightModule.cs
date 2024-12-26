@@ -1339,7 +1339,7 @@ namespace MobiFlight
             List<MobiFlightPin> ResultPins = new List<MobiFlightPin>();
             ResultPins.AddRange(Board.Pins.Select(x => new MobiFlightPin(x)));
 
-            List<byte> usedPins = new List<byte>();
+            List<uint> usedPins = new List<uint>();
 
             foreach (Config.BaseDevice device in Config.Items)
             {
@@ -1347,43 +1347,43 @@ namespace MobiFlight
                 switch (device.Type)
                 {
                     case DeviceType.LedModule:
-                        usedPins.Add(Convert.ToByte((device as LedModule).ClkPin));
+                        usedPins.Add(Convert.ToUInt32((device as LedModule).ClkPin));
                         if ((device as LedModule).ModelType == LedModule.MODEL_TYPE_MAX72xx)
                         {
                             if ((device as LedModule).ClsPin != "")
-                                usedPins.Add(Convert.ToByte((device as LedModule).ClsPin));
+                                usedPins.Add(Convert.ToUInt32((device as LedModule).ClsPin));
                         }
-                        usedPins.Add(Convert.ToByte((device as LedModule).DinPin));
+                        usedPins.Add(Convert.ToUInt32((device as LedModule).DinPin));
                         break;
 
                     case DeviceType.Stepper:
-                        usedPins.Add(Convert.ToByte((device as Stepper).Pin1));
-                        usedPins.Add(Convert.ToByte((device as Stepper).Pin2));
-                        usedPins.Add(Convert.ToByte((device as Stepper).Pin3));
-                        usedPins.Add(Convert.ToByte((device as Stepper).Pin4));
+                        usedPins.Add(Convert.ToUInt32((device as Stepper).Pin1));
+                        usedPins.Add(Convert.ToUInt32((device as Stepper).Pin2));
+                        usedPins.Add(Convert.ToUInt32((device as Stepper).Pin3));
+                        usedPins.Add(Convert.ToUInt32((device as Stepper).Pin4));
 
                         // We don't have to set the default 0 pin (for none auto zero)
                         if ((device as MobiFlight.Config.Stepper).BtnPin != "0")
-                            usedPins.Add(Convert.ToByte((device as Stepper).BtnPin));
+                            usedPins.Add(Convert.ToUInt32((device as Stepper).BtnPin));
                         break;
 
                     case DeviceType.Servo:
-                        usedPins.Add(Convert.ToByte((device as Servo).DataPin));
+                        usedPins.Add(Convert.ToUInt32((device as Servo).DataPin));
                         break;
 
                     case DeviceType.Button:
-                        usedPins.Add(Convert.ToByte((device as Button).Pin));
+                        usedPins.Add(Convert.ToUInt32((device as Button).Pin));
                         break;
 
                     case DeviceType.Encoder:
-                        usedPins.Add(Convert.ToByte((device as Config.Encoder).PinLeft));
-                        usedPins.Add(Convert.ToByte((device as Config.Encoder).PinRight));
+                        usedPins.Add(Convert.ToUInt32((device as Config.Encoder).PinLeft));
+                        usedPins.Add(Convert.ToUInt32((device as Config.Encoder).PinRight));
                         break;
 
                     case DeviceType.InputShiftRegister:
-                        usedPins.Add(Convert.ToByte((device as InputShiftRegister).ClockPin));
-                        usedPins.Add(Convert.ToByte((device as InputShiftRegister).DataPin));
-                        usedPins.Add(Convert.ToByte((device as InputShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToUInt32((device as InputShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToUInt32((device as InputShiftRegister).DataPin));
+                        usedPins.Add(Convert.ToUInt32((device as InputShiftRegister).LatchPin));
                         break;
 
                     case DeviceType.LcdDisplay:
@@ -1395,44 +1395,44 @@ namespace MobiFlight
                         // Statically add correct I2C pins
                         foreach (MobiFlightPin pin in Board.Pins.FindAll(x => x.isI2C))
                         {
-                            if (usedPins.Contains(Convert.ToByte(pin.Pin))) continue;
-                            usedPins.Add(Convert.ToByte(pin.Pin));
+                            if (usedPins.Contains(Convert.ToUInt32(pin.Pin))) continue;
+                            usedPins.Add(Convert.ToUInt32(pin.Pin));
                         }
                         break;
 
                     case DeviceType.Output:
-                        usedPins.Add(Convert.ToByte((device as Output).Pin));
+                        usedPins.Add(Convert.ToUInt32((device as Output).Pin));
                         break;
 
                     case DeviceType.AnalogInput:
-                        usedPins.Add(Convert.ToByte((device as AnalogInput).Pin));
+                        usedPins.Add(Convert.ToUInt32((device as AnalogInput).Pin));
                         break;
 
                     case DeviceType.ShiftRegister:
-                        usedPins.Add(Convert.ToByte((device as ShiftRegister).ClockPin));
-                        usedPins.Add(Convert.ToByte((device as ShiftRegister).LatchPin));
-                        usedPins.Add(Convert.ToByte((device as ShiftRegister).DataPin));
+                        usedPins.Add(Convert.ToUInt32((device as ShiftRegister).ClockPin));
+                        usedPins.Add(Convert.ToUInt32((device as ShiftRegister).LatchPin));
+                        usedPins.Add(Convert.ToUInt32((device as ShiftRegister).DataPin));
                         break;
 
                     case DeviceType.InputMultiplexer:
-                        usedPins.Add(Convert.ToByte((device as InputMultiplexer).DataPin));
-                        usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[0]));
-                        usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[1]));
-                        usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[2]));
-                        usedPins.Add(Convert.ToByte((device as InputMultiplexer).Selector.PinSx[3]));
+                        usedPins.Add(Convert.ToUInt32((device as InputMultiplexer).DataPin));
+                        usedPins.Add(Convert.ToUInt32((device as InputMultiplexer).Selector.PinSx[0]));
+                        usedPins.Add(Convert.ToUInt32((device as InputMultiplexer).Selector.PinSx[1]));
+                        usedPins.Add(Convert.ToUInt32((device as InputMultiplexer).Selector.PinSx[2]));
+                        usedPins.Add(Convert.ToUInt32((device as InputMultiplexer).Selector.PinSx[3]));
                         break;
 
                     case DeviceType.CustomDevice:
-                        (device as CustomDevice).ConfiguredPins.ForEach(p => usedPins.Add(Convert.ToByte((p))));
+                        (device as CustomDevice).ConfiguredPins.ForEach(p => usedPins.Add(Convert.ToUInt32((p))));
                         break;
 
                     // If the multiplexerDriver is to be handled as a regular device
                     // but explicitly defined by its own config line, following 'case' is required:
                     //case DeviceType.MultiplexerDriver:
-                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[0]));
-                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[1]));
-                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[2]));
-                    //    usedPins.Add(Convert.ToByte((device as MultiplexerDriver).PinSx[3]));
+                    //    usedPins.Add(Convert.ToUInt32((device as MultiplexerDriver).PinSx[0]));
+                    //    usedPins.Add(Convert.ToUInt32((device as MultiplexerDriver).PinSx[1]));
+                    //    usedPins.Add(Convert.ToUInt32((device as MultiplexerDriver).PinSx[2]));
+                    //    usedPins.Add(Convert.ToUInt32((device as MultiplexerDriver).PinSx[3]));
                     //    break;
 
                     default:
@@ -1441,7 +1441,7 @@ namespace MobiFlight
             }
 
             // Mark all the used pins as used in the result list.
-            foreach (byte pinNo in usedPins)
+            foreach (uint pinNo in usedPins)
             {
                 MobiFlightPin pin = ResultPins.Find(resultPin => resultPin.Pin == pinNo);
                 if (pin != null) pin.Used = true;
