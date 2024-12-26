@@ -143,9 +143,9 @@ namespace MobiFlight
 #endif
             joystickManager.SetHandle(handle);
             joystickManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
-            joystickManager.Connected += (o, e) => { 
+            joystickManager.Connected += (sender, e) => { 
                 joystickManager.Startup();
-                OnJoystickConnectedFinished?.Invoke(null, null);
+                OnJoystickConnectedFinished?.Invoke(sender, e);
             };            
             if (Properties.Settings.Default.EnableJoystickSupport)
             {
