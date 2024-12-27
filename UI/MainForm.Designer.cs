@@ -96,12 +96,14 @@
             this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.ModulesStatusToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.ModuleStatusIconToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.moduleToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
-            this.dividerToolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.JoystickStatusToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.JoystickToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.connectedDevicesToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.connectedDevicesToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
+            this.joysticksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.MIDIDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.dividerToolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SimStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -603,12 +605,8 @@
             // 
             resources.ApplyResources(this.statusStrip2, "statusStrip2");
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.JoystickStatusToolStripLabel,
-            this.JoystickToolStripDropDownButton,
-            this.dividerToolStripStatusLabel1,
-            this.ModulesStatusToolStripLabel,
-            this.ModuleStatusIconToolStripLabel,
-            this.moduleToolStripDropDownButton,
+            this.connectedDevicesToolStripLabel,
+            this.connectedDevicesToolStripDropDownButton,
             this.dividerToolStripStatusLabel2,
             this.SimStatusToolStripStatusLabel,
             this.toolStripStatusLabel3,
@@ -624,40 +622,56 @@
             this.statusStrip2.ShowItemToolTips = true;
             this.statusStrip2.SizingGrip = false;
             // 
-            // ModulesStatusToolStripLabel
+            // connectedDevicesToolStripLabel
             // 
-            this.ModulesStatusToolStripLabel.Name = "ModulesStatusToolStripLabel";
-            resources.ApplyResources(this.ModulesStatusToolStripLabel, "ModulesStatusToolStripLabel");
+            this.connectedDevicesToolStripLabel.Name = "connectedDevicesToolStripLabel";
+            resources.ApplyResources(this.connectedDevicesToolStripLabel, "connectedDevicesToolStripLabel");
             // 
-            // ModuleStatusIconToolStripLabel
+            // connectedDevicesToolStripDropDownButton
             // 
-            this.ModuleStatusIconToolStripLabel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ModuleStatusIconToolStripLabel.Image = global::MobiFlight.Properties.Resources.warning;
-            this.ModuleStatusIconToolStripLabel.Name = "ModuleStatusIconToolStripLabel";
-            resources.ApplyResources(this.ModuleStatusIconToolStripLabel, "ModuleStatusIconToolStripLabel");
+            this.connectedDevicesToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.connectedDevicesToolStripDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.joysticksToolStripMenuItem,
+            this.MIDIDevicesToolStripMenuItem,
+            this.modulesToolStripMenuItem});
+            resources.ApplyResources(this.connectedDevicesToolStripDropDownButton, "connectedDevicesToolStripDropDownButton");
+            this.connectedDevicesToolStripDropDownButton.Name = "connectedDevicesToolStripDropDownButton";
             // 
-            // moduleToolStripDropDownButton
+            // joysticksToolStripMenuItem
             // 
-            this.moduleToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            resources.ApplyResources(this.moduleToolStripDropDownButton, "moduleToolStripDropDownButton");
-            this.moduleToolStripDropDownButton.Name = "moduleToolStripDropDownButton";
+            this.joysticksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem1});
+            this.joysticksToolStripMenuItem.Name = "joysticksToolStripMenuItem";
+            resources.ApplyResources(this.joysticksToolStripMenuItem, "joysticksToolStripMenuItem");
             // 
-            // dividerToolStripStatusLabel1
+            // noneToolStripMenuItem1
             // 
-            this.dividerToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.dividerToolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.dividerToolStripStatusLabel1.Name = "dividerToolStripStatusLabel1";
-            resources.ApplyResources(this.dividerToolStripStatusLabel1, "dividerToolStripStatusLabel1");
+            resources.ApplyResources(this.noneToolStripMenuItem1, "noneToolStripMenuItem1");
+            this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
             // 
-            // JoystickStatusToolStripLabel
+            // MIDIDevicesToolStripMenuItem
             // 
-            this.JoystickStatusToolStripLabel.Name = "JoystickStatusToolStripLabel";
-            resources.ApplyResources(this.JoystickStatusToolStripLabel, "JoystickStatusToolStripLabel");
+            this.MIDIDevicesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem});
+            this.MIDIDevicesToolStripMenuItem.Name = "MIDIDevicesToolStripMenuItem";
+            resources.ApplyResources(this.MIDIDevicesToolStripMenuItem, "MIDIDevicesToolStripMenuItem");
             // 
-            // JoystickToolStripDropDownButton
+            // noneToolStripMenuItem
             // 
-            this.JoystickToolStripDropDownButton.Name = "JoystickToolStripDropDownButton";
-            resources.ApplyResources(this.JoystickToolStripDropDownButton, "JoystickToolStripDropDownButton");
+            resources.ApplyResources(this.noneToolStripMenuItem, "noneToolStripMenuItem");
+            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
+            // 
+            // modulesToolStripMenuItem
+            // 
+            this.modulesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem2});
+            this.modulesToolStripMenuItem.Name = "modulesToolStripMenuItem";
+            resources.ApplyResources(this.modulesToolStripMenuItem, "modulesToolStripMenuItem");
+            // 
+            // noneToolStripMenuItem2
+            // 
+            resources.ApplyResources(this.noneToolStripMenuItem2, "noneToolStripMenuItem2");
+            this.noneToolStripMenuItem2.Name = "noneToolStripMenuItem2";
             // 
             // dividerToolStripStatusLabel2
             // 
@@ -927,12 +941,8 @@
         private System.Windows.Forms.Panel statusStripPanel;
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel SimConnectionIconStatusToolStripStatusLabel;
-        private System.Windows.Forms.ToolStripStatusLabel dividerToolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel ModulesStatusToolStripLabel;
-        private System.Windows.Forms.ToolStripStatusLabel ModuleStatusIconToolStripLabel;
-        private System.Windows.Forms.ToolStripDropDownButton moduleToolStripDropDownButton;
-        private System.Windows.Forms.ToolStripStatusLabel JoystickStatusToolStripLabel;
-        private System.Windows.Forms.ToolStripDropDownButton JoystickToolStripDropDownButton;
+        private System.Windows.Forms.ToolStripStatusLabel connectedDevicesToolStripLabel;
+        private System.Windows.Forms.ToolStripDropDownButton connectedDevicesToolStripDropDownButton;
         private System.Windows.Forms.ToolStripStatusLabel dividerToolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
@@ -1013,6 +1023,12 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHubHop;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripMenuItem copyLogsToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem joysticksToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MIDIDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modulesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem2;
     }
 }
 

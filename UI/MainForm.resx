@@ -455,7 +455,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABm
-        PgAAAk1TRnQBSQFMAgEBBAEAARQBAQEUAQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        PgAAAk1TRnQBSQFMAgEBBAEAATwBAQE8AQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABMAMAAQEBAAEgBgABSP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A
         /wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/ADYAAcwBZgEzAf8BzAFmATMB/wHMAWYBMwH/AcwBZgEz
         Af8BzAFmATMB/wHMAWYBMwH/AcwBZgEzAf8BzAFmATMB/wHMAWYBMwH/AcwBZgEzAf8BzAFmATMB/wHM
@@ -7117,7 +7117,7 @@
         jc7USM2Vqwu9cw8AAAAV1lOds+64KdvwZa/bIuVGozCdN3Zldb6xb86bDQBA1Axl8oUfM6WwjHxrl/2L
         NfnCt+n4AQBxc/VudeM/Z7P2L3jdGikmmXzT15038MTcNxQAgDhZmT9zLJO3vuZ1b2Sh1NQ3f8V5w56d
         +wYCABBvhe3Vaxt/1+vuyPWprmv61vfWWIPmNw4AgHjTHgV6tM3UQS+3rGn5anXOetX0ZgEAkDyNu3XH
-        2+sG05nqXNNfOm9Gz/w3BwCA5Lplzel+5//+tdcdpifffujjX87kCvdWZzdfmfumAACQCuoDc9babPbg
+        2+sG05nqXNNfOm9Gz/w3BwCA5Lplzel+5//+tdcdpifffujjX87kCvdWZ9dfmfumAACQCuoDc9babPbg
         L3ndY7Jz8xrr9zJ56y3jmwEAQNrUWu8kfrOhmvrCn1SttrqNbwAAAGmVs7qq8mf+2Osuk5VMXeF/Vecb
         x41/OAAAKaeN7apqm/7W6zaTkepcYzXb9AIAsIRsw+VMrnCL133GO9W5wt3GPxIAAJjlCjmvG41hbPsL
         1fnCBuMfBgAAFldbuD9+iwa5nb/18Lw/BgAAFC/X+GCsioBM3qo3/iEAAKAkmZy1yeteox3nxd4z98UD
@@ -7337,7 +7337,7 @@
         nbOeNP0QAAAQL5lc4TGve186VfnCn5l+CAAAiJlc03/2uvfi4vyjT+f9EAAAECcnvG69+FTXFf7R8IMA
         AEBMZGqtv/O69eLz7Yc+/uVM/nSn6QcCAICIy1ld2WzDF71uvbQ4//gO4w8FAADRlius8rrz0nNTtuHL
         t6w53W/8wQAAIKIaBtSHe9358pLJF241/3AAABBFmZxV5XXjy4+7TfDqQq/pFwAAgGipWm11L7jtb6nR
-        EoKmXwIAACKmrvCPXvddfrJZ+xeq77E+Mv4iAAAQDbWNn6jP9rpvf1JV1/in1dnNV4y/EAAAVJbTR2sl
+        EoKmXwIAACKmrvCPXvddfrJZ+xeq77E+Mv4iAAAQDbWNn6jP9rpvf1JV1/in1dn1V4y/EAAAVJbTR2sl
         X6/b9jfV+cJ24y8FAACVttXrrv3Pd+85/TtMCwQAIFq+t8YavHmN9Xtedx1MavJN/8f0ywEAQKUU/rfX
         TQeb6nzjbvMLAAAAYcrUWi963XPw0W0G55f2zH0RAAAgPJrzX7228Xe97jmcVNVZf8GsAAAAKsTpg2ty
         jf/d65bDTXXOWmt8UQAAIFCZfKHW647Dz7d22b9YlW/cZ3phAAAgGJm89Zb6YK87rkxq6pu/ksmf7jS9
@@ -7345,7 +7345,7 @@
         rdftRiuZXOEW44sGAABlyeStm7zuNpqpzlk/Nb1wAACwPE7n/yOvm412nCKgzvQHAACA0mRyhXu97jUG
         se0vVOcaHzT9IQAAoEi1hfvVp3q9a0zivOCqvLXO+AcBAIClbI5f539dMnnrdsMfBQAAFpIr5LxuNN5x
         ZwcwRRAAgMU5fWXkR/uXmkxd0199N2tdMP7BAACknBbUq6q1/sbrNpMVrRjIssEAAMzV2F5da/0Hr7tM
-        ZrRvcXXO2m9+AwAASJnaxrdvWdPyVa+bTHay2YO/5G4lnN18xfhmAACQdE4fqC19K76rXyVSVVf486rV
+        ZrRvcXXO2m9+AwAASJnaxrdvWdPyVa+bTHay2YO/5G4lnF1/xfhmAACQdE4fqC19K76rXyVSVVf486rV
         VrfxjQEAILEa+5zO/xted5jOaEtD543YbX6DAABIlkyt9aIeh3vdIKmua/pWdb5hwPRmAQAQe/dYwzX5
         wre9bo9cH3eAYL6w3fjGAQAQR1fHu2397j2nf8fr7shCqakv/El1vvH9eW8iAABxUtv4SVW+8Gde90aK
         STZr/0ImZ/2T8wb2zHtDAQCIMA1wd/qw/6u+zOvWSKm5eaP1K3pmsnJ1odf0JgMAEBXfW2MNag+czLqO
@@ -7354,7 +7354,7 @@
         3zl9S1W+cZ8Gp9+80fpNr/shUUpNffNXqvLWd5zq7HXngE0YDyQAAEtqHK/OWa86HzD/VavWet0MiUM0
         CrM61/SXzsFbX32P9dE/5K1L5oMMAEg79REaX+Z8iFxXVWf9Bc/1ExSNzszkm77uFATfdw72s05110BR
         AAAplLVmnL7glPPfz6pPUN/ACP6UJZtt+GJNvfWHNbWFb1bXNn5X2xRnagtP6RGCN9OgRes3V+UL53ik
-        AAAR5rTRblvttNnO/9/ituFqy5023fnverXx2oFPbb7afq8bSGlWrPj/XJQ4il0DUTQAAAAASUVORK5C
+        AAAR5rTRblvttNnO/9/ituFqy5023fnverXx2oFPbb7afq8bSGlWrPj/rH84UyfhpvUAAAAASUVORK5C
         YII=
 </value>
   </data>
@@ -7465,19 +7465,58 @@
   <data name="statusStrip2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="ModulesStatusToolStripLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 17</value>
+  <data name="connectedDevicesToolStripLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>107, 17</value>
   </data>
-  <data name="ModulesStatusToolStripLabel.Text" xml:space="preserve">
-    <value>Modules:</value>
+  <data name="connectedDevicesToolStripLabel.Text" xml:space="preserve">
+    <value>Connected devices</value>
   </data>
-  <data name="ModuleStatusIconToolStripLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 17</value>
+  <data name="noneToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
-  <data name="ModuleStatusIconToolStripLabel.Text" xml:space="preserve">
-    <value>Not Found</value>
+  <data name="noneToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
   </data>
-  <data name="moduleToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="noneToolStripMenuItem1.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="joysticksToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="joysticksToolStripMenuItem.Text" xml:space="preserve">
+    <value>Joysticks</value>
+  </data>
+  <data name="noneToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="noneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="noneToolStripMenuItem.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="MIDIDevicesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="MIDIDevicesToolStripMenuItem.Text" xml:space="preserve">
+    <value>MIDI devices</value>
+  </data>
+  <data name="noneToolStripMenuItem2.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="noneToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>103, 22</value>
+  </data>
+  <data name="noneToolStripMenuItem2.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="modulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>141, 22</value>
+  </data>
+  <data name="modulesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Modules</value>
+  </data>
+  <data name="connectedDevicesToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
@@ -7492,29 +7531,14 @@
         TgDQASA1MVpwzwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="moduleToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
+  <data name="connectedDevicesToolStripDropDownButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
     <value>Magenta</value>
   </data>
-  <data name="moduleToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="connectedDevicesToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>13, 20</value>
   </data>
-  <data name="moduleToolStripDropDownButton.Text" xml:space="preserve">
+  <data name="connectedDevicesToolStripDropDownButton.Text" xml:space="preserve">
     <value>toolStripDropDownButton1</value>
-  </data>
-  <data name="dividerToolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="dividerToolStripStatusLabel1.Text" xml:space="preserve">
-    <value>|</value>
-  </data>
-  <data name="JoystickStatusToolStripLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 17</value>
-  </data>
-  <data name="JoystickStatusToolStripLabel.Text" xml:space="preserve">
-    <value>Joysticks:</value>
-  </data>
-  <data name="JoystickToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 20</value>
   </data>
   <data name="dividerToolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
     <value>4, 17</value>
@@ -7655,7 +7679,7 @@
     <value>|</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>500, 17</value>
+    <value>538, 17</value>
   </data>
   <data name="toolStripStatusLabel.Text" xml:space="preserve">
     <value>Status Info...</value>
@@ -7892,7 +7916,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>232</value>
+    <value>44</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
@@ -8383,41 +8407,53 @@
   <data name="&gt;&gt;exitToolStripButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ModulesStatusToolStripLabel.Name" xml:space="preserve">
-    <value>ModulesStatusToolStripLabel</value>
+  <data name="&gt;&gt;connectedDevicesToolStripLabel.Name" xml:space="preserve">
+    <value>connectedDevicesToolStripLabel</value>
   </data>
-  <data name="&gt;&gt;ModulesStatusToolStripLabel.Type" xml:space="preserve">
+  <data name="&gt;&gt;connectedDevicesToolStripLabel.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ModuleStatusIconToolStripLabel.Name" xml:space="preserve">
-    <value>ModuleStatusIconToolStripLabel</value>
+  <data name="&gt;&gt;connectedDevicesToolStripDropDownButton.Name" xml:space="preserve">
+    <value>connectedDevicesToolStripDropDownButton</value>
   </data>
-  <data name="&gt;&gt;ModuleStatusIconToolStripLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;moduleToolStripDropDownButton.Name" xml:space="preserve">
-    <value>moduleToolStripDropDownButton</value>
-  </data>
-  <data name="&gt;&gt;moduleToolStripDropDownButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;connectedDevicesToolStripDropDownButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dividerToolStripStatusLabel1.Name" xml:space="preserve">
-    <value>dividerToolStripStatusLabel1</value>
+  <data name="&gt;&gt;joysticksToolStripMenuItem.Name" xml:space="preserve">
+    <value>joysticksToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;dividerToolStripStatusLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;joysticksToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;JoystickStatusToolStripLabel.Name" xml:space="preserve">
-    <value>JoystickStatusToolStripLabel</value>
+  <data name="&gt;&gt;noneToolStripMenuItem1.Name" xml:space="preserve">
+    <value>noneToolStripMenuItem1</value>
   </data>
-  <data name="&gt;&gt;JoystickStatusToolStripLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;noneToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;JoystickToolStripDropDownButton.Name" xml:space="preserve">
-    <value>JoystickToolStripDropDownButton</value>
+  <data name="&gt;&gt;MIDIDevicesToolStripMenuItem.Name" xml:space="preserve">
+    <value>MIDIDevicesToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;JoystickToolStripDropDownButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripDropDownButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;MIDIDevicesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;noneToolStripMenuItem.Name" xml:space="preserve">
+    <value>noneToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;noneToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;modulesToolStripMenuItem.Name" xml:space="preserve">
+    <value>modulesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;modulesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;noneToolStripMenuItem2.Name" xml:space="preserve">
+    <value>noneToolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;noneToolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;dividerToolStripStatusLabel2.Name" xml:space="preserve">
     <value>dividerToolStripStatusLabel2</value>

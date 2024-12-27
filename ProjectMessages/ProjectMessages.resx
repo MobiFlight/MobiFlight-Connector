@@ -649,4 +649,8 @@ Tip: Save the file after opening to update the associated board for future use.<
 
 Close MSFS and install the WASM module via menu "Extras" &gt; "Microsoft Flight Simulator" &gt; "Install WASM module"</value>
   </data>
+  <data name="uiNone" xml:space="preserve">
+    <value>None</value>
+    <comment>Used in the connected devices menu to indicate no connected devices found.</comment>
+  </data>
 </root>
