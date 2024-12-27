@@ -210,7 +210,7 @@ namespace MobiFlight.UI
             execManager.OnMidiBoardConnectedFinished += ExecManager_OnMidiBoardConnectedFinished;
 
             connectedDevicesToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
-            toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            simStatusToolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripAircraftDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;

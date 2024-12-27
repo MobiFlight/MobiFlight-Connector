@@ -108,7 +108,7 @@
             this.SimStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.SimConnectionIconStatusToolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.simStatusToolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.SimProcessDetectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.separatorToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.FsuipcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -611,7 +611,7 @@
             this.SimStatusToolStripStatusLabel,
             this.toolStripStatusLabel3,
             this.SimConnectionIconStatusToolStripStatusLabel,
-            this.toolStripDropDownButton1,
+            this.simStatusToolStripDropDownButton1,
             this.toolStripStatusLabel1,
             this.toolStripAircraftDropDownButton,
             this.toolStripStatusLabel2,
@@ -697,17 +697,17 @@
             this.SimConnectionIconStatusToolStripStatusLabel.Name = "SimConnectionIconStatusToolStripStatusLabel";
             resources.ApplyResources(this.SimConnectionIconStatusToolStripStatusLabel, "SimConnectionIconStatusToolStripStatusLabel");
             // 
-            // toolStripDropDownButton1
+            // simStatusToolStripDropDownButton1
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.simStatusToolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
+            this.simStatusToolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.SimProcessDetectedToolStripMenuItem,
             this.separatorToolStripMenuItem,
             this.FsuipcToolStripMenuItem,
             this.simConnectToolStripMenuItem,
             this.xPlaneDirectToolStripMenuItem});
-            resources.ApplyResources(this.toolStripDropDownButton1, "toolStripDropDownButton1");
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            resources.ApplyResources(this.simStatusToolStripDropDownButton1, "simStatusToolStripDropDownButton1");
+            this.simStatusToolStripDropDownButton1.Name = "simStatusToolStripDropDownButton1";
             // 
             // SimProcessDetectedToolStripMenuItem
             // 
@@ -994,7 +994,7 @@
         private System.Windows.Forms.ToolStripMenuItem openDiscordServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel SimStatusToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripDropDownButton simStatusToolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem FsuipcToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem simConnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SimProcessDetectedToolStripMenuItem;
