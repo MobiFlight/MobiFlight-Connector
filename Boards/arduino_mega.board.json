@@ -43,8 +43,8 @@
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "Community": {
       "Project": "MobiFlight Mega",
-      "Website": "https://shop.mobiflight.com/product/arduino-mega-2560-pro-mini-usb-c",
-      "Docs": "https://www.youtube.com/watch?v=pS8KGfYRNrY&t=94s",
+      "Website": "https://mobiflight.com/links/connector/info/docs/mega.html",
+      "Docs": "https://mobiflight.com/links/connector/info/website/mega.html",
       "Support": "https://mobiflight.com/discord"
     },
     "DeviceConfigs": [

@@ -38,8 +38,8 @@
     "ResetFirmwareFile": "reset.arduino_uno_1_0_2.hex",
     "Community": {
       "Project": "MobiFlight Nano",
-      "Website": "https://shop.mobiflight.com/product/arduino-nano-usb-c",
-      "Docs": "https://www.youtube.com/watch?v=pS8KGfYRNrY&t=94s",
+      "Website": "https://mobiflight.com/links/connector/info/website/nano.html",
+      "Docs": "https://mobiflight.com/links/connector/info/docs/nano.html",
       "Support": "https://mobiflight.com/discord"
     }
   },

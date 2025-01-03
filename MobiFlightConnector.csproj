@@ -1336,6 +1336,9 @@
     <Content Include="Boards\mobiflight_nano.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Boards\mobiflight_uno.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="mobiflight.ico" />
     <None Include="Resources\disabled.png" />
     <Content Include="Resources\discord_icon.png" />
