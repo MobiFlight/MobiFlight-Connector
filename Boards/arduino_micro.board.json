@@ -32,8 +32,8 @@
     "ResetFirmwareFile": "reset.arduino_promicro_1_0_2.hex",
     "Community": {
       "Project": "MobiFlight Pro Micro",
-      "Website": "https://mobiflight.com/links/connector/info/docs/micro.html",
-      "Docs": "https://mobiflight.com/links/connector/info/website/micro.html",
+      "Website": "https://mobiflight.com/links/connector/info/website/micro.html",
+      "Docs": "https://mobiflight.com/links/connector/info/docs/micro.html",
       "Support": "https://mobiflight.com/discord"
     }
   },

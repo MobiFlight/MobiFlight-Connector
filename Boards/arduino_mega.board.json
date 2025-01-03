@@ -43,8 +43,8 @@
     "ResetFirmwareFile": "reset.arduino_mega_1_0_2.hex",
     "Community": {
       "Project": "MobiFlight Mega",
-      "Website": "https://mobiflight.com/links/connector/info/docs/mega.html",
-      "Docs": "https://mobiflight.com/links/connector/info/website/mega.html",
+      "Website": "https://mobiflight.com/links/connector/info/website/mega.html",
+      "Docs": "https://mobiflight.com/links/connector/info/docs/mega.html",
       "Support": "https://mobiflight.com/discord"
     },
     "DeviceConfigs": [
