@@ -455,7 +455,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABm
-        PgAAAk1TRnQBSQFMAgEBBAEAAVgBAQFYAQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        PgAAAk1TRnQBSQFMAgEBBAEAAWABAQFgAQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABMAMAAQEBAAEgBgABSP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A
         /wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/ADYAAcwBZgEzAf8BzAFmATMB/wHMAWYBMwH/AcwBZgEz
         Af8BzAFmATMB/wHMAWYBMwH/AcwBZgEzAf8BzAFmATMB/wHMAWYBMwH/AcwBZgEzAf8BzAFmATMB/wHM
@@ -7117,7 +7117,7 @@
         jc7USM2Vqwu9cw8AAAAV1lOds+64KdvwZa/bIuVGozCdN3Zldb6xb86bDQBA1Axl8oUfM6WwjHxrl/2L
         NfnCt+n4AQBxc/VudeM/Z7P2L3jdGikmmXzT15038MTcNxQAgDhZmT9zLJO3vuZ1b2Sh1NQ3f8V5w56d
         +wYCABBvhe3Vaxt/1+vuyPWprmv61vfWWIPmNw4AgHjTHgV6tM3UQS+3rGn5anXOetX0ZgEAkDyNu3XH
-        2+sG05nqXNNfOm9Gz/w3BwCA5Lplzel+5//+tdcdpifffujjX87kCvdWZ+uvzH1TAABIBfWBOWttNnvw
+        2+sG05nqXNNfOm9Gz/w3BwCA5Lplzel+5//+tdcdpifffujjX87kCvdWZ+uuzH1TAABIBfWBOWttNnvw
         l7zuMdm5eY31e5m89ZbxzQAAIG1qrXcSv9lQTX3hT6pWW93GNwAAgLTKWV1V+TN/7HWXyUqmrvC/qvON
         48Y/HACAlNPGdlW1TX/rdZvJSHWusZptegEAWEK24XImV7jF6z7jnepc4W7jHwkAAMxyhZzXjcYwtv2F
         6nxhg/EPAwAAi6st3B+/RYPczt96eN4fAwAAipdrfDBWRUAmb9Ub/xAAAFCSTM7a5HWv0Y7zYu+Z++IB
@@ -7337,7 +7337,7 @@
         zllPmn4IAACIl0yu8JjXvS+dqnzhz0w/BAAAxEyu6T973Xtxcf7Rp/N+CAAAiJMTXrdefKrrCv9o+EEA
         ACAmMrXW33ndevH59kMf/3Imf7rT9AMBAEDE5ayubLbhi163Xlqcf3yH8YcCAIBoyxVWed156bkp2/Dl
         W9ac7jf+YAAAEFENA+rDve58ecnkC7eafzgAAIiiTM6q8rrx5cfdJnh1odf0CwAAQLRUrba6F9z2t9Ro
-        CUHTLwEAABFTV/hHr/suP9ms/QvV91gfGX8RAACIhtrGT9Rne923P6mqa/zT6mz9FeMvBAAAleX00VrJ
+        CUHTLwEAABFTV/hHr/suP9ms/QvV91gfGX8RAACIhtrGT9Rne923P6mqa/zT6mzdFeMvBAAAleX00VrJ
         1+u2/U11vrDd+EsBAEClbfW6a//z3XtO/w7TAgEAiJbvrbEGb15j/Z7XXQeTmnzT/zH9cgAAUCmF/+11
         08GmOt+42/wCAABAmDK11ote9xx8dJvB+aU9c18EAAAIj+b8V69t/F2vew4nVXXWXzArAACACnH64Jpc
         43/3uuVwU52z1hpfFAAACFQmX6j1uuPw861d9i9W5Rv3mV4YAAAIRiZvvaU+2OuOK5Oa+uavZPKnO00v
@@ -7345,7 +7345,7 @@
         63W70UomV7jF+KIBAEBZMnnrJq+7jWaqc9ZPTS8cAAAsj9P5/8jrZqMdpwioM/0BAACgNJlc4V6ve41B
         bPsL1bnGB01/CAAAKFJt4X71qV7vGpM4L7gqb60z/kEAAGApm+PX+V+XTN663fBHAQCAheQKOa8bjXfc
         2QFMEQQAYHFOXxn50f6lJlPX9FffzVoXjH8wAAAppwX1qmqtv/G6zWRFKwaybDAAAHM1tlfXWv/B6y6T
-        Ge1bXJ2z9pvfAAAAUqa28e1b1rR81esmk51s9uAvuVsJZ+uvGN8MAACSzukDtaVvxXf1q0Sq6gp/XrXa
+        Ge1bXJ2z9pvfAAAAUqa28e1b1rR81esmk51s9uAvuVsJZ+uuGN8MAACSzukDtaVvxXf1q0Sq6gp/XrXa
         6ja+MQAAJFZjn9P5f8PrDtMZbWnovBG7zW8QAADJkqm1XtTjcK8bJNV1Td+qzjcMmN4sAABi7x5ruCZf
         +LbX7ZHr4w4QzBe2G984AADi6Op4t63fvef073jdHVkoNfWFP6nON74/700EACBOahs/qcoX/szr3kgx
         yWbtX8jkrH9y3sCeeW8oAAARpgHuTh/2f9WXed0aKTU3b7R+Rc9MVq4u9JreZAAAouJ7a6xB7YGTWdfx
@@ -7354,7 +7354,7 @@
         O6dvqco37tPg9Js3Wr/pdT8kSqmpb/5KVd76jlOdve4csAnjgQQAYEmN49U561XnA+a/atVar5shcYhG
         YVbnmv7SOXjrq++xPvqHvHXJfJABAGmnPkLjy5wPkeuq6qy/4Ll+gqLRmZl809edguD7zsF+1qnuGigK
         ACCFstaM0xeccv77WfUJ6hsYwZ+yZLMNX6ypt/6wprbwzeraxu9qm+JMbeEpPULwZhq0aP3mqnzhHI8U
-        ACDCnDbabaudNtv5/1vcNlxtudOmO/9drzZeO/CpzVfb73UDKc2KFf8fdhI4Mpk5nJ0AAAAASUVORK5C
+        ACDCnDbabaudNtv5/1vcNlxtudOmO/9drzZeO/CpzVfb73UDKc2KFf8fuT44JzqZCk0AAAAASUVORK5C
         YII=
 </value>
   </data>
@@ -7471,6 +7471,12 @@
   <data name="connectedDevicesToolStripLabel.Text" xml:space="preserve">
     <value>Connected devices</value>
   </data>
+  <data name="toolStripConnectedDevicesIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 17</value>
+  </data>
+  <data name="toolStripConnectedDevicesIcon.Text" xml:space="preserve">
+    <value>Not Found</value>
+  </data>
   <data name="noneToolStripMenuItem1.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
@@ -7556,28 +7562,28 @@
     <value>Not Found</value>
   </data>
   <data name="SimProcessDetectedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="SimProcessDetectedToolStripMenuItem.Text" xml:space="preserve">
     <value>No Sim Running</value>
   </data>
   <data name="separatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 6</value>
+    <value>158, 6</value>
   </data>
   <data name="FsuipcToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="FsuipcToolStripMenuItem.Text" xml:space="preserve">
     <value>FSUIPC</value>
   </data>
   <data name="simConnectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="simConnectToolStripMenuItem.Text" xml:space="preserve">
     <value>SimConnect</value>
   </data>
   <data name="xPlaneDirectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
+    <value>161, 22</value>
   </data>
   <data name="xPlaneDirectToolStripMenuItem.Text" xml:space="preserve">
     <value>X-Plane (direct)</value>
@@ -7676,7 +7682,7 @@
     <value>|</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>542, 17</value>
+    <value>526, 17</value>
   </data>
   <data name="toolStripStatusLabel.Text" xml:space="preserve">
     <value>Status Info...</value>
@@ -8625,6 +8631,12 @@
   </data>
   <data name="&gt;&gt;dataGridViewTextBoxColumn4.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripConnectedDevicesIcon.Name" xml:space="preserve">
+    <value>toolStripConnectedDevicesIcon</value>
+  </data>
+  <data name="&gt;&gt;toolStripConnectedDevicesIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>
