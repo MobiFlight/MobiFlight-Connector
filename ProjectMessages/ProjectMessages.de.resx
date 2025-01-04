@@ -686,6 +686,6 @@ Tip: Save the file after opening to update the associated board for future use.<
 Schließe MSFS und führe die Installation erneut aus: "Extras" &gt; "Microsoft Flight Simulator" &gt; "Install WASM module".</value>
   </data>
   <data name="uiNone" xml:space="preserve">
-    <value>Nichts</value>
+    <value>Keine</value>
   </data>
 </root>
