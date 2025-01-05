@@ -52,11 +52,15 @@
             this.buttonSupport = new System.Windows.Forms.Button();
             this.buttonDocs = new System.Windows.Forms.Button();
             this.buttonWebsite = new System.Windows.Forms.Button();
+            this.communityInfoPanel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxName.SuspendLayout();
             this.groupBoxInformation.SuspendLayout();
             this.groupBoxDetails.SuspendLayout();
             this.UploadDeviceConfigPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
+            this.communityInfoPanel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxName
@@ -137,13 +141,10 @@
             // groupBoxDetails
             // 
             resources.ApplyResources(this.groupBoxDetails, "groupBoxDetails");
-            this.groupBoxDetails.Controls.Add(this.labelProjectValue);
-            this.groupBoxDetails.Controls.Add(this.labelProject);
             this.groupBoxDetails.Controls.Add(this.UploadDeviceConfigPanel);
+            this.groupBoxDetails.Controls.Add(this.panel1);
             this.groupBoxDetails.Controls.Add(this.pictureBoxLogo);
-            this.groupBoxDetails.Controls.Add(this.buttonSupport);
-            this.groupBoxDetails.Controls.Add(this.buttonDocs);
-            this.groupBoxDetails.Controls.Add(this.buttonWebsite);
+            this.groupBoxDetails.Controls.Add(this.communityInfoPanel);
             this.groupBoxDetails.Name = "groupBoxDetails";
             this.groupBoxDetails.TabStop = false;
             // 
@@ -152,12 +153,12 @@
             resources.ApplyResources(this.labelProject, "labelProject");
             this.labelProject.Name = "labelProject";
             // 
-            // panel1
+            // UploadDeviceConfigPanel
             // 
             this.UploadDeviceConfigPanel.Controls.Add(this.label1);
             this.UploadDeviceConfigPanel.Controls.Add(this.buttonUploadDefaultConfig);
-            resources.ApplyResources(this.UploadDeviceConfigPanel, "panel1");
-            this.UploadDeviceConfigPanel.Name = "panel1";
+            resources.ApplyResources(this.UploadDeviceConfigPanel, "UploadDeviceConfigPanel");
+            this.UploadDeviceConfigPanel.Name = "UploadDeviceConfigPanel";
             // 
             // label1
             // 
@@ -194,6 +195,21 @@
             this.buttonWebsite.Name = "buttonWebsite";
             this.buttonWebsite.UseVisualStyleBackColor = true;
             // 
+            // communityInfoPanel
+            // 
+            this.communityInfoPanel.Controls.Add(this.labelProject);
+            this.communityInfoPanel.Controls.Add(this.labelProjectValue);
+            resources.ApplyResources(this.communityInfoPanel, "communityInfoPanel");
+            this.communityInfoPanel.Name = "communityInfoPanel";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.buttonWebsite);
+            this.panel1.Controls.Add(this.buttonDocs);
+            this.panel1.Controls.Add(this.buttonSupport);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
+            // 
             // MFModulePanel
             // 
             resources.ApplyResources(this, "$this");
@@ -207,9 +223,11 @@
             this.groupBoxInformation.ResumeLayout(false);
             this.groupBoxInformation.PerformLayout();
             this.groupBoxDetails.ResumeLayout(false);
-            this.groupBoxDetails.PerformLayout();
             this.UploadDeviceConfigPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
+            this.communityInfoPanel.ResumeLayout(false);
+            this.communityInfoPanel.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -239,5 +257,7 @@
         private System.Windows.Forms.Button buttonUploadDefaultConfig;
         private System.Windows.Forms.Label labelProjectValue;
         private System.Windows.Forms.Label labelProject;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel communityInfoPanel;
     }
 }
