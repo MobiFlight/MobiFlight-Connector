@@ -44,6 +44,12 @@ namespace MobiFlight.UI
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
         public event EventHandler<string> CurrentFilenameChanged;
 
+        // Track whether there are any connected devices of the different types, to avoid unnecessary
+        // array retrievals from execManager.
+        private bool hasConnectedJoysticks = false;
+        private bool hasConnectedMidiBoards = false;
+        private bool hasConnectedModules = false;
+
         private bool IsMSFSRunning = false;
 
         public string CurrentFileName {
@@ -218,6 +224,7 @@ namespace MobiFlight.UI
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
+            toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -260,6 +267,18 @@ namespace MobiFlight.UI
             Refresh();
         }
 
+        private void RefreshConnectedDevicesIcon()
+        {
+            if (hasConnectedJoysticks || hasConnectedMidiBoards || hasConnectedMidiBoards)
+            {
+                toolStripConnectedDevicesIcon.Image = Properties.Resources.check;
+            }
+            else
+            {
+                toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
+            }
+        }
+
         private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
         {
             joysticksToolStripMenuItem.DropDownItems.Clear();
@@ -273,14 +292,21 @@ namespace MobiFlight.UI
                     Enabled = false
                 };
                 joysticksToolStripMenuItem.DropDownItems.Add(item);
-                return;
+
+                hasConnectedJoysticks = false;
+            }
+            else
+            {
+                foreach (var joystick in joysticks)
+                {
+                    var item = new ToolStripMenuItem(joystick.Name);
+                    joysticksToolStripMenuItem.DropDownItems.Add(item);
+                }
+
+                hasConnectedJoysticks = true;
             }
 
-            foreach (var joystick in joysticks)
-            {
-                var item = new ToolStripMenuItem(joystick.Name);
-                joysticksToolStripMenuItem.DropDownItems.Add(item);
-            }
+            RefreshConnectedDevicesIcon();
         }
 
         private void ExecManager_OnMidiBoardConnectedFinished(object sender, EventArgs e)
@@ -296,14 +322,21 @@ namespace MobiFlight.UI
                     Enabled = false
                 };
                 joysticksToolStripMenuItem.DropDownItems.Add(item);
-                return;
+
+                hasConnectedMidiBoards = false;
+            }
+            else
+            {
+                foreach (var device in devices)
+                {
+                    var item = new ToolStripMenuItem(device.Name);
+                    joysticksToolStripMenuItem.DropDownItems.Add(item);
+                }
+
+                hasConnectedMidiBoards = true;
             }
 
-            foreach (var device in devices)
-            {
-                var item = new ToolStripMenuItem(device.Name);
-                joysticksToolStripMenuItem.DropDownItems.Add(item);
-            }
+            RefreshConnectedDevicesIcon();
         }
 
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
@@ -1231,9 +1264,15 @@ namespace MobiFlight.UI
                     Enabled = false
                 };
                 modulesToolStripMenuItem.DropDownItems.Add(item);
-                return;
+
+                hasConnectedModules = false;
+            }
+            else
+            {
+                hasConnectedModules = true;
             }
 
+            RefreshConnectedDevicesIcon();
         }
 
         private void statusToolStripMenuItemClick(object sender, EventArgs e)

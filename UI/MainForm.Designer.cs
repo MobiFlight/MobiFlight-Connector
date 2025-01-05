@@ -136,6 +136,7 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
+            this.toolStripConnectedDevicesIcon = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -606,6 +607,7 @@
             resources.ApplyResources(this.statusStrip2, "statusStrip2");
             this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.connectedDevicesToolStripLabel,
+            this.toolStripConnectedDevicesIcon,
             this.connectedDevicesToolStripDropDownButton,
             this.dividerToolStripStatusLabel2,
             this.SimStatusToolStripStatusLabel,
@@ -878,6 +880,13 @@
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
+            // toolStripConnectedDevicesIcon
+            // 
+            this.toolStripConnectedDevicesIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripConnectedDevicesIcon.Image = global::MobiFlight.Properties.Resources.warning;
+            this.toolStripConnectedDevicesIcon.Name = "toolStripConnectedDevicesIcon";
+            resources.ApplyResources(this.toolStripConnectedDevicesIcon, "toolStripConnectedDevicesIcon");
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -1029,6 +1038,7 @@
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripConnectedDevicesIcon;
     }
 }
 
