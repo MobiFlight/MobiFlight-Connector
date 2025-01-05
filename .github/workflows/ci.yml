@@ -52,7 +52,7 @@ jobs:
         run: vstest.console.exe MobiFlightUnitTests/bin/Release/MobiFlightUnitTests.dll
 
       - name: store latest setup file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MobiFlightConnector
           path: |
