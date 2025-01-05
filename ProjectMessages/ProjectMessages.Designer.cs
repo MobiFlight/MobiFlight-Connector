@@ -1500,6 +1500,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string uiNone {
+            get {
+                return ResourceManager.GetString("uiNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Param.
         /// </summary>
         internal static string uiPmdgEventIdInputPanelCustomParam {

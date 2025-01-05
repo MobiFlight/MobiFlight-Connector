@@ -206,9 +206,11 @@ namespace MobiFlight.UI
             execManager.OnModuleRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
+            execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
+            execManager.OnMidiBoardConnectedFinished += ExecManager_OnMidiBoardConnectedFinished;
 
-            moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
-            toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            connectedDevicesToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            simStatusToolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripAircraftDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
@@ -256,10 +258,54 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
-            
-            moduleToolStripDropDownButton.DropDownItems.Clear();
-            moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
+
+        private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
+        {
+            joysticksToolStripMenuItem.DropDownItems.Clear();
+
+            var joysticks = execManager.GetJoystickManager().GetJoysticks();
+
+            if (joysticks.Count == 0)
+            {
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"))
+                {
+                    Enabled = false
+                };
+                joysticksToolStripMenuItem.DropDownItems.Add(item);
+                return;
+            }
+
+            foreach (var joystick in joysticks)
+            {
+                var item = new ToolStripMenuItem(joystick.Name);
+                joysticksToolStripMenuItem.DropDownItems.Add(item);
+            }
+        }
+
+        private void ExecManager_OnMidiBoardConnectedFinished(object sender, EventArgs e)
+        {
+            MIDIDevicesToolStripMenuItem.DropDownItems.Clear();
+
+            var devices = execManager.GetMidiBoardManager().GetMidiBoards();
+
+            if (devices.Count == 0)
+            {
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"))
+                {
+                    Enabled = false
+                };
+                joysticksToolStripMenuItem.DropDownItems.Add(item);
+                return;
+            }
+
+            foreach (var device in devices)
+            {
+                var item = new ToolStripMenuItem(device.Name);
+                joysticksToolStripMenuItem.DropDownItems.Add(item);
+            }
+        }
+
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
             if (this.InvokeRequired)
@@ -848,7 +894,6 @@ namespace MobiFlight.UI
                 return;
             }
             UpdateStatusBarModuleInformation();
-            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 
         /// <summary>
@@ -1152,41 +1197,44 @@ namespace MobiFlight.UI
         /// gathers infos about the connected modules and stores information in different objects
         /// </summary>
         /// <returns>returns true if there are modules present</returns>
-        private bool UpdateStatusBarModuleInformation()
+        private void UpdateStatusBarModuleInformation()
         {
-            // remove the items from all comboboxes
-            // and set default items
-            bool modulesFound = false;
-            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
-            moduleToolStripDropDownButton.DropDownItems.Clear();
-            moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
+            modulesToolStripMenuItem.DropDownItems.Clear();
+
 #if ARCAZE
-            // TODO: refactor!!!
-            foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
+            var modules = execManager.getModuleCache().getModuleInfo();
+
+            foreach (IModuleInfo module in modules)
             {
-                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
-                modulesFound = true;
+                modulesToolStripMenuItem.DropDownItems.Add(module.Name + "/ " + module.Serial);
             }
 #endif
 
 #if MOBIFLIGHT
-            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().GetModuleInfo())
+            var mfModules = execManager.getMobiFlightModuleCache().GetModuleInfo();
+
+            foreach (IModuleInfo module in mfModules)
             {
-                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
-                item.Tag = module;
+                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})")
+                {
+                    Tag = module
+                };
                 item.Click += statusToolStripMenuItemClick;
-                moduleToolStripDropDownButton.DropDownItems.Add(item);
-                modulesFound = true;
+                modulesToolStripMenuItem.DropDownItems.Add(item);
             }
 #endif
-            if (modulesFound)
+
+            if ((modules.Count() + mfModules.Count()) == 0)
             {
-                moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");
-                ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"))
+                {
+                    Enabled = false
+                };
+                modulesToolStripMenuItem.DropDownItems.Add(item);
+                return;
             }
-            // only enable button if modules are available            
-            return (modulesFound);
-        } //fillComboBoxesWithArcazeModules()
+
+        }
 
         private void statusToolStripMenuItemClick(object sender, EventArgs e)
         {
