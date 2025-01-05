@@ -1029,6 +1029,12 @@
     </None>
     <None Include="Build\build-firmware.bat" />
     <None Include="Build\release.bat" />
+    <None Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniEFIS.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Community\miniCOCKPIT\firmware\miniCOCKPIT_miniFCU_mega_1_0_1.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Devices\mfdevice.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1952,7 +1958,475 @@
     <Folder Include="Release\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Community\**">
+    <Content Include="Community\CoreFlightTech\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.adf.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.atc.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.comm.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.efis.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.fcu.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.landinggear.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.mcp.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech.nav.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_adf_nano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_atc_nano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_comm_nano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_efis_nano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_fcu_mega.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_landinggear_nano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_mcp_mega.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\boards\coreflighttech_nav_nano.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_adf_fo_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_adf_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_atc_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_comm_fo_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_comm_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_efis_fo_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_efis_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_fcu_mega.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_landinggear_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_mcp_mega.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_nav_fo_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\config\coreflighttech_nav_nano.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_adf_nano_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_atc_nano_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_comm_nano_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_efis_nano_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_fcu_mega_9_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_landinggear_nano_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_mcp_mega_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\coreflighttech_nav_nano_1_0_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\firmware\reset.arduino_uno_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\generic\MSFS2020_LandingGearLever_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\ADF\MSFS2020_PMDG737_CPT_ADF_RADIO_v3.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\ATC\MSFS2020_PMDG737_CPT_ATC_RADIO_v7.2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\COMM\MSFS2020_PMDG737_CPT_COMM_RADIO_v3.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\COMM\MSFS2020_PMDG737_FO_COMM_RADIO_v4.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\EFIS\MSFS2020_PMDG737_CPT_EFIS_v3.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\EFIS\MSFS2020_PMDG737_FO_EFIS_v5.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\Landing Gear Lever\MSFS2020_PMDG737_LandingGearLever_v2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\NAV\MSFS2020_PMDG737_CPT_NAV_RADIO_v4.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\msfs2020\pmdg737\NAV\MSFS2020_PMDG737_FO_NAV_RADIO_v4.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\ADF\P3D_PMDG737_CPT_ADF_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\ADF\P3D_PMDG737_FO_ADF_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\COMM\P3D_PMDG737_CPT_COMM_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\COMM\P3D_PMDG737_FO_COMM_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\EFIS\P3D_PMDG737-800_CPT_EFIS_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\EFIS\P3D_PMDG737-800_FO_EFIS_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\NAV\P3D_PMDG737_CPT_NAV_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\p3d\pmdg737\NAV\P3D_PMDG737_FO_NAV_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\ADF\XP11_ZIBO737_CPT_ADF_RADIO_v2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\ADF\XP11_ZIBO737_FO_ADF_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\ATC\X-P11_Zibo737_ATC_v4.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\COMM\XP11_ZIBO737_CPT_COMM_RADIO_v3.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\COMM\XP11_ZIBO737_FO_COMM_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\EFIS\XP11_ZIBO737_EFIS_CPT_v2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\EFIS\XP11_ZIBO737_EFIS_FO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\LandingGearLever\XP11_ZIBO737_LandingGearLever_v2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\MCP\XPlane11_Zibo737_MCP_v5.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\NAV\XP11_ZIBO737_CPT_NAV_RADIO_v2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane11\NAV\XP11_ZIBO737_FO_NAV_RADIO_v1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\CoreFlightTech\profile\xplane\zibo737\X-Plane12\ADF\XP12_Zibo737_CPT_ADF_RADIO_v3.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\boards\gnc255_raspberrypico.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\boards\mobiflight_GNC255_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\config\MF255-0.9.1.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\devices\mobiflight.gnc255.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\firmware\gnc255_raspberrypico_0_9_1.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\gnc255-msfs2020-1.2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\S-5.2_GENERIC_GNC255-V12_DEV_COM1-2NAV1-2ADFQNHXPDR.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\X-1.6_FENIX_A320_-_GNC255-V5_VHF1-2-3_QNH_XPDR.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\Elral_Tuomas_GNC255\profile\msfs2020\X-5.2_COMANCHE_250_-_GNC255-V3_COM1-2NAV1-2ADFQNHXPDR.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\boards\kav_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\boards\kav_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\config\KavSim Glareshield Board Config v1-1-0.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\config\KavSim Overhead Board Config v1-1-0.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\config\KavSim Pedestal Board Config v1-1-0.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\devices\kav_battery.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\devices\kav_efis.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\devices\kav_fcu.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\devices\kav_rad_tcas.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\devices\kav_rudder.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\firmware\kav_mega_2_6_1.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\firmware\kav_raspberrypico_2_6_1.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\FBWA320 Battery new.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\FENIX - KAV FIRMWARE V2-0-0-378 %28QUARTZ%29.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\FENIX - KAV FIRMWARE V2-0-0-392 %28FULL COCKPIT - NO QUARTZ%29.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\FENIX - KAV FIRMWARE V2-0-0-392 %28NO QUARTZ%29.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Fenix A320\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 All-In-One Config V2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 Glareshield Config V2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 Overhead Config V2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\FlyByWire A320\KavSim FBWA320 Pedestal Config V2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 All-In-One Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 Glareshield Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 Overhead Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Headwind A330\KavSim HWA320 Pedestal Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 All-In-One Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 Glareshield Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 Overhead Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\iniBuilds A310\KavSim iniA310 Pedestal Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\Rudder String support FBWA320.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\z_development\FBWA320 EFIS new.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\msfs2020\z_development\FBWA320 FCU new.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\p3d\KavSim JeeHellA320 All-In-One Config V2.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\p3d\KavSim JeeHellA320 Glareshield Config V1.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\README.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\FlightFactor A320\KavSim FFA320 All-In-One Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\FlightFactor A320\Modified FFA320_Connector.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\JD-A330\KavSim JD-A330 All-In-One Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x All-In-One Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x Glareshield Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x Overhead Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\kavSimulations\profiles\xplane12\Toliss\KavSim TolissA3x Pedestal Config.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\boards\mini_overhead_panel_raspberry_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\config\Mini OverheadSMD.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\firmware\mini_overhead_panel_raspberrypico_1_0_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\firmware\reset.raspberry_pico_flash_nuke.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - FBW.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - Fenix.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MadMonkey\profile\msfs2020\Mini Overhead SMD - Toliss.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\boards\miniCOCKPIT_miniFCU_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\config\miniCOCKPIT_miniFCU_mega.mfmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniEFIS.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\devices\miniCOCKPIT_miniFCU_mega.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\firmware\reset.miniFCU_20241117.ino.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\miniCOCKPIT\profiles\msfs2020\FBW-a320.mcc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\boards\board-logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\boards\mobiflight_genericI2C_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\boards\mobiflight_genericI2C_raspberry_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\boards\mobiflight_GNC255_mega.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\boards\mobiflight_GNC255_pico.board.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\devices\mobiflight.genericI2C.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\devices\mobiflight.gnc255.device.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\firmware\mobiflight_genericI2C_mega_2_5_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\firmware\mobiflight_genericI2C_raspberrypico_2_5_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\firmware\mobiflight_gnc255_mega_2_5_0.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\firmware\mobiflight_gnc255_raspberrypico_2_5_0.uf2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\firmware\reset.arduino_mega_1_0_2.hex">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Community\MobiFlight\firmware\reset.raspberry_pico_flash_nuke.uf2">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
