@@ -385,7 +385,7 @@
         private Panels.Settings.ArcazePanel arcazePanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
-        private System.Windows.Forms.TabPage peripheralsTabPage;
+        public System.Windows.Forms.TabPage peripheralsTabPage;
         private Panels.Settings.PeripheralsPanel peripheralsPanel;
     }
 }

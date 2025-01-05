@@ -269,7 +269,7 @@ namespace MobiFlight.UI
 
         private void RefreshConnectedDevicesIcon()
         {
-            if (hasConnectedJoysticks || hasConnectedMidiBoards || hasConnectedMidiBoards)
+            if (hasConnectedJoysticks || hasConnectedMidiBoards || hasConnectedModules)
             {
                 toolStripConnectedDevicesIcon.Image = Properties.Resources.check;
             }
@@ -287,10 +287,8 @@ namespace MobiFlight.UI
 
             if (joysticks.Count == 0)
             {
-                var item = new ToolStripMenuItem(i18n._tr("uiNone"))
-                {
-                    Enabled = false
-                };
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"));
+                item.Click += perhipheralsToolStripMenuItemClick;
                 joysticksToolStripMenuItem.DropDownItems.Add(item);
 
                 hasConnectedJoysticks = false;
@@ -300,6 +298,7 @@ namespace MobiFlight.UI
                 foreach (var joystick in joysticks)
                 {
                     var item = new ToolStripMenuItem(joystick.Name);
+                    item.Click += perhipheralsToolStripMenuItemClick;
                     joysticksToolStripMenuItem.DropDownItems.Add(item);
                 }
 
@@ -319,8 +318,9 @@ namespace MobiFlight.UI
             {
                 var item = new ToolStripMenuItem(i18n._tr("uiNone"))
                 {
-                    Enabled = false
+                    Enabled = true
                 };
+                item.Click += perhipheralsToolStripMenuItemClick;
                 joysticksToolStripMenuItem.DropDownItems.Add(item);
 
                 hasConnectedMidiBoards = false;
@@ -330,6 +330,7 @@ namespace MobiFlight.UI
                 foreach (var device in devices)
                 {
                     var item = new ToolStripMenuItem(device.Name);
+                    item.Click += perhipheralsToolStripMenuItemClick;
                     joysticksToolStripMenuItem.DropDownItems.Add(item);
                 }
 
@@ -696,6 +697,9 @@ namespace MobiFlight.UI
                     break;
                 case "ArcazeTabPage":
                     dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
+                    break;
+                case "perhipheralsTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
                     break;
             }
             if (SelectedBoard != null)
@@ -1259,11 +1263,9 @@ namespace MobiFlight.UI
 
             if ((modules.Count() + mfModules.Count()) == 0)
             {
-                var item = new ToolStripMenuItem(i18n._tr("uiNone"))
-                {
-                    Enabled = false
-                };
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"));
                 modulesToolStripMenuItem.DropDownItems.Add(item);
+                item.Click += statusToolStripMenuItemClick;
 
                 hasConnectedModules = false;
             }
@@ -1280,6 +1282,11 @@ namespace MobiFlight.UI
             MobiFlightModuleInfo moduleInfo = (sender as ToolStripMenuItem).Tag as MobiFlightModuleInfo;
 
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
+        }
+
+        private void perhipheralsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            ShowSettingsDialog("perhipheralsTabPage", null, null, null);
         }
 
         /// <summary>
