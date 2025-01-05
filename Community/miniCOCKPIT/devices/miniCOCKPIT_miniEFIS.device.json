@@ -1,0 +1,80 @@
+{
+    "$schema": "./mfdevice.schema.json",
+    "Info": {
+      "Label": "miniEFIS LED and LCD",
+      "Type": "miniCOCKPIT_miniEFIS",
+      "Author": "miniCOCKPIT",
+      "URL": "",
+      "Version" : "1.0.1"
+    },
+    "Config": {
+      "Pins": [
+        "SDA",
+        "SCL",
+        "EFIS-CS"
+      ],
+      "isI2C": false
+    },
+    "MessageTypes": [
+      {
+        "id": 0,
+        "label": "EFIS - CSTR LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 1,
+        "label": "EFIS - WPT LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 2,
+        "label": "EFIS - VORD LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 3,
+        "label": "EFIS - NDB LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 4,
+        "label": "EFIS - ARPT LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 5,
+        "label": "EFIS - FD LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 6,
+        "label": "EFIS - LS LED",
+        "description": "1 = ON | 0 = OFF"
+      },
+      {
+        "id": 7,
+        "label": "EFIS - QNH/QFE",
+        "description": "1 = QNH, 0=QFE"
+      },
+      {
+        "id": 8,
+        "label": "EFIS - STD",
+        "description": "1 = STD, 0=STD OFF"
+      },
+      {
+        "id": 9,
+        "label": "EFIS - in Hg/hPa",
+        "description": "1 = inHg, 0=hPa"
+      },
+      {
+        "id": 10,
+        "label": "EFIS - inHg BARO REF",
+        "description": "$*100 will be displayed as BARO REF value (inHg)"
+      },
+      {
+        "id": 11,
+        "label": "EFIS - inhPa BARO REF",
+        "description": "$ will be displayed as BARO REF value (hPa)"
+      }
+    ]
+  }
