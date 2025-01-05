@@ -288,7 +288,7 @@ namespace MobiFlight.UI
             if (joysticks.Count == 0)
             {
                 var item = new ToolStripMenuItem(i18n._tr("uiNone"));
-                item.Click += perhipheralsToolStripMenuItemClick;
+                item.Click += peripheralsToolStripMenuItemClick;
                 joysticksToolStripMenuItem.DropDownItems.Add(item);
 
                 hasConnectedJoysticks = false;
@@ -298,7 +298,7 @@ namespace MobiFlight.UI
                 foreach (var joystick in joysticks)
                 {
                     var item = new ToolStripMenuItem(joystick.Name);
-                    item.Click += perhipheralsToolStripMenuItemClick;
+                    item.Click += peripheralsToolStripMenuItemClick;
                     joysticksToolStripMenuItem.DropDownItems.Add(item);
                 }
 
@@ -320,7 +320,7 @@ namespace MobiFlight.UI
                 {
                     Enabled = true
                 };
-                item.Click += perhipheralsToolStripMenuItemClick;
+                item.Click += peripheralsToolStripMenuItemClick;
                 joysticksToolStripMenuItem.DropDownItems.Add(item);
 
                 hasConnectedMidiBoards = false;
@@ -330,7 +330,7 @@ namespace MobiFlight.UI
                 foreach (var device in devices)
                 {
                     var item = new ToolStripMenuItem(device.Name);
-                    item.Click += perhipheralsToolStripMenuItemClick;
+                    item.Click += peripheralsToolStripMenuItemClick;
                     joysticksToolStripMenuItem.DropDownItems.Add(item);
                 }
 
@@ -698,7 +698,7 @@ namespace MobiFlight.UI
                 case "ArcazeTabPage":
                     dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
                     break;
-                case "perhipheralsTabPage":
+                case "peripheralsTabPage":
                     dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
                     break;
             }
@@ -1284,9 +1284,9 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
-        private void perhipheralsToolStripMenuItemClick(object sender, EventArgs e)
+        private void peripheralsToolStripMenuItemClick(object sender, EventArgs e)
         {
-            ShowSettingsDialog("perhipheralsTabPage", null, null, null);
+            ShowSettingsDialog("peripheralsTabPage", null, null, null);
         }
 
         /// <summary>
