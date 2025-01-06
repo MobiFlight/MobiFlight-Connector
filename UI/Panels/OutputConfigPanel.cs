@@ -652,13 +652,13 @@ namespace MobiFlight.UI.Panels
                         if (cfgItem.ButtonInputConfig!=null)
                         {
                             if (cfgItem.ButtonInputConfig.onRelease!=null)
-                                row["OutputName"] = cfgItem.ButtonInputConfig.onRelease.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                                row["OutputName"] = cfgItem.ButtonInputConfig.onRelease?.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
                             if (cfgItem.ButtonInputConfig.onPress != null)
-                                row["OutputName"] = cfgItem.ButtonInputConfig.onPress.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                                row["OutputName"] = cfgItem.ButtonInputConfig.onPress?.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
                         }
                         if (cfgItem.AnalogInputConfig != null)
                         {
-                            row["OutputName"] = cfgItem.AnalogInputConfig.onChange.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
+                            row["OutputName"] = cfgItem.AnalogInputConfig.onChange?.GetType().ToString().Replace("MobiFlight.InputConfig.", "");
                         }
                     }
                 }
