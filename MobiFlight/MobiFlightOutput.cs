@@ -30,23 +30,13 @@ namespace MobiFlight
 
         public int OutputNumber { get; set; }
 
-        public bool sendDeviceID { get; set; }
-
-        public MobiFlightOutput() { }
-
-        public void Set(int value)
+        public virtual void Set(int value)
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
-            int output;
+            
+            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{Pin},{value};>.", LogSeverity.Debug);
 
-            if (sendDeviceID)
-                output = OutputNumber;
-            else
-                output = Pin;
-
-            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{output},{value};>.", LogSeverity.Debug);
-
-            command.AddArgument(output);
+            command.AddArgument(Pin);
             command.AddArgument(value);
             // Send command
             CmdMessenger.SendCommand(command);
@@ -55,6 +45,23 @@ namespace MobiFlight
         public void Stop()
         {
             Set(0);
+        }
+    }
+
+    public class MobiFlightOutputV3 : MobiFlightOutput
+    {
+        public int DeviceIndex { get; set; }
+
+        public override void Set(int value)
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
+            
+            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{DeviceIndex},{value};>.", LogSeverity.Debug);
+
+            command.AddArgument(DeviceIndex);
+            command.AddArgument(value);
+            // Send command
+            CmdMessenger.SendCommand(command);
         }
     }
 }

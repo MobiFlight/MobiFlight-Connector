@@ -382,23 +382,34 @@ namespace MobiFlight
                             break;
                         case DeviceType.Output:
                             device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
-                            Int16 pin;
-                            if (!Int16.TryParse((device as Config.Output).Pin, out pin))
+                            
+                            if (HasFirmwareFeature(FirmwareFeature.AccessOutputByDeviceIndex))
                             {
-                                Log.Instance.log(
-                                    $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.Output).Name}]." +
-                                    $"Pin: {(device as Config.Output).Pin}, skipping device.",
-                                    LogSeverity.Error);
-                                break;
+                                outputs.Add(device.Name, new MobiFlightOutputV3()
+                                {
+                                    CmdMessenger = _cmdMessenger,
+                                    Name = device.Name,
+                                    DeviceIndex = outputs.Count
+                                });
                             }
-                            outputs.Add(device.Name, new MobiFlightOutput()
+                            else
                             {
-                                CmdMessenger = _cmdMessenger,
-                                Name = device.Name,
-                                Pin = pin,
-                                OutputNumber = outputs.Count,
-                                sendDeviceID = HasFirmwareFeature(FirmwareFeature.Output_DeviceID)
-                            });
+                                if (!Int16.TryParse((device as Config.Output).Pin, out short pin))
+                                {
+                                    Log.Instance.log(
+                                        $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.Output).Name}]." +
+                                        $"Pin: {(device as Config.Output).Pin}, skipping device.",
+                                        LogSeverity.Error);
+                                    break;
+                                }
+
+                                outputs.Add(device.Name, new MobiFlightOutput()
+                                {
+                                    CmdMessenger = _cmdMessenger,
+                                    Name = device.Name,
+                                    Pin = pin,
+                                });
+                            }
                             break;
                         case DeviceType.LcdDisplay:
                             device.Name = GenerateUniqueDeviceName(lcdDisplays.Keys.ToArray(), device.Name);
