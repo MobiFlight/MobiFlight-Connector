@@ -4,7 +4,7 @@
       "Device": "atmega2560",
       "BaudRates": [ "115200" ],
       "Programmer": "wiring",
-      "Timeout": 15000
+      "Timeout": 35000
     },
     "Connection": {
       "ConnectionDelay": 1250,
@@ -31,26 +31,27 @@
       "^VID_3343&PID_0042",
       "^VID_04D9&PID_B534"
     ],
-  "Info": {
-    "CanInstallFirmware": true,
-    "CanResetBoard": true,
-    "DelayAfterFirmwareUpdate": 0,
-    "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
-    "FirmwareExtension": "hex",
-    "LatestFirmwareVersion": "1.0.0",
-    "FriendlyName": "miniCOCKPIT miniFCU",
-    "MobiFlightType": "miniCOCKPIT miniFCU mega",
-    "ResetFirmwareFile": "reset.miniFCU_20240426.ino.hex",
-    "CustomDeviceTypes": [
-      "miniCOCKPIT_miniFCU"
-    ],
-    "Community": {
-      "Project": "miniCOCKPIT",
-      "Website": "https://minicockpit.com/",
-      "Docs": "https://shop.minicockpit.com/a/help",
-      "Support": "mailto:hello@minicockpit.com"
-    }
-  },
+    "Info": {
+      "CanInstallFirmware": true,
+      "CanResetBoard": true,
+      "DelayAfterFirmwareUpdate": 0,
+      "FirmwareBaseName": "miniCOCKPIT_miniFCU_mega",
+      "FirmwareExtension": "hex",
+      "LatestFirmwareVersion": "1.0.1",
+      "FriendlyName": "miniCOCKPIT miniFCU",
+      "MobiFlightType": "miniCOCKPIT miniFCU mega",
+      "ResetFirmwareFile": "reset.miniFCU_20241117.ino.hex",
+      "CustomDeviceTypes": [
+        "miniCOCKPIT_miniFCU",
+        "miniCOCKPIT_miniEFIS"
+      ],
+      "Community": {
+        "Project": "miniCOCKPIT",
+        "Website": "https://minicockpit.com/",
+        "Docs": "https://shop.minicockpit.com/a/help",
+        "Support": "mailto:hello@minicockpit.com"
+      }
+    },
     "ModuleLimits": {
       "MaxAnalogInputs": 16,
       "MaxInputShifters": 4,
@@ -489,6 +490,216 @@
         "isPWM": false,
         "Pin": 69,
         "Name": "A15"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 70,
+        "Name": "EFIS_FD"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 71,
+        "Name": "EFIS_LS"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 72,
+        "Name": "EFIS_1_ADF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 73,
+        "Name": "EFIS_1_NULL"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 74,
+        "Name": "EFIS_1_VOR"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 75,
+        "Name": "EFIS_2_ADF"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 76,
+        "Name": "EFIS_2_NULL"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 77,
+        "Name": "EFIS_2_VOR"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 78,
+        "Name": "EFIS_ROSE_LS"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 79,
+        "Name": "EFIS_ROSE_VOR"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 80,
+        "Name": "EFIS_ROSE_NAV"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 81,
+        "Name": "EFIS_ROSE_ARC"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 82,
+        "Name": "EFIS_ROSE_PLAN"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 83,
+        "Name": "EFIS_ROSE_HIDDEN"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 84,
+        "Name": "EFIS_RANGE_10"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 85,
+        "Name": "EFIS_RANGE_20"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 86,
+        "Name": "EFIS_RANGE_40"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 87,
+        "Name": "EFIS_RANGE_80"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 88,
+        "Name": "EFIS_RANGE_160"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 89,
+        "Name": "EFIS_RANGE_320"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 90,
+        "Name": "EFIS_CSTR"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 91,
+        "Name": "EFIS_WPT"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 92,
+        "Name": "EFIS_VORD"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 93,
+        "Name": "EFIS_NDB"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 94,
+        "Name": "EFIS_ARPT"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 95,
+        "Name": "EFIS_PULL"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 96,
+        "Name": "EFIS_PUSH"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 97,
+        "Name": "EFIS_inHg"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 98,
+        "Name": "EFIS_hPa"
+      },
+      {
+        "isAnalog": false,
+        "isI2C": false,
+        "isPWM": false,
+        "Pin": 99,
+        "Name": "EFIS_CHRONO"
       }
     ]
   }

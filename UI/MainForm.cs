@@ -44,6 +44,14 @@ namespace MobiFlight.UI
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
         public event EventHandler<string> CurrentFilenameChanged;
 
+        // Track whether there are any connected devices of the different types, to avoid unnecessary
+        // array retrievals from execManager.
+        private bool hasConnectedJoysticks = false;
+        private bool hasConnectedMidiBoards = false;
+        private bool hasConnectedModules = false;
+
+        private bool IsMSFSRunning = false;
+
         public string CurrentFileName {
             get { return currentFileName; }
             set {
@@ -204,9 +212,11 @@ namespace MobiFlight.UI
             execManager.OnModuleRemoved += new EventHandler(Module_Removed);
             execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
             execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
+            execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
+            execManager.OnMidiBoardConnectedFinished += ExecManager_OnMidiBoardConnectedFinished;
 
-            moduleToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
-            toolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            connectedDevicesToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
+            simStatusToolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripAircraftDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
@@ -214,6 +224,7 @@ namespace MobiFlight.UI
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
+            toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
             // we only load the autorun value stored in settings
             // and do not use possibly passed in autoRun from cmdline
@@ -254,10 +265,81 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
-            
-            moduleToolStripDropDownButton.DropDownItems.Clear();
-            moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
         }
+
+        private void RefreshConnectedDevicesIcon()
+        {
+            if (hasConnectedJoysticks || hasConnectedMidiBoards || hasConnectedModules)
+            {
+                toolStripConnectedDevicesIcon.Image = Properties.Resources.check;
+            }
+            else
+            {
+                toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
+            }
+        }
+
+        private void ExecManager_OnJoystickConnectedFinished(object sender, EventArgs e)
+        {
+            joysticksToolStripMenuItem.DropDownItems.Clear();
+
+            var joysticks = execManager.GetJoystickManager().GetJoysticks();
+
+            if (joysticks.Count == 0)
+            {
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"));
+                item.Click += peripheralsToolStripMenuItemClick;
+                joysticksToolStripMenuItem.DropDownItems.Add(item);
+
+                hasConnectedJoysticks = false;
+            }
+            else
+            {
+                foreach (var joystick in joysticks)
+                {
+                    var item = new ToolStripMenuItem(joystick.Name);
+                    item.Click += peripheralsToolStripMenuItemClick;
+                    joysticksToolStripMenuItem.DropDownItems.Add(item);
+                }
+
+                hasConnectedJoysticks = true;
+            }
+
+            RefreshConnectedDevicesIcon();
+        }
+
+        private void ExecManager_OnMidiBoardConnectedFinished(object sender, EventArgs e)
+        {
+            MIDIDevicesToolStripMenuItem.DropDownItems.Clear();
+
+            var devices = execManager.GetMidiBoardManager().GetMidiBoards();
+
+            if (devices.Count == 0)
+            {
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"))
+                {
+                    Enabled = true
+                };
+                item.Click += peripheralsToolStripMenuItemClick;
+                joysticksToolStripMenuItem.DropDownItems.Add(item);
+
+                hasConnectedMidiBoards = false;
+            }
+            else
+            {
+                foreach (var device in devices)
+                {
+                    var item = new ToolStripMenuItem(device.Name);
+                    item.Click += peripheralsToolStripMenuItemClick;
+                    joysticksToolStripMenuItem.DropDownItems.Add(item);
+                }
+
+                hasConnectedMidiBoards = true;
+            }
+
+            RefreshConnectedDevicesIcon();
+        }
+
         private void ExecManager_OnSimAircraftChanged(object sender, string aircraftName)
         {
             if (this.InvokeRequired)
@@ -616,6 +698,9 @@ namespace MobiFlight.UI
                 case "ArcazeTabPage":
                     dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
                     break;
+                case "peripheralsTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
+                    break;
             }
             if (SelectedBoard != null)
                 dlg.PreselectedBoard = SelectedBoard;
@@ -846,7 +931,6 @@ namespace MobiFlight.UI
                 return;
             }
             UpdateStatusBarModuleInformation();
-            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
         }
 
         /// <summary>
@@ -907,6 +991,7 @@ namespace MobiFlight.UI
                 case FlightSimType.MSFS2020:
                     SimProcessDetectedToolStripMenuItem.Text = "MSFS Detected";
                     SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.check;
+                    IsMSFSRunning = true;
                     break;
 
                 case FlightSimType.FS9:
@@ -947,6 +1032,7 @@ namespace MobiFlight.UI
 
             SimProcessDetectedToolStripMenuItem.Text = "No sim running.";
             SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;
+            IsMSFSRunning = false;
 
             UpdateAllConnectionIcons();
         }
@@ -1148,47 +1234,59 @@ namespace MobiFlight.UI
         /// gathers infos about the connected modules and stores information in different objects
         /// </summary>
         /// <returns>returns true if there are modules present</returns>
-        private bool UpdateStatusBarModuleInformation()
+        private void UpdateStatusBarModuleInformation()
         {
-            // remove the items from all comboboxes
-            // and set default items
-            bool modulesFound = false;
-            ModuleStatusIconToolStripLabel.Image = Properties.Resources.warning;
-            moduleToolStripDropDownButton.DropDownItems.Clear();
-            moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageNoModuleFound");
+            modulesToolStripMenuItem.DropDownItems.Clear();
+
 #if ARCAZE
-            // TODO: refactor!!!
-            foreach (IModuleInfo module in execManager.getModuleCache().getModuleInfo())
+            var modules = execManager.getModuleCache().getModuleInfo();
+
+            foreach (IModuleInfo module in modules)
             {
-                moduleToolStripDropDownButton.DropDownItems.Add(module.Name + "/ " + module.Serial);
-                modulesFound = true;
+                modulesToolStripMenuItem.DropDownItems.Add(module.Name + "/ " + module.Serial);
             }
 #endif
 
 #if MOBIFLIGHT
-            foreach (IModuleInfo module in execManager.getMobiFlightModuleCache().GetModuleInfo())
+            var mfModules = execManager.getMobiFlightModuleCache().GetModuleInfo();
+
+            foreach (IModuleInfo module in mfModules)
             {
-                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})");
-                item.Tag = module;
+                ToolStripDropDownItem item = new ToolStripMenuItem($"{module.Name} ({module.Port})")
+                {
+                    Tag = module
+                };
                 item.Click += statusToolStripMenuItemClick;
-                moduleToolStripDropDownButton.DropDownItems.Add(item);
-                modulesFound = true;
+                modulesToolStripMenuItem.DropDownItems.Add(item);
             }
 #endif
-            if (modulesFound)
+
+            if ((modules.Count() + mfModules.Count()) == 0)
             {
-                moduleToolStripDropDownButton.ToolTipText = i18n._tr("uiMessageModuleFound");
-                ModuleStatusIconToolStripLabel.Image = Properties.Resources.check;
+                var item = new ToolStripMenuItem(i18n._tr("uiNone"));
+                modulesToolStripMenuItem.DropDownItems.Add(item);
+                item.Click += statusToolStripMenuItemClick;
+
+                hasConnectedModules = false;
             }
-            // only enable button if modules are available            
-            return (modulesFound);
-        } //fillComboBoxesWithArcazeModules()
+            else
+            {
+                hasConnectedModules = true;
+            }
+
+            RefreshConnectedDevicesIcon();
+        }
 
         private void statusToolStripMenuItemClick(object sender, EventArgs e)
         {
             MobiFlightModuleInfo moduleInfo = (sender as ToolStripMenuItem).Tag as MobiFlightModuleInfo;
 
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
+        }
+
+        private void peripheralsToolStripMenuItemClick(object sender, EventArgs e)
+        {
+            ShowSettingsDialog("peripheralsTabPage", null, null, null);
         }
 
         /// <summary>
@@ -2110,7 +2208,7 @@ namespace MobiFlight.UI
             InstallWasmModule();
         }
 
-        private static void InstallWasmModule()
+        private void InstallWasmModule()
         {
             WasmModuleUpdater updater = new WasmModuleUpdater();
             bool Is2020Different = false;
@@ -2140,6 +2238,16 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Issue 1872: If the sim is running warn the user then bail
+                if (IsMSFSRunning)
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmMSFSRunning"), 
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 

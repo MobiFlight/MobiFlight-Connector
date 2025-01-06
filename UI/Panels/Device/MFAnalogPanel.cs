@@ -42,7 +42,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
             this.analog = analogDevice;
 
-            mfPinComboBox.SelectedValue = byte.Parse(analog.Pin);
+            mfPinComboBox.SelectedValue = uint.Parse(analog.Pin);
             textBox1.Text = analog.Name;
             SensitivityTrackBar.Value = byte.Parse(analog.Sensitivity);
             
