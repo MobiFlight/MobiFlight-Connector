@@ -2241,16 +2241,6 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                if (Is2020Different)
-                {
-                    Update2020Successful = HandleWasmInstall(updater, Is2020Different, updater.CommunityFolder, "2020");
-                }
-
-                if (Is2024Different)
-                {
-                    Update2024Successful = HandleWasmInstall(updater, Is2024Different, updater.CommunityFolder2024, "2024");
-                }
-
                 // If neither are different then just tell the user and return, doing nothing.
                 if (!Is2020Different && !Is2024Different)
                 {
@@ -2259,6 +2249,16 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
+                }
+
+                if (Is2020Different)
+                {
+                    Update2020Successful = HandleWasmInstall(updater, Is2020Different, updater.CommunityFolder, "2020");
+                }
+
+                if (Is2024Different)
+                {
+                    Update2024Successful = HandleWasmInstall(updater, Is2024Different, updater.CommunityFolder2024, "2024");
                 }
 
                 // If either update is successful then show the success dialog.
