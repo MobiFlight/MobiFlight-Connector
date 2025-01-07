@@ -2213,8 +2213,8 @@ namespace MobiFlight.UI
             WasmModuleUpdater updater = new WasmModuleUpdater();
             bool Is2020Different = false;
             bool Is2024Different = false;
-            bool Update2020Successful = false;
-            bool Update2024Successful = false;
+            bool Update2020Successful = true;
+            bool Update2024Successful = true;
 
             try
             {
@@ -2231,16 +2231,6 @@ namespace MobiFlight.UI
                 Is2020Different = updater.WasmModulesAreDifferent(updater.CommunityFolder);
                 Is2024Different = updater.WasmModulesAreDifferent(updater.CommunityFolder2024);
 
-                // If neither are different then just tell the user and return, doing nothing.
-                if (!Is2020Different && !Is2024Different)
-                {
-                    TimeoutMessageDialog.Show(
-                       i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
-                       i18n._tr("uiMessageWasmUpdater"),
-                       MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
                 // Issue 1872: If the sim is running warn the user then bail
                 if (IsMSFSRunning)
                 {
@@ -2251,9 +2241,25 @@ namespace MobiFlight.UI
                     return;
                 }
 
-                // Install for both versions
-                Update2020Successful = HandleWasmInstall(updater, Is2020Different, updater.CommunityFolder, "2020");
-                Update2024Successful = HandleWasmInstall(updater, Is2024Different, updater.CommunityFolder2024, "2024");
+                if (Is2020Different)
+                {
+                    Update2020Successful = HandleWasmInstall(updater, Is2020Different, updater.CommunityFolder, "2020");
+                }
+
+                if (Is2024Different)
+                {
+                    Update2024Successful = HandleWasmInstall(updater, Is2024Different, updater.CommunityFolder2024, "2024");
+                }
+
+                // If neither are different then just tell the user and return, doing nothing.
+                if (!Is2020Different && !Is2024Different)
+                {
+                    TimeoutMessageDialog.Show(
+                       i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
                 // If either update is successful then show the success dialog.
                 if (Update2020Successful || Update2024Successful)
