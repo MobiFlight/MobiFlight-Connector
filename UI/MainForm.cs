@@ -2231,16 +2231,6 @@ namespace MobiFlight.UI
                 Is2020Different = updater.WasmModulesAreDifferent(updater.CommunityFolder);
                 Is2024Different = updater.WasmModulesAreDifferent(updater.CommunityFolder2024);
 
-                // Issue 1872: If the sim is running warn the user then bail
-                if (IsMSFSRunning)
-                {
-                    MessageBox.Show(
-                       i18n._tr("uiMessageWasmMSFSRunning"), 
-                       i18n._tr("uiMessageWasmUpdater"),
-                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 // If neither are different then just tell the user and return, doing nothing.
                 if (!Is2020Different && !Is2024Different)
                 {
@@ -2248,6 +2238,16 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageWasmUpdateAlreadyInstalled"),
                        i18n._tr("uiMessageWasmUpdater"),
                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Issue 1872: If the sim is running warn the user then bail
+                if (IsMSFSRunning)
+                {
+                    MessageBox.Show(
+                       i18n._tr("uiMessageWasmMSFSRunning"), 
+                       i18n._tr("uiMessageWasmUpdater"),
+                       MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
