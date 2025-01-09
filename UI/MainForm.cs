@@ -2213,8 +2213,8 @@ namespace MobiFlight.UI
             WasmModuleUpdater updater = new WasmModuleUpdater();
             bool Is2020Different = false;
             bool Is2024Different = false;
-            bool Update2020Successful = true;
-            bool Update2024Successful = true;
+            bool Update2020Successful = false;
+            bool Update2024Successful = false;
 
             try
             {
