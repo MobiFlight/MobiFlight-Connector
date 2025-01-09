@@ -3,36 +3,36 @@
   <ModuleType>miniCOCKPIT miniFCU mega</ModuleType>
   <ModuleName>miniCOCKPIT miniFCU</ModuleName>
   <PowerSavingTime>600</PowerSavingTime>
-  <Output Name="FCU-AP1" Pin="58" />
-  <Output Name="FCU-AP2" Pin="59" />
-  <Output Name="FCU-LOC" Pin="57" />
-  <Output Name="FCU-ATHR" Pin="60" />
-  <Output Name="FCU-EXPED" Pin="61" />
-  <Output Name="FCU-APPR" Pin="62" />
-  <Button Name="FCU-AP1 Button" Pin="40" />
-  <Button Name="FCU-AP2 Button" Pin="42" />
-  <Button Name="FCU-LOC Button" Pin="34" />
-  <Button Name="FCU-ATHR Button" Pin="46" />
-  <Button Name="FCU-EXPED Button" Pin="44" />
-  <Button Name="FCU-APPR Button" Pin="39" />
-  <Button Name="FCU-MACH Button" Pin="43" />
-  <Button Name="FCU-TRK Button" Pin="36" />
-  <Button Name="FCU-METRIC Button" Pin="38" />
-  <Button Name="FCU-SPD PUSH" Pin="22" />
-  <Button Name="FCU-SPD PULL" Pin="23" />
-  <Button Name="FCU-HDG PUSH" Pin="25" />
-  <Button Name="FCU-HDG PULL" Pin="24" />
-  <Button Name="FCU-ALT PUSH" Pin="68" />
-  <Button Name="FCU-ALT PULL" Pin="69" />
-  <Button Name="FCU-VS PUSH" Pin="66" />
-  <Button Name="FCU-VS PULL" Pin="45" />
+  <Output Name="AP1" Pin="58" />
+  <Output Name="AP2" Pin="59" />
+  <Output Name="LOC" Pin="57" />
+  <Output Name="ATHR" Pin="60" />
+  <Output Name="EXPED" Pin="61" />
+  <Output Name="APPR" Pin="62" />
+  <Button Name="AP1 Button" Pin="40" />
+  <Button Name="AP2 Button" Pin="42" />
+  <Button Name="LOC Button" Pin="34" />
+  <Button Name="ATHR Button" Pin="46" />
+  <Button Name="EXPED Button" Pin="44" />
+  <Button Name="APPR Button" Pin="39" />
+  <Button Name="MACH Button" Pin="43" />
+  <Button Name="TRK Button" Pin="36" />
+  <Button Name="METRIC Button" Pin="38" />
+  <Button Name="SPD PUSH" Pin="22" />
+  <Button Name="SPD PULL" Pin="23" />
+  <Button Name="HDG PUSH" Pin="25" />
+  <Button Name="HDG PULL" Pin="24" />
+  <Button Name="ALT PUSH" Pin="68" />
+  <Button Name="ALT PULL" Pin="69" />
+  <Button Name="VS PUSH" Pin="66" />
+  <Button Name="VS PULL" Pin="45" />
   <Button Name="EFIS-PUSH" Pin="96" />
   <Button Name="EFIS-PULL" Pin="95" />
-  <Button Name="FCU-ALTINC" Pin="67" />
-  <Encoder Name="FCU-SPD Encoder" PinLeft="28" PinRight="29" EncoderType="4" />
-  <Encoder Name="FCU-HDG Encoder" PinLeft="27" PinRight="26" EncoderType="4" />
-  <Encoder Name="FCU-ALT Encoder" PinLeft="33" PinRight="32" EncoderType="4" />
-  <Encoder Name="FCU-VS Encoder" PinLeft="37" PinRight="35" EncoderType="4" />
+  <Button Name="ALTINC" Pin="67" />
+  <Encoder Name="SPD Encoder" PinLeft="28" PinRight="29" EncoderType="4" />
+  <Encoder Name="HDG Encoder" PinLeft="27" PinRight="26" EncoderType="4" />
+  <Encoder Name="ALT Encoder" PinLeft="33" PinRight="32" EncoderType="4" />
+  <Encoder Name="VS Encoder" PinLeft="37" PinRight="35" EncoderType="4" />
   <Encoder Name="EFIS-BARO Encoder" PinLeft="9" PinRight="8" EncoderType="4" />
   <Button Name="EFIS-1_ADF" Pin="72" />
   <Button Name="EFIS-1_NULL" Pin="73" />
@@ -68,7 +68,6 @@
       <string>5</string>
       <string>4</string>
       <string>3</string>
-      <string>7</string>
     </ConfiguredPins>
   </CustomDevice>
   <CustomDevice Name="miniEFIS LED and LCD" CustomType="miniCOCKPIT_miniEFIS" Pins="20|21|7" Config="">
