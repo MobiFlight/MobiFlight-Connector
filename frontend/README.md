@@ -12,3 +12,9 @@ npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
 ```
 ## react-i18next
 Follow information from website: https://github.com/i18next/react-i18next
+
+## zustand
+https://www.npmjs.com/package/zustand
+
+## lodash
+https://www.npmjs.com/package/lodash
