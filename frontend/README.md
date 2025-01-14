@@ -12,6 +12,7 @@ npm install --save-dev --save-exact prettier prettier-plugin-tailwindcss
 ```
 ## react-i18next
 Follow information from website: https://github.com/i18next/react-i18next
+Add http backend, `npm install i18next-http-backend`
 
 ## zustand
 https://www.npmjs.com/package/zustand
