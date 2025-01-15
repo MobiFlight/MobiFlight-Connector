@@ -10,7 +10,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
     public partial class MFCustomDevicePanelPin : UserControl
     {
         private bool initialized = false;
-        
+
         public event EventHandler Changed;
 
         public MFCustomDevicePanelPin()
@@ -20,18 +20,19 @@ namespace MobiFlight.UI.Panels.Settings.Device
             comboBox0.SelectedIndexChanged += value_Changed;
         }
 
-        public MFCustomDevicePanelPin(String Label, List<MobiFlightPin> Pins, string pin): this()
+        public MFCustomDevicePanelPin(String Label, List<MobiFlightPin> Pins, string pin) : this()
         {
             if (pin == null) pin = Pins[0].Pin.ToString();
 
             ComboBoxHelper.BindMobiFlightFreePins(comboBox0, Pins, pin);
-            
+
             pinLabel.Text = Label;
             initialized = true;
         }
 
         public byte SelectedPin()
         {
+            Log.Instance.log($"Converting `{comboBox0.SelectedValue}`", LogSeverity.Info);
             if (byte.TryParse(comboBox0.SelectedValue?.ToString(), out byte result))
             {
                 return result;
