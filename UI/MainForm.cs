@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System.IO;
+using FSUIPC;
 
 namespace MobiFlight.UI
 {
@@ -2253,12 +2254,20 @@ namespace MobiFlight.UI
 
                 if (Is2020Different)
                 {
-                    Update2020Successful = HandleWasmInstall(updater, Is2020Different, updater.CommunityFolder, "2020");
+                    Update2020Successful = HandleWasmInstall(updater, updater.CommunityFolder, "2020");
+                }
+                else
+                {
+                    Log.Instance.log($"WASM module for MSFS2020 is already up-to-date.", LogSeverity.Info);
                 }
 
                 if (Is2024Different)
                 {
-                    Update2024Successful = HandleWasmInstall(updater, Is2024Different, updater.CommunityFolder2024, "2024");
+                    Update2024Successful = HandleWasmInstall(updater, updater.CommunityFolder2024, "2024");
+                }
+                else
+                {
+                    Log.Instance.log($"WASM module for MSFS2024 is already up-to-date.", LogSeverity.Info);
                 }
 
                 // If either update is successful then show the success dialog.
@@ -2287,22 +2296,15 @@ namespace MobiFlight.UI
         /// Handles all the necessary and log messages for installing the WASM with different versions of MSFS.
         /// </summary>
         /// <param name="updater">The WASM updater to use</param>
-        /// <param name="isDifferent">True if the versions of WASM were different</param>
         /// <param name="communityFolder">The path to the community folder</param>
         /// <param name="msfsVersion">The version of MSFS, either "2020" or "2024"</param>
         /// <returns></returns>
-        private static bool HandleWasmInstall(WasmModuleUpdater updater, bool isDifferent, string communityFolder, string msfsVersion)
+        private static bool HandleWasmInstall(WasmModuleUpdater updater, string communityFolder, string msfsVersion)
         {
             if (String.IsNullOrEmpty(communityFolder))
             {
                 Log.Instance.log($"Skipping WASM install for MSFS{msfsVersion} since no community folder was found. This likely means MSFS{msfsVersion} is not installed.", LogSeverity.Info);
-                return false;
-            }
-
-            if (!isDifferent)
-            {
-                Log.Instance.log($"WASM module for MSFS{msfsVersion} is already up-to-date.", LogSeverity.Info);
-                return false;
+                return true;
             }
 
             bool result = updater.InstallWasmModule(communityFolder);
