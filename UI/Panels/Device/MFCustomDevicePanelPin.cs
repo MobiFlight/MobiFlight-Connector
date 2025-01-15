@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
             else
             {
-                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue?.ToString()}` to a byte", LogSeverity.Debug);
+                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue?.ToString()}` to a byte", LogSeverity.Error);
                 return 0;
             }
         }
