@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MobiFlight.UI.Panels.Settings.Device
 {
@@ -33,7 +32,15 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         public byte SelectedPin()
         {
-            return (byte)comboBox0.SelectedValue;
+            if (byte.TryParse(comboBox0.SelectedValue?.ToString(), out byte result))
+            {
+                return result;
+            }
+            else
+            {
+                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue?.ToString()}` to a byte", LogSeverity.Debug);
+                return 0;
+            }
         }
 
         private void value_Changed(object sender, EventArgs e)
