@@ -32,7 +32,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         public byte SelectedPin()
         {
-            Log.Instance.log($"Converting `{comboBox0.SelectedValue}`", LogSeverity.Info);
             if (byte.TryParse(comboBox0.SelectedValue?.ToString(), out byte result))
             {
                 return result;
