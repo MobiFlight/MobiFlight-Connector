@@ -33,13 +33,13 @@ namespace MobiFlight.UI.Panels.Settings.Device
         public byte SelectedPin()
         {
             Log.Instance.log($"Converting `{comboBox0.SelectedValue}`", LogSeverity.Info);
-            if (byte.TryParse(comboBox0.SelectedValue?.ToString(), out byte result))
+            if (byte.TryParse(comboBox0.SelectedValue, out byte result))
             {
                 return result;
             }
             else
             {
-                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue?.ToString()}` to a byte", LogSeverity.Error);
+                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue}` to a byte", LogSeverity.Error);
                 return 0;
             }
         }
