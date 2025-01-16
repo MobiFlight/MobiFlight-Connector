@@ -87,6 +87,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             (encoder.PinLeft, encoder.PinRight) = (encoder.PinRight, encoder.PinLeft);
             UpdateFreePinsInDropDowns();
+            value_Changed(null, new EventArgs());
         }
     }
 }
