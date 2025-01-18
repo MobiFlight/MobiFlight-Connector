@@ -83,7 +83,7 @@ export type AppMessageKey =
   | "GlobalSettings"
   | "StatusBarUpdate"
   | "ConfigFile"
-  | "LogMessage"
+  | "LogEntry"
   | "ExecutionUpdate"
   | "ConfigValueUpdate"
   | "DeviceUpdate"
