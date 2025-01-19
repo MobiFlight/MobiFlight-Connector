@@ -25,9 +25,9 @@ namespace MobiFlight.BrowserMessages.Publisher
             await ReceiveMessagesAsync();
         }
 
-        public void OnMessageReceived(Action<Message<object>> action)
+        public void OnMessageReceived(Action<string> action)
         {
-            _onMessageReceived = (message) => action((Message<object>)message);
+            _onMessageReceived = (message) => action((string) message);
         }
 
         public async void Publish<TEvent>(TEvent eventToPublish)
@@ -57,9 +57,7 @@ namespace MobiFlight.BrowserMessages.Publisher
                 else
                 {
                     var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                    var eventType = typeof(object); // Determine the event type from the message
-                    var eventData = JsonConvert.DeserializeObject(message, eventType);
-                    _onMessageReceived?.Invoke(eventData);
+                    _onMessageReceived?.Invoke(message);
                 }
             }
         }

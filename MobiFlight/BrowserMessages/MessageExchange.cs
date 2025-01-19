@@ -55,9 +55,9 @@ namespace MobiFlight.BrowserMessages
         /// <summary>
         /// Publishes a received message to all subscribers
         /// </summary>
-        /// <param name="eventToPublish"></param>
-        public void PublishReceivedMessage(Message<object> eventToPublish)
+        private void PublishReceivedMessage(string jsonMessage)
         {
+            var eventToPublish = JsonConvert.DeserializeObject<Message<object>>(jsonMessage);
             if (!_subscribedTypes.ContainsKey(eventToPublish.key)) return;
 
             Type eventType = _subscribedTypes[eventToPublish.key];

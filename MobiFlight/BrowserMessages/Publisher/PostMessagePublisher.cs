@@ -25,17 +25,15 @@ namespace MobiFlight.BrowserMessages.Publisher
             }
         }
 
-        public void OnMessageReceived(Action<Message<object>> callback)
+        public void OnMessageReceived(Action<string> callback)
         {
-            _onMessageReceived = (message) => callback((Message<object>)message);
+            _onMessageReceived = (message) => callback((string)message);
         }
 
         private void WebView_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs args)
         {
             var message = args.WebMessageAsJson;
-            var decodedMessage = JsonConvert.DeserializeObject<Message<object>>(message);
-            Log.Instance.log(decodedMessage.key, LogSeverity.Debug);
-            _onMessageReceived?.Invoke(decodedMessage);
+            _onMessageReceived?.Invoke(message);
         }
     }
 }
