@@ -1,5 +1,5 @@
 ﻿using MobiFlight.BrowserMessages;
-using MobiFlight.BrowserMessages.Messages;
+using MobiFlight.BrowserMessages.Outgoing;
 using System;
 
 namespace MobiFlight.Base.LogAppender
@@ -14,7 +14,7 @@ namespace MobiFlight.Base.LogAppender
                 Severity = severity.ToString()
             };
 
-            BrowserMessages.MessageExchange.Instance.Publish<Message<LogEntry>>(new Message<LogEntry>(m));
+            BrowserMessages.MessageExchange.Instance.Publish<LogEntry>(m);
         }
     }
 }

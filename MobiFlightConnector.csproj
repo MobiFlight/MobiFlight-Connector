@@ -263,8 +263,9 @@
     <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
-    <Compile Include="MobiFlight\BrowserMessages\Messages\LogEntry.cs" />
-    <Compile Include="MobiFlight\BrowserMessages\Messages\Notification.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />

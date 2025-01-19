@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MobiFlight.BrowserMessages.Messages
+namespace MobiFlight.BrowserMessages.Outgoing
 {
     public class LogEntry
     {

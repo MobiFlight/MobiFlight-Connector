@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System.IO;
-using FSUIPC;
+using MobiFlight.BrowserMessages.Incoming;
 
 namespace MobiFlight.UI
 {
@@ -267,6 +267,12 @@ namespace MobiFlight.UI
 #endif
             Update();
             Refresh();
+
+            // test subscription
+            BrowserMessages.MessageExchange.Instance.Subscribe<Test>((message) => {
+                var msg = message;
+                MessageBox.Show(msg.Message);
+            });
         }
 
         private void RefreshConnectedDevicesIcon()

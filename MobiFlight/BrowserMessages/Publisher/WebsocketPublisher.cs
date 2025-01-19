@@ -25,9 +25,9 @@ namespace MobiFlight.BrowserMessages.Publisher
             await ReceiveMessagesAsync();
         }
 
-        public void OnMessageReceived<TEvent>(Action<TEvent> action)
+        public void OnMessageReceived(Action<Message<object>> action)
         {
-            _onMessageReceived = (message) => action((TEvent)message);
+            _onMessageReceived = (message) => action((Message<object>)message);
         }
 
         public async void Publish<TEvent>(TEvent eventToPublish)

@@ -4,7 +4,7 @@ namespace MobiFlight.BrowserMessages
 {
     public interface IMessageExchange
     {
-        void Publish<TEvent> (TEvent eventToPublish);
-        void Subscribe<TEvent>(Action<TEvent> action);
+        void Publish<TPayload>(TPayload message);
+        void Subscribe<TPayload>(Action<TPayload> action);
     }
 }

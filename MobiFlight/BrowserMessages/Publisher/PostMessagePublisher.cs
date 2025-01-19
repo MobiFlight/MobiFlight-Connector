@@ -12,6 +12,7 @@ namespace MobiFlight.BrowserMessages.Publisher
         public PostMessagePublisher(CoreWebView2 webView)
         {
             _webView = webView;
+            _webView.WebMessageReceived += WebView_WebMessageReceived;
         }
 
         public void Publish<TEvent>(TEvent eventToPublish)
@@ -23,17 +24,17 @@ namespace MobiFlight.BrowserMessages.Publisher
             }
         }
 
-        public void OnMessageReceived<TEvent>(Action<TEvent> action)
+        public void OnMessageReceived(Action<Message<object>> callback)
         {
-            _onMessageReceived = (message) => action((TEvent)message);
+            _onMessageReceived = (message) => callback((Message<object>)message);
         }
 
         private void WebView_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs args)
         {
-            var message = args.TryGetWebMessageAsString();
-            var eventType = typeof(object); // Determine the event type from the message
-            var eventData = JsonConvert.DeserializeObject(message, eventType);
-            _onMessageReceived?.Invoke(eventData);
+            var message = args.WebMessageAsJson;
+            var decodedMessage = JsonConvert.DeserializeObject<Message<object>>(message);
+            Log.Instance.log(decodedMessage.key, LogSeverity.Debug);
+            _onMessageReceived?.Invoke(decodedMessage);
         }
     }
 }

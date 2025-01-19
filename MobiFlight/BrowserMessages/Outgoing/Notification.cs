@@ -1,4 +1,4 @@
-﻿namespace MobiFlight.BrowserMessages.Messages
+﻿namespace MobiFlight.BrowserMessages.Outgoing
 {
     internal class Notification
     {
