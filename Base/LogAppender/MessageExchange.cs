@@ -14,7 +14,7 @@ namespace MobiFlight.Base.LogAppender
                 Severity = severity.ToString()
             };
 
-            BrowserMessages.MessageExchange.Instance.Publish<LogEntry>(m);
+            BrowserMessages.MessageExchange.Instance.Publish(m);
         }
     }
 }

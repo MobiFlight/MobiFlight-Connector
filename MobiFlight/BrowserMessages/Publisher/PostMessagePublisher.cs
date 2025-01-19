@@ -19,8 +19,9 @@ namespace MobiFlight.BrowserMessages.Publisher
         {
             if (_webView != null)
             {
-                var jsonMessage = JsonConvert.SerializeObject(eventToPublish);
-                _webView.PostWebMessageAsString(jsonMessage);
+                var message = new Message<TEvent>() { key = eventToPublish.GetType().Name, payload = eventToPublish };
+                var jsonMessage = JsonConvert.SerializeObject(message);
+                _webView.PostWebMessageAsJson(jsonMessage);
             }
         }
 
