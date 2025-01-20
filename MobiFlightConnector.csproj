@@ -249,7 +249,7 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
-    <Compile Include="Base\LogAppender\MessageExchange.cs" />
+    <Compile Include="Base\LogAppender\MessageExchangeAppender.cs" />
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\ProgressUpdateEvent.cs" />
     <Compile Include="Base\SerialNumber.cs" />
@@ -266,6 +266,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />

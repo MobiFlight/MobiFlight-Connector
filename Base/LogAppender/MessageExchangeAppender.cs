@@ -1,10 +1,9 @@
-﻿using MobiFlight.BrowserMessages;
-using MobiFlight.BrowserMessages.Outgoing;
+﻿using MobiFlight.BrowserMessages.Outgoing;
 using System;
 
 namespace MobiFlight.Base.LogAppender
 {
-    public class MessageExchange : ILogAppender
+    public class MessageExchangeAppender : ILogAppender
     {   public void log(string message, LogSeverity severity)
         {
             var m = new LogEntry

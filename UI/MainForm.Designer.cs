@@ -64,9 +64,7 @@
             this.panelMain = new System.Windows.Forms.Panel();
             this.inputsTabControl = new System.Windows.Forms.TabControl();
             this.OutputTabPage = new System.Windows.Forms.TabPage();
-            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
             this.InputTabPage = new System.Windows.Forms.TabPage();
-            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -135,9 +133,10 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
-            this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
-            this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
             this.frontendPanel1 = new MobiFlight.UI.Panels.FrontendPanel();
+            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
+            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
+            this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -386,25 +385,12 @@
             resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
             this.OutputTabPage.Name = "OutputTabPage";
             // 
-            // outputConfigPanel
-            // 
-            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
-            this.outputConfigPanel.ExecutionManager = null;
-            this.outputConfigPanel.Name = "outputConfigPanel";
-            // 
             // InputTabPage
             // 
             this.InputTabPage.Controls.Add(this.inputConfigPanel);
             resources.ApplyResources(this.InputTabPage, "InputTabPage");
             this.InputTabPage.Name = "InputTabPage";
             this.InputTabPage.UseVisualStyleBackColor = true;
-            // 
-            // inputConfigPanel
-            // 
-            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
-            this.inputConfigPanel.ExecutionManager = null;
-            this.inputConfigPanel.Name = "inputConfigPanel";
-            this.inputConfigPanel.OutputDataSetConfig = null;
             // 
             // tabPageImageList
             // 
@@ -878,27 +864,33 @@
             this.logSplitter.Name = "logSplitter";
             this.logSplitter.TabStop = false;
             // 
-            // startupPanel
+            // frontendPanel1
             // 
-            this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.startupPanel, "startupPanel");
-            this.startupPanel.Name = "startupPanel";
+            resources.ApplyResources(this.frontendPanel1, "frontendPanel1");
+            this.frontendPanel1.Name = "frontendPanel1";
+            // 
+            // outputConfigPanel
+            // 
+            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
+            this.outputConfigPanel.ExecutionManager = null;
+            this.outputConfigPanel.Name = "outputConfigPanel";
+            // 
+            // inputConfigPanel
+            // 
+            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
+            this.inputConfigPanel.ExecutionManager = null;
+            this.inputConfigPanel.Name = "inputConfigPanel";
+            this.inputConfigPanel.OutputDataSetConfig = null;
             // 
             // logPanel1
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
-            // frontendPanel1
-            // 
-            resources.ApplyResources(this.frontendPanel1, "frontendPanel1");
-            this.frontendPanel1.Name = "frontendPanel1";
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.startupPanel);
             this.Controls.Add(this.logSplitter);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.logPanel1);
@@ -995,7 +987,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
-        private UI.Panels.StartupPanel startupPanel;
         private System.Windows.Forms.Splitter logSplitter;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private Panels.OutputConfigPanel outputConfigPanel;

@@ -22,6 +22,9 @@ using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.Base.LogAppender;
+using MobiFlight.BrowserMessages;
+using MobiFlight.BrowserMessages.Outgoing;
 
 namespace MobiFlight.UI
 {
@@ -79,13 +82,15 @@ namespace MobiFlight.UI
 
         private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
 
+        private int StartupProgressValue = 0;
+
         private void InitializeLogging()
         {
             LogAppenderLogPanel logAppenderTextBox = new LogAppenderLogPanel(logPanel1);
 
             Log.Instance.AddAppender(logAppenderTextBox);
             Log.Instance.AddAppender(logAppenderFile);
-            Log.Instance.AddAppender(new Base.LogAppender.MessageExchange());
+            Log.Instance.AddAppender(new Base.LogAppender.MessageExchangeAppender());
             Log.Instance.LogJoystickAxis = Properties.Settings.Default.LogJoystickAxis;
             Log.Instance.Enabled = Properties.Settings.Default.LogEnabled;
             logPanel1.Visible = Log.Instance.Enabled;
@@ -162,11 +167,9 @@ namespace MobiFlight.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            panelMain.Visible = false;
-            startupPanel.Visible = true;
+            panelMain.Visible = true;
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
-            startupPanel.Dock = DockStyle.Fill;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -261,7 +264,9 @@ namespace MobiFlight.UI
                 donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
             }
 
-            startupPanel.UpdateStatusText("Start Connecting");
+            StartupProgressValue = 0;
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Start Connecting" });
+
 #if ARCAZE
             _initializeArcazeModuleSettings();
 #endif
@@ -510,19 +515,17 @@ namespace MobiFlight.UI
                 this.Invoke(new EventHandler(ExecManager_OnInitialModuleLookupFinished), new object[] { sender, e });
                 return;
             }
-
-            startupPanel.UpdateStatusText("Checking for Firmware Updates...");
-            startupPanel.UpdateProgressBar(70);
+            StartupProgressValue = 70;
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Checking for Firmware Updates..." });
             CheckForFirmwareUpdates();
 
-            startupPanel.UpdateStatusText("Loading last config...");
-            startupPanel.UpdateProgressBar(90);
+            StartupProgressValue = 90;
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Loading last config..." });
             _autoloadConfig();
 
-            startupPanel.UpdateProgressBar(100);
-            panelMain.Visible = true;
-            startupPanel.Visible = false;
-
+            StartupProgressValue = 100;
+            MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Finished." });
+            
             menuStrip.Enabled = true;
             toolStrip1.Enabled = true;
 
@@ -878,11 +881,10 @@ namespace MobiFlight.UI
             // and we would like to display some progress information
             if (!InitialLookupFinished)
             {
-                startupPanel.UpdateStatusText("Scanning for boards.");
-                var progress = startupPanel.GetProgressBar();
-                var progressIncrement = (75 - progress) / 2;
-                startupPanel.UpdateProgressBar(progress + progressIncrement);
-
+                StartupProgressValue = 50;
+                var progressIncrement = (75 - StartupProgressValue) / 2;
+                StartupProgressValue += progressIncrement;
+                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Scanning for boards." });
                 return;
             }
 
