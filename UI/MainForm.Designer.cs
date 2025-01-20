@@ -361,7 +361,6 @@
             // panelMain
             // 
             resources.ApplyResources(this.panelMain, "panelMain");
-            this.panelMain.Controls.Add(this.frontendPanel1);
             this.panelMain.Controls.Add(this.inputsTabControl);
             this.panelMain.Name = "panelMain";
             // 
@@ -892,6 +891,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.logSplitter);
+            this.Controls.Add(this.frontendPanel1);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.logPanel1);
             this.Controls.Add(this.statusStripPanel);

@@ -167,7 +167,6 @@ namespace MobiFlight.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            panelMain.Visible = true;
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
         }

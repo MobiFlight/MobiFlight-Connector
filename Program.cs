@@ -18,8 +18,8 @@ namespace MobiFlight
         {
             if (mutex.WaitOne(TimeSpan.Zero, true))
             {
-                // if (Environment.OSVersion.Version.Major >= 6)
-                //      SetProcessDPIAware();
+                //if (Environment.OSVersion.Version.Major >= 6)
+                //    SetProcessDPIAware();
 
                 CheckForCorruptSettings();
 
