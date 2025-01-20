@@ -249,6 +249,7 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\i18n.cs" />
+    <Compile Include="Base\LogAppender\MessageExchange.cs" />
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\ProgressUpdateEvent.cs" />
     <Compile Include="Base\SerialNumber.cs" />
@@ -258,6 +259,15 @@
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
@@ -544,6 +554,12 @@
     </Compile>
     <Compile Include="UI\Panels\Device\MFCustomDevicePanel.Designer.cs">
       <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\FrontendPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\FrontendPanel.Designer.cs">
+      <DependentUpon>FrontendPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\InputConfigPanel.cs">
       <SubType>UserControl</SubType>
@@ -1531,6 +1547,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\FrontendPanel.resx">
+      <DependentUpon>FrontendPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\InputConfigPanel.de.resx">
       <DependentUpon>InputConfigPanel.cs</DependentUpon>

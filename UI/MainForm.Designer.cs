@@ -97,6 +97,7 @@
             this.statusStripPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.connectedDevicesToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripConnectedDevicesIcon = new System.Windows.Forms.ToolStripStatusLabel();
             this.connectedDevicesToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.joysticksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,7 +137,7 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.toolStripConnectedDevicesIcon = new System.Windows.Forms.ToolStripStatusLabel();
+            this.frontendPanel1 = new MobiFlight.UI.Panels.FrontendPanel();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.inputsTabControl.SuspendLayout();
@@ -361,6 +362,7 @@
             // panelMain
             // 
             resources.ApplyResources(this.panelMain, "panelMain");
+            this.panelMain.Controls.Add(this.frontendPanel1);
             this.panelMain.Controls.Add(this.inputsTabControl);
             this.panelMain.Name = "panelMain";
             // 
@@ -629,6 +631,13 @@
             this.connectedDevicesToolStripLabel.Name = "connectedDevicesToolStripLabel";
             resources.ApplyResources(this.connectedDevicesToolStripLabel, "connectedDevicesToolStripLabel");
             // 
+            // toolStripConnectedDevicesIcon
+            // 
+            this.toolStripConnectedDevicesIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripConnectedDevicesIcon.Image = global::MobiFlight.Properties.Resources.warning;
+            this.toolStripConnectedDevicesIcon.Name = "toolStripConnectedDevicesIcon";
+            resources.ApplyResources(this.toolStripConnectedDevicesIcon, "toolStripConnectedDevicesIcon");
+            // 
             // connectedDevicesToolStripDropDownButton
             // 
             this.connectedDevicesToolStripDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.None;
@@ -880,12 +889,10 @@
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
-            // toolStripConnectedDevicesIcon
+            // frontendPanel1
             // 
-            this.toolStripConnectedDevicesIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripConnectedDevicesIcon.Image = global::MobiFlight.Properties.Resources.warning;
-            this.toolStripConnectedDevicesIcon.Name = "toolStripConnectedDevicesIcon";
-            resources.ApplyResources(this.toolStripConnectedDevicesIcon, "toolStripConnectedDevicesIcon");
+            resources.ApplyResources(this.frontendPanel1, "frontendPanel1");
+            this.frontendPanel1.Name = "frontendPanel1";
             // 
             // MainForm
             // 
@@ -1039,6 +1046,7 @@
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripConnectedDevicesIcon;
+        private Panels.FrontendPanel frontendPanel1;
     }
 }
 

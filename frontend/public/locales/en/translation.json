@@ -1,0 +1,6 @@
+{
+  "interpolation": "Hello {{name}}!",
+  "app": {
+    "greeting": "Hello MobiFlight user! Test!"
+  }
+}
