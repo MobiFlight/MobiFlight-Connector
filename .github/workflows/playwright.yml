@@ -1,7 +1,7 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ mf2025/*,  ]
+    branches: [ mf2025/* ]
   pull_request:
     branches: [ main, mf2025/main ]
 jobs:
