@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MobiFlight.BrowserMessages;
+using MobiFlight.BrowserMessages.Outgoing;
 
 namespace MobiFlight.UI.Panels
 {
@@ -32,6 +34,7 @@ namespace MobiFlight.UI.Panels
             else
             {
                 this.StatusText.Text = StatusText;
+                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = this.progressBar.Value, Text = this.StatusText.Text });
             }
         }
 
@@ -48,6 +51,7 @@ namespace MobiFlight.UI.Panels
             {
                 if (percent > 100) percent = percent / 2;
                 this.progressBar.Value = percent;
+                MessageExchange.Instance.Publish(new StatusBarUpdate { Value = this.progressBar.Value, Text = this.StatusText.Text });
             }
         }
 
