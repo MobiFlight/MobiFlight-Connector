@@ -12,28 +12,43 @@ const ConfigPage = () => {
       if (process.env.NODE_ENV === 'development') {
         setItems([
           {
+            "Active": true,
+            "GUID": "8698d38c-1e1d-4ec1-a89a-b01e36fc89df",
+            "ModuleSerial": "miniCOCKPIT miniFCU/ SN-3GC-D38",
+            "Name": "SPEED",
+            "RawValue": null,
+            "Type": "MobiFlight.OutputConfigItem",
+            "Value": null,
+            "Device": {
+              "Name": "LCD Display",
+              "Type": "CustomDevice"
+            }
+        },
+          {
             GUID: 'test-guid-0',
             Active: true,
-            Description: 'Landing Lights',
-            Device: 'Test device',
-            Component: 'Test component',
+            Name: 'Landing Lights',
+            ModuleSerial: 'MobiFlight Board/123456',
             Type:"Output",
-            Tags: ['Test tag'],
-            Status: ['Test status'],
             RawValue: '0',
-            ModifiedValue: '0',
+            Value: '0',
+            Device: {
+              "Name": "LED 1",
+              "Type": "Output"
+            }
           },
           {
             GUID: 'test-guid-1',
             Active: true,
-            Description: 'RPM Gauge',
-            Device: 'Test device',
-            Component: 'Test component',
+            Name: 'RPM',
+            ModuleSerial: 'MobiFlight Board/123456',
+            Device: {
+              "Name": "RPM Gauge",
+              "Type": "Stepper"
+            },
             Type: 'Stepper',
-            Tags: ['Test tag'],
-            Status: ['Test status'],
             RawValue: '1500',
-            ModifiedValue: '15000',
+            Value: '15000',
           },
         ])
       }

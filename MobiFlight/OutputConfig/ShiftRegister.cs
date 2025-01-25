@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,9 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class ShiftRegister
+    public class ShiftRegister : DeviceConfig
     {
+        public override string Name { get { return Address; } }
         public String Pin { get; set; }
         public String Address { get; set; }
 

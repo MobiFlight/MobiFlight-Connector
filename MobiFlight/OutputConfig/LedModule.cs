@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,9 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class LedModule
+    public class LedModule : DeviceConfig
     {
+        public override string Name { get { return DisplayLedAddress; } }
         // the display stuff
         public string DisplayLedAddress { get; set; }
         public byte DisplayLedConnector { get; set; }

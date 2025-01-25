@@ -30,9 +30,7 @@ namespace MobiFlight
         public XplaneDataRef        XplaneDataRef               { get; set; }
 		
         public ConnectorValue       TestValue                   { get; set; }
-        public string               DisplayType                 { get; set; }
-		public string               DisplaySerial               { get; set; }
-		public OutputConfig.Pin     Pin                         { get; set; }
+        public OutputConfig.Pin     Pin                         { get; set; }
 		public OutputConfig.LedModule   LedModule               { get; set; }
 		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
 		public List<string>         BcdPins                     { get; set; }
@@ -45,6 +43,8 @@ namespace MobiFlight
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
+
+        public string DeviceType { get; set; }
 
         public OutputConfigItem()
         {
@@ -72,8 +72,8 @@ namespace MobiFlight
         { 
             return (
                 obj != null && obj is OutputConfigItem &&
-                this.DisplayType == (obj as OutputConfigItem).DisplayType &&
-                this.DisplaySerial == (obj as OutputConfigItem).DisplaySerial &&
+                this.DeviceType == (obj as OutputConfigItem).DeviceType &&
+                this.ModuleSerial == (obj as OutputConfigItem).ModuleSerial &&
                 this.SourceType == (obj as OutputConfigItem).SourceType &&
                 this.FSUIPC.Equals((obj as OutputConfigItem).FSUIPC) &&
                 this.SimConnectValue.Equals((obj as OutputConfigItem).SimConnectValue) &&
@@ -195,24 +195,24 @@ namespace MobiFlight
 
             if (reader.LocalName == "display")
             {
-                DisplayType = reader["type"];
+                DeviceType = reader["type"];
 
                 // preserve backward compatibility
-                if (DisplayType == "Pin") DisplayType = MobiFlightOutput.TYPE;
-                if (DisplayType == ArcazeLedDigit.OLDTYPE) DisplayType = ArcazeLedDigit.TYPE;
+                if (DeviceType == "Pin") DeviceType = MobiFlightOutput.TYPE;
+                if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
-                DisplaySerial = reader["serial"];
+                ModuleSerial = reader["serial"];
                 DisplayTrigger = reader["trigger"];
 
-                if (DisplayType == MobiFlightOutput.TYPE)
+                if (DeviceType == MobiFlightOutput.TYPE)
                 {
                     Pin.ReadXml(reader);
                 }
-                else if (DisplayType == MobiFlightLedModule.TYPE)
+                else if (DeviceType == MobiFlightLedModule.TYPE)
                 {
                     LedModule.XmlRead(reader);
                 }
-                else if (DisplayType == ArcazeBcd4056.TYPE)
+                else if (DeviceType == ArcazeBcd4056.TYPE)
                 {
                     // ignore empty values
                     if (reader["bcdPins"] != null && reader["bcdPins"] != "")
@@ -220,28 +220,28 @@ namespace MobiFlight
                         BcdPins = reader["bcdPins"].Split(',').ToList();
                     }
                 }
-                else if (DisplayType == MobiFlightServo.TYPE)
+                else if (DeviceType == MobiFlightServo.TYPE)
                 {
                     Servo.ReadXml(reader);
                 }
-                else if (DisplayType == MobiFlightStepper.TYPE)
+                else if (DeviceType == MobiFlightStepper.TYPE)
                 {
                     Stepper.ReadXml(reader);
                 }
-                else if (DisplayType == OutputConfig.LcdDisplay.Type)
+                else if (DeviceType == OutputConfig.LcdDisplay.DeprecatedType)
                 {
                     if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                     LcdDisplay.ReadXml(reader);
                 }
-                else if (DisplayType == MobiFlightShiftRegister.TYPE)
+                else if (DeviceType == MobiFlightShiftRegister.TYPE)
                 {
                     ShiftRegister.ReadXml(reader);
                 }
-                else if (DisplayType == MobiFlightCustomDevice.TYPE)
+                else if (DeviceType == MobiFlightCustomDevice.TYPE)
                 {
                     CustomDevice.ReadXml(reader);
                 }
-                else if (DisplayType == "InputAction")
+                else if (DeviceType == "InputAction")
                 {
                     reader.Read();
 
@@ -358,43 +358,43 @@ namespace MobiFlight
             Modifiers.WriteXml(writer);
 
             writer.WriteStartElement("display");
-                writer.WriteAttributeString("type", DisplayType);
-                writer.WriteAttributeString("serial", DisplaySerial);
+                writer.WriteAttributeString("type", DeviceType);
+                writer.WriteAttributeString("serial", ModuleSerial);
 
                 if ( DisplayTrigger != null)
                     writer.WriteAttributeString("trigger", DisplayTrigger);
 
-            if (DisplayType == ArcazeLedDigit.TYPE)
+            if (DeviceType == ArcazeLedDigit.TYPE)
             {
                 LedModule.WriteXml(writer);
 
             }
-            else if (DisplayType == ArcazeBcd4056.TYPE)
+            else if (DeviceType == ArcazeBcd4056.TYPE)
             {
                 writer.WriteAttributeString("bcdPins", String.Join(",", BcdPins));
             }
-            else if (DisplayType == MobiFlightServo.TYPE)
+            else if (DeviceType == MobiFlightServo.TYPE)
             {
                 Servo.WriteXml(writer);
             }
-            else if (DisplayType == MobiFlightStepper.TYPE)
+            else if (DeviceType == MobiFlightStepper.TYPE)
             {
                 Stepper.WriteXml(writer);
             }
-            else if (DisplayType == MobiFlightLcdDisplay.TYPE)
+            else if (DeviceType == MobiFlightLcdDisplay.TYPE)
             {
                 if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
                 LcdDisplay.WriteXml(writer);
             }
-            else if (DisplayType == MobiFlightShiftRegister.TYPE)
+            else if (DeviceType == MobiFlightShiftRegister.TYPE)
             {
                 ShiftRegister.WriteXml(writer);
             }
-            else if (DisplayType == MobiFlightCustomDevice.TYPE)
+            else if (DeviceType == MobiFlightCustomDevice.TYPE)
             {
                 CustomDevice.WriteXml(writer);
             }
-            else if (DisplayType == "InputAction")
+            else if (DeviceType == "InputAction")
             {
                 if (ButtonInputConfig != null)
                 {
@@ -439,8 +439,8 @@ namespace MobiFlight
             //clone.Transform                 = this.Transform.Clone() as Transformation;
             //clone.Comparison                = this.Comparison.Clone() as Comparison;
 
-            clone.DisplayType               = this.DisplayType;
-            clone.DisplaySerial             = this.DisplaySerial;
+            clone.DeviceType               = this.DeviceType;
+            clone.ModuleSerial             = this.ModuleSerial;
 
             clone.LedModule                 = this.LedModule.Clone() as OutputConfig.LedModule;
 
@@ -465,6 +465,29 @@ namespace MobiFlight
             clone.Modifiers                 = this.Modifiers.Clone() as ModifierList;
             clone.TestValue                 = this.TestValue.Clone() as ConnectorValue;
             return clone;
+        }
+
+        protected override IDeviceConfig GetDeviceConfig()
+        {
+            switch (DeviceType)
+            {
+                case MobiFlightOutput.TYPE:
+                    return Pin;
+                case ArcazeLedDigit.TYPE:
+                    return LedModule;
+                case MobiFlightServo.TYPE:
+                    return Servo;
+                case MobiFlightStepper.TYPE:
+                    return Stepper;
+                case MobiFlightShiftRegister.TYPE:
+                    return ShiftRegister;
+                case MobiFlightLcdDisplay.TYPE:
+                    return LcdDisplay;
+                case MobiFlightCustomDevice.TYPE:
+                    return CustomDevice;
+                default:
+                    return null;
+            }
         }
     }
 

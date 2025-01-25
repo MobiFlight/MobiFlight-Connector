@@ -21,7 +21,7 @@ namespace MobiFlight.Tests
             InputConfigItem o = new InputConfigItem();
             Assert.IsInstanceOfType(o, typeof(InputConfigItem), "Not of type InputConfigItem");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count other than 0");
-            Assert.AreEqual(o.Type, InputConfigItem.TYPE_NOTSET, "Type other than NOTSET");
+            Assert.AreEqual(o.DeviceType, InputConfigItem.TYPE_NOTSET, "Type other than NOTSET");
         }
 
         [TestMethod()]
@@ -47,7 +47,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
@@ -66,7 +66,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
@@ -89,7 +89,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.inputShiftRegister.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -107,7 +107,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -151,7 +151,7 @@ namespace MobiFlight.Tests
 
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/797
             o = new InputConfigItem();
-            o.Type = InputConfigItem.TYPE_ANALOG;
+            o.DeviceType = InputConfigItem.TYPE_ANALOG;
             if (o.analog == null) o.analog = new InputConfig.AnalogInputConfig();
             o.analog.onChange = new MSFS2020CustomInputAction() { Command = "test", PresetId = Guid.NewGuid().ToString() };
 
@@ -204,7 +204,7 @@ namespace MobiFlight.Tests
                 },
                 Value = "1"
             };
-            result.Type = InputConfigItem.TYPE_BUTTON;
+            result.DeviceType = InputConfigItem.TYPE_BUTTON;
 
             result.encoder = null;
             result.ModuleSerial = "TestSerial";

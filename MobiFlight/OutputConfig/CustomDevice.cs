@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class CustomDevice : IXmlSerializable, ICloneable
+    public class CustomDevice : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public const string Type = "CustomDevice";
+        public override string Name { get { return CustomName; } }
+
+        public const string DeprecatedType = "CustomDevice";
         public String CustomType { get; set; }
         public String CustomName { get; set; }
         public int MessageType { get; set; }

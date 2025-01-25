@@ -747,19 +747,19 @@ namespace MobiFlight
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
         {            
-            string serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
+            string serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
 
-            if (serial == "" && cfg.DisplayType != "InputAction") 
+            if (serial == "" && cfg.DeviceType != "InputAction") 
                 return value.ToString();
 
-            if (SerialNumber.IsJoystickSerial(serial) && cfg.DisplayType != "InputAction")
+            if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
             {
                 Joystick joystick = joystickManager.GetJoystickBySerial(serial);
                 if(joystick != null)
                 {
-                    switch (cfg.DisplayType)
+                    switch (cfg.DeviceType)
                     {
-                        case OutputConfig.LcdDisplay.Type:
+                        case OutputConfig.LcdDisplay.DeprecatedType:
                             joystick.SetLcdDisplay(cfg.LcdDisplay.Address, value);                            
                             break;
 
@@ -778,11 +778,11 @@ namespace MobiFlight
                 } 
                 else
                 {
-                    var joystickName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
+                    var joystickName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
                     throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
                 }
             }
-            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DisplayType != "InputAction")
+            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DeviceType != "InputAction")
             {
                 MidiBoard midiBoard = midiBoardManager.GetMidiBoardBySerial(serial);
                 if (midiBoard != null)
@@ -793,14 +793,14 @@ namespace MobiFlight
                 }
                 else
                 {
-                    var midiBoardName = SerialNumber.ExtractDeviceName(cfg.DisplaySerial);
+                    var midiBoardName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
                     throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
-            else if (serial.IndexOf("SN") != 0 && cfg.DisplayType != "InputAction")
+            else if (serial.IndexOf("SN") != 0 && cfg.DeviceType != "InputAction")
             {
 #if ARCAZE
-                switch (cfg.DisplayType)
+                switch (cfg.DeviceType)
                 {
                     case ArcazeLedDigit.TYPE:
                         var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count, cfg.LedModule.DisplayLedPaddingChar[0]);
@@ -830,7 +830,7 @@ namespace MobiFlight
             }
             else
             {
-                switch (cfg.DisplayType)
+                switch (cfg.DeviceType)
                 {
                     case ArcazeLedDigit.TYPE:
                         var decimalCount = value.Count(c => c=='.');
@@ -900,7 +900,7 @@ namespace MobiFlight
                         );
                         break;
 
-                    case OutputConfig.LcdDisplay.Type:
+                    case OutputConfig.LcdDisplay.DeprecatedType:
                         mobiFlightCache.SetLcdDisplay(
                             serial,
                             cfg.LcdDisplay,
@@ -925,7 +925,7 @@ namespace MobiFlight
                         }
                         break;
 
-                    case OutputConfig.CustomDevice.Type:
+                    case OutputConfig.CustomDevice.DeprecatedType:
                         mobiFlightCache.Set(serial, cfg.CustomDevice, value);
                         break;
 
@@ -1197,10 +1197,10 @@ namespace MobiFlight
             var tmpCfg = lastTestedConfig;
 
             if (lastTestedConfig.Active &&
-                lastTestedConfig.DisplaySerial != null && (lastTestedConfig.DisplaySerial.Contains("/"))
+                lastTestedConfig.ModuleSerial != null && (lastTestedConfig.ModuleSerial.Contains("/"))
             )
             {
-                lastSerial = SerialNumber.ExtractSerial(tmpCfg.DisplaySerial);
+                lastSerial = SerialNumber.ExtractSerial(tmpCfg.ModuleSerial);
                 try
                 {
                     ExecuteTestOff(tmpCfg, true);
@@ -1236,10 +1236,10 @@ namespace MobiFlight
 
             if (tmpCfg != null && // this happens sometimes when a new line is added and still hasn't been configured
                 (row != lastTestedConfig) &&
-                 tmpCfg.DisplaySerial != null && tmpCfg.DisplaySerial.Contains("/")
+                 tmpCfg.ModuleSerial != null && tmpCfg.ModuleSerial.Contains("/")
             )
             {
-                serial = SerialNumber.ExtractSerial(tmpCfg.DisplaySerial);
+                serial = SerialNumber.ExtractSerial(tmpCfg.ModuleSerial);
 
                 // TODO:
                 // REDESIGN: Send out a message that this is currently tested
@@ -1273,15 +1273,15 @@ namespace MobiFlight
 
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
             
-            if (offCfg.DisplayType == null) return;
+            if (offCfg.DeviceType == null) return;
 
-            switch (offCfg.DisplayType)
+            switch (offCfg.DeviceType)
             {
                 case MobiFlightServo.TYPE:
                     ExecuteDisplay(offCfg.Servo.Min, offCfg);
                     break;
 
-                case OutputConfig.LcdDisplay.Type:
+                case OutputConfig.LcdDisplay.DeprecatedType:
                     offCfg.LcdDisplay.Lines.Clear();
                     offCfg.LcdDisplay.Lines.Add(new string(' ', 20 * 4));
                     ExecuteDisplay(new string(' ', 20 * 4), offCfg);
@@ -1298,7 +1298,7 @@ namespace MobiFlight
 
                 default:
                     offCfg.LedModule.DisplayLedDecimalPoints = new List<string>();
-                    ExecuteDisplay(offCfg.DisplayType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
+                    ExecuteDisplay(offCfg.DeviceType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
                     break;
             }
         }
@@ -1307,9 +1307,9 @@ namespace MobiFlight
         {
             ConfigItemInTestMode = configGuid;
 
-            if (cfg.DisplayType == null) return;
+            if (cfg.DeviceType == null) return;
 
-            switch (cfg.DisplayType)
+            switch (cfg.DeviceType)
             {
                 // the following execute displays assume that
                 //
@@ -1328,7 +1328,7 @@ namespace MobiFlight
                     break;
 
                 case ArcazeLedDigit.TYPE:
-                case OutputConfig.LcdDisplay.Type:
+                case OutputConfig.LcdDisplay.DeprecatedType:
                     ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
                     break;
                 

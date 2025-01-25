@@ -19,7 +19,7 @@ namespace MobiFlight
 
         public string Name { get; set; }
 
-        public DeviceType Type { get { return DeviceType.Encoder; } }
+        public DeviceType TypeDeprecated { get { return DeviceType.Encoder; } }
 
         public static string InputEventIdToString(int enumId)
         {

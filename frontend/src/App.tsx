@@ -1,4 +1,4 @@
-import { Outlet, useMatch, useNavigate, useOutlet, useSearchParams } from 'react-router'
+import { Outlet, useNavigate, useOutlet, useSearchParams } from 'react-router'
 import StartupProgress from './components/StartupProgress'
 import { useEffect, useState } from 'react'
 import { useAppMessage } from './lib/hooks/appMessage'
@@ -22,7 +22,7 @@ function App() {
 
   useAppMessage("ConfigFile", (message) => {
     console.log("ConfigFile", message.payload)
-    setItems(message.payload)
+    setItems(message.payload.ConfigItems.slice(0, 21))
   })
 
   // this allows to get beyond the startup screen

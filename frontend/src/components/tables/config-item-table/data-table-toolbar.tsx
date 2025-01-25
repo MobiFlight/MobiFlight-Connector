@@ -18,8 +18,8 @@ export function DataTableToolbar<TData>({
   items
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
-  const devices = [...new Set(items.map((item) => item.Device))].map((device) => ({ label: device.split("/")[0], value: device }))
-  const components = [...new Set(items.map((item) => item.Component))].map((component) => ({ label: component, value: component }))
+  const devices = [...new Set(items.map((item) => item.ModuleSerial))].map((serial) => ({ label: serial.split("/")[0], value: serial }))
+  const components = [...new Set(items.map((item) => item.Device))].map((component) => ({ label: component?.Name, value: component?.Name }))
   const types = [...new Set(items.map((item) => item.Type))].map((type) => ({ label: type, value: type }))
 
   return (
@@ -27,22 +27,22 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter items..."
-          value={(table.getColumn("Description")?.getFilterValue() as string) ?? ""}
+          value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("Description")?.setFilterValue(event.target.value)
+            table.getColumn("Name")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {table.getColumn("Device") && (
+        {table.getColumn("ModuleSerial") && (
           <DataTableFacetedFilter
-            column={table.getColumn("Device")}
+            column={table.getColumn("ModuleSerial")}
             title="Devices"
             options={devices}
           />
         )}
-        {table.getColumn("Component") && (
+        {table.getColumn("Device") && (
           <DataTableFacetedFilter
-            column={table.getColumn("Component")}
+            column={table.getColumn("Device")}
             title="Component"
             options={components}
           />

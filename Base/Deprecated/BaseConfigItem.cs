@@ -9,7 +9,7 @@ namespace MobiFlight
     public interface IBaseConfigItemDeprecated
     {
         string Name { get; set; }
-        string Type { get; set; }
+        string ComponentType { get; set; }
         PreconditionList Preconditions { get; set; }
     }
 }

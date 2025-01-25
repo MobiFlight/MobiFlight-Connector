@@ -493,11 +493,11 @@ namespace MobiFlight.UI.Panels
                     if (cfg.Name=="") continue;
 
                     // Input shift registers show their name in the grid as the shifter name + configured pin for clarity.
-                    if (cfg.Type == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
+                    if (cfg.DeviceType == InputConfigItem.TYPE_INPUT_SHIFT_REGISTER)
                     {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputShiftRegister.ExtPin}";
                     }
-                    else if (cfg.Type == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
+                    else if (cfg.DeviceType == InputConfigItem.TYPE_INPUT_MULTIPLEXER) {
                         row["inputName"] = $"{cfg.Name}:{cfg.inputMultiplexer?.DataPin}";
                     }
                     else if (Joystick.IsJoystickSerial(cfg.ModuleSerial)) {
@@ -518,7 +518,7 @@ namespace MobiFlight.UI.Panels
                     {
                         row["inputName"] = cfg.Name;
                     }
-                    row["inputType"] = cfg.Type;                   
+                    row["inputType"] = cfg.DeviceType;                   
                 }
             }
             ActivateAutoColumnWidth();

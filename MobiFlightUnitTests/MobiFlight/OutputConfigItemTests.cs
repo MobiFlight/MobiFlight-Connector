@@ -137,7 +137,7 @@ namespace MobiFlight.Tests
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci = new OutputConfigItem();
             oci.ReadXml(xmlReader);
-            Assert.AreEqual("Display Module", oci.DisplayType, "Display Type not Display Module");
+            Assert.AreEqual("Display Module", oci.DeviceType, "Display Type not Display Module");
             Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count, "Interpolation Count is not 5");
         }
@@ -184,8 +184,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
 
             Assert.AreEqual(o.Pin.DisplayPin, c.Pin.DisplayPin, "clone: DisplayPin not the same");
-            Assert.AreEqual(o.DisplayType, c.DisplayType, "clone: DisplayType not the same");
-            Assert.AreEqual(o.DisplaySerial, c.DisplaySerial, "clone: DisplaySerial not the same");
+            Assert.AreEqual(o.DeviceType, c.DeviceType, "clone: DisplayType not the same");
+            Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "clone: DisplaySerial not the same");
             Assert.AreEqual(o.Pin.DisplayPinBrightness, c.Pin.DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
             Assert.AreEqual(o.Pin.DisplayPinPWM, c.Pin.DisplayPinPWM, "clone: DisplayPinPWM not the same");
 
@@ -251,8 +251,8 @@ namespace MobiFlight.Tests
             o.Modifiers.Comparison.IfValue = "2";
             o.Modifiers.Comparison.ElseValue = "3";
 
-            o.DisplayType = MobiFlight.DeviceType.Stepper.ToString("F");
-            o.DisplaySerial = "Ser123";
+            o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
+            o.ModuleSerial = "Ser123";
             o.Pin.DisplayPin = "A01";
             o.Pin.DisplayPinBrightness = byte.MinValue;
             o.Pin.DisplayPinPWM = true;
@@ -327,7 +327,7 @@ namespace MobiFlight.Tests
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = _generateConfigItem();
-            o2.DisplayType = "nonsense";
+            o2.DeviceType = "nonsense";
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = _generateConfigItem();

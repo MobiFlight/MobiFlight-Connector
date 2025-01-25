@@ -1615,11 +1615,11 @@ namespace MobiFlight.UI
            
             foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
             {
-                if (item.DisplaySerial.Contains(Joystick.SerialPrefix) &&
-                    !serials.Contains(item.DisplaySerial) &&
-                    !NotConnectedJoysticks.Contains(item.DisplaySerial))
+                if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
+                    !serials.Contains(item.ModuleSerial) &&
+                    !NotConnectedJoysticks.Contains(item.ModuleSerial))
                 {
-                    NotConnectedJoysticks.Add(item.DisplaySerial);
+                    NotConnectedJoysticks.Add(item.ModuleSerial);
                 }
             }
 
@@ -1664,11 +1664,11 @@ namespace MobiFlight.UI
 
             foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
             {
-                if (item.DisplaySerial.Contains(MidiBoard.SerialPrefix) &&
-                    !serials.Contains(item.DisplaySerial) &&
-                    !NotConnectedMidiBoards.Contains(item.DisplaySerial))
+                if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
+                    !serials.Contains(item.ModuleSerial) &&
+                    !NotConnectedMidiBoards.Contains(item.ModuleSerial))
                 {
-                    NotConnectedMidiBoards.Add(item.DisplaySerial);
+                    NotConnectedMidiBoards.Add(item.ModuleSerial);
                 }
             }
 

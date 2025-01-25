@@ -608,20 +608,20 @@ namespace MobiFlight.UI.Panels
                 if (cfgItem != null)
                 {
                     row["fsuipcOffset"] = "0x" + cfgItem.FSUIPC.Offset.ToString("X4");
-                    if (cfgItem.DisplaySerial != null && cfgItem.DisplaySerial != "-")
+                    if (cfgItem.ModuleSerial != null && cfgItem.ModuleSerial != "-")
                     {
-                        row["arcazeSerial"] = SerialNumber.ExtractDeviceName(cfgItem.DisplaySerial);
+                        row["arcazeSerial"] = SerialNumber.ExtractDeviceName(cfgItem.ModuleSerial);
                     
-                        row["OutputType"] = cfgItem.DisplayType;
+                        row["OutputType"] = cfgItem.DeviceType;
 
                         // only exception for the type label
-                        if (cfgItem.DisplayType == MobiFlightOutput.TYPE)
+                        if (cfgItem.DeviceType == MobiFlightOutput.TYPE)
                             row["OutputType"] = "LED / Output";
 
-                        if (cfgItem.DisplayType == MobiFlightCustomDevice.TYPE)
+                        if (cfgItem.DeviceType == MobiFlightCustomDevice.TYPE)
                             row["OutputType"] = cfgItem.CustomDevice.CustomType;
 
-                        switch (cfgItem.DisplayType)
+                        switch (cfgItem.DeviceType)
                         {
                             case MobiFlightLedModule.TYPE:
                                 row["OutputName"] = cfgItem.LedModule.DisplayLedAddress;
@@ -646,9 +646,9 @@ namespace MobiFlight.UI.Panels
                                 break;
 
                         }
-                    } else if(cfgItem.DisplayType=="InputAction")
+                    } else if(cfgItem.DeviceType=="InputAction")
                     {
-                        row["OutputType"] = cfgItem.DisplayType;
+                        row["OutputType"] = cfgItem.DeviceType;
                         if (cfgItem.ButtonInputConfig != null)
                         {
                             if (cfgItem.ButtonInputConfig.onRelease != null)

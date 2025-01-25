@@ -351,21 +351,21 @@ namespace MobiFlight.UI.Dialogs
             switch (currentInputType)
             {
                 case DeviceType.Button:
-                    config.Type = InputConfigItem.TYPE_BUTTON;
+                    config.DeviceType = InputConfigItem.TYPE_BUTTON;
                     if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
                 case DeviceType.Encoder:
-                    config.Type = InputConfigItem.TYPE_ENCODER;
+                    config.DeviceType = InputConfigItem.TYPE_ENCODER;
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
 
                 case DeviceType.InputShiftRegister:
-                    config.Type = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
+                    config.DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
                     if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
                     config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
@@ -373,7 +373,7 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.InputMultiplexer:
-                    config.Type = InputConfigItem.TYPE_INPUT_MULTIPLEXER;
+                    config.DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER;
                     if (config.inputMultiplexer == null) config.inputMultiplexer = new InputConfig.InputMultiplexerConfig();
                     config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
@@ -381,14 +381,14 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.AnalogInput:
-                    config.Type = InputConfigItem.TYPE_ANALOG;
+                    config.DeviceType = InputConfigItem.TYPE_ANALOG;
                     if (config.analog == null) config.analog = new InputConfig.AnalogInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
                     break;
 
                 case DeviceType.NotSet:
-                    config.Type = InputConfigItem.TYPE_NOTSET;
+                    config.DeviceType = InputConfigItem.TYPE_NOTSET;
                     config.Name = InputConfigItem.TYPE_NOTSET;
                     break;
             }
@@ -645,7 +645,7 @@ namespace MobiFlight.UI.Dialogs
             {
                 foreach (IConnectedDevice device in module.GetConnectedDevices())
                 {
-                    if (device.Type != DeviceType.LedModule) continue;
+                    if (device.TypeDeprecated != DeviceType.LedModule) continue;
                     if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
                     for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
                     {

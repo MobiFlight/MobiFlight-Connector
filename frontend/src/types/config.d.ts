@@ -1,14 +1,19 @@
 export interface IConfigItem {
   GUID: string;
   Active: boolean;
-  Description: string;
-  Device: string;
-  Component: string;
-  Type: DeviceElementType;
-  Tags: string[];
-  Status: string[];
-  RawValue: string;
-  ModifiedValue: string;
+  Type: string;
+  // This is the name of the config item
+  Name: string;
+  // name / serial of the device
+  ModuleSerial: string;
+  Device: IDeviceConfig;
+  // this is the type of the Device
+  // Type: DeviceElementType;
+  // Tags: string[];
+  // Status: string[];
+  RawValue: string | null;
+  Value: string | null;
+  // Preconditions: Precondition[];
 }
 
 export interface IDictionary<T> {
@@ -32,4 +37,9 @@ export interface IDeviceItem {
   MetaData: IDictionary<string>;  
   Elements: IDeviceElement[];
   Pins?: ElementPin[];
+}
+
+export interface IDeviceConfig {
+  Type: string;
+  Name: string;
 }

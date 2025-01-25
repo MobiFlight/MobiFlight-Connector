@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,10 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class Pin
+    public class Pin : DeviceConfig
     {
+        public override string Name { get { return DisplayPin; } }
+
         public string DisplayPin { get; set; }
         public byte DisplayPinBrightness { get; set; }
         public bool DisplayPinPWM { get; set; }

@@ -94,7 +94,7 @@ namespace MobiFlight.UI.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
 
-            String serial = config.DisplaySerial;
+            String serial = config.ModuleSerial;
             serial = SerialNumber.ExtractSerial(serial);
 
             if (config.Pin.DisplayPin != null && config.Pin.DisplayPin != "")
@@ -124,7 +124,7 @@ namespace MobiFlight.UI.Panels
                     _MultiSelectOptions(true);
 
                     // initialize multi-select panel
-                    MultiPinSelectPanel?.SetSelectedPinsFromString(config.Pin.DisplayPin, config.DisplaySerial);
+                    MultiPinSelectPanel?.SetSelectedPinsFromString(config.Pin.DisplayPin, config.ModuleSerial);
 
                     // get the first from the multi select
                     pin = config.Pin.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];

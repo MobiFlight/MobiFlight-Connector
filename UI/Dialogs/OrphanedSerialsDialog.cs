@@ -62,7 +62,7 @@ namespace MobiFlight.UI.Dialogs
             foreach (DataRow row in configDataTable.Rows) 
             {
                 OutputConfigItem cfg = row["settings"] as OutputConfigItem;
-                CheckAndAddConfigSerial(cfg.DisplaySerial, configSerials);
+                CheckAndAddConfigSerial(cfg.ModuleSerial, configSerials);
             }
 
             foreach (DataRow row in inputDataTable.Rows)
@@ -102,9 +102,9 @@ namespace MobiFlight.UI.Dialogs
             foreach (DataRow row in configDataTable.Rows)
             {
                 OutputConfigItem cfg = row["settings"] as OutputConfigItem;
-                if (cfg?.DisplaySerial == oldSerial)
+                if (cfg?.ModuleSerial == oldSerial)
                 {
-                    cfg.DisplaySerial = newSerial;
+                    cfg.ModuleSerial = newSerial;
                     row["settings"] = cfg;
                 }
             }

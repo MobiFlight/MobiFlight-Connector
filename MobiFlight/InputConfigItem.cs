@@ -1,8 +1,8 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
-using System;
 using System.Collections.Generic;
+using System;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -25,17 +25,18 @@ namespace MobiFlight
         // only for backward compatibility during loading
         public const String TYPE_ANALOG_OLD = "Analog";
 
-        public string ModuleSerial { get; set; }
         public ButtonInputConfig button { get; set; }
         public EncoderInputConfig encoder { get; set; }
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
         public InputMultiplexerConfig inputMultiplexer { get; set; }
         public AnalogInputConfig analog { get; set; }
-        
+
+        public string DeviceType { get; set; }
+
         public InputConfigItem()
         {
             Preconditions = new PreconditionList();
-            Type = TYPE_NOTSET;
+            DeviceType = TYPE_NOTSET;
 
             ConfigRefs = new ConfigRefList();
         }
@@ -80,8 +81,8 @@ namespace MobiFlight
             Name = reader["name"];
             if (reader["type"] != null && reader["type"] != "")
             {
-                Type = reader["type"];
-                if (Type == TYPE_ANALOG_OLD) Type = TYPE_ANALOG;
+                DeviceType = reader["type"];
+                if (DeviceType == TYPE_ANALOG_OLD) DeviceType = TYPE_ANALOG;
             }
 
             reader.Read(); // this should be the button or encoder
@@ -117,12 +118,12 @@ namespace MobiFlight
             }
 
             // this is fallback, because type was not set in the past
-            if (Type == TYPE_NOTSET)
+            if (DeviceType == TYPE_NOTSET)
             {
                 if (button != null)
-                    Type = TYPE_BUTTON;
+                    DeviceType = TYPE_BUTTON;
                 if (encoder != null)
-                    Type = TYPE_ENCODER;
+                    DeviceType = TYPE_ENCODER;
             }
 
             /*
@@ -175,37 +176,37 @@ namespace MobiFlight
         {
             writer.WriteAttributeString("serial", this.ModuleSerial);
             writer.WriteAttributeString("name", this.Name);
-            writer.WriteAttributeString("type", this.Type);
+            writer.WriteAttributeString("type", this.DeviceType);
 
-            if (this.Type == TYPE_BUTTON && button != null)
+            if (this.DeviceType == TYPE_BUTTON && button != null)
             {
                 writer.WriteStartElement("button");
                 button.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == TYPE_ENCODER && encoder != null)
+            if (this.DeviceType == TYPE_ENCODER && encoder != null)
             {
                 writer.WriteStartElement("encoder");
                 encoder.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == TYPE_INPUT_SHIFT_REGISTER && inputShiftRegister != null)
+            if (this.DeviceType == TYPE_INPUT_SHIFT_REGISTER && inputShiftRegister != null)
             {
                 writer.WriteStartElement("inputShiftRegister");
                 inputShiftRegister.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == TYPE_INPUT_MULTIPLEXER && inputMultiplexer != null)
+            if (this.DeviceType == TYPE_INPUT_MULTIPLEXER && inputMultiplexer != null)
             {
                 writer.WriteStartElement("inputMultiplexer");
                 inputMultiplexer.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Type == TYPE_ANALOG && analog != null)
+            if (this.DeviceType == TYPE_ANALOG && analog != null)
             {
                 writer.WriteStartElement("analog");
                 analog.WriteXml(writer);
@@ -232,7 +233,7 @@ namespace MobiFlight
             InputConfigItem clone = new InputConfigItem();
             clone.ModuleSerial = ModuleSerial;
             clone.Name = Name;
-            clone.Type = Type;
+            clone.DeviceType = DeviceType;
 
             if (button != null)
                 clone.button = (ButtonInputConfig)this.button.Clone();
@@ -267,7 +268,7 @@ namespace MobiFlight
             InputEventArgs e,
             List<ConfigRefValue> configRefs)
         {
-            switch (Type)
+            switch (DeviceType)
             {
                 case TYPE_BUTTON:
                     if (button != null)                
@@ -299,21 +300,21 @@ namespace MobiFlight
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
 
-            if (Type == TYPE_BUTTON)
+            if (DeviceType == TYPE_BUTTON)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
                 if (button != null)
                     result = button?.GetStatistics();
 
-            } else if (Type == TYPE_ENCODER)
+            } else if (DeviceType == TYPE_ENCODER)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
                 if (encoder != null)
                     result = encoder.GetStatistics();
             }
-            else if (Type == TYPE_ANALOG)
+            else if (DeviceType == TYPE_ANALOG)
             {
                 // explicit test is needed 
                 // in some older version we didn't save the node correctly
@@ -329,7 +330,7 @@ namespace MobiFlight
             bool areSame = (obj != null && obj is InputConfigItem) &&
                             ModuleSerial == (obj as InputConfigItem).ModuleSerial &&
                             Name == (obj as InputConfigItem).Name &&
-                            Type == (obj as InputConfigItem).Type;
+                            DeviceType == (obj as InputConfigItem).DeviceType;
 
             if (areSame) {
                 areSame = areSame && ((button == null && (obj as InputConfigItem).button == null) || (button != null && button.Equals((obj as InputConfigItem).button)));
@@ -344,6 +345,25 @@ namespace MobiFlight
             }
 
             return areSame;
+        }
+
+        protected override IDeviceConfig GetDeviceConfig()
+        {
+            switch (DeviceType)
+            {
+                case TYPE_BUTTON:
+                    return button;
+                case TYPE_ENCODER:
+                    return encoder;
+                case TYPE_INPUT_SHIFT_REGISTER:
+                    return inputShiftRegister;
+                case TYPE_INPUT_MULTIPLEXER:
+                    return inputMultiplexer;
+                case TYPE_ANALOG:
+                    return analog;
+                default:
+                    return null;
+            }
         }
     }
 }

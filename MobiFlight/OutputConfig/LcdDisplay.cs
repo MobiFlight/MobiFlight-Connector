@@ -1,16 +1,16 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class LcdDisplay : IXmlSerializable, ICloneable
+    public class LcdDisplay : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public const string Type = "LcdDisplay";
+        public const string DeprecatedType = "LcdDisplay";
+        public override string Name { get { return Address; } }
         public String Address { get; set; }
         public List<String> Lines { get; set; }
 

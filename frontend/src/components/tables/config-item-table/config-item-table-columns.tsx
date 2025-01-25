@@ -15,6 +15,7 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage";
 import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "@/components/icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
+import { IDeviceConfig } from "@/types/config";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -35,10 +36,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    accessorKey: "Description",
+    accessorKey: "Name",
     size: 1,
     cell: ({ row }) => {
-      const label = row.getValue("Description") as string;
+      const label = row.getValue("Name") as string;
       return (
         <div>
           <p className="font-semibold">{label}</p>
@@ -60,12 +61,12 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    accessorKey: "Device",
+    accessorKey: "ModuleSerial",
     header: () => <div className="w-20">Device</div>,
     size: 200,
     cell: ({ row }) => {
-      const label = (row.getValue("Device") as string).split("/")[0];
-      const serial = (row.getValue("Device") as string).split("/")[1];
+      const label = (row.getValue("ModuleSerial") as string).split("/")[0];
+      const serial = (row.getValue("ModuleSerial") as string).split("/")[1];
       return (
         <>
           <p className="text-md font-semibold">{label}</p>
@@ -79,11 +80,11 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     size: 200,
-    accessorKey: "Component",
+    accessorKey: "Device",
     header: "Component",
     cell: ({ row }) => {
-      const label = row.getValue("Component") as string;
-      const type = row.getValue("Type") as string;
+      const label = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-";
+      const type =  (row.getValue("Device") as IDeviceConfig)?.Type ?? "-";
       const icon = (
         <DeviceIcon variant={(type ?? "default") as DeviceElementType} />
       );

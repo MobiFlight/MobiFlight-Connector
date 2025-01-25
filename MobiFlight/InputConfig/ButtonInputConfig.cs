@@ -2,11 +2,15 @@
 using System.Timers;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using MobiFlight.Base;
 
 namespace MobiFlight.InputConfig
 {
-    public class ButtonInputConfig : IXmlSerializable, ICloneable
+    public class ButtonInputConfig : DeviceConfig, IXmlSerializable, ICloneable
     {
+        public override string Name { get { return "Button"; } }
+
+
         public InputAction onPress;        
         public InputAction onRelease;        
         public InputAction onLongRelease;

@@ -1,14 +1,15 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace MobiFlight.InputConfig 
+namespace MobiFlight.InputConfig
 {
-    public class EncoderInputConfig : IXmlSerializable, ICloneable
+    public class EncoderInputConfig : DeviceConfig, IXmlSerializable, ICloneable
     {
+        public override string Name { get { return "Encoder"; } }
+
         public InputAction onLeft;
         public InputAction onLeftFast;
         public InputAction onRight;
