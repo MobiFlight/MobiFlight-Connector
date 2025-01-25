@@ -703,12 +703,6 @@
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.Designer.cs">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\StartupPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\StartupPanel.Designer.cs">
-      <DependentUpon>StartupPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputAction.cs" />
@@ -1662,9 +1656,6 @@
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
-      <DependentUpon>StartupPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>

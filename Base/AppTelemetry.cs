@@ -70,8 +70,8 @@ namespace MobiFlight.Base
         {
             // Track config loaded event
             EventTelemetry trackingEvent = new EventTelemetry("ConfigLoaded");
-            List<OutputConfigItem> outputConfigs = configFile.GetOutputConfigItems();
-            List<InputConfigItem> inputConfigs = configFile.GetInputConfigItems();
+            List<OutputConfigItem> outputConfigs = configFile.OutputConfigItems;
+            List<InputConfigItem> inputConfigs = configFile.InputConfigItems;
 
             foreach (OutputConfigItem item in outputConfigs)
             {

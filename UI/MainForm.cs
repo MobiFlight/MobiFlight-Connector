@@ -196,9 +196,6 @@ namespace MobiFlight.UI
             Properties.Settings.Default.Started = Properties.Settings.Default.Started + 1;
 
 
-            // this is everything that used to be directly in the constructor
-            inputsTabControl.DrawItem += new DrawItemEventHandler(tabControl1_DrawItem);
-
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
             execManager = new ExecutionManager(this.Handle);
@@ -1554,8 +1551,8 @@ namespace MobiFlight.UI
 
                 configFile = new ConfigFile(fileName);
                 configFile.OpenFile();
-                execManager.OutputConfigItems = configFile.GetOutputConfigItems();
-                execManager.InputConfigItems = configFile.GetInputConfigItems();
+                execManager.OutputConfigItems = configFile.OutputConfigItems;
+                execManager.InputConfigItems = configFile.InputConfigItems;
             }
             catch (InvalidExpressionException)
             {
@@ -1613,7 +1610,7 @@ namespace MobiFlight.UI
 
             if (configFile == null) return;        
            
-            foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
+            foreach (OutputConfigItem item in configFile.OutputConfigItems)
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1623,7 +1620,7 @@ namespace MobiFlight.UI
                 }
             }
 
-            foreach (InputConfigItem item in configFile.GetInputConfigItems())
+            foreach (InputConfigItem item in configFile.InputConfigItems)
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) && 
@@ -1662,7 +1659,7 @@ namespace MobiFlight.UI
 
             if (configFile == null) return;
 
-            foreach (OutputConfigItem item in configFile.GetOutputConfigItems())
+            foreach (OutputConfigItem item in configFile.OutputConfigItems)
             {
                 if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1672,7 +1669,7 @@ namespace MobiFlight.UI
                 }
             }
 
-            foreach (InputConfigItem item in configFile.GetInputConfigItems())
+            foreach (InputConfigItem item in configFile.InputConfigItems)
             {
                 if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1719,7 +1716,7 @@ namespace MobiFlight.UI
 
             try
             {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, outputConfigPanel.ConfigDataTable, inputConfigPanel.ConfigDataTable);
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configFile.OutputConfigItems, configFile.InputConfigItems);
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
@@ -2047,42 +2044,6 @@ namespace MobiFlight.UI
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");               
         }
 
-        /// taken from
-        /// http://msdn.microsoft.com/en-us/library/ms404305.aspx
-        private void tabControl1_DrawItem(Object sender, System.Windows.Forms.DrawItemEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            Brush _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
-
-            // Get the item from the collection.
-            TabPage _tabPage = inputsTabControl.TabPages[e.Index];
-
-            // Get the real bounds for the tab rectangle.
-            Rectangle _tabBounds = inputsTabControl.GetTabRect(e.Index);
-
-            if (e.State == DrawItemState.Selected)
-            {
-
-                // Draw a different background color, and don't paint a focus rectangle.
-                //_textBrush = new SolidBrush(Color.Red);
-                //g.FillRectangle(Brushes.Gray, e.Bounds);
-            }
-            else
-            {
-                _textBrush = new System.Drawing.SolidBrush(e.ForeColor);
-                e.DrawBackground();
-            }
-
-            // Use our own font.
-            Font _tabFont = new Font("Arial", (float)10.0, FontStyle.Bold, GraphicsUnit.Pixel);
-
-            // Draw string. Center the text.
-            StringFormat _stringFlags = new StringFormat();
-            _stringFlags.Alignment = StringAlignment.Center;
-            _stringFlags.LineAlignment = StringAlignment.Center;
-            g.DrawString(_tabPage.Text, _tabFont, _textBrush, _tabBounds, new StringFormat(_stringFlags));
-        }
-
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.S)       // Ctrl-S Save
@@ -2347,19 +2308,6 @@ namespace MobiFlight.UI
         private void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
-        }
-
-        private void inputsTabControl_TabIndexChanged(object sender, EventArgs e)
-        {
-            if (inputsTabControl.SelectedIndex == 0)
-            {
-                OutputTabPage.ImageKey = "mf-output.png";
-                InputTabPage.ImageKey = "mf-input-inactive.png";
-            } else
-            {
-                OutputTabPage.ImageKey = "mf-output-inactive.png";
-                InputTabPage.ImageKey = "mf-input.png";
-            }
         }
 
         public static bool ContainsConfigOfSourceType(List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems, SourceType type)

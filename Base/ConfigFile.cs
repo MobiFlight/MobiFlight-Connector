@@ -51,7 +51,7 @@ namespace MobiFlight
             return result;
         }
 
-        public List<OutputConfigItem> GetOutputConfigItems()
+        protected List<OutputConfigItem> GetOutputConfigItems()
         {
             List<OutputConfigItem> result = new List<OutputConfigItem>();
 
@@ -72,7 +72,7 @@ namespace MobiFlight
             return result;
         }
 
-        public List<InputConfigItem> GetInputConfigItems()
+        protected List<InputConfigItem> GetInputConfigItems()
         {
             List<InputConfigItem> result = new List<InputConfigItem>();
 
