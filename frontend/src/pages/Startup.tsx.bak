@@ -16,6 +16,10 @@ function StartupPage() {
     setStartupProgress(message.payload as StatusBarUpdate)
   })
 
+  useAppMessage("ConfigFile", (message) => {
+    console.log("ConfigFile", message)
+  })
+
   // this allows to get beyond the startup screen
   // by setting the progress to 100 via url parameter
   useEffect(() => {

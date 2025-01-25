@@ -1187,6 +1187,8 @@ namespace MobiFlight
         /// <param name="args"></param>
         void testModeTimer_Tick(object sender, EventArgs args)
         {
+            if (OutputConfigItems.Count == 0) return;
+
             var lastTestedConfig = OutputConfigItems[(testModeIndex - 1 + OutputConfigItems.Count) % OutputConfigItems.Count];
 
             string serial = "";

@@ -169,6 +169,11 @@ namespace MobiFlight.UI
         {
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
+
+            ConfigLoaded += (s, config) =>
+            {
+                MessageExchange.Instance.Publish(config);
+            };
         }
 
         private void MainForm_Shown(object sender, EventArgs e)

@@ -18,7 +18,10 @@ export const useAppMessage = (
   useEffect(() => {
     const onReveiveMessageHandler = (event: Event) => {
       try {
-        onReceiveMessage((event as MessageEvent).data as AppMessage)
+        const appMessage = (event as MessageEvent).data as AppMessage
+        if (appMessage.key === key) {
+        onReceiveMessage(appMessage)
+        }
       } catch (error) {
         console.error("Error parsing message", error)
       }

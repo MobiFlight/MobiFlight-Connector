@@ -21,7 +21,7 @@ namespace MobiFlight.OutputConfig
 
         public override bool Equals(object obj)
         {
-            bool linesAreEqual = true && Lines.Count == (obj as LcdDisplay).Lines.Count;
+            bool linesAreEqual = true && Lines.Count == (obj as LcdDisplay)?.Lines.Count;
             if (linesAreEqual)
             for(int i=0; i!=Lines.Count; i++)
             {

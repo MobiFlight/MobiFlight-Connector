@@ -1,8 +1,55 @@
-import { Outlet } from 'react-router'
+import { Outlet, useMatch, useNavigate, useOutlet, useSearchParams } from 'react-router'
+import StartupProgress from './components/StartupProgress'
+import { useEffect, useState } from 'react'
+import { useAppMessage } from './lib/hooks/appMessage'
+import { StatusBarUpdate } from './types'
+import { useConfigStore } from './stores/configFileStore'
 
-function App() {
+function App() {  
+  const [queryParameters] = useSearchParams()
+  const navigate = useNavigate()
+
+  const { setItems } = useConfigStore();
+
+  const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>(
+    { Value: 0, Text: "Starting..." },
+  )
+
+  useAppMessage("StatusBarUpdate", (message) => {
+    console.log("StatusBarUpdate", message.payload.Value)
+    setStartupProgress(message.payload as StatusBarUpdate)
+  })
+
+  useAppMessage("ConfigFile", (message) => {
+    console.log("ConfigFile", message.payload)
+    setItems(message.payload)
+  })
+
+  // this allows to get beyond the startup screen
+  // by setting the progress to 100 via url parameter
+  useEffect(() => {
+    // convert string to number    
+    const value = Number.parseInt(queryParameters.get("progress")?.toString() ?? "0")
+    if (value == 100) {
+      console.log("Finished loading, navigating to config page")
+      navigate("/config")
+    }
+    else
+      setStartupProgress({ Value: value, Text: "Loading..." })
+  }, [navigate, queryParameters])
+
+  useEffect(() => {
+    if (startupProgress.Value == 100) {
+      console.log("Finished loading, navigating to config page")
+      navigate("/config")
+    }
+  }, [startupProgress.Value, navigate])
+
+  const outlet = useOutlet()
+
   return (
     <>
+    { outlet ? (
       <div className="flex h-svh flex-row">
         {/* <Sidebar /> */}
         <div className="flex grow flex-col">
@@ -20,6 +67,12 @@ function App() {
           offset={48}
         /> */}
       </div>
+    ) : (
+    <StartupProgress
+        value={startupProgress.Value}
+        text={startupProgress.Text}
+      />)
+    }
     </>
   )
 }
