@@ -1,4 +1,5 @@
 using MobiFlight.Base;
+using MobiFlight.BrowserMessages;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.SimConnectMSFS;
@@ -81,9 +82,10 @@ namespace MobiFlight
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
 
-        DataGridView dataGridViewConfig = null;
-        DataGridView inputsDataGridView = null;
-        Dictionary<String, List<Tuple<InputConfigItem, DataGridViewRow>>> inputCache = new Dictionary<string, List<Tuple<InputConfigItem, DataGridViewRow>>>();
+        public List<OutputConfigItem> OutputConfigItems { get; set; } = new List<OutputConfigItem>();
+        public List<InputConfigItem> InputConfigItems { get; set; } = new List<InputConfigItem>();
+
+        Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
 
         private bool _autoConnectTimerRunning = false;
 
@@ -91,11 +93,10 @@ namespace MobiFlight
 
         string ConfigItemInTestMode = null;
 
-        public ExecutionManager(DataGridView dataGridViewConfig, DataGridView inputsDataGridView, IntPtr handle)
-        {
-            this.dataGridViewConfig = dataGridViewConfig;
-            this.inputsDataGridView = inputsDataGridView;
+        Dictionary<string, IConfigItem> lastUpdatedValues = new Dictionary<string, IConfigItem>();
 
+        public ExecutionManager(IntPtr handle)
+        {
             fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
             fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
@@ -184,17 +185,11 @@ namespace MobiFlight
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
             // iterate over the config row by row
-            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            foreach (var cfg in OutputConfigItems)
             {
-                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
-                // and the ones that are not checked active
-                if (row.IsNewRow) continue;
-
-                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
-
                 // cfg was not set yet, e.g. we created row and are still in edit mode and now we hit "Edit"
                 if (cfg == null) continue;
-                
+
                 if (cfg.SourceType != SourceType.VARIABLE) continue;
 
                 if (cfg.MobiFlightVariable == null) continue;
@@ -205,18 +200,13 @@ namespace MobiFlight
             }
 
             // iterate over the config row by row
-            foreach (DataGridViewRow row in inputsDataGridView.Rows)
+            foreach (var cfg in InputConfigItems)
             {
-                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
-                // and the ones that are not checked active
-                if (row.IsNewRow) continue;
-
-                InputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
                 if (cfg == null) continue;
 
                 List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
 
-                if(actions == null) continue;
+                if (actions == null) continue;
 
                 actions.ForEach(action =>
                 {
@@ -477,6 +467,8 @@ namespace MobiFlight
                 !midiBoardManager.AreMidiBoardsConnected()
             ) return;
 
+
+
             // this is kind of sempahore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
@@ -492,25 +484,13 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.clearGetValues();
 #endif
+
+            var updatedValues = new Dictionary<string, IConfigItem>();
+
             // iterate over the config row by row
-            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            foreach (var cfg in OutputConfigItems)
             {
-                // ignore the rows that haven't been saved yet (new row, the last one in the grid)
-                // and the ones that are not checked active
-                if (row.IsNewRow) continue;
-
-                if (!(bool)row.Cells["active"].Value)
-                {
-                    row.ErrorText = "";
-                    continue;
-                }
-
-                // initialisiere den adapter
-                //// nimm type von col.type
-                //// nimm config von col.config                
-
-                //// if !all valid continue                
-                OutputConfigItem cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
+                if (!cfg.Active) continue;
 
                 if (cfg == null)
                 {
@@ -519,44 +499,49 @@ namespace MobiFlight
                 }
 
                 // Don't execute a config that we are currently manually testing.
-                var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
-                if (ConfigItemInTestMode!=null && ConfigItemInTestMode == currentGuid)
+                var currentGuid = cfg.GUID;
+                if (ConfigItemInTestMode != null && ConfigItemInTestMode == currentGuid)
                 {
                     continue;
-                } 
+                }
 
                 // If not connected to FSUIPC show an error message
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
-                    row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
-                } else 
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
+                }
+                else
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
-                    row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
                 }
                 else
 #endif
                 // If not connected to X-Plane show an error message
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
-                    row.ErrorText = i18n._tr("uiMessageNoXplaneConnection");
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = i18n._tr("uiMessageNoXplaneConnection");
                 }
                 // In any other case remove the error message
                 else
                 {
-                    row.ErrorText = "";
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = "";
                 }
 
                 ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
 
-                row.DefaultCellStyle.ForeColor = Color.Empty;
-
-                row.Cells["fsuipcValueColumn"].Value = value.ToString();
-                row.Cells["fsuipcValueColumn"].Tag = value;
-
+                // store the values for the input precondition checks
+                updatedValues[currentGuid] = cfg.Clone() as ConfigItem;
+                updatedValues[currentGuid].RawValue = value.ToString();
+                updatedValues[currentGuid].Value = processedValue.ToString();
+                
                 List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
                 try
@@ -569,13 +554,14 @@ namespace MobiFlight
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"Transform error ({row.Cells["Description"].Value}): {ex.Message}", LogSeverity.Error);
-                    row.ErrorText = $"{i18n._tr("uiMessageTransformError")}({ex.Message})";
+                    Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = $"{i18n._tr("uiMessageTransformError")}({ex.Message})";
                     continue;
                 }
 
-                row.Cells["arcazeValueColumn"].Value = processedValue.ToString();
-
+                // processedValue now has changed, so we need to update the value in the cache
+                updatedValues[currentGuid].Value = processedValue.ToString();
                 try
                 {
                     // check preconditions
@@ -583,7 +569,8 @@ namespace MobiFlight
                     {
                         if (!cfg.Preconditions.ExecuteOnFalse)
                         {
-                            row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            // TODO: REDESIGN: Review
+                            // row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                             continue;
                         }
                         else
@@ -594,25 +581,29 @@ namespace MobiFlight
                     }
                     else
                     {
-                        if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
-                            row.ErrorText = "";
+                        // TODO: REDESIGN: Review
+                        //if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
+                        //    row.ErrorText = "";
                     }
-                
+
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
-                catch(JoystickNotConnectedException jEx)
+                catch (JoystickNotConnectedException jEx)
                 {
-                    row.ErrorText = jEx.Message;
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = jEx.Message;
                 }
                 catch (MidiBoardNotConnectedException mEx)
                 {
-                    row.ErrorText = mEx.Message;
+                    // TODO: REDESIGN: Review
+                    // row.ErrorText = mEx.Message;
                 }
                 catch (Exception exc)
                 {
-                    String RowDescription = ((row.Cells["description"]).Value as String);
-                    Exception resultExc = new ConfigErrorException(RowDescription + ". " + exc.Message, exc);
-                    row.ErrorText = exc.Message;
+                    // TODO: REDESIGN: Review
+                    String RowDescription = cfg.Name;
+                    Exception resultExc = new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
+                    // row.ErrorText = exc.Message;
                     throw resultExc;
                 }
             }
@@ -620,12 +611,36 @@ namespace MobiFlight
             // that came from the inputs and are waiting to be written
             // fsuipcCache.Write();
 
+            if (updatedValues.Count > 0)
+            {
+                // we have to compare updatedValues with lastUpdatedValues
+                // and only publish the changes using the MessageExchange
+
+                var changedValues = updatedValues
+                                    .Where(
+                                        kv => (
+                                            !lastUpdatedValues.ContainsKey(kv.Key) ||
+                                            kv.Value.Value != lastUpdatedValues[kv.Key].Value ||
+                                            kv.Value.RawValue != lastUpdatedValues[kv.Key].RawValue
+                                        )
+                                    )
+                                    .ToDictionary(kv => kv.Key, kv => kv.Value);
+                if (changedValues.Count > 0)
+                {
+                    // TODO: EMIT Event
+                    //var update = new ConfigValueUpdate() { ConfigItems = changedValues.Values.ToList() };
+                    //MessageExchange.Instance.Publish(new Message<ConfigValueUpdate>(update));
+                }
+            }
+
+            lastUpdatedValues = updatedValues;
+
             UpdateInputPreconditions();
 
             isExecuting = false;
         }
 
-        private bool CheckPrecondition(IBaseConfigItem cfg, ConnectorValue currentValue)
+        private bool CheckPrecondition(ConfigItem cfg, ConnectorValue currentValue)
         {
             bool finalResult = true;
             bool result = true;
@@ -659,23 +674,19 @@ namespace MobiFlight
                         break;
                     case "config":
                         // iterate over the config row by row
-                        foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+                        foreach (var outputConfig in OutputConfigItems)
                         {
-                            // the last item is null and we hit that if we don't find the reference
-                            // because we deleted it for example
-                            if ((row.DataBoundItem as DataRowView) == null) continue;
-
                             // here we just don't have a match
-                            if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != p.PreconditionRef) continue;
+                            if (outputConfig.GUID != p.PreconditionRef) continue;
 
                             // if inactive ignore?
-                            if (!(bool)row.Cells["active"].Value) break;
+                            if (!outputConfig.Active) break;
 
                             // was there an error on reading the value?
-                            if (row.Cells["arcazeValueColumn"].Value == null) break;
+                            if (outputConfig.Value == null) break;
 
                             // read the value
-                            string value = row.Cells["arcazeValueColumn"].Value.ToString();
+                            string value = outputConfig.Value;
 
                             // if there hasn't been determined any value yet
                             // we cannot compare
@@ -987,23 +998,19 @@ namespace MobiFlight
         {
             String result = null;
             // iterate over the config row by row
-            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
+            foreach (var cfg in OutputConfigItems)
             {
-                // the last item is null and we hit that if we don't find the reference
-                // because we deleted it for example
-                if ((row.DataBoundItem as DataRowView) == null) continue;
-
                 // here we just don't have a match
-                if ((row.DataBoundItem as DataRowView).Row["guid"].ToString() != refId) continue;
+                if (cfg.GUID != refId) continue;
 
                 // if inactive ignore?
-                if (!(bool)row.Cells["active"].Value) break;
+                if (!cfg.Active) break;
 
                 // was there an error on reading the value?
-                if (row.Cells["arcazeValueColumn"].Value == null) break;
+                if (cfg.Value == null) break;
 
                 // read the value
-                string value = row.Cells["arcazeValueColumn"].Value.ToString();
+                string value = cfg.Value;
 
                 // if there hasn't been determined any value yet
                 // we cannot compare
@@ -1179,99 +1186,81 @@ namespace MobiFlight
         /// <param name="sender"></param>
         /// <param name="args"></param>
         void testModeTimer_Tick(object sender, EventArgs args)
-        {            
-            DataGridViewRow lastRow = dataGridViewConfig.Rows[(testModeIndex - 1 + dataGridViewConfig.RowCount) % dataGridViewConfig.RowCount];
+        {
+            var lastTestedConfig = OutputConfigItems[(testModeIndex - 1 + OutputConfigItems.Count) % OutputConfigItems.Count];
 
             string serial = "";
             string lastSerial = "";
 
-            OutputConfigItem cfg = new OutputConfigItem();
-            cfg.DisplaySerial = "";
-            if (lastRow.DataBoundItem != null)
-            {
-                cfg = ((lastRow.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
-            }
+            var tmpCfg = lastTestedConfig;
 
-            if (cfg != null &&
-                lastRow.Cells["active"].Value != null && ((bool)lastRow.Cells["active"].Value) &&
-                cfg.DisplaySerial!=null && (cfg.DisplaySerial.Contains("/"))
+            if (lastTestedConfig.Active &&
+                lastTestedConfig.DisplaySerial != null && (lastTestedConfig.DisplaySerial.Contains("/"))
             )
             {
-                lastSerial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
-                lastRow.Selected = false;
+                lastSerial = SerialNumber.ExtractSerial(tmpCfg.DisplaySerial);
                 try
                 {
-                    ExecuteTestOff(cfg, true);
+                    ExecuteTestOff(tmpCfg, true);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
+                    String RowDescription = lastTestedConfig.Name;
                     Log.Instance.log($"Error during test mode execution: module not connected > {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(new Exception(i18n._tr("uiMessageTestModeModuleNotConnected")), new EventArgs());
                 }
                 catch (Exception ex)
                 {
                     // TODO: refactor - check if we can stop the execution and this way update the interface accordingly too
-                    String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
+                    String RowDescription = lastTestedConfig.Name;
                     Log.Instance.log($"Error during test mode execution: {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
 
 
-            DataGridViewRow row = dataGridViewConfig.Rows[testModeIndex];
+            var row = OutputConfigItems[testModeIndex];
 
             while (
-                row.Cells["active"].Value != null && // check for null since last row is empty and value is null
-                !(bool)row.Cells["active"].Value &&
-                row != lastRow)
+                !row.Active && // check for null since last row is empty and value is null
+                row != lastTestedConfig)
             {
-                testModeIndex = ++testModeIndex % dataGridViewConfig.RowCount;
-                row = dataGridViewConfig.Rows[testModeIndex];
+                testModeIndex = ++testModeIndex % OutputConfigItems.Count;
+                row = OutputConfigItems[testModeIndex];
             } //while
 
 
-            cfg = new OutputConfigItem();
+            tmpCfg = row;
 
-            // iterate over the config row by row            
-            if (row.DataBoundItem != null &&
-                (row.DataBoundItem as DataRowView).Row["settings"] != null) // this is needed
-            // since we immediately store all changes
-            // and therefore there may be missing a 
-            // valid cfg item
-            {
-                cfg = ((row.DataBoundItem as DataRowView).Row["settings"] as OutputConfigItem);
-            }
-
-            if (cfg != null && // this happens sometimes when a new line is added and still hasn't been configured
-                (dataGridViewConfig.RowCount > 1 && row != lastRow) &&
-                 //cfg.FSUIPC.Offset != FsuipcOffset.OffsetNull &&
-                 cfg.DisplaySerial != null && cfg.DisplaySerial.Contains("/")
+            if (tmpCfg != null && // this happens sometimes when a new line is added and still hasn't been configured
+                (row != lastTestedConfig) &&
+                 tmpCfg.DisplaySerial != null && tmpCfg.DisplaySerial.Contains("/")
             )
             {
-                serial = SerialNumber.ExtractSerial(cfg.DisplaySerial);
-                row.Selected = true;
+                serial = SerialNumber.ExtractSerial(tmpCfg.DisplaySerial);
 
+                // TODO:
+                // REDESIGN: Send out a message that this is currently tested
                 try
                 {
-                    var currentGuid = (row.DataBoundItem as DataRowView).Row["guid"].ToString();
-                    ExecuteTestOn(cfg, currentGuid, cfg.TestValue);
+                    var currentGuid = row.GUID;
+                    ExecuteTestOn(tmpCfg, currentGuid, tmpCfg.TestValue);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
-                    String RowDescription = ((lastRow.DataBoundItem as DataRowView).Row["description"] as String);
+                    String RowDescription = lastTestedConfig.Name;
                     Log.Instance.log($"Error during test mode execution: module not connected > {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(new Exception(i18n._tr("uiMessageTestModeModuleNotConnected")), new EventArgs());
                 }
                 catch (Exception ex)
                 {
-                    String RowDescription = ((row.DataBoundItem as DataRowView).Row["description"] as String);
+                    String RowDescription = row.Name;
                     Log.Instance.log($"Error during test mode execution: {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
             }
 
-            testModeIndex = ++testModeIndex % dataGridViewConfig.RowCount;
+            testModeIndex = ++testModeIndex % OutputConfigItems.Count;
         }
 
 
@@ -1362,15 +1351,7 @@ namespace MobiFlight
 
         private void ClearErrorMessages()
         {
-            foreach (DataGridViewRow row in dataGridViewConfig.Rows)
-            {
-                row.ErrorText = "";
-            }
-
-            foreach (DataGridViewRow row in inputsDataGridView.Rows)
-            {
-                row.ErrorText = "";
-            }
+            // TODO: REDESIGN: Review
         }
 
 #if MOBIFLIGHT
@@ -1413,20 +1394,16 @@ namespace MobiFlight
 			{
                 if (!inputCache.ContainsKey(inputKey))
                 {
-                    inputCache[inputKey] = new List<Tuple<InputConfigItem, DataGridViewRow>>();
+                    inputCache[inputKey] = new List<InputConfigItem>();
                     // check if we have configs for this button
                     // and store it      
 
-                    foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+                    foreach (var cfg in InputConfigItems)
                     {
                         try
                         {
-                            if (gridViewRow.DataBoundItem == null) continue;
-
-                        	InputConfigItem cfg = ((gridViewRow.DataBoundItem as DataRowView).Row["settings"] as InputConfigItem);
-
-                        	// item currently created and not saved yet.
-                        	if (cfg == null) continue;
+                            // item currently created and not saved yet.
+                            if (cfg == null) continue;
                         
                         	if (cfg.ModuleSerial != null && 
                                 cfg.ModuleSerial.Contains("/ " + e.Serial) && 
@@ -1450,8 +1427,8 @@ namespace MobiFlight
                             	{
                                 	continue;
                             	}
-                            	inputCache[inputKey].Add(new Tuple<InputConfigItem, DataGridViewRow>(cfg, gridViewRow));
-                        	}
+                                inputCache[inputKey].Add(cfg);
+                            }
                     	}
                     	catch (Exception ex)
                     	{
@@ -1487,49 +1464,43 @@ namespace MobiFlight
                 joystickManager = joystickManager
             };
 
-            foreach (Tuple<InputConfigItem, DataGridViewRow> tuple in inputCache[inputKey])
+            foreach (var cfg in inputCache[inputKey])
             {
-                if ((tuple.Item2.DataBoundItem as DataRowView) == null)
+                if (!cfg.Active)
                 {
-                    Log.Instance.log("mobiFlightCache_OnButtonPressed: tuple.Item2.DataBoundItem is NULL", LogSeverity.Debug);
-                    continue;
-                }
-
-                DataRow row = (tuple.Item2.DataBoundItem as DataRowView).Row;
-
-                if (!(bool)row["active"])
-                {
-                    Log.Instance.log($"{msgEventLabel} => skipping \"{row["description"]}\", config not active.", LogSeverity.Warn);
+                    Log.Instance.log($"{msgEventLabel} => skipping \"{cfg.Name}\", config not active.", LogSeverity.Warn);
                     continue;
                 }
 
                 try
                 {
                     // if there are preconditions check and skip if necessary
-                    if (tuple.Item1.Preconditions.Count > 0)
+                    if (cfg.Preconditions.Count > 0)
                     {
-                        if (!CheckPrecondition(tuple.Item1, currentValue))
+                        if (!CheckPrecondition(cfg, currentValue))
                         {
-                            tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            // REDSIGN: Review if needed
+                            // tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                             continue;
                         }
                         else
                         {
-                            tuple.Item2.ErrorText = "";
+                            // REDSIGN: Review if needed
+                            // tuple.Item2.ErrorText = "";
                         }
                     }
 
-                    Log.Instance.log($"{msgEventLabel} => executing \"{row["description"]}\"", LogSeverity.Info);
-                
-                    tuple.Item1.execute(
+                    Log.Instance.log($"{msgEventLabel} => executing \"{cfg.Name}\"", LogSeverity.Info);
+
+                    cfg.execute(
                         cacheCollection,
                         e,
-                        GetRefs(tuple.Item1.ConfigRefs))
+                        GetRefs(cfg.ConfigRefs))
                         ;
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"Error excuting \"{row["description"]}\": {ex.Message}", LogSeverity.Error);
+                    Log.Instance.log($"Error excuting \"{cfg.Name}\": {ex.Message}", LogSeverity.Error);
                 }
             }
 
@@ -1538,16 +1509,11 @@ namespace MobiFlight
 
         private void UpdateInputPreconditions()
         {
-            inputsDataGridView.SuspendLayout();
-            foreach (DataGridViewRow gridViewRow in inputsDataGridView.Rows)
+            foreach (var cfg in InputConfigItems)
             {
                 try
                 {
-                    if (gridViewRow.DataBoundItem == null) continue;
-                    if (!(bool)gridViewRow.Cells["inputActive"].Value) continue;
-
-                    DataRowView rowView = gridViewRow.DataBoundItem as DataRowView;
-                    InputConfigItem cfg = rowView.Row["settings"] as InputConfigItem;
+                    if (!cfg.Active) continue;
 
                     // item currently created and not saved yet.
                     if (cfg == null) continue;
@@ -1558,12 +1524,14 @@ namespace MobiFlight
                         ConnectorValue currentValue = new ConnectorValue();
                         if (!CheckPrecondition(cfg, currentValue))
                         {
-                            gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            // REDSIGN: Review if needed
+                            // gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
                             continue;
                         }
                         else
                         {
-                            gridViewRow.ErrorText = "";
+                            // REDSIGN: Review if needed
+                            // gridViewRow.ErrorText = "";
                         }
                     }
                 }
@@ -1573,7 +1541,6 @@ namespace MobiFlight
                     continue;
                 }
             }
-            inputsDataGridView.ResumeLayout();
         }
 
         private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)

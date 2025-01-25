@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    public class InputConfigItem : IBaseConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
+    public class InputConfigItem : ConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -26,16 +26,12 @@ namespace MobiFlight
         public const String TYPE_ANALOG_OLD = "Analog";
 
         public string ModuleSerial { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
         public ButtonInputConfig button { get; set; }
         public EncoderInputConfig encoder { get; set; }
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
         public InputMultiplexerConfig inputMultiplexer { get; set; }
         public AnalogInputConfig analog { get; set; }
-        public PreconditionList Preconditions { get; set; }
-        public ConfigRefList ConfigRefs { get; set; }
-
+        
         public InputConfigItem()
         {
             Preconditions = new PreconditionList();

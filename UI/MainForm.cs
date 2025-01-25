@@ -196,7 +196,7 @@ namespace MobiFlight.UI
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
-            execManager = new ExecutionManager(outputConfigPanel.DataGridViewConfig, inputConfigPanel.InputsDataGridView, this.Handle);
+            execManager = new ExecutionManager(this.Handle);
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
@@ -245,17 +245,6 @@ namespace MobiFlight.UI
             SetTitle("");
 
             _updateRecentFilesMenuItems();
-
-            // TODO: REFACTOR THIS DEPENDENCY
-            outputConfigPanel.ExecutionManager = execManager;
-            outputConfigPanel.SettingsChanged += OutputConfigPanel_SettingsChanged;
-            outputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
-
-            inputConfigPanel.ExecutionManager = execManager;
-            inputConfigPanel.SettingsChanged += InputConfigPanel_SettingsChanged;
-            inputConfigPanel.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
-            inputConfigPanel.OutputDataSetConfig = outputConfigPanel.DataSetConfig;
-            inputConfigPanel.SettingsChanged += execManager.OnInputConfigSettingsChanged;
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
@@ -1549,33 +1538,19 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
-            // Reset sorting if active
-            if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
-            if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
-
             if (!merge)
             {
-                outputConfigPanel.DataSetConfig.Clear();
-                inputConfigPanel.InputDataSetConfig.Clear();
-            }
-
-            configFile = new ConfigFile(fileName);
-            try
-            {
-                // refactor!!!
-                outputConfigPanel.DataSetConfig.ReadXml(configFile.getOutputConfig());
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Unable to load configuration file: {ex.Message}", LogSeverity.Error);
-                MessageBox.Show(i18n._tr("uiMessageProblemLoadingConfig"), i18n._tr("Hint"));
-                return;
+                execManager.OutputConfigItems.Clear();
+                execManager.InputConfigItems.Clear();
             }
 
             try
             {
-                // refactor!!!
-                inputConfigPanel.InputDataSetConfig.ReadXml(configFile.getInputConfig());
+
+                configFile = new ConfigFile(fileName);
+                configFile.OpenFile();
+                execManager.OutputConfigItems = configFile.GetOutputConfigItems();
+                execManager.InputConfigItems = configFile.GetInputConfigItems();
             }
             catch (InvalidExpressionException)
             {
@@ -1587,12 +1562,6 @@ namespace MobiFlight.UI
                 MessageBox.Show(i18n._tr("uiMessageProblemLoadingConfig"), i18n._tr("Hint"));
                 return;
             }
-
-            // for backward compatibility 
-            // we check if there are rows that need to
-            // initialize our config item correctly
-            _applyBackwardCompatibilityLoading();
-            _restoreValuesInGridView();
 
             if (!merge)
             {
@@ -1615,8 +1584,8 @@ namespace MobiFlight.UI
             // always put this after "normal" initialization
             // savetoolstripbutton may be set to "enabled"
             // if user has changed something
-            _checkForOrphanedJoysticks(false);
             _checkForOrphanedSerials(false);            
+            _checkForOrphanedJoysticks(false);
             _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
@@ -1726,12 +1695,6 @@ namespace MobiFlight.UI
             }
         }
 
-        private void _restoreValuesInGridView()
-        {
-            outputConfigPanel.RestoreValuesInGridView();
-            inputConfigPanel.RestoreValuesInGridView();
-        }
-
         private void _checkForOrphanedSerials(bool showNotNecessaryMessage)
         {
             List<string> serials = new List<string>();
@@ -1757,7 +1720,6 @@ namespace MobiFlight.UI
                 {
                     if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        _restoreValuesInGridView();
                         saveToolStripButton.Enabled = opd.HasChanged();
                     }
                 }
@@ -1810,81 +1772,19 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// due to the new settings-node there must be some routine to load 
-        /// data from legacy config files
-        /// </summary>
-        private void _applyBackwardCompatibilityLoading()
-        {            
-            foreach (DataRow row in outputConfigPanel.ConfigDataTable.Rows) {
-                if (row["settings"].GetType() == typeof(System.DBNull))
-                {
-                    OutputConfigItem cfgItem = new OutputConfigItem();
-
-                    if (row["fsuipcOffset"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPC.Offset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
-
-                    if (row["fsuipcSize"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPC.Size = Byte.Parse(row["fsuipcSize"].ToString());
-
-                    if (row["mask"].GetType() != typeof(System.DBNull))
-                        cfgItem.FSUIPC.Mask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
-
-                    // comparison
-                    if (row["comparison"].GetType() != typeof(System.DBNull))
-                    {
-                        cfgItem.Modifiers.Comparison.Active = true;
-                        cfgItem.Modifiers.Comparison.Operand = row["comparison"].ToString();
-                    }
-
-                    if (row["comparisonValue"].GetType() != typeof(System.DBNull))
-                    {
-                        cfgItem.Modifiers.Comparison.Value = row["comparisonValue"].ToString();
-                    }
-
-                    if (row["converter"].GetType() != typeof(System.DBNull))
-                    {
-                        if (row["converter"].ToString() == "Boolean")
-                        {
-                            cfgItem.Modifiers.Comparison.IfValue = "1";
-                            cfgItem.Modifiers.Comparison.ElseValue = "0";
-                        }
-                    }
-
-                    if (row["trigger"].GetType() != typeof(System.DBNull))
-                    {
-                        cfgItem.DisplayTrigger = row["trigger"].ToString();
-                    }
-
-                    if (row["usbArcazePin"].GetType() != typeof(System.DBNull))
-                    {
-                        cfgItem.DisplayType = MobiFlightOutput.TYPE;
-                        cfgItem.Pin.DisplayPin = row["usbArcazePin"].ToString();
-                    }
-
-                    if (row["arcazeSerial"].GetType() != typeof(System.DBNull))
-                    {
-                        cfgItem.DisplaySerial = row["arcazeSerial"].ToString();
-                    }
-
-                    row["settings"] = cfgItem;
-                }
-            }
-        } 
-
-        /// <summary>
         /// saves the current config to filename
         /// </summary>        
         private void SaveConfig(string fileName)
         {
-            outputConfigPanel.ApplyBackwardCompatibilitySaving();
-
             ConfigFile configFile = new ConfigFile(fileName);
+            configFile.OutputConfigItems = execManager.OutputConfigItems;
+            configFile.InputConfigItems = execManager.InputConfigItems;
 
             // Issue 1401: Saving the file can result in an UnauthorizedAccessException, so catch any
             // errors during save and show it in a dialog instead of crashing.
             try
             {
-                configFile.SaveFile(outputConfigPanel.DataSetConfig, inputConfigPanel.InputDataSetConfig);
+                configFile.SaveFile();
             }
             catch (Exception ex)
             {
@@ -1893,7 +1793,6 @@ namespace MobiFlight.UI
             }
 
             CurrentFileName = fileName;
-            _restoreValuesInGridView();
             _storeAsRecentFile(fileName);
             _setFilenameInTitle(fileName);
             saveToolStripButton.Enabled = false;
@@ -1906,7 +1805,7 @@ namespace MobiFlight.UI
             simConnectToolStripMenuItem.Enabled = true;
             simConnectToolStripMenuItem.ToolTipText = "Some configs are using MSFS2020 presets -> WASM module required";
 
-            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.SIMCONNECT))
+            if (!ContainsConfigOfSourceType(execManager.OutputConfigItems, execManager.InputConfigItems, SourceType.SIMCONNECT))
             {
                 simConnectToolStripMenuItem.Image = Properties.Resources.disabled;
                 simConnectToolStripMenuItem.Visible = false;
@@ -1935,7 +1834,7 @@ namespace MobiFlight.UI
             xPlaneDirectToolStripMenuItem.Enabled = true;
             xPlaneDirectToolStripMenuItem.ToolTipText = "Some configs are using XPlane DataRefs/Commands -> XPlane direct required";
 
-            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.XPLANE))
+            if (!ContainsConfigOfSourceType(execManager.OutputConfigItems, execManager.InputConfigItems, SourceType.XPLANE))
             {
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.disabled;
                 xPlaneDirectToolStripMenuItem.Visible = false;
@@ -1959,7 +1858,7 @@ namespace MobiFlight.UI
             FsuipcToolStripMenuItem.Enabled = true;
             FsuipcToolStripMenuItem.ToolTipText = "Some configs are using FSUIPC -> FSUIPC required";
 
-            if (!ContainsConfigOfSourceType(outputConfigPanel.GetConfigItems(), inputConfigPanel.GetConfigItems(), SourceType.FSUIPC))
+            if (!ContainsConfigOfSourceType(execManager.OutputConfigItems, execManager.InputConfigItems, SourceType.FSUIPC))
             {
                 FsuipcToolStripMenuItem.Image = Properties.Resources.disabled;
                 FsuipcToolStripMenuItem.Visible = false;
@@ -2019,12 +1918,6 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
-                // Reset sorting if active
-                if (outputConfigPanel.IsSortingActive()) outputConfigPanel.ResetSorting();
-                if (inputConfigPanel.IsSortingActive()) inputConfigPanel.ResetSorting();
-                // Clear data
-                outputConfigPanel.ConfigDataTable.Clear();
-                inputConfigPanel.ConfigDataTable.Clear();
             };
         } //toolStripMenuItem3_Click()
 

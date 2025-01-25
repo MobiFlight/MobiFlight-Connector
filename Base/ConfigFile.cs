@@ -1,82 +1,69 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Data;
 using System.IO;
-using MobiFlight.InputConfig;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace MobiFlight
 {
+    [XmlRoot("MobiFlightConnector")]
     public class ConfigFile
     {
+        [XmlElement("outputs")]
+        public List<OutputConfigItem> OutputConfigItems { get; set; } = new List<OutputConfigItem>();
+
+        [XmlElement("inputs")]
+        public List<InputConfigItem> InputConfigItems { get; set; } = new List<InputConfigItem>();
+
+        [XmlIgnore]
         public String FileName { get; set; }
+
+        // create read only property to get the output config items
+        [XmlIgnore]
+        public List<IConfigItem> ConfigItems
+        {
+            get { return GetConfigItems(); }
+        }
+
         System.Xml.XmlDocument xmlConfig = new System.Xml.XmlDocument();
+
+        public ConfigFile() { }
 
         public ConfigFile(String FileName)
         {
             this.FileName = FileName;
         }
-
         public void OpenFile()
         {
             if (FileName == null) throw new Exception("File yet not set");
+
             xmlConfig.Load(FileName);
+            OutputConfigItems = GetOutputConfigItems();
+            InputConfigItems = GetInputConfigItems();
         }
-
-        public void SaveFile(DataSet outputConfig, DataSet inputConfig)
+        public List<IConfigItem> GetConfigItems()
         {
-            xmlConfig.RemoveAll();
-            XmlDeclaration xmlDeclaration = xmlConfig.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            xmlConfig.InsertBefore(xmlDeclaration, xmlConfig.DocumentElement);
-            
-            XmlElement root = xmlConfig.CreateElement("MobiflightConnector");
-            // Create a new element and add it to the document.
-            StringWriter sw = new StringWriter();
-            outputConfig.WriteXml(sw, XmlWriteMode.IgnoreSchema);
-            string s = sw.ToString();
-            XmlDocument tmpDoc = new XmlDocument();
-            tmpDoc.LoadXml(s);
+            var result = new List<IConfigItem>();
+            OutputConfigItems.ForEach(item => result.Add(item));
+            InputConfigItems.ForEach(item => result.Add(item));
 
-            XmlElement outputs = xmlConfig.CreateElement("outputs");
-            outputs.InnerXml = tmpDoc.DocumentElement.SelectSingleNode("/outputs").InnerXml;
-
-            sw = new StringWriter();
-            inputConfig.WriteXml(sw, XmlWriteMode.IgnoreSchema);
-            s = sw.ToString();
-            tmpDoc = new XmlDocument();
-            tmpDoc.LoadXml(s);
-
-            XmlElement inputs = xmlConfig.CreateElement("inputs");
-            inputs.InnerXml = tmpDoc.DocumentElement.SelectSingleNode("/inputs").InnerXml;
-
-            root.AppendChild(outputs);
-            root.AppendChild(inputs);
-            xmlConfig.AppendChild(root);
-            xmlConfig.Save(FileName);
-        }
-
-        private XmlReader getConfig(String xpath)
-        {
-            // first try the new way... if this fails try the old way
-            System.Xml.XmlNode outputConfig = xmlConfig.DocumentElement.SelectSingleNode(xpath);
-            if (outputConfig == null) throw new InvalidExpressionException();
-            
-            System.IO.StringReader reader = new System.IO.StringReader(outputConfig.OuterXml);
-            System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-            return xReader;
+            return result;
         }
 
         public List<OutputConfigItem> GetOutputConfigItems()
         {
             List<OutputConfigItem> result = new List<OutputConfigItem>();
 
-            XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config/settings");
-            foreach(XmlNode item in outputs)
+            XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config");
+            foreach (XmlNode item in outputs)
             {
                 OutputConfigItem config = new OutputConfigItem();
-                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
+                config.GUID = item.Attributes["guid"].Value;
+                config.Active = item.SelectSingleNode("active").InnerText == "true";
+                config.Name = item.SelectSingleNode("description").InnerText;
+
+                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
                 System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
                 config.ReadXml(xReader);
                 result.Add(config);
@@ -85,15 +72,19 @@ namespace MobiFlight
             return result;
         }
 
-        internal List<InputConfigItem> GetInputConfigItems()
+        public List<InputConfigItem> GetInputConfigItems()
         {
             List<InputConfigItem> result = new List<InputConfigItem>();
 
-            XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config/settings");
+            XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config");
             foreach (XmlNode item in inputs)
             {
                 InputConfigItem config = new InputConfigItem();
-                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
+                config.GUID = item.Attributes["guid"].Value;
+                config.Active = item.SelectSingleNode("active").InnerText == "true";
+                config.Name = item.SelectSingleNode("description").InnerText;
+
+                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
                 System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
                 xReader.Read();
                 config.ReadXml(xReader);
@@ -103,75 +94,91 @@ namespace MobiFlight
             return result;
         }
 
-        public XmlReader getInputConfig()
+        public void SaveFile()
         {
-            XmlReader result = null;
-            
-            try
-            {
-                if (xmlConfig.DocumentElement == null) OpenFile();
-
-                result = getConfig("/MobiflightConnector/inputs");
-            }
-            catch (InvalidExpressionException e)
-            {
-                throw e;
-            }
-            catch (Exception e)
-            {
-                throw new ConfigErrorException("Error reading config", e);
-            }
-            return result;
+            SaveFile(OutputConfigItems, InputConfigItems);
         }
 
-        public XmlReader getOutputConfig()
+        private void SaveFile(List<OutputConfigItem> outputConfigItems, List<InputConfigItem> inputConfigItems)
         {
-            XmlReader result = null;
-            
-            bool fallback = false;
-            try
-            {
-                if (xmlConfig.DocumentElement == null) OpenFile();
-                result = getConfig("/MobiflightConnector/outputs");
-            }
-            catch (InvalidExpressionException e)
-            {
-                fallback = true;
-            }
-            catch (Exception e)
-            {
-                throw new ConfigErrorException("Error reading config", e);
-            }
+            XmlSerializer serializer = new XmlSerializer(typeof(ConfigFileWrapperXML));
+            XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+            namespaces.Add("", "");
+            //namespaces.Add("xsd", "https://www.w3.org/2001/XMLSchema");
 
-            if (fallback)
-            {
-                fallback = false;
-                // fallback for old configs
-                try
-                {
-                    result = getConfig("/MobiflightConnector");
-                }
-                catch (Exception ex)
-                {
-                    fallback = true;
-                }
-            }
+            var XmlConfig = new ConfigFileWrapperXML();
+            XmlConfig.outputConfigs = new List<OutputConfigFileXmlElement>();
+            outputConfigItems.ForEach(item => XmlConfig.outputConfigs.Add(new OutputConfigFileXmlElement() { guid = item.GUID, active = item.Active, description = item.Name, settings = item }));
+            XmlConfig.inputConfigs = new List<InputConfigFileXmlElement>();
+            inputConfigItems.ForEach(item => XmlConfig.inputConfigs.Add(new InputConfigFileXmlElement() { guid = item.GUID, active = item.Active, description = item.Name, settings = item }));
 
-            if (fallback)
+            using (StreamWriter writer = new StreamWriter(FileName))
             {
-                fallback = false;
-                // fallback for old configs
-                try
-                {
-                    result = getConfig("/ArcazeUsbConnector");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error: Loading config");
-                }
+                serializer.Serialize(writer, XmlConfig, namespaces);
             }
-          
-            return result;
         }
+
+        // <summary>
+        // due to the new settings-node there must be some routine to load 
+        // data from legacy config files
+        // </summary>
+        //private void _applyBackwardCompatibilityLoading()
+        //{
+        //    foreach (DataRow row in outputConfigPanel.ConfigDataTable.Rows)
+        //    {
+        //        if (row["settings"].GetType() == typeof(System.DBNull))
+        //        {
+        //            OutputConfigItem cfgItem = new OutputConfigItem();
+
+        //            if (row["fsuipcOffset"].GetType() != typeof(System.DBNull))
+        //                cfgItem.FSUIPC.Offset = Int32.Parse(row["fsuipcOffset"].ToString().Replace("0x", ""), System.Globalization.NumberStyles.HexNumber);
+
+        //            if (row["fsuipcSize"].GetType() != typeof(System.DBNull))
+        //                cfgItem.FSUIPC.Size = Byte.Parse(row["fsuipcSize"].ToString());
+
+        //            if (row["mask"].GetType() != typeof(System.DBNull))
+        //                cfgItem.FSUIPC.Mask = (row["mask"].ToString() != "") ? Int32.Parse(row["mask"].ToString()) : Int32.MaxValue;
+
+        //             comparison
+        //            if (row["comparison"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.Modifiers.Comparison.Active = true;
+        //                cfgItem.Modifiers.Comparison.Operand = row["comparison"].ToString();
+        //            }
+
+        //            if (row["comparisonValue"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.Modifiers.Comparison.Value = row["comparisonValue"].ToString();
+        //            }
+
+        //            if (row["converter"].GetType() != typeof(System.DBNull))
+        //            {
+        //                if (row["converter"].ToString() == "Boolean")
+        //                {
+        //                    cfgItem.Modifiers.Comparison.IfValue = "1";
+        //                    cfgItem.Modifiers.Comparison.ElseValue = "0";
+        //                }
+        //            }
+
+        //            if (row["trigger"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.DisplayTrigger = row["trigger"].ToString();
+        //            }
+
+        //            if (row["usbArcazePin"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.DisplayType = MobiFlightOutput.TYPE;
+        //                cfgItem.Pin.DisplayPin = row["usbArcazePin"].ToString();
+        //            }
+
+        //            if (row["arcazeSerial"].GetType() != typeof(System.DBNull))
+        //            {
+        //                cfgItem.DisplaySerial = row["arcazeSerial"].ToString();
+        //            }
+
+        //            row["settings"] = cfgItem;
+        //        }
+        //    }
+        //}
     }
 }

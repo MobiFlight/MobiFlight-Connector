@@ -243,6 +243,8 @@
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
+    <Compile Include="Base\ConfigFileWrapperXML.cs" />
+    <Compile Include="Base\ConfigItem.cs" />
     <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\ConfigRefList.cs" />
     <Compile Include="Base\DPIUtil.cs" />
@@ -414,7 +416,7 @@
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\IFsuipcConfigItem.cs" />
-    <Compile Include="Base\BaseConfigItem.cs" />
+    <Compile Include="Base\Deprecated\BaseConfigItem.cs" />
     <Compile Include="UI\Forms\BitMaskEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>

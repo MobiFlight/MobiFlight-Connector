@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    public class OutputConfigItem : IBaseConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
+    public class OutputConfigItem : ConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -28,11 +28,9 @@ namespace MobiFlight
 		public MobiFlightVariable   MobiFlightVariable          { get; set; }
 
         public XplaneDataRef        XplaneDataRef               { get; set; }
-		public string               Value                       { get; set; }	
-
+		
         public ConnectorValue       TestValue                   { get; set; }
-        public ModifierList         Modifiers                   { get; set; }
-		public string               DisplayType                 { get; set; }
+        public string               DisplayType                 { get; set; }
 		public string               DisplaySerial               { get; set; }
 		public OutputConfig.Pin     Pin                         { get; set; }
 		public OutputConfig.LedModule   LedModule               { get; set; }
@@ -43,8 +41,6 @@ namespace MobiFlight
         public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
         public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
         public string       DisplayTrigger                      { get; set; }
-        public PreconditionList   Preconditions                 { get; set; }
-        public ConfigRefList      ConfigRefs                    { get; set; }     
         
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
