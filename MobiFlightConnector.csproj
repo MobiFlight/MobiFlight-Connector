@@ -350,7 +350,7 @@
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
-    <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Output.cs" />
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
@@ -565,12 +565,6 @@
     <Compile Include="UI\Panels\FrontendPanel.Designer.cs">
       <DependentUpon>FrontendPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\InputConfigPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\InputConfigPanel.Designer.cs">
-      <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\Input\AnalogPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -636,12 +630,6 @@
     </Compile>
     <Compile Include="UI\Panels\Modifier\TransformModifierPanel.Designer.cs">
       <DependentUpon>TransformModifierPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\OutputConfigPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\OutputConfigPanel.Designer.cs">
-      <DependentUpon>OutputConfigPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\OutputWizard\DisplayPanel.cs">
       <SubType>UserControl</SubType>
@@ -1549,12 +1537,6 @@
     <EmbeddedResource Include="UI\Panels\FrontendPanel.resx">
       <DependentUpon>FrontendPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\InputConfigPanel.de.resx">
-      <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
-      <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\AnalogPanel.resx">
       <DependentUpon>AnalogPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1587,14 +1569,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\TransformModifierPanel.resx">
       <DependentUpon>TransformModifierPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\OutputConfigPanel.de.resx">
-      <DependentUpon>OutputConfigPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\OutputConfigPanel.resx">
-      <DependentUpon>OutputConfigPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputWizard\DisplayPanel.de.resx">
       <DependentUpon>DisplayPanel.cs</DependentUpon>

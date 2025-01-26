@@ -11,7 +11,7 @@ export type FrontendMessageKey =
   | "DeviceFileOpenRequest"
   | "DeviceFileSaveRequest"
 
-export type FrontendMessageType =
+export type CommandMessageType =
   | ExecutionUpdateMessage
   | EditConfigMessage
   | GlobalSettingsUpdateMessage

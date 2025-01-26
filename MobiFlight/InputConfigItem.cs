@@ -32,6 +32,7 @@ namespace MobiFlight
         public AnalogInputConfig analog { get; set; }
 
         public string DeviceType { get; set; }
+        public string DeviceName { get; set; }
 
         public InputConfigItem()
         {
@@ -78,7 +79,9 @@ namespace MobiFlight
         public virtual void ReadXml(XmlReader reader)
         {
             ModuleSerial = reader["serial"];
-            Name = reader["name"];
+            // This name is only present with input devices
+            // and it is in the wrong place.
+            DeviceName = reader["name"];
             if (reader["type"] != null && reader["type"] != "")
             {
                 DeviceType = reader["type"];
@@ -175,7 +178,7 @@ namespace MobiFlight
         public virtual void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("serial", this.ModuleSerial);
-            writer.WriteAttributeString("name", this.Name);
+            writer.WriteAttributeString("name", this.DeviceName);
             writer.WriteAttributeString("type", this.DeviceType);
 
             if (this.DeviceType == TYPE_BUTTON && button != null)
@@ -232,7 +235,7 @@ namespace MobiFlight
         {
             InputConfigItem clone = new InputConfigItem();
             clone.ModuleSerial = ModuleSerial;
-            clone.Name = Name;
+            clone.Name = DeviceName;
             clone.DeviceType = DeviceType;
 
             if (button != null)
@@ -329,7 +332,7 @@ namespace MobiFlight
         {
             bool areSame = (obj != null && obj is InputConfigItem) &&
                             ModuleSerial == (obj as InputConfigItem).ModuleSerial &&
-                            Name == (obj as InputConfigItem).Name &&
+                            DeviceName == (obj as InputConfigItem).DeviceName &&
                             DeviceType == (obj as InputConfigItem).DeviceType;
 
             if (areSame) {

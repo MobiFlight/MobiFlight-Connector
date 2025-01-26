@@ -74,5 +74,4 @@ export const StepperProfilesPresets : { label : string, value: StepperProfilePre
   { label: "x.27 - Half-step mode", value: { id: "2", Mode: "0", Speed: 100, Acceleration: 100, Backlash: 0, StepsPerRevolution: 1100 } },
   { label: "Generic - EasyDriver", value: { id: "3", Mode: "2", Speed: 400, Acceleration: 800, Backlash: 0, StepsPerRevolution: 1000 } },
   { label: "Custom Stepper", value: { id: "255", Mode: "0", Speed: 400, Acceleration: 800, Backlash: 0, StepsPerRevolution: 1000 } },
-] 
-  
+]

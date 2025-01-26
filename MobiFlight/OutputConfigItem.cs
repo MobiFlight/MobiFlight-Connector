@@ -30,7 +30,7 @@ namespace MobiFlight
         public XplaneDataRef        XplaneDataRef               { get; set; }
 		
         public ConnectorValue       TestValue                   { get; set; }
-        public OutputConfig.Pin     Pin                         { get; set; }
+        public OutputConfig.Output     Pin                         { get; set; }
 		public OutputConfig.LedModule   LedModule               { get; set; }
 		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
 		public List<string>         BcdPins                     { get; set; }
@@ -55,7 +55,7 @@ namespace MobiFlight
             XplaneDataRef = new XplaneDataRef();
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
-            Pin = new OutputConfig.Pin();
+            Pin = new OutputConfig.Output();
             LedModule = new OutputConfig.LedModule();
             LcdDisplay = new OutputConfig.LcdDisplay();
             Servo = new OutputConfig.Servo();
@@ -444,7 +444,7 @@ namespace MobiFlight
 
             clone.LedModule                 = this.LedModule.Clone() as OutputConfig.LedModule;
 
-            clone.Pin                       = this.Pin.Clone() as OutputConfig.Pin;
+            clone.Pin                       = this.Pin.Clone() as OutputConfig.Output;
             
             clone.BcdPins                   = new List<string>(this.BcdPins);
 

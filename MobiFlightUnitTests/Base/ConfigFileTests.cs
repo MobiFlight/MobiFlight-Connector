@@ -27,8 +27,8 @@ namespace MobiFlight.Tests
             o.OpenFile();
 
             ConfigFile oTemp = new ConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.GetOutputConfigItems();
-            oTemp.InputConfigItems = o.GetInputConfigItems();
+            oTemp.OutputConfigItems = o.OutputConfigItems;
+            oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
 
             String s1 = System.IO.File.ReadAllText(expFile);
@@ -51,8 +51,8 @@ namespace MobiFlight.Tests
             o.OpenFile();
 
             oTemp = new ConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.GetOutputConfigItems();
-            oTemp.InputConfigItems = o.GetInputConfigItems();
+            oTemp.OutputConfigItems = o.OutputConfigItems;
+            oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
 
             s1 = System.IO.File.ReadAllText(expFile);
@@ -74,8 +74,8 @@ namespace MobiFlight.Tests
             o.OpenFile();
 
             oTemp = new ConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.GetOutputConfigItems();
-            oTemp.InputConfigItems = o.GetInputConfigItems();
+            oTemp.OutputConfigItems = o.OutputConfigItems;
+            oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
 
             s1 = System.IO.File.ReadAllText(expFile);
@@ -98,8 +98,8 @@ namespace MobiFlight.Tests
             o.OpenFile();
 
             oTemp = new ConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.GetOutputConfigItems();
-            oTemp.InputConfigItems = o.GetInputConfigItems();
+            oTemp.OutputConfigItems = o.OutputConfigItems;
+            oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
 
             s1 = System.IO.File.ReadAllText(expFile);
@@ -127,8 +127,8 @@ namespace MobiFlight.Tests
                 o.OpenFile();
 
                 oTemp = new ConfigFile(inFileTemp);
-                oTemp.OutputConfigItems = o.GetOutputConfigItems();
-                oTemp.InputConfigItems = o.GetInputConfigItems();
+                oTemp.OutputConfigItems = o.OutputConfigItems;
+                oTemp.InputConfigItems = o.InputConfigItems;
                 oTemp.SaveFile();
 
                 s1 = System.IO.File.ReadAllText(expFile);
@@ -157,8 +157,8 @@ namespace MobiFlight.Tests
                 o.OpenFile();
 
                 oTemp = new ConfigFile(inFileTemp);
-                oTemp.OutputConfigItems = o.GetOutputConfigItems();
-                oTemp.InputConfigItems = o.GetInputConfigItems();
+                oTemp.OutputConfigItems = o.OutputConfigItems;
+                oTemp.InputConfigItems = o.InputConfigItems;
                 oTemp.SaveFile();
 
                 s1 = System.IO.File.ReadAllText(inFile);
@@ -189,7 +189,7 @@ namespace MobiFlight.Tests
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
             ConfigFile o = new ConfigFile(inFile);
             o.OpenFile();
-            var xr = o.GetInputConfigItems();
+            var xr = o.OutputConfigItems;
 
             Assert.IsNotNull(xr);
         }
@@ -200,7 +200,7 @@ namespace MobiFlight.Tests
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
             ConfigFile o = new ConfigFile(inFile);
             o.OpenFile();
-            var xr = o.GetOutputConfigItems();
+            var xr = o.OutputConfigItems;
 
             Assert.IsNotNull(xr);
         }

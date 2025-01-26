@@ -16,7 +16,7 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void PinTest()
         {
-            Pin o = new Pin();
+            Output o = new Output();
             Assert.IsNotNull(o);
             Assert.AreEqual(byte.MaxValue, o.DisplayPinBrightness);
             Assert.AreEqual(false, o.DisplayPinPWM);
@@ -25,11 +25,11 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void CloneTest()
         {
-            Pin o = new Pin();
+            Output o = new Output();
             o.DisplayPin = "DisplayPin";
             o.DisplayPinBrightness = 128;
             o.DisplayPinPWM = true;
-            Pin clone = o.Clone() as Pin;
+            Output clone = o.Clone() as Output;
 
             Assert.AreEqual(o.DisplayPin,clone.DisplayPin);
             Assert.AreEqual(o.DisplayPinBrightness, clone.DisplayPinBrightness);
@@ -39,8 +39,8 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            Pin o1 = new Pin();
-            Pin o2 = new Pin();            
+            Output o1 = new Output();
+            Output o2 = new Output();            
             Assert.IsTrue(o1.Equals(o2));
 
             o1.DisplayPin = "DisplayPin";
@@ -57,7 +57,7 @@ namespace MobiFlight.OutputConfig.Tests
         [TestMethod()]
         public void ReadXmlTest()
         {
-            Pin o = new Pin();
+            Output o = new Output();
 
             String s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\Pin\ReadXmlTest.1.xml");
             StringReader sr = new StringReader(s);
@@ -83,7 +83,7 @@ namespace MobiFlight.OutputConfig.Tests
             //settings.NewLineHandling = NewLineHandling.Entitize;
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
-            Pin o = new Pin();
+            Output o = new Output();
             o.DisplayPin = "Pin";
             o.DisplayPinBrightness = 128;
             o.DisplayPinPWM = true;

@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class Pin : DeviceConfig
+    public class Output : DeviceConfig
     {
         public override string Name { get { return DisplayPin; } }
 
@@ -18,7 +18,7 @@ namespace MobiFlight.OutputConfig
         public byte DisplayPinBrightness { get; set; }
         public bool DisplayPinPWM { get; set; }
 
-        public Pin ()
+        public Output ()
         {
             DisplayPin = ""; // not initialized anymore
             DisplayPinBrightness = byte.MaxValue;
@@ -28,10 +28,10 @@ namespace MobiFlight.OutputConfig
         public override bool Equals(Object obj)
         {
             return
-                (obj != null) && (obj is Pin) &&
-                (this.DisplayPin            == (obj as Pin).DisplayPin) &&
-                (this.DisplayPinBrightness  == (obj as Pin).DisplayPinBrightness) &&
-                (this.DisplayPinPWM         == (obj as Pin).DisplayPinPWM);
+                (obj != null) && (obj is Output) &&
+                (this.DisplayPin            == (obj as Output).DisplayPin) &&
+                (this.DisplayPinBrightness  == (obj as Output).DisplayPinBrightness) &&
+                (this.DisplayPinPWM         == (obj as Output).DisplayPinPWM);
         }
 
         public void ReadXml(XmlReader reader)
@@ -63,7 +63,7 @@ namespace MobiFlight.OutputConfig
 
         public object Clone()
         {
-            Pin clone = new Pin();
+            Output clone = new Output();
             clone.DisplayPin = DisplayPin;
             clone.DisplayPinBrightness = DisplayPinBrightness;
             clone.DisplayPinPWM = DisplayPinPWM;

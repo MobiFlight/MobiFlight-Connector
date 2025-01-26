@@ -25,30 +25,32 @@ export type DeviceIconProps = {
 const DeviceIcon = (props: DeviceIconProps) => {
   const { variant, disabled, className } = props;
 
+  const shortType = variant?.replace("MobiFlight.", "").replace("OutputConfig.", "").replace("InputConfig.", "") as DeviceElementType
+
   let icon = <IconQuestionMark className={className}/>
-  if (variant === "Output") {
+  if (shortType === "Output") {
     icon = <IconBulb className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  } else if (variant === "LedModule") {
+  } else if (shortType === "LedModule") {
     icon = <Icon123 className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  } else if (variant === "LcdDisplay") {
+  } else if (shortType === "LcdDisplay") {
     icon = <IconAbc className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  } else if (variant === "ShiftRegister") {
+  } else if (shortType === "ShiftRegister") {
     icon = <IconDeviceOutputShifter className={cn("stroke-pink-600 fill-pink-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
-  } else if (variant === "Stepper") {
+  } else if (shortType === "Stepper") {
     icon = <IconGauge className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  } else if (variant === "Servo") {
+  } else if (shortType === "Servo") {
     icon = <IconDashboard className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  }else if (variant === "Button") {
+  }else if (shortType === "Button") {
     icon = <IconPower className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) }/>;
-  } else if (variant === "Encoder") {
+  } else if (shortType === "Encoder") {
     icon = <IconRefreshDot className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) }/>;
-  } else if (variant === "AnalogInput") {
+  } else if (shortType === "AnalogInput") {
     icon = <IconDeviceAnalog className={cn("stroke-teal-600 fill-teal-600 stroke-2", disabled?"stroke-slate-400 fill-slate-400":"", className) }/>;
-  } else if (variant === "InputShiftRegister") {
+  } else if (shortType === "InputShiftRegister") {
     icon = <IconDeviceInputShifter className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
-  } else if (variant === "InputMultiplexer") {
+  } else if (shortType === "InputMultiplexer") {
     icon = <IconDeviceInputMultiplexer className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
-  } else if (variant === "CustomDevice") {
+  } else if (shortType === "CustomDevice") {
     icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   }
 
