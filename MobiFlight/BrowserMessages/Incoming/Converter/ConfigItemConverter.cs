@@ -17,20 +17,29 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
             var jsonObject = JObject.Load(reader);
             var type = (string)jsonObject["Type"];
 
+            IConfigItem configItem;
             switch (type)
             {
                 case "MobiFlight.InputConfigItem":
-                    return jsonObject.ToObject<InputConfigItem>(serializer);
+                    configItem = new InputConfigItem();
+                    break;
                 case "MobiFlight.OutputConfigItem":
-                    return jsonObject.ToObject<OutputConfigItem>(serializer);
+                    configItem = new OutputConfigItem();
+                    break;
                 default:
                     throw new NotSupportedException($"Type '{type}' is not supported");
             }
+
+            serializer.Populate(jsonObject.CreateReader(), configItem);
+            return configItem;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            serializer.Serialize(writer, value);
+            // Use default serialization
+            throw new NotImplementedException();
         }
+
+        public override bool CanWrite => false;
     }
 }

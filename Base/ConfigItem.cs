@@ -1,4 +1,6 @@
-﻿using MobiFlight.Modifier;
+﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+using MobiFlight.Modifier;
+using Newtonsoft.Json;
 
 namespace MobiFlight.Base
 {
@@ -17,6 +19,7 @@ namespace MobiFlight.Base
         IDeviceConfig Device { get; }
     }
 
+    [JsonConverter(typeof(ConfigItemConverter))]
     public abstract class ConfigItem : IConfigItem
     {
         public string GUID { get; set; }

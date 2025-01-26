@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,9 +12,11 @@ namespace MobiFlight
     public class ConfigFile
     {
         [XmlElement("outputs")]
+        [JsonIgnore]
         public List<OutputConfigItem> OutputConfigItems { get; set; } = new List<OutputConfigItem>();
 
         [XmlElement("inputs")]
+        [JsonIgnore]
         public List<InputConfigItem> InputConfigItems { get; set; } = new List<InputConfigItem>();
 
         [XmlIgnore]

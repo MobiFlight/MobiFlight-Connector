@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics;
@@ -22,7 +21,6 @@ using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
-using MobiFlight.Base.LogAppender;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
 
