@@ -23,13 +23,13 @@ const ConfigPage = () => {
               "Name": "LCD Display",
               "Type": "CustomDevice"
             }
-        },
+          },
           {
             GUID: 'test-guid-0',
             Active: true,
             Name: 'Landing Lights',
             ModuleSerial: 'MobiFlight Board/123456',
-            Type:"Output",
+            Type: "Output",
             RawValue: '0',
             Value: '0',
             Device: {
@@ -39,6 +39,19 @@ const ConfigPage = () => {
           },
           {
             GUID: 'test-guid-1',
+            Active: true,
+            Name: 'Landing Lights',
+            ModuleSerial: 'MobiFlight Board/123456',
+            Type: "Output",
+            RawValue: '0',
+            Value: '0',
+            Device: {
+              "Name": "LED 1",
+              "Type": "Output"
+            }
+          },
+          {
+            GUID: 'test-guid-2',
             Active: true,
             Name: 'RPM',
             ModuleSerial: 'MobiFlight Board/123456',

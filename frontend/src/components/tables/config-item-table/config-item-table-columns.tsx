@@ -99,7 +99,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      return value.includes((row.getValue(id)as IDeviceConfig).Name);
     },
   },
   {

@@ -19,7 +19,7 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const devices = [...new Set(items.map((item) => item.ModuleSerial))].map((serial) => ({ label: serial.split("/")[0], value: serial }))
-  const components = [...new Set(items.map((item) => item.Device))].map((component) => ({ label: component?.Name, value: component?.Name }))
+  const components = [...new Set(items.map((item) => item.Device?.Name))].map((component) => ({ label: component ?? "-", value: component ?? "-" }))
   const types = [...new Set(items.map((item) => item.Type))].map((type) => ({ label: type, value: type }))
 
   return (
