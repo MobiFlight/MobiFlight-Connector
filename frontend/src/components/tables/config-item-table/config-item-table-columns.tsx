@@ -99,19 +99,22 @@ export const columns: ColumnDef<IConfigItem>[] = [
       );
     },
     filterFn: (row, id, value) => {
-      return value.includes((row.getValue(id)as IDeviceConfig).Name);
+      return value.includes((row.getValue(id)as IDeviceConfig)?.Name ?? "-");
     },
   },
   {
     size: 80,
     accessorKey: "Type",
-    header: () => <div className="w-20">Type</div>,
+    header: () => <div className="w-20">Component Type</div>,
     cell: ({ row }) => {
-      const label = row.getValue("Type") as string;
-      return <p className="text-md font-semibold">{label}</p>;
+      const label =  (row.getValue("Device") as IDeviceConfig)?.Type ?? "-";
+      return <p className="text-md font-semibold">test {label}</p>;
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+      console.log(row.getValue(id));
+      console.log(value)
+      console.log(id)
+      return value.includes((row.getValue("Device")as IDeviceConfig)?.Type ?? "-");
     },
   },
   // {
@@ -149,9 +152,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "RawValue",
     header: "Raw Value",
     cell: ({ row }) => {
-      const label = row.getValue("RawValue") as string;
+      let label = row.getValue("RawValue") as string
+      if (label == "") label = "-"
       return (
-        <div className="text-md truncate">{label}</div>
+        <div className="text-md truncate">{label ?? "-"}</div>
       )
     },
   },
@@ -162,7 +166,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     cell: ({ row }) => {
       const label = row.getValue("ModifiedValue") as string;
       return (
-        <div className="text-md truncate">{label}</div>
+        <div className="text-md truncate">{label ?? "-" }</div>
       )
     },
   },

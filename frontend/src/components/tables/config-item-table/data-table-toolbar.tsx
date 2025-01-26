@@ -19,8 +19,8 @@ export function DataTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0
   const devices = [...new Set(items.map((item) => item.ModuleSerial))].map((serial) => ({ label: serial.split("/")[0], value: serial }))
-  const components = [...new Set(items.map((item) => item.Device?.Name))].map((component) => ({ label: component ?? "-", value: component ?? "-" }))
-  const types = [...new Set(items.map((item) => item.Type))].map((type) => ({ label: type, value: type }))
+  const components = [...new Set(items.map((item) => item.Device?.Name))].map((component) => ({ label: component ?? "-", value: component ?? "-"}))
+  const types = [...new Set(items.map((item) => item.Device?.Type))].map((type) => ({ label:  type?.replace("MobiFlight.","")?.replace("OutputConfig.", "")?.replace("InputConfig.","") ?? "-", value: type ?? "-" }))
 
   return (
     <div className="flex items-center justify-between">
@@ -50,7 +50,7 @@ export function DataTableToolbar<TData>({
         {table.getColumn("Type") && (
           <DataTableFacetedFilter
             column={table.getColumn("Type")}
-            title="Types"
+            title="Component Type"
             options={types}
           />
         )} 
