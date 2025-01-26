@@ -171,6 +171,11 @@ namespace MobiFlight.Tests
             OutputConfigItem o = _generateConfigItem();
 
             OutputConfigItem c = (OutputConfigItem)o.Clone();
+            Assert.AreEqual(o.Name, c.Name, "clone: Name not the same");
+            Assert.AreEqual(o.Active, c.Active, "clone: Active not the same");
+            Assert.AreEqual(o.GUID, c.GUID, "clone: GUID not the same");
+            Assert.AreEqual(o.Type, c.Type, "clone: Type not the same");
+
             Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "clone: FSUIPCOffset not the same");
             Assert.AreEqual(o.FSUIPC.Mask, c.FSUIPC.Mask, " clone: FSUIPCMask not the same");
             Assert.AreEqual(o.Modifiers.Transformation.Expression, c.Modifiers.Transformation.Expression, "clone: FSUIPCOffsetType not the same");
@@ -236,6 +241,9 @@ namespace MobiFlight.Tests
         private OutputConfigItem _generateConfigItem()
         {
             OutputConfigItem o = new OutputConfigItem();
+            o.Name = "Test";
+            o.Active = false;
+            o.GUID = "123";
 
             o.FSUIPC.Offset = 0x1234;
             o.FSUIPC.Mask = 0xFFFF;

@@ -38,5 +38,31 @@ namespace MobiFlight.Base
         {
             return this.GetType().ToString();
         }
+
+        protected ConfigItem()
+        {
+            GUID = System.Guid.NewGuid().ToString();
+            Active = true;
+            Name = "";
+            ModuleSerial = "";
+            Preconditions = new PreconditionList();
+            Modifiers = new ModifierList();
+            ConfigRefs = new ConfigRefList();
+            RawValue = "";
+            Value = "";
+        }
+
+        protected ConfigItem(ConfigItem item)
+        {
+            GUID = item.GUID;
+            Active = item.Active;
+            Name = item.Name;
+            ModuleSerial = item.ModuleSerial;
+            Preconditions = item.Preconditions;
+            Modifiers = item.Modifiers;
+            ConfigRefs = item.ConfigRefs;
+            RawValue = item.RawValue;
+            Value = item.Value;
+        }
     }
 }

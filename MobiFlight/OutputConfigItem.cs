@@ -426,44 +426,44 @@ namespace MobiFlight
             writer.WriteEndElement();
         }
 
+        public OutputConfigItem(OutputConfigItem config) : base(config)
+        {
+            this.SourceType = config.SourceType;
+            this.FSUIPC = config.FSUIPC.Clone() as FsuipcOffset;
+            this.SimConnectValue = config.SimConnectValue.Clone() as SimConnectValue;
+            this.MobiFlightVariable = config.MobiFlightVariable.Clone() as MobiFlightVariable;
+            this.XplaneDataRef = config.XplaneDataRef.Clone() as XplaneDataRef;
+
+            this.DeviceType = config.DeviceType;
+            this.ModuleSerial = config.ModuleSerial;
+
+            this.LedModule = config.LedModule.Clone() as OutputConfig.LedModule;
+
+            this.Pin = config.Pin.Clone() as OutputConfig.Output;
+
+            this.BcdPins = new List<string>(config.BcdPins);
+
+            this.DisplayTrigger = config.DisplayTrigger;
+            this.Servo = config.Servo.Clone() as OutputConfig.Servo;
+            this.Stepper = config.Stepper.Clone() as OutputConfig.Stepper;
+
+            this.ShiftRegister = config.ShiftRegister.Clone() as OutputConfig.ShiftRegister;
+            this.CustomDevice = config.CustomDevice.Clone() as OutputConfig.CustomDevice;
+
+            this.LcdDisplay = config.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
+            this.Preconditions = Preconditions.Clone() as PreconditionList;
+
+            this.ConfigRefs = config.ConfigRefs.Clone() as ConfigRefList;
+            this.ButtonInputConfig = config.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
+            this.AnalogInputConfig = config.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
+
+            this.Modifiers = config.Modifiers.Clone() as ModifierList;
+            this.TestValue = config.TestValue.Clone() as ConnectorValue;
+        }
+
         public object Clone()
         {
-            OutputConfigItem clone = new OutputConfigItem();
-            clone.SourceType                = this.SourceType;
-            clone.FSUIPC                    = this.FSUIPC.Clone() as FsuipcOffset;
-            clone.SimConnectValue           = this.SimConnectValue.Clone() as SimConnectValue;
-            clone.MobiFlightVariable        = this.MobiFlightVariable.Clone() as MobiFlightVariable;
-            clone.XplaneDataRef             = this.XplaneDataRef.Clone() as XplaneDataRef;
-
-
-            //clone.Transform                 = this.Transform.Clone() as Transformation;
-            //clone.Comparison                = this.Comparison.Clone() as Comparison;
-
-            clone.DeviceType               = this.DeviceType;
-            clone.ModuleSerial             = this.ModuleSerial;
-
-            clone.LedModule                 = this.LedModule.Clone() as OutputConfig.LedModule;
-
-            clone.Pin                       = this.Pin.Clone() as OutputConfig.Output;
-            
-            clone.BcdPins                   = new List<string>(this.BcdPins);
-
-            clone.DisplayTrigger            = this.DisplayTrigger;
-            clone.Servo                     = Servo.Clone() as OutputConfig.Servo;
-            clone.Stepper                   = Stepper.Clone() as OutputConfig.Stepper;
-
-            clone.ShiftRegister             = ShiftRegister.Clone() as OutputConfig.ShiftRegister;
-            clone.CustomDevice              = CustomDevice.Clone() as OutputConfig.CustomDevice;
-
-            clone.LcdDisplay                = this.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
-            clone.Preconditions             = Preconditions.Clone() as PreconditionList;
-
-            clone.ConfigRefs                = ConfigRefs.Clone() as ConfigRefList;
-            clone.ButtonInputConfig         = this.ButtonInputConfig?.Clone() as InputConfig.ButtonInputConfig;
-            clone.AnalogInputConfig         = this.AnalogInputConfig?.Clone() as InputConfig.AnalogInputConfig;
-
-            clone.Modifiers                 = this.Modifiers.Clone() as ModifierList;
-            clone.TestValue                 = this.TestValue.Clone() as ConnectorValue;
+            OutputConfigItem clone = new OutputConfigItem(this);
             return clone;
         }
 
