@@ -136,6 +136,9 @@ namespace MobiFlight.UI
         public MainForm()
         {
             // this shall happen before anything else
+            InitializeFrontendSubscriptions();
+
+            // set up the old winforms UI
             InitializeUILanguage();
 
             // then initialize components
@@ -158,6 +161,14 @@ namespace MobiFlight.UI
 
             // configure tracking correctly
             InitializeTracking();
+        }
+
+        private void InitializeFrontendSubscriptions()
+        {
+            MessageExchange.Instance.Subscribe<ConfigEdit>((message) => {
+                var msg = message;
+                MessageBox.Show(msg.Item.Name);
+            });
         }
 
         private void InitializeTracking()

@@ -264,6 +264,9 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\ConfigEdit.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />

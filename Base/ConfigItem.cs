@@ -24,9 +24,9 @@ namespace MobiFlight.Base
         public string Name { get; set; }
         public string Type { get { return GetConfigItemType(); } }
         public string ModuleSerial { get; set; }
-        public PreconditionList Preconditions { get; set; }
-        public ModifierList Modifiers { get; set; }
-        public ConfigRefList ConfigRefs { get; set; }
+        public PreconditionList Preconditions { get; set; } = new PreconditionList();
+        public ModifierList Modifiers { get; set; } = new ModifierList();
+        public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();
         public string RawValue { get; set; }
         public string Value { get; set; }
         

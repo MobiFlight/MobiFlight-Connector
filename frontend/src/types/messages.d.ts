@@ -4,7 +4,7 @@ import { IDeviceItem } from "."
 // that are sent from the frontend to the backend
 export type FrontendMessageKey =
   | "ExecutionUpdate"
-  | "config.edit"
+  | "ConfigEdit"
   | "GlobalSettingsUpdate"
   | "DeviceUpload"
   | "DeviceFirmwareUpdateRequest"
@@ -13,7 +13,7 @@ export type FrontendMessageKey =
 
 export type CommandMessageType =
   | ExecutionUpdateMessage
-  | EditConfigMessage
+  | ConfigEditMessage
   | GlobalSettingsUpdateMessage
   | ElementCreateMessage
   | DeviceUploadMessage
@@ -33,9 +33,11 @@ export interface ExecutionUpdateMessage {
 // EditConfigMessage
 // is sent to the backend
 // when a config item shall be edited
-export interface EditConfigMessage {
-  key: "config.edit"
-  payload: IConfigItem
+export interface ConfigEditMessage {
+  key: "ConfigEdit"
+  payload: { 
+    item: IConfigItem
+  }
 }
 
 // GlobalSettingsUpdateMessage
@@ -54,7 +56,9 @@ export interface GlobalSettingsUpdateMessage {
 // when the new device configuration shall be uploaded
 export interface DeviceUploadMessage {
   key: "DeviceUpload"
-  payload: IDeviceItem
+  payload: { 
+    item: IDeviceItem
+  }
 }
 
 // DeviceUploadMessage

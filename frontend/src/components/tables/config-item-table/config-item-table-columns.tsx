@@ -16,6 +16,7 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage";
 import DeviceIcon from "@/components/icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
 import { IDeviceConfig } from "@/types/config";
+import { ConfigEditMessage } from "@/types/messages";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -111,9 +112,6 @@ export const columns: ColumnDef<IConfigItem>[] = [
       return <p className="text-md font-semibold">test {label}</p>;
     },
     filterFn: (row, id, value) => {
-      console.log(row.getValue(id));
-      console.log(value)
-      console.log(id)
       return value.includes((row.getValue("Device")as IDeviceConfig)?.Type ?? "-");
     },
   },
@@ -191,7 +189,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => {
-                  publish({ key: "config.edit", payload: item });
+                  publish({ key: "ConfigEdit", payload: { Item: item} } as ConfigEditMessage);
                 }}
               >
                 Edit
