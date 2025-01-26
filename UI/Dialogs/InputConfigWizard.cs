@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Dialogs
 
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
-        DataSet _dataSetConfig = null;
+        List<OutputConfigItem> _dataSetConfig = null;
 #if ARCAZE
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
@@ -60,7 +60,7 @@ namespace MobiFlight.UI.Dialogs
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             DataSet dataSetConfig,
+                             List<OutputConfigItem> dataSetConfig,
                              String filterGuid,
                              String description)
         {
@@ -74,9 +74,11 @@ namespace MobiFlight.UI.Dialogs
             // copy this so that no filtering will 
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
-            _dataSetConfig = dataSetConfig.Copy();
+            _dataSetConfig = dataSetConfig.ToArray().ToList();
 
-            var list = _dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
+            var list = _dataSetConfig.Where(c => c.GUID != filterGuid)
+                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
+
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
             initConfigRefDropDowns(_dataSetConfig, filterGuid);
@@ -94,16 +96,10 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
+        private void initConfigRefDropDowns(List<OutputConfigItem> dataSetConfig, string filterGuid)
         {
-            DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
-
-            // this filters the current config
-            DataView dv = new DataView(dataSetConfig.Tables["config"]);
-            dv.RowFilter = "guid <> '" + filterGuid + "'";
-
-            configRefPanel.SetConfigRefsDataView(dv, filterGuid);
-            displayLedDisplayPanel.SetConfigRefsDataView(dv, filterGuid);
+            configRefPanel.SetConfigRefsDataView(dataSetConfig, filterGuid);
+            displayLedDisplayPanel.SetConfigRefsDataView(dataSetConfig, filterGuid);
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
@@ -129,7 +125,7 @@ namespace MobiFlight.UI.Dialogs
 
             InitializeComponent();
 
-            ActivateCorrectTab(config);            
+            ActivateCorrectTab(config);
 
             // PRECONDITION PANEL
             preconditionPanel.Init();
@@ -195,7 +191,8 @@ namespace MobiFlight.UI.Dialogs
             {
                 arcazeFirmware[module.Serial] = module.Version;
 
-                PreconditionModuleList.Add(new ListItem() {
+                PreconditionModuleList.Add(new ListItem()
+                {
                     Value = $"{module.Name}{SerialNumber.SerialSeparator}{module.Serial}",
                     Label = $"{module.Name} ({module.Serial})"
                 });
@@ -221,7 +218,7 @@ namespace MobiFlight.UI.Dialogs
             }
 
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
-            {                
+            {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
                     Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
@@ -264,7 +261,7 @@ namespace MobiFlight.UI.Dialogs
             }
 
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
-            {               
+            {
                 inputModuleNameComboBox.Items.Add(new ListItem()
                 {
                     Value = $"{midiBoard.Name} {SerialNumber.SerialSeparator}{midiBoard.Serial}",
@@ -467,7 +464,7 @@ namespace MobiFlight.UI.Dialogs
                 }
                 // Add all Joysticks
                 else if (Joystick.IsJoystickSerial(serial))
-                { 
+                {
                     Joystick joystick = _execManager.GetJoystickManager().GetJoystickBySerial(serial);
                     inputTypeComboBox.Items.AddRange(joystick.GetAvailableDevicesAsListItems().ToArray());
                 }
@@ -653,7 +650,7 @@ namespace MobiFlight.UI.Dialogs
                     }
                 }
             }
-            
+
             displayLedDisplayPanel.SetConnectors(connectors);
         }
 
@@ -768,7 +765,8 @@ namespace MobiFlight.UI.Dialogs
             if (!ScanningForInput)
             {
                 ActivateScanForInputMode();
-            } else
+            }
+            else
             {
                 DeactivateScanForInputMode();
             }
@@ -838,13 +836,13 @@ namespace MobiFlight.UI.Dialogs
             {
                 // Add item to device list if not yet there
                 if (!inputTypeComboBox.Items.OfType<ListItem<IBaseDevice>>().Any(i => i.Value.Name == e.DeviceId))
-                { 
+                {
                     MidiBoardDevice mbd = new MidiBoardDevice();
-                    mbd.Label = e.DeviceLabel;  
+                    mbd.Label = e.DeviceLabel;
                     mbd.Name = e.DeviceId;
                     mbd.Type = DeviceType.Button;
                     inputTypeComboBox.Items.Add(new ListItem<IBaseDevice> { Label = mbd.Label, Value = mbd });
-                }                        
+                }
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceLabel);
             }
             else
@@ -854,9 +852,9 @@ namespace MobiFlight.UI.Dialogs
                 if (e.Type == DeviceType.InputMultiplexer || e.Type == DeviceType.InputShiftRegister)
                 {
                     ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.ExtPin.ToString());
-                }                
+                }
             }
-                
+
 
             DeactivateScanForInputMode();
         }

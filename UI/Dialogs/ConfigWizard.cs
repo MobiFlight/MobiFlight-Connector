@@ -26,7 +26,7 @@ namespace MobiFlight.UI.Dialogs
         OutputConfigItem config = null;
         OutputConfigItem originalConfig = null;
         ErrorProvider errorProvider = new ErrorProvider();
-        DataSet _dataSetConfig = null;
+        List<OutputConfigItem> outputConfigs = null;
         Timer TestTimer = new Timer();
         String CurrentGuid = null;
         public OutputConfigItem Config { get { return config; } }
@@ -36,13 +36,13 @@ namespace MobiFlight.UI.Dialogs
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
 
-        public ConfigWizard( ExecutionManager mainForm, 
+        public ConfigWizard(ExecutionManager mainForm,
                              OutputConfigItem cfg,
 #if ARCAZE
-                             ArcazeCache arcazeCache, 
-                             Dictionary<string, ArcazeModuleSettings> moduleSettings, 
+                             ArcazeCache arcazeCache,
+                             Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             DataSet dataSetConfig, 
+                             List<OutputConfigItem> outputConfigs,
                              String filterGuid,
                              String description)
         {
@@ -56,15 +56,16 @@ namespace MobiFlight.UI.Dialogs
             // copy this so that no filtering will 
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
-            _dataSetConfig = dataSetConfig.Copy();
-            var list = _dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
+            this.outputConfigs = outputConfigs.ToArray().ToList();
+            var list = this.outputConfigs.Where(c => c.GUID != filterGuid)
+                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }).ToList();
 
             // store the current guid
             CurrentGuid = filterGuid;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(_dataSetConfig, filterGuid);
+            initConfigRefDropDowns(this.outputConfigs, filterGuid);
 
             // Append the row description to the window title if one was provided.
             if (!String.IsNullOrEmpty(description))
@@ -73,16 +74,10 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
+        private void initConfigRefDropDowns(List<OutputConfigItem> outputConfigs, string filterGuid)
         {
-            DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
-
-            // this filters the current config
-            DataView dv = new DataView(dataSetConfig.Tables["config"]);
-            dv.RowFilter = "guid <> '" + filterGuid + "'";
-
-            configRefPanel.SetConfigRefsDataView(dv, filterGuid);
-            displayPanel1.SetConfigRefsDataView(dv, filterGuid);
+            configRefPanel.SetConfigRefsDataView(outputConfigs, filterGuid);
+            displayPanel1.SetConfigRefsDataView(outputConfigs, filterGuid);
         }
 
         public bool ConfigHasChanged()
@@ -163,11 +158,12 @@ namespace MobiFlight.UI.Dialogs
                 // Apply all modifiers to the test value
                 // so that the test value yields the final value
                 config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, configRefs));
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 // ShowError? Or don't do anything?
             }
-            
+
             testValuePanel1.Result = value.ToString();
 
             _execManager.ExecuteTestOn(config, CurrentGuid, value);
@@ -227,7 +223,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void SimConnectPanel1_OnGetLVarListRequested(object sender, EventArgs e)
         {
-            if(_execManager.GetSimConnectCache().IsConnected())
+            if (_execManager.GetSimConnectCache().IsConnected())
             {
                 _execManager.GetSimConnectCache().RefreshLVarsList();
             }
@@ -238,19 +234,19 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.HubHopPresetPanel.LVars = (sender as List<String>);
         }
 
-                
+
 
 #if ARCAZE
         /// <summary>
         /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
         /// </summary>
         /// <param name="arcazeCache"></param>
-        public void initWithArcazeCache (ArcazeCache arcazeCache)
+        public void initWithArcazeCache(ArcazeCache arcazeCache)
         {
             List<ListItem> PreconditionModuleList = new List<ListItem>();
             List<ListItem> DisplayModuleList = new List<ListItem>();
 
-            
+
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
@@ -283,7 +279,7 @@ namespace MobiFlight.UI.Dialogs
         public void initWithoutArcazeCache()
         {
             var DisplayModuleList = new List<ListItem>();
-            
+
             _AddMobiFlightModules(DisplayModuleList);
             _AddJoysticks(DisplayModuleList);
             _AddMidiBoards(DisplayModuleList);
@@ -327,7 +323,7 @@ namespace MobiFlight.UI.Dialogs
         protected void _AddMidiBoards(List<ListItem> DisplayModuleList)
         {
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
-            {               
+            {
                 if (midiBoard.GetAvailableOutputDevices().Count == 0) continue;
 
                 DisplayModuleList.Add(new ListItem()
@@ -351,7 +347,7 @@ namespace MobiFlight.UI.Dialogs
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
 
             _syncFsuipcTabFromConfig(config);
-            
+
             displayPanel1.syncFromConfig(config);
 
             modifierPanel1.fromConfig(config);
@@ -377,7 +373,7 @@ namespace MobiFlight.UI.Dialogs
             configRefPanel.syncFromConfig(config);
             xplaneDataRefPanel1.syncFromConfig(config);
         }
-        
+
         /// <summary>
         /// sync current status of form values to config
         /// </summary>
@@ -413,13 +409,15 @@ namespace MobiFlight.UI.Dialogs
         private void button1_Click(object sender, EventArgs e)
         {
             _testModeStop(true);
-            try {
+            try
+            {
                 if (!ValidateChildren())
                 {
                     Log.Instance.log("The dialog cannot be closed. There are invalid values on some tab.", LogSeverity.Error);
                     return;
                 }
-            } catch (System.InvalidOperationException ex)
+            }
+            catch (System.InvalidOperationException ex)
             {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
             }
@@ -437,7 +435,7 @@ namespace MobiFlight.UI.Dialogs
         {
             _syncConfigToForm(config);
         }
-        
+
         private void _validatingHexFields(object sender, CancelEventArgs e, int length)
         {
             try
@@ -446,7 +444,7 @@ namespace MobiFlight.UI.Dialogs
                 (sender as TextBox).Text = "0x" + Int64.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X" + length.ToString());
             }
             catch (Exception ex)
-            {                
+            {
                 e.Cancel = true;
                 Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Debug);
                 MessageBox.Show(i18n._tr("uiMessageConfigWizard_ValidHexFormat"), i18n._tr("Hint"));
@@ -466,7 +464,7 @@ namespace MobiFlight.UI.Dialogs
             errorProvider.SetError(
                     control,
                     "");
-        } 
+        }
 
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)
         {

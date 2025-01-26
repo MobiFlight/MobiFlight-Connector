@@ -22,7 +22,7 @@ function App() {
 
   useAppMessage("ConfigFile", (message) => {
     console.log("ConfigFile", message.payload)
-    setItems(message.payload.ConfigItems.slice(0, 21))
+    setItems(message.payload.ConfigItems)
   })
 
   // this allows to get beyond the startup screen

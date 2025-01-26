@@ -165,8 +165,126 @@ namespace MobiFlight.UI
         {
             MessageExchange.Instance.Subscribe<ConfigEdit>((message) => {
                 var msg = message;
-                MessageBox.Show(msg.Item.Name);
+                if (msg.Item.Type == typeof(OutputConfigItem).FullName)
+                {
+                    OpenOutputConfigWizardForId(message.Item.GUID);
+                }
+                else if (msg.Item.Type == typeof(InputConfigItem).FullName)
+                {
+                    OpenInputConfigWizardForId(message.Item.GUID);
+                }
             });
+        }
+
+        private void OpenOutputConfigWizardForId(string guid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action)(() => OpenOutputConfigWizardForId(guid)));
+                return;
+            }
+
+            var cfg = execManager.OutputConfigItems.Find(c => c.GUID == guid);
+            if (cfg == null) return;
+
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
+            {
+                EditConfigWithWizard(cfg, false);
+            }, null);
+        }
+
+        private void EditConfigWithWizard(OutputConfigItem cfg, bool create)
+        {
+            // refactor!!! dependency to arcaze cache etc not nice
+            ConfigWizard wizard = new ConfigWizard(execManager,
+                                            cfg,
+#if ARCAZE
+                                            execManager.getModuleCache(),
+                                            execManager.getModuleCache().GetArcazeModuleSettings(),
+#endif
+                                            execManager.OutputConfigItems,
+                                            cfg.GUID,
+                                            cfg.Name
+                                          )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+            wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
+
+            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (wizard.ConfigHasChanged())
+                {
+                    // we have to update the config
+                    // using the duplicated config 
+                    // that the user edited with the wizard
+                    var index = execManager.OutputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
+                    execManager.OutputConfigItems[index] = wizard.Config;
+                    OutputConfigPanel_SettingsChanged(wizard.Config, null);
+
+
+                    //var config = new OutputConfigItemAdapter(wizard.Config);
+                    //var message = new Message<IConfigItem>("config.update", config);
+                    //MessageExchange.Instance.Publish(message);
+                }
+            };
+        }
+
+        private void OpenInputConfigWizardForId(string guid)
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke((Action)(() => OpenInputConfigWizardForId(guid)));
+                return;
+            }
+
+            var cfg = execManager.InputConfigItems.Find(c => c.GUID == guid);
+            if (cfg == null) return;
+
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
+            {
+                _editConfigWithInputWizard(cfg, false);
+            }, null);
+        }
+
+        private void _editConfigWithInputWizard(InputConfigItem cfg, bool create)
+        {
+            // refactor!!! dependency to arcaze cache etc not nice
+            InputConfigWizard wizard = new InputConfigWizard(
+                                execManager,
+                                cfg,
+#if ARCAZE
+                                execManager.getModuleCache(),
+                                execManager.getModuleCache().GetArcazeModuleSettings(),
+#endif
+                                execManager.OutputConfigItems,
+                                cfg.GUID,
+                                cfg.Name
+                                )
+            {
+                StartPosition = FormStartPosition.CenterParent
+            };
+
+            wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
+            if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                if (wizard.ConfigHasChanged())
+                {
+                    // we have to update the config
+                    // using the duplicated config 
+                    // that the user edited with the wizard
+                    var index = execManager.InputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
+                    execManager.InputConfigItems[index] = wizard.Config;
+
+                    //var config = new InputConfigItemAdapter(wizard.Config);
+                    //var message = new Message<IConfigItem>("config.update", config);
+                    //MessageExchange.Instance.Publish(message);
+
+                    InputConfigPanel_SettingsChanged(cfg, null);
+                }
+            };
         }
 
         private void InitializeTracking()
