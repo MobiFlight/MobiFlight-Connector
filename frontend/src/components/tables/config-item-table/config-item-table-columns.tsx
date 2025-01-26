@@ -12,7 +12,7 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { IconArrowsSort, IconDots } from "@tabler/icons-react";
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "@/components/icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
 import { IDeviceConfig } from "@/types/config";
@@ -114,36 +114,36 @@ export const columns: ColumnDef<IConfigItem>[] = [
       return value.includes(row.getValue(id));
     },
   },
-  {
-    size: 300,
-    accessorKey: "Tags",
-    header: "Tags",
-    cell: ({ row }) => {
-      const label = row.getValue("Tags") as string;
-      return label != "" ? (
-        <p className="text-md font-semibold">{label}</p>
-      ) : (
-        <div className="text-xs text-muted-foreground">
-          <Badge>Default</Badge>
-        </div>
-      );
-    },
-  },
-  {
-    size: 100,
-    accessorKey: "Status",
-    header: "Status",
-    cell: ({ row }) => {
-      const label = row.getValue("Status") as string;
-      return label != "" ? (
-        <p className="text-md font-semibold">{label}</p>
-      ) : (
-        <div className="text-xs text-muted-foreground">
-          <Badge className="dark:border-green-600 dark:text-green-500 bg-green-600">normal</Badge>
-        </div>
-      );
-    },
-  },
+  // {
+  //   size: 300,
+  //   accessorKey: "Tags",
+  //   header: "Tags",
+  //   cell: ({ row }) => {
+  //     const label = row.getValue("Tags") as string;
+  //     return label != "" ? (
+  //       <p className="text-md font-semibold">{label}</p>
+  //     ) : (
+  //       <div className="text-xs text-muted-foreground">
+  //         <Badge>Default</Badge>
+  //       </div>
+  //     );
+  //   },
+  // },
+  // {
+  //   size: 100,
+  //   accessorKey: "Status",
+  //   header: "Status",
+  //   cell: ({ row }) => {
+  //     const label = row.getValue("Status") as string;
+  //     return label != "" ? (
+  //       <p className="text-md font-semibold">{label}</p>
+  //     ) : (
+  //       <div className="text-xs text-muted-foreground">
+  //         <Badge className="dark:border-green-600 dark:text-green-500 bg-green-600">normal</Badge>
+  //       </div>
+  //     );
+  //   },
+  // },
   {
     size: 100,
     accessorKey: "RawValue",
