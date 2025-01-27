@@ -64,17 +64,17 @@ export function DataTable<TData, TValue>({
 
   return (
       <div className="flex flex-col gap-4 grow overflow-y-auto">
-          <div className="">
+          <div className="p-2">
               <DataTableToolbar table={table} items={ data as IConfigItem[] } />
           </div>
-          <div className="flex flex-col grow overflow-y-auto border border-primary rounded-lg">
-              <Table className="table-fixedd">
+          <div className="flex flex-col overflow-y-auto border border-primary rounded-lg">
+              <Table className="overflow-y-auto">
                   <TableHeader className="bg-slate-500 dark:bg-slate-800 text-white group/header">
                       {table.getHeaderGroups().map((headerGroup) => (
                           <TableRow key={headerGroup.id} className="hover:bg-slate-800">
                               {headerGroup.headers.map((header) => {
                                   return (
-                                      <TableHead key={header.id} className="text-white z-50 px-2 sticky top-0 bg-primary dark:bg-slate-800">
+                                      <TableHead key={header.id} className="text-white z-50 px-2 bg-primary dark:bg-slate-800">
                                           {header.isPlaceholder
                                               ? null
                                               : flexRender(
@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
                           </TableRow>
                       ))}
                   </TableHeader>
-                  <TableBody className="overflow-y-auto dark:bg-zinc-900">
+                  <TableBody className="dark:bg-zinc-900">
                       {table.getRowModel().rows?.length ? (
                           table.getRowModel().rows.map((row) => (
                               <TableRow

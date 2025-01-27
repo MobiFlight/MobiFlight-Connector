@@ -54,7 +54,7 @@ function App() {
         {/* <Sidebar /> */}
         <div className="flex grow flex-col">
           {/* <Navbar /> */}
-          <div className="flex grow flex-col overflow-hidden p-12">
+          <div className="flex grow flex-col overflow-hidden p-2">
             <Outlet />
           </div>
           <div className="flex flex-row justify-end gap-2 bg-white px-5 py-2 dark:bg-zinc-800">
