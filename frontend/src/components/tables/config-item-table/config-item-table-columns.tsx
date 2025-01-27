@@ -111,7 +111,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const label =  (row.getValue("Device") as IDeviceConfig)?.Type ?? "-";
       return <p className="text-md font-semibold">test {label}</p>;
     },
-    filterFn: (row, id, value) => {
+    filterFn: (row, _, value) => {
       return value.includes((row.getValue("Device")as IDeviceConfig)?.Type ?? "-");
     },
   },
