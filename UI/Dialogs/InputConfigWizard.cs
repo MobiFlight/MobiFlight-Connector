@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Dialogs
 
         ErrorProvider errorProvider = new ErrorProvider();
         Dictionary<String, String> arcazeFirmware = new Dictionary<String, String>();
-        List<OutputConfigItem> _dataSetConfig = null;
+        List<OutputConfigItem> outputConfigItems = null;
 #if ARCAZE
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
@@ -60,7 +60,7 @@ namespace MobiFlight.UI.Dialogs
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             List<OutputConfigItem> dataSetConfig,
+                             List<OutputConfigItem> putputConfigItems,
                              String filterGuid,
                              String description)
         {
@@ -74,14 +74,14 @@ namespace MobiFlight.UI.Dialogs
             // copy this so that no filtering will 
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
-            _dataSetConfig = dataSetConfig.ToArray().ToList();
+            this.outputConfigItems = putputConfigItems.ToArray().ToList();
 
-            var list = _dataSetConfig.Where(c => c.GUID != filterGuid)
+            var list = outputConfigItems.Where(c => c.GUID != filterGuid)
                                      .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(_dataSetConfig, filterGuid);
+            initConfigRefDropDowns(outputConfigItems, filterGuid);
             _loadPresets();
 
             // remember the default style of the button
