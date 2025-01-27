@@ -22,6 +22,8 @@ export interface IDictionary<T> {
 
 export type DeviceType = "MobiFlight" | "Joystick" | "Midi";
 
+export type ConfigItemType = "InputConfig" | "OutputConfig";
+
 export type ElementPin = {
   isAnalog: boolean;
   isPWM: boolean;

@@ -175,6 +175,28 @@ namespace MobiFlight
             MessageExchange.Instance.Subscribe<CommandUpdateConfigItem>((message) => {
                 HandleCommandUpdateConfigItem(message.Item);
             });
+
+            MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
+            {
+                IConfigItem item = new OutputConfigItem();
+                if (message.Type == "InputAction")
+                {
+                    item = new InputConfigItem();
+                }
+
+                item.GUID = Guid.NewGuid().ToString();
+                item.Name = message.Name;
+                item.Active = true;
+                if (item is OutputConfigItem)
+                {
+                    OutputConfigItems.Add((OutputConfigItem)item);
+                }
+                else
+                {
+                    InputConfigItems.Add((InputConfigItem)item);
+                }
+                MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { item } });
+            });
         }
 
         private void HandleCommandUpdateConfigItem(ConfigItem item)

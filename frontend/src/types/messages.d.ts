@@ -21,6 +21,7 @@ export type CommandMessageType =
   | DeviceFileOpenRequest
   | DeviceFileSaveRequest
   | CommandUpdateConfigItem
+  | CommandAddConfigItem
 
 
 // ExecutionUpdateMessage
@@ -52,6 +53,16 @@ export interface CommandUpdateConfigItem {
   }
 }
 
+// CommandUpdateConfigItem
+// Update basic properties of a config item
+// Active, Name
+export interface CommandAddConfigItem {
+  key: "CommandAddConfigItem"
+  payload: { 
+    name: string,
+    type: ConfigItemType
+  }
+}
 // GlobalSettingsUpdateMessage
 // is sent to the backend
 // when global settings shall be updated
