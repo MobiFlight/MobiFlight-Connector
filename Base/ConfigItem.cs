@@ -57,15 +57,15 @@ namespace MobiFlight.Base
 
         protected ConfigItem(ConfigItem item)
         {
-            GUID = item.GUID;
+            GUID = item.GUID.Clone() as string;
             Active = item.Active;
-            Name = item.Name;
-            ModuleSerial = item.ModuleSerial;
-            Preconditions = item.Preconditions;
-            Modifiers = item.Modifiers;
-            ConfigRefs = item.ConfigRefs;
-            RawValue = item.RawValue;
-            Value = item.Value;
+            Name = item.Name.Clone() as string;
+            ModuleSerial = item.ModuleSerial.Clone() as string;
+            Preconditions = item.Preconditions.Clone() as PreconditionList;
+            Modifiers = item.Modifiers.Clone() as ModifierList;
+            ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
+            RawValue = item.RawValue.Clone() as string;
+            Value = item.Value.Clone() as string;
         }
     }
 }

@@ -231,11 +231,22 @@ namespace MobiFlight
             writer.WriteEndElement();
         }
 
+        public InputConfigItem(InputConfigItem config):base(config)
+        {
+            this.button = (ButtonInputConfig)config.button?.Clone();
+            this.encoder = (EncoderInputConfig)config.encoder?.Clone();
+            this.inputShiftRegister = (InputShiftRegisterConfig)config.inputShiftRegister?.Clone();
+            this.inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
+            this.analog = (AnalogInputConfig)config.analog?.Clone();
+            this.DeviceType = config.DeviceType.Clone() as string;
+            this.DeviceName = config.DeviceName.Clone() as string;
+        }
+
         public object Clone()
         {
             InputConfigItem clone = new InputConfigItem();
             clone.ModuleSerial = ModuleSerial;
-            clone.Name = DeviceName;
+            clone.DeviceName = DeviceName;
             clone.DeviceType = DeviceType;
 
             if (button != null)
@@ -352,21 +363,17 @@ namespace MobiFlight
 
         protected override IDeviceConfig GetDeviceConfig()
         {
-            switch (DeviceType)
+            return new InputConfigItemDeviceConfig()
             {
-                case TYPE_BUTTON:
-                    return button;
-                case TYPE_ENCODER:
-                    return encoder;
-                case TYPE_INPUT_SHIFT_REGISTER:
-                    return inputShiftRegister;
-                case TYPE_INPUT_MULTIPLEXER:
-                    return inputMultiplexer;
-                case TYPE_ANALOG:
-                    return analog;
-                default:
-                    return null;
-            }
+                Name = DeviceName,
+                Type = DeviceType
+            };
         }
+    }
+
+    internal class InputConfigItemDeviceConfig : IDeviceConfig
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
     }
 }
