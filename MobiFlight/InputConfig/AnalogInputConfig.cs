@@ -9,10 +9,8 @@ namespace MobiFlight.InputConfig
 
     public class AnalogInputConfig : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public override string Name { get { return "CHANGE!AnalogInput"; } }
-
-        public InputAction onChange;        
-
+        public InputAction onChange;
+        
         public object Clone()
         {
             AnalogInputConfig clone = new AnalogInputConfig();

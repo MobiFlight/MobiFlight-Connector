@@ -8,8 +8,6 @@ namespace MobiFlight.InputConfig
 {
     public class EncoderInputConfig : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public override string Name { get { return "Encoder"; } }
-
         public InputAction onLeft;
         public InputAction onLeftFast;
         public InputAction onRight;
