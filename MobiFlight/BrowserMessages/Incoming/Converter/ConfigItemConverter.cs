@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.Modifier;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,21 +16,15 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jsonObject = JObject.Load(reader);
-            var type = (string)jsonObject["Type"];
+            var typeName = (string)jsonObject["Type"];
 
-            IConfigItem configItem;
-            switch (type)
+            var type = Type.GetType(typeName);
+            if (type == null)
             {
-                case "MobiFlight.InputConfigItem":
-                    configItem = new InputConfigItem();
-                    break;
-                case "MobiFlight.OutputConfigItem":
-                    configItem = new OutputConfigItem();
-                    break;
-                default:
-                    throw new NotSupportedException($"Type '{type}' is not supported");
+                throw new NotSupportedException($"Unknown type: {typeName}");
             }
 
+            var configItem = Activator.CreateInstance(type) as IConfigItem;
             serializer.Populate(jsonObject.CreateReader(), configItem);
             return configItem;
         }
