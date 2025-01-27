@@ -1,5 +1,6 @@
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
+using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.SimConnectMSFS;
@@ -165,6 +166,28 @@ namespace MobiFlight
             }
 
             mobiFlightCache.Start();
+
+            InitializeFrontendSubscriptions();
+        }
+
+        private void InitializeFrontendSubscriptions()
+        {
+            MessageExchange.Instance.Subscribe<CommandUpdateConfigItem>((message) => {
+                HandleCommandUpdateConfigItem(message.Item);
+            });
+        }
+
+        private void HandleCommandUpdateConfigItem(ConfigItem item)
+        {
+            IConfigItem configItem = OutputConfigItems.Find(i => i.GUID == item.GUID);
+            if (configItem == null) { 
+                configItem = InputConfigItems.Find(i => i.GUID == item.GUID);
+            };
+
+            if (configItem == null) return;
+            configItem.Active = item.Active;
+            configItem.Name = item.Name;
+            MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { configItem } });
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)
@@ -628,8 +651,8 @@ namespace MobiFlight
                 if (changedValues.Count > 0)
                 {
                     // TODO: EMIT Event
-                    //var update = new ConfigValueUpdate() { ConfigItems = changedValues.Values.ToList() };
-                    //MessageExchange.Instance.Publish(new Message<ConfigValueUpdate>(update));
+                    var update = new ConfigValueUpdate() { ConfigItems = changedValues.Values.ToList() };
+                    MessageExchange.Instance.Publish(update);
                 }
             }
 

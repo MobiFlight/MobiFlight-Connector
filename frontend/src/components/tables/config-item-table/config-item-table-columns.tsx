@@ -16,21 +16,31 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage";
 import DeviceIcon from "@/components/icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
 import { IDeviceConfig } from "@/types/config";
-import { ConfigEditMessage } from "@/types/messages";
+import { CommandUpdateConfigItem, ConfigEditMessage } from "@/types/messages";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "Active",
-    size: 75,
+    size: 50,
     header: () => (
-      <div className="text-center">Active</div>
+      <div className="w-20 text-center">Active</div>
     ),
     cell: ({ row }) => {
+      const { publish } = publishOnMessageExchange();
+      const item = row.original as IConfigItem;
+
       return (
-        <div className="text-center">
+        <div className="w-20 text-center">
           <Switch
-            className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700"
+            className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700 h-5 w-10"
             checked={row.getValue("Active") as boolean}
+            onClick={() => {
+              item.Active = !item.Active;
+              publish({
+                key: "CommandUpdateConfigItem",
+                payload: { item: item },
+              } as CommandUpdateConfigItem);
+            }}
           />
         </div>
       );
@@ -70,8 +80,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const serial = (row.getValue("ModuleSerial") as string).split("/")[1];
       return (
         <>
-          <p className="text-md font-semibold">{label}</p>
-          <p className="text-xs text-muted-foreground">{serial}</p>
+          <p className="text-md font-semibold truncate w-32 md:w-64">{label}</p>
+          <p className="text-xs text-muted-foreground truncate w-32 md:w-64">{serial}</p>
         </>
       );
     },
@@ -148,23 +158,23 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     size: 100,
     accessorKey: "RawValue",
-    header: "Raw Value",
+    header: () => <div className="sm:hidden md:block md:visible w-16 lg:w-24">Raw Value</div>,
     cell: ({ row }) => {
       let label = row.getValue("RawValue") as string
       if (label == "") label = "-"
       return (
-        <div className="text-md truncate">{label ?? "-"}</div>
+        <div className="text-md truncate sm:hidden md:block md:visible w-16 lg:w-24">{label ?? "-"}</div>
       )
     },
   },
   {
     size: 100,
-    accessorKey: "ModifiedValue",
-    header: "Final Value",
+    accessorKey: "Value",
+    header: () => <div className="sm:hidden md:block w-16 lg:w-24">Final Value</div>,
     cell: ({ row }) => {
-      const label = row.getValue("ModifiedValue") as string;
+      const label = row.getValue("Value") as string;
       return (
-        <div className="text-md truncate">{label ?? "-" }</div>
+        <div className="text-md truncate sm:hidden md:block w-16 lg:w-24">{label ?? "-" }</div>
       )
     },
   },

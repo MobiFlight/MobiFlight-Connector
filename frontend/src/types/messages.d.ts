@@ -20,6 +20,8 @@ export type CommandMessageType =
   | DeviceFirmwareUpdateRequestMessage
   | DeviceFileOpenRequest
   | DeviceFileSaveRequest
+  | CommandUpdateConfigItem
+
 
 // ExecutionUpdateMessage
 // is sent to the backend
@@ -35,6 +37,16 @@ export interface ExecutionUpdateMessage {
 // when a config item shall be edited
 export interface ConfigEditMessage {
   key: "ConfigEdit"
+  payload: { 
+    item: IConfigItem
+  }
+}
+
+// CommandUpdateConfigItem
+// Update basic properties of a config item
+// Active, Name
+export interface CommandUpdateConfigItem {
+  key: "CommandUpdateConfigItem"
   payload: { 
     item: IConfigItem
   }

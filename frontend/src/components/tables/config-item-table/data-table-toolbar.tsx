@@ -1,4 +1,4 @@
-import { IconX } from "@tabler/icons-react"
+import { IconFilter, IconX } from "@tabler/icons-react"
 import { Table } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
@@ -25,6 +25,7 @@ export function DataTableToolbar<TData>({
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
+        <IconFilter className="stroke-primary" />
         <Input
           placeholder="Filter items..."
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}

@@ -16,6 +16,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
 				"ms-playwright.playwright"
 			]
 		}
