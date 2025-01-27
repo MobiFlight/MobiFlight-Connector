@@ -189,7 +189,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => {
-                  publish({ key: "ConfigEdit", payload: { Item: item} } as ConfigEditMessage);
+                  publish({ key: "ConfigEdit", payload: { item: item} } as ConfigEditMessage);
                 }}
               >
                 Edit
