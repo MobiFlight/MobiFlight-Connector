@@ -60,9 +60,7 @@ namespace MobiFlight.UI.Dialogs
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             List<OutputConfigItem> putputConfigItems,
-                             String filterGuid,
-                             String description)
+                             List<OutputConfigItem> putputConfigItems)
         {
             Init(mainForm, cfg);
 #if ARCAZE
@@ -76,12 +74,12 @@ namespace MobiFlight.UI.Dialogs
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
             this.outputConfigItems = putputConfigItems.ToArray().ToList();
 
-            var list = outputConfigItems.Where(c => c.GUID != filterGuid)
+            var list = outputConfigItems.Where(c => c.GUID != cfg.GUID)
                                      .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(outputConfigItems, filterGuid);
+            initConfigRefDropDowns(outputConfigItems, cfg.GUID);
             _loadPresets();
 
             // remember the default style of the button
@@ -90,9 +88,9 @@ namespace MobiFlight.UI.Dialogs
             ScanForInputButtonDefaultStyle.BorderColor = ScanForInputButton.FlatAppearance.BorderColor;
 
             // Append the row description to the window title if one was provided.
-            if (!String.IsNullOrEmpty(description))
+            if (!String.IsNullOrEmpty(cfg.Name))
             {
-                this.Text = $"{this.Text} - {description}";
+                this.Text = $"{this.Text} - {cfg.Name}";
             }
         }
 

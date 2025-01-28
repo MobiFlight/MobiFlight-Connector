@@ -205,7 +205,6 @@ namespace MobiFlight.UI
                                             execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
                                             execManager.OutputConfigItems,
-                                            cfg.GUID,
                                             cfg.Name
                                           )
             {
@@ -260,9 +259,7 @@ namespace MobiFlight.UI
                                 execManager.getModuleCache(),
                                 execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
-                                execManager.OutputConfigItems,
-                                cfg.GUID,
-                                cfg.Name
+                                execManager.OutputConfigItems
                                 )
             {
                 StartPosition = FormStartPosition.CenterParent
@@ -584,8 +581,9 @@ namespace MobiFlight.UI
             }
         }
 
-        private void OutputConfigPanel_SettingsChanged(object sender, EventArgs e)
+        private void OutputConfigPanel_SettingsChanged(IConfigItem sender, EventArgs e)
         {
+            MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { sender } });
             saveToolStripButton.Enabled = true;
             UpdateAllConnectionIcons();
         }

@@ -46,7 +46,6 @@ const ConfigPage = () => {
     //     <TabsContent value="config-1" className='mt-0 flex flex-col grow overflow-y-auto'>
     <div className="flex flex-col gap-4 overflow-y-auto">
       <DataTable columns={columns} data={configItems} />
-      <div></div>
     </div>
     //     </TabsContent>
     //   </Tabs>

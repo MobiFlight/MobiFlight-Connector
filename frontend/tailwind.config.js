@@ -69,12 +69,21 @@ export default {
               transform: 'translateY(0%)',
               animationTimingFunction: 'cubicBezier(0,0,0.2,1)'
           }
+        },
+        'highlight': {
+          from: {
+            backgroundColor: 'yellow'
+          },
+          from: {
+            backgroundColor: 'transparent'
+          },
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "low-bounce" : "low-bounce 800ms ease-in-out infinite",
+        "highlight" : "highlight 2s ease-out",
       },
   	}
   },

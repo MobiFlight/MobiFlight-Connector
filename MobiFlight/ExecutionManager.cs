@@ -92,7 +92,7 @@ namespace MobiFlight
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
-        string ConfigItemInTestMode = null;
+        OutputConfigItem ConfigItemInTestMode = null;
 
         Dictionary<string, IConfigItem> lastUpdatedValues = new Dictionary<string, IConfigItem>();
 
@@ -201,6 +201,7 @@ namespace MobiFlight
 
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
+                IConfigItem cfg;
                 switch (message.Action)
                 {
                     case "delete":
@@ -212,13 +213,43 @@ namespace MobiFlight
                         {
                             OutputConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
                         }
-                        var cfgFile = new ConfigFile();
-                        cfgFile.OutputConfigItems = OutputConfigItems;
-                        cfgFile.InputConfigItems = InputConfigItems;
-
-                        MessageExchange.Instance.Publish(cfgFile);
                         break;
+
+                    case "duplicate":
+                        cfg = OutputConfigItems.Find(i => i.GUID == message.Item.GUID) as IConfigItem;
+                        if (cfg != null)
+                        {
+                            var pos = OutputConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
+                            OutputConfigItems.Insert(pos, (cfg as OutputConfigItem).Duplicate() as OutputConfigItem);
+                            break;
+                        }
+                        cfg = InputConfigItems.Find(i=> i.GUID == message.Item.GUID);
+
+                        if (cfg != null)
+                        {
+                            var pos = InputConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
+                            InputConfigItems.Insert(pos, (cfg as InputConfigItem).Duplicate() as InputConfigItem);
+                        }
+                        break;
+                    case "test":
+                        cfg = OutputConfigItems.Find(i => i.GUID == message.Item.GUID);
+                        if (cfg != null)
+                        {
+                            ExecuteTestOff(ConfigItemInTestMode, true);
+                            ExecuteTestOn(cfg as OutputConfigItem);
+                            break;
+                        }
+                        break;
+                    
+                    default:
+                        return;
                 }
+
+                var cfgFile = new ConfigFile();
+                cfgFile.OutputConfigItems = OutputConfigItems;
+                cfgFile.InputConfigItems = InputConfigItems;
+
+                MessageExchange.Instance.Publish(cfgFile);
             });
         }
 
@@ -568,7 +599,7 @@ namespace MobiFlight
 
                 // Don't execute a config that we are currently manually testing.
                 var currentGuid = cfg.GUID;
-                if (ConfigItemInTestMode != null && ConfigItemInTestMode == currentGuid)
+                if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == currentGuid)
                 {
                     continue;
                 }
@@ -1313,8 +1344,7 @@ namespace MobiFlight
                 // REDESIGN: Send out a message that this is currently tested
                 try
                 {
-                    var currentGuid = row.GUID;
-                    ExecuteTestOn(tmpCfg, currentGuid, tmpCfg.TestValue);
+                    ExecuteTestOn(tmpCfg, tmpCfg.TestValue);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1336,6 +1366,8 @@ namespace MobiFlight
 
         public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
+            if (cfg == null) return;
+
             if (ResetConfigItemInTest)
                 ConfigItemInTestMode = null;
 
@@ -1371,9 +1403,9 @@ namespace MobiFlight
             }
         }
 
-        public void ExecuteTestOn(OutputConfigItem cfg, string configGuid, ConnectorValue value = null)
+        public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
-            ConfigItemInTestMode = configGuid;
+            ConfigItemInTestMode = cfg;
 
             if (cfg.DeviceType == null) return;
 

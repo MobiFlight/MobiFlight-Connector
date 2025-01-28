@@ -124,6 +124,7 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   data-row-index={row.index}
+                  className={row.getValue("Active") ? "" : "text-gray-500"}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="p-1">

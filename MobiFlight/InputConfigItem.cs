@@ -244,37 +244,12 @@ namespace MobiFlight
 
         public object Clone()
         {
-            InputConfigItem clone = new InputConfigItem();
-            clone.ModuleSerial = ModuleSerial;
-            clone.DeviceName = DeviceName;
-            clone.DeviceType = DeviceType;
+            return (object)new InputConfigItem(this);
+        }
 
-            if (button != null)
-                clone.button = (ButtonInputConfig)this.button.Clone();
-
-            if (encoder != null)
-                clone.encoder = (EncoderInputConfig)this.encoder.Clone();
-
-            if (inputShiftRegister != null)
-                clone.inputShiftRegister = (InputShiftRegisterConfig)this.inputShiftRegister.Clone();
-
-            if (inputMultiplexer != null)
-                clone.inputMultiplexer = (InputMultiplexerConfig)this.inputMultiplexer.Clone();
-
-            if (analog != null)
-                clone.analog = (AnalogInputConfig)this.analog.Clone();
-
-            foreach (Precondition p in Preconditions)
-            {
-                clone.Preconditions.Add(p.Clone() as Precondition);
-            }
-
-            foreach (ConfigRef configRef in ConfigRefs)
-            {
-                clone.ConfigRefs.Add(configRef.Clone() as ConfigRef);
-            }
-
-            return clone;
+        public override Base.IConfigItem Duplicate()
+        {
+            return new InputConfigItem(this) { GUID = System.Guid.NewGuid().ToString() };
         }
 
         internal void execute(

@@ -39,7 +39,7 @@ export interface ExecutionUpdateMessage {
 export interface CommandConfigContextMenu {
   key: "CommandConfigContextMenu"
   payload: { 
-    action: "edit" | "delete" | "duplicate",
+    action: "edit" | "delete" | "duplicate" | "test",
     item: IConfigItem
   }
 }

@@ -28,7 +28,6 @@ namespace MobiFlight.UI.Dialogs
         ErrorProvider errorProvider = new ErrorProvider();
         List<OutputConfigItem> outputConfigs = null;
         Timer TestTimer = new Timer();
-        String CurrentGuid = null;
         public OutputConfigItem Config { get { return config; } }
 
 #if ARCAZE
@@ -42,9 +41,7 @@ namespace MobiFlight.UI.Dialogs
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             List<OutputConfigItem> outputConfigs,
-                             String filterGuid,
-                             String description)
+                             List<OutputConfigItem> outputConfigs)
         {
             Init(mainForm, cfg);
 #if ARCAZE
@@ -57,20 +54,17 @@ namespace MobiFlight.UI.Dialogs
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
             this.outputConfigs = outputConfigs.ToArray().ToList();
-            var list = this.outputConfigs.Where(c => c.GUID != filterGuid)
+            var list = this.outputConfigs.Where(c => c.GUID != cfg.GUID)
                                      .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }).ToList();
-
-            // store the current guid
-            CurrentGuid = filterGuid;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(this.outputConfigs, filterGuid);
+            initConfigRefDropDowns(this.outputConfigs, cfg.GUID);
 
             // Append the row description to the window title if one was provided.
-            if (!String.IsNullOrEmpty(description))
+            if (!String.IsNullOrEmpty(cfg.Name))
             {
-                this.Text = $"{this.Text} - {description}";
+                this.Text = $"{this.Text} - {cfg.Name}";
             }
         }
 
@@ -166,7 +160,7 @@ namespace MobiFlight.UI.Dialogs
 
             testValuePanel1.Result = value.ToString();
 
-            _execManager.ExecuteTestOn(config, CurrentGuid, value);
+            _execManager.ExecuteTestOn(config, value);
         }
 
         private List<ConfigRefValue> CreateTestConfigRefs(ConfigRefList configRefs)

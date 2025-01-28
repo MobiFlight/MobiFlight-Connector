@@ -42,6 +42,8 @@ namespace MobiFlight.Base
             return this.GetType().ToString();
         }
 
+        public abstract IConfigItem Duplicate();
+
         protected ConfigItem()
         {
             GUID = System.Guid.NewGuid().ToString();

@@ -467,6 +467,11 @@ namespace MobiFlight
             return clone;
         }
 
+        public override Base.IConfigItem Duplicate()
+        {
+            return new OutputConfigItem(this) { GUID = System.Guid.NewGuid().ToString() };
+        }
+
         protected override IDeviceConfig GetDeviceConfig()
         {
             switch (DeviceType)
