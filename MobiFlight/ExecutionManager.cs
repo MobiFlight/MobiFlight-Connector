@@ -172,7 +172,8 @@ namespace MobiFlight
 
         private void InitializeFrontendSubscriptions()
         {
-            MessageExchange.Instance.Subscribe<CommandUpdateConfigItem>((message) => {
+            MessageExchange.Instance.Subscribe<CommandUpdateConfigItem>((message) =>
+            {
                 HandleCommandUpdateConfigItem(message.Item);
             });
 
@@ -196,6 +197,28 @@ namespace MobiFlight
                     InputConfigItems.Add((InputConfigItem)item);
                 }
                 MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { item } });
+            });
+
+            MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
+            {
+                switch (message.Action)
+                {
+                    case "delete":
+                        if (message.Item.Type == "InputAction")
+                        {
+                            InputConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        }
+                        else
+                        {
+                            OutputConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        }
+                        var cfgFile = new ConfigFile();
+                        cfgFile.OutputConfigItems = OutputConfigItems;
+                        cfgFile.InputConfigItems = InputConfigItems;
+
+                        MessageExchange.Instance.Publish(cfgFile);
+                        break;
+                }
             });
         }
 

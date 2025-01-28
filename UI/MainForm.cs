@@ -163,8 +163,9 @@ namespace MobiFlight.UI
 
         private void InitializeFrontendSubscriptions()
         {
-            MessageExchange.Instance.Subscribe<ConfigEdit>((message) => {
+            MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) => {
                 var msg = message;
+                if (msg.Action != "edit") return;
                 if (msg.Item.Type == typeof(OutputConfigItem).FullName)
                 {
                     OpenOutputConfigWizardForId(message.Item.GUID);

@@ -13,7 +13,7 @@ export type FrontendMessageKey =
 
 export type CommandMessageType =
   | ExecutionUpdateMessage
-  | ConfigEditMessage
+  | CommandConfigContextMenu
   | GlobalSettingsUpdateMessage
   | ElementCreateMessage
   | DeviceUploadMessage
@@ -36,9 +36,10 @@ export interface ExecutionUpdateMessage {
 // EditConfigMessage
 // is sent to the backend
 // when a config item shall be edited
-export interface ConfigEditMessage {
-  key: "ConfigEdit"
+export interface CommandConfigContextMenu {
+  key: "CommandConfigContextMenu"
   payload: { 
+    action: "edit" | "delete" | "duplicate",
     item: IConfigItem
   }
 }

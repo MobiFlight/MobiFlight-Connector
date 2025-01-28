@@ -16,7 +16,7 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage";
 import DeviceIcon from "@/components/icons/DeviceIcon";
 import { DeviceElementType } from "@/types/deviceElements";
 import { IDeviceConfig } from "@/types/config";
-import { CommandUpdateConfigItem, ConfigEditMessage } from "@/types/messages";
+import { CommandUpdateConfigItem, CommandConfigContextMenu } from "@/types/messages";
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -199,10 +199,17 @@ export const columns: ColumnDef<IConfigItem>[] = [
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuItem
                 onClick={() => {
-                  publish({ key: "ConfigEdit", payload: { item: item} } as ConfigEditMessage);
+                  publish({ key: "CommandConfigContextMenu", payload: { action: "edit",item: item} } as CommandConfigContextMenu);
                 }}
               >
                 Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  publish({ key: "CommandConfigContextMenu", payload: { action: "delete", item: item} } as CommandConfigContextMenu);
+                }}
+              >
+                Remove
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Duplicate</DropdownMenuItem>
