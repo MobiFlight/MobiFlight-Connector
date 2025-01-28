@@ -204,8 +204,7 @@ namespace MobiFlight.UI
                                             execManager.getModuleCache(),
                                             execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
-                                            execManager.OutputConfigItems,
-                                            cfg.Name
+                                            execManager.OutputConfigItems
                                           )
             {
                 StartPosition = FormStartPosition.CenterParent

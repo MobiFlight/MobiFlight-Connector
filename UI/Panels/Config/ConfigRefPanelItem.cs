@@ -24,7 +24,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             configRefComboBox.DataSource = outputConfigs;
             configRefComboBox.ValueMember = "GUID";
-            configRefComboBox.DisplayMember = "Description";
+            configRefComboBox.DisplayMember = "Name";
         }
 
         public void SetPlaceholder (String placeholder)

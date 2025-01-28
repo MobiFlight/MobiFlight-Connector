@@ -1,18 +1,11 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
-using MobiFlight.Base;
-using MobiFlight.Properties;
-using MobiFlight.UI.Forms;
-using MobiFlight.UI.Panels.Config;
-using MobiFlight.UI.Panels.OutputWizard;
-using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI.Dialogs
 {

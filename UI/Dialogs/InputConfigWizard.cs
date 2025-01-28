@@ -42,13 +42,7 @@ namespace MobiFlight.UI.Dialogs
 #if ARCAZE
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
-
-        UI.Panels.DisplayPinPanel displayPinPanel = new UI.Panels.DisplayPinPanel();
-        UI.Panels.DisplayBcdPanel displayBcdPanel = new UI.Panels.DisplayBcdPanel();
-        UI.Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new UI.Panels.DisplayLedDisplayPanel();
-        UI.Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new UI.Panels.DisplayNothingSelectedPanel();
-        UI.Panels.ServoPanel servoPanel = new UI.Panels.ServoPanel();
-
+        
         ButtonStyle ScanForInputButtonDefaultStyle;
         Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
 
@@ -97,7 +91,6 @@ namespace MobiFlight.UI.Dialogs
         private void initConfigRefDropDowns(List<OutputConfigItem> dataSetConfig, string filterGuid)
         {
             configRefPanel.SetConfigRefsDataView(dataSetConfig, filterGuid);
-            displayLedDisplayPanel.SetConfigRefsDataView(dataSetConfig, filterGuid);
         }
 
         private void ConfigWizard_Load(object sender, EventArgs e)
@@ -628,30 +621,6 @@ namespace MobiFlight.UI.Dialogs
             }
         }
 
-        void displayLedAddressComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ComboBox cb = inputModuleNameComboBox;
-            String serial = SerialNumber.ExtractSerial(cb.SelectedItem.ToString());
-            MobiFlightModule module = _execManager.getMobiFlightModuleCache().GetModuleBySerial(serial);
-
-            List<ListItem> connectors = new List<ListItem>();
-
-            if (module != null)
-            {
-                foreach (IConnectedDevice device in module.GetConnectedDevices())
-                {
-                    if (device.TypeDeprecated != DeviceType.LedModule) continue;
-                    if (device.Name != ((sender as ComboBox).SelectedItem as ListItem).Value) continue;
-                    for (int i = 0; i < (device as MobiFlightLedModule).SubModules; i++)
-                    {
-                        connectors.Add(new ListItem() { Label = (i + 1).ToString(), Value = (i + 1).ToString() });
-                    }
-                }
-            }
-
-            displayLedDisplayPanel.SetConnectors(connectors);
-        }
-
         private void displayError(Control control, String message)
         {
             errorProvider.SetError(
@@ -701,44 +670,6 @@ namespace MobiFlight.UI.Dialogs
             else
             {
                 removeError(cb);
-            }
-        }
-
-        private void displayLedDisplayComboBox_Validating(object sender, CancelEventArgs e)
-        {
-            if (inputTypeComboBox.Text == ArcazeLedDigit.TYPE)
-            {
-                try
-                {
-                    int.Parse(displayLedDisplayPanel.displayLedAddressComboBox.Text);
-                    removeError(displayLedDisplayPanel.displayLedAddressComboBox);
-                }
-                catch (Exception exc)
-                {
-                    Log.Instance.log("displayLedDisplayComboBox_Validating : Parsing problem, " + exc.Message, LogSeverity.Debug);
-                    e.Cancel = true;
-                    tabControlFsuipc.SelectedTab = displayTabPage;
-                    displayLedDisplayPanel.displayLedAddressComboBox.Focus();
-                    displayError(displayLedDisplayPanel.displayLedAddressComboBox, i18n._tr("uiMessageConfigWizard_ProvideLedDisplayAddress"));
-                }
-            }
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int value = Int16.Parse((sender as ComboBox).Text);
-            for (int i = 0; i < 8; i++)
-            {
-                displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"].Visible = i < value;
-                displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"].Visible = i < value;
-                displayLedDisplayPanel.Controls["displayLedDisplayLabel" + i].Visible = i < value;
-
-                // uncheck all invisible checkboxes to ensure correct mask
-                if (i >= value)
-                {
-                    (displayLedDisplayPanel.displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "CheckBox"] as CheckBox).Checked = false;
-                    (displayLedDisplayPanel.displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "CheckBox"] as CheckBox).Checked = false;
-                }
             }
         }
 
