@@ -38,11 +38,11 @@ import {
 } from "@/types/messages"
 import { isEmpty } from "lodash"
 import { useCallback, useEffect, useState } from "react"
+import { Input } from "@/components/ui/input"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "Active",
-    size: 50,
     header: () => <div className="w-20 text-center">Active</div>,
     cell: ({ row }) => {
       const { publish } = publishOnMessageExchange()
@@ -68,6 +68,20 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "Name",
     size: 1,
+    header: ({ column }) => {
+      return (
+        <div className="flex w-80 items-center gap-4">
+          <span>Name / Description</span>
+          <Button
+            className="h-auto w-auto p-1"
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            <IconArrowsSort className="h-4 w-4" />
+          </Button>
+        </div>
+      )
+    },
     cell: ({ row }) => {
       const { publish } = publishOnMessageExchange()
       // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -76,7 +90,6 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const [label, setLabel] = useState(row.getValue("Name") as string)
       const realLabel = row.getValue("Name") as string
 
-      // eslint-disable-next-line react-hooks/rules-of-hooks
       const toggleEdit = () => {
         setIsEditing(!isEditing)
       }
@@ -98,10 +111,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
       }, [realLabel])
 
       return (
-        <div className="group flex cursor-pointer flex-row items-center gap-4">
+        <div className="group flex w-80 cursor-pointer flex-row items-center gap-1">
           {!isEditing ? (
             <>
-              <p className="font-semibold">{label}</p>
+              <p className="truncate font-semibold">{label}</p>
               <IconEdit
                 onClick={toggleEdit}
                 className="opacity-0 transition-opacity group-hover:opacity-100"
@@ -109,12 +122,13 @@ export const columns: ColumnDef<IConfigItem>[] = [
             </>
           ) : (
             <>
-              <input
+              <Input
                 type="text"
                 value={label}
                 onChange={(e) => setLabel(e.target.value)}
               />
               <IconCircleCheck
+                className="stroke-green-700"
                 onClick={() => {
                   saveChanges()
                   toggleEdit()
@@ -131,44 +145,25 @@ export const columns: ColumnDef<IConfigItem>[] = [
         </div>
       )
     },
-    header: ({ column }) => {
-      return (
-        <div className="flex items-center gap-4">
-          <span>Description</span>
-          <Button
-            className="h-auto w-auto p-1"
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            <IconArrowsSort className="h-4 w-4" />
-          </Button>
-        </div>
-      )
-    },
   },
   {
     accessorKey: "ModuleSerial",
-    header: () => <div className="w-20">Device</div>,
-    size: 200,
+    header: () => <div className="w-32">Device</div>,
     cell: ({ row }) => {
       const label = (row.getValue("ModuleSerial") as string).split("/")[0]
       const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
-      return (
-        <>
-          <p className="text-md w-32 truncate font-semibold md:w-64">
-            {!isEmpty(label) ? (
-              label
-            ) : (
-              <span className="item-center flex flex-row gap-2 text-slate-400">
-                <IconBan />
-                <span>not set</span>
-              </span>
-            )}
-          </p>
-          <p className="w-32 truncate text-xs text-muted-foreground md:w-64">
+      return !isEmpty(label) ? (
+        <div>
+          <p className="text-md w-32 truncate font-semibold">{label}</p>
+          <p className="w-32 truncate text-xs text-muted-foreground">
             {serial}
           </p>
-        </>
+        </div>
+      ) : (
+        <span className="item-center flex flex-row gap-2 text-slate-400">
+          <IconBan />
+          <span>not set</span>
+        </span>
       )
     },
     filterFn: (row, id, value) => {
@@ -176,9 +171,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 200,
     accessorKey: "Device",
-    header: "Component",
+    header: () => <div className="w-32">Component</div>,
     cell: ({ row }) => {
       const label = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
       const type = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
@@ -189,11 +183,11 @@ export const columns: ColumnDef<IConfigItem>[] = [
         />
       )
       return type != "-" ? (
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex w-32 flex-row items-center gap-2">
           <div>{icon}</div>
-          <div className="flex flex-col">
-            <p className="text-md font-semibold">{label}</p>
-            <p className="text-xs text-muted-foreground">{type}</p>
+          <div className="flex flex-col w-full">
+            <p className="text-md font-semibold truncate">{label}</p>
+            <p className="text-xs text-muted-foreground truncate">{type}</p>
           </div>
         </div>
       ) : (
@@ -252,7 +246,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
       return (
-        <div className="flex w-32 flex-row gap-2 lg:w-40">
+        <div className="flex w-32 flex-row gap-0 lg:w-40">
           <IconAlertSquareRounded
             className={!Precondition ? "stroke-slate-200" : "stroke-red-700"}
           >

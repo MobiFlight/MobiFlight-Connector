@@ -91,7 +91,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="flex grow flex-col gap-2 overflow-y-auto">
+    <div className="flex flex-col grow gap-2 overflow-y-auto">
       <div className="p-2">
         <DataTableToolbar table={table} items={data as IConfigItem[]} />
       </div>
