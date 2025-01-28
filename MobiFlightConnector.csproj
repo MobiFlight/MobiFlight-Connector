@@ -252,6 +252,7 @@
     <Compile Include="Base\ConfigItem.cs" />
     <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\ConfigRefList.cs" />
+    <Compile Include="Base\ConfigItemStatus.cs" />
     <Compile Include="Base\DPIUtil.cs" />
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />

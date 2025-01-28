@@ -1,6 +1,7 @@
 ﻿using MobiFlight.BrowserMessages.Incoming.Converter;
 using MobiFlight.Modifier;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MobiFlight.Base
 {
@@ -17,6 +18,7 @@ namespace MobiFlight.Base
         string RawValue { get; set; }
         string Value { get; set; }
         IDeviceConfig Device { get; }
+        Dictionary<ConfigItemStatusType, string> Status { get; set; }
     }
 
     [JsonConverter(typeof(ConfigItemConverter))]
@@ -34,6 +36,8 @@ namespace MobiFlight.Base
         public string Value { get; set; }
         
         public IDeviceConfig Device { get { return GetDeviceConfig(); } }
+
+        public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();
 
         protected abstract IDeviceConfig GetDeviceConfig();
 

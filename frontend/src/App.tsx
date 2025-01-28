@@ -16,12 +16,11 @@ function App() {
   )
 
   useAppMessage("StatusBarUpdate", (message) => {
-    console.log("StatusBarUpdate", message.payload.Value)
     setStartupProgress(message.payload as StatusBarUpdate)
   })
 
   useAppMessage("ConfigFile", (message) => {
-    console.log("ConfigFile", message.payload)
+    console.log(message.payload)
     setItems(message.payload.ConfigItems)
   })
 

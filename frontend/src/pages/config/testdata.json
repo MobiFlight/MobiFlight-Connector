@@ -10,7 +10,20 @@
           "A05"
       ],
       "ButtonInputConfig": null,
-      "ConfigRefs": [],
+      "ConfigRefs": [
+          {
+              "Active": true,
+              "Placeholder": "#",
+              "Ref": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+              "TestValue": "1"
+          },
+          {
+              "Active": true,
+              "Placeholder": "!",
+              "Ref": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
+              "TestValue": "1"
+          }
+      ],
       "CustomDevice": {
           "CustomName": null,
           "CustomType": null,
@@ -20,10 +33,10 @@
           "Value": null
       },
       "Device": {
-          "DisplayPin": "LED 1",
+          "DisplayPin": "LED 2",
           "DisplayPinBrightness": 255,
           "DisplayPinPWM": false,
-          "Name": "LED 1",
+          "Name": "LED 2",
           "Type": "Output"
       },
       "DeviceType": "Output",
@@ -68,13 +81,25 @@
       "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
       "Name": "LED 1",
       "Pin": {
-          "DisplayPin": "LED 1",
+          "DisplayPin": "LED 2",
           "DisplayPinBrightness": 255,
           "DisplayPinPWM": false,
-          "Name": "LED 1",
+          "Name": "LED 2",
           "Type": "Output"
       },
-      "Preconditions": [],
+      "Preconditions": [
+          {
+              "PreconditionActive": true,
+              "PreconditionLabel": "Config: <Ref:5b09dc42-d5cd-4284-9c03-355e579763f2> < 1 <Logic:and>",
+              "PreconditionLogic": "and",
+              "PreconditionOperand": "<",
+              "PreconditionPin": null,
+              "PreconditionRef": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+              "PreconditionSerial": null,
+              "PreconditionType": "config",
+              "PreconditionValue": "1"
+          }
+      ],
       "RawValue": "",
       "Servo": {
           "Address": null,
@@ -96,6 +121,7 @@
           "VarType": 2
       },
       "SourceType": 1,
+      "Status": {},
       "Stepper": {
           "Acceleration": 0,
           "Address": "",
@@ -222,6 +248,7 @@
           "VarType": 2
       },
       "SourceType": 1,
+      "Status": {},
       "Stepper": {
           "Acceleration": 0,
           "Address": "",
@@ -346,6 +373,7 @@
           "VarType": 2
       },
       "SourceType": 1,
+      "Status": {},
       "Stepper": {
           "Acceleration": 800,
           "Address": "Stepper 1",
@@ -467,6 +495,7 @@
           "VarType": 2
       },
       "SourceType": 1,
+      "Status": {},
       "Stepper": {
           "Acceleration": 0,
           "Address": "",
@@ -596,6 +625,7 @@
           "VarType": 2
       },
       "SourceType": 1,
+      "Status": {},
       "Stepper": {
           "Acceleration": 0,
           "Address": "",
@@ -715,6 +745,7 @@
           "VarType": 2
       },
       "SourceType": 1,
+      "Status": {},
       "Stepper": {
           "Acceleration": 0,
           "Address": "",
@@ -755,6 +786,7 @@
       "Name": "Button",
       "Preconditions": [],
       "RawValue": "",
+      "Status": {},
       "Type": "MobiFlight.InputConfigItem",
       "Value": "",
       "analog": null,
@@ -792,6 +824,7 @@
       "Name": "Encoder",
       "Preconditions": [],
       "RawValue": "",
+      "Status": {},
       "Type": "MobiFlight.InputConfigItem",
       "Value": "",
       "analog": null,
@@ -828,6 +861,7 @@
       "Name": "AnalogInput",
       "Preconditions": [],
       "RawValue": "",
+      "Status": {},
       "Type": "MobiFlight.InputConfigItem",
       "Value": "",
       "analog": {

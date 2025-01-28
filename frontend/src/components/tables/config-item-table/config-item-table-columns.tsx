@@ -11,21 +11,33 @@ import { IConfigItem } from "@/types"
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
 import {
+  IconAlertSquareRounded,
   IconArrowsSort,
   IconBan,
+  IconBuildingBroadcastTower,
+  IconCircleCheck,
   IconDots,
+  IconEdit,
+  IconFlask,
+  IconMathSymbols,
   IconPlugConnectedX,
+  IconX,
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 // import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import { DeviceElementType } from "@/types/deviceElements"
-import { IDeviceConfig } from "@/types/config"
+import {
+  ConfigItemStatusType,
+  IDeviceConfig,
+  IDictionary,
+} from "@/types/config"
 import {
   CommandUpdateConfigItem,
   CommandConfigContextMenu,
 } from "@/types/messages"
 import { isEmpty } from "lodash"
+import { useCallback, useEffect, useState } from "react"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -57,10 +69,65 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Name",
     size: 1,
     cell: ({ row }) => {
-      const label = row.getValue("Name") as string
+      const { publish } = publishOnMessageExchange()
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [isEditing, setIsEditing] = useState(false)
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const [label, setLabel] = useState(row.getValue("Name") as string)
+      const realLabel = row.getValue("Name") as string
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const toggleEdit = () => {
+        setIsEditing(!isEditing)
+      }
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const saveChanges = useCallback(() => {
+        const item = row.original as IConfigItem
+        item.Name = label
+        console.log(item)
+        publish({
+          key: "CommandUpdateConfigItem",
+          payload: { item: item },
+        } as CommandUpdateConfigItem)
+      }, [label, row, publish])
+
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useEffect(() => {
+        setLabel(realLabel)
+      }, [realLabel])
+
       return (
-        <div>
-          <p className="font-semibold">{label}</p>
+        <div className="group flex cursor-pointer flex-row items-center gap-4">
+          {!isEditing ? (
+            <>
+              <p className="font-semibold">{label}</p>
+              <IconEdit
+                onClick={toggleEdit}
+                className="opacity-0 transition-opacity group-hover:opacity-100"
+              />
+            </>
+          ) : (
+            <>
+              <input
+                type="text"
+                value={label}
+                onChange={(e) => setLabel(e.target.value)}
+              />
+              <IconCircleCheck
+                onClick={() => {
+                  saveChanges()
+                  toggleEdit()
+                }}
+              />
+              <IconX
+                onClick={() => {
+                  setLabel(row.getValue("Name") as string)
+                  toggleEdit()
+                }}
+              />
+            </>
+          )}
         </div>
       )
     },
@@ -169,21 +236,52 @@ export const columns: ColumnDef<IConfigItem>[] = [
   //     );
   //   },
   // },
-  // {
-  //   size: 100,
-  //   accessorKey: "Status",
-  //   header: "Status",
-  //   cell: ({ row }) => {
-  //     const label = row.getValue("Status") as string;
-  //     return label != "" ? (
-  //       <p className="text-md font-semibold">{label}</p>
-  //     ) : (
-  //       <div className="text-xs text-muted-foreground">
-  //         <Badge className="dark:border-green-600 dark:text-green-500 bg-green-600">normal</Badge>
-  //       </div>
-  //     );
-  //   },
-  // },
+  {
+    size: 100,
+    accessorKey: "Status",
+    header: () => <div className="w-32">Status</div>,
+    cell: ({ row }) => {
+      const Status = row.getValue("Status") as IDictionary<
+        string,
+        ConfigItemStatusType
+      >
+      const Precondition = Status && !isEmpty(Status["Precondition"])
+      const Source = Status && !isEmpty(Status["Source"])
+      const Modifier = Status && !isEmpty(Status["Modifier"])
+      const Device = Status && !isEmpty(Status["Device"])
+      const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
+
+      return (
+        <div className="flex w-32 flex-row gap-2 lg:w-40">
+          <IconAlertSquareRounded
+            className={!Precondition ? "stroke-slate-200" : "stroke-red-700"}
+          >
+            normal
+          </IconAlertSquareRounded>
+          <IconBuildingBroadcastTower
+            className={!Source ? "stroke-slate-200" : "stroke-red-500"}
+          >
+            normal
+          </IconBuildingBroadcastTower>
+          <IconPlugConnectedX
+            className={!Device ? "stroke-slate-200" : "stroke-red-700"}
+          >
+            normal
+          </IconPlugConnectedX>
+          <IconMathSymbols
+            className={!Modifier ? "stroke-slate-200" : "stroke-red-700"}
+          >
+            normal
+          </IconMathSymbols>
+          <IconFlask
+            className={!ConfigRef ? "stroke-slate-200" : "stroke-red-700"}
+          >
+            normal
+          </IconFlask>
+        </div>
+      )
+    },
+  },
   {
     size: 100,
     accessorKey: "RawValue",
@@ -199,8 +297,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
           {!isEmpty(label) ? (
             label
           ) : (
-            <div className="item-center flex flex-row gap-2 text-slate-400">
-              <IconPlugConnectedX />
+            <div className="item-center flex flex-row gap-2 text-slate-300">
+              <IconBuildingBroadcastTower className="animate-pulse" />
               <span>waiting</span>
             </div>
           )}
@@ -221,8 +319,8 @@ export const columns: ColumnDef<IConfigItem>[] = [
           {!isEmpty(label) ? (
             label
           ) : (
-            <div className="item-center flex flex-row gap-2 text-slate-400">
-              <IconPlugConnectedX />
+            <div className="item-center flex flex-row gap-2 text-slate-300">
+              <IconMathSymbols />
               <span>waiting</span>
             </div>
           )}

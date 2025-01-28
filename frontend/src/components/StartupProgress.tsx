@@ -10,7 +10,6 @@ const StartupProgress = (props: StartupProgressProps) => {
   const { value, text } = props  
   return (
     <>
-      <div className="fixed inset-0 bg-[url('/assets/background-nologo.jpg')]"></div>
       <div className="fixed inset-0 bg-gradient-to-br from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"></div>
       <div className="relative flex min-h-screen flex-col items-center justify-center gap-8 p-10 select-none">
         <div className="animate-low-bounce">

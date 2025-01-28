@@ -82,6 +82,7 @@ export function DataTable<TData, TValue>({
   }, [data])
 
   useAppMessage("ConfigValueUpdate", (message) => {
+    console.log(message)
     const update = message.payload as ConfigValueUpdate
     // better performance for single updates
     if (update.ConfigItems.length === 1) {

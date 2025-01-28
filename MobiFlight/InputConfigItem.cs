@@ -241,8 +241,8 @@ namespace MobiFlight
             this.inputShiftRegister = (InputShiftRegisterConfig)config.inputShiftRegister?.Clone();
             this.inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
             this.analog = (AnalogInputConfig)config.analog?.Clone();
-            this.DeviceType = config.DeviceType.Clone() as string;
-            this.DeviceName = config.DeviceName.Clone() as string;
+            this.DeviceType = config.DeviceType?.Clone() as string;
+            this.DeviceName = config.DeviceName?.Clone() as string;
         }
 
         public object Clone()

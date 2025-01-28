@@ -3,14 +3,16 @@ import * as Types from "../types/index"
 
 interface ConfigState {
   items: Types.IConfigItem[]
+  clearItems: () => void
   setItems: (items: Types.IConfigItem[]) => void
   updateItem: (item: Types.IConfigItem, upsert?: boolean) => void
   updateItems: (items: Types.IConfigItem[]) => void
 }
 
-export const useConfigStore = create<ConfigState>((set) => ({
+export const useConfigStore = create<ConfigState>((set) => ({  
   items: [],
-  setItems: (newItems) => set(() => ({ items: newItems })),
+  clearItems: () => set({ items: [] }),
+  setItems: (newItems) => set((state) => ({...state, items: newItems }), true),
   updateItem: (item: Types.IConfigItem, upsert = false) =>
     set((state) => {
       const itemIndex = state.items.findIndex(

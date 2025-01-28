@@ -415,6 +415,10 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
+            OutputConfigItems.ForEach(cfg => cfg.Status.Clear());
+            InputConfigItems.ForEach(cfg => cfg.Status.Clear());
+
+            // MessageExchange.Instance.Publish(new ConfigFile() { InputConfigItems = InputConfigItems, OutputConfigItems = OutputConfigItems });
             ClearErrorMessages();
         }
 
@@ -607,16 +611,14 @@ namespace MobiFlight
                 // If not connected to FSUIPC show an error message
                 if (cfg.SourceType == SourceType.FSUIPC && !fsuipcCache.IsConnected())
                 {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = i18n._tr("uiMessageNoFSUIPCConnection");
+                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
                 }
                 else
 #if SIMCONNECT
                 // If not connected to SimConnect show an error message
                 if (cfg.SourceType == SourceType.SIMCONNECT && !simConnectCache.IsConnected())
                 {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = i18n._tr("uiMessageNoSimConnectConnection");
+                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
                 }
                 else
 #endif
@@ -624,13 +626,12 @@ namespace MobiFlight
                 if (cfg.SourceType == SourceType.XPLANE && !xplaneCache.IsConnected())
                 {
                     // TODO: REDESIGN: Review
-                    // row.ErrorText = i18n._tr("uiMessageNoXplaneConnection");
+                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
                 }
                 // In any other case remove the error message
                 else
                 {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = "";
+                    cfg.Status.Remove(ConfigItemStatusType.Source);
                 }
 
                 ConnectorValue value = ExecuteRead(cfg);
@@ -640,6 +641,9 @@ namespace MobiFlight
                 updatedValues[currentGuid] = cfg.Clone() as ConfigItem;
                 updatedValues[currentGuid].RawValue = value.ToString();
                 updatedValues[currentGuid].Value = processedValue.ToString();
+
+                cfg.RawValue = value.ToString();
+                cfg.Value = processedValue.ToString();
                 
                 List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
 
@@ -654,13 +658,17 @@ namespace MobiFlight
                 catch (Exception ex)
                 {
                     Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = $"{i18n._tr("uiMessageTransformError")}({ex.Message})";
+                    cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
+                    MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { cfg } });
                     continue;
                 }
 
+                cfg.Status.Remove(ConfigItemStatusType.Modifier);
+
                 // processedValue now has changed, so we need to update the value in the cache
                 updatedValues[currentGuid].Value = processedValue.ToString();
+                cfg.Value = processedValue.ToString();
+
                 try
                 {
                     // check preconditions
@@ -668,8 +676,11 @@ namespace MobiFlight
                     {
                         if (!cfg.Preconditions.ExecuteOnFalse)
                         {
-                            // TODO: REDESIGN: Review
-                            // row.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            if (!cfg.Status.ContainsKey(ConfigItemStatusType.Precondition) || cfg.Status[ConfigItemStatusType.Precondition] != "not satisfied")
+                            {
+                                cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
+                                MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { cfg } });
+                            }
                             continue;
                         }
                         else
@@ -684,7 +695,6 @@ namespace MobiFlight
                         //if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
                         //    row.ErrorText = "";
                     }
-
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
                 catch (JoystickNotConnectedException jEx)
@@ -706,21 +716,18 @@ namespace MobiFlight
                     throw resultExc;
                 }
             }
-            // this update will trigger potential writes to the offsets
-            // that came from the inputs and are waiting to be written
-            // fsuipcCache.Write();
 
             if (updatedValues.Count > 0)
             {
                 // we have to compare updatedValues with lastUpdatedValues
                 // and only publish the changes using the MessageExchange
-
                 var changedValues = updatedValues
                                     .Where(
                                         kv => (
                                             !lastUpdatedValues.ContainsKey(kv.Key) ||
                                             kv.Value.Value != lastUpdatedValues[kv.Key].Value ||
-                                            kv.Value.RawValue != lastUpdatedValues[kv.Key].RawValue
+                                            kv.Value.RawValue != lastUpdatedValues[kv.Key].RawValue ||
+                                            kv.Value.Status.Keys.ToString() != lastUpdatedValues[kv.Key].Status.Keys.ToString()
                                         )
                                     )
                                     .ToDictionary(kv => kv.Key, kv => kv.Value);
@@ -1591,7 +1598,6 @@ namespace MobiFlight
                             // tuple.Item2.ErrorText = "";
                         }
                     }
-
                     Log.Instance.log($"{msgEventLabel} => executing \"{cfg.Name}\"", LogSeverity.Info);
 
                     cfg.execute(
