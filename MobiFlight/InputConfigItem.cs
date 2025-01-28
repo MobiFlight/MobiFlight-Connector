@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Reflection;
 
 namespace MobiFlight
 {
@@ -177,6 +178,8 @@ namespace MobiFlight
 
         public virtual void WriteXml(XmlWriter writer)
         {
+            writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.InputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
+            writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
             writer.WriteAttributeString("serial", this.ModuleSerial);
             writer.WriteAttributeString("name", this.DeviceName);
             writer.WriteAttributeString("type", this.DeviceType);

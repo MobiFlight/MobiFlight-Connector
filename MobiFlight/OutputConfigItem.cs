@@ -7,6 +7,7 @@ using MobiFlight.xplane;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -339,6 +340,9 @@ namespace MobiFlight
 
         public virtual void WriteXml(XmlWriter writer)
         {
+            writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.OutputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
+            writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
+
             writer.WriteStartElement("source");
                 if (SourceType == SourceType.FSUIPC)
                     this.FSUIPC.WriteXml(writer);
