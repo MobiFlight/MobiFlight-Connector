@@ -30,9 +30,9 @@ namespace MobiFlight.UI.Panels.Settings.Device
             initialized = true;
         }
 
-        public byte SelectedPin()
+        public uint SelectedPin()
         {
-            if (byte.TryParse(comboBox0.SelectedValue?.ToString(), out byte result))
+            if (uint.TryParse(comboBox0.SelectedValue?.ToString(), out uint result))
             {
                 return result;
             }
