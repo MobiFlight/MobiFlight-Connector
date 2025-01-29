@@ -51,7 +51,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       return (
         <div className="w-20 text-center">
           <Switch
-            className="h-5 w-10 dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700"
+            className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700"
             checked={row.getValue("Active") as boolean}
             onClick={() => {
               item.Active = !item.Active
@@ -70,7 +70,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 1,
     header: ({ column }) => {
       return (
-        <div className="flex w-80 items-center gap-4">
+        <div className="flex w-auto grow items-center gap-4">
           <span>Name / Description</span>
           <Button
             className="h-auto w-auto p-1"
@@ -94,6 +94,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
         setIsEditing(!isEditing)
       }
 
+      const moduleName = (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
+      const deviceName = (row.getValue("Device") as IDeviceConfig).Name ?? "-"
+
+
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const saveChanges = useCallback(() => {
         const item = row.original as IConfigItem
@@ -111,15 +115,18 @@ export const columns: ColumnDef<IConfigItem>[] = [
       }, [realLabel])
 
       return (
-        <div className="group flex w-80 cursor-pointer flex-row items-center gap-1">
+        <div className="group flex w-auto cursor-pointer flex-row items-center gap-1">
           {!isEditing ? (
-            <>
+            <div className="flex flex-col">
+            <div className="flex flex-row items-center gap-1">
               <p className="truncate font-semibold">{label}</p>
               <IconEdit
                 onClick={toggleEdit}
-                className="opacity-0 transition-opacity group-hover:opacity-100"
+                className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
               />
-            </>
+            </div>
+            <p className="md:hidden text-xs text-slate-500 truncate w-60">{moduleName} - {deviceName}</p>
+          </div>
           ) : (
             <>
               <Input
@@ -148,14 +155,14 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     accessorKey: "ModuleSerial",
-    header: () => <div className="w-32">Device</div>,
+    header: () => <div className="hidden lg:block w-32">Device</div>,
     cell: ({ row }) => {
       const label = (row.getValue("ModuleSerial") as string).split("/")[0]
       const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
       return !isEmpty(label) ? (
-        <div>
-          <p className="text-md w-32 truncate font-semibold">{label}</p>
-          <p className="w-32 truncate text-xs text-muted-foreground">
+        <div className="hidden lg:flex flex-col w-32">
+          <p className="text-md truncate font-semibold">{label}</p>
+          <p className="truncate text-xs text-muted-foreground">
             {serial}
           </p>
         </div>
@@ -172,7 +179,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     accessorKey: "Device",
-    header: () => <div className="w-32">Component</div>,
+    header: () => <div className="w-8 truncate md:w-32">Component</div>,
     cell: ({ row }) => {
       const label = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
       const type = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
@@ -183,11 +190,11 @@ export const columns: ColumnDef<IConfigItem>[] = [
         />
       )
       return type != "-" ? (
-        <div className="flex w-32 flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 md:w-32">
           <div>{icon}</div>
-          <div className="flex flex-col w-full">
-            <p className="text-md font-semibold truncate">{label}</p>
-            <p className="text-xs text-muted-foreground truncate">{type}</p>
+          <div className="hidden w-full flex-col md:flex">
+            <p className="text-md truncate font-semibold">{label}</p>
+            <p className="truncate text-xs text-muted-foreground">{type}</p>
           </div>
         </div>
       ) : (
@@ -233,7 +240,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     size: 100,
     accessorKey: "Status",
-    header: () => <div className="w-32">Status</div>,
+    header: () => <div className="w-26">Status</div>,
     cell: ({ row }) => {
       const Status = row.getValue("Status") as IDictionary<
         string,
@@ -246,7 +253,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
       return (
-        <div className="flex w-32 flex-row gap-0 lg:w-40">
+        <div className="flex w-28 flex-row gap-0">
           <IconAlertSquareRounded
             className={!Precondition ? "stroke-slate-200" : "stroke-red-700"}
           >
@@ -280,14 +287,14 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "RawValue",
     header: () => (
-      <div className="w-16 sm:hidden md:visible md:block lg:w-24">
+      <div className="w-16 hidden md:visible md:block lg:w-24">
         Raw Value
       </div>
     ),
     cell: ({ row }) => {
       const label = row.getValue("RawValue") as string
       return (
-        <div className="text-md w-16 truncate sm:hidden md:visible md:block lg:w-24">
+        <div className="text-md w-16 truncate hidden md:visible md:block lg:w-24">
           {!isEmpty(label) ? (
             label
           ) : (
@@ -304,17 +311,17 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "Value",
     header: () => (
-      <div className="w-16 sm:hidden md:block lg:w-24">Final Value</div>
+      <div className="w-16 hidden md:block lg:w-24">Final Value</div>
     ),
     cell: ({ row }) => {
       const label = row.getValue("Value") as string
       return (
-        <div className="text-md w-16 truncate sm:hidden md:block lg:w-24">
+        <div className="text-md w-16 truncate hidden md:block lg:w-24">
           {!isEmpty(label) ? (
             label
           ) : (
             <div className="item-center flex flex-row gap-2 text-slate-300">
-              <IconMathSymbols />
+              <IconMathSymbols className="animate-pulse" />
               <span>waiting</span>
             </div>
           )}
@@ -323,9 +330,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
   },
   {
-    size: 80,
     id: "actions",
-    header: "Actions",
+    header: () => (
+      <div className="w-10 sm:w-12 truncate">Actions</div>
+    ),
     cell: ({ row }) => {
       const item = row.original
       const { publish } = publishOnMessageExchange()

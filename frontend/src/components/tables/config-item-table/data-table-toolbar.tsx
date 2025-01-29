@@ -61,18 +61,18 @@ export function DataTableToolbar<TData>({
             options={devices}
           />
         )}
-        {table.getColumn("Device") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("Device")}
-            title="Component"
-            options={components}
-          />
-        )}
         {table.getColumn("Type") && (
           <DataTableFacetedFilter
             column={table.getColumn("Type")}
-            title="Component Type"
+            title="Type"
             options={types}
+          />
+        )}
+        {table.getColumn("Device") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("Device")}
+            title="Name"
+            options={components}
           />
         )}
         {isFiltered && (
