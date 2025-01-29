@@ -10,7 +10,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
     public partial class MFCustomDevicePanelPin : UserControl
     {
         private bool initialized = false;
-        
+
         public event EventHandler Changed;
 
         public MFCustomDevicePanelPin()
@@ -20,12 +20,12 @@ namespace MobiFlight.UI.Panels.Settings.Device
             comboBox0.SelectedIndexChanged += value_Changed;
         }
 
-        public MFCustomDevicePanelPin(String Label, List<MobiFlightPin> Pins, string pin): this()
+        public MFCustomDevicePanelPin(String Label, List<MobiFlightPin> Pins, string pin) : this()
         {
             if (pin == null) pin = Pins[0].Pin.ToString();
 
             ComboBoxHelper.BindMobiFlightFreePins(comboBox0, Pins, pin);
-            
+
             pinLabel.Text = Label;
             initialized = true;
         }
@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
             else
             {
-                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue?.ToString()}` to a byte", LogSeverity.Error);
+                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue}` to a byte", LogSeverity.Error);
                 return 0;
             }
         }
