@@ -38,7 +38,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
             else
             {
-                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue}` to a byte", LogSeverity.Error);
+                Log.Instance.log($"Unable to convert `{comboBox0.SelectedValue}` to a uint", LogSeverity.Error);
                 return 0;
             }
         }
