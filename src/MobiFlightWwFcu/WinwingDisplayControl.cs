@@ -156,7 +156,7 @@ namespace MobiFlight
                 ErrorMessageCreated?.Invoke(this, $"Error setting Winwing FCU LED name='{led}' to value='{state}'. Please check input.");
             }
         }
-              
+
         public void SendRequestFirmware()
         {
             MessageSender.SendRequestFirmwareMessage();           
