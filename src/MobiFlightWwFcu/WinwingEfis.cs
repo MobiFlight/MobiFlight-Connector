@@ -26,10 +26,10 @@ namespace MobiFlightWwFcu
 
         private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
         {
-            { "AllOn",    new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x23 } } },
-            { "AllOff",   new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x24 } } },
-            { "Half1On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x25 } } },
-            { "Half2On",  new MsgEntry { StartPos = 21, Mask = new byte[1], Data = new byte[] { 0x26 } } },
+            { "AllOn",    new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x23 } } },
+            { "AllOff",   new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x24 } } },
+            { "Half1On",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x25 } } },
+            { "Half2On",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x26 } } },
         };
 
         private Dictionary<char, byte[]> BaroNumberCodes = new Dictionary<char, byte[]>()
@@ -50,25 +50,25 @@ namespace MobiFlightWwFcu
             { 'd', new byte[] { 0b01101110 } },
         };
 
-        //                          Time                           Baro    Qxx
-        // f0000b 1a 0dbf 000002010000 eb7d1c 00000900000000000000 607d605b02 00000000000000000000000000000000000000000000000000000000000000000000
-        // 0                  xx       12     15  17    20      24 25      29 30   
+        //                           Time                           Baro    Qxx
+        // f0000b 1a 0dbf 0000 02010000 eb7d1c 00000900000000000000 607d605b02 00000000000000000000000000000000000000000000000000000000000000000000
+        // 0         4         8        12     15  17    20      24 25      29 30   
+        //           0         4        8      11  13    16      20 21      25 26 
 
         // f00009 2b 0dbf 000002010000 83ef1a 00000900000000000000 607d606302 0dbf 0000 0301 0000 83ef1a 0000000000000000000000000000000000000000000000
         //                                                                    Start of command 2 refresh
 
         private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
         {
-            { "BaroThousands",  new MsgEntry { StartPos = 25, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
-            { "BaroHundreds",   new MsgEntry { StartPos = 26, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7d } } },
-            { "BaroTens",       new MsgEntry { StartPos = 27, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
-            { "BaroOnes",       new MsgEntry { StartPos = 28, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7a } } },
-            { "InHgDecPoint",   new MsgEntry { StartPos = 26, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b10000000 } } },
-            { "InHgNoDecPoint", new MsgEntry { StartPos = 26, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b00000000 } } },
-            { "NoBaro",         new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x00 } } },
-            { "QfeBaro",        new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x01 } } },
-            { "QnhBaro",        new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x02 } } },
-            { "RefreshMessage", new MsgEntry { StartPos = 30, Mask = new byte[6], Data = new byte[] { 0x00, 0x00, 0x00, 0x00, 0x03, 0x01 } } },
+            { "BaroThousands",  new MsgEntry { StartPos = 21, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
+            { "BaroHundreds",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7d } } },
+            { "BaroTens",       new MsgEntry { StartPos = 23, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x60 } } },
+            { "BaroOnes",       new MsgEntry { StartPos = 24, Mask = new byte[] { 0b10000000 }, Data = new byte[] { 0x7a } } },
+            { "InHgDecPoint",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b10000000 } } },
+            { "InHgNoDecPoint", new MsgEntry { StartPos = 22, Mask = new byte[] { 0b01111111 }, Data = new byte[] { 0b00000000 } } },
+            { "NoBaro",         new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x00 } } },
+            { "QfeBaro",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x01 } } },
+            { "QnhBaro",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00000000 }, Data = new byte[] { 0x02 } } },           
         };
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
@@ -79,47 +79,48 @@ namespace MobiFlightWwFcu
         
         private byte[] LightMessageData = new byte[2];
 
-        private byte[] DisplayTestMessage = new byte[64];
-        // Refresh is done as a second command as part of SetValuesMessage.
-        private byte[] SetValuesMessage = new byte[64];      
+        private byte[] DisplayTestCommand = new byte[0x12];
+        private byte[] RefreshCommand = new byte[0x11];
+        private byte[] SetValuesCommand = new byte[0x1a];        
 
         public WinwingEfis(WinwingMessageSender sender, string efisType)
         {
             MessageSender = sender;
             EfisType = efisType;
 
-            int DEST_ADDRESS_POS = 4;
-            int DEST_ADDRESS_CMD2_POS = 30;
-            int PAYLOAD_LENGTH_POS = 17;
-            
-            // Init DisplayTestMessage. MessageLength: 0x12, MessageId: 0x04, 0x01
-            byte[] initDisplayTest = new byte[] { 0xf0, 0x00, 0x00, 0x12, 0x00, 0x00, 0x00, 0x00, 0x04, 0x01 };
-            initDisplayTest.CopyTo(DisplayTestMessage, 0);
-            DisplayTestMessage[PAYLOAD_LENGTH_POS] = 0x01;
+            // Init DisplayTestCommand.
+            var initDisplayTest = new List<byte> { 0x00, 0x00, 0x00, 0x00 };
+            initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
+            initDisplayTest.CopyTo(DisplayTestCommand, 0);
 
-            // Init SetValuesMessage MessageLength: 0x1a, MessageId: 0x02, 0x01
-            byte[] initSetValues = new byte[] { 0xf0, 0x00, 0x00, 0x1a, 0x00, 0x00, 0x00, 0x00, 0x02, 0x01 };
-            initSetValues.CopyTo(SetValuesMessage, 0);
-            SetValuesMessage[PAYLOAD_LENGTH_POS] = 0x09;
+            // Init SetValuesCommand 
+            var initSetValues = new List<byte >{ 0x00, 0x00, 0x00, 0x00 };
+            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_E"]);           
+            initSetValues.CopyTo(SetValuesCommand, 0);
+
+            // Init RefreshCommand
+            var initRefresh = new List<byte> { 0x00, 0x00, 0x00, 0x00 };
+            initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);            
+            initRefresh.CopyTo(RefreshCommand, 0);
 
             foreach (var entry in DisplaySetValuesData.Values)
             {
-                SetBytesDisplayMessage(entry, SetValuesMessage);
+                SetBytesDisplayCommand(entry, SetValuesCommand);
             }
 
             if (EfisType == WinwingConstants.EFISL_NAME)
             {
                 DestinationAddressLighting = WinwingConstants.DEST_EFISL;
-                WinwingConstants.DEST_EFISL.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);                              
-                WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_POS);
-                WinwingConstants.DEST_EFISL.CopyTo(SetValuesMessage, DEST_ADDRESS_CMD2_POS);         
+                WinwingConstants.DEST_EFISL.CopyTo(DisplayTestCommand, 0);                              
+                WinwingConstants.DEST_EFISL.CopyTo(SetValuesCommand, 0);
+                WinwingConstants.DEST_EFISL.CopyTo(RefreshCommand, 0);
             }
             else if (EfisType == WinwingConstants.EFISR_NAME) 
             {
                 DestinationAddressLighting = WinwingConstants.DEST_EFISR;
-                WinwingConstants.DEST_EFISR.CopyTo(DisplayTestMessage, DEST_ADDRESS_POS);
-                WinwingConstants.DEST_EFISR.CopyTo(SetValuesMessage, DEST_ADDRESS_POS);
-                WinwingConstants.DEST_EFISR.CopyTo(SetValuesMessage, DEST_ADDRESS_CMD2_POS);
+                WinwingConstants.DEST_EFISR.CopyTo(DisplayTestCommand, 0);
+                WinwingConstants.DEST_EFISR.CopyTo(SetValuesCommand, 0);
+                WinwingConstants.DEST_EFISL.CopyTo(RefreshCommand, 0);
             }
            
             LedIdentifiers = new Dictionary<string, byte>()
@@ -157,9 +158,11 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {
-            SendDisplayMessage(SetValuesMessage); // Init display
+            SendDisplayCommand(SetValuesCommand); // Init display
             SetBacklightBrightness("20");
-            SetLcdBrightness("100");           
+            SetLcdBrightness("100");
+
+            //LcdTest("AllOff"); // used for testing
         }
 
         public void Shutdown()
@@ -221,28 +224,28 @@ namespace MobiFlightWwFcu
             baroTens.Data = BaroNumberCodes[baroChars[2]];
             baroOnes.Data = BaroNumberCodes[baroChars[3]];
 
-            SetBytesDisplayMessage(baroThousands, SetValuesMessage);
-            SetBytesDisplayMessage(baroHundreds, SetValuesMessage);
-            SetBytesDisplayMessage(baroTens, SetValuesMessage);
-            SetBytesDisplayMessage(baroOnes, SetValuesMessage);
+            SetBytesDisplayCommand(baroThousands, SetValuesCommand);
+            SetBytesDisplayCommand(baroHundreds, SetValuesCommand);
+            SetBytesDisplayCommand(baroTens, SetValuesCommand);
+            SetBytesDisplayCommand(baroOnes, SetValuesCommand);
             if (!isStd)
             {
                 if (isInHg)
                 {
-                    SetBytesDisplayMessage(DisplaySetValuesData["InHgDecPoint"], SetValuesMessage);
+                    SetBytesDisplayCommand(DisplaySetValuesData["InHgDecPoint"], SetValuesCommand);
                 }
                 else
                 {
-                    SetBytesDisplayMessage(DisplaySetValuesData["InHgNoDecPoint"], SetValuesMessage);
+                    SetBytesDisplayCommand(DisplaySetValuesData["InHgNoDecPoint"], SetValuesCommand);
                 }
             }
             else
             {                
-                SetBytesDisplayMessage(DisplaySetValuesData["InHgNoDecPoint"], SetValuesMessage);
-                SetBytesDisplayMessage(DisplaySetValuesData["NoBaro"], SetValuesMessage);
+                SetBytesDisplayCommand(DisplaySetValuesData["InHgNoDecPoint"], SetValuesCommand);
+                SetBytesDisplayCommand(DisplaySetValuesData["NoBaro"], SetValuesCommand);
             }
 
-            SendDisplayMessage(SetValuesMessage);
+            SendDisplayCommand(SetValuesCommand);
         }
 
         private void SetBaroHpa(string baro)
@@ -278,7 +281,7 @@ namespace MobiFlightWwFcu
                 SetBaroInternal(new char[] { 'S', 't', 'd', '*' }, false, true);
             }
             ResetBaroCache();
-            SendDisplayMessage(SetValuesMessage);
+            SendDisplayCommand(SetValuesCommand);
         }
 
         private void SetQfeOnOff(string qfe)
@@ -288,32 +291,32 @@ namespace MobiFlightWwFcu
                 int isQfe = (int)Convert.ToDouble(qfe, CultureInfo.InvariantCulture);
                 if (isQfe == 1)
                 {
-                    SetBytesDisplayMessage(DisplaySetValuesData["QfeBaro"], SetValuesMessage);
+                    SetBytesDisplayCommand(DisplaySetValuesData["QfeBaro"], SetValuesCommand);
                 }
                 else
                 {
-                    SetBytesDisplayMessage(DisplaySetValuesData["QnhBaro"], SetValuesMessage);
+                    SetBytesDisplayCommand(DisplaySetValuesData["QnhBaro"], SetValuesCommand);
                 }
-                SendDisplayMessage(SetValuesMessage);
+                SendDisplayCommand(SetValuesCommand);
             }
         }
 
-        private void PrepareAndSendDisplayTestMessage(MsgEntry entry)
+        private void PrepareAndSendDisplayTestCommand(MsgEntry entry)
         {
-            SetBytesDisplayMessage(entry, DisplayTestMessage);
-            SendDisplayMessage(DisplayTestMessage);
+            SetBytesDisplayCommand(entry, DisplayTestCommand);
+            SendDisplayCommand(DisplayTestCommand);
         }
 
         private void EmptyDisplay()
         {
-            var resetMsg = new MsgEntry { StartPos = 25, Mask = new byte[5], Data = new byte[5] };
-            SetBytesDisplayMessage(resetMsg, SetValuesMessage);
-            SendDisplayMessage(SetValuesMessage);
+            var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[5], Data = new byte[5] };
+            SetBytesDisplayCommand(resetMsg, SetValuesCommand);
+            SendDisplayCommand(SetValuesCommand);
         }
 
-        private void SendDisplayMessage(byte[] message)
+        private void SendDisplayCommand(byte[] message)
         {
-            MessageSender.SendTwoDisplayCommandsInOneMessage(message);
+            MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
         }
 
         private void SetAnnunciatorLightOnOff(string annLight)
@@ -321,11 +324,11 @@ namespace MobiFlightWwFcu
             int myAnnLight = (int)Convert.ToDouble(annLight, CultureInfo.InvariantCulture);
             if (myAnnLight == 1)
             {
-                PrepareAndSendDisplayTestMessage(DisplayTestCommands["AllOn"]);
+                PrepareAndSendDisplayTestCommand(DisplayTestCommands["AllOn"]);
             }
             else
             {
-                SendDisplayMessage(SetValuesMessage);
+                SendDisplayCommand(SetValuesCommand);
             }
         }
 
@@ -355,7 +358,13 @@ namespace MobiFlightWwFcu
             SetBrightnessInternal(0x01, brightness);
         }
 
-        private void SetBytesDisplayMessage(MsgEntry msgEntry, byte[] message)
+        // "AllOn", "AllOff", "Half1On", "Half2On"        
+        private void LcdTest(string command)
+        {
+            PrepareAndSendDisplayTestCommand(DisplayTestCommands[command]);
+        }
+
+        private void SetBytesDisplayCommand(MsgEntry msgEntry, byte[] message)
         {
             byte setPos = msgEntry.StartPos;
             for (int i = 0; i < msgEntry.Data.Length; i++)

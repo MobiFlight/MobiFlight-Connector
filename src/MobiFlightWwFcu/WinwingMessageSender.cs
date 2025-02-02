@@ -1,5 +1,6 @@
 ﻿using HidSharp;
 using System;
+using System.Collections.Generic;
 
 namespace MobiFlightWwFcu
 {
@@ -51,39 +52,58 @@ namespace MobiFlightWwFcu
             }
         }
 
-        /// <summary>
-        /// Send display message
-        /// </summary>
-        /// <param name="message">Message with 64 bytes. First byte report id 0xf0</param>
-        internal void SendDisplayMessage(byte[] message)
+        internal byte[] GetNewMessage()
         {
-            byte[] time = GetTimeAsBytes();
+            byte[] message = new byte[64];
+            message[0] = 0xf0;
             message[2] = ++Counter;
-            message[12] = time[0];
-            message[13] = time[1];
-            message[14] = time[2];        
-            WriteStream(message, 0, 64);
+            return message;
         }
 
-        internal void SendTwoDisplayCommandsInOneMessage(byte[] message)
+        internal void SendDisplayCommands(IList<byte[]> commands)
         {
-            byte[] time = GetTimeAsBytes();
-            message[2] = ++Counter;
-            message[12] = time[0];
-            message[13] = time[1];
-            message[14] = time[2];
+            // One command has minimum of 17 bytes with no command data. 
+            // Max Länge einer Message ist 0x38 bytes.
+            // 4 bytes head - 56 bytes content (0x38) - 4 not used bytes at the end. == 64 bytes in total
+            int indexHeaderEnd = 3;
+            byte[] id = GetTimeAsBytes();
+            byte[] message = GetNewMessage();
+            int currentMessageIndex = indexHeaderEnd;
 
-            int startData = 21;
-            int dataLength = message[17]; // data length command 1
-            int startNextCommand = startData + dataLength; // start command 2
-            int timeOffsetCommandTwo = startNextCommand + 8;
+            for (int k = 0; k < commands.Count; k++)
+            {
+                byte[] command = commands[k];
+                for (int i = 0; i < command.Length; i++)
+                {
+                    ++currentMessageIndex;
+                    if (i == 8)
+                    {
+                        message[currentMessageIndex] = id[0];
+                    }
+                    else if (i == 9)
+                    {
+                        message[currentMessageIndex] = id[1];
+                    }
+                    else if (i == 10)
+                    {
+                        message[currentMessageIndex] = id[2];
+                    }
+                    else
+                    {
+                        message[currentMessageIndex] = command[i];
+                    }
 
-            // Use same message id for message 2
-            message[timeOffsetCommandTwo] = time[0];
-            message[timeOffsetCommandTwo + 1] = time[1];
-            message[timeOffsetCommandTwo + 2] = time[2];
-
-            WriteStream(message, 0, 64);
+                    bool isOverallLastByte = (k == commands.Count - 1) && (i == command.Length - 1);
+                    if (currentMessageIndex == 59 || isOverallLastByte)
+                    {
+                        // Message ready to send. Set message data length.
+                        message[indexHeaderEnd] = (byte)(currentMessageIndex - indexHeaderEnd);
+                        WriteStream(message, 0, 64);
+                        message = GetNewMessage();
+                        currentMessageIndex = indexHeaderEnd;
+                    }
+                }
+            }
         }
 
         /// <summary>
