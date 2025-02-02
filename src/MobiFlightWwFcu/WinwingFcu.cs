@@ -12,6 +12,8 @@ namespace MobiFlightWwFcu
 
         private WinwingMessageSender MessageSender = null;
 
+        private byte[] DestinationAddress = WinwingConstants.DEST_FCU;
+
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
 
         private const string SPEED = "Speed Value";
@@ -147,9 +149,7 @@ namespace MobiFlightWwFcu
 
         private byte[] DisplayTestCommand = new byte[0x12];
         private byte[] RefreshCommand = new byte[0x11];
-        private byte[] SetValuesCommand = new byte[0x31];
-
-        private byte[] LightMessageData = new byte[2];
+        private byte[] SetValuesCommand = new byte[0x31];   
 
         public WinwingFcu(WinwingMessageSender sender)
         {
@@ -189,18 +189,21 @@ namespace MobiFlightWwFcu
 
         private void PrepareCommands()
         {
-            // Init DisplayTestCommand.
-            var initDisplayTest = new List<byte> { 0x10, 0xbb, 0x00, 0x00 };
+            // Init DisplayTestCommand
+            var initDisplayTest = new List<byte>(DestinationAddress);
+            initDisplayTest.AddRange(new byte[2]);
             initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
             initDisplayTest.CopyTo(DisplayTestCommand, 0);
 
             // Init SetValuesCommand 
-            var initSetValues = new List<byte> { 0x10, 0xbb, 0x00, 0x00 };
+            var initSetValues = new List<byte>(DestinationAddress);
+            initSetValues.AddRange(new byte[2]);
             initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201"]);
             initSetValues.CopyTo(SetValuesCommand, 0);
 
-            // Init RefreshCommand 
-            var initRefresh = new List<byte> { 0x10, 0xbb, 0x00, 0x00 };
+            // Init RefreshCommand
+            var initRefresh = new List<byte>(DestinationAddress);
+            initRefresh.AddRange(new byte[2]);
             initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
             initRefresh.CopyTo(RefreshCommand, 0);
 
@@ -244,10 +247,9 @@ namespace MobiFlightWwFcu
         {
             if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)
             {
-                LedCurrentValuesCache[led] = state;
-                LightMessageData[0] = LedIdentifiers[led];
-                LightMessageData[1] = state == 0 ? (byte)0 : (byte)1;
-                MessageSender.SendLightControlMessage(WinwingConstants.DEST_FCU, LightMessageData);
+                LedCurrentValuesCache[led] = state;           
+                byte stateAdjusted = state == 0 ? (byte)0 : (byte)1;
+                MessageSender.SendLightControlMessage(DestinationAddress, LedIdentifiers[led], stateAdjusted);
             }
         }
 
@@ -273,32 +275,20 @@ namespace MobiFlightWwFcu
                 SendDisplayCommand(SetValuesCommand);
             }
         }
-
-        private void SetBrightnessInternal(byte type, string brightness)
-        {
-            // Input should be 0 to 100 percent - scale to 0..255
-            int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));
-            byte byteValue = value >= 255 ? (byte)255 : (byte)value;
-
-            LightMessageData[0] = type;
-            LightMessageData[1] = byteValue;
-            MessageSender.SendLightControlMessage(WinwingConstants.DEST_FCU, LightMessageData);
-        }
-
         private void SetLedBrightness(string brightness)
         {
-            SetBrightnessInternal(0x11, brightness);
+            MessageSender.SetBrightness(DestinationAddress, 0x11, brightness);
         }
 
         private void SetBacklightBrightness(string brightness)
         {
-            SetBrightnessInternal(0x00, brightness);
-            SetBrightnessInternal(0x1e, brightness); // EXPED
+            MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
+            MessageSender.SetBrightness(DestinationAddress, 0x1e, brightness); // EXPED
         }
 
         private void SetLcdBrightness(string brightness)
         {
-            SetBrightnessInternal(0x01, brightness);
+            MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
         }
 
         private void PrepareAndSendDisplayTestCommand(MsgEntry entry)

@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace MobiFlightWwFcu
 {
@@ -106,21 +107,32 @@ namespace MobiFlightWwFcu
             }
         }
 
+
         /// <summary>
         /// Send a light control message
         /// </summary>
         /// <param name="destination">Destination device as 2 bytes</param>
-        /// <param name="data">Data as 2 bytes</param>
-        internal void SendLightControlMessage(byte[] destination, byte[] data) 
+        /// <param name="type">Type as byte</param>
+        /// <param name="value">Value as byte</param>
+        internal void SendLightControlMessage(byte[] destination, byte type, byte value)
         {
             // Update message
             LightControlMessage[1] = destination[0];
             LightControlMessage[2] = destination[1];
-            LightControlMessage[7] = data[0];
-            LightControlMessage[8] = data[1];
+            LightControlMessage[7] = type;
+            LightControlMessage[8] = value;
 
             // Send message
             WriteStream(LightControlMessage, 0, 14);
+        }
+
+
+        internal void SetBrightness(byte[] destinationAddress, byte type, string brightness)
+        {
+            // Input should be 0 to 100 percent - scale to 0..255
+            int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));
+            byte byteValue = value >= 255 ? (byte)255 : (byte)value;
+            SendLightControlMessage(destinationAddress, type, byteValue);
         }
 
         internal void SendHeartBeatMessage()
