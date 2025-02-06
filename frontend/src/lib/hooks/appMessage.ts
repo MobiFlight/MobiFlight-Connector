@@ -20,6 +20,7 @@ export const useAppMessage = (
     const onReveiveMessageHandler = (event: Event) => {
       try {
         const appMessage = (event as MessageEvent).data as AppMessage
+        console.log(`Received AppMessage -> ${appMessage.payload.ConfigItems}`)
         if (appMessage.key === key) {
         onReceiveMessage(appMessage)
         }

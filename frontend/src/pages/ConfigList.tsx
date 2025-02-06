@@ -31,11 +31,9 @@ const ConfigListPage = () => {
   // while developing the UI
   useEffect(() => {
     if (process.env.NODE_ENV === "development") {
-      if (configItems.length === 0) {
-        setItems(testdata)
-      }
+      setItems(testdata)
     }
-  })
+  },[setItems])
 
   return (
     // <div className='flex flex-col gap-4 overflow-y-auto'>
