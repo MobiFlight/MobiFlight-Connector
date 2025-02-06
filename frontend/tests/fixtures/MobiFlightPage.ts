@@ -1,7 +1,6 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
-import { AppMessage, AppMessageKey, Message } from "@/types/messages"
+import { AppMessage } from "@/types/messages"
 import type { Page } from "@playwright/test"
-import { on } from "events"
 
 export class MobiFlightPage {
   constructor(public readonly page: Page) {

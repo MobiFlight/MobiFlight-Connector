@@ -52,7 +52,7 @@ export class ConfigListPage {
           } as ConfigValueUpdate,
         };
         
-        (window as any).postMessage(response, "*")
+        (window as Window).postMessage(response, "*")
       },
     )
   }
