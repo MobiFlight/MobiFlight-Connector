@@ -21,6 +21,7 @@ import {
   IconFlask,
   IconMathSymbols,
   IconPlugConnectedX,
+  IconRouteOff,
   IconX,
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
@@ -43,13 +44,13 @@ import { Input } from "@/components/ui/input"
 export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "Active",
-    header: () => <div className="w-20 text-center">Active</div>,
+    header: () => <div className="w-20 text-center select-none">Active</div>,
     cell: ({ row }) => {
       const { publish } = publishOnMessageExchange()
       const item = row.original as IConfigItem
 
       return (
-        <div className="w-20 text-center">
+        <div className="w-20 text-center select-none">
           <Switch
             className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700"
             checked={row.getValue("Active") as boolean}
@@ -70,7 +71,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 1,
     header: ({ column }) => {
       return (
-        <div className="flex w-auto grow items-center gap-4">
+        <div className="flex w-auto grow items-center gap-4 select-none">
           <span>Name / Description</span>
           <Button
             className="h-auto w-auto p-1"
@@ -94,9 +95,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
         setIsEditing(!isEditing)
       }
 
-      const moduleName = (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
+      const moduleName =
+        (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
       const deviceName = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
-
 
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const saveChanges = useCallback(() => {
@@ -115,25 +116,28 @@ export const columns: ColumnDef<IConfigItem>[] = [
       }, [realLabel])
 
       return (
-        <div className="group flex w-auto cursor-pointer flex-row items-center gap-1">
+        <div className="group flex w-auto cursor-pointer flex-row items-center gap-1 select-none">
           {!isEditing ? (
             <div className="flex flex-col">
-            <div className="flex flex-row items-center gap-1">
-              <p className="truncate font-semibold max-w-60">{label}</p>
-              <IconEdit
-                role="button"
-                aria-label="Edit"
-                onClick={toggleEdit}
-                className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
-              />
+              <div className="flex flex-row items-center gap-1">
+                <p className="max-w-60 truncate font-semibold px-0">{label}</p>
+                <IconEdit
+                  role="button"
+                  aria-label="Edit"
+                  onClick={toggleEdit}
+                  className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+                />
+              </div>
+              <p className="w-60 truncate text-xs text-slate-500 md:hidden">
+                {moduleName} - {deviceName}
+              </p>
             </div>
-            <p className="md:hidden text-xs text-slate-500 truncate w-60">{moduleName} - {deviceName}</p>
-          </div>
           ) : (
-            <>
+            <div className="flex flex-row items-center gap-1">
               <Input
                 type="text"
                 value={label}
+                className="text-sm h-6 md:h-8 px-2"
                 onChange={(e) => setLabel(e.target.value)}
               />
               <IconCircleCheck
@@ -153,7 +157,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
                   toggleEdit()
                 }}
               />
-            </>
+            </div>
           )}
         </div>
       )
@@ -161,19 +165,17 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     accessorKey: "ModuleSerial",
-    header: () => <div className="hidden lg:block w-32">Device</div>,
+    header: () => <div className="hidden w-32 lg:block select-none">Device</div>,
     cell: ({ row }) => {
       const label = (row.getValue("ModuleSerial") as string).split("/")[0]
       const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
       return !isEmpty(label) ? (
-        <div className="hidden lg:flex flex-col w-32">
+        <div className="hidden w-32 flex-col lg:flex select-none">
           <p className="text-md truncate font-semibold">{label}</p>
-          <p className="truncate text-xs text-muted-foreground">
-            {serial}
-          </p>
+          <p className="truncate text-xs text-muted-foreground">{serial}</p>
         </div>
       ) : (
-        <span className="hidden lg:flex item-center flex-row gap-2 text-slate-400">
+        <span className="item-center hidden flex-row gap-2 text-slate-400 lg:flex select-none">
           <IconBan />
           <span>not set</span>
         </span>
@@ -185,7 +187,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     accessorKey: "Device",
-    header: () => <div className="w-8 truncate md:w-32">Component</div>,
+    header: () => <div className="w-8 truncate md:w-32 select-none">Component</div>,
     cell: ({ row }) => {
       const label = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
       const type = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
@@ -196,7 +198,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         />
       )
       return type != "-" ? (
-        <div className="flex flex-row items-center gap-2 md:w-32">
+        <div className="flex flex-row items-center gap-2 md:w-32 select-none">
           <div>{icon}</div>
           <div className="hidden w-full flex-col md:flex">
             <p className="text-md truncate font-semibold">{label}</p>
@@ -204,7 +206,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
           </div>
         </div>
       ) : (
-        <div className="item-center flex flex-row gap-2 text-slate-400">
+        <div className="item-center flex flex-row gap-2 text-slate-400 select-none">
           <IconBan />
           <span>not set</span>
         </div>
@@ -217,10 +219,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     size: 80,
     accessorKey: "Type",
-    header: () => <div className="w-20">Component Type</div>,
+    header: () => <div className="w-20 select-none">Component Type</div>,
     cell: ({ row }) => {
       const label = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
-      return <p className="text-md font-semibold">test {label}</p>
+      return <p className="text-md font-semibold select-none">{label}</p>
     },
     filterFn: (row, _, value) => {
       return value.includes(
@@ -246,7 +248,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     size: 100,
     accessorKey: "Status",
-    header: () => <div className="w-26">Status</div>,
+    header: () => <div className="w-26 select-none">Status</div>,
     cell: ({ row }) => {
       const Status = row.getValue("Status") as IDictionary<
         string,
@@ -260,42 +262,49 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
       return (
-        <div className="flex w-28 flex-row gap-0">
+        <div className="flex w-28 flex-row gap-0 select-none">
           <IconAlertSquareRounded
             role="status"
             aria-disabled={!Precondition}
             className={!Precondition ? "stroke-slate-100" : "stroke-red-700"}
-            >
+          >
             normal
           </IconAlertSquareRounded>
           <IconBuildingBroadcastTower
             role="status"
             aria-disabled={!Source}
             className={!Source ? "stroke-slate-100" : "stroke-red-700"}
-            >
+          >
             normal
           </IconBuildingBroadcastTower>
           <IconPlugConnectedX
             role="status"
             aria-disabled={!Device}
-            className={!Device ? " stroke-slate-100" : "stroke-red-700"}
-            >
+            className={!Device ? "stroke-slate-100" : "stroke-red-700"}
+          >
             normal
           </IconPlugConnectedX>
           <IconMathSymbols
             aria-disabled={!Modifier}
             role="status"
-            className={!Modifier ? " stroke-slate-100" : "stroke-red-700"}
-            >
+            className={!Modifier ? "stroke-slate-100" : "stroke-red-700"}
+          >
             normal
           </IconMathSymbols>
           <IconFlask
             aria-disabled={!Test}
             role="status"
-            className={!Test ? " stroke-slate-100" : "stroke-red-700"}
+            className={!Test ? "stroke-slate-100" : "stroke-red-700"}
           >
             normal
           </IconFlask>
+          <IconRouteOff
+            aria-disabled={!ConfigRef}
+            role="status"
+            className={!ConfigRef ? "stroke-slate-100" : "stroke-red-700"}
+          >
+            normal
+          </IconRouteOff>
         </div>
       )
     },
@@ -304,14 +313,12 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "RawValue",
     header: () => (
-      <div className="w-16 hidden md:visible md:block lg:w-24">
-        Raw Value
-      </div>
+      <div className="hidden w-16 md:visible md:block lg:w-24 select-none">Raw Value</div>
     ),
     cell: ({ row }) => {
       const label = row.getValue("RawValue") as string
       return (
-        <div className="text-md w-16 truncate hidden md:visible md:block lg:w-24">
+        <div className="text-md hidden w-16 truncate md:visible md:block lg:w-24 select-none">
           {!isEmpty(label) ? (
             label
           ) : (
@@ -328,12 +335,12 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "Value",
     header: () => (
-      <div className="w-16 hidden md:block lg:w-24">Final Value</div>
+      <div className="hidden w-16 md:block lg:w-24 select-none">Final Value</div>
     ),
     cell: ({ row }) => {
       const label = row.getValue("Value") as string
       return (
-        <div className="text-md w-16 truncate hidden md:block lg:w-24">
+        <div className="text-md hidden w-16 truncate md:block lg:w-24 select-none">
           {!isEmpty(label) ? (
             label
           ) : (
@@ -348,9 +355,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     id: "actions",
-    header: () => (
-      <div className="w-10 sm:w-12 truncate">Actions</div>
-    ),
+    header: () => <div className="w-10 truncate sm:w-12 select-none">Actions</div>,
     cell: ({ row }) => {
       const item = row.original
       const { publish } = publishOnMessageExchange()

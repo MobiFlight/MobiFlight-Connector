@@ -27,7 +27,7 @@ export function DataTableToolbar<TData>({
   )
   const components = [...new Set(items.map((item) => item.Device?.Name))].map(
     (component) => ({
-      label: isEmpty(component) ? "-" : component,
+      label: isEmpty(component) ? "-" : component!,
       value: component ?? "-",
     }),
   )

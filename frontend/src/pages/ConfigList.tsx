@@ -1,6 +1,6 @@
 import { useConfigStore } from "@/stores/configFileStore"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { DataTable } from "@/components/tables/config-item-table/config-item-table"
+import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
 import { useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
@@ -35,7 +35,7 @@ const ConfigListPage = () => {
         setItems(testdata)
       }
     }
-  }, [])
+  })
 
   return (
     // <div className='flex flex-col gap-4 overflow-y-auto'>
@@ -47,7 +47,7 @@ const ConfigListPage = () => {
     //     </div>
     //     <TabsContent value="config-1" className='mt-0 flex flex-col grow overflow-y-auto'>
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <DataTable columns={columns} data={configItems} />
+      <ConfigItemTable columns={columns} data={configItems} />
     </div>
     //     </TabsContent>
     //   </Tabs>

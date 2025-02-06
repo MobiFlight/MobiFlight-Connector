@@ -25,7 +25,7 @@ import { DataTableToolbar } from "./data-table-toolbar"
 import { ConfigValueUpdate, IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
-import { CommandAddConfigItem } from "@/types/messages"
+import { CommandAddConfigItem } from "@/types/commands"
 import { useConfigStore } from "@/stores/configFileStore"
 
 interface DataTableProps<TData, TValue> {
@@ -33,7 +33,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
 }
 
-export function DataTable<TData, TValue>({
+export function ConfigItemTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -150,7 +150,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-start gap-2 p-2">
+      <div className="flex justify-start gap-2 p-2 select-none">
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
