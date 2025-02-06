@@ -417,7 +417,6 @@ namespace MobiFlight
             OutputConfigItems.ForEach(cfg => cfg.Status.Clear());
             InputConfigItems.ForEach(cfg => cfg.Status.Clear());
 
-            // MessageExchange.Instance.Publish(new ConfigFile() { InputConfigItems = InputConfigItems, OutputConfigItems = OutputConfigItems });
             ClearErrorMessages();
         }
 
@@ -602,8 +601,16 @@ namespace MobiFlight
 
                 // Don't execute a config that we are currently manually testing.
                 var currentGuid = cfg.GUID;
+                var originalCfg = cfg.Clone() as ConfigItem;
+                cfg.Status.Clear();
+                
                 if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == currentGuid)
                 {
+                    cfg.Status[ConfigItemStatusType.Test] = "TESTING";
+                    if (!cfg.Equals(originalCfg))
+                    {
+                        updatedValues[cfg.GUID] = cfg;
+                    }
                     continue;
                 }
 
@@ -636,11 +643,6 @@ namespace MobiFlight
                 ConnectorValue value = ExecuteRead(cfg);
                 ConnectorValue processedValue = value;
 
-                // store the values for the input precondition checks
-                updatedValues[currentGuid] = cfg.Clone() as ConfigItem;
-                updatedValues[currentGuid].RawValue = value.ToString();
-                updatedValues[currentGuid].Value = processedValue.ToString();
-
                 cfg.RawValue = value.ToString();
                 cfg.Value = processedValue.ToString();
                 
@@ -658,14 +660,14 @@ namespace MobiFlight
                 {
                     Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
                     cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
-                    MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { cfg } });
+                    if (!cfg.Equals(originalCfg))
+                    {
+                        updatedValues[cfg.GUID] = cfg;
+                    }
                     continue;
                 }
 
                 cfg.Status.Remove(ConfigItemStatusType.Modifier);
-
-                // processedValue now has changed, so we need to update the value in the cache
-                updatedValues[currentGuid].Value = processedValue.ToString();
                 cfg.Value = processedValue.ToString();
 
                 try
@@ -678,7 +680,10 @@ namespace MobiFlight
                             if (!cfg.Status.ContainsKey(ConfigItemStatusType.Precondition) || cfg.Status[ConfigItemStatusType.Precondition] != "not satisfied")
                             {
                                 cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
-                                MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { cfg } });
+                            }
+                            if (!cfg.Equals(originalCfg))
+                            {
+                                updatedValues[cfg.GUID] = cfg;
                             }
                             continue;
                         }
@@ -714,31 +719,19 @@ namespace MobiFlight
                     // row.ErrorText = exc.Message;
                     throw resultExc;
                 }
+
+                if(!originalCfg.Equals(cfg))
+                {
+                    updatedValues[cfg.GUID] = cfg;
+                }
             }
 
             if (updatedValues.Count > 0)
             {
-                // we have to compare updatedValues with lastUpdatedValues
-                // and only publish the changes using the MessageExchange
-                var changedValues = updatedValues
-                                    .Where(
-                                        kv => (
-                                            !lastUpdatedValues.ContainsKey(kv.Key) ||
-                                            kv.Value.Value != lastUpdatedValues[kv.Key].Value ||
-                                            kv.Value.RawValue != lastUpdatedValues[kv.Key].RawValue ||
-                                            kv.Value.Status.Keys.ToString() != lastUpdatedValues[kv.Key].Status.Keys.ToString()
-                                        )
-                                    )
-                                    .ToDictionary(kv => kv.Key, kv => kv.Value);
-                if (changedValues.Count > 0)
-                {
-                    // TODO: EMIT Event
-                    var update = new ConfigValueUpdate() { ConfigItems = changedValues.Values.ToList() };
-                    MessageExchange.Instance.Publish(update);
-                }
+                // TODO: EMIT Event
+                var update = new ConfigValueUpdate() { ConfigItems = updatedValues.Values.ToList() };
+                MessageExchange.Instance.Publish(update);
             }
-
-            lastUpdatedValues = updatedValues;
 
             UpdateInputPreconditions();
 
@@ -1459,7 +1452,7 @@ namespace MobiFlight
 
         private void ClearErrorMessages()
         {
-            // TODO: REDESIGN: Review
+            MessageExchange.Instance.Publish(new ConfigFile() { InputConfigItems = InputConfigItems, OutputConfigItems = OutputConfigItems });
         }
 
 #if MOBIFLIGHT

@@ -2,6 +2,7 @@
 using MobiFlight.Modifier;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Base
 {
@@ -19,6 +20,7 @@ namespace MobiFlight.Base
         string Value { get; set; }
         IDeviceConfig Device { get; }
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
+        bool Equals(IConfigItem item);
     }
 
     [JsonConverter(typeof(ConfigItemConverter))]
@@ -59,6 +61,7 @@ namespace MobiFlight.Base
             ConfigRefs = new ConfigRefList();
             RawValue = "";
             Value = "";
+            Status = new Dictionary<ConfigItemStatusType, string>();
         }
 
         protected ConfigItem(ConfigItem item)
@@ -72,6 +75,22 @@ namespace MobiFlight.Base
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
             RawValue = item.RawValue.Clone() as string;
             Value = item.Value.Clone() as string;
+            Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
+        }
+
+        public virtual bool Equals(IConfigItem item)
+        {
+            return item != null &&
+                GUID == item.GUID &&
+                Active == item.Active &&
+                Name == item.Name &&
+                ModuleSerial == item.ModuleSerial &&
+                Preconditions.Equals(item.Preconditions) &&
+                Modifiers.Equals(item.Modifiers) &&
+                ConfigRefs.Equals(item.ConfigRefs) &&
+                RawValue == item.RawValue &&
+                Value == item.Value &&
+                Status.SequenceEqual(item.Status);
         }
     }
 }
