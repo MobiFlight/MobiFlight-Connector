@@ -2,13 +2,12 @@ import { Outlet, useNavigate, useOutlet, useSearchParams } from 'react-router'
 import StartupProgress from './components/StartupProgress'
 import { useEffect, useState } from 'react'
 import { useAppMessage } from './lib/hooks/appMessage'
-import { StatusBarUpdate } from './types'
+import { ConfigLoadedEvent, StatusBarUpdate } from './types'
 import { useConfigStore } from './stores/configFileStore'
 
 function App() {  
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
-
   const { setItems } = useConfigStore();
 
   const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>(
@@ -20,8 +19,8 @@ function App() {
   })
 
   useAppMessage("ConfigFile", (message) => {
-    console.log(message.payload)
-    setItems(message.payload.ConfigItems)
+    console.log("ConfigFile message received", message.payload)
+    setItems((message.payload as ConfigLoadedEvent).ConfigItems)
   })
 
   // this allows to get beyond the startup screen

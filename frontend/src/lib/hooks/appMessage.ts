@@ -1,8 +1,9 @@
-import { AppMessage, AppMessageKey, CommandMessageType } from "@/types/messages"
+import { CommandMessage } from "@/types/commands"
+import { AppMessage, AppMessageKey } from "@/types/messages"
 import { useEffect } from "react"
 
 export const publishOnMessageExchange = () => ({
-  publish: (message: CommandMessageType) => {
+  publish: (message: CommandMessage) => {
     console.log(`Publishing FrontendMessage -> ${message.key}`)
     window.chrome?.webview?.postMessage(message)
   },

@@ -11,7 +11,7 @@ export interface IConfigItem {
   Name: string
   // name / serial of the device
   ModuleSerial: string
-  Device: IDeviceConfig
+  Device: IDeviceConfig | null
   // this is the type of the Device
   // Type: DeviceElementType;
   // Tags: string[];
@@ -32,23 +32,6 @@ export interface IDictionary<T> {
 export type DeviceType = "MobiFlight" | "Joystick" | "Midi"
 
 export type ConfigItemType = "InputConfig" | "OutputConfig"
-
-export type ElementPin = {
-  isAnalog: boolean
-  isPWM: boolean
-  isI2C: boolean
-  Used: boolean
-  Pin: number
-}
-
-export interface IDeviceItem {
-  Id: string
-  Type: DeviceType
-  Name: string
-  MetaData: IDictionary<string>
-  Elements: IDeviceElement[]
-  Pins?: ElementPin[]
-}
 
 export interface IDeviceConfig {
   Type: string

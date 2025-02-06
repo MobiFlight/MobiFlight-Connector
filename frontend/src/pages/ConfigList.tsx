@@ -5,9 +5,9 @@ import { columns } from "@/components/tables/config-item-table/config-item-table
 import { useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { ConfigValueUpdate } from "@/types/messages"
-import testdata from "./config/testdata.json"
+import testdata from "@/../tests/data/configlist.testdata.json"
 
-const ConfigPage = () => {
+const ConfigListPage = () => {
   const {
     items: configItems,
     setItems,
@@ -17,7 +17,7 @@ const ConfigPage = () => {
 
   useAppMessage("ConfigValueUpdate", (message) => {
     const update = message.payload as ConfigValueUpdate
-
+    console.log("ConfigValueUpdate", update)
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
       updateItem(update.ConfigItems[0], false)
@@ -27,13 +27,15 @@ const ConfigPage = () => {
     updateItems(update.ConfigItems)
   })
 
+  // this is only for easier UI testing
+  // while developing the UI
   useEffect(() => {
-    if (configItems.length === 0) {
-      if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === "development") {
+      if (configItems.length === 0) {
         setItems(testdata)
       }
     }
-  }, [configItems, setItems])
+  }, [])
 
   return (
     // <div className='flex flex-col gap-4 overflow-y-auto'>
@@ -53,4 +55,4 @@ const ConfigPage = () => {
   )
 }
 
-export default ConfigPage
+export default ConfigListPage

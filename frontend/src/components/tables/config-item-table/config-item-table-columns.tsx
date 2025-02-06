@@ -35,7 +35,7 @@ import {
 import {
   CommandUpdateConfigItem,
   CommandConfigContextMenu,
-} from "@/types/messages"
+} from "@/types/commands"
 import { isEmpty } from "lodash"
 import { useCallback, useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
@@ -95,7 +95,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       }
 
       const moduleName = (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
-      const deviceName = (row.getValue("Device") as IDeviceConfig).Name ?? "-"
+      const deviceName = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
 
 
       // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -119,8 +119,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
           {!isEditing ? (
             <div className="flex flex-col">
             <div className="flex flex-row items-center gap-1">
-              <p className="truncate font-semibold">{label}</p>
+              <p className="truncate font-semibold max-w-60">{label}</p>
               <IconEdit
+                role="button"
+                aria-label="Edit"
                 onClick={toggleEdit}
                 className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
               />
@@ -136,12 +138,16 @@ export const columns: ColumnDef<IConfigItem>[] = [
               />
               <IconCircleCheck
                 className="stroke-green-700"
+                role="button"
+                aria-label="Save"
                 onClick={() => {
                   saveChanges()
                   toggleEdit()
                 }}
               />
               <IconX
+                role="button"
+                aria-label="Discard"
                 onClick={() => {
                   setLabel(row.getValue("Name") as string)
                   toggleEdit()
@@ -167,7 +173,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
           </p>
         </div>
       ) : (
-        <span className="item-center flex flex-row gap-2 text-slate-400">
+        <span className="hidden lg:flex item-center flex-row gap-2 text-slate-400">
           <IconBan />
           <span>not set</span>
         </span>
@@ -250,32 +256,43 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const Source = Status && !isEmpty(Status["Source"])
       const Modifier = Status && !isEmpty(Status["Modifier"])
       const Device = Status && !isEmpty(Status["Device"])
+      const Test = Status && !isEmpty(Status["Test"])
       const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
       return (
         <div className="flex w-28 flex-row gap-0">
           <IconAlertSquareRounded
-            className={!Precondition ? "stroke-slate-200" : "stroke-red-700"}
-          >
+            role="status"
+            aria-disabled={!Precondition}
+            className={!Precondition ? "stroke-slate-100" : "stroke-red-700"}
+            >
             normal
           </IconAlertSquareRounded>
           <IconBuildingBroadcastTower
-            className={!Source ? "stroke-slate-200" : "stroke-red-500"}
-          >
+            role="status"
+            aria-disabled={!Source}
+            className={!Source ? "stroke-slate-100" : "stroke-red-700"}
+            >
             normal
           </IconBuildingBroadcastTower>
           <IconPlugConnectedX
-            className={!Device ? "stroke-slate-200" : "stroke-red-700"}
-          >
+            role="status"
+            aria-disabled={!Device}
+            className={!Device ? " stroke-slate-100" : "stroke-red-700"}
+            >
             normal
           </IconPlugConnectedX>
           <IconMathSymbols
-            className={!Modifier ? "stroke-slate-200" : "stroke-red-700"}
-          >
+            aria-disabled={!Modifier}
+            role="status"
+            className={!Modifier ? " stroke-slate-100" : "stroke-red-700"}
+            >
             normal
           </IconMathSymbols>
           <IconFlask
-            className={!ConfigRef ? "stroke-slate-200" : "stroke-red-700"}
+            aria-disabled={!Test}
+            role="status"
+            className={!Test ? " stroke-slate-100" : "stroke-red-700"}
           >
             normal
           </IconFlask>

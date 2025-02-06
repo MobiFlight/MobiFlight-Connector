@@ -12,7 +12,7 @@ interface ConfigState {
 export const useConfigStore = create<ConfigState>((set) => ({  
   items: [],
   clearItems: () => set({ items: [] }),
-  setItems: (newItems) => set((state) => ({...state, items: newItems }), true),
+  setItems: (newItems) => set(() => ({ items: newItems })),
   updateItem: (item: Types.IConfigItem, upsert = false) =>
     set((state) => {
       const itemIndex = state.items.findIndex(
