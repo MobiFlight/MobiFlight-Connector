@@ -178,8 +178,17 @@ namespace MobiFlight
 
         public virtual void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.InputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
-            writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
+            WriteXml(writer, true);
+        }
+
+        public virtual void WriteXml(XmlWriter writer, bool writeInstanceData)
+        {
+            if (writeInstanceData)
+            {
+                writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.InputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
+                writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
+            }
+
             writer.WriteAttributeString("serial", this.ModuleSerial);
             writer.WriteAttributeString("name", this.DeviceName);
             writer.WriteAttributeString("type", this.DeviceType);
@@ -319,12 +328,11 @@ namespace MobiFlight
 
         public override bool Equals(object obj)
         {
-            bool areSame = (obj != null && obj is InputConfigItem) &&
-                            ModuleSerial == (obj as InputConfigItem).ModuleSerial &&
-                            DeviceName == (obj as InputConfigItem).DeviceName &&
-                            DeviceType == (obj as InputConfigItem).DeviceType;
+            bool areSame = base.Equals(obj);
 
             if (areSame) {
+                areSame = DeviceName == (obj as InputConfigItem).DeviceName &&
+                            DeviceType == (obj as InputConfigItem).DeviceType;
                 areSame = areSame && ((button == null && (obj as InputConfigItem).button == null) || (button != null && button.Equals((obj as InputConfigItem).button)));
                 areSame = areSame && ((encoder == null && (obj as InputConfigItem).encoder == null) || (encoder != null && encoder.Equals((obj as InputConfigItem).encoder)));
                 areSame = areSame && ((analog == null && (obj as InputConfigItem).analog == null) || (analog != null && analog.Equals((obj as InputConfigItem).analog)));

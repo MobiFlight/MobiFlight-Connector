@@ -1,13 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Tests
@@ -140,7 +135,7 @@ namespace MobiFlight.Tests
 
             InputConfigItem o = generateTestObject();
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter);
+            o.WriteXml(xmlWriter, false);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
@@ -158,7 +153,7 @@ namespace MobiFlight.Tests
             sw = new StringWriter();
             xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter);
+            o.WriteXml(xmlWriter, false);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             s = sw.ToString();
@@ -225,6 +220,7 @@ namespace MobiFlight.Tests
         {
             InputConfigItem o1 = new InputConfigItem();
             InputConfigItem o2 = new InputConfigItem();
+            o1.GUID = o2.GUID;
 
             Assert.IsTrue(o1.Equals(o2));
 

@@ -20,7 +20,7 @@ namespace MobiFlight.Base
         string Value { get; set; }
         IDeviceConfig Device { get; }
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
-        bool Equals(IConfigItem item);
+        bool Equals(object item);
     }
 
     [JsonConverter(typeof(ConfigItemConverter))]
@@ -78,19 +78,19 @@ namespace MobiFlight.Base
             Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
         }
 
-        public virtual bool Equals(IConfigItem item)
+        public override bool Equals(object item)
         {
             return item != null &&
-                GUID == item.GUID &&
-                Active == item.Active &&
-                Name == item.Name &&
-                ModuleSerial == item.ModuleSerial &&
-                Preconditions.Equals(item.Preconditions) &&
-                Modifiers.Equals(item.Modifiers) &&
-                ConfigRefs.Equals(item.ConfigRefs) &&
-                RawValue == item.RawValue &&
-                Value == item.Value &&
-                Status.SequenceEqual(item.Status);
+                GUID == (item as ConfigItem).GUID &&
+                Active == (item as ConfigItem).Active &&
+                Name == (item as ConfigItem).Name &&
+                ModuleSerial == (item as ConfigItem).ModuleSerial &&
+                Preconditions.Equals((item as ConfigItem).Preconditions) &&
+                Modifiers.Equals((item as ConfigItem).Modifiers) &&
+                ConfigRefs.Equals((item as ConfigItem).ConfigRefs) &&
+                RawValue == (item as ConfigItem).RawValue &&
+                Value == (item as ConfigItem).Value &&
+                Status.SequenceEqual((item as ConfigItem).Status);
         }
     }
 }

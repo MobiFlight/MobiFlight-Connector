@@ -71,10 +71,12 @@ namespace MobiFlight
 
         public override bool Equals(object obj)
         { 
+            var areEqual = base.Equals(obj);
+            if (!areEqual) return false;
+
             return (
                 obj != null && obj is OutputConfigItem &&
                 this.DeviceType == (obj as OutputConfigItem).DeviceType &&
-                this.ModuleSerial == (obj as OutputConfigItem).ModuleSerial &&
                 this.SourceType == (obj as OutputConfigItem).SourceType &&
                 this.FSUIPC.Equals((obj as OutputConfigItem).FSUIPC) &&
                 this.SimConnectValue.Equals((obj as OutputConfigItem).SimConnectValue) &&
@@ -82,8 +84,6 @@ namespace MobiFlight
                 this.MobiFlightVariable.Equals((obj as OutputConfigItem).MobiFlightVariable) &&
                 //===
                 this.TestValue.Equals((obj as OutputConfigItem).TestValue) &&
-                //===
-                this.Modifiers.Equals((obj as OutputConfigItem).Modifiers) &&
                 //===
                 this.Pin.Equals((obj as OutputConfigItem).Pin) &&
                 //===
@@ -101,10 +101,6 @@ namespace MobiFlight
                 this.ShiftRegister.Equals((obj as OutputConfigItem).ShiftRegister) &&
                 //===
                 this.CustomDevice.Equals((obj as OutputConfigItem).CustomDevice) &&
-                //===
-                this.Preconditions.Equals((obj as OutputConfigItem).Preconditions) &&
-                //===
-                this.ConfigRefs.Equals((obj as OutputConfigItem).ConfigRefs) &&
                 //===
                 ((this.ButtonInputConfig == null && (obj as OutputConfigItem).ButtonInputConfig == null) || (
                 this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as OutputConfigItem).ButtonInputConfig))) &&
@@ -340,8 +336,16 @@ namespace MobiFlight
 
         public virtual void WriteXml(XmlWriter writer)
         {
-            writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.OutputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
-            writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
+            WriteXml(writer, true);
+        }
+
+        public void WriteXml(XmlWriter writer, bool writeInstanceData)
+        {
+            if (writeInstanceData)
+            {
+                writer.WriteAttributeString("msdata:InstanceType", $"MobiFlight.OutputConfigItem, MFConnector, Version={Assembly.GetExecutingAssembly().GetName().Version}, Culture=neutral, PublicKeyToken=null");
+                writer.WriteAttributeString("xmlns:msdata", "urn:schemas-microsoft-com:xml-msdata");
+            }
 
             writer.WriteStartElement("source");
                 if (SourceType == SourceType.FSUIPC)
