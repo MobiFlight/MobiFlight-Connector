@@ -1,6 +1,44 @@
 {
-  "interpolation": "Hello {{name}}!",
-  "app": {
-    "greeting": "Hello MobiFlight user! Test!"
+  "ConfigList": {
+    "Toolbar" : {
+      "Search" : {
+        "Placeholder": "Filter items..."
+      },
+      "Filter" : {
+        "Device": "Devices",
+        "Type" : "Types",
+        "Name" : "Names",
+        "Selected" : "{{items}} selected",
+        "Clear" : "Clear filters",
+        "NoResultsFound" : "No results found."
+      },
+      "Reset": "Reset filters"
+    },
+    "Header" : {
+      "Active": "Active",
+      "Name": "Name / Description",
+      "Device": "Device",
+      "Component": "Component",
+      "Status": "Status",
+      "RawValue": "Raw Value",
+      "FinalValue": "Final Value",
+      "Actions": "Actions"
+    },
+    "Cell" : {
+      "Waiting" : "Waiting"
+    },
+    "Table" : {
+      "NoResultsFound" : "This is a new configuration. Please add some items."
+    },
+    "Actions": {
+      "OutputConfigItem" : {
+        "Add": "Add Output Config",
+        "DefaultName": "New Output Config"
+      },
+      "InputConfigItem" : {
+        "Add": "Add Input Config",
+        "DefaultName": "New Input Config"
+      }
+    }
   }
 }

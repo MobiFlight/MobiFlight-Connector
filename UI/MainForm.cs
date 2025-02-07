@@ -120,6 +120,12 @@ namespace MobiFlight.UI
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
+            
+            Properties.Settings.Default.SettingsSaving += (s, e) =>
+            {
+                MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
+            };
+
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
             CurrentFilenameChanged += (s, e) => { UpdateAutoLoadMenu(); };
@@ -129,6 +135,9 @@ namespace MobiFlight.UI
             // there are no recent files which
             // could lead to a filename change
             UpdateAutoLoadMenu();
+
+            // Send the current settings to the UI
+            MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
         }
 
         public MainForm()
