@@ -221,11 +221,6 @@ namespace MobiFlight.UI
                     var index = execManager.OutputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.OutputConfigItems[index] = wizard.Config;
                     OutputConfigPanel_SettingsChanged(wizard.Config, null);
-
-
-                    //var config = new OutputConfigItemAdapter(wizard.Config);
-                    //var message = new Message<IConfigItem>("config.update", config);
-                    //MessageExchange.Instance.Publish(message);
                 }
             };
         }
@@ -274,12 +269,7 @@ namespace MobiFlight.UI
                     // that the user edited with the wizard
                     var index = execManager.InputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.InputConfigItems[index] = wizard.Config;
-
-                    //var config = new InputConfigItemAdapter(wizard.Config);
-                    //var message = new Message<IConfigItem>("config.update", config);
-                    //MessageExchange.Instance.Publish(message);
-
-                    InputConfigPanel_SettingsChanged(cfg, null);
+                    InputConfigPanel_SettingsChanged(wizard.Config, null);
                 }
             };
         }
@@ -606,8 +596,9 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
-        private void InputConfigPanel_SettingsChanged(object sender, EventArgs e)
+        private void InputConfigPanel_SettingsChanged(IConfigItem sender, EventArgs e)
         {
+            MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { sender } });
             saveToolStripButton.Enabled = true;
             UpdateAllConnectionIcons();
         }
