@@ -146,7 +146,7 @@ export function ConfigItemTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  { t("ConfigList.Table.NoResults") }	
+                  { t("ConfigList.Table.NoResultsFound") }	
                 </TableCell>
               </TableRow>
             )}

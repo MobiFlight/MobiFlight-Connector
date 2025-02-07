@@ -25,7 +25,7 @@
       "Actions": "Actions"
     },
     "Table" : {
-      "NoResultsFound" : "No results found."
+      "NoResultsFound" : "This is a new configuration. Please add some items."
     },
     "Actions": {
       "OutputConfigItem" : {
