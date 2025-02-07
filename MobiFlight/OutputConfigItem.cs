@@ -70,43 +70,27 @@ namespace MobiFlight
         }
 
         public override bool Equals(object obj)
-        { 
-            var areEqual = base.Equals(obj);
-            if (!areEqual) return false;
+        {
+            if (obj == null || !(obj is OutputConfigItem item)) return false;
+            if (!base.Equals(obj)) return false;
 
             return (
-                obj != null && obj is OutputConfigItem &&
-                this.DeviceType == (obj as OutputConfigItem).DeviceType &&
-                this.SourceType == (obj as OutputConfigItem).SourceType &&
-                this.FSUIPC.Equals((obj as OutputConfigItem).FSUIPC) &&
-                this.SimConnectValue.Equals((obj as OutputConfigItem).SimConnectValue) &&
-                this.XplaneDataRef.Equals((obj as OutputConfigItem).XplaneDataRef) &&
-                this.MobiFlightVariable.Equals((obj as OutputConfigItem).MobiFlightVariable) &&
-                //===
-                this.TestValue.Equals((obj as OutputConfigItem).TestValue) &&
-                //===
-                this.Pin.Equals((obj as OutputConfigItem).Pin) &&
-                //===
-                this.LedModule.Equals((obj as OutputConfigItem).LedModule) &&
-                //===
-                this.LcdDisplay.Equals((obj as OutputConfigItem).LcdDisplay) &&
-                //===
-                this.Stepper.Equals((obj as OutputConfigItem).Stepper) &&
-                //==
-                this.Servo.Equals((obj as OutputConfigItem).Servo) &&
-                //===
-                // TODO: I will ignore this, because it is a deprecated feature
-                // this.BcdPins.Equals((obj as OutputConfigItem).BcdPins) &&
-                //===
-                this.ShiftRegister.Equals((obj as OutputConfigItem).ShiftRegister) &&
-                //===
-                this.CustomDevice.Equals((obj as OutputConfigItem).CustomDevice) &&
-                //===
-                ((this.ButtonInputConfig == null && (obj as OutputConfigItem).ButtonInputConfig == null) || (
-                this.ButtonInputConfig != null && this.ButtonInputConfig.Equals((obj as OutputConfigItem).ButtonInputConfig))) &&
-                //===
-                ((this.AnalogInputConfig==null&&(obj as OutputConfigItem).AnalogInputConfig == null) || (
-                this.AnalogInputConfig != null && this.AnalogInputConfig.Equals((obj as OutputConfigItem).AnalogInputConfig)))
+                this.DeviceType == item.DeviceType &&
+                this.SourceType == item.SourceType &&
+                this.FSUIPC.Equals(item.FSUIPC) &&
+                this.SimConnectValue.Equals(item.SimConnectValue) &&
+                this.XplaneDataRef.Equals(item.XplaneDataRef) &&
+                this.MobiFlightVariable.Equals(item.MobiFlightVariable) &&
+                this.TestValue.Equals(item.TestValue) &&
+                this.Pin.Equals(item.Pin) &&
+                this.LedModule.Equals(item.LedModule) &&
+                this.LcdDisplay.Equals(item.LcdDisplay) &&
+                this.Stepper.Equals(item.Stepper) &&
+                this.Servo.Equals(item.Servo) &&
+                this.ShiftRegister.Equals(item.ShiftRegister) &&
+                this.CustomDevice.Equals(item.CustomDevice) &&
+                this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
+                this.AnalogInputConfig.AreEqual(item.AnalogInputConfig)
             );
         }
 

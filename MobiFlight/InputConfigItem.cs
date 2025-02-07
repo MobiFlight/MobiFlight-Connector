@@ -328,23 +328,18 @@ namespace MobiFlight
 
         public override bool Equals(object obj)
         {
-            bool areSame = base.Equals(obj);
-
-            if (areSame) {
-                areSame = DeviceName == (obj as InputConfigItem).DeviceName &&
-                            DeviceType == (obj as InputConfigItem).DeviceType;
-                areSame = areSame && ((button == null && (obj as InputConfigItem).button == null) || (button != null && button.Equals((obj as InputConfigItem).button)));
-                areSame = areSame && ((encoder == null && (obj as InputConfigItem).encoder == null) || (encoder != null && encoder.Equals((obj as InputConfigItem).encoder)));
-                areSame = areSame && ((analog == null && (obj as InputConfigItem).analog == null) || (analog != null && analog.Equals((obj as InputConfigItem).analog)));
-                areSame = areSame && ((inputShiftRegister == null && (obj as InputConfigItem).inputShiftRegister == null) || (inputShiftRegister != null && inputShiftRegister.Equals((obj as InputConfigItem).inputShiftRegister)));
-                areSame = areSame && ((inputMultiplexer == null && (obj as InputConfigItem).inputMultiplexer == null) || (inputMultiplexer != null && inputMultiplexer.Equals((obj as InputConfigItem).inputMultiplexer)));
-
-                areSame = areSame && 
-                            Preconditions.Equals((obj as InputConfigItem).Preconditions) &&
-                            ConfigRefs.Equals((obj as InputConfigItem).ConfigRefs);
-            }
-
-            return areSame;
+            if (obj == null || !(obj is InputConfigItem item)) return false;
+            
+            return  base.Equals(obj) &&
+                    DeviceName == item.DeviceName &&
+                    DeviceType == item.DeviceType &&
+                    button.AreEqual(item.button) &&
+                    encoder.AreEqual(item.encoder) &&
+                    analog.AreEqual(item.analog) &&
+                    inputShiftRegister.AreEqual(item.inputShiftRegister) &&
+                    inputMultiplexer.AreEqual(item.inputMultiplexer) &&
+                    Preconditions.Equals(item.Preconditions) &&
+                    ConfigRefs.Equals(item.ConfigRefs);
         }
 
         protected override IDeviceConfig GetDeviceConfig()
