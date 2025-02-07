@@ -49,7 +49,16 @@ namespace MobiFlight.SimConnectMSFS
             string CommunityFolder = null;
             string line;
             string InstalledPackagesPath = "";
-            StreamReader file = new StreamReader(UserCfg);
+            StreamReader file;
+
+            try
+            {
+                file = new StreamReader(UserCfg);
+            }
+            catch (Exception ex) {
+                Log.Instance.log($"Unable to open UserCfg.opt at {UserCfg}: {ex.Message}", LogSeverity.Error);
+                return CommunityFolder;
+            }
 
             while ((line = file.ReadLine()) != null)
             {
@@ -67,7 +76,7 @@ namespace MobiFlight.SimConnectMSFS
 
             InstalledPackagesPath = InstalledPackagesPath.Substring(23);
             char[] charsToTrim = { '"' };
-            
+
             InstalledPackagesPath = InstalledPackagesPath.TrimEnd(charsToTrim);
 
             try
