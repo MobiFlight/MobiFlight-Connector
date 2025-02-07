@@ -2,37 +2,24 @@ import { Button } from "@/components/ui/button"
 import { IConfigItem } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import {
-  IconAlertSquareRounded,
   IconArrowsSort,
   IconBan,
   IconBuildingBroadcastTower,
-  IconCircleCheck,
-  IconEdit,
-  IconFlask,
   IconMathSymbols,
-  IconPlugConnectedX,
-  IconRouteOff,
-  IconX,
 } from "@tabler/icons-react"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 // import { Badge } from "@/components/ui/badge";
 import DeviceIcon from "@/components/icons/DeviceIcon"
 import { DeviceElementType } from "@/types/deviceElements"
-import {
-  ConfigItemStatusType,
-  IDeviceConfig,
-  IDictionary,
-} from "@/types/config"
-import {
-  CommandUpdateConfigItem,
-} from "@/types/commands"
+import { IDeviceConfig } from "@/types/config"
 import { isEmpty } from "lodash"
-import { useCallback, useEffect, useState } from "react"
-import { Input } from "@/components/ui/input"
 import { useTranslation } from "react-i18next"
-import ConfigItemTableActiveHeader from "./items/ConfigItemTableActiveHeader"
-import ConfigItemTableActiveCell from "./items/ConfigItemTableActiveCell"
-import ConfigItemTableActionsCell from "./items/ConfigItemTableActionsCell"
+import {
+  ConfigItemTableActionsCell,
+  ConfigItemTableActiveCell,
+  ConfigItemTableActiveHeader,
+  ConfigItemTableNameCell,
+  ConfigItemTableStatusCell,
+} from "./items"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -58,85 +45,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         </div>
       )
     },
-    cell: ({ row }) => {
-      const { publish } = publishOnMessageExchange()
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [isEditing, setIsEditing] = useState(false)
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [label, setLabel] = useState(row.getValue("Name") as string)
-      const realLabel = row.getValue("Name") as string
-
-      const toggleEdit = () => {
-        setIsEditing(!isEditing)
-      }
-
-      const moduleName =
-        (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
-      const deviceName = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
-
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const saveChanges = useCallback(() => {
-        const item = row.original as IConfigItem
-        item.Name = label
-        console.log(item)
-        publish({
-          key: "CommandUpdateConfigItem",
-          payload: { item: item },
-        } as CommandUpdateConfigItem)
-      }, [label, row, publish])
-
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        setLabel(realLabel)
-      }, [realLabel])
-
-      return (
-        <div className="group flex w-auto cursor-pointer select-none flex-row items-center gap-1">
-          {!isEditing ? (
-            <div className="flex flex-col">
-              <div className="flex flex-row items-center gap-1">
-                <p className="max-w-60 truncate px-0 font-semibold">{label}</p>
-                <IconEdit
-                  role="button"
-                  aria-label="Edit"
-                  onClick={toggleEdit}
-                  className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
-                />
-              </div>
-              <p className="w-60 truncate text-xs text-slate-500 md:hidden">
-                {moduleName} - {deviceName}
-              </p>
-            </div>
-          ) : (
-            <div className="flex flex-row items-center gap-1">
-              <Input
-                type="text"
-                value={label}
-                className="h-6 px-2 text-sm md:h-8"
-                onChange={(e) => setLabel(e.target.value)}
-              />
-              <IconCircleCheck
-                className="stroke-green-700"
-                role="button"
-                aria-label="Save"
-                onClick={() => {
-                  saveChanges()
-                  toggleEdit()
-                }}
-              />
-              <IconX
-                role="button"
-                aria-label="Discard"
-                onClick={() => {
-                  setLabel(row.getValue("Name") as string)
-                  toggleEdit()
-                }}
-              />
-            </div>
-          )}
-        </div>
-      )
-    },
+    cell: ConfigItemTableNameCell,
   },
   {
     accessorKey: "ModuleSerial",
@@ -250,65 +159,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         <div className="w-26 select-none">{t("ConfigList.Header.Status")}</div>
       )
     },
-    cell: ({ row }) => {
-      const Status = row.getValue("Status") as IDictionary<
-        string,
-        ConfigItemStatusType
-      >
-      const Precondition = Status && !isEmpty(Status["Precondition"])
-      const Source = Status && !isEmpty(Status["Source"])
-      const Modifier = Status && !isEmpty(Status["Modifier"])
-      const Device = Status && !isEmpty(Status["Device"])
-      const Test = Status && !isEmpty(Status["Test"])
-      const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
-
-      return (
-        <div className="flex w-28 select-none flex-row gap-0">
-          <IconAlertSquareRounded
-            role="status"
-            aria-disabled={!Precondition}
-            className={!Precondition ? "stroke-slate-100" : "stroke-red-700"}
-          >
-            normal
-          </IconAlertSquareRounded>
-          <IconBuildingBroadcastTower
-            role="status"
-            aria-disabled={!Source}
-            className={!Source ? "stroke-slate-100" : "stroke-red-700"}
-          >
-            normal
-          </IconBuildingBroadcastTower>
-          <IconPlugConnectedX
-            role="status"
-            aria-disabled={!Device}
-            className={!Device ? "stroke-slate-100" : "stroke-red-700"}
-          >
-            normal
-          </IconPlugConnectedX>
-          <IconMathSymbols
-            aria-disabled={!Modifier}
-            role="status"
-            className={!Modifier ? "stroke-slate-100" : "stroke-red-700"}
-          >
-            normal
-          </IconMathSymbols>
-          <IconFlask
-            aria-disabled={!Test}
-            role="status"
-            className={!Test ? "stroke-slate-100" : "stroke-red-700"}
-          >
-            normal
-          </IconFlask>
-          <IconRouteOff
-            aria-disabled={!ConfigRef}
-            role="status"
-            className={!ConfigRef ? "stroke-slate-100" : "stroke-red-700"}
-          >
-            normal
-          </IconRouteOff>
-        </div>
-      )
-    },
+    cell: ConfigItemTableStatusCell,
   },
   {
     size: 100,
