@@ -21,7 +21,7 @@ namespace MobiFlight
 
 
         private DeviceType _type = DeviceType.Servo;
-        public DeviceType Type
+        public DeviceType TypeDeprecated
         {
             get { return _type; }
             set { _type = value; }

@@ -1,13 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Tests
@@ -21,7 +16,7 @@ namespace MobiFlight.Tests
             InputConfigItem o = new InputConfigItem();
             Assert.IsInstanceOfType(o, typeof(InputConfigItem), "Not of type InputConfigItem");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count other than 0");
-            Assert.AreEqual(o.Type, InputConfigItem.TYPE_NOTSET, "Type other than NOTSET");
+            Assert.AreEqual(o.DeviceType, InputConfigItem.TYPE_NOTSET, "Type other than NOTSET");
         }
 
         [TestMethod()]
@@ -45,9 +40,9 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
-            Assert.AreEqual(o.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
@@ -64,9 +59,9 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
-            Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
@@ -87,9 +82,9 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
-            Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.inputShiftRegister.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -105,9 +100,9 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
-            Assert.AreEqual(o.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
+            Assert.AreEqual(o.DeviceType, "Button", "Type not the same");
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -123,7 +118,7 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "737PEDESTAL1/ SN-769-a6a", "ModuleSerial not the same");
-            Assert.AreEqual(o.Name, "Analog 67 A13", "Name not the same");
+            Assert.AreEqual(o.DeviceName, "Analog 67 A13", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 1, "Preconditions Count not the same");
             Assert.AreEqual(o.ConfigRefs.Count, 1, "Config ref count is not correct");
         }
@@ -140,7 +135,7 @@ namespace MobiFlight.Tests
 
             InputConfigItem o = generateTestObject();
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter);
+            o.WriteXml(xmlWriter, false);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
@@ -151,14 +146,14 @@ namespace MobiFlight.Tests
 
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/797
             o = new InputConfigItem();
-            o.Type = InputConfigItem.TYPE_ANALOG;
+            o.DeviceType = InputConfigItem.TYPE_ANALOG;
             if (o.analog == null) o.analog = new InputConfig.AnalogInputConfig();
             o.analog.onChange = new MSFS2020CustomInputAction() { Command = "test", PresetId = Guid.NewGuid().ToString() };
 
             sw = new StringWriter();
             xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter);
+            o.WriteXml(xmlWriter, false);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             s = sw.ToString();
@@ -192,6 +187,10 @@ namespace MobiFlight.Tests
         private InputConfigItem generateTestObject()
         {
             InputConfigItem result = new InputConfigItem();
+            result.Name = "Test Input Config Item";
+            result.Active = false;
+            result.GUID = "123-input";
+
             result.button = new InputConfig.ButtonInputConfig();
             result.button.onRelease = new InputConfig.FsuipcOffsetInputAction()
             {
@@ -204,11 +203,11 @@ namespace MobiFlight.Tests
                 },
                 Value = "1"
             };
-            result.Type = InputConfigItem.TYPE_BUTTON;
 
             result.encoder = null;
             result.ModuleSerial = "TestSerial";
-            result.Name = "TestName";
+            result.DeviceName = "TestName";
+            result.DeviceType = InputConfigItem.TYPE_BUTTON;
             result.Preconditions.Add(new Precondition() { PreconditionSerial = "PreConTestSerial" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = true, Placeholder = "@", Ref = "0b1c877f-baf3-4c69-99e6-6c31429fe3bd" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = false, Placeholder = "%", Ref = "7d1370d3-56e9-497a-8abb-63ecc169defe" });
@@ -221,6 +220,7 @@ namespace MobiFlight.Tests
         {
             InputConfigItem o1 = new InputConfigItem();
             InputConfigItem o2 = new InputConfigItem();
+            o1.GUID = o2.GUID;
 
             Assert.IsTrue(o1.Equals(o2));
 

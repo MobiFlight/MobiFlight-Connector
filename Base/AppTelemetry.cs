@@ -70,12 +70,12 @@ namespace MobiFlight.Base
         {
             // Track config loaded event
             EventTelemetry trackingEvent = new EventTelemetry("ConfigLoaded");
-            List<OutputConfigItem> outputConfigs = configFile.GetOutputConfigItems();
-            List<InputConfigItem> inputConfigs = configFile.GetInputConfigItems();
+            List<OutputConfigItem> outputConfigs = configFile.OutputConfigItems;
+            List<InputConfigItem> inputConfigs = configFile.InputConfigItems;
 
             foreach (OutputConfigItem item in outputConfigs)
             {
-                String key = "output." + item.DisplayType;
+                String key = "output." + item.DeviceType;
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 
@@ -86,7 +86,7 @@ namespace MobiFlight.Base
 
             foreach (InputConfigItem item in inputConfigs)
             {
-                String key = "input." + item.Type;
+                String key = "input." + item.DeviceType;
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix))
                 {
                     key += ".joystick";

@@ -58,7 +58,11 @@ namespace MobiFlight.BrowserMessages
         private void PublishReceivedMessage(string jsonMessage)
         {
             var eventToPublish = JsonConvert.DeserializeObject<Message<object>>(jsonMessage);
-            if (!_subscribedTypes.ContainsKey(eventToPublish.key)) return;
+            if (!_subscribedTypes.ContainsKey(eventToPublish.key))
+            {
+                Log.Instance.log("No subscribers for event: " + eventToPublish.key, LogSeverity.Warn);
+                return;
+            }
 
             Type eventType = _subscribedTypes[eventToPublish.key];
 
@@ -70,11 +74,18 @@ namespace MobiFlight.BrowserMessages
                 subscribers = _subscribers[eventType].ToList();
             }
 
-            var deserializedPayload = JsonConvert.DeserializeObject(eventToPublish.payload.ToString(), eventType);
-
-            foreach (var subscriber in subscribers)
+            try
             {
-                subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+
+                var deserializedPayload = JsonConvert.DeserializeObject(eventToPublish.payload.ToString(), eventType);
+                foreach (var subscriber in subscribers)
+                {
+                    subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Instance.log(e.Message, LogSeverity.Error);
             }
         }
 
