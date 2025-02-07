@@ -11,9 +11,7 @@ interface ConfigItemTableNameCellProps {
 }
 const ConfigItemTableNameCell = ({ row } : ConfigItemTableNameCellProps) => {
   const { publish } = publishOnMessageExchange()
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isEditing, setIsEditing] = useState(false)
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [label, setLabel] = useState(row.getValue("Name") as string)
   const realLabel = row.getValue("Name") as string
 
@@ -25,7 +23,6 @@ const ConfigItemTableNameCell = ({ row } : ConfigItemTableNameCellProps) => {
     (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
   const deviceName = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const saveChanges = useCallback(() => {
     const item = row.original as IConfigItem
     item.Name = label
@@ -36,7 +33,6 @@ const ConfigItemTableNameCell = ({ row } : ConfigItemTableNameCellProps) => {
     } as CommandUpdateConfigItem)
   }, [label, row, publish])
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     setLabel(realLabel)
   }, [realLabel])

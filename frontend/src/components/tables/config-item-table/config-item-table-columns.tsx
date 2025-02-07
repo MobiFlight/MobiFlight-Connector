@@ -31,6 +31,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     accessorKey: "Name",
     size: 1,
     header: ({ column }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="flex w-auto grow select-none items-center gap-4">
@@ -50,6 +51,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "ModuleSerial",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="hidden w-32 select-none lg:block">
@@ -79,6 +81,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     accessorKey: "Device",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="w-8 select-none truncate md:w-32">
@@ -118,6 +121,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 80,
     accessorKey: "Type",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="w-20 select-none">
@@ -154,6 +158,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "Status",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="w-26 select-none">{t("ConfigList.Header.Status")}</div>
@@ -165,6 +170,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "RawValue",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="hidden w-16 select-none md:visible md:block lg:w-24">
@@ -192,6 +198,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     size: 100,
     accessorKey: "Value",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="hidden w-16 select-none md:block lg:w-24">
@@ -218,6 +225,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     id: "actions",
     header: () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
         <div className="w-10 select-none truncate sm:w-12">
