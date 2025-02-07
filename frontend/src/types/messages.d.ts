@@ -1,7 +1,10 @@
+import { Settings } from "http2"
+
 export type AppMessageKey =
   | "StatusBarUpdate"
   | "ConfigFile"
   | "ConfigValueUpdate"
+  | "Settings"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -12,7 +15,7 @@ export type AppMessagePayload =
 // when receiving messages from the backend
 export type AppMessage = {
   key: AppMessageKey
-  payload: AppMessagePayload
+  payload: AppMessagePayload | Settings
 }
 
 // ConfigLoadedEvent

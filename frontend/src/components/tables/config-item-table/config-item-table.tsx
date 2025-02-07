@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button"
 import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import { CommandAddConfigItem } from "@/types/commands"
 import { useConfigStore } from "@/stores/configFileStore"
+import { useTranslation } from "react-i18next"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -90,6 +91,8 @@ export function ConfigItemTable<TData, TValue>({
     }
   })
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex flex-col grow gap-2 overflow-y-auto">
       <div className="p-2">
@@ -143,7 +146,7 @@ export function ConfigItemTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  { t("ConfigList.Table.NoResultsFound") }	
                 </TableCell>
               </TableRow>
             )}
@@ -157,11 +160,11 @@ export function ConfigItemTable<TData, TValue>({
           onClick={() =>
             publish({
               key: "CommandAddConfigItem",
-              payload: { name: "New Output Config", type: "OutputConfig" },
+              payload: { name: t("ConfigList.Actions.OutputConfigItem.DefaultName"), type: "OutputConfig" },
             } as CommandAddConfigItem)
           }
         >
-          Add Output Config
+          { t("ConfigList.Actions.OutputConfigItem.Add") }	
         </Button>
         <Button
           variant={"outline"}
@@ -169,11 +172,11 @@ export function ConfigItemTable<TData, TValue>({
           onClick={() =>
             publish({
               key: "CommandAddConfigItem",
-              payload: { name: "New Input Config", type: "InputConfig" },
+              payload: { name: t("ConfigList.Actions.InputConfigItem.DefaultName"), type: "InputConfig" },
             } as CommandAddConfigItem)
           }
         >
-          Add Input Config
+          { t("ConfigList.Actions.InputConfigItem.Add") }	
         </Button>
       </div>
     </div>

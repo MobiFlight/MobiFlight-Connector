@@ -3,7 +3,7 @@ import { test, expect } from './fixtures';
 test('Confirm empty list view', async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithEmptyData()
-  await expect (page.getByRole('cell', { name: 'No results.' })).toBeVisible()
+  await expect (page.getByRole('cell', { name: 'This is a new configuration. Please add some items.' })).toBeVisible()
   await expect (page.getByRole('button', { name: 'Add Output Config' })).toBeVisible()
   await expect (page.getByRole('button', { name: 'Add Input Config' })).toBeVisible()
   await expect (page.getByRole('textbox', { name: 'Filter items...' })).toBeVisible()

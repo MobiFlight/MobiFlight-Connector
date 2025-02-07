@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { IConfigItem } from "@/types"
 import { isEmpty } from "lodash-es"
+import { useTranslation } from "react-i18next"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -42,12 +43,14 @@ export function DataTableToolbar<TData>({
     }),
   )
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <IconFilter className="stroke-primary" />
         <Input
-          placeholder="Filter items..."
+          placeholder={ t("ConfigList.Toolbar.Search.Placeholder") }
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("Name")?.setFilterValue(event.target.value)
@@ -57,21 +60,21 @@ export function DataTableToolbar<TData>({
         {table.getColumn("ModuleSerial") && (
           <DataTableFacetedFilter
             column={table.getColumn("ModuleSerial")}
-            title="Devices"
+            title={t("ConfigList.Toolbar.Filter.Device")}	
             options={devices}
           />
         )}
         {table.getColumn("Type") && (
           <DataTableFacetedFilter
             column={table.getColumn("Type")}
-            title="Type"
+            title={t("ConfigList.Toolbar.Filter.Type")}	
             options={types}
           />
         )}
         {table.getColumn("Device") && (
           <DataTableFacetedFilter
             column={table.getColumn("Device")}
-            title="Name"
+            title={t("ConfigList.Toolbar.Filter.Name")}	
             options={components}
           />
         )}
@@ -81,12 +84,11 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Reset
+            {t("ConfigList.Toolbar.Reset")}	
             <IconX className="ml-2 h-4 w-4" />
           </Button>
         )}
       </div>
-      {/* <DataTableViewOptions table={table} /> */}
     </div>
   )
 }
