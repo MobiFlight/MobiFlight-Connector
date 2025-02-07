@@ -1,0 +1,373 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING PFP-3N-CO-PILOT",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB3D",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Line-Select-Key 1L"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Line-Select-Key 2L"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Line-Select-Key 3L"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Line-Select-Key 4L"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Line-Select-Key 5L"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Line-Select-Key 6L"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Line Select Key 1R"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Line Select Key 2R"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Line Select Key 3R"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Line Select Key 4R"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Line Select Key 5R"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Line Select Key 6R"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "Init/Ref Button"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "RTE Button"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "CLB Button"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "CRZ Button"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "DES Button"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "BRT- Button"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "BRT+ Button"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "MENU Button"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "LEGS Button"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "DEP/ARR Button"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "HOLD Button"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "PROG Button"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "EXEC Button"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "N1/LIMIT Button"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "FIX Button"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "PREV PAGE Button"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "NEXT PAGE Button"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "1 Button"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "2 Button"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "3 Button"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "4 Button"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "5 Button"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "6 Button"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "7 Button"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "8 Button"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "9 Button"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": ". Button"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "0 Button"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "+/- Button"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "A Button"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "B Button"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "C Button"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "D Button"
+    },
+    {
+      "Id": 46,
+      "Type": "Button",
+      "Label": "E Button"
+    },
+    {
+      "Id": 47,
+      "Type": "Button",
+      "Label": "F Button"
+    },
+    {
+      "Id": 48,
+      "Type": "Button",
+      "Label": "G Button"
+    },
+    {
+      "Id": 49,
+      "Type": "Button",
+      "Label": "H Button"
+    },
+    {
+      "Id": 50,
+      "Type": "Button",
+      "Label": "I Button"
+    },
+    {
+      "Id": 51,
+      "Type": "Button",
+      "Label": "J Button"
+    },
+    {
+      "Id": 52,
+      "Type": "Button",
+      "Label": "K Button"
+    },
+    {
+      "Id": 53,
+      "Type": "Button",
+      "Label": "L Button"
+    },
+    {
+      "Id": 54,
+      "Type": "Button",
+      "Label": "M Button"
+    },
+    {
+      "Id": 55,
+      "Type": "Button",
+      "Label": "N Button"
+    },
+    {
+      "Id": 56,
+      "Type": "Button",
+      "Label": "O Button"
+    },
+    {
+      "Id": 57,
+      "Type": "Button",
+      "Label": "P Button"
+    },
+    {
+      "Id": 58,
+      "Type": "Button",
+      "Label": "Q Button"
+    },
+    {
+      "Id": 59,
+      "Type": "Button",
+      "Label": "R Button"
+    },
+    {
+      "Id": 60,
+      "Type": "Button",
+      "Label": "S Button"
+    },
+    {
+      "Id": 61,
+      "Type": "Button",
+      "Label": "T Button"
+    },
+    {
+      "Id": 62,
+      "Type": "Button",
+      "Label": "U Button"
+    },
+    {
+      "Id": 63,
+      "Type": "Button",
+      "Label": "V Button"
+    },
+    {
+      "Id": 64,
+      "Type": "Button",
+      "Label": "W Button"
+    },
+    {
+      "Id": 65,
+      "Type": "Button",
+      "Label": "X Button"
+    },
+    {
+      "Id": 66,
+      "Type": "Button",
+      "Label": "Y Button"
+    },
+    {
+      "Id": 67,
+      "Type": "Button",
+      "Label": "Z Button"
+    },
+    {
+      "Id": 68,
+      "Type": "Button",
+      "Label": "SP Button"
+    },
+    {
+      "Id": 69,
+      "Type": "Button",
+      "Label": "DEL Button"
+    },
+    {
+      "Id": 70,
+      "Type": "Button",
+      "Label": "/ Button"
+    },
+    {
+      "Id": 71,
+      "Type": "Button",
+      "Label": "CLR Button"
+    },
+    {
+      "Id": 51,
+      "Type": "Axis",
+      "Label": "Light Sensor 1"
+    },
+    {
+      "Id": 52,
+      "Type": "Axis",
+      "Label": "Light Sensor 2"
+    }
+  ]
+}

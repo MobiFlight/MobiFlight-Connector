@@ -1245,6 +1245,15 @@
     <None Include="Joysticks\winwing_fcu_efisr.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\winwing_pfp3n_captain.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_pfp3n_copilot.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_pfp3n_observer.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
