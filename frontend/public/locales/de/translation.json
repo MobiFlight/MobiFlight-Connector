@@ -24,6 +24,9 @@
       "FinalValue": "Endwert",
       "Actions": "Aktionen"
     },
+    "Cell" : {
+      "Waiting" : "Warten"
+    },
     "Table" : {
       "NoResultsFound" : "Neue Konfiguration. Erstelle neue Einträge."
     },

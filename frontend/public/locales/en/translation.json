@@ -24,6 +24,9 @@
       "FinalValue": "Final Value",
       "Actions": "Actions"
     },
+    "Cell" : {
+      "Waiting" : "Waiting"
+    },
     "Table" : {
       "NoResultsFound" : "This is a new configuration. Please add some items."
     },

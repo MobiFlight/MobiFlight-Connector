@@ -179,15 +179,16 @@ export const columns: ColumnDef<IConfigItem>[] = [
       )
     },
     cell: ({ row }) => {
+      const { t } = useTranslation()
       const label = row.getValue("RawValue") as string
       return (
-        <div className="text-md hidden w-16 select-none truncate md:visible md:block lg:w-24">
+        <div className="text-md hidden w-16 select-none truncate md:visible md:block lg:w-24 xl:w-32">
           {!isEmpty(label) ? (
             label
           ) : (
             <div className="item-center flex flex-row gap-2 text-slate-300">
               <IconBuildingBroadcastTower className="animate-pulse" />
-              <span>waiting</span>
+              <span className="truncate">{t("ConfigList.Cell.Waiting")}</span>
             </div>
           )}
         </div>
@@ -207,15 +208,16 @@ export const columns: ColumnDef<IConfigItem>[] = [
       )
     },
     cell: ({ row }) => {
+      const { t } = useTranslation()
       const label = row.getValue("Value") as string
       return (
-        <div className="text-md hidden w-16 select-none truncate md:block lg:w-24">
+        <div className="text-md hidden w-16 select-none truncate md:block lg:w-24 xl:w-32">
           {!isEmpty(label) ? (
             label
           ) : (
             <div className="item-center flex flex-row gap-2 text-slate-300">
               <IconMathSymbols className="animate-pulse" />
-              <span>waiting</span>
+              <span className="truncate">{t("ConfigList.Cell.Waiting")}</span>
             </div>
           )}
         </div>
