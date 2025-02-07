@@ -7,6 +7,8 @@ namespace MobiFlightWwFcu
 {
     internal class WinwingEfis : IWinwingDevice
     {
+        public string Name { get => $"WinWing EFIS {EfisType}"; }
+
         private WinwingMessageSender MessageSender = null;
         private string EfisType = WinwingConstants.EFISL_NAME;
 
@@ -50,13 +52,7 @@ namespace MobiFlightWwFcu
             { 'd', new byte[] { 0b01101110 } },
         };
 
-        //                           Time                           Baro    Qxx
-        // f0000b 1a 0dbf 0000 02010000 eb7d1c 00000900000000000000 607d605b02 00000000000000000000000000000000000000000000000000000000000000000000
-        // 0         4         8        12     15  17    20      24 25      29 30   
-        //           0         4        8      11  13    16      20 21      25 26 
 
-        // f00009 2b 0dbf 000002010000 83ef1a 00000900000000000000 607d606302 0dbf 0000 0301 0000 83ef1a 0000000000000000000000000000000000000000000000
-        //                                                                    Start of command 2 refresh
 
         private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
         {

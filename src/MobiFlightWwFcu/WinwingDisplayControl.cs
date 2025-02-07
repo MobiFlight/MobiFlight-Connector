@@ -51,22 +51,38 @@ namespace MobiFlight
         {
             LedNameToDeviceMapping = new Dictionary<string, IWinwingDevice>();
             DisplayNameToDeviceMapping = new Dictionary<string, List<IWinwingDevice>>();
+            MessageSender = new WinwingMessageSender(ProductId);      
 
-            MessageSender = new WinwingMessageSender(ProductId);
-            AddDevice(new WinwingFcu(MessageSender));
-
-            if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISL)
+            switch (ProductId)
             {
-                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
-            }
-            else if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISR)
-            {
-                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
-            }
-            else if (ProductId == WinwingConstants.PRODUCT_ID_FCU_EFISL_EFISR)
-            {
-                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
-                AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+                case WinwingConstants.PRODUCT_ID_FCU_ONLY:
+                    AddDevice(new WinwingFcu(MessageSender));
+                    break;
+                case WinwingConstants.PRODUCT_ID_FCU_EFISL:
+                    AddDevice(new WinwingFcu(MessageSender));
+                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_FCU_EFISR:
+                    AddDevice(new WinwingFcu(MessageSender));
+                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_FCU_EFISL_EFISR:
+                    AddDevice(new WinwingFcu(MessageSender));
+                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
+                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_MCDU_CPT:
+                case WinwingConstants.PRODUCT_ID_MCDU_FO:
+                case WinwingConstants.PRODUCT_ID_MCDU_OBS:
+                    AddDevice(new WinwingCduDevice(MessageSender, WinwingCduType.MCDU));
+                    break;
+                case WinwingConstants.PRODUCT_ID_PFP3N_CPT:
+                case WinwingConstants.PRODUCT_ID_PFP3N_FO:
+                case WinwingConstants.PRODUCT_ID_PFP3N_OBS:
+                    AddDevice(new WinwingCduDevice(MessageSender, WinwingCduType.PFP3N));
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -127,8 +143,7 @@ namespace MobiFlight
                 while (true)
                 {
                     if (DoExecuteHeartbeat)
-                    {
-                        // Do the pattern like in recording
+                    {                        
                         MessageSender.SendHeartBeatMessage();
                         Thread.Sleep(450);
                         MessageSender.SendHeartBeatMessage();
@@ -199,9 +214,9 @@ namespace MobiFlight
                         device.SetDisplay(name, value);
                     }                
                 }
-                catch
+                catch (Exception ex) 
                 {
-                    ErrorMessageCreated?.Invoke(this, $"Error setting Winwing FCU display name='{name}' to value='{value}'. Probably value not in a valid number format.");
+                    ErrorMessageCreated?.Invoke(this, $"Error setting WinWing display name='{name}' to value='{value}'. Probably value not in a valid number format.");
                 }
             }
         }

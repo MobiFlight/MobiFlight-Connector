@@ -1,35 +1,51 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
 namespace MobiFlightWwFcu
 {
     internal class WinwingCduDevice : IWinwingDevice
-    {
+   {
+        public string Name { get => $"WinWing {CduType}"; }
+
         private WinwingMessageSender MessageSender = null;
 
-        private WinwingCduType CduType;
+        private WinwingCduType CduType = WinwingCduType.MCDU;
 
-        private byte[] DestinationAddress = WinwingConstants.DEST_CDU; // For now. Unclear in case of multiple CDUs on one system.
+        private byte[] DestinationAddress = WinwingConstants.DEST_MCDU;    
 
-        private string BACK_BRIGHTNESS = "Backlight Percentage";
+        private const string BACK_BRIGHTNESS = "Backlight Percentage";
         private const string LCD_BRIGHTNESS = "LCD Percentage";
         private const string LED_BRIGHTNESS = "LED Percentage";
 
-        //private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
-        //{
-        //    { "White",    new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x0d } } },
-        //    { "Black",   new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x0e } } },
-        //    { "Red",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x0f } } },
-        //    { "Green",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x10 } } },
-        //    { "Blue",    new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x11 } } },
-        //    { "Yellow",   new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x12 } } },
-        //    { "Magenta",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x13 } } },
-        //    { "Winwing",  new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x14 } } },
-        //};
+        private Dictionary<char, byte> FormatTable = new Dictionary<char, byte>()
+        {            
+            { 'a', 0x03 },  // amber - 1           
+            { 'w', 0x06 },  // white          
+            { 'c', 0x09 },  // cyan        
+            { 'g', 0x0c },  // green            
+            { 'm', 0x0f },  // magenta          
+            { 'r', 0x12 },  // red            
+            { 'y', 0x15 },  // yellow            
+            { 'o', 0x18 },  // olive
+            { 'x', 0x1B },  // grey  - 9          
+        };
+        
+        private string InitialDisplayJson =
+            @"{ ""Data"": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [""\u2192"",""w"",0], [""M"",""c"",0],[""o"",""w"",0],[""b"",""c"",0],[""i"",""w"",0],[""F"",""c"",0],[""l"",""w"",0],
+                           [""i"",""c"",0],[""g"",""w"",0],[""h"",""c"",0],[""t"",""w"",0],[""\u2190"",""c"",0],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}";
+       
 
         // Defines Colors, Fonts and Screen
         private List<Tuple<string, byte[]>> InitCommandSequence = new List<Tuple<string, byte[]>>()
@@ -52,15 +68,14 @@ namespace MobiFlightWwFcu
             new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // wenn fehlt, wird nur noch 1 Zeichen links oben aktualisiert
             new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // Top Left Corner X Coordinate (0x10 = 16)
             new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x02, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // Top Left Corner Y Coordinate (0x11 = 17)
-            new Tuple<string, byte[]>("1a01", new byte[] {0x01 }), // geht ohne
-            new Tuple<string, byte[]>("1c01", new byte[0]), // geht nicht ohne - Schreibe Settings??
-            // new Tuple<string, byte[]>("0501", new byte[0]),  // optional. does not occur on FlyByWire
+            new Tuple<string, byte[]>("1a01", new byte[] {0x01 }),
+            new Tuple<string, byte[]>("1c01", new byte[0]), 
         };
 
 
         private List<Tuple<string, byte[]>> ClearCommandSequence = new List<Tuple<string, byte[]>>()
         {
-            new Tuple<string, byte[]>("0401", new byte[] {0x14 }),   // 0d is white, 0e is black, 0f is red, 10 green, 11 blue, 12 yellow, 13 magenta, 14 black with winwing logo
+            //new Tuple<string, byte[]>("0401", new byte[] {0x14 }),   // 0d is white, 0e is black, 0f is red, 10 green, 11 blue, 12 yellow, 13 magenta, 14 black with winwing logo
             new Tuple<string, byte[]>("1201", new byte[] {0xff, 0x06, 0x07, 0x0d}), // that and 1001 leads to black screen. Everything together black screen
             new Tuple<string, byte[]>("1301", new byte[] {0xff, 0x06, 0x07, 0x0d}), // that and 1001 leads to white screen
             new Tuple<string, byte[]>("1001", new byte[] {0x00, 0x00, 0x00, 0x00, 0x80, 0x02, 0xe0, 0x01}), // only that, white screen
@@ -76,11 +91,6 @@ namespace MobiFlightWwFcu
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();  
 
-        private byte[] DisplayTestCommand = new byte[0x12]; // 18 confirmed
-        
-        // TODO MCDU display data
-        // private byte[] SetValuesCommand = new byte[0x1a]; // 26 in case of Efis
-
         public WinwingCduDevice(WinwingMessageSender sender, WinwingCduType cduType)
         {
             MessageSender = sender;
@@ -88,6 +98,7 @@ namespace MobiFlightWwFcu
 
             if (CduType == WinwingCduType.MCDU)
             {
+                DestinationAddress = WinwingConstants.DEST_MCDU;
                 LedIdentifiers = new Dictionary<string, byte>()
                 {
                     { $"FAIL",   0x08 },
@@ -103,8 +114,14 @@ namespace MobiFlightWwFcu
             }
             else if (CduType == WinwingCduType.PFP3N)
             {
-                LedIdentifiers = new Dictionary<string, byte>()
-                {
+                DestinationAddress = WinwingConstants.DEST_PFP3N;
+                LedIdentifiers = new Dictionary<string, byte>() // TODO
+                {            
+                    { $"CALL",   0x08 },
+                    { $"FAIL",   0x09 },
+                    { $"MSG", 0x0a },
+                    { $"OFST",  0x0b },
+                    { $"EXEC", 0x0c },              
                 };
             }
  
@@ -127,8 +144,7 @@ namespace MobiFlightWwFcu
         }
 
         private void PrepareCommands()
-        {
-            // Prepare InitCommands
+        {     
             InitCommands = new List<byte[]>();
             foreach (var cmd in InitCommandSequence)
             {
@@ -138,8 +154,7 @@ namespace MobiFlightWwFcu
                 fullCommand.AddRange(cmd.Item2);
                 InitCommands.Add(fullCommand.ToArray());
             }
-
-            // Prepare ClearCommands
+         
             ClearCommands = new List<byte[]>();
             foreach (var cmd in ClearCommandSequence)
             {
@@ -149,18 +164,14 @@ namespace MobiFlightWwFcu
                 fullCommand.AddRange(cmd.Item2);
                 ClearCommands.Add(fullCommand.ToArray());
             }
-
-            // Init DisplayTestCommand
-            var initDisplayTest = new List<byte>(DestinationAddress);
-            initDisplayTest.AddRange(new byte[2]);
-            initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
-            initDisplayTest.CopyTo(DisplayTestCommand, 0);
         }
 
         public void Connect()
-        {     
-            SetBacklightBrightness("20");
+        {
+            MessageSender.SendDisplayCommands(InitCommands);
+            SetBacklightBrightness("80");
             SetLcdBrightness("100");
+            ConvertAndSendCduData(InitialDisplayJson);
         }
 
         public void Shutdown()
@@ -175,7 +186,6 @@ namespace MobiFlightWwFcu
         }
 
 
-        // Only to be used from websocket interface
         public List<string> GetLedNames()
         {
             return LedIdentifiers.Keys.ToList();
@@ -196,15 +206,20 @@ namespace MobiFlightWwFcu
                 MessageSender.SendLightControlMessage(DestinationAddress, LedIdentifiers[led], stateAdjusted);
             }
         }
-      
-        public void SetDisplay(string name, string value)
-        {
-            // TODO Special handling for special "name" string if it is meant to fill the cdu display
 
-            if (!string.IsNullOrWhiteSpace(value) && LcdCurrentValuesCache[name] != value) // check cache
+        public void SetDisplay(string name, string value)
+        {         
+            if (!string.IsNullOrWhiteSpace(value))
             {
-                LcdCurrentValuesCache[name] = value;
-                DisplayNameToActionMapping[name](value); // Execute Action
+                if (name == WinwingConstants.CDU_DATA)
+                {
+                    ConvertAndSendCduData(value);
+                }
+                else if (LcdCurrentValuesCache[name] != value) // check cache
+                {
+                    LcdCurrentValuesCache[name] = value;
+                    DisplayNameToActionMapping[name](value); // Execute Action
+                }
             }
         }
 
@@ -225,24 +240,58 @@ namespace MobiFlightWwFcu
 
         private void EmptyDisplay()
         {
-            var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[5], Data = new byte[5] };
-
-            // ClearCommdandSequence????
-
-            //SetBytesDisplayCommand(resetMsg, SetValuesCommand);
-            //SendDisplayCommand(SetValuesCommand);
+            MessageSender.SendDisplayCommands(ClearCommands);
         }
 
+        private void ConvertAndSendCduData(string json)
+        {
+            List<byte> byteList = new List<byte>();
+            JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
+            JArray data = (JArray)jsonObject["Data"];
 
-        //private void SetBytesDisplayCommand(MsgEntry msgEntry, byte[] message)
-        //{
-        //    byte setPos = msgEntry.StartPos;
-        //    for (int i = 0; i < msgEntry.Data.Length; i++)
-        //    {
-        //        message[setPos] &= msgEntry.Mask[i];
-        //        message[setPos] |= msgEntry.Data[i];
-        //        setPos++;
-        //    }
-        //}
+            byte formatByte = 0x06;
+            char currentChar = ' ';
+            char formatChar = 'w';
+            bool isSmall = false;
+
+            for (int i = 0; i < data.Count; i++)
+            {
+                var item = data[i];
+                currentChar = ' ';
+                formatChar = 'w';
+                isSmall = false;
+
+                if (item.HasValues)
+                {
+                    currentChar = item[0].Value<char>();
+                    formatChar = item[1].Value<char>();
+                    isSmall = item[2].Value<bool>();
+
+                    formatByte = FormatTable[formatChar];
+                    if (isSmall)
+                    {
+                        formatByte = (byte)(formatByte + 30);
+                    }
+                }
+
+                // First char
+                if (i == 0)
+                {
+                    byteList.Add(0x07);
+                }
+                // Last char
+                else if ((i == data.Count - 1))
+                {
+                    byteList.Add(0x08);
+                }
+                else
+                {
+                    byteList.Add(formatByte);
+                }
+                byteList.AddRange(Encoding.UTF8.GetBytes(new char[] { currentChar }));
+            }
+
+            MessageSender.SendCduDisplayBytes(byteList.ToArray());            
+        }
     }
 }

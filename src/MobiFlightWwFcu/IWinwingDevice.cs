@@ -5,7 +5,9 @@ using System.Text;
 namespace MobiFlightWwFcu
 {
     internal interface IWinwingDevice
-    {        
+    {
+        string Name { get; }
+
         void Connect();
 
         void Shutdown();

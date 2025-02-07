@@ -108,6 +108,36 @@ namespace MobiFlightWwFcu
         }
 
 
+        internal void SendCduDisplayBytes(byte[] byteList)
+        {
+            byte[] message = new byte[64];
+            int counterCurrentMessage = 0;
+
+            for (int i = 0; i < byteList.Length; i++)
+            {
+                counterCurrentMessage++;
+
+                // Start of new message
+                if (counterCurrentMessage == 1)
+                {
+                    message[0] = 0xf2;
+                }
+
+                message[counterCurrentMessage] = byteList[i];
+
+                if ((counterCurrentMessage == 63) || (i == byteList.Length - 1))
+                {
+                    // Send message
+                    WriteStream(message, 0, 64);
+
+                    // Reset message
+                    message = new byte[64];
+                    counterCurrentMessage = 0;
+                }
+            }
+        }
+
+
         /// <summary>
         /// Send a light control message
         /// </summary>

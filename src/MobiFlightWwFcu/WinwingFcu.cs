@@ -7,8 +7,7 @@ namespace MobiFlightWwFcu
 {
     internal class WinwingFcu : IWinwingDevice
     {
-        // f0 00 0e 12 10bb0000 04 010000 44 8f 32 0000 01000000 02000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        // 0  1  2  3  4 5 6 7  8  9      12 13 14 15   17       21
+        public string Name { get; } = "WinWing FCU";
 
         private WinwingMessageSender MessageSender = null;
 
@@ -79,11 +78,6 @@ namespace MobiFlightWwFcu
             { '9', new byte[] { 0xc0, 0x0f } },
         };
 
-        //                             Time                            SPD     HDG    -- ALT-----   VS
-        // f000d931 10bb0000 0201 0000 86e9ab 00 00 20000000 00000000 d6fcbc 48404070 03 d6b6bfbf 5f500000800000000000000000000000|0000000000000000000000
-        // 0                 8         12     15    17    20 21    24 25     28  30   32   34  36 37  39  41
-        //         |0 1 2 3  4 5  6 7      10 11 12   14  16   18  20   22   24  26   28   30  32 33  35  37 
-        //          HIER                                    Laenge 0x20 = 32
                                                       
         private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
         {                     
@@ -188,20 +182,17 @@ namespace MobiFlightWwFcu
         }
 
         private void PrepareCommands()
-        {
-            // Init DisplayTestCommand
+        {        
             var initDisplayTest = new List<byte>(DestinationAddress);
             initDisplayTest.AddRange(new byte[2]);
             initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
             initDisplayTest.CopyTo(DisplayTestCommand, 0);
-
-            // Init SetValuesCommand 
+        
             var initSetValues = new List<byte>(DestinationAddress);
             initSetValues.AddRange(new byte[2]);
             initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201"]);
             initSetValues.CopyTo(SetValuesCommand, 0);
 
-            // Init RefreshCommand
             var initRefresh = new List<byte>(DestinationAddress);
             initRefresh.AddRange(new byte[2]);
             initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
