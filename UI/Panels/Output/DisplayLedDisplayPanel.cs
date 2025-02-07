@@ -199,18 +199,21 @@ namespace MobiFlight.UI.Panels
             return config;
         }
 
-        internal void SetConfigRefsDataView(DataView dv, string filterGuid)
+        internal void SetConfigRefsDataView(List<OutputConfigItem> dv, string filterGuid)
         {
-            this.filterReferenceGuid = filterGuid==null?string.Empty:filterGuid;
+            this.filterReferenceGuid = filterGuid == null ? string.Empty : filterGuid;
 
-            List<ListItem> configRefs = new List<ListItem>();
-            configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
-            foreach (DataRow refRow in dv.Table.Rows) 
+            List<ListItem> configRefs = new List<ListItem>
+            {
+                new ListItem { Value = string.Empty, Label = "<None>" }
+            };
+
+            foreach (var refCfg in dv)
             {
 
-                if (!filterReferenceGuid.Equals(refRow["guid"].ToString())) 
+                if (!filterReferenceGuid.Equals(refCfg.GUID))
                 {
-                    configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+                    configRefs.Add(new ListItem { Value = refCfg.GUID, Label = refCfg.Name });
                 }
             }
 

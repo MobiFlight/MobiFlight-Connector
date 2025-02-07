@@ -671,7 +671,7 @@ namespace MobiFlight
                 MobiFlightLcdDisplay display = null;
                 foreach (IConnectedDevice dev in module.GetConnectedDevices(LcdConfig.Address))
                 {
-                    if (dev.Type == DeviceType.LcdDisplay)
+                    if (dev.TypeDeprecated == DeviceType.LcdDisplay)
                     {
                         display = dev as MobiFlightLcdDisplay;
                     }

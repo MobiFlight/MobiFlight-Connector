@@ -8,7 +8,7 @@ namespace MobiFlight
     public interface IConnectedDevice
     {
         String Name { get; }
-        DeviceType Type { get; }
+        DeviceType TypeDeprecated { get; }
 
         void Stop();
     }

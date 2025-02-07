@@ -3,7 +3,7 @@ name: RunTests
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [main, mf2025/main]
 
 env:
   # Path to the solution file relative to the root of the project.
@@ -42,7 +42,11 @@ jobs:
         run: "type Properties/AssemblyInfo.cs"
         shell: pwsh
 
-      - name: Build
+      - name: Build frontend
+        working-directory: ${{env.GITHUB_WORKSPACE}}
+        run: cd frontend; npm install; npm run build
+
+      - name: Build core
         working-directory: ${{env.GITHUB_WORKSPACE}}
         # Add additional options to the MSBuild command line here (like platform or verbosity level).
         # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference

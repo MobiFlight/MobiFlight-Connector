@@ -1,14 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight;
 using MobiFlight.Base;
 using MobiFlight.Modifier;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Tests
@@ -137,7 +132,7 @@ namespace MobiFlight.Tests
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci = new OutputConfigItem();
             oci.ReadXml(xmlReader);
-            Assert.AreEqual("Display Module", oci.DisplayType, "Display Type not Display Module");
+            Assert.AreEqual("Display Module", oci.DeviceType, "Display Type not Display Module");
             Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count, "Interpolation Count is not 5");
         }
@@ -155,7 +150,7 @@ namespace MobiFlight.Tests
 
             OutputConfigItem o = _generateConfigItem();
             xmlWriter.WriteStartElement("settings");
-            o.WriteXml(xmlWriter);
+            o.WriteXml(xmlWriter, false);
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             string s = sw.ToString();
@@ -171,6 +166,11 @@ namespace MobiFlight.Tests
             OutputConfigItem o = _generateConfigItem();
 
             OutputConfigItem c = (OutputConfigItem)o.Clone();
+            Assert.AreEqual(o.Name, c.Name, "clone: Name not the same");
+            Assert.AreEqual(o.Active, c.Active, "clone: Active not the same");
+            Assert.AreEqual(o.GUID, c.GUID, "clone: GUID not the same");
+            Assert.AreEqual(o.Type, c.Type, "clone: Type not the same");
+
             Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "clone: FSUIPCOffset not the same");
             Assert.AreEqual(o.FSUIPC.Mask, c.FSUIPC.Mask, " clone: FSUIPCMask not the same");
             Assert.AreEqual(o.Modifiers.Transformation.Expression, c.Modifiers.Transformation.Expression, "clone: FSUIPCOffsetType not the same");
@@ -184,8 +184,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
 
             Assert.AreEqual(o.Pin.DisplayPin, c.Pin.DisplayPin, "clone: DisplayPin not the same");
-            Assert.AreEqual(o.DisplayType, c.DisplayType, "clone: DisplayType not the same");
-            Assert.AreEqual(o.DisplaySerial, c.DisplaySerial, "clone: DisplaySerial not the same");
+            Assert.AreEqual(o.DeviceType, c.DeviceType, "clone: DisplayType not the same");
+            Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "clone: DisplaySerial not the same");
             Assert.AreEqual(o.Pin.DisplayPinBrightness, c.Pin.DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
             Assert.AreEqual(o.Pin.DisplayPinPWM, c.Pin.DisplayPinPWM, "clone: DisplayPinPWM not the same");
 
@@ -236,6 +236,9 @@ namespace MobiFlight.Tests
         private OutputConfigItem _generateConfigItem()
         {
             OutputConfigItem o = new OutputConfigItem();
+            o.Name = "Test";
+            o.Active = false;
+            o.GUID = "123";
 
             o.FSUIPC.Offset = 0x1234;
             o.FSUIPC.Mask = 0xFFFF;
@@ -251,8 +254,8 @@ namespace MobiFlight.Tests
             o.Modifiers.Comparison.IfValue = "2";
             o.Modifiers.Comparison.ElseValue = "3";
 
-            o.DisplayType = MobiFlight.DeviceType.Stepper.ToString("F");
-            o.DisplaySerial = "Ser123";
+            o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
+            o.ModuleSerial = "Ser123";
             o.Pin.DisplayPin = "A01";
             o.Pin.DisplayPinBrightness = byte.MinValue;
             o.Pin.DisplayPinPWM = true;
@@ -305,6 +308,7 @@ namespace MobiFlight.Tests
         {
             OutputConfigItem o1 = new OutputConfigItem();
             OutputConfigItem o2 = new OutputConfigItem();
+            o1.GUID = o2.GUID;
 
             Assert.IsTrue(o1.Equals(o2));
 
@@ -327,7 +331,7 @@ namespace MobiFlight.Tests
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = _generateConfigItem();
-            o2.DisplayType = "nonsense";
+            o2.DeviceType = "nonsense";
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = _generateConfigItem();

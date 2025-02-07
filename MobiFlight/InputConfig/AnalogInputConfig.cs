@@ -1,18 +1,16 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
 
-    public class AnalogInputConfig : IXmlSerializable, ICloneable
+    public class AnalogInputConfig : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public InputAction onChange;        
-
-
+        public InputAction onChange;
+        
         public object Clone()
         {
             AnalogInputConfig clone = new AnalogInputConfig();

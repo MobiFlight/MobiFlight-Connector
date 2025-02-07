@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.Base
 {
-    public class PreconditionList : IXmlSerializable, ICloneable, IEnumerable
+    public class PreconditionList : IXmlSerializable, ICloneable, IEnumerable, ICollection<Precondition>
     {
         List<Precondition> Preconditions = new List<Precondition>();
         public int Count { get { return Preconditions.Count; } }
@@ -108,6 +108,28 @@ namespace MobiFlight.Base
             }
 
             return areEqual;
+        }
+
+        public bool Contains(Precondition item)
+        {
+            return Preconditions.Contains(item);
+        }
+
+        public void CopyTo(Precondition[] array, int arrayIndex)
+        {
+            Preconditions.CopyTo(array, arrayIndex);
+        }
+
+        bool ICollection<Precondition>.Remove(Precondition item)
+        {
+            return Preconditions.Remove(item);
+        }
+
+        public bool IsReadOnly => false;
+
+        IEnumerator<Precondition> IEnumerable<Precondition>.GetEnumerator()
+        {
+            return Preconditions.GetEnumerator();
         }
     }
 }

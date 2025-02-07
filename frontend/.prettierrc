@@ -1,4 +1,4 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "semi": false
+  "semi": false,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
