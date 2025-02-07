@@ -1371,7 +1371,7 @@ namespace MobiFlight
                 ConfigItemInTestMode = null;
 
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
-            
+
             if (offCfg.DeviceType == null) return;
 
             switch (offCfg.DeviceType)
@@ -1400,6 +1400,9 @@ namespace MobiFlight
                     ExecuteDisplay(offCfg.DeviceType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
                     break;
             }
+
+            cfg.Status.Remove(ConfigItemStatusType.Test);
+            MessageExchange.Instance.Publish(new ConfigValueUpdate(cfg));
         }
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
@@ -1447,6 +1450,9 @@ namespace MobiFlight
                     ExecuteDisplay(value?.ToString() ?? "255", cfg);
                     break;
             }
+
+            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
+            MessageExchange.Instance.Publish(new ConfigValueUpdate(cfg));
         }
 
 
