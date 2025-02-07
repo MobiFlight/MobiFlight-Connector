@@ -179,6 +179,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       )
     },
     cell: ({ row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       const label = row.getValue("RawValue") as string
       return (
@@ -208,6 +209,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       )
     },
     cell: ({ row }) => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       const label = row.getValue("Value") as string
       return (
