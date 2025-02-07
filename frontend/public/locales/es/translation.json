@@ -1,0 +1,41 @@
+{
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filtrar elementos..."
+      },
+      "Filter": {
+        "Device": "Dispositivos",
+        "Type": "Tipos",
+        "Name": "Nombres",
+        "Selected": "{{items}} seleccionados",
+        "Clear": "Borrar filtros",
+        "NoResultsFound": "No se encontraron resultados."
+      },
+      "Reset": "Restablecer filtros"
+    },
+    "Header": {
+      "Active": "Activo",
+      "Name": "Nombre / Descripción",
+      "Device": "Dispositivo",
+      "Component": "Componente",
+      "Status": "Estado",
+      "RawValue": "Valor Original",
+      "FinalValue": "Valor Final",
+      "Actions": "Acciones"
+    },
+    "Table": {
+      "NoResultsFound": "No se encontraron resultados."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Nueva configuración de Output",
+        "DefaultName": "Nueva Configuración Output"
+      },
+      "InputConfigItem": {
+        "Add": "Nueva configuración de Input",
+        "DefaultName": "Nueva Configuración Input"
+      }
+    }
+  }
+}

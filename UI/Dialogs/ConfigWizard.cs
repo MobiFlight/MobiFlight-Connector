@@ -122,7 +122,7 @@ namespace MobiFlight.UI.Dialogs
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
             testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
             testValuePanel1.TestValueChanged += ModifierPanel1_ModifierChanged;
-            TestTimer.Interval = Settings.Default.TestTimerInterval;
+            TestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             TestTimer.Tick += TestTimer_Tick;
             modifierPanel1.ModifierChanged += ModifierPanel1_ModifierChanged;
         }
@@ -135,7 +135,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void TestTimer_Tick(object sender, EventArgs e)
         {
-            TestTimer.Interval = Settings.Default.TestTimerInterval;
+            TestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             var value = config.TestValue.Clone() as ConnectorValue;
             if (value == null) value = new ConnectorValue();
 

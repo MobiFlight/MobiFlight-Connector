@@ -256,6 +256,7 @@
     <Compile Include="Base\DPIUtil.cs" />
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
+    <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\IDeviceConfig.cs" />
     <Compile Include="Base\LogAppender\MessageExchangeAppender.cs" />
