@@ -89,6 +89,7 @@
     <Compile Include="Base\SerialNumberTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />

@@ -1,8 +1,9 @@
-import { AppMessage, AppMessageKey, FrontendMessageType } from "@/types/messages"
+import { CommandMessage } from "@/types/commands"
+import { AppMessage, AppMessageKey } from "@/types/messages"
 import { useEffect } from "react"
 
 export const publishOnMessageExchange = () => ({
-  publish: (message: FrontendMessageType) => {
+  publish: (message: CommandMessage) => {
     console.log(`Publishing FrontendMessage -> ${message.key}`)
     window.chrome?.webview?.postMessage(message)
   },
@@ -18,7 +19,10 @@ export const useAppMessage = (
   useEffect(() => {
     const onReveiveMessageHandler = (event: Event) => {
       try {
-        onReceiveMessage((event as MessageEvent).data as AppMessage)
+        const appMessage = (event as MessageEvent).data as AppMessage
+        if (appMessage.key === key) {
+        onReceiveMessage(appMessage)
+        }
       } catch (error) {
         console.error("Error parsing message", error)
       }

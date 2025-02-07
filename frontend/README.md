@@ -17,5 +17,6 @@ Add http backend, `npm install i18next-http-backend`
 ## zustand
 https://www.npmjs.com/package/zustand
 
-## lodash
-https://www.npmjs.com/package/lodash
+## lodash-es
+https://www.npmjs.com/package/lodash-es
+and @types/lodash-es

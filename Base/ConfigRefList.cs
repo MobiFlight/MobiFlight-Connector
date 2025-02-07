@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight.Base
 {
-    public class ConfigRefList : ICloneable, IEnumerable
+    public class ConfigRefList : ICloneable, IEnumerable, ICollection<ConfigRef>
     {
         List<ConfigRef> list = new List<ConfigRef>();
 
@@ -54,6 +54,28 @@ namespace MobiFlight.Base
             }
 
             return areEqual;
+        }
+
+        public bool Contains(ConfigRef item)
+        {
+            return list.Contains(item);
+        }
+
+        public void CopyTo(ConfigRef[] array, int arrayIndex)
+        {
+            list.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(ConfigRef item)
+        {
+            return list.Remove(item);
+        }
+
+        public bool IsReadOnly => false;
+
+        IEnumerator<ConfigRef> IEnumerable<ConfigRef>.GetEnumerator()
+        {
+            return list.GetEnumerator();
         }
     }
 }
