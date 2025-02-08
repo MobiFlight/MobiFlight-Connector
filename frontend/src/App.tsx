@@ -63,7 +63,7 @@ function App() {
   return (
     <>
       {outlet ? (
-        <div className="flex h-svh flex-row p-2">
+        <div className="flex h-svh flex-row p-2 select-none">
           {/* <Sidebar /> */}
           <div className="flex grow flex-col">
             {/* <Navbar /> */}

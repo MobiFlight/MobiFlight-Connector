@@ -179,7 +179,7 @@ namespace MobiFlight
             MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
             {
                 IConfigItem item = new OutputConfigItem();
-                if (message.Type == "InputAction")
+                if (message.Type == "InputConfig")
                 {
                     item = new InputConfigItem();
                 }

@@ -34,7 +34,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="flex w-auto grow select-none items-center gap-4">
+        <div className="flex w-auto grow items-center gap-4">
           <span>{t("ConfigList.Header.Name")}</span>
           <Button
             className="h-auto w-auto p-1"
@@ -54,7 +54,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="hidden w-32 select-none lg:block">
+        <div className="hidden w-32 lg:block">
           {t("ConfigList.Header.Device")}
         </div>
       )
@@ -63,12 +63,12 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const label = (row.getValue("ModuleSerial") as string).split("/")[0]
       const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
       return !isEmpty(label) ? (
-        <div className="hidden w-32 select-none flex-col lg:flex">
+        <div className="hidden w-32 flex-col lg:flex">
           <p className="text-md truncate font-semibold">{label}</p>
           <p className="truncate text-xs text-muted-foreground">{serial}</p>
         </div>
       ) : (
-        <span className="item-center hidden select-none flex-row gap-2 text-slate-400 lg:flex">
+        <span className="item-center hidden flex-row gap-2 text-slate-400 lg:flex">
           <IconBan />
           <span>not set</span>
         </span>
@@ -84,7 +84,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="w-8 select-none truncate md:w-32">
+        <div className="w-8 truncate md:w-32">
           {t("ConfigList.Header.Component")}
         </div>
       )
@@ -99,7 +99,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         />
       )
       return type != "-" ? (
-        <div className="flex select-none flex-row items-center gap-2 md:w-32">
+        <div className="flex flex-row items-center gap-2 md:w-32">
           <div>{icon}</div>
           <div className="hidden w-full flex-col md:flex">
             <p className="text-md truncate font-semibold">{label}</p>
@@ -107,7 +107,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
           </div>
         </div>
       ) : (
-        <div className="item-center flex select-none flex-row gap-2 text-slate-400">
+        <div className="item-center flex flex-row gap-2 text-slate-400">
           <IconBan />
           <span>not set</span>
         </div>
@@ -131,7 +131,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
     },
     cell: ({ row }) => {
       const label = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
-      return <p className="text-md select-none font-semibold">{label}</p>
+      return <p className="text-md font-semibold">{label}</p>
     },
     filterFn: (row, _, value) => {
       return value.includes(
@@ -173,7 +173,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="hidden w-16 select-none md:visible md:block lg:w-24">
+        <div className="hidden w-16 md:visible md:block lg:w-24">
           {t("ConfigList.Header.RawValue")}
         </div>
       )
@@ -183,7 +183,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const { t } = useTranslation()
       const label = row.getValue("RawValue") as string
       return (
-        <div className="text-md hidden w-16 select-none truncate md:visible md:block lg:w-24 xl:w-32">
+        <div className="text-md hidden w-16 truncate md:visible md:block lg:w-24 xl:w-32">
           {!isEmpty(label) ? (
             label
           ) : (
@@ -203,7 +203,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="hidden w-16 select-none md:block lg:w-24">
+        <div className="hidden w-16 md:block lg:w-24">
           {t("ConfigList.Header.FinalValue")}
         </div>
       )
@@ -213,7 +213,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const { t } = useTranslation()
       const label = row.getValue("Value") as string
       return (
-        <div className="text-md hidden w-16 select-none truncate md:block lg:w-24 xl:w-32">
+        <div className="text-md hidden w-16 truncate md:block lg:w-24 xl:w-32">
           {!isEmpty(label) ? (
             label
           ) : (
@@ -232,7 +232,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="w-10 select-none truncate sm:w-12">
+        <div className="w-10 truncate sm:w-12">
           {t("ConfigList.Header.Actions")}
         </div>
       )

@@ -74,7 +74,9 @@ export function ConfigItemTable<TData, TValue>({
 
   useEffect(() => {
     if (data.length > prevDataLength.current) {
-      const rowElement = tableRef.current?.querySelector(`[data-row-index="${data.length - 1}"]`)
+      const rowElement = tableRef.current?.querySelector(
+        `[data-row-index="${data.length - 1}"]`,
+      )
       if (rowElement) {
         rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
       }
@@ -94,7 +96,7 @@ export function ConfigItemTable<TData, TValue>({
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col grow gap-2 overflow-y-auto">
+    <div className="flex grow flex-col gap-2 overflow-y-auto">
       <div className="p-2">
         <DataTableToolbar table={table} items={data as IConfigItem[]} />
       </div>
@@ -128,6 +130,12 @@ export function ConfigItemTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   data-row-index={row.index}
+                  onDoubleClick={() => {
+                    publish({
+                      key: "CommandConfigContextMenu",
+                      payload: { action: "edit", item: row.original },
+                    })
+                  }}
                   className={row.getValue("Active") ? "" : "text-gray-500"}
                 >
                   {row.getVisibleCells().map((cell) => (
@@ -146,25 +154,28 @@ export function ConfigItemTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  { t("ConfigList.Table.NoResultsFound") }	
+                  {t("ConfigList.Table.NoResultsFound")}
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-start gap-2 p-2 select-none">
+      <div className="flex select-none justify-start gap-2 p-2">
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
           onClick={() =>
             publish({
               key: "CommandAddConfigItem",
-              payload: { name: t("ConfigList.Actions.OutputConfigItem.DefaultName"), type: "OutputConfig" },
+              payload: {
+                name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
+                type: "OutputConfig",
+              },
             } as CommandAddConfigItem)
           }
         >
-          { t("ConfigList.Actions.OutputConfigItem.Add") }	
+          {t("ConfigList.Actions.OutputConfigItem.Add")}
         </Button>
         <Button
           variant={"outline"}
@@ -172,11 +183,14 @@ export function ConfigItemTable<TData, TValue>({
           onClick={() =>
             publish({
               key: "CommandAddConfigItem",
-              payload: { name: t("ConfigList.Actions.InputConfigItem.DefaultName"), type: "InputConfig" },
+              payload: {
+                name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
+                type: "InputConfig",
+              },
             } as CommandAddConfigItem)
           }
         >
-          { t("ConfigList.Actions.InputConfigItem.Add") }	
+          {t("ConfigList.Actions.InputConfigItem.Add")}
         </Button>
       </div>
     </div>
