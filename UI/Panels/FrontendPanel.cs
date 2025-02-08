@@ -47,7 +47,7 @@ namespace MobiFlight.UI.Panels
             FrontendWebView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             FrontendWebView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
 
-            MessageExchange.Instance.SetPublisher(new PostMessagePublisher(FrontendWebView.CoreWebView2));
+            MessageExchange.Instance.SetPublisher(new PostMessagePublisher(FrontendWebView));
         }
 
         private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e)

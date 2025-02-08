@@ -1,15 +1,16 @@
 ﻿using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using System;
+using System.Threading;
 
 namespace MobiFlight.BrowserMessages.Publisher
 {
     public class PostMessagePublisher : IMessagePublisher
     {
-        private readonly CoreWebView2 _webView;
+        private readonly ThreadSafeWebView2 _webView;
         private Action<object> _onMessageReceived;
 
-        public PostMessagePublisher(CoreWebView2 webView)
+        public PostMessagePublisher(ThreadSafeWebView2 webView)
         {
             _webView = webView;
             _webView.WebMessageReceived += WebView_WebMessageReceived;
@@ -21,7 +22,8 @@ namespace MobiFlight.BrowserMessages.Publisher
             {
                 var message = new Message<TEvent>() { key = eventToPublish.GetType().Name, payload = eventToPublish };
                 var jsonMessage = JsonConvert.SerializeObject(message);
-                _webView.PostWebMessageAsJson(jsonMessage);
+                // Ensure the call is made on the UI thread
+                _webView.PostWebMessageAsJsonThreadSafe(jsonMessage);
             }
         }
 
