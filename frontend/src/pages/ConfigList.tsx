@@ -2,10 +2,11 @@ import { useConfigStore } from "@/stores/configFileStore"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { ConfigValueUpdate } from "@/types/messages"
 import testdata from "@/../tests/data/configlist.testdata.json"
+import { IConfigItem } from "@/types"
 
 const ConfigListPage = () => {
   const {
@@ -14,6 +15,11 @@ const ConfigListPage = () => {
     updateItems,
     updateItem,
   } = useConfigStore()
+
+  const mySetItems = useCallback((items: IConfigItem[]) => {
+    setItems(items)
+  }, [setItems])
+    
 
   useAppMessage("ConfigValueUpdate", (message) => {
     const update = message.payload as ConfigValueUpdate
@@ -45,7 +51,7 @@ const ConfigListPage = () => {
     //     </div>
     //     <TabsContent value="config-1" className='mt-0 flex flex-col grow overflow-y-auto'>
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <ConfigItemTable columns={columns} data={configItems} />
+      <ConfigItemTable columns={columns} data={configItems} setItems={mySetItems}/>
     </div>
     //     </TabsContent>
     //   </Tabs>

@@ -124,7 +124,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="w-20 select-none">
+        <div className="w-20">
           Component Type{t("ConfigList.Header.Component")}
         </div>
       )
@@ -161,7 +161,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="w-26 select-none">{t("ConfigList.Header.Status")}</div>
+        <div className="w-26">{t("ConfigList.Header.Status")}</div>
       )
     },
     cell: ConfigItemTableStatusCell,
