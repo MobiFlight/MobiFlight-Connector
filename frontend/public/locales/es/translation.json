@@ -1,4 +1,17 @@
 {
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "not set"
+  },
   "ConfigList": {
     "Toolbar": {
       "Search": {

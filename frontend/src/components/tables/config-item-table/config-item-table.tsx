@@ -20,23 +20,46 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useEffect, useRef, useState } from "react"
+
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+} from "@dnd-kit/core"
+
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable"
+
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
+
+import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { ConfigValueUpdate, IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
-import { CommandAddConfigItem } from "@/types/commands"
+import { CommandAddConfigItem, CommandResortConfigItem } from "@/types/commands"
 import { useConfigStore } from "@/stores/configFileStore"
 import { useTranslation } from "react-i18next"
+import { DndTableRow } from "@/components/tables/config-item-table/DndTableRow"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  data: TData[],
+  setItems: (items: IConfigItem[]) => void
 }
 
 export function ConfigItemTable<TData, TValue>({
   columns,
   data,
+  setItems
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -55,6 +78,7 @@ export function ConfigItemTable<TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    getRowId: (row) => (row as IConfigItem).GUID, //required because row indexes will change
     state: {
       sorting,
       columnFilters,
@@ -74,7 +98,9 @@ export function ConfigItemTable<TData, TValue>({
 
   useEffect(() => {
     if (data.length > prevDataLength.current) {
-      const rowElement = tableRef.current?.querySelector(`[data-row-index="${data.length - 1}"]`)
+      const rowElement = tableRef.current?.querySelector(
+        `[data-row-index="${data.length - 1}"]`,
+      )
       if (rowElement) {
         rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
       }
@@ -93,78 +119,134 @@ export function ConfigItemTable<TData, TValue>({
 
   const { t } = useTranslation()
 
+  const sensors = useSensors(
+    useSensor(MouseSensor, {}),
+    useSensor(TouchSensor, {}),
+    useSensor(KeyboardSensor, {})
+  )
+  
+
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
+    const { active, over } = event
+
+    if (active.id !== over?.id) {
+      // sort the data items first
+      const oldIndex = data.findIndex((item) => (item as IConfigItem).GUID === active?.id);
+      const newIndex = data.findIndex((item) => (item as IConfigItem).GUID === over?.id);
+      const arrayWithNewOrder = arrayMove(data, oldIndex, newIndex);
+      // store them in a local array
+      // then set the items
+
+      setItems(arrayWithNewOrder as IConfigItem[]);
+      publishOnMessageExchange().publish({
+        key: "CommandResortConfigItem",
+        payload: {
+          items: [ data.find((item) => (item as IConfigItem).GUID === active.id) as IConfigItem ],
+          newIndex: newIndex,
+        }
+      } as CommandResortConfigItem);
+    }
+  }, [data, setItems])
+
   return (
-    <div className="flex flex-col grow gap-2 overflow-y-auto">
+    <div className="flex grow flex-col gap-2 overflow-y-auto">
       <div className="p-2">
         <DataTableToolbar table={table} items={data as IConfigItem[]} />
       </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          modifiers={[restrictToVerticalAxis]}
+          onDragEnd={handleDragEnd}
+        >
       <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
-        <Table ref={tableRef} className="table-auto">
-          <TableHeader className="group/header bg-slate-500 text-white dark:bg-slate-800">
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id} className="hover:bg-slate-800">
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      className="sticky top-0 z-50 bg-primary px-2 text-white dark:bg-slate-800"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  )
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody className="dark:bg-zinc-900">
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  data-row-index={row.index}
-                  className={row.getValue("Active") ? "" : "text-gray-500"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="p-1">
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
+          <Table ref={tableRef} className="table-auto">
+            <TableHeader className="group/header bg-slate-500 text-white dark:bg-slate-800">
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id} className="hover:bg-slate-800">
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead
+                        key={header.id}
+                        className="sticky top-0 z-50 bg-primary px-2 text-white dark:bg-slate-800"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    )
+                  })}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
+              ))}
+            </TableHeader>
+            <TableBody className="dark:bg-zinc-900">
+              {table.getRowModel().rows?.length ? (
+                <SortableContext
+                  items={table.getRowModel().rows.map((row) => row.id)}
+                  strategy={verticalListSortingStrategy}
                 >
-                  { t("ConfigList.Table.NoResultsFound") }	
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+                  {table.getRowModel().rows.map((row) => {
+                    
+
+                    return (
+                      <DndTableRow
+                        key={row.id}
+                        data-state={row.getIsSelected() && "selected"}
+                        dnd-itemid={row.id}
+                        onDoubleClick={() => {
+                          publish({
+                            key: "CommandConfigContextMenu",
+                            payload: { action: "edit", item: row.original },
+                          })
+                        }}
+                        className={
+                          row.getValue("Active") ? "bg-white" : "bg-white text-gray-500"
+                        }
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id} className="p-1">
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </TableCell>
+                        ))}
+                      </DndTableRow>
+                    )
+                  })}
+                </SortableContext>
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
+                  >
+                    {t("ConfigList.Table.NoResultsFound")}
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
       </div>
-      <div className="flex justify-start gap-2 p-2 select-none">
+        </DndContext>
+      <div className="flex justify-start gap-2 p-2">
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
           onClick={() =>
             publish({
               key: "CommandAddConfigItem",
-              payload: { name: t("ConfigList.Actions.OutputConfigItem.DefaultName"), type: "OutputConfig" },
+              payload: {
+                name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
+                type: "OutputConfig",
+              },
             } as CommandAddConfigItem)
           }
         >
-          { t("ConfigList.Actions.OutputConfigItem.Add") }	
+          {t("ConfigList.Actions.OutputConfigItem.Add")}
         </Button>
         <Button
           variant={"outline"}
@@ -172,11 +254,14 @@ export function ConfigItemTable<TData, TValue>({
           onClick={() =>
             publish({
               key: "CommandAddConfigItem",
-              payload: { name: t("ConfigList.Actions.InputConfigItem.DefaultName"), type: "InputConfig" },
+              payload: {
+                name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
+                type: "InputConfig",
+              },
             } as CommandAddConfigItem)
           }
         >
-          { t("ConfigList.Actions.InputConfigItem.Add") }	
+          {t("ConfigList.Actions.InputConfigItem.Add")}
         </Button>
       </div>
     </div>

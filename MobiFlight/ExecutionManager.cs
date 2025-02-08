@@ -16,6 +16,7 @@ namespace MobiFlight
 {
     public class ExecutionManager
     {
+        public event EventHandler OnConfigHasChanged;
         public event EventHandler OnExecute;
         public event EventHandler OnStarted;
         public event EventHandler OnStopped;
@@ -195,7 +196,7 @@ namespace MobiFlight
             MessageExchange.Instance.Subscribe<CommandAddConfigItem>((message) =>
             {
                 IConfigItem item = new OutputConfigItem();
-                if (message.Type == "InputAction")
+                if (message.Type == "InputConfig")
                 {
                     item = new InputConfigItem();
                 }
@@ -212,6 +213,7 @@ namespace MobiFlight
                     InputConfigItems.Add((InputConfigItem)item);
                 }
                 MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { item } });
+                OnConfigHasChanged?.Invoke(item, null);
             });
 
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
@@ -265,6 +267,55 @@ namespace MobiFlight
                 cfgFile.InputConfigItems = InputConfigItems;
 
                 MessageExchange.Instance.Publish(cfgFile);
+                OnConfigHasChanged?.Invoke(cfgFile, null);
+            });
+
+            MessageExchange.Instance.Subscribe<CommandResortConfigItem>((message) =>
+            {
+                // find all items
+                var resortedItems = new List<IConfigItem>();
+                message.Items.ToList().ForEach(item =>
+                {
+                    IConfigItem cfg = OutputConfigItems.Find(i => i.GUID == item.GUID);
+                    if (cfg == null)
+                    {
+                        cfg = InputConfigItems.Find(i => i.GUID == item.GUID);
+                    }
+                    if (cfg == null) return;
+                    resortedItems.Add(cfg);
+                    if (cfg is OutputConfigItem)
+                    {
+                        OutputConfigItems.Remove(cfg as OutputConfigItem);
+                    }
+                    else
+                    {
+                        InputConfigItems.Remove(cfg as InputConfigItem);
+                    }
+                });
+
+                var currentIndex = message.NewIndex;
+
+                resortedItems.ForEach(item =>
+                {
+                    if (item is OutputConfigItem)
+                    {
+                        OutputConfigItems.Insert(currentIndex, item as OutputConfigItem);
+                    }
+                    else
+                    {
+                        InputConfigItems.Insert(currentIndex, item as InputConfigItem);
+                    }
+
+                    currentIndex++;
+                });
+                // remove all items
+                // reinsert all items at new index
+                var cfgFile = new ConfigFile();
+                cfgFile.OutputConfigItems = OutputConfigItems;
+                cfgFile.InputConfigItems = InputConfigItems;
+
+                MessageExchange.Instance.Publish(cfgFile);
+                OnConfigHasChanged?.Invoke(cfgFile, null);
             });
         }
 
@@ -279,6 +330,7 @@ namespace MobiFlight
             configItem.Active = item.Active;
             configItem.Name = item.Name;
             MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { configItem } });
+            OnConfigHasChanged?.Invoke(new IConfigItem[] { configItem }, null);
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)

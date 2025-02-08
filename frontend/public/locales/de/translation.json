@@ -1,4 +1,17 @@
 {
+  "Types": {
+    "Output": "Ausgang",
+    "LedModule": "7-Segment Anzeige",
+    "Stepper": "Schrittmotor",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Schalter",
+    "Encoder": "Enkoder",
+    "AnalogInput": "Analoger Eingang",
+    "-": "nicht vewendet"
+  },
   "ConfigList": {
     "Toolbar" : {
       "Search" : {
@@ -12,6 +25,7 @@
         "Clear" : "Filter zurücksetzen",
         "NoResultsFound" : "Keine Ergebnisse gefunden."
       },
+      "NotSet": "Nicht verwendet",
       "Reset": "Filter zurücksetzen"
     },
     "Header" : {

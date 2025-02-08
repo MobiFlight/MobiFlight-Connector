@@ -1,4 +1,4 @@
-import { IconFilter, IconX } from "@tabler/icons-react"
+import { IconBan, IconFilter, IconX } from "@tabler/icons-react"
 import { Table } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
@@ -19,38 +19,52 @@ export function DataTableToolbar<TData>({
   table,
   items,
 }: DataTableToolbarProps<TData>) {
+  const { t } = useTranslation()
+
   const isFiltered = table.getState().columnFilters.length > 0
+
   const devices = [...new Set(items.map((item) => item.ModuleSerial))].map(
-    (serial) => ({
-      label: isEmpty(serial.split("/")[0]) ? "not set" : serial.split("/")[0],
-      value: serial,
-    }),
-  )
-  const components = [...new Set(items.map((item) => item.Device?.Name))].map(
-    (component) => ({
-      label: isEmpty(component) ? "-" : component!,
-      value: component ?? "-",
-    }),
-  )
-  const types = [...new Set(items.map((item) => item.Device?.Type))].map(
-    (type) => ({
-      label:
-        type
-          ?.replace("MobiFlight.", "")
-          ?.replace("OutputConfig.", "")
-          ?.replace("InputConfig.", "") ?? "-",
-      value: type ?? "-",
-    }),
+    (serial) => {
+      const label = serial?.split("/")[0]
+      return {
+        label: !isEmpty(label) ? (
+          label
+        ) : (
+          t(`ConfigList.Toolbar.NotSet`)
+        ),
+        value: serial,
+        icon: isEmpty(label) ? IconBan : undefined,
+      }
+    },
   )
 
-  const { t } = useTranslation()
+  const components = [
+    ...new Set(items.map((item) => item.Device?.Name ?? "-")),
+  ].map((component) => ({
+    label: component,
+    value: component,
+  }))
+
+  const types = [...new Set(items.map((item) => item.Device?.Type ?? "-"))].map(
+    (type) => {
+      const labelRaw = type
+        ?.replace("MobiFlight.", "")
+        ?.replace("OutputConfig.", "")
+        ?.replace("InputConfig.", "")
+      const label = t(`Types.${labelRaw}`)
+      return {
+        label: label,
+        value: type,
+      }
+    },
+  )
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <IconFilter className="stroke-primary" />
         <Input
-          placeholder={ t("ConfigList.Toolbar.Search.Placeholder") }
+          placeholder={t("ConfigList.Toolbar.Search.Placeholder")}
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("Name")?.setFilterValue(event.target.value)
@@ -60,21 +74,21 @@ export function DataTableToolbar<TData>({
         {table.getColumn("ModuleSerial") && (
           <DataTableFacetedFilter
             column={table.getColumn("ModuleSerial")}
-            title={t("ConfigList.Toolbar.Filter.Device")}	
+            title={t("ConfigList.Toolbar.Filter.Device")}
             options={devices}
           />
         )}
         {table.getColumn("Type") && (
           <DataTableFacetedFilter
             column={table.getColumn("Type")}
-            title={t("ConfigList.Toolbar.Filter.Type")}	
+            title={t("ConfigList.Toolbar.Filter.Type")}
             options={types}
           />
         )}
         {table.getColumn("Device") && (
           <DataTableFacetedFilter
             column={table.getColumn("Device")}
-            title={t("ConfigList.Toolbar.Filter.Name")}	
+            title={t("ConfigList.Toolbar.Filter.Name")}
             options={components}
           />
         )}
@@ -84,7 +98,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            {t("ConfigList.Toolbar.Reset")}	
+            {t("ConfigList.Toolbar.Reset")}
             <IconX className="ml-2 h-4 w-4" />
           </Button>
         )}

@@ -1,20 +1,34 @@
 {
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "not set"
+  },
   "ConfigList": {
-    "Toolbar" : {
-      "Search" : {
+    "Toolbar": {
+      "Search": {
         "Placeholder": "Filter items..."
       },
-      "Filter" : {
+      "Filter": {
         "Device": "Devices",
-        "Type" : "Types",
-        "Name" : "Names",
-        "Selected" : "{{items}} selected",
-        "Clear" : "Clear filters",
-        "NoResultsFound" : "No results found."
+        "Type": "Types",
+        "Name": "Names",
+        "Selected": "{{items}} selected",
+        "Clear": "Clear filters",
+        "NoResultsFound": "No results found."
       },
+      "NotSet": "not set",
       "Reset": "Reset filters"
     },
-    "Header" : {
+    "Header": {
       "Active": "Active",
       "Name": "Name / Description",
       "Device": "Device",
@@ -24,18 +38,18 @@
       "FinalValue": "Final Value",
       "Actions": "Actions"
     },
-    "Cell" : {
-      "Waiting" : "Waiting"
+    "Cell": {
+      "Waiting": "Waiting"
     },
-    "Table" : {
-      "NoResultsFound" : "This is a new configuration. Please add some items."
+    "Table": {
+      "NoResultsFound": "This is a new configuration. Please add some items."
     },
     "Actions": {
-      "OutputConfigItem" : {
+      "OutputConfigItem": {
         "Add": "Add Output Config",
         "DefaultName": "New Output Config"
       },
-      "InputConfigItem" : {
+      "InputConfigItem": {
         "Add": "Add Input Config",
         "DefaultName": "New Input Config"
       }
