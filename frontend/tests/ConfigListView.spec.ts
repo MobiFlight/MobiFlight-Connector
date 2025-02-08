@@ -74,3 +74,13 @@ test('Confirm status icons working', async ({ configListPage, page }) => {
   await configListPage.updateConfigItemStatus(0, { "Test": "being tested" });
   await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(4)).toHaveAttribute('aria-disabled', 'false');
 })
+
+test('Confirm drag n drop is working', async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('button').first().hover();
+  await page.mouse.down();
+  await page.getByRole('row', { name: 'Servo' }).getByRole('button').first().hover();
+  await page.mouse.up();
+  await expect(page.getByRole('row').nth(4)).toContainText("LED 1");
+})

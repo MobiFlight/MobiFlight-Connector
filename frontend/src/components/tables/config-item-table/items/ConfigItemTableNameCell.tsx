@@ -38,7 +38,7 @@ const ConfigItemTableNameCell = ({ row } : ConfigItemTableNameCellProps) => {
   }, [realLabel])
 
   return (
-    <div className="group flex w-auto cursor-pointer select-none flex-row items-center gap-1">
+    <div className="group flex w-auto cursor-pointer flex-row items-center gap-1">
       {!isEditing ? (
         <div className="flex flex-col">
           <div className="flex flex-row items-center gap-1">

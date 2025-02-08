@@ -28,7 +28,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
   return (
-    <div className="flex w-28 select-none flex-row gap-0">
+    <div className="flex w-28 flex-row gap-0">
       <IconAlertSquareRounded
         role="status"
         aria-disabled={!Precondition}
