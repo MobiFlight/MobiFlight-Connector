@@ -10,7 +10,7 @@ interface DndTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
 export const DndTableRow = React.forwardRef<
   HTMLTableRowElement,
   DndTableRowProps
->(({ className, ...props }, ref) => {
+>(({ className, ...props }) => {
   const {
     attributes,
     listeners,
