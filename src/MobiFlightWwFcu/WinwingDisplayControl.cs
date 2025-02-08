@@ -56,20 +56,20 @@ namespace MobiFlight
             switch (ProductId)
             {
                 case WinwingConstants.PRODUCT_ID_FCU_ONLY:
-                    AddDevice(new WinwingFcu(MessageSender));
+                    AddDevice(new WinwingFcuDevice(MessageSender));
                     break;
                 case WinwingConstants.PRODUCT_ID_FCU_EFISL:
-                    AddDevice(new WinwingFcu(MessageSender));
-                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
+                    AddDevice(new WinwingFcuDevice(MessageSender));
+                    AddDevice(new WinwingEfisDevice(MessageSender, WinwingConstants.EFISL_NAME));
                     break;
                 case WinwingConstants.PRODUCT_ID_FCU_EFISR:
-                    AddDevice(new WinwingFcu(MessageSender));
-                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+                    AddDevice(new WinwingFcuDevice(MessageSender));
+                    AddDevice(new WinwingEfisDevice(MessageSender, WinwingConstants.EFISR_NAME));
                     break;
                 case WinwingConstants.PRODUCT_ID_FCU_EFISL_EFISR:
-                    AddDevice(new WinwingFcu(MessageSender));
-                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISL_NAME));
-                    AddDevice(new WinwingEfis(MessageSender, WinwingConstants.EFISR_NAME));
+                    AddDevice(new WinwingFcuDevice(MessageSender));
+                    AddDevice(new WinwingEfisDevice(MessageSender, WinwingConstants.EFISL_NAME));
+                    AddDevice(new WinwingEfisDevice(MessageSender, WinwingConstants.EFISR_NAME));
                     break;
                 case WinwingConstants.PRODUCT_ID_MCDU_CPT:
                 case WinwingConstants.PRODUCT_ID_MCDU_FO:

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingEfis : IWinwingDevice
+    internal class WinwingEfisDevice : IWinwingDevice
     {
         public string Name { get => $"WinWing EFIS {EfisType}"; }
 
@@ -77,7 +77,7 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];
         private byte[] SetValuesCommand = new byte[0x1a];        
 
-        public WinwingEfis(WinwingMessageSender sender, string efisType)
+        public WinwingEfisDevice(WinwingMessageSender sender, string efisType)
         {
             MessageSender = sender;
             EfisType = efisType;

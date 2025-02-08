@@ -63,9 +63,6 @@ namespace MobiFlightWwFcu
 
         internal void SendDisplayCommands(IList<byte[]> commands)
         {
-            // One command has minimum of 17 bytes with no command data. 
-            // Max Länge einer Message ist 0x38 bytes.
-            // 4 bytes head - 56 bytes content (0x38) - 4 not used bytes at the end. == 64 bytes in total
             int indexHeaderEnd = 3;
             byte[] id = GetTimeAsBytes();
             byte[] message = GetNewMessage();

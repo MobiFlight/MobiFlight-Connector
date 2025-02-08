@@ -21,19 +21,35 @@ namespace MobiFlightWwFcu
         private const string LCD_BRIGHTNESS = "LCD Percentage";
         private const string LED_BRIGHTNESS = "LED Percentage";
 
-        private Dictionary<char, byte> FormatTable = new Dictionary<char, byte>()
-        {            
-            { 'a', 0x03 },  // amber - 1           
-            { 'w', 0x06 },  // white          
-            { 'c', 0x09 },  // cyan        
-            { 'g', 0x0c },  // green            
-            { 'm', 0x0f },  // magenta          
-            { 'r', 0x12 },  // red            
-            { 'y', 0x15 },  // yellow            
-            { 'o', 0x18 },  // olive
-            { 'x', 0x1B },  // grey  - 9          
+        private Dictionary<char, byte[]> FormatTableLarge = new Dictionary<char, byte[]>()
+        {
+            { 'a', new byte[] {0x21, 0x00} },  // amber - 1           
+            { 'w', new byte[] {0x42, 0x00} },  // white          
+            { 'c', new byte[] {0x63, 0x00} },  // cyan        
+            { 'g', new byte[] {0x84, 0x00} },  // green            
+            { 'm', new byte[] {0xa5, 0x00} },  // magenta          
+            { 'r', new byte[] {0xc6, 0x00} },  // red            
+            { 'y', new byte[] {0xe7, 0x00} },  // yellow            
+            { 'o', new byte[] {0x08, 0x01} },  // brown
+            { 'e', new byte[] {0x29, 0x01} },  // grey
+            { 'k', new byte[] {0x4a, 0x01} },  // khaki  - 10 , 0x6b, 0x8c
         };
-        
+
+
+        private Dictionary<char, byte[]> FormatTableSmall = new Dictionary<char, byte[]>()
+        {
+            { 'a', new byte[] {0x8c, 0x01} },  // amber - 1           
+            { 'w', new byte[] {0xad, 0x01} },  // white          
+            { 'c', new byte[] {0xce, 0x01} },  // cyan        
+            { 'g', new byte[] {0xef, 0x01} },  // green            
+            { 'm', new byte[] {0x10, 0x02} },  // magenta          
+            { 'r', new byte[] {0x31, 0x02} },  // red            
+            { 'y', new byte[] {0x52, 0x02} },  // yellow            
+            { 'o', new byte[] {0x73, 0x02} },  // brown
+            { 'e', new byte[] {0x94, 0x02} },  // grey
+            { 'k', new byte[] {0xb5, 0x02} },  // khaki  - 10
+        };
+
         private string InitialDisplayJson =
             @"{ ""Data"": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
@@ -45,41 +61,92 @@ namespace MobiFlightWwFcu
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]}";
-       
 
-        // Defines Colors, Fonts and Screen
-        private List<Tuple<string, byte[]>> InitCommandSequence = new List<Tuple<string, byte[]>>()
+
+        private List<Tuple<string, byte[]>> InitCommandSequence = new List<Tuple<string, byte[]>>();
+
+
+        private List<Tuple<string, byte[]>> InitCommandHeaderMcdu = new List<Tuple<string, byte[]>>()
         {
             new Tuple<string, byte[]>("1e01", new byte[0]),
-            new Tuple<string, byte[]>("1801", new byte[] {0x35, 0x00, 0x17, 0x00, 0x0e, 0x00, 0x18, 0x00}),  // geht erst Mal ohne
-            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),  // Nr. 1 definiert schriften - große Schriftart
-            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),  // - Kleine Schriftart
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0x00, 0x00, 0xff, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // BackColor 1 BLACK  00 00 00 {ff] -> 00 00 00 {ff]
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0xa5, 0xff, 0xff, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 1 AMBER [00 a5] (ff) {ff}-> (ff) [a5 00] {ff}
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0xff, 0xff, 0xff, 0xff, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 2 WHITE
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0xff, 0xff, 0x00, 0xff, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 3 CYAN
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x3d, 0xff, 0x00, 0xff, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 4 GREEN [3d ff] (00) ff ->  (00) [ff 3d] ff
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0xff, 0x63, 0xff, 0xff, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 5 LIGHT YELLOW / Magenta?
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0x00, 0xff, 0xff, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 6 RED
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0xff, 0xff, 0xff, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 7 YELLOW
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x42, 0x5c, 0x61, 0xff, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 8 Brownish
-            new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x77, 0x77, 0x77, 0xff, 0x0d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // FontColor 9 Grey
-            new Tuple<string, byte[]>("1901", new byte[] {0x03, 0x00, 0x00, 0x00, 0x00, 0xff, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // geht ohne. Was macht Nr. 3???
-            new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // wenn fehlt, wird nur noch 1 Zeichen links oben aktualisiert
-            new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // Top Left Corner X Coordinate (0x10 = 16)
-            new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x02, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // Top Left Corner Y Coordinate (0x11 = 17)
-            new Tuple<string, byte[]>("1a01", new byte[] {0x01 }),
-            new Tuple<string, byte[]>("1c01", new byte[0]), 
+            new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x25, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
         };
+
+        private List<Tuple<string, byte[]>> InitCommandHeaderPfp3n = new List<Tuple<string, byte[]>>()
+        {
+            new Tuple<string, byte[]>("1e01", new byte[0]),
+            new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x13, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        };
+
+        private List<Tuple<string, byte[]>> InitCommandData = new List<Tuple<string, byte[]>>()
+        {
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x00, 0x00, 0x00, 0xff, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x00, 0xa5, 0xff, 0xff, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0xff, 0xff, 0xff, 0xff, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0xff, 0xff, 0x00, 0xff, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x3d, 0xff, 0x00, 0xff, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0xff, 0x63, 0xff, 0xff, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x00, 0x00, 0xff, 0xff, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x00, 0xff, 0xff, 0xff, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x42, 0x5c, 0x61, 0xff, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x77, 0x77, 0x77, 0xff, 0x0d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x02, 0x00, 0x5e, 0x73, 0x79, 0xff, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x00, 0x00, 0x00, 0xff, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x00, 0xa5, 0xff, 0xff, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0xff, 0xff, 0xff, 0xff, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0xff, 0xff, 0x00, 0xff, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x3d, 0xff, 0x00, 0xff, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0xff, 0x63, 0xff, 0xff, 0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x00, 0x00, 0xff, 0xff, 0x15, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x00, 0xff, 0xff, 0xff, 0x16, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x42, 0x5c, 0x61, 0xff, 0x17, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x77, 0x77, 0x77, 0xff, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x03, 0x00, 0x5e, 0x73, 0x79, 0xff, 0x19, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x04, 0x00, 0x01, 0x00, 0x00, 0x00, 0x1b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1901", new byte[] { 0x04, 0x00, 0x02, 0x00, 0x00, 0x00, 0x1c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }),
+            new Tuple<string, byte[]>("1a01", new byte[] { 0x02 }),
+            new Tuple<string, byte[]>("1c01", new byte[0]),
+        };
+
+
+        //private List<Tuple<string, byte[]>> InitCommandSequenceMcdu = new List<Tuple<string, byte[]>>()
+        //{
+        //    new Tuple<string, byte[]>("1e01", new byte[0]),
+        //    new Tuple<string, byte[]>("1801", new byte[] {0x35, 0x00, 0x17, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0x00, 0x00, 0xff, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0xa5, 0xff, 0xff, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0xff, 0xff, 0xff, 0xff, 0x06, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0xff, 0xff, 0x00, 0xff, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x3d, 0xff, 0x00, 0xff, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0xff, 0x63, 0xff, 0xff, 0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0x00, 0xff, 0xff, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x00, 0xff, 0xff, 0xff, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x42, 0x5c, 0x61, 0xff, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x02, 0x00, 0x77, 0x77, 0x77, 0xff, 0x0d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x03, 0x00, 0x00, 0x00, 0x00, 0xff, 0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1901", new byte[] {0x04, 0x00, 0x02, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+        //    new Tuple<string, byte[]>("1a01", new byte[] {0x01 }),
+        //    new Tuple<string, byte[]>("1c01", new byte[0]),
+        //};
 
 
         private List<Tuple<string, byte[]>> ClearCommandSequence = new List<Tuple<string, byte[]>>()
         {
-            //new Tuple<string, byte[]>("0401", new byte[] {0x14 }),   // 0d is white, 0e is black, 0f is red, 10 green, 11 blue, 12 yellow, 13 magenta, 14 black with winwing logo
-            new Tuple<string, byte[]>("1201", new byte[] {0xff, 0x06, 0x07, 0x0d}), // that and 1001 leads to black screen. Everything together black screen
-            new Tuple<string, byte[]>("1301", new byte[] {0xff, 0x06, 0x07, 0x0d}), // that and 1001 leads to white screen
-            new Tuple<string, byte[]>("1001", new byte[] {0x00, 0x00, 0x00, 0x00, 0x80, 0x02, 0xe0, 0x01}), // only that, white screen
-            new Tuple<string, byte[]>("0301", new byte[0]), // 1201, 1301, 1001 only have effect when 0301 afterwards
+            new Tuple<string, byte[]>("0401", new byte[] {0x0e }),
+            new Tuple<string, byte[]>("0301", new byte[0]),
+            new Tuple<string, byte[]>("1201", new byte[] {0xff, 0x06, 0x07, 0x0d}),
+            new Tuple<string, byte[]>("1301", new byte[] {0xff, 0x06, 0x07, 0x0d}),
+            new Tuple<string, byte[]>("1001", new byte[] {0x00, 0x00, 0x00, 0x00, 0x80, 0x02, 0xe0, 0x01}),
+            new Tuple<string, byte[]>("0301", new byte[0]),
         };
 
         private List<byte[]> InitCommands;
@@ -89,7 +156,7 @@ namespace MobiFlightWwFcu
         private Dictionary<string, byte> LedIdentifiers;
 
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
-        private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();  
+        private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
 
         public WinwingCduDevice(WinwingMessageSender sender, WinwingCduType cduType)
         {
@@ -98,6 +165,8 @@ namespace MobiFlightWwFcu
 
             if (CduType == WinwingCduType.MCDU)
             {
+                InitCommandSequence.AddRange(InitCommandHeaderPfp3n);
+                InitCommandSequence.AddRange(InitCommandData);
                 DestinationAddress = WinwingConstants.DEST_MCDU;
                 LedIdentifiers = new Dictionary<string, byte>()
                 {
@@ -114,18 +183,19 @@ namespace MobiFlightWwFcu
             }
             else if (CduType == WinwingCduType.PFP3N)
             {
+                InitCommandSequence.AddRange(InitCommandHeaderMcdu);
+                InitCommandSequence.AddRange(InitCommandData);
                 DestinationAddress = WinwingConstants.DEST_PFP3N;
-                LedIdentifiers = new Dictionary<string, byte>() // TODO
-                {            
-                    { $"CALL",   0x08 },
-                    { $"FAIL",   0x09 },
-                    { $"MSG", 0x0a },
-                    { $"OFST",  0x0b },
-                    { $"EXEC", 0x0c },              
+                LedIdentifiers = new Dictionary<string, byte>()
+                {
+                    { $"CALL",   0x03 },
+                    { $"FAIL",   0x04 },
+                    { $"MSG", 0x05 },
+                    { $"OFST",  0x06 },
+                    { $"EXEC", 0x07 },
                 };
             }
- 
-            // Do not add the cdu display
+
             DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
             DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
             DisplayNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
@@ -191,7 +261,6 @@ namespace MobiFlightWwFcu
             return LedIdentifiers.Keys.ToList();
         }
 
-        // set brightness by mobiflight process
         public List<string> GetDisplayNames()
         {           
             return DisplayNameToActionMapping.Keys.ToList();
@@ -249,7 +318,7 @@ namespace MobiFlightWwFcu
             JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
             JArray data = (JArray)jsonObject["Data"];
 
-            byte formatByte = 0x06;
+            byte[] formatBytes = FormatTableLarge['w'];
             char currentChar = ' ';
             char formatChar = 'w';
             bool isSmall = false;
@@ -266,27 +335,32 @@ namespace MobiFlightWwFcu
                     currentChar = item[0].Value<char>();
                     formatChar = item[1].Value<char>();
                     isSmall = item[2].Value<bool>();
-
-                    formatByte = FormatTable[formatChar];
+                    
                     if (isSmall)
                     {
-                        formatByte = (byte)(formatByte + 30);
+                        formatBytes = FormatTableSmall[formatChar];
+                    }
+                    else
+                    {
+                        formatBytes = FormatTableLarge[formatChar];
                     }
                 }
 
                 // First char
                 if (i == 0)
                 {
-                    byteList.Add(0x07);
+                    byteList.Add((byte)(formatBytes[0] + 0x01));
+                    byteList.Add(formatBytes[1]);
                 }
                 // Last char
                 else if ((i == data.Count - 1))
                 {
-                    byteList.Add(0x08);
+                    byteList.Add((byte)(formatBytes[0] + 0x02));
+                    byteList.Add(formatBytes[1]);
                 }
                 else
                 {
-                    byteList.Add(formatByte);
+                    byteList.AddRange(formatBytes);
                 }
                 byteList.AddRange(Encoding.UTF8.GetBytes(new char[] { currentChar }));
             }

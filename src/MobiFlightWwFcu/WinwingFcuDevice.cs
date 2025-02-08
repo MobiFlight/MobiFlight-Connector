@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingFcu : IWinwingDevice
+    internal class WinwingFcuDevice : IWinwingDevice
     {
         public string Name { get; } = "WinWing FCU";
 
@@ -102,27 +102,27 @@ namespace MobiFlightWwFcu
             { "NoVertMode1",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000000 } } },
             { "FpaMode1",       new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000001 } } },
             { "VsMode1",        new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000100 } } },
-            { "NoVertMode2",    new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b00000000 } } }, // 0x40-VS  und  0x80-FPA - Erste Nibbel vom letzten Byte
-            { "FpaMode2",       new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b10000000 } } }, // 0x40-VS  und  0x80-FPA - Erste Nibbel vom letzten Byte
-            { "VsMode2",        new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b01000000 } } }, // 0x40-VS  und  0x80-FPA - Erste Nibbel vom letzten Byte
+            { "NoVertMode2",    new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b00000000 } } },
+            { "FpaMode2",       new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b10000000 } } },
+            { "VsMode2",        new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b01000000 } } },
             { "NoAlt",          new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x00 } } },
             { "Alt",            new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x10 } } },
             { "NoLvlCh",        new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x00, 0x00, 0x00 } } },
             { "LvlCh",          new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x10, 0x10, 0x10 } } },
-            { "AltTenthsds",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } }, // 2 should be 0x70 -> letzte Bit macht nix??
-            { "AltThousands",   new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } }, // 6 shoud be 0xfb -> letzte bit setzt ALT LOGO
-            { "AltHundreds",    new MsgEntry { StartPos = 30, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x00, 0x06 } } }, // 0 should be 0xbf -> letzte bit setzt oben |- gezeichnet
-            { "AltTens",        new MsgEntry { StartPos = 31, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } }, // sollte sein 0xbf - Letzte Bit setzt LVL/CH 
-            { "AltOnes",        new MsgEntry { StartPos = 32, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } }, // sollte sein 0xbf - Letzte Bit setzt -|
+            { "AltTenthsds",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            { "AltThousands",   new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            { "AltHundreds",    new MsgEntry { StartPos = 30, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x00, 0x06 } } },
+            { "AltTens",        new MsgEntry { StartPos = 31, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            { "AltOnes",        new MsgEntry { StartPos = 32, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
             { "VsMinus",        new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00000000 } } },
             { "VsPlus",         new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00010000 } } },
             { "FpaDecPoint",    new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
             { "FpaNoDecPoint",  new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },
-            { "VsThousands",    new MsgEntry { StartPos = 33, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },  // letzte Bit -> Sorgt für das Minus vor der Zahl
-            { "VsHundreds",     new MsgEntry { StartPos = 34, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },  // letzte Bit -> Setzt den Dezimalpunkt vor die Zahl
+            { "VsThousands",    new MsgEntry { StartPos = 33, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            { "VsHundreds",     new MsgEntry { StartPos = 34, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
             // Intentionally set initial VS to '00oo'
-            { "VsTens",         new MsgEntry { StartPos = 35, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },  // letzte Bit -> Setzt den | vom Plus vor VS-Wert                                                      
-            { "VsOnes",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },  // letzte Bit -> Setzt den ALT DOT
+            { "VsTens",         new MsgEntry { StartPos = 35, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },                                                   
+            { "VsOnes",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },
             { "AltDot",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
             { "AltNoDot",       new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } }, 
             { "ZeroEndBlock",   new MsgEntry { StartPos = 38, Mask = new byte[11], Data = new byte[11] } },
@@ -145,7 +145,7 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];
         private byte[] SetValuesCommand = new byte[0x31];   
 
-        public WinwingFcu(WinwingMessageSender sender)
+        public WinwingFcuDevice(WinwingMessageSender sender)
         {
             MessageSender = sender;
             DisplayNameToActionMapping.Add(SPEED, SetSpeed);
