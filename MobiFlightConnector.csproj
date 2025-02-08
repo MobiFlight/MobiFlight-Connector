@@ -379,6 +379,9 @@
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
+    <Compile Include="MobiFlight\ThreadSafeWebView2.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MobiFlight\Scripts\ChildProcessMonitor.cs" />
     <Compile Include="MobiFlight\Scripts\IChildProcessMonitor.cs" />
     <Compile Include="MobiFlight\Scripts\ScriptMapping.cs" />

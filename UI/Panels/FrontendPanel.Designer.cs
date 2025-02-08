@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.FrontendWebView = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.FrontendWebView = new ThreadSafeWebView2();
             ((System.ComponentModel.ISupportInitialize)(this.FrontendWebView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,6 +58,6 @@
 
         #endregion
 
-        private Microsoft.Web.WebView2.WinForms.WebView2 FrontendWebView;
+        private ThreadSafeWebView2 FrontendWebView;
     }
 }
