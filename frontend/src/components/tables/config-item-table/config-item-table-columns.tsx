@@ -7,9 +7,6 @@ import {
   IconBuildingBroadcastTower,
   IconMathSymbols,
 } from "@tabler/icons-react"
-// import { Badge } from "@/components/ui/badge";
-import DeviceIcon from "@/components/icons/DeviceIcon"
-import { DeviceElementType } from "@/types/deviceElements"
 import { IDeviceConfig } from "@/types/config"
 import { isEmpty } from "lodash"
 import { useTranslation } from "react-i18next"
@@ -20,6 +17,7 @@ import {
   ConfigItemTableNameCell,
   ConfigItemTableStatusCell,
 } from "./items"
+import ConfigItemTableDeviceCell from "./items/ConfigItemTableDeviceCell"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -89,30 +87,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         </div>
       )
     },
-    cell: ({ row }) => {
-      const label = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
-      const type = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
-      const icon = (
-        <DeviceIcon
-          disabled={!row.getValue("Active") as boolean}
-          variant={(type ?? "default") as DeviceElementType}
-        />
-      )
-      return type != "-" ? (
-        <div className="flex flex-row items-center gap-2 md:w-32">
-          <div>{icon}</div>
-          <div className="hidden w-full flex-col md:flex">
-            <p className="text-md truncate font-semibold">{label}</p>
-            <p className="truncate text-xs text-muted-foreground">{type}</p>
-          </div>
-        </div>
-      ) : (
-        <div className="item-center flex flex-row gap-2 text-slate-400">
-          <IconBan />
-          <span>not set</span>
-        </div>
-      )
-    },
+    cell: ConfigItemTableDeviceCell,
     filterFn: (row, id, value) => {
       return value.includes((row.getValue(id) as IDeviceConfig)?.Name ?? "-")
     },
