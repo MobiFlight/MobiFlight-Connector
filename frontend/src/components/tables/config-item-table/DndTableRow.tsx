@@ -7,13 +7,8 @@ interface DndTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   "dnd-itemid": string
 }
 
-export const DndTableRow = React.forwardRef<
-  HTMLTableRowElement,
-  DndTableRowProps
->(({ className, ...props }) => {
+export const DndTableRow : React.FC<DndTableRowProps> = (({ className, ...props }) => {
   const {
-    attributes,
-    listeners,
     setNodeRef,
     transform,
     transition,
@@ -22,16 +17,15 @@ export const DndTableRow = React.forwardRef<
   const dndStyle: CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
+    zIndex: 1000,
   }
 
   return (
     <tr
       style={dndStyle}
-      {...attributes}
-      {...listeners}
       ref={setNodeRef}
       className={cn(
-        "border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted",
+        "group/row border-b transition-colors hover:bg-muted/80 data-[state=selected]:bg-muted",
         className,
       )}
       {...props}
