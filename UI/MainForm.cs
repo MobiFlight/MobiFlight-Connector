@@ -229,7 +229,8 @@ namespace MobiFlight.UI
                     // that the user edited with the wizard
                     var index = execManager.OutputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.OutputConfigItems[index] = wizard.Config;
-                    OutputConfigPanel_SettingsChanged(wizard.Config, null);
+                    MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
+                    ExecManager_OnConfigHasChanged(wizard.Config, null);
                 }
             };
         }
@@ -278,7 +279,8 @@ namespace MobiFlight.UI
                     // that the user edited with the wizard
                     var index = execManager.InputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.InputConfigItems[index] = wizard.Config;
-                    InputConfigPanel_SettingsChanged(wizard.Config, null);
+                    MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
+                    ExecManager_OnConfigHasChanged(wizard.Config, null);
                 }
             };
         }
@@ -322,6 +324,7 @@ namespace MobiFlight.UI
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
 
             execManager = new ExecutionManager(this.Handle);
+            execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
@@ -583,13 +586,6 @@ namespace MobiFlight.UI
             }
         }
 
-        private void OutputConfigPanel_SettingsChanged(IConfigItem sender, EventArgs e)
-        {
-            MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { sender } });
-            saveToolStripButton.Enabled = true;
-            UpdateAllConnectionIcons();
-        }
-
         private void UpdateAllConnectionIcons()
         {
             UpdateSimStatusIcon();
@@ -609,9 +605,8 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", moduleInfo, null, null);
         }
 
-        private void InputConfigPanel_SettingsChanged(IConfigItem sender, EventArgs e)
+        private void ExecManager_OnConfigHasChanged(object sender, EventArgs e)
         {
-            MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { sender } });
             saveToolStripButton.Enabled = true;
             UpdateAllConnectionIcons();
         }

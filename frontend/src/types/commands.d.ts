@@ -5,11 +5,13 @@ export type CommandMessageKey =
   | "CommandConfigContextMenu"
   | "CommandUpdateConfigItem"
   | "CommandAddConfigItem"
+  | "CommandResortConfigItem"
 
 export type CommandMessage =
   | CommandConfigContextMenu
   | CommandUpdateConfigItem
   | CommandAddConfigItem
+  | CommandResortConfigItem
 
 
 export interface CommandMessageBase {
@@ -45,5 +47,14 @@ export interface CommandAddConfigItem extends CommandMessageBase {
   payload: { 
     name: string,
     type: ConfigItemType
+  }
+}
+
+
+export interface CommandResortConfigItem extends CommandMessageBase {
+  key: "CommandResortConfigItem"
+  payload: { 
+    items: IConfigItem[],
+    newIndex: number
   }
 }
