@@ -25,8 +25,9 @@ namespace MobiFlight
         public Source Source { get; set; }
         public ConnectorValue       TestValue                   { get; set; }
 
-        public OutputConfig.Output     Pin                         { get; set; }
-		public OutputConfig.LedModule   LedModule               { get; set; }
+        public override IDeviceConfig Device { get; set; }
+
+        public OutputConfig.LedModule   LedModule               { get; set; }
 		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
 		public List<string>         BcdPins                     { get; set; }
         public OutputConfig.Servo   Servo { get; set; }
@@ -45,7 +46,8 @@ namespace MobiFlight
             Source = new SimConnectSource();
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
-            Pin = new OutputConfig.Output();
+            Device = new OutputConfig.Output();
+
             LedModule = new OutputConfig.LedModule();
             LcdDisplay = new OutputConfig.LcdDisplay();
             Servo = new OutputConfig.Servo();
@@ -67,7 +69,7 @@ namespace MobiFlight
                 this.DeviceType == item.DeviceType &&
                 this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
-                this.Pin.Equals(item.Pin) &&
+                this.Device.Equals(item.Device) &&
                 this.LedModule.Equals(item.LedModule) &&
                 this.LcdDisplay.Equals(item.LcdDisplay) &&
                 this.Stepper.Equals(item.Stepper) &&
@@ -171,7 +173,8 @@ namespace MobiFlight
                 
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
-                    Pin.ReadXml(reader);
+                    Device = new OutputConfig.Output();
+                    (Device as OutputConfig.Output).ReadXml(reader);
                 }
                 else if (DeviceType == MobiFlightLedModule.TYPE)
                 {
@@ -384,7 +387,7 @@ namespace MobiFlight
             }
             else
             {
-                Pin.WriteXml(writer);
+                (Device as OutputConfig.Output).WriteXml(writer);
             }
                                 
             writer.WriteEndElement(); // end of display
@@ -408,7 +411,7 @@ namespace MobiFlight
 
             this.LedModule = config.LedModule.Clone() as OutputConfig.LedModule;
 
-            this.Pin = config.Pin.Clone() as OutputConfig.Output;
+            this.Device = config.Device.Clone() as IDeviceConfig;
 
             this.BcdPins = new List<string>(config.BcdPins);
 
@@ -445,7 +448,7 @@ namespace MobiFlight
             switch (DeviceType)
             {
                 case MobiFlightOutput.TYPE:
-                    return Pin;
+                    return Device;
                 case ArcazeLedDigit.TYPE:
                     return LedModule;
                 case MobiFlightServo.TYPE:

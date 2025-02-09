@@ -1,6 +1,7 @@
 ﻿using MobiFlight.BrowserMessages.Incoming.Converter;
 using MobiFlight.Modifier;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,7 +31,7 @@ namespace MobiFlight.Base
         public string GUID { get; set; }
         public bool Active { get; set; }
         public string Name { get; set; }
-        public string Type { get { return GetConfigItemType(); } }
+        public string Type { get { return GetConfigItemType(); }  }
         public string ModuleSerial { get; set; }
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
@@ -38,7 +39,7 @@ namespace MobiFlight.Base
         public string RawValue { get; set; }
         public string Value { get; set; }
         
-        public IDeviceConfig Device { get { return GetDeviceConfig(); } }
+        public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { new NotImplementedException(); } }
 
         public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();
 

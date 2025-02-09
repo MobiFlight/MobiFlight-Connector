@@ -3,6 +3,7 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.OutputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
@@ -917,7 +918,7 @@ namespace MobiFlight
                         default: // LED Output                          
                             byte state = 0;
                             if (value != "0") state = 1;
-                            joystick.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
+                            joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
                             joystick.UpdateOutputDeviceStates();
                             joystick.Update();
                             break;
@@ -936,7 +937,7 @@ namespace MobiFlight
                 {
                     byte state = 0;
                     if (value != "0") state = 1;
-                    midiBoard.SetOutputDeviceState(cfg.Pin.DisplayPin, state);
+                    midiBoard.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
                 }
                 else
                 {
@@ -969,8 +970,8 @@ namespace MobiFlight
 
                     default:
                         arcazeCache.setValue(serial,
-                            cfg.Pin.DisplayPin,
-                            (value != "0" ? cfg.Pin.DisplayPinBrightness.ToString() : "0"));
+                            (cfg.Device as Output).DisplayPin,
+                            (value != "0" ? (cfg.Device as Output).DisplayPinBrightness.ToString() : "0"));
                         break;
                 }
 #endif
@@ -1061,8 +1062,8 @@ namespace MobiFlight
                         {
                             string outputValueShiftRegister = value;
 
-                            if (outputValueShiftRegister != "0" && !cfg.Pin.DisplayPinPWM)
-                                outputValueShiftRegister = cfg.Pin.DisplayPinBrightness.ToString();
+                            if (outputValueShiftRegister != "0" && !(cfg.Device as Output).DisplayPinPWM)
+                                outputValueShiftRegister = (cfg.Device as Output).DisplayPinBrightness.ToString();
 
                             mobiFlightCache.SetShiftRegisterOutput(
                                 serial,
@@ -1115,11 +1116,11 @@ namespace MobiFlight
                         // we have a value other than 0 (which is output OFF) 
                         // we will set the full brightness.
                         // This ensures backward compatibility.
-                        if (outputValue != "0" && !cfg.Pin.DisplayPinPWM)
-                            outputValue = cfg.Pin.DisplayPinBrightness.ToString();
+                        if (outputValue != "0" && !(cfg.Device as Output).DisplayPinPWM)
+                            outputValue = (cfg.Device as Output).DisplayPinBrightness.ToString();
 
                         mobiFlightCache.SetValue(serial,
-                            cfg.Pin.DisplayPin,
+                            (cfg.Device as Output).DisplayPin,
                             outputValue);
                         break;
                 }

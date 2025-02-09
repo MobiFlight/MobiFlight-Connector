@@ -11,7 +11,7 @@ namespace MobiFlight.InputConfig
     {
         public InputAction onChange;
         
-        public object Clone()
+        public override object Clone()
         {
             AnalogInputConfig clone = new AnalogInputConfig();
             if (onChange != null) clone.onChange = (InputAction) onChange.Clone();

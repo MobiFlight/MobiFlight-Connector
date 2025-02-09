@@ -13,7 +13,7 @@ namespace MobiFlight.InputConfig
         public InputAction onRight;
         public InputAction onRightFast;
         
-        public object Clone()
+        public override object Clone()
         {
             EncoderInputConfig clone = new EncoderInputConfig();
             if (onLeft != null) clone.onLeft = (InputAction)onLeft.Clone();

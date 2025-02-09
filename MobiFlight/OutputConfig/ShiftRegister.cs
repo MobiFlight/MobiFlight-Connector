@@ -61,7 +61,7 @@ namespace MobiFlight.OutputConfig
             return $"{Address}:{Pin.Replace("Output ", ",").Replace("|", "").TrimStart(',')}";
         }
 
-        public object Clone()
+        public override object Clone()
         {
             ShiftRegister clone = new ShiftRegister();
             clone.Pin = Pin;

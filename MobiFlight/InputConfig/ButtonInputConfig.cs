@@ -47,7 +47,7 @@ namespace MobiFlight.InputConfig
             this.LongReleaseDelay = copyFrom.LongReleaseDelay;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             return new ButtonInputConfig(this);
         }

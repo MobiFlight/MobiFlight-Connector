@@ -37,7 +37,7 @@ namespace MobiFlight.OutputConfig
             DisplayLedDecimalPoints = new List<string>();
         }
 
-        public object Clone()
+        public override object Clone()
         {
             LedModule clone = new LedModule();
             clone.DisplayLedConnector = DisplayLedConnector;

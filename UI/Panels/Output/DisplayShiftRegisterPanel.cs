@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.OutputConfig;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,7 +40,10 @@ namespace MobiFlight.UI.Panels
 
             if (config.ShiftRegister.Pin != null) {
                 OutputConfigItem cfg = config.Clone() as OutputConfigItem;
-                cfg.Pin.DisplayPin = config.ShiftRegister.Pin;
+                cfg.Device = new Output()
+                {
+                    DisplayPin = config.ShiftRegister.Pin
+                };
                 displayPinPanel.syncFromConfig(cfg);
             }
         }
@@ -83,7 +87,7 @@ namespace MobiFlight.UI.Panels
             OutputConfigItem cfg = config.Clone() as OutputConfigItem;
             cfg = displayPinPanel.syncToConfig(cfg);
 
-            config.ShiftRegister.Pin = cfg.Pin.DisplayPin;
+            config.ShiftRegister.Pin = (cfg.Device as Output).DisplayPin;
             return config;
         }
         internal void SetNumModules(int num8bitRegisters)

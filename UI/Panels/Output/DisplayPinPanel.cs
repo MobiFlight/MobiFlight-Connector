@@ -97,24 +97,25 @@ namespace MobiFlight.UI.Panels
             String serial = config.ModuleSerial;
             serial = SerialNumber.ExtractSerial(serial);
 
-            if (config.Pin.DisplayPin != null && config.Pin.DisplayPin != "")
+            if (config.Device is Output)
             {
                 string port = "";
-                string pin = config.Pin.DisplayPin;
+                var cfg = config.Device as Output;
+                string pin = cfg.DisplayPin;
 
                 if (SerialNumber.IsJoystickSerial(serial) ||
                     SerialNumber.IsMidiBoardSerial(serial))                                   
                 {
                     // disable multi-select option
                     _MultiSelectOptions(false);
-                    pin = config.Pin.DisplayPin;
+                    pin = cfg.DisplayPin;
                 }
                 else if (SerialNumber.IsArcazeSerial(serial))
                 {
                     // these are Arcaze Boards.
                     // Arcaze Boards only have "single output"
-                    port = config.Pin.DisplayPin.Substring(0, 1);
-                    pin = config.Pin.DisplayPin.Substring(1);
+                    port = cfg.DisplayPin.Substring(0, 1);
+                    pin = cfg.DisplayPin.Substring(1);
 
                     // disable multi-select option
                     _MultiSelectOptions(false);
@@ -124,12 +125,12 @@ namespace MobiFlight.UI.Panels
                     _MultiSelectOptions(true);
 
                     // initialize multi-select panel
-                    MultiPinSelectPanel?.SetSelectedPinsFromString(config.Pin.DisplayPin, config.ModuleSerial);
+                    MultiPinSelectPanel?.SetSelectedPinsFromString(cfg.DisplayPin, config.ModuleSerial);
 
                     // get the first from the multi select
-                    pin = config.Pin.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
+                    pin = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
 
-                    selectMultiplePinsCheckBox.Checked = config.Pin.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
+                    selectMultiplePinsCheckBox.Checked = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
                 }
 
                 // preselect normal pin drop downs
@@ -142,9 +143,9 @@ namespace MobiFlight.UI.Panels
                 if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
 
                 int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
-                displayPinBrightnessTrackBar.Value = (int)((config.Pin.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
+                displayPinBrightnessTrackBar.Value = (int)((cfg.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
 
-                displayPwmCheckBox.Checked = config.Pin.DisplayPinPWM;
+                displayPwmCheckBox.Checked = cfg.DisplayPinPWM;
             }
         }
 
@@ -156,15 +157,18 @@ namespace MobiFlight.UI.Panels
 
         virtual internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
-            config.Pin.DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text;
-            
+            var cfg = new Output()
+            {
+                DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text,
+            };
+
             if (selectMultiplePinsCheckBox.Checked)
-                config.Pin.DisplayPin = MultiPinSelectPanel?.GetSelectedPinString();                       
+                cfg.DisplayPin = MultiPinSelectPanel?.GetSelectedPinString();                       
 
-            config.Pin.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
+            cfg.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
+            cfg.DisplayPinPWM = pwmPinPanel.Enabled && displayPwmCheckBox.Checked;
 
-            config.Pin.DisplayPinPWM = pwmPinPanel.Enabled && displayPwmCheckBox.Checked;
-
+            config.Device = cfg;
             return config;
         }
 

@@ -206,11 +206,15 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.IfValue, c.Modifiers.Comparison.IfValue, "clone: ComparisonIfValue not the same");
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
 
-            Assert.AreEqual(o.Pin.DisplayPin, c.Pin.DisplayPin, "clone: DisplayPin not the same");
             Assert.AreEqual(o.DeviceType, c.DeviceType, "clone: DisplayType not the same");
             Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "clone: DisplaySerial not the same");
-            Assert.AreEqual(o.Pin.DisplayPinBrightness, c.Pin.DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
-            Assert.AreEqual(o.Pin.DisplayPinPWM, c.Pin.DisplayPinPWM, "clone: DisplayPinPWM not the same");
+
+            if (o.DeviceType == MobiFlight.DeviceType.Output.ToString("F"))
+            {
+                Assert.AreEqual((o.Device as Output).DisplayPin, (c.Device as Output).DisplayPin, "clone: DisplayPin not the same");
+                Assert.AreEqual((o.Device as Output).DisplayPinBrightness, (c.Device as Output).DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
+                Assert.AreEqual((o.Device as Output).DisplayPinPWM, (c.Device as Output).DisplayPinPWM, "clone: DisplayPinPWM not the same");
+            }
 
             Assert.AreEqual(o.LedModule.DisplayLedConnector, c.LedModule.DisplayLedConnector, "clone: DisplayLedConnector not the same");
             Assert.AreEqual(o.LedModule.DisplayLedAddress, c.LedModule.DisplayLedAddress, "clone: DisplayLedAddress not the same");
@@ -256,7 +260,7 @@ namespace MobiFlight.Tests
 
         }
 
-        private OutputConfigItem _generateConfigItem()
+        private OutputConfigItem _generateConfigItem(string deviceType = "Stepper")
         {
             OutputConfigItem o = new OutputConfigItem();
             o.Name = "Test";
@@ -285,9 +289,20 @@ namespace MobiFlight.Tests
 
             o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
             o.ModuleSerial = "Ser123";
-            o.Pin.DisplayPin = "A01";
-            o.Pin.DisplayPinBrightness = byte.MinValue;
-            o.Pin.DisplayPinPWM = true;
+
+            switch (deviceType)
+            {
+                case "Display":
+                    o.DeviceType = MobiFlight.DeviceType.Output.ToString("F");
+                    o.Device = new Output()
+                    {
+                        DisplayPin = "A01",
+                        DisplayPinBrightness = byte.MinValue,
+                        DisplayPinPWM = true
+                    };
+                    break;
+            }
+
             o.LedModule.DisplayLedConnector = 2;
             o.LedModule.DisplayLedAddress = "1";
             o.LedModule.DisplayLedPadding = true;

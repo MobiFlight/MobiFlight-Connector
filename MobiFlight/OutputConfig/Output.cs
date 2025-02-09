@@ -61,7 +61,7 @@ namespace MobiFlight.OutputConfig
                 writer.WriteAttributeString("pinPwm", DisplayPinPWM.ToString());
         }
 
-        public object Clone()
+        public override object Clone()
         {
             Output clone = new Output();
             clone.DisplayPin = DisplayPin;

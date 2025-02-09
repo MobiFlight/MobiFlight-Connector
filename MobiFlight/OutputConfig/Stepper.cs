@@ -30,7 +30,7 @@ namespace MobiFlight.OutputConfig
             Speed = 0;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             Stepper clone = new Stepper();
             clone.Address       = (String) Address.Clone();

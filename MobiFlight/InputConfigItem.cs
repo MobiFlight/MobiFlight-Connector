@@ -356,5 +356,14 @@ namespace MobiFlight
     {
         public string Name { get; set; }
         public string Type { get; set; }
+
+        public object Clone()
+        {
+            return new InputConfigItemDeviceConfig()
+            {
+                Name = Name.ToString(),
+                Type = Type
+            };
+        }
     }
 }
