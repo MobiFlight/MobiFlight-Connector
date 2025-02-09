@@ -1,5 +1,4 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Config;
 using MobiFlight.InputConfig;
 using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
@@ -13,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    public class OutputConfigItem : ConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
+    public class OutputConfigItem : ConfigItem, IXmlSerializable, ICloneable, Config.IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
@@ -27,8 +26,7 @@ namespace MobiFlight
 
         public override IDeviceConfig Device { get; set; }
 
-        public OutputConfig.LedModule   LedModule               { get; set; }
-		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
+        public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
 		public List<string>         BcdPins                     { get; set; }
         public OutputConfig.Servo   Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
@@ -47,8 +45,6 @@ namespace MobiFlight
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = new OutputConfig.Output();
-
-            LedModule = new OutputConfig.LedModule();
             LcdDisplay = new OutputConfig.LcdDisplay();
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
@@ -70,7 +66,6 @@ namespace MobiFlight
                 this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
                 this.Device.Equals(item.Device) &&
-                this.LedModule.Equals(item.LedModule) &&
                 this.LcdDisplay.Equals(item.LcdDisplay) &&
                 this.Stepper.Equals(item.Stepper) &&
                 this.Servo.Equals(item.Servo) &&
@@ -178,7 +173,8 @@ namespace MobiFlight
                 }
                 else if (DeviceType == MobiFlightLedModule.TYPE)
                 {
-                    LedModule.XmlRead(reader);
+                    Device = new OutputConfig.LedModule();
+                    (Device as OutputConfig.LedModule).XmlRead(reader);
                 }
                 else if (DeviceType == ArcazeBcd4056.TYPE)
                 {
@@ -340,9 +336,9 @@ namespace MobiFlight
                 writer.WriteAttributeString("type", DeviceType);
                 writer.WriteAttributeString("serial", ModuleSerial);
 
-            if (DeviceType == ArcazeLedDigit.TYPE)
+            if (Device is OutputConfig.LedModule)
             {
-                LedModule.WriteXml(writer);
+                (Device as OutputConfig.LedModule).WriteXml(writer);
 
             }
             else if (DeviceType == ArcazeBcd4056.TYPE)
@@ -409,8 +405,6 @@ namespace MobiFlight
             this.DeviceType = config.DeviceType;
             this.ModuleSerial = config.ModuleSerial;
 
-            this.LedModule = config.LedModule.Clone() as OutputConfig.LedModule;
-
             this.Device = config.Device.Clone() as IDeviceConfig;
 
             this.BcdPins = new List<string>(config.BcdPins);
@@ -450,7 +444,7 @@ namespace MobiFlight
                 case MobiFlightOutput.TYPE:
                     return Device;
                 case ArcazeLedDigit.TYPE:
-                    return LedModule;
+                    return Device;
                 case MobiFlightServo.TYPE:
                     return Servo;
                 case MobiFlightStepper.TYPE:

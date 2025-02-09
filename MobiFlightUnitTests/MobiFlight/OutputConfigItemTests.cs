@@ -52,7 +52,8 @@ namespace MobiFlight.Tests
             oci.ReadXml(xmlReader);
             Assert.AreEqual(oci.Modifiers.Transformation.Active, true);
             Assert.AreEqual(oci.Modifiers.Transformation.Expression, "$*123");
-            Assert.AreEqual(oci.LedModule.DisplayLedBrightnessReference, "CF057791-E133-4638-A99E-FEF9B187C4DB");
+            Assert.IsTrue(oci.Device is LedModule);
+            Assert.AreEqual((oci.Device as LedModule).DisplayLedBrightnessReference, "CF057791-E133-4638-A99E-FEF9B187C4DB");
 
             // read problem with missing configrefs
             s = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.3.xml");
@@ -216,16 +217,19 @@ namespace MobiFlight.Tests
                 Assert.AreEqual((o.Device as Output).DisplayPinPWM, (c.Device as Output).DisplayPinPWM, "clone: DisplayPinPWM not the same");
             }
 
-            Assert.AreEqual(o.LedModule.DisplayLedConnector, c.LedModule.DisplayLedConnector, "clone: DisplayLedConnector not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedAddress, c.LedModule.DisplayLedAddress, "clone: DisplayLedAddress not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedPadding, c.LedModule.DisplayLedPadding, "clone: DisplayLedPadding not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedReverseDigits, c.LedModule.DisplayLedReverseDigits, "clone: DisplayLedReverseDigits not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedPaddingChar, c.LedModule.DisplayLedPaddingChar, "clone: DisplayLedPaddingChar not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedModuleSize, c.LedModule.DisplayLedModuleSize, "clone: DisplayLedModuleSize not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedBrightnessReference, c.LedModule.DisplayLedBrightnessReference, "clone: DisplayLedBrighntessReference is not the same");
+            if (o.Device is LedModule)
+            {
+                Assert.AreEqual((o.Device as LedModule).DisplayLedConnector, (c.Device as LedModule).DisplayLedConnector, "clone: DisplayLedConnector not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedAddress, (c.Device as LedModule).DisplayLedAddress, "clone: DisplayLedAddress not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedPadding, (c.Device as LedModule).DisplayLedPadding, "clone: DisplayLedPadding not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedReverseDigits, (c.Device as LedModule).DisplayLedReverseDigits, "clone: DisplayLedReverseDigits not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedPaddingChar, (c.Device as LedModule).DisplayLedPaddingChar, "clone: DisplayLedPaddingChar not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedModuleSize, (c.Device as LedModule).DisplayLedModuleSize, "clone: DisplayLedModuleSize not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedDigits[0], (c.Device as LedModule).DisplayLedDigits[0], "clone: DisplayLedDigits not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedDecimalPoints[0], (c.Device as LedModule).DisplayLedDecimalPoints[0], "clone: DisplayLedDecimalPoints not the same");
+                Assert.AreEqual((o.Device as LedModule).DisplayLedBrightnessReference, (c.Device as LedModule).DisplayLedBrightnessReference, "clone: DisplayLedBrighntessReference is not the same");
+            }
 
-            Assert.AreEqual(o.LedModule.DisplayLedDigits[0], c.LedModule.DisplayLedDigits[0], "clone: DisplayLedDigits not the same");
-            Assert.AreEqual(o.LedModule.DisplayLedDecimalPoints[0], c.LedModule.DisplayLedDecimalPoints[0], "clone: DisplayLedDecimalPoints not the same");
             Assert.AreEqual(o.Servo.Address, c.Servo.Address, "clone: ServoAddress not the same");
             Assert.AreEqual(o.Servo.Max, c.Servo.Max, "clone: ServoMax not the same");
             Assert.AreEqual(o.Servo.Min, c.Servo.Min, "clone: ServoMin not the same");
@@ -301,17 +305,24 @@ namespace MobiFlight.Tests
                         DisplayPinPWM = true
                     };
                     break;
+
+                case "LedModule":
+                    o.DeviceType = MobiFlight.DeviceType.LedModule.ToString("F");
+                    o.Device = new LedModule()
+                    {
+                        DisplayLedConnector = 2,
+                        DisplayLedAddress = "1",
+                        DisplayLedPadding = true,
+                        DisplayLedReverseDigits = true,
+                        DisplayLedPaddingChar = "1",
+                        DisplayLedModuleSize = 7,
+                        DisplayLedDigits = new List<string>() { "1", "2" },
+                        DisplayLedDecimalPoints = new List<string>() { "3", "4" },
+                        DisplayLedBrightnessReference = "CF057791-E133-4638-A99E-FEF9B187C4DB"
+                    };
+                    break;
             }
 
-            o.LedModule.DisplayLedConnector = 2;
-            o.LedModule.DisplayLedAddress = "1";
-            o.LedModule.DisplayLedPadding = true;
-            o.LedModule.DisplayLedReverseDigits = true;
-            o.LedModule.DisplayLedPaddingChar = "1";
-            o.LedModule.DisplayLedModuleSize = 7;
-            o.LedModule.DisplayLedDigits = new List<string>() { "1", "2" };
-            o.LedModule.DisplayLedDecimalPoints = new List<string>() { "3", "4" };
-            o.LedModule.DisplayLedBrightnessReference = "CF057791-E133-4638-A99E-FEF9B187C4DB"; // testing with true as default is false
             o.BcdPins = new List<string>() { "Moop" };
 
             var i = new Interpolation() { Active = true };

@@ -951,14 +951,15 @@ namespace MobiFlight
                 switch (cfg.DeviceType)
                 {
                     case ArcazeLedDigit.TYPE:
-                        var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count, cfg.LedModule.DisplayLedPaddingChar[0]);
-                        if (cfg.LedModule.DisplayLedPadding) val = value.PadLeft(cfg.LedModule.DisplayLedPadding ? cfg.LedModule.DisplayLedDigits.Count : 0, cfg.LedModule.DisplayLedPaddingChar[0]);
+                        var device = cfg.Device as LedModule;
+                        var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
+                        if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
                         arcazeCache.setDisplay(
                             serial,
-                            cfg.LedModule.DisplayLedAddress,
-                            cfg.LedModule.DisplayLedConnector,
-                            cfg.LedModule.DisplayLedDigits,
-                            cfg.LedModule.DisplayLedDecimalPoints,
+                            device.DisplayLedAddress,
+                            device.DisplayLedConnector,
+                            device.DisplayLedDigits,
+                            device.DisplayLedDecimalPoints,
                             val);
                         break;
 
@@ -981,37 +982,39 @@ namespace MobiFlight
                 switch (cfg.DeviceType)
                 {
                     case ArcazeLedDigit.TYPE:
+                        var device = cfg.Device as LedModule;
+
                         var decimalCount = value.Count(c => c == '.');
 
-                        var val = value.PadRight(cfg.LedModule.DisplayLedDigits.Count + decimalCount, cfg.LedModule.DisplayLedPaddingChar[0]);
-                        var decimalPoints = new List<string>(cfg.LedModule.DisplayLedDecimalPoints);
+                        var val = value.PadRight(device.DisplayLedDigits.Count + decimalCount, device.DisplayLedPaddingChar[0]);
+                        var decimalPoints = new List<string>(device.DisplayLedDecimalPoints);
 
-                        if (cfg.LedModule.DisplayLedPadding)
+                        if (device.DisplayLedPadding)
                         {
-                            val = value.PadLeft(cfg.LedModule.DisplayLedPadding
-                                    ? cfg.LedModule.DisplayLedDigits.Count + decimalCount
-                                    : 0, cfg.LedModule.DisplayLedPaddingChar[0]);
+                            val = value.PadLeft(device.DisplayLedPadding
+                                    ? device.DisplayLedDigits.Count + decimalCount
+                                    : 0, device.DisplayLedPaddingChar[0]);
                         }
 
-                        if (!string.IsNullOrEmpty(cfg.LedModule.DisplayLedBrightnessReference))
+                        if (!string.IsNullOrEmpty(device.DisplayLedBrightnessReference))
                         {
-                            string refValue = FindValueForRef(cfg.LedModule.DisplayLedBrightnessReference);
+                            string refValue = FindValueForRef(device.DisplayLedBrightnessReference);
 
                             mobiFlightCache.SetDisplayBrightness(
                                 serial,
-                                cfg.LedModule.DisplayLedAddress,
-                                cfg.LedModule.DisplayLedConnector,
+                                device.DisplayLedAddress,
+                                device.DisplayLedConnector,
                                 refValue
                                 );
                         }
 
-                        var reverse = cfg.LedModule.DisplayLedReverseDigits;
+                        var reverse = device.DisplayLedReverseDigits;
 
                         mobiFlightCache.SetDisplay(
                             serial,
-                            cfg.LedModule.DisplayLedAddress,
-                            cfg.LedModule.DisplayLedConnector,
-                            cfg.LedModule.DisplayLedDigits,
+                            device.DisplayLedAddress,
+                            device.DisplayLedConnector,
+                            device.DisplayLedDigits,
                             decimalPoints,
                             val,
                             reverse);
@@ -1452,7 +1455,8 @@ namespace MobiFlight
                     break;
 
                 default:
-                    offCfg.LedModule.DisplayLedDecimalPoints = new List<string>();
+                    var ledModule = offCfg.Device as LedModule;
+                    ledModule.DisplayLedDecimalPoints = new List<string>();
                     ExecuteDisplay(offCfg.DeviceType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
                     break;
             }
