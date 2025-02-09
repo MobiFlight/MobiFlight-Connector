@@ -26,8 +26,6 @@ namespace MobiFlight
 
         public override IDeviceConfig Device { get; set; }
 
-        public List<string>         BcdPins                     { get; set; }
-        
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
@@ -40,7 +38,6 @@ namespace MobiFlight
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = new OutputConfig.Output();
-            BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
             ButtonInputConfig = null;
@@ -161,14 +158,6 @@ namespace MobiFlight
                 {
                     Device = new OutputConfig.LedModule();
                     (Device as OutputConfig.LedModule).XmlRead(reader);
-                }
-                else if (DeviceType == ArcazeBcd4056.TYPE)
-                {
-                    // ignore empty values
-                    if (reader["bcdPins"] != null && reader["bcdPins"] != "")
-                    {
-                        BcdPins = reader["bcdPins"].Split(',').ToList();
-                    }
                 }
                 else if (DeviceType == MobiFlightServo.TYPE)
                 {
@@ -331,10 +320,6 @@ namespace MobiFlight
                 (Device as LedModule).WriteXml(writer);
 
             }
-            else if (DeviceType == ArcazeBcd4056.TYPE)
-            {
-                writer.WriteAttributeString("bcdPins", String.Join(",", BcdPins));
-            }
             else if (DeviceType == MobiFlightServo.TYPE)
             {
                 (Device as Servo).WriteXml(writer);
@@ -396,8 +381,6 @@ namespace MobiFlight
             this.ModuleSerial = config.ModuleSerial;
 
             this.Device = config.Device.Clone() as IDeviceConfig;
-
-            this.BcdPins = new List<string>(config.BcdPins);
 
             this.Preconditions = Preconditions.Clone() as PreconditionList;
 

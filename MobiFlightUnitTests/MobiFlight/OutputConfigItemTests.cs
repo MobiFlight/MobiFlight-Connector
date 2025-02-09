@@ -251,8 +251,6 @@ namespace MobiFlight.Tests
                 Assert.AreEqual(oStepper.TestValue, cStepper.TestValue, "clone: StepperTestValue not the same");
             }
 
-            Assert.AreEqual(o.BcdPins[0], c.BcdPins[0], "clone: BcdPins not the same");
-
             if (o.Device is ShiftRegister)
             {
                 var oShiftRegister = o.Device as ShiftRegister;
@@ -389,8 +387,6 @@ namespace MobiFlight.Tests
                 default:
                     throw new ArgumentException("Invalid device type");
             }
-
-            o.BcdPins = new List<string>() { "Moop" };
 
             var i = new Interpolation() { Active = true };
             i.Add(123, 456);

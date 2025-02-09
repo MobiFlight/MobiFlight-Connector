@@ -871,12 +871,6 @@
     <Compile Include="UI\Panels\Config\ActionTypePanel.Designer.cs">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Output\DisplayBcdPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Output\DisplayBcdPanel.Designer.cs">
-      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\Output\DisplayLedDisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1829,9 +1823,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ActionTypePanel.resx">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Output\DisplayBcdPanel.resx">
-      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayLedDisplayPanel.resx">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>

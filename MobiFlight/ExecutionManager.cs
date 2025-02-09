@@ -964,12 +964,6 @@ namespace MobiFlight
                             val);
                         break;
 
-                    case ArcazeBcd4056.TYPE:
-                        arcazeCache.setBcd4056(serial,
-                            cfg.BcdPins,
-                            value);
-                        break;
-
                     default:
                         arcazeCache.setValue(serial,
                             (cfg.Device as Output).DisplayPin,

@@ -30,7 +30,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         ExecutionManager _execManager = null;
 
         Panels.DisplayPinPanel displayPinPanel = new Panels.DisplayPinPanel();
-        Panels.DisplayBcdPanel displayBcdPanel = new Panels.DisplayBcdPanel();
         Panels.DisplayLedDisplayPanel displayLedDisplayPanel = new Panels.DisplayLedDisplayPanel();
         Panels.DisplayNothingSelectedPanel displayNothingSelectedPanel = new Panels.DisplayNothingSelectedPanel();
         Panels.LCDDisplayPanel displayLcdDisplayPanel = new Panels.LCDDisplayPanel();
@@ -78,7 +77,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
         {
             displayPanels = new List<UserControl>() {
                 displayPinPanel,
-                displayBcdPanel,
                 displayLedDisplayPanel,
                 displayNothingSelectedPanel,
                 servoPanel,
@@ -524,12 +522,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 displayPinPanel.Height = displayPanelHeight;
             }
 
-            else if (SelectedItemValue == ArcazeBcd4056.TYPE)
-            {
-                displayBcdPanel.Enabled = panelEnabled;
-                displayBcdPanel.Height = displayPanelHeight;
-            }
-
             else if (SelectedItemValue == ArcazeLedDigit.TYPE)
             {
                 displayLedDisplayPanel.Enabled = panelEnabled;
@@ -701,8 +693,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
 
             displayPinPanel.SetPorts(ports);
-            displayBcdPanel.SetPorts(ports);
-
+            
             List<ListItem> pins = new List<ListItem>();
             foreach (String v in ArcazeModule.getPins())
             {
@@ -711,7 +702,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
             }
 
             displayPinPanel.SetPins(pins);
-            displayBcdPanel.SetPins(pins);
             displayPinPanel.WideStyle = false;
 
             List<ListItem> addr = new List<ListItem>();
