@@ -27,7 +27,6 @@ namespace MobiFlight
         public override IDeviceConfig Device { get; set; }
 
         public List<string>         BcdPins                     { get; set; }
-        public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
         
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
@@ -58,7 +57,6 @@ namespace MobiFlight
                 this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
                 this.Device.Equals(item.Device) &&
-                this.CustomDevice.Equals(item.CustomDevice) &&
                 this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
                 this.AnalogInputConfig.AreEqual(item.AnalogInputConfig)
             );
@@ -194,7 +192,8 @@ namespace MobiFlight
                 }
                 else if (DeviceType == MobiFlightCustomDevice.TYPE)
                 {
-                    CustomDevice.ReadXml(reader);
+                    Device = new OutputConfig.CustomDevice();
+                    (Device as CustomDevice).ReadXml(reader);
                 }
                 else if (DeviceType == "InputAction")
                 {
@@ -355,7 +354,7 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightCustomDevice.TYPE)
             {
-                CustomDevice.WriteXml(writer);
+                (Device as CustomDevice).WriteXml(writer);
             }
             else if (DeviceType == "InputAction")
             {
@@ -400,8 +399,6 @@ namespace MobiFlight
 
             this.BcdPins = new List<string>(config.BcdPins);
 
-            this.CustomDevice = config.CustomDevice.Clone() as OutputConfig.CustomDevice;
-
             this.Preconditions = Preconditions.Clone() as PreconditionList;
 
             this.ConfigRefs = config.ConfigRefs.Clone() as ConfigRefList;
@@ -433,9 +430,8 @@ namespace MobiFlight
                 case MobiFlightStepper.TYPE:
                 case MobiFlightShiftRegister.TYPE:
                 case MobiFlightLcdDisplay.TYPE:
-                    return Device;
                 case MobiFlightCustomDevice.TYPE:
-                    return CustomDevice;
+                    return Device;
                 default:
                     return null;
             }

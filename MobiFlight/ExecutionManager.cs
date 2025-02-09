@@ -1082,7 +1082,8 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.CustomDevice.DeprecatedType:
-                        mobiFlightCache.Set(serial, cfg.CustomDevice, value);
+                        var customDevice = cfg.Device as OutputConfig.CustomDevice;
+                        mobiFlightCache.Set(serial, customDevice, value);
                         break;
 
                     case "InputAction":
