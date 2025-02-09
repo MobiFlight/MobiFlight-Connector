@@ -241,11 +241,15 @@ namespace MobiFlight.Tests
                 Assert.AreEqual(oServo.MaxRotationPercent, cServo.MaxRotationPercent, "clone: ServoMaxRotationPercent not the same");
             }
 
+            if (o.Device is Stepper) {
+                var oStepper = o.Device as Stepper;
+                var cStepper = c.Device as Stepper;
 
-            Assert.AreEqual(o.Stepper.Address, c.Stepper.Address, "clone: StepperAddress not the same");
-            Assert.AreEqual(o.Stepper.InputRev, c.Stepper.InputRev, "clone: StepperInputRev not the same");
-            Assert.AreEqual(o.Stepper.OutputRev, c.Stepper.OutputRev, "clone: StepperOutputRev not the same");
-            Assert.AreEqual(o.Stepper.TestValue, c.Stepper.TestValue, "clone: StepperTestValue not the same");
+                Assert.AreEqual(oStepper.Address, cStepper.Address, "clone: StepperAddress not the same");
+                Assert.AreEqual(oStepper.InputRev, cStepper.InputRev, "clone: StepperInputRev not the same");
+                Assert.AreEqual(oStepper.OutputRev, cStepper.OutputRev, "clone: StepperOutputRev not the same");
+                Assert.AreEqual(oStepper.TestValue, cStepper.TestValue, "clone: StepperTestValue not the same");
+            }
 
             Assert.AreEqual(o.BcdPins[0], c.BcdPins[0], "clone: BcdPins not the same");
 
@@ -353,6 +357,18 @@ namespace MobiFlight.Tests
                         Pin = "99"
                     };
                     break;
+
+                case "Stepper":
+                    o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
+                    o.Device = new Stepper()
+                    {
+                        Address = "S22",
+                        InputRev = 1123,
+                        OutputRev = 3212,
+                        TestValue = 212,
+                        CompassMode = true
+                    };
+                    break;
             }
 
             o.BcdPins = new List<string>() { "Moop" };
@@ -363,12 +379,6 @@ namespace MobiFlight.Tests
 
             o.Preconditions = new PreconditionList();
             o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND" });
-
-            o.Stepper.Address = "S22";
-            o.Stepper.InputRev = 1123;
-            o.Stepper.OutputRev = 3212;
-            o.Stepper.TestValue = 212;
-            o.Stepper.CompassMode = true;
 
             o.ButtonInputConfig = new InputConfig.ButtonInputConfig();
             o.AnalogInputConfig = new InputConfig.AnalogInputConfig();

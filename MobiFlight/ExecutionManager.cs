@@ -1029,15 +1029,16 @@ namespace MobiFlight
                     //    break;
 
                     case MobiFlightStepper.TYPE:
+                        var stepper = cfg.Device as OutputConfig.Stepper;
                         mobiFlightCache.SetStepper(
                             serial,
-                            cfg.Stepper.Address,
+                            stepper.Address,
                             value,
-                            cfg.Stepper.InputRev,
-                            cfg.Stepper.OutputRev,
-                            cfg.Stepper.CompassMode,
-                            cfg.Stepper.Speed,
-                            cfg.Stepper.Acceleration
+                            stepper.InputRev,
+                            stepper.OutputRev,
+                            stepper.CompassMode,
+                            stepper.Speed,
+                            stepper.Acceleration
                         );
                         break;
 
@@ -1488,7 +1489,8 @@ namespace MobiFlight
                 // we won't have an actual connector value, and then
                 // we will use a static test string, that is specific to the device.
                 case MobiFlightStepper.TYPE:
-                    ExecuteDisplay(value?.ToString() ?? cfg.Stepper.TestValue.ToString(), cfg);
+                    var stepper = cfg.Device as OutputConfig.Stepper;
+                    ExecuteDisplay(value?.ToString() ?? stepper.TestValue.ToString(), cfg);
                     break;
 
                 case MobiFlightServo.TYPE:

@@ -1,12 +1,9 @@
 ﻿using MobiFlight.Base;
-using MobiFlight.Config;
 using MobiFlight.InputConfig;
-using MobiFlight.OutputConfig;
 using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.OutputWizard
@@ -831,20 +828,20 @@ namespace MobiFlight.UI.Panels.OutputWizard
 
             if (module == null) return;
 
-            MobiFlightStepper stepper = module.GetStepper(config.Stepper.Address);
+            var configStepper = config.Device as OutputConfig.Stepper;
+            MobiFlightStepper stepper = module.GetStepper(configStepper.Address);
 
             int CurrentValue = stepper.Position();
             int NextValue = (CurrentValue + e.Steps);
 
             _execManager.getMobiFlightModuleCache().SetStepper(
                 serial,
-                config.Stepper.Address,
+                configStepper.Address,
                 (NextValue).ToString(),
-                config.Stepper.OutputRev,
-                config.Stepper.OutputRev,
-                config.Stepper.CompassMode
+                configStepper.OutputRev,
+                configStepper.OutputRev,
+                configStepper.CompassMode
             );
-
         }
 
         #endregion

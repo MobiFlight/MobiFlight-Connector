@@ -27,7 +27,6 @@ namespace MobiFlight
         public override IDeviceConfig Device { get; set; }
 
         public List<string>         BcdPins                     { get; set; }
-        public OutputConfig.Stepper Stepper { get; set; }
         public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
         
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
@@ -42,7 +41,6 @@ namespace MobiFlight
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = new OutputConfig.Output();
-            Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
@@ -60,7 +58,6 @@ namespace MobiFlight
                 this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
                 this.Device.Equals(item.Device) &&
-                this.Stepper.Equals(item.Stepper) &&
                 this.CustomDevice.Equals(item.CustomDevice) &&
                 this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
                 this.AnalogInputConfig.AreEqual(item.AnalogInputConfig)
@@ -182,7 +179,8 @@ namespace MobiFlight
                 }
                 else if (DeviceType == MobiFlightStepper.TYPE)
                 {
-                    Stepper.ReadXml(reader);
+                    Device = new OutputConfig.Stepper();
+                    (Device as Stepper).ReadXml(reader);
                 }
                 else if (DeviceType == OutputConfig.LcdDisplay.DeprecatedType)
                 {
@@ -344,7 +342,7 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightStepper.TYPE)
             {
-                Stepper.WriteXml(writer);
+                (Device as Stepper).WriteXml(writer);
             }
             else if (DeviceType == MobiFlightLcdDisplay.TYPE)
             {
@@ -401,7 +399,6 @@ namespace MobiFlight
             this.Device = config.Device.Clone() as IDeviceConfig;
 
             this.BcdPins = new List<string>(config.BcdPins);
-            this.Stepper = config.Stepper.Clone() as OutputConfig.Stepper;
 
             this.CustomDevice = config.CustomDevice.Clone() as OutputConfig.CustomDevice;
 
@@ -431,15 +428,10 @@ namespace MobiFlight
             switch (DeviceType)
             {
                 case MobiFlightOutput.TYPE:
-                    return Device;
                 case ArcazeLedDigit.TYPE:
-                    return Device;
                 case MobiFlightServo.TYPE:
-                    return Device;
                 case MobiFlightStepper.TYPE:
-                    return Stepper;
                 case MobiFlightShiftRegister.TYPE:
-                    return Device;
                 case MobiFlightLcdDisplay.TYPE:
                     return Device;
                 case MobiFlightCustomDevice.TYPE:
