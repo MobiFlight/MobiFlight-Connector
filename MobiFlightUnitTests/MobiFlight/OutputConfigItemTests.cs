@@ -230,10 +230,17 @@ namespace MobiFlight.Tests
                 Assert.AreEqual((o.Device as LedModule).DisplayLedBrightnessReference, (c.Device as LedModule).DisplayLedBrightnessReference, "clone: DisplayLedBrighntessReference is not the same");
             }
 
-            Assert.AreEqual(o.Servo.Address, c.Servo.Address, "clone: ServoAddress not the same");
-            Assert.AreEqual(o.Servo.Max, c.Servo.Max, "clone: ServoMax not the same");
-            Assert.AreEqual(o.Servo.Min, c.Servo.Min, "clone: ServoMin not the same");
-            Assert.AreEqual(o.Servo.MaxRotationPercent, c.Servo.MaxRotationPercent, "clone: ServoMaxRotationPercent not the same");
+            if (o.Device is Servo)
+            {
+                var oServo = o.Device as Servo;
+                var cServo = c.Device as Servo;
+
+                Assert.AreEqual(oServo.Address, cServo.Address, "clone: ServoAddress not the same");
+                Assert.AreEqual(oServo.Max, cServo.Max, "clone: ServoMax not the same");
+                Assert.AreEqual(oServo.Min, cServo.Min, "clone: ServoMin not the same");
+                Assert.AreEqual(oServo.MaxRotationPercent, cServo.MaxRotationPercent, "clone: ServoMaxRotationPercent not the same");
+            }
+
 
             Assert.AreEqual(o.Stepper.Address, c.Stepper.Address, "clone: StepperAddress not the same");
             Assert.AreEqual(o.Stepper.InputRev, c.Stepper.InputRev, "clone: StepperInputRev not the same");
@@ -321,6 +328,17 @@ namespace MobiFlight.Tests
                         DisplayLedBrightnessReference = "CF057791-E133-4638-A99E-FEF9B187C4DB"
                     };
                     break;
+
+                case "Servo":
+                    o.DeviceType = MobiFlight.DeviceType.Servo.ToString("F");
+                    o.Device = new Servo()
+                    {
+                        Address = "A2",
+                        Max = "11",
+                        Min = "111",
+                        MaxRotationPercent = "176"
+                    };
+                    break;
             }
 
             o.BcdPins = new List<string>() { "Moop" };
@@ -331,11 +349,6 @@ namespace MobiFlight.Tests
 
             o.Preconditions = new PreconditionList();
             o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND" });
-
-            o.Servo.Address = "A2";
-            o.Servo.Max = "11";
-            o.Servo.Min = "111";
-            o.Servo.MaxRotationPercent = "176";
 
             o.Stepper.Address = "S22";
             o.Stepper.InputRev = 1123;
@@ -364,9 +377,10 @@ namespace MobiFlight.Tests
             OutputConfigItem o1 = new OutputConfigItem();
             OutputConfigItem o2 = new OutputConfigItem();
             o1.GUID = o2.GUID;
-
+            
             Assert.IsTrue(o1.Equals(o2));
 
+            // test different GUID
             o1 = _generateConfigItem();
             Assert.IsFalse(o1.Equals(o2));
 
@@ -381,8 +395,9 @@ namespace MobiFlight.Tests
 
             // reset o2
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/697
-            o2 = _generateConfigItem();
-            o2.Servo.MaxRotationPercent = "90";
+            o1 = _generateConfigItem("Servo");
+            o2 = _generateConfigItem("Servo");
+            (o2.Device as Servo).MaxRotationPercent = "90";
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = _generateConfigItem();

@@ -1042,13 +1042,14 @@ namespace MobiFlight
                         break;
 
                     case MobiFlightServo.TYPE:
+                        var servo = cfg.Device as OutputConfig.Servo;
                         mobiFlightCache.SetServo(
                             serial,
-                            cfg.Servo.Address,
+                            servo.Address,
                             value,
-                            int.Parse(cfg.Servo.Min),
-                            int.Parse(cfg.Servo.Max),
-                            Byte.Parse(cfg.Servo.MaxRotationPercent)
+                            int.Parse(servo.Min),
+                            int.Parse(servo.Max),
+                            Byte.Parse(servo.MaxRotationPercent)
                         );
                         break;
 
@@ -1438,7 +1439,8 @@ namespace MobiFlight
             switch (offCfg.DeviceType)
             {
                 case MobiFlightServo.TYPE:
-                    ExecuteDisplay(offCfg.Servo.Min, offCfg);
+                    var servo = offCfg.Device as Servo;
+                    ExecuteDisplay(servo.Min, offCfg);
                     break;
 
                 case OutputConfig.LcdDisplay.DeprecatedType:
@@ -1489,7 +1491,8 @@ namespace MobiFlight
                     break;
 
                 case MobiFlightServo.TYPE:
-                    ExecuteDisplay(value?.ToString() ?? cfg.Servo.Max, cfg);
+                    var servo = cfg.Device as OutputConfig.Servo;
+                    ExecuteDisplay(value?.ToString() ?? servo.Max, cfg);
                     break;
 
                 case ArcazeLedDigit.TYPE:

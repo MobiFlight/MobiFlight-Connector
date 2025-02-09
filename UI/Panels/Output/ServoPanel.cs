@@ -1,10 +1,6 @@
-﻿using System;
+﻿using MobiFlight.OutputConfig;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -45,25 +41,31 @@ namespace MobiFlight.UI.Panels
 
         public void syncFromConfig(OutputConfigItem config)
         {
-            if (!ComboBoxHelper.SetSelectedItem(servoAddressesComboBox, config.Servo.Address))
+            if (!(config.Device is Servo)) return;
+
+            var servo = config.Device as Servo;
+
+            if (!ComboBoxHelper.SetSelectedItem(servoAddressesComboBox, servo.Address))
             {
                 // TODO: provide error message
-                Log.Instance.log($"Exception on selecting item {config.Servo.Address} in Servo address ComboBox.", LogSeverity.Error);
+                Log.Instance.log($"Exception on selecting item {servo.Address} in Servo address ComboBox.", LogSeverity.Error);
             }
 
-            if (config.Servo.Min != null) minValueTextBox.Text = config.Servo.Min;
-            if (config.Servo.Max != null) maxValueTextBox.Text = config.Servo.Max;
-            if (config.Servo.MaxRotationPercent != null) maxRotationPercentNumericUpDown.Text = config.Servo.MaxRotationPercent;
+            if (servo.Min != null) minValueTextBox.Text = servo.Min;
+            if (servo.Max != null) maxValueTextBox.Text = servo.Max;
+            if (servo.MaxRotationPercent != null) maxRotationPercentNumericUpDown.Text = servo.MaxRotationPercent;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
+            config.Device = new Servo();
+            var servo = config.Device as Servo;
             if (servoAddressesComboBox.SelectedValue != null)
             {
-                config.Servo.Address = servoAddressesComboBox.SelectedValue.ToString();
-                config.Servo.Min = minValueTextBox.Text;
-                config.Servo.Max = maxValueTextBox.Text;
-                config.Servo.MaxRotationPercent = maxRotationPercentNumericUpDown.Text;
+                servo.Address = servoAddressesComboBox.SelectedValue.ToString();
+                servo.Min = minValueTextBox.Text;
+                servo.Max = maxValueTextBox.Text;
+                servo.MaxRotationPercent = maxRotationPercentNumericUpDown.Text;
             }
 
             return config;

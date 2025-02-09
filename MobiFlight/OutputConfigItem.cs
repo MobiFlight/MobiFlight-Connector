@@ -27,7 +27,6 @@ namespace MobiFlight
         public override IDeviceConfig Device { get; set; }
 
         public List<string>         BcdPins                     { get; set; }
-        public OutputConfig.Servo   Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
         public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
@@ -44,7 +43,6 @@ namespace MobiFlight
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = new OutputConfig.Output();
-            Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
             ShiftRegister = new OutputConfig.ShiftRegister();
@@ -65,7 +63,6 @@ namespace MobiFlight
                 this.TestValue.Equals(item.TestValue) &&
                 this.Device.Equals(item.Device) &&
                 this.Stepper.Equals(item.Stepper) &&
-                this.Servo.Equals(item.Servo) &&
                 this.ShiftRegister.Equals(item.ShiftRegister) &&
                 this.CustomDevice.Equals(item.CustomDevice) &&
                 this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
@@ -183,7 +180,8 @@ namespace MobiFlight
                 }
                 else if (DeviceType == MobiFlightServo.TYPE)
                 {
-                    Servo.ReadXml(reader);
+                    Device = new OutputConfig.Servo();
+                    (Device as Servo).ReadXml(reader);
                 }
                 else if (DeviceType == MobiFlightStepper.TYPE)
                 {
@@ -333,9 +331,9 @@ namespace MobiFlight
                 writer.WriteAttributeString("type", DeviceType);
                 writer.WriteAttributeString("serial", ModuleSerial);
 
-            if (Device is OutputConfig.LedModule)
+            if (Device is LedModule)
             {
-                (Device as OutputConfig.LedModule).WriteXml(writer);
+                (Device as LedModule).WriteXml(writer);
 
             }
             else if (DeviceType == ArcazeBcd4056.TYPE)
@@ -344,7 +342,7 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightServo.TYPE)
             {
-                Servo.WriteXml(writer);
+                (Device as Servo).WriteXml(writer);
             }
             else if (DeviceType == MobiFlightStepper.TYPE)
             {
@@ -405,8 +403,6 @@ namespace MobiFlight
             this.Device = config.Device.Clone() as IDeviceConfig;
 
             this.BcdPins = new List<string>(config.BcdPins);
-
-            this.Servo = config.Servo.Clone() as OutputConfig.Servo;
             this.Stepper = config.Stepper.Clone() as OutputConfig.Stepper;
 
             this.ShiftRegister = config.ShiftRegister.Clone() as OutputConfig.ShiftRegister;
@@ -442,7 +438,7 @@ namespace MobiFlight
                 case ArcazeLedDigit.TYPE:
                     return Device;
                 case MobiFlightServo.TYPE:
-                    return Servo;
+                    return Device;
                 case MobiFlightStepper.TYPE:
                     return Stepper;
                 case MobiFlightShiftRegister.TYPE:
