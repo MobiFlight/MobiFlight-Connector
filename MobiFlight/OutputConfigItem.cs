@@ -26,8 +26,7 @@ namespace MobiFlight
 
         public override IDeviceConfig Device { get; set; }
 
-        public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
-		public List<string>         BcdPins                     { get; set; }
+        public List<string>         BcdPins                     { get; set; }
         public OutputConfig.Servo   Servo { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
@@ -45,7 +44,6 @@ namespace MobiFlight
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Device = new OutputConfig.Output();
-            LcdDisplay = new OutputConfig.LcdDisplay();
             Servo = new OutputConfig.Servo();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
@@ -66,7 +64,6 @@ namespace MobiFlight
                 this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
                 this.Device.Equals(item.Device) &&
-                this.LcdDisplay.Equals(item.LcdDisplay) &&
                 this.Stepper.Equals(item.Stepper) &&
                 this.Servo.Equals(item.Servo) &&
                 this.ShiftRegister.Equals(item.ShiftRegister) &&
@@ -194,8 +191,8 @@ namespace MobiFlight
                 }
                 else if (DeviceType == OutputConfig.LcdDisplay.DeprecatedType)
                 {
-                    if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                    LcdDisplay.ReadXml(reader);
+                    Device = new OutputConfig.LcdDisplay();
+                    (Device as LcdDisplay).ReadXml(reader);
                 }
                 else if (DeviceType == MobiFlightShiftRegister.TYPE)
                 {
@@ -355,8 +352,8 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightLcdDisplay.TYPE)
             {
-                if (LcdDisplay == null) LcdDisplay = new OutputConfig.LcdDisplay();
-                LcdDisplay.WriteXml(writer);
+                Device = new OutputConfig.LcdDisplay();
+                (Device as LcdDisplay).WriteXml(writer);
             }
             else if (DeviceType == MobiFlightShiftRegister.TYPE)
             {
@@ -415,7 +412,6 @@ namespace MobiFlight
             this.ShiftRegister = config.ShiftRegister.Clone() as OutputConfig.ShiftRegister;
             this.CustomDevice = config.CustomDevice.Clone() as OutputConfig.CustomDevice;
 
-            this.LcdDisplay = config.LcdDisplay.Clone() as OutputConfig.LcdDisplay;
             this.Preconditions = Preconditions.Clone() as PreconditionList;
 
             this.ConfigRefs = config.ConfigRefs.Clone() as ConfigRefList;
@@ -452,7 +448,7 @@ namespace MobiFlight
                 case MobiFlightShiftRegister.TYPE:
                     return ShiftRegister;
                 case MobiFlightLcdDisplay.TYPE:
-                    return LcdDisplay;
+                    return Device;
                 case MobiFlightCustomDevice.TYPE:
                     return CustomDevice;
                 default:

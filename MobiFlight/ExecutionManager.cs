@@ -908,7 +908,8 @@ namespace MobiFlight
                     switch (cfg.DeviceType)
                     {
                         case OutputConfig.LcdDisplay.DeprecatedType:
-                            joystick.SetLcdDisplay(cfg.LcdDisplay.Address, value);
+                            var lcdDisplay = cfg.Device as LcdDisplay;
+                            joystick.SetLcdDisplay(lcdDisplay.Address, value);
                             break;
 
                         case "-":
@@ -1052,9 +1053,10 @@ namespace MobiFlight
                         break;
 
                     case OutputConfig.LcdDisplay.DeprecatedType:
+                        var lcdDisplay = cfg.Device as LcdDisplay;
                         mobiFlightCache.SetLcdDisplay(
                             serial,
-                            cfg.LcdDisplay,
+                            lcdDisplay,
                             value,
                             GetRefs(cfg.ConfigRefs)
                             );
@@ -1440,8 +1442,9 @@ namespace MobiFlight
                     break;
 
                 case OutputConfig.LcdDisplay.DeprecatedType:
-                    offCfg.LcdDisplay.Lines.Clear();
-                    offCfg.LcdDisplay.Lines.Add(new string(' ', 20 * 4));
+                    var lcdDisplay = offCfg.Device as LcdDisplay;
+                    lcdDisplay.Lines.Clear();
+                    lcdDisplay.Lines.Add(new string(' ', 20 * 4));
                     ExecuteDisplay(new string(' ', 20 * 4), offCfg);
                     break;
 
