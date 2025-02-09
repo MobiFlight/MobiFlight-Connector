@@ -216,6 +216,10 @@ namespace MobiFlight.UI
             execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
             execManager.OnMidiBoardConnectedFinished += ExecManager_OnMidiBoardConnectedFinished;
 
+            // Now that the joystick and midi handlers are configured it's ok to start them
+            execManager.StartJoystickManager();
+            execManager.StartMidiBoardManager();
+
             connectedDevicesToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             simStatusToolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             toolStripAircraftDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -322,7 +326,7 @@ namespace MobiFlight.UI
                     Enabled = true
                 };
                 item.Click += peripheralsToolStripMenuItemClick;
-                joysticksToolStripMenuItem.DropDownItems.Add(item);
+                MIDIDevicesToolStripMenuItem.DropDownItems.Add(item);
 
                 hasConnectedMidiBoards = false;
             }
@@ -332,7 +336,7 @@ namespace MobiFlight.UI
                 {
                     var item = new ToolStripMenuItem(device.Name);
                     item.Click += peripheralsToolStripMenuItemClick;
-                    joysticksToolStripMenuItem.DropDownItems.Add(item);
+                    MIDIDevicesToolStripMenuItem.DropDownItems.Add(item);
                 }
 
                 hasConnectedMidiBoards = true;
