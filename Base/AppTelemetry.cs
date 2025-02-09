@@ -87,7 +87,7 @@ namespace MobiFlight.Base
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 
-                key = "output." + item.Source.Type;
+                key = "output." + item.Source.SourceType;
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
             }

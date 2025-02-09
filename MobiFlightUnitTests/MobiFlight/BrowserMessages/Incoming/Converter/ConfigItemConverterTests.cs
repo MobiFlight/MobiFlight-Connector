@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
+using MobiFlight.Base.Serialization.Json;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
 {

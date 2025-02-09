@@ -260,6 +260,8 @@
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\IConfigFile.cs" />
     <Compile Include="Base\Project.cs" />
+    <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
+    <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
     <Compile Include="Base\IDeviceConfig.cs" />
@@ -280,7 +282,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
-    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverter.cs" />
+    <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />

@@ -5,7 +5,8 @@ namespace MobiFlight.Base
 {
     public abstract class Source
     {
-        public abstract string Type { get; }
+        public string Type { get { return GetType().Name.ToString(); } }
+        public abstract string SourceType { get; }
         public abstract object Clone();
 
         public abstract override bool Equals(object obj);
@@ -13,7 +14,7 @@ namespace MobiFlight.Base
 
     public class FsuipcSource : Source
     {
-        public override string Type => "FSUIPC";
+        public override string SourceType => "FSUIPC";
         public FsuipcOffset FSUIPC { get; set; } = new FsuipcOffset();
 
         public override object Clone()
@@ -33,7 +34,7 @@ namespace MobiFlight.Base
 
     public class SimConnectSource : Source
     {
-        public override string Type => "SIMCONNECT";
+        public override string SourceType => "SIMCONNECT";
         public SimConnectValue SimConnectValue { get; set; } = new SimConnectValue();
 
         public override object Clone()
@@ -51,7 +52,7 @@ namespace MobiFlight.Base
 
     public class VariableSource : Source
     {
-        public override string Type => "VARIABLE";
+        public override string SourceType => "VARIABLE";
         public MobiFlightVariable MobiFlightVariable { get; set; } = new MobiFlightVariable();
 
         public override object Clone()
@@ -71,7 +72,7 @@ namespace MobiFlight.Base
 
     public class XplaneSource : Source
     {
-        public override string Type => "XPLANE";
+        public override string SourceType => "XPLANE";
         public XplaneDataRef XplaneDataRef { get; set; } = new XplaneDataRef();
 
         public override object Clone()

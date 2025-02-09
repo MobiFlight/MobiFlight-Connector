@@ -4,8 +4,6 @@ using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
@@ -18,16 +16,18 @@ namespace MobiFlight
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
+        [JsonIgnore]
         public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
-        [JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
         public Source Source { get; set; }
         public ConnectorValue       TestValue                   { get; set; }
 
         public override IDeviceConfig Device { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
         public string DeviceType { get; set; }

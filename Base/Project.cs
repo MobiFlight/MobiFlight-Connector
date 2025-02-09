@@ -9,7 +9,7 @@ namespace MobiFlight.Base
         public string Name { get; set; }
         public string FilePath { get; set; }
 
-        public List<IConfigFile> ConfigFiles { get; set; } = new List<IConfigFile>();
+        public List<ConfigFile> ConfigFiles { get; set; } = new List<ConfigFile>();
 
         public void OpenFile()
         {

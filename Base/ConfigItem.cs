@@ -1,4 +1,4 @@
-﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+﻿using MobiFlight.Base.Serialization.Json;
 using MobiFlight.Modifier;
 using Newtonsoft.Json;
 using System;
@@ -7,6 +7,7 @@ using System.Linq;
 
 namespace MobiFlight.Base
 {
+    [JsonConverter(typeof(ConfigItemConverter))]
     public interface IConfigItem
     {
         string GUID { get; set; }
@@ -25,7 +26,6 @@ namespace MobiFlight.Base
         object Clone();
     }
 
-    [JsonConverter(typeof(ConfigItemConverter))]
     public abstract class ConfigItem : IConfigItem
     {
         public string GUID { get; set; }
@@ -36,9 +36,12 @@ namespace MobiFlight.Base
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
         public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();
+        [JsonIgnore]
         public string RawValue { get; set; }
+        [JsonIgnore]
         public string Value { get; set; }
-        
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { new NotImplementedException(); } }
 
         public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();

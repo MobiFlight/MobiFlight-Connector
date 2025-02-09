@@ -1,219 +1,149 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Text.RegularExpressions;
+using MobiFlight.OutputConfig;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
 
-namespace MobiFlight.Tests
+namespace MobiFlight.Base.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class ConfigFileTests
     {
-        [TestMethod()]
-        public void ConfigFileTest()
+        private const string TestFileName = "testConfigFile.json";
+
+
+        private OutputConfigItem CreateOutputConfigItem()
         {
-
-            var o = new DeprecatedConfigFile(@"assets\Base\ConfigFile\OpenConfigFile.xml");
-            Assert.IsNotNull(o, "Object is null");
-        }
-
-        [TestMethod()]
-        //[Ignore]
-        public void OpenFileTest()
-        {
-            String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
-            String expFile = @"assets\Base\ConfigFile\OpenFileTest.xml.exp";
-            String inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.xml";
-
-            var o = new DeprecatedConfigFile(inFile);
-            o.OpenFile();
-
-            var oTemp = new DeprecatedConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.OutputConfigItems;
-            oTemp.InputConfigItems = o.InputConfigItems;
-            oTemp.SaveFile();
-
-            String s1 = System.IO.File.ReadAllText(expFile);
-            String s2 = System.IO.File.ReadAllText(inFileTemp);
-
-            // get rid of the individual version number
-            // that varies every time we increment the MobiFlight version
-            s1 = replaceTestIrrelevantXmlInformation(s1);
-            s2 = replaceTestIrrelevantXmlInformation(s2);
-
-            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
-            System.IO.File.Delete(inFileTemp);
-
-
-            inFile = @"assets\Base\ConfigFile\OpenFileTest.2912.xml";
-            expFile = @"assets\Base\ConfigFile\OpenFileTest.2912.xml.exp";
-            inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.2912.xml";
-
-            o = new DeprecatedConfigFile(inFile);
-            o.OpenFile();
-
-            oTemp = new DeprecatedConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.OutputConfigItems;
-            oTemp.InputConfigItems = o.InputConfigItems;
-            oTemp.SaveFile();
-
-            s1 = System.IO.File.ReadAllText(expFile);
-            s2 = System.IO.File.ReadAllText(inFileTemp);
-
-            // get rid of the individual version number
-            // that varies every time we increment the MobiFlight version
-            s1 = replaceTestIrrelevantXmlInformation(s1);
-            s2 = replaceTestIrrelevantXmlInformation(s2);
-
-            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
-            System.IO.File.Delete(inFileTemp);
-
-            inFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc";
-            inFileTemp = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.tmp";
-            expFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
-
-            o = new DeprecatedConfigFile(inFile);
-            o.OpenFile();
-
-            oTemp = new DeprecatedConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.OutputConfigItems;
-            oTemp.InputConfigItems = o.InputConfigItems;
-            oTemp.SaveFile();
-
-            s1 = System.IO.File.ReadAllText(expFile);
-            s2 = System.IO.File.ReadAllText(inFileTemp);
-
-            // get rid of the individual version number
-            // that varies every time we increment the MobiFlight version
-            s1 = replaceTestIrrelevantXmlInformation(s1);
-            s2 = replaceTestIrrelevantXmlInformation(s2);
-
-            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
-            System.IO.File.Delete(inFileTemp);
-
-            // Load the new version was problematic\
-            inFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
-            inFileTemp = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.tmp";
-            expFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
-
-            o = new DeprecatedConfigFile(inFile);
-            o.OpenFile();
-
-            oTemp = new DeprecatedConfigFile(inFileTemp);
-            oTemp.OutputConfigItems = o.OutputConfigItems;
-            oTemp.InputConfigItems = o.InputConfigItems;
-            oTemp.SaveFile();
-
-            s1 = System.IO.File.ReadAllText(expFile);
-            s2 = System.IO.File.ReadAllText(inFileTemp);
-
-            // get rid of the individual version number
-            // that varies every time we increment the MobiFlight version
-            s1 = replaceTestIrrelevantXmlInformation(s1);
-            s2 = replaceTestIrrelevantXmlInformation(s2);
-
-            Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
-            System.IO.File.Delete(inFileTemp);
-
-            // the files are partially from this project
-            // and also the example files are copied over
-            // from the examples folder (Main project)
-            foreach (string file in System.IO.Directory.GetFiles(@"assets\Base\ConfigFile\", "*.mcc"))
+            return new OutputConfigItem()
             {
-                inFile = file;
-                expFile = inFile;
-                if (System.IO.File.Exists(inFile + ".exp")) expFile = inFile + ".exp";
-                inFileTemp = inFile + ".tmp";
+                Device = new LedModule() { DisplayLedAddress = "0", DisplayLedConnector = 1 }
+            };
+        }
 
-                o = new DeprecatedConfigFile(inFile);
-                o.OpenFile();
-
-                oTemp = new DeprecatedConfigFile(inFileTemp);
-                oTemp.OutputConfigItems = o.OutputConfigItems;
-                oTemp.InputConfigItems = o.InputConfigItems;
-                oTemp.SaveFile();
-
-                s1 = System.IO.File.ReadAllText(expFile);
-                s2 = System.IO.File.ReadAllText(inFileTemp);
-
-                // get rid of the individual version number
-                // that varies every time we increment the MobiFlight version
-                s1 = replaceTestIrrelevantXmlInformation(s1);
-                s2 = replaceTestIrrelevantXmlInformation(s2);
-
-                Assert.AreEqual(s1, s2, inFile + ": Files are not the same");
-                System.IO.File.Delete(inFileTemp);
-            }
-
-            // load a broken config
-            inFile = @"assets\Base\ConfigFile\OpenFileBrokenTest.xml";
-            inFileTemp = @"assets\Base\ConfigFile\OpenFileBrokenTest.xml.tmp";
-
-            bool exceptionThrown = false;
-
-            try
+        private InputConfigItem CreateInputConfigItem()
+        {
+            return new InputConfigItem()
             {
-                s1 = "a";
-                s2 = "b";
-                o = new DeprecatedConfigFile(inFile);
-                o.OpenFile();
+            };
+        }
 
-                oTemp = new DeprecatedConfigFile(inFileTemp);
-                oTemp.OutputConfigItems = o.OutputConfigItems;
-                oTemp.InputConfigItems = o.InputConfigItems;
-                oTemp.SaveFile();
-
-                s1 = System.IO.File.ReadAllText(inFile);
-                s2 = System.IO.File.ReadAllText(inFileTemp);
-
-                // get rid of the individual version number
-                // that varies every time we increment the MobiFlight version
-                s1 = replaceTestIrrelevantXmlInformation(s1);
-                s2 = replaceTestIrrelevantXmlInformation(s2);
-            }
-            catch (Exception)
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            // Clean up before each test
+            if (File.Exists(TestFileName))
             {
-                exceptionThrown = true;
+                File.Delete(TestFileName);
             }
-            Assert.IsTrue(exceptionThrown);
         }
 
-        [TestMethod()]
-        public void SaveFileTest()
+        [TestCleanup]
+        public void TestCleanup()
         {
-            // implicitly tested in OpenFileTest();
-            Assert.IsTrue(true);
+            // Clean up after each test
+            if (File.Exists(TestFileName))
+            {
+                File.Delete(TestFileName);
+            }
         }
 
-        [TestMethod()]
-        public void getInputConfigTest()
+        [TestMethod]
+        public void ConfigFile_Creation_Test()
         {
-            String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
-            var o = new DeprecatedConfigFile(inFile);
-            o.OpenFile();
-            var xr = o.OutputConfigItems;
+            var configFile = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = true,
+                ConfigItems = new List<IConfigItem>()
+            };
 
-            Assert.IsNotNull(xr);
+            Assert.AreEqual(TestFileName, configFile.FileName);
+            Assert.IsFalse(configFile.ReferenceOnly);
+            Assert.IsTrue(configFile.EmbedContent);
+            Assert.IsNotNull(configFile.ConfigItems);
         }
 
-        [TestMethod()]
-        public void getOutputConfigTest()
+        [TestMethod]
+        public void ConfigFile_Serialization_Test()
         {
-            String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
-            var o = new DeprecatedConfigFile(inFile);
-            o.OpenFile();
-            var xr = o.OutputConfigItems;
+            var configFile = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = true,
+                ConfigItems = new List<IConfigItem>()
+            };
 
-            Assert.IsNotNull(xr);
+            var json = configFile.ToJson();
+            var deserializedConfigFile = JsonConvert.DeserializeObject<ConfigFile>(json);
+
+            Assert.AreEqual(configFile.FileName, deserializedConfigFile.FileName);
+            Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
+            Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
+            Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
+
+            configFile.ConfigItems.Add(CreateOutputConfigItem());
+            configFile.ConfigItems.Add(CreateInputConfigItem());
+
+            json = configFile.ToJson();
+            deserializedConfigFile = JsonConvert.DeserializeObject<ConfigFile>(json);
+
+            Assert.AreEqual(configFile.FileName, deserializedConfigFile.FileName);
+            Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
+            Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
+            Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
+            Assert.IsTrue(configFile.ConfigItems.Count == 2);
+
+            Assert.AreEqual((configFile.ConfigItems[0] as OutputConfigItem).Device, (deserializedConfigFile.ConfigItems[0] as OutputConfigItem).Device);
+            Assert.AreEqual((configFile.ConfigItems[1] as InputConfigItem).Device, (deserializedConfigFile.ConfigItems[1] as InputConfigItem).Device);
         }
 
-        string replaceTestIrrelevantXmlInformation(string s1)
+        [TestMethod]
+        public void ConfigFile_OpenFile_Test()
         {
-            s1 = Regex.Replace(s1, @"Version=[^,]+", "Version=1.0.0.0");
-            s1 = s1.Replace(" msdata:InstanceType=\"MobiFlight.OutputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"", "");
-            s1 = s1.Replace(" msdata:InstanceType=\"MobiFlight.InputConfigItem, MFConnector, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null\"", "");
-            s1 = s1.Replace(" xmlns:msdata=\"urn:schemas-microsoft-com:xml-msdata\"", "");
-            s1 = s1.Replace("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>", "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-            return s1;
+            var configFile = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = false,
+                ConfigItems = new List<IConfigItem>()
+            };
+
+            var json = configFile.ToJson();
+            File.WriteAllText(TestFileName, json);
+
+            var newConfigFile = new ConfigFile { FileName = TestFileName, EmbedContent = false };
+            newConfigFile.OpenFile();
+
+            Assert.AreEqual(configFile.FileName, newConfigFile.FileName);
+            Assert.AreEqual(configFile.ReferenceOnly, newConfigFile.ReferenceOnly);
+            Assert.AreEqual(configFile.EmbedContent, newConfigFile.EmbedContent);
+            Assert.AreEqual(configFile.ConfigItems.Count, newConfigFile.ConfigItems.Count);
+        }
+
+        [TestMethod]
+        public void ConfigFile_SaveFile_Test()
+        {
+            var configFile = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = false,
+                ConfigItems = new List<IConfigItem>()
+            };
+
+            configFile.SaveFile();
+
+            Assert.IsTrue(File.Exists(TestFileName));
+
+            var json = File.ReadAllText(TestFileName);
+            var deserializedConfigFile = JsonConvert.DeserializeObject<ConfigFile>(json);
+
+            Assert.AreEqual(configFile.FileName, deserializedConfigFile.FileName);
+            Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
+            Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
+            Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
         }
     }
-        
 }

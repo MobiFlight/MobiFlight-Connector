@@ -6,6 +6,7 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace MobiFlight
 {
@@ -26,10 +27,15 @@ namespace MobiFlight
         // only for backward compatibility during loading
         public const String TYPE_ANALOG_OLD = "Analog";
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ButtonInputConfig button { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public EncoderInputConfig encoder { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputMultiplexerConfig inputMultiplexer { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnalogInputConfig analog { get; set; }
 
         public string DeviceType { get; set; }
@@ -344,6 +350,10 @@ namespace MobiFlight
 
         protected override IDeviceConfig GetDeviceConfig()
         {
+            if (DeviceType == TYPE_NOTSET)
+            {
+                return null;
+            }
             return new InputConfigItemDeviceConfig()
             {
                 Name = DeviceName,

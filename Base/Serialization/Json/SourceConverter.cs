@@ -1,12 +1,10 @@
-﻿using MobiFlight.Base;
-using MobiFlight.Modifier;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace MobiFlight.BrowserMessages.Incoming.Converter
+namespace MobiFlight.Base.Serialization.Json
 {
-    public class ConfigItemConverter : JsonConverter
+    public class SourceConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -24,7 +22,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
                 throw new NotSupportedException($"Unknown type: {typeName}");
             }
 
-            var configItem = Activator.CreateInstance(type) as IConfigItem;
+            var configItem = Activator.CreateInstance(type) as Source;
             serializer.Populate(jsonObject.CreateReader(), configItem);
             return configItem;
         }

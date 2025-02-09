@@ -12,9 +12,33 @@ namespace MobiFlight.Base.Tests
     public class ProjectTests
     {
         [TestMethod()]
-        public void OpenFileTest()
+        public void OpenFileTest_Single_Xml()
         {
             string inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
+            var o = new Project();
+            Assert.IsNotNull(o);
+
+            o.FilePath = inFile;
+            o.OpenFile();
+
+            Assert.IsNotNull(o.ConfigFiles);
+            Assert.IsTrue(o.ConfigFiles.Count > 0);
+
+            var config = o.ConfigFiles[0];
+            var inputConfigs = config.ConfigItems.Where(i => i is InputConfigItem);
+
+            Assert.IsNotNull(inputConfigs);
+            Assert.IsTrue(inputConfigs.Count() > 0);
+
+            var outputConfigs = config.ConfigItems.Where(i => i is OutputConfigItem);
+            Assert.IsNotNull(outputConfigs);
+            Assert.IsTrue(outputConfigs.Count() > 0);
+        }
+
+        [TestMethod()]
+        public void OpenFileTest_Single_Json_Embedded()
+        {
+            string inFile = @"assets\Base\ConfigFile\Json\OpenProjectTest.mfproj";
             var o = new Project();
             Assert.IsNotNull(o);
 

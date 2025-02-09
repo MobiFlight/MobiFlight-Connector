@@ -83,6 +83,7 @@
     <Compile Include="Base\ConfigRefListTests.cs" />
     <Compile Include="Base\ConfigRefTests.cs" />
     <Compile Include="Base\ConnectorValueTests.cs" />
+    <Compile Include="Base\Deprecated\DeprecatedConfigFileTests.cs" />
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\PreconditionListTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
@@ -149,6 +150,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\Base\ConfigFile\Json\OpenProjectTest.mfproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="assets\Base\ConfigFile\OpenFileTest.2912.xml.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
