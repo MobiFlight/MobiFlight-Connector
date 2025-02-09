@@ -28,7 +28,6 @@ namespace MobiFlight
 
         public List<string>         BcdPins                     { get; set; }
         public OutputConfig.Stepper Stepper { get; set; }
-        public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
         public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
         
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
@@ -45,7 +44,6 @@ namespace MobiFlight
             Device = new OutputConfig.Output();
             Stepper = new OutputConfig.Stepper() { CompassMode = false };
             BcdPins = new List<string>() { "A01", "A02", "A03", "A04", "A05" };
-            ShiftRegister = new OutputConfig.ShiftRegister();
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
             ButtonInputConfig = null;
@@ -63,7 +61,6 @@ namespace MobiFlight
                 this.TestValue.Equals(item.TestValue) &&
                 this.Device.Equals(item.Device) &&
                 this.Stepper.Equals(item.Stepper) &&
-                this.ShiftRegister.Equals(item.ShiftRegister) &&
                 this.CustomDevice.Equals(item.CustomDevice) &&
                 this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
                 this.AnalogInputConfig.AreEqual(item.AnalogInputConfig)
@@ -194,7 +191,8 @@ namespace MobiFlight
                 }
                 else if (DeviceType == MobiFlightShiftRegister.TYPE)
                 {
-                    ShiftRegister.ReadXml(reader);
+                    Device = new OutputConfig.ShiftRegister();
+                    (Device as ShiftRegister).ReadXml(reader);
                 }
                 else if (DeviceType == MobiFlightCustomDevice.TYPE)
                 {
@@ -355,7 +353,7 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightShiftRegister.TYPE)
             {
-                ShiftRegister.WriteXml(writer);
+                (Device as ShiftRegister).WriteXml(writer);
             }
             else if (DeviceType == MobiFlightCustomDevice.TYPE)
             {
@@ -405,7 +403,6 @@ namespace MobiFlight
             this.BcdPins = new List<string>(config.BcdPins);
             this.Stepper = config.Stepper.Clone() as OutputConfig.Stepper;
 
-            this.ShiftRegister = config.ShiftRegister.Clone() as OutputConfig.ShiftRegister;
             this.CustomDevice = config.CustomDevice.Clone() as OutputConfig.CustomDevice;
 
             this.Preconditions = Preconditions.Clone() as PreconditionList;
@@ -442,7 +439,7 @@ namespace MobiFlight
                 case MobiFlightStepper.TYPE:
                     return Stepper;
                 case MobiFlightShiftRegister.TYPE:
-                    return ShiftRegister;
+                    return Device;
                 case MobiFlightLcdDisplay.TYPE:
                     return Device;
                 case MobiFlightCustomDevice.TYPE:

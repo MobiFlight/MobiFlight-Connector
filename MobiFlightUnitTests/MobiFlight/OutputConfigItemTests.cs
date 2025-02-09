@@ -249,9 +249,14 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual(o.BcdPins[0], c.BcdPins[0], "clone: BcdPins not the same");
 
-            // Shift Register
-            Assert.AreEqual(o.ShiftRegister.Address, c.ShiftRegister.Address, "clone: ShiftRegister.Address not the same");
-            Assert.AreEqual(o.ShiftRegister.Pin, c.ShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
+            if (o.Device is ShiftRegister)
+            {
+                var oShiftRegister = o.Device as ShiftRegister;
+                var cShiftRegister = c.Device as ShiftRegister;
+                // Shift Register
+                Assert.AreEqual(oShiftRegister.Address, cShiftRegister.Address, "clone: ShiftRegister.Address not the same");
+                Assert.AreEqual(oShiftRegister.Pin, cShiftRegister.Pin, "clone: ShiftRegister.Address not the same");
+            }
 
             // Custom Device
             Assert.AreEqual(o.CustomDevice.CustomType, c.CustomDevice.CustomType, "clone: CustomDevice.CustomType not the same");
@@ -339,6 +344,15 @@ namespace MobiFlight.Tests
                         MaxRotationPercent = "176"
                     };
                     break;
+
+                case "ShiftRegister":
+                    o.DeviceType = MobiFlight.DeviceType.ShiftRegister.ToString("F");
+                    o.Device = new ShiftRegister()
+                    {
+                        Address = "ShiftRegister",
+                        Pin = "99"
+                    };
+                    break;
             }
 
             o.BcdPins = new List<string>() { "Moop" };
@@ -355,12 +369,6 @@ namespace MobiFlight.Tests
             o.Stepper.OutputRev = 3212;
             o.Stepper.TestValue = 212;
             o.Stepper.CompassMode = true;
-
-            o.ShiftRegister = new OutputConfig.ShiftRegister()
-            {
-                Address = "ShiftRegister",
-                Pin = "99"
-            };
 
             o.ButtonInputConfig = new InputConfig.ButtonInputConfig();
             o.AnalogInputConfig = new InputConfig.AnalogInputConfig();
@@ -388,8 +396,11 @@ namespace MobiFlight.Tests
 
             Assert.IsTrue(o1.Equals(o2));
 
-            o2.ShiftRegister.Address = "ShiftRegister1";
-            o2.ShiftRegister.Pin = "69";
+            // Check for the ShiftRegister
+            o1 = _generateConfigItem("ShiftRegister");
+            o2 = _generateConfigItem("ShiftRegister");
+            (o2.Device as ShiftRegister).Address = "ShiftRegister1";
+            (o2.Device as ShiftRegister).Pin = "69";
 
             Assert.IsFalse(o1.Equals(o2));
 
