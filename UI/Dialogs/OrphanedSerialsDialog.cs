@@ -13,20 +13,16 @@ namespace MobiFlight.UI.Dialogs
         private List<string> connectedModuleSerials = new List<string>();
         private List<string> connectedArcazeSerials = new List<string>();
         private List<string> connectedJoystickSerials = new List<string>();
-        private List<OutputConfigItem> outputConfigItems = null;
-        private List<OutputConfigItem> originalOutputConfigItems = null;
-        private List<InputConfigItem> inputConfigItems = null;
-        private List<InputConfigItem> originalInputConfigItems = null;
+        private List<IConfigItem> allConfigItems = null;
+        private List<IConfigItem> originalAllConfigItems = null;
         private bool changed = false;
 
-        public OrphanedSerialsDialog(List<string> serials, List<OutputConfigItem> dataTable, List<InputConfigItem> inputDataTable)
+        public OrphanedSerialsDialog(List<string> serials, List<IConfigItem> dataTable)
         {
             this.allConnectedSerials = serials;
-            this.outputConfigItems = dataTable.Select(item => (OutputConfigItem)item.Clone()).ToList();
-            this.originalOutputConfigItems = dataTable;
-            this.inputConfigItems = inputDataTable.Select(item => (InputConfigItem)item.Clone()).ToList();
-            this.originalInputConfigItems = inputDataTable;
-
+            this.allConfigItems = dataTable.Select(item => (IConfigItem)item.Clone()).ToList();
+            this.originalAllConfigItems = dataTable;
+        
             foreach (string serial in allConnectedSerials)
             {
                 string serialNumber = SerialNumber.ExtractSerial(serial);
@@ -60,15 +56,9 @@ namespace MobiFlight.UI.Dialogs
                 connectedModulesComboBox.Items.Add(serial);
             }
 
-            foreach (OutputConfigItem cfg in outputConfigItems) 
+            foreach (IConfigItem cfg in allConfigItems) 
             {
                 if (cfg== null) continue;
-                CheckAndAddConfigSerial(cfg.ModuleSerial, configSerials);
-            }
-
-            foreach (InputConfigItem cfg in inputConfigItems)
-            {
-                if (cfg == null) continue;
                 CheckAndAddConfigSerial(cfg.ModuleSerial, configSerials);
             }
 
@@ -97,15 +87,7 @@ namespace MobiFlight.UI.Dialogs
 
         protected void replaceSerialBySerial(string oldSerial, string newSerial)
         {
-            foreach (OutputConfigItem cfg in outputConfigItems)
-            {
-                if (cfg?.ModuleSerial == oldSerial)
-                {
-                    cfg.ModuleSerial = newSerial;
-                }
-            }
-
-            foreach (InputConfigItem cfg in inputConfigItems)
+            foreach (IConfigItem cfg in allConfigItems)
             {
                 if (cfg?.ModuleSerial == oldSerial)
                 {
@@ -126,15 +108,11 @@ namespace MobiFlight.UI.Dialogs
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            for (int i=0; i!=originalOutputConfigItems.Count;++i)
+            for (int i=0; i!=originalAllConfigItems.Count;++i)
             {
-                originalOutputConfigItems[i] = outputConfigItems[i];                
+                originalAllConfigItems[i] = allConfigItems[i];                
             }
 
-            for (int i = 0; i != originalInputConfigItems.Count; ++i)
-            {
-                originalInputConfigItems[i] = inputConfigItems[i];
-            }
             //realConfigDataTable = configDataTable;
             DialogResult = DialogResult.OK;
         }

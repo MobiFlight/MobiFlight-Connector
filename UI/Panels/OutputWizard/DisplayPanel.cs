@@ -197,7 +197,6 @@ namespace MobiFlight.UI.Panels.OutputWizard
                 if (displayTypeComboBox.SelectedItem == null) return;
 
                 config.DeviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
-                config.DisplayTrigger = "normal";
                 config.ModuleSerial = displayModuleNameComboBox.SelectedItem.ToString();
 
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.Modifier;
+using MobiFlight.OutputConfig;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,11 +37,12 @@ namespace MobiFlight.Tests
 
             System.Xml.XmlReader xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci.ReadXml(xmlReader);
-            Assert.AreEqual(oci.FSUIPC.OffsetType, FSUIPCOffsetType.Integer);
-            Assert.AreEqual(oci.FSUIPC.Offset, 0x034E);
-            Assert.AreEqual(oci.FSUIPC.Size, 2);
-            Assert.AreEqual(oci.FSUIPC.Mask, 0xFFFF);
-            Assert.AreEqual(oci.FSUIPC.BcdMode, true);
+            Assert.IsTrue(oci.Source is FsuipcSource);
+            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.OffsetType, FSUIPCOffsetType.Integer);
+            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.Offset, 0x034E);
+            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.Size, 2);
+            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.Mask, 0xFFFF);
+            Assert.AreEqual((oci.Source as FsuipcSource).FSUIPC.BcdMode, true);
             Assert.AreEqual(oci.Modifiers.Transformation.Expression, "$+123");
 
             // read backward compatible
@@ -156,7 +158,28 @@ namespace MobiFlight.Tests
             string s = sw.ToString();
 
             String result = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\WriteXmlTest.1.xml");
+            Assert.AreEqual(s, result, "The both strings are not equal");
 
+            // Do the same for SimConnect
+            o.Source = new SimConnectSource()
+            {
+                SimConnectValue = new SimConnectValue()
+                {
+                    UUID = "1234",
+                    Value = "Test",
+                    VarType = SimConnectVarType.CODE
+                }
+            };
+
+            sw = new StringWriter();
+            xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
+            xmlWriter.WriteStartElement("settings");
+            o.WriteXml(xmlWriter, false);
+            xmlWriter.WriteEndElement();
+            xmlWriter.Flush();
+            s = sw.ToString();
+
+            result = System.IO.File.ReadAllText(@"assets\MobiFlight\OutputConfig\OutputConfigItem\WriteXmlTest.2.xml");
             Assert.AreEqual(s, result, "The both strings are not equal");
         }
 
@@ -171,12 +194,12 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.GUID, c.GUID, "clone: GUID not the same");
             Assert.AreEqual(o.Type, c.Type, "clone: Type not the same");
 
-            Assert.AreEqual(o.FSUIPC.Offset, c.FSUIPC.Offset, "clone: FSUIPCOffset not the same");
-            Assert.AreEqual(o.FSUIPC.Mask, c.FSUIPC.Mask, " clone: FSUIPCMask not the same");
+            Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.Offset, (c.Source as FsuipcSource).FSUIPC.Offset, "clone: FSUIPCOffset not the same");
+            Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.Mask, (c.Source as FsuipcSource).FSUIPC.Mask, " clone: FSUIPCMask not the same");
+            Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.OffsetType, (c.Source as FsuipcSource).FSUIPC.OffsetType, "clone: FSUIPCOffsetType not the same");
+            Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.Size, (c.Source as FsuipcSource).FSUIPC.Size, "clone: FSUIPCSize not the same");
+            Assert.AreEqual((o.Source as FsuipcSource).FSUIPC.BcdMode, (c.Source as FsuipcSource).FSUIPC.BcdMode, "clone: FSUIPCBcdMode not the same");
             Assert.AreEqual(o.Modifiers.Transformation.Expression, c.Modifiers.Transformation.Expression, "clone: FSUIPCOffsetType not the same");
-            Assert.AreEqual(o.FSUIPC.OffsetType, c.FSUIPC.OffsetType, "clone: FSUIPCOffsetType not the same");
-            Assert.AreEqual(o.FSUIPC.Size, c.FSUIPC.Size, "clone: FSUIPCSize not the same");
-            Assert.AreEqual(o.FSUIPC.BcdMode, c.FSUIPC.BcdMode, "clone: FSUIPCBcdMode not the same");
             Assert.AreEqual(o.Modifiers.Comparison.Active, c.Modifiers.Comparison.Active, "clone: ComparisonActive not the same");
             Assert.AreEqual(o.Modifiers.Comparison.Operand, c.Modifiers.Comparison.Operand, "clone: ComparisonOperand not the same");
             Assert.AreEqual(o.Modifiers.Comparison.Value, c.Modifiers.Comparison.Value, "clone: ComparisonValue not the same");
@@ -240,14 +263,20 @@ namespace MobiFlight.Tests
             o.Active = false;
             o.GUID = "123";
 
-            o.FSUIPC.Offset = 0x1234;
-            o.FSUIPC.Mask = 0xFFFF;
+            o.Source = new FsuipcSource()
+            {
+                FSUIPC = new FsuipcOffset()
+                {
+                    Offset = 0x1234,
+                    Mask = 0xFFFF,
+                    OffsetType = FSUIPCOffsetType.Integer,
+                    Size = 2,
+                    BcdMode = true
+                }
+            };
+            
             o.Modifiers.Transformation.Active = true;
             o.Modifiers.Transformation.Expression = "$+123";
-
-            o.FSUIPC.OffsetType = FSUIPCOffsetType.Float;
-            o.FSUIPC.Size = 2;
-            o.FSUIPC.BcdMode = true;
             o.Modifiers.Comparison.Active = true;
             o.Modifiers.Comparison.Operand = ">";
             o.Modifiers.Comparison.Value = "1";

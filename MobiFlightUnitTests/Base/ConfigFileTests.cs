@@ -11,7 +11,7 @@ namespace MobiFlight.Tests
         public void ConfigFileTest()
         {
 
-            ConfigFile o = new ConfigFile(@"assets\Base\ConfigFile\OpenConfigFile.xml");
+            var o = new DeprecatedConfigFile(@"assets\Base\ConfigFile\OpenConfigFile.xml");
             Assert.IsNotNull(o, "Object is null");
         }
 
@@ -23,10 +23,10 @@ namespace MobiFlight.Tests
             String expFile = @"assets\Base\ConfigFile\OpenFileTest.xml.exp";
             String inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.xml";
 
-            ConfigFile o = new ConfigFile(inFile);
+            var o = new DeprecatedConfigFile(inFile);
             o.OpenFile();
 
-            ConfigFile oTemp = new ConfigFile(inFileTemp);
+            var oTemp = new DeprecatedConfigFile(inFileTemp);
             oTemp.OutputConfigItems = o.OutputConfigItems;
             oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
@@ -47,10 +47,10 @@ namespace MobiFlight.Tests
             expFile = @"assets\Base\ConfigFile\OpenFileTest.2912.xml.exp";
             inFileTemp = @"assets\Base\ConfigFile\temp_OpenFileTest.2912.xml";
 
-            o = new ConfigFile(inFile);
+            o = new DeprecatedConfigFile(inFile);
             o.OpenFile();
 
-            oTemp = new ConfigFile(inFileTemp);
+            oTemp = new DeprecatedConfigFile(inFileTemp);
             oTemp.OutputConfigItems = o.OutputConfigItems;
             oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
@@ -70,10 +70,10 @@ namespace MobiFlight.Tests
             inFileTemp = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.tmp";
             expFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
 
-            o = new ConfigFile(inFile);
+            o = new DeprecatedConfigFile(inFile);
             o.OpenFile();
 
-            oTemp = new ConfigFile(inFileTemp);
+            oTemp = new DeprecatedConfigFile(inFileTemp);
             oTemp.OutputConfigItems = o.OutputConfigItems;
             oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
@@ -94,10 +94,10 @@ namespace MobiFlight.Tests
             inFileTemp = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.tmp";
             expFile = @"assets\Base\ConfigFile\7.5.0-7.5.1-upgrade.mcc.exp";
 
-            o = new ConfigFile(inFile);
+            o = new DeprecatedConfigFile(inFile);
             o.OpenFile();
 
-            oTemp = new ConfigFile(inFileTemp);
+            oTemp = new DeprecatedConfigFile(inFileTemp);
             oTemp.OutputConfigItems = o.OutputConfigItems;
             oTemp.InputConfigItems = o.InputConfigItems;
             oTemp.SaveFile();
@@ -123,10 +123,10 @@ namespace MobiFlight.Tests
                 if (System.IO.File.Exists(inFile + ".exp")) expFile = inFile + ".exp";
                 inFileTemp = inFile + ".tmp";
 
-                o = new ConfigFile(inFile);
+                o = new DeprecatedConfigFile(inFile);
                 o.OpenFile();
 
-                oTemp = new ConfigFile(inFileTemp);
+                oTemp = new DeprecatedConfigFile(inFileTemp);
                 oTemp.OutputConfigItems = o.OutputConfigItems;
                 oTemp.InputConfigItems = o.InputConfigItems;
                 oTemp.SaveFile();
@@ -153,10 +153,10 @@ namespace MobiFlight.Tests
             {
                 s1 = "a";
                 s2 = "b";
-                o = new ConfigFile(inFile);
+                o = new DeprecatedConfigFile(inFile);
                 o.OpenFile();
 
-                oTemp = new ConfigFile(inFileTemp);
+                oTemp = new DeprecatedConfigFile(inFileTemp);
                 oTemp.OutputConfigItems = o.OutputConfigItems;
                 oTemp.InputConfigItems = o.InputConfigItems;
                 oTemp.SaveFile();
@@ -187,7 +187,7 @@ namespace MobiFlight.Tests
         public void getInputConfigTest()
         {
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
-            ConfigFile o = new ConfigFile(inFile);
+            var o = new DeprecatedConfigFile(inFile);
             o.OpenFile();
             var xr = o.OutputConfigItems;
 
@@ -198,7 +198,7 @@ namespace MobiFlight.Tests
         public void getOutputConfigTest()
         {
             String inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
-            ConfigFile o = new ConfigFile(inFile);
+            var o = new DeprecatedConfigFile(inFile);
             o.OpenFile();
             var xr = o.OutputConfigItems;
 

@@ -254,7 +254,7 @@ namespace MobiFlight
             this.DeviceName = config.DeviceName?.Clone() as string;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             return (object)new InputConfigItem(this);
         }

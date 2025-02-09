@@ -3,7 +3,7 @@ using MobiFlight.Config;
 using MobiFlight.InputConfig;
 using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
-using MobiFlight.xplane;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +13,18 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
-    public class OutputConfigItem : ConfigItem, IFsuipcConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
+    public class OutputConfigItem : ConfigItem, IXmlSerializable, ICloneable, IConfigRefConfigItem
     {
         // we initialize a cultureInfo object 
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
         public System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
-        
-        // this implements the FSUIPC Config Item Interface
-        // It would be nicer to have an aggregation of FSUIPC.FSUIPCConfigItem instead
-		public SourceType           SourceType                  { get; set; }
-		public FsuipcOffset         FSUIPC                      { get; set; }
-		public SimConnectValue      SimConnectValue             { get; set; }
-		public MobiFlightVariable   MobiFlightVariable          { get; set; }
 
-        public XplaneDataRef        XplaneDataRef               { get; set; }
-		
+        [JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
+        public Source Source { get; set; }
         public ConnectorValue       TestValue                   { get; set; }
+
         public OutputConfig.Output     Pin                         { get; set; }
 		public OutputConfig.LedModule   LedModule               { get; set; }
 		public OutputConfig.LcdDisplay  LcdDisplay              { get; set; }
@@ -39,7 +33,6 @@ namespace MobiFlight
         public OutputConfig.Stepper Stepper { get; set; }
         public OutputConfig.ShiftRegister ShiftRegister         { get; set; }
         public OutputConfig.CustomDevice CustomDevice           { get; set; } = new OutputConfig.CustomDevice();
-        public string       DisplayTrigger                      { get; set; }
         
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
@@ -49,11 +42,7 @@ namespace MobiFlight
 
         public OutputConfigItem()
         {
-            SourceType = SourceType.SIMCONNECT;
-            FSUIPC = new FsuipcOffset();
-            SimConnectValue = new SimConnectValue();
-            MobiFlightVariable = new MobiFlightVariable();
-            XplaneDataRef = new XplaneDataRef();
+            Source = new SimConnectSource();
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
             Pin = new OutputConfig.Output();
@@ -76,11 +65,7 @@ namespace MobiFlight
 
             return (
                 this.DeviceType == item.DeviceType &&
-                this.SourceType == item.SourceType &&
-                this.FSUIPC.Equals(item.FSUIPC) &&
-                this.SimConnectValue.Equals(item.SimConnectValue) &&
-                this.XplaneDataRef.Equals(item.XplaneDataRef) &&
-                this.MobiFlightVariable.Equals(item.MobiFlightVariable) &&
+                this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
                 this.Pin.Equals(item.Pin) &&
                 this.LedModule.Equals(item.LedModule) &&
@@ -105,23 +90,23 @@ namespace MobiFlight
             {
                 // try to read it as FSUIPC Offset
                 if (reader["type"] == "SimConnect") {
-                    SourceType = SourceType.SIMCONNECT;
-                    this.SimConnectValue.ReadXml(reader);
+                    Source = new SimConnectSource();
+                    (Source as SimConnectSource).SimConnectValue.ReadXml(reader);
                 } else if (reader["type"] == "Variable")
                 {
-                    SourceType = SourceType.VARIABLE;
-                    this.MobiFlightVariable.ReadXml(reader);
+                    Source = new VariableSource();
+                    (Source as VariableSource).MobiFlightVariable.ReadXml(reader);
                 } else if (reader["type"] == "XplaneDataRef")
                 {
-                    SourceType = SourceType.XPLANE;
-                    this.XplaneDataRef.ReadXml(reader);
+                    Source = new XplaneSource();
+                    (Source as XplaneSource).XplaneDataRef.ReadXml(reader);
                 }
                 else
                 {
-                    SourceType = SourceType.FSUIPC;
-                    this.FSUIPC.ReadXml(reader);
-
-                    if(FSUIPC.OffsetType == FSUIPCOffsetType.String)
+                    Source = new FsuipcSource();
+                    (Source as FsuipcSource).FSUIPC.ReadXml(reader);
+                    
+                    if((Source as FsuipcSource).FSUIPC.OffsetType == FSUIPCOffsetType.String)
                     {
                         // this is a special case for backward compatibility
                         // https://github.com/MobiFlight/MobiFlight-Connector/issues/1348
@@ -183,8 +168,7 @@ namespace MobiFlight
                 if (DeviceType == ArcazeLedDigit.OLDTYPE) DeviceType = ArcazeLedDigit.TYPE;
 
                 ModuleSerial = reader["serial"];
-                DisplayTrigger = reader["trigger"];
-
+                
                 if (DeviceType == MobiFlightOutput.TYPE)
                 {
                     Pin.ReadXml(reader);
@@ -332,14 +316,14 @@ namespace MobiFlight
             }
 
             writer.WriteStartElement("source");
-                if (SourceType == SourceType.FSUIPC)
-                    this.FSUIPC.WriteXml(writer);
-                else if (SourceType == SourceType.VARIABLE)
-                    this.MobiFlightVariable.WriteXml(writer);
-                else if (SourceType == SourceType.XPLANE)
-                    this.XplaneDataRef.WriteXml(writer);
+                if (Source is FsuipcSource)
+                    (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);
+                else if (Source is VariableSource)
+                    (this.Source as VariableSource).MobiFlightVariable.WriteXml(writer);
+                else if (Source is XplaneSource)
+                    (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
                 else
-                    this.SimConnectValue.WriteXml(writer);
+                    (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
             writer.WriteEndElement();
 
             writer.WriteStartElement("test");
@@ -352,9 +336,6 @@ namespace MobiFlight
             writer.WriteStartElement("display");
                 writer.WriteAttributeString("type", DeviceType);
                 writer.WriteAttributeString("serial", ModuleSerial);
-
-                if ( DisplayTrigger != null)
-                    writer.WriteAttributeString("trigger", DisplayTrigger);
 
             if (DeviceType == ArcazeLedDigit.TYPE)
             {
@@ -420,12 +401,8 @@ namespace MobiFlight
 
         public OutputConfigItem(OutputConfigItem config) : base(config)
         {
-            this.SourceType = config.SourceType;
-            this.FSUIPC = config.FSUIPC.Clone() as FsuipcOffset;
-            this.SimConnectValue = config.SimConnectValue.Clone() as SimConnectValue;
-            this.MobiFlightVariable = config.MobiFlightVariable.Clone() as MobiFlightVariable;
-            this.XplaneDataRef = config.XplaneDataRef.Clone() as XplaneDataRef;
-
+            this.Source = config.Source.Clone() as Source;
+            
             this.DeviceType = config.DeviceType;
             this.ModuleSerial = config.ModuleSerial;
 
@@ -435,7 +412,6 @@ namespace MobiFlight
 
             this.BcdPins = new List<string>(config.BcdPins);
 
-            this.DisplayTrigger = config.DisplayTrigger;
             this.Servo = config.Servo.Clone() as OutputConfig.Servo;
             this.Stepper = config.Stepper.Clone() as OutputConfig.Stepper;
 
@@ -453,7 +429,7 @@ namespace MobiFlight
             this.TestValue = config.TestValue.Clone() as ConnectorValue;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             OutputConfigItem clone = new OutputConfigItem(this);
             return clone;
@@ -486,13 +462,5 @@ namespace MobiFlight
                     return null;
             }
         }
-    }
-
-    public enum SourceType
-    {
-        FSUIPC,
-        SIMCONNECT,
-        VARIABLE,
-        XPLANE
     }
 }

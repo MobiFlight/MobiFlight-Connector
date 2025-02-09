@@ -54,7 +54,7 @@ namespace MobiFlight.UI.Dialogs
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             List<OutputConfigItem> putputConfigItems)
+                             List<OutputConfigItem> outputConfigItems)
         {
             Init(mainForm, cfg);
 #if ARCAZE
@@ -66,14 +66,14 @@ namespace MobiFlight.UI.Dialogs
             // copy this so that no filtering will 
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
-            this.outputConfigItems = putputConfigItems.ToArray().ToList();
+            this.outputConfigItems = outputConfigItems.ToArray().ToList();
 
             var list = outputConfigItems.Where(c => c.GUID != cfg.GUID)
                                      .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(outputConfigItems, cfg.GUID);
+            initConfigRefDropDowns(this.outputConfigItems, cfg.GUID);
             _loadPresets();
 
             // remember the default style of the button

@@ -20,6 +20,8 @@ namespace MobiFlight.Base
         string Value { get; set; }
         IDeviceConfig Device { get; }
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
+
+        object Clone();
     }
 
     [JsonConverter(typeof(ConfigItemConverter))]
@@ -75,6 +77,11 @@ namespace MobiFlight.Base
             RawValue = item.RawValue.Clone() as string;
             Value = item.Value.Clone() as string;
             Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
+        }
+
+        public virtual object Clone()
+        {
+            return Clone() as ConfigItem;
         }
 
         public override bool Equals(object obj)

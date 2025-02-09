@@ -148,7 +148,7 @@ namespace MobiFlight.InputConfig
 
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache as FSUIPC.FSUIPCCacheInterface);
+                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg.FSUIPC, cache as FSUIPC.FSUIPCCacheInterface);
                 Tuple<string, string> replacement = new Tuple<string, string>("$", tmpValue.ToString());
                 replacements.Add(replacement);
             }
