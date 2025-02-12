@@ -48,9 +48,6 @@ export function DataTableToolbar<TData>({
   const types = [...new Set(items.map((item) => item.Device?.Type ?? "-"))].map(
     (type) => {
       const labelRaw = type
-        ?.replace("MobiFlight.", "")
-        ?.replace("OutputConfig.", "")
-        ?.replace("InputConfig.", "")
       const label = t(`Types.${labelRaw}`)
       return {
         label: label,

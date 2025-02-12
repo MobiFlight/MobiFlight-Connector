@@ -23,14 +23,14 @@ const ConfigListPage = () => {
 
   useAppMessage("ConfigValueUpdate", (message) => {
     const update = message.payload as ConfigValueUpdate
-    console.log("ConfigValueUpdate", update)
+    console.log("ConfigValueUpdate", update.ConfigItems)
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
+      console.log("updateItem", update.ConfigItems[0])
       updateItem(update.ConfigItems[0], false)
       return
     }
-
-    updateItems(update.ConfigItems)
+    setItems(update.ConfigItems)
   })
 
   // this is only for easier UI testing

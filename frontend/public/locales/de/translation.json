@@ -1,34 +1,40 @@
 {
   "Types": {
-    "Output": "Ausgang",
-    "LedModule": "7-Segment Anzeige",
-    "Stepper": "Schrittmotor",
-    "Servo": "Servo",
-    "LcdDisplay": "LCD Display",
-    "ShiftRegister": "Ouptut Shift Register",
-    "InputShiftRegister": "Input Shift Register",
-    "Button": "Schalter",
-    "Encoder": "Enkoder",
-    "AnalogInput": "Analoger Eingang",
-    "-": "nicht vewendet"
+    "MobiFlight": {
+      "OutputConfig": {
+        "Output": "Ausgang",
+        "LedModule": "7-Segment Anzeige",
+        "Stepper": "Schrittmotor",
+        "Servo": "Servo",
+        "LcdDisplay": "LCD Display",
+        "ShiftRegister": "Ouptut Shift Register"
+      },
+      "InputConfig": {
+        "InputShiftRegister": "Input Shift Register",
+        "Button": "Schalter",
+        "Encoder": "Enkoder",
+        "AnalogInput": "Analoger Eingang"        
+      }
+    },
+    "-": "nicht verwendet"
   },
   "ConfigList": {
-    "Toolbar" : {
-      "Search" : {
+    "Toolbar": {
+      "Search": {
         "Placeholder": "Einträge filtern..."
       },
-      "Filter" : {
+      "Filter": {
         "Device": "Geräte",
-        "Type" : "Typen",
-        "Name" : "Namen",
-        "Selected" : "{{items}} ausgewählt",
-        "Clear" : "Filter zurücksetzen",
-        "NoResultsFound" : "Keine Ergebnisse gefunden."
+        "Type": "Typen",
+        "Name": "Namen",
+        "Selected": "{{items}} ausgewählt",
+        "Clear": "Filter zurücksetzen",
+        "NoResultsFound": "Keine Ergebnisse gefunden."
       },
       "NotSet": "Nicht verwendet",
       "Reset": "Filter zurücksetzen"
     },
-    "Header" : {
+    "Header": {
       "Active": "Aktiv",
       "Name": "Name / Beschreibung",
       "Device": "Gerät",
@@ -38,18 +44,18 @@
       "FinalValue": "Endwert",
       "Actions": "Aktionen"
     },
-    "Cell" : {
-      "Waiting" : "Warten"
+    "Cell": {
+      "Waiting": "Warten"
     },
-    "Table" : {
-      "NoResultsFound" : "Neue Konfiguration. Erstelle neue Einträge."
+    "Table": {
+      "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge."
     },
     "Actions": {
-      "OutputConfigItem" : {
+      "OutputConfigItem": {
         "Add": "Neue Ausgabe-Konfiguration",
         "DefaultName": "Neue Ausgabe-Konfiguration"
       },
-      "InputConfigItem" : {
+      "InputConfigItem": {
         "Add": "Neue Eingabe-konfiguration",
         "DefaultName": "Neue Eingabe-Konfiguration"
       }
