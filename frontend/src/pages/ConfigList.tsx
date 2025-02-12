@@ -27,7 +27,7 @@ const ConfigListPage = () => {
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
       console.log("updateItem", update.ConfigItems[0])
-      updateItem(update.ConfigItems[0], false)
+      updateItem(update.ConfigItems[0], true)
       return
     }
     setItems(update.ConfigItems)

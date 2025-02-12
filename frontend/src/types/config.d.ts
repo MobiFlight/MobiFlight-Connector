@@ -1,3 +1,5 @@
+import { DeviceElementType } from "./deviceElements"
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface IDictionary<T, K extends string | number | symbol> {
   [Key in K]: T
@@ -13,6 +15,8 @@ export interface IConfigItem {
   Device?: IDeviceConfig | null 
   // this is the type of the Device
   // Type: DeviceElementType;
+  DeviceName: string
+  DeviceType: DeviceElementType
   // Tags: string[];
   RawValue?: string | null
   Value?: string | null

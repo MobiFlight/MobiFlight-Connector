@@ -10,8 +10,9 @@ interface ConfigItemTableDeviceCellProps {
 }
 const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
   const { t } = useTranslation()
-  const label = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
-  const type = (row.getValue("Device") as IDeviceConfig)?.Type ?? "-"
+  const item = row.original as IConfigItem
+  const label = (item.Device as IDeviceConfig)?.Name ?? item.DeviceName ?? "-"
+  const type = (item.Device as IDeviceConfig)?.Type ?? item.DeviceType ?? "-"
   const icon = (
     <DeviceIcon
       disabled={!row.getValue("Active") as boolean}

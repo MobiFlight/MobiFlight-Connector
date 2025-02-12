@@ -31,7 +31,7 @@ namespace MobiFlight
         public InputConfig.AnalogInputConfig AnalogInputConfig { get; set; }
 
         public string DeviceType { get; set; }
-
+        public string DeviceName {  get { return Device.Name;  } }
         public OutputConfigItem()
         {
             Source = new SimConnectSource();
