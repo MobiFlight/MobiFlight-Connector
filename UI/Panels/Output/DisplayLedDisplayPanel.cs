@@ -29,11 +29,16 @@ namespace MobiFlight.UI.Panels
 
         private void InitPanelWithDefaultSettings()
         {
-            syncFromConfig(new OutputConfigItem());
+            syncFromConfig(new OutputConfigItem()
+            {
+                Device = new OutputConfig.LedModule()
+            });
         }
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+            if (!(config.Device is OutputConfig.LedModule)) return;
+
             var ledModule = config.Device as OutputConfig.LedModule;
             // preselect display stuff
             if (ledModule.DisplayLedAddress != null) 

@@ -32,6 +32,7 @@ namespace MobiFlight.UI.Panels
         internal void syncFromConfig(OutputConfigItem config)
         {
             if (!(config.Device is OutputConfig.Stepper)) return;
+
             var configStepper = config.Device as OutputConfig.Stepper;
 
             // stepper initialization

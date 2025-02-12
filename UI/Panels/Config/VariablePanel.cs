@@ -65,6 +65,8 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+            if (!(config.Source is VariableSource)) return;
+
             try { 
                 TypeComboBox.SelectedValue = (config.Source as VariableSource).MobiFlightVariable.TYPE;
             } catch (Exception)

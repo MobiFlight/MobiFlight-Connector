@@ -97,56 +97,55 @@ namespace MobiFlight.UI.Panels
             String serial = config.ModuleSerial;
             serial = SerialNumber.ExtractSerial(serial);
 
-            if (config.Device is Output)
+            if (!(config.Device is Output)) return;
+
+            string port = "";
+            var cfg = config.Device as Output;
+            string pin = cfg.DisplayPin;
+
+            if (SerialNumber.IsJoystickSerial(serial) ||
+                SerialNumber.IsMidiBoardSerial(serial))                                   
             {
-                string port = "";
-                var cfg = config.Device as Output;
-                string pin = cfg.DisplayPin;
-
-                if (SerialNumber.IsJoystickSerial(serial) ||
-                    SerialNumber.IsMidiBoardSerial(serial))                                   
-                {
-                    // disable multi-select option
-                    _MultiSelectOptions(false);
-                    pin = cfg.DisplayPin;
-                }
-                else if (SerialNumber.IsArcazeSerial(serial))
-                {
-                    // these are Arcaze Boards.
-                    // Arcaze Boards only have "single output"
-                    port = cfg.DisplayPin.Substring(0, 1);
-                    pin = cfg.DisplayPin.Substring(1);
-
-                    // disable multi-select option
-                    _MultiSelectOptions(false);
-                } else if (SerialNumber.IsMobiFlightSerial(serial)) {
-
-                    // this is MobiFlight Outputs
-                    _MultiSelectOptions(true);
-
-                    // initialize multi-select panel
-                    MultiPinSelectPanel?.SetSelectedPinsFromString(cfg.DisplayPin, config.ModuleSerial);
-
-                    // get the first from the multi select
-                    pin = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
-
-                    selectMultiplePinsCheckBox.Checked = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
-                }
-
-                // preselect normal pin drop downs
-                if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
-
-                if (displayPinComboBox.Items.Count == 0) {
-                    displayPinComboBox.DataSource = new List<ListItem>() { new ListItem() { Label = pin, Value = pin } };
-                }
-
-                if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
-
-                int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
-                displayPinBrightnessTrackBar.Value = (int)((cfg.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
-
-                displayPwmCheckBox.Checked = cfg.DisplayPinPWM;
+                // disable multi-select option
+                _MultiSelectOptions(false);
+                pin = cfg.DisplayPin;
             }
+            else if (SerialNumber.IsArcazeSerial(serial))
+            {
+                // these are Arcaze Boards.
+                // Arcaze Boards only have "single output"
+                port = cfg.DisplayPin.Substring(0, 1);
+                pin = cfg.DisplayPin.Substring(1);
+
+                // disable multi-select option
+                _MultiSelectOptions(false);
+            } else if (SerialNumber.IsMobiFlightSerial(serial)) {
+
+                // this is MobiFlight Outputs
+                _MultiSelectOptions(true);
+
+                // initialize multi-select panel
+                MultiPinSelectPanel?.SetSelectedPinsFromString(cfg.DisplayPin, config.ModuleSerial);
+
+                // get the first from the multi select
+                pin = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
+
+                selectMultiplePinsCheckBox.Checked = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
+            }
+
+            // preselect normal pin drop downs
+            if (!ComboBoxHelper.SetSelectedItem(displayPortComboBox, port)) { /* TODO: provide error message */ }
+
+            if (displayPinComboBox.Items.Count == 0) {
+                displayPinComboBox.DataSource = new List<ListItem>() { new ListItem() { Label = pin, Value = pin } };
+            }
+
+            if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
+
+            int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
+            displayPinBrightnessTrackBar.Value = (int)((cfg.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
+
+            displayPwmCheckBox.Checked = cfg.DisplayPinPWM;
         }
 
         private void _MultiSelectOptions(bool state)

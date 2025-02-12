@@ -40,7 +40,7 @@ namespace MobiFlight.UI
         /// the currently used filename of the loaded config file
         /// </summary>
         private string currentFileName = null;
-        private Project configFile = null;
+        private Project project = null;
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
@@ -246,13 +246,13 @@ namespace MobiFlight.UI
                 return;
             }
 
-            var cfg = execManager.InputConfigItems.Find(c => c.GUID == guid);
-            if (cfg == null) return;
+            var cfg = execManager.ConfigItems.Find(c => c.GUID == guid);
+            if (cfg == null || !(cfg is InputConfigItem)) return;
 
             // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
             System.Threading.SynchronizationContext.Current.Post((_) =>
             {
-                _editConfigWithInputWizard(cfg, false);
+                _editConfigWithInputWizard(cfg as InputConfigItem, false);
             }, null);
         }
 
@@ -280,8 +280,8 @@ namespace MobiFlight.UI
                     // we have to update the config
                     // using the duplicated config 
                     // that the user edited with the wizard
-                    var index = execManager.InputConfigItems.FindIndex(c => c.GUID == cfg.GUID);
-                    execManager.InputConfigItems[index] = wizard.Config;
+                    var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
+                    execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
                     ExecManager_OnConfigHasChanged(wizard.Config, null);
                 }
@@ -305,8 +305,13 @@ namespace MobiFlight.UI
 
             ProjectLoaded += (s, project) =>
             {
-                if (project.ConfigFiles.Count == 0) return;
-                MessageExchange.Instance.Publish(project.ConfigFiles[0]);
+                var configFile = new ConfigFile();
+                if (project.ConfigFiles.Count > 0)
+                {
+                    configFile = project.ConfigFiles[0];
+                }
+                   
+                MessageExchange.Instance.Publish(configFile);
             };
         }
 
@@ -1676,15 +1681,14 @@ namespace MobiFlight.UI
             if (!merge)
             {
                 execManager.ConfigItems.Clear();
-                execManager.InputConfigItems.Clear();
             }
 
             try
             {
 
-                configFile = new Project() { FilePath = fileName };
-                configFile.OpenFile();
-                execManager.Project = configFile;
+                project = new Project() { FilePath = fileName };
+                project.OpenFile();
+                execManager.Project = project;
             }
             catch (InvalidExpressionException)
             {
@@ -1699,14 +1703,19 @@ namespace MobiFlight.UI
 
             if (!merge)
             {
-                CurrentFileName = fileName;
-                _setFilenameInTitle(fileName);
-                _storeAsRecentFile(fileName);
+                CurrentFileName = fileName.Replace(".mcc", ".mfproj");
+                _setFilenameInTitle(CurrentFileName);
+                _storeAsRecentFile(CurrentFileName);
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
                 saveToolStripButton.Enabled = false;
+
+                if (CurrentFileName != fileName)
+                {
+                    saveToolStripButton.Enabled = true;
+                }
             }
             else
             {
@@ -1723,11 +1732,11 @@ namespace MobiFlight.UI
             _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
-            AppTelemetry.Instance.ProjectLoaded(configFile);
+            AppTelemetry.Instance.ProjectLoaded(project);
             AppTelemetry.Instance.TrackBoardStatistics(execManager);
             AppTelemetry.Instance.TrackSettings();
 
-            ProjectLoaded?.Invoke(this, configFile);
+            ProjectLoaded?.Invoke(this, project);
         }
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
         {
@@ -1739,11 +1748,11 @@ namespace MobiFlight.UI
                 serials.Add($"{j.Name} {SerialNumber.SerialSeparator}{j.Serial}");
             }
 
-            if (configFile == null) return;
+            if (project == null) return;
 
 
 
-            foreach (IConfigItem item in configFile.ConfigFiles[0].ConfigItems)
+            foreach (IConfigItem item in project.ConfigFiles[0].ConfigItems)
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1781,9 +1790,9 @@ namespace MobiFlight.UI
                 serials.Add($"{mb.Name} {SerialNumber.SerialSeparator}{mb.Serial}");
             }
 
-            if (configFile == null) return;
+            if (project == null) return;
 
-            foreach (IConfigItem item in configFile.ConfigFiles[0].ConfigItems)
+            foreach (IConfigItem item in project.ConfigFiles[0].ConfigItems)
             {
                 if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1830,7 +1839,7 @@ namespace MobiFlight.UI
 
             try
             {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, configFile.ConfigFiles[0].ConfigItems);
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, project.ConfigFiles[0].ConfigItems);
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
@@ -1895,6 +1904,7 @@ namespace MobiFlight.UI
         private void SaveConfig(string fileName)
         {
             execManager.Project.FilePath = fileName;
+            execManager.Project.ConfigFiles.Clear();
             execManager.Project.ConfigFiles.Add(
                 new ConfigFile()
                 {
@@ -2042,6 +2052,9 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
+                var project = new Project() { Name = i18n._tr("DefaultFileName") };
+                execManager.Project = project;
+                ProjectLoaded?.Invoke(this, project);
             };
         } //toolStripMenuItem3_Click()
 
