@@ -96,8 +96,9 @@ export function ConfigItemTable<TData, TValue>({
 
   useEffect(() => {
     if (data.length > prevDataLength.current) {
+      const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(
-        `[data-row-index="${data.length - 1}"]`,
+        `[dnd-itemid="${lastItem.GUID}"]`,
       )
       if (rowElement) {
         rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
@@ -127,6 +128,7 @@ export function ConfigItemTable<TData, TValue>({
       // then set the items
 
       setItems(arrayWithNewOrder as IConfigItem[]);
+
       publishOnMessageExchange().publish({
         key: "CommandResortConfigItem",
         payload: {

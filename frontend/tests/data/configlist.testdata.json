@@ -183,7 +183,7 @@
           "Items": []
       },
       "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
-      "Name": "LED 23 Test",
+      "Name": "LED 1",
       "Preconditions": [
           {
               "PreconditionActive": true,

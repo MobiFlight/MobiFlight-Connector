@@ -5,14 +5,13 @@ import { columns } from "@/components/tables/config-item-table/config-item-table
 import { useCallback, useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { ConfigValueUpdate } from "@/types/messages"
-import testdata from "@/../tests/data/configlist.testdata.json"
+import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
 import { IConfigItem } from "@/types"
 
 const ConfigListPage = () => {
   const {
     items: configItems,
     setItems,
-    updateItems,
     updateItem,
   } = useConfigStore()
 
@@ -36,7 +35,7 @@ const ConfigListPage = () => {
   // this is only for easier UI testing
   // while developing the UI
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === "development" && configItems.length === 0) {
       setItems(testdata)
     }
   },[setItems])

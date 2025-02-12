@@ -21,9 +21,6 @@ export interface IConfigItem {
   RawValue?: string | null
   Value?: string | null
   Status: IDictionary<string, ConfigItemStatusType>
-  // Preconditions: Precondition[]
-  // Modifiers: Precondition[]
-  // ConfigRefs: Precondition[]
 }
 
 export type ConfigItemStatusType = "Precondition" | "Source" | "Modifier" | "Test" | "Device" | "ConfigRef"
