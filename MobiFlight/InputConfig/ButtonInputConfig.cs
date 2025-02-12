@@ -6,7 +6,7 @@ using MobiFlight.Base;
 
 namespace MobiFlight.InputConfig
 {
-    public class ButtonInputConfig : DeviceConfig, IXmlSerializable, ICloneable
+    public class ButtonInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onPress;        
         public InputAction onRelease;        
@@ -47,7 +47,7 @@ namespace MobiFlight.InputConfig
             this.LongReleaseDelay = copyFrom.LongReleaseDelay;
         }
 
-        public override object Clone()
+        public object Clone()
         {
             return new ButtonInputConfig(this);
         }

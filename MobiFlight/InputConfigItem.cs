@@ -16,7 +16,7 @@ namespace MobiFlight
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");   
+        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
         public const String TYPE_NOTSET = "-";
         public const String TYPE_BUTTON = MobiFlightButton.TYPE;
@@ -156,7 +156,7 @@ namespace MobiFlight
                         Preconditions.Add(tmp);
                     } while (reader.LocalName == "precondition");
                 }
-                if (reader.NodeType != XmlNodeType.EndElement) 
+                if (reader.NodeType != XmlNodeType.EndElement)
                     reader.Read(); // this should be the corresponding "end" node
 
                 if (reader.NodeType == XmlNodeType.EndElement)
@@ -249,7 +249,7 @@ namespace MobiFlight
             writer.WriteEndElement();
         }
 
-        public InputConfigItem(InputConfigItem config):base(config)
+        public InputConfigItem(InputConfigItem config) : base(config)
         {
             this.button = (ButtonInputConfig)config.button?.Clone();
             this.encoder = (EncoderInputConfig)config.encoder?.Clone();
@@ -278,7 +278,7 @@ namespace MobiFlight
             switch (DeviceType)
             {
                 case TYPE_BUTTON:
-                    if (button != null)                
+                    if (button != null)
                         button.execute(cacheCollection, e, configRefs);
                     break;
                 case TYPE_ENCODER:
@@ -300,7 +300,7 @@ namespace MobiFlight
                     if (analog != null)
                         analog.execute(cacheCollection, e, configRefs);
                     break;
-            }            
+            }
         }
 
         public Dictionary<String, int> GetStatistics()
@@ -335,8 +335,8 @@ namespace MobiFlight
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is InputConfigItem item)) return false;
-            
-            return  base.Equals(obj) &&
+
+            return base.Equals(obj) &&
                     DeviceName == item.DeviceName &&
                     DeviceType == item.DeviceType &&
                     button.AreEqual(item.button) &&
@@ -349,31 +349,8 @@ namespace MobiFlight
         }
 
         protected override IDeviceConfig GetDeviceConfig()
-        {
-            if (DeviceType == TYPE_NOTSET)
-            {
-                return null;
-            }
-            return new InputConfigItemDeviceConfig()
-            {
-                Name = DeviceName,
-                Type = DeviceType
-            };
-        }
-    }
-
-    internal class InputConfigItemDeviceConfig : IDeviceConfig
-    {
-        public string Name { get; set; }
-        public string Type { get; set; }
-
-        public object Clone()
-        {
-            return new InputConfigItemDeviceConfig()
-            {
-                Name = Name.ToString(),
-                Type = Type
-            };
+        { 
+            return null;
         }
     }
 }

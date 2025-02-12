@@ -37,7 +37,7 @@ namespace MobiFlight
             Source = new SimConnectSource();
             TestValue = new ConnectorValue() { type = FSUIPCOffsetType.Float, Float64 = 1 };
             Modifiers = new ModifierList();
-            Device = new OutputConfig.Output();
+            Device = null;
             Preconditions = new PreconditionList();
             ConfigRefs = new ConfigRefList();
             ButtonInputConfig = null;
@@ -53,7 +53,7 @@ namespace MobiFlight
                 this.DeviceType == item.DeviceType &&
                 this.Source.Equals(item.Source) &&
                 this.TestValue.Equals(item.TestValue) &&
-                this.Device.Equals(item.Device) &&
+                this.Device!=null && this.Device.Equals(item.Device) &&
                 this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
                 this.AnalogInputConfig.AreEqual(item.AnalogInputConfig)
             );
@@ -380,7 +380,7 @@ namespace MobiFlight
             this.DeviceType = config.DeviceType;
             this.ModuleSerial = config.ModuleSerial;
 
-            this.Device = config.Device.Clone() as IDeviceConfig;
+            this.Device = config.Device?.Clone() as IDeviceConfig;
 
             this.Preconditions = Preconditions.Clone() as PreconditionList;
 

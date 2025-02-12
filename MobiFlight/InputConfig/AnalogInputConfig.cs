@@ -7,11 +7,11 @@ using System.Xml.Serialization;
 namespace MobiFlight.InputConfig
 {
 
-    public class AnalogInputConfig : DeviceConfig, IXmlSerializable, ICloneable
+    public class AnalogInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onChange;
         
-        public override object Clone()
+        public object Clone()
         {
             AnalogInputConfig clone = new AnalogInputConfig();
             if (onChange != null) clone.onChange = (InputAction) onChange.Clone();

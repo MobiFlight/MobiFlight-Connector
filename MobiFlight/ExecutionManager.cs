@@ -85,8 +85,15 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
 
         public List<IConfigItem> ConfigItems { get; set; } = new List<IConfigItem>();
-        public List<InputConfigItem> InputConfigItems { get; set; } = new List<InputConfigItem>();
-        public Project Project { get; set; }
+
+        private Project _project = new Project();
+        public Project Project { 
+            get { return _project;  } 
+            set {
+                _project = value;
+                ConfigItems = _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>();
+            } 
+        }
 
         Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
 
@@ -192,15 +199,9 @@ namespace MobiFlight
                 item.GUID = Guid.NewGuid().ToString();
                 item.Name = message.Name;
                 item.Active = true;
-                if (item is OutputConfigItem)
-                {
-                    ConfigItems.Add((OutputConfigItem)item);
-                }
-                else
-                {
-                    InputConfigItems.Add((InputConfigItem)item);
-                }
-                MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { item } });
+                ConfigItems.Add(item);
+
+                MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = ConfigItems });
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
@@ -210,41 +211,23 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case "delete":
-                        if (message.Item.Type == "InputAction")
-                        {
-                            InputConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
-                        }
-                        else
-                        {
-                            ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
-                        }
+                        ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
                         break;
 
                     case "duplicate":
-                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID) as IConfigItem;
-                        if (cfg != null)
-                        {
-                            var pos = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
-                            ConfigItems.Insert(pos, (cfg as OutputConfigItem).Duplicate() as OutputConfigItem);
-                            break;
-                        }
-                        cfg = InputConfigItems.Find(i => i.GUID == message.Item.GUID);
-
-                        if (cfg != null)
-                        {
-                            var pos = InputConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
-                            InputConfigItems.Insert(pos, (cfg as InputConfigItem).Duplicate() as InputConfigItem);
-                        }
+                        var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
+                        if (index == -1) break;
+                        ConfigItems.Insert(index, ConfigItems[index].Duplicate());
                         break;
+
                     case "test":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg != null)
-                        {
-                            ExecuteTestOff(ConfigItemInTestMode, true);
-                            ExecuteTestOn(cfg as OutputConfigItem);
-                            break;
-                        }
-                        break;
+                        if (cfg == null) break;
+
+                        ExecuteTestOff(ConfigItemInTestMode, true);
+                        ExecuteTestOn(cfg as OutputConfigItem);
+                        
+                        return;
 
                     default:
                         return;
@@ -261,35 +244,16 @@ namespace MobiFlight
                 message.Items.ToList().ForEach(item =>
                 {
                     IConfigItem cfg = ConfigItems.Find(i => i.GUID == item.GUID);
-                    if (cfg == null)
-                    {
-                        cfg = InputConfigItems.Find(i => i.GUID == item.GUID);
-                    }
                     if (cfg == null) return;
                     resortedItems.Add(cfg);
-                    if (cfg is OutputConfigItem)
-                    {
-                        ConfigItems.Remove(cfg as OutputConfigItem);
-                    }
-                    else
-                    {
-                        InputConfigItems.Remove(cfg as InputConfigItem);
-                    }
+                    ConfigItems.Remove(cfg);
                 });
 
                 var currentIndex = message.NewIndex;
 
                 resortedItems.ForEach(item =>
                 {
-                    if (item is OutputConfigItem)
-                    {
-                        ConfigItems.Insert(currentIndex, item as OutputConfigItem);
-                    }
-                    else
-                    {
-                        InputConfigItems.Insert(currentIndex, item as InputConfigItem);
-                    }
-
+                    ConfigItems.Insert(currentIndex, item as OutputConfigItem);
                     currentIndex++;
                 });
                 
@@ -300,13 +264,9 @@ namespace MobiFlight
 
         private void HandleCommandUpdateConfigItem(ConfigItem item)
         {
-            IConfigItem configItem = ConfigItems.Find(i => i.GUID == item.GUID);
-            if (configItem == null)
-            {
-                configItem = InputConfigItems.Find(i => i.GUID == item.GUID);
-            };
-
+            var configItem = ConfigItems.Find(i => i.GUID == item.GUID);
             if (configItem == null) return;
+
             configItem.Active = item.Active;
             configItem.Name = item.Name;
             MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { configItem } });
@@ -453,9 +413,8 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
-            ConfigItems.ForEach(cfg => cfg.Status.Clear());
-            InputConfigItems.ForEach(cfg => cfg.Status.Clear());
-
+            ConfigItems.ForEach(cfg => cfg.Status?.Clear());
+            
             ClearErrorMessages();
         }
 
@@ -1456,11 +1415,18 @@ namespace MobiFlight
                     // Do nothing for the InputAction
                     break;
 
-                default:
+
+                case MobiFlightOutput.TYPE:
+                    ExecuteDisplay("0", offCfg);
+                    break;
+
+                // case ArcazeLedDigit.TYPE:
+                case MobiFlightLedModule.TYPE:
                     var ledModule = offCfg.Device as LedModule;
                     ledModule.DisplayLedDecimalPoints = new List<string>();
-                    ExecuteDisplay(offCfg.DeviceType == ArcazeLedDigit.TYPE ? "        " : "0", offCfg);
+                    ExecuteDisplay("        ", offCfg);
                     break;
+
             }
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
@@ -1569,7 +1535,7 @@ namespace MobiFlight
                     // check if we have configs for this button
                     // and store it      
 
-                    foreach (var cfg in InputConfigItems)
+                    foreach (var cfg in ConfigItems.Where(c=>c is InputConfigItem).Cast<InputConfigItem>())
                     {
                         try
                         {
@@ -1679,7 +1645,7 @@ namespace MobiFlight
 
         private void UpdateInputPreconditions()
         {
-            foreach (var cfg in InputConfigItems)
+            foreach (var cfg in ConfigItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
             {
                 try
                 {

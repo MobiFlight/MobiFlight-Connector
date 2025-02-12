@@ -24,6 +24,8 @@ namespace MobiFlight.Base
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
 
         object Clone();
+
+        IConfigItem Duplicate();
     }
 
     public abstract class ConfigItem : IConfigItem
@@ -36,9 +38,9 @@ namespace MobiFlight.Base
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
         public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();
-        [JsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string RawValue { get; set; }
-        [JsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -64,8 +66,6 @@ namespace MobiFlight.Base
             Preconditions = new PreconditionList();
             Modifiers = new ModifierList();
             ConfigRefs = new ConfigRefList();
-            RawValue = "";
-            Value = "";
             Status = new Dictionary<ConfigItemStatusType, string>();
         }
 
@@ -78,8 +78,8 @@ namespace MobiFlight.Base
             Preconditions = item.Preconditions.Clone() as PreconditionList;
             Modifiers = item.Modifiers.Clone() as ModifierList;
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
-            RawValue = item.RawValue.Clone() as string;
-            Value = item.Value.Clone() as string;
+            RawValue = item.RawValue?.Clone() as string;
+            Value = item.Value?.Clone() as string;
             Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
         }
 

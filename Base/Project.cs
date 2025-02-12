@@ -7,6 +7,7 @@ namespace MobiFlight.Base
     public class Project
     {
         public string Name { get; set; }
+        [JsonIgnore]
         public string FilePath { get; set; }
 
         public List<ConfigFile> ConfigFiles { get; set; } = new List<ConfigFile>();

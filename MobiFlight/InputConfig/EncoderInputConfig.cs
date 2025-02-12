@@ -6,14 +6,14 @@ using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
 {
-    public class EncoderInputConfig : DeviceConfig, IXmlSerializable, ICloneable
+    public class EncoderInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onLeft;
         public InputAction onLeftFast;
         public InputAction onRight;
         public InputAction onRightFast;
         
-        public override object Clone()
+        public object Clone()
         {
             EncoderInputConfig clone = new EncoderInputConfig();
             if (onLeft != null) clone.onLeft = (InputAction)onLeft.Clone();
