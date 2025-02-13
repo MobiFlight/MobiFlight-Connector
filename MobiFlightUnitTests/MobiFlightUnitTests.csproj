@@ -80,6 +80,7 @@
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
     <Compile Include="Base\ConfigFileTests.cs" />
+    <Compile Include="Base\ConfigItemTests.cs" />
     <Compile Include="Base\ConfigRefListTests.cs" />
     <Compile Include="Base\ConfigRefTests.cs" />
     <Compile Include="Base\ConnectorValueTests.cs" />

@@ -1,14 +1,12 @@
 {
   "Name": "MobiFlight Project",
-  "FilePath": "C:\\Users\\sebas\\Downloads\\test.mfproj",
   "ConfigFiles": [
     {
-      "FileName": "C:\\Users\\sebas\\Downloads\\new-ui-test-3.mcc",
+      "FileName": null,
       "ReferenceOnly": false,
       "EmbedContent": true,
       "ConfigItems": [
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
@@ -34,10 +32,8 @@
             "DisplayLedDecimalPoints": [],
             "DisplayLedReverseDigits": false,
             "DisplayLedBrightnessReference": "",
-            "Type": "LedModule"
+            "Type": "MobiFlight.OutputConfig.LedModule"
           },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "Display Module",
           "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
           "Active": true,
@@ -49,12 +45,9 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
@@ -78,10 +71,8 @@
             "CompassMode": false,
             "Acceleration": 800,
             "Speed": 467,
-            "Type": "Stepper"
+            "Type": "MobiFlight.OutputConfig.Stepper"
           },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "Stepper",
           "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
           "Active": true,
@@ -93,12 +84,9 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
@@ -119,10 +107,8 @@
             "Min": "0",
             "Max": "255",
             "MaxRotationPercent": "100",
-            "Type": "Servo"
+            "Type": "MobiFlight.OutputConfig.Servo"
           },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "Servo",
           "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
           "Active": true,
@@ -134,12 +120,9 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
@@ -163,10 +146,8 @@
               "1234567890123456",
               "******Test******"
             ],
-            "Type": "LcdDisplay"
+            "Type": "MobiFlight.OutputConfig.LcdDisplay"
           },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "LcdDisplay",
           "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
           "Active": true,
@@ -178,12 +159,9 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
@@ -203,10 +181,8 @@
             "DisplayPin": "LED 2",
             "DisplayPinBrightness": 255,
             "DisplayPinPWM": false,
-            "Type": "Output"
+            "Type": "MobiFlight.OutputConfig.Output"
           },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "Output",
           "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
           "Active": true,
@@ -243,12 +219,9 @@
               "TestValue": "1"
             }
           ],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
@@ -267,10 +240,8 @@
             "Name": "ShiftRegister 1",
             "Pin": "Output 0",
             "Address": "ShiftRegister 1",
-            "Type": "ShiftRegister"
+            "Type": "MobiFlight.OutputConfig.ShiftRegister"
           },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "ShiftRegister",
           "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
           "Active": true,
@@ -282,17 +253,12 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
-              "UUID": null,
-              "Value": null,
               "VarType": 0
             },
             "Type": "SimConnectSource"
@@ -302,15 +268,6 @@
             "Float64": 1.0,
             "String": null
           },
-          "Device": {
-            "Name": "",
-            "DisplayPin": "",
-            "DisplayPinBrightness": 255,
-            "DisplayPinPWM": false,
-            "Type": "Output"
-          },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "",
           "GUID": "8f74c497-c8e9-42c9-8c1d-69d5db217037",
           "Active": true,
@@ -322,17 +279,12 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
-              "UUID": null,
-              "Value": null,
               "VarType": 0
             },
             "Type": "SimConnectSource"
@@ -342,15 +294,6 @@
             "Float64": 1.0,
             "String": null
           },
-          "Device": {
-            "Name": "",
-            "DisplayPin": "",
-            "DisplayPinBrightness": 255,
-            "DisplayPinPWM": false,
-            "Type": "Output"
-          },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "",
           "GUID": "e0262d3b-c4f9-44e1-b468-1306bd48fbb3",
           "Active": true,
@@ -362,17 +305,12 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
-              "UUID": null,
-              "Value": null,
               "VarType": 0
             },
             "Type": "SimConnectSource"
@@ -382,15 +320,6 @@
             "Float64": 1.0,
             "String": null
           },
-          "Device": {
-            "Name": "",
-            "DisplayPin": "",
-            "DisplayPinBrightness": 255,
-            "DisplayPinPWM": false,
-            "Type": "Output"
-          },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "",
           "GUID": "9a6267d0-5f40-457c-b724-ccc835510abf",
           "Active": true,
@@ -402,17 +331,12 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
-              "UUID": null,
-              "Value": null,
               "VarType": 0
             },
             "Type": "SimConnectSource"
@@ -422,15 +346,6 @@
             "Float64": 1.0,
             "String": null
           },
-          "Device": {
-            "Name": "",
-            "DisplayPin": "",
-            "DisplayPinBrightness": 255,
-            "DisplayPinPWM": false,
-            "Type": "Output"
-          },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "",
           "GUID": "81c4908e-429d-48c8-83f4-4e5f577be1f2",
           "Active": true,
@@ -442,17 +357,12 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
-          "serializationCulture": "de",
           "Source": {
             "SourceType": "SIMCONNECT",
             "SimConnectValue": {
-              "UUID": null,
-              "Value": null,
               "VarType": 0
             },
             "Type": "SimConnectSource"
@@ -462,15 +372,6 @@
             "Float64": 1.0,
             "String": null
           },
-          "Device": {
-            "Name": "",
-            "DisplayPin": "",
-            "DisplayPinBrightness": 255,
-            "DisplayPinPWM": false,
-            "Type": "Output"
-          },
-          "ButtonInputConfig": null,
-          "AnalogInputConfig": null,
           "DeviceType": "",
           "GUID": "de57dc80-be81-4049-95d0-2349109d58c1",
           "Active": true,
@@ -482,8 +383,6 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
           "Status": {}
         },
         {
@@ -496,14 +395,8 @@
             "onHold": null,
             "LongReleaseDelay": 350,
             "HoldDelay": 350,
-            "RepeatDelay": 0,
-            "Type": "ButtonInputConfig",
-            "Name": null
+            "RepeatDelay": 0
           },
-          "encoder": null,
-          "inputShiftRegister": null,
-          "inputMultiplexer": null,
-          "analog": null,
           "DeviceType": "Button",
           "DeviceName": "Button 4",
           "GUID": "49079f13-b7cc-442d-a64b-70edbf7a1334",
@@ -516,16 +409,9 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
-          "Device": {
-            "Name": "Button 4",
-            "Type": "Button"
-          },
           "Status": {}
         },
         {
-          "button": null,
           "encoder": {
             "onLeft": {
               "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
@@ -534,13 +420,8 @@
             "onRight": {
               "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
             },
-            "onRightFast": null,
-            "Type": "EncoderInputConfig",
-            "Name": null
+            "onRightFast": null
           },
-          "inputShiftRegister": null,
-          "inputMultiplexer": null,
-          "analog": null,
           "DeviceType": "Encoder",
           "DeviceName": "Encoder 1",
           "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328d",
@@ -553,25 +434,13 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
-          "Device": {
-            "Name": "Encoder 1",
-            "Type": "Encoder"
-          },
           "Status": {}
         },
         {
-          "button": null,
-          "encoder": null,
-          "inputShiftRegister": null,
-          "inputMultiplexer": null,
           "analog": {
             "onChange": {
               "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
-            },
-            "Type": "AnalogInputConfig",
-            "Name": null
+            }
           },
           "DeviceType": "AnalogInput",
           "DeviceName": "POT 1",
@@ -585,21 +454,9 @@
             "Items": []
           },
           "ConfigRefs": [],
-          "RawValue": "",
-          "Value": "",
-          "Device": {
-            "Name": "POT 1",
-            "Type": "AnalogInput"
-          },
           "Status": {}
         }
       ]
-    },
-    {
-      "FileName": null,
-      "ReferenceOnly": false,
-      "EmbedContent": true,
-      "ConfigItems": []
     }
   ]
 }

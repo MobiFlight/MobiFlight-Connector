@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MobiFlight.Base
 {
@@ -35,7 +36,14 @@ namespace MobiFlight.Base
                 // Create a dummy project for old XML files
                 var deprecatedConfigFile = ConfigFileFactory.CreateConfigFile(FilePath);
                 deprecatedConfigFile.OpenFile();
-                var configFile = new ConfigFile { FileName = FilePath, EmbedContent = true, ReferenceOnly = false, ConfigItems = deprecatedConfigFile.ConfigItems };
+
+                var configFile = new ConfigFile { 
+                    FileName = Path.GetFileName(FilePath), 
+                    EmbedContent = true, 
+                    ReferenceOnly = false, 
+                    ConfigItems = deprecatedConfigFile.ConfigItems 
+                };
+
                 Name = "MobiFlight Project";
                 FilePath = FilePath;
                 ConfigFiles.Add(configFile);
@@ -70,6 +78,17 @@ namespace MobiFlight.Base
         {
             var firstFewChars = File.ReadAllText(filePath).TrimStart().Substring(0, 5);
             return firstFewChars.StartsWith("<?xml");
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is Project)) return false;
+            var other = obj as Project;
+
+            return 
+                this.Name.Equals(other.Name) &&
+                this.FilePath.Equals(other.FilePath) &&
+                this.ConfigFiles.SequenceEqual(other.ConfigFiles);
         }
     }
 }

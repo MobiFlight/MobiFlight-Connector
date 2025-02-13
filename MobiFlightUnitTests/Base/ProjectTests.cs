@@ -3,6 +3,7 @@ using MobiFlight.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -62,7 +63,50 @@ namespace MobiFlight.Base.Tests
         [TestMethod()]
         public void SaveFileTest()
         {
-            Assert.Fail();
+            string inFile = @"assets\Base\ConfigFile\Json\OpenProjectTest.mfproj";
+            var o = new Project();
+            o.FilePath = inFile;
+            o.OpenFile();
+
+            string outFile = @"assets\Base\ConfigFile\Json\SaveProjectTest.mfproj";
+            o.FilePath = outFile;
+            o.SaveFile();
+
+            var o2 = new Project();
+            o2.FilePath = outFile;
+            o2.OpenFile();
+            Assert.IsNotNull(o2.ConfigFiles);
+            // we have to set the FilePath which was necessary for OpenFile but is different
+            o2.FilePath = o.FilePath;
+            Assert.AreEqual(o, o2);
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            var o = new Project();
+            o.Name = "Test";
+            o.FilePath = "TestPath";
+
+            var o2 = new Project();
+            o2.Name = "Test";
+            o2.FilePath = "TestPath";
+            Assert.IsTrue(o2.Equals(o));
+
+            o.ConfigFiles.Add(new ConfigFile());
+            Assert.IsFalse(o2.Equals(o));
+
+            o2.ConfigFiles.Add(new ConfigFile());
+            Assert.IsTrue(o2.Equals(o));
+
+            var ici1 = new InputConfigItem();
+            var ici2 = new InputConfigItem(ici1);
+
+            o2.ConfigFiles[0].ConfigItems.Add(ici1);
+            Assert.IsFalse(o2.Equals(o));
+
+            o.ConfigFiles[0].ConfigItems.Add(ici2);
+            Assert.IsTrue(o2.Equals(o));
         }
     }
 }

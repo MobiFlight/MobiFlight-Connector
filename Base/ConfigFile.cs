@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MobiFlight.Base
 {
@@ -12,6 +13,7 @@ namespace MobiFlight.Base
         public List<IConfigItem> ConfigItems { get; set; } = new List<IConfigItem>();
 
         public ConfigFile() { }
+
         public ConfigFile(string FileName)
         {
             this.FileName = FileName;
@@ -48,6 +50,19 @@ namespace MobiFlight.Base
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is ConfigFile)) return false;
+            var other = obj as ConfigFile;
+
+            return
+                this.FileName.AreEqual(other.FileName) &&
+                this.ReferenceOnly == other.ReferenceOnly &&
+                this.EmbedContent == other.EmbedContent &&
+                this.ConfigItems.SequenceEqual(other.ConfigItems)
+                ;
         }
     }
 }
