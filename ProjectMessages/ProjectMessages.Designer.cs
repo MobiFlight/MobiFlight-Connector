@@ -1545,7 +1545,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.mobiflight.com/en/documentation/software.html.
+        ///   Looks up a localized string similar to https://docs.mobiflight.com/.
         /// </summary>
         internal static string WebsiteUrlHelp {
             get {

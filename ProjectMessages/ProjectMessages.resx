@@ -281,7 +281,7 @@ You should configure them now.</value>
     <value>Precondition is not satisfied</value>
   </data>
   <data name="WebsiteUrlHelp" xml:space="preserve">
-    <value>https://www.mobiflight.com/en/documentation/software.html</value>
+    <value>https://docs.mobiflight.com/</value>
   </data>
   <data name="suffixCopy" xml:space="preserve">
     <value>Copy</value>
