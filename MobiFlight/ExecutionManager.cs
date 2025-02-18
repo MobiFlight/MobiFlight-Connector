@@ -1071,7 +1071,7 @@ namespace MobiFlight
                         }
                         break;
 
-                    default:
+                    case MobiFlightOutput.TYPE:
                         string outputValue = value;
 
                         // so in case the pin is not explicily treated as PWM pin and 

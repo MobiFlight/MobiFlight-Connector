@@ -13,6 +13,7 @@ const ConfigListPage = () => {
     items: configItems,
     setItems,
     updateItem,
+    updateItems
   } = useConfigStore()
 
   const mySetItems = useCallback((items: IConfigItem[]) => {
@@ -29,7 +30,7 @@ const ConfigListPage = () => {
       updateItem(update.ConfigItems[0], true)
       return
     }
-    setItems(update.ConfigItems)
+    updateItems(update.ConfigItems)
   })
 
   // this is only for easier UI testing
