@@ -174,7 +174,7 @@
         <modifiers>
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="" serial="-" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>
@@ -188,7 +188,7 @@
         <modifiers>
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="" serial="-" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>

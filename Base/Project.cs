@@ -20,7 +20,6 @@ namespace MobiFlight.Base
                 var json = File.ReadAllText(FilePath);
                 var project = JsonConvert.DeserializeObject<Project>(json);
                 Name = project.Name;
-                FilePath = project.FilePath;
                 ConfigFiles = project.ConfigFiles;
 
                 foreach (var configFile in ConfigFiles)
@@ -84,6 +83,19 @@ namespace MobiFlight.Base
         {
             if (obj == null || !(obj is Project)) return false;
             var other = obj as Project;
+
+            if (this.ConfigFiles.Count != other.ConfigFiles.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < ConfigFiles.Count; i++)
+            {
+                if (!ConfigFiles[i].AreEqual(other.ConfigFiles[i]))
+                {
+                    return false;
+                }
+            }
 
             return 
                 this.Name.Equals(other.Name) &&

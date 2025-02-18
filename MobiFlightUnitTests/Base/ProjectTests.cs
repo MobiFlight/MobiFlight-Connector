@@ -76,8 +76,6 @@ namespace MobiFlight.Base.Tests
             o2.FilePath = outFile;
             o2.OpenFile();
             Assert.IsNotNull(o2.ConfigFiles);
-            // we have to set the FilePath which was necessary for OpenFile but is different
-            o2.FilePath = o.FilePath;
             Assert.AreEqual(o, o2);
         }
 

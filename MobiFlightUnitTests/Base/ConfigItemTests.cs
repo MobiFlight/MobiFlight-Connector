@@ -44,9 +44,11 @@ namespace MobiFlight.Base.Tests
         [TestMethod()]
         public void EqualsTest()
         {
-            var OutputConfigItem = new OutputConfigItem();
-            var ConfigItems = new List<IConfigItem>();
-            ConfigItems.Add(OutputConfigItem);
+            var OutputConfigItem = new OutputConfigItem() as IConfigItem;
+            
+            var ConfigItems = new List<IConfigItem>() {
+                OutputConfigItem
+            };
 
             var foundConfig = ConfigItems.Find(x => x.GUID == OutputConfigItem.GUID);
             Assert.IsNotNull(foundConfig);
@@ -57,8 +59,10 @@ namespace MobiFlight.Base.Tests
 
             Assert.AreEqual(OutputConfigItem, foundConfig);
 
-            var InputConfigItem = new InputConfigItem();
+            var InputConfigItem = new InputConfigItem() as IConfigItem;
+            
             ConfigItems.Add(InputConfigItem);
+            
             foundConfig = ConfigItems.Find(x => x.GUID == InputConfigItem.GUID);
             Assert.IsNotNull(foundConfig);
 

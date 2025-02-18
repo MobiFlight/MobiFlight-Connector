@@ -335,9 +335,9 @@ namespace MobiFlight
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is InputConfigItem item)) return false;
+            if (!base.Equals(obj)) return false;
 
-            return base.Equals(obj) &&
-                    DeviceName == item.DeviceName &&
+            return  DeviceName == item.DeviceName &&
                     DeviceType == item.DeviceType &&
                     button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&

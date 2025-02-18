@@ -50,12 +50,13 @@ namespace MobiFlight
             if (!base.Equals(obj)) return false;
 
             return (
-                this.DeviceType == item.DeviceType &&
-                this.Source.Equals(item.Source) &&
-                this.TestValue.Equals(item.TestValue) &&
-                this.Device!=null && this.Device.Equals(item.Device) &&
-                this.ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
-                this.AnalogInputConfig.AreEqual(item.AnalogInputConfig)
+                DeviceName == item.DeviceName &&
+                DeviceType == item.DeviceType &&
+                Source.AreEqual(item.Source) &&
+                TestValue.AreEqual(item.TestValue) &&
+                Device.AreEqual(item.Device) &&
+                ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
+                AnalogInputConfig.AreEqual(item.AnalogInputConfig)
             );
         }
 
@@ -356,7 +357,7 @@ namespace MobiFlight
                     writer.WriteEndElement();
                 }
             }
-            else
+            else if (DeviceType == MobiFlightOutput.TYPE)
             {
                 (Device as OutputConfig.Output).WriteXml(writer);
             }
