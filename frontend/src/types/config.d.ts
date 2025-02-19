@@ -15,8 +15,8 @@ export interface IConfigItem {
   Device?: IDeviceConfig | null 
   // this is the type of the Device
   // Type: DeviceElementType;
-  DeviceName: string
-  DeviceType: DeviceElementType
+  DeviceName?: string | null
+  DeviceType: DeviceElementType | string
   // Tags: string[];
   RawValue?: string | null
   Value?: string | null
