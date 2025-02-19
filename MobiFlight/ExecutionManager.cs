@@ -201,7 +201,7 @@ namespace MobiFlight
                 item.Active = true;
                 ConfigItems.Add(item);
 
-                MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = ConfigItems });
+                MessageExchange.Instance.Publish(new ConfigValueUpdate(item));
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
