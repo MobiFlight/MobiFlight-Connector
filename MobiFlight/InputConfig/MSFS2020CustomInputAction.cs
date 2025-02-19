@@ -10,8 +10,8 @@ namespace MobiFlight.InputConfig
         public new const String Label = "Microsoft Flight Simulator";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020CustomInputAction";
-        public String Command;
-        public String PresetId;
+        public String Command { get; set; }
+        public String PresetId { get; set; }
 
         override public object Clone()
         {

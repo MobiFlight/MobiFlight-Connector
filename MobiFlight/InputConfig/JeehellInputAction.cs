@@ -20,8 +20,8 @@ namespace MobiFlight.InputConfig
         public new const String Label = "FSUIPC - Jeehell - Events";
         public const String TYPE = "JeehellInputAction";
 
-        public Byte EventId;
-        public String Param = "";
+        public Byte EventId { get; set; }
+        public String Param { get; set; } = "";
         
         override public object Clone()
         {

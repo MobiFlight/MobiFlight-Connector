@@ -13,9 +13,9 @@ namespace MobiFlight.InputConfig
         public const String INPUT_TYPE_DATAREF = "DataRef";
         public const String INPUT_TYPE_COMMAND = "Command";
         public const String TYPE = "XplaneInputAction";
-        public String InputType = "DataRef";
-        public String Path = "";
-        public String Expression = "$";
+        public String InputType { get; set; } = "DataRef";
+        public String Path { get; set; } = "";
+        public String Expression { get; set; } = "$";
         
         override public object Clone()
         {
