@@ -67,6 +67,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
             onKeyDown={(e) =>
               e.key === "Enter" && (saveChanges(), toggleEdit())
             }
+            autoFocus
           />
           <IconCircleCheck
             className="stroke-green-700"
