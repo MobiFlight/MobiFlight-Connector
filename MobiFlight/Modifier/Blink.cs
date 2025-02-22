@@ -1,21 +1,18 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
     public class Blink : ModifierBase
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
-        public string BlinkValue = "0";
-        public List<int> OnOffSequence = new List<int>();
-        public int OffDurationInMs = 500;
-        public long FirstExecutionTime = 0;
+        public string BlinkValue { get; set; } = "0";
+        public List<int> OnOffSequence { get; set; } = new List<int>();
+        public int OffDurationInMs { get; set; } = 500;
+        public long FirstExecutionTime { get; set; } = 0;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -55,11 +52,16 @@ namespace MobiFlight.Modifier
 
         public override bool Equals(object obj)
         {
+            if (obj == null || !(obj is Blink)) return false;
+            
+            var other = obj as Blink;
+
             return
-                obj != null && obj is Blink &&
-                this.Active == (obj as Blink).Active &&
-                this.BlinkValue == (obj as Blink).BlinkValue &&
-                this.OnOffSequence == (obj as Blink).OnOffSequence;
+                Active == other.Active &&
+                BlinkValue.AreEqual(other.BlinkValue) &&
+                OffDurationInMs == other.OffDurationInMs &&
+                FirstExecutionTime == other.FirstExecutionTime &&
+                OnOffSequence.SequenceEqual(other.OnOffSequence);
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)

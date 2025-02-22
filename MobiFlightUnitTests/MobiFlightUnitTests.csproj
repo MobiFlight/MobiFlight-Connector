@@ -94,12 +94,14 @@
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverterTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleInfoTests.cs" />
+    <Compile Include="MobiFlight\Modifier\BlinkTests.cs" />
     <Compile Include="MobiFlight\Modifier\InterpolationTests.cs" />
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />

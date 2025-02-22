@@ -1,5 +1,4 @@
 ﻿using MobiFlight.InputConfig;
-using MobiFlight.Modifier;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
