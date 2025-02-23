@@ -16,7 +16,7 @@ namespace MobiFlight.Base.Serialization.Json
             var jsonObject = JObject.Load(reader);
             var typeName = (string)jsonObject["Type"];
 
-            var type = Type.GetType(typeName);
+            var type = Type.GetType($"MobiFlight.OutputConfig.{typeName}");
             if (type == null)
             {
                 throw new NotSupportedException($"Unknown type: {typeName}");

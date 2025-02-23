@@ -8,7 +8,7 @@ namespace MobiFlight.Base.Serialization.Json
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(IConfigItem).IsAssignableFrom(objectType);
+            return typeof(Source).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -16,15 +16,15 @@ namespace MobiFlight.Base.Serialization.Json
             var jsonObject = JObject.Load(reader);
             var typeName = (string)jsonObject["Type"];
 
-            var type = Type.GetType(typeName);
+            var type = Type.GetType($"MobiFlight.Base.{typeName}");
             if (type == null)
             {
                 throw new NotSupportedException($"Unknown type: {typeName}");
             }
 
-            var configItem = Activator.CreateInstance(type) as Source;
-            serializer.Populate(jsonObject.CreateReader(), configItem);
-            return configItem;
+            var source = Activator.CreateInstance(type) as Source;
+            serializer.Populate(jsonObject.CreateReader(), source);
+            return source;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

@@ -1,11 +1,16 @@
+using MobiFlight.Base.Serialization.Json;
 using MobiFlight.OutputConfig;
 using MobiFlight.xplane;
+using Newtonsoft.Json;
 
 namespace MobiFlight.Base
 {
+    [JsonConverter(typeof(SourceConverter))]
     public abstract class Source
     {
-        public string Type { get { return GetType().Name.ToString(); } }
+        public string Type { get { return GetType().Name; } }
+
+        [JsonIgnore]
         public abstract string SourceType { get; }
         public abstract object Clone();
 

@@ -32,7 +32,7 @@
             "DisplayLedDecimalPoints": [],
             "DisplayLedReverseDigits": false,
             "DisplayLedBrightnessReference": "",
-            "Type": "MobiFlight.OutputConfig.LedModule"
+            "Type": "LedModule"
           },
           "DeviceType": "Display Module",
           "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
@@ -71,7 +71,7 @@
             "CompassMode": false,
             "Acceleration": 800,
             "Speed": 467,
-            "Type": "MobiFlight.OutputConfig.Stepper"
+            "Type": "Stepper"
           },
           "DeviceType": "Stepper",
           "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
@@ -107,7 +107,7 @@
             "Min": "0",
             "Max": "255",
             "MaxRotationPercent": "100",
-            "Type": "MobiFlight.OutputConfig.Servo"
+            "Type": "Servo"
           },
           "DeviceType": "Servo",
           "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
@@ -146,7 +146,7 @@
               "1234567890123456",
               "******Test******"
             ],
-            "Type": "MobiFlight.OutputConfig.LcdDisplay"
+            "Type": "LcdDisplay"
           },
           "DeviceType": "LcdDisplay",
           "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
@@ -181,7 +181,7 @@
             "DisplayPin": "LED 2",
             "DisplayPinBrightness": 255,
             "DisplayPinPWM": false,
-            "Type": "MobiFlight.OutputConfig.Output"
+            "Type": "Output"
           },
           "DeviceType": "Output",
           "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
@@ -240,7 +240,7 @@
             "Name": "ShiftRegister 1",
             "Pin": "Output 0",
             "Address": "ShiftRegister 1",
-            "Type": "MobiFlight.OutputConfig.ShiftRegister"
+            "Type": "ShiftRegister"
           },
           "DeviceType": "ShiftRegister",
           "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
