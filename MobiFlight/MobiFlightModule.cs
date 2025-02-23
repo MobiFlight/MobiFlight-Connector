@@ -382,8 +382,8 @@ namespace MobiFlight
                             break;
                         case DeviceType.Output:
                             device.Name = GenerateUniqueDeviceName(outputs.Keys.ToArray(), device.Name);
-                            Int16 pin;
-                            if (!Int16.TryParse((device as Config.Output).Pin, out pin))
+
+                            if (!Int16.TryParse((device as Config.Output).Pin, out short pin))
                             {
                                 Log.Instance.log(
                                     $"Can't parse {Board.Info.FriendlyName} ({Port}) > [{(device as Config.Output).Name}]." +
@@ -391,12 +391,25 @@ namespace MobiFlight
                                     LogSeverity.Error);
                                 break;
                             }
-                            outputs.Add(device.Name, new MobiFlightOutput()
+                            if (HasFirmwareFeature(FirmwareFeature.AccessOutputByDeviceIndex))
                             {
-                                CmdMessenger = _cmdMessenger,
-                                Name = device.Name,
-                                Pin = pin
-                            });
+                                outputs.Add(device.Name, new MobiFlightOutputV3()
+                                {
+                                    CmdMessenger = _cmdMessenger,
+                                    Name = device.Name,
+                                    DeviceIndex = outputs.Count,
+                                    Pin = pin
+                                });
+                            }
+                            else
+                            {
+                                outputs.Add(device.Name, new MobiFlightOutput()
+                                {
+                                    CmdMessenger = _cmdMessenger,
+                                    Name = device.Name,
+                                    Pin = pin,
+                                });
+                            }
                             break;
                         case DeviceType.LcdDisplay:
                             device.Name = GenerateUniqueDeviceName(lcdDisplays.Keys.ToArray(), device.Name);
