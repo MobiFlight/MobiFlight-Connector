@@ -22,6 +22,11 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
             {
                 if (property.CanRead)
                 {
+                    var propertyValue = property.GetValue(value);
+                    if (propertyValue == null && serializer.NullValueHandling == NullValueHandling.Ignore)
+                    {
+                        continue; // Skip null values if NullValueHandling is set to Ignore
+                    }
                     writer.WritePropertyName(property.Name);
                     serializer.Serialize(writer, property.GetValue(value));
                 }
