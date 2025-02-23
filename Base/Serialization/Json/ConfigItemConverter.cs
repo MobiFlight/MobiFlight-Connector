@@ -14,7 +14,7 @@ namespace MobiFlight.Base.Serialization.Json
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jsonObject = JObject.Load(reader);
-            var typeName = (string)jsonObject["Type"];
+            var typeName = $"MobiFlight.{(string)jsonObject["Type"]}";
 
             var type = Type.GetType(typeName);
             if (type == null)

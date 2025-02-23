@@ -38,7 +38,7 @@
           "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
           "Active": true,
           "Name": "7-Segment",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {
@@ -77,7 +77,7 @@
           "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
           "Active": true,
           "Name": "Stepper 2",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {
@@ -113,7 +113,7 @@
           "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
           "Active": true,
           "Name": "Servo",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {
@@ -152,7 +152,7 @@
           "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
           "Active": true,
           "Name": "LCD",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {
@@ -187,7 +187,7 @@
           "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
           "Active": true,
           "Name": "LED 23 Test",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [
             {
@@ -246,7 +246,7 @@
           "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
           "Active": true,
           "Name": "ShiftRegister",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {
@@ -272,7 +272,7 @@
           "GUID": "8f74c497-c8e9-42c9-8c1d-69d5db217037",
           "Active": true,
           "Name": "New Output Config",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "",
           "Preconditions": [],
           "Modifiers": {
@@ -298,7 +298,7 @@
           "GUID": "e0262d3b-c4f9-44e1-b468-1306bd48fbb3",
           "Active": true,
           "Name": "New Output Config",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "",
           "Preconditions": [],
           "Modifiers": {
@@ -324,7 +324,7 @@
           "GUID": "9a6267d0-5f40-457c-b724-ccc835510abf",
           "Active": true,
           "Name": "New Output Config",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "",
           "Preconditions": [],
           "Modifiers": {
@@ -350,7 +350,7 @@
           "GUID": "81c4908e-429d-48c8-83f4-4e5f577be1f2",
           "Active": true,
           "Name": "New Output Config",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "",
           "Preconditions": [],
           "Modifiers": {
@@ -376,7 +376,7 @@
           "GUID": "de57dc80-be81-4049-95d0-2349109d58c1",
           "Active": true,
           "Name": "New Output Config",
-          "Type": "MobiFlight.OutputConfigItem",
+          "Type": "OutputConfigItem",
           "ModuleSerial": "",
           "Preconditions": [],
           "Modifiers": {
@@ -388,7 +388,7 @@
         {
           "button": {
             "onPress": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
             },
             "onRelease": null,
             "onLongRelease": null,
@@ -402,7 +402,7 @@
           "GUID": "49079f13-b7cc-442d-a64b-70edbf7a1334",
           "Active": true,
           "Name": "Button",
-          "Type": "MobiFlight.InputConfigItem",
+          "Type": "InputConfigItem",
           "ModuleSerial": "WINWING Orion Joystick Base 2 + JGRIP-F16 / JS-3145ad90-c6f2-11ef-8001-444553540000",
           "Preconditions": [],
           "Modifiers": {
@@ -414,11 +414,11 @@
         {
           "encoder": {
             "onLeft": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
             },
             "onLeftFast": null,
             "onRight": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
             },
             "onRightFast": null
           },
@@ -427,7 +427,7 @@
           "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328d",
           "Active": true,
           "Name": "Encoder",
-          "Type": "MobiFlight.InputConfigItem",
+          "Type": "InputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {
@@ -439,7 +439,7 @@
         {
           "analog": {
             "onChange": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
             }
           },
           "DeviceType": "AnalogInput",
@@ -447,7 +447,7 @@
           "GUID": "be1ffab3-4252-4001-a090-4b98c7cd126a",
           "Active": true,
           "Name": "AnalogInput",
-          "Type": "MobiFlight.InputConfigItem",
+          "Type": "InputConfigItem",
           "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
           "Preconditions": [],
           "Modifiers": {

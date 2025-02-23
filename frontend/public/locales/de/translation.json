@@ -1,21 +1,15 @@
 {
   "Types": {
-    "MobiFlight": {
-      "OutputConfig": {
-        "Output": "Ausgang",
-        "LedModule": "7-Segment Anzeige",
-        "Stepper": "Schrittmotor",
-        "Servo": "Servo",
-        "LcdDisplay": "LCD Display",
-        "ShiftRegister": "Ouptut Shift Register"
-      },
-      "InputConfig": {
-        "InputShiftRegister": "Input Shift Register",
-        "Button": "Schalter",
-        "Encoder": "Enkoder",
-        "AnalogInput": "Analoger Eingang"        
-      }
-    },
+    "Output": "Ausgang",
+    "LedModule": "7-Segment Anzeige",
+    "Stepper": "Schrittmotor",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Schalter",
+    "Encoder": "Enkoder",
+    "AnalogInput": "Analoger Eingang",
     "-": "nicht verwendet"
   },
   "ConfigList": {

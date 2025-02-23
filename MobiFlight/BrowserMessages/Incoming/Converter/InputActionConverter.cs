@@ -17,7 +17,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
             var type = value.GetType();
             writer.WriteStartObject();
             writer.WritePropertyName("Type");
-            writer.WriteValue(type.FullName); // Write the type discriminator
+            writer.WriteValue(type.Name); // Write the type discriminator
             foreach (var property in type.GetProperties())
             {
                 if (property.CanRead)
@@ -37,7 +37,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
             }
 
             var jsonObject = JObject.Load(reader);
-            var typeName = jsonObject["Type"]?.ToString();
+            var typeName = $"MobiFlight.InputConfig.{jsonObject["Type"]?.ToString()}";
 
             var type = Type.GetType(typeName);
             if (type == null)

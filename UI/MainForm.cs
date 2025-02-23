@@ -177,11 +177,11 @@ namespace MobiFlight.UI
             {
                 var msg = message;
                 if (msg.Action != "edit") return;
-                if (msg.Item.Type == typeof(OutputConfigItem).FullName)
+                if (msg.Item.Type == typeof(OutputConfigItem).Name)
                 {
                     OpenOutputConfigWizardForId(message.Item.GUID);
                 }
-                else if (msg.Item.Type == typeof(InputConfigItem).FullName)
+                else if (msg.Item.Type == typeof(InputConfigItem).Name)
                 {
                     OpenInputConfigWizardForId(message.Item.GUID);
                 }

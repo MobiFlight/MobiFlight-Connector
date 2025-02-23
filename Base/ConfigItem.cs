@@ -52,7 +52,7 @@ namespace MobiFlight.Base
 
         protected virtual string GetConfigItemType()
         {
-            return this.GetType().ToString();
+            return this.GetType().Name;
         }
 
         public abstract IConfigItem Duplicate();
