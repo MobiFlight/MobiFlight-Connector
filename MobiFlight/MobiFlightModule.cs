@@ -398,7 +398,11 @@ namespace MobiFlight
                                     CmdMessenger = _cmdMessenger,
                                     Name = device.Name,
                                     DeviceIndex = outputs.Count,
+                                    // Required for UI so that we can check
+                                    // whether pin supports PWM or not. 
+                                    // Not required for the messages to Arduino anymore
                                     Pin = pin
+
                                 });
                             }
                             else
