@@ -319,7 +319,6 @@ namespace MobiFlight
             if (Device is LedModule)
             {
                 (Device as LedModule).WriteXml(writer);
-
             }
             else if (DeviceType == MobiFlightServo.TYPE)
             {
@@ -331,7 +330,6 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightLcdDisplay.TYPE)
             {
-                Device = new OutputConfig.LcdDisplay();
                 (Device as LcdDisplay).WriteXml(writer);
             }
             else if (DeviceType == MobiFlightShiftRegister.TYPE)
@@ -359,7 +357,7 @@ namespace MobiFlight
             }
             else if (DeviceType == MobiFlightOutput.TYPE)
             {
-                (Device as OutputConfig.Output).WriteXml(writer);
+                (Device as Output).WriteXml(writer);
             }
                                 
             writer.WriteEndElement(); // end of display

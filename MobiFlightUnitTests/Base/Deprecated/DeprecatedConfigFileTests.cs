@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.OutputConfig;
 using System;
 using System.Text.RegularExpressions;
 

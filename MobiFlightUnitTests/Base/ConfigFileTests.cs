@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.Base;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.OutputConfig;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace MobiFlight.Base.Tests
     public class ConfigFileTests
     {
         private const string TestFileName = "testConfigFile.json";
-
 
         private OutputConfigItem CreateOutputConfigItem()
         {
@@ -144,6 +144,37 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(configFile.ReferenceOnly, deserializedConfigFile.ReferenceOnly);
             Assert.AreEqual(configFile.EmbedContent, deserializedConfigFile.EmbedContent);
             Assert.AreEqual(configFile.ConfigItems.Count, deserializedConfigFile.ConfigItems.Count);
+        }
+
+        [TestMethod()]
+        public void EqualsTest()
+        {
+            var configFile = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = false,
+                ConfigItems = new List<IConfigItem>()
+                {
+                    CreateOutputConfigItem(),
+                    CreateInputConfigItem()
+                }
+            };
+
+            var configFile2 = new ConfigFile
+            {
+                FileName = TestFileName,
+                ReferenceOnly = false,
+                EmbedContent = false,
+                ConfigItems = new List<IConfigItem>()
+                {
+                    configFile.ConfigItems[0].Clone() as OutputConfigItem,
+                    configFile.ConfigItems[1].Clone() as InputConfigItem
+                }
+            };
+
+            Assert.IsTrue(configFile.Equals(configFile2));
+            Assert.AreEqual(configFile, configFile2);
         }
     }
 }

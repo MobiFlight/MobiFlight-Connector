@@ -79,6 +79,7 @@
     <Compile Include="Base\BooleanConverterConfigTests.cs" />
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
+    <Compile Include="Base\ConfigFileFactoryTests.cs" />
     <Compile Include="Base\ConfigFileTests.cs" />
     <Compile Include="Base\ConfigItemTests.cs" />
     <Compile Include="Base\ConfigRefListTests.cs" />
@@ -155,6 +156,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\Base\ConfigFile\Json\OpenConfig.mfjson">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\OpenFileTest.LCD-serialization-bc.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\OpenFileTest.LCD-serialization-bc.mcc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="assets\Base\ConfigFile\Json\OpenProjectTest.mfproj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

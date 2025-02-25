@@ -9,7 +9,7 @@ namespace MobiFlight.Base
     {
         public string FileName { get; set; }
         public bool ReferenceOnly { get; set; } = false;
-        public bool EmbedContent { get; set; } = true;
+        public bool EmbedContent { get; set; } = false;
         public List<IConfigItem> ConfigItems { get; set; } = new List<IConfigItem>();
 
         public ConfigFile() { }
@@ -58,10 +58,10 @@ namespace MobiFlight.Base
             var other = obj as ConfigFile;
 
             return
-                this.FileName.AreEqual(other.FileName) &&
-                this.ReferenceOnly == other.ReferenceOnly &&
-                this.EmbedContent == other.EmbedContent &&
-                this.ConfigItems.SequenceEqual(other.ConfigItems)
+                FileName.AreEqual(other.FileName) &&
+                ReferenceOnly == other.ReferenceOnly &&
+                EmbedContent == other.EmbedContent &&
+                ConfigItems.SequenceEqual(other.ConfigItems)
                 ;
         }
     }
