@@ -28,8 +28,6 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
         public int Pin { get; set; }
 
-        public int OutputNumber { get; set; }
-
         public virtual void Set(int value)
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
