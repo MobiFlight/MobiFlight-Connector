@@ -174,6 +174,26 @@ namespace MobiFlight.Base.Deprecated.Tests
                 exceptionThrown = true;
             }
             Assert.IsTrue(exceptionThrown);
+
+
+            // During testing for backward compatibility I noticed
+            // that an output config item could lack a settings node
+            // in this case the file should still load.
+            inFile = @"assets\Base\ConfigFile\OpenFileTest.NoSettingNode.xml";
+            exceptionThrown = false;
+            try
+            {
+                o = new DeprecatedConfigFile(inFile);
+                o.OpenFile();
+                Assert.IsTrue(o.ConfigItems[0].Active);
+                Assert.IsTrue(o.ConfigItems[0].Name == "ConfigItem For Precondition");
+                Assert.IsTrue(o.ConfigItems[0].GUID == "bdd97308-b4f8-475c-a8c4-729e191101af");
+            }
+            catch (Exception)
+            {
+                exceptionThrown = true;
+            }
+            Assert.IsFalse(exceptionThrown);
         }
 
         [TestMethod()]

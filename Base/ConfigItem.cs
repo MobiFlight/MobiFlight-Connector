@@ -33,7 +33,7 @@ namespace MobiFlight.Base
         public string GUID { get; set; }
         public bool Active { get; set; }
         public string Name { get; set; }
-        public string Type { get { return GetConfigItemType(); }  }
+        public string Type { get { return GetConfigItemType(); } }
         public string ModuleSerial { get; set; }
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();

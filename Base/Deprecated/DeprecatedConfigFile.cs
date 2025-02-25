@@ -66,11 +66,25 @@ namespace MobiFlight
                 config.GUID = item.Attributes["guid"].Value;
                 config.Active = item.SelectSingleNode("active").InnerText == "true";
                 config.Name = item.SelectSingleNode("description").InnerText;
+                try
+                {
+                    if (item.SelectSingleNode("settings") == null)
+                    {
+                        throw new Exception("Expected settings not available for XML node.");
+                    }
 
-                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
-                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-                config.ReadXml(xReader);
-                result.Add(config);
+                    System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
+                    System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
+                    config.ReadXml(xReader);
+                }
+                catch (Exception e)
+                {
+                    Log.Instance.log($"Error on reading XML config item {config.Name} / ({config.GUID}): {e.Message}", LogSeverity.Error);
+                }
+                finally
+                {
+                    result.Add(config);
+                }
             }
 
             return result;
@@ -88,11 +102,25 @@ namespace MobiFlight
                 config.Active = item.SelectSingleNode("active").InnerText == "true";
                 config.Name = item.SelectSingleNode("description").InnerText;
 
-                System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
-                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-                xReader.Read();
-                config.ReadXml(xReader);
-                result.Add(config);
+                try
+                {
+                    if (item.SelectSingleNode("settings") == null)
+                    {
+                        throw new Exception("Expected settings not available for XML node.");
+                    }
+                    System.IO.StringReader reader = new System.IO.StringReader(item.SelectSingleNode("settings").OuterXml);
+                    System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
+                    xReader.Read();
+                    config.ReadXml(xReader);
+                }
+                catch (Exception e)
+                {
+                    Log.Instance.log($"Error on reading XML config item {config.Name} / ({config.GUID}): {e.Message}", LogSeverity.Error);
+                }
+                finally
+                {
+                    result.Add(config);
+                }
             }
 
             return result;

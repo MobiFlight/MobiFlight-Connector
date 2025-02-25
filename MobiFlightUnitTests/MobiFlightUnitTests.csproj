@@ -164,6 +164,9 @@
     <Content Include="assets\Base\ConfigFile\OpenFileTest.2912.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\Base\ConfigFile\OpenFileTest.NoSettingNode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\Base\ConfigFile\OpenFileTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
