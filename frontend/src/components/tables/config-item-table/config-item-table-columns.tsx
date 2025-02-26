@@ -52,7 +52,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="hidden w-32 lg:block">
+        <div className="hidden w-32 xl:block">
           {t("ConfigList.Header.Device")}
         </div>
       )
@@ -61,12 +61,12 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const label = (row.getValue("ModuleSerial") as string).split("/")[0]
       const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
       return !isEmpty(label) ? (
-        <div className="hidden w-32 flex-col lg:flex">
+        <div className="hidden w-48 flex-col xl:flex 2xl:w-64">
           <p className="text-md truncate font-semibold">{label}</p>
           <p className="truncate text-xs text-muted-foreground">{serial}</p>
         </div>
       ) : (
-        <span className="item-center hidden flex-row gap-2 text-slate-400 lg:flex">
+        <span className="item-center hidden flex-row gap-2 text-slate-400 xl:flex">
           <IconBan />
           <span>not set</span>
         </span>
@@ -82,7 +82,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="w-8 truncate md:w-32">
+        <div className="w-8 truncate lg:w-36">
           {t("ConfigList.Header.Component")}
         </div>
       )
@@ -148,7 +148,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="hidden w-16 md:visible md:block lg:w-24">
+        <div className="hidden w-16 lg:visible lg:block lg:w-24">
           {t("ConfigList.Header.RawValue")}
         </div>
       )
@@ -158,7 +158,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const { t } = useTranslation()
       const label = row.getValue("RawValue") as string
       return (
-        <div className="text-md hidden w-16 truncate md:visible md:block lg:w-24 xl:w-32">
+        <div className="text-md hidden w-16 truncate lg:visible lg:block lg:w-24 xl:w-32">
           {!isEmpty(label) ? (
             label
           ) : (
@@ -178,7 +178,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
       return (
-        <div className="hidden w-16 md:block lg:w-24">
+        <div className="hidden w-16 lg:block lg:w-24">
           {t("ConfigList.Header.FinalValue")}
         </div>
       )
@@ -188,7 +188,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const { t } = useTranslation()
       const label = row.getValue("Value") as string
       return (
-        <div className="text-md hidden w-16 truncate md:block lg:w-24 xl:w-32">
+        <div className="text-md hidden w-16 truncate lg:block lg:w-24 xl:w-32">
           {!isEmpty(label) ? (
             label
           ) : (
