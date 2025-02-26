@@ -33,32 +33,38 @@ namespace MobiFlight.UI.Panels
 
         public void syncFromConfig(OutputConfigItem config)
         {
-            if (!ComboBoxHelper.SetSelectedItem(customDeviceNamesComboBox, config.CustomDevice.CustomName))
+            if (!(config.Device is CustomDevice)) return;
+
+            var customDevice = config.Device as CustomDevice;
+            if (!ComboBoxHelper.SetSelectedItem(customDeviceNamesComboBox, customDevice.CustomName))
             {
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }
 
-            if (!ComboBoxHelper.SetSelectedItemByValue(MessageTypeComboBox, config.CustomDevice.MessageType.ToString()))
+            if (!ComboBoxHelper.SetSelectedItemByValue(MessageTypeComboBox, customDevice.MessageType.ToString()))
             {
                 Log.Instance.log("Exception on selecting item in Custom Device Name ComboBox.", LogSeverity.Error);
             }
 
-            valueTextBox.Text = config.CustomDevice.Value;
+            valueTextBox.Text = customDevice.Value;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
+            config.Device = new CustomDevice();
+            var customDevice = config.Device as CustomDevice;
+
             if (customDeviceNamesComboBox.SelectedValue != null)
             {
-                config.CustomDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString();
+                customDevice.CustomName = (customDeviceNamesComboBox.SelectedValue as MobiFlightCustomDevice).Name.ToString();
             }
 
             if (MessageTypeComboBox.SelectedValue != null)
             {
-                config.CustomDevice.MessageType = (MessageTypeComboBox.SelectedValue as CustomDevices.MessageType).Id;
+                customDevice.MessageType = (MessageTypeComboBox.SelectedValue as CustomDevices.MessageType).Id;
             }
 
-            config.CustomDevice.Value = valueTextBox.Text;
+            customDevice.Value = valueTextBox.Text;
 
             return config;
         }

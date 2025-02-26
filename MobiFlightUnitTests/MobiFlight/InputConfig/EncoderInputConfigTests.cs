@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.InputConfig;
+using MobiFlight.BrowserMessages.Incoming.Converter;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.InputConfig.Tests
@@ -146,6 +144,22 @@ namespace MobiFlight.InputConfig.Tests
             Assert.AreEqual(result[1].GetType(), typeof(VariableInputAction));
             Assert.AreEqual(result[2].GetType(), typeof(VariableInputAction));
             Assert.AreEqual(result[3].GetType(), typeof(VariableInputAction));
+        }
+
+        [TestMethod()]
+        public void JsonSerializationTest()
+        {
+            var serializerSettings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.Auto,
+                Converters = new List<JsonConverter> { new InputActionConverter() }
+            };
+
+            var original = generateTestObject();
+            string json = JsonConvert.SerializeObject(original, serializerSettings);
+            var deserialized = JsonConvert.DeserializeObject<EncoderInputConfig>(json, serializerSettings);
+
+            Assert.AreEqual(original, deserialized);
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -348,10 +349,10 @@ namespace MobiFlight.UI.Dialogs
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
-            OffsetTypeFsuipRadioButton.Checked = (config.SourceType == SourceType.FSUIPC);
-            OffsetTypeSimConnectRadioButton.Checked = (config.SourceType == SourceType.SIMCONNECT);
-            OffsetTypeVariableRadioButton.Checked = (config.SourceType == SourceType.VARIABLE);
-            OffsetTypeXplaneRadioButton.Checked = (config.SourceType == SourceType.XPLANE);
+            OffsetTypeFsuipRadioButton.Checked = (config.Source is FsuipcSource);
+            OffsetTypeSimConnectRadioButton.Checked = (config.Source is SimConnectSource);
+            OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource);
+            OffsetTypeXplaneRadioButton.Checked = (config.Source is XplaneSource);
 
             fsuipcConfigPanel.syncFromConfig(config);
 
@@ -367,27 +368,31 @@ namespace MobiFlight.UI.Dialogs
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.SourceType = SourceType.FSUIPC;
-            if (OffsetTypeSimConnectRadioButton.Checked) config.SourceType = SourceType.SIMCONNECT;
-            if (OffsetTypeVariableRadioButton.Checked) config.SourceType = SourceType.VARIABLE;
-            if (OffsetTypeXplaneRadioButton.Checked) config.SourceType = SourceType.XPLANE;
-
-            if (config.SourceType == SourceType.FSUIPC)
+            if (OffsetTypeFsuipRadioButton.Checked)
+            {
+                config.Source = new FsuipcSource();
                 fsuipcConfigPanel.syncToConfig(config);
-            else if (config.SourceType == SourceType.SIMCONNECT)
+            } else
+            if (OffsetTypeSimConnectRadioButton.Checked)
+            {
+                config.Source = new SimConnectSource();
                 simConnectPanel1.syncToConfig(config);
-            else if (config.SourceType == SourceType.VARIABLE)
+            } else
+            if (OffsetTypeVariableRadioButton.Checked)
+            {
+                config.Source = new VariableSource();
                 variablePanel1.syncToConfig(config);
-            else if (config.SourceType == SourceType.XPLANE)
+            } else
+            if (OffsetTypeXplaneRadioButton.Checked)
+            {
+                config.Source = new XplaneSource();
                 xplaneDataRefPanel1.syncToConfig(config);
+            }
 
             configRefPanel.syncToConfig(config);
-
             modifierPanel1.toConfig(config);
-
             displayPanel1.syncToConfig();
             preconditionPanel.syncToConfig(config);
-
             testValuePanel1.ToConfig(config);
 
             return true;

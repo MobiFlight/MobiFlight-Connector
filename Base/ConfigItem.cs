@@ -1,11 +1,13 @@
-﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+﻿using MobiFlight.Base.Serialization.Json;
 using MobiFlight.Modifier;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MobiFlight.Base
 {
+    [JsonConverter(typeof(ConfigItemConverter))]
     public interface IConfigItem
     {
         string GUID { get; set; }
@@ -20,9 +22,12 @@ namespace MobiFlight.Base
         string Value { get; set; }
         IDeviceConfig Device { get; }
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
+
+        object Clone();
+
+        IConfigItem Duplicate();
     }
 
-    [JsonConverter(typeof(ConfigItemConverter))]
     public abstract class ConfigItem : IConfigItem
     {
         public string GUID { get; set; }
@@ -33,10 +38,13 @@ namespace MobiFlight.Base
         public PreconditionList Preconditions { get; set; } = new PreconditionList();
         public ModifierList Modifiers { get; set; } = new ModifierList();
         public ConfigRefList ConfigRefs { get; set; } = new ConfigRefList();
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string RawValue { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
-        
-        public IDeviceConfig Device { get { return GetDeviceConfig(); } }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { new NotImplementedException(); } }
 
         public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();
 
@@ -44,7 +52,7 @@ namespace MobiFlight.Base
 
         protected virtual string GetConfigItemType()
         {
-            return this.GetType().ToString();
+            return this.GetType().Name;
         }
 
         public abstract IConfigItem Duplicate();
@@ -58,8 +66,6 @@ namespace MobiFlight.Base
             Preconditions = new PreconditionList();
             Modifiers = new ModifierList();
             ConfigRefs = new ConfigRefList();
-            RawValue = "";
-            Value = "";
             Status = new Dictionary<ConfigItemStatusType, string>();
         }
 
@@ -72,9 +78,14 @@ namespace MobiFlight.Base
             Preconditions = item.Preconditions.Clone() as PreconditionList;
             Modifiers = item.Modifiers.Clone() as ModifierList;
             ConfigRefs = item.ConfigRefs.Clone() as ConfigRefList;
-            RawValue = item.RawValue.Clone() as string;
-            Value = item.Value.Clone() as string;
+            RawValue = item.RawValue?.Clone() as string;
+            Value = item.Value?.Clone() as string;
             Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
+        }
+
+        public virtual object Clone()
+        {
+            return Clone() as ConfigItem;
         }
 
         public override bool Equals(object obj)

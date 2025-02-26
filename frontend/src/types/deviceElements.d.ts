@@ -3,6 +3,7 @@ export type DeviceElementType =
   | "Output"
   | "Encoder"
   | "LedModule"
+  | "Display Module"
   | "Stepper"
   | "Servo"
   | "LcdDisplay"
@@ -10,7 +11,7 @@ export type DeviceElementType =
   | "AnalogInput"
   | "InputShiftRegister"
   | "InputMultiplexer"
-  | "CustomDevice";
+  | "CustomDevice"
 
 export const DeviceElementTypes: DeviceElementType[] = [
   "Button",
@@ -25,4 +26,4 @@ export const DeviceElementTypes: DeviceElementType[] = [
   "LcdDisplay",
   "ShiftRegister",
   "CustomDevice",
-];
+]

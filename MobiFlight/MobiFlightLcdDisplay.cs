@@ -131,5 +131,15 @@ namespace MobiFlight
             Display(new string(' ', Cols * Lines));
             return;
         }
+
+        public override object Clone()
+        {
+            return new MobiFlightLcdDisplay
+            {
+                Address = this.Address,
+                Cols = this.Cols,
+                Lines = this.Lines
+            };
+        }
     }
 }

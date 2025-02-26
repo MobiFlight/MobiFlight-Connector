@@ -1,13 +1,8 @@
-﻿using MobiFlight.Base;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -36,13 +31,15 @@ namespace MobiFlight.Modifier
 
         override public bool Equals(Object obj)
         {
+            if (obj == null || !(obj is Comparison)) return false;
+            var other = obj as Comparison;
+
             return (
-                obj != null && (obj is Comparison) &&
-                this.Active     == (obj as Comparison).Active &&
-                this.Operand    == (obj as Comparison).Operand &&
-                this.Value      == (obj as Comparison).Value &&
-                this.IfValue    == (obj as Comparison).IfValue &&
-                this.ElseValue  == (obj as Comparison).ElseValue
+                Active     == other.Active &&
+                Operand    == other.Operand &&
+                Value      == other.Value &&
+                IfValue    == other.IfValue &&
+                ElseValue  == other.ElseValue
             );
         }
 

@@ -1,14 +1,14 @@
-﻿using System;
+﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
+    [JsonConverter(typeof(ModifierBaseConverter))]
     public abstract class ModifierBase : IXmlSerializable, ICloneable
     {
         public bool Active { get; set; }

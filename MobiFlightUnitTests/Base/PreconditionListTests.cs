@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.Base.Tests
@@ -153,6 +151,54 @@ namespace MobiFlight.Base.Tests
             o2.FalseCaseValue = "1";
 
             Assert.IsTrue(o1.Equals(o2));
+        }
+
+        [TestMethod()]
+        public void JsonSerializationDeserializationTest()
+        {
+            var originalList = new PreconditionList
+            {
+                new Precondition
+                {
+                    PreconditionType = "config",
+                    PreconditionLabel = "TestPreCon1",
+                    PreconditionActive = true,
+                    PreconditionRef = "TestRef1",
+                    PreconditionOperand = "<",
+                    PreconditionValue = "TestValue1",
+                    PreconditionLogic = "or"
+                },
+                new Precondition
+                {
+                    PreconditionType = "config",
+                    PreconditionLabel = "TestPreCon2",
+                    PreconditionActive = false,
+                    PreconditionRef = "TestRef2",
+                    PreconditionOperand = ">",
+                    PreconditionValue = "TestValue2",
+                    PreconditionLogic = "and"
+                }
+            };
+
+            string json = JsonConvert.SerializeObject(originalList);
+            PreconditionList deserializedList = JsonConvert.DeserializeObject<PreconditionList>(json);
+
+            Assert.IsNotNull(deserializedList);
+            Assert.AreEqual(originalList.Count, deserializedList.Count);
+            
+            var originalArray = originalList.ToArray();
+            var deserializedArray = deserializedList.ToArray();
+
+            for (int i = 0; i < originalList.Count; i++)
+            {
+                Assert.AreEqual(originalArray[i].PreconditionType, deserializedArray[i].PreconditionType);
+                Assert.AreEqual(originalArray[i].PreconditionLabel, deserializedArray[i].PreconditionLabel);
+                Assert.AreEqual(originalArray[i].PreconditionActive, deserializedArray[i].PreconditionActive);
+                Assert.AreEqual(originalArray[i].PreconditionRef, deserializedArray[i].PreconditionRef);
+                Assert.AreEqual(originalArray[i].PreconditionOperand, deserializedArray[i].PreconditionOperand);
+                Assert.AreEqual(originalArray[i].PreconditionValue, deserializedArray[i].PreconditionValue);
+                Assert.AreEqual(originalArray[i].PreconditionLogic, deserializedArray[i].PreconditionLogic);
+            }
         }
     }
 }

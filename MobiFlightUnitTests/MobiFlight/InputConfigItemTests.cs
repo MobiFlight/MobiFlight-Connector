@@ -1,9 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using System;
 using System.IO;
 using System.Xml;
+using MobiFlight.Base;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight.Tests
 {
@@ -228,8 +232,12 @@ namespace MobiFlight.Tests
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = generateTestObject();
-
             Assert.IsTrue(o1.Equals(o2));
+
+            var list1 = new List<IConfigItem>() { o1, o2 };
+            var list2 = new List<IConfigItem>() { o1, o2 };
+
+            Assert.IsTrue(list1.SequenceEqual(list2));
         }
 
         [TestMethod()]

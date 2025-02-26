@@ -1,22 +1,20 @@
-﻿using MobiFlight.Base;
-using MobiFlight.Modifier;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 
-namespace MobiFlight.BrowserMessages.Incoming.Converter
+namespace MobiFlight.Base.Serialization.Json
 {
-    public class ConfigItemConverter : JsonConverter
+    public class SourceConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return typeof(IConfigItem).IsAssignableFrom(objectType);
+            return typeof(Source).IsAssignableFrom(objectType);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jsonObject = JObject.Load(reader);
-            var typeName = (string)jsonObject["Type"];
+            var typeName = $"MobiFlight.Base.{(string)jsonObject["Type"]}";
 
             var type = Type.GetType(typeName);
             if (type == null)
@@ -24,9 +22,9 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
                 throw new NotSupportedException($"Unknown type: {typeName}");
             }
 
-            var configItem = Activator.CreateInstance(type) as IConfigItem;
-            serializer.Populate(jsonObject.CreateReader(), configItem);
-            return configItem;
+            var source = Activator.CreateInstance(type) as Source;
+            serializer.Populate(jsonObject.CreateReader(), source);
+            return source;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

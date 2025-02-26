@@ -1,0 +1,462 @@
+{
+  "Name": "MobiFlight Project",
+  "ConfigFiles": [
+    {
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "b5a95362-411e-422d-9e6e-598b8b0bdcdf",
+              "Value": "(A:COM ACTIVE FREQUENCY:1,KHz)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "7-Segment",
+            "DisplayLedAddress": "7-Segment",
+            "DisplayLedConnector": 1,
+            "DisplayLedModuleSize": 8,
+            "DisplayLedPadding": false,
+            "DisplayLedPaddingChar": "0",
+            "DisplayLedDigits": [],
+            "DisplayLedDecimalPoints": [],
+            "DisplayLedReverseDigits": false,
+            "DisplayLedBrightnessReference": "",
+            "Type": "LedModule"
+          },
+          "DeviceType": "Display Module",
+          "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+          "Active": true,
+          "Name": "7-Segment",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "02d438f0-b1cd-4920-8884-e3fc4998e49c",
+              "Value": "(A:PROP RPM:1,Rpm)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Stepper 1",
+            "Address": "Stepper 1",
+            "InputRev": 1000,
+            "TestValue": 500,
+            "OutputRev": 2040,
+            "CompassMode": false,
+            "Acceleration": 800,
+            "Speed": 467,
+            "Type": "Stepper"
+          },
+          "DeviceType": "Stepper",
+          "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
+          "Active": true,
+          "Name": "Stepper 2",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "7de0a675-da06-4aef-8f02-8f93de402273",
+              "Value": "(A:FUEL SELECTED QUANTITY PERCENT,Percent Over 100)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Servo 1",
+            "Address": "Servo 1",
+            "Min": "0",
+            "Max": "255",
+            "MaxRotationPercent": "100",
+            "Type": "Servo"
+          },
+          "DeviceType": "Servo",
+          "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
+          "Active": true,
+          "Name": "Servo",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "dbf414f2-5a45-4b55-9983-7703862edaf0",
+              "Value": "(A:COM ACTIVE FREQ NAME:1,String)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "LCD 1",
+            "Address": "LCD 1",
+            "Lines": [
+              "1234567890123456",
+              "******Test******",
+              "1234567890123456",
+              "******Test******"
+            ],
+            "Type": "LcdDisplay"
+          },
+          "DeviceType": "LcdDisplay",
+          "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
+          "Active": true,
+          "Name": "LCD",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "0cf15a1c-712f-4bf2-bd16-eb4e6b103e20",
+              "Value": "(A:BRAKE PARKING INDICATOR,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "LED 2",
+            "DisplayPin": "LED 2",
+            "DisplayPinBrightness": 255,
+            "DisplayPinPWM": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
+          "Active": true,
+          "Name": "LED 23 Test",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [
+            {
+              "PreconditionLabel": "Config: <Ref:5b09dc42-d5cd-4284-9c03-355e579763f2> < 1 <Logic:and>",
+              "PreconditionType": "config",
+              "PreconditionRef": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+              "PreconditionSerial": null,
+              "PreconditionPin": null,
+              "PreconditionOperand": "<",
+              "PreconditionValue": "1",
+              "PreconditionLogic": "and",
+              "PreconditionActive": true
+            }
+          ],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [
+            {
+              "Active": true,
+              "Ref": "5b09dc42-d5cd-4284-9c03-355e579763f2",
+              "Placeholder": "#",
+              "TestValue": "1"
+            },
+            {
+              "Active": true,
+              "Ref": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
+              "Placeholder": "!",
+              "TestValue": "1"
+            }
+          ],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "b0abd7a4-65cb-4109-b85b-6df6431ebcd6",
+              "Value": "(A:LIGHT LANDING,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "ShiftRegister 1",
+            "Pin": "Output 0",
+            "Address": "ShiftRegister 1",
+            "Type": "ShiftRegister"
+          },
+          "DeviceType": "ShiftRegister",
+          "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
+          "Active": true,
+          "Name": "ShiftRegister",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "VarType": 0
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "DeviceType": "",
+          "GUID": "8f74c497-c8e9-42c9-8c1d-69d5db217037",
+          "Active": true,
+          "Name": "New Output Config",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "VarType": 0
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "DeviceType": "",
+          "GUID": "e0262d3b-c4f9-44e1-b468-1306bd48fbb3",
+          "Active": true,
+          "Name": "New Output Config",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "VarType": 0
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "DeviceType": "",
+          "GUID": "9a6267d0-5f40-457c-b724-ccc835510abf",
+          "Active": true,
+          "Name": "New Output Config",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "VarType": 0
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "DeviceType": "",
+          "GUID": "81c4908e-429d-48c8-83f4-4e5f577be1f2",
+          "Active": true,
+          "Name": "New Output Config",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "VarType": 0
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "DeviceType": "",
+          "GUID": "de57dc80-be81-4049-95d0-2349109d58c1",
+          "Active": true,
+          "Name": "New Output Config",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Button 4",
+          "GUID": "49079f13-b7cc-442d-a64b-70edbf7a1334",
+          "Active": true,
+          "Name": "Button",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "WINWING Orion Joystick Base 2 + JGRIP-F16 / JS-3145ad90-c6f2-11ef-8001-444553540000",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "encoder": {
+            "onLeft": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onLeftFast": null,
+            "onRight": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRightFast": null
+          },
+          "DeviceType": "Encoder",
+          "DeviceName": "Encoder 1",
+          "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328d",
+          "Active": true,
+          "Name": "Encoder",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "analog": {
+            "onChange": {
+              "Type": "MSFS2020CustomInputAction"
+            }
+          },
+          "DeviceType": "AnalogInput",
+          "DeviceName": "POT 1",
+          "GUID": "be1ffab3-4252-4001-a090-4b98c7cd126a",
+          "Active": true,
+          "Name": "AnalogInput",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        }
+      ]
+    }
+  ]
+}

@@ -47,8 +47,11 @@ namespace MobiFlight
             return c;
         }
 
-        public bool Equals(ConnectorValue other)
+        public override bool Equals(object obj)
         {
+            if (obj == null || !(obj is ConnectorValue)) return false;
+            var other = obj as ConnectorValue;
+
             return
                 type == other.type &&
                 Float64 == other.Float64 &&

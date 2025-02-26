@@ -10,7 +10,7 @@
     "Button": "Button",
     "Encoder": "Encoder",
     "AnalogInput": "Analog Input",
-    "-": "not set"
+    "-": "no usado"
   },
   "ConfigList": {
     "Toolbar": {
@@ -37,19 +37,19 @@
       "FinalValue": "Valor Final",
       "Actions": "Acciones"
     },
-    "Cell" : {
-      "Waiting" : "Esperando"
+    "Cell": {
+      "Waiting": "Esperando"
     },
     "Table": {
-      "NoResultsFound": "Nueva configuratión. Por favor, añade algunos elementos." 
+      "NoResultsFound": "Nueva configuratión. Por favor, añade algunos elementos."
     },
     "Actions": {
       "OutputConfigItem": {
-        "Add": "Nueva configuración de Output",
+        "Add": "Nueva configuración Output",
         "DefaultName": "Nueva Configuración Output"
       },
       "InputConfigItem": {
-        "Add": "Nueva configuración de Input",
+        "Add": "Nueva configuración Input",
         "DefaultName": "Nueva Configuración Input"
       }
     }

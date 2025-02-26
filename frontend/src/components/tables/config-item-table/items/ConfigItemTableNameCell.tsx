@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react"
 interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableNameCell = ({ row } : ConfigItemTableNameCellProps) => {
+const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
   const { publish } = publishOnMessageExchange()
   const [isEditing, setIsEditing] = useState(false)
   const [label, setLabel] = useState(row.getValue("Name") as string)
@@ -55,12 +55,19 @@ const ConfigItemTableNameCell = ({ row } : ConfigItemTableNameCellProps) => {
           </p>
         </div>
       ) : (
-        <div className="flex flex-row items-center gap-1">
+        <div
+          className="flex flex-row items-center gap-1"
+          onKeyDown={(e) => e.key === "Enter" && saveChanges() && toggleEdit()}
+        >
           <Input
             type="text"
             value={label}
-            className="h-6 px-2 text-sm md:h-8"
+            className="m-0 h-6 px-2 text-sm md:h-8"
             onChange={(e) => setLabel(e.target.value)}
+            onKeyDown={(e) =>
+              e.key === "Enter" && (saveChanges(), toggleEdit())
+            }
+            autoFocus
           />
           <IconCircleCheck
             className="stroke-green-700"

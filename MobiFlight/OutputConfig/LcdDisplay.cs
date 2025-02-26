@@ -35,7 +35,7 @@ namespace MobiFlight.OutputConfig
             );
         }
 
-        public object Clone()
+        public override object Clone()
         {
             LcdDisplay clone = new LcdDisplay();
             clone.Address = Address;

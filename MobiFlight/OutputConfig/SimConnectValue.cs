@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,9 @@ namespace MobiFlight.OutputConfig
 {
     public class SimConnectValue
     {
-        public String UUID { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string UUID { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
         public SimConnectVarType VarType { get; set; }
 

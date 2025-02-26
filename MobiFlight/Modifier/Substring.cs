@@ -1,21 +1,12 @@
-﻿using MobiFlight.OutputConfig;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
     public class Substring : ModifierBase
     {
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
-        public int Start = 0;
-        public int End = 7;
+        public int Start { get; set; } = 0;
+        public int End { get; set; } = 7;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -49,11 +40,13 @@ namespace MobiFlight.Modifier
 
         public override bool Equals(object obj)
         {
+            if (obj == null || !(obj is Substring)) return false;
+            var other = obj as Substring;
+
             return
-                obj != null && obj is Substring &&
-                this.Active == (obj as Substring).Active &&
-                this.Start == (obj as Substring).Start &&
-                this.End == (obj as Substring).End;
+                this.Active == other.Active &&
+                this.Start == other.Start &&
+                this.End == other.End;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)

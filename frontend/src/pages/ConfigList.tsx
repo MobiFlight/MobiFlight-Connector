@@ -5,15 +5,15 @@ import { columns } from "@/components/tables/config-item-table/config-item-table
 import { useCallback, useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import { ConfigValueUpdate } from "@/types/messages"
-import testdata from "@/../tests/data/configlist.testdata.json"
+import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
 import { IConfigItem } from "@/types"
 
 const ConfigListPage = () => {
   const {
     items: configItems,
     setItems,
-    updateItems,
     updateItem,
+    updateItems
   } = useConfigStore()
 
   const mySetItems = useCallback((items: IConfigItem[]) => {
@@ -23,20 +23,20 @@ const ConfigListPage = () => {
 
   useAppMessage("ConfigValueUpdate", (message) => {
     const update = message.payload as ConfigValueUpdate
-    console.log("ConfigValueUpdate", update)
+    console.log("ConfigValueUpdate", update.ConfigItems)
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
-      updateItem(update.ConfigItems[0], false)
+      console.log("updateItem", update.ConfigItems[0])
+      updateItem(update.ConfigItems[0], true)
       return
     }
-
     updateItems(update.ConfigItems)
   })
 
   // this is only for easier UI testing
   // while developing the UI
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
+    if (process.env.NODE_ENV === "development" && configItems.length === 0) {
       setItems(testdata)
     }
   },[setItems])

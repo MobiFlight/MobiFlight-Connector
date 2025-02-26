@@ -66,12 +66,20 @@ namespace MobiFlight.Base
             GetClient().TrackEvent(trackingEvent);
         }
 
-        public void ConfigLoaded(ConfigFile configFile)
+        public void ProjectLoaded(Project project)
+        {
+            EventTelemetry trackingEvent = new EventTelemetry("ProjectLoaded");
+            trackingEvent.Metrics["ConfigFiles"] = project.ConfigFiles.Count;
+            GetClient().TrackEvent(trackingEvent);
+            project.ConfigFiles.ForEach(configFile => ConfigLoaded((IConfigFile)configFile));
+        }
+
+        public void ConfigLoaded(IConfigFile configFile)
         {
             // Track config loaded event
             EventTelemetry trackingEvent = new EventTelemetry("ConfigLoaded");
-            List<OutputConfigItem> outputConfigs = configFile.OutputConfigItems;
-            List<InputConfigItem> inputConfigs = configFile.InputConfigItems;
+            List<OutputConfigItem> outputConfigs = configFile.ConfigItems.Where(i => i is OutputConfigItem).Cast<OutputConfigItem>().ToList();
+            List<InputConfigItem> inputConfigs = configFile.ConfigItems.Where(i => i is InputConfigItem).Cast<InputConfigItem>().ToList();
 
             foreach (OutputConfigItem item in outputConfigs)
             {
@@ -79,7 +87,7 @@ namespace MobiFlight.Base
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 
-                key = "output." + item.SourceType;
+                key = "output." + item.Source.SourceType;
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
             }

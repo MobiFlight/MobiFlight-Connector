@@ -1,12 +1,6 @@
 ﻿using MobiFlight.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
@@ -61,7 +55,7 @@ namespace MobiFlight.OutputConfig
                 writer.WriteAttributeString("pinPwm", DisplayPinPWM.ToString());
         }
 
-        public object Clone()
+        public override object Clone()
         {
             Output clone = new Output();
             clone.DisplayPin = DisplayPin;

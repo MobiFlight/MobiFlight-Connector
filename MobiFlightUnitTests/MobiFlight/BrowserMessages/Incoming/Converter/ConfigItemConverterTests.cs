@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
+using MobiFlight.Base.Serialization.Json;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
 {
@@ -21,7 +21,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         [TestMethod]
         public void ReadJson_InputConfigItem_DeserializesCorrectly()
         {
-            var json = "{\"Type\":\"MobiFlight.InputConfigItem\",\"Name\":\"SomeValue\"}";
+            var json = "{\"Type\":\"InputConfigItem\",\"Name\":\"SomeValue\"}";
             var result = JsonConvert.DeserializeObject<ConfigItem>(json);
 
             Assert.IsInstanceOfType(result, typeof(InputConfigItem));
@@ -31,7 +31,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         [TestMethod]
         public void ReadJson_OutputConfigItem_DeserializesCorrectly()
         {
-            var json = "{\"Type\":\"MobiFlight.OutputConfigItem\",\"Name\":\"SomeValue\"}";
+            var json = "{\"Type\":\"OutputConfigItem\",\"Name\":\"SomeValue\"}";
             var result = JsonConvert.DeserializeObject<ConfigItem>(json);
 
             Assert.IsInstanceOfType(result, typeof(OutputConfigItem));
@@ -42,7 +42,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         [ExpectedException(typeof(NotSupportedException))]
         public void ReadJson_UnsupportedType_ThrowsNotSupportedException()
         {
-            var json = "{\"Type\":\"MobiFlight.UnsupportedConfigItem\"}";
+            var json = "{\"Type\":\"UnsupportedConfigItem\"}";
             JsonConvert.DeserializeObject<ConfigItem>(json);
         }
 
@@ -52,7 +52,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             var item = new InputConfigItem { Name = "SomeValue" };
             var json = JsonConvert.SerializeObject(item);
 
-            StringAssert.Contains(json, "\"Type\":\"MobiFlight.InputConfigItem\"");
+            StringAssert.Contains(json, "\"Type\":\"InputConfigItem\"");
             StringAssert.Contains(json, "\"Name\":\"SomeValue\"");
         }
 
@@ -62,7 +62,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
             var item = new OutputConfigItem { Name = "SomeValue" };
             var json = JsonConvert.SerializeObject(item);
 
-            StringAssert.Contains(json, "\"Type\":\"MobiFlight.OutputConfigItem\"");
+            StringAssert.Contains(json, "\"Type\":\"OutputConfigItem\"");
             StringAssert.Contains(json, "\"Name\":\"SomeValue\"");
         }
     }

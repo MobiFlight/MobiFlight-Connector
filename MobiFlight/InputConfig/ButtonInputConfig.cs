@@ -6,7 +6,7 @@ using MobiFlight.Base;
 
 namespace MobiFlight.InputConfig
 {
-    public class ButtonInputConfig : DeviceConfig, IXmlSerializable, ICloneable
+    public class ButtonInputConfig : IXmlSerializable, ICloneable
     {
         public InputAction onPress;        
         public InputAction onRelease;        

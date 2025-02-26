@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -51,21 +52,29 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncToConfig(OutputConfigItem config)
         {
-            config.MobiFlightVariable.TYPE = TypeComboBox.SelectedValue.ToString();
-            config.MobiFlightVariable.Name = NameTextBox.Text;
+            config.Source = new VariableSource()
+            {
+                MobiFlightVariable = new MobiFlightVariable()
+                {
+                    Name = NameTextBox.Text,
+                    TYPE = TypeComboBox.SelectedValue.ToString()
+                }
+            };
             transformOptionsGroup1.syncToConfig(config);
         }
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+            if (!(config.Source is VariableSource)) return;
+
             try { 
-                TypeComboBox.SelectedValue = config.MobiFlightVariable.TYPE;
+                TypeComboBox.SelectedValue = (config.Source as VariableSource).MobiFlightVariable.TYPE;
             } catch (Exception)
             {
                 TypeComboBox.SelectedValue = MobiFlightVariable.TYPE_NUMBER;
             }
 
-            NameTextBox.Text = config.MobiFlightVariable.Name;
+            NameTextBox.Text = (config.Source as VariableSource).MobiFlightVariable.Name;
             transformOptionsGroup1.syncFromConfig(config);
         }
 

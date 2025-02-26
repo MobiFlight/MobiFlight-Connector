@@ -29,7 +29,7 @@ namespace MobiFlight.Base.Tests
 
         [TestMethod()]
         public void GenerateSimpleHashTest()
-        {            
+        {
             string xTouch = "X-TOUCH MINI";
             int xTouchHash = xTouch.GenerateSimpleHash();
             Assert.AreEqual(954907131, xTouchHash, "Failed to generate correct hash from string.");
@@ -57,6 +57,21 @@ namespace MobiFlight.Base.Tests
             string fail = "My fail";
             int failHash = fail.GenerateSimpleHash();
             Assert.AreNotEqual(0, failHash, "Hash of 0 should not be the result.");
+        }
+
+        [TestMethod()]
+        public void AreEqualTest()
+        {
+            string s1 = null;
+            string s2 = null;
+            Assert.IsTrue(s1.AreEqual(s2));
+
+            s1 = "Hello";
+            Assert.IsFalse(s1.AreEqual(s2));
+            s2 = "World!";
+            Assert.IsFalse(s1.AreEqual(s2));
+            s2 = "Hello";
+            Assert.IsTrue(s1.AreEqual(s2));
         }
     }
 }
