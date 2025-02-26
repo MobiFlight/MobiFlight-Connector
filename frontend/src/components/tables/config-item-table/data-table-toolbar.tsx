@@ -9,6 +9,7 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { IConfigItem } from "@/types"
 import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
+import DarkModeToggle from "@/components/DarkModeToggle"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -100,6 +101,7 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
+      <DarkModeToggle />
     </div>
   )
 }
