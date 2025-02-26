@@ -7,8 +7,6 @@ import { useConfigStore } from "./stores/configFileStore"
 import i18next from "i18next"
 import Settings from "./types/settings"
 import _ from "lodash"
-import { useTheme } from "./components/theme-provider"
-import DarkModeToggle from "./components/DarkModeToggle"
 
 function App() {
   const [queryParameters] = useSearchParams()
