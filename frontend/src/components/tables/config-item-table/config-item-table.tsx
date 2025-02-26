@@ -141,7 +141,7 @@ export function ConfigItemTable<TData, TValue>({
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
-      <div className="p-2">
+      <div className="p-1">
         <DataTableToolbar table={table} items={data as IConfigItem[]} />
       </div>
         <DndContext
@@ -223,7 +223,7 @@ export function ConfigItemTable<TData, TValue>({
           </Table>
       </div>
         </DndContext>
-      <div className="flex justify-start gap-2 p-2">
+      <div className="flex justify-start gap-2">
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"

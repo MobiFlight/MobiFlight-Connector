@@ -71,8 +71,8 @@ function App() {
               <Outlet />
             </div>
             <div className="flex flex-row justify-end gap-2 bg-white px-5 dark:bg-zinc-800">
-              <div className="text-xs text-gray-500">MobiFlight 2025</div>
-              <div className="text-xs text-gray-500">Version 1.0.0</div>
+              <div className="text-xs text-muted-foreground">MobiFlight 2025</div>
+              <div className="text-xs text-muted-foreground">Version 1.0.0</div>
             </div>
           </div>
           {/* <Toaster
