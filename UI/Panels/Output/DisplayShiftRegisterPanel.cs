@@ -1,11 +1,6 @@
-﻿using System;
+﻿using MobiFlight.OutputConfig;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels
@@ -26,20 +21,28 @@ namespace MobiFlight.UI.Panels
 
         internal void SyncFromConfig(OutputConfigItem config)
         {
+            if (!(config.Device is ShiftRegister)) return;
+
+            var shiftRegister = config.Device as ShiftRegister;
             // pre-select display stuff
-            if (config.ShiftRegister != null && config.ShiftRegister.Address != null)
+            if (shiftRegister.Address != null)
             {
-                if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, config.ShiftRegister.Address))
+                if (!ComboBoxHelper.SetSelectedItem(shiftRegistersComboBox, shiftRegister.Address))
                 {
-                    Log.Instance.log($"Exception on selecting item {config.ShiftRegister.Address} in Shift Register ComboBox.", LogSeverity.Error);
+                    Log.Instance.log($"Exception on selecting item {shiftRegister.Address} in Shift Register ComboBox.", LogSeverity.Error);
                 }
             }
 
             UpdatePinList();
 
-            if (config.ShiftRegister.Pin != null) {
+            if (shiftRegister.Pin != null) {
                 OutputConfigItem cfg = config.Clone() as OutputConfigItem;
-                cfg.Pin.DisplayPin = config.ShiftRegister.Pin;
+                cfg.Device = new Output()
+                {
+                    DisplayPin = shiftRegister.Pin,
+                    DisplayPinBrightness = shiftRegister.Brightness,
+                    DisplayPinPWM = shiftRegister.PWM
+                };
                 displayPinPanel.syncFromConfig(cfg);
             }
         }
@@ -78,12 +81,17 @@ namespace MobiFlight.UI.Panels
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
-            config.ShiftRegister.Address = shiftRegistersComboBox.SelectedValue as String;
+            config.Device = new ShiftRegister();
+            var shiftRegister = config.Device as ShiftRegister;
+
+            shiftRegister.Address = shiftRegistersComboBox.SelectedValue as String;
 
             OutputConfigItem cfg = config.Clone() as OutputConfigItem;
             cfg = displayPinPanel.syncToConfig(cfg);
 
-            config.ShiftRegister.Pin = cfg.Pin.DisplayPin;
+            shiftRegister.Pin = (cfg.Device as Output).DisplayPin;
+            shiftRegister.Brightness = (cfg.Device as Output).DisplayPinBrightness;
+            shiftRegister.PWM = (cfg.Device as Output).DisplayPinPWM;
             return config;
         }
         internal void SetNumModules(int num8bitRegisters)

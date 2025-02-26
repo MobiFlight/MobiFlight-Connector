@@ -79,23 +79,31 @@
     <Compile Include="Base\BooleanConverterConfigTests.cs" />
     <Compile Include="Base\CmdLineParamsTests.cs" />
     <Compile Include="Base\ComboBoxHelperTests.cs" />
+    <Compile Include="Base\ConfigFileFactoryTests.cs" />
     <Compile Include="Base\ConfigFileTests.cs" />
+    <Compile Include="Base\ConfigItemTests.cs" />
     <Compile Include="Base\ConfigRefListTests.cs" />
     <Compile Include="Base\ConfigRefTests.cs" />
     <Compile Include="Base\ConnectorValueTests.cs" />
+    <Compile Include="Base\Deprecated\DeprecatedConfigFileTests.cs" />
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\PreconditionListTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
+    <Compile Include="Base\ProjectTests.cs" />
+    <Compile Include="Base\Serialization\Json\SourceConverterTests.cs" />
     <Compile Include="Base\SerialNumberTests.cs" />
     <Compile Include="EventIdInputPanelTests.cs" />
     <Compile Include="Forms\ConfigWizardTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverterTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverterTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />
     <Compile Include="MobiFlight\MobiFlightModuleInfoTests.cs" />
+    <Compile Include="MobiFlight\Modifier\BlinkTests.cs" />
     <Compile Include="MobiFlight\Modifier\InterpolationTests.cs" />
     <Compile Include="MobiFlight\Config\ConfigTests.cs" />
     <Compile Include="MobiFlight\InputConfigItemTests.cs" />
@@ -125,8 +133,9 @@
     <Compile Include="MobiFlight\OutputConfig\CustomDeviceTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffsetTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModuleTests.cs" />
-    <Compile Include="MobiFlight\OutputConfig\PinTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\OutputTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\ServoTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\ShiftRegisterTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValueTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\StepperTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutputTests.cs" />
@@ -148,11 +157,26 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\Base\ConfigFile\Json\OpenConfig.mfjson">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\OpenFileTest.LCD-serialization-bc.mcc.exp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\OpenFileTest.LCD-serialization-bc.mcc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\Json\OpenProjectTest.mfproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="assets\Base\ConfigFile\OpenFileTest.2912.xml.exp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="assets\Base\ConfigFile\OpenFileTest.2912.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\Base\ConfigFile\OpenFileTest.NoSettingNode.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\Base\ConfigFile\OpenFileTest.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -398,6 +422,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\ReadXmlTest.ButtonInputAction.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\WriteXmlTest.2.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\ShiftRegister\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\ShiftRegister\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+	<outputs>
+		<config guid="bdd97308-b4f8-475c-a8c4-729e191101af">
+			<active>true</active>
+			<converter>Boolean</converter>
+			<comparison>=</comparison>
+			<description>ConfigItem For Precondition</description>
+			<fsuipcSize>1</fsuipcSize>
+			<trigger>change</trigger>
+			<arcazeSerial>-</arcazeSerial>
+		</config>
+	</outputs>
+	<inputs />
+</MobiflightConnector>

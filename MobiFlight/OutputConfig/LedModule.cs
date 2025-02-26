@@ -2,11 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
@@ -37,7 +33,7 @@ namespace MobiFlight.OutputConfig
             DisplayLedDecimalPoints = new List<string>();
         }
 
-        public object Clone()
+        public override object Clone()
         {
             LedModule clone = new LedModule();
             clone.DisplayLedConnector = DisplayLedConnector;

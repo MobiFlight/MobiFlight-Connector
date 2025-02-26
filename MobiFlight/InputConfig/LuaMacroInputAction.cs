@@ -8,8 +8,8 @@ namespace MobiFlight.InputConfig
 {
     public class LuaMacroInputAction : InputAction
     {
-        public String MacroName = "";
-        public String MacroValue = "0";
+        public String MacroName { get; set; } = "";
+        public String MacroValue { get; set; } = "0";
         public new const String Label = "FSUIPC - Lua Macro";
         public const String TYPE = "LuaMacroInputAction";
 

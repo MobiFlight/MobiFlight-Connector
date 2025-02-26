@@ -20,8 +20,8 @@ namespace MobiFlight.InputConfig
         public new const String Label = "FSUIPC - Jeehell - Events";
         public const String TYPE = "JeehellInputAction";
 
-        public Byte EventId;
-        public String Param = "";
+        public Byte EventId { get; set; }
+        public String Param { get; set; } = "";
         
         override public object Clone()
         {
@@ -148,7 +148,7 @@ namespace MobiFlight.InputConfig
 
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg, cache as FSUIPC.FSUIPCCacheInterface);
+                ConnectorValue tmpValue = FSUIPC.FsuipcHelper.executeRead(cfg.FSUIPC, cache as FSUIPC.FSUIPCCacheInterface);
                 Tuple<string, string> replacement = new Tuple<string, string>("$", tmpValue.ToString());
                 replacements.Add(replacement);
             }

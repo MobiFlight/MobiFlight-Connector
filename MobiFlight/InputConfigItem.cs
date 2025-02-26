@@ -6,6 +6,7 @@ using System;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace MobiFlight
 {
@@ -15,7 +16,7 @@ namespace MobiFlight
         // which is used for serialization
         // independently from current cultureInfo
         // @see: https://forge.simple-solutions.de/issues/275
-        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");   
+        private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
 
         public const String TYPE_NOTSET = "-";
         public const String TYPE_BUTTON = MobiFlightButton.TYPE;
@@ -26,10 +27,15 @@ namespace MobiFlight
         // only for backward compatibility during loading
         public const String TYPE_ANALOG_OLD = "Analog";
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ButtonInputConfig button { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public EncoderInputConfig encoder { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputMultiplexerConfig inputMultiplexer { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnalogInputConfig analog { get; set; }
 
         public string DeviceType { get; set; }
@@ -150,7 +156,7 @@ namespace MobiFlight
                         Preconditions.Add(tmp);
                     } while (reader.LocalName == "precondition");
                 }
-                if (reader.NodeType != XmlNodeType.EndElement) 
+                if (reader.NodeType != XmlNodeType.EndElement)
                     reader.Read(); // this should be the corresponding "end" node
 
                 if (reader.NodeType == XmlNodeType.EndElement)
@@ -243,7 +249,7 @@ namespace MobiFlight
             writer.WriteEndElement();
         }
 
-        public InputConfigItem(InputConfigItem config):base(config)
+        public InputConfigItem(InputConfigItem config) : base(config)
         {
             this.button = (ButtonInputConfig)config.button?.Clone();
             this.encoder = (EncoderInputConfig)config.encoder?.Clone();
@@ -254,7 +260,7 @@ namespace MobiFlight
             this.DeviceName = config.DeviceName?.Clone() as string;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             return (object)new InputConfigItem(this);
         }
@@ -272,7 +278,7 @@ namespace MobiFlight
             switch (DeviceType)
             {
                 case TYPE_BUTTON:
-                    if (button != null)                
+                    if (button != null)
                         button.execute(cacheCollection, e, configRefs);
                     break;
                 case TYPE_ENCODER:
@@ -294,7 +300,7 @@ namespace MobiFlight
                     if (analog != null)
                         analog.execute(cacheCollection, e, configRefs);
                     break;
-            }            
+            }
         }
 
         public Dictionary<String, int> GetStatistics()
@@ -329,9 +335,9 @@ namespace MobiFlight
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is InputConfigItem item)) return false;
-            
-            return  base.Equals(obj) &&
-                    DeviceName == item.DeviceName &&
+            if (!base.Equals(obj)) return false;
+
+            return  DeviceName == item.DeviceName &&
                     DeviceType == item.DeviceType &&
                     button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&
@@ -343,18 +349,8 @@ namespace MobiFlight
         }
 
         protected override IDeviceConfig GetDeviceConfig()
-        {
-            return new InputConfigItemDeviceConfig()
-            {
-                Name = DeviceName,
-                Type = DeviceType
-            };
+        { 
+            return null;
         }
-    }
-
-    internal class InputConfigItemDeviceConfig : IDeviceConfig
-    {
-        public string Name { get; set; }
-        public string Type { get; set; }
     }
 }

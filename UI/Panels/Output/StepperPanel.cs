@@ -31,35 +31,42 @@ namespace MobiFlight.UI.Panels
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+            if (!(config.Device is OutputConfig.Stepper)) return;
+
+            var configStepper = config.Device as OutputConfig.Stepper;
+
             // stepper initialization
-            if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, config.Stepper.Address))
+            if (!ComboBoxHelper.SetSelectedItem(stepperAddressesComboBox, configStepper.Address))
             {
                 // TODO: provide error message
-                Log.Instance.log($"Exception on selecting item {config.Stepper.Address} in Stepper address ComboBox.", LogSeverity.Debug);
+                Log.Instance.log($"Exception on selecting item {configStepper.Address} in Stepper address ComboBox.", LogSeverity.Debug);
             }
 
-            inputRevTextBox.Text                = config.Stepper.InputRev.ToString();
-            outputRevTextBox.Text               = config.Stepper.OutputRev.ToString();
+            inputRevTextBox.Text                = configStepper.InputRev.ToString();
+            outputRevTextBox.Text               = configStepper.OutputRev.ToString();
 
-            if (config.Stepper.Speed>0)
-                SpeedTextBox.Text               = config.Stepper.Speed.ToString();
+            if (configStepper.Speed>0)
+                SpeedTextBox.Text               = configStepper.Speed.ToString();
 
-            if (config.Stepper.Acceleration>0)
-                AccelerationTextBox.Text        = config.Stepper.Acceleration.ToString();
+            if (configStepper.Acceleration>0)
+                AccelerationTextBox.Text        = configStepper.Acceleration.ToString();
 
-            CompassModeCheckBox.Checked         = config.Stepper.CompassMode;
+            CompassModeCheckBox.Checked         = configStepper.CompassMode;
         }
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
             if (stepperAddressesComboBox.SelectedValue != null)
             {
-                config.Stepper.Address      = stepperAddressesComboBox.SelectedValue.ToString();
-                config.Stepper.InputRev     = Int16.Parse(inputRevTextBox.Text);
-                config.Stepper.OutputRev    = Int16.Parse(outputRevTextBox.Text);
-                config.Stepper.CompassMode  = CompassModeCheckBox.Checked;
-                config.Stepper.Acceleration = Int16.Parse(AccelerationTextBox.Text);
-                config.Stepper.Speed        = Int16.Parse(SpeedTextBox.Text);
+                config.Device = new OutputConfig.Stepper()
+                {
+                    Address = stepperAddressesComboBox.SelectedValue.ToString(),
+                    InputRev = Int16.Parse(inputRevTextBox.Text),
+                    OutputRev = Int16.Parse(outputRevTextBox.Text),
+                    CompassMode = CompassModeCheckBox.Checked,
+                    Acceleration = Int16.Parse(AccelerationTextBox.Text),
+                    Speed = Int16.Parse(SpeedTextBox.Text)
+                };
             }
             return config;
         }

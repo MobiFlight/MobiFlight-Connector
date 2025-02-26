@@ -3,6 +3,7 @@ using MobiFlight.HubHop;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
+using MobiFlight.xplane;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -213,20 +214,26 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncToConfig(OutputConfigItem config)
         {
-            config.XplaneDataRef = new xplane.XplaneDataRef();
-            config.SimConnectValue = new SimConnectValue();
-
             if (FlightSimType==FlightSimType.MSFS2020)
             {
-                config.SimConnectValue.VarType = SimConnectVarType.CODE;
-
                 Msfs2020HubhopPreset selectedPreset = (PresetComboBox.Items[PresetComboBox.SelectedIndex] as Msfs2020HubhopPreset);
-
-                config.SimConnectValue.UUID = selectedPreset?.id;
-                config.SimConnectValue.Value = SimVarNameTextBox.Text.ToLF();
-            } else if (FlightSimType == FlightSimType.XPLANE)
+                config.Source = new SimConnectSource() {
+                    SimConnectValue = new SimConnectValue()
+                    {
+                        UUID = selectedPreset?.id,
+                        VarType = SimConnectVarType.CODE,
+                        Value = SimVarNameTextBox.Text.ToLF(),
+                    }
+                };
+            } else 
+            if (FlightSimType == FlightSimType.XPLANE)
             {
-                config.XplaneDataRef.Path = SimVarNameTextBox.Text.Trim();
+                config.Source = new XplaneSource() { 
+                    XplaneDataRef = new XplaneDataRef()
+                    {
+                        Path = SimVarNameTextBox.Text.Trim()
+                    }
+                };
             }
         }
 
@@ -271,7 +278,10 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfigXplane(OutputConfigItem config)
         {
-            var VariableValue = config.XplaneDataRef.Path?.Trim();
+            if (!(config.Source is XplaneSource)) return;
+            var source = (config.Source as XplaneSource);
+
+            var VariableValue = source.XplaneDataRef.Path?.Trim();
 
             // Restore the code
             if (VariableValue != "")
@@ -289,22 +299,25 @@ namespace MobiFlight.UI.Panels.Config
 
         internal void syncFromConfigMSFS(OutputConfigItem config)
         {
-            var VariableValue = config.SimConnectValue.Value;
+            var source = (config.Source as SimConnectSource);
+            if (source == null) return;
+
+            var VariableValue = source.SimConnectValue.Value;
 
             // Restore the code
-            if (config.SimConnectValue.Value != "") { 
+            if (source.SimConnectValue.Value != "") { 
                 SimVarNameTextBox.TextChanged -= SimVarNameTextBox_TextChanged;
-                SimVarNameTextBox.Text = config.SimConnectValue.Value.ToCRLF();
+                SimVarNameTextBox.Text = source.SimConnectValue.Value.ToCRLF();
                 SimVarNameTextBox.TextChanged += SimVarNameTextBox_TextChanged;
             }
 
-            if (config.SimConnectValue.UUID!=null) {
+            if (source.SimConnectValue.UUID!=null) {
                 // Try to find the preset by UUID
                 Msfs2020HubhopPreset OriginalPreset =
-                    PresetList.FindByUUID(Mode == HubHopPanelMode.Input ? HubHopType.AllInputs : HubHopType.Output, config.SimConnectValue.UUID);
+                    PresetList.FindByUUID(Mode == HubHopPanelMode.Input ? HubHopType.AllInputs : HubHopType.Output, source.SimConnectValue.UUID);
                 if (OriginalPreset != null)
                 {
-                    String Code = Regex.Replace(config.SimConnectValue.Value, @":\d+", ":index");
+                    String Code = Regex.Replace(source.SimConnectValue.Value, @":\d+", ":index");
                     
                     // Code was modified by user after
                     // originally using a preset as template
@@ -318,7 +331,7 @@ namespace MobiFlight.UI.Panels.Config
 
             // Try to find the original preset and 
             // initialize comboboxes accordingly
-            String OriginalCode = config.SimConnectValue.Value;
+            String OriginalCode = source.SimConnectValue.Value;
             TryToSelectOriginalPresetFromCode(OriginalCode);
         }
 

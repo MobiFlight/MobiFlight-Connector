@@ -1,10 +1,15 @@
-﻿using MobiFlight.InputConfig;
+﻿using FSUIPC;
+using MobiFlight.Base;
+using MobiFlight.InputConfig;
+using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
+using SharpDX.Multimedia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -267,35 +272,40 @@ namespace MobiFlight.UI.Panels.Config
             }
         }
 
-        internal void syncToConfig(IFsuipcConfigItem config)
+        internal void syncToConfig(OutputConfigItem config)
         {
-            config.FSUIPC.Offset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
-            config.FSUIPC.OffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
-            
-            
-            if (config.FSUIPC.OffsetType != FSUIPCOffsetType.String)
+            config.Source = new FsuipcSource();
+            SyncOffsetToConfig((config.Source as FsuipcSource).FSUIPC);
+            transformOptionsGroup1.syncToConfig(config);
+        }
+
+        internal void SyncOffsetToConfig(FsuipcOffset offset)
+        {
+
+            offset.Offset = Int32.Parse(fsuipcOffsetTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
+            offset.OffsetType = (FSUIPCOffsetType)Enum.Parse(typeof(FSUIPCOffsetType), ((ListItem)(fsuipcOffsetTypeComboBox.SelectedItem)).Value);
+
+            if (offset.OffsetType != FSUIPCOffsetType.String)
             {
                 // the mask has only meaning for values other than strings
-                config.FSUIPC.Mask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
-                config.FSUIPC.Size = Byte.Parse(fsuipcSizeComboBox.Text);
-                
-            }
+                offset.Mask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
+                offset.Size = Byte.Parse(fsuipcSizeComboBox.Text);
+            }   
             else
             {
                 // by default we set the string length to 255
                 // because we don't offer an option for the string length yet
-                config.FSUIPC.Size = 255;
+                offset.Size = 255;
             }
 
-            config.FSUIPC.BcdMode = fsuipcBcdModeCheckBox.Checked;
-            transformOptionsGroup1.syncToConfig(config);
+            offset.BcdMode = fsuipcBcdModeCheckBox.Checked;
         }
 
         public InputConfig.InputAction ToConfig()
         {
             FsuipcOffsetInputAction config = new FsuipcOffsetInputAction();
-            syncToConfig(config);
-
+            SyncOffsetToConfig(config.FSUIPC);
+            transformOptionsGroup1.syncToConfig(config);
             return config;
         }
 

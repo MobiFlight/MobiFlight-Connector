@@ -42,11 +42,10 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
-import { ConfigValueUpdate, IConfigItem } from "@/types"
+import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandAddConfigItem, CommandResortConfigItem } from "@/types/commands"
-import { useConfigStore } from "@/stores/configFileStore"
 import { useTranslation } from "react-i18next"
 import { DndTableRow } from "@/components/tables/config-item-table/DndTableRow"
 
@@ -92,14 +91,14 @@ export function ConfigItemTable<TData, TValue>({
   })
 
   const { publish } = publishOnMessageExchange()
-  const { updateItem } = useConfigStore()
   const tableRef = useRef<HTMLTableElement>(null)
   const prevDataLength = useRef(data.length)
 
   useEffect(() => {
     if (data.length > prevDataLength.current) {
+      const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(
-        `[data-row-index="${data.length - 1}"]`,
+        `[dnd-itemid="${lastItem.GUID}"]`,
       )
       if (rowElement) {
         rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
@@ -107,15 +106,6 @@ export function ConfigItemTable<TData, TValue>({
     }
     prevDataLength.current = data.length
   }, [data])
-
-  useAppMessage("ConfigValueUpdate", (message) => {
-    console.log(message)
-    const update = message.payload as ConfigValueUpdate
-    // better performance for single updates
-    if (update.ConfigItems.length === 1) {
-      updateItem(update.ConfigItems[0], true)
-    }
-  })
 
   const { t } = useTranslation()
 
@@ -138,6 +128,7 @@ export function ConfigItemTable<TData, TValue>({
       // then set the items
 
       setItems(arrayWithNewOrder as IConfigItem[]);
+
       publishOnMessageExchange().publish({
         key: "CommandResortConfigItem",
         payload: {

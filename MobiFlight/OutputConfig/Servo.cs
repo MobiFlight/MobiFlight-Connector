@@ -51,7 +51,7 @@ namespace MobiFlight.OutputConfig
             writer.WriteAttributeString("servoMaxRotationPercent", MaxRotationPercent);
         }
 
-        public Servo Clone()
+        public override object Clone()
         {
             Servo clone = new Servo();
             clone.Address = this.Address;

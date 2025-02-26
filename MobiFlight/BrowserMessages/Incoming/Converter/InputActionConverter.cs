@@ -1,5 +1,4 @@
 ﻿using MobiFlight.InputConfig;
-using MobiFlight.Modifier;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -18,11 +17,16 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
             var type = value.GetType();
             writer.WriteStartObject();
             writer.WritePropertyName("Type");
-            writer.WriteValue(type.FullName); // Write the type discriminator
+            writer.WriteValue(type.Name); // Write the type discriminator
             foreach (var property in type.GetProperties())
             {
                 if (property.CanRead)
                 {
+                    var propertyValue = property.GetValue(value);
+                    if (propertyValue == null && serializer.NullValueHandling == NullValueHandling.Ignore)
+                    {
+                        continue; // Skip null values if NullValueHandling is set to Ignore
+                    }
                     writer.WritePropertyName(property.Name);
                     serializer.Serialize(writer, property.GetValue(value));
                 }
@@ -38,7 +42,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter
             }
 
             var jsonObject = JObject.Load(reader);
-            var typeName = jsonObject["Type"]?.ToString();
+            var typeName = $"MobiFlight.InputConfig.{jsonObject["Type"]?.ToString()}";
 
             var type = Type.GetType(typeName);
             if (type == null)

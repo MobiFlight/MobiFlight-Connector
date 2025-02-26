@@ -34,7 +34,7 @@ namespace MobiFlight.OutputConfig
             );
         }
 
-        public object Clone()
+        public override object Clone()
         {
             return new CustomDevice
             {

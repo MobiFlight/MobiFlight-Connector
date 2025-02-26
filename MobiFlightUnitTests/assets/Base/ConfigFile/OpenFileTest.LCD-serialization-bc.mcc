@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MobiflightConnector>
+  <outputs>
+    <config guid="36b54291-2353-490a-9462-5d6767edd67f">
+      <active>true</active>
+      <description>COM1 Active</description>
+      <settings msdata:InstanceType="MobiFlight.OutputConfigItem, MFConnector, Version=10.5.2.0, Culture=neutral, PublicKeyToken=null" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <source type="XplaneDataRef" path="sim/cockpit/radios/com1_freq_hz" />
+        <test type="Float" value="12345600" />
+        <modifiers>
+          <transformation active="True" expression="$*10" />
+        </modifiers>
+        <display type="LcdDisplay" serial="ProtoBoard-v2/ SN-3F1-FDD" trigger="normal" address="LCD 1">
+          <line>COM1 ACT:$$$.$$$</line>
+          <line>    STBY:###.###</line>
+          <line>******Test******</line>
+        </display>
+        <preconditions>
+          <precondition type="variable" active="true" ref="Channel" operand="=" value="0" logic="and" />
+        </preconditions>
+        <configrefs>
+          <configref active="True" ref="e5da1263-4ca3-4adf-821b-526e2977f471" placeholder="#" testvalue="127890" />
+        </configrefs>
+      </settings>
+    </config>
+  </outputs>
+  <inputs />
+</MobiflightConnector>

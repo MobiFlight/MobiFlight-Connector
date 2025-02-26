@@ -53,34 +53,38 @@ test('Confirm edit function for name is working', async ({ configListPage, page 
 test('Confirm status icons working', async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').first()).toHaveAttribute('aria-disabled', 'true');
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(1)).toHaveAttribute('aria-disabled', 'true');
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(2)).toHaveAttribute('aria-disabled', 'true');
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(3)).toHaveAttribute('aria-disabled', 'true');
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(4)).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.getByRole('row').nth(1).getByRole('status').first()).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(1)).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(2)).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(3)).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(4)).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(5)).toHaveAttribute('aria-disabled', 'true');
   
   await configListPage.updateConfigItemStatus(0, { "Precondition": "not satisfied" });
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').first()).toHaveAttribute('aria-disabled', 'false');
+  await expect(page.getByRole('row').nth(1).getByRole('status').first()).toHaveAttribute('aria-disabled', 'false');
   
   await configListPage.updateConfigItemStatus(0, { "Source": "not satisfied" });
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(1)).toHaveAttribute('aria-disabled', 'false');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(1)).toHaveAttribute('aria-disabled', 'false');
   
   await configListPage.updateConfigItemStatus(0, { "Device": "not satisfied" });
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(2)).toHaveAttribute('aria-disabled', 'false');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(2)).toHaveAttribute('aria-disabled', 'false');
   
   await configListPage.updateConfigItemStatus(0, { "Modifier": "not satisfied" });
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(3)).toHaveAttribute('aria-disabled', 'false');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(3)).toHaveAttribute('aria-disabled', 'false');
   
   await configListPage.updateConfigItemStatus(0, { "Test": "being tested" });
-  await expect(page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('status').nth(4)).toHaveAttribute('aria-disabled', 'false');
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(4)).toHaveAttribute('aria-disabled', 'false');
+
+  await configListPage.updateConfigItemStatus(0, { "ConfigRef": "being tested" });
+  await expect(page.getByRole('row').nth(1).getByRole('status').nth(5)).toHaveAttribute('aria-disabled', 'false');
 })
 
 test('Confirm drag n drop is working', async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
-  await page.getByRole('row', { name: 'LED 1 Edit ProtoBoard-v2 SN-' }).getByRole('button').first().hover();
+  await page.getByRole('row').nth(1).getByRole('button').first().hover();
   await page.mouse.down();
-  await page.getByRole('row', { name: 'Servo' }).getByRole('button').first().hover();
+  await page.getByRole('row', { name: 'ShiftRegister' }).getByRole('button').first().hover();
   await page.mouse.up();
-  await expect(page.getByRole('row').nth(4)).toContainText("LED 1");
+  await expect(page.getByRole('row').nth(6)).toContainText("7-Segment");
 })
