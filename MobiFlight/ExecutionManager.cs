@@ -148,22 +148,30 @@ namespace MobiFlight
                 joystickManager.Startup();
                 OnJoystickConnectedFinished?.Invoke(sender, e);
             };            
-            if (Properties.Settings.Default.EnableJoystickSupport)
-            {
-                joystickManager.Connect();
-            }
 
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (sender, e) => { 
                 midiBoardManager.Startup(); 
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
             };
+
+            mobiFlightCache.Start();
+        }
+
+        public void StartJoystickManager()
+        {
+            if (Properties.Settings.Default.EnableJoystickSupport)
+            {
+                joystickManager.Connect();
+            }
+        }
+
+        public void StartMidiBoardManager()
+        {
             if (Properties.Settings.Default.EnableMidiSupport)
             {
                 midiBoardManager.Connect();
             }
-
-            mobiFlightCache.Start();
         }
 
         private void ModuleCache_ModuleConnected(object sender, EventArgs e)
