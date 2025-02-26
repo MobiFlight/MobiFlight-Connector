@@ -25,9 +25,9 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
     `Types.${type?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
   )
   return type != "-" ? (
-    <div className="flex flex-row items-center gap-2 md:w-32">
+    <div className="flex flex-row items-center gap-2 lg:w-36 2xl:w-48">
       <div>{icon}</div>
-      <div className="hidden w-full flex-col md:flex">
+      <div className="hidden w-full flex-col lg:flex">
         <p className="text-md truncate font-semibold">{label}</p>
         <p className="truncate text-xs text-muted-foreground">{typeLabel}</p>
       </div>

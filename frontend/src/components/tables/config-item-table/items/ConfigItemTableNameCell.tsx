@@ -42,7 +42,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
       {!isEditing ? (
         <div className="flex flex-col">
           <div className="flex flex-row items-center gap-1">
-            <p className="max-w-60 truncate px-0 font-semibold">{label}</p>
+            <p className="max-w-52 truncate px-0 font-semibold">{label}</p>
             <IconEdit
               role="button"
               aria-label="Edit"
@@ -50,7 +50,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
               className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
             />
           </div>
-          <p className="w-60 truncate text-xs text-slate-500 md:hidden">
+          <p className="w-60 truncate text-xs text-muted-foreground xl:hidden">
             {moduleName} - {deviceName}
           </p>
         </div>
@@ -62,7 +62,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
           <Input
             type="text"
             value={label}
-            className="m-0 h-6 px-2 text-sm md:h-8"
+            className="m-0 h-6 px-2 text-sm lg:h-8"
             onChange={(e) => setLabel(e.target.value)}
             onKeyDown={(e) =>
               e.key === "Enter" && (saveChanges(), toggleEdit())
