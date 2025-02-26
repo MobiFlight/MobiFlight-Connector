@@ -193,9 +193,6 @@ export function ConfigItemTable<TData, TValue>({
                             payload: { action: "edit", item: row.original },
                           })
                         }}
-                        className={
-                          row.getValue("Active") ? "bg-white" : "bg-white text-gray-500"
-                        }
                       >
                         {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id} className="p-1">

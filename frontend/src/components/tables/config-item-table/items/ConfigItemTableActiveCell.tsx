@@ -27,7 +27,6 @@ const ConfigItemTableActiveCell = ({ row } : ConfigItemTableActiveCellProps) => 
       </div>
     <div className="w-12 text-center">
       <Switch
-        className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700"
         checked={row.getValue("Active") as boolean}
         onClick={() => {
           item.Active = !item.Active
