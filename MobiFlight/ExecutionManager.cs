@@ -224,8 +224,22 @@ namespace MobiFlight
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
                         if (cfg == null) break;
 
-                        ExecuteTestOff(ConfigItemInTestMode, true);
-                        ExecuteTestOn(cfg as OutputConfigItem);
+                        try
+                        {
+                            ExecuteTestOff(ConfigItemInTestMode, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Instance.log(e.Message, LogSeverity.Error);
+                        }
+
+                        try {
+                            ExecuteTestOn(cfg as OutputConfigItem);
+                        }
+                        catch(Exception e)
+                        {
+                            Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
+                        }
                         
                         return;
 
