@@ -9,6 +9,8 @@ namespace MobiFlight.OutputConfig
         public override string Name { get { return Address; } }
         public String Pin { get; set; }
         public String Address { get; set; }
+        public byte Brightness { get; set; } = byte.MaxValue;
+        public bool PWM { get; set; } = false;
 
         public ShiftRegister()
         {
@@ -18,10 +20,15 @@ namespace MobiFlight.OutputConfig
 
         public override bool Equals(Object obj)
         {
+            if (!(obj is ShiftRegister)) return false;
+            var other = (ShiftRegister)obj;
+
             return
-                (obj != null) && (obj is ShiftRegister) &&
-                (this.Pin == (obj as ShiftRegister).Pin) &&
-                (this.Address == (obj as ShiftRegister).Address);
+                Pin == other.Pin &&
+                Address == other.Address &&
+                Brightness == other.Brightness &&
+                PWM == other.PWM
+                ;
         }
 
         public void ReadXml(XmlReader reader)
@@ -36,12 +43,31 @@ namespace MobiFlight.OutputConfig
             {
                 Address = reader["shiftRegister"];
             }
+
+            // this is only for backward compatibility
+            // with the old XML structure
+            // this has been copied over from the Output class
+            if (reader["pinBrightness"] != null && reader["pinBrightness"] != "")
+            {
+                Brightness = byte.Parse(reader["pinBrightness"]);
+            }
+            if (reader["pinPwm"] != null && reader["pinPwm"] != "")
+            {
+                PWM = bool.Parse(reader["pinPwm"]);
+            }
         }
 
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("shiftRegister", Address);
             writer.WriteAttributeString("registerOutputPin", Pin);
+
+            // this is only for backward compatibility
+            // with the old XML structure
+            // this has been copied over from the Output class
+            writer.WriteAttributeString("pinBrightness", Brightness.ToString());
+            if (PWM)
+                writer.WriteAttributeString("pinPwm", PWM.ToString());
         }
 
         public override string ToString()
@@ -60,6 +86,8 @@ namespace MobiFlight.OutputConfig
             ShiftRegister clone = new ShiftRegister();
             clone.Pin = Pin;
             clone.Address = Address;
+            clone.Brightness = Brightness;
+            clone.PWM = PWM;
             return clone;
         }
     }

@@ -1,17 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.OutputConfig;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace MobiFlight.OutputConfig.Tests
 {
     [TestClass()]
-    public class PinTests
+    public class OutputTests
     {
         [TestMethod()]
         public void PinTest()

@@ -1021,11 +1021,14 @@ namespace MobiFlight
                         if (serial != null)
                         {
                             string outputValueShiftRegister = value;
+                            var shiftRegister = cfg.Device as ShiftRegister;
 
-                            if (outputValueShiftRegister != "0" && !(cfg.Device as Output).DisplayPinPWM)
-                                outputValueShiftRegister = (cfg.Device as Output).DisplayPinBrightness.ToString();
-
-                            var shiftRegister = cfg.Device as OutputConfig.ShiftRegister;
+                            // in case PWM supported update the value
+                            if (outputValueShiftRegister != "0" && shiftRegister.PWM)
+                            {
+                                outputValueShiftRegister = shiftRegister.Brightness.ToString();
+                            }
+                                
                             mobiFlightCache.SetShiftRegisterOutput(
                                 serial,
                                 shiftRegister.Address,

@@ -133,8 +133,9 @@
     <Compile Include="MobiFlight\OutputConfig\CustomDeviceTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffsetTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModuleTests.cs" />
-    <Compile Include="MobiFlight\OutputConfig\PinTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\OutputTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\ServoTests.cs" />
+    <Compile Include="MobiFlight\OutputConfig\ShiftRegisterTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValueTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\StepperTests.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutputTests.cs" />
@@ -425,6 +426,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\MobiFlight\OutputConfig\OutputConfigItem\WriteXmlTest.2.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\ShiftRegister\ReadXmlTest.1.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\MobiFlight\OutputConfig\ShiftRegister\WriteXmlTest.1.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
