@@ -76,7 +76,8 @@ namespace MobiFlight.SimConnectMSFS
     {
         INIT_CLIENT = 0,
         RUNTIME_CLIENT = 1,
-        AIRCRAFT_NAME = 2
+        AIRCRAFT_NAME = 2,
+        AIRCRAFT_PATH = 3
     }
 
     public enum SIMCONNECT_NOTIFICATION_GROUP_ID
@@ -86,6 +87,7 @@ namespace MobiFlight.SimConnectMSFS
     }
     public enum MOBIFLIGHT_EVENTS
     {
-        DUMMY
+        DUMMY,
+        AIRCRAFT_LOADED = 10999
     };
 }

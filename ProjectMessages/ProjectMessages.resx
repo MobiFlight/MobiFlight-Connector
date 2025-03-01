@@ -653,4 +653,14 @@ Close MSFS and install the WASM module via menu "Extras" &gt; "Microsoft Flight 
     <value>None</value>
     <comment>Used in the connected devices menu to indicate no connected devices found.</comment>
   </data>
+  <data name="uiMessagePythonInstructions" xml:space="preserve">
+    <value>Please follow instructions on:
+	
+https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+	
+Page will be opened, when pressing OK.</value>
+  </data>
+  <data name="uiMessagePythonHint" xml:space="preserve">
+    <value>Python environment not ready</value>
+  </data>
 </root>

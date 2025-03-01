@@ -28,6 +28,7 @@ namespace MobiFlight.SimConnectMSFS
         public event EventHandler ConnectionLost;
         public event EventHandler LVarListUpdated;
         public event EventHandler<String> AircraftChanged;
+        public event EventHandler<String> AircraftPathChanged;
 
         private uint MaxClientDataDefinition = 0;
 
@@ -36,8 +37,8 @@ namespace MobiFlight.SimConnectMSFS
         private WasmModuleClientData WasmInitClientData;
         private WasmModuleClientData WasmRuntimeClientData;
 
-        // offset 3, because first two definitions are the client response channels and the built-in aircraft name
-        private const int SIMVAR_DATA_DEFINITION_OFFSET = 3;
+        // offset 4, because first two definitions are the client response channels, aircraft name and path
+        private const int SIMVAR_DATA_DEFINITION_OFFSET = 4;
 
         /// The message size for commands and responses
         /// This has to be changed also in SimConnectDefintions
@@ -207,12 +208,18 @@ namespace MobiFlight.SimConnectMSFS
                     m_oSimConnect.OnRecvSimobjectData += new SimConnect.RecvSimobjectDataEventHandler(SimConnect_RecvSimobjectData);
                     // Register aircraft name
                     m_oSimConnect.AddToDataDefinition(SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, "Title", null, SIMCONNECT_DATATYPE.STRING128, 0, SimConnect.SIMCONNECT_UNUSED);
-                    m_oSimConnect.RequestDataOnSimObject((SIMCONNECT_REQUEST_ID) SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, SIMCONNECT_DATA_REQUEST_FLAG.CHANGED, 0, 0, 0);
+                    m_oSimConnect.RequestDataOnSimObject((SIMCONNECT_REQUEST_ID)SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, SIMCONNECT_DATA_REQUEST_FLAG.CHANGED, 0, 0, 0);
                     m_oSimConnect.RegisterDataDefineStruct<StringData>(SIMCONNECT_DEFINE_ID.AIRCRAFT_NAME);
 
                     // Listen to exceptions
                     m_oSimConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(SimConnect_OnRecvException);
-                    // Listen to exceptions
+
+                    m_oSimConnect.OnRecvEventFilename += SimConnect_OnRecvEventFilename;
+                    m_oSimConnect.SubscribeToSystemEvent(MOBIFLIGHT_EVENTS.AIRCRAFT_LOADED, "AircraftLoaded");
+
+                    m_oSimConnect.OnRecvSystemState += SimConnect_OnRecvSystemState;
+                    m_oSimConnect.RequestSystemState((SIMCONNECT_REQUEST_ID)SIMCONNECT_DEFINE_ID.AIRCRAFT_PATH, "AircraftLoaded");
+                    
                     Log.Instance.log("SimConnect (MSFS) instantiated", LogSeverity.Debug);
                 }
             }
@@ -223,6 +230,26 @@ namespace MobiFlight.SimConnectMSFS
             }
 
             return true;
+        }
+
+        private void SimConnect_OnRecvSystemState(SimConnect sender, SIMCONNECT_RECV_SYSTEM_STATE data)
+        {
+            switch (data.dwRequestID)
+            {
+                case (uint)((SIMCONNECT_REQUEST_ID)SIMCONNECT_DEFINE_ID.AIRCRAFT_PATH):
+                    AircraftPathChanged?.Invoke(this, data.szString);                    
+                    break;
+            }
+        }
+
+        private void SimConnect_OnRecvEventFilename(SimConnect sender, SIMCONNECT_RECV_EVENT_FILENAME data)
+        {
+            switch (data.uEventID)
+            {
+                case (uint)MOBIFLIGHT_EVENTS.AIRCRAFT_LOADED:
+                    AircraftPathChanged?.Invoke(this, data.szFileName);                                          
+                    break;
+            }
         }
 
         private void SimConnect_RecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)

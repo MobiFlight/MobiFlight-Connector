@@ -1171,6 +1171,28 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python environment not ready.
+        /// </summary>
+        internal static string uiMessagePythonHint {
+            get {
+                return ResourceManager.GetString("uiMessagePythonHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please follow instructions on:
+        ///	
+        ///https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+        ///	
+        ///Page will be opened, when pressing OK..
+        /// </summary>
+        internal static string uiMessagePythonInstructions {
+            get {
+                return ResourceManager.GetString("uiMessagePythonInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to uninstall the MobiFlight firmware? All your data will be removed from the board..
         /// </summary>
         internal static string uiMessageResetConfirm {

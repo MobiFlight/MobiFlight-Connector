@@ -1,0 +1,40 @@
+﻿{
+  "Mappings": [
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "fslabs a3",
+      "ScriptName": "fslabs_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "fnx_3",
+      "ScriptName": "fenix_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "pmdg 737",
+      "ScriptName": "pmdg_737_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "pmdg 777",
+      "ScriptName": "pmdg_777_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "ifly 737",
+      "ScriptName": "ifly_737_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "design_md-11",
+      "ScriptName": "tfdi_md11_winwing_cdu.py"
+    }
+  ]
+}

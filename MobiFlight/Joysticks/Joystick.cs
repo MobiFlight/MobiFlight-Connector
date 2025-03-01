@@ -336,6 +336,12 @@ namespace MobiFlight
             }
         }
 
+
+        public JoystickDefinition GetJoystickDefinition()
+        {
+            return Definition;
+        }
+
         private void UpdatePOV(JoystickState newState)
         {
             if (POV.Count == 0) return;
