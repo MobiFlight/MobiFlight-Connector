@@ -32,7 +32,7 @@ namespace MobiFlight.Scripts
         {
             { "websockets", new Tuple<int, int>(14,0) },
             { "gql", new Tuple<int, int>(3,5) },
-            { "SimConnec", new Tuple<int, int>(0,4) },
+            { "SimConnect", new Tuple<int, int>(0,4) },
         };
 
 
