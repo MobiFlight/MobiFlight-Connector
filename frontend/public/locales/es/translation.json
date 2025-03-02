@@ -1,0 +1,57 @@
+{
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "no usado"
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filtrar elementos..."
+      },
+      "Filter": {
+        "Device": "Dispositivos",
+        "Type": "Tipos",
+        "Name": "Nombres",
+        "Selected": "{{items}} seleccionados",
+        "Clear": "Borrar filtros",
+        "NoResultsFound": "No se encontraron resultados."
+      },
+      "Reset": "Restablecer filtros"
+    },
+    "Header": {
+      "Active": "Activo",
+      "Name": "Nombre / Descripción",
+      "Device": "Dispositivo",
+      "Component": "Componente",
+      "Status": "Estado",
+      "RawValue": "Valor Original",
+      "FinalValue": "Valor Final",
+      "Actions": "Acciones"
+    },
+    "Cell": {
+      "Waiting": "Esperando"
+    },
+    "Table": {
+      "NoResultsFound": "Nueva configuratión. Por favor, añade algunos elementos."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Nueva configuración Output",
+        "DefaultName": "Nueva Configuración Output"
+      },
+      "InputConfigItem": {
+        "Add": "Nueva configuración Input",
+        "DefaultName": "Nueva Configuración Input"
+      }
+    }
+  }
+}

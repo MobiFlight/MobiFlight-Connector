@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MobiFlight.Base;
+using MobiFlight.Config;
 
 namespace MobiFlight.UI.Panels
 {
@@ -28,15 +29,21 @@ namespace MobiFlight.UI.Panels
 
         private void InitPanelWithDefaultSettings()
         {
-            syncFromConfig(new OutputConfigItem());
+            syncFromConfig(new OutputConfigItem()
+            {
+                Device = new OutputConfig.LedModule()
+            });
         }
 
         internal void syncFromConfig(OutputConfigItem config)
         {
+            if (!(config.Device is OutputConfig.LedModule)) return;
+
+            var ledModule = config.Device as OutputConfig.LedModule;
             // preselect display stuff
-            if (config.LedModule.DisplayLedAddress != null) 
+            if (ledModule.DisplayLedAddress != null) 
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, config.LedModule.DisplayLedAddress.ToString())) 
+                if (!ComboBoxHelper.SetSelectedItem(displayLedAddressComboBox, ledModule.DisplayLedAddress.ToString())) 
                 {
                     // TODO: provide error message
                     Log.Instance.log("Exception on selecting item in LED address ComboBox.", LogSeverity.Error);
@@ -46,38 +53,38 @@ namespace MobiFlight.UI.Panels
                 }
             }
 
-            if (config.LedModule.DisplayLedAddress != null) 
+            if (ledModule.DisplayLedAddress != null) 
             {
-                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, config.LedModule.DisplayLedConnector.ToString())) 
+                if (!ComboBoxHelper.SetSelectedItem(displayLedConnectorComboBox, ledModule.DisplayLedConnector.ToString())) 
                 {
                     // TODO: provide error message
                     Log.Instance.log("Exception on selecting item in LED connector ComboBox.", LogSeverity.Error);
                 }
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, config.LedModule.DisplayLedModuleSize.ToString())) 
+            if (!ComboBoxHelper.SetSelectedItem(displayLedModuleSizeComboBox, ledModule.DisplayLedModuleSize.ToString())) 
             {
                 // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in LED module size ComboBox.", LogSeverity.Error);
             }
 
-            displayLedPaddingCheckBox.Checked = config.LedModule.DisplayLedPadding;
-            displayLedReverseDigitsCheckBox.Checked = config.LedModule.DisplayLedReverseDigits;
-            SetPaddingChar(config.LedModule.DisplayLedPaddingChar);
+            displayLedPaddingCheckBox.Checked = ledModule.DisplayLedPadding;
+            displayLedReverseDigitsCheckBox.Checked = ledModule.DisplayLedReverseDigits;
+            SetPaddingChar(ledModule.DisplayLedPaddingChar);
 
-            foreach (string digit in config.LedModule.DisplayLedDigits) 
+            foreach (string digit in ledModule.DisplayLedDigits) 
             {
                 (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
-            foreach (string digit in config.LedModule.DisplayLedDecimalPoints) 
+            foreach (string digit in ledModule.DisplayLedDecimalPoints) 
             {
                 (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + digit + "Checkbox"] as CheckBox).Checked = true;
             }
 
-            if (!string.IsNullOrEmpty(config.LedModule.DisplayLedBrightnessReference)) 
+            if (!string.IsNullOrEmpty(ledModule.DisplayLedBrightnessReference)) 
             {
-                brightnessDropDown.SelectedValue = config.LedModule.DisplayLedBrightnessReference;
+                brightnessDropDown.SelectedValue = ledModule.DisplayLedBrightnessReference;
             }
         }
 
@@ -155,62 +162,68 @@ namespace MobiFlight.UI.Panels
 
         internal OutputConfigItem syncToConfig(OutputConfigItem config)
         {
+            config.Device = new OutputConfig.LedModule();
+            var ledModule = config.Device as OutputConfig.LedModule;
+
             if (displayLedAddressComboBox.SelectedValue as String != null)
-                config.LedModule.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
+                ledModule.DisplayLedAddress = displayLedAddressComboBox.SelectedValue as String;
 
             if (brightnessDropDown.SelectedValue!=null)
-                config.LedModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
+                ledModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
 
-            config.LedModule.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
-            config.LedModule.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
-            config.LedModule.DisplayLedPaddingChar = GetPaddingChar();
+            ledModule.DisplayLedPadding = displayLedPaddingCheckBox.Checked;
+            ledModule.DisplayLedReverseDigits = displayLedReverseDigitsCheckBox.Checked;
+            ledModule.DisplayLedPaddingChar = GetPaddingChar();
             try 
             {
-                config.LedModule.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
-                config.LedModule.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
+                ledModule.DisplayLedConnector = byte.Parse(displayLedConnectorComboBox.Text);
+                ledModule.DisplayLedModuleSize = byte.Parse(displayLedModuleSizeComboBox.Text);
             }
             catch (FormatException ex) 
             {
                 Log.Instance.log($"Exception parsing values: {ex.Message}", LogSeverity.Error);
             }
-            config.LedModule.DisplayLedDigits.Clear();
-            config.LedModule.DisplayLedDecimalPoints.Clear();
+            ledModule.DisplayLedDigits.Clear();
+            ledModule.DisplayLedDecimalPoints.Clear();
             for (int i = 0; i < 8; i++) 
             {
                 CheckBox cb = (displayLedDigitFlowLayoutPanel.Controls["displayLedDigit" + i + "Checkbox"] as CheckBox);
                 if (cb.Checked) 
                 {
-                    config.LedModule.DisplayLedDigits.Add(i.ToString());
+                    ledModule.DisplayLedDigits.Add(i.ToString());
                 } //if
 
                 cb = (displayLedDecimalPointFlowLayoutPanel.Controls["displayLedDecimalPoint" + i + "Checkbox"] as CheckBox);
                 if (cb.Checked) 
                 {
-                    config.LedModule.DisplayLedDecimalPoints.Add(i.ToString());
+                    ledModule.DisplayLedDecimalPoints.Add(i.ToString());
                 } //if
             }
             if (brightnessDropDown.SelectedIndex <= 0) 
             {
-                config.LedModule.DisplayLedBrightnessReference = string.Empty;
+                ledModule.DisplayLedBrightnessReference = string.Empty;
             } else 
             {
-                config.LedModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
+                ledModule.DisplayLedBrightnessReference = brightnessDropDown.SelectedValue.ToString();
             }
             return config;
         }
 
-        internal void SetConfigRefsDataView(DataView dv, string filterGuid)
+        internal void SetConfigRefsDataView(List<OutputConfigItem> dv, string filterGuid)
         {
-            this.filterReferenceGuid = filterGuid==null?string.Empty:filterGuid;
+            this.filterReferenceGuid = filterGuid == null ? string.Empty : filterGuid;
 
-            List<ListItem> configRefs = new List<ListItem>();
-            configRefs.Add(new ListItem { Value = string.Empty, Label = "<None>" });
-            foreach (DataRow refRow in dv.Table.Rows) 
+            List<ListItem> configRefs = new List<ListItem>
+            {
+                new ListItem { Value = string.Empty, Label = "<None>" }
+            };
+
+            foreach (var refCfg in dv)
             {
 
-                if (!filterReferenceGuid.Equals(refRow["guid"].ToString())) 
+                if (!filterReferenceGuid.Equals(refCfg.GUID))
                 {
-                    configRefs.Add(new ListItem { Value = ((Guid)refRow["guid"]).ToString(), Label = refRow["description"] as string });
+                    configRefs.Add(new ListItem { Value = refCfg.GUID, Label = refCfg.Name });
                 }
             }
 

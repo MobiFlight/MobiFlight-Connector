@@ -57,7 +57,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT ARCAZE</DefineConstants>
+    <DefineConstants>DEBUG;MOBIFLIGHT DEBUG SIMCONNECT ARCAZE</DefineConstants>
     <DocumentationFile>bin\Debug\MFConnector.xml</DocumentationFile>
     <WarningLevel>2</WarningLevel>
     <DebugType>full</DebugType>
@@ -241,23 +241,59 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="frontend\dist\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
+    <Compile Include="Base\ConfigFile.cs" />
+    <Compile Include="Base\ConfigFileFactory.cs" />
+    <Compile Include="Base\ConfigFileWrapperXML.cs" />
+    <Compile Include="Base\ConfigItem.cs" />
     <Compile Include="Base\ConfigRef.cs" />
     <Compile Include="Base\ConfigRefList.cs" />
+    <Compile Include="Base\ConfigItemStatus.cs" />
     <Compile Include="Base\DPIUtil.cs" />
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
+    <Compile Include="Base\IConfigFile.cs" />
+    <Compile Include="Base\Project.cs" />
+    <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
+    <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
+    <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
+    <Compile Include="Base\IDeviceConfig.cs" />
+    <Compile Include="Base\LogAppender\MessageExchangeAppender.cs" />
     <Compile Include="Base\PreconditionList.cs" />
     <Compile Include="Base\ProgressUpdateEvent.cs" />
     <Compile Include="Base\SerialNumber.cs" />
     <Compile Include="Base\AppTelemetry.cs" />
+    <Compile Include="Base\Source.cs" />
     <Compile Include="Base\WriteCacheInterface.cs" />
     <Compile Include="HubHop\HubHopType.cs" />
     <Compile Include="HubHop\Msfs2020EventIdPresetList.cs" />
     <Compile Include="MobiFlight\Board.cs" />
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigItem.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
+    <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
@@ -336,12 +372,15 @@
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
-    <Compile Include="MobiFlight\OutputConfig\Pin.cs" />
+    <Compile Include="MobiFlight\OutputConfig\Output.cs" />
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />
     <Compile Include="MobiFlight\OutputConfig\VariableOutput.cs" />
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
+    <Compile Include="MobiFlight\ThreadSafeWebView2.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
@@ -403,7 +442,7 @@
       <DependentUpon>ArduinoIdePathForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Base\IFsuipcConfigItem.cs" />
-    <Compile Include="Base\BaseConfigItem.cs" />
+    <Compile Include="Base\Deprecated\BaseConfigItem.cs" />
     <Compile Include="UI\Forms\BitMaskEditorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -545,11 +584,11 @@
     <Compile Include="UI\Panels\Device\MFCustomDevicePanel.Designer.cs">
       <DependentUpon>MFCustomDevicePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\InputConfigPanel.cs">
+    <Compile Include="UI\Panels\FrontendPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\InputConfigPanel.Designer.cs">
-      <DependentUpon>InputConfigPanel.cs</DependentUpon>
+    <Compile Include="UI\Panels\FrontendPanel.Designer.cs">
+      <DependentUpon>FrontendPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Input\AnalogPanel.cs">
       <SubType>UserControl</SubType>
@@ -617,12 +656,6 @@
     <Compile Include="UI\Panels\Modifier\TransformModifierPanel.Designer.cs">
       <DependentUpon>TransformModifierPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\OutputConfigPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\OutputConfigPanel.Designer.cs">
-      <DependentUpon>OutputConfigPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\OutputWizard\DisplayPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -683,12 +716,6 @@
     <Compile Include="UI\Panels\Settings\MobiFlightPanel.Designer.cs">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\StartupPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\StartupPanel.Designer.cs">
-      <DependentUpon>StartupPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="MobiFlight\InputConfig\PmdgEventIdInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\RetriggerInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VJoyInputAction.cs" />
@@ -713,7 +740,7 @@
     <Compile Include="Base\CmdLineParams.cs" />
     <Compile Include="Base\ComboBoxHelper.cs" />
     <Compile Include="Base\ConfigErrorException.cs" />
-    <Compile Include="Base\ConfigFile.cs" />
+    <Compile Include="Base\Deprecated\DeprecatedConfigFile.cs" />
     <Compile Include="UI\Dialogs\ConfigWizard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -845,12 +872,6 @@
     </Compile>
     <Compile Include="UI\Panels\Config\ActionTypePanel.Designer.cs">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Panels\Output\DisplayBcdPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UI\Panels\Output\DisplayBcdPanel.Designer.cs">
-      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Output\DisplayLedDisplayPanel.cs">
       <SubType>UserControl</SubType>
@@ -1550,11 +1571,8 @@
     <EmbeddedResource Include="UI\Panels\Device\MFShiftRegisterPanel.de.resx">
       <DependentUpon>MFShiftRegisterPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\InputConfigPanel.de.resx">
-      <DependentUpon>InputConfigPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\InputConfigPanel.resx">
-      <DependentUpon>InputConfigPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\FrontendPanel.resx">
+      <DependentUpon>FrontendPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Input\AnalogPanel.resx">
       <DependentUpon>AnalogPanel.cs</DependentUpon>
@@ -1588,14 +1606,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Modifier\TransformModifierPanel.resx">
       <DependentUpon>TransformModifierPanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\OutputConfigPanel.de.resx">
-      <DependentUpon>OutputConfigPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\OutputConfigPanel.resx">
-      <DependentUpon>OutputConfigPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\OutputWizard\DisplayPanel.de.resx">
       <DependentUpon>DisplayPanel.cs</DependentUpon>
@@ -1657,9 +1667,6 @@
     <EmbeddedResource Include="UI\Panels\Settings\MobiFlightPanel.resx">
       <DependentUpon>MobiFlightPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\StartupPanel.resx">
-      <DependentUpon>StartupPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Device\MFLcdDisplayPanel.resx">
       <DependentUpon>MFLcdDisplayPanel.cs</DependentUpon>
@@ -1836,9 +1843,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\ActionTypePanel.resx">
       <DependentUpon>ActionTypePanel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Output\DisplayBcdPanel.resx">
-      <DependentUpon>DisplayBcdPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Output\DisplayLedDisplayPanel.resx">
       <DependentUpon>DisplayLedDisplayPanel.cs</DependentUpon>

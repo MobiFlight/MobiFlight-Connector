@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MobiFlight.InputConfig
 {
     public class KeyInputAction : InputAction, ICloneable
     {
-        public System.Windows.Forms.Keys Key;
-        public bool Control;
-        public bool Alt;
-        public bool Shift;
+        public Keys Key { get; set; }
+        public bool Control { get; set; }
+        public bool Alt { get; set; }
+        public bool Shift { get; set; }
         public KeyboardInputInterface Keyboard;
         public new const String Label = "MobiFlight - Keyboard Input";
         public const String TYPE = "KeyInputAction";
@@ -62,11 +60,14 @@ namespace MobiFlight.InputConfig
 
         public override bool Equals(object obj)
         {
-            return obj != null && obj is KeyInputAction &&
-                Key == (obj as KeyInputAction).Key &&
-                Alt == (obj as KeyInputAction).Alt &&
-                Shift == (obj as KeyInputAction).Shift &&
-                Control == (obj as KeyInputAction).Control;
+            if (obj == null || !(obj is KeyInputAction)) return false;
+            var other = obj as KeyInputAction;
+
+            return 
+                Key == other.Key &&
+                Alt == other.Alt &&
+                Shift == other.Shift &&
+                Control == other.Control;
         }
     }
 }

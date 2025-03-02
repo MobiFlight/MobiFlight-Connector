@@ -11,7 +11,7 @@ namespace MobiFlight.InputConfig
     {
         new public const String Label = "MobiFlight - Variable";
         public const String TYPE = "VariableInputAction";
-        public MobiFlightVariable Variable = new MobiFlightVariable();
+        public MobiFlightVariable Variable { get; set; } = new MobiFlightVariable();
         
         override public object Clone()
         {

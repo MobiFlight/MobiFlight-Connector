@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
     public class Padding : ModifierBase
     {
         public enum PaddingDirection { Left, Right, Centered }
-        public char Character = ' ';
-        public int Length = 5;
-        public PaddingDirection Direction = PaddingDirection.Left;
+        public char Character { get; set; } = ' ';
+        public int Length { get; set; } = 5;
+        public PaddingDirection Direction { get; set; } = PaddingDirection.Left;
 
         public override void ReadXml(XmlReader reader)
         {
@@ -59,12 +54,14 @@ namespace MobiFlight.Modifier
 
         public override bool Equals(object obj)
         {
+            if (obj == null || !(obj is Padding)) return false;
+            var other = obj as Padding;
+
             return
-                obj != null && obj is Padding &&
-                this.Active == (obj as Padding).Active &&
-                this.Direction == (obj as Padding).Direction &&
-                this.Length == (obj as Padding).Length &&
-                this.Character == (obj as Padding).Character;
+                Active == other.Active &&
+                Direction == other.Direction &&
+                Length == other.Length &&
+                Character == other.Character;
         }
 
         public override ConnectorValue Apply(ConnectorValue value, List<ConfigRefValue> configRefs)

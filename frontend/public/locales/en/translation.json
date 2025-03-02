@@ -1,0 +1,59 @@
+{
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Output Shift Register",
+    "CustomDevice": "Custom Device",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "not set"
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filter items..."
+      },
+      "Filter": {
+        "Device": "Devices",
+        "Type": "Types",
+        "Name": "Names",
+        "Selected": "{{items}} selected",
+        "Clear": "Clear filters",
+        "NoResultsFound": "No results found."
+      },
+      "NotSet": "not set",
+      "Reset": "Reset filters"
+    },
+    "Header": {
+      "Active": "Active",
+      "Name": "Name / Description",
+      "Device": "Device",
+      "Component": "Component",
+      "Status": "Status",
+      "RawValue": "Raw Value",
+      "FinalValue": "Final Value",
+      "Actions": "Actions"
+    },
+    "Cell": {
+      "Waiting": "Waiting"
+    },
+    "Table": {
+      "NoResultsFound": "This is a new configuration. Please add some items."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Add Output Config",
+        "DefaultName": "New Output Config"
+      },
+      "InputConfigItem": {
+        "Add": "Add Input Config",
+        "DefaultName": "New Input Config"
+      }
+    }
+  }
+}

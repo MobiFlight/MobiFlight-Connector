@@ -19,7 +19,7 @@ namespace MobiFlight
 
 
         private DeviceType _type = DeviceType.Output;
-        public DeviceType Type
+        public DeviceType TypeDeprecated
         {
             get { return _type; }
             set { _type = value; }

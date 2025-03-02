@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Base
 {
@@ -81,6 +77,11 @@ namespace MobiFlight.Base
                 sum += (long)s[i] * mul;
             }
             return (int)(Math.Abs(sum) % int.MaxValue);
+        }
+
+        public static bool AreEqual<T>(this T a, T b) where T : class
+        {
+            return (a == null && b == null) || (a != null && a.Equals(b));
         }
     }
 }

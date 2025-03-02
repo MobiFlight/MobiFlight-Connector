@@ -10,7 +10,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="LeftGreen" pinBrightness="255" />
+        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" pin="LeftGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -24,7 +24,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="RightGreen" pinBrightness="255" />
+        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" pin="RightGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -38,7 +38,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="LeftRed" pinBrightness="255" />
+        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" pin="LeftRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -52,7 +52,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="RightRed" pinBrightness="255" />
+        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" pin="RightRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -66,7 +66,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="NoseRed" pinBrightness="255" />
+        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" pin="NoseRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -80,7 +80,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" pin="NoseGreen" pinBrightness="255" />
+        <display type="Output" serial="MobiFlight Mega/ SN-0f5-0ef" pin="NoseGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -98,7 +98,7 @@
             <value x="16383" y="-130" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="MobiFlight Mega/ SN-0f5-0ef" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-130" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>

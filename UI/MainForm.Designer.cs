@@ -62,11 +62,6 @@
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.releaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.inputsTabControl = new System.Windows.Forms.TabControl();
-            this.OutputTabPage = new System.Windows.Forms.TabPage();
-            this.outputConfigPanel = new MobiFlight.UI.Panels.OutputConfigPanel();
-            this.InputTabPage = new System.Windows.Forms.TabPage();
-            this.inputConfigPanel = new MobiFlight.UI.Panels.InputConfigPanel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStripNotifyIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -97,6 +92,7 @@
             this.statusStripPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.connectedDevicesToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripConnectedDevicesIcon = new System.Windows.Forms.ToolStripStatusLabel();
             this.connectedDevicesToolStripDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.joysticksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,14 +130,9 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.logSplitter = new System.Windows.Forms.Splitter();
-            this.startupPanel = new MobiFlight.UI.Panels.StartupPanel();
+            this.frontendPanel1 = new MobiFlight.UI.Panels.FrontendPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.toolStripConnectedDevicesIcon = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip.SuspendLayout();
-            this.panelMain.SuspendLayout();
-            this.inputsTabControl.SuspendLayout();
-            this.OutputTabPage.SuspendLayout();
-            this.InputTabPage.SuspendLayout();
             this.contextMenuStripNotifyIcon.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStripPanel.SuspendLayout();
@@ -361,48 +352,7 @@
             // panelMain
             // 
             resources.ApplyResources(this.panelMain, "panelMain");
-            this.panelMain.Controls.Add(this.inputsTabControl);
             this.panelMain.Name = "panelMain";
-            // 
-            // inputsTabControl
-            // 
-            this.inputsTabControl.Controls.Add(this.OutputTabPage);
-            this.inputsTabControl.Controls.Add(this.InputTabPage);
-            resources.ApplyResources(this.inputsTabControl, "inputsTabControl");
-            this.inputsTabControl.ImageList = this.tabPageImageList;
-            this.inputsTabControl.Multiline = true;
-            this.inputsTabControl.Name = "inputsTabControl";
-            this.inputsTabControl.SelectedIndex = 0;
-            this.inputsTabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
-            this.inputsTabControl.SelectedIndexChanged += new System.EventHandler(this.inputsTabControl_TabIndexChanged);
-            this.inputsTabControl.TabIndexChanged += new System.EventHandler(this.inputsTabControl_TabIndexChanged);
-            // 
-            // OutputTabPage
-            // 
-            this.OutputTabPage.BackColor = System.Drawing.Color.Transparent;
-            this.OutputTabPage.Controls.Add(this.outputConfigPanel);
-            resources.ApplyResources(this.OutputTabPage, "OutputTabPage");
-            this.OutputTabPage.Name = "OutputTabPage";
-            // 
-            // outputConfigPanel
-            // 
-            resources.ApplyResources(this.outputConfigPanel, "outputConfigPanel");
-            this.outputConfigPanel.ExecutionManager = null;
-            this.outputConfigPanel.Name = "outputConfigPanel";
-            // 
-            // InputTabPage
-            // 
-            this.InputTabPage.Controls.Add(this.inputConfigPanel);
-            resources.ApplyResources(this.InputTabPage, "InputTabPage");
-            this.InputTabPage.Name = "InputTabPage";
-            this.InputTabPage.UseVisualStyleBackColor = true;
-            // 
-            // inputConfigPanel
-            // 
-            resources.ApplyResources(this.inputConfigPanel, "inputConfigPanel");
-            this.inputConfigPanel.ExecutionManager = null;
-            this.inputConfigPanel.Name = "inputConfigPanel";
-            this.inputConfigPanel.OutputDataSetConfig = null;
             // 
             // tabPageImageList
             // 
@@ -628,6 +578,13 @@
             // 
             this.connectedDevicesToolStripLabel.Name = "connectedDevicesToolStripLabel";
             resources.ApplyResources(this.connectedDevicesToolStripLabel, "connectedDevicesToolStripLabel");
+            // 
+            // toolStripConnectedDevicesIcon
+            // 
+            this.toolStripConnectedDevicesIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripConnectedDevicesIcon.Image = global::MobiFlight.Properties.Resources.warning;
+            this.toolStripConnectedDevicesIcon.Name = "toolStripConnectedDevicesIcon";
+            resources.ApplyResources(this.toolStripConnectedDevicesIcon, "toolStripConnectedDevicesIcon");
             // 
             // connectedDevicesToolStripDropDownButton
             // 
@@ -869,30 +826,22 @@
             this.logSplitter.Name = "logSplitter";
             this.logSplitter.TabStop = false;
             // 
-            // startupPanel
+            // frontendPanel1
             // 
-            this.startupPanel.BackColor = System.Drawing.SystemColors.Window;
-            resources.ApplyResources(this.startupPanel, "startupPanel");
-            this.startupPanel.Name = "startupPanel";
+            resources.ApplyResources(this.frontendPanel1, "frontendPanel1");
+            this.frontendPanel1.Name = "frontendPanel1";
             // 
             // logPanel1
             // 
             resources.ApplyResources(this.logPanel1, "logPanel1");
             this.logPanel1.Name = "logPanel1";
             // 
-            // toolStripConnectedDevicesIcon
-            // 
-            this.toolStripConnectedDevicesIcon.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripConnectedDevicesIcon.Image = global::MobiFlight.Properties.Resources.warning;
-            this.toolStripConnectedDevicesIcon.Name = "toolStripConnectedDevicesIcon";
-            resources.ApplyResources(this.toolStripConnectedDevicesIcon, "toolStripConnectedDevicesIcon");
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.startupPanel);
             this.Controls.Add(this.logSplitter);
+            this.Controls.Add(this.frontendPanel1);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.logPanel1);
             this.Controls.Add(this.statusStripPanel);
@@ -910,10 +859,6 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            this.panelMain.ResumeLayout(false);
-            this.inputsTabControl.ResumeLayout(false);
-            this.OutputTabPage.ResumeLayout(false);
-            this.InputTabPage.ResumeLayout(false);
             this.contextMenuStripNotifyIcon.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -974,9 +919,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripButton donateToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.TabControl inputsTabControl;
-        private System.Windows.Forms.TabPage OutputTabPage;
-        private System.Windows.Forms.TabPage InputTabPage;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
@@ -988,11 +930,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
-        private UI.Panels.StartupPanel startupPanel;
         private System.Windows.Forms.Splitter logSplitter;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-        private Panels.OutputConfigPanel outputConfigPanel;
-        private Panels.InputConfigPanel inputConfigPanel;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mSFS2020ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem installWASMModuleToolStripMenuItem;
@@ -1039,6 +978,7 @@
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripConnectedDevicesIcon;
+        private Panels.FrontendPanel frontendPanel1;
     }
 }
 

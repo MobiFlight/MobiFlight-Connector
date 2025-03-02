@@ -1,16 +1,14 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class LedModule
+    public class LedModule : DeviceConfig
     {
+        public override string Name { get { return DisplayLedAddress; } }
         // the display stuff
         public string DisplayLedAddress { get; set; }
         public byte DisplayLedConnector { get; set; }
@@ -35,7 +33,7 @@ namespace MobiFlight.OutputConfig
             DisplayLedDecimalPoints = new List<string>();
         }
 
-        public object Clone()
+        public override object Clone()
         {
             LedModule clone = new LedModule();
             clone.DisplayLedConnector = DisplayLedConnector;
@@ -52,14 +50,14 @@ namespace MobiFlight.OutputConfig
 
         public override bool Equals(Object obj)
         {
-            bool digitsAreEqual = true && DisplayLedDigits.Count == (obj as LedModule).DisplayLedDigits.Count;
+            bool digitsAreEqual = true && DisplayLedDigits.Count == (obj as LedModule)?.DisplayLedDigits.Count;
             if (digitsAreEqual)
                 for (int i = 0; i != DisplayLedDigits.Count; i++)
                 {
                     digitsAreEqual = digitsAreEqual && (DisplayLedDigits[i] == (obj as LedModule).DisplayLedDigits[i]);
                 }
 
-            bool pointsAreEqual = true && DisplayLedDecimalPoints.Count == (obj as LedModule).DisplayLedDecimalPoints.Count;
+            bool pointsAreEqual = true && DisplayLedDecimalPoints.Count == (obj as LedModule)?.DisplayLedDecimalPoints.Count;
             if (pointsAreEqual)
                 for (int i = 0; i != DisplayLedDecimalPoints.Count; i++)
                 {
@@ -68,13 +66,13 @@ namespace MobiFlight.OutputConfig
 
             return
                 (obj != null) && (obj is LedModule) &&
-                (this.DisplayLedConnector             == (obj as LedModule).DisplayLedConnector) &&
-                (this.DisplayLedAddress               == (obj as LedModule).DisplayLedAddress) &&
-                (this.DisplayLedPadding               == (obj as LedModule).DisplayLedPadding) &&
-                (this.DisplayLedReverseDigits         == (obj as LedModule).DisplayLedReverseDigits) &&
-                (this.DisplayLedBrightnessReference   == (obj as LedModule).DisplayLedBrightnessReference) &&
-                (this.DisplayLedPaddingChar           == (obj as LedModule).DisplayLedPaddingChar) &&
-                (this.DisplayLedModuleSize            == (obj as LedModule).DisplayLedModuleSize) &&
+                (this.DisplayLedConnector             == (obj as LedModule)?.DisplayLedConnector) &&
+                (this.DisplayLedAddress               == (obj as LedModule)?.DisplayLedAddress) &&
+                (this.DisplayLedPadding               == (obj as LedModule)?.DisplayLedPadding) &&
+                (this.DisplayLedReverseDigits         == (obj as LedModule)?.DisplayLedReverseDigits) &&
+                (this.DisplayLedBrightnessReference   == (obj as LedModule)?.DisplayLedBrightnessReference) &&
+                (this.DisplayLedPaddingChar           == (obj as LedModule)?.DisplayLedPaddingChar) &&
+                (this.DisplayLedModuleSize            == (obj as LedModule)?.DisplayLedModuleSize) &&
                 (digitsAreEqual) &&
                 (pointsAreEqual);
         }

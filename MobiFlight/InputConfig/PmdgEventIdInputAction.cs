@@ -9,7 +9,7 @@ namespace MobiFlight.InputConfig
     {
         public new const String TYPE = "PmdgEventIdInputAction";
         public new const String Label = "FSUIPC - PMDG - Event ID";
-        public new String Param;
+        public new String Param { get; set; }
         public enum PmdgAircraftType { B737, B777, B747 };
         public PmdgAircraftType AircraftType = PmdgAircraftType.B737;
 

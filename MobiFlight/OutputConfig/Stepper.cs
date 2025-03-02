@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using MobiFlight.Base;
+using System;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class Stepper : IXmlSerializable, ICloneable
+    public class Stepper : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public const string Type = "Stepper";
+        public override string Name { get { return Address; } }
+
+        // public const string Type = "Stepper";
         public String Address { get; set; }
         public Int16 InputRev { get; set; }
         public Int16 TestValue { get; set; }
@@ -30,7 +30,7 @@ namespace MobiFlight.OutputConfig
             Speed = 0;
         }
 
-        public object Clone()
+        public override object Clone()
         {
             Stepper clone = new Stepper();
             clone.Address       = (String) Address.Clone();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,9 @@ using System.Xml;
 
 namespace MobiFlight.OutputConfig
 {
-    public class Servo
+    public class Servo : DeviceConfig
     {
+        public override string Name { get { return Address; } }
         public string Address { get; set; }
         public string Min { get; set; }
         public string Max { get; set; }
@@ -49,7 +51,7 @@ namespace MobiFlight.OutputConfig
             writer.WriteAttributeString("servoMaxRotationPercent", MaxRotationPercent);
         }
 
-        public Servo Clone()
+        public override object Clone()
         {
             Servo clone = new Servo();
             clone.Address = this.Address;

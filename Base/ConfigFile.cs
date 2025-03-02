@@ -1,177 +1,68 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Data;
 using System.IO;
-using MobiFlight.InputConfig;
+using System.Linq;
 
-namespace MobiFlight
+namespace MobiFlight.Base
 {
-    public class ConfigFile
+    public class ConfigFile : IConfigFile
     {
-        public String FileName { get; set; }
-        System.Xml.XmlDocument xmlConfig = new System.Xml.XmlDocument();
+        public string FileName { get; set; }
+        public bool ReferenceOnly { get; set; } = false;
+        public bool EmbedContent { get; set; } = false;
+        public List<IConfigItem> ConfigItems { get; set; } = new List<IConfigItem>();
 
-        public ConfigFile(String FileName)
+        public ConfigFile() { }
+
+        public ConfigFile(string FileName)
         {
             this.FileName = FileName;
         }
 
         public void OpenFile()
         {
-            if (FileName == null) throw new Exception("File yet not set");
-            xmlConfig.Load(FileName);
+            if (EmbedContent)
+            {
+                // Content is embedded, no need to load from file
+                return;
+            }
+
+            var json = File.ReadAllText(FileName);
+            var configFile = JsonConvert.DeserializeObject<ConfigFile>(json);
+            FileName = configFile.FileName;
+            ReferenceOnly = configFile.ReferenceOnly;
+            EmbedContent = configFile.EmbedContent;
+            ConfigItems = configFile.ConfigItems;
         }
 
-        public void SaveFile(DataSet outputConfig, DataSet inputConfig)
+        public void SaveFile()
         {
-            xmlConfig.RemoveAll();
-            XmlDeclaration xmlDeclaration = xmlConfig.CreateXmlDeclaration("1.0", "UTF-8", "yes");
-            xmlConfig.InsertBefore(xmlDeclaration, xmlConfig.DocumentElement);
-            
-            XmlElement root = xmlConfig.CreateElement("MobiflightConnector");
-            // Create a new element and add it to the document.
-            StringWriter sw = new StringWriter();
-            outputConfig.WriteXml(sw, XmlWriteMode.IgnoreSchema);
-            string s = sw.ToString();
-            XmlDocument tmpDoc = new XmlDocument();
-            tmpDoc.LoadXml(s);
+            if (EmbedContent || ReferenceOnly)
+            {
+                // Content is embedded or read-only, no need to save to file
+                return;
+            }
 
-            XmlElement outputs = xmlConfig.CreateElement("outputs");
-            outputs.InnerXml = tmpDoc.DocumentElement.SelectSingleNode("/outputs").InnerXml;
-
-            sw = new StringWriter();
-            inputConfig.WriteXml(sw, XmlWriteMode.IgnoreSchema);
-            s = sw.ToString();
-            tmpDoc = new XmlDocument();
-            tmpDoc.LoadXml(s);
-
-            XmlElement inputs = xmlConfig.CreateElement("inputs");
-            inputs.InnerXml = tmpDoc.DocumentElement.SelectSingleNode("/inputs").InnerXml;
-
-            root.AppendChild(outputs);
-            root.AppendChild(inputs);
-            xmlConfig.AppendChild(root);
-            xmlConfig.Save(FileName);
+            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            File.WriteAllText(FileName, json);
         }
 
-        private XmlReader getConfig(String xpath)
+        public string ToJson()
         {
-            // first try the new way... if this fails try the old way
-            System.Xml.XmlNode outputConfig = xmlConfig.DocumentElement.SelectSingleNode(xpath);
-            if (outputConfig == null) throw new InvalidExpressionException();
-            
-            System.IO.StringReader reader = new System.IO.StringReader(outputConfig.OuterXml);
-            System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-            return xReader;
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
-        public List<OutputConfigItem> GetOutputConfigItems()
+        public override bool Equals(object obj)
         {
-            List<OutputConfigItem> result = new List<OutputConfigItem>();
+            if (obj == null || !(obj is ConfigFile)) return false;
+            var other = obj as ConfigFile;
 
-            XmlNodeList outputs = xmlConfig.DocumentElement.SelectNodes("outputs/config/settings");
-            foreach(XmlNode item in outputs)
-            {
-                OutputConfigItem config = new OutputConfigItem();
-                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
-                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-                config.ReadXml(xReader);
-                result.Add(config);
-            }
-
-            return result;
-        }
-
-        internal List<InputConfigItem> GetInputConfigItems()
-        {
-            List<InputConfigItem> result = new List<InputConfigItem>();
-
-            XmlNodeList inputs = xmlConfig.DocumentElement.SelectNodes("inputs/config/settings");
-            foreach (XmlNode item in inputs)
-            {
-                InputConfigItem config = new InputConfigItem();
-                System.IO.StringReader reader = new System.IO.StringReader(item.OuterXml);
-                System.Xml.XmlReader xReader = System.Xml.XmlReader.Create(reader);
-                xReader.Read();
-                config.ReadXml(xReader);
-                result.Add(config);
-            }
-
-            return result;
-        }
-
-        public XmlReader getInputConfig()
-        {
-            XmlReader result = null;
-            
-            try
-            {
-                if (xmlConfig.DocumentElement == null) OpenFile();
-
-                result = getConfig("/MobiflightConnector/inputs");
-            }
-            catch (InvalidExpressionException e)
-            {
-                throw e;
-            }
-            catch (Exception e)
-            {
-                throw new ConfigErrorException("Error reading config", e);
-            }
-            return result;
-        }
-
-        public XmlReader getOutputConfig()
-        {
-            XmlReader result = null;
-            
-            bool fallback = false;
-            try
-            {
-                if (xmlConfig.DocumentElement == null) OpenFile();
-                result = getConfig("/MobiflightConnector/outputs");
-            }
-            catch (InvalidExpressionException e)
-            {
-                fallback = true;
-            }
-            catch (Exception e)
-            {
-                throw new ConfigErrorException("Error reading config", e);
-            }
-
-            if (fallback)
-            {
-                fallback = false;
-                // fallback for old configs
-                try
-                {
-                    result = getConfig("/MobiflightConnector");
-                }
-                catch (Exception ex)
-                {
-                    fallback = true;
-                }
-            }
-
-            if (fallback)
-            {
-                fallback = false;
-                // fallback for old configs
-                try
-                {
-                    result = getConfig("/ArcazeUsbConnector");
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Error: Loading config");
-                }
-            }
-          
-            return result;
+            return
+                FileName.AreEqual(other.FileName) &&
+                ReferenceOnly == other.ReferenceOnly &&
+                EmbedContent == other.EmbedContent &&
+                ConfigItems.SequenceEqual(other.ConfigItems)
+                ;
         }
     }
 }

@@ -20,11 +20,11 @@ namespace MobiFlight.UI.Panels.Config
             checkBoxUse.Checked = true;
         }
 
-        public void SetDataView(DataView dv)
+        public void SetDataView(List<OutputConfigItem> outputConfigs)
         {
-            configRefComboBox.DataSource = dv;
-            configRefComboBox.ValueMember = "guid";
-            configRefComboBox.DisplayMember = "description";
+            configRefComboBox.DataSource = outputConfigs;
+            configRefComboBox.ValueMember = "GUID";
+            configRefComboBox.DisplayMember = "Name";
         }
 
         public void SetPlaceholder (String placeholder)
