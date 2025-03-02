@@ -152,14 +152,14 @@ export function ConfigItemTable<TData, TValue>({
         >
       <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
           <Table ref={tableRef} className="table-auto">
-            <TableHeader className="group/header bg-slate-500 text-white dark:bg-slate-800">
+            <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
               {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="hover:bg-slate-800">
+                <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead
                         key={header.id}
-                        className="sticky top-0 z-50 bg-primary px-2 text-white dark:bg-slate-800"
+                        className="sticky top-0 z-50 bg-primary px-2 text-white dark:bg-zinc-800"
                       >
                         {header.isPlaceholder
                           ? null
@@ -193,9 +193,6 @@ export function ConfigItemTable<TData, TValue>({
                             payload: { action: "edit", item: row.original },
                           })
                         }}
-                        className={
-                          row.getValue("Active") ? "bg-white" : "bg-white text-gray-500"
-                        }
                       >
                         {row.getVisibleCells().map((cell) => (
                           <TableCell key={cell.id} className="p-1">

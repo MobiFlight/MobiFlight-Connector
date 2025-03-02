@@ -22,12 +22,11 @@ const ConfigItemTableActiveCell = ({ row } : ConfigItemTableActiveCellProps) => 
 
   return (
     <div className='flex items-start'>
-      <div {...attributes} {...listeners} className='px-1 text-gray-500 cursor-move opacity-10 transition-opacity delay-100 ease-in group-hover/row:opacity-100 group-hover/row:delay-100 group-hover/row:ease-out'>
-      <IconGripVertical className='stroke-2 fill-slate-500' />
+      <div {...attributes} {...listeners} className='px-1 text-gray-500 dark:text-gray-300 cursor-move opacity-10 transition-opacity delay-100 ease-in group-hover/row:opacity-100 group-hover/row:delay-100 group-hover/row:ease-out'>
+      <IconGripVertical className='stroke-2' />
       </div>
     <div className="w-12 text-center">
       <Switch
-        className="dark:bg-gray-800 dark:data-[state=checked]:bg-gray-700"
         checked={row.getValue("Active") as boolean}
         onClick={() => {
           item.Active = !item.Active
