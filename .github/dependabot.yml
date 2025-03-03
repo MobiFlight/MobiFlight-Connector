@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"  
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "devcontainers"
+    target-branch: "mf2025/main"
+    directory: "/frontend/.devcontainer"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "npm"
+    target-branch: "mf2025/main"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
