@@ -137,7 +137,7 @@ namespace MobiFlight
         // Returns true if the board is running a firmware build from a pull request.
         public bool IsPullRequestBuild
         {
-            get { return Version?.StartsWith("0.") ?? false; }
+            get { return CoreVersion?.StartsWith("0.0.") ?? false; }
         }
 
         public Config.Config Config
