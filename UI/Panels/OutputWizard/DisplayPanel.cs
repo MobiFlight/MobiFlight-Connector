@@ -191,11 +191,14 @@ namespace MobiFlight.UI.Panels.OutputWizard
             {
                 if (displayTypeComboBox.SelectedItem == null) return;
 
+                config.Device = null;
                 config.DeviceType = (displayTypeComboBox.SelectedItem as ListItem).Value;
-                config.ModuleSerial = displayModuleNameComboBox.SelectedItem.ToString();
+
+                var serial = displayModuleNameComboBox.SelectedItem.ToString();
+                config.ModuleSerial = serial;
 
                 if ((displayTypeComboBox.SelectedItem as ListItem).Value == "-") return;
-
+                
                 switch (config.DeviceType)
                 {
                     case MobiFlightOutput.TYPE:

@@ -161,3 +161,110 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await page.getByRole("button", { name: "Toggle light mode" }).click()
   await expect(page.locator("html")).toHaveAttribute("class", "light")
 })
+
+test("Confirm `Config Type` filter toolbar is working", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await page.getByRole('button', { name: 'Config Type' }).click();
+  await page.getByRole('option', { name: 'Output' }).locator('div').click();
+  await expect(page.locator('tbody tr')).toHaveCount(7);
+  await page.getByRole('option', { name: 'Input' }).locator('div').click();
+  await page.getByRole('option', { name: 'Output' }).locator('div').click();
+  await expect(page.locator('tbody tr')).toHaveCount(3);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByPlaceholder('Config Type').click();
+  await page.getByPlaceholder('Config Type').fill('In');
+  await page.getByPlaceholder('Config Type').press('Enter');
+  await expect(page.locator('tbody tr')).toHaveCount(3);
+  await page.locator('#root div').filter({ hasText: 'Config Type1InputControllerDevicesNamesReset filtersActiveName /' }).nth(2).click();
+  await page.waitForTimeout(500)
+
+  await page.getByRole('button', { name: 'Config Type Input' }).click();
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await page.getByPlaceholder('Config Type').click();
+  await page.getByPlaceholder('Config Type').fill('Out');
+  await page.getByPlaceholder('Config Type').press('Enter');
+  await expect(page.locator('tbody tr')).toHaveCount(7);
+})
+
+test("Confirm `Controller` filter toolbar is working", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await page.getByRole('button', { name: 'Controller' }).click();
+  await page.getByRole('option', { name: 'WINWING Orion Joystick Base 2' }).locator('div').click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'ProtoBoard' }).locator('div').click();
+  await expect(page.locator('tbody tr')).toHaveCount(8);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+
+  await page.getByRole('option', { name: 'not set' }).locator('div').first().click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  
+  await page.getByPlaceholder('Controller').click();
+  await page.getByPlaceholder('Controller').fill('Proto');
+  await page.getByPlaceholder('Controller').press('Enter');
+  await expect(page.locator('tbody tr')).toHaveCount(8);
+})
+
+test("Confirm `Devices` filter toolbar is working", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await page.getByRole('button', { name: 'Devices' }).click();
+  await page.getByRole('option', { name: 'Output Shift Register' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'Output'}).first().click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'LCD Display' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'Servo' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'Stepper' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: '7-Segment' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'not set' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+})
+
+test("Confirm `Names` filter toolbar is working", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await page.getByRole('button', { name: 'Names' }).click();
+
+  await page.getByRole('option', { name: 'ShiftRegister' }).locator('div').click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+
+  await page.getByRole('option', { name: 'not set' }).locator('div').first().click();
+  await expect(page.locator('tbody tr')).toHaveCount(1);
+  await page.getByRole('option', { name: 'Clear filters' }).click();
+  
+  await expect(page.locator('tbody tr')).toHaveCount(10);
+})

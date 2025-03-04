@@ -5,12 +5,15 @@
     "Stepper": "Stepper",
     "Servo": "Servo",
     "LcdDisplay": "LCD Display",
-    "ShiftRegister": "Ouptut Shift Register",
+    "ShiftRegister": "Output Shift Register",
+    "CustomDevice": "Custom Device",
     "InputShiftRegister": "Input Shift Register",
     "Button": "Button",
     "Encoder": "Encoder",
     "AnalogInput": "Analog Input",
-    "-": "no usado"
+    "-": "no usado",
+    "OutputConfigItem": "Output",
+    "InputConfigItem": "Input"
   },
   "ConfigList": {
     "Toolbar": {
@@ -18,20 +21,22 @@
         "Placeholder": "Filtrar elementos..."
       },
       "Filter": {
-        "Device": "Dispositivos",
-        "Type": "Tipos",
+        "ConfigType": "Config Type",
+        "Device": "Controlador",
+        "Type": "Dispositivo",
         "Name": "Nombres",
         "Selected": "{{items}} seleccionados",
         "Clear": "Borrar filtros",
         "NoResultsFound": "No se encontraron resultados."
       },
+      "NotSet": "not set",
       "Reset": "Restablecer filtros"
     },
     "Header": {
       "Active": "Activo",
       "Name": "Nombre / Descripción",
-      "Device": "Dispositivo",
-      "Component": "Componente",
+      "Device": "Controlador",
+      "Component": "Dispositivo",
       "Status": "Estado",
       "RawValue": "Valor Original",
       "FinalValue": "Valor Final",

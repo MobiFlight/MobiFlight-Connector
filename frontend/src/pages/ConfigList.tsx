@@ -4,7 +4,7 @@ import { ConfigItemTable } from "@/components/tables/config-item-table/config-it
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
 import { useCallback, useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
-import { ConfigValueUpdate } from "@/types/messages"
+import { ConfigValueFullUpdate, ConfigValuePartialUpdate } from "@/types/messages"
 import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
 import { IConfigItem } from "@/types"
 
@@ -21,16 +21,19 @@ const ConfigListPage = () => {
   }, [setItems])
     
 
-  useAppMessage("ConfigValueUpdate", (message) => {
-    const update = message.payload as ConfigValueUpdate
-    console.log("ConfigValueUpdate", update.ConfigItems)
+  useAppMessage("ConfigValuePartialUpdate", (message) => {
+    const update = message.payload as ConfigValuePartialUpdate
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
-      console.log("updateItem", update.ConfigItems[0])
       updateItem(update.ConfigItems[0], true)
       return
     }
     updateItems(update.ConfigItems)
+  })
+
+  useAppMessage("ConfigValueFullUpdate", (message) => {
+    const update = message.payload as ConfigValueFullUpdate
+    setItems(update.ConfigItems)
   })
 
   // this is only for easier UI testing
