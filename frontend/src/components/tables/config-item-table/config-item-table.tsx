@@ -64,6 +64,7 @@ export function ConfigItemTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     Type: false,
+    ConfigType: false,
   })
 
   const table = useReactTable({
@@ -95,7 +96,7 @@ export function ConfigItemTable<TData, TValue>({
   const prevDataLength = useRef(data.length)
 
   useEffect(() => {
-    if (data.length > prevDataLength.current) {
+    if (data.length === (prevDataLength.current + 1)) {
       const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(
         `[dnd-itemid="${lastItem.GUID}"]`,

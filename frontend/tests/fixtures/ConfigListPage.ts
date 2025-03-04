@@ -1,7 +1,7 @@
 import {
   AppMessage,
   ConfigLoadedEvent,
-  ConfigValueUpdate,
+  ConfigValuePartialUpdate,
   IConfigItem,
 } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
@@ -46,10 +46,10 @@ export class ConfigListPage {
       async (message) => {
         const item = (message as CommandUpdateConfigItem).payload.item as IConfigItem
         const response = {
-          key: "ConfigValueUpdate",
+          key: "ConfigValuePartialUpdate",
           payload: {
             ConfigItems: [item]
-          } as ConfigValueUpdate,
+          } as ConfigValuePartialUpdate,
         };
         
         (window as Window).postMessage(response, "*")
@@ -60,7 +60,7 @@ export class ConfigListPage {
   async updateConfigItemStatus(itemIndex: number, Status: IDictionary<string, ConfigItemStatusType>) {
     const item = testdata[itemIndex]
     const message: AppMessage = {
-      key: "ConfigValueUpdate",
+      key: "ConfigValuePartialUpdate",
       payload: {
         ConfigItems: [
           {
@@ -71,7 +71,7 @@ export class ConfigListPage {
             }
           }
         ],
-      } as ConfigValueUpdate,
+      } as ConfigValuePartialUpdate,
     }
     await this.mobiFlightPage.publishMessage(message)
   }

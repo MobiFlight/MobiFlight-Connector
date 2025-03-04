@@ -29,7 +29,7 @@ export interface IDictionary<T> {
   [Key: string]: T
 }
 
-export type DeviceType = "MobiFlight" | "Joystick" | "Midi"
+export type ControllerType = "MobiFlight" | "Joystick" | "Midi" | "Unknown"
 
 export type ConfigItemType = "InputConfig" | "OutputConfig"
 

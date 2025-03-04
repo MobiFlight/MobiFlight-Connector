@@ -1,5 +1,5 @@
+import { useTheme } from "@/lib/hooks/useTheme"
 import { IconMoon, IconSun } from "@tabler/icons-react"
-import { useTheme } from "./theme-provider"
 
 const DarkModeToggle = () => {
   const { setTheme } = useTheme()
