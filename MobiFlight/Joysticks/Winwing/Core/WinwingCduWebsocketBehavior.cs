@@ -2,6 +2,7 @@
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using MobiFlightWwFcu;
+using MobiFlight;
 
 namespace MobiFlight.Joysticks.Winwing
 {
@@ -15,7 +16,8 @@ namespace MobiFlight.Joysticks.Winwing
             if (e.IsText)
             {
                 try
-                {
+                {    
+                    MobiFlight.Log.Instance.log($"WinWingCduWebsocket - OnMessage Length: {e.Data.Length}", LogSeverity.Debug);
                     Device.SetDisplay(WinwingConstants.CDU_DATA, e.Data);                    
                 }
                 catch (Exception ex)

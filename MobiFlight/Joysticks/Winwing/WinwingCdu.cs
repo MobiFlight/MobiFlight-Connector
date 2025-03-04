@@ -15,6 +15,7 @@ namespace MobiFlight.Joysticks.Winwing
 
         public WinwingCdu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
+            Log.Instance.log($"WinwingCdu - New WinwingCdu ProductId={productId.ToString("X")}", LogSeverity.Debug);
             Definition = def;
             DisplayControl = new WinwingDisplayControl(productId, server);
             var displayNames = DisplayControl.GetDisplayNames();

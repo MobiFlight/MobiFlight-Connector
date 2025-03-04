@@ -87,6 +87,7 @@ namespace MobiFlight.Scripts
                     {
                         MappingDictionary[hardwareId].Add(mapping);
                     }
+                    Log.Instance.log($"ScriptRunner - Add mapping {mapping.ScriptName}.", LogSeverity.Debug);
                 }
             }
         }
@@ -96,7 +97,9 @@ namespace MobiFlight.Scripts
             var filesFullPath = Directory.GetFiles(@"Scripts\", "*.py", SearchOption.AllDirectories);
             foreach (var fullPath in filesFullPath)
             {
-                ScriptDictionary.Add(Path.GetFileName(fullPath), fullPath);
+                string fileName = Path.GetFileName(fullPath);
+                Log.Instance.log($"ScriptRunner - Add script {fileName}.", LogSeverity.Debug);
+                ScriptDictionary.Add(Path.GetFileName(fileName), fullPath);
             }
         }
 
@@ -151,7 +154,7 @@ namespace MobiFlight.Scripts
                     string output = reader.ReadToEnd();
                     var x = output.Split(' ');
                     var v = x[1].Split('.');
-                    Log.Instance.log($"Python version: {x[1]}.", LogSeverity.Debug);
+                    Log.Instance.log($"Python version: {x[1]}.", LogSeverity.Debug); 
                     if ( (int.Parse(v[0]) >= 3) && (int.Parse(v[1]) >= 10))
                     {
                         return true;
@@ -169,12 +172,12 @@ namespace MobiFlight.Scripts
             string pathVariable = Environment.GetEnvironmentVariable("PATH").ToLower();
             if (pathVariable.Contains("python"))
             {
-                Log.Instance.log($"Python Path is set.", LogSeverity.Debug);
+                Log.Instance.log($"ScriptRunner - Python Path is set.", LogSeverity.Debug);
                 return true;
             }
             else
             {
-                Log.Instance.log($"Python Path not set.", LogSeverity.Error);
+                Log.Instance.log($"ScriptRunner - Python Path not set.", LogSeverity.Error);
                 return false;
             }
         }
@@ -198,13 +201,27 @@ namespace MobiFlight.Scripts
                 using (StreamReader reader = process.StandardOutput)
                 {
                     string result = reader.ReadToEnd();
-                    Log.Instance.log($"Python installed packages: {Environment.NewLine}{result}", LogSeverity.Debug);
+                    Log.Instance.log($"ScriptRunner - Python installed packages: {Environment.NewLine}{result}", LogSeverity.Debug);
                     string[] lines = result.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string line in lines)
                     {
                         var parts = line.Split(new string[] { "==" }, StringSplitOptions.RemoveEmptyEntries);
-                        var v = parts[1].Split('.');
-                        installedPackages.Add(parts[0], new Tuple<int, int>(int.Parse(v[0]), int.Parse(v[1])));                      
+                        if (parts.Length > 1)
+                        {
+                            var v = parts[1].Split('.');
+                            if (v.Length > 1)
+                            {
+                                installedPackages.Add(parts[0], new Tuple<int, int>(int.Parse(v[0]), int.Parse(v[1])));
+                            }
+                            else
+                            {
+                                Log.Instance.log($"ScriptRunner - Package version has not two elements: '{parts[1]}'", LogSeverity.Error);
+                            }
+                        }
+                        else
+                        {
+                            Log.Instance.log($"ScriptRunner - Package Line has not two elements: '{line}'", LogSeverity.Error);
+                        }
                     }                    
                 }
             }
@@ -219,13 +236,13 @@ namespace MobiFlight.Scripts
                           (installedPackages[package].Item2 >= RequiredPackages[package].Item2)))
                     {
                         necessaryPackagesAvailable = false;
-                        Log.Instance.log($"Python package version too low: '{package}'", LogSeverity.Error);
+                        Log.Instance.log($"ScriptRunner - Python package version too low: '{package}'", LogSeverity.Error);
                     }
                 }
                 else
                 {
                     necessaryPackagesAvailable = false;
-                    Log.Instance.log($"Necessary Python package not installed: '{package}'", LogSeverity.Error);
+                    Log.Instance.log($"ScriptRunner - Necessary Python package not installed: '{package}'", LogSeverity.Error);
                 }
             }
             
@@ -234,6 +251,7 @@ namespace MobiFlight.Scripts
 
         private void ShowPythonInstructionsMessageBox()
         {
+            Log.Instance.log($"ShowPythonInstructionsMessageBox", LogSeverity.Debug);
             if (MessageBox.Show(i18n._tr("uiMessagePythonInstructions"),
                     i18n._tr("uiMessagePythonHint"),
                     MessageBoxButtons.OK,
@@ -272,7 +290,7 @@ namespace MobiFlight.Scripts
             {
                 if (!IsPythonReady())
                 {
-                    Log.Instance.log($"Python not ready!", LogSeverity.Error);
+                    Log.Instance.log($"ScriptRunner - Python not ready!", LogSeverity.Error);
                     return;
                 }
                 else
@@ -295,10 +313,18 @@ namespace MobiFlight.Scripts
                     StartInfo = psi
                 };
 
+                Log.Instance.log($"ScriptRunner - Start Process: {psi.Arguments}", LogSeverity.Debug);
                 process.Start();   
                 
                 ActiveProcesses.Add(process);
-                ChildProcMon.AddChildProcess(process);               
+                try
+                {
+                    ChildProcMon.AddChildProcess(process);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
+                }
             }
         }
 
@@ -321,8 +347,10 @@ namespace MobiFlight.Scripts
                         // Hardware found, now compare aircraft 
                         foreach (var config in MappingDictionary[hardwareId])
                         {
+                            Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
                             if (aircraftDescription.Contains(config.AircraftIdSnippet))
                             {
+                                Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Debug);
                                 ExecutionList.Add(config.ScriptName);
                             }
                         }
@@ -339,6 +367,7 @@ namespace MobiFlight.Scripts
 
         public void Start()
         {
+            Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
             IsInPlayMode = true;
             CheckAndExecuteScripts();
         }
@@ -358,6 +387,7 @@ namespace MobiFlight.Scripts
 
         public void Stop()
         {
+            Log.Instance.log($"ScriptRunner - Stop().", LogSeverity.Debug);
             IsInPlayMode = false;
             StopActiveProcesses();          
         }

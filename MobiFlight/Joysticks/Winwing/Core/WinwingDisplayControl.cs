@@ -59,6 +59,7 @@ namespace MobiFlight.Joysticks.Winwing
         }
         private void AddCduDevice(string path, WinwingCduType type)
         {            
+            Log.Instance.log($"WinwingDisplayControl - AddCduDevice path={path}, type={type.ToString()}", LogSeverity.Debug);
             WebSocketServiceHost host;
             var device = new WinwingCduDevice(MessageSender, type);
             if (!Server.WebSocketServices.TryGetServiceHost(path, out host))
