@@ -291,7 +291,7 @@ namespace MobiFlight
 
             configItem.Active = item.Active;
             configItem.Name = item.Name;
-            MessageExchange.Instance.Publish(new ConfigValueFullUpdate() { ConfigItems = new List<IConfigItem>() { configItem } });
+            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(configItem));
             OnConfigHasChanged?.Invoke(new IConfigItem[] { configItem }, null);
         }
 
@@ -750,8 +750,7 @@ namespace MobiFlight
 
             if (updatedValues.Count > 0)
             {
-                // TODO: EMIT Event
-                var update = new ConfigValueFullUpdate() { ConfigItems = updatedValues.Values.ToList() };
+                var update = new ConfigValuePartialUpdate(updatedValues.Values.ToList());
                 MessageExchange.Instance.Publish(update);
             }
 

@@ -282,7 +282,7 @@ namespace MobiFlight.UI
                     // that the user edited with the wizard
                     var index = execManager.ConfigItems.FindIndex(c => c.GUID == cfg.GUID);
                     execManager.ConfigItems[index] = wizard.Config;
-                    MessageExchange.Instance.Publish(new ConfigValueFullUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
+                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
                     ExecManager_OnConfigHasChanged(wizard.Config, null);
                 }
             };
