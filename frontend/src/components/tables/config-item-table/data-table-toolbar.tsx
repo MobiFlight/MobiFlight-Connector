@@ -24,7 +24,18 @@ export function DataTableToolbar<TData>({
 
   const isFiltered = table.getState().columnFilters.length > 0
 
-  const devices = [...new Set(items.map((item) => item.ModuleSerial))].map(
+  const configTypes = [...new Set(items.map((item) => item.Type))].map(
+    (type) => {
+      const value = type
+      const label = t(`Types.${type}`)
+      return {
+        label: label,
+        value: value,
+      }
+    },
+  )
+
+  const controller = [...new Set(items.map((item) => item.ModuleSerial))].map(
     (serial) => {
       const label = serial?.split("/")[0]
       return {
@@ -37,13 +48,13 @@ export function DataTableToolbar<TData>({
         icon: isEmpty(label) ? IconBan : undefined,
       }
     },
-  )
+  ).sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1));
 
-  const components = [
+  const devices = [
     ...new Set(items.map((item) => item.Device?.Name ?? "-")),
-  ].map((component) => ({
-    label: component,
-    value: component,
+  ].map((device) => ({
+    label: device,
+    value: device,
   }))
 
   const types = [...new Set(items.map((item) => item.Device?.Type ?? "-"))].map(
@@ -69,11 +80,18 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        {table.getColumn("ConfigType") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("ConfigType")}
+            title={t("ConfigList.Toolbar.Filter.ConfigType")}
+            options={configTypes}
+          />
+        )}
         {table.getColumn("ModuleSerial") && (
           <DataTableFacetedFilter
             column={table.getColumn("ModuleSerial")}
             title={t("ConfigList.Toolbar.Filter.Device")}
-            options={devices}
+            options={controller}
           />
         )}
         {table.getColumn("Type") && (
@@ -87,7 +105,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("Device")}
             title={t("ConfigList.Toolbar.Filter.Name")}
-            options={components}
+            options={devices}
           />
         )}
         {isFiltered && (

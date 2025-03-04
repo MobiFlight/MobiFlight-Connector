@@ -47,6 +47,16 @@ export const columns: ColumnDef<IConfigItem>[] = [
     cell: ConfigItemTableNameCell,
   },
   {
+    accessorKey: "ConfigType",
+    size: 1,
+    cell: ({ row }) => {
+      return <p> {(row.original as IConfigItem).Type} </p>
+    },
+    filterFn: (row, _, value) => {
+      return value.includes(row.original.Type)
+    },
+  },
+  {
     accessorKey: "ModuleSerial",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks

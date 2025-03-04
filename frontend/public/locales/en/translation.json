@@ -11,7 +11,9 @@
     "Button": "Button",
     "Encoder": "Encoder",
     "AnalogInput": "Analog Input",
-    "-": "not set"
+    "-": "not set",
+    "OutputConfigItem": "Output",
+    "InputConfigItem": "Input"
   },
   "ConfigList": {
     "Toolbar": {
@@ -19,8 +21,9 @@
         "Placeholder": "Filter items..."
       },
       "Filter": {
-        "Device": "Devices",
-        "Type": "Types",
+        "ConfigType": "Config Type",
+        "Device": "Controller",
+        "Type": "Devices",
         "Name": "Names",
         "Selected": "{{items}} selected",
         "Clear": "Clear filters",

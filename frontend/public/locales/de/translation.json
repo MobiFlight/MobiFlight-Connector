@@ -6,11 +6,14 @@
     "Servo": "Servo",
     "LcdDisplay": "LCD Display",
     "ShiftRegister": "Ouptut Shift Register",
+    "CustomDevice": "Custom Device",
     "InputShiftRegister": "Input Shift Register",
     "Button": "Schalter",
     "Encoder": "Enkoder",
     "AnalogInput": "Analoger Eingang",
-    "-": "nicht verwendet"
+    "-": "nicht verwendet",
+    "OutputConfigItem": "Ausgabe",
+    "InputConfigItem": "Eingabe"
   },
   "ConfigList": {
     "Toolbar": {
@@ -18,8 +21,9 @@
         "Placeholder": "Einträge filtern..."
       },
       "Filter": {
-        "Device": "Geräte",
-        "Type": "Typen",
+        "ConfigType": "Konfiguration-Typ",
+        "Device": "Steuerung",
+        "Type": "Gerät",
         "Name": "Namen",
         "Selected": "{{items}} ausgewählt",
         "Clear": "Filter zurücksetzen",

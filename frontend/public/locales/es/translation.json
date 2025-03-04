@@ -6,11 +6,14 @@
     "Servo": "Servo",
     "LcdDisplay": "LCD Display",
     "ShiftRegister": "Ouptut Shift Register",
+    "CustomDevice": "Custom Device",
     "InputShiftRegister": "Input Shift Register",
     "Button": "Button",
     "Encoder": "Encoder",
     "AnalogInput": "Analog Input",
-    "-": "no usado"
+    "-": "no usado",
+    "OutputConfigItem": "Output",
+    "InputConfigItem": "Input"
   },
   "ConfigList": {
     "Toolbar": {
@@ -18,6 +21,7 @@
         "Placeholder": "Filtrar elementos..."
       },
       "Filter": {
+        "ConfigType": "Config Type",
         "Device": "Dispositivos",
         "Type": "Tipos",
         "Name": "Nombres",
@@ -25,6 +29,7 @@
         "Clear": "Borrar filtros",
         "NoResultsFound": "No se encontraron resultados."
       },
+      "NotSet": "not set",
       "Reset": "Restablecer filtros"
     },
     "Header": {

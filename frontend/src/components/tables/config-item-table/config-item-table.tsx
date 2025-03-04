@@ -64,6 +64,7 @@ export function ConfigItemTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     Type: false,
+    ConfigType: false,
   })
 
   const table = useReactTable({
