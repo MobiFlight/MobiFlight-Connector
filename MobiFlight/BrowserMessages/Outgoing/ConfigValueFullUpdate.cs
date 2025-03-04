@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace MobiFlight.BrowserMessages
 {
-    internal class ConfigValueUpdate
+    internal class ConfigValueFullUpdate
     {
-        public string UpdateType { get; set; }
         public List<IConfigItem> ConfigItems { get; set; }
 
-        public ConfigValueUpdate() { }
-        public ConfigValueUpdate(IConfigItem item)
+        public ConfigValueFullUpdate() { }
+        public ConfigValueFullUpdate(IConfigItem item)
         {
             ConfigItems = new List<IConfigItem>
             {
@@ -17,7 +16,7 @@ namespace MobiFlight.BrowserMessages
             };
         }
 
-        public ConfigValueUpdate(List<IConfigItem> configItems)
+        public ConfigValueFullUpdate(List<IConfigItem> configItems)
         {
             ConfigItems = configItems;
         }

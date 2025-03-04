@@ -208,7 +208,7 @@ namespace MobiFlight
                 item.Active = true;
                 ConfigItems.Add(item);
 
-                MessageExchange.Instance.Publish(new ConfigValueUpdate(item));
+                MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
@@ -224,7 +224,8 @@ namespace MobiFlight
                     case "duplicate":
                         var index = ConfigItems.FindIndex(i => i.GUID == message.Item.GUID);
                         if (index == -1) break;
-                        ConfigItems.Insert(index, ConfigItems[index].Duplicate());
+                        var dup = ConfigItems[index].Duplicate();
+                        ConfigItems.Insert(index, dup);
                         break;
 
                     case "test":
@@ -254,7 +255,7 @@ namespace MobiFlight
                         return;
                 }
 
-                MessageExchange.Instance.Publish(new ConfigValueUpdate(ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
@@ -278,7 +279,7 @@ namespace MobiFlight
                     currentIndex++;
                 });
                 
-                MessageExchange.Instance.Publish(new ConfigValueUpdate(ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
         }
@@ -290,7 +291,7 @@ namespace MobiFlight
 
             configItem.Active = item.Active;
             configItem.Name = item.Name;
-            MessageExchange.Instance.Publish(new ConfigValueUpdate() { ConfigItems = new List<IConfigItem>() { configItem } });
+            MessageExchange.Instance.Publish(new ConfigValueFullUpdate() { ConfigItems = new List<IConfigItem>() { configItem } });
             OnConfigHasChanged?.Invoke(new IConfigItem[] { configItem }, null);
         }
 
@@ -750,7 +751,7 @@ namespace MobiFlight
             if (updatedValues.Count > 0)
             {
                 // TODO: EMIT Event
-                var update = new ConfigValueUpdate() { ConfigItems = updatedValues.Values.ToList() };
+                var update = new ConfigValueFullUpdate() { ConfigItems = updatedValues.Values.ToList() };
                 MessageExchange.Instance.Publish(update);
             }
 
@@ -1454,7 +1455,7 @@ namespace MobiFlight
             }
 
             cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValueUpdate(cfg));
+            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
         }
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
@@ -1506,13 +1507,13 @@ namespace MobiFlight
             }
 
             cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValueUpdate(cfg));
+            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
         }
 
 
         private void ClearErrorMessages()
         {
-            MessageExchange.Instance.Publish(new ConfigValueUpdate(ConfigItems));
+            MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
         }
 
 #if MOBIFLIGHT

@@ -9,6 +9,7 @@ export type {
   AppMessageKey,
   AppMessagePayload,
   StatusBarUpdate,
-  ConfigValueUpdate,
+  ConfigValueFullUpdate,
+  ConfigValuePartialUpdate,
   Message,
 } from "./messages"
