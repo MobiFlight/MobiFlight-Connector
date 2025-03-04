@@ -13,7 +13,7 @@
           "DisplayLedPaddingChar": "0",
           "DisplayLedReverseDigits": false,
           "Name": "7-Segment",
-          "Type": "MobiFlight.OutputConfig.LedModule"
+          "Type": "LedModule"
       },
       "DeviceType": "Display Module",
       "GUID": "5b09dc42-d5cd-4284-9c03-355e579763f2",
@@ -38,7 +38,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -52,7 +52,7 @@
           "OutputRev": 2040,
           "Speed": 467,
           "TestValue": 500,
-          "Type": "MobiFlight.OutputConfig.Stepper"
+          "Type": "Stepper"
       },
       "DeviceType": "Stepper",
       "GUID": "c6e321b0-d6e4-42db-be98-0b7867db58eb",
@@ -77,7 +77,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -88,7 +88,7 @@
           "MaxRotationPercent": "100",
           "Min": "0",
           "Name": "Servo 1",
-          "Type": "MobiFlight.OutputConfig.Servo"
+          "Type": "Servo"
       },
       "DeviceType": "Servo",
       "GUID": "4eb61c0f-a3c1-4b86-b0ff-d06e6ddc0363",
@@ -113,7 +113,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -127,7 +127,7 @@
               "******Test******"
           ],
           "Name": "LCD 1",
-          "Type": "MobiFlight.OutputConfig.LcdDisplay"
+          "Type": "LcdDisplay"
       },
       "DeviceType": "LcdDisplay",
       "GUID": "61ae4145-c7d5-41ef-b2a9-c993f8986be1",
@@ -152,7 +152,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -175,7 +175,7 @@
           "DisplayPinBrightness": 255,
           "DisplayPinPWM": false,
           "Name": "LED 2",
-          "Type": "MobiFlight.OutputConfig.Output"
+          "Type": "Output"
       },
       "DeviceType": "Output",
       "GUID": "f79f75dd-0d45-4c91-870d-599cfc75ede1",
@@ -212,7 +212,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -221,7 +221,7 @@
           "Address": "ShiftRegister 1",
           "Name": "ShiftRegister 1",
           "Pin": "Output 0",
-          "Type": "MobiFlight.OutputConfig.ShiftRegister"
+          "Type": "ShiftRegister"
       },
       "DeviceType": "ShiftRegister",
       "GUID": "54e5ac64-e314-48de-8ebb-6d8ccc4689e4",
@@ -246,111 +246,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
-  },
-  {
-      "Active": true,
-      "ConfigRefs": [],
-      "DeviceType": "",
-      "GUID": "8f74c497-c8e9-42c9-8c1d-69d5db217037",
-      "Modifiers": {
-          "Items": []
-      },
-      "ModuleSerial": "",
-      "Name": "New Output Config",
-      "Preconditions": [],
-      "Source": {
-          "SimConnectValue": {
-              "VarType": 0
-          },
-          "SourceType": "SIMCONNECT",
-          "Type": "SimConnectSource"
-      },
-      "Status": {},
-      "TestValue": {
-          "Float64": 1,
-          "String": null,
-          "type": 1
-      },
-      "Type": "MobiFlight.OutputConfigItem"
-  },
-  {
-      "Active": true,
-      "ConfigRefs": [],
-      "DeviceType": "",
-      "GUID": "e0262d3b-c4f9-44e1-b468-1306bd48fbb3",
-      "Modifiers": {
-          "Items": []
-      },
-      "ModuleSerial": "",
-      "Name": "New Output Config",
-      "Preconditions": [],
-      "Source": {
-          "SimConnectValue": {
-              "VarType": 0
-          },
-          "SourceType": "SIMCONNECT",
-          "Type": "SimConnectSource"
-      },
-      "Status": {},
-      "TestValue": {
-          "Float64": 1,
-          "String": null,
-          "type": 1
-      },
-      "Type": "MobiFlight.OutputConfigItem"
-  },
-  {
-      "Active": true,
-      "ConfigRefs": [],
-      "DeviceType": "",
-      "GUID": "9a6267d0-5f40-457c-b724-ccc835510abf",
-      "Modifiers": {
-          "Items": []
-      },
-      "ModuleSerial": "",
-      "Name": "New Output Config",
-      "Preconditions": [],
-      "Source": {
-          "SimConnectValue": {
-              "VarType": 0
-          },
-          "SourceType": "SIMCONNECT",
-          "Type": "SimConnectSource"
-      },
-      "Status": {},
-      "TestValue": {
-          "Float64": 1,
-          "String": null,
-          "type": 1
-      },
-      "Type": "MobiFlight.OutputConfigItem"
-  },
-  {
-      "Active": true,
-      "ConfigRefs": [],
-      "DeviceType": "",
-      "GUID": "81c4908e-429d-48c8-83f4-4e5f577be1f2",
-      "Modifiers": {
-          "Items": []
-      },
-      "ModuleSerial": "",
-      "Name": "New Output Config",
-      "Preconditions": [],
-      "Source": {
-          "SimConnectValue": {
-              "VarType": 0
-          },
-          "SourceType": "SIMCONNECT",
-          "Type": "SimConnectSource"
-      },
-      "Status": {},
-      "TestValue": {
-          "Float64": 1,
-          "String": null,
-          "type": 1
-      },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -376,7 +272,7 @@
           "String": null,
           "type": 1
       },
-      "Type": "MobiFlight.OutputConfigItem"
+      "Type": "OutputConfigItem"
   },
   {
       "Active": true,
@@ -391,7 +287,7 @@
       "Name": "Button",
       "Preconditions": [],
       "Status": {},
-      "Type": "MobiFlight.InputConfigItem",
+      "Type": "InputConfigItem",
       "button": {
           "HoldDelay": 350,
           "LongReleaseDelay": 350,
@@ -399,7 +295,7 @@
           "onHold": null,
           "onLongRelease": null,
           "onPress": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
           },
           "onRelease": null
       }
@@ -417,14 +313,14 @@
       "Name": "Encoder",
       "Preconditions": [],
       "Status": {},
-      "Type": "MobiFlight.InputConfigItem",
+      "Type": "InputConfigItem",
       "encoder": {
           "onLeft": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
           },
           "onLeftFast": null,
           "onRight": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
           },
           "onRightFast": null
       }
@@ -442,10 +338,10 @@
       "Name": "AnalogInput",
       "Preconditions": [],
       "Status": {},
-      "Type": "MobiFlight.InputConfigItem",
+      "Type": "InputConfigItem",
       "analog": {
           "onChange": {
-              "Type": "MobiFlight.InputConfig.MSFS2020CustomInputAction"
+              "Type": "MSFS2020CustomInputAction"
           }
       }
   }
