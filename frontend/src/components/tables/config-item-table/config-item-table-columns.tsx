@@ -98,8 +98,10 @@ export const columns: ColumnDef<IConfigItem>[] = [
       )
     },
     cell: ConfigItemTableDeviceCell,
-    filterFn: (row, id, value) => {
-      return value.includes((row.getValue(id) as IDeviceConfig)?.Name ?? "-")
+    filterFn: (row, _, value) => {
+      const item = row.original as IConfigItem
+      const name = (item.Device as IDeviceConfig)?.Name ?? (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
+      return value.includes(name)
     },
   },
   {
@@ -119,9 +121,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
       return <p className="text-md font-semibold">{label}</p>
     },
     filterFn: (row, _, value) => {
-      return value.includes(
-        (row.getValue("Device") as IDeviceConfig)?.Type ?? "-",
-      )
+      const item = row.original as IConfigItem
+      const type = (item.Device as IDeviceConfig)?.Type ?? (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
+      return value.includes(type)
     },
   },
   // {

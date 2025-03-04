@@ -35,38 +35,40 @@ export function DataTableToolbar<TData>({
     },
   )
 
-  const controller = [...new Set(items.map((item) => item.ModuleSerial))].map(
-    (serial) => {
+  const controller = [...new Set(items.map((item) => item.ModuleSerial))]
+    .map((serial) => {
       const label = serial?.split("/")[0]
       return {
-        label: !isEmpty(label) ? (
-          label
-        ) : (
-          t(`ConfigList.Toolbar.NotSet`)
-        ),
+        label: !isEmpty(label) && label !="-" ? label : t(`ConfigList.Toolbar.NotSet`),
         value: serial,
-        icon: isEmpty(label) ? IconBan : undefined,
+        icon: isEmpty(label) || label =="-" ? IconBan : undefined,
       }
-    },
-  ).sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1));
+    })
+    .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
-  const devices = [
-    ...new Set(items.map((item) => item.Device?.Name ?? "-")),
-  ].map((device) => ({
-    label: device,
-    value: device,
-  }))
-
-  const types = [...new Set(items.map((item) => item.Device?.Type ?? "-"))].map(
+  const deviceTypes = [...new Set(items.map((item) => item.Device?.Type ?? "-"))].map(
     (type) => {
-      const labelRaw = type
-      const label = t(`Types.${labelRaw}`)
+      const label = (type!="-")
+        ? t(`Types.${type}`)
+        : t(`ConfigList.Toolbar.NotSet`)
       return {
         label: label,
         value: type,
+        icon: (type=="-") ? IconBan : undefined,
       }
     },
-  )
+  ).sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
+
+  const deviceNames = [...new Set(items.map((item) => item.Device?.Name ?? "-"))].map(
+    (device) => {
+      const label = device
+      return {
+        label: (label!="-") ? label : t(`ConfigList.Toolbar.NotSet`),
+        value: label,
+        icon: (label=="-") ? IconBan : undefined,
+      }
+    },
+  ).sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
   return (
     <div className="flex items-center justify-between">
@@ -98,14 +100,14 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("Type")}
             title={t("ConfigList.Toolbar.Filter.Type")}
-            options={types}
+            options={deviceTypes}
           />
         )}
         {table.getColumn("Device") && (
           <DataTableFacetedFilter
             column={table.getColumn("Device")}
             title={t("ConfigList.Toolbar.Filter.Name")}
-            options={devices}
+            options={deviceNames}
           />
         )}
         {isFiltered && (

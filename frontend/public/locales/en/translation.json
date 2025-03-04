@@ -35,8 +35,8 @@
     "Header": {
       "Active": "Active",
       "Name": "Name / Description",
-      "Device": "Device",
-      "Component": "Component",
+      "Device": "Controller",
+      "Component": "Device",
       "Status": "Status",
       "RawValue": "Raw Value",
       "FinalValue": "Final Value",

@@ -35,8 +35,8 @@
     "Header": {
       "Active": "Aktiv",
       "Name": "Name / Beschreibung",
-      "Device": "Gerät",
-      "Component": "Komponente",
+      "Device": "Steuerung",
+      "Component": "Gerät",
       "Status": "Status",
       "RawValue": "Rohwert",
       "FinalValue": "Endwert",
