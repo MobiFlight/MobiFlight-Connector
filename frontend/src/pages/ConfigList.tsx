@@ -39,7 +39,7 @@ const ConfigListPage = () => {
     if (process.env.NODE_ENV === "development" && configItems.length === 0) {
       setItems(testdata)
     }
-  },[configItems.length, setItems])
+  },[setItems])
 
   return (
     // <div className='flex flex-col gap-4 overflow-y-auto'>
