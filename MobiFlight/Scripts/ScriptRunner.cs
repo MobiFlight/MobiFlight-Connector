@@ -12,6 +12,7 @@ namespace MobiFlight.Scripts
 {
     internal class ScriptRunner
     {
+
         private JoystickManager JsManager;
         private SimConnectCache MsfsCache;
         private string AircraftName = string.Empty;
@@ -42,7 +43,7 @@ namespace MobiFlight.Scripts
             MsfsCache = msfsCache;  
             ChildProcMon = childProcMon;
             ReadConfiguration();
-            GetAvailableScripts();         
+            GetAvailableScripts();          
         }
 
 
@@ -76,6 +77,8 @@ namespace MobiFlight.Scripts
                 // Replace keyword
                 mapping.ProductIds = SubstituteKeywords(mapping.ProductIds);
 
+                Log.Instance.log($"ScriptRunner - Add mapping {mapping.ScriptName}.", LogSeverity.Debug);
+
                 foreach (var productId in mapping.ProductIds)
                 {                    
                     string hardwareId = GetHardwareId(mapping.VendorId, productId);
@@ -87,14 +90,14 @@ namespace MobiFlight.Scripts
                     {
                         MappingDictionary[hardwareId].Add(mapping);
                     }
-                    Log.Instance.log($"ScriptRunner - Add mapping {mapping.ScriptName}.", LogSeverity.Debug);
                 }
             }
         }
 
         private void GetAvailableScripts()
         {
-            var filesFullPath = Directory.GetFiles(@"Scripts\", "*.py", SearchOption.AllDirectories);
+            var filesFullPath = Directory.GetFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Scripts"), "*.py", SearchOption.AllDirectories);           
+
             foreach (var fullPath in filesFullPath)
             {
                 string fileName = Path.GetFileName(fullPath);
@@ -306,6 +309,9 @@ namespace MobiFlight.Scripts
                     FileName = @"python",                    
                     Arguments = ScriptDictionary[script],
                     WindowStyle = ProcessWindowStyle.Minimized,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
                 };
 
                 Process process = new Process
@@ -313,10 +319,17 @@ namespace MobiFlight.Scripts
                     StartInfo = psi
                 };
 
+                process.OutputDataReceived += Process_OutputDataReceived;
+                process.ErrorDataReceived += Process_ErrorDataReceived;
+
                 Log.Instance.log($"ScriptRunner - Start Process: {psi.Arguments}", LogSeverity.Debug);
-                process.Start();   
-                
+                process.Start();
+               
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();              
+
                 ActiveProcesses.Add(process);
+
                 try
                 {
                     ChildProcMon.AddChildProcess(process);
@@ -328,11 +341,22 @@ namespace MobiFlight.Scripts
             }
         }
 
+        private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {           
+            Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);          
+        }
+
+        private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Log.Instance.log($"ScriptRunner - StandardError: {e.Data}", LogSeverity.Info);       
+        }
 
         private void CheckAndExecuteScripts()
         {
             string aircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
             ExecutionList.Clear();
+
+            Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
 
             // Get all joysticks
             List<Joystick> joysticks = JsManager.GetJoysticks();
@@ -347,7 +371,6 @@ namespace MobiFlight.Scripts
                         // Hardware found, now compare aircraft 
                         foreach (var config in MappingDictionary[hardwareId])
                         {
-                            Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
                             if (aircraftDescription.Contains(config.AircraftIdSnippet))
                             {
                                 Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Debug);
@@ -382,6 +405,7 @@ namespace MobiFlight.Scripts
                     process.Kill();                   
                 }                
             }
+            ActiveProcesses.Clear();
         }
 
 
