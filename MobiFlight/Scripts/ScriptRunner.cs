@@ -307,7 +307,7 @@ namespace MobiFlight.Scripts
                 ProcessStartInfo psi = new ProcessStartInfo
                 {                                       
                     FileName = @"python",                    
-                    Arguments = ScriptDictionary[script],
+                    Arguments = ($"\"{ScriptDictionary[script]}\""),
                     WindowStyle = ProcessWindowStyle.Minimized,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
