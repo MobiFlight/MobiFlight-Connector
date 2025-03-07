@@ -2,9 +2,11 @@ import asyncio, os, json
 import xml.etree.ElementTree as ET
 import logging, logging.handlers
 import websockets.asyncio.client as ws_client
+import websockets.exceptions
 
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
+from gql.transport.websockets import log as websockets_logger
 from inspect import getsourcefile
 
 subs = {'#': '\u2610',    # ballot box
@@ -18,10 +20,6 @@ replace_chars =  ['£', '¢', '¥', '¤', '#', '&' ]
 format_chars = ['s', 'l', 'a', 'c', 'y', 'w', 'g', 'm']
 
 BASE_PATH = os.path.dirname(os.path.abspath(getsourcefile(lambda:0)))
-
-# global mobi websocket connection
-mobi_websocket_connection = None
-
 
 def setup_logging(log_level, log_file_full_path):
     base_path = os.path.dirname(log_file_full_path)
@@ -62,28 +60,27 @@ def create_mobi_json(xml_string):
                 if char != ' ':
                     entry = [char, formatting, size]
                 message["Data"].append(entry)
-        logging.warning(child.text)   
+        logging.debug(child.text)   
     logging.debug(message)
     return json.dumps(message, separators=(',', ':')) 
 
 
-async def run_fenix_graphql_client():
-    global mobi_websocket_connection
+async def run_fenix_graphql_client(mobi_client1, mobi_client2):
+    await asyncio.sleep(0.5)
     transport = WebsocketsTransport(url="ws://localhost:8083/graphql/")
-    client = Client(transport=transport, fetch_schema_from_transport=True )
+    client = Client(transport=transport)
     op_name = "OnDataRefChanged"
     subscription = gql(
             """
             subscription OnDataRefChanged($names: [String!]!) {
                 dataRefs(names: $names) {
                 name
-                value  
-                __typename
+                value               
                 }
             }
         """
         )
-    params = {"names": ["aircraft.mcdu1.display"]}   
+    params = {"names": ["aircraft.mcdu1.display", "aircraft.mcdu2.display"]}   
     session = await client.connect_async(reconnecting=True) 
     while (True):
         try:
@@ -91,38 +88,59 @@ async def run_fenix_graphql_client():
                 if "dataRefs" in result:
                     if (result["dataRefs"]["name"] == "aircraft.mcdu1.display"):
                         mobi_json = create_mobi_json(result["dataRefs"]["value"])
-                        if mobi_websocket_connection is not None:
-                            await mobi_websocket_connection.send(mobi_json)                   
+                        await mobi_client1.send_json_data(mobi_json)
+                    elif (result["dataRefs"]["name"] == "aircraft.mcdu2.display"):
+                        mobi_json = create_mobi_json(result["dataRefs"]["value"])
+                        await mobi_client2.send_json_data(mobi_json)              
         except Exception as ex: 
             logging.error(f"run_fenix_graphql_client: {ex}")  
         await asyncio.sleep(5)
 
 
-async def run_mobiflight_websocket_client():
-    global mobi_websocket_connection
-    uri = "ws://localhost:8320/winwing/cdu-captain"
-    while (True):
-        try:
-            if mobi_websocket_connection == None:
-                logging.warning("run_mobiflight_websocket_client: Try to establish MobiFlight connection.")                  
-                mobi_websocket_connection = await ws_client.connect(uri)  
-                logging.warning("run_mobiflight_websocket_client: MobiFlight CONNECTION ESTABLISHED.")   
-            # Wait for disconnection or data
-            await mobi_websocket_connection.recv()   
-        except Exception as ex:             
-            logging.error(f"run_mobiflight_websocket_client: {ex}")  
-            logging.error("run_mobiflight_websocket_client: MobiFlight DISCONNECTED.")  
-            mobi_websocket_connection = None                                        
-        await asyncio.sleep(5)
+class Mobiflight_Client:
+
+    def __init__(self, uri, id):
+        self.uri = uri
+        self.id = id
+        self.websocket_connection = None
+
+    async def run_mobiflight_websocket_client(self):  
+        while (True):
+            try:
+                if self.websocket_connection == None:                                
+                    self.websocket_connection = await ws_client.connect(self.uri)  
+                    logging.info(f"Established connection to MobiFlight websocket interface for {self.id}.")   
+                # Wait for disconnection or data
+                await self.websocket_connection.recv()    
+            except websockets.exceptions.InvalidStatus as invalid:      
+                self.websocket_connection = None
+                if invalid.response.status_code == 501:
+                    logging.error(f"MobiFlight websocket interface for {self.id} not active. Stop trying.")
+                    # Break and stop for that CDU
+                    break
+                else:
+                    logging.error(f"Error on trying to connect to MobiFlight websocket interface for {self.id}. Will retry: {ex}")    
+            except Exception as ex:            
+                logging.error(f"Error on trying to connect to MobiFlight websocket interface for {self.id}. Will retry: {ex}")                  
+                self.websocket_connection = None                                        
+            await asyncio.sleep(5)
+
+    async def send_json_data(self, mobi_json):
+        if self.websocket_connection is not None:
+            await self.websocket_connection.send(mobi_json)  
+
     
 
-async def main():    
-    # Use log level WARNING for standard info, to avoid verbose infos from gql library
-    setup_logging(logging.WARNING, os.path.join(BASE_PATH, 'logs/fenixMcduLogging.log'))    
-    logging.warning("----STARTED fenix_winwing_cdu.py----")
-    fenix_task = asyncio.create_task(run_fenix_graphql_client())
-    mobi_task = asyncio.create_task(run_mobiflight_websocket_client())
-    await asyncio.gather(fenix_task, mobi_task)
+async def main():   
+    websockets_logger.setLevel(logging.WARNING)   
+    setup_logging(logging.INFO, os.path.join(BASE_PATH, 'logs/fenixMcduLogging.log'))    
+    logging.info("----STARTED fenix_winwing_cdu.py----")   
+    client1 = Mobiflight_Client("ws://localhost:8320/winwing/cdu-captain", "CDU-CAPTAIN")
+    client2 = Mobiflight_Client("ws://localhost:8320/winwing/cdu-co-pilot", "CDU-CO-PILOT")  
+    mobi_task = asyncio.create_task(client1.run_mobiflight_websocket_client())
+    mobi_task2 = asyncio.create_task(client2.run_mobiflight_websocket_client())
+    fenix_task = asyncio.create_task(run_fenix_graphql_client(client1, client2))
+    await asyncio.gather(fenix_task, mobi_task, mobi_task2)
     
 
 # --------- MAIN -----------

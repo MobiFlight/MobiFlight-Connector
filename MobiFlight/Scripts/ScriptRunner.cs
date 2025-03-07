@@ -12,7 +12,6 @@ namespace MobiFlight.Scripts
 {
     internal class ScriptRunner
     {
-
         private JoystickManager JsManager;
         private SimConnectCache MsfsCache;
         private string AircraftName = string.Empty;
@@ -157,7 +156,7 @@ namespace MobiFlight.Scripts
                     string output = reader.ReadToEnd();
                     var x = output.Split(' ');
                     var v = x[1].Split('.');
-                    Log.Instance.log($"Python version: {x[1]}.", LogSeverity.Debug); 
+                    Log.Instance.log($"Python version: {x[1]}.", LogSeverity.Info); 
                     if ( (int.Parse(v[0]) >= 3) && (int.Parse(v[1]) >= 10))
                     {
                         return true;
@@ -223,7 +222,7 @@ namespace MobiFlight.Scripts
                         }
                         else
                         {
-                            Log.Instance.log($"ScriptRunner - Package Line has not two elements: '{line}'", LogSeverity.Error);
+                            Log.Instance.log($"ScriptRunner - Package info has not two elements: '{line}'", LogSeverity.Error);
                         }
                     }                    
                 }
@@ -308,7 +307,7 @@ namespace MobiFlight.Scripts
                 {                                       
                     FileName = @"python",                    
                     Arguments = ($"\"{ScriptDictionary[script]}\""),
-                    WindowStyle = ProcessWindowStyle.Minimized,
+                    CreateNoWindow = true,
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
@@ -322,7 +321,8 @@ namespace MobiFlight.Scripts
                 process.OutputDataReceived += Process_OutputDataReceived;
                 process.ErrorDataReceived += Process_ErrorDataReceived;
 
-                Log.Instance.log($"ScriptRunner - Start Process: {psi.Arguments}", LogSeverity.Debug);
+                Log.Instance.log($"ScriptRunner - Start Process: {script}", LogSeverity.Info);
+                Log.Instance.log($"ScriptRunner - Start Process FullPath: {psi.Arguments}", LogSeverity.Debug);
                 process.Start();
                
                 process.BeginOutputReadLine();
@@ -355,7 +355,6 @@ namespace MobiFlight.Scripts
         {
             string aircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
             ExecutionList.Clear();
-
             Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
 
             // Get all joysticks
@@ -373,7 +372,7 @@ namespace MobiFlight.Scripts
                         {
                             if (aircraftDescription.Contains(config.AircraftIdSnippet))
                             {
-                                Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Debug);
+                                Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
                                 ExecutionList.Add(config.ScriptName);
                             }
                         }
@@ -402,6 +401,8 @@ namespace MobiFlight.Scripts
             {
                 if (!process.HasExited)
                 {
+                    process.OutputDataReceived -= Process_OutputDataReceived;
+                    process.ErrorDataReceived -= Process_ErrorDataReceived;                
                     process.Kill();                   
                 }                
             }

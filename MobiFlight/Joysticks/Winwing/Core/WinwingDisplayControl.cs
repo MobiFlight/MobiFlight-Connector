@@ -1,10 +1,8 @@
 ﻿using MobiFlightWwFcu;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Xml.Linq;
 using WebSocketSharp.Server;
 
 namespace MobiFlight.Joysticks.Winwing
@@ -59,7 +57,7 @@ namespace MobiFlight.Joysticks.Winwing
         }
         private void AddCduDevice(string path, WinwingCduType type)
         {            
-            Log.Instance.log($"WinwingDisplayControl - AddCduDevice path={path}, type={type.ToString()}", LogSeverity.Debug);
+            Log.Instance.log($"AddCduDevice Path: {path}, Type: {type.ToString()}", LogSeverity.Info);
             WebSocketServiceHost host;
             var device = new WinwingCduDevice(MessageSender, type);
             if (!Server.WebSocketServices.TryGetServiceHost(path, out host))
