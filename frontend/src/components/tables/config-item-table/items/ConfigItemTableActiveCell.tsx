@@ -1,12 +1,11 @@
 import { Switch } from "@/components/ui/switch"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
-import { IConfigItem, IDeviceConfig } from "@/types/config"
+import { IConfigItem } from "@/types/config"
 import { useSortable } from "@dnd-kit/sortable"
 import { IconGripVertical } from "@tabler/icons-react"
 
 import { Row } from "@tanstack/react-table"
-import { isEmpty } from "lodash-es"
 
 interface ConfigItemTableActiveCellProps {
   row: Row<IConfigItem>
@@ -17,10 +16,6 @@ const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
   const item = row.original as IConfigItem
 
   const { attributes, listeners } = useSortable({ id: item.GUID })
-
-  const type =
-    (item.Device as IDeviceConfig)?.Type ??
-    (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
 
   return (
     <div className="flex flex-row items-center">
