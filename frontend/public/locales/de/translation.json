@@ -12,8 +12,8 @@
     "Encoder": "Enkoder",
     "AnalogInput": "Analoger Eingang",
     "-": "nicht verwendet",
-    "OutputConfigItem": "Ausgabe",
-    "InputConfigItem": "Eingabe"
+    "OutputConfigItem": "Ausgabe Konfiguration",
+    "InputConfigItem": "Eingabe Konfiguration"
   },
   "ConfigList": {
     "Toolbar": {
