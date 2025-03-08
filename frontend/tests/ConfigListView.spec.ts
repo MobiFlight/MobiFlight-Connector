@@ -41,15 +41,12 @@ test("Confirm active toggle is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
   await configListPage.setupConfigItemEditConfirmationResponse()
-  const rowSelector = { name: "LED 1 Edit ProtoBoard-v2 SN-5FC-" }
-  await page.getByRole("row", rowSelector).getByRole("switch").click()
-  await expect(
-    page.getByRole("row", rowSelector).getByRole("switch"),
-  ).not.toBeChecked()
-  await page.getByRole("row", rowSelector).getByRole("switch").click()
-  await expect(
-    page.getByRole("row", rowSelector).getByRole("switch"),
-  ).toBeChecked()
+  const rowSelector = { name: "LED 1 Edit ProtoBoard-v2" }
+  const toggleSwitch = page.getByRole("row", rowSelector).getByRole("switch")
+  await toggleSwitch.click()
+  await expect(toggleSwitch).not.toBeChecked()
+  await toggleSwitch.click()
+  await expect(toggleSwitch).toBeChecked()
 })
 
 test("Confirm edit function for name is working", async ({
