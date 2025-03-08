@@ -3,3 +3,5 @@ export { default as ConfigItemTableActiveCell } from "./ConfigItemTableActiveCel
 export { default as ConfigItemTableActiveHeader } from "./ConfigItemTableActiveHeader"
 export { default as ConfigItemTableNameCell } from "./ConfigItemTableNameCell"
 export { default as ConfigItemTableStatusCell } from "./ConfigItemTableStatusCell"
+export { default as ConfigItemTableControllerCell } from "./ConfigItemTableControllerCell"
+export { default as ConfigItemTableDeviceCell } from "./ConfigItemTableDeviceCell"

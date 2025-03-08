@@ -1,4 +1,5 @@
 import DeviceIcon from "@/components/icons/DeviceIcon"
+import ToolTip from "@/components/ToolTip"
 import { IConfigItem, IDeviceConfig } from "@/types/config"
 import { DeviceElementType } from "@/types/deviceElements"
 import { IconBan } from "@tabler/icons-react"
@@ -12,8 +13,12 @@ interface ConfigItemTableDeviceCellProps {
 const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
   const { t } = useTranslation()
   const item = row.original as IConfigItem
-  const label = (item.Device as IDeviceConfig)?.Name ?? (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
-  const type = (item.Device as IDeviceConfig)?.Type ?? (!isEmpty(item.DeviceType) ? item.DeviceType : "-") 
+  const label =
+    (item.Device as IDeviceConfig)?.Name ??
+    (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
+  const type =
+    (item.Device as IDeviceConfig)?.Type ??
+    (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
   const icon = (
     <DeviceIcon
       disabled={!row.getValue("Active") as boolean}
@@ -25,18 +30,21 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
     `Types.${type?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
   )
   return type != "-" ? (
-    <div className="flex flex-row items-center gap-2 lg:w-36 2xl:w-48">
-      <div>{icon}</div>
-      <div className="hidden w-full flex-col lg:flex">
-        <p className="text-md truncate font-semibold">{label}</p>
-        <p className="truncate text-xs text-muted-foreground">{typeLabel}</p>
+    <ToolTip content={typeLabel}>
+      <div className="flex flex-row items-center gap-2 lg:w-36 2xl:w-48">
+        {icon}
+        <div className="hidden w-full flex-col lg:flex">
+          <p className="text-md truncate">{label}</p>
+        </div>
       </div>
-    </div>
+    </ToolTip>
   ) : (
+    <ToolTip content={t("ConfigList.Cell.Device.not set")}>
     <div className="item-center flex flex-row gap-2 text-slate-400">
       <IconBan />
       <span>not set</span>
     </div>
+    </ToolTip>
   )
 }
 

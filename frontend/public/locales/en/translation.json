@@ -12,8 +12,8 @@
     "Encoder": "Encoder",
     "AnalogInput": "Analog Input",
     "-": "not set",
-    "OutputConfigItem": "Output",
-    "InputConfigItem": "Input"
+    "OutputConfigItem": "Output Configuration",
+    "InputConfigItem": "Input Configuration"
   },
   "ConfigList": {
     "Toolbar": {
@@ -43,7 +43,13 @@
       "Actions": "Actions"
     },
     "Cell": {
-      "Waiting": "Waiting"
+      "Waiting": "Waiting",
+      "Controller": {
+        "not set": "No controller used in this config."
+      },
+      "Device": {
+        "not set": "No device used in this config."
+      }
     },
     "Table": {
       "NoResultsFound": "This is a new configuration. Please add some items."
@@ -57,6 +63,35 @@
         "Add": "Add Input Config",
         "DefaultName": "New Input Config"
       }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "Precondition is not satisfied."
+      },
+      "Source": {
+        "available": "Source is available.",
+        "SIMCONNECT_NOT_AVAILABLE": "This config uses SimConnect, connection is missing.",
+        "FSUIPC_NOT_AVAILABLE": "This config uses FSUIPC, connection is missing.",
+        "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing."
+      },
+      "Modifier" : {
+        "Error": "A modifier is applied which has an error.",
+        "OK": "A modifier is applied."
+      },
+      "Device": {
+        "NotConnected": "The device used in this config is not connected.",
+        "Connected": "The device used in this config is connected."
+      },
+      "Test": {
+        "Executing": "This config is currently being tested.",
+        "NotExecuting": "This config is not being tested."
+      },
+      "ConfigRef": {
+        "Missing": "One or more referenced configs are missing.",
+        "OK": "All referenced configs are available."
+      }
     }
+
   }
 }

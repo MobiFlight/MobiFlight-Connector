@@ -662,7 +662,7 @@ namespace MobiFlight
                 // If not connected to FSUIPC show an error message
                 if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
                 {
-                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
+                    cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
                 }
                 else
 #if SIMCONNECT
@@ -677,7 +677,7 @@ namespace MobiFlight
                 if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
                 {
                     // TODO: REDESIGN: Review
-                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
+                    cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
                 }
                 // In any other case remove the error message
                 else
