@@ -1,6 +1,6 @@
 import { CommandMessageKey, CommandMessage } from "@/types/commands"
 import { AppMessage } from "@/types/messages"
-import type { Page } from "@playwright/test"
+import type { Locator, Page } from "@playwright/test"
 
 export class MobiFlightPage {
   constructor(public readonly page: Page) {
@@ -67,5 +67,9 @@ export class MobiFlightPage {
         callbackStr: callback.toString(), // Serialize the function to a string
       },
     )
+  }
+
+  getTooltipByText(text: string): Locator {
+    return this.page.getByRole("tooltip").filter({hasText:text})
   }
 }

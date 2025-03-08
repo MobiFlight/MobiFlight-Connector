@@ -54,7 +54,7 @@ const DeviceIcon = (props: DeviceIconProps) => {
     icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   }
 
-  return <div className="inline-block">{icon}</div>;
+  return <div className="inline-block">{icon}</div>
 };
 
 export default DeviceIcon;
