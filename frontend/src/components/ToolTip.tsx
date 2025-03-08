@@ -9,7 +9,7 @@ type ToolTipProps = {
 const ToolTip = ({children, title }: ToolTipProps) => {
   return (
     
-      <Tooltip delayDuration={500}>
+      <Tooltip delayDuration={500} aria-role="tooltip">
         <TooltipTrigger  asChild>
           { children }
         </TooltipTrigger>

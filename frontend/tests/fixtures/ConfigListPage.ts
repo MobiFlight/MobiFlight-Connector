@@ -8,6 +8,7 @@ import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
+import { Locator } from "@playwright/test"
 
 export class ConfigListPage {
   constructor(public readonly mobiFlightPage: MobiFlightPage) {}
@@ -74,5 +75,17 @@ export class ConfigListPage {
       } as ConfigValuePartialUpdate,
     }
     await this.mobiFlightPage.publishMessage(message)
+  }
+
+  getStatusIconInRow(iconName: string, row: number) : Locator {
+    const iconIndex : Record<string, number> = {
+      "Precondition": 0,
+      "Source": 1,
+      "Device": 2,
+      "Modifier": 3,
+      "Test": 4,
+      "ConfigRef": 5,
+    }
+    return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status").nth(iconIndex[iconName]!)
   }
 }
