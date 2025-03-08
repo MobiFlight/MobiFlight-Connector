@@ -139,14 +139,14 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   })
 
   for (const test of statusTests) {
-    await configListPage.updateConfigItemStatus(0, test.status);
-    await expect(test.icon).toHaveAttribute("aria-disabled", "false");
-    await test.icon.hover();
+    await configListPage.updateConfigItemStatus(0, test.status)
+    await expect(test.icon).toHaveAttribute("aria-disabled", "false")
+    await test.icon.hover()
     await expect(
       configListPage.mobiFlightPage.getTooltipByText(test.toolTipText),
-    ).toBeVisible();
-    await page.click("body");
-    await page.waitForTimeout(500);
+    ).toBeVisible()
+    await page.click("body")
+    await page.waitForTimeout(500)
   }
 })
 
@@ -180,35 +180,42 @@ test("Confirm `Config Type` filter toolbar is working", async ({
 }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
-  await page.getByRole("button", { name: "Config Type" }).click()
-  await page.getByRole("option", { name: "Output" }).locator("div").click()
-  await expect(page.locator("tbody tr")).toHaveCount(7)
-  await page.getByRole("option", { name: "Input" }).locator("div").click()
-  await page.getByRole("option", { name: "Output" }).locator("div").click()
-  await expect(page.locator("tbody tr")).toHaveCount(3)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
 
-  await page.getByPlaceholder("Config Type").click()
-  await page.getByPlaceholder("Config Type").fill("In")
-  await page.getByPlaceholder("Config Type").press("Enter")
-  await expect(page.locator("tbody tr")).toHaveCount(3)
-  await page
-    .locator("#root div")
-    .filter({
-      hasText:
-        "Config Type1InputControllerDevicesNamesReset filtersActiveName /",
-    })
-    .nth(2)
-    .click()
+  const configTypeFilterButton = page.getByRole("button", {
+    name: "Config Type",
+  })
+  const outputOption = page
+    .getByRole("option", { name: "Output" })
+    .locator("div")
+  const inputOption = page.getByRole("option", { name: "Input" }).locator("div")
+  const visibleRows = page.locator("tbody tr")
+  const clearFiltersOption = page.getByRole("option", { name: "Clear filters" })
+
+  await configTypeFilterButton.click()
+  await outputOption.click()
+  await expect(visibleRows).toHaveCount(7)
+
+  await inputOption.click()
+  await outputOption.click()
+  await expect(visibleRows).toHaveCount(3)
+
+  await clearFiltersOption.click()
+  await expect(visibleRows).toHaveCount(10)
+
+  const inputField = page.getByPlaceholder("Config Type")
+  await inputField.click()
+  await inputField.fill("In")
+  await inputField.press("Enter")
+  await expect(visibleRows).toHaveCount(3)
+  await page.locator("#root").click()
   await page.waitForTimeout(500)
 
-  await page.getByRole("button", { name: "Config Type Input" }).click()
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await page.getByPlaceholder("Config Type").click()
-  await page.getByPlaceholder("Config Type").fill("Out")
-  await page.getByPlaceholder("Config Type").press("Enter")
-  await expect(page.locator("tbody tr")).toHaveCount(7)
+  await configTypeFilterButton.click()
+  await clearFiltersOption.click()
+  await inputField.click()
+  await inputField.fill("Out")
+  await inputField.press("Enter")
+  await expect(visibleRows).toHaveCount(7)
 })
 
 test("Confirm `Controller` filter toolbar is working", async ({
