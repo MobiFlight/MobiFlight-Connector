@@ -27,7 +27,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Add VSTest to Path
-        uses: darenm/Setup-VSTest@v1.2
+        uses: darenm/Setup-VSTest@v1.3
 
       - name: Downgrade NSIS
         shell: pwsh
