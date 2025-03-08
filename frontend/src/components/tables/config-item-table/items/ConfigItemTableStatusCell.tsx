@@ -24,7 +24,7 @@ type StatusIconProps = {
 };
 
 const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
-  <ToolTip title={title}>
+  <ToolTip content={title}>
     <IconComponent
       role="status"
       aria-disabled={!condition}

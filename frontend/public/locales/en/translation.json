@@ -43,7 +43,13 @@
       "Actions": "Actions"
     },
     "Cell": {
-      "Waiting": "Waiting"
+      "Waiting": "Waiting",
+      "Controller": {
+        "not set": "No controller used in this config."
+      },
+      "Device": {
+        "not set": "No device used in this config."
+      }
     },
     "Table": {
       "NoResultsFound": "This is a new configuration. Please add some items."

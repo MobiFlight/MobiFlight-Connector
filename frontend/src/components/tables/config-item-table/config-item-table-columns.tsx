@@ -3,7 +3,6 @@ import { IConfigItem } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import {
   IconArrowsSort,
-  IconBan,
   IconBuildingBroadcastTower,
   IconMathSymbols,
 } from "@tabler/icons-react"
@@ -16,8 +15,9 @@ import {
   ConfigItemTableActiveHeader,
   ConfigItemTableNameCell,
   ConfigItemTableStatusCell,
+  ConfigItemTableControllerCell,
+  ConfigItemTableDeviceCell
 } from "./items"
-import ConfigItemTableDeviceCell from "./items/ConfigItemTableDeviceCell"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -67,21 +67,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
         </div>
       )
     },
-    cell: ({ row }) => {
-      const label = (row.getValue("ModuleSerial") as string).split("/")[0]
-      const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
-      return !isEmpty(label) ? (
-        <div className="hidden w-48 flex-col xl:flex 2xl:w-64">
-          <p className="text-md truncate font-semibold">{label}</p>
-          <p className="truncate text-xs text-muted-foreground">{serial}</p>
-        </div>
-      ) : (
-        <span className="item-center hidden flex-row gap-2 text-slate-400 xl:flex">
-          <IconBan />
-          <span>not set</span>
-        </span>
-      )
-    },
+    cell: ConfigItemTableControllerCell,
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },

@@ -30,7 +30,7 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
     `Types.${type?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
   )
   return type != "-" ? (
-    <ToolTip title={typeLabel}>
+    <ToolTip content={typeLabel}>
       <div className="flex flex-row items-center gap-2 lg:w-36 2xl:w-48">
         {icon}
         <div className="hidden w-full flex-col lg:flex">
@@ -39,10 +39,12 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
       </div>
     </ToolTip>
   ) : (
+    <ToolTip content={t("ConfigList.Cell.Device.not set")}>
     <div className="item-center flex flex-row gap-2 text-slate-400">
       <IconBan />
       <span>not set</span>
     </div>
+    </ToolTip>
   )
 }
 
