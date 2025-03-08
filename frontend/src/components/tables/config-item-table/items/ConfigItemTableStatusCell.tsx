@@ -1,6 +1,6 @@
-import ToolTip from "@/components/ToolTip"
-import { IConfigItem } from "@/types"
-import { IDictionary, ConfigItemStatusType } from "@/types/config"
+import ToolTip from "@/components/ToolTip";
+import { IConfigItem } from "@/types";
+import { IDictionary, ConfigItemStatusType } from "@/types/config";
 import {
   IconAlertSquareRounded,
   IconBuildingBroadcastTower,
@@ -8,110 +8,98 @@ import {
   IconMathSymbols,
   IconFlask,
   IconRouteOff,
-} from "@tabler/icons-react"
-import { Row } from "@tanstack/react-table"
-import { isEmpty } from "lodash-es"
-import { useTranslation } from "react-i18next"
+} from "@tabler/icons-react";
+import { Row } from "@tanstack/react-table";
+import { isEmpty } from "lodash-es";
+import { useTranslation } from "react-i18next";
 
 interface ConfigItemTableStatusCellProps {
-  row: Row<IConfigItem>
+  row: Row<IConfigItem>;
 }
 
-const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
-  const Status = row.getValue("Status") as IDictionary<
-    string,
-    ConfigItemStatusType
-  >
-  const Precondition = Status && !isEmpty(Status["Precondition"])
-  const Source = Status && !isEmpty(Status["Source"])
-  const Modifier = Status && !isEmpty(Status["Modifier"])
-  const Device = Status && !isEmpty(Status["Device"])
-  const Test = Status && !isEmpty(Status["Test"])
-  const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
+type StatusIconProps = {
+  condition: boolean;
+  title: string;
+  IconComponent: React.ElementType;
+};
 
-  const { t } = useTranslation()
+const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
+  <ToolTip title={title}>
+    <IconComponent
+      role="status"
+      aria-disabled={!condition}
+      className={!condition ? "stroke-slate-100" : "stroke-red-700"}
+    />
+  </ToolTip>
+);
+
+const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
+  const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
+  const Precondition = Status && !isEmpty(Status["Precondition"]);
+  const Source = Status && !isEmpty(Status["Source"]);
+  const Modifier = Status && !isEmpty(Status["Modifier"]);
+  const Device = Status && !isEmpty(Status["Device"]);
+  const Test = Status && !isEmpty(Status["Test"]);
+  const ConfigRef = Status && !isEmpty(Status["ConfigRef"]);
+
+  const { t } = useTranslation();
 
   return (
     <div className="flex w-28 flex-row gap-0">
-      <ToolTip
+      <StatusIcon
+        condition={Precondition}
         title={
           Precondition
             ? t(`ConfigList.Status.Precondition.${Status["Precondition"]}`)
             : t(`ConfigList.Status.Precondition.normal`)
         }
-      >
-        <IconAlertSquareRounded
-          role="status"
-          aria-disabled={!Precondition}
-          className={!Precondition ? "stroke-slate-100" : "stroke-red-700"}
-        ></IconAlertSquareRounded>
-      </ToolTip>
-
-      <ToolTip
+        IconComponent={IconAlertSquareRounded}
+      />
+      <StatusIcon
+        condition={Source}
         title={
           Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"
         }
-      >
-        <IconBuildingBroadcastTower
-          role="status"
-          aria-disabled={!Source}
-          className={!Source ? "stroke-slate-100" : "stroke-red-700"}
-        ></IconBuildingBroadcastTower>
-      </ToolTip>
-      <ToolTip
+        IconComponent={IconBuildingBroadcastTower}
+      />
+      <StatusIcon
+        condition={Device}
         title={
-          Source
+          Device
             ? t(`ConfigList.Status.Device.NotConnected`)
             : t(`ConfigList.Status.Device.Connected`)
         }
-      >
-        <IconPlugConnectedX
-          role="status"
-          aria-disabled={!Device}
-          className={!Device ? "stroke-slate-100" : "stroke-red-700"}
-        ></IconPlugConnectedX>
-      </ToolTip>
-      <ToolTip
+        IconComponent={IconPlugConnectedX}
+      />
+      <StatusIcon
+        condition={Modifier}
         title={
-          Source
+          Modifier
             ? t(`ConfigList.Status.Modifier.Error`)
             : t(`ConfigList.Status.Modifier.OK`)
         }
-      >
-        <IconMathSymbols
-          aria-disabled={!Modifier}
-          role="status"
-          className={!Modifier ? "stroke-slate-100" : "stroke-red-700"}
-        ></IconMathSymbols>
-      </ToolTip>
-      <ToolTip
+        IconComponent={IconMathSymbols}
+      />
+      <StatusIcon
+        condition={Test}
         title={
-          Source
+          Test
             ? t(`ConfigList.Status.Test.Executing`)
             : t(`ConfigList.Status.Test.NotExecuting`)
         }
-      >
-        <IconFlask
-          aria-disabled={!Test}
-          role="status"
-          className={!Test ? "stroke-slate-100" : "stroke-red-700"}
-        ></IconFlask>
-      </ToolTip>
-      <ToolTip
+        IconComponent={IconFlask}
+      />
+      <StatusIcon
+        condition={ConfigRef}
         title={
-          Source
+          ConfigRef
             ? t(`ConfigList.Status.ConfigRef.Missing`)
             : t(`ConfigList.Status.ConfigRef.OK`)
         }
-      >
-        <IconRouteOff
-          aria-disabled={!ConfigRef}
-          role="status"
-          className={!ConfigRef ? "stroke-slate-100" : "stroke-red-700"}
-        ></IconRouteOff>
-      </ToolTip>
+        IconComponent={IconRouteOff}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default ConfigItemTableStatusCell
+export default ConfigItemTableStatusCell;
