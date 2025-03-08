@@ -1,3 +1,4 @@
+import ToolTip from "@/components/ToolTip"
 import { IConfigItem } from "@/types"
 import { IDictionary, ConfigItemStatusType } from "@/types/config"
 import {
@@ -10,6 +11,7 @@ import {
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
+import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableStatusCellProps {
   row: Row<IConfigItem>
@@ -27,50 +29,87 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const Test = Status && !isEmpty(Status["Test"])
   const ConfigRef = Status && !isEmpty(Status["ConfigRef"])
 
+  const { t } = useTranslation()
+
   return (
     <div className="flex w-28 flex-row gap-0">
-      <IconAlertSquareRounded
-        role="status"
-        aria-disabled={!Precondition}
-        className={!Precondition ? "stroke-slate-100" : "stroke-red-700"}
+      <ToolTip
+        title={
+          Precondition
+            ? t(`ConfigList.Status.Precondition.${Status["Precondition"]}`)
+            : t(`ConfigList.Status.Precondition.normal`)
+        }
       >
-        normal
-      </IconAlertSquareRounded>
-      <IconBuildingBroadcastTower
-        role="status"
-        aria-disabled={!Source}
-        className={!Source ? "stroke-slate-100" : "stroke-red-700"}
+        <IconAlertSquareRounded
+          role="status"
+          aria-disabled={!Precondition}
+          className={!Precondition ? "stroke-slate-100" : "stroke-red-700"}
+        ></IconAlertSquareRounded>
+      </ToolTip>
+
+      <ToolTip
+        title={
+          Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"
+        }
       >
-        normal
-      </IconBuildingBroadcastTower>
-      <IconPlugConnectedX
-        role="status"
-        aria-disabled={!Device}
-        className={!Device ? "stroke-slate-100" : "stroke-red-700"}
+        <IconBuildingBroadcastTower
+          role="status"
+          aria-disabled={!Source}
+          className={!Source ? "stroke-slate-100" : "stroke-red-700"}
+        ></IconBuildingBroadcastTower>
+      </ToolTip>
+      <ToolTip
+        title={
+          Source
+            ? t(`ConfigList.Status.Device.NotConnected`)
+            : t(`ConfigList.Status.Device.Connected`)
+        }
       >
-        normal
-      </IconPlugConnectedX>
-      <IconMathSymbols
-        aria-disabled={!Modifier}
-        role="status"
-        className={!Modifier ? "stroke-slate-100" : "stroke-red-700"}
+        <IconPlugConnectedX
+          role="status"
+          aria-disabled={!Device}
+          className={!Device ? "stroke-slate-100" : "stroke-red-700"}
+        ></IconPlugConnectedX>
+      </ToolTip>
+      <ToolTip
+        title={
+          Source
+            ? t(`ConfigList.Status.Modifier.Error`)
+            : t(`ConfigList.Status.Modifier.OK`)
+        }
       >
-        normal
-      </IconMathSymbols>
-      <IconFlask
-        aria-disabled={!Test}
-        role="status"
-        className={!Test ? "stroke-slate-100" : "stroke-red-700"}
+        <IconMathSymbols
+          aria-disabled={!Modifier}
+          role="status"
+          className={!Modifier ? "stroke-slate-100" : "stroke-red-700"}
+        ></IconMathSymbols>
+      </ToolTip>
+      <ToolTip
+        title={
+          Source
+            ? t(`ConfigList.Status.Test.Executing`)
+            : t(`ConfigList.Status.Test.NotExecuting`)
+        }
       >
-        normal
-      </IconFlask>
-      <IconRouteOff
-        aria-disabled={!ConfigRef}
-        role="status"
-        className={!ConfigRef ? "stroke-slate-100" : "stroke-red-700"}
+        <IconFlask
+          aria-disabled={!Test}
+          role="status"
+          className={!Test ? "stroke-slate-100" : "stroke-red-700"}
+        ></IconFlask>
+      </ToolTip>
+      <ToolTip
+        title={
+          Source
+            ? t(`ConfigList.Status.ConfigRef.Missing`)
+            : t(`ConfigList.Status.ConfigRef.OK`)
+        }
       >
-        normal
-      </IconRouteOff>
+        <IconRouteOff
+          aria-disabled={!ConfigRef}
+          role="status"
+          className={!ConfigRef ? "stroke-slate-100" : "stroke-red-700"}
+        ></IconRouteOff>
+      </ToolTip>
     </div>
   )
 }
