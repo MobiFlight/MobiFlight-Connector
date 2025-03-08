@@ -11,7 +11,7 @@ import { TooltipProvider } from "./components/ui/tooltip.tsx"
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="ui-mode">
-    <TooltipProvider>
+    <TooltipProvider skipDelayDuration={0}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
