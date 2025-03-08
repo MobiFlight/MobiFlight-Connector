@@ -14,9 +14,8 @@ interface ConfigItemTableActiveCellProps {
 const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
   const { publish } = publishOnMessageExchange()
   const item = row.original as IConfigItem
-
   const { attributes, listeners } = useSortable({ id: item.GUID })
-
+  
   return (
     <div className="flex flex-row items-center">
       <div

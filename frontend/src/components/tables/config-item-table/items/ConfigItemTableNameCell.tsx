@@ -1,3 +1,4 @@
+import ToolTip from "@/components/ToolTip"
 import { Input } from "@/components/ui/input"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
@@ -5,6 +6,7 @@ import { IConfigItem, IDeviceConfig } from "@/types/config"
 import { IconCircleCheck, IconEdit, IconX } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
@@ -14,6 +16,11 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [label, setLabel] = useState(row.getValue("Name") as string)
   const realLabel = row.getValue("Name") as string
+  const { t } = useTranslation()
+  const item = row.original as IConfigItem
+  const typeLabel = t(
+    `Types.${item.Type}`,
+  )
 
   const toggleEdit = () => {
     setIsEditing(!isEditing)
@@ -40,20 +47,28 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
   return (
     <div className="group flex w-auto cursor-pointer flex-row items-center gap-1">
       {!isEditing ? (
-        <div className="flex flex-col">
-          <div className="flex flex-row items-center gap-1">
-            <p className="max-w-52 truncate px-0 font-semibold">{label}</p>
-            <IconEdit
-              role="button"
-              aria-label="Edit"
-              onClick={toggleEdit}
-              className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
-            />
+        <ToolTip
+          content={
+            <div className="flex flex-col gap-1">
+              <p className="text-xs font-semibold">{typeLabel}</p>
+              <p className="truncate text-xs text-muted-foreground xl:hidden">
+                {moduleName} - {deviceName}
+              </p>
+            </div>
+          }
+        >
+          <div className="flex flex-col">
+            <div className="flex flex-row items-center gap-1">
+              <p className="max-w-52 truncate px-0 font-semibold">{label}</p>
+              <IconEdit
+                role="button"
+                aria-label="Edit"
+                onClick={toggleEdit}
+                className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+              />
+            </div>
           </div>
-          <p className="w-60 truncate text-xs text-muted-foreground xl:hidden">
-            {moduleName} - {deviceName}
-          </p>
-        </div>
+        </ToolTip>
       ) : (
         <div
           className="flex flex-row items-center gap-1"

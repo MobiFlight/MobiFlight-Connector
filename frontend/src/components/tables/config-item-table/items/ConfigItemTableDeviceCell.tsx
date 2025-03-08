@@ -34,7 +34,7 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
       <div className="flex flex-row items-center gap-2 lg:w-36 2xl:w-48">
         {icon}
         <div className="hidden w-full flex-col lg:flex">
-          <p className="text-md truncate font-semibold">{label}</p>
+          <p className="text-md truncate">{label}</p>
         </div>
       </div>
     </ToolTip>

@@ -19,7 +19,7 @@ const ConfigItemTableControllerCell = ({
   return !isEmpty(label) ? (
     <ToolTip content={<span className="text-xs">S/N: {serial}</span>}>
       <div className="hidden w-48 flex-col xl:flex 2xl:w-64">
-        <p className="text-md truncate font-semibold">{label}</p>
+        <p className="text-md truncate font-normal">{label}</p>
       </div>
     </ToolTip>
   ) : (
