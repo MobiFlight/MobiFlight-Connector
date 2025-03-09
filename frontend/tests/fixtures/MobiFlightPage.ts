@@ -1,4 +1,4 @@
-import { CommandMessageKey, CommandMessage, CommandUpdateConfigItem } from "@/types/commands"
+import { CommandMessageKey, CommandMessage } from "@/types/commands"
 import { AppMessage } from "@/types/messages"
 import type { Locator, Page } from "@playwright/test"
 
