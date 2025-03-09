@@ -5,7 +5,7 @@ const DarkModeToggle = () => {
   const { setTheme } = useTheme()
 
   return (
-    <div className="flex items-center relative">
+    <div className="hidden md:flex items-center relative">
       <IconMoon
         role="button"
         aria-label="Toggle light mode"
