@@ -29,17 +29,19 @@ const ConfigItemTableControllerCell = ({
   }, [row, publish])
 
   return !isEmpty(label) ? (
-    <ToolTip content={<span className="text-xs">S/N: {serial}</span>}>
-      <div className="group hidden w-48 flex-row items-center xl:flex 2xl:w-64 3xl:w-72">
+    <div className="group hidden w-48 flex-row items-center xl:flex 2xl:w-64 3xl:w-72">
+      <ToolTip content={<span className="text-xs">S/N: {serial}</span>}>
         <p className="text-md truncate font-normal">{label}</p>
+      </ToolTip>
+      <ToolTip content={<span className="text-xs">{ t("ConfigList.Cell.Controller.openInSettings") }</span>}>
         <IconExternalLink
           role="link"
           aria-label="Edit"
           onClick={openControllerSettings}
           className="ml-2 cursor-pointer opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
         />
-      </div>
-    </ToolTip>
+      </ToolTip>
+    </div>
   ) : (
     <ToolTip content={t("ConfigList.Cell.Controller.not set")}>
       <span className="item-center hidden flex-row gap-2 text-slate-400 xl:flex">

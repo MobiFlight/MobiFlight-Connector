@@ -43,10 +43,17 @@
       "Actions": "Acciones"
     },
     "Cell": {
-      "Waiting": "Esperando"
+      "Waiting": "Esperando",
+      "Controller": {
+        "openInSettings": "Abrir opciones de controlador.",
+        "not set": "Esta configuración no está usando ningún controlador."
+      },
+      "Device": {
+        "not set": "Esta configuración no está usando ningún dispositivo."
+      }
     },
     "Table": {
-      "NoResultsFound": "Nueva configuratión. Por favor, añade algunos elementos."
+      "NoResultsFound": "Nueva configuración. Por favor, añade algunos elementos."
     },
     "Actions": {
       "OutputConfigItem": {
