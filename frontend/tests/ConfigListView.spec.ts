@@ -320,3 +320,21 @@ test("Confirm `Names` filter toolbar is working", async ({
 
   await expect(page.locator("tbody tr")).toHaveCount(10)
 })
+
+test("Confirm `Controller Settings` link is working", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
+
+  const controllerSettingsLabel = page.getByRole('row').nth(1).getByText('ProtoBoard')
+  const controllerSettingsButton = page.getByRole("link").first()
+  await expect (controllerSettingsButton).toHaveCSS('opacity', '0')
+  await controllerSettingsLabel.hover()
+  await expect (controllerSettingsButton).toHaveCSS('opacity', '1')
+  await controllerSettingsButton.click()
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  expect (postedCommands!.pop().key).toEqual('CommandConfigContextMenu')
+})

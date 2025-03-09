@@ -1,8 +1,17 @@
-import { CommandMessageKey, CommandMessage } from "@/types/commands"
+import { CommandMessageKey, CommandMessage, CommandUpdateConfigItem } from "@/types/commands"
 import { AppMessage } from "@/types/messages"
 import type { Locator, Page } from "@playwright/test"
 
+declare global {
+  interface Window {
+    commands?: CommandMessage[];
+  }
+}
+
 export class MobiFlightPage {
+  readonly PostedMessages: AppMessage[] = []
+  readonly PostedCommands: CommandMessage[] = []
+
   constructor(public readonly page: Page) {
     this.page.addInitScript(() => {
       if (!window.chrome?.webview?.postMessage) {
@@ -67,6 +76,22 @@ export class MobiFlightPage {
         callbackStr: callback.toString(), // Serialize the function to a string
       },
     )
+  }
+
+  async trackCommand(key: CommandMessageKey) {
+    await this.subscribeToCommand(
+      key,
+      async (message) => {
+        if (window.commands === undefined) {
+          window.commands = []
+        }
+        window.commands.push(message)
+      },
+    )
+  }
+
+  async getTrackedCommands() {
+    return await this.page.evaluate(() => window.commands);
   }
 
   getTooltipByText(text: string): Locator {
