@@ -30,13 +30,13 @@ const ConfigItemTableControllerCell = ({
 
   return !isEmpty(label) ? (
     <ToolTip content={<span className="text-xs">S/N: {serial}</span>}>
-      <div className="3xl:w-72 group hidden w-48 flex-row items-center xl:flex 2xl:w-64">
+      <div className="group hidden w-48 flex-row items-center xl:flex 2xl:w-64 3xl:w-72">
         <p className="text-md truncate font-normal">{label}</p>
         <IconExternalLink
           role="link"
           aria-label="Edit"
           onClick={openControllerSettings}
-          className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+          className="ml-2 cursor-pointer opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
         />
       </div>
     </ToolTip>
