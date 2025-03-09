@@ -41,6 +41,8 @@ namespace MobiFlight
         public event EventHandler OnJoystickConnectedFinished;
         public event EventHandler OnMidiBoardConnectedFinished;
 
+        public event EventHandler SettingsDialogRequested;
+
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
         /// </summary>
@@ -259,6 +261,31 @@ namespace MobiFlight
                         }
                         
                         return;
+
+                    case "settings":
+                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
+                        if (cfg==null) return;
+
+                        var serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
+
+                        if (SerialNumber.IsMobiFlightSerial(serial))
+                        {
+                            var module = mobiFlightCache.GetModuleBySerial(serial)?.ToMobiFlightModuleInfo();
+                            if (module == null)
+                            {
+                                // the device is currently not connected.
+                                return;
+                            }
+                            SettingsDialogRequested?.Invoke(module, null);
+                            // we don't have to publish an update at this point.
+                            return;
+                        }
+                        if (SerialNumber.IsMidiBoardSerial(serial) || SerialNumber.IsJoystickSerial(serial))
+                        {
+                            // at this point we don't need to pass in anything specific
+                            SettingsDialogRequested?.Invoke(null, null);
+                        }
+                        break;
 
                     default:
                         return;

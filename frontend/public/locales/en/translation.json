@@ -45,6 +45,7 @@
     "Cell": {
       "Waiting": "Waiting",
       "Controller": {
+        "openInSettings": "Open controller settings",
         "not set": "No controller used in this config."
       },
       "Device": {

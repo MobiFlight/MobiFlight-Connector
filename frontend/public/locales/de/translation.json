@@ -43,7 +43,14 @@
       "Actions": "Aktionen"
     },
     "Cell": {
-      "Waiting": "Warten"
+      "Waiting": "Warten",
+      "Controller": {
+        "openInSettings": "Öffne Einstellungen der Steuerungs",
+        "not set": "In dieser Konfiguration ist kein Controller hinterlegt."
+      },
+      "Device": {
+        "not set": "Diese Konfiguration verwendet kein Gerät."
+      }
     },
     "Table": {
       "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge."
