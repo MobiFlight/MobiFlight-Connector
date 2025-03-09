@@ -10,6 +10,7 @@ import { IConfigItem } from "@/types"
 import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import DarkModeToggle from "@/components/DarkModeToggle"
+import ToolTip from "@/components/ToolTip"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -39,41 +40,47 @@ export function DataTableToolbar<TData>({
     .map((serial) => {
       const label = serial?.split("/")[0]
       return {
-        label: !isEmpty(label) && label !="-" ? label : t(`ConfigList.Toolbar.NotSet`),
+        label:
+          !isEmpty(label) && label != "-"
+            ? label
+            : t(`ConfigList.Toolbar.NotSet`),
         value: serial,
-        icon: isEmpty(label) || label =="-" ? IconBan : undefined,
+        icon: isEmpty(label) || label == "-" ? IconBan : undefined,
       }
     })
     .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
-  const deviceTypes = [...new Set(items.map((item) => item.Device?.Type ?? "-"))].map(
-    (type) => {
-      const label = (type!="-")
-        ? t(`Types.${type}`)
-        : t(`ConfigList.Toolbar.NotSet`)
+  const deviceTypes = [
+    ...new Set(items.map((item) => item.Device?.Type ?? "-")),
+  ]
+    .map((type) => {
+      const label =
+        type != "-" ? t(`Types.${type}`) : t(`ConfigList.Toolbar.NotSet`)
       return {
         label: label,
         value: type,
-        icon: (type=="-") ? IconBan : undefined,
+        icon: type == "-" ? IconBan : undefined,
       }
-    },
-  ).sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
+    })
+    .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
-  const deviceNames = [...new Set(items.map((item) => item.Device?.Name ?? "-"))].map(
-    (device) => {
+  const deviceNames = [
+    ...new Set(items.map((item) => item.Device?.Name ?? "-")),
+  ]
+    .map((device) => {
       const label = device
       return {
-        label: (label!="-") ? label : t(`ConfigList.Toolbar.NotSet`),
+        label: label != "-" ? label : t(`ConfigList.Toolbar.NotSet`),
         value: label,
-        icon: (label=="-") ? IconBan : undefined,
+        icon: label == "-" ? IconBan : undefined,
       }
-    },
-  ).sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
+    })
+    .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
-        <IconFilter className="stroke-primary" />
+      <div className="flex flex-1 items-center space-x-2 -ml-3 md:ml-0">
+        <IconFilter className="stroke-primary hidden md:flex" />
         <Input
           placeholder={t("ConfigList.Toolbar.Search.Placeholder")}
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
@@ -111,14 +118,18 @@ export function DataTableToolbar<TData>({
           />
         )}
         {isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
-            {t("ConfigList.Toolbar.Reset")}
-            <IconX className="ml-2 h-4 w-4" />
-          </Button>
+          <ToolTip content={t("ConfigList.Toolbar.Reset")} className="z-[1000] xl:hidden">
+            <Button
+              variant="ghost"
+              onClick={() => table.resetColumnFilters()}
+              className="hidden h-8 px-2 lg:flex xl:px-3"
+            >
+              <span className="hidden xl:flex">
+                {t("ConfigList.Toolbar.Reset")}
+              </span>
+              <IconX className="h-4 w-4 xl:ml-2" />
+            </Button>
+          </ToolTip>
         )}
       </div>
       <DarkModeToggle />

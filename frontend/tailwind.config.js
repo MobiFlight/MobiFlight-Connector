@@ -4,6 +4,11 @@ export default {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+      screens: {
+        md: "50rem",
+        lg: "62rem",
+        "3xl": "100rem"
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
