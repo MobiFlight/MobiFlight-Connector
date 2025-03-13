@@ -1,11 +1,28 @@
 ﻿using MobiFlight.BrowserMessages.Outgoing;
 using System;
+using System.Collections.Concurrent;
+using System.Windows.Forms;
 
 namespace MobiFlight.Base.LogAppender
 {
     public class MessageExchangeAppender : ILogAppender
-    {   public void log(string message, LogSeverity severity)
+    {
+        private ConcurrentQueue<LogEntry> LogQueue = new ConcurrentQueue<LogEntry>();
+        private readonly Timer ProcessTimer = new System.Windows.Forms.Timer();
+
+        public MessageExchangeAppender()
         {
+            ProcessTimer.Interval = 50;
+            ProcessTimer.Tick += ProcessTimer_Tick;
+        }
+
+        public void log(string message, LogSeverity severity)
+        {
+            if (!ProcessTimer.Enabled)
+            {
+                ProcessTimer.Start();
+            }
+
             var m = new LogEntry
             {
                 Timestamp = DateTime.Now,
@@ -13,7 +30,15 @@ namespace MobiFlight.Base.LogAppender
                 Severity = severity.ToString()
             };
 
-            BrowserMessages.MessageExchange.Instance.Publish(m);
+            LogQueue.Enqueue(m);
+        }
+
+        private void ProcessTimer_Tick(object sender, EventArgs e)
+        {
+            while (LogQueue.TryDequeue(out var logEntry))
+            {
+                BrowserMessages.MessageExchange.Instance.Publish(logEntry);
+            }
         }
     }
 }
