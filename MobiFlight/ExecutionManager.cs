@@ -1,6 +1,7 @@
 using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
@@ -27,6 +28,7 @@ namespace MobiFlight
         public event EventHandler OnSimCacheConnected;
         public event EventHandler OnSimCacheConnectionLost;
         public event EventHandler<string> OnSimAircraftChanged;
+        public event EventHandler<string> OnSimAircraftPathChanged;
 
         public event EventHandler OnModuleConnected;
         public event EventHandler OnModuleRemoved;
@@ -80,6 +82,7 @@ namespace MobiFlight
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
+        private ScriptRunner scriptRunner = null;
 
         DataGridView dataGridViewConfig = null;
         DataGridView inputsDataGridView = null;
@@ -107,6 +110,7 @@ namespace MobiFlight
             simConnectCache.Connected += new EventHandler(simConnect_Connected);
             simConnectCache.Closed += new EventHandler(simConnect_Closed);
             simConnectCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
+            simConnectCache.AircraftPathChanged += new EventHandler<string>(simConnect_AirCraftPathChanged);
 #endif
 
             xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
@@ -127,6 +131,11 @@ namespace MobiFlight
             mobiFlightCache.ModuleConnected += new EventHandler(ModuleCache_ModuleConnected);
             mobiFlightCache.ModuleRemoved += new EventHandler(ModuleCache_ModuleRemoved);
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
+
+            // ChildProcessMonitor necessary, that in case of MobiFlight crash, all child processes are terminated
+            scriptRunner = new ScriptRunner(joystickManager, simConnectCache, new ChildProcessMonitor());
+            OnSimAircraftChanged += scriptRunner.OnSimAircraftChanged;
+            OnSimAircraftPathChanged += scriptRunner.OnSimAircraftPathChanged;
 
             timer.Tick += new EventHandler(timer_Tick);
             timer.Stopped += new EventHandler(timer_Stopped);
@@ -185,6 +194,12 @@ namespace MobiFlight
         {
             Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
             OnSimAircraftChanged?.Invoke(sender, e);
+        }
+
+        private void simConnect_AirCraftPathChanged(object sender, string e)
+        {        
+            Log.Instance.log($"Aircraft path changed: [{e}]", LogSeverity.Info);
+            OnSimAircraftPathChanged?.Invoke(sender, e);
         }
 
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
@@ -307,6 +322,8 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
 
+            scriptRunner.Start();
+
             // the timer has to be enabled before the 
             // on start actions are executed
             // otherwise the input events will not be executed.
@@ -326,6 +343,7 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.Clear();
 #endif
+            scriptRunner.Stop();
             mobiFlightCache.Stop();
             simConnectCache.Stop();
             xplaneCache.Stop();
@@ -434,6 +452,7 @@ namespace MobiFlight
         /// </summary>
         public void Shutdown()
         {
+            scriptRunner.Shutdown();
             autoConnectTimer.Stop();
 #if ARCAZE
             arcazeCache.Shutdown();
@@ -455,6 +474,10 @@ namespace MobiFlight
             {
                 midiBoardManager.Shutdown();
             }
+
+            OnSimAircraftChanged -= scriptRunner.OnSimAircraftChanged;
+            OnSimAircraftPathChanged -= scriptRunner.OnSimAircraftPathChanged;
+
             this.OnShutdown?.Invoke(this, new EventArgs());
         }
 

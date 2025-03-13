@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MobiFlight.Joysticks.WinwingFcu
+namespace MobiFlight.Joysticks.Winwing
 {
     internal class WinwingFcuReport
     {

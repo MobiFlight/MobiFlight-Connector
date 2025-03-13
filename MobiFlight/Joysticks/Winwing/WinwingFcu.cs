@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebSocketSharp.Server;
 
-namespace MobiFlight.Joysticks.WinwingFcu
+namespace MobiFlight.Joysticks.Winwing
 {
     internal class HidBuffer
     {
@@ -50,11 +51,11 @@ namespace MobiFlight.Joysticks.WinwingFcu
         private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();        
         private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
        
-        public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId) : base(joystick, def)
+        public WinwingFcu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
             Definition = def;
             ProductId = productId;
-            DisplayControl = new WinwingDisplayControl(productId);
+            DisplayControl = new WinwingDisplayControl(productId, server);
             var displayNames = DisplayControl.GetDisplayNames();
             var ledNames = DisplayControl.GetLedNames();
 

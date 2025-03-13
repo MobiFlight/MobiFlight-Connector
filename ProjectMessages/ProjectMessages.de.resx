@@ -688,4 +688,14 @@ Schließe MSFS und führe die Installation erneut aus: "Extras" &gt; "Microsoft 
   <data name="uiNone" xml:space="preserve">
     <value>Keine</value>
   </data>
+  <data name="uiMessagePythonInstructions" xml:space="preserve">
+    <value>Bitte den Anweisungen hier folgen:
+	
+https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+
+Website wird nach Betätigung von OK geöffnet.</value>
+  </data>
+  <data name="uiMessagePythonHint" xml:space="preserve">
+    <value>Python Umgebung nicht bereit</value>
+  </data>
 </root>

@@ -165,8 +165,7 @@
     <Reference Include="Midi">
       <HintPath>lib\Midi.dll</HintPath>
     </Reference>
-    <Reference Include="MobiFlightWwFcu, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MobiFlightWwFcu">
       <HintPath>lib\MobiFlightWwFcu.dll</HintPath>
     </Reference>
     <Reference Include="NCalc">
@@ -236,6 +235,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\vJoyInterfaceWrap.dll</HintPath>
     </Reference>
+    <Reference Include="websocket-sharp, Version=1.0.1.0, Culture=neutral, PublicKeyToken=5660b08a1845a91e, processorArchitecture=MSIL">
+      <HintPath>packages\WebSocketSharp-netstandard.1.0.1\lib\net45\websocket-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="XPlaneConnector, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\XPlaneConnector.1.3.0\lib\netstandard2.0\XPlaneConnector.dll</HintPath>
     </Reference>
@@ -297,8 +299,15 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
-    <Compile Include="MobiFlight\Joysticks\WinwingFcu\WinwingFcu.cs" />
-    <Compile Include="MobiFlight\Joysticks\WinwingFcu\WinwingFcuReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Core\MsgEntry.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingCduWebsocketBehavior.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingConstants.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingDisplayControl.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingEfisDevice.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingFcuDevice.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcu.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcuReport.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
@@ -342,6 +351,11 @@
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
+    <Compile Include="MobiFlight\Scripts\ChildProcessMonitor.cs" />
+    <Compile Include="MobiFlight\Scripts\IChildProcessMonitor.cs" />
+    <Compile Include="MobiFlight\Scripts\ScriptMapping.cs" />
+    <Compile Include="MobiFlight\Scripts\ScriptRunner.cs" />
+    <Compile Include="MobiFlight\Scripts\ScriptMappings.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
@@ -1005,6 +1019,24 @@
     <Compile Include="xplane\XplaneCacheInterface.cs" />
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
+    <Content Include="Scripts\Winwing\fenix_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\fslabs_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\ifly_737_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\tfdi_md11_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\pmdg_737_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\pmdg_777_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1921,6 +1953,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Scripts\ScriptMappings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
