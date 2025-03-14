@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MobiFlight 
+﻿namespace MobiFlight
 {
     class MobiFlightButton : IConnectedDevice
     {
@@ -19,7 +13,7 @@ namespace MobiFlight
 
         public string Name { get; set; }
 
-        public DeviceType Type { get { return DeviceType.Button; } }
+        public DeviceType TypeDeprecated { get { return DeviceType.Button; } }
 
         public static string InputEventIdToString(int enumId) {
             string eventAction = "n/a";

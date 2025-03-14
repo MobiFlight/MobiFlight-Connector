@@ -1,20 +1,25 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace MobiFlight.Base
 {
-    public class PreconditionList : IXmlSerializable, ICloneable, IEnumerable
+    public class PreconditionList : IXmlSerializable, ICloneable, IEnumerable, ICollection<Precondition>
     {
-        List<Precondition> Preconditions = new List<Precondition>();
+        protected List<Precondition> Preconditions = new List<Precondition>();
+
+        [JsonIgnore]
         public int Count { get { return Preconditions.Count; } }
-        public bool ExecuteOnFalse = false;
-        public String FalseCaseValue = "";
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool ExecuteOnFalse { get; set; } = false;
+
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string FalseCaseValue { get; set; } = "";
 
         public object Clone()
         {
@@ -28,20 +33,33 @@ namespace MobiFlight.Base
             return c;
         }
 
+        /// <summary>
+        /// This is needed to implement IEnumerable interface
+        /// </summary>
+        /// <returns>IEnumerator for our Preconditions</returns>
+
         public IEnumerator GetEnumerator()
         {
             return ((IEnumerable)Preconditions).GetEnumerator();
         }
 
+        /// <summary>
+        /// This is needed to implement ICollection interface
+        /// </summary>
+        /// <returns>An enumerator for preconditions</returns>
+        IEnumerator<Precondition> IEnumerable<Precondition>.GetEnumerator()
+        {
+            return Preconditions.GetEnumerator();
+        }
 
         public void Add(Precondition p)
         {
             Preconditions.Add(p);
         }
 
-        public void Remove (Precondition p)
+        public bool Remove(Precondition p)
         {
-            Preconditions.Remove(p);
+            return Preconditions.Remove(p);
         }
         public void Clear()
         {
@@ -109,5 +127,19 @@ namespace MobiFlight.Base
 
             return areEqual;
         }
+
+        public bool Contains(Precondition item)
+        {
+            return Preconditions.Contains(item);
+        }
+
+        public void CopyTo(Precondition[] array, int arrayIndex)
+        {
+            Preconditions.CopyTo(array, arrayIndex);
+        }
+        
+        public bool IsReadOnly => false;
+
+        
     }
 }

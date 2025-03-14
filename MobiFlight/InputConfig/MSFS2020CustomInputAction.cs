@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlight.InputConfig
 {
@@ -10,8 +9,10 @@ namespace MobiFlight.InputConfig
         public new const String Label = "Microsoft Flight Simulator";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020CustomInputAction";
-        public String Command;
-        public String PresetId;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String Command { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String PresetId { get; set; }
 
         override public object Clone()
         {

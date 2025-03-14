@@ -77,5 +77,24 @@ namespace MobiFlight.InputConfig
 
             return action;
         }
+
+        static public List<Type> GetAllInputActionTypes()
+        {
+            return new List<Type>
+            {
+                typeof(EventIdInputAction),
+                typeof(FsuipcOffsetInputAction),
+                typeof(JeehellInputAction),
+                typeof(KeyInputAction),
+                typeof(LuaMacroInputAction),
+                typeof(MSFS2020CustomInputAction),
+                typeof(MSFS2020EventIdInputAction),
+                typeof(PmdgEventIdInputAction),
+                typeof(RetriggerInputAction),
+                typeof(VariableInputAction),
+                typeof(VJoyInputAction),
+                typeof(XplaneInputAction)
+            };
+        }
     }
 }

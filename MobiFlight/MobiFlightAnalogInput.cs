@@ -16,7 +16,7 @@ namespace MobiFlight
 
         public string Name { get; set; }
 
-        public DeviceType Type { get { return DeviceType.AnalogInput; } }
+        public DeviceType TypeDeprecated { get { return DeviceType.AnalogInput; } }
 
         public static string InputEventIdToString(int enumId) {
             string eventAction = "n/a";

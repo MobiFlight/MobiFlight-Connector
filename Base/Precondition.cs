@@ -16,6 +16,7 @@ namespace MobiFlight
         public const string LOGIC_OR = "or";
         
         private string preconditionLabel = null;
+
         public string PreconditionLabel { 
             get {
                 if (preconditionLabel != null) return preconditionLabel;
@@ -154,7 +155,7 @@ namespace MobiFlight
                 PreconditionOperand == (obj as Precondition).PreconditionOperand &&
                 PreconditionValue == (obj as Precondition).PreconditionValue &&
                 PreconditionLogic == (obj as Precondition).PreconditionLogic &&
-                preconditionLabel == (obj as Precondition).preconditionLabel
+                PreconditionLabel == (obj as Precondition).PreconditionLabel
             ;
         }
 

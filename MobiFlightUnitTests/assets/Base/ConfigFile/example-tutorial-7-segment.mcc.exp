@@ -10,7 +10,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -24,7 +24,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="1,2,3,4,5" ledDecimalPoints="3" />
+        <display type="Display Module" serial="MobiFlight Mega/ SN-849-180" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="1,2,3,4,5" ledDecimalPoints="3" />
         <preconditions />
         <configrefs />
       </settings>

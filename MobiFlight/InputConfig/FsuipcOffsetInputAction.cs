@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using MobiFlight;
-using MobiFlight.Modifier;
+﻿using MobiFlight.Modifier;
 using MobiFlight.OutputConfig;
+using System;
+using System.Collections.Generic;
 
 namespace MobiFlight.InputConfig
 {
@@ -91,7 +87,7 @@ namespace MobiFlight.InputConfig
 
             if (value.Contains("$"))
             {
-                ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(this, cache as FSUIPC.FSUIPCCacheInterface);
+                ConnectorValue tmpValue = MobiFlight.FSUIPC.FsuipcHelper.executeRead(this.FSUIPC, cache as FSUIPC.FSUIPCCacheInterface);
                 Tuple<string, string> replacement = new Tuple<string, string>("$", tmpValue.ToString());
                 replacements.Add(replacement);
             }

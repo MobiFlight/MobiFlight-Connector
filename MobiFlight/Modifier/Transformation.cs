@@ -6,7 +6,7 @@ namespace MobiFlight.Modifier
 {
     public class Transformation : ModifierBase
     {
-        public String Expression = "$";
+        public string Expression { get; set; } = "$";
 
         public override void ReadXml(XmlReader reader)
         {

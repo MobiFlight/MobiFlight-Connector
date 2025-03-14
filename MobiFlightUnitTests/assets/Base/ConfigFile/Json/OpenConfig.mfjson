@@ -1,0 +1,148 @@
+{
+  "FileName": "assets/Base/ConfigFile/force-ap-and-workshop-xp.mfjson",
+  "ReferenceOnly": false,
+  "EmbedContent": false,
+  "ConfigItems": [
+    {
+      "Source": {
+        "XplaneDataRef": {
+          "Path": "sim/cockpit2/autopilot/approach_status"
+        },
+        "Type": "XplaneSource"
+      },
+      "TestValue": {
+        "type": 1,
+        "Float64": 1.0,
+        "String": null
+      },
+      "Device": {
+        "Name": "FSM.GA APR - Green",
+        "DisplayPin": "FSM.GA APR - Green",
+        "DisplayPinBrightness": 255,
+        "DisplayPinPWM": false,
+        "Type": "Output"
+      },
+      "DeviceType": "Output",
+      "DeviceName": "FSM.GA APR - Green",
+      "GUID": "63f3f051-e6bf-496d-8967-655927a82b29",
+      "Active": true,
+      "Name": "APR Active",
+      "Type": "OutputConfigItem",
+      "ModuleSerial": " VKBSim NXT THQ FSM.GA  / JS-ca5666b0-dc27-11ef-8002-444553540000",
+      "Preconditions": [],
+      "Modifiers": {
+        "Items": [
+          {
+            "Type": "Transformation",
+            "Expression": "$",
+            "Active": false
+          },
+          {
+            "Type": "Comparison",
+            "Operand": "=",
+            "Value": "2",
+            "IfValue": "1",
+            "ElseValue": "0",
+            "Active": false
+          }
+        ]
+      },
+      "ConfigRefs": [],
+      "Status": {}
+    },
+    {
+      "Source": {
+        "XplaneDataRef": {
+          "Path": "sim/cockpit2/autopilot/approach_status"
+        },
+        "Type": "XplaneSource"
+      },
+      "TestValue": {
+        "type": 1,
+        "Float64": 1.0,
+        "String": null
+      },
+      "Device": {
+        "Name": "FSM.GA APR - Red",
+        "DisplayPin": "FSM.GA APR - Red",
+        "DisplayPinBrightness": 255,
+        "DisplayPinPWM": false,
+        "Type": "Output"
+      },
+      "DeviceType": "Output",
+      "DeviceName": "FSM.GA APR - Red",
+      "GUID": "40060827-fb1f-4e17-97fd-537589b71015",
+      "Active": true,
+      "Name": "APR Armed",
+      "Type": "OutputConfigItem",
+      "ModuleSerial": " VKBSim NXT THQ FSM.GA  / JS-ca5666b0-dc27-11ef-8002-444553540000",
+      "Preconditions": [],
+      "Modifiers": {
+        "Items": [
+          {
+            "Type": "Transformation",
+            "Expression": "$",
+            "Active": false
+          },
+          {
+            "Type": "Comparison",
+            "Operand": "=",
+            "Value": "1",
+            "IfValue": "1",
+            "ElseValue": "0",
+            "Active": false
+          }
+        ]
+      },
+      "ConfigRefs": [],
+      "Status": {}
+    },
+    {
+      "Source": {
+        "XplaneDataRef": {
+          "Path": "sim/cockpit2/autopilot/autopilot_on"
+        },
+        "Type": "XplaneSource"
+      },
+      "TestValue": {
+        "type": 1,
+        "Float64": 1.0,
+        "String": null
+      },
+      "Device": {
+        "Name": "FSM.GA AP - Green",
+        "DisplayPin": "FSM.GA AP - Green",
+        "DisplayPinBrightness": 255,
+        "DisplayPinPWM": false,
+        "Type": "Output"
+      },
+      "DeviceType": "Output",
+      "DeviceName": "FSM.GA AP - Green",
+      "GUID": "ae52c03b-e8d3-41ac-b8ae-4a2dac573d15",
+      "Active": true,
+      "Name": "AP Active",
+      "Type": "OutputConfigItem",
+      "ModuleSerial": " VKBSim NXT THQ FSM.GA  / JS-ca5666b0-dc27-11ef-8002-444553540000",
+      "Preconditions": [],
+      "Modifiers": {
+        "Items": [
+          {
+            "Type": "Transformation",
+            "Expression": "$",
+            "Active": false
+          },
+          {
+            "Type": "Comparison",
+            "Operand": "",
+            "Value": "",
+            "IfValue": "",
+            "ElseValue": "",
+            "Active": false
+          }
+        ]
+      },
+      "ConfigRefs": [],
+      "Status": {}
+    }
+  ]
+}

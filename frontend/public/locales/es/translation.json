@@ -1,0 +1,69 @@
+{
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Output Shift Register",
+    "CustomDevice": "Custom Device",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "no usado",
+    "OutputConfigItem": "Configuración Output",
+    "InputConfigItem": "Configuración Input"
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filtrar elementos..."
+      },
+      "Filter": {
+        "ConfigType": "Config Type",
+        "Device": "Controlador",
+        "Type": "Dispositivo",
+        "Name": "Nombres",
+        "Selected": "{{items}} seleccionados",
+        "Clear": "Borrar filtros",
+        "NoResultsFound": "No se encontraron resultados."
+      },
+      "NotSet": "not set",
+      "Reset": "Restablecer filtros"
+    },
+    "Header": {
+      "Active": "Activo",
+      "Name": "Nombre / Descripción",
+      "Device": "Controlador",
+      "Component": "Dispositivo",
+      "Status": "Estado",
+      "RawValue": "Valor Original",
+      "FinalValue": "Valor Final",
+      "Actions": "Acciones"
+    },
+    "Cell": {
+      "Waiting": "Esperando",
+      "Controller": {
+        "openInSettings": "Abrir opciones de controlador.",
+        "not set": "Esta configuración no está usando ningún controlador."
+      },
+      "Device": {
+        "not set": "Esta configuración no está usando ningún dispositivo."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "Nueva configuración. Por favor, añade algunos elementos."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Nueva configuración Output",
+        "DefaultName": "Nueva Configuración Output"
+      },
+      "InputConfigItem": {
+        "Add": "Nueva configuración Input",
+        "DefaultName": "Nueva Configuración Input"
+      }
+    }
+  }
+}

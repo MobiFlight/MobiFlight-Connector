@@ -108,7 +108,7 @@ namespace MobiFlight.OutputConfig.Tests
             o.MessageType = 3;
 
             xmlWriter.WriteStartElement("display");
-            xmlWriter.WriteAttributeString("type", CustomDevice.Type);
+            xmlWriter.WriteAttributeString("type", CustomDevice.DeprecatedType);
             xmlWriter.WriteAttributeString("serial", "Serial");
             xmlWriter.WriteAttributeString("trigger", "normal");
             o.WriteXml(xmlWriter);

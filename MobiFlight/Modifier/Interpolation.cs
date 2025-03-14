@@ -1,12 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
@@ -14,9 +11,12 @@ namespace MobiFlight.Modifier
     {
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("en");
 
-        SortedDictionary<double, double> Values = new SortedDictionary<double, double>();
+        public SortedDictionary<double, double> Values { get; set; } = new SortedDictionary<double, double>();
         public int Count { get { return Values.Count; } }
+
+        [JsonIgnore]
         public double Max { get { return max; } }
+        [JsonIgnore]
         public double Min { get { return min; } }
         
         protected double max = double.MinValue;
@@ -35,6 +35,17 @@ namespace MobiFlight.Modifier
             if (y < Min) min = y;
 
             Values.Add(x, y); 
+        }
+
+        // on json deserialization
+        [OnDeserialized]
+        public void OnDeserialized(StreamingContext context)
+        {
+            if (Values.Count > 0)
+            {
+                max = Values.Values.Max();
+                min = Values.Values.Min();
+            }
         }
 
         public SortedDictionary<double, double> GetValues()
@@ -172,25 +183,17 @@ namespace MobiFlight.Modifier
 
         public override bool Equals(object obj)
         {
+            if (obj == null || !(obj is Interpolation)) return false;
+
             var interpolation = (obj as Interpolation);
-            if (interpolation == null) return false;
-
-            bool valuesAreSame = (Values.Count == interpolation.Count);
-           
-            if (valuesAreSame)
-            {
-                foreach (double x in Values.Keys)
-                {
-                    valuesAreSame = valuesAreSame && (interpolation.Values.ContainsKey(x) && Values[x] == interpolation.Values[x]);
-                }
-            }
-
+            
             return
                 Max == interpolation.Max &&
                 Min == interpolation.Min &&
                 Count == interpolation.Count &&
                 Active == interpolation.Active &&
-                valuesAreSame;
+                Values.Keys.SequenceEqual(interpolation.Values.Keys) &&
+                Values.Values.SequenceEqual(interpolation.Values.Values);
         }
         public override string ToSummaryLabel()
         {

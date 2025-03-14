@@ -1,0 +1,69 @@
+{
+  "Types": {
+    "Output": "Ausgang",
+    "LedModule": "7-Segment Anzeige",
+    "Stepper": "Schrittmotor",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "CustomDevice": "Custom Device",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Schalter",
+    "Encoder": "Enkoder",
+    "AnalogInput": "Analoger Eingang",
+    "-": "nicht verwendet",
+    "OutputConfigItem": "Ausgabe Konfiguration",
+    "InputConfigItem": "Eingabe Konfiguration"
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Einträge filtern..."
+      },
+      "Filter": {
+        "ConfigType": "Konfiguration-Typ",
+        "Device": "Steuerung",
+        "Type": "Gerät",
+        "Name": "Namen",
+        "Selected": "{{items}} ausgewählt",
+        "Clear": "Filter zurücksetzen",
+        "NoResultsFound": "Keine Ergebnisse gefunden."
+      },
+      "NotSet": "Nicht verwendet",
+      "Reset": "Filter zurücksetzen"
+    },
+    "Header": {
+      "Active": "Aktiv",
+      "Name": "Name / Beschreibung",
+      "Device": "Steuerung",
+      "Component": "Gerät",
+      "Status": "Status",
+      "RawValue": "Rohwert",
+      "FinalValue": "Endwert",
+      "Actions": "Aktionen"
+    },
+    "Cell": {
+      "Waiting": "Warten",
+      "Controller": {
+        "openInSettings": "Öffne Einstellungen der Steuerungs",
+        "not set": "In dieser Konfiguration ist kein Controller hinterlegt."
+      },
+      "Device": {
+        "not set": "Diese Konfiguration verwendet kein Gerät."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Neue Ausgabe-Konfiguration",
+        "DefaultName": "Neue Ausgabe-Konfiguration"
+      },
+      "InputConfigItem": {
+        "Add": "Neue Eingabe-konfiguration",
+        "DefaultName": "Neue Eingabe-Konfiguration"
+      }
+    }
+  }
+}

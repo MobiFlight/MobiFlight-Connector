@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
@@ -8,9 +10,13 @@ namespace MobiFlight.Modifier
 {
     public class ModifierList : IXmlSerializable, ICloneable
     {
+        
         protected List<ModifierBase> modifiers = new List<ModifierBase>();
+
+        [JsonProperty(ItemConverterType = typeof(ModifierBaseConverter))]
         public List<ModifierBase> Items { get { return modifiers; } }
 
+        [JsonIgnore]
         public Transformation Transformation
         {
             get
@@ -26,7 +32,7 @@ namespace MobiFlight.Modifier
                 return t;
             }
         }
-
+        [JsonIgnore]
         public Comparison Comparison
         {
             get
@@ -42,7 +48,7 @@ namespace MobiFlight.Modifier
                 return c;
             }
         }
-
+        [JsonIgnore]
         public Interpolation Interpolation
         {
             get

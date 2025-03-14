@@ -1,8 +1,8 @@
-﻿using MobiFlight.xplane;
+﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+using MobiFlight.xplane;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
 
 namespace MobiFlight.InputConfig
@@ -16,6 +16,7 @@ namespace MobiFlight.InputConfig
         public JoystickManager joystickManager;
     }
 
+    [JsonConverter(typeof(InputActionConverter))]
     abstract public class InputAction : IXmlSerializable, ICloneable
     {
         public const String Label = "InputAction";

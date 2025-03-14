@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using CommandMessenger;
+﻿using CommandMessenger;
 using MobiFlight.Base;
 using MobiFlight.OutputConfig;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MobiFlight
 {
-    public class MobiFlightLcdDisplay : IConnectedDevice
+    public class MobiFlightLcdDisplay : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "LcdDisplay";
         
@@ -19,15 +17,14 @@ namespace MobiFlight
         public int Lines    { get; set; }
 
         private String _name = "Lcd Display";
-        public String Name
+        public override String Name
         {
             get { return _name; }
             set { _name = value; }
         }
         
-        
         private DeviceType _type = DeviceType.LcdDisplay;
-        public DeviceType Type
+        public DeviceType TypeDeprecated
         {
             get { return _type; }
             set { _type = value; }
@@ -133,6 +130,16 @@ namespace MobiFlight
         {
             Display(new string(' ', Cols * Lines));
             return;
+        }
+
+        public override object Clone()
+        {
+            return new MobiFlightLcdDisplay
+            {
+                Address = this.Address,
+                Cols = this.Cols,
+                Lines = this.Lines
+            };
         }
     }
 }

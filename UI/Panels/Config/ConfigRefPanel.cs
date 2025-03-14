@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using MobiFlight.Base;
+﻿using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.UI.Dialogs;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
 {
     public partial class ConfigRefPanel : UserControl
     {
-        DataView dv;
+        List<OutputConfigItem> outputConfigs;
         // static byte MAX_CONFIG_REFS = 8;
         static string[] CONFIG_REFS_PLACEHOLDER = { "#", "!", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M" };
 
@@ -24,31 +21,27 @@ namespace MobiFlight.UI.Panels.Config
 
         }
 
-        public void SetConfigRefsDataView(DataView dv, String filterGuid)
+        public void SetConfigRefsDataView(List<OutputConfigItem> outputConfigs, String filterGuid)
         {
-            this.dv = dv;
-            dv.RowFilter = "guid <> '" + filterGuid + "'";
+            this.outputConfigs = outputConfigs.Where(c => c.GUID != filterGuid).ToList();
 
             // don't show the panel as long as we have no configs for reference
-            noConfigRefsPanel.Visible = (dv.Count == 0);
-
+            noConfigRefsPanel.Visible = (outputConfigs.Count == 0);
 
             // disable the button in case there are no more configs to add as reference
-            addReferenceButton.Enabled = (dv.Count> 0);
+            addReferenceButton.Enabled = (outputConfigs.Count > 0);
         }
 
         internal void syncFromConfig(IConfigRefConfigItem config)
         {
             configRefItemPanel.Controls.Clear();
-            DataView defaultView = dv.Table.DefaultView;
 
             foreach (ConfigRef configRef in config.ConfigRefs)
             {
-                defaultView.RowFilter = "guid = '" + configRef.Ref + "'";
-                if (defaultView.Count == 0) continue;
+                if (outputConfigs.Where(c => c.GUID == configRef.Ref).ToList().Count == 0) continue;
 
-                ConfigRefPanelItem p = new ConfigRefPanelItem();                
-                p.SetDataView(dv);
+                ConfigRefPanelItem p = new ConfigRefPanelItem();
+                p.SetDataView(outputConfigs);
                 p.syncFromConfig(configRef);
 
                 p.ConfigRemoved += P_ConfigRemoved;
@@ -75,7 +68,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void addReferenceButton_Click(object sender, EventArgs e)
         {
-            if (configRefItemPanel.Controls.Count >= dv.Count)
+            if (configRefItemPanel.Controls.Count >= outputConfigs.Count)
             {
                 String msg = i18n._tr("uiMessageNoMoreConfigReferenceAvailable");
                 TimeoutMessageDialog.Show(msg, i18n._tr("Hint"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -85,7 +78,7 @@ namespace MobiFlight.UI.Panels.Config
             ConfigRefPanelItem p = new ConfigRefPanelItem();
 
             p.SetPlaceholder(FindAvailablePlaceholder());
-            p.SetDataView(dv);
+            p.SetDataView(outputConfigs);
             p.configRefComboBox.SelectedIndex = configRefItemPanel.Controls.Count;
 
             p.ConfigRemoved += P_ConfigRemoved;
@@ -104,13 +97,13 @@ namespace MobiFlight.UI.Panels.Config
             String result = "";
             List<String> usedPlaceholder = new List<String>();
 
-            foreach(var cfgRefPanel in configRefItemPanel.Controls)
+            foreach (var cfgRefPanel in configRefItemPanel.Controls)
             {
                 ConfigRef configRef = new ConfigRef();
                 (cfgRefPanel as ConfigRefPanelItem).syncToConfig(configRef);
                 usedPlaceholder.Add(configRef.Placeholder);
             }
-            foreach(var ph in CONFIG_REFS_PLACEHOLDER)
+            foreach (var ph in CONFIG_REFS_PLACEHOLDER)
             {
                 if (usedPlaceholder.Contains(ph)) continue;
                 result = ph;

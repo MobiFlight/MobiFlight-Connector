@@ -11,7 +11,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -26,7 +26,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4,6" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4,6" />
         <preconditions>
           <precondition type="config" active="true" ref="57e136d1-e0de-402f-96d4-3520297e88a2" operand="=" value="0" logic="and" />
         </preconditions>
@@ -43,7 +43,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="2,4" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="2,4" />
         <preconditions>
           <precondition type="config" active="true" ref="57e136d1-e0de-402f-96d4-3520297e88a2" operand="=" value="1" logic="and" />
         </preconditions>
@@ -60,7 +60,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -75,7 +75,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" ledAddress="LedModule" ledConnector="2" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -90,7 +90,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
+        <display type="Output" serial="TestBoard/ SN-849-180" pin="Output" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -105,7 +105,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="16383" operand="=" ifValue="0" elseValue="" />
         </modifiers>
-        <display type="Output" serial="TestBoard/ SN-849-180" trigger="normal" pin="Output" pinBrightness="255" />
+        <display type="Output" serial="TestBoard/ SN-849-180" pin="Output" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -120,7 +120,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="0" operand="=" ifValue="$-10" elseValue="$-10" />
         </modifiers>
-        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" stepperAddress="Stepper" stepperInputRev="1000" stepperOutputRev="2041" stepperTestValue="2000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -135,7 +135,7 @@
           <transformation active="False" expression="$*0,768946875" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" stepperAddress="Stepper1" stepperInputRev="1000" stepperOutputRev="2040" stepperTestValue="4000" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -150,7 +150,7 @@
           <transformation active="False" expression="$*0,0078125" />
           <comparison active="False" value="" operand="=" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Stepper" serial="TestBoard/ SN-849-180" trigger="normal" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="TestBoard/ SN-849-180" stepperAddress="Stepper" stepperInputRev="225" stepperOutputRev="2040" stepperTestValue="180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -165,7 +165,7 @@
           <transformation active="False" expression="$*0,0054931640625" />
           <comparison active="True" value="0" operand="=" ifValue="360" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="TestBoard/ SN-849-180" trigger="normal" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
+        <display type="Display Module" serial="TestBoard/ SN-849-180" ledAddress="LedModule" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -180,7 +180,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Servo" serial="TestBoard/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90" />
+        <display type="Servo" serial="TestBoard/ SN-849-180" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90" />
         <preconditions />
         <configrefs />
       </settings>
@@ -195,7 +195,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="5475" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Servo" serial="TestBoard/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90" />
+        <display type="Servo" serial="TestBoard/ SN-849-180" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="90" />
         <preconditions />
         <configrefs />
       </settings>
@@ -217,7 +217,7 @@
             <value x="1055" y="50" />
           </interpolation>
         </modifiers>
-        <display type="Servo" serial="TestBoard/ SN-849-180" trigger="normal" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="100" />
+        <display type="Servo" serial="TestBoard/ SN-849-180" servoAddress="Servo" servoMin="0" servoMax="180" servoMaxRotationPercent="100" />
         <preconditions />
         <configrefs />
       </settings>
@@ -232,7 +232,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>

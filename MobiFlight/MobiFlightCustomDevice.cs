@@ -9,7 +9,7 @@ namespace MobiFlight
 
         public CmdMessenger CmdMessenger { get; set; }
         public string Name { get; set; } = "Custom Device";
-        public DeviceType Type { get; set; } = DeviceType.CustomDevice;
+        public DeviceType TypeDeprecated { get; set; } = DeviceType.CustomDevice;
         public int DeviceNumber { get; set; }
         public CustomDevices.CustomDevice CustomDevice { get; set; }
 

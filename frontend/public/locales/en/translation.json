@@ -1,0 +1,98 @@
+{
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Output Shift Register",
+    "CustomDevice": "Custom Device",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "not set",
+    "OutputConfigItem": "Output Configuration",
+    "InputConfigItem": "Input Configuration"
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filter items..."
+      },
+      "Filter": {
+        "ConfigType": "Config Type",
+        "Device": "Controller",
+        "Type": "Devices",
+        "Name": "Names",
+        "Selected": "{{items}} selected",
+        "Clear": "Clear filters",
+        "NoResultsFound": "No results found."
+      },
+      "NotSet": "not set",
+      "Reset": "Reset filters"
+    },
+    "Header": {
+      "Active": "Active",
+      "Name": "Name / Description",
+      "Device": "Controller",
+      "Component": "Device",
+      "Status": "Status",
+      "RawValue": "Raw Value",
+      "FinalValue": "Final Value",
+      "Actions": "Actions"
+    },
+    "Cell": {
+      "Waiting": "Waiting",
+      "Controller": {
+        "openInSettings": "Open controller settings",
+        "not set": "No controller used in this config."
+      },
+      "Device": {
+        "not set": "No device used in this config."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "This is a new configuration. Please add some items."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Add Output Config",
+        "DefaultName": "New Output Config"
+      },
+      "InputConfigItem": {
+        "Add": "Add Input Config",
+        "DefaultName": "New Input Config"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "Precondition is not satisfied."
+      },
+      "Source": {
+        "available": "Source is available.",
+        "SIMCONNECT_NOT_AVAILABLE": "This config uses SimConnect, connection is missing.",
+        "FSUIPC_NOT_AVAILABLE": "This config uses FSUIPC, connection is missing.",
+        "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing."
+      },
+      "Modifier" : {
+        "Error": "A modifier is applied which has an error.",
+        "OK": "A modifier is applied."
+      },
+      "Device": {
+        "NotConnected": "The device used in this config is not connected.",
+        "Connected": "The device used in this config is connected."
+      },
+      "Test": {
+        "Executing": "This config is currently being tested.",
+        "NotExecuting": "This config is not being tested."
+      },
+      "ConfigRef": {
+        "Missing": "One or more referenced configs are missing.",
+        "OK": "All referenced configs are available."
+      }
+    }
+
+  }
+}
