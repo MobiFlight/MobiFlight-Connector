@@ -311,7 +311,7 @@ namespace MobiFlight
 
                 resortedItems.ForEach(item =>
                 {
-                    ConfigItems.Insert(currentIndex, item as OutputConfigItem);
+                    ConfigItems.Insert(currentIndex, item);
                     currentIndex++;
                 });
                 
