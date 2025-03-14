@@ -1726,14 +1726,18 @@ namespace MobiFlight.UI
 
             if (!merge)
             {
+                // the original file name has to be stored
+                // in the list of recent files.
+                _storeAsRecentFile(fileName);
+                // We want to ensure that we use the new file extension
+                // if users saves the next time
                 CurrentFileName = fileName.Replace(".mcc", ".mfproj");
                 _setFilenameInTitle(CurrentFileName);
-                _storeAsRecentFile(CurrentFileName);
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
-                saveToolStripButton.Enabled = false;
+                saveToolStripButton.Enabled = fileName != CurrentFileName;
 
                 if (CurrentFileName != fileName)
                 {
