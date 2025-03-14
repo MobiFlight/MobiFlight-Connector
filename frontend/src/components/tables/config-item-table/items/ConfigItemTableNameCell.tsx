@@ -45,7 +45,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
   }, [realLabel])
 
   return (
-    <div className="group flex w-auto cursor-pointer flex-row items-center gap-1">
+    <div className="group flex cursor-pointer flex-row items-center gap-1">
       {!isEditing ? (
         <ToolTip
           content={
@@ -59,7 +59,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
         >
           <div className="flex flex-col">
             <div className="flex flex-row items-center gap-1">
-              <p className="max-w-52 truncate px-0 font-semibold">{label}</p>
+              <p className="truncate px-0 font-semibold">{label}</p>
               <IconEdit
                 role="button"
                 aria-label="Edit"

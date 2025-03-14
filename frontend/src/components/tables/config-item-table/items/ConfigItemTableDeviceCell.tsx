@@ -31,9 +31,9 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
   )
   return type != "-" ? (
     <ToolTip content={typeLabel}>
-      <div className="flex flex-row items-center gap-2 lg:w-36 2xl:w-48">
+      <div className="flex flex-row items-center gap-2">
         {icon}
-        <div className="hidden w-full flex-col lg:flex">
+        <div className="hidden flex-col lg:flex">
           <p className="text-md truncate">{label}</p>
         </div>
       </div>
@@ -42,7 +42,7 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
     <ToolTip content={t("ConfigList.Cell.Device.not set")}>
     <div className="item-center flex flex-row gap-2 text-slate-400">
       <IconBan />
-      <span>not set</span>
+      <span className="hidden lg:inline">not set</span>
     </div>
     </ToolTip>
   )
