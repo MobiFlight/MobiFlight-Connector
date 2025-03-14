@@ -19,34 +19,47 @@ const ConfigItemTableControllerCell = ({
 
   const label = (row.getValue("ModuleSerial") as string).split("/")[0]
   const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
-
+  const item = row.original as IConfigItem
+    
   const openControllerSettings = useCallback(() => {
-    const item = row.original as IConfigItem
     publish({
       key: "CommandConfigContextMenu",
       payload: { action: "settings", item: item },
     } as CommandConfigContextMenu)
-  }, [row, publish])
+  }, [publish, item])
 
   return !isEmpty(label) ? (
-    <div className="group hidden w-48 flex-row items-center xl:flex 2xl:w-64 3xl:w-72">
-      <ToolTip content={<span className="text-xs">S/N: {serial}</span>}>
+    <div className="group flex flex-row items-center">
+      <ToolTip
+        content={
+          <div className="flex flex-col">
+            <span className="text-xs">{label}</span>
+            <span className="text-xs">{serial}</span>
+          </div>
+        }
+      >
         <p className="text-md truncate font-normal">{label}</p>
       </ToolTip>
-      <ToolTip content={<span className="text-xs">{ t("ConfigList.Cell.Controller.openInSettings") }</span>}>
+      <ToolTip
+        content={
+          <span className="text-xs">
+            {t("ConfigList.Cell.Controller.openInSettings")}
+          </span>
+        }
+      >
         <IconExternalLink
           role="link"
           aria-label="Edit"
           onClick={openControllerSettings}
-          className="ml-2 cursor-pointer opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+          className="ml-2 min-w-7 cursor-pointer opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
         />
       </ToolTip>
     </div>
   ) : (
     <ToolTip content={t("ConfigList.Cell.Controller.not set")}>
-      <span className="item-center hidden flex-row gap-2 text-slate-400 xl:flex">
+      <span className="item-center hidden flex-row gap-2 text-slate-400 lg:flex">
         <IconBan />
-        <span>not set</span>
+        <span className="hidden lg:inline">not set</span>
       </span>
     </ToolTip>
   )

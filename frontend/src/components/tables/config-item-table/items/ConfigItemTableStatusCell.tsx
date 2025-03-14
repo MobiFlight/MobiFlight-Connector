@@ -45,7 +45,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex w-28 flex-row gap-0">
+    <div className="flex flex-row gap-1">
       <StatusIcon
         condition={Precondition}
         title={

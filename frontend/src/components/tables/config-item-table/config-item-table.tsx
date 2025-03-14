@@ -48,6 +48,7 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandAddConfigItem, CommandResortConfigItem } from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import { DndTableRow } from "@/components/tables/config-item-table/DndTableRow"
+import { cn } from "@/lib/utils"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -152,15 +153,16 @@ export function ConfigItemTable<TData, TValue>({
           onDragEnd={handleDragEnd}
         >
       <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
-          <Table ref={tableRef} className="table-auto">
+          <Table ref={tableRef} className="table-auto lg:table-fixed">
             <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
                   {headerGroup.headers.map((header) => {
+                    const className = (header.column.columnDef.meta as {className:string})?.className ?? ""
                     return (
                       <TableHead
                         key={header.id}
-                        className="sticky top-0 z-50 bg-primary px-2 text-white dark:bg-zinc-800"
+                        className={ cn("sticky top-0 z-50 bg-primary px-1 text-white dark:bg-zinc-800", className) }
                       >
                         {header.isPlaceholder
                           ? null
@@ -181,8 +183,6 @@ export function ConfigItemTable<TData, TValue>({
                   strategy={verticalListSortingStrategy}
                 >
                   {table.getRowModel().rows.map((row) => {
-                    
-
                     return (
                       <DndTableRow
                         key={row.id}
@@ -195,14 +195,18 @@ export function ConfigItemTable<TData, TValue>({
                           })
                         }}
                       >
-                        {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id} className="p-1">
+                        {row.getVisibleCells().map((cell) => {
+                          const className = (cell.column.columnDef.meta as {className:string})?.className ?? ""
+
+                          return (
+                          <TableCell key={cell.id} className={cn("p-1", className)}>
                             {flexRender(
                               cell.column.columnDef.cell,
                               cell.getContext(),
                             )}
-                          </TableCell>
-                        ))}
+                          </TableCell>)
+                          }
+                        )}
                       </DndTableRow>
                     )
                   })}

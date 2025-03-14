@@ -15,9 +15,9 @@ const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
   const { publish } = publishOnMessageExchange()
   const item = row.original as IConfigItem
   const { attributes, listeners } = useSortable({ id: item.GUID })
-  
+
   return (
-    <div className="flex flex-row items-center">
+    <div className="flex flex-row">
       <div
         {...attributes}
         {...listeners}
@@ -25,7 +25,7 @@ const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
       >
         <IconGripVertical className="stroke-2" />
       </div>
-      <div className="w-12 text-center">
+      <div className="text-center">
         <Switch
           checked={row.getValue("Active") as boolean}
           onClick={() => {
