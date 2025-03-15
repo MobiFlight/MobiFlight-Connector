@@ -43,7 +43,7 @@ jobs:
       - name: Cache nuget packages
         uses: actions/cache@v4
         with:
-          path: ${{ format('{0}\.nuget\packages', env.USERPROFILE) }} # The global nuget install location is in the user profile folder, not the workspace.
+          path: ~/.nuget/packages # The global nuget install location is in the user profile folder, not the workspace.
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }} #hash of project files
           restore-keys: |
             ${{ runner.os }}-nuget-
