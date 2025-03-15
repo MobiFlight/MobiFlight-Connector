@@ -4,9 +4,7 @@ test("Confirm empty list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithEmptyData()
   await expect(
-    page.getByRole("cell", {
-      name: "This is a new configuration. Please add some items.",
-    }),
+    page.getByText("This is a new configuration. Please add some items."),
   ).toBeVisible()
   await expect(
     page.getByRole("button", { name: "Add Output Config" }),

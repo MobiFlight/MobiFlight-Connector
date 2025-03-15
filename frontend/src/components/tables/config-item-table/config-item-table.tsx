@@ -52,14 +52,14 @@ import { cn } from "@/lib/utils"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[],
+  data: TData[]
   setItems: (items: IConfigItem[]) => void
 }
 
 export function ConfigItemTable<TData, TValue>({
   columns,
   data,
-  setItems
+  setItems,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -97,7 +97,7 @@ export function ConfigItemTable<TData, TValue>({
   const prevDataLength = useRef(data.length)
 
   useEffect(() => {
-    if (data.length === (prevDataLength.current + 1)) {
+    if (data.length === prevDataLength.current + 1) {
       const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(
         `[dnd-itemid="${lastItem.GUID}"]`,
@@ -114,117 +114,146 @@ export function ConfigItemTable<TData, TValue>({
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
+    useSensor(KeyboardSensor, {}),
   )
-  
 
-  const handleDragEnd = useCallback((event: DragEndEvent) => {
-    const { active, over } = event
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event
 
-    if (active.id !== over?.id) {
-      // sort the data items first
-      const oldIndex = data.findIndex((item) => (item as IConfigItem).GUID === active?.id);
-      const newIndex = data.findIndex((item) => (item as IConfigItem).GUID === over?.id);
-      const arrayWithNewOrder = arrayMove(data, oldIndex, newIndex);
-      // store them in a local array
-      // then set the items
+      if (active.id !== over?.id) {
+        // sort the data items first
+        const oldIndex = data.findIndex(
+          (item) => (item as IConfigItem).GUID === active?.id,
+        )
+        const newIndex = data.findIndex(
+          (item) => (item as IConfigItem).GUID === over?.id,
+        )
+        const arrayWithNewOrder = arrayMove(data, oldIndex, newIndex)
+        // store them in a local array
+        // then set the items
 
-      setItems(arrayWithNewOrder as IConfigItem[]);
+        setItems(arrayWithNewOrder as IConfigItem[])
 
-      publishOnMessageExchange().publish({
-        key: "CommandResortConfigItem",
-        payload: {
-          items: [ data.find((item) => (item as IConfigItem).GUID === active.id) as IConfigItem ],
-          newIndex: newIndex,
-        }
-      } as CommandResortConfigItem);
-    }
-  }, [data, setItems])
+        publishOnMessageExchange().publish({
+          key: "CommandResortConfigItem",
+          payload: {
+            items: [
+              data.find(
+                (item) => (item as IConfigItem).GUID === active.id,
+              ) as IConfigItem,
+            ],
+            newIndex: newIndex,
+          },
+        } as CommandResortConfigItem)
+      }
+    },
+    [data, setItems],
+  )
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
-      <div className="p-1">
-        <DataTableToolbar table={table} items={data as IConfigItem[]} />
-      </div>
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          modifiers={[restrictToVerticalAxis]}
-          onDragEnd={handleDragEnd}
-        >
-      <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
-          <Table ref={tableRef} className="table-auto lg:table-fixed">
-            <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
-                  {headerGroup.headers.map((header) => {
-                    const className = (header.column.columnDef.meta as {className:string})?.className ?? ""
-                    return (
-                      <TableHead
-                        key={header.id}
-                        className={ cn("sticky top-0 z-50 bg-primary px-1 text-white dark:bg-zinc-800", className) }
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
+      {table.getRowModel().rows?.length ? (
+        <div className="flex grow flex-col gap-2 overflow-y-auto">
+          <div className="p-1">
+            <DataTableToolbar table={table} items={data as IConfigItem[]} />
+          </div>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            modifiers={[restrictToVerticalAxis]}
+            onDragEnd={handleDragEnd}
+          >
+            <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
+              <Table ref={tableRef} className="table-auto lg:table-fixed">
+                <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
+                  {table.getHeaderGroups().map((headerGroup) => (
+                    <TableRow
+                      key={headerGroup.id}
+                      className="hover:bg-zinc-800"
+                    >
+                      {headerGroup.headers.map((header) => {
+                        const className =
+                          (
+                            header.column.columnDef.meta as {
+                              className: string
+                            }
+                          )?.className ?? ""
+                        return (
+                          <TableHead
+                            key={header.id}
+                            className={cn(
+                              "sticky top-0 z-50 bg-primary px-1 text-white dark:bg-zinc-800",
+                              className,
                             )}
-                      </TableHead>
-                    )
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody className="dark:bg-zinc-900">
-              {table.getRowModel().rows?.length ? (
-                <SortableContext
-                  items={table.getRowModel().rows.map((row) => row.id)}
-                  strategy={verticalListSortingStrategy}
-                >
-                  {table.getRowModel().rows.map((row) => {
-                    return (
-                      <DndTableRow
-                        key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
-                        dnd-itemid={row.id}
-                        onDoubleClick={() => {
-                          publish({
-                            key: "CommandConfigContextMenu",
-                            payload: { action: "edit", item: row.original },
-                          })
-                        }}
-                      >
-                        {row.getVisibleCells().map((cell) => {
-                          const className = (cell.column.columnDef.meta as {className:string})?.className ?? ""
-
-                          return (
-                          <TableCell key={cell.id} className={cn("p-1", className)}>
-                            {flexRender(
-                              cell.column.columnDef.cell,
-                              cell.getContext(),
-                            )}
-                          </TableCell>)
-                          }
-                        )}
-                      </DndTableRow>
-                    )
-                  })}
-                </SortableContext>
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
+                          >
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                  header.column.columnDef.header,
+                                  header.getContext(),
+                                )}
+                          </TableHead>
+                        )
+                      })}
+                    </TableRow>
+                  ))}
+                </TableHeader>
+                <TableBody className="dark:bg-zinc-900">
+                  <SortableContext
+                    items={table.getRowModel().rows.map((row) => row.id)}
+                    strategy={verticalListSortingStrategy}
                   >
-                    {t("ConfigList.Table.NoResultsFound")}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-      </div>
-        </DndContext>
+                    {table.getRowModel().rows.map((row) => {
+                      return (
+                        <DndTableRow
+                          key={row.id}
+                          data-state={row.getIsSelected() && "selected"}
+                          dnd-itemid={row.id}
+                          onDoubleClick={() => {
+                            publish({
+                              key: "CommandConfigContextMenu",
+                              payload: { action: "edit", item: row.original },
+                            })
+                          }}
+                        >
+                          {row.getVisibleCells().map((cell) => {
+                            const className =
+                              (
+                                cell.column.columnDef.meta as {
+                                  className: string
+                                }
+                              )?.className ?? ""
+
+                            return (
+                              <TableCell
+                                key={cell.id}
+                                className={cn("p-1", className)}
+                              >
+                                {flexRender(
+                                  cell.column.columnDef.cell,
+                                  cell.getContext(),
+                                )}
+                              </TableCell>
+                            )
+                          })}
+                        </DndTableRow>
+                      )
+                    })}
+                  </SortableContext>
+                </TableBody>
+              </Table>
+            </div>
+          </DndContext>
+        </div>
+      ) : (
+        <div className="border-2 flex flex-col gap-2 rounded-lg border-solid border-primary">
+          <div className="bg-primary h-12"></div>
+          <div className="text-center p-4 pb-6" role="alert">
+            {t("ConfigList.Table.NoResultsFound")}
+          </div>
+        </div>
+      )}
       <div className="flex justify-start gap-2">
         <Button
           variant={"outline"}
