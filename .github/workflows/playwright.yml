@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{github.workspace}}\frontend
+        working-directory: ${{github.workspace}}/frontend
     steps:
       - uses: actions/checkout@v4
 
