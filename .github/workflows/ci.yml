@@ -35,18 +35,18 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
-          cache-dependency-path: .\frontend\package-lock.json
+          cache-dependency-path: ${{github.workspace}}\frontend\package-lock.json
 
       - name: Cache nuget packages
         uses: actions/cache@v4
         with:
-          path: ${{ github.workspace }}\.nuget\packages
+          path: ${{ env.USERPROFILE }}/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }} #hash of project files
           restore-keys: |
             ${{ runner.os }}-nuget-
 
       - name: Restore NuGet packages
-        run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+        run: nuget restore -LockedMode ${{env.SOLUTION_FILE_PATH}}
 
       - name: Replace version in AssemblyInfo.cs
         run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "Properties/AssemblyInfo.cs"
@@ -66,7 +66,7 @@ jobs:
         run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BUILD_PLATFORM}} /t:${{env.BUILD_PROJECT}} ${{env.SOLUTION_FILE_PATH}}
 
       - name: Run Tests
-        run: vstest.console.exe .\MobiFlightUnitTests\bin\Release\MobiFlightUnitTests.dll
+        run: vstest.console.exe ${{github.workspace}}\MobiFlightUnitTests\bin\Release\MobiFlightUnitTests.dll
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
