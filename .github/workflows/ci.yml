@@ -24,15 +24,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v1.3.1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 4.8
+          cache: true
 
       - name: Add VSTest to Path
         uses: darenm/Setup-VSTest@v1.3
 
       - name: Restore NuGet packages
         working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+        run: dotnet restore --locked-mode ${{env.SOLUTION_FILE_PATH}}
 
       - name: Replace version in AssemblyInfo.cs
         run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "Properties/AssemblyInfo.cs"
