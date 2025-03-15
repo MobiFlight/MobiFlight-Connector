@@ -1,4 +1,4 @@
-name: RunTests
+name: Build app and run tests
 
 on:
   workflow_dispatch:
@@ -40,7 +40,7 @@ jobs:
       - name: Cache nuget packages
         uses: actions/cache@v4
         with:
-          path: .\.nuget\packages
+          path: ${{ github.workspace }}\.nuget\packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }} #hash of project files
           restore-keys: |
             ${{ runner.os }}-nuget-
