@@ -3,30 +3,19 @@ import { test, expect } from "./fixtures"
 test("Confirm empty list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithEmptyData()
-  await expect(
-    page.getByRole("cell", {
-      name: "This is a new configuration. Please add some items.",
-    }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole("button", { name: "Add Output Config" }),
-  ).toBeVisible()
-  await expect(
-    page.getByRole("button", { name: "Add Input Config" }),
-  ).toBeVisible()
+  const noConfigsMessage = page.getByText("This is a new configuration. Please add some items.")
+  await expect(noConfigsMessage).toBeVisible()
+
+  const addOutputConfigButton = page.getByRole("button", { name: "Add Output Config" })
+  const addInputConfigButton = page.getByRole("button", { name: "Add Input Config" })
+
+  await expect(addOutputConfigButton).toBeVisible()
+  await expect(addInputConfigButton).toBeVisible()
+
+  // the filter toolbar is not yet visible because we don't have any items
   await expect(
     page.getByRole("textbox", { name: "Filter items..." }),
-  ).toBeVisible()
-  await page.getByRole("button", { name: "Devices" }).click()
-  await expect(page.getByText("No results found.")).toBeVisible()
-  await page.getByRole("button", { name: "Type" }).click()
-  await page.waitForTimeout(500)
-  await expect(
-    page.getByRole("listbox").getByText("No results found.", { exact: true }),
-  ).toBeVisible()
-  await page.getByRole("button", { name: "Name" }).click()
-  await page.waitForTimeout(500)
-  await expect(page.getByText("No results found.")).toBeVisible()
+  ).not.toBeVisible()
 })
 
 test("Confirm populated list view", async ({ configListPage, page }) => {
