@@ -49,15 +49,15 @@
     },
     "DeviceConfigs": [
       {
-        "Name": "Prototyping Board (Latest version)",
+        "Name": "Prototyping Board",
         "Description": "The device definitions for the Prototyping Board from the Community Shop",
-        "File": "prototyping-board-latest.mega.mfmc",
+        "File": "prototyping-board.mega.mfmc",
         "DefaultUpload": false
       },
       {
-        "Name": "Prototyping Board v2.0",
-        "Description": "The device definitions for the Prototyping Board from the Community Shop",
-        "File": "prototyping-board-latest.mega.mfmc",
+        "Name": "Prototyping Board - Multiplexer",
+        "Description": "The device definitions, with Multiplexer, for the Prototyping Board from the Community Shop",
+        "File": "prototyping-board.mega.multiplexer.mfmc",
         "DefaultUpload": false
       }
     ]
