@@ -30,8 +30,14 @@ jobs:
       - name: Add VSTest to Path
         uses: darenm/Setup-VSTest@v1.3
 
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: "./frontend/package-lock.json"
+
       - name: Restore NuGet packages
-        working-directory: ${{env.GITHUB_WORKSPACE}}
         run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
       - name: Replace version in AssemblyInfo.cs
@@ -42,19 +48,11 @@ jobs:
         run: "type Properties/AssemblyInfo.cs"
         shell: pwsh
 
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: "npm"
-          cache-dependency-path: "${{env.GITHUB_WORKSPACE}}/frontend/package-lock.json"
-
       - name: Build frontend
-        working-directory: "${{env.GITHUB_WORKSPACE}}/frontend"
+        working-directory: "./frontend"
         run: npm ci; npm run build
 
       - name: Build core
-        working-directory: ${{env.GITHUB_WORKSPACE}}
         # Add additional options to the MSBuild command line here (like platform or verbosity level).
         # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
         run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} /p:Platform=${{env.BUILD_PLATFORM}} /t:${{env.BUILD_PROJECT}} ${{env.SOLUTION_FILE_PATH}}
