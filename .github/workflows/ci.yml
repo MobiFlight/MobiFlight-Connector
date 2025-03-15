@@ -27,7 +27,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 4.8
+          dotnet-version: 4.8.x
           cache: true
 
       - name: Add VSTest to Path
