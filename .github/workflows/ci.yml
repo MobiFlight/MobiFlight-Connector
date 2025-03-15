@@ -35,12 +35,15 @@ jobs:
         with:
           node-version: 22
           cache: "npm"
-          cache-dependency-path: ${{github.workspace}}\frontend\package-lock.json
+          cache-dependency-path: ${{github.workspace}}/frontend/package-lock.json
+
+      - name: Windows GitHub Actions environment variables List
+        run: env
 
       - name: Cache nuget packages
         uses: actions/cache@v4
         with:
-          path: ${{ env.USERPROFILE }}/.nuget/packages
+          path: ${{ env.HOMEPATH }}/.nuget/packages # The global nuget install location is in the user profile folder, not the workspace.
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }} #hash of project files
           restore-keys: |
             ${{ runner.os }}-nuget-
