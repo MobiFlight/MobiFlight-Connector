@@ -24,18 +24,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 4.8.x
-          cache: true
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Add VSTest to Path
         uses: darenm/Setup-VSTest@v1.3
 
       - name: Restore NuGet packages
         working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: dotnet restore --locked-mode ${{env.SOLUTION_FILE_PATH}}
+        run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
       - name: Replace version in AssemblyInfo.cs
         run: (Get-Content "Properties/AssemblyInfo.cs") -replace '\("\d+\.\d+\.\d+(\.\d+)?"\)', '("${{ env.VERSION }}")' | Out-File "Properties/AssemblyInfo.cs"
@@ -45,9 +42,16 @@ jobs:
         run: "type Properties/AssemblyInfo.cs"
         shell: pwsh
 
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+          cache-dependency-path: "${{env.GITHUB_WORKSPACE}}/frontend/package-lock.json"
+
       - name: Build frontend
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd frontend; npm install; npm run build
+        working-directory: "${{env.GITHUB_WORKSPACE}}/frontend"
+        run: npm ci; npm run build
 
       - name: Build core
         working-directory: ${{env.GITHUB_WORKSPACE}}
