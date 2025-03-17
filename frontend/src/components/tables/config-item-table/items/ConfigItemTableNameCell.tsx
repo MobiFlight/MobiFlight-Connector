@@ -18,9 +18,7 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
   const realLabel = row.getValue("Name") as string
   const { t } = useTranslation()
   const item = row.original as IConfigItem
-  const typeLabel = t(
-    `Types.${item.Type}`,
-  )
+  const typeLabel = t(`Types.${item.Type}`)
 
   const toggleEdit = () => {
     setIsEditing(!isEditing)
@@ -57,16 +55,14 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
             </div>
           }
         >
-          <div className="flex flex-col">
-            <div className="flex flex-row items-center gap-1">
-              <p className="truncate px-0 font-semibold">{label}</p>
-              <IconEdit
-                role="button"
-                aria-label="Edit"
-                onClick={toggleEdit}
-                className="ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
-              />
-            </div>
+          <div className="flex flex-row items-center gap-0 w-full">
+            <p className="px-0 font-semibold truncate">{label}</p>
+            <IconEdit
+              role="button"
+              aria-label="Edit"
+              onClick={toggleEdit}
+              className="min-w-10 ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+            />
           </div>
         </ToolTip>
       ) : (

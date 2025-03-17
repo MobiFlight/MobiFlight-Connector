@@ -165,7 +165,7 @@ export function ConfigItemTable<TData, TValue>({
             onDragEnd={handleDragEnd}
           >
             <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
-              <Table ref={tableRef} className="table-auto lg:table-fixed">
+              <Table ref={tableRef} className="table-fixed">
                 <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
                   {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow
