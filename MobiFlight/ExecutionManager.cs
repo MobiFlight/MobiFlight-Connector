@@ -486,7 +486,7 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
-            ConfigItems.ForEach(cfg => cfg.Status?.Clear());
+            ConfigItems.ForEach(cfg => cfg?.Status?.Clear());
             
             ClearErrorMessages();
         }
@@ -531,6 +531,9 @@ namespace MobiFlight
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
+            ConfigItems.ForEach(cfg => cfg?.Status?.Clear());
+            ConfigItemInTestMode = null;
+            ClearErrorMessages();
 
             OnTestModeStopped?.Invoke(this, null);
             Log.Instance.log("Stopped test timer.", LogSeverity.Debug);
@@ -1383,17 +1386,18 @@ namespace MobiFlight
             var OutputConfigItems = ConfigItems.Where(i => (i.GetType() == typeof(OutputConfigItem)) && i.Active && i.Device != null).ToList();
             if (OutputConfigItems.Count == 0) return;
 
-            var lastIndex = (testModeIndex - 1 + OutputConfigItems.Count) % OutputConfigItems.Count;
-            var currentIndex = testModeIndex % OutputConfigItems.Count;
 
-            var lastTestedConfig = OutputConfigItems[lastIndex];
+            var lastTestedConfig = ConfigItemInTestMode;
+            var lastTestedConfigIndex = OutputConfigItems.FindIndex(i => i.GUID == lastTestedConfig?.GUID);
+
+            var currentIndex = (lastTestedConfigIndex + 1) % OutputConfigItems.Count;
             var currentConfig = OutputConfigItems[currentIndex];
 
             // Special case:
             // if we have only one config item and it is the same as the last tested one, we just toggle it off
             var toggleSingleConfig = (currentConfig.AreEqual(lastTestedConfig) && OutputConfigItems.Count == 1);
 
-            if (lastTestedConfig.Status.ContainsKey(ConfigItemStatusType.Test))
+            if (lastTestedConfig?.Status?.ContainsKey(ConfigItemStatusType.Test) ?? false)
             {
                 try
                 {
@@ -1437,8 +1441,6 @@ namespace MobiFlight
                     OnTestModeException(ex, new EventArgs());
                 }
             }
-
-            testModeIndex = ++testModeIndex % ConfigItems.Count;
         }
 
 
