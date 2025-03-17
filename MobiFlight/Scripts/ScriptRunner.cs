@@ -372,8 +372,12 @@ namespace MobiFlight.Scripts
                         {
                             if (aircraftDescription.Contains(config.AircraftIdSnippet))
                             {
-                                Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
-                                ExecutionList.Add(config.ScriptName);
+                                // Only add if not already there
+                                if (!ExecutionList.Contains(config.ScriptName))
+                                {
+                                    Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
+                                    ExecutionList.Add(config.ScriptName);
+                                }
                             }
                         }
                     }
