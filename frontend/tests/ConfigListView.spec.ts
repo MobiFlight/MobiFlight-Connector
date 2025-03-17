@@ -1,3 +1,4 @@
+import { clear } from "console"
 import { test, expect } from "./fixtures"
 
 test("Confirm empty list view", async ({ configListPage, page }) => {
@@ -161,6 +162,33 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await expect(page.locator("html")).toHaveAttribute("class", "dark")
   await page.getByRole("button", { name: "Toggle light mode" }).click()
   await expect(page.locator("html")).toHaveAttribute("class", "light")
+})
+
+test("Confirm `Search text` filter toolbar is working", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+
+  const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
+  const rows = page.locator("tbody tr")
+  await expect(rows).toHaveCount(10)
+
+  await searchTextBox.fill("A")
+  await expect(rows).toHaveCount(2)
+
+  await searchTextBox.fill("Ana")
+  await expect(rows).toHaveCount(1)
+
+  await searchTextBox.fill("Anaz")
+  await expect(rows).toHaveCount(0)
+
+  const clearButton = page.getByRole("button", { name: "Reset filters" })
+  await expect(clearButton).not.toHaveCount(0)
+
+  await clearButton.first().click()
+  await expect(rows).toHaveCount(10)
 })
 
 test("Confirm `Config Type` filter toolbar is working", async ({
