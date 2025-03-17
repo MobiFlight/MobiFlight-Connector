@@ -1380,24 +1380,28 @@ namespace MobiFlight
         /// <param name="args"></param>
         void testModeTimer_Tick(object sender, EventArgs args)
         {
-            if (ConfigItems.Count == 0) return;
+            var OutputConfigItems = ConfigItems.Where(i => (i.GetType() == typeof(OutputConfigItem)) && i.Active && i.Device != null).ToList();
+            if (OutputConfigItems.Count == 0) return;
 
-            var lastTestedConfig = ConfigItems[(testModeIndex - 1 + ConfigItems.Count) % ConfigItems.Count];
+            var lastIndex = (testModeIndex - 1 + OutputConfigItems.Count) % OutputConfigItems.Count;
+            var currentIndex = testModeIndex % OutputConfigItems.Count;
 
-            string serial = "";
-            string lastSerial = "";
+            var lastTestedConfig = OutputConfigItems[lastIndex];
+            var currentConfig = OutputConfigItems[currentIndex];
 
-            var tmpCfg = lastTestedConfig;
+            // Special case:
+            // if we have only one config item and it is the same as the last tested one, we just toggle it off
+            var toggleSingleConfig = (currentConfig.AreEqual(lastTestedConfig) && OutputConfigItems.Count == 1);
 
-            if ((lastTestedConfig is OutputConfigItem) &&
-                lastTestedConfig.Active &&
-                lastTestedConfig.ModuleSerial != null && (lastTestedConfig.ModuleSerial.Contains("/"))
-            )
+            if (lastTestedConfig.Status.ContainsKey(ConfigItemStatusType.Test))
             {
-                lastSerial = SerialNumber.ExtractSerial(tmpCfg.ModuleSerial);
                 try
                 {
-                    ExecuteTestOff(tmpCfg as OutputConfigItem, true);
+                    ExecuteTestOff(lastTestedConfig as OutputConfigItem, true);
+                    if (toggleSingleConfig)
+                    {
+                        return;
+                    }
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1413,35 +1417,12 @@ namespace MobiFlight
                     OnTestModeException(ex, new EventArgs());
                 }
             }
-
-
-            var row = ConfigItems[testModeIndex];
-
-            while (
-                !(row is OutputConfigItem) &&
-                !row.Active && // check for null since last row is empty and value is null
-                row != lastTestedConfig)
+            
+            if (!currentConfig.Status.ContainsKey(ConfigItemStatusType.Test))
             {
-                testModeIndex = ++testModeIndex % ConfigItems.Count;
-                row = ConfigItems[testModeIndex];
-            } //while
-
-
-            tmpCfg = row;
-
-            if (tmpCfg != null && // this happens sometimes when a new line is added and still hasn't been configured
-                (tmpCfg is OutputConfigItem) &&
-                (tmpCfg != lastTestedConfig) &&
-                 tmpCfg.ModuleSerial != null && tmpCfg.ModuleSerial.Contains("/")
-            )
-            {
-                serial = SerialNumber.ExtractSerial(tmpCfg.ModuleSerial);
-
-                // TODO:
-                // REDESIGN: Send out a message that this is currently tested
                 try
                 {
-                    ExecuteTestOn(tmpCfg as OutputConfigItem, (tmpCfg as OutputConfigItem).TestValue);
+                    ExecuteTestOn(currentConfig as OutputConfigItem, (currentConfig as OutputConfigItem).TestValue);
                 }
                 catch (IndexOutOfRangeException ex)
                 {
@@ -1451,7 +1432,7 @@ namespace MobiFlight
                 }
                 catch (Exception ex)
                 {
-                    String RowDescription = row.Name;
+                    String RowDescription = currentConfig.Name;
                     Log.Instance.log($"Error during test mode execution: {RowDescription}. {ex.Message}", LogSeverity.Error);
                     OnTestModeException(ex, new EventArgs());
                 }
