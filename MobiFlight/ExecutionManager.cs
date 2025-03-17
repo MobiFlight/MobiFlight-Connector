@@ -241,7 +241,8 @@ namespace MobiFlight
 
                     case "test":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg == null) break;
+                        if (cfg == null || !(cfg is OutputConfigItem)) break;
+                        var toggleTest = cfg.AreEqual(ConfigItemInTestMode);
 
                         try
                         {
@@ -250,6 +251,11 @@ namespace MobiFlight
                         catch (Exception e)
                         {
                             Log.Instance.log(e.Message, LogSeverity.Error);
+                        }
+
+                        if (toggleTest)
+                        {
+                            return;
                         }
 
                         try {
