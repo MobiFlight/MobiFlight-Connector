@@ -2085,7 +2085,8 @@ namespace MobiFlight.UI
                 execManager.Stop();
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
-                var project = new Project() { Name = i18n._tr("DefaultFileName") };
+                project = new Project() { Name = i18n._tr("DefaultFileName") };
+                project.ConfigFiles.Add(new ConfigFile());
                 execManager.Project = project;
                 ProjectLoaded?.Invoke(this, project);
             };
