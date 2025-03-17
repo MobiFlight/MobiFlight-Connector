@@ -33,6 +33,7 @@ namespace MobiFlight.UI
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
 
+        private const string fileFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
@@ -1560,7 +1561,7 @@ namespace MobiFlight.UI
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+            fd.Filter = fileFilter;
 
             if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
@@ -1579,7 +1580,7 @@ namespace MobiFlight.UI
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+            fd.Filter = fileFilter;
 
             if (DialogResult.OK == fd.ShowDialog())
             {
@@ -1708,9 +1709,20 @@ namespace MobiFlight.UI
 
             try
             {
+                if (!merge) { 
+                    project = new Project() { FilePath = fileName };
+                    project.OpenFile();
+                } else
+                {
+                    // this is the old logic
+                    // we simply add the second file to the first file
+                    // this will have to be changed in the future
+                    var additionalProject = new Project() { FilePath = fileName };
+                    additionalProject.OpenFile();
+                    project.ConfigFiles[0].Merge(additionalProject.ConfigFiles[0]);
+                }
 
-                project = new Project() { FilePath = fileName };
-                project.OpenFile();
+                
                 execManager.Project = project;
             }
             catch (InvalidExpressionException)

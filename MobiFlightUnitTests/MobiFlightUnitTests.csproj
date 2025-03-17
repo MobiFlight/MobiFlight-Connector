@@ -81,6 +81,7 @@
     <Compile Include="Base\ComboBoxHelperTests.cs" />
     <Compile Include="Base\ConfigFileFactoryTests.cs" />
     <Compile Include="Base\ConfigFileTests.cs" />
+    <Compile Include="Base\ConfigFileUtilsTests.cs" />
     <Compile Include="Base\ConfigItemTests.cs" />
     <Compile Include="Base\ConfigRefListTests.cs" />
     <Compile Include="Base\ConfigRefTests.cs" />
