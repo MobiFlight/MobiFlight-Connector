@@ -337,13 +337,8 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Core\MsgEntry.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingCduWebsocketBehavior.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingConstants.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingDisplayControl.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingEfisDevice.cs" />
-    <Compile Include="MobiFlight\Joysticks\Winwing\Core\WinwingFcuDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingConstants.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcu.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcuReport.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />

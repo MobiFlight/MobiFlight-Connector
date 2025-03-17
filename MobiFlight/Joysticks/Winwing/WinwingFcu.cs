@@ -2,6 +2,7 @@
 using Hid.Net;
 using Hid.Net.Windows;
 using MobiFlight.Config;
+using MobiFlightWwFcu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
