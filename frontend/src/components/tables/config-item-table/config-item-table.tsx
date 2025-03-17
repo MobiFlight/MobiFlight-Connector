@@ -3,7 +3,6 @@ import {
   ColumnFiltersState,
   SortingState,
   VisibilityState,
-  flexRender,
   getCoreRowModel,
   getFacetedRowModel,
   getFacetedUniqueValues,
@@ -12,14 +11,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
+import { Table } from "@/components/ui/table"
 
 import {
   DndContext,
@@ -32,11 +24,7 @@ import {
   TouchSensor,
 } from "@dnd-kit/core"
 
-import {
-  arrayMove,
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
+import { arrayMove } from "@dnd-kit/sortable"
 
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 
@@ -47,8 +35,10 @@ import { Button } from "@/components/ui/button"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandAddConfigItem, CommandResortConfigItem } from "@/types/commands"
 import { useTranslation } from "react-i18next"
-import { DndTableRow } from "@/components/tables/config-item-table/DndTableRow"
-import { cn } from "@/lib/utils"
+import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
+import ConfigItemTableBody from "./items/ConfigItemTableBody"
+import ToolTip from "@/components/ToolTip"
+import { IconX } from "@tabler/icons-react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -153,103 +143,54 @@ export function ConfigItemTable<TData, TValue>({
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
-      {table.getRowModel().rows?.length ? (
+      {data.length > 0 ? (
         <div className="flex grow flex-col gap-2 overflow-y-auto">
           <div className="p-1">
             <DataTableToolbar table={table} items={data as IConfigItem[]} />
           </div>
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            modifiers={[restrictToVerticalAxis]}
-            onDragEnd={handleDragEnd}
-          >
-            <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
-              <Table ref={tableRef} className="table-fixed">
-                <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
-                  {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow
-                      key={headerGroup.id}
-                      className="hover:bg-zinc-800"
-                    >
-                      {headerGroup.headers.map((header) => {
-                        const className =
-                          (
-                            header.column.columnDef.meta as {
-                              className: string
-                            }
-                          )?.className ?? ""
-                        return (
-                          <TableHead
-                            key={header.id}
-                            className={cn(
-                              "sticky top-0 z-50 bg-primary px-1 text-white dark:bg-zinc-800",
-                              className,
-                            )}
-                          >
-                            {header.isPlaceholder
-                              ? null
-                              : flexRender(
-                                  header.column.columnDef.header,
-                                  header.getContext(),
-                                )}
-                          </TableHead>
-                        )
-                      })}
-                    </TableRow>
-                  ))}
-                </TableHeader>
-                <TableBody className="dark:bg-zinc-900">
-                  <SortableContext
-                    items={table.getRowModel().rows.map((row) => row.id)}
-                    strategy={verticalListSortingStrategy}
+          {table.getRowModel().rows?.length ? (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              modifiers={[restrictToVerticalAxis]}
+              onDragEnd={handleDragEnd}
+            >
+              <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
+                <Table ref={tableRef} className="table-fixed">
+                  <ConfigItemTableHeader table={table} />
+                  <ConfigItemTableBody table={table} />
+                </Table>
+              </div>
+            </DndContext>
+          ) : (
+            <div className="flex flex-col gap-2 rounded-lg border-2 border-solid border-primary pb-6">
+              <div className="h-12 bg-primary mb-4"></div>
+              <div className="text-center" role="alert">
+                {t("ConfigList.Table.NoResultsMatchingFilter")}
+              </div>
+              <div className="flex justify-center">
+                <ToolTip
+                  content={t("ConfigList.Toolbar.Reset")}
+                  className="z-[1000] xl:hidden"
+                >
+                  <Button
+                    onClick={() => table.resetColumnFilters()}
+                    variant={"ghost"}
                   >
-                    {table.getRowModel().rows.map((row) => {
-                      return (
-                        <DndTableRow
-                          key={row.id}
-                          data-state={row.getIsSelected() && "selected"}
-                          dnd-itemid={row.id}
-                          onDoubleClick={() => {
-                            publish({
-                              key: "CommandConfigContextMenu",
-                              payload: { action: "edit", item: row.original },
-                            })
-                          }}
-                        >
-                          {row.getVisibleCells().map((cell) => {
-                            const className =
-                              (
-                                cell.column.columnDef.meta as {
-                                  className: string
-                                }
-                              )?.className ?? ""
-
-                            return (
-                              <TableCell
-                                key={cell.id}
-                                className={cn("p-1", className)}
-                              >
-                                {flexRender(
-                                  cell.column.columnDef.cell,
-                                  cell.getContext(),
-                                )}
-                              </TableCell>
-                            )
-                          })}
-                        </DndTableRow>
-                      )
-                    })}
-                  </SortableContext>
-                </TableBody>
-              </Table>
+                    <span className="flex">
+                      {t("ConfigList.Toolbar.Reset")}
+                    </span>
+                    <IconX className="h-4 w-4 xl:ml-2" />
+                  </Button>
+                </ToolTip>
+              </div>
             </div>
-          </DndContext>
+          )}
         </div>
       ) : (
-        <div className="border-2 flex flex-col gap-2 rounded-lg border-solid border-primary">
-          <div className="bg-primary h-12"></div>
-          <div className="text-center p-4 pb-6" role="alert">
+        <div className="flex flex-col gap-2 rounded-lg border-2 border-solid border-primary">
+          <div className="h-12 bg-primary"></div>
+          <div className="p-4 pb-6 text-center" role="alert">
             {t("ConfigList.Table.NoResultsFound")}
           </div>
         </div>

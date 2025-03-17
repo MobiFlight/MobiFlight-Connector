@@ -53,7 +53,8 @@
       }
     },
     "Table": {
-      "NoResultsFound": "This is a new configuration. Please add some items."
+      "NoResultsFound": "This is a new configuration. Please add some items.",
+      "NoResultsMatchingFilter": "No results matching the filter."
     },
     "Actions": {
       "OutputConfigItem": {
