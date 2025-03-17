@@ -59,7 +59,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     meta: {
-      className: "hidden w-40 3xl:w-72 hidden xl:table-cell",
+      className: "hidden w-40 3xl:w-72 xl:table-cell",
     },
     accessorKey: "ModuleSerial",
     header: () => {
@@ -149,7 +149,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     meta: {
-      className: "w-16 lg:w-24 xl:w-32 border-1 border-solid",
+      className: "w-16 lg:w-24 xl:w-32",
     },
     accessorKey: "RawValue",
     header: () => {
@@ -177,7 +177,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     meta: {
-      className: "w-16 lg:w-24 xl:w-32 border-1 border-solid",
+      className: "w-16 lg:w-24 xl:w-32",
     },
     accessorKey: "Value",
     header: () => {

@@ -229,7 +229,7 @@
           "Items": []
       },
       "ModuleSerial": "ProtoBoard-v2/ SN-5FC-1CF",
-      "Name": "ShiftRegister",
+      "Name": "ShiftRegister - And a long name to test truncation",
       "Preconditions": [],
       "Source": {
           "SimConnectValue": {
