@@ -33,6 +33,7 @@ namespace MobiFlight.UI
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
 
+        private const string fileFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
@@ -41,7 +42,6 @@ namespace MobiFlight.UI
         /// the currently used filename of the loaded config file
         /// </summary>
         private string currentFileName = null;
-        private Project project = null;
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
@@ -306,6 +306,7 @@ namespace MobiFlight.UI
 
             ProjectLoaded += (s, project) =>
             {
+                testModeTimer_Stop();
                 var configFile = new ConfigFile();
                 if (project.ConfigFiles.Count > 0)
                 {
@@ -1560,7 +1561,7 @@ namespace MobiFlight.UI
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+            fd.Filter = fileFilter;
 
             if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
@@ -1579,7 +1580,7 @@ namespace MobiFlight.UI
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = "MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+            fd.Filter = fileFilter;
 
             if (DialogResult.OK == fd.ShowDialog())
             {
@@ -1701,17 +1702,20 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
-            if (!merge)
-            {
-                execManager.ConfigItems.Clear();
-            }
-
             try
             {
-
-                project = new Project() { FilePath = fileName };
-                project.OpenFile();
-                execManager.Project = project;
+                if (!merge) {
+                    execManager.Project = new Project() { FilePath = fileName };
+                    execManager.Project.OpenFile();
+                } else
+                {
+                    // this is the old logic
+                    // we simply add the second file to the first file
+                    // this will have to be changed in the future
+                    var additionalProject = new Project() { FilePath = fileName };
+                    additionalProject.OpenFile();
+                    execManager.Project.ConfigFiles[0].Merge(additionalProject.ConfigFiles[0]);
+                }
             }
             catch (InvalidExpressionException)
             {
@@ -1759,11 +1763,11 @@ namespace MobiFlight.UI
             _checkForOrphanedMidiBoards(false);
 
             // Track config loaded event
-            AppTelemetry.Instance.ProjectLoaded(project);
+            AppTelemetry.Instance.ProjectLoaded(execManager.Project);
             AppTelemetry.Instance.TrackBoardStatistics(execManager);
             AppTelemetry.Instance.TrackSettings();
 
-            ProjectLoaded?.Invoke(this, project);
+            ProjectLoaded?.Invoke(this, execManager.Project);
         }
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
         {
@@ -1775,11 +1779,11 @@ namespace MobiFlight.UI
                 serials.Add($"{j.Name} {SerialNumber.SerialSeparator}{j.Serial}");
             }
 
-            if (project == null) return;
+            if (execManager.Project == null) return;
 
 
 
-            foreach (IConfigItem item in project.ConfigFiles[0].ConfigItems)
+            foreach (IConfigItem item in execManager.Project.ConfigFiles[0].ConfigItems)
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1817,9 +1821,9 @@ namespace MobiFlight.UI
                 serials.Add($"{mb.Name} {SerialNumber.SerialSeparator}{mb.Serial}");
             }
 
-            if (project == null) return;
+            if (execManager.Project == null) return;
 
-            foreach (IConfigItem item in project.ConfigFiles[0].ConfigItems)
+            foreach (IConfigItem item in execManager.Project.ConfigFiles[0].ConfigItems)
             {
                 if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1866,7 +1870,7 @@ namespace MobiFlight.UI
 
             try
             {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, project.ConfigFiles[0].ConfigItems);
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, execManager.Project.ConfigFiles[0].ConfigItems);
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
@@ -1931,16 +1935,6 @@ namespace MobiFlight.UI
         private void SaveConfig(string fileName)
         {
             execManager.Project.FilePath = fileName;
-            execManager.Project.ConfigFiles.Clear();
-            execManager.Project.ConfigFiles.Add(
-                new ConfigFile()
-                {
-                    EmbedContent = true,
-                    ReferenceOnly = false,
-                    ConfigItems = execManager.ConfigItems,
-                }
-            );
-            
             // Issue 1401: Saving the file can result in an UnauthorizedAccessException, so catch any
             // errors during save and show it in a dialog instead of crashing.
             try
@@ -2080,6 +2074,7 @@ namespace MobiFlight.UI
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
                 var project = new Project() { Name = i18n._tr("DefaultFileName") };
+                project.ConfigFiles.Add(new ConfigFile() { EmbedContent = true }); 
                 execManager.Project = project;
                 ProjectLoaded?.Invoke(this, project);
             };

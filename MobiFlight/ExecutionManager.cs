@@ -89,14 +89,13 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
-        public List<IConfigItem> ConfigItems { get; set; } = new List<IConfigItem>();
+        public List<IConfigItem> ConfigItems { get { return _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>(); }}
 
         private Project _project = new Project();
         public Project Project { 
             get { return _project;  } 
             set {
                 _project = value;
-                ConfigItems = _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>();
             } 
         }
 

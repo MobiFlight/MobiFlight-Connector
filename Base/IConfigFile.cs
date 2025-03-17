@@ -12,5 +12,7 @@ namespace MobiFlight
 
         void OpenFile();
         void SaveFile();
+
+        void Merge(IConfigFile other);
     }
 }

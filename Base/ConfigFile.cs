@@ -47,6 +47,11 @@ namespace MobiFlight.Base
             File.WriteAllText(FileName, json);
         }
 
+        public void Merge(IConfigFile other)
+        {
+            ConfigFileUtils.MergeConfigItems(this, other);
+        }
+
         public string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);

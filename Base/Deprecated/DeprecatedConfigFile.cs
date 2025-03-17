@@ -150,6 +150,11 @@ namespace MobiFlight
             }
         }
 
+        public void Merge(IConfigFile other)
+        {
+            ConfigFileUtils.MergeConfigItems(this, other);
+        }
+
         public bool ReferenceOnly => false;
 
         public bool EmbedContent => false;
