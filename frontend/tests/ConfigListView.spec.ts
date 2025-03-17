@@ -327,3 +327,87 @@ test("Confirm `Controller Settings` link is working", async ({
   const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
   expect (postedCommands!.pop().key).toEqual('CommandConfigContextMenu')
 })
+
+test.describe('Responsiveness: Full Screen', () => {
+  test.use({ viewport: { width: 1920, height: 1080 } });
+  test("Confirm `Columns are visible` in full screen", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const activeColumn = page.getByRole("cell", { name: "Active" }).first() 
+    const nameColumn = page.getByRole("cell", { name: "Name" }).first() 
+    const controllerColumn = page.getByRole("cell", { name: "Controller" }).first() 
+    const deviceColumn = page.getByRole("cell", { name: "Device" }).first() 
+    const statusColumn = page.getByRole("cell", { name: "Status" }).first() 
+    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first() 
+    const finalValueColumn = page.getByRole("cell", { name: "Final Value" }).first() 
+    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first() 
+
+    await expect(activeColumn).toBeVisible()
+    await expect(nameColumn).toBeVisible()
+    await expect(controllerColumn).toBeVisible()
+    await expect(deviceColumn).toBeVisible()
+    await expect(statusColumn).toBeVisible()
+    await expect(rawValueColumn).toBeVisible()
+    await expect(finalValueColumn).toBeVisible()
+    await expect(actionsColumn).toBeVisible()
+  })
+})
+
+test.describe('Responsiveness: Medium Screen', () => {
+  test.use({ viewport: { width: 800, height: 600 } });
+  test("Confirm `Columns are visible` in full screen", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const activeColumn = page.getByRole("cell", { name: "Active" }).first() 
+    const nameColumn = page.getByRole("cell", { name: "Name" }).first() 
+    const controllerColumn = page.getByRole("cell", { name: "Controller" }).first() 
+    const deviceColumn = page.getByRole("cell", { name: "Device" }).first() 
+    const statusColumn = page.getByRole("cell", { name: "Status" }).first() 
+    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first() 
+    const finalValueColumn = page.getByRole("cell", { name: "Final Value" }).first() 
+    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first() 
+
+    await expect(activeColumn).toBeVisible()
+    await expect(nameColumn).toBeVisible()
+    await expect(controllerColumn).not.toBeVisible()
+    await expect(deviceColumn).toBeVisible()
+    await expect(statusColumn).toBeVisible()
+    await expect(rawValueColumn).toBeVisible()
+    await expect(finalValueColumn).toBeVisible()
+    await expect(actionsColumn).toBeVisible()
+  })
+})
+
+test.describe('Responsiveness: Small Screen', () => {
+  test.use({ viewport: { width: 784, height: 600 } });
+  test("Confirm `Columns are visible` in full screen", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const activeColumn = page.getByRole("cell", { name: "Active" }).first() 
+    const nameColumn = page.getByRole("cell", { name: "Name" }).first() 
+    const controllerColumn = page.getByRole("cell", { name: "Controller" }).first() 
+    const deviceColumn = page.getByRole("cell", { name: "Device" }).first() 
+    const statusColumn = page.getByRole("cell", { name: "Status" }).first() 
+    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first() 
+    const finalValueColumn = page.getByRole("cell", { name: "Final Value" }).first() 
+    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first() 
+
+    await expect(activeColumn).toBeVisible()
+    await expect(nameColumn).toBeVisible()
+    await expect(controllerColumn).not.toBeVisible()
+    await expect(deviceColumn).toBeVisible()
+    await expect(statusColumn).toBeVisible()
+    await expect(rawValueColumn).toBeVisible()
+    await expect(finalValueColumn).toBeVisible()
+    await expect(actionsColumn).toBeVisible()
+  })
+})
