@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingMessageSender
+    public class WinwingMessageSender
     {
         private readonly int VendorId = 0x4098;
         private int ProductId = 0xBB10;
@@ -19,17 +19,17 @@ namespace MobiFlightWwFcu
         private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
         private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
 
-        internal WinwingMessageSender(int productId)
+        public WinwingMessageSender(int productId)
         {
             ProductId = productId;
         }
 
-        internal bool IsConnected()
+        public bool IsConnected()
         { 
             return Stream != null; 
         }
 
-        internal void Connect()
+        public void Connect()
         {
             Device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
             if (Device == null) return;
@@ -37,7 +37,7 @@ namespace MobiFlightWwFcu
             Stream.ReadTimeout = System.Threading.Timeout.Infinite;
         }
 
-        internal void Shutdown()
+        public void Shutdown()
         {
             try
             {
@@ -61,7 +61,7 @@ namespace MobiFlightWwFcu
             return message;
         }
 
-        internal void SendDisplayCommands(IList<byte[]> commands)
+        public void SendDisplayCommands(IList<byte[]> commands)
         {
             int indexHeaderEnd = 3;
             byte[] id = GetTimeAsBytes();
@@ -141,7 +141,7 @@ namespace MobiFlightWwFcu
         /// <param name="destination">Destination device as 2 bytes</param>
         /// <param name="type">Type as byte</param>
         /// <param name="value">Value as byte</param>
-        internal void SendLightControlMessage(byte[] destination, byte type, byte value)
+        public void SendLightControlMessage(byte[] destination, byte type, byte value)
         {
             // Update message
             LightControlMessage[1] = destination[0];
@@ -154,7 +154,7 @@ namespace MobiFlightWwFcu
         }
 
 
-        internal void SetBrightness(byte[] destinationAddress, byte type, string brightness)
+        public void SetBrightness(byte[] destinationAddress, byte type, string brightness)
         {
             // Input should be 0 to 100 percent - scale to 0..255
             int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));
@@ -162,12 +162,12 @@ namespace MobiFlightWwFcu
             SendLightControlMessage(destinationAddress, type, byteValue);
         }
 
-        internal void SendHeartBeatMessage()
+        public void SendHeartBeatMessage()
         {
             WriteStream(HeartBeatMessage, 0, 14);
         }
 
-        internal void SendRequestFirmwareMessage()
+        public void SendRequestFirmwareMessage()
         {
             WriteStream(RequestFirmwareMessage, 0, 14);
         }

@@ -2,7 +2,7 @@
 
 namespace MobiFlightWwFcu
 {
-    internal interface IWinwingDevice
+    public interface IWinwingDevice
     {
         string Name { get; }
 

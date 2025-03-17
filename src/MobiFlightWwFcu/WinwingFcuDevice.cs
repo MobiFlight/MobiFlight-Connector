@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using MobiFlightWwFcu;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingFcuDevice : IWinwingDevice
+    public class WinwingFcuDevice : IWinwingDevice
     {
         public string Name { get; } = "WinWing FCU";
 

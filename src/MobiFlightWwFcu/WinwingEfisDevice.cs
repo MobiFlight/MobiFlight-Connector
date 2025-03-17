@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using MobiFlightWwFcu;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingEfisDevice : IWinwingDevice
+    public class WinwingEfisDevice : IWinwingDevice
     {
         public string Name { get => $"WinWing EFIS {EfisType}"; }
 
