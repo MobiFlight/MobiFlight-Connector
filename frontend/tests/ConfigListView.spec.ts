@@ -1,4 +1,3 @@
-import { clear } from "console"
 import { test, expect } from "./fixtures"
 
 test("Confirm empty list view", async ({ configListPage, page }) => {
