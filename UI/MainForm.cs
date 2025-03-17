@@ -1702,11 +1702,6 @@ namespace MobiFlight.UI
 
             execManager.Stop();
 
-            if (!merge)
-            {
-                execManager.ConfigItems.Clear();
-            }
-
             try
             {
                 if (!merge) { 
@@ -1722,7 +1717,6 @@ namespace MobiFlight.UI
                     project.ConfigFiles[0].Merge(additionalProject.ConfigFiles[0]);
                 }
 
-                
                 execManager.Project = project;
             }
             catch (InvalidExpressionException)
