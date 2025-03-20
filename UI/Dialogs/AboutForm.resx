@@ -132,7 +132,7 @@
     <value>3, 3, 0, 0</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 88</value>
+    <value>346, 88</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
@@ -144,7 +144,7 @@
 Version {VERSION}
 Build {BUILD}
 
-Copyright 2014-2022 - Sebastian Moebius</value>
+Copyright 2014-2025 - Sebastian Moebius</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -165,7 +165,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>243, 3</value>
+    <value>268, 3</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -187,102 +187,6 @@ Copyright 2014-2022 - Sebastian Moebius</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="&gt;&gt;linkLabel3.Name" xml:space="preserve">
-    <value>linkLabel3</value>
-  </data>
-  <data name="&gt;&gt;linkLabel3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabel3.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;linkLabel3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
-  </data>
-  <data name="&gt;&gt;label4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.Name" xml:space="preserve">
-    <value>linkLabel2</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;linkLabel2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="&gt;&gt;linkLabel1.Name" xml:space="preserve">
-    <value>linkLabel1</value>
-  </data>
-  <data name="&gt;&gt;linkLabel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.LinkLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;linkLabel1.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
-    <value>5</value>
-  </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
-  </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 88</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 75</value>
-  </data>
-  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="linkLabel3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -473,6 +377,54 @@ Copyright 2014-2022 - Sebastian Moebius</value>
   <data name="&gt;&gt;linkLabel1.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 88</value>
+  </data>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>346, 75</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="licenseReferenceControl10.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="licenseReferenceControl10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 257</value>
+  </data>
+  <data name="licenseReferenceControl10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>340, 24</value>
+  </data>
+  <data name="licenseReferenceControl10.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl10.Name" xml:space="preserve">
+    <value>licenseReferenceControl10</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl10.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.About.LicenseReferenceControl, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl10.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;licenseReferenceControl10.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="licenseReferenceControl9.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -483,7 +435,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl9.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -498,7 +450,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl9.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="licenseReferenceControl8.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -510,7 +462,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl8.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -525,7 +477,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl8.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="licenseReferenceControl6.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -537,7 +489,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl6.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -552,7 +504,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl6.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="licenseReferenceControl5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -564,7 +516,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl5.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -579,7 +531,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="licenseReferenceControl2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -591,7 +543,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl2.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -606,7 +558,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="licenseReferenceControl7.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -618,7 +570,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl7.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -633,7 +585,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl7.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="licenseReferenceControl4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -645,7 +597,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl4.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -660,7 +612,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="licenseReferenceControl3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -672,7 +624,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl3.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -687,7 +639,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="licenseReferenceControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -699,7 +651,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 3, 10, 3</value>
   </data>
   <data name="licenseReferenceControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 24</value>
+    <value>340, 24</value>
   </data>
   <data name="licenseReferenceControl1.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -714,7 +666,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -726,7 +678,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 0</value>
   </data>
   <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>315, 41</value>
+    <value>340, 41</value>
   </data>
   <data name="label5.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -747,7 +699,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -759,7 +711,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>3, 0, 3, 0</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 298</value>
+    <value>346, 332</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -780,10 +732,10 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>Bottom</value>
   </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 432</value>
+    <value>0, 466</value>
   </data>
   <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>321, 29</value>
+    <value>346, 29</value>
   </data>
   <data name="panel3.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -807,7 +759,7 @@ Copyright 2014-2022 - Sebastian Moebius</value>
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>321, 461</value>
+    <value>346, 495</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -952,6 +904,9 @@ Copyright 2014-2022 - Sebastian Moebius</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
+  </data>
+  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>About MF Connector</value>
