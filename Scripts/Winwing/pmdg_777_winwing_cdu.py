@@ -1,8 +1,10 @@
+import copy
 from ctypes import wintypes
 import ctypes
 import json
 import logging
 import asyncio
+import os
 import websockets.asyncio.client as ws_client
 from typing import Optional, List, Dict, Union, Any
 from SimConnect import SimConnect, Enum
@@ -44,7 +46,7 @@ class SimConnectMobiFlight(SimConnect):
 # URLs
 CAPTAIN_CDU_URL: str = "ws://localhost:8320/winwing/cdu-captain"
 CO_PILOT_CDU_URL: str = "ws://localhost:8320/winwing/cdu-co-pilot"
-
+OBSERVER_CDU_URL: str = "ws://localhost:8320/winwing/cdu-observer"
 # Constants from PMDG_NG3_SDK.h
 CDU_COLUMNS: int = 24
 CDU_ROWS: int = 14
@@ -71,6 +73,10 @@ PMDG_CDU_0_DEFINITION: int = 0x4E477838
 PMDG_CDU_1_NAME: str = "PMDG_777X_CDU_1"
 PMDG_CDU_1_ID: int = 0x4E477836
 PMDG_CDU_1_DEFINITION: int = 0x4E477839
+
+PMDG_CDU_2_NAME: str = "PMDG_777X_CDU_2"
+PMDG_CDU_2_ID: int = 0x4E477837
+PMDG_CDU_2_DEFINITION: int = 0x4E47783A
 
 
 class MobiFlightClient:
@@ -200,7 +206,7 @@ class PMDGCDUClient:
             self.sc_mobiflight.dll.RequestClientData(
                 self.sc_mobiflight.hSimConnect,
                 self.cdu_id,
-                0,
+                self.cdu_id,
                 self.cdu_definition,
                 Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_VISUAL_FRAME,
                 Enum.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG_CHANGED,
@@ -224,14 +230,6 @@ class PMDGCDUClient:
         except Exception as e:
             logging.error(f"Error handling CDU data: {e}")
 
-    async def process_simconnect(self) -> None:
-        while True:
-            # try:
-            #     self.scMobiflight.my_dispatch_proc()
-            # except:
-            #     pass
-            await asyncio.sleep(0.1)
-
     async def run(self) -> None:
         self.event_loop = asyncio.get_running_loop()
         logging.info("Starting CDU client")
@@ -245,8 +243,7 @@ class PMDGCDUClient:
                 return
             # Initialize SimConnect
             if self.setup_simconnect():
-                simconnect_task: asyncio.Task = asyncio.create_task(self.process_simconnect())
-                await asyncio.gather(mobiflight_task, simconnect_task)
+                await mobiflight_task
             else:
                 logging.error("Failed to start - SimConnect initialization failed")
         except KeyboardInterrupt:
@@ -256,6 +253,118 @@ class PMDGCDUClient:
         finally:
             await self.mobiflight.close()
 
+class PMDGConfiguration:
+    config_name = "777_Options.ini"
+    directories = [
+        "pmdg-aircraft-77w",
+        "pmdg-aircraft-77f"
+    ]
+
+    def verify_sdk_config(self):
+        """Verify and potentially update the SDK configuration in the options file."""
+        # Determine the correct path based on MS Store or Steam installation
+        base_path = None
+        ms_store_path = os.path.join(
+            os.environ.get("LOCALAPPDATA", ""),
+            "Packages",
+            "Microsoft.FlightSimulator_8wekyb3d8bbwe",
+            "LocalState",
+            "packages",
+        )
+
+        steam_path = os.path.join(
+            os.environ.get("APPDATA", ""), "Microsoft Flight Simulator", "Packages"
+        )
+
+        paths = [ms_store_path, steam_path]
+
+        for directory in self.directories:
+            for path in paths:
+                if os.path.exists(path):
+                    base_path = os.path.join(path, directory, "work")
+                    if os.path.exists(base_path):
+                        self.process_config(base_path)
+
+
+    def process_config(self, base_path: str):
+        logging.info(f"Processing config for {base_path}")
+
+        options_path = os.path.join(base_path,  self.config_name)
+
+        # Check if options file exists
+        if not os.path.exists(options_path):
+            logging.warning(f"Options file not found: {options_path}")
+            return
+
+        # Check if SDK configuration is present
+        config = self.parse_ini_file(options_path)
+
+        original_config = copy.deepcopy(config)
+
+
+        if 'SDK' not in config:
+            config['SDK'] = {}
+        sdk = config["SDK"]
+        sdk['EnableDataBroadcast'] = 1
+        sdk['EnableCDUBroadcast.0'] = 1
+        sdk['EnableCDUBroadcast.1'] = 1
+        sdk['EnableCDUBroadcast.2'] = 1
+
+        if original_config != config:
+            logging.info("Updating SDK configuration")
+            self.write_ini_file(config, options_path)
+        else:
+            logging.info("No changes to SDK configuration needed")
+
+    def parse_ini_file(self, file_path):
+        config = {}
+        current_section = None
+        
+        with open(file_path, 'r') as file:
+            for line in file:
+                # Remove leading/trailing whitespace
+                line = line.strip()
+                
+                # Skip empty lines
+                if not line:
+                    continue
+                    
+                # Check if line is a section header
+                if line.startswith('[') and line.endswith(']'):
+                    current_section = line[1:-1]  # Remove brackets
+                    config[current_section] = {}
+                    continue
+                    
+                # Skip if no section has been defined yet
+                if current_section is None:
+                    continue
+                    
+                # Parse key-value pairs
+                if '=' in line:
+                    key, value = line.split('=', 1)  # Split on first '=' only
+                    key = key.strip()
+                    value = value.strip()
+                    
+                    # Convert value to appropriate type
+                    try:
+                        if value.isdigit():
+                            value = int(value)
+                        elif value.replace('.', '').isdigit() and value.count('.') == 1:
+                            value = float(value)
+                    except ValueError:
+                        pass  # Keep as string if conversion fails
+                        
+                    config[current_section][key] = value
+
+        return config
+
+    def write_ini_file(self, config, file_path):
+        with open(file_path, 'w') as file:
+            for section, settings in config.items():
+                file.write(f"[{section}]\n")
+                for key, value in settings.items():
+                    file.write(f"{key}={value}\n")
+                file.write("\n")  # Add blank line between sections
 
 if __name__ == "__main__":
     logging.basicConfig(
@@ -266,7 +375,8 @@ if __name__ == "__main__":
     sc_mobiflight: SimConnectMobiFlight = SimConnectMobiFlight()
     captain_client: PMDGCDUClient = PMDGCDUClient(sc_mobiflight, CAPTAIN_CDU_URL, PMDG_CDU_0_NAME, PMDG_CDU_0_ID, PMDG_CDU_0_DEFINITION)
     co_pilot_client: PMDGCDUClient = PMDGCDUClient(sc_mobiflight, CO_PILOT_CDU_URL, PMDG_CDU_1_NAME, PMDG_CDU_1_ID, PMDG_CDU_1_DEFINITION)
-    
+    observer_client: PMDGCDUClient = PMDGCDUClient(sc_mobiflight, OBSERVER_CDU_URL, PMDG_CDU_2_NAME, PMDG_CDU_2_ID, PMDG_CDU_2_DEFINITION)
+
     async def run_clients():
         await asyncio.gather(
             captain_client.run(), 
