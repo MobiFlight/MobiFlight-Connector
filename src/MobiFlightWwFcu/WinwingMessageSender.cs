@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace MobiFlightWwFcu
 {
-    public class WinwingMessageSender
+    internal class WinwingMessageSender
     {
         private readonly int VendorId = 0x4098;
         private int ProductId = 0xBB10;

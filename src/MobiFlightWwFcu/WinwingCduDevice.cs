@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MobiFlightWwFcu
 {
-    public class WinwingCduDevice : IWinwingDevice
+    internal class WinwingCduDevice : IWinwingDevice
    {
         public string Name { get => $"WinWing {CduType}"; }
 
@@ -92,6 +92,7 @@ namespace MobiFlightWwFcu
         private List<Tuple<string, byte[]>> InitCommandHeaderPfp3n = new List<Tuple<string, byte[]>>()
         {
             new Tuple<string, byte[]>("1e01", new byte[0]),
+            // use same as for MCDU with font 5 and 6. Otherwise last line is missing.
             //new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x13, 0x00, 0x0e, 0x00, 0x18, 0x00}),
             //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
             //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),

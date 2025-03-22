@@ -5,43 +5,26 @@ using System.Linq;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingFcuDevice : IWinwingDevice
+    internal class WinwingPap3Device : IWinwingDevice
     {
-        public string Name { get; } = "WinWing FCU";
+        public string Name { get; } = "WinWing PAP3";
 
         private WinwingMessageSender MessageSender = null;
 
-        private byte[] DestinationAddress = WinwingConstants.DEST_FCU;
+        private byte[] DestinationAddress = WinwingConstants.DEST_PAP3;
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
 
-        private const string SPEED = "Speed Value";
-        private const string MACH = "Mach Value";
-        private const string MACH_MODE = "Mach Mode On/Off";
-        private const string SPEED_DASHES = "Speed Dashes On/Off";
-        private const string SPEED_DOT = "Speed Dot";
-        private const string HEADING = "Heading Value";
-        private const string TRK = "TRK Value";
-        private const string HEADING_DASHES = "Heading Dashes On/Off";
-        private const string HEADING_DOT = "Heading Dot";
-        private const string ALTITUDE = "Altitude Value";
-        private const string ALTITUDE_DOT = "Altitude Dot";
-        private const string VS = "VS Value";
-        private const string FPA = "FPA Value";
-        private const string VS_DASHES = "VS Dashes On/Off";
-        private const string TRK_MODE = "TRK Mode On/Off";
-        private const string ANN_LIGHT = "LCD Test On/Off";
-        private const string BACK_BRIGHTNESS = "Backlight Percentage";
-        private const string LCD_BRIGHTNESS = "LCD Percentage";
-        private const string LED_BRIGHTNESS = "LED Percentage";
+        private const string TEST1 = "Test1 Value";
+        private const string TEST2 = "Test2 Value";
 
 
         private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
         {
-            { "AllOn",          new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x02 } } },
-            { "AllOff",         new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x06 } } },
-            { "Half1On",        new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x07 } } },
-            { "Half2On",        new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x09 } } },
+            //{ "AllOn",          new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x02 } } },
+            //{ "AllOff",         new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x06 } } },
+            //{ "Half1On",        new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x07 } } },
+            //{ "Half2On",        new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x09 } } },
         };
 
         private Dictionary<char, byte[]> SpeedNumberCodes = new Dictionary<char, byte[]>()
@@ -81,61 +64,71 @@ namespace MobiFlightWwFcu
                                                       
         private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
         {                     
-            { "SpeedHundreds",  new MsgEntry { StartPos = 21, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0x60 } } },
-            { "SpeedTens",      new MsgEntry { StartPos = 22, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0xfa } } },
-            { "SpeedOnes",      new MsgEntry { StartPos = 23, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0xfa } } },
-            { "MachDecPoint",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b11111110 }, Data = new byte[] { 0b00000001 } } },
-            { "MachNoDecPoint", new MsgEntry { StartPos = 22, Mask = new byte[] { 0b11111110 }, Data = new byte[] { 0b00000000 } } },
-            { "NoLabel",        new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00000000 } } },
-            { "MachLabel",      new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00000100 } } },
-            { "SpeedLabel",     new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00001000 } } },
-            { "SpeedDot",       new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11111100 }, Data = new byte[] { 0b00000010 } } },
-            { "SpeedNoDot",     new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11111100 }, Data = new byte[] { 0b00000001 } } },
-            { "HdgHundreds",    new MsgEntry { StartPos = 24, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "HdgTens",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "HdgOnes",        new MsgEntry { StartPos = 26, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "HdgDot",         new MsgEntry { StartPos = 27, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
-            { "HdgNoDot",       new MsgEntry { StartPos = 27, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },           
-            { "NoLateralMode",  new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b00000000, 0b00000000 } } },
-            { "TrackMode",      new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b01100000, 0b00000010 } } },
-            { "HeadingMode",    new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b10100000, 0b00001000 } } },
-            { "NoVertMode1",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000000 } } },
-            { "FpaMode1",       new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000001 } } },
-            { "VsMode1",        new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000100 } } },
-            { "NoVertMode2",    new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b00000000 } } },
-            { "FpaMode2",       new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b10000000 } } },
-            { "VsMode2",        new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b01000000 } } },
-            { "NoAlt",          new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x00 } } },
-            { "Alt",            new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x10 } } },
-            { "NoLvlCh",        new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x00, 0x00, 0x00 } } },
-            { "LvlCh",          new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x10, 0x10, 0x10 } } },
-            { "AltTenthsds",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "AltThousands",   new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "AltHundreds",    new MsgEntry { StartPos = 30, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x00, 0x06 } } },
-            { "AltTens",        new MsgEntry { StartPos = 31, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "AltOnes",        new MsgEntry { StartPos = 32, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "VsMinus",        new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00000000 } } },
-            { "VsPlus",         new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00010000 } } },
-            { "FpaDecPoint",    new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
-            { "FpaNoDecPoint",  new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },
-            { "VsThousands",    new MsgEntry { StartPos = 33, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            { "VsHundreds",     new MsgEntry { StartPos = 34, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            // Intentionally set initial VS to '00oo'
-            { "VsTens",         new MsgEntry { StartPos = 35, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },                                                   
-            { "VsOnes",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },
-            { "AltDot",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
-            { "AltNoDot",       new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } }, 
-            { "ZeroEndBlock",   new MsgEntry { StartPos = 38, Mask = new byte[11], Data = new byte[11] } },
+            //{ "SpeedHundreds",  new MsgEntry { StartPos = 21, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0x60 } } },
+            //{ "SpeedTens",      new MsgEntry { StartPos = 22, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0xfa } } },
+            //{ "SpeedOnes",      new MsgEntry { StartPos = 23, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0xfa } } },
+            //{ "MachDecPoint",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b11111110 }, Data = new byte[] { 0b00000001 } } },
+            //{ "MachNoDecPoint", new MsgEntry { StartPos = 22, Mask = new byte[] { 0b11111110 }, Data = new byte[] { 0b00000000 } } },
+            //{ "NoLabel",        new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00000000 } } },
+            //{ "MachLabel",      new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00000100 } } },
+            //{ "SpeedLabel",     new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00001000 } } },
+            //{ "SpeedDot",       new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11111100 }, Data = new byte[] { 0b00000010 } } },
+            //{ "SpeedNoDot",     new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11111100 }, Data = new byte[] { 0b00000001 } } },
+            //{ "HdgHundreds",    new MsgEntry { StartPos = 24, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "HdgTens",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "HdgOnes",        new MsgEntry { StartPos = 26, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "HdgDot",         new MsgEntry { StartPos = 27, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
+            //{ "HdgNoDot",       new MsgEntry { StartPos = 27, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },           
+            //{ "NoLateralMode",  new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b00000000, 0b00000000 } } },
+            //{ "TrackMode",      new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b01100000, 0b00000010 } } },
+            //{ "HeadingMode",    new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b10100000, 0b00001000 } } },
+            //{ "NoVertMode1",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000000 } } },
+            //{ "FpaMode1",       new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000001 } } },
+            //{ "VsMode1",        new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000100 } } },
+            //{ "NoVertMode2",    new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b00000000 } } },
+            //{ "FpaMode2",       new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b10000000 } } },
+            //{ "VsMode2",        new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b01000000 } } },
+            //{ "NoAlt",          new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x00 } } },
+            //{ "Alt",            new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x10 } } },
+            //{ "NoLvlCh",        new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x00, 0x00, 0x00 } } },
+            //{ "LvlCh",          new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x10, 0x10, 0x10 } } },
+            //{ "AltTenthsds",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "AltThousands",   new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "AltHundreds",    new MsgEntry { StartPos = 30, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x00, 0x06 } } },
+            //{ "AltTens",        new MsgEntry { StartPos = 31, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "AltOnes",        new MsgEntry { StartPos = 32, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "VsMinus",        new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00000000 } } },
+            //{ "VsPlus",         new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00010000 } } },
+            //{ "FpaDecPoint",    new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
+            //{ "FpaNoDecPoint",  new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },
+            //{ "VsThousands",    new MsgEntry { StartPos = 33, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //{ "VsHundreds",     new MsgEntry { StartPos = 34, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
+            //// Intentionally set initial VS to '00oo'
+            //{ "VsTens",         new MsgEntry { StartPos = 35, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },                                                   
+            //{ "VsOnes",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },
+            //{ "AltDot",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
+            //{ "AltNoDot",       new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } }, 
+            //{ "ZeroEndBlock",   new MsgEntry { StartPos = 38, Mask = new byte[11], Data = new byte[11] } },
         };      
 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
         {
-            { "LOC", 0x03 },
-            { "AP1", 0x05 },
-            { "AP2", 0x07 },
-            { "ATHR", 0x09 },
-            { "APPR", 0x0D },
-            { "EXPED", 0x0b }
+            { "N1",     0x03 },
+            { "SPEED",  0x04 },
+            { "VNAV",   0x05 },
+            { "LVL_CHG",0x06 },
+            { "LNAV",   0x08 },
+            { "VOR_LOC",0x09 },
+            { "APP",    0x0a },
+            { "ALT_HLD",0x0b },
+            { "VS",     0x0c },
+            { "A_CMD",  0x0d },
+            { "A_CWS",  0x0e },
+            { "B_CMD",  0x0f },
+            { "B_CWS",  0x10 },
+            { "AT_ARM", 0x11 },
+            { "L_MA",   0x12 },
+            { "R_MA",   0x13 },            
         };
 
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
@@ -145,28 +138,11 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];
         private byte[] SetValuesCommand = new byte[0x31];   
 
-        public WinwingFcuDevice(WinwingMessageSender sender)
+        public WinwingPap3Device(WinwingMessageSender sender)
         {
             MessageSender = sender;
-            DisplayNameToActionMapping.Add(SPEED, SetSpeed);
-            DisplayNameToActionMapping.Add(MACH, SetMachSpeed);
-            DisplayNameToActionMapping.Add(MACH_MODE, SetMachModeOnOff);
-            DisplayNameToActionMapping.Add(SPEED_DASHES, SetSpeedDashes);
-            DisplayNameToActionMapping.Add(SPEED_DOT, SetSpeedDotOnOff);
-            DisplayNameToActionMapping.Add(HEADING, SetHeading);
-            DisplayNameToActionMapping.Add(TRK, SetTrack);
-            DisplayNameToActionMapping.Add(HEADING_DASHES, SetHeadingDashes);
-            DisplayNameToActionMapping.Add(HEADING_DOT, SetHeadingDotOnOff);
-            DisplayNameToActionMapping.Add(ALTITUDE, SetAltitude);
-            DisplayNameToActionMapping.Add(ALTITUDE_DOT, SetAltitudeDotOnOff);
-            DisplayNameToActionMapping.Add(VS, SetVs);
-            DisplayNameToActionMapping.Add(FPA, SetFpa);
-            DisplayNameToActionMapping.Add(VS_DASHES, SetVSDashes);
-            DisplayNameToActionMapping.Add(TRK_MODE, SetTrackFpaModeOnOff);
-            DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
-            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
-            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
-            DisplayNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
+            DisplayNameToActionMapping.Add(TEST1, SetSpeed);
+            DisplayNameToActionMapping.Add(TEST2, SetMachSpeed);
 
             foreach (var displayName in GetDisplayNames())
             {
@@ -183,25 +159,25 @@ namespace MobiFlightWwFcu
 
         private void PrepareCommands()
         {        
-            var initDisplayTest = new List<byte>(DestinationAddress);
-            initDisplayTest.AddRange(new byte[2]);
-            initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
-            initDisplayTest.CopyTo(DisplayTestCommand, 0);
+            //var initDisplayTest = new List<byte>(DestinationAddress);
+            //initDisplayTest.AddRange(new byte[2]);
+            //initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
+            //initDisplayTest.CopyTo(DisplayTestCommand, 0);
         
-            var initSetValues = new List<byte>(DestinationAddress);
-            initSetValues.AddRange(new byte[2]);
-            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201"]);
-            initSetValues.CopyTo(SetValuesCommand, 0);
+            //var initSetValues = new List<byte>(DestinationAddress);
+            //initSetValues.AddRange(new byte[2]);
+            //initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201"]);
+            //initSetValues.CopyTo(SetValuesCommand, 0);
 
-            var initRefresh = new List<byte>(DestinationAddress);
-            initRefresh.AddRange(new byte[2]);
-            initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
-            initRefresh.CopyTo(RefreshCommand, 0);
+            //var initRefresh = new List<byte>(DestinationAddress);
+            //initRefresh.AddRange(new byte[2]);
+            //initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
+            //initRefresh.CopyTo(RefreshCommand, 0);
 
-            foreach (var entry in DisplaySetValuesData.Values)
-            {
-                SetBytesDisplayCommand(entry, SetValuesCommand);
-            }
+            //foreach (var entry in DisplaySetValuesData.Values)
+            //{
+            //    SetBytesDisplayCommand(entry, SetValuesCommand);
+            //}
         }
 
         public void Connect()
@@ -273,74 +249,74 @@ namespace MobiFlightWwFcu
 
         private void SetBacklightBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
-            MessageSender.SetBrightness(DestinationAddress, 0x1e, brightness); // EXPED
+            //MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
+            //MessageSender.SetBrightness(DestinationAddress, 0x1e, brightness); // EXPED
         }
 
         private void SetLcdBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
+            //MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
         }
 
         private void PrepareAndSendDisplayTestCommand(MsgEntry entry)
         {
-            SetBytesDisplayCommand(entry, DisplayTestCommand);
-            SendDisplayCommand(DisplayTestCommand);
+            //SetBytesDisplayCommand(entry, DisplayTestCommand);
+            //SendDisplayCommand(DisplayTestCommand);
         }
 
         private void EmptyDisplay()
         {
-            var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[18], Data = new byte[18] };
-            SetBytesDisplayCommand(resetMsg, SetValuesCommand);
-            SendDisplayCommand(SetValuesCommand);
+            //var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[18], Data = new byte[18] };
+            //SetBytesDisplayCommand(resetMsg, SetValuesCommand);
+            //SendDisplayCommand(SetValuesCommand);
         }
 
         private void ResetSpeedCache()
         {
-            LcdCurrentValuesCache[SPEED] = string.Empty;
-            LcdCurrentValuesCache[MACH] = string.Empty;
+            //LcdCurrentValuesCache[SPEED] = string.Empty;
+            //LcdCurrentValuesCache[MACH] = string.Empty;
         }
 
         private void ResetHeadingCache()
         {
-            LcdCurrentValuesCache[HEADING] = string.Empty;
-            LcdCurrentValuesCache[TRK] = string.Empty;
+            //LcdCurrentValuesCache[HEADING] = string.Empty;
+            //LcdCurrentValuesCache[TRK] = string.Empty;
         }
 
         private void ResetVSCache()
         {
-            LcdCurrentValuesCache[VS] = string.Empty;
-            LcdCurrentValuesCache[FPA] = string.Empty;
+            //LcdCurrentValuesCache[VS] = string.Empty;
+            //LcdCurrentValuesCache[FPA] = string.Empty;
         }
 
         private void SetSpeedInternal(char[] speedChars)
         {
-            var speedHundreds = DisplaySetValuesData["SpeedHundreds"];
-            var speedTens = DisplaySetValuesData["SpeedTens"];
-            var speedOnes = DisplaySetValuesData["SpeedOnes"];
-            speedHundreds.Data = SpeedNumberCodes[speedChars[0]];
-            speedTens.Data = SpeedNumberCodes[speedChars[1]];
-            speedOnes.Data = SpeedNumberCodes[speedChars[2]];
+            //var speedHundreds = DisplaySetValuesData["SpeedHundreds"];
+            //var speedTens = DisplaySetValuesData["SpeedTens"];
+            //var speedOnes = DisplaySetValuesData["SpeedOnes"];
+            //speedHundreds.Data = SpeedNumberCodes[speedChars[0]];
+            //speedTens.Data = SpeedNumberCodes[speedChars[1]];
+            //speedOnes.Data = SpeedNumberCodes[speedChars[2]];
 
-            SetBytesDisplayCommand(speedHundreds, SetValuesCommand);
-            SetBytesDisplayCommand(speedTens, SetValuesCommand);
-            SetBytesDisplayCommand(speedOnes, SetValuesCommand);
+            //SetBytesDisplayCommand(speedHundreds, SetValuesCommand);
+            //SetBytesDisplayCommand(speedTens, SetValuesCommand);
+            //SetBytesDisplayCommand(speedOnes, SetValuesCommand);
 
-            SendDisplayCommand(SetValuesCommand);
+            //SendDisplayCommand(SetValuesCommand);
         }
 
         private void SetSpeed(string speed)
         {
-            int mySpeed = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
-            char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            SetSpeedInternal(speedChars);
+            //int mySpeed = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
+            //char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            //SetSpeedInternal(speedChars);
         }
 
         private void SetMachSpeed(string speed)
         {
-            int mySpeed = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
-            char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            SetSpeedInternal(speedChars);
+            //int mySpeed = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
+            //char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            //SetSpeedInternal(speedChars);
         }
 
         private void SetSpeedDotOnOff(string speedDot)
@@ -394,18 +370,18 @@ namespace MobiFlightWwFcu
 
         private void SetHeadingInternal(char[] hdgChars)
         {
-            var hdgHundreds = DisplaySetValuesData["HdgHundreds"];
-            var hdgTens = DisplaySetValuesData["HdgTens"];
-            var hdgOnes = DisplaySetValuesData["HdgOnes"];
-            hdgHundreds.Data = GeneralNumberCodes[hdgChars[0]];
-            hdgTens.Data = GeneralNumberCodes[hdgChars[1]];
-            hdgOnes.Data = GeneralNumberCodes[hdgChars[2]];
+            //var hdgHundreds = DisplaySetValuesData["HdgHundreds"];
+            //var hdgTens = DisplaySetValuesData["HdgTens"];
+            //var hdgOnes = DisplaySetValuesData["HdgOnes"];
+            //hdgHundreds.Data = GeneralNumberCodes[hdgChars[0]];
+            //hdgTens.Data = GeneralNumberCodes[hdgChars[1]];
+            //hdgOnes.Data = GeneralNumberCodes[hdgChars[2]];
 
-            SetBytesDisplayCommand(hdgHundreds, SetValuesCommand);
-            SetBytesDisplayCommand(hdgTens, SetValuesCommand);
-            SetBytesDisplayCommand(hdgOnes, SetValuesCommand);
+            //SetBytesDisplayCommand(hdgHundreds, SetValuesCommand);
+            //SetBytesDisplayCommand(hdgTens, SetValuesCommand);
+            //SetBytesDisplayCommand(hdgOnes, SetValuesCommand);
 
-            SendDisplayCommand(SetValuesCommand);
+            //SendDisplayCommand(SetValuesCommand);
         }
 
         private void SetTrack(string track)
@@ -588,38 +564,38 @@ namespace MobiFlightWwFcu
 
         private void SetVSInternal(char[] vsChars, bool isMinus, bool isFpa)
         {
-            var vsThousands = DisplaySetValuesData["VsThousands"];
-            var vsHundreds = DisplaySetValuesData["VsHundreds"];
-            var vsTens = DisplaySetValuesData["VsTens"];
-            var vsOnes = DisplaySetValuesData["VsOnes"];
-            vsThousands.Data = GeneralNumberCodes[vsChars[0]];
-            vsHundreds.Data = GeneralNumberCodes[vsChars[1]];
-            vsTens.Data = GeneralNumberCodes[vsChars[2]];
-            vsOnes.Data = GeneralNumberCodes[vsChars[3]];
+            //var vsThousands = DisplaySetValuesData["VsThousands"];
+            //var vsHundreds = DisplaySetValuesData["VsHundreds"];
+            //var vsTens = DisplaySetValuesData["VsTens"];
+            //var vsOnes = DisplaySetValuesData["VsOnes"];
+            //vsThousands.Data = GeneralNumberCodes[vsChars[0]];
+            //vsHundreds.Data = GeneralNumberCodes[vsChars[1]];
+            //vsTens.Data = GeneralNumberCodes[vsChars[2]];
+            //vsOnes.Data = GeneralNumberCodes[vsChars[3]];
 
-            if (isMinus)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["VsMinus"], SetValuesCommand);
-            }
-            else
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["VsPlus"], SetValuesCommand);
-            }
+            //if (isMinus)
+            //{
+            //    SetBytesDisplayCommand(DisplaySetValuesData["VsMinus"], SetValuesCommand);
+            //}
+            //else
+            //{
+            //    SetBytesDisplayCommand(DisplaySetValuesData["VsPlus"], SetValuesCommand);
+            //}
 
-            if (isFpa)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["FpaDecPoint"], SetValuesCommand);
-            }
-            else
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["FpaNoDecPoint"], SetValuesCommand);
-            }
-            SetBytesDisplayCommand(vsThousands, SetValuesCommand);
-            SetBytesDisplayCommand(vsHundreds, SetValuesCommand);
-            SetBytesDisplayCommand(vsTens, SetValuesCommand);
-            SetBytesDisplayCommand(vsOnes, SetValuesCommand);
+            //if (isFpa)
+            //{
+            //    SetBytesDisplayCommand(DisplaySetValuesData["FpaDecPoint"], SetValuesCommand);
+            //}
+            //else
+            //{
+            //    SetBytesDisplayCommand(DisplaySetValuesData["FpaNoDecPoint"], SetValuesCommand);
+            //}
+            //SetBytesDisplayCommand(vsThousands, SetValuesCommand);
+            //SetBytesDisplayCommand(vsHundreds, SetValuesCommand);
+            //SetBytesDisplayCommand(vsTens, SetValuesCommand);
+            //SetBytesDisplayCommand(vsOnes, SetValuesCommand);
 
-            SendDisplayCommand(SetValuesCommand);
+            //SendDisplayCommand(SetValuesCommand);
 
         }
 
@@ -659,7 +635,7 @@ namespace MobiFlightWwFcu
 
         private void SendDisplayCommand(byte[] message)
         {        
-            MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
+            //MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
         }
 
         private void SetBytesDisplayCommand(MsgEntry msgEntry, byte[] message)

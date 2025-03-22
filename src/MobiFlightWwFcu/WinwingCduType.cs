@@ -1,6 +1,6 @@
 ﻿namespace MobiFlightWwFcu
 {
-    public enum WinwingCduType
+    internal enum WinwingCduType
     {
         MCDU,
         PFP3N,
