@@ -93,16 +93,16 @@ class MobiFlightClient:
                 if self.websocket is None:
                     logging.info("Connecting to MobiFlight at %s", self.websocket_uri)
                     self.websocket = await ws_client.connect(self.websocket_uri, ping_interval=None)
-                    logging.info("MobiFlight connected")
+                    logging.info("MobiFlight connected at %s", self.websocket_uri)
                     self.connected.set()
                 await self.websocket.recv()
             except Exception as e: 
                 self.retries += 1
-                logging.error(f"WebSocket error: {e} with retries {self.retries}")
+                logging.info(f"WebSocket error: {e} with retries {self.retries}")
                 self.websocket = None
                 self.connected.clear()
             await asyncio.sleep(5)
-        logging.error("Max retries reached. Giving up connecting to MobiFlight at %s", self.websocket_uri)
+        logging.info("Max retries reached. Giving up connecting to MobiFlight at %s. If you only have one CDU attached, you can ignore this message.", self.websocket_uri)
         self.connected.set()
 
     async def send(self, data: str) -> None:
@@ -215,10 +215,10 @@ class PMDGCDUClient:
 
             # Set up the handler
             self.sc_mobiflight.register_client_data_handler(self.handle_cdu_data)
-            logging.info("SimConnect initialized")
+            logging.info("SimConnect initialized for %s", self.cdu_name)
             return True
         except Exception as e:
-            logging.error(f"SimConnect setup failed: {e}")
+            logging.error(f"SimConnect setup failed for {self.cdu_name}: {e}")
             return False
 
     def handle_cdu_data(self, client_data: Any) -> None:
@@ -239,11 +239,11 @@ class PMDGCDUClient:
             mobiflight_task: asyncio.Task = asyncio.create_task(self.mobiflight.run())
             await self.mobiflight.connected.wait()
             if self.failed_to_connect():
-                logging.error("Failed to connect to MobiFlight for %s", self.cdu_name)
+                logging.info("Failed to connect to MobiFlight for %s", self.cdu_name)
                 return
             # Initialize SimConnect
             if self.setup_simconnect():
-                await mobiflight_task
+                await asyncio.gather(mobiflight_task)
             else:
                 logging.error("Failed to start - SimConnect initialization failed")
         except KeyboardInterrupt:
@@ -371,6 +371,9 @@ if __name__ == "__main__":
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
+
+    ini_configurator = PMDGConfiguration()
+    ini_configurator.verify_sdk_config()
     
     sc_mobiflight: SimConnectMobiFlight = SimConnectMobiFlight()
     captain_client: PMDGCDUClient = PMDGCDUClient(sc_mobiflight, CAPTAIN_CDU_URL, PMDG_CDU_0_NAME, PMDG_CDU_0_ID, PMDG_CDU_0_DEFINITION)
@@ -381,6 +384,7 @@ if __name__ == "__main__":
         await asyncio.gather(
             captain_client.run(), 
             co_pilot_client.run(),
+            observer_client.run(),
             return_exceptions=True
         )
     # this will not work
