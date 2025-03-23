@@ -69,7 +69,7 @@ namespace MobiFlight.UI.Dialogs
             this.outputConfigItems = outputConfigItems.ToArray().ToList();
 
             var list = outputConfigItems.Where(c => c.GUID != cfg.GUID)
-                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
+                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }).ToList();
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
