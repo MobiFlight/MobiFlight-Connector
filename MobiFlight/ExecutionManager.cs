@@ -15,7 +15,15 @@ using System.Windows.Forms;
 
 namespace MobiFlight
 {
-    public class ExecutionManager
+    public interface IExecutionManager
+    {
+        Dictionary<String, MobiFlightVariable> GetAvailableVariables();
+        JoystickManager GetJoystickManager();
+        MobiFlightCache getMobiFlightModuleCache();
+        MidiBoardManager GetMidiBoardManager();
+        // Add other methods and properties as needed
+    }
+    public class ExecutionManager : IExecutionManager
     {
         public event EventHandler OnConfigHasChanged;
         public event EventHandler OnExecute;
@@ -355,7 +363,7 @@ namespace MobiFlight
             OnSimAircraftPathChanged?.Invoke(sender, e);
         }
 
-        internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
+        public Dictionary<String, MobiFlightVariable> GetAvailableVariables()
         {
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
