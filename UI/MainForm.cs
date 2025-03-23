@@ -285,6 +285,7 @@ namespace MobiFlight.UI
                     execManager.ConfigItems[index] = wizard.Config;
                     MessageExchange.Instance.Publish(new ConfigValuePartialUpdate() { ConfigItems = new List<IConfigItem>() { wizard.Config } });
                     ExecManager_OnConfigHasChanged(wizard.Config, null);
+                    execManager.OnInputConfigSettingsChanged(wizard.Config, null);
                 }
             };
         }
