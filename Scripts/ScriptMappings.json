@@ -35,6 +35,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "design_md-11",
       "ScriptName": "tfdi_md11_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "prosim-a322",
+      "ScriptName": "prosim_a320_winwing_cdu.py"
     }
   ]
 }
