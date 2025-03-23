@@ -190,7 +190,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void FsuipcConfigPanel_PresetChanged(object sender, IFsuipcConfigItem newPreset)
         {
-            modifierPanel1.ReplaceModifiers((newPreset as IFsuipcConfigItem)?.Modifiers);
+            modifierPanel1.ReplaceModifiers((newPreset)?.Modifiers);
         }
 
         private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)
