@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Config;
+using MobiFlight.UI.Panels.Config;
 using MobiFlight.UI.Panels.Input;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace MobiFlight.UI.Dialogs
 
         static int lastTabActive = 0;
 
-        ExecutionManager _execManager = null;
+        IExecutionManager _execManager = null;
         int displayPanelHeight = -1;
         List<UserControl> displayPanels = new List<UserControl>();
 
@@ -47,8 +48,9 @@ namespace MobiFlight.UI.Dialogs
         Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
 
         bool IsShown = false;
+        public PreconditionPanel PreconditionPanel { get { return preconditionPanel; } }
 
-        public InputConfigWizard(ExecutionManager mainForm,
+        public InputConfigWizard(IExecutionManager mainForm,
                              InputConfigItem cfg,
 #if ARCAZE
                              ArcazeCache arcazeCache,
@@ -69,7 +71,7 @@ namespace MobiFlight.UI.Dialogs
             this.outputConfigItems = outputConfigItems.ToArray().ToList();
 
             var list = outputConfigItems.Where(c => c.GUID != cfg.GUID)
-                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
+                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }).ToList();
 
             preconditionPanel.SetAvailableConfigs(list);
             preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
@@ -103,7 +105,7 @@ namespace MobiFlight.UI.Dialogs
             return !originalConfig.Equals(config);
         }
 
-        protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
+        protected void Init(IExecutionManager mainForm, InputConfigItem cfg)
         {
             this._execManager = mainForm;
             // create a clone so that we don't edit 
@@ -170,6 +172,8 @@ namespace MobiFlight.UI.Dialogs
         /// <param name="arcazeCache"></param>
         public void initWithArcazeCache(ArcazeCache arcazeCache)
         {
+            if (arcazeCache == null) return;
+
             List<ListItem> PreconditionModuleList = new List<ListItem>();
 
             inputModuleNameComboBox.Items.Clear();
