@@ -30,6 +30,7 @@ namespace MobiFlight.Scripts
 
         private Dictionary<string, Tuple<int, int>> RequiredPackages = new Dictionary<string, Tuple<int, int>>()
         {
+            { "pythonnet", new Tuple<int, int>(3, 0) },
             { "websockets", new Tuple<int, int>(14,0) },
             { "gql", new Tuple<int, int>(3,5) },
             { "SimConnect", new Tuple<int, int>(0,4) },
