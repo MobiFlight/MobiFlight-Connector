@@ -1742,12 +1742,7 @@ namespace MobiFlight.UI
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
-                saveToolStripButton.Enabled = fileName != CurrentFileName;
-
-                if (CurrentFileName != fileName)
-                {
-                    saveToolStripButton.Enabled = true;
-                }
+                saveToolStripButton.Enabled = false;
             }
             else
             {
