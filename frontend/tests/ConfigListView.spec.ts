@@ -240,31 +240,34 @@ test("Confirm `Controller` filter toolbar is working", async ({
 }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+  const rows = page.locator("tbody tr")
+  const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+
   await page.getByRole("button", { name: "Controller" }).click()
   await page
     .getByRole("option", { name: "WINWING Orion Joystick Base 2" })
     .locator("div")
     .click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
+  await expect(rows).toHaveCount(1)
+  await clearFilterOption.click()
+  await expect(rows).toHaveCount(10)
 
   await page.getByRole("option", { name: "ProtoBoard" }).locator("div").click()
-  await expect(page.locator("tbody tr")).toHaveCount(8)
-  await page.getByRole("option", { name: "Clear filters" }).click()
+  await expect(rows).toHaveCount(8)
+  await clearFilterOption.click()
 
   await page
     .getByRole("option", { name: "not set" })
     .locator("div")
     .first()
     .click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
+  await expect(rows).toHaveCount(1)
+  await clearFilterOption.click()
 
   await page.getByPlaceholder("Controller").click()
   await page.getByPlaceholder("Controller").fill("Proto")
   await page.getByPlaceholder("Controller").press("Enter")
-  await expect(page.locator("tbody tr")).toHaveCount(8)
+  await expect(rows).toHaveCount(8)
 })
 
 test("Confirm `Devices` filter toolbar is working", async ({
@@ -273,41 +276,36 @@ test("Confirm `Devices` filter toolbar is working", async ({
 }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+  const rows = page.locator("tbody tr")
+  const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+
   await page.getByRole("button", { name: "Devices" }).click()
-  await page.getByRole("option", { name: "Output Shift Register" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
+  
+  // Inline function to test device type filters
+  const testDeviceTypeFilter = async (deviceType: string, expectedCount: number) => {
+    await page.getByRole("option", { name: deviceType }).first().click()
+    await expect(rows).toHaveCount(expectedCount)
+    await clearFilterOption.click()
+    await expect(rows).toHaveCount(10)
+  }
 
-  await page.getByRole("option", { name: "Output" }).first().click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
+  const deviceTypes = [
+    "Analog Input",
+    "Encoder",
+    "Button",
+    "Output",
+    "Output Shift Register",
+    "LCD Display",
+    "Servo",
+    "Stepper",
+    "7-Segment",
+    "not set",
+  ]
 
-  await page.getByRole("option", { name: "LCD Display" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
+  for (const deviceType of deviceTypes) {
+    await testDeviceTypeFilter(deviceType, 1)
+  }
 
-  await page.getByRole("option", { name: "Servo" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
-
-  await page.getByRole("option", { name: "Stepper" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
-
-  await page.getByRole("option", { name: "7-Segment" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
-
-  await page.getByRole("option", { name: "not set" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
 })
 
 test("Confirm `Names` filter toolbar is working", async ({
@@ -316,25 +314,34 @@ test("Confirm `Names` filter toolbar is working", async ({
 }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+  const rows = page.locator("tbody tr")
+  const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+
   await page.getByRole("button", { name: "Names" }).click()
 
-  await page
-    .getByRole("option", { name: "ShiftRegister" })
-    .locator("div")
-    .click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
-  await expect(page.locator("tbody tr")).toHaveCount(10)
+  // Inline function to test device type filters
+  const testDeviceNameFilter = async (deviceType: string, expectedCount: number) => {
+    await page.getByRole("option", { name: deviceType }).first().click()
+    await expect(rows).toHaveCount(expectedCount)
+    await clearFilterOption.click()
+    await expect(rows).toHaveCount(10)
+  }
 
-  await page
-    .getByRole("option", { name: "not set" })
-    .locator("div")
-    .first()
-    .click()
-  await expect(page.locator("tbody tr")).toHaveCount(1)
-  await page.getByRole("option", { name: "Clear filters" }).click()
+  const deviceNames = [
+    "POT 1",
+    "Button 4",
+    "ShiftRegister 1",
+    "LED 2",
+    "LCD 1",
+    "Servo 1",
+    "Stepper 1",
+    "7-Segment",
+    "not set",
+  ]
 
-  await expect(page.locator("tbody tr")).toHaveCount(10)
+  for (const deviceName of deviceNames) {
+    await testDeviceNameFilter(deviceName, 1)
+  }
 })
 
 test("Confirm `Controller Settings` link is working", async ({

@@ -22,7 +22,7 @@ export function DataTableToolbar<TData>({
   items,
 }: DataTableToolbarProps<TData>) {
   const { t } = useTranslation()
-
+  
   const isFiltered = table.getState().columnFilters.length > 0
 
   const configTypes = [...new Set(items.map((item) => item.Type))].map(
@@ -36,7 +36,9 @@ export function DataTableToolbar<TData>({
     },
   )
 
-  const controller = [...new Set(items.map((item) => item.ModuleSerial))]
+  const controller = [
+    ...new Set(items.map((item) => item.ModuleSerial)),
+  ]
     .map((serial) => {
       const label = serial?.split("/")[0]
       return {
@@ -51,7 +53,18 @@ export function DataTableToolbar<TData>({
     .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
   const deviceTypes = [
-    ...new Set(items.map((item) => item.Device?.Type ?? "-")),
+    // these are output devices
+    ...new Set(
+      items
+        .filter((item) => item.Type == "OutputConfigItem")
+        .map((item) => item.Device?.Type ?? "-"),
+    ),
+    // these are input devices
+    ...new Set(
+      items
+        .filter((item) => item.Type == "InputConfigItem")
+        .map((item) => item.DeviceType ?? "-"),
+    ),
   ]
     .map((type) => {
       const label =
@@ -65,7 +78,18 @@ export function DataTableToolbar<TData>({
     .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
   const deviceNames = [
-    ...new Set(items.map((item) => item.Device?.Name ?? "-")),
+    // these are output devices
+    ...new Set(
+      items
+        .filter((item) => item.Type == "OutputConfigItem")
+        .map((item) => item.Device?.Name ?? "-"),
+    ),
+    // these are input devices
+    ...new Set(
+      items
+        .filter((item) => item.Type == "InputConfigItem")
+        .map((item) => item.DeviceName ?? "-"),
+    ),
   ]
     .map((device) => {
       const label = device
@@ -79,8 +103,8 @@ export function DataTableToolbar<TData>({
 
   return (
     <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2 -ml-3 md:ml-0">
-        <IconFilter className="stroke-primary hidden md:flex" />
+      <div className="-ml-3 flex flex-1 items-center space-x-2 md:ml-0">
+        <IconFilter className="hidden stroke-primary md:flex" />
         <Input
           placeholder={t("ConfigList.Toolbar.Search.Placeholder")}
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
@@ -118,7 +142,10 @@ export function DataTableToolbar<TData>({
           />
         )}
         {isFiltered && (
-          <ToolTip content={t("ConfigList.Toolbar.Reset")} className="z-[1000] xl:hidden">
+          <ToolTip
+            content={t("ConfigList.Toolbar.Reset")}
+            className="z-[1000] xl:hidden"
+          >
             <Button
               variant="ghost"
               onClick={() => table.resetColumnFilters()}
