@@ -97,14 +97,16 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
-        public List<IConfigItem> ConfigItems { get { return _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>(); }}
+        public List<IConfigItem> ConfigItems { get { return _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>(); } }
 
         private Project _project = new Project();
-        public Project Project { 
-            get { return _project;  } 
-            set {
+        public Project Project
+        {
+            get { return _project; }
+            set
+            {
                 _project = value;
-            } 
+            }
         }
 
         Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
@@ -177,7 +179,7 @@ namespace MobiFlight
             {
                 joystickManager.Startup();
                 OnJoystickConnectedFinished?.Invoke(sender, e);
-            };            
+            };
 
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (sender, e) =>
@@ -265,19 +267,20 @@ namespace MobiFlight
                             return;
                         }
 
-                        try {
+                        try
+                        {
                             ExecuteTestOn(cfg as OutputConfigItem);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
                         }
-                        
+
                         return;
 
                     case "settings":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg==null) return;
+                        if (cfg == null) return;
 
                         var serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
 
@@ -327,7 +330,7 @@ namespace MobiFlight
                     ConfigItems.Insert(currentIndex, item);
                     currentIndex++;
                 });
-                
+
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
@@ -358,7 +361,7 @@ namespace MobiFlight
         }
 
         private void simConnect_AirCraftPathChanged(object sender, string e)
-        {        
+        {
             Log.Instance.log($"Aircraft path changed: [{e}]", LogSeverity.Info);
             OnSimAircraftPathChanged?.Invoke(sender, e);
         }
@@ -371,7 +374,8 @@ namespace MobiFlight
             {
                 return i?.GetType() == typeof(OutputConfigItem) &&
                         (i as OutputConfigItem).Source is VariableSource;
-            }).ToList().ForEach(i => {
+            }).ToList().ForEach(i =>
+            {
                 var source = (i as OutputConfigItem).Source as VariableSource;
                 if (variables.ContainsKey(source.MobiFlightVariable.Name)) return;
                 variables[source.MobiFlightVariable.Name] = source.MobiFlightVariable;
@@ -382,7 +386,7 @@ namespace MobiFlight
                 var cfg = i as InputConfigItem;
                 List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
                 if (actions == null) return;
-                
+
                 actions.ForEach(action =>
                 {
                     VariableInputAction a = (VariableInputAction)action;
@@ -494,7 +498,7 @@ namespace MobiFlight
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
             ConfigItems.ForEach(cfg => cfg?.Status?.Clear());
-            
+
             ClearErrorMessages();
         }
 
@@ -675,7 +679,7 @@ namespace MobiFlight
             var updatedValues = new Dictionary<string, IConfigItem>();
 
             // iterate over the config row by row
-            foreach (var item in ConfigItems.Where(i=>i?.GetType()==typeof(OutputConfigItem)))
+            foreach (var item in ConfigItems.Where(i => i?.GetType() == typeof(OutputConfigItem)))
             {
                 var cfg = item as OutputConfigItem;
 
@@ -1115,7 +1119,7 @@ namespace MobiFlight
                             {
                                 outputValueShiftRegister = shiftRegister.Brightness.ToString();
                             }
-                                
+
                             mobiFlightCache.SetShiftRegisterOutput(
                                 serial,
                                 shiftRegister.Address,
@@ -1428,7 +1432,7 @@ namespace MobiFlight
                     OnTestModeException(ex, new EventArgs());
                 }
             }
-            
+
             if (!currentConfig.Status.ContainsKey(ConfigItemStatusType.Test))
             {
                 try
@@ -1605,7 +1609,7 @@ namespace MobiFlight
                     // check if we have configs for this button
                     // and store it      
 
-                    foreach (var cfg in ConfigItems.Where(c=>c is InputConfigItem).Cast<InputConfigItem>())
+                    foreach (var cfg in ConfigItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
                     {
                         try
                         {
@@ -1686,16 +1690,11 @@ namespace MobiFlight
                     {
                         if (!CheckPrecondition(cfg, currentValue))
                         {
-                            // REDSIGN: Review if needed
-                            // tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
+                            Log.Instance.log($"{msgEventLabel} => skipping \"{cfg.Name}\", precondition not satisfied.", LogSeverity.Debug);
                             continue;
                         }
-                        else
-                        {
-                            // REDSIGN: Review if needed
-                            // tuple.Item2.ErrorText = "";
-                        }
                     }
+
                     Log.Instance.log($"{msgEventLabel} => executing \"{cfg.Name}\"", LogSeverity.Info);
 
                     cfg.execute(
@@ -1728,16 +1727,24 @@ namespace MobiFlight
                     if (cfg.Preconditions.Count > 0)
                     {
                         ConnectorValue currentValue = new ConnectorValue();
+                        
+                        bool changed = false;
+                        
                         if (!CheckPrecondition(cfg, currentValue))
                         {
                             // REDSIGN: Review if needed
-                            // gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                            continue;
+                            changed = !cfg.Status.ContainsKey(ConfigItemStatusType.Precondition);
+                            cfg.Status.Add(ConfigItemStatusType.Precondition, "not satisfied");
                         }
                         else
                         {
-                            // REDSIGN: Review if needed
-                            // gridViewRow.ErrorText = "";
+                            changed = cfg.Status.ContainsKey(ConfigItemStatusType.Precondition);
+                            cfg.Status.Remove(ConfigItemStatusType.Precondition);
+                        }
+
+                        if (changed)
+                        {
+                            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
                         }
                     }
                 }

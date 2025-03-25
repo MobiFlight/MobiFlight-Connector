@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Modifier;
+using Newtonsoft.Json;
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace MobiFlight
         
         private string preconditionLabel = null;
 
+        [JsonIgnore]
         public string PreconditionLabel { 
             get {
                 if (preconditionLabel != null) return preconditionLabel;

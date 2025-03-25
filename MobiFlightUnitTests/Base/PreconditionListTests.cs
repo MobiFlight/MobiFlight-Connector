@@ -192,7 +192,15 @@ namespace MobiFlight.Base.Tests
             for (int i = 0; i < originalList.Count; i++)
             {
                 Assert.AreEqual(originalArray[i].PreconditionType, deserializedArray[i].PreconditionType);
-                Assert.AreEqual(originalArray[i].PreconditionLabel, deserializedArray[i].PreconditionLabel);
+                // labels are not serialized
+                Assert.AreNotEqual(originalArray[i].PreconditionLabel, deserializedArray[i].PreconditionLabel);
+                // labels are using specifc format
+                var PreconditionRef = originalArray[i].PreconditionRef;
+                var PreconditionOperand = originalArray[i].PreconditionOperand;
+                var PreconditionValue = originalArray[i].PreconditionValue;
+                var PreconditionLogic = originalArray[i].PreconditionLogic;                
+                var exptectedLabel = $"Config: <Ref:{PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
+                Assert.AreEqual(deserializedArray[i].PreconditionLabel, exptectedLabel);
                 Assert.AreEqual(originalArray[i].PreconditionActive, deserializedArray[i].PreconditionActive);
                 Assert.AreEqual(originalArray[i].PreconditionRef, deserializedArray[i].PreconditionRef);
                 Assert.AreEqual(originalArray[i].PreconditionOperand, deserializedArray[i].PreconditionOperand);
