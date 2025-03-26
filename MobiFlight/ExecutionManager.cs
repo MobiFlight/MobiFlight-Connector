@@ -497,7 +497,11 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
-            ConfigItems.ForEach(cfg => cfg?.Status?.Clear());
+            ConfigItems.ForEach(cfg => {
+                cfg?.Status?.Clear();
+                cfg.Value = "";
+                cfg.RawValue = "";
+            });
 
             ClearErrorMessages();
         }
@@ -1696,6 +1700,10 @@ namespace MobiFlight
                     }
 
                     Log.Instance.log($"{msgEventLabel} => executing \"{cfg.Name}\"", LogSeverity.Info);
+
+                    cfg.RawValue = eventAction;
+                    cfg.Value = " ";
+                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
 
                     cfg.execute(
                         cacheCollection,

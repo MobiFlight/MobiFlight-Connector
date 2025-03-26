@@ -4,6 +4,9 @@ export default {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+      ringWidth: {
+        "2" : "1px"
+      },
       screens: {
         md: "50rem",
         lg: "62rem",

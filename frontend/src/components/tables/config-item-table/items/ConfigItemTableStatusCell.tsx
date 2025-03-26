@@ -3,7 +3,6 @@ import { IConfigItem } from "@/types";
 import { IDictionary, ConfigItemStatusType } from "@/types/config";
 import {
   IconAlertSquareRounded,
-  IconBuildingBroadcastTower,
   IconPlugConnectedX,
   IconMathSymbols,
   IconFlask,
@@ -36,7 +35,6 @@ const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
 const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
   const Precondition = Status && !isEmpty(Status["Precondition"]);
-  const Source = Status && !isEmpty(Status["Source"]);
   const Modifier = Status && !isEmpty(Status["Modifier"]);
   const Device = Status && !isEmpty(Status["Device"]);
   const Test = Status && !isEmpty(Status["Test"]);
@@ -54,13 +52,6 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
             : t(`ConfigList.Status.Precondition.normal`)
         }
         IconComponent={IconAlertSquareRounded}
-      />
-      <StatusIcon
-        condition={Source}
-        title={
-          Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"
-        }
-        IconComponent={IconBuildingBroadcastTower}
       />
       <StatusIcon
         condition={Device}

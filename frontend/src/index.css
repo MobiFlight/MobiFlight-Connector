@@ -60,6 +60,7 @@
 
 @layer base {
   * {
+    font-size: 11pt;
     @apply border-border;
   }
   body {

@@ -1,8 +1,7 @@
 import { IConfigItem } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
 import {
-  IconBuildingBroadcastTower,
-  IconMathSymbols,
+  IconHourglassEmpty,
 } from "@tabler/icons-react"
 import { IDeviceConfig } from "@/types/config"
 import { isEmpty } from "lodash"
@@ -15,6 +14,7 @@ import {
   ConfigItemTableStatusCell,
   ConfigItemTableControllerCell,
   ConfigItemTableDeviceCell,
+  ConfigItemTableRawValueCell,
 } from "./items"
 
 export const columns: ColumnDef<IConfigItem>[] = [
@@ -157,23 +157,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const { t } = useTranslation()
       return <div className="">{t("ConfigList.Header.RawValue")}</div>
     },
-    cell: ({ row }) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { t } = useTranslation()
-      const label = row.getValue("RawValue") as string
-      return (
-        <div className="text-md truncate">
-          {!isEmpty(label) ? (
-            label
-          ) : (
-            <div className="item-center flex flex-row gap-2 text-slate-300">
-              <IconBuildingBroadcastTower className="animate-pulse" />
-              <span className="truncate">{t("ConfigList.Cell.Waiting")}</span>
-            </div>
-          )}
-        </div>
-      )
-    },
+    cell: ConfigItemTableRawValueCell,
   },
   {
     meta: {
@@ -194,10 +178,9 @@ export const columns: ColumnDef<IConfigItem>[] = [
           {!isEmpty(label) ? (
             label
           ) : (
-            <div className="item-center flex flex-row gap-2 text-slate-300">
-              <IconMathSymbols className="animate-pulse" />
-              <span className="truncate">{t("ConfigList.Cell.Waiting")}</span>
-            </div>
+            <div className="flex flex-row justify-center text-slate-300">
+          <IconHourglassEmpty />
+        </div>
           )}
         </div>
       )
