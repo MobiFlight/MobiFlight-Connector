@@ -8,8 +8,8 @@ export default {
         "2" : "1px"
       },
       screens: {
-        md: "50rem",
-        lg: "62rem",
+        md: "49rem",
+        lg: "63rem",
         "3xl": "100rem"
       },
   		borderRadius: {

@@ -56,7 +56,7 @@ const ConfigItemTableFinalValueCell = ({
       ) : (
         <div className="flex flex-row justify-center text-slate-200">
           <ToolTip content={t("ConfigList.Cell.Waiting")}>
-            <IconHourglassEmpty />
+            <IconHourglassEmpty className="w-7 h-7" />
           </ToolTip>
         </div>
       )}

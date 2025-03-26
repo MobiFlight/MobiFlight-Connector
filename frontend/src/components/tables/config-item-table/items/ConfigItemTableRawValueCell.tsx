@@ -15,8 +15,6 @@ interface ConfigItemTableRawValueCellProps {
   row: Row<IConfigItem>
 }
 
-
-
 const ConfigItemTableRawValueCell = ({
   row,
 }: ConfigItemTableRawValueCellProps) => {
@@ -29,34 +27,36 @@ const ConfigItemTableRawValueCell = ({
 
   const { t } = useTranslation()
   const label = row.getValue("RawValue") as string
-  
+
   return (
     <div className="text-md truncate">
       {!isEmpty(label) && !Source ? (
-        item.Type == "InputConfigItem" ? (          
+        item.Type == "InputConfigItem" ? (
           <div className="flex flex-row justify-center">
-          <Badge variant="secondary">{label.replace("CHANGE =>", "")}</Badge>
+            <Badge variant="secondary">{label.replace("CHANGE =>", "")}</Badge>
           </div>
         ) : (
           <div className="text-sm">
-          <>{label}</>
-        </div>
+            <>{label}</>
+          </div>
         )
       ) : Source ? (
         <div className="flex flex-row justify-center">
-        <StatusIcon
-                status="Source"
-                condition={Source}
-                title={
-                  Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"
-                }
-                IconComponent={IconBuildingBroadcastTower}
-              />
+          <StatusIcon
+            status="Source"
+            condition={Source}
+            title={
+              Source
+                ? t(`ConfigList.Status.Source.${Status["Source"]}`)
+                : "available"
+            }
+            IconComponent={IconBuildingBroadcastTower}
+          />
         </div>
       ) : (
         <div className="flex flex-row justify-center text-slate-200">
           <ToolTip content={t("ConfigList.Cell.Waiting")}>
-          <IconHourglassEmpty />
+            <IconHourglassEmpty className="h-7 w-7"/>
           </ToolTip>
         </div>
       )}
