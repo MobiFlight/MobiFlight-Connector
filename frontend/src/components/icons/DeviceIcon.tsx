@@ -9,24 +9,21 @@ import {
   IconGauge,
   IconPower,
   IconQuestionMark,
-  IconRefreshDot,
-  IconX,
+  IconRefreshDot
 } from "@tabler/icons-react";
 import IconDeviceAnalog from "./IconDeviceAnalog";
 import IconDeviceOutputShifter from "./IconDeviceOutputShifter";
 import IconDeviceInputShifter from "./IconDeviceInputShifter";
 import IconDeviceInputMultiplexer from "./IconDeviceInputMultiplexer";
-import StackedIcons from "./StackedIcons";
 
 export type DeviceIconProps = {
   variant?: DeviceElementType
   disabled?: boolean
-  connected?: boolean
   className?: string
 };
 
 const DeviceIcon = (props: DeviceIconProps) => {
-  const { variant, disabled, connected, className } = props;
+  const { variant, disabled, className } = props;
 
   const shortType = variant?.replace("MobiFlight.", "").replace("OutputConfig.", "").replace("InputConfig.", "") as DeviceElementType
 
@@ -57,12 +54,7 @@ const DeviceIcon = (props: DeviceIconProps) => {
     icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   }
 
-  return <div className="flex flex-row gap">
-    <StackedIcons 
-      bottomIcon={icon}
-      topIcon={connected ? <></> : <IconX className="stroke-red-500" />
-    }/>
-    </div>
+  return <div className="inline-block">{icon}</div>
 };
 
 export default DeviceIcon;

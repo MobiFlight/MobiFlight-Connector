@@ -74,61 +74,74 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   await configListPage.initWithTestData()
 
   const PreconditionIcon = configListPage.getStatusIconInRow("Precondition", 1)
+  const TestIcon = configListPage.getStatusIconInRow("Test", 1)
+  const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
+
   const SourceIcon = configListPage.getStatusIconInRow("Source", 1)
   const DeviceIcon = configListPage.getStatusIconInRow("Device", 1)
   const ModifierIcon = configListPage.getStatusIconInRow("Modifier", 1)
-  const TestIcon = configListPage.getStatusIconInRow("Test", 1)
-  const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
 
   const statusTests = [
     {
       status: { Precondition: "not satisfied" },
       icon: PreconditionIcon,
       toolTipText: "Precondition is not satisfied.",
+      alwaysVisible: true,
     },
     {
       status: { Source: "SIMCONNECT_NOT_AVAILABLE" },
       icon: SourceIcon,
       toolTipText: "This config uses SimConnect,",
+      alwaysVisible: false,
     },
     {
       status: { Source: "FSUIPC_NOT_AVAILABLE" },
       icon: SourceIcon,
       toolTipText: "This config uses FSUIPC,",
+      alwaysVisible: false,
     },
     {
       status: { Source: "XPLANE_NOT_AVAILABLE" },
       icon: SourceIcon,
       toolTipText: "This config uses X-Plane,",
+      alwaysVisible: false,
     },
     {
       status: { Device: "NotConnected" },
       icon: DeviceIcon,
       toolTipText: "The device used in this config is not connected.",
+      alwaysVisible: false,
     },
     {
       status: { Modifier: "Error" },
       icon: ModifierIcon,
       toolTipText: "A modifier is applied which has an error.",
+      alwaysVisible: false,
     },
     {
       status: { Test: "Executing" },
       icon: TestIcon,
       toolTipText: "This config is currently being tested.",
+      alwaysVisible: true,
     },
     {
       status: { ConfigRef: "Missing" },
       icon: ConfigRefIcon,
       toolTipText: "One or more referenced configs are missing.",
+      alwaysVisible: true,
     },
   ]
 
-  statusTests.forEach(async (item) => {
-    expect(item.icon).toHaveAttribute("aria-disabled", "true")
-  })
-
   for (const test of statusTests) {
+    if (test.alwaysVisible) {
+      await expect(test.icon).toBeVisible()
+      await expect(test.icon).toHaveAttribute("aria-disabled", "true")
+    } else {
+      await expect(test.icon).not.toBeVisible()
+    }
+
     await configListPage.updateConfigItemStatus(0, test.status)
+    await expect(test.icon).toBeVisible()
     await expect(test.icon).toHaveAttribute("aria-disabled", "false")
     await test.icon.hover()
     await expect(
@@ -136,6 +149,9 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
     ).toBeVisible()
     await page.click("body")
     await page.waitForTimeout(500)
+
+    const statusKey = Object.keys(test.status)[0];
+    await configListPage.removeConfigItemStatus(0, statusKey);
   }
 })
 

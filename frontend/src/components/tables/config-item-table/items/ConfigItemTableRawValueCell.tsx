@@ -1,3 +1,4 @@
+import StatusIcon from "@/components/icons/StatusIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
 import { IConfigItem } from "@/types"
@@ -14,21 +15,7 @@ interface ConfigItemTableRawValueCellProps {
   row: Row<IConfigItem>
 }
 
-type StatusIconProps = {
-  condition: boolean
-  title: string
-  IconComponent: React.ElementType
-}
 
-const StatusIcon = ({ condition, title, IconComponent }: StatusIconProps) => (
-  <ToolTip content={title}>
-    <IconComponent
-      role="status"
-      aria-disabled={!condition}
-      className={!condition ? "stroke-slate-100" : "stroke-red-700"}
-    />
-  </ToolTip>
-)
 
 const ConfigItemTableRawValueCell = ({
   row,
@@ -58,6 +45,7 @@ const ConfigItemTableRawValueCell = ({
       ) : Source ? (
         <div className="flex flex-row justify-center">
         <StatusIcon
+                status="Source"
                 condition={Source}
                 title={
                   Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"

@@ -1,9 +1,8 @@
-import ToolTip from "@/components/ToolTip";
+import StatusIcon from "@/components/icons/StatusIcon";
 import { IConfigItem } from "@/types";
 import { IDictionary, ConfigItemStatusType } from "@/types/config";
 import {
   IconAlertSquareRounded,
-  IconPlugConnectedX,
   IconFlask,
   IconRouteOff,
 } from "@tabler/icons-react";
@@ -14,22 +13,6 @@ import { useTranslation } from "react-i18next";
 interface ConfigItemTableStatusCellProps {
   row: Row<IConfigItem>;
 }
-
-type StatusIconProps = {
-  condition: boolean;
-  title: string;
-  IconComponent: React.ElementType;
-};
-
-const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
-  <ToolTip content={title}>
-    <IconComponent
-      role="status"
-      aria-disabled={!condition}
-      className={!condition ? "stroke-slate-100" : "stroke-blue-700"}
-    />
-  </ToolTip>
-);
 
 const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
@@ -42,6 +25,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   return (
     <div className="flex flex-row gap-1">
       <StatusIcon
+        status="Precondition"
         condition={Precondition}
         title={
           Precondition
@@ -51,6 +35,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
         IconComponent={IconAlertSquareRounded}
       />
       <StatusIcon
+        status="Test"
         condition={Test}
         title={
           Test
@@ -60,6 +45,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
         IconComponent={IconFlask}
       />
       <StatusIcon
+        status="ConfigRef"
         condition={ConfigRef}
         title={
           ConfigRef

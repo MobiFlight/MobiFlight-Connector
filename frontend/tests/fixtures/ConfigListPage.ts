@@ -77,15 +77,29 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  getStatusIconInRow(iconName: string, row: number) : Locator {
-    const iconIndex : Record<string, number> = {
-      "Precondition": 0,
-      "Source": 1,
-      "Device": 2,
-      "Modifier": 3,
-      "Test": 4,
-      "ConfigRef": 5,
-    }
-    return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status").nth(iconIndex[iconName]!)
+  async removeConfigItemStatus(itemIndex: number, keyToRemove: string) {
+    const item = testdata[itemIndex];
+    const updatedStatus: IDictionary<string, ConfigItemStatusType> = { ...item.Status };
+  
+    // Remove the specified key
+    delete updatedStatus[keyToRemove];
+  
+    const message: AppMessage = {
+      key: "ConfigValuePartialUpdate",
+      payload: {
+        ConfigItems: [
+          {
+            ...item,
+            Status: updatedStatus,
+          },
+        ],
+      } as ConfigValuePartialUpdate,
+    };
+  
+    await this.mobiFlightPage.publishMessage(message);
+  }
+
+  getStatusIconInRow(status: ConfigItemStatusType, row: number) : Locator {
+    return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status",{name: status})
   }
 }

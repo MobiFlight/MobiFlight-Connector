@@ -1,3 +1,4 @@
+import StatusIcon from "@/components/icons/StatusIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
 import { IConfigItem } from "@/types"
@@ -13,22 +14,6 @@ import { useTranslation } from "react-i18next"
 interface ConfigItemTableFinalValueCellProps {
   row: Row<IConfigItem>
 }
-
-type StatusIconProps = {
-  condition: boolean
-  title: string
-  IconComponent: React.ElementType
-}
-
-const StatusIcon = ({ condition, title, IconComponent }: StatusIconProps) => (
-  <ToolTip content={title}>
-    <IconComponent
-      role="status"
-      aria-disabled={!condition}
-      className={!condition ? "stroke-slate-100" : "stroke-red-700"}
-    />
-  </ToolTip>
-)
 
 const ConfigItemTableFinalValueCell = ({
   row,
@@ -58,6 +43,7 @@ const ConfigItemTableFinalValueCell = ({
       ) : Modifier ? (
         <div className="flex flex-row justify-center">
           <StatusIcon
+            status="Modifier"
             condition={Modifier}
             title={
               Modifier
