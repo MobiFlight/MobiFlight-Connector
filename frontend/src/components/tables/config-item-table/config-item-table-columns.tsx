@@ -1,8 +1,5 @@
 import { IConfigItem } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
-import {
-  IconHourglassEmpty,
-} from "@tabler/icons-react"
 import { IDeviceConfig } from "@/types/config"
 import { isEmpty } from "lodash"
 import { useTranslation } from "react-i18next"
@@ -16,6 +13,7 @@ import {
   ConfigItemTableDeviceCell,
   ConfigItemTableRawValueCell,
 } from "./items"
+import ConfigItemTableFinalValueCell from "./items/ConfigItemTableFinalValueCell"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -169,22 +167,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
       const { t } = useTranslation()
       return <div className="">{t("ConfigList.Header.FinalValue")}</div>
     },
-    cell: ({ row }) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { t } = useTranslation()
-      const label = row.getValue("Value") as string
-      return (
-        <div className="text-md truncate">
-          {!isEmpty(label) ? (
-            label
-          ) : (
-            <div className="flex flex-row justify-center text-slate-300">
-          <IconHourglassEmpty />
-        </div>
-          )}
-        </div>
-      )
-    },
+    cell: ConfigItemTableFinalValueCell,
   },
   {
     meta: {

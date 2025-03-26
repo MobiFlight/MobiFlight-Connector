@@ -3,14 +3,14 @@ import { Badge } from "@/components/ui/badge"
 import { IConfigItem } from "@/types"
 import { IDictionary, ConfigItemStatusType } from "@/types/config"
 import {
-  IconBuildingBroadcastTower,
   IconHourglassEmpty,
+  IconMathSymbols,
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 
-interface ConfigItemTableRawValueCellProps {
+interface ConfigItemTableFinalValueCellProps {
   row: Row<IConfigItem>
 }
 
@@ -30,45 +30,47 @@ const StatusIcon = ({ condition, title, IconComponent }: StatusIconProps) => (
   </ToolTip>
 )
 
-const ConfigItemTableRawValueCell = ({
+const ConfigItemTableFinalValueCell = ({
   row,
-}: ConfigItemTableRawValueCellProps) => {
+}: ConfigItemTableFinalValueCellProps) => {
   const item = row.original as IConfigItem
   const Status = row.getValue("Status") as IDictionary<
     string,
     ConfigItemStatusType
   >
-  const Source = Status && !isEmpty(Status["Source"])
+  const Modifier = Status && !isEmpty(Status["Modifier"])
 
   const { t } = useTranslation()
-  const label = row.getValue("RawValue") as string
-  
+  const label = row.getValue("Value") as string
+
   return (
     <div className="text-md truncate">
-      {!isEmpty(label) && !Source ? (
-        item.Type == "InputConfigItem" ? (          
+      {!isEmpty(label) && !Modifier ? (
+        item.Type == "InputConfigItem" ? (
           <div className="flex flex-row justify-center">
-          <Badge variant="secondary">{label.replace("CHANGE =>", "")}</Badge>
+            <Badge variant="secondary">{label}</Badge>
           </div>
         ) : (
           <div className="text-sm">
-          <>{label}</>
-        </div>
+            <>{label}</>
+          </div>
         )
-      ) : Source ? (
+      ) : Modifier ? (
         <div className="flex flex-row justify-center">
-        <StatusIcon
-                condition={Source}
-                title={
-                  Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"
-                }
-                IconComponent={IconBuildingBroadcastTower}
-              />
+          <StatusIcon
+            condition={Modifier}
+            title={
+              Modifier
+                ? t(`ConfigList.Status.Modifier.Error`)
+                : t(`ConfigList.Status.Modifier.OK`)
+            }
+            IconComponent={IconMathSymbols}
+          />
         </div>
       ) : (
         <div className="flex flex-row justify-center text-slate-200">
           <ToolTip content={t("ConfigList.Cell.Waiting")}>
-          <IconHourglassEmpty />
+            <IconHourglassEmpty />
           </ToolTip>
         </div>
       )}
@@ -76,4 +78,4 @@ const ConfigItemTableRawValueCell = ({
   )
 }
 
-export default ConfigItemTableRawValueCell
+export default ConfigItemTableFinalValueCell

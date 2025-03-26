@@ -6,6 +6,7 @@ import { IconBan } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
+import { IDictionary, ConfigItemStatusType } from "@/types/config";
 
 interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
@@ -13,6 +14,9 @@ interface ConfigItemTableDeviceCellProps {
 const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
   const { t } = useTranslation()
   const item = row.original as IConfigItem
+  const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
+  const Device = Status && !isEmpty(Status["Device"]);
+
   const label =
     (item.Device as IDeviceConfig)?.Name ??
     (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
@@ -21,6 +25,7 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
     (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
   const icon = (
     <DeviceIcon
+      connected={!Device}
       disabled={!row.getValue("Active") as boolean}
       variant={(type ?? "default") as DeviceElementType}
     />

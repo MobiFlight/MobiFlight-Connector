@@ -743,6 +743,7 @@ namespace MobiFlight
                 cfg.Value = processedValue.ToString();
 
                 List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
+                cfg.Status.Remove(ConfigItemStatusType.Modifier);
 
                 try
                 {
@@ -751,6 +752,8 @@ namespace MobiFlight
                     {
                         processedValue = modifier.Apply(processedValue, configRefs);
                     }
+
+                    cfg.Value = processedValue.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -760,11 +763,11 @@ namespace MobiFlight
                     {
                         updatedValues[cfg.GUID] = cfg;
                     }
-                    continue;
+                    
+                    // We used to `continue` here
+                    // but we want to evaluate the Precondition
+                    // so keep continuing
                 }
-
-                cfg.Status.Remove(ConfigItemStatusType.Modifier);
-                cfg.Value = processedValue.ToString();
 
                 try
                 {
@@ -781,7 +784,7 @@ namespace MobiFlight
                             {
                                 updatedValues[cfg.GUID] = cfg;
                             }
-                            continue;
+                            // continue;
                         }
                         else
                         {
@@ -795,6 +798,7 @@ namespace MobiFlight
                         //if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
                         //    row.ErrorText = "";
                     }
+                    cfg.Status.Remove(ConfigItemStatusType.Device);
                     ExecuteDisplay(processedValue.ToString(), cfg);
                 }
                 catch (JoystickNotConnectedException jEx)
@@ -812,6 +816,7 @@ namespace MobiFlight
                     // TODO: REDESIGN: Review
                     String RowDescription = cfg.Name;
                     Exception resultExc = new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
+                    cfg.Status.Add(ConfigItemStatusType.Device, "NotConnected");
                     // row.ErrorText = exc.Message;
                     throw resultExc;
                 }

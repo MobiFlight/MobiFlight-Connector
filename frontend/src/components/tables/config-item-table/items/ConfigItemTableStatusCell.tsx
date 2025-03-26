@@ -4,7 +4,6 @@ import { IDictionary, ConfigItemStatusType } from "@/types/config";
 import {
   IconAlertSquareRounded,
   IconPlugConnectedX,
-  IconMathSymbols,
   IconFlask,
   IconRouteOff,
 } from "@tabler/icons-react";
@@ -27,7 +26,7 @@ const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
     <IconComponent
       role="status"
       aria-disabled={!condition}
-      className={!condition ? "stroke-slate-100" : "stroke-red-700"}
+      className={!condition ? "stroke-slate-100" : "stroke-blue-700"}
     />
   </ToolTip>
 );
@@ -35,8 +34,6 @@ const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
 const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
   const Precondition = Status && !isEmpty(Status["Precondition"]);
-  const Modifier = Status && !isEmpty(Status["Modifier"]);
-  const Device = Status && !isEmpty(Status["Device"]);
   const Test = Status && !isEmpty(Status["Test"]);
   const ConfigRef = Status && !isEmpty(Status["ConfigRef"]);
 
@@ -52,24 +49,6 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
             : t(`ConfigList.Status.Precondition.normal`)
         }
         IconComponent={IconAlertSquareRounded}
-      />
-      <StatusIcon
-        condition={Device}
-        title={
-          Device
-            ? t(`ConfigList.Status.Device.NotConnected`)
-            : t(`ConfigList.Status.Device.Connected`)
-        }
-        IconComponent={IconPlugConnectedX}
-      />
-      <StatusIcon
-        condition={Modifier}
-        title={
-          Modifier
-            ? t(`ConfigList.Status.Modifier.Error`)
-            : t(`ConfigList.Status.Modifier.OK`)
-        }
-        IconComponent={IconMathSymbols}
       />
       <StatusIcon
         condition={Test}
