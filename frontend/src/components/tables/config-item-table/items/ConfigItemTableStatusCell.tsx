@@ -1,11 +1,8 @@
-import ToolTip from "@/components/ToolTip";
+import StatusIcon from "@/components/icons/StatusIcon";
 import { IConfigItem } from "@/types";
 import { IDictionary, ConfigItemStatusType } from "@/types/config";
 import {
   IconAlertSquareRounded,
-  IconBuildingBroadcastTower,
-  IconPlugConnectedX,
-  IconMathSymbols,
   IconFlask,
   IconRouteOff,
 } from "@tabler/icons-react";
@@ -17,28 +14,9 @@ interface ConfigItemTableStatusCellProps {
   row: Row<IConfigItem>;
 }
 
-type StatusIconProps = {
-  condition: boolean;
-  title: string;
-  IconComponent: React.ElementType;
-};
-
-const StatusIcon = ({ condition, title, IconComponent } : StatusIconProps) => (
-  <ToolTip content={title}>
-    <IconComponent
-      role="status"
-      aria-disabled={!condition}
-      className={!condition ? "stroke-slate-100" : "stroke-red-700"}
-    />
-  </ToolTip>
-);
-
 const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
   const Precondition = Status && !isEmpty(Status["Precondition"]);
-  const Source = Status && !isEmpty(Status["Source"]);
-  const Modifier = Status && !isEmpty(Status["Modifier"]);
-  const Device = Status && !isEmpty(Status["Device"]);
   const Test = Status && !isEmpty(Status["Test"]);
   const ConfigRef = Status && !isEmpty(Status["ConfigRef"]);
 
@@ -47,6 +25,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
   return (
     <div className="flex flex-row gap-1">
       <StatusIcon
+        status="Precondition"
         condition={Precondition}
         title={
           Precondition
@@ -56,31 +35,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
         IconComponent={IconAlertSquareRounded}
       />
       <StatusIcon
-        condition={Source}
-        title={
-          Source ? t(`ConfigList.Status.Source.${Status["Source"]}`) : "available"
-        }
-        IconComponent={IconBuildingBroadcastTower}
-      />
-      <StatusIcon
-        condition={Device}
-        title={
-          Device
-            ? t(`ConfigList.Status.Device.NotConnected`)
-            : t(`ConfigList.Status.Device.Connected`)
-        }
-        IconComponent={IconPlugConnectedX}
-      />
-      <StatusIcon
-        condition={Modifier}
-        title={
-          Modifier
-            ? t(`ConfigList.Status.Modifier.Error`)
-            : t(`ConfigList.Status.Modifier.OK`)
-        }
-        IconComponent={IconMathSymbols}
-      />
-      <StatusIcon
+        status="Test"
         condition={Test}
         title={
           Test
@@ -90,6 +45,7 @@ const ConfigItemTableStatusCell = ({ row }: ConfigItemTableStatusCellProps) => {
         IconComponent={IconFlask}
       />
       <StatusIcon
+        status="ConfigRef"
         condition={ConfigRef}
         title={
           ConfigRef

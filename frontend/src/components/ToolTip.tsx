@@ -17,7 +17,7 @@ const ToolTip = ({children, content, className }: ToolTipProps) => {
         <TooltipContent align="start" side="bottom" className={cn("rounded-none", className)}>
           {
             typeof(content)=="string" ? 
-            <div className="text-xs">{ content }</div>
+            <div className="text-sm">{ content }</div>
             :
             content
           }

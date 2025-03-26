@@ -9,7 +9,7 @@ import {
   IconGauge,
   IconPower,
   IconQuestionMark,
-  IconRefreshDot,
+  IconRefreshDot
 } from "@tabler/icons-react";
 import IconDeviceAnalog from "./IconDeviceAnalog";
 import IconDeviceOutputShifter from "./IconDeviceOutputShifter";
