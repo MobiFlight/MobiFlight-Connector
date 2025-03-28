@@ -65,6 +65,7 @@ namespace MobiFlight.SimConnectMSFS
                 if (line.Contains("InstalledPackagesPath "))
                 {
                     InstalledPackagesPath = line;
+                    break;
                 }
             }
 
