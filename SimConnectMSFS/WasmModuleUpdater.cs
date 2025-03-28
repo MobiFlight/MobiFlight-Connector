@@ -62,6 +62,8 @@ namespace MobiFlight.SimConnectMSFS
 
             while ((line = file.ReadLine()) != null)
             {
+                // Issue #2061: The space at the end is intentional, to ensure it only matches the whole string InstalledPackagesPath
+                // and not the InstalledPackagesPathNextBoot property added in MSFS2024 SU2.
                 if (line.Contains("InstalledPackagesPath "))
                 {
                     InstalledPackagesPath = line;
