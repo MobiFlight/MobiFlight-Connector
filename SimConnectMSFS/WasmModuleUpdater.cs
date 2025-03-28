@@ -62,7 +62,7 @@ namespace MobiFlight.SimConnectMSFS
 
             while ((line = file.ReadLine()) != null)
             {
-                if (line.Contains("InstalledPackagesPath"))
+                if (line.Contains("InstalledPackagesPath "))
                 {
                     InstalledPackagesPath = line;
                 }
@@ -76,13 +76,24 @@ namespace MobiFlight.SimConnectMSFS
 
             InstalledPackagesPath = InstalledPackagesPath.TrimEnd(charsToTrim);
 
-            string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
-
-            Log.Instance.log($"Detected community folder path from UserCfg.opt: {targetPath}", LogSeverity.Debug);
-
-            if (Directory.Exists(targetPath))
+            try
             {
-                CommunityFolder = targetPath;
+                string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
+
+                Log.Instance.log($"Detected community folder path from UserCfg.opt: {targetPath}", LogSeverity.Debug);
+
+                if (Directory.Exists(targetPath))
+                {
+                    CommunityFolder = targetPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error while trying to build community folder path using \"{InstalledPackagesPath}\": {ex.Message}", LogSeverity.Error);
+            }
+            finally
+            {
+                file.Close();
             }
 
             return CommunityFolder;
@@ -116,16 +127,25 @@ namespace MobiFlight.SimConnectMSFS
         {
             foreach (string basePath in basePaths)
             {
-                string userCfgPath = Path.Combine(basePath, "UserCfg.opt");
-                if (!File.Exists(userCfgPath))
+                try
                 {
-                    Log.Instance.log($"No UserCfg found at {userCfgPath}", LogSeverity.Debug);
-                    continue;
-                }
+                    string userCfgPath = Path.Combine(basePath, "UserCfg.opt");
+                    if (!File.Exists(userCfgPath))
+                    {
+                        Log.Instance.log($"No UserCfg found at {userCfgPath}", LogSeverity.Debug);
+                        continue;
+                    }
 
-                return ExtractCommunityFolderFromUserCfg(userCfgPath);
+                    return ExtractCommunityFolderFromUserCfg(userCfgPath);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception but continue searching other paths
+                    Log.Instance.log($"Error while trying to locate UserCfg.opt in \"{basePath}\": {ex.Message}", LogSeverity.Error);
+                }
             }
 
+            // If we reach here, none of the provided paths contained a valid UserCfg.opt file or community folder
             return null;
         }
 
