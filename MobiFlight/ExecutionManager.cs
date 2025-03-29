@@ -72,6 +72,8 @@ namespace MobiFlight
         private readonly Timer testModeTimer = new Timer();
         int testModeIndex = 0;
 
+        private readonly Timer frontendUpdateTimer = new Timer();
+
         /// Window handle
         private IntPtr handle = new IntPtr(0);
 
@@ -116,8 +118,6 @@ namespace MobiFlight
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
         OutputConfigItem ConfigItemInTestMode = null;
-
-        Dictionary<string, IConfigItem> lastUpdatedValues = new Dictionary<string, IConfigItem>();
 
         public ExecutionManager(IntPtr handle)
         {
@@ -187,6 +187,9 @@ namespace MobiFlight
                 midiBoardManager.Startup();
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
             };
+
+            frontendUpdateTimer.Interval = 200;
+            frontendUpdateTimer.Tick += (s,e) => UpdateInputPreconditions();
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
@@ -473,6 +476,7 @@ namespace MobiFlight
             // on start actions are executed
             // otherwise the input events will not be executed.
             timer.Enabled = true;
+            frontendUpdateTimer.Enabled = true;
 
             // Now we can execute the on start actions
             OnStartActions();
@@ -484,6 +488,7 @@ namespace MobiFlight
         public void Stop()
         {
             timer.Enabled = false;
+            frontendUpdateTimer.Enabled = false;
             isExecuting = false;
 #if ARCAZE
             arcazeCache.Clear();
@@ -1728,37 +1733,37 @@ namespace MobiFlight
 
         private void UpdateInputPreconditions()
         {
-            foreach (var cfg in ConfigItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
+            var changedConfigs = new List<IConfigItem>();
+
+            foreach (var cfgItem in ConfigItems)
             {
                 try
                 {
-                    if (!cfg.Active) continue;
+                    if (!cfgItem.Active) continue;
 
-                    // item currently created and not saved yet.
+                    var cfg = cfgItem as InputConfigItem;
+                    // this is not a input config item
                     if (cfg == null) continue;
+
+                    var originalCfg = cfgItem.Clone() as InputConfigItem;
 
                     // if there are preconditions check and skip if necessary
                     if (cfg.Preconditions.Count > 0)
                     {
                         ConnectorValue currentValue = new ConnectorValue();
                         
-                        bool changed = false;
-                        
                         if (!CheckPrecondition(cfg, currentValue))
                         {
-                            // REDSIGN: Review if needed
-                            changed = !cfg.Status.ContainsKey(ConfigItemStatusType.Precondition);
                             cfg.Status.Add(ConfigItemStatusType.Precondition, "not satisfied");
                         }
                         else
                         {
-                            changed = cfg.Status.ContainsKey(ConfigItemStatusType.Precondition);
                             cfg.Status.Remove(ConfigItemStatusType.Precondition);
                         }
 
-                        if (changed)
+                        if (!cfg.Status.SequenceEqual(originalCfg.Status))
                         {
-                            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+                            changedConfigs.Add(cfg);
                         }
                     }
                 }
@@ -1767,6 +1772,11 @@ namespace MobiFlight
                     // probably the last row with no settings object 
                     continue;
                 }
+            }
+
+            if (changedConfigs.Count > 0)
+            {
+                MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(changedConfigs));
             }
         }
 
