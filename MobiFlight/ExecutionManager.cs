@@ -683,11 +683,9 @@ namespace MobiFlight
             var updatedValues = new Dictionary<string, IConfigItem>();
 
             // iterate over the config row by row
-            foreach (var item in ConfigItems.Where(i => i?.GetType() == typeof(OutputConfigItem)))
+            foreach (var item in ConfigItems)
             {
                 var cfg = item as OutputConfigItem;
-
-                if (!cfg.Active) continue;
 
                 if (cfg == null)
                 {
@@ -695,10 +693,11 @@ namespace MobiFlight
                     continue;
                 }
 
+                if (!cfg.Active) continue;
+
                 // Don't execute a config that we are currently manually testing.
                 var currentGuid = cfg.GUID;
                 var originalCfg = cfg.Clone() as ConfigItem;
-                cfg.Status.Clear();
 
                 if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == currentGuid)
                 {
@@ -743,7 +742,6 @@ namespace MobiFlight
                 cfg.Value = processedValue.ToString();
 
                 List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
-                cfg.Status.Remove(ConfigItemStatusType.Modifier);
 
                 try
                 {
@@ -771,6 +769,7 @@ namespace MobiFlight
 
                 try
                 {
+                    var precondition = true;
                     // check preconditions
                     if (!CheckPrecondition(cfg, processedValue))
                     {
@@ -784,7 +783,7 @@ namespace MobiFlight
                             {
                                 updatedValues[cfg.GUID] = cfg;
                             }
-                            // continue;
+                            precondition = false;
                         }
                         else
                         {
@@ -798,8 +797,11 @@ namespace MobiFlight
                         //if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
                         //    row.ErrorText = "";
                     }
-                    cfg.Status.Remove(ConfigItemStatusType.Device);
+                    if (precondition)
+                    {
+                        cfg.Status.Remove(ConfigItemStatusType.Precondition);
                     ExecuteDisplay(processedValue.ToString(), cfg);
+                }
                 }
                 catch (JoystickNotConnectedException jEx)
                 {
@@ -829,12 +831,11 @@ namespace MobiFlight
 
             if (updatedValues.Count > 0)
             {
-                var update = new ConfigValuePartialUpdate(updatedValues.Values.ToList());
+                var list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
+                // Replace the line causing the error with the following line
+                var update = new ConfigValueRawAndFinalUpdate(list);
                 MessageExchange.Instance.Publish(update);
             }
-
-            UpdateInputPreconditions();
-
             isExecuting = false;
         }
 

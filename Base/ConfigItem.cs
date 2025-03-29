@@ -7,10 +7,37 @@ using System.Linq;
 
 namespace MobiFlight.Base
 {
-    [JsonConverter(typeof(ConfigItemConverter))]
-    public interface IConfigItem
+    [JsonConverter(typeof(ConfigValueOnlyItemConverter))]
+    public interface IConfigValueOnlyItem
     {
         string GUID { get; set; }
+        string RawValue { get; set; }
+        string Value { get; set; }
+    }
+
+    public class ConfigValueOnlyItem : IConfigValueOnlyItem
+    {
+        public string GUID { get; set; }
+        public string RawValue { get; set; }
+        public string Value { get; set; }
+        public ConfigValueOnlyItem() { }
+        public ConfigValueOnlyItem(IConfigValueOnlyItem item)
+        {
+            GUID = item.GUID.Clone() as string;
+            RawValue = item.RawValue.Clone() as string;
+            Value = item.Value.Clone() as string;
+        }
+        public ConfigValueOnlyItem(string guid, string rawValue, string value)
+        {
+            GUID = guid;
+            RawValue = rawValue;
+            Value = value;
+        }
+    }
+
+    [JsonConverter(typeof(ConfigItemConverter))]
+    public interface IConfigItem : IConfigValueOnlyItem
+    {
         bool Active { get; set; }
         string Type { get; }
         string Name { get; set; }
@@ -18,8 +45,6 @@ namespace MobiFlight.Base
         PreconditionList Preconditions { get; set; }
         ModifierList Modifiers { get; set; }
         ConfigRefList ConfigRefs { get; set; }
-        string RawValue { get; set; }
-        string Value { get; set; }
         IDeviceConfig Device { get; }
         Dictionary<ConfigItemStatusType, string> Status { get; set; }
 
