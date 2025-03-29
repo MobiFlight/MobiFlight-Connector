@@ -9,13 +9,14 @@ import {
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
+import React from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableFinalValueCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableFinalValueCell = ({
+const ConfigItemTableFinalValueCell = React.memo(({
   row,
 }: ConfigItemTableFinalValueCellProps) => {
   const item = row.original as IConfigItem
@@ -62,6 +63,6 @@ const ConfigItemTableFinalValueCell = ({
       )}
     </div>
   )
-}
+})
 
 export default ConfigItemTableFinalValueCell

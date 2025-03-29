@@ -8,11 +8,12 @@ import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import { IDictionary, ConfigItemStatusType } from "@/types/config";
 import StackedIcons from "@/components/icons/StackedIcons"
+import React from "react"
 
 interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
+const ConfigItemTableDeviceCell = React.memo(({ row }: ConfigItemTableDeviceCellProps) => {
   const { t } = useTranslation()
   const item = row.original as IConfigItem
   const Status = row.getValue("Status") as IDictionary<string, ConfigItemStatusType>;
@@ -56,6 +57,6 @@ const ConfigItemTableDeviceCell = ({ row }: ConfigItemTableDeviceCellProps) => {
     </div>
     </ToolTip>
   )
-}
+})
 
 export default ConfigItemTableDeviceCell

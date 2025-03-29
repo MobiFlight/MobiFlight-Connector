@@ -5,13 +5,14 @@ import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem, IDeviceConfig } from "@/types/config"
 import { IconCircleCheck, IconEdit, IconX } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
+import React from "react"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
+const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProps) => {
   const { publish } = publishOnMessageExchange()
   const [isEditing, setIsEditing] = useState(false)
   const [label, setLabel] = useState(row.getValue("Name") as string)
@@ -101,6 +102,6 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
       )}
     </div>
   )
-}
+})
 
 export default ConfigItemTableNameCell

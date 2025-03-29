@@ -13,7 +13,8 @@
     "AnalogInput": "Analog Input",
     "-": "not set",
     "OutputConfigItem": "Output Configuration",
-    "InputConfigItem": "Input Configuration"
+    "InputConfigItem": "Input Configuration",
+    "InputAction": "Input Action"
   },
   "ConfigList": {
     "Toolbar": {

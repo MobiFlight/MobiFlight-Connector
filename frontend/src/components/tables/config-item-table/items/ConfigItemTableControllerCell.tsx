@@ -5,13 +5,14 @@ import { CommandConfigContextMenu } from "@/types/commands"
 import { IconBan, IconExternalLink } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash"
+import React from "react"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableControllerCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableControllerCell = ({
+const ConfigItemTableControllerCell = React.memo(({
   row,
 }: ConfigItemTableControllerCellProps) => {
   const { t } = useTranslation()
@@ -63,6 +64,6 @@ const ConfigItemTableControllerCell = ({
       </span>
     </ToolTip>
   )
-}
+})
 
 export default ConfigItemTableControllerCell

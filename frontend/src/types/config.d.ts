@@ -4,8 +4,14 @@ import { DeviceElementType } from "./deviceElements"
 export interface IDictionary<T, K extends string | number | symbol> {
   [Key in K]: T
 }
-export interface IConfigItem {
+
+export interface IConfigValueOnlyItem {
   GUID: string
+  RawValue?: string | null
+  Value?: string | null
+}
+
+export interface IConfigItem extends IConfigValueOnlyItem {
   Active: boolean
   Type: string
   // This is the name of the config item
@@ -18,8 +24,6 @@ export interface IConfigItem {
   DeviceName?: string | null
   DeviceType: DeviceElementType | string
   // Tags: string[];
-  RawValue?: string | null
-  Value?: string | null
   Status: IDictionary<string, ConfigItemStatusType>
 }
 
