@@ -119,6 +119,7 @@ namespace MobiFlight
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
         OutputConfigItem ConfigItemInTestMode = null;
+        Dictionary<string, IConfigItem>  updatedValues = new Dictionary<string, IConfigItem>();
 
         public ExecutionManager(IntPtr handle)
         {
@@ -190,7 +191,24 @@ namespace MobiFlight
             };
 
             frontendUpdateTimer.Interval = 200;
-            frontendUpdateTimer.Tick += (s, e) => UpdateInputPreconditions();
+            frontendUpdateTimer.Tick += (s, e) =>
+            {
+                
+                if (updatedValues.Count > 0)
+                {
+                    var list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
+                    // Replace the line causing the error with the following line
+                    var update = new ConfigValueRawAndFinalUpdate(list);
+                    MessageExchange.Instance.Publish(update);
+                }
+
+                lock (updatedValues)
+                {
+                    updatedValues.Clear();
+                }
+
+                UpdateInputPreconditions();
+            };
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
@@ -687,7 +705,6 @@ namespace MobiFlight
             arcazeCache.clearGetValues();
 #endif
 
-            var updatedValues = new Dictionary<string, IConfigItem>();
             var executor = new ConfigItemExecutor(ConfigItems, 
                                                   arcazeCache, 
                                                   fsuipcCache, 
@@ -707,13 +724,6 @@ namespace MobiFlight
                 executor.Execute(cfg, updatedValues);
             }
 
-            if (updatedValues.Count > 0)
-            {
-                var list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
-                // Replace the line causing the error with the following line
-                var update = new ConfigValueRawAndFinalUpdate(list);
-                MessageExchange.Instance.Publish(update);
-            }
             isExecuting = false;
         }
 
