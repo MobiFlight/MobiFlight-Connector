@@ -188,8 +188,8 @@ namespace MobiFlight.Modifier
             var interpolation = (obj as Interpolation);
             
             return
-                Max == interpolation.Max &&
-                Min == interpolation.Min &&
+                // Max == interpolation.Max &&
+                // Min == interpolation.Min &&
                 Count == interpolation.Count &&
                 Active == interpolation.Active &&
                 Values.Keys.SequenceEqual(interpolation.Values.Keys) &&
