@@ -12,7 +12,7 @@ namespace MobiFlight.Execution
             ConnectorValue currentValue, 
             List<IConfigItem> configItems, 
             ArcazeCache arcazeCache, 
-            MobiFlightCache mobiFlightCache
+            MobiFlightCacheInterface mobiFlightCache
         )
         {
             bool finalResult = true;

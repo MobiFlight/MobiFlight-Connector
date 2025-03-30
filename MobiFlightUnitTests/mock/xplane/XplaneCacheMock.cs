@@ -21,6 +21,7 @@ namespace MobiFlightUnitTests.mock.xplane
         public event EventHandler Closed { add { } remove { } }
         public event EventHandler ConnectionLost { add { } remove { } }
         public event EventHandler Connected { add { } remove { } }
+        public event EventHandler<string> AircraftChanged { add { } remove { } }
 
         internal void Clear()
         {

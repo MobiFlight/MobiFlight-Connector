@@ -24,7 +24,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ARCAZE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
@@ -100,6 +100,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
+    <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
     <Compile Include="MobiFlight\MobiFlightLedModuleTests.cs" />

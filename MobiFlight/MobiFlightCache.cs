@@ -847,7 +847,7 @@ namespace MobiFlight
             return result;
         }
 
-        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
+        public void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
         {
             if (serial == null)
             {

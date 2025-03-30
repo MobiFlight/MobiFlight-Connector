@@ -16,10 +16,10 @@ namespace MobiFlight.Execution
 #if ARCAZE
         private readonly ArcazeCache arcazeCache;
 #endif
-        private readonly Fsuipc2Cache fsuipcCache;
-        private readonly SimConnectCache simConnectCache;
-        private readonly XplaneCache xplaneCache;
-        private readonly MobiFlightCache mobiFlightCache;
+        private readonly FSUIPCCacheInterface fsuipcCache;
+        private readonly SimConnectCacheInterface simConnectCache;
+        private readonly XplaneCacheInterface xplaneCache;
+        private readonly MobiFlightCacheInterface mobiFlightCache;
         private readonly JoystickManager joystickManager;
         private readonly MidiBoardManager midiBoardManager;
         private readonly InputActionExecutionCache inputActionExecutionCache;
@@ -31,10 +31,10 @@ namespace MobiFlight.Execution
 #if ARCAZE
             ArcazeCache arcazeCache,
 #endif
-            Fsuipc2Cache fsuipcCache,
-            SimConnectCache simConnectCache,
-            XplaneCache xplaneCache,
-            MobiFlightCache mobiFlightCache,
+            FSUIPCCacheInterface fsuipcCache,
+            SimConnectCacheInterface simConnectCache,
+            XplaneCacheInterface xplaneCache,
+            MobiFlightCacheInterface mobiFlightCache,
             JoystickManager joystickManager,
             MidiBoardManager midiBoardManager,
             InputActionExecutionCache inputActionExecutionCache,
