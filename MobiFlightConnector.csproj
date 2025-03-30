@@ -316,6 +316,7 @@
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\DeviceType.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutor.cs" />
+    <Compile Include="MobiFlight\Execution\PreconditionChecker.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />

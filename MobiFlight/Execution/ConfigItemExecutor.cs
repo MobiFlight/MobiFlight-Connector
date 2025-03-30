@@ -123,7 +123,7 @@ namespace MobiFlight.Execution
             try
             {
                 var precondition = true;
-                if (!CheckPrecondition(cfg, processedValue))
+                if (!PreconditionChecker.CheckPrecondition(cfg, processedValue, ConfigItems, arcazeCache, mobiFlightCache))
                 {
                     if (!cfg.Preconditions.ExecuteOnFalse)
                     {
@@ -525,69 +525,6 @@ namespace MobiFlight.Execution
             }
 
             return value.ToString();
-        }
-
-        private bool CheckPrecondition(ConfigItem cfg, ConnectorValue currentValue)
-        {
-            bool finalResult = true;
-            bool result = true;
-            bool logicOr = false;
-
-            foreach (Precondition p in cfg.Preconditions)
-            {
-                if (!p.PreconditionActive)
-                {
-                    continue;
-                }
-
-                switch (p.PreconditionType)
-                {
-                    case "pin":
-                        string serial = SerialNumber.ExtractSerial(p.PreconditionSerial);
-                        string val = arcazeCache.getValue(serial, p.PreconditionPin, "repeat");
-
-                        result = p.Evaluate(val, currentValue);
-                        break;
-
-                    case "variable":
-                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.PreconditionRef);
-                        if (variableValue == null) break;
-
-                        result = p.Evaluate(variableValue);
-                        break;
-
-                    case "config":
-                        foreach (var outputConfig in ConfigItems)
-                        {
-                            if (outputConfig.GUID != p.PreconditionRef) continue;
-
-                            if (!outputConfig.Active) break;
-
-                            if (outputConfig.Value == null) break;
-
-                            string value = outputConfig.Value;
-
-                            if (value == "") break;
-
-                            result = p.Evaluate(value, currentValue);
-                            break;
-                        }
-                        break;
-                }
-
-                if (logicOr)
-                {
-                    finalResult |= result;
-                }
-                else
-                {
-                    finalResult &= result;
-                }
-
-                logicOr = (p.PreconditionLogic == "or");
-            }
-
-            return finalResult;
         }
 
         private List<ConfigRefValue> GetRefs(ConfigRefList configRefs)
