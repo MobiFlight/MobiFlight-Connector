@@ -1,6 +1,7 @@
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
@@ -189,7 +190,7 @@ namespace MobiFlight
             };
 
             frontendUpdateTimer.Interval = 200;
-            frontendUpdateTimer.Tick += (s,e) => UpdateInputPreconditions();
+            frontendUpdateTimer.Tick += (s, e) => UpdateInputPreconditions();
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
@@ -502,7 +503,8 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
-            ConfigItems.ForEach(cfg => {
+            ConfigItems.ForEach(cfg =>
+            {
                 cfg?.Status?.Clear();
                 cfg.Value = "";
                 cfg.RawValue = "";
@@ -686,152 +688,23 @@ namespace MobiFlight
 #endif
 
             var updatedValues = new Dictionary<string, IConfigItem>();
+            var executor = new ConfigItemExecutor(ConfigItems, 
+                                                  arcazeCache, 
+                                                  fsuipcCache, 
+                                                  simConnectCache, 
+                                                  xplaneCache, 
+                                                  mobiFlightCache, 
+                                                  joystickManager, 
+                                                  midiBoardManager, 
+                                                  inputActionExecutionCache,
+                                                  ConfigItemInTestMode);
 
-            // iterate over the config row by row
             foreach (var item in ConfigItems)
             {
                 var cfg = item as OutputConfigItem;
+                if (cfg == null || !cfg.Active) continue;
 
-                if (cfg == null)
-                {
-                    // this can happen if a user activates (checkbox) a newly created config
-                    continue;
-                }
-
-                if (!cfg.Active) continue;
-
-                // Don't execute a config that we are currently manually testing.
-                var currentGuid = cfg.GUID;
-                var originalCfg = cfg.Clone() as ConfigItem;
-
-                if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == currentGuid)
-                {
-                    cfg.Status[ConfigItemStatusType.Test] = "TESTING";
-                    if (!cfg.Equals(originalCfg))
-                    {
-                        updatedValues[cfg.GUID] = cfg;
-                    }
-                    continue;
-                }
-
-                // If not connected to FSUIPC show an error message
-                if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
-                {
-                    cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
-                }
-                else
-#if SIMCONNECT
-                // If not connected to SimConnect show an error message
-                if (cfg.Source is SimConnectSource && !simConnectCache.IsConnected())
-                {
-                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
-                }
-                else
-#endif
-                // If not connected to X-Plane show an error message
-                if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
-                {
-                    // TODO: REDESIGN: Review
-                    cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
-                }
-                // In any other case remove the error message
-                else
-                {
-                    cfg.Status.Remove(ConfigItemStatusType.Source);
-                }
-
-                ConnectorValue value = ExecuteRead(cfg);
-                ConnectorValue processedValue = value;
-
-                cfg.RawValue = value.ToString();
-                cfg.Value = processedValue.ToString();
-
-                List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
-
-                try
-                {
-                    processedValue = value;
-                    foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
-                    {
-                        processedValue = modifier.Apply(processedValue, configRefs);
-                    }
-
-                    cfg.Value = processedValue.ToString();
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                    cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
-                    if (!cfg.Equals(originalCfg))
-                    {
-                        updatedValues[cfg.GUID] = cfg;
-                    }
-                    
-                    // We used to `continue` here
-                    // but we want to evaluate the Precondition
-                    // so keep continuing
-                }
-
-                try
-                {
-                    var precondition = true;
-                    // check preconditions
-                    if (!CheckPrecondition(cfg, processedValue))
-                    {
-                        if (!cfg.Preconditions.ExecuteOnFalse)
-                        {
-                            if (!cfg.Status.ContainsKey(ConfigItemStatusType.Precondition) || cfg.Status[ConfigItemStatusType.Precondition] != "not satisfied")
-                            {
-                                cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
-                            }
-                            if (!cfg.Equals(originalCfg))
-                            {
-                                updatedValues[cfg.GUID] = cfg;
-                            }
-                            precondition = false;
-                        }
-                        else
-                        {
-                            processedValue.type = FSUIPCOffsetType.String;
-                            processedValue.String = cfg.Preconditions.FalseCaseValue;
-                        }
-                    }
-                    else
-                    {
-                        // TODO: REDESIGN: Review
-                        //if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
-                        //    row.ErrorText = "";
-                    }
-                    if (precondition)
-                    {
-                        cfg.Status.Remove(ConfigItemStatusType.Precondition);
-                    ExecuteDisplay(processedValue.ToString(), cfg);
-                }
-                }
-                catch (JoystickNotConnectedException jEx)
-                {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = jEx.Message;
-                }
-                catch (MidiBoardNotConnectedException mEx)
-                {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = mEx.Message;
-                }
-                catch (Exception exc)
-                {
-                    // TODO: REDESIGN: Review
-                    String RowDescription = cfg.Name;
-                    Exception resultExc = new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
-                    cfg.Status.Add(ConfigItemStatusType.Device, "NotConnected");
-                    // row.ErrorText = exc.Message;
-                    throw resultExc;
-                }
-
-                if (!originalCfg.Equals(cfg))
-                {
-                    updatedValues[cfg.GUID] = cfg;
-                }
+                executor.Execute(cfg, updatedValues);
             }
 
             if (updatedValues.Count > 0)
@@ -915,47 +788,6 @@ namespace MobiFlight
             } // foreach
 
             return finalResult;
-        }
-
-        private ConnectorValue ExecuteRead(OutputConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-
-            if (cfg.Source is FsuipcSource)
-            {
-                result = FsuipcHelper.executeRead((cfg.Source as FsuipcSource).FSUIPC, fsuipcCache);
-            }
-            else if (cfg.Source is VariableSource)
-            {
-                var source = cfg.Source as VariableSource;
-                if (source.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_NUMBER)
-                {
-                    result.type = FSUIPCOffsetType.Float;
-                    result.Float64 = mobiFlightCache.GetMobiFlightVariable(source.MobiFlightVariable.Name).Number;
-                }
-                else if (source.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_STRING)
-                {
-                    result.type = FSUIPCOffsetType.String;
-                    result.String = mobiFlightCache.GetMobiFlightVariable(source.MobiFlightVariable.Name).Text;
-                }
-            }
-            else if (cfg.Source is XplaneSource)
-            {
-                var source = cfg.Source as XplaneSource;
-                result.type = FSUIPCOffsetType.Float;
-                result.Float64 = xplaneCache.readDataRef(source.XplaneDataRef.Path);
-            }
-            else if (cfg.Source is SimConnectSource)
-            {
-                var source = cfg.Source as SimConnectSource;
-                result.type = simConnectCache.GetSimVar(source.SimConnectValue.Value, out result.String, out result.Float64);
-            }
-            else
-            {
-                Log.Instance.log("Unknown source type: " + cfg.Source.SourceType, LogSeverity.Error);
-            }
-
-            return result;
         }
 
         private string ExecuteDisplay(string value, OutputConfigItem cfg)
@@ -1472,106 +1304,36 @@ namespace MobiFlight
 
         public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
-            if (cfg == null) return;
-
             if (ResetConfigItemInTest)
                 ConfigItemInTestMode = null;
 
-            OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
-
-            if (offCfg.DeviceType == null) return;
-
-            switch (offCfg.DeviceType)
-            {
-                case MobiFlightServo.TYPE:
-                    var servo = offCfg.Device as Servo;
-                    ExecuteDisplay(servo.Min, offCfg);
-                    break;
-
-                case OutputConfig.LcdDisplay.DeprecatedType:
-                    var lcdDisplay = offCfg.Device as LcdDisplay;
-                    lcdDisplay.Lines.Clear();
-                    lcdDisplay.Lines.Add(new string(' ', 20 * 4));
-                    ExecuteDisplay(new string(' ', 20 * 4), offCfg);
-                    break;
-
-                case MobiFlightShiftRegister.TYPE:
-                    // Needs to be called as othewise the default catches it which does not make sense. May be there should not be a default :-)
-                    ExecuteDisplay("0", offCfg);
-                    break;
-
-                case "InputAction":
-                    // Do nothing for the InputAction
-                    break;
-
-
-                case MobiFlightOutput.TYPE:
-                    ExecuteDisplay("0", offCfg);
-                    break;
-
-                // case ArcazeLedDigit.TYPE:
-                case MobiFlightLedModule.TYPE:
-                    var ledModule = offCfg.Device as LedModule;
-                    ledModule.DisplayLedDecimalPoints = new List<string>();
-                    ExecuteDisplay("        ", offCfg);
-                    break;
-
-            }
-
-            cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            var executor = new ConfigItemExecutor(ConfigItems,
+                                                  arcazeCache,
+                                                  fsuipcCache,
+                                                  simConnectCache,
+                                                  xplaneCache,
+                                                  mobiFlightCache,
+                                                  joystickManager,
+                                                  midiBoardManager,
+                                                  inputActionExecutionCache,
+                                                  ConfigItemInTestMode);
+            executor.ExecuteTestOff(cfg);
         }
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
+            var executor = new ConfigItemExecutor(ConfigItems,
+                                                  arcazeCache,
+                                                  fsuipcCache,
+                                                  simConnectCache,
+                                                  xplaneCache,
+                                                  mobiFlightCache,
+                                                  joystickManager,
+                                                  midiBoardManager,
+                                                  inputActionExecutionCache,
+                                                  ConfigItemInTestMode);
+            executor.ExecuteTestOn(cfg, value);
             ConfigItemInTestMode = cfg;
-
-            if (cfg.DeviceType == null) return;
-
-            switch (cfg.DeviceType)
-            {
-                // the following execute displays assume that
-                //
-                // case 1) inside the config wizard, when we hit the test button
-                // we will have an actual connector value, we use it - even if it is the empty string.
-                //
-                // case 2) when we trigger the global test mode
-                // we won't have an actual connector value, and then
-                // we will use a static test string, that is specific to the device.
-                case MobiFlightStepper.TYPE:
-                    var stepper = cfg.Device as OutputConfig.Stepper;
-                    ExecuteDisplay(value?.ToString() ?? stepper.TestValue.ToString(), cfg);
-                    break;
-
-                case MobiFlightServo.TYPE:
-                    var servo = cfg.Device as OutputConfig.Servo;
-                    ExecuteDisplay(value?.ToString() ?? servo.Max, cfg);
-                    break;
-
-                case ArcazeLedDigit.TYPE:
-                case OutputConfig.LcdDisplay.DeprecatedType:
-                    ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
-                    break;
-
-                case MobiFlightShiftRegister.TYPE:
-                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
-                    break;
-
-                case MobiFlightCustomDevice.TYPE:
-                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
-                    break;
-
-                case "InputAction":
-                    // Do nothing for the InputAction
-                    break;
-
-                default:
-                    ExecuteDisplay(value?.ToString() ?? "255", cfg);
-                    break;
-            }
-
-            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
         }
 
 
@@ -1733,7 +1495,7 @@ namespace MobiFlight
 
         private void UpdateInputPreconditions()
         {
-            var changedConfigs = new List<IConfigItem>();
+            var changedConfigs = new List<IConfigValueOnlyItem>();
 
             foreach (var cfgItem in ConfigItems)
             {
@@ -1751,7 +1513,7 @@ namespace MobiFlight
                     if (cfg.Preconditions.Count > 0)
                     {
                         ConnectorValue currentValue = new ConnectorValue();
-                        
+
                         if (!CheckPrecondition(cfg, currentValue))
                         {
                             cfg.Status.Add(ConfigItemStatusType.Precondition, "not satisfied");
@@ -1776,7 +1538,7 @@ namespace MobiFlight
 
             if (changedConfigs.Count > 0)
             {
-                MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(changedConfigs));
+                MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(changedConfigs));
             }
         }
 

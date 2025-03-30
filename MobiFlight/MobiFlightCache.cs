@@ -800,7 +800,7 @@ namespace MobiFlight
         {
             if (!variables.Keys.Contains(name))
             {
-                variables[name] = new MobiFlightVariable();
+                variables[name] = new MobiFlightVariable() { Name = name };
             }
 
             return variables[name];

@@ -176,8 +176,8 @@ namespace MobiFlight
             comparison.Active = true;
             comparison.Value = PreconditionValue;
             comparison.Operand = PreconditionOperand;
-            comparison.IfValue = "True";
-            comparison.ElseValue = "False";
+            comparison.IfValue = "1";
+            comparison.ElseValue = "0";
 
             var connectorValue = new ConnectorValue();
             if (value.TYPE == MobiFlightVariable.TYPE_NUMBER)
@@ -193,7 +193,7 @@ namespace MobiFlight
 
             var compResult = comparison.Apply(connectorValue, new List<ConfigRefValue>());
 
-            return compResult.ToString() == "True";
+            return compResult.ToString() == "1";
         }
 
         internal bool Evaluate(string value, ConnectorValue currentValue)
