@@ -30,7 +30,7 @@ const ConfigItemTableRawValueCell = React.memo(({
   const label = row.getValue("RawValue") as string
 
   return (
-    <div className="text-md truncate">
+    <div className="text-md truncate" title="RawValue">
       {!isEmpty(label) && !Source ? (
         item.Type == "InputConfigItem" ? (
           <div className="flex flex-row justify-center">

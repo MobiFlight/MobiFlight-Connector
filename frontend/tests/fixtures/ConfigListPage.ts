@@ -9,6 +9,7 @@ import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
+import { ConfigValueRawAndFinalUpdate } from "@/types/messages"
 
 export class ConfigListPage {
   constructor(public readonly mobiFlightPage: MobiFlightPage) {}
@@ -73,6 +74,23 @@ export class ConfigListPage {
           }
         ],
       } as ConfigValuePartialUpdate,
+    }
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
+  async updateConfigItemRawAndFinalValue (itemIndex: number, RawValue: string, FinalValue: string) {
+    const item = testdata[itemIndex]
+    const message: AppMessage = {
+      key: "ConfigValueRawAndFinalUpdate",
+      payload: {
+        ConfigItems: [
+          {
+            ...item,
+            RawValue: RawValue,
+            Value: FinalValue,
+          }
+        ],
+      } as ConfigValueRawAndFinalUpdate,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
