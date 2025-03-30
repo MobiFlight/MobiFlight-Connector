@@ -1,14 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Base;
+using MobiFlight.Execution;
+using MobiFlight.FSUIPC;
+using MobiFlight.InputConfig;
+using MobiFlight.SimConnectMSFS;
+using MobiFlight.xplane;
 using Moq;
 using System;
 using System.Collections.Generic;
-using MobiFlight.Execution;
-using MobiFlight.FSUIPC;
-using MobiFlight.SimConnectMSFS;
-using MobiFlight.xplane;
-using MobiFlight.InputConfig;
-using MobiFlight.OutputConfig;
-using MobiFlight.Base;
 
 namespace MobiFlight.Tests
 {
@@ -140,6 +139,64 @@ namespace MobiFlight.Tests
 
             // Assert
             mockMobiFlightCache.Verify(m => m.SetServo(It.IsAny<string>(), It.IsAny<string>(), "0", 0, It.IsAny<int>(), It.IsAny<byte>()), Times.Once);
+        }
+
+        [TestMethod]
+        public void Execute_ShouldHandleConfigPreconditionCorrectly_WhereConfigReferenceExists()
+        {
+            // Arrange
+            var config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
+            configItems.Add(config);
+
+            var precondition = new Precondition() { PreconditionType = "config", PreconditionRef = config.GUID, PreconditionValue = "90", PreconditionOperand = "=" };
+            var preconditionList = new PreconditionList();
+            preconditionList.Add(precondition);
+
+            var cfg = new OutputConfigItem { Active = true, Preconditions = preconditionList };
+            var updatedValues = new Dictionary<string, IConfigItem>();
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual("not satisfied", cfg.Status[ConfigItemStatusType.Precondition]);
+            precondition.PreconditionValue = "100";
+
+            // Act
+            updatedValues.Clear();
+            executor.Execute(cfg, updatedValues);
+            // Assert
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(false, cfg.Status.ContainsKey(ConfigItemStatusType.Precondition));
+        }
+
+        [TestMethod]
+        public void Execute_ShouldHandleConfigPreconditionCorrectly_WhereConfigReferenceNotExists()
+        {
+            // Arrange
+            var config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
+            configItems.Add(config);
+
+            // create another config with different GUID
+            config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
+
+            var precondition = new Precondition() { PreconditionType = "config", PreconditionRef = config.GUID, PreconditionValue = "90", PreconditionOperand = "=" };
+            var preconditionList = new PreconditionList();
+            preconditionList.Add(precondition);
+
+            var cfg = new OutputConfigItem { Active = true, Preconditions = preconditionList };
+            var updatedValues = new Dictionary<string, IConfigItem>();
+
+            // Act
+            try
+            {
+                executor.Execute(cfg, updatedValues);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("Config reference not found", e.Message);
+            }
         }
     }
 }
