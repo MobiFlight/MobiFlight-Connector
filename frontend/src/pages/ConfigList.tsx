@@ -22,7 +22,7 @@ const ConfigListPage = () => {
     
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
-    console.log("ConfigValuePartialUpdate", message)
+    console.log("ConfigValuePartialUpdate", message.payload)
     const update = message.payload as ConfigValuePartialUpdate
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
@@ -33,15 +33,17 @@ const ConfigListPage = () => {
   })
 
   useAppMessage("ConfigValueRawAndFinalUpdate", (message) => {
-    console.log("ConfigValueRawAndFinalUpdate", message)
+    console.log("ConfigValueRawAndFinalUpdate", (message.payload as ConfigValueRawAndFinalUpdate))
     const update = message.payload as ConfigValueRawAndFinalUpdate
     // update raw and final values for the store items
     const newItems = configItems.map((item) => {
-      if (item.GUID !== update.ConfigItems[0].GUID) return item
+      const itemIndex = update.ConfigItems.findIndex((i) => i.GUID === item.GUID)
+      if (itemIndex === -1) return item
+
       return {
         ...item,
-        RawValue: update.ConfigItems[0].RawValue,
-        Value: update.ConfigItems[0].Value
+        RawValue: update.ConfigItems[itemIndex].RawValue,
+        Value: update.ConfigItems[itemIndex].Value
       }
     })
     updateItems(newItems)
