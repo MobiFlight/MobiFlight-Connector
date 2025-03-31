@@ -1,24 +1,29 @@
 import { TableBody, TableCell } from "@/components/ui/table"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { flexRender, Table } from "@tanstack/react-table"
+import { flexRender, Row } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
+import { Virtualizer } from "@tanstack/react-virtual"
 
 interface ConfigItemTableBodyProps<TData> {
-  table: Table<TData>
+  virtualizer: Virtualizer<HTMLDivElement, Element>,
+  rows: Row<TData>[] 
 }
 const ConfigItemTableBody = <TData,>({
-  table,
+  virtualizer,
+  rows
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
   return (
     <TableBody className="dark:bg-zinc-900">
       <SortableContext
-        items={table.getRowModel().rows.map((row) => row.id)}
+        items={rows.map((row) => row.id)}
         strategy={verticalListSortingStrategy}
       >
-        {table.getRowModel().rows.map((row) => {
+        {
+          virtualizer.getVirtualItems().map((virtualRow, index) => {
+          const row = rows[virtualRow.index]
           return (
             <DndTableRow
               key={row.id}
@@ -29,6 +34,12 @@ const ConfigItemTableBody = <TData,>({
                   key: "CommandConfigContextMenu",
                   payload: { action: "edit", item: row.original },
                 })
+              }}
+              style={{
+                height: `${virtualRow.size}px`,
+                transform: `translateY(${
+                  virtualRow.start - index * virtualRow.size
+                }px)`,
               }}
             >
               {row.getVisibleCells().map((cell) => {
