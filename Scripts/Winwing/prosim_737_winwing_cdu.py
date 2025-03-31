@@ -349,9 +349,7 @@ def create_mobi_json(xml_string):
             row_data = []
             
             # Process title text (centered by default)
-            # Skip if title is "false" (special case)
-            if title_text and title_text.lower() != "false":
-                # Only process the title text if it's not "false"
+            if title_text:
                 title_parts = title_text.split("¨")
                 title_to_center = title_parts[-1].strip()
                 
