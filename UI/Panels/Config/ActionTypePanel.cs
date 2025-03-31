@@ -42,6 +42,8 @@ namespace MobiFlight.UI.Panels.Config
             ActionTypeComboBox.Items.Add(InputConfig.JeehellInputAction.Label);
             ActionTypeComboBox.Items.Add(InputConfig.LuaMacroInputAction.Label);
 
+            ActionTypeComboBox.Items.Add(InputConfig.ProSimInputAction.Label);
+
             ActionTypeComboBox.SelectedIndex = 0;
             ActionTypeComboBox.SelectedIndexChanged += new EventHandler(ActionTypeComboBox_SelectedIndexChanged);
         }
@@ -108,6 +110,10 @@ namespace MobiFlight.UI.Panels.Config
 
                 case "MobiFlight.InputConfig.XplaneInputAction":
                     ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.XplaneInputAction.Label);
+                    break;
+
+                case "MobiFlight.InputConfig.ProSimInputAction":
+                    ComboBoxHelper.SetSelectedItem(ActionTypeComboBox, MobiFlight.InputConfig.ProSimInputAction.Label);
                     break;
             }
         }

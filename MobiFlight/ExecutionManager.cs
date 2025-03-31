@@ -76,6 +76,7 @@ namespace MobiFlight
         readonly SimConnectCache simConnectCache = new SimConnectCache();
 #endif
         readonly XplaneCache xplaneCache = new XplaneCache();
+        readonly ProSim.ProSimCache proSimCache = new ProSim.ProSimCache();
 
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
@@ -129,6 +130,11 @@ namespace MobiFlight
             xplaneCache.Connected += new EventHandler(simConnect_Connected);
             xplaneCache.Closed += new EventHandler(simConnect_Closed);
             xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
+
+            proSimCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
+            proSimCache.Connected += new EventHandler(simConnect_Connected);
+            proSimCache.Closed += new EventHandler(simConnect_Closed);
+            proSimCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
             arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
@@ -434,6 +440,7 @@ namespace MobiFlight
                 || simConnectCache.IsConnected()
 #endif
                 || xplaneCache.IsConnected()
+                || proSimCache.IsConnected()
                 ;
         }
 
@@ -918,6 +925,11 @@ namespace MobiFlight
                 result.type = FSUIPCOffsetType.Float;
                 result.Float64 = xplaneCache.readDataRef(source.XplaneDataRef.Path);
             }
+            else if (cfg.Source is ProSimSource)
+            {
+                var source = cfg.Source as ProSimSource;
+                result = ProSim.ProSimHelper.executeRead(source.ProSimDataRef.Path, proSimCache);
+            }
             else if (cfg.Source is SimConnectSource)
             {
                 var source = cfg.Source as SimConnectSource;
@@ -1132,6 +1144,7 @@ namespace MobiFlight
                             simConnectCache = simConnectCache,
                             moduleCache = mobiFlightCache,
                             xplaneCache = xplaneCache,
+                            proSimCache = proSimCache,
                             joystickManager = joystickManager
                         };
 
@@ -1330,7 +1343,7 @@ namespace MobiFlight
 
                     if (!fsuipcCache.IsConnected())
                     {
-                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
+                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !proSimCache.IsConnected())
                         {
                             // we don't want to spam the log
                             // in case we have an active connection
@@ -1339,6 +1352,19 @@ namespace MobiFlight
                         }
 
                         fsuipcCache.Connect();
+                    }
+
+                    if (!proSimCache.IsConnected())
+                    {
+                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !fsuipcCache.IsConnected())
+                        {
+                            // we don't want to spam the log
+                            // in case we have an active connection
+                            // through a different type
+                            Log.Instance.log("Trying auto connect to sim via ProSim", LogSeverity.Debug);
+                        }
+
+                        proSimCache.Connect();
                     }
 #if SIMCONNECT
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
@@ -1659,6 +1685,7 @@ namespace MobiFlight
                 fsuipcCache = fsuipcCache,
                 simConnectCache = simConnectCache,
                 xplaneCache = xplaneCache,
+                proSimCache = proSimCache,
                 moduleCache = mobiFlightCache,
                 joystickManager = joystickManager
             };
@@ -1791,6 +1818,10 @@ namespace MobiFlight
             return xplaneCache;
         }
 
+        public ProSim.ProSimCache GetProSimCache()
+        {
+            return proSimCache;
+        }
 
         private void OnStartActions()
         {
@@ -1802,6 +1833,7 @@ namespace MobiFlight
                     fsuipcCache = fsuipcCache,
                     simConnectCache = simConnectCache,
                     xplaneCache = xplaneCache,
+                    proSimCache = proSimCache,
                     moduleCache = mobiFlightCache,
                     joystickManager = joystickManager,
                 }, null, null);

@@ -2510,6 +2510,13 @@ namespace MobiFlight.UI
                          configItems
                         .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(VariableInputAction)).Count > 0);
             }
+            else if (type is ProSimSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is ProSimSource) ||
+                         configItems
+                        .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(ProSimInputAction)).Count > 0);
+            }
             return result;
         }
 

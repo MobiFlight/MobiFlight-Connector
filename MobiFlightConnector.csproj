@@ -177,6 +177,10 @@
     <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.Schema.3.0.15\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
     </Reference>
+    <Reference Include="ProSimSDK, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ProSimSDK.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
       <HintPath>packages\protobuf-net.3.1.33\lib\net462\protobuf-net.dll</HintPath>
     </Reference>
@@ -321,6 +325,7 @@
     <Compile Include="MobiFlight\InputConfig\InputActionFactory.cs" />
     <Compile Include="MobiFlight\InputConfig\InputShiftRegisterConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\MSFS2020CustomInputAction.cs" />
+    <Compile Include="MobiFlight\InputConfig\ProSimInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
@@ -392,6 +397,10 @@
     <Compile Include="MobiFlight\Scripts\ScriptMapping.cs" />
     <Compile Include="MobiFlight\Scripts\ScriptRunner.cs" />
     <Compile Include="MobiFlight\Scripts\ScriptMappings.cs" />
+    <Compile Include="ProSim\ProSimCache.cs" />
+    <Compile Include="ProSim\ProSimCacheInterface.cs" />
+    <Compile Include="ProSim\ProSimDataRef.cs" />
+    <Compile Include="ProSim\ProSimHelper.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
@@ -497,6 +506,12 @@
     <Compile Include="UI\Panels\Action\MSFS2020CustomInputPanel.Designer.cs">
       <DependentUpon>MSFS2020CustomInputPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Action\ProSimInputPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Action\ProSimInputPanel.Designer.cs">
+      <DependentUpon>ProSimInputPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Panels\Action\VariableInputPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -528,6 +543,12 @@
     </Compile>
     <Compile Include="UI\Panels\Config\PreconditionPanel.Designer.cs">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\Config\ProSimDatarefPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Config\ProSimDatarefPanel.Designer.cs">
+      <DependentUpon>ProSimDatarefPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Config\TestValuePanel.cs">
       <SubType>UserControl</SubType>
@@ -1020,6 +1041,12 @@
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SimConnectMSFS\SimConnectCache.cs" />
+    <Compile Include="UI\Panels\Settings\ProSimPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Panels\Settings\ProSimPanel.Designer.cs">
+      <DependentUpon>ProSimPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="VJoy\VJoyExceptions.cs" />
     <Compile Include="VJoy\VJoyHelper.cs" />
     <Compile Include="UI\Panels\Action\VJoyInputPanel.cs">
@@ -1061,6 +1088,9 @@
     <Content Include="Scripts\Winwing\pmdg_777_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="UI\Panels\Settings\ProSimPanel.resx">
+      <DependentUpon>ProSimPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1492,6 +1522,9 @@
     <EmbeddedResource Include="UI\Panels\Action\MSFS2020CustomInputPanel.resx">
       <DependentUpon>MSFS2020CustomInputPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Action\ProSimInputPanel.resx">
+      <DependentUpon>ProSimInputPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Action\VariableInputPanel.de.resx">
       <DependentUpon>VariableInputPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1534,6 +1567,9 @@
     <EmbeddedResource Include="UI\Panels\Config\PreconditionPanel.resx">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Panels\Config\ProSimDatarefPanel.resx">
+      <DependentUpon>ProSimDatarefPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>

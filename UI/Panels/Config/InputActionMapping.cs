@@ -20,7 +20,8 @@ namespace MobiFlight.UI.Panels.Config
             { typeof(MSFS2020EventIdInputAction), MSFS2020EventIdInputAction.Label },
             { typeof(MSFS2020CustomInputAction), MSFS2020CustomInputAction.Label },
             { typeof(VariableInputAction), VariableInputAction.Label },
-            { typeof(XplaneInputAction), XplaneInputAction.Label }
+            { typeof(XplaneInputAction), XplaneInputAction.Label },
+            { typeof(ProSimInputAction), ProSimInputAction.Label }
         };
 
         public static Dictionary<string, Type> InputLabelsToConfigPanelTypes = new Dictionary<string, Type>
@@ -36,7 +37,9 @@ namespace MobiFlight.UI.Panels.Config
             { MSFS2020EventIdInputAction.Label, typeof(MSFS2020CustomInputPanel) },
             { MSFS2020CustomInputAction.Label, typeof(MSFS2020CustomInputPanel) },
             { VariableInputAction.Label, typeof(VariableInputPanel) },
-            { XplaneInputAction.Label, typeof(XplaneInputPanel) }
+            { XplaneInputAction.Label, typeof(XplaneInputPanel) },
+            { ProSimInputAction.Label, typeof(ProSimInputPanel) },
+            //{ ProSimInputPanel }
         };
     }
 }

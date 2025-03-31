@@ -127,6 +127,13 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(_config.onChange as XplaneInputAction);
 
                     break;
+
+                case MobiFlight.InputConfig.ProSimInputAction.Label:
+                    panel = new MobiFlight.UI.Panels.Action.ProSimInputPanel();
+                    if (_config == null && _config.onChange != null)
+                        (panel as MobiFlight.UI.Panels.Action.ProSimInputPanel).syncFromConfig(_config.onChange as ProSimInputAction);
+
+                    break;
             }
 
             if (panel != null)
@@ -203,6 +210,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.XplaneInputAction.Label:
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.XplaneInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.ProSimInputAction.Label:
+                        config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.ProSimInputPanel).ToConfig();
                         break;
 
                     default:
