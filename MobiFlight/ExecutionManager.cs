@@ -928,7 +928,7 @@ namespace MobiFlight
             else if (cfg.Source is ProSimSource)
             {
                 var source = cfg.Source as ProSimSource;
-                result = ProSim.ProSimHelper.executeRead(source.ProSimDataRef.Path, proSimCache);
+                result.Float64 = proSimCache.readDataref(source.ProSimDataRef.Path);
             }
             else if (cfg.Source is SimConnectSource)
             {

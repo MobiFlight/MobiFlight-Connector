@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using MobiFlight.Base;
@@ -21,8 +22,8 @@ namespace MobiFlight.ProSim
         private ProSimConnect _connection;
 
         // Cache of subscribed DataRefs
-        private Dictionary<string, CachedDataRef> _subscribedDataRefs = new Dictionary<string, CachedDataRef>();
-        private Dictionary<string, DataRefDescription> _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
+        private ConcurrentDictionary<string, CachedDataRef> _subscribedDataRefs = new ConcurrentDictionary<string, CachedDataRef>();
+        private ConcurrentDictionary<string, DataRefDescription> _dataRefDescriptions = new ConcurrentDictionary<string, DataRefDescription>();
 
         // Default update frequency (in milliseconds)
         private int DEFAULT_UPDATE_INTERVAL = 100;
@@ -86,7 +87,9 @@ namespace MobiFlight.ProSim
                 _connection.Connect(host);
                 
 
-                _dataRefDescriptions = _connection.getDataRefDescriptions().ToDictionary(drd => drd.Name);
+                _dataRefDescriptions = new ConcurrentDictionary<string, DataRefDescription>(
+                    _connection.getDataRefDescriptions().ToDictionary(drd => drd.Name)
+                );
 
                 // Register connection events
                 _connection.onDisconnect += () => {
@@ -165,12 +168,18 @@ namespace MobiFlight.ProSim
             //cachedRef.DataRefObject.Register();
 
             // Add to our dictionary
-            _subscribedDataRefs.Add(datarefPath, cachedRef);
+            if (!_subscribedDataRefs.TryAdd(datarefPath, cachedRef))
+            {
+                Log.Instance.log($"Failed to subscribe to DataRef: {datarefPath}", LogSeverity.Debug);
 
-            Log.Instance.log($"Subscribed to DataRef: {datarefPath}", LogSeverity.Debug);
+            }
+            else
+            {
+                Log.Instance.log($"Subscribed to DataRef: {datarefPath}", LogSeverity.Debug);
+            }
         }
 
-        public object readDataref(string datarefPath)
+        public double readDataref(string datarefPath)
         {
             if (!IsConnected())
             {
@@ -180,17 +189,19 @@ namespace MobiFlight.ProSim
             try
             {
                 // Check if we already have this DataRef subscribed
-                lock (_subscribedDataRefs)
+
+                
+                if (!_subscribedDataRefs.ContainsKey(datarefPath))
                 {
-                    if (!_subscribedDataRefs.ContainsKey(datarefPath))
-                    {
-                        cacheDataref(datarefPath);
-                    }
-                    
-                    // Return the cached value (continuously updated by the subscription)
-                    var value = _subscribedDataRefs[datarefPath].Value;
-                    return (value == null) ? 0 : Convert.ToDouble(value);
+                    cacheDataref(datarefPath);
                 }
+                
+                // Return the cached value (continuously updated by the subscription)
+                var value = _subscribedDataRefs[datarefPath].Value;
+                var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
+
+
+                return returnValue;
             }
             catch (Exception ex)
             {
@@ -218,15 +229,12 @@ namespace MobiFlight.ProSim
             {
                 // For writes, we can use either a cached DataRef or create a temporary one
                 CachedDataRef dataRef;
-                
-                lock (_subscribedDataRefs)
-                {
-                    if (!_subscribedDataRefs.ContainsKey(datarefPath))
-                    {
-                        cacheDataref(datarefPath);
-                    }
-                }
 
+                if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                {
+                    cacheDataref(datarefPath);
+                }
+                
                 dataRef = _subscribedDataRefs[datarefPath];
 
                 var transformedValue = value;

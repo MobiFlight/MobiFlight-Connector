@@ -400,7 +400,6 @@
     <Compile Include="ProSim\ProSimCache.cs" />
     <Compile Include="ProSim\ProSimCacheInterface.cs" />
     <Compile Include="ProSim\ProSimDataRef.cs" />
-    <Compile Include="ProSim\ProSimHelper.cs" />
     <Compile Include="SimConnectMSFS\SimConnectCacheInterface.cs" />
     <Compile Include="SimConnectMSFS\WasmModuleClient.cs" />
     <Compile Include="SimConnectMSFS\SimConnectDefinitions.cs" />
