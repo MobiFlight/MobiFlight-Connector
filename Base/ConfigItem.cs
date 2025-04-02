@@ -18,14 +18,16 @@ namespace MobiFlight.Base
     public class ConfigValueOnlyItem : IConfigValueOnlyItem
     {
         public string GUID { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string RawValue { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
         public ConfigValueOnlyItem() { }
         public ConfigValueOnlyItem(IConfigValueOnlyItem item)
         {
             GUID = item.GUID.Clone() as string;
-            RawValue = item.RawValue.Clone() as string;
-            Value = item.Value.Clone() as string;
+            RawValue = item.RawValue?.Clone() as string;
+            Value = item.Value?.Clone() as string;
         }
         public ConfigValueOnlyItem(string guid, string rawValue, string value)
         {

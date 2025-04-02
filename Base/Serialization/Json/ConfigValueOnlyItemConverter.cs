@@ -21,12 +21,22 @@ namespace MobiFlight.Base.Serialization.Json
                 return;
             }
 
-            JObject obj = new JObject
-        {
-            { nameof(IConfigValueOnlyItem.GUID), JToken.FromObject(configValueOnlyItem.GUID) },
-            { nameof(IConfigValueOnlyItem.RawValue), JToken.FromObject(configValueOnlyItem.RawValue) },
-            { nameof(IConfigValueOnlyItem.Value), JToken.FromObject(configValueOnlyItem.Value) }
-        };
+            JObject obj = new JObject();
+
+            if (configValueOnlyItem.GUID != null)
+            {
+                obj.Add(nameof(IConfigValueOnlyItem.GUID), JToken.FromObject(configValueOnlyItem.GUID));
+            }
+
+            if (configValueOnlyItem.RawValue != null)
+            {
+                obj.Add(nameof(IConfigValueOnlyItem.RawValue), JToken.FromObject(configValueOnlyItem.RawValue));
+            }
+
+            if (configValueOnlyItem.Value != null)
+            {
+                obj.Add(nameof(IConfigValueOnlyItem.Value), JToken.FromObject(configValueOnlyItem.Value));
+            }
 
             obj.WriteTo(writer);
         }

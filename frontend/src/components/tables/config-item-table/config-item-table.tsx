@@ -90,7 +90,7 @@ export function ConfigItemTable<TData, TValue>({
     count: rows.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 50,
-    overscan: 5,
+    overscan: 5
   });
 
   const { publish } = publishOnMessageExchange()
