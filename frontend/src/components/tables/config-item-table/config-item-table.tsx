@@ -89,7 +89,7 @@ export function ConfigItemTable<TData, TValue>({
   const virtualizer = useVirtualizer({
     count: rows.length,
     getScrollElement: () => parentRef.current,
-    estimateSize: () => 10,
+    estimateSize: () => 50,
     overscan: 5,
   });
 
@@ -152,6 +152,26 @@ export function ConfigItemTable<TData, TValue>({
     [data, setItems],
   )
 
+  const handleAddOutputConfig = useCallback(() => {
+    publish({
+      key: "CommandAddConfigItem",
+      payload: {
+        name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
+        type: "OutputConfig",
+      },
+    } as CommandAddConfigItem)
+  }, [ publish, t])
+
+  const handleAddInputConfig = useCallback(() => {
+    publish({
+      key: "CommandAddConfigItem",
+      payload: {
+        name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
+        type: "InputConfig",
+      },
+    } as CommandAddConfigItem)
+  }, [ publish, t])
+
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
       {data.length > 0 ? (
@@ -210,30 +230,14 @@ export function ConfigItemTable<TData, TValue>({
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
-          onClick={() =>
-            publish({
-              key: "CommandAddConfigItem",
-              payload: {
-                name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
-                type: "OutputConfig",
-              },
-            } as CommandAddConfigItem)
-          }
+          onClick={handleAddOutputConfig}
         >
           {t("ConfigList.Actions.OutputConfigItem.Add")}
         </Button>
         <Button
           variant={"outline"}
           className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-          onClick={() =>
-            publish({
-              key: "CommandAddConfigItem",
-              payload: {
-                name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
-                type: "InputConfig",
-              },
-            } as CommandAddConfigItem)
-          }
+          onClick={handleAddInputConfig}
         >
           {t("ConfigList.Actions.InputConfigItem.Add")}
         </Button>
