@@ -9,6 +9,7 @@ export interface IConfigValueOnlyItem {
   GUID: string
   RawValue?: string | null
   Value?: string | null
+  Status: IDictionary<string, ConfigItemStatusType>
 }
 
 export interface IConfigItem extends IConfigValueOnlyItem {

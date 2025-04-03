@@ -43,13 +43,12 @@ const ConfigListPage = () => {
       return {
         ...item,
         RawValue: update.ConfigItems[itemIndex].RawValue,
-        Value: update.ConfigItems[itemIndex].Value
+        Value: update.ConfigItems[itemIndex].Value,
+        Status: update.ConfigItems[itemIndex].Status,
       }
     })
     updateItems(newItems)
-  })
-
-  
+  })  
 
   useAppMessage("ConfigValueFullUpdate", (message) => {
     console.log("ConfigValueFullUpdate", message)
