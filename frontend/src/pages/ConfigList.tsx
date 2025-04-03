@@ -36,17 +36,17 @@ const ConfigListPage = () => {
     console.log("ConfigValueRawAndFinalUpdate", (message.payload as ConfigValueRawAndFinalUpdate))
     const update = message.payload as ConfigValueRawAndFinalUpdate
     // update raw and final values for the store items
-    const newItems = configItems.map((item) => {
-      const itemIndex = update.ConfigItems.findIndex((i) => i.GUID === item.GUID)
-      if (itemIndex === -1) return item
+    const newItems = update.ConfigItems.map((newItem) => {
+      const item = configItems.find((i) => i.GUID === newItem.GUID)
+      if (item === undefined) return newItem
 
       return {
         ...item,
-        RawValue: update.ConfigItems[itemIndex].RawValue,
-        Value: update.ConfigItems[itemIndex].Value,
-        Status: update.ConfigItems[itemIndex].Status,
+        RawValue: newItem.RawValue,
+        Value: newItem.Value,
+        Status: newItem.Status,
       }
-    })
+    }) as IConfigItem[]
     updateItems(newItems)
   })  
 
