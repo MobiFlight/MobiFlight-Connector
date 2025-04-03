@@ -1207,7 +1207,7 @@ namespace MobiFlight
 
                         if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, arcazeCache, mobiFlightCache))
                         {
-                            cfg.Status.Add(ConfigItemStatusType.Precondition, "not satisfied");
+                            cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
                         }
                         else
                         {

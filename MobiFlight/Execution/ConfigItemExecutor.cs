@@ -151,11 +151,13 @@ namespace MobiFlight.Execution
             {
                 // TODO: REDESIGN: Review
                 // row.ErrorText = jEx.Message;
+                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
             }
             catch (MidiBoardNotConnectedException mEx)
             {
                 // TODO: REDESIGN: Review
                 // row.ErrorText = mEx.Message;
+                cfg.Status[ConfigItemStatusType.Device] = "NotConnected";
             }
             catch (Exception exc)
             {
@@ -331,7 +333,8 @@ namespace MobiFlight.Execution
                 else
                 {
                     var joystickName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
-                    throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
+                    // throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
+                    return i18n._tr($"{joystickName} not connected");
                 }
             }
             else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DeviceType != "InputAction")
@@ -346,7 +349,8 @@ namespace MobiFlight.Execution
                 else
                 {
                     var midiBoardName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
-                    throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
+                    return i18n._tr($"{midiBoardName} not connected");
+                    // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
             else if (serial.IndexOf("SN") != 0 && cfg.DeviceType != "InputAction")
