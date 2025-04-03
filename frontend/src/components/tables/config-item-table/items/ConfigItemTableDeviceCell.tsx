@@ -26,8 +26,7 @@ const ConfigItemTableDeviceCell = React.memo(({ row }: ConfigItemTableDeviceCell
     (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
   const icon = (
     <DeviceIcon
-      
-      disabled={item.Active}
+      disabled={!item.Active}
       variant={(type ?? "default") as DeviceElementType}
     />
   )
