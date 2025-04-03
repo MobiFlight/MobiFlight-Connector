@@ -1,7 +1,6 @@
 using MobiFlight.Base;
-using System;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.Execution
 {
@@ -25,7 +24,7 @@ namespace MobiFlight.Execution
                 {
                     continue;
                 }
-
+                
                 switch (p.PreconditionType)
                 {
 #if ARCAZE
