@@ -1529,6 +1529,8 @@ namespace MobiFlight.UI
                     this.WindowState = FormWindowState.Normal;
                 this.BringToFront();
             }
+
+            execManager?.OnMinimize(minimized);
         } //minimizeMainForm()
 
         /// <summary>

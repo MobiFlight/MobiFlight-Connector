@@ -120,6 +120,7 @@ namespace MobiFlight
 
         OutputConfigItem ConfigItemInTestMode = null;
         Dictionary<string, IConfigItem>  updatedValues = new Dictionary<string, IConfigItem>();
+        bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
         {
@@ -193,6 +194,8 @@ namespace MobiFlight
             frontendUpdateTimer.Interval = 200;
             frontendUpdateTimer.Tick += (s, e) =>
             {
+                if (!updateFrontend) return;
+
                 UpdateInputPreconditions();
 
                 if (updatedValues.Count > 0)
@@ -1293,6 +1296,11 @@ namespace MobiFlight
                     joystickManager = joystickManager,
                 }, null, null);
             }
+        }
+
+        internal void OnMinimize(bool minimized)
+        {
+            updateFrontend = !minimized;
         }
     }
 
