@@ -4,14 +4,11 @@ import { flexRender, Row } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
-import { Virtualizer } from "@tanstack/react-virtual"
 
 interface ConfigItemTableBodyProps<TData> {
-  virtualizer: Virtualizer<HTMLDivElement, Element>,
   rows: Row<TData>[] 
 }
 const ConfigItemTableBody = <TData,>({
-  virtualizer,
   rows
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
@@ -22,8 +19,7 @@ const ConfigItemTableBody = <TData,>({
         strategy={verticalListSortingStrategy}
       >
         {
-          virtualizer.getVirtualItems().map((virtualRow, index) => {
-          const row = rows[virtualRow.index]
+          rows.map((row) => {
           return (
             <DndTableRow
               key={row.id}
@@ -34,12 +30,6 @@ const ConfigItemTableBody = <TData,>({
                   key: "CommandConfigContextMenu",
                   payload: { action: "edit", item: row.original },
                 })
-              }}
-              style={{
-                height: `${virtualRow.size}px`,
-                transform: `translateY(${
-                  virtualRow.start - index * virtualRow.size
-                }px)`,
               }}
             >
               {row.getVisibleCells().map((cell) => {

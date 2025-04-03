@@ -39,7 +39,6 @@ import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
-import { useVirtualizer } from "@tanstack/react-virtual";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -86,12 +85,12 @@ export function ConfigItemTable<TData, TValue>({
   const parentRef = useRef<HTMLDivElement>(null);
   const { rows } = table.getRowModel()
   // Virtualization setup
-  const virtualizer = useVirtualizer({
-    count: rows.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 50,
-    overscan: 5
-  });
+  // const virtualizer = useVirtualizer({
+  //   count: rows.length,
+  //   getScrollElement: () => parentRef.current,
+  //   estimateSize: () => 50,
+  //   overscan: 5
+  // });
 
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
@@ -189,7 +188,7 @@ export function ConfigItemTable<TData, TValue>({
               <div className="flex flex-col overflow-y-auto rounded-lg border border-primary" ref={parentRef}>
                 <Table ref={tableRef} className="table-fixed">
                   <ConfigItemTableHeader table={table} />
-                  <ConfigItemTableBody virtualizer={virtualizer} rows={rows} />
+                  <ConfigItemTableBody rows={rows} />
                 </Table>
               </div>
             </DndContext>
