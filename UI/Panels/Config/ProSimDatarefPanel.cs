@@ -1,8 +1,11 @@
-using ProSimSDK;
+using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.Newtonsoft;
+using MobiFlight.ProSim;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -114,14 +117,44 @@ namespace MobiFlight.UI.Panels.Config
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var proSimConnection = new ProSimConnect();
-            var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
-                ? Properties.Settings.Default.ProSimHost
-                : "localhost";
-            proSimConnection.Connect(host);
+            var host = Properties.Settings.Default.ProSimHost;
+            var port = Properties.Settings.Default.ProSimPort;
+            var _connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
+            Task.Run(() =>
+            {
+                var dataRefDescriptions = _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
+                {
+                    Query = @"
+                {
+                    dataRef {
+                    dataRefDescriptions: list {
+                    		name
+                    		description
+                    		canRead
+                    		canWrite
+                    		dataType
+                    		dataUnit
+                        __typename
+                    }
+                    __typename
+                    }
+                }
+                "
+                }).Result;
 
-            _dataRefDescriptions = proSimConnection.getDataRefDescriptions().ToDictionary(drd => drd.Name);
-            dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
+                _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
+                dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
+            });
+
+
+            //var proSimConnection = new GraphQLHttpClient();
+            //var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
+            //    ? Properties.Settings.Default.ProSimHost
+            //    : "localhost";
+            //proSimConnection.Connect(host);
+
+            //_dataRefDescriptions = proSimConnection.getDataRefDescriptions().ToDictionary(drd => drd.Name);
+            //dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
         }
     }
 

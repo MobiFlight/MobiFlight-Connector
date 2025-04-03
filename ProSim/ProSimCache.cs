@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Threading.Tasks;
+using GraphQL.Client.Abstractions;
+using GraphQL.Client.Abstractions.Websocket;
+using GraphQL.Client.Http;
+using GraphQL.Client.Serializer.Newtonsoft;
 using MobiFlight.Base;
-using ProSimSDK;
 
 namespace MobiFlight.ProSim
 {
@@ -18,15 +23,18 @@ namespace MobiFlight.ProSim
         private string _detectedAircraft = string.Empty;
         private System.Timers.Timer _aircraftNameTimer;
 
+        private readonly object _cacheLock = new object();
+
+
+        private readonly Dictionary<string, IDisposable> _subscriptions = new Dictionary<string, IDisposable>();
+
+
         // ProSim SDK object
-        private ProSimConnect _connection;
+        private GraphQLHttpClient _connection;
 
         // Cache of subscribed DataRefs
-        private ConcurrentDictionary<string, CachedDataRef> _subscribedDataRefs = new ConcurrentDictionary<string, CachedDataRef>();
-        private ConcurrentDictionary<string, DataRefDescription> _dataRefDescriptions = new ConcurrentDictionary<string, DataRefDescription>();
-
-        // Default update frequency (in milliseconds)
-        private int DEFAULT_UPDATE_INTERVAL = 100;
+        private Dictionary<string, CachedDataRef> _subscribedDataRefs = new Dictionary<string, CachedDataRef>();
+        private Dictionary<string, DataRefDescription> _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
 
         // Helper class to store cached values
         private class CachedDataRef
@@ -42,8 +50,6 @@ namespace MobiFlight.ProSim
         {
             _aircraftNameTimer = new System.Timers.Timer(5000);
             _aircraftNameTimer.Elapsed += (s, e) => { CheckForAircraftName(); };
-
-            DEFAULT_UPDATE_INTERVAL = Properties.Settings.Default.PollInterval;
         }
 
         private void CheckForAircraftName()
@@ -73,29 +79,153 @@ namespace MobiFlight.ProSim
             // Clear the cache if needed
         }
 
+        private void SubscribeToDataRef(string datarefPath)
+        {
+            // Skip if we already have a subscription for this dataref
+            if (_subscriptions.ContainsKey(datarefPath))
+                return;
+
+            var subscription = @"
+                subscription ($names: [String!]!) {
+                  dataRefs(names: $names) {
+                    name
+                    value
+                  }
+                }";
+
+            var variables = new
+            {
+                names = new[] { datarefPath }
+            };
+
+            var dataRefObservable = _connection.CreateSubscriptionStream<DataRefSubscriptionResult>(new GraphQL.GraphQLRequest
+            {
+                Query = subscription,
+                Variables = variables
+            });
+
+            var disposable = dataRefObservable.Subscribe(response =>
+            {
+                if (response?.Data != null)
+                {
+                    var dataRef = response.Data.DataRefs;
+                    UpdateCachedValue(dataRef.Name, dataRef.Value);
+                }
+            });
+
+            _subscriptions[datarefPath] = disposable;
+
+            Log.Instance.log($"Created subscription for dataref: {datarefPath}", LogSeverity.Debug);
+        }
+
+        private void UpdateCachedValue(string datarefPath, object value)
+        {
+            lock (_cacheLock)
+            {
+                if (_subscribedDataRefs.TryGetValue(datarefPath, out var cachedRef))
+                {
+                    // Update existing cache entry
+                    cachedRef.Value = value;
+                }
+                else
+                {
+                    // Create new cache entry
+                    _subscribedDataRefs[datarefPath] = new CachedDataRef
+                    {
+                        Path = datarefPath,
+                        Value = value,
+                    };
+                }
+            }
+        }
+
+        Dictionary<string, string> mutationLookup = new Dictionary<string, string>
+        {
+            { "System.Int32", "writeInt" },
+            { "System.Double", "writeFloat" },
+            { "System.Boolean", "writeBoolean" }
+        };
+
+        private void WriteOutValue(string datarefPath, object value)
+        {
+            if (_dataRefDescriptions.TryGetValue(datarefPath, out var description))
+            {
+                if (mutationLookup.TryGetValue(description.DataType, out var method)) {
+
+                    Task.Run(async () => {
+                        var query = $@"
+mutation {{
+	dataRef {{
+		{method}(name: ""{datarefPath}"", value: {value})
+	}}
+}}
+";
+                        await _connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
+                        {
+                            Query = query
+                        });
+                    });
+
+                }
+            }
+
+
+        }
+
         public bool Connect()
         {
             try
             {
                 // Initialize ProSim SDK connection
-                _connection = new ProSimConnect();
                 
                 var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
                     ? Properties.Settings.Default.ProSimHost
                     : "localhost";
 
-                _connection.Connect(host);
-                
+                var port = Properties.Settings.Default.ProSimPort;
 
-                _dataRefDescriptions = new ConcurrentDictionary<string, DataRefDescription>(
-                    _connection.getDataRefDescriptions().ToDictionary(drd => drd.Name)
-                );
+                _connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
+                _connection.InitializeWebsocketConnection();
 
-                // Register connection events
-                _connection.onDisconnect += () => {
-                    _connected = false;
-                    ConnectionLost?.Invoke(this, new EventArgs());
-                };
+                _connection.WebsocketConnectionState.Subscribe(state =>
+                {
+                    if (state == GraphQLWebsocketConnectionState.Connected)
+                    {
+                        Log.Instance.log("Connected to ProSim GraphQL WebSocket!", LogSeverity.Debug);
+                        _connected = true;
+                    }
+                    //else if (state == GraphQLWebsocketConnectionState.Disconnected)
+                    //{
+                    //    _connected = false;
+                    //    ConnectionLost?.Invoke(this, new EventArgs());
+                    //}
+                });
+
+                Task.Run(() =>
+                {
+                    var dataRefDescriptions =  _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
+                    {
+                        Query = @"
+                {
+                    dataRef {
+                    dataRefDescriptions: list {
+                    		name
+                    		description
+                    		canRead
+                    		canWrite
+                    		dataType
+                    		dataUnit
+                        __typename
+                    }
+                    __typename
+                    }
+                }
+                "
+                    }).Result;
+
+                    _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
+
+                });
 
                 _connected = true;
                 _aircraftNameTimer.Start();
@@ -123,7 +253,12 @@ namespace MobiFlight.ProSim
                 {
                     _subscribedDataRefs.Clear();
                 }
-                
+
+                foreach (var subscription in _subscriptions.Values)
+                {
+                    subscription.Dispose();
+                }
+
                 _connected = false;
                 _connection = null;
                 Closed?.Invoke(this, new EventArgs());
@@ -131,52 +266,11 @@ namespace MobiFlight.ProSim
             return !_connected;
         }
 
+        
+
         public bool IsConnected()
         {
-            return _connected && _connection != null && _connection.isConnected;
-        }
-
-        private void cacheDataref(string datarefPath)
-        {
-            // Create a new subscription for this DataRef
-            var cachedRef = new CachedDataRef
-            {
-                Path = datarefPath,
-                Value = 0,
-                UpdateInterval = DEFAULT_UPDATE_INTERVAL
-            };
-
-            // Create DataRef object with SDK
-            cachedRef.DataRefObject = new DataRef(datarefPath, cachedRef.UpdateInterval, _connection);
-
-            // Set up callback to update the value when it changes
-            cachedRef.DataRefObject.onDataChange += (dataRef) => {
-                try
-                {
-                    cachedRef.Value = dataRef.value;
-                    Log.Instance.log($"Updated cached value for {datarefPath}: {cachedRef.Value}", LogSeverity.Debug);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Error in DataRef callback: {ex.Message}", LogSeverity.Error);
-                }
-            };
-
-            cachedRef.DataRefDescription = _dataRefDescriptions[datarefPath];
-
-            // Register for updates
-            //cachedRef.DataRefObject.Register();
-
-            // Add to our dictionary
-            if (!_subscribedDataRefs.TryAdd(datarefPath, cachedRef))
-            {
-                Log.Instance.log($"Failed to subscribe to DataRef: {datarefPath}", LogSeverity.Debug);
-
-            }
-            else
-            {
-                Log.Instance.log($"Subscribed to DataRef: {datarefPath}", LogSeverity.Debug);
-            }
+            return _connected && _connection != null;
         }
 
         public double readDataref(string datarefPath)
@@ -191,9 +285,15 @@ namespace MobiFlight.ProSim
                 // Check if we already have this DataRef subscribed
 
                 
+                if (!_subscriptions.ContainsKey(datarefPath))
+                {
+                    SubscribeToDataRef(datarefPath);
+                    return 0;
+                }
+
                 if (!_subscribedDataRefs.ContainsKey(datarefPath))
                 {
-                    cacheDataref(datarefPath);
+                    return 0;
                 }
                 
                 // Return the cached value (continuously updated by the subscription)
@@ -207,12 +307,6 @@ namespace MobiFlight.ProSim
             {
                 Log.Instance.log($"Error reading dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
                 
-                // Check if connection was lost
-                if (_connection == null || !_connection.isConnected)
-                {
-                    _connected = false;
-                    ConnectionLost?.Invoke(this, new EventArgs());
-                }
                 
                 return 0;
             }
@@ -230,15 +324,16 @@ namespace MobiFlight.ProSim
                 // For writes, we can use either a cached DataRef or create a temporary one
                 CachedDataRef dataRef;
 
-                if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                if (!_dataRefDescriptions.ContainsKey(datarefPath))
                 {
-                    cacheDataref(datarefPath);
+                    // Probably an error, unsure
+                    return;
                 }
                 
-                dataRef = _subscribedDataRefs[datarefPath];
+                var description = _dataRefDescriptions[datarefPath];
 
                 var transformedValue = value;
-                var targetDataType = dataRef.DataRefDescription.DataType;
+                var targetDataType = description.DataType;
 
                 if (targetDataType == "System.Int32")
                 {
@@ -253,19 +348,13 @@ namespace MobiFlight.ProSim
                     transformedValue = Convert.ToInt32(value) > 0;
                 }
 
-                dataRef.DataRefObject.value = transformedValue;
+                WriteOutValue(datarefPath, transformedValue);
                 Log.Instance.log($"Written value to {datarefPath}: {transformedValue}", LogSeverity.Debug);
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Error writing to dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
                 
-                // Check if connection was lost
-                if (_connection == null || !_connection.isConnected)
-                {
-                    _connected = false;
-                    ConnectionLost?.Invoke(this, new EventArgs());
-                }
             }
         }
     }

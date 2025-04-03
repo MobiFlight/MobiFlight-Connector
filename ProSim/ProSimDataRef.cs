@@ -1,6 +1,5 @@
 using System;
 using System.Xml;
-using ProSimSDK;
 
 namespace MobiFlight.ProSim
 {

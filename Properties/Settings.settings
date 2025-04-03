@@ -136,7 +136,10 @@
       <Value Profile="(Default)">[]</Value>
     </Setting>
     <Setting Name="ProSimHost" Type="System.String" Scope="User">
-      <Value Profile="(Default)">127.0.0.1</Value>
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="ProSimPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

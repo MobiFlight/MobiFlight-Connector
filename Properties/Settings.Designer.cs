@@ -554,13 +554,25 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("127.0.0.1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("localhost")]
         public string ProSimHost {
             get {
                 return ((string)(this["ProSimHost"]));
             }
             set {
                 this["ProSimHost"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int ProSimPort {
+            get {
+                return ((int)(this["ProSimPort"]));
+            }
+            set {
+                this["ProSimPort"] = value;
             }
         }
     }
