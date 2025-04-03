@@ -2,7 +2,6 @@ import StatusIcon from "@/components/icons/StatusIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
 import { IConfigItem } from "@/types"
-import { IDictionary, ConfigItemStatusType } from "@/types/config"
 import {
   IconHourglassEmpty,
   IconMathSymbols,
@@ -20,14 +19,11 @@ const ConfigItemTableFinalValueCell = React.memo(({
   row,
 }: ConfigItemTableFinalValueCellProps) => {
   const item = row.original as IConfigItem
-  const Status = row.getValue("Status") as IDictionary<
-    string,
-    ConfigItemStatusType
-  >
+  const Status = item.Status
   const Modifier = Status && !isEmpty(Status["Modifier"])
 
   const { t } = useTranslation()
-  const label = row.getValue("Value") as string
+  const label = item.Value
 
   return (
     <div className="text-md truncate"  title="Value">

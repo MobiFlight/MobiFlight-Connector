@@ -1,6 +1,5 @@
 import StatusIcon from "@/components/icons/StatusIcon"
 import { IConfigItem } from "@/types"
-import { IDictionary, ConfigItemStatusType } from "@/types/config"
 import {
   IconAlertSquareRounded,
   IconFlask,
@@ -17,10 +16,8 @@ interface ConfigItemTableStatusCellProps {
 
 const ConfigItemTableStatusCell = React.memo(
   ({ row }: ConfigItemTableStatusCellProps) => {
-    const Status = row.getValue("Status") as IDictionary<
-      string,
-      ConfigItemStatusType
-    >
+    const item = row.original as IConfigItem
+    const Status = item.Status
     const Precondition = Status && !isEmpty(Status["Precondition"])
     const Test = Status && !isEmpty(Status["Test"])
     const ConfigRef = Status && !isEmpty(Status["ConfigRef"])

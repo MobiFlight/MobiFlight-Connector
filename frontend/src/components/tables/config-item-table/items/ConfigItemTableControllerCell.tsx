@@ -17,10 +17,9 @@ const ConfigItemTableControllerCell = React.memo(({
 }: ConfigItemTableControllerCellProps) => {
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
-
-  const label = (row.getValue("ModuleSerial") as string).split("/")[0]
-  const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
   const item = row.original as IConfigItem
+
+  const [ label, serial ] = item.ModuleSerial.split("/")
     
   const openControllerSettings = useCallback(() => {
     publish({

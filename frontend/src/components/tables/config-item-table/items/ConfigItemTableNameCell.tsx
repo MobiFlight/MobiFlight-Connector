@@ -2,7 +2,7 @@ import ToolTip from "@/components/ToolTip"
 import { Input } from "@/components/ui/input"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
-import { IConfigItem, IDeviceConfig } from "@/types/config"
+import { IConfigItem } from "@/types/config"
 import { IconCircleCheck, IconEdit, IconX } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import React from "react"
@@ -13,31 +13,33 @@ interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
 const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProps) => {
+  const { t } = useTranslation()
+
   const { publish } = publishOnMessageExchange()
   const [isEditing, setIsEditing] = useState(false)
-  const [label, setLabel] = useState(row.getValue("Name") as string)
-  const realLabel = row.getValue("Name") as string
-  const { t } = useTranslation()
+  
   const item = row.original as IConfigItem
+  const realLabel = item.Name
   const typeLabel = t(`Types.${item.Type}`)
+  
+  const [label, setLabel] = useState(item.Name)
 
   const toggleEdit = () => {
     setIsEditing(!isEditing)
   }
 
   const moduleName =
-    (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
-  const deviceName = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
+    (item.ModuleSerial).split("/")[0] ?? "not set"
+  const deviceName = (item.Device)?.Name ?? "-"
 
   const saveChanges = useCallback(() => {
-    const item = row.original as IConfigItem
     item.Name = label
     console.log(item)
     publish({
       key: "CommandUpdateConfigItem",
       payload: { item: item },
     } as CommandUpdateConfigItem)
-  }, [label, row, publish])
+  }, [label, item, publish])
 
   useEffect(() => {
     setLabel(realLabel)
@@ -94,7 +96,7 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
             role="button"
             aria-label="Discard"
             onClick={() => {
-              setLabel(row.getValue("Name") as string)
+              setLabel(item.Name)
               toggleEdit()
             }}
           />
