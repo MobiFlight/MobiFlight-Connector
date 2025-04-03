@@ -13,6 +13,7 @@ namespace MobiFlight.Base
         string GUID { get; set; }
         string RawValue { get; set; }
         string Value { get; set; }
+        Dictionary<ConfigItemStatusType, string> Status { get; set; }
     }
 
     public class ConfigValueOnlyItem : IConfigValueOnlyItem
@@ -22,18 +23,14 @@ namespace MobiFlight.Base
         public string RawValue { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
+        public  Dictionary<ConfigItemStatusType, string> Status { get; set; }
         public ConfigValueOnlyItem() { }
         public ConfigValueOnlyItem(IConfigValueOnlyItem item)
         {
             GUID = item.GUID.Clone() as string;
             RawValue = item.RawValue?.Clone() as string;
             Value = item.Value?.Clone() as string;
-        }
-        public ConfigValueOnlyItem(string guid, string rawValue, string value)
-        {
-            GUID = guid;
-            RawValue = rawValue;
-            Value = value;
+            Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
         }
     }
 
@@ -48,10 +45,7 @@ namespace MobiFlight.Base
         ModifierList Modifiers { get; set; }
         ConfigRefList ConfigRefs { get; set; }
         IDeviceConfig Device { get; }
-        Dictionary<ConfigItemStatusType, string> Status { get; set; }
-
         object Clone();
-
         IConfigItem Duplicate();
     }
 

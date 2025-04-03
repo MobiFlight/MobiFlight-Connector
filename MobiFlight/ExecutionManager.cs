@@ -193,7 +193,8 @@ namespace MobiFlight
             frontendUpdateTimer.Interval = 200;
             frontendUpdateTimer.Tick += (s, e) =>
             {
-                
+                UpdateInputPreconditions();
+
                 if (updatedValues.Count > 0)
                 {
                     var list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
@@ -206,8 +207,6 @@ namespace MobiFlight
                 {
                     updatedValues.Clear();
                 }
-
-                UpdateInputPreconditions();
             };
 
             mobiFlightCache.Start();
@@ -1171,8 +1170,7 @@ namespace MobiFlight
 
                     cfg.RawValue = eventAction;
                     cfg.Value = " ";
-                    MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
-
+                    updatedValues[cfg.GUID] = cfg;
                     cfg.execute(
                         cacheCollection,
                         e,
@@ -1182,16 +1180,14 @@ namespace MobiFlight
                 catch (Exception ex)
                 {
                     Log.Instance.log($"Error excuting \"{cfg.Name}\": {ex.Message}", LogSeverity.Error);
+                    cfg.Status[ConfigItemStatusType.Device] = "DEVICE_ERROR";
                 }
             }
-
             //fsuipcCache.ForceUpdate();
         }
 
         private void UpdateInputPreconditions()
         {
-            var changedConfigs = new List<IConfigValueOnlyItem>();
-
             foreach (var cfgItem in ConfigItems)
             {
                 try
@@ -1220,7 +1216,7 @@ namespace MobiFlight
 
                         if (!cfg.Status.SequenceEqual(originalCfg.Status))
                         {
-                            changedConfigs.Add(cfg);
+                            updatedValues[cfg.GUID] = cfg;
                         }
                     }
                 }
@@ -1229,11 +1225,6 @@ namespace MobiFlight
                     // probably the last row with no settings object 
                     continue;
                 }
-            }
-
-            if (changedConfigs.Count > 0)
-            {
-                MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(changedConfigs));
             }
         }
 

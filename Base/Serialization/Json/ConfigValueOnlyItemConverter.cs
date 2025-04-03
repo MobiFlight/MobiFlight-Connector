@@ -38,6 +38,11 @@ namespace MobiFlight.Base.Serialization.Json
                 obj.Add(nameof(IConfigValueOnlyItem.Value), JToken.FromObject(configValueOnlyItem.Value));
             }
 
+            if (configValueOnlyItem.Status != null)
+            {
+                obj.Add(nameof(IConfigValueOnlyItem.Status), JToken.FromObject(configValueOnlyItem.Status));
+            }
+
             obj.WriteTo(writer);
         }
 
