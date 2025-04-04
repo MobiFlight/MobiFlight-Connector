@@ -259,7 +259,7 @@ namespace MobiFlight.Scripts
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning) == DialogResult.OK) ;
             {
-                Process.Start("https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python");
+                Process.Start("https://docs.mobiflight.com/guides/installing-python/");
             }
         }
 

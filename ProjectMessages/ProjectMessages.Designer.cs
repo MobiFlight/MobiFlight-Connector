@@ -1182,7 +1182,7 @@ namespace MobiFlight.ProjectMessages {
         /// <summary>
         ///   Looks up a localized string similar to Please follow instructions on:
         ///	
-        ///https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+        ///https://docs.mobiflight.com/guides/installing-python/
         ///	
         ///Page will be opened, when pressing OK..
         /// </summary>

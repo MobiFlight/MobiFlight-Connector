@@ -656,7 +656,7 @@ Close MSFS and install the WASM module via menu "Extras" &gt; "Microsoft Flight 
   <data name="uiMessagePythonInstructions" xml:space="preserve">
     <value>Please follow instructions on:
 	
-https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+https://docs.mobiflight.com/guides/installing-python/
 	
 Page will be opened, when pressing OK.</value>
   </data>
