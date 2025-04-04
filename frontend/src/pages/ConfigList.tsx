@@ -4,7 +4,7 @@ import { ConfigItemTable } from "@/components/tables/config-item-table/config-it
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
 import { useCallback, useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
-import { ConfigValueFullUpdate, ConfigValuePartialUpdate } from "@/types/messages"
+import { ConfigValueFullUpdate, ConfigValuePartialUpdate, ConfigValueRawAndFinalUpdate } from "@/types/messages"
 import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
 import { IConfigItem } from "@/types"
 
@@ -22,16 +22,36 @@ const ConfigListPage = () => {
     
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
+    console.log("ConfigValuePartialUpdate", message.payload)
     const update = message.payload as ConfigValuePartialUpdate
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
       updateItem(update.ConfigItems[0], true)
       return
     }
-    updateItems(update.ConfigItems)
+    setItems(update.ConfigItems)
   })
 
+  useAppMessage("ConfigValueRawAndFinalUpdate", (message) => {
+    console.log("ConfigValueRawAndFinalUpdate", (message.payload as ConfigValueRawAndFinalUpdate))
+    const update = message.payload as ConfigValueRawAndFinalUpdate
+    // update raw and final values for the store items
+    const newItems = update.ConfigItems.map((newItem) => {
+      const item = configItems.find((i) => i.GUID === newItem.GUID)
+      if (item === undefined) return newItem
+
+      return {
+        ...item,
+        RawValue: newItem.RawValue,
+        Value: newItem.Value,
+        Status: newItem.Status,
+      }
+    }) as IConfigItem[]
+    updateItems(newItems)
+  })  
+
   useAppMessage("ConfigValueFullUpdate", (message) => {
+    console.log("ConfigValueFullUpdate", message)
     const update = message.payload as ConfigValueFullUpdate
     setItems(update.ConfigItems)
   })

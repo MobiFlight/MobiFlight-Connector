@@ -2,34 +2,31 @@ import StatusIcon from "@/components/icons/StatusIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
 import { IConfigItem } from "@/types"
-import { IDictionary, ConfigItemStatusType } from "@/types/config"
 import {
   IconHourglassEmpty,
   IconMathSymbols,
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
+import React from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableFinalValueCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableFinalValueCell = ({
+const ConfigItemTableFinalValueCell = React.memo(({
   row,
 }: ConfigItemTableFinalValueCellProps) => {
   const item = row.original as IConfigItem
-  const Status = row.getValue("Status") as IDictionary<
-    string,
-    ConfigItemStatusType
-  >
+  const Status = item.Status
   const Modifier = Status && !isEmpty(Status["Modifier"])
 
   const { t } = useTranslation()
-  const label = row.getValue("Value") as string
+  const label = item.Value
 
   return (
-    <div className="text-md truncate">
+    <div className="text-md truncate"  title="Value">
       {!isEmpty(label) && !Modifier ? (
         item.Type == "InputConfigItem" ? (
           <div className="flex flex-row justify-center">
@@ -62,6 +59,6 @@ const ConfigItemTableFinalValueCell = ({
       )}
     </div>
   )
-}
+})
 
 export default ConfigItemTableFinalValueCell

@@ -1,24 +1,25 @@
 import { TableBody, TableCell } from "@/components/ui/table"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { flexRender, Table } from "@tanstack/react-table"
+import { flexRender, Row } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
 
 interface ConfigItemTableBodyProps<TData> {
-  table: Table<TData>
+  rows: Row<TData>[] 
 }
 const ConfigItemTableBody = <TData,>({
-  table,
+  rows
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
   return (
     <TableBody className="dark:bg-zinc-900">
       <SortableContext
-        items={table.getRowModel().rows.map((row) => row.id)}
+        items={rows.map((row) => row.id)}
         strategy={verticalListSortingStrategy}
       >
-        {table.getRowModel().rows.map((row) => {
+        {
+          rows.map((row) => {
           return (
             <DndTableRow
               key={row.id}

@@ -378,6 +378,25 @@ test("Confirm `Controller Settings` link is working", async ({
   expect (postedCommands!.pop().key).toEqual('CommandConfigContextMenu')
 })
 
+test("Confirm Raw and Final Value update cprrectly", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+
+  const rawValue = page.getByRole('row').nth(1).getByTitle("RawValue")	
+  const finalValue = page.getByRole('row').nth(1).getByTitle("Value", { exact: true })
+
+  await configListPage.updateConfigItemRawAndFinalValue(0, "1234", "5678")
+  await expect(rawValue).toHaveText("1234")
+  await expect(finalValue).toHaveText("5678")
+
+  await configListPage.updateConfigItemRawAndFinalValue(0, "4321", "8765")
+  await expect(rawValue).toHaveText("4321")
+  await expect(finalValue).toHaveText("8765")
+})
+
 test.describe('Responsiveness: Full Screen', () => {
   test.use({ viewport: { width: 1920, height: 1080 } });
   test("Confirm `Columns are visible` in full screen", async ({

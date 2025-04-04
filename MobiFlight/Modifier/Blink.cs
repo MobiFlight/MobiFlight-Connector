@@ -46,6 +46,8 @@ namespace MobiFlight.Modifier
             var Clone = new Blink();
             Clone.Active = Active;
             Clone.BlinkValue = BlinkValue;
+            Clone.OffDurationInMs = OffDurationInMs;
+            Clone.FirstExecutionTime = FirstExecutionTime;
             Clone.OnOffSequence = OnOffSequence.ToArray().ToList();
             return Clone;
         }

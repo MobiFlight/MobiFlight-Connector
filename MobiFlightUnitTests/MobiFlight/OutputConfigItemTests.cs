@@ -206,6 +206,7 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.Value, c.Modifiers.Comparison.Value, "clone: ComparisonValue not the same");
             Assert.AreEqual(o.Modifiers.Comparison.IfValue, c.Modifiers.Comparison.IfValue, "clone: ComparisonIfValue not the same");
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
+            Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation count not right");
 
             Assert.AreEqual(o.DeviceType, c.DeviceType, "clone: DisplayType not the same");
             Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "clone: DisplaySerial not the same");
@@ -409,40 +410,61 @@ namespace MobiFlight.Tests
         {
             OutputConfigItem o1 = new OutputConfigItem();
             OutputConfigItem o2 = new OutputConfigItem();
+            // test with different GUID
+            Assert.IsFalse(o1.Equals(o2));
+
             o1.GUID = o2.GUID;
-            
             Assert.IsTrue(o1.Equals(o2));
 
-            // test different GUID
+            // test with same GUID
             o1 = _generateConfigItem();
+            o2 = _generateConfigItem();
+            Assert.IsTrue(o1.Equals(o2));
+
+            // test with different GUID
+            o2.GUID = "foobar";
             Assert.IsFalse(o1.Equals(o2));
 
             o2 = _generateConfigItem();
-
+            // test with same GUID again.
             Assert.IsTrue(o1.Equals(o2));
 
             // Check for the ShiftRegister
             o1 = _generateConfigItem("ShiftRegister");
             o2 = _generateConfigItem("ShiftRegister");
+            Assert.IsTrue(o1.Equals(o2));
+
             (o2.Device as ShiftRegister).Address = "ShiftRegister1";
             (o2.Device as ShiftRegister).Pin = "69";
-
             Assert.IsFalse(o1.Equals(o2));
 
             // reset o2
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/697
             o1 = _generateConfigItem("Servo");
             o2 = _generateConfigItem("Servo");
+            Assert.IsTrue(o1.Equals(o2));
+
             (o2.Device as Servo).MaxRotationPercent = "90";
             Assert.IsFalse(o1.Equals(o2));
 
-            o2 = _generateConfigItem();
+            o2 = _generateConfigItem("Servo");
+            Assert.IsTrue(o1.Equals(o2));
             o2.DeviceType = "nonsense";
             Assert.IsFalse(o1.Equals(o2));
 
+
+            o1 = _generateConfigItem("CustomDevice");
             o2 = _generateConfigItem("CustomDevice");
+            Assert.IsTrue(o1.Equals(o2));
             (o2.Device as CustomDevice).Value = "Test value will fail";
             Assert.IsFalse(o1.Equals(o2));
+
+            o2 = _generateConfigItem("CustomDevice");
+            Assert.IsTrue(o1.Equals(o2));
+            o1.Status[ConfigItemStatusType.Source] = "Source not available";
+            Assert.IsFalse(o1.Equals(o2));
+            o2.Status[ConfigItemStatusType.Source] = "Source not available";
+            Assert.IsTrue(o1.Equals(o2));
         }
     }
 }

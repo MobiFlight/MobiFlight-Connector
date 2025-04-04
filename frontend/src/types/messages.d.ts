@@ -1,10 +1,12 @@
 import { Settings } from "http2"
+import { IConfigValueOnlyItem } from "./config"
 
 export type AppMessageKey =
   | "StatusBarUpdate"
   | "ConfigFile"
   | "ConfigValueFullUpdate"
   | "ConfigValuePartialUpdate"
+  | "ConfigValueRawAndFinalUpdate"
   | "Settings"
 
 export type AppMessagePayload =
@@ -12,6 +14,7 @@ export type AppMessagePayload =
   | ConfigLoadedEvent
   | ConfigValueFullUpdate
   | ConfigValuePartialUpdate
+  | ConfigValueRawAndFinalUpdate
   
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -44,6 +47,10 @@ export interface ConfigValueFullUpdate {
 
 export interface ConfigValuePartialUpdate {
   ConfigItems: IConfigItem[]
+}
+
+export interface ConfigValueRawAndFinalUpdate {
+  ConfigItems: IConfigValueOnlyItem[]
 }
 
 // Not sure what this is for

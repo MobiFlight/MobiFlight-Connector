@@ -5,21 +5,21 @@ import { CommandConfigContextMenu } from "@/types/commands"
 import { IconBan, IconExternalLink } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash"
+import React from "react"
 import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableControllerCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableControllerCell = ({
+const ConfigItemTableControllerCell = React.memo(({
   row,
 }: ConfigItemTableControllerCellProps) => {
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
-
-  const label = (row.getValue("ModuleSerial") as string).split("/")[0]
-  const serial = (row.getValue("ModuleSerial") as string).split("/")[1]
   const item = row.original as IConfigItem
+
+  const [ label, serial ] = item.ModuleSerial.split("/")
     
   const openControllerSettings = useCallback(() => {
     publish({
@@ -63,6 +63,6 @@ const ConfigItemTableControllerCell = ({
       </span>
     </ToolTip>
   )
-}
+})
 
 export default ConfigItemTableControllerCell

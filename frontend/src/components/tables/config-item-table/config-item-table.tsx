@@ -82,6 +82,16 @@ export function ConfigItemTable<TData, TValue>({
     },
   })
 
+  const parentRef = useRef<HTMLDivElement>(null);
+  const { rows } = table.getRowModel()
+  // Virtualization setup
+  // const virtualizer = useVirtualizer({
+  //   count: rows.length,
+  //   getScrollElement: () => parentRef.current,
+  //   estimateSize: () => 50,
+  //   overscan: 5
+  // });
+
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
   const prevDataLength = useRef(data.length)
@@ -141,6 +151,26 @@ export function ConfigItemTable<TData, TValue>({
     [data, setItems],
   )
 
+  const handleAddOutputConfig = useCallback(() => {
+    publish({
+      key: "CommandAddConfigItem",
+      payload: {
+        name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
+        type: "OutputConfig",
+      },
+    } as CommandAddConfigItem)
+  }, [ publish, t])
+
+  const handleAddInputConfig = useCallback(() => {
+    publish({
+      key: "CommandAddConfigItem",
+      payload: {
+        name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
+        type: "InputConfig",
+      },
+    } as CommandAddConfigItem)
+  }, [ publish, t])
+
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
       {data.length > 0 ? (
@@ -148,17 +178,17 @@ export function ConfigItemTable<TData, TValue>({
           <div className="p-1">
             <DataTableToolbar table={table} items={data as IConfigItem[]} />
           </div>
-          {table.getRowModel().rows?.length ? (
+          {table.getRowModel().rows?.length  ? (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
               modifiers={[restrictToVerticalAxis]}
               onDragEnd={handleDragEnd}
             >
-              <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
+              <div className="flex flex-col overflow-y-auto rounded-lg border border-primary" ref={parentRef}>
                 <Table ref={tableRef} className="table-fixed">
-                  <ConfigItemTableHeader table={table} />
-                  <ConfigItemTableBody table={table} />
+                  <ConfigItemTableHeader headerGroups={table.getHeaderGroups()} />
+                  <ConfigItemTableBody rows={rows} />
                 </Table>
               </div>
             </DndContext>
@@ -199,30 +229,14 @@ export function ConfigItemTable<TData, TValue>({
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
-          onClick={() =>
-            publish({
-              key: "CommandAddConfigItem",
-              payload: {
-                name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
-                type: "OutputConfig",
-              },
-            } as CommandAddConfigItem)
-          }
+          onClick={handleAddOutputConfig}
         >
           {t("ConfigList.Actions.OutputConfigItem.Add")}
         </Button>
         <Button
           variant={"outline"}
           className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-          onClick={() =>
-            publish({
-              key: "CommandAddConfigItem",
-              payload: {
-                name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
-                type: "InputConfig",
-              },
-            } as CommandAddConfigItem)
-          }
+          onClick={handleAddInputConfig}
         >
           {t("ConfigList.Actions.InputConfigItem.Add")}
         </Button>

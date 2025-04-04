@@ -2,38 +2,36 @@ import StatusIcon from "@/components/icons/StatusIcon"
 import ToolTip from "@/components/ToolTip"
 import { Badge } from "@/components/ui/badge"
 import { IConfigItem } from "@/types"
-import { IDictionary, ConfigItemStatusType } from "@/types/config"
 import {
   IconBuildingBroadcastTower,
   IconHourglassEmpty,
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
+import React from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableRawValueCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableRawValueCell = ({
+const ConfigItemTableRawValueCell = React.memo(({
   row,
 }: ConfigItemTableRawValueCellProps) => {
   const item = row.original as IConfigItem
-  const Status = row.getValue("Status") as IDictionary<
-    string,
-    ConfigItemStatusType
-  >
+
+  const Status = item.Status
   const Source = Status && !isEmpty(Status["Source"])
 
   const { t } = useTranslation()
-  const label = row.getValue("RawValue") as string
+  const label = item.RawValue
 
   return (
-    <div className="text-md truncate">
+    <div className="text-md truncate" title="RawValue">
       {!isEmpty(label) && !Source ? (
         item.Type == "InputConfigItem" ? (
           <div className="flex flex-row justify-center">
-            <Badge variant="secondary">{label.replace("CHANGE =>", "")}</Badge>
+            <Badge variant="secondary">{label?.replace("CHANGE =>", "")}</Badge>
           </div>
         ) : (
           <div className="text-sm">
@@ -62,6 +60,6 @@ const ConfigItemTableRawValueCell = ({
       )}
     </div>
   )
-}
+})
 
 export default ConfigItemTableRawValueCell
