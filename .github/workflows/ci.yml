@@ -3,7 +3,7 @@ name: RunTests
 on:
   workflow_dispatch:
   pull_request:
-    branches: [main]
+    branches: [main, hotfix/*]
 
 env:
   # Path to the solution file relative to the root of the project.
