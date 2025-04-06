@@ -1,0 +1,6 @@
+﻿    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "maddog",
+      "ScriptName": "maddogx_winwing_cdu.py"
+    }
