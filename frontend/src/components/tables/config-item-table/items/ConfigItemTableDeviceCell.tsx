@@ -42,9 +42,7 @@ const ConfigItemTableDeviceCell = React.memo(({ row }: ConfigItemTableDeviceCell
     <ToolTip content={tooltipLabel}>
       <div className="flex flex-row items-center gap-2">
         {statusIcon}
-        <div className="hidden flex-col lg:flex">
-          <p className="text-md truncate">{deviceLabel}</p>
-        </div>
+        <p className="hidden lg:inline text-md truncate">{deviceLabel}</p>
       </div>
     </ToolTip>
   ) : (
