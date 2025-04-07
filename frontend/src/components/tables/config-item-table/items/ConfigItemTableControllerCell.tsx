@@ -57,7 +57,7 @@ const ConfigItemTableControllerCell = React.memo(({
     </div>
   ) : (
     <ToolTip content={t("ConfigList.Cell.Controller.not set")}>
-      <span className="item-center hidden flex-row gap-2 text-slate-400 lg:flex">
+      <span className="items-center hidden flex-row gap-2 text-slate-400 lg:flex">
         <IconBan />
         <span className="hidden lg:inline">not set</span>
       </span>

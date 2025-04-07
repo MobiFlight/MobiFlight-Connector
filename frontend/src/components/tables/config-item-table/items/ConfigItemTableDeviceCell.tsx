@@ -61,7 +61,7 @@ const ConfigItemTableDeviceCell = React.memo(
       </ToolTip>
     ) : (
       <ToolTip content={t("ConfigList.Cell.Device.not set")}>
-        <div className="flex flex-row item-center gap-2 text-slate-400">
+        <div className="flex flex-row items-center gap-2 text-slate-400">
           <IconBan />
           <span className="hidden lg:inline">not set</span>
         </div>
