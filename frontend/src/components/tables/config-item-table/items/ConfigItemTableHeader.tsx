@@ -10,7 +10,7 @@ const ConfigItemTableHeader = <TData,>({
   headerGroups,
 }: ConfigItemTableHeaderProps<TData>) => {
   return (
-    <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
+    <TableHeader className="group/header bg-slate-500 text-white">
       {headerGroups.map((headerGroup) => (
         <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
           {headerGroup.headers.map((header) => {
@@ -24,7 +24,7 @@ const ConfigItemTableHeader = <TData,>({
               <TableHead
                 key={header.id}
                 className={cn(
-                  "sticky top-0 z-50 bg-primary px-1 text-white dark:bg-zinc-800",
+                  "sticky top-0 z-50 bg-primary px-1 text-white dark:bg-blue-950",
                   className,
                 )}
               >
