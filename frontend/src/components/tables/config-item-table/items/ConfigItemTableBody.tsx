@@ -40,8 +40,15 @@ const ConfigItemTableBody = <TData,>({
                     }
                   )?.className ?? ""
 
+                const cellClassName =
+                  (
+                    cell.column.columnDef.meta as {
+                      cellClassName: string
+                    }
+                  )?.cellClassName ?? ""
+
                 return (
-                  <TableCell key={cell.id} className={cn("p-1", className)}>
+                  <TableCell key={cell.id} className={cn("p-1", className, cellClassName)}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 )
