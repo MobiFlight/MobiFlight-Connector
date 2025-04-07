@@ -109,16 +109,16 @@ class MobiFlightClient:
                 if self.websocket is None:
                     logging.info("Connecting to MobiFlight at %s", self.websocket_uri)
                     self.websocket = await ws_client.connect(self.websocket_uri, ping_interval=None)
-                    logging.info("MobiFlight connected")
+                    logging.info("MobiFlight connected at %s", self.websocket_uri)
                     self.connected.set()
                 await self.websocket.recv()
             except Exception as e: 
                 self.retries += 1
-                logging.error(f"WebSocket error: {e} with retries {self.retries}")
+                logging.info(f"WebSocket error: {e} with retries {self.retries}")
                 self.websocket = None
                 self.connected.clear()
             await asyncio.sleep(5)
-        logging.error("Max retries reached. Giving up connecting to MobiFlight at %s", self.websocket_uri)
+        logging.info("Max retries reached. Giving up connecting to MobiFlight at %s", self.websocket_uri)
         self.connected.set()
 
     async def send(self, data: str) -> None:
@@ -226,7 +226,7 @@ class MDXCDUClient:
             self.sc_mobiflight.dll.RequestClientData(
                 self.sc_mobiflight.hSimConnect,
                 self.cdu_id,
-                0,
+                self.cdu_id,
                 self.cdu_definition,
                 Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_ON_SET,
                 Enum.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG_CHANGED,
@@ -235,10 +235,10 @@ class MDXCDUClient:
 
             # Set up the handler
             self.sc_mobiflight.register_client_data_handler(self.handle_cdu_data)
-            logging.info("SimConnect initialized")
+            logging.info("SimConnect initialized for %s", self.cdu_name)
             return True
         except Exception as e:
-            logging.error(f"SimConnect setup failed: {e}")
+            logging.error(f"SimConnect setup failed for {self.cdu_name}: {e}")
             return False
 
     def handle_cdu_data(self, client_data: Any) -> None:
@@ -250,10 +250,6 @@ class MDXCDUClient:
         except Exception as e:
             logging.error(f"Error handling CDU data: {e}")
 
-    async def process_simconnect(self) -> None:
-        while True:
-            await asyncio.sleep(0.1)
-
     async def run(self) -> None:
         self.event_loop = asyncio.get_running_loop()
         logging.info("Starting CDU client")
@@ -263,12 +259,11 @@ class MDXCDUClient:
             mobiflight_task: asyncio.Task = asyncio.create_task(self.mobiflight.run())
             await self.mobiflight.connected.wait()
             if self.failed_to_connect():
-                logging.error("Failed to connect to MobiFlight for %s", self.cdu_name)
+                logging.info("Failed to connect to MobiFlight for %s", self.cdu_name)
                 return
             # Initialize SimConnect
             if self.setup_simconnect():
-                simconnect_task: asyncio.Task = asyncio.create_task(self.process_simconnect())
-                await asyncio.gather(mobiflight_task, simconnect_task)
+                await asyncio.gather(mobiflight_task)
             else:
                 logging.error("Failed to start - SimConnect initialization failed")
         except KeyboardInterrupt:
