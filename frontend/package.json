@@ -31,7 +31,7 @@
     "i18next-browser-languagedetector": "^8.0.4",
     "i18next-http-backend": "^3.0.1",
     "lodash-es": "^4.17.21",
-    "lucide-react": "^0.471.0",
+    "lucide-react": "^0.487.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.0",
