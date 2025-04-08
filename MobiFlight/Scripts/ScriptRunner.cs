@@ -153,20 +153,31 @@ namespace MobiFlight.Scripts
             {
                 using (StreamReader reader = process.StandardOutput)
                 {
+                    //python --version returns "Python x.xx.x"
                     string output = reader.ReadToEnd();
-                    var x = output.Split(' ');
-                    var v = x[1].Split('.');
-                    Log.Instance.log($"Python version: {x[1]}.", LogSeverity.Info); 
-                    if ( (int.Parse(v[0]) >= 3) && (int.Parse(v[1]) >= 10))
+                    var outputParts = output.Split(' ');
+                    if (outputParts.Length > 1)
                     {
-                        return true;
+                        var versionParts = outputParts[1].Split('.');
+                        Log.Instance.log($"Python version: {outputParts[1]}.", LogSeverity.Info);
+
+                        if (versionParts.Length >= 2 && int.TryParse(versionParts[0], out int major) && int.TryParse(versionParts[1], out int minor))
+                        {
+                            if (major >= 3 && minor >= 10)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                Log.Instance.log($"Python version not supported: {outputParts[1]}.", LogSeverity.Warn);
+                                return false;
+                            }
+                        }
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    Log.Instance.log($"Failed to parse Python version : '{output}'.", LogSeverity.Warn);
                 }
             }
+            return false;
         }
 
         private bool IsPythonPathSet()
