@@ -174,7 +174,7 @@ namespace MobiFlight.Scripts
                             }
                         }
                     }
-                    Log.Instance.log($"Failed to parse Python version : '{output}'.", LogSeverity.Warn);
+                    Log.Instance.log($"Failed to parse Python version: '{output}'.", LogSeverity.Warn);
                 }
             }
             return false;
