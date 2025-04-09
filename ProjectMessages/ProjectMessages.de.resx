@@ -691,7 +691,7 @@ Schließe MSFS und führe die Installation erneut aus: "Extras" &gt; "Microsoft 
   <data name="uiMessagePythonInstructions" xml:space="preserve">
     <value>Bitte den Anweisungen hier folgen:
 	
-https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+https://docs.mobiflight.com/guides/installing-python/
 
 Website wird nach Betätigung von OK geöffnet.</value>
   </data>
