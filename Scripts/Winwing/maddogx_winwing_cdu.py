@@ -289,7 +289,6 @@ if __name__ == "__main__":
             co_pilot_client.run(),
             return_exceptions=True
         )
-    # this will not work
     try:
         asyncio.run(run_clients())
     except KeyboardInterrupt:
