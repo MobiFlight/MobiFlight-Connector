@@ -163,7 +163,7 @@ namespace MobiFlight.Scripts
 
                         if (versionParts.Length >= 2 && int.TryParse(versionParts[0], out int major) && int.TryParse(versionParts[1], out int minor))
                         {
-                            if (major >= 3 && minor >= 10)
+                            if (major > 3 || (major == 3 && minor >= 10))
                             {
                                 return true;
                             }
