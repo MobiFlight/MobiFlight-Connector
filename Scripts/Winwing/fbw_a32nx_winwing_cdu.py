@@ -365,13 +365,13 @@ class FbwMcduClient:
 
     async def connect_to_mcdu(self):
         """Connect to the FBW MCDU WebSocket"""
+        self.retries = 0
         while self.retries < self.max_retries:
             try:
                 if self.fbw_websocket is None:
                     logging.info("Connecting to FlyByWire SimBridge...")
                     self.fbw_websocket = await ws_client.connect(FBW_MCDU_URL)
                     logging.info("Connected to FlyByWire SimBridge")
-                    self.retries = 0  # Reset retries on successful connection
 
                     # Request an update as soon as connected in-case a CDU is already connected
                     await self.request_update()
