@@ -79,7 +79,7 @@ class MobiFlightClient:
                 await self.websocket.recv()
             except Exception as e:
                 self.retries += 1
-                logging.info(f"WebSocket error: {e} with retries {self.retries}")
+                logging.debug(f"Retrying MobiFlight websocket, attempt {self.retries}: {e}")
                 self.websocket = None
                 self.connected.clear()
             await asyncio.sleep(5)
@@ -368,9 +368,9 @@ class FbwMcduClient:
         while self.retries < self.max_retries:
             try:
                 if self.fbw_websocket is None:
-                    logging.info("Connecting to FlyByWire MCDU...")
+                    logging.info("Connecting to FlyByWire SimBridge...")
                     self.fbw_websocket = await ws_client.connect(FBW_MCDU_URL)
-                    logging.info("Connected to FlyByWire MCDU")
+                    logging.info("Connected to FlyByWire SimBridge")
                     self.retries = 0  # Reset retries on successful connection
 
                     # Request an update as soon as connected
@@ -378,16 +378,14 @@ class FbwMcduClient:
                     return True
             except Exception as e:
                 self.retries += 1
-                logging.info(f"MCDU connection error: {e} with retries {self.retries}")
+                logging.debug(f"Retrying SimBridge, attempt {self.retries}: {e}")
                 self.fbw_websocket = None
                 await asyncio.sleep(5)  # Wait before retry
-
-        logging.info("Max retries reached. Giving up connecting to FBW MCDU")
         return False
 
     async def run(self):
         """Main processing loop"""
-        logging.info("Starting FBW MCDU client")
+        logging.info("Starting FlyByWire SimBridge client")
 
         # Initial connection
         if not await self.connect_to_mcdu():
@@ -398,6 +396,7 @@ class FbwMcduClient:
                 # Wait for messages from the MCDU
                 if self.fbw_websocket is None:
                     if not await self.connect_to_mcdu():
+                        logging.info("Max SimBridge attempts reached. Waiting for new attempts.")
                         await asyncio.sleep(
                             10
                         )  # Wait longer between retries if we can't connect
@@ -439,7 +438,7 @@ async def main():
         level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
-    logging.info("----STARTED FBW A320 MCDU to WinWing CDU Integration----")
+    logging.info("----STARTED FBW A32NX MCDU to WinWing CDU Integration----")
 
     mobiflight_left = MobiFlightClient(CAPTAIN_CDU_URL)
     mobiflight_right = MobiFlightClient(CO_PILOT_CDU_URL)
