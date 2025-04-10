@@ -386,11 +386,6 @@ class FbwMcduClient:
     async def run(self):
         """Main processing loop"""
         logging.info("Starting FlyByWire SimBridge client")
-
-        # Initial connection
-        if not await self.connect_to_mcdu():
-            return
-
         while True:
             try:
                 # Wait for messages from the MCDU
