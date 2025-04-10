@@ -138,7 +138,6 @@ namespace MobiFlight.Scripts
 
         private bool IsMinimumPythonVersion()
         {
-            bool result = false;
             ProcessStartInfo start = new ProcessStartInfo
             {
                 FileName = "python",
@@ -157,13 +156,11 @@ namespace MobiFlight.Scripts
                     string output = reader.ReadToEnd();
                     var outputParts = output.Split(' ');
                     if (outputParts.Length > 1)
-                    {
-                        var versionParts = outputParts[1].Split('.');
+                    {                   
                         Log.Instance.log($"Python version: {outputParts[1]}.", LogSeverity.Info);
-
-                        if (versionParts.Length >= 2 && int.TryParse(versionParts[0], out int major) && int.TryParse(versionParts[1], out int minor))
+                        if (Version.TryParse(outputParts[1], out Version version))
                         {
-                            if (major > 3 || (major == 3 && minor >= 10))
+                            if (version.CompareTo(new Version(3,10,0)) >= 0)
                             {
                                 return true;
                             }
