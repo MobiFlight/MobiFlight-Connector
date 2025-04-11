@@ -155,7 +155,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
-      <HintPath>packages\protobuf-net.Core.3.2.46\lib\net462\protobuf-net.Core.dll</HintPath>
+      <HintPath>packages\protobuf-net.Core.3.2.52\lib\net462\protobuf-net.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
