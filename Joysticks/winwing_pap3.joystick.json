@@ -1,0 +1,218 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING PAP3",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB10",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "N1 Button"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Speed Button"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "VNAV Button"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "LVL CHG Button"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "HDG SEL Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "LNAV Button"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "VOR LOC Button"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "APP Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "ALT HLD Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "V/S Button"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "CMD A Button"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "CWS A Button"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "CMD B Button"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "CWS B Button"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "C/O Button"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "SP INTV Button"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "ALT INTV Button"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "Capt CRS DEC"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "Capt CRS INC"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "IAS/MACH DEC"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "IAS/MACH INC"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "Heading DEC"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "Heading INC"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "Altitude DEC"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "Altitude INC"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "FO CRS DEC"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "FO CRS INC"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "FD L Switch On"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "FD L Switch Off"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "FD R Switch On"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "FD R Switch Off"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "Disengage Bar Up"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "Disengage Bar Down"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "Bank Angle 10"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "Bank Angle 15"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "Bank Angle 20"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "Bank Angle 25"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "Bank Angle 30"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "V/S DEC"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "V/S INC"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "A/T ARM"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "A/T OFF"
+    }
+  ]
+}
