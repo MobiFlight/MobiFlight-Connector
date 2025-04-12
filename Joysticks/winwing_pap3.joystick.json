@@ -2,7 +2,7 @@
   "$schema": "./mfjoystick.schema.json",
   "InstanceName": "WINWING PAP3",
   "VendorId": "0x4098",
-  "ProductId": "0xBB10",
+  "ProductId": "0xBF0F",
   "Inputs": [
     {
       "Id": 1,
