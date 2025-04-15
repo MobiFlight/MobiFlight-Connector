@@ -1019,6 +1019,9 @@
     <Compile Include="xplane\XplaneCacheInterface.cs" />
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
+    <Content Include="Scripts\Winwing\fbw_a32nx_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Winwing\fenix_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
