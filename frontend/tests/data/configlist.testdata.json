@@ -277,7 +277,7 @@
   {
       "Active": true,
       "ConfigRefs": [],
-      "DeviceName": "Button 4",
+      "DeviceName": "Button 4 With A Long Name To Test Truncation",
       "DeviceType": "Button",
       "GUID": "49079f13-b7cc-442d-a64b-70edbf7a1334",
       "Modifiers": {

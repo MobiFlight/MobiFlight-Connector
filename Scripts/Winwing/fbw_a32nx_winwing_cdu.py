@@ -79,7 +79,7 @@ class MobiFlightClient:
                 await self.websocket.recv()
             except Exception as e:
                 self.retries += 1
-                logging.info(f"WebSocket error: {e} with retries {self.retries}")
+                logging.debug(f"Retrying MobiFlight websocket, attempt {self.retries}: {e}")
                 self.websocket = None
                 self.connected.clear()
             await asyncio.sleep(5)
@@ -365,39 +365,33 @@ class FbwMcduClient:
 
     async def connect_to_mcdu(self):
         """Connect to the FBW MCDU WebSocket"""
+        self.retries = 0
         while self.retries < self.max_retries:
             try:
                 if self.fbw_websocket is None:
-                    logging.info("Connecting to FlyByWire MCDU...")
+                    logging.info("Connecting to FlyByWire SimBridge...")
                     self.fbw_websocket = await ws_client.connect(FBW_MCDU_URL)
-                    logging.info("Connected to FlyByWire MCDU")
-                    self.retries = 0  # Reset retries on successful connection
+                    logging.info("Connected to FlyByWire SimBridge")
 
-                    # Request an update as soon as connected
-                    await self.fbw_websocket.send("requestUpdate")
+                    # Request an update as soon as connected in-case a CDU is already connected
+                    await self.request_update()
                     return True
             except Exception as e:
                 self.retries += 1
-                logging.info(f"MCDU connection error: {e} with retries {self.retries}")
+                logging.debug(f"Retrying SimBridge, attempt {self.retries}: {e}")
                 self.fbw_websocket = None
                 await asyncio.sleep(5)  # Wait before retry
-
-        logging.info("Max retries reached. Giving up connecting to FBW MCDU")
         return False
 
     async def run(self):
         """Main processing loop"""
-        logging.info("Starting FBW MCDU client")
-
-        # Initial connection
-        if not await self.connect_to_mcdu():
-            return
-
+        logging.info("Starting FlyByWire SimBridge client")
         while True:
             try:
                 # Wait for messages from the MCDU
                 if self.fbw_websocket is None:
                     if not await self.connect_to_mcdu():
+                        logging.info("Max SimBridge attempts reached. Waiting for new attempts.")
                         await asyncio.sleep(
                             10
                         )  # Wait longer between retries if we can't connect
@@ -433,24 +427,39 @@ class FbwMcduClient:
                 self.fbw_websocket = None
                 await asyncio.sleep(5)
 
+    async def request_update(self):
+        if self.fbw_websocket is not None:
+            await self.fbw_websocket.send("requestUpdate")
+
+
+async def request_update_on_connect(connected: asyncio.Event, fbw_client: FbwMcduClient):
+    await connected.wait()
+    await fbw_client.request_update()
+
 
 async def main():
     logging.basicConfig(
         level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
-    logging.info("----STARTED FBW A320 MCDU to WinWing CDU Integration----")
+    logging.info("----STARTED FBW A32NX MCDU to WinWing CDU Integration----")
 
     mobiflight_left = MobiFlightClient(CAPTAIN_CDU_URL)
     mobiflight_right = MobiFlightClient(CO_PILOT_CDU_URL)
     mobiflight_left_task = asyncio.create_task(mobiflight_left.run())
     mobiflight_right_task = asyncio.create_task(mobiflight_right.run())
+    mobiflight_clients = (mobiflight_left, mobiflight_right)
 
-    fbw_client = FbwMcduClient(mobiflight_left, mobiflight_right)
+    fbw_client = FbwMcduClient(*mobiflight_clients)
     fbw_task = asyncio.create_task(fbw_client.run())
 
+    # make sure we get an initial update when a CDU connects
+    update_request_tasks = [
+        asyncio.create_task(request_update_on_connect(m.connected, fbw_client)) for m in mobiflight_clients
+    ]
+
     # Wait for all to complete (they shouldn't unless there's an error)
-    await asyncio.gather(mobiflight_left_task, mobiflight_right_task, fbw_task)
+    await asyncio.gather(mobiflight_left_task, mobiflight_right_task, fbw_task, *update_request_tasks)
 
 
 if __name__ == "__main__":

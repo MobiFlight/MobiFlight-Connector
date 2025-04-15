@@ -10,7 +10,9 @@ export default {
       screens: {
         md: "49rem",
         lg: "63rem",
-        "3xl": "100rem"
+        "xl": "74rem",
+        "3xl": "99rem",
+        "4xl": "119rem"
       },
   		borderRadius: {
   			lg: 'var(--radius)',

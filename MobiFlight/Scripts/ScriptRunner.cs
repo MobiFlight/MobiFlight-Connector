@@ -138,7 +138,6 @@ namespace MobiFlight.Scripts
 
         private bool IsMinimumPythonVersion()
         {
-            bool result = false;
             ProcessStartInfo start = new ProcessStartInfo
             {
                 FileName = "python",
@@ -153,20 +152,29 @@ namespace MobiFlight.Scripts
             {
                 using (StreamReader reader = process.StandardOutput)
                 {
+                    //python --version returns "Python x.xx.x"
                     string output = reader.ReadToEnd();
-                    var x = output.Split(' ');
-                    var v = x[1].Split('.');
-                    Log.Instance.log($"Python version: {x[1]}.", LogSeverity.Info); 
-                    if ( (int.Parse(v[0]) >= 3) && (int.Parse(v[1]) >= 10))
-                    {
-                        return true;
+                    var outputParts = output.Split(' ');
+                    if (outputParts.Length > 1)
+                    {                   
+                        Log.Instance.log($"Python version: {outputParts[1]}.", LogSeverity.Info);
+                        if (Version.TryParse(outputParts[1], out Version version))
+                        {
+                            if (version.CompareTo(new Version(3,10,0)) >= 0)
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                Log.Instance.log($"Python version not supported: {outputParts[1]}.", LogSeverity.Warn);
+                                return false;
+                            }
+                        }
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    Log.Instance.log($"Failed to parse Python version: '{output}'.", LogSeverity.Warn);
                 }
             }
+            return false;
         }
 
         private bool IsPythonPathSet()
@@ -259,7 +267,7 @@ namespace MobiFlight.Scripts
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning) == DialogResult.OK) ;
             {
-                Process.Start("https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python");
+                Process.Start("https://docs.mobiflight.com/guides/installing-python/");
             }
         }
 
