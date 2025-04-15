@@ -156,11 +156,11 @@ namespace MobiFlight.Scripts
                     string output = reader.ReadToEnd();
                     var outputParts = output.Split(' ');
                     if (outputParts.Length > 1)
-                    {                   
+                    {
                         Log.Instance.log($"Python version: {outputParts[1]}.", LogSeverity.Info);
                         if (Version.TryParse(outputParts[1], out Version version))
                         {
-                            if (version.CompareTo(new Version(3,10,0)) >= 0)
+                            if (version.CompareTo(new Version(3, 10, 0)) >= 0)
                             {
                                 return true;
                             }
@@ -189,6 +189,38 @@ namespace MobiFlight.Scripts
             {
                 Log.Instance.log($"ScriptRunner - Python Path not set.", LogSeverity.Error);
                 return false;
+            }
+        }
+
+        private bool IsPythonMicrosoftStoreInstalled()
+        {
+            string powerShellCommand = "Get-AppxPackage -Name '*python*' | Select-Object Name";
+
+            ProcessStartInfo start = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-Command \"{powerShellCommand}\"",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            using (Process process = Process.Start(start))
+            {
+                using (StreamReader reader = process.StandardOutput)
+                {
+                    string output = reader.ReadToEnd();
+
+                    if (!string.IsNullOrEmpty(output) && output.Contains("Python"))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
         }
 
@@ -273,7 +305,7 @@ namespace MobiFlight.Scripts
 
         private bool IsPythonReady()
         {
-            if (!IsPythonPathSet())
+            if (!(IsPythonMicrosoftStoreInstalled() || IsPythonPathSet()))
             {
                 ShowPythonInstructionsMessageBox();
                 return false;
