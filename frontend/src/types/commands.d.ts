@@ -3,12 +3,14 @@
 export type CommandMessageKey =
   | "ConfigEdit"
   | "CommandConfigContextMenu"
+  | "CommandConfigBulkAction"
   | "CommandUpdateConfigItem"
   | "CommandAddConfigItem"
   | "CommandResortConfigItem"
 
 export type CommandMessage =
   | CommandConfigContextMenu
+  | CommandConfigBulkAction
   | CommandUpdateConfigItem
   | CommandAddConfigItem
   | CommandResortConfigItem
@@ -24,8 +26,19 @@ export interface CommandMessageBase {
 export interface CommandConfigContextMenu extends CommandMessageBase{
   key: "CommandConfigContextMenu"
   payload: { 
-    action: "edit" | "delete" | "duplicate" | "test" | "settings",
+    action: "edit" | "delete" | "duplicate" | "test" | "settings" | "toggle",
     item: IConfigItem
+  }
+}
+
+// EditConfigMessage
+// is sent to the backend
+// when a config item shall be edited
+export interface CommandConfigBulkAction extends CommandMessageBase{
+  key: "CommandConfigBulkAction"
+  payload: { 
+    action: "delete" | "toggle",
+    items: IConfigItem[]
   }
 }
 

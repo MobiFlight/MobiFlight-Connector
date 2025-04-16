@@ -1,4 +1,11 @@
-import { IconBan, IconFilter, IconX } from "@tabler/icons-react"
+import {
+  IconBan,
+  IconFilter,
+  IconSelectAll,
+  IconToggleLeft,
+  IconTrash,
+  IconX,
+} from "@tabler/icons-react"
 import { Table } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
@@ -11,19 +18,38 @@ import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import DarkModeToggle from "@/components/DarkModeToggle"
 import ToolTip from "@/components/ToolTip"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  Command,
+  CommandItem,
+  CommandList,
+  CommandShortcut,
+} from "@/components/ui/command"
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   items: IConfigItem[]
+  onDeleteSelected: () => void
+  onToggleSelected: () => void
+  onClearSelected: () => void
 }
 
 export function DataTableToolbar<TData>({
   table,
   items,
+  onDeleteSelected,
+  onToggleSelected,
+  onClearSelected
 }: DataTableToolbarProps<TData>) {
   const { t } = useTranslation()
-  
+
   const isFiltered = table.getState().columnFilters.length > 0
+  const isRowsSelected = table.getSelectedRowModel().rows.length > 0
 
   const configTypes = [...new Set(items.map((item) => item.Type))].map(
     (type) => {
@@ -36,9 +62,7 @@ export function DataTableToolbar<TData>({
     },
   )
 
-  const controller = [
-    ...new Set(items.map((item) => item.ModuleSerial)),
-  ]
+  const controller = [...new Set(items.map((item) => item.ModuleSerial))]
     .map((serial) => {
       const label = serial?.split("/")[0]
       return {
@@ -157,6 +181,69 @@ export function DataTableToolbar<TData>({
               <IconX className="h-4 w-4 xl:ml-2" />
             </Button>
           </ToolTip>
+        )}
+        {isRowsSelected && (
+          <div>
+            <div className="">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 border-dashed"
+                  >
+                    <IconSelectAll />
+                    {t("ConfigList.Toolbar.SelectedRows.Commands.Label", {
+                      count: table.getSelectedRowModel().rows.length,
+                    })}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0" align="start">
+                  <Command>
+                    <CommandList>
+                      <CommandItem
+                        className="text-base"
+                        onSelect={onDeleteSelected}
+                      >
+                        <IconTrash />
+                        {t("ConfigList.Toolbar.SelectedRows.Commands.Delete")}
+                        <CommandShortcut>
+                          <span className="rounded-md border-2 border-solid px-2 text-xs">
+                            del
+                          </span>
+                        </CommandShortcut>
+                      </CommandItem>
+                      <CommandItem
+                        className="text-base"
+                        onSelect={onToggleSelected}
+                      >
+                        <IconToggleLeft />
+                        {t("ConfigList.Toolbar.SelectedRows.Commands.Toggle")}
+                        <CommandShortcut>
+                          <span className="rounded-md border-2 border-solid px-2 text-xs">
+                            space
+                          </span>
+                        </CommandShortcut>
+                      </CommandItem>
+                      <DropdownMenuSeparator />
+                      <CommandItem
+                        className="text-base"
+                        onSelect={onClearSelected}
+                      >
+                        <IconX />
+                        {t("ConfigList.Toolbar.SelectedRows.Commands.Clear")}
+                        <CommandShortcut>
+                          <span className="rounded-md border-2 border-solid px-2 text-xs">
+                            esc
+                          </span>
+                        </CommandShortcut>
+                      </CommandItem>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
         )}
       </div>
       <DarkModeToggle />

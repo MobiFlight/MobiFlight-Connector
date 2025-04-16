@@ -480,3 +480,121 @@ test.describe('Responsiveness: Small Screen', () => {
     await expect(actionsColumn).toBeVisible()
   })
 })
+
+test.describe('Selection: Select / Deselect actions', () => {
+  test.use({ viewport: { width: 1024, height: 800 } });
+  test("Confirm `selection` of single item is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    
+    await firstRow.click()
+    await expect(selectionButton).toHaveText('1 rows selected')
+  })
+
+  test("Confirm `selection` of multiple items is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    
+    await firstRow.click()
+    await expect(selectionButton).toHaveText('1 rows selected')
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await expect(selectionButton).toHaveText('4 rows selected')
+  })
+
+  test("Confirm `selection` context menu is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    const selectionDeleteButton = page.getByRole('option', { name: 'Delete selected' })
+    const selectionToggleButton = page.getByRole('option', { name: 'Toggle selected' })
+    const selectionClearButton = page.getByRole('option', { name: 'Clear selection' })
+
+    await firstRow.click()
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await selectionButton.click()
+    
+    await expect(selectionDeleteButton).toBeVisible()
+    await expect(selectionToggleButton).toBeVisible()
+    await expect(selectionClearButton).toBeVisible()
+  })
+
+  test("Confirm `delete` of multiple items is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    const selectionDeleteButton = page.getByRole('option', { name: 'Delete selected' })
+    
+    await firstRow.click()
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await selectionButton.click()
+    
+    await selectionDeleteButton.click()
+    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    const lastCommand = postedCommands!.pop()
+    expect (lastCommand.key).toEqual('CommandConfigBulkAction')
+    expect (lastCommand.payload.action).toEqual('delete')
+
+    await expect(selectionButton).not.toBeVisible()
+  })
+
+  test("Confirm `toggle` of multiple items is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    const selectionToggleButton = page.getByRole('option', { name: 'Toggle selected' })
+    
+    await firstRow.click()
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await selectionButton.click()
+    
+    await selectionToggleButton.click()
+    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    const lastCommand = postedCommands!.pop()
+    expect (lastCommand.key).toEqual('CommandConfigBulkAction')
+    expect (lastCommand.payload.action).toEqual('toggle')
+  })
+})

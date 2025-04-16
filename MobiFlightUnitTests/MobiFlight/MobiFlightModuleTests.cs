@@ -333,6 +333,8 @@ namespace MobiFlight.Tests
         {
             BoardDefinitions.LoadDefinitions();
             var board = BoardDefinitions.GetBoardByMobiFlightType("MobiFlight Mega");
+            Assert.IsNotNull(board, "Board not found");
+
             var o = new MobiFlightModule("COM1", board);
             o.Version = "1.0.0";
             Assert.IsTrue(o.FirmwareRequiresUpdate(), "Firmware version requires update.");

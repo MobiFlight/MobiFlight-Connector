@@ -31,7 +31,15 @@
         "NoResultsFound": "No results found."
       },
       "NotSet": "not set",
-      "Reset": "Reset filters"
+      "Reset": "Reset filters",
+      "SelectedRows": {
+        "Commands" : {
+          "Label": "{{count}} rows selected",
+          "Delete": "Delete selected",
+          "Toggle": "Toggle selected",
+          "Clear": "Clear selection"
+        }
+      }
     },
     "Header": {
       "Active": "Active",
