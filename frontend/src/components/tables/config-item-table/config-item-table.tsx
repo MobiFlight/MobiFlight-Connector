@@ -83,7 +83,7 @@ export function ConfigItemTable<TData, TValue>({
   })
 
   const parentRef = useRef<HTMLDivElement>(null);
-  const { rows } = table.getRowModel()
+  // const { rows } = table.getRowModel()
   // Virtualization setup
   // const virtualizer = useVirtualizer({
   //   count: rows.length,

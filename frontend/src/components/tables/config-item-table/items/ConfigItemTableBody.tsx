@@ -4,7 +4,7 @@ import { flexRender, Row, Table } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData> 
@@ -15,6 +15,37 @@ const ConfigItemTableBody = <TData,>({
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
   const [lastSelected, setLastSelected] = useState<Row<TData> | null>(null)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const selectedRows = table.getSelectedRowModel().rows
+
+      if (e.key === "Delete" && selectedRows.length > 0) {
+        // Handle bulk delete
+        selectedRows.forEach((row) => {
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: { action: "delete", item: row.original },
+          })
+        })
+      } else if (e.key === " " && selectedRows.length > 0) {
+        // Handle bulk toggle active/inactive
+        e.preventDefault() // Prevent default spacebar behavior (scrolling)
+        selectedRows.forEach((row) => {
+          publish({
+            key: "CommandConfigContextMenu",
+            payload: {
+              action: "toggle",
+              item: row.original,
+            },
+          })
+        })
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [table, publish])
   
   return (
     <TableBody className="dark:bg-zinc-900">
@@ -38,7 +69,6 @@ const ConfigItemTableBody = <TData,>({
                     const range = [lastIndex, currentIndex].sort((a, b) => a - b)
                     for (let i = range[0]; i <= range[1]; i++) {
                       const row = rows[i]
-                      console.log(row.index, row.id)
                       if (row.getIsSelected()) continue
                       rows[i].toggleSelected()
                     }

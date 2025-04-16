@@ -24,7 +24,7 @@ export interface CommandMessageBase {
 export interface CommandConfigContextMenu extends CommandMessageBase{
   key: "CommandConfigContextMenu"
   payload: { 
-    action: "edit" | "delete" | "duplicate" | "test" | "settings",
+    action: "edit" | "delete" | "duplicate" | "test" | "settings" | "toggle",
     item: IConfigItem
   }
 }
