@@ -256,6 +256,31 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
+            MessageExchange.Instance.Subscribe<CommandConfigBulkAction>((message) =>
+            {
+                if (message.Action == "delete")
+                {
+                    message.Items.ForEach(item =>
+                    {
+                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
+                        ConfigItems.Remove(cfg);
+                    });
+                }
+                else if (message.Action == "toggle")
+                {
+                    var toggleValue = !message.Items.First().Active;
+                    message.Items.ForEach(item =>
+                    {
+                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
+                        if (cfg == null) return;
+                        cfg.Active = toggleValue;
+                    });
+                }
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+                OnConfigHasChanged?.Invoke(ConfigItems, null);
+            });
+
+
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
                 IConfigItem cfg;
@@ -263,6 +288,12 @@ namespace MobiFlight
                 {
                     case "delete":
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        break;
+
+                    case "toggle":
+                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
+                        if (cfg == null) break;
+                        cfg.Active = !cfg.Active;
                         break;
 
                     case "duplicate":

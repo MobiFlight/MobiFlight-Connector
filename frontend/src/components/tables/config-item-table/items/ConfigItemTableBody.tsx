@@ -5,12 +5,13 @@ import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
+import { IConfigItem } from "@/types/config"
 
 interface ConfigItemTableBodyProps<TData> {
-  table: Table<TData> 
+  table: Table<TData>
 }
 const ConfigItemTableBody = <TData,>({
-  table
+  table,
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
@@ -19,42 +20,34 @@ const ConfigItemTableBody = <TData,>({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const selectedRows = table.getSelectedRowModel().rows
+      const selectedConfigs = selectedRows.map((row) => row.original) as IConfigItem[]
 
-      if (e.key === "Delete" && selectedRows.length > 0) {
-        // Handle bulk delete
-        selectedRows.forEach((row) => {
-          publish({
-            key: "CommandConfigContextMenu",
-            payload: { action: "delete", item: row.original },
-          })
-        })
-      } else if (e.key === " " && selectedRows.length > 0) {
-        // Handle bulk toggle active/inactive
-        e.preventDefault() // Prevent default spacebar behavior (scrolling)
-        selectedRows.forEach((row) => {
-          publish({
-            key: "CommandConfigContextMenu",
-            payload: {
-              action: "toggle",
-              item: row.original,
-            },
-          })
-        })
-      }
+      if (e.key !== "Delete" && e.key !== " ") return
+
+      const action = e.key === "Delete" ? "delete" : "toggle"
+
+      if (selectedConfigs.length === 0) return
+      e.preventDefault() // Prevent default spacebar behavior (scrolling)
+      publish({
+        key: "CommandConfigBulkAction",
+        payload: {
+          action: action,
+          items: selectedConfigs,
+        },
+      })
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [table, publish])
-  
+
   return (
     <TableBody className="dark:bg-zinc-900">
       <SortableContext
         items={rows.map((row) => row.id)}
         strategy={verticalListSortingStrategy}
       >
-        {
-          rows.map((row) => {
+        {rows.map((row) => {
           return (
             <DndTableRow
               key={row.id}
@@ -64,9 +57,13 @@ const ConfigItemTableBody = <TData,>({
                 e.stopPropagation()
                 if (e.shiftKey) {
                   if (lastSelected) {
-                    const lastIndex = rows.findIndex((r) => r.id === lastSelected.id)
+                    const lastIndex = rows.findIndex(
+                      (r) => r.id === lastSelected.id,
+                    )
                     const currentIndex = rows.findIndex((r) => r.id === row.id)
-                    const range = [lastIndex, currentIndex].sort((a, b) => a - b)
+                    const range = [lastIndex, currentIndex].sort(
+                      (a, b) => a - b,
+                    )
                     for (let i = range[0]; i <= range[1]; i++) {
                       const row = rows[i]
                       if (row.getIsSelected()) continue
@@ -106,7 +103,10 @@ const ConfigItemTableBody = <TData,>({
                   )?.cellClassName ?? ""
 
                 return (
-                  <TableCell key={cell.id} className={cn("p-1", className, cellClassName)}>
+                  <TableCell
+                    key={cell.id}
+                    className={cn("p-1", className, cellClassName)}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 )
