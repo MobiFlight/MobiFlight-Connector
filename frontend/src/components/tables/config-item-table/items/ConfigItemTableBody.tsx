@@ -26,7 +26,7 @@ const ConfigItemTableBody = <TData,>({
       const selectedRows = table.getSelectedRowModel().rows
       const selectedConfigs = selectedRows.map((row) => row.original) as IConfigItem[]
 
-      const supportedKeyPress = [ "Delete", " ", "Enter", "Escape" ]	
+      const supportedKeyPress = [ "Delete", " ", "Enter", "Escape", "Backspace" ]	
 
       if (!supportedKeyPress.includes(e.key)) return
 
@@ -34,6 +34,7 @@ const ConfigItemTableBody = <TData,>({
       e.preventDefault() // Prevent default spacebar behavior (scrolling)
 
       switch (e.key) {
+        case "Backspace":
         case "Delete":
           if (onDeleteSelected) onDeleteSelected()
           break

@@ -215,6 +215,7 @@ export function ConfigItemTable<TData, TValue>({
               items={data as IConfigItem[]}
               onDeleteSelected={deleteSelected}
               onToggleSelected={toggleSelected}
+              onClearSelected={() => table.setRowSelection({})}
             />
           </div>
           {table.getRowModel().rows?.length ? (

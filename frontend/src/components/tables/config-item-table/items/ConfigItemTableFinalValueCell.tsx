@@ -26,7 +26,7 @@ const ConfigItemTableFinalValueCell = React.memo(({
   const label = item.Value
 
   return (
-    <div className="text-md truncate"  title="Value">
+    <div className="text-md truncate">
       {!isEmpty(label) && !Modifier ? (
         item.Type == "InputConfigItem" ? (
           <div className="flex flex-row justify-center">

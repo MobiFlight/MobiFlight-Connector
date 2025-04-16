@@ -1,7 +1,7 @@
 import {
   IconBan,
-  IconEdit,
   IconFilter,
+  IconSelectAll,
   IconToggleLeft,
   IconTrash,
   IconX,
@@ -29,12 +29,14 @@ import {
   CommandList,
   CommandShortcut,
 } from "@/components/ui/command"
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   items: IConfigItem[]
-  onDeleteSelected?: () => void
-  onToggleSelected?: () => void
+  onDeleteSelected: () => void
+  onToggleSelected: () => void
+  onClearSelected: () => void
 }
 
 export function DataTableToolbar<TData>({
@@ -42,6 +44,7 @@ export function DataTableToolbar<TData>({
   items,
   onDeleteSelected,
   onToggleSelected,
+  onClearSelected
 }: DataTableToolbarProps<TData>) {
   const { t } = useTranslation()
 
@@ -181,54 +184,65 @@ export function DataTableToolbar<TData>({
         )}
         {isRowsSelected && (
           <div>
-            <div className="display xl:hidden">
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="h-8 border-dashed"
-                >
-                  <IconEdit />
-                  {table.getSelectedRowModel().rows.length} Rows selected
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[200px] p-0" align="start">
-                <Command>
-                  <CommandList>
-                    <CommandItem className="text-base" >
-                      <IconTrash />
-                      Delete rows
-                      <CommandShortcut><span className="border-2 rounded-md border-solid px-2 text-xs ">del</span></CommandShortcut>
-                    </CommandItem>
-                    <CommandItem className="text-base">
-                      <IconToggleLeft />
-                      Toggle rows
-                      <CommandShortcut><span className="border-2 rounded-md border-solid px-2 text-xs ">space</span></CommandShortcut>
-                    </CommandItem>
-                  </CommandList>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <div className="">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="h-8 border-dashed"
+                  >
+                    <IconSelectAll />
+                    {t("ConfigList.Toolbar.SelectedRows.Commands.Label", {
+                      count: table.getSelectedRowModel().rows.length,
+                    })}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0" align="start">
+                  <Command>
+                    <CommandList>
+                      <CommandItem
+                        className="text-base"
+                        onSelect={onDeleteSelected}
+                      >
+                        <IconTrash />
+                        {t("ConfigList.Toolbar.SelectedRows.Commands.Delete")}
+                        <CommandShortcut>
+                          <span className="rounded-md border-2 border-solid px-2 text-xs">
+                            del
+                          </span>
+                        </CommandShortcut>
+                      </CommandItem>
+                      <CommandItem
+                        className="text-base"
+                        onSelect={onToggleSelected}
+                      >
+                        <IconToggleLeft />
+                        {t("ConfigList.Toolbar.SelectedRows.Commands.Toggle")}
+                        <CommandShortcut>
+                          <span className="rounded-md border-2 border-solid px-2 text-xs">
+                            space
+                          </span>
+                        </CommandShortcut>
+                      </CommandItem>
+                      <DropdownMenuSeparator />
+                      <CommandItem
+                        className="text-base"
+                        onSelect={onClearSelected}
+                      >
+                        <IconX />
+                        {t("ConfigList.Toolbar.SelectedRows.Commands.Clear")}
+                        <CommandShortcut>
+                          <span className="rounded-md border-2 border-solid px-2 text-xs">
+                            esc
+                          </span>
+                        </CommandShortcut>
+                      </CommandItem>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
             </div>
-            <div className="hidden gap-2 xl:flex">
-            <Button
-              className="flex h-8 flex-row items-center gap-1 py-1"
-              variant="ghost"
-              onClick={onDeleteSelected}
-            >
-              <IconTrash />
-              <span>Delete selected rows</span>
-            </Button>
-            <Button
-              className="flex h-8 flex-row items-center gap-1 py-1"
-              variant="ghost"
-              onClick={onToggleSelected}
-            >
-              <IconToggleLeft />
-              <span>Toggle selected rows</span>
-            </Button>
-          </div>
           </div>
         )}
       </div>
