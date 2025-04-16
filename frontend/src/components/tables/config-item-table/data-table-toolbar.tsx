@@ -27,6 +27,7 @@ import {
   Command,
   CommandItem,
   CommandList,
+  CommandShortcut,
 } from "@/components/ui/command"
 
 interface DataTableToolbarProps<TData> {
@@ -192,16 +193,18 @@ export function DataTableToolbar<TData>({
                   {table.getSelectedRowModel().rows.length} Rows selected
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-[140px] p-0" align="start">
+              <PopoverContent className="w-[200px] p-0" align="start">
                 <Command>
                   <CommandList>
                     <CommandItem className="text-base" >
                       <IconTrash />
                       Delete rows
+                      <CommandShortcut><span className="border-2 rounded-md border-solid px-2 text-xs ">del</span></CommandShortcut>
                     </CommandItem>
                     <CommandItem className="text-base">
                       <IconToggleLeft />
                       Toggle rows
+                      <CommandShortcut><span className="border-2 rounded-md border-solid px-2 text-xs ">space</span></CommandShortcut>
                     </CommandItem>
                   </CommandList>
                 </Command>
