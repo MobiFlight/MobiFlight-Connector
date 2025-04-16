@@ -43,6 +43,16 @@ namespace MobiFlight.Tests
             MessageExchange.Instance.SetPublisher(_mockMessagePublisher.Object);
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            // Dispose of the ExecutionManager to ensure proper cleanup
+            _executionManager.Stop();
+            _executionManager.Shutdown();
+            _executionManager = null;
+        }
+
+
         [TestMethod]
         public void CommandConfigBulkAction_Delete_RemovesItems()
         {
@@ -69,8 +79,12 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
-        public void CommandConfigBulkAction_Toggle_TogglesItems_FalseTrue()
+        public void CommandConfigBulkAction_Toggle_TogglesItems()
         {
+            /// ---
+            // Case 1: toggle false to true
+            /// ----
+            
             // Arrange
             var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
             var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
@@ -90,19 +104,19 @@ namespace MobiFlight.Tests
             // Assert
             Assert.IsTrue(configItem1.Active);
             Assert.IsTrue(configItem2.Active);
-        }
 
-        [TestMethod]
-        public void CommandConfigBulkAction_Toggle_TogglesItems_TrueFalse()
-        {
+            /// ---
+            // Case 2: toggle true to false
+            /// ----
+        
             // Arrange
-            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
-            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
-            var project = new Project();
+            configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
+            configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
+            project = new Project();
             project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
             _executionManager.Project = project;
 
-            var message = new CommandConfigBulkAction
+            message = new CommandConfigBulkAction
             {
                 Action = "toggle",
                 Items = new List<ConfigItem> { configItem1, configItem2 }
@@ -111,22 +125,22 @@ namespace MobiFlight.Tests
             // Act
             MessageExchange.Instance.Publish(message);
 
+            /// ---
+            // Case 3: toggle true to false
+            /// ----
+            
             // Assert
             Assert.IsFalse(configItem1.Active);
             Assert.IsFalse(configItem2.Active);
-        }
-
-        [TestMethod]
-        public void CommandConfigBulkAction_Toggle_TogglesItems_Mixed()
-        {
+        
             // Arrange
-            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
-            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
-            var project = new Project();
+            configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
+            configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            project = new Project();
             project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
             _executionManager.Project = project;
 
-            var message = new CommandConfigBulkAction
+            message = new CommandConfigBulkAction
             {
                 Action = "toggle",
                 Items = new List<ConfigItem> { configItem1, configItem2 }
