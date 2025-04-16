@@ -61,18 +61,3 @@ jobs:
           name: MobiFlightConnector
           path: |
             Release/MobiFlightConnector-${{ env.VERSION }}.zip
-
-      - name: Check Translations
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd frontend; node src/scripts/check-translations.js
-
-      - name: Generate Translation Statistics as Markdown
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: cd frontend; echo "$(node src/scripts/check-translations.js)" > translation-stats.md
-      
-      - name: Post Translation Statistics
-        uses: marocchino/sticky-pull-request-comment@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          path: frontend/translation-stats.md
