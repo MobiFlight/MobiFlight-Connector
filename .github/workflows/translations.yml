@@ -2,6 +2,9 @@ name: Check translations
 on:
   pull_request:
     branches: [ main, mf2025/main ]
+    paths:
+      # Trigger only when files in the public/locales folder change
+      - 'frontend/public/locales/**' 
 jobs:
   check-translations:
     timeout-minutes: 60
