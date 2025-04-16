@@ -42,11 +42,17 @@
       "AircraftIdSnippet": "flybywire_a32",
       "ScriptName": "fbw_a32nx_winwing_cdu.py"
     },
-	{
+    {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "headwind_a33",
       "ScriptName": "headwind_a33_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "maddog",
+      "ScriptName": "maddogx_winwing_cdu.py"
     }
   ]
 }
