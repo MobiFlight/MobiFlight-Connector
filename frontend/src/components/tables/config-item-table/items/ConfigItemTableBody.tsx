@@ -8,10 +8,14 @@ import { useState, useEffect } from "react"
 import { IConfigItem } from "@/types/config"
 
 interface ConfigItemTableBodyProps<TData> {
-  table: Table<TData>
+  table: Table<TData>,
+  onDeleteSelected?: () => void
+  onToggleSelected?: () => void
 }
 const ConfigItemTableBody = <TData,>({
   table,
+  onDeleteSelected,
+  onToggleSelected
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
@@ -22,24 +26,31 @@ const ConfigItemTableBody = <TData,>({
       const selectedRows = table.getSelectedRowModel().rows
       const selectedConfigs = selectedRows.map((row) => row.original) as IConfigItem[]
 
-      if (e.key !== "Delete" && e.key !== " ") return
+      const supportedKeyPress = [ "Delete", " ", "Enter", "Escape" ]	
 
-      const action = e.key === "Delete" ? "delete" : "toggle"
+      if (!supportedKeyPress.includes(e.key)) return
 
       if (selectedConfigs.length === 0) return
       e.preventDefault() // Prevent default spacebar behavior (scrolling)
-      publish({
-        key: "CommandConfigBulkAction",
-        payload: {
-          action: action,
-          items: selectedConfigs,
-        },
-      })
+
+      switch (e.key) {
+        case "Delete":
+          if (onDeleteSelected) onDeleteSelected()
+          break
+
+        case " ":
+          if (onToggleSelected) onToggleSelected()
+          break
+        
+        case "Escape":
+          table.resetRowSelection()
+          break
+      }
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [table, publish])
+  })
 
   return (
     <TableBody className="dark:bg-zinc-900">

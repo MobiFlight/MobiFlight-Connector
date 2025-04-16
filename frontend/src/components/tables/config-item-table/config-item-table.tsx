@@ -82,7 +82,7 @@ export function ConfigItemTable<TData, TValue>({
     },
   })
 
-  const parentRef = useRef<HTMLDivElement>(null);
+  const parentRef = useRef<HTMLDivElement>(null)
   // const { rows } = table.getRowModel()
   // Virtualization setup
   // const virtualizer = useVirtualizer({
@@ -159,7 +159,7 @@ export function ConfigItemTable<TData, TValue>({
         type: "OutputConfig",
       },
     } as CommandAddConfigItem)
-  }, [ publish, t])
+  }, [publish, t])
 
   const handleAddInputConfig = useCallback(() => {
     publish({
@@ -169,32 +169,80 @@ export function ConfigItemTable<TData, TValue>({
         type: "InputConfig",
       },
     } as CommandAddConfigItem)
-  }, [ publish, t])
+  }, [publish, t])
+
+  const deleteSelected = useCallback(() => {
+    const action = "delete"
+    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
+      return row.original as IConfigItem
+    })
+    if (selectedConfigs.length === 0) return
+
+    publish({
+      key: "CommandConfigBulkAction",
+      payload: {
+        action: action,
+        items: selectedConfigs,
+      },
+    })
+    // Clear selection after deletion
+    table.setRowSelection({})
+  }, [table, publish])
+
+  const toggleSelected = useCallback(() => {
+    const action = "toggle"
+    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
+      return row.original as IConfigItem
+    })
+    if (selectedConfigs.length === 0) return
+
+    publish({
+      key: "CommandConfigBulkAction",
+      payload: {
+        action: action,
+        items: selectedConfigs,
+      },
+    })
+  }, [table, publish])
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
       {data.length > 0 ? (
         <div className="flex grow flex-col gap-2 overflow-y-auto">
           <div className="p-1">
-            <DataTableToolbar table={table} items={data as IConfigItem[]} />
+            <DataTableToolbar
+              table={table}
+              items={data as IConfigItem[]}
+              onDeleteSelected={deleteSelected}
+              onToggleSelected={toggleSelected}
+            />
           </div>
-          {table.getRowModel().rows?.length  ? (
+          {table.getRowModel().rows?.length ? (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
               modifiers={[restrictToVerticalAxis]}
               onDragEnd={handleDragEnd}
             >
-              <div className="flex flex-col overflow-y-auto rounded-lg border border-primary" ref={parentRef}>
+              <div
+                className="flex flex-col overflow-y-auto rounded-lg border border-primary"
+                ref={parentRef}
+              >
                 <Table ref={tableRef} className="table-fixed">
-                  <ConfigItemTableHeader headerGroups={table.getHeaderGroups()} />
-                  <ConfigItemTableBody table={table} />
+                  <ConfigItemTableHeader
+                    headerGroups={table.getHeaderGroups()}
+                  />
+                  <ConfigItemTableBody
+                    table={table}
+                    onDeleteSelected={deleteSelected}
+                    onToggleSelected={toggleSelected}
+                  />
                 </Table>
               </div>
             </DndContext>
           ) : (
             <div className="flex flex-col gap-2 rounded-lg border-2 border-solid border-primary pb-6">
-              <div className="h-12 bg-primary mb-4"></div>
+              <div className="mb-4 h-12 bg-primary"></div>
               <div className="text-center" role="alert">
                 {t("ConfigList.Table.NoResultsMatchingFilter")}
               </div>

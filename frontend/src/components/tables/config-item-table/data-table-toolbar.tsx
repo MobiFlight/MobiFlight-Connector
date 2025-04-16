@@ -1,4 +1,4 @@
-import { IconBan, IconFilter, IconX } from "@tabler/icons-react"
+import { IconBan, IconFilter, IconToggleLeft, IconTrash, IconX } from "@tabler/icons-react"
 import { Table } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
@@ -15,15 +15,20 @@ import ToolTip from "@/components/ToolTip"
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   items: IConfigItem[]
+  onDeleteSelected?: () => void
+  onToggleSelected?: () => void
 }
 
 export function DataTableToolbar<TData>({
   table,
   items,
+  onDeleteSelected,
+  onToggleSelected,
 }: DataTableToolbarProps<TData>) {
   const { t } = useTranslation()
   
   const isFiltered = table.getState().columnFilters.length > 0
+  const isRowsSelected = table.getSelectedRowModel().rows.length > 0
 
   const configTypes = [...new Set(items.map((item) => item.Type))].map(
     (type) => {
@@ -157,6 +162,18 @@ export function DataTableToolbar<TData>({
               <IconX className="h-4 w-4 xl:ml-2" />
             </Button>
           </ToolTip>
+        )}
+        {isRowsSelected && (
+          <>
+        <Button className="flex flex-row gap-1 items-center py-1 h-8" variant="ghost" onClick={onDeleteSelected}>
+          <IconTrash />
+          <span>Delete selected rows</span>
+        </Button>
+        <Button className="flex flex-row gap-1 items-center py-1 h-8" variant="ghost" onClick={onToggleSelected}>
+          <IconToggleLeft />
+          <span>Toggle selected rows</span>
+        </Button>
+        </>
         )}
       </div>
       <DarkModeToggle />
