@@ -1,17 +1,21 @@
 import { TableBody, TableCell } from "@/components/ui/table"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { flexRender, Row } from "@tanstack/react-table"
+import { flexRender, Row, Table } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 interface ConfigItemTableBodyProps<TData> {
-  rows: Row<TData>[] 
+  table: Table<TData> 
 }
 const ConfigItemTableBody = <TData,>({
-  rows
+  table
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
+  const rows = table.getRowModel().rows
+  const [lastSelected, setLastSelected] = useState<Row<TData> | null>(null)
+  
   return (
     <TableBody className="dark:bg-zinc-900">
       <SortableContext
@@ -25,6 +29,30 @@ const ConfigItemTableBody = <TData,>({
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
               dnd-itemid={row.id}
+              onClick={(e): void => {
+                e.stopPropagation()
+                if (e.shiftKey) {
+                  if (lastSelected) {
+                    const lastIndex = rows.findIndex((r) => r.id === lastSelected.id)
+                    const currentIndex = rows.findIndex((r) => r.id === row.id)
+                    const range = [lastIndex, currentIndex].sort((a, b) => a - b)
+                    for (let i = range[0]; i <= range[1]; i++) {
+                      const row = rows[i]
+                      console.log(row.index, row.id)
+                      if (row.getIsSelected()) continue
+                      rows[i].toggleSelected()
+                    }
+                  } else {
+                    row.toggleSelected()
+                  }
+                } else if (e.ctrlKey || e.metaKey) {
+                  row.toggleSelected()
+                } else {
+                  table.resetRowSelection()
+                  row.toggleSelected()
+                }
+                setLastSelected(row)
+              }}
               onDoubleClick={() => {
                 publish({
                   key: "CommandConfigContextMenu",

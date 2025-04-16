@@ -188,7 +188,7 @@ export function ConfigItemTable<TData, TValue>({
               <div className="flex flex-col overflow-y-auto rounded-lg border border-primary" ref={parentRef}>
                 <Table ref={tableRef} className="table-fixed">
                   <ConfigItemTableHeader headerGroups={table.getHeaderGroups()} />
-                  <ConfigItemTableBody rows={rows} />
+                  <ConfigItemTableBody table={table} />
                 </Table>
               </div>
             </DndContext>
