@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: Check translations
 on:
   pull_request:
     branches: [ main, mf2025/main ]
@@ -16,7 +16,7 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
-        
+
       - name: Check Translations
         working-directory: ${{env.GITHUB_WORKSPACE}}
         run: cd frontend; node src/scripts/check-translations.js
