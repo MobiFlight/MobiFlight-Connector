@@ -639,7 +639,8 @@
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(SolutionDir)examples\*.mcc" "$(TargetDir)assets\Base\ConfigFile\" /Y /I</PreBuildEvent>
+    <PreBuildEvent>xcopy "$(SolutionDir)examples\*.mcc" "$(TargetDir)assets\Base\ConfigFile\" /Y /I
+xcopy /R /Y "$(SolutionDir)\lib\x86\SimConnect.dll" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
