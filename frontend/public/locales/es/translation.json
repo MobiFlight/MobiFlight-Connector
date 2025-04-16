@@ -12,8 +12,9 @@
     "Encoder": "Encoder",
     "AnalogInput": "Analog Input",
     "-": "no usado",
-    "OutputConfigItem": "Configuración Output",
-    "InputConfigItem": "Configuración Input"
+    "OutputConfigItem": "Configuración de salida",
+    "InputConfigItem": "Configuración de entrada",
+    "InputAction": "Acción de entrada"
   },
   "ConfigList": {
     "Toolbar": {
@@ -21,16 +22,24 @@
         "Placeholder": "Filtrar elementos..."
       },
       "Filter": {
-        "ConfigType": "Config Type",
+        "ConfigType": "Tipo de configuración",
         "Device": "Controlador",
         "Type": "Dispositivo",
-        "Name": "Nombres",
+        "Name": "Nombre",
         "Selected": "{{items}} seleccionados",
         "Clear": "Borrar filtros",
         "NoResultsFound": "No se encontraron resultados."
       },
       "NotSet": "not set",
-      "Reset": "Restablecer filtros"
+      "Reset": "Restablecer filtros",
+      "SelectedRows": {
+        "Commands": {
+          "Label": "{{count}} filas seleccionadas",
+          "Delete": "Eliminar seleccionados",
+          "Toggle": "Alternar seleccionados",
+          "Clear": "Borrar selección"
+        }
+      }
     },
     "Header": {
       "Active": "Activo",
@@ -53,7 +62,8 @@
       }
     },
     "Table": {
-      "NoResultsFound": "Nueva configuración. Por favor, añade algunos elementos."
+      "NoResultsFound": "Esta es una nueva configuración. Por favor, añade algunos elementos.",
+      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro."
     },
     "Actions": {
       "OutputConfigItem": {
@@ -63,6 +73,34 @@
       "InputConfigItem": {
         "Add": "Nueva configuración Input",
         "DefaultName": "Nueva Configuración Input"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "La condición previa no se cumple."
+      },
+      "Source": {
+        "available": "La fuente está disponible.",
+        "SIMCONNECT_NOT_AVAILABLE": "Esta configuración usa SimConnect, falta la conexión.",
+        "FSUIPC_NOT_AVAILABLE": "Esta configuración usa FSUIPC, falta la conexión.",
+        "XPLANE_NOT_AVAILABLE": "Esta configuración usa X-Plane, falta la conexión."
+      },
+      "Modifier": {
+        "Error": "Se aplica un modificador que tiene un error.",
+        "OK": "Se aplica un modificador."
+      },
+      "Device": {
+        "NotConnected": "El dispositivo usado en esta configuración no está conectado.",
+        "Connected": "El dispositivo usado en esta configuración está conectado."
+      },
+      "Test": {
+        "Executing": "Esta configuración se está probando actualmente.",
+        "NotExecuting": "Esta configuración no se está probando."
+      },
+      "ConfigRef": {
+        "Missing": "Faltan una o más configuraciones referenciadas.",
+        "OK": "Todas las configuraciones referenciadas están disponibles."
       }
     }
   }
