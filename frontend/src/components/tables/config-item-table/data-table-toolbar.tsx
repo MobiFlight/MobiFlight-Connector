@@ -1,4 +1,11 @@
-import { IconBan, IconFilter, IconToggleLeft, IconTrash, IconX } from "@tabler/icons-react"
+import {
+  IconBan,
+  IconEdit,
+  IconFilter,
+  IconToggleLeft,
+  IconTrash,
+  IconX,
+} from "@tabler/icons-react"
 import { Table } from "@tanstack/react-table"
 
 import { Button } from "@/components/ui/button"
@@ -11,6 +18,16 @@ import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import DarkModeToggle from "@/components/DarkModeToggle"
 import ToolTip from "@/components/ToolTip"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  Command,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
@@ -26,7 +43,7 @@ export function DataTableToolbar<TData>({
   onToggleSelected,
 }: DataTableToolbarProps<TData>) {
   const { t } = useTranslation()
-  
+
   const isFiltered = table.getState().columnFilters.length > 0
   const isRowsSelected = table.getSelectedRowModel().rows.length > 0
 
@@ -41,9 +58,7 @@ export function DataTableToolbar<TData>({
     },
   )
 
-  const controller = [
-    ...new Set(items.map((item) => item.ModuleSerial)),
-  ]
+  const controller = [...new Set(items.map((item) => item.ModuleSerial))]
     .map((serial) => {
       const label = serial?.split("/")[0]
       return {
@@ -164,16 +179,54 @@ export function DataTableToolbar<TData>({
           </ToolTip>
         )}
         {isRowsSelected && (
-          <>
-        <Button className="flex flex-row gap-1 items-center py-1 h-8" variant="ghost" onClick={onDeleteSelected}>
-          <IconTrash />
-          <span>Delete selected rows</span>
-        </Button>
-        <Button className="flex flex-row gap-1 items-center py-1 h-8" variant="ghost" onClick={onToggleSelected}>
-          <IconToggleLeft />
-          <span>Toggle selected rows</span>
-        </Button>
-        </>
+          <div>
+            <div className="display xl:hidden">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="h-8 border-dashed"
+                >
+                  <IconEdit />
+                  {table.getSelectedRowModel().rows.length} Rows selected
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[140px] p-0" align="start">
+                <Command>
+                  <CommandList>
+                    <CommandItem className="text-base" >
+                      <IconTrash />
+                      Delete rows
+                    </CommandItem>
+                    <CommandItem className="text-base">
+                      <IconToggleLeft />
+                      Toggle rows
+                    </CommandItem>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+            </div>
+            <div className="hidden gap-2 xl:flex">
+            <Button
+              className="flex h-8 flex-row items-center gap-1 py-1"
+              variant="ghost"
+              onClick={onDeleteSelected}
+            >
+              <IconTrash />
+              <span>Delete selected rows</span>
+            </Button>
+            <Button
+              className="flex h-8 flex-row items-center gap-1 py-1"
+              variant="ghost"
+              onClick={onToggleSelected}
+            >
+              <IconToggleLeft />
+              <span>Toggle selected rows</span>
+            </Button>
+          </div>
+          </div>
         )}
       </div>
       <DarkModeToggle />
