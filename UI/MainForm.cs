@@ -2347,27 +2347,26 @@ namespace MobiFlight.UI
             Control MainForm = this;
 
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
-            var t = new Task(() =>
-            {
-                if (!updater.AutoDetectCommunityFolder())
+            Task.Run(async () =>
                 {
-                    Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
-                    return;
-                }
+                    if (!updater.AutoDetectCommunityFolder())
+                    {
+                        Log.Instance.log(i18n._tr("uiMessageWasmUpdateCommunityFolderNotFound"), LogSeverity.Error);
+                        return;
+                    }
 
-                if (updater.InstallWasmEvents())
-                {
-                    progressForm.DialogResult = DialogResult.OK;
+                    if (await updater.InstallWasmEvents())
+                    {
+                        progressForm.DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        progressForm.DialogResult = DialogResult.No;
+                        Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
+                    }
                 }
-                else
-                {
-                    progressForm.DialogResult = DialogResult.No;
-                    Log.Instance.log(i18n._tr("uiMessageWasmEventsInstallationError"), LogSeverity.Error);
-                }
-            }
             );
 
-            t.Start();
             if (progressForm.ShowDialog() == DialogResult.OK)
             {
                 TimeoutMessageDialog.Show(
@@ -2394,9 +2393,10 @@ namespace MobiFlight.UI
 
             progressForm.Text = i18n._tr("uiTitleHubhopAutoUpdate");
             updater.DownloadAndInstallProgress += progressForm.OnProgressUpdated;
-            var t = new Task(() =>
+
+            Task.Run(async () =>
             {
-                if (updater.DownloadHubHopPresets())
+                if (await updater.DownloadHubHopPresets())
                 {
                     Msfs2020HubhopPresetListSingleton.Instance.Clear();
                     XplaneHubhopPresetListSingleton.Instance.Clear();
@@ -2407,10 +2407,8 @@ namespace MobiFlight.UI
                     progressForm.DialogResult = DialogResult.No;
                     Log.Instance.log(i18n._tr("uiMessageHubHopUpdateError"), LogSeverity.Error);
                 }
-            }
-            );
+            });
 
-            t.Start();
             if (progressForm.ShowDialog() == DialogResult.OK)
             {
                 TimeoutMessageDialog.Show(
@@ -2427,10 +2425,9 @@ namespace MobiFlight.UI
                     i18n._tr("uiMessageWasmEventsInstallationError"),
                     i18n._tr("uiMessageWasmUpdater"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-            };
+            }
 
             progressForm.Dispose();
-
         }
 
         private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
