@@ -13,7 +13,8 @@
     "AnalogInput": "Analoger Eingang",
     "-": "nicht verwendet",
     "OutputConfigItem": "Ausgabe Konfiguration",
-    "InputConfigItem": "Eingabe Konfiguration"
+    "InputConfigItem": "Eingabe Konfiguration",
+    "InputAction": "Input Action"
   },
   "ConfigList": {
     "Toolbar": {
@@ -30,7 +31,15 @@
         "NoResultsFound": "Keine Ergebnisse gefunden."
       },
       "NotSet": "Nicht verwendet",
-      "Reset": "Filter zurücksetzen"
+      "Reset": "Filter zurücksetzen",
+      "SelectedRows": {
+        "Commands" : {
+          "Label": "{{count}} Zeilen ausgewählt",
+          "Delete": "Ausgewählte löschen",
+          "Toggle": "Ausgewählte umschalten",
+          "Clear": "Auswahl zurücksetzen"
+        }
+      }
     },
     "Header": {
       "Active": "Aktiv",
@@ -53,7 +62,8 @@
       }
     },
     "Table": {
-      "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge."
+      "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge.",
+      "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter."
     },
     "Actions": {
       "OutputConfigItem": {
@@ -63,6 +73,34 @@
       "InputConfigItem": {
         "Add": "Neue Eingabe-konfiguration",
         "DefaultName": "Neue Eingabe-Konfiguration"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "Vorbedingung nicht erfüllt."
+      },
+      "Source": {
+        "available": "Quelle ist verfügbar.",
+        "SIMCONNECT_NOT_AVAILABLE": "Diese Config verwendet SimConnect, Verbindung fehlt.",
+        "FSUIPC_NOT_AVAILABLE": "Diese Config verwendet  FSUIPC, Verbindung fehlt.",
+        "XPLANE_NOT_AVAILABLE": "Diese Config verwendet  X-Plane, Verbindung fehlt."
+      },
+      "Modifier" : {
+        "Error": "Ein Modifikator verursacht einen Fehler.",
+        "OK": "Ein Modifikator ist angewendet."
+      },
+      "Device": {
+        "NotConnected": "Das in dieser Konfiguration verwendete Gerät ist nicht verbunden.",
+        "Connected": "Das in dieser Konfiguration verwendete Gerät ist verbunden."
+      },
+      "Test": {
+        "Executing": "Diese Konfiguration wird gerade getestet.",
+        "NotExecuting": "Diese Konfiguration wird nicht getestet."
+      },
+      "ConfigRef": {
+        "Missing": "Eine oder mehrere referenzierte Konfigurationen fehlen.",
+        "OK": "Alle referenzierten Konfigurationen sind verfügbar."
       }
     }
   }
