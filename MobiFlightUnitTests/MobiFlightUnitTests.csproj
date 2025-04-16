@@ -123,6 +123,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
+    <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
@@ -613,6 +614,9 @@
   <ItemGroup>
     <Folder Include="assets\MobiFlight\SimConnectMSFS\" />
     <Folder Include="MobiFlight\SimConnectMSFS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

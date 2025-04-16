@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MobiFlight.BrowserMessages.Incoming
 {
-    internal class CommandConfigBulkAction
+    public class CommandConfigBulkAction
     {
         [JsonProperty("action")]
         public string Action { get; set; }
