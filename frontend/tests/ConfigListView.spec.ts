@@ -1,4 +1,3 @@
-import { last } from "lodash-es"
 import { test, expect } from "./fixtures"
 
 test("Confirm empty list view", async ({ configListPage, page }) => {
