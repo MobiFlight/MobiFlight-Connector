@@ -33,7 +33,11 @@ import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { CommandAddConfigItem, CommandResortConfigItem } from "@/types/commands"
+import {
+  CommandAddConfigItem,
+  CommandConfigContextMenu,
+  CommandResortConfigItem,
+} from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
@@ -104,10 +108,18 @@ export function ConfigItemTable<TData, TValue>({
       )
       if (rowElement) {
         rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
+        const row = table.getRowModel().rows.find((r) => r.id === lastItem.GUID)
+        if (row) {
+          table.setRowSelection({ [row.id]: true })
+        }
+        publish({
+          key: "CommandConfigContextMenu",
+          payload: { action: "edit", item: lastItem },
+        } as CommandConfigContextMenu)
       }
     }
     prevDataLength.current = data.length
-  }, [data])
+  }, [publish, table, data])
 
   const { t } = useTranslation()
 
