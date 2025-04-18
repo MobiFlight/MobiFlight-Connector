@@ -9,11 +9,13 @@ import { IConfigItem } from "@/types/config"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>,
+  firstDragItemId: string | undefined
   onDeleteSelected?: () => void
   onToggleSelected?: () => void
 }
 const ConfigItemTableBody = <TData,>({
   table,
+  firstDragItemId,
   onDeleteSelected,
   onToggleSelected
 }: ConfigItemTableBodyProps<TData>) => {
@@ -60,8 +62,13 @@ const ConfigItemTableBody = <TData,>({
         strategy={verticalListSortingStrategy}
       >
         {rows.map((row) => {
+          const isSelected = row.getIsSelected()
+          const isDragging = firstDragItemId !== undefined
+          const isFirstDragItem = firstDragItemId === row.id
+          const dragClassName = isDragging && isSelected && !isFirstDragItem ? "bg-muted opacity-10" : ""
           return (
             <DndTableRow
+              className={dragClassName}
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
               dnd-itemid={row.id}

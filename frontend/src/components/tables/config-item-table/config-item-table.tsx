@@ -22,11 +22,13 @@ import {
   DragEndEvent,
   MouseSensor,
   TouchSensor,
+  DragStartEvent,
+  Active,
 } from "@dnd-kit/core"
 
 import { arrayMove } from "@dnd-kit/sortable"
 
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
+import { restrictToParentElement, restrictToVerticalAxis } from "@dnd-kit/modifiers"
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
@@ -122,6 +124,7 @@ export function ConfigItemTable<TData, TValue>({
   }, [publish, table, data])
 
   const { t } = useTranslation()
+  const [firstDragItem, setFirstDragItem] = useState<Active | undefined>(undefined)
 
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
@@ -129,9 +132,19 @@ export function ConfigItemTable<TData, TValue>({
     useSensor(KeyboardSensor, {}),
   )
 
+  const handleDragStart = useCallback(
+    (event: DragStartEvent) => {
+      const { active } = event
+      setFirstDragItem(active)
+    },
+    [setFirstDragItem],
+  )
+
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
       const { active, over } = event
+
+      setFirstDragItem(undefined)
 
       if (active.id !== over?.id) {
         // sort the data items first
@@ -234,8 +247,9 @@ export function ConfigItemTable<TData, TValue>({
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
-              modifiers={[restrictToVerticalAxis]}
+              modifiers={[restrictToVerticalAxis, restrictToParentElement]}
               onDragEnd={handleDragEnd}
+              onDragStart={handleDragStart}
             >
               <div
                 className="flex flex-col overflow-y-auto rounded-lg border border-primary"
@@ -247,6 +261,7 @@ export function ConfigItemTable<TData, TValue>({
                   />
                   <ConfigItemTableBody
                     table={table}
+                    firstDragItemId={firstDragItem?.id as string}
                     onDeleteSelected={deleteSelected}
                     onToggleSelected={toggleSelected}
                   />
