@@ -168,9 +168,7 @@ export function ConfigItemTable<TData, TValue>({
       const selectedIds = selectedRows.map(
         (row) => (row.original as IConfigItem).GUID,
       )
-      const originalIndex = table
-        .getRowModel()
-        .rows.findIndex((row) => row.id === active.id)
+      const originalIndex = (data as IConfigItem[]).findIndex((item) => item.GUID === active.id)
 
       // Remove dragged items from data
       let newData = (data as IConfigItem[]).filter(
