@@ -46,6 +46,7 @@ import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
+import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -125,7 +126,7 @@ export function ConfigItemTable<TData, TValue>({
   }, [publish, table, data])
 
   const { t } = useTranslation()
-  const [firstDragItem, setFirstDragItem] = useState<Active | undefined>(
+  const [dragItem, setDragItem] = useState<Active | undefined>(
     undefined,
   )
 
@@ -138,7 +139,7 @@ export function ConfigItemTable<TData, TValue>({
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
       const { active } = event
-      setFirstDragItem(active)
+      setDragItem(active)
 
       const draggedRow = table
         .getRowModel()
@@ -148,16 +149,19 @@ export function ConfigItemTable<TData, TValue>({
         table.setRowSelection({ [active.id]: true })
       }
     },
-    [setFirstDragItem, table],
+    [setDragItem, table],
   )
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
       const { active, over } = event
 
-      setFirstDragItem(undefined)
+      setDragItem(undefined)
 
       if (!over?.id || !active.id) return
+
+      // we didn't really move anything
+      if (active.id === over.id) return
 
       // Get all selected row GUIDs, or just the dragged one if nothing selected
       const selectedRows = table.getSelectedRowModel().rows
@@ -271,7 +275,7 @@ export function ConfigItemTable<TData, TValue>({
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
-              modifiers={[restrictToVerticalAxis, restrictToParentElement]}
+              modifiers={[ snapToCursor, restrictToVerticalAxis, restrictToParentElement ]}
               onDragEnd={handleDragEnd}
               onDragStart={handleDragStart}
             >
@@ -285,7 +289,7 @@ export function ConfigItemTable<TData, TValue>({
                   />
                   <ConfigItemTableBody
                     table={table}
-                    firstDragItemId={firstDragItem?.id as string}
+                    dragItemId={dragItem?.id as string}
                     onDeleteSelected={deleteSelected}
                     onToggleSelected={toggleSelected}
                   />

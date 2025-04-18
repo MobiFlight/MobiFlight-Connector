@@ -10,13 +10,13 @@ import { Badge } from "@/components/ui/badge"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>,
-  firstDragItemId: string | undefined
+  dragItemId: string | undefined
   onDeleteSelected?: () => void
   onToggleSelected?: () => void
 }
 const ConfigItemTableBody = <TData,>({
   table,
-  firstDragItemId,
+  dragItemId,
   onDeleteSelected,
   onToggleSelected
 }: ConfigItemTableBodyProps<TData>) => {
@@ -66,9 +66,9 @@ const ConfigItemTableBody = <TData,>({
       >
         {rows.map((row) => {
           const isSelected = row.getIsSelected()
-          const isDragging = firstDragItemId !== undefined
-          const isFirstDragItem = firstDragItemId === row.id
-          const dragClassName = isDragging && isSelected && !isFirstDragItem ? "bg-muted opacity-10 is-dragging" : "is-first-drag-item"
+          const isDragging = dragItemId !== undefined
+          const isDragItem = dragItemId === row.id
+          const dragClassName = isDragging && isSelected && !isDragItem ? "is-dragging" : "is-first-drag-item"
           return (
             <DndTableRow
               className={dragClassName}
@@ -133,7 +133,7 @@ const ConfigItemTableBody = <TData,>({
                     className={cn("p-1", className, cellClassName, "group-[.is-dragging]/row:hidden")}
                   >
                     {!isLastCell && flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    {isFirstDragItem && isLastCell && 
+                    {isDragItem && isLastCell && 
                       <Badge>{selectedRows.length}</Badge>
                     }
                   </TableCell>
