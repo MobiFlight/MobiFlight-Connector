@@ -26,9 +26,10 @@ import {
   Active,
 } from "@dnd-kit/core"
 
-import { arrayMove } from "@dnd-kit/sortable"
-
-import { restrictToParentElement, restrictToVerticalAxis } from "@dnd-kit/modifiers"
+import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from "@dnd-kit/modifiers"
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
@@ -124,7 +125,9 @@ export function ConfigItemTable<TData, TValue>({
   }, [publish, table, data])
 
   const { t } = useTranslation()
-  const [firstDragItem, setFirstDragItem] = useState<Active | undefined>(undefined)
+  const [firstDragItem, setFirstDragItem] = useState<Active | undefined>(
+    undefined,
+  )
 
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
@@ -136,8 +139,16 @@ export function ConfigItemTable<TData, TValue>({
     (event: DragStartEvent) => {
       const { active } = event
       setFirstDragItem(active)
+
+      const draggedRow = table
+        .getRowModel()
+        .rows.find((row) => row.id === active.id)
+      if (!draggedRow) return
+      if (!draggedRow.getIsSelected()) {
+        table.setRowSelection({ [active.id]: true })
+      }
     },
-    [setFirstDragItem],
+    [setFirstDragItem, table],
   )
 
   const handleDragEnd = useCallback(
@@ -146,34 +157,47 @@ export function ConfigItemTable<TData, TValue>({
 
       setFirstDragItem(undefined)
 
-      if (active.id !== over?.id) {
-        // sort the data items first
-        const oldIndex = data.findIndex(
-          (item) => (item as IConfigItem).GUID === active?.id,
-        )
-        const newIndex = data.findIndex(
-          (item) => (item as IConfigItem).GUID === over?.id,
-        )
-        const arrayWithNewOrder = arrayMove(data, oldIndex, newIndex)
-        // store them in a local array
-        // then set the items
+      if (!over?.id || !active.id) return
 
-        setItems(arrayWithNewOrder as IConfigItem[])
+      // Get all selected row GUIDs, or just the dragged one if nothing selected
+      const selectedRows = table.getSelectedRowModel().rows
+      const selectedIds = selectedRows.map(
+        (row) => (row.original as IConfigItem).GUID,
+      )
+      const originalIndex = table
+        .getRowModel()
+        .rows.findIndex((row) => row.id === active.id)
 
-        publishOnMessageExchange().publish({
-          key: "CommandResortConfigItem",
-          payload: {
-            items: [
-              data.find(
-                (item) => (item as IConfigItem).GUID === active.id,
-              ) as IConfigItem,
-            ],
-            newIndex: newIndex,
-          },
-        } as CommandResortConfigItem)
-      }
+      // Remove dragged items from data
+      let newData = (data as IConfigItem[]).filter(
+        (item) => !selectedIds.includes(item.GUID),
+      )
+      // Find drop index
+      const newIndex = newData.findIndex((item) => item.GUID === over.id)
+
+      // we determine drag direction
+      const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
+
+      // Insert dragged items at drop index
+      newData = [
+        ...newData.slice(0, newIndex + dragDirectionOffset),
+        ...(data as IConfigItem[]).filter((item) =>
+          selectedIds.includes(item.GUID),
+        ),
+        ...newData.slice(newIndex + dragDirectionOffset),
+      ]
+
+      setItems(newData)
+
+      publishOnMessageExchange().publish({
+        key: "CommandResortConfigItem",
+        payload: {
+          items: selectedRows,
+          newIndex: newIndex + dragDirectionOffset,
+        },
+      } as CommandResortConfigItem)
     },
-    [data, setItems],
+    [data, setItems, table],
   )
 
   const handleAddOutputConfig = useCallback(() => {

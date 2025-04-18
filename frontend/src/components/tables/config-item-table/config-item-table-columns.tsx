@@ -58,7 +58,7 @@ export const columns: ColumnDef<IConfigItem>[] = [
   {
     meta: {
       className: "hidden w-44 2xl:w-1/6 lg:table-cell",
-      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5 pl-2"
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5 pl-2",
     },
     accessorKey: "ModuleSerial",
     header: () => {
