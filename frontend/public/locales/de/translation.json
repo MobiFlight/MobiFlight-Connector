@@ -52,6 +52,9 @@
       "Actions": "Aktionen"
     },
     "Cell": {
+      "Drag" : {
+        "Multiple": "Du verschiebst gerade {{count}} selektierte Zeilen"
+      },
       "Waiting": "Warten",
       "Controller": {
         "openInSettings": "Öffne Einstellungen der Steuerungs",

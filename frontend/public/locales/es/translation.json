@@ -52,6 +52,9 @@
       "Actions": "Acciones"
     },
     "Cell": {
+      "Drag" : {
+        "Multiple": "Estás moviendo {{count}} elementos seleccionados"
+      },
       "Waiting": "Esperando",
       "Controller": {
         "openInSettings": "Abrir opciones de controlador.",
