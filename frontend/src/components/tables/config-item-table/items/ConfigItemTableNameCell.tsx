@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { IconCircleCheck, IconEdit, IconX } from "@tabler/icons-react"
+import { IconCircleCheck, IconCircleX, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import React from "react"
 import { useCallback, useEffect, useState } from "react"
@@ -95,7 +95,8 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
               toggleEdit()
             }}
           />
-          <IconX
+          <IconCircleX
+            className="stroke-red-700"
             role="button"
             aria-label="Discard"
             onClick={() => {
