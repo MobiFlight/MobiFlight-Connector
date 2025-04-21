@@ -17,7 +17,6 @@ namespace MobiFlight.Joysticks.Winwing
 
         private const uint BUTTONS_REPORT = 1;
         private const uint DEVICE_REPORT = 2;
-        private bool IsFirmwareGreaterOrEqual_1_16 = true;
 
         public void CopyTo(WinwingPap3Report targetReport)
         {
@@ -58,21 +57,9 @@ namespace MobiFlight.Joysticks.Winwing
                 // Is firmware report
                 if (data[5] == 0x02 && data[4] == 0x05)
                 {
-                    if (data[0] == 0x10 && data[1] == 0xcb)
+                    if (data[0] == 0x0f && data[1] == 0xcf)
                     {
-                        LogFirmware(data, "WINWING FCU");
-                        if (data[9] == 1 && data[8] < 0x16)
-                        {
-                            IsFirmwareGreaterOrEqual_1_16 = false;
-                        }
-                    }
-                    else if (data[0] == 0x0d && data[1] == 0xcf)
-                    {
-                        LogFirmware(data, "WINWING EFIS-L");
-                    }
-                    else if (data[0] == 0x0e && data[1] == 0xcf)
-                    {
-                        LogFirmware(data, "WINWING EFIS-R");
+                        LogFirmware(data, "WINWING PAP3");
                     }
                 }
             }

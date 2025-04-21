@@ -102,12 +102,12 @@
     {
       "Id": 20,
       "Type": "Button",
-      "Label": "SPD INC"
+      "Label": "SPD DEC"
     },
     {
       "Id": 21,
       "Type": "Button",
-      "Label": "SPD DEC"
+      "Label": "SPD INC"
     },
     {
       "Id": 22,
@@ -192,7 +192,7 @@
     {
       "Id": 38,
       "Type": "Button",
-      "Label": "Bankg Angle 30"
+      "Label": "Bank Angle 30"
     },
     {
       "Id": 39,
