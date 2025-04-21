@@ -79,9 +79,8 @@ namespace MobiFlightWwFcu
 
         private List<Tuple<string, byte[]>> InitCommandSequence = new List<Tuple<string, byte[]>>();
 
-
         private List<Tuple<string, byte[]>> InitCommandHeaderMcdu = new List<Tuple<string, byte[]>>()
-        {           
+        {
             new Tuple<string, byte[]>("1e01", new byte[0]), // clear feature info
             // orig new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x25, 0x00, 0x0e, 0x00, 0x18, 0x00}),
             new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
@@ -209,6 +208,20 @@ namespace MobiFlightWwFcu
                 LedIdentifiers = new Dictionary<string, byte>()
                 {
                     { $"CALL",   0x03 },
+                    { $"FAIL",   0x04 },
+                    { $"MSG", 0x05 },
+                    { $"OFST",  0x06 },
+                    { $"EXEC", 0x07 },
+                };
+            }
+            else if (CduType == WinwingCduType.PFP7)
+            {
+                InitCommandSequence.AddRange(InitCommandHeaderPfp3n);
+                InitCommandSequence.AddRange(InitCommandData);
+                DestinationAddress = WinwingConstants.DEST_PFP7;
+                LedIdentifiers = new Dictionary<string, byte>()
+                {
+                    { $"DSPY",   0x03 },
                     { $"FAIL",   0x04 },
                     { $"MSG", 0x05 },
                     { $"OFST",  0x06 },

@@ -15,101 +15,88 @@ namespace MobiFlightWwFcu
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
 
-        private const string TEST1 = "Test1 Value";
-        private const string TEST2 = "Test2 Value";
+        private const string COURSE_LEFT = "Course left value";
+        private const string COURSE_RIGHT = "Course right value";
+
+        private const string SPEED = "Speed Value";
+        private const string MACH = "Mach Value";
+        private const string MACH_LABEL = "MACH Label On/Off";
+        private const string IAS_LABEL = "IAS Label On/Off";        
+        private const string SPEED_A = "Speed A On/Off";           
+        private const string SPEED_B = "Speed B On/Off"; 
 
 
-        private Dictionary<string, MsgEntry> DisplayTestCommands = new Dictionary<string, MsgEntry>()
+        private const string HEADING = "Heading Value";
+        private const string TRK = "TRK Value";       
+        private const string HDG_LABEL = "HDG Label On/Off";
+        private const string TRK_LABEL = "TRK Label On/Off";
+
+        private const string ALTITUDE = "Altitude Value";
+   
+        private const string VS = "VS Value";
+        private const string FPA = "FPA Value";    
+        private const string VS_SHOWN = "VS Shown On/Off";     
+        private const string VS_LABEL = "VS Label On/Off";
+        private const string FPA_LABEL = "FPA Label On/Off";
+
+        private const string ANN_LIGHT = "LCD Test On/Off";
+        private const string BACK_BRIGHTNESS = "Backlight Percentage";
+        private const string LCD_BRIGHTNESS = "LCD Percentage";
+        private const string LED_BRIGHTNESS = "LED Percentage";
+
+        private bool IsVsShown = true;
+        private bool IsSpeedA = false;
+        private bool IsSpeedB = false;
+
+
+        private Dictionary<string, Element> DisplayTestCommands = new Dictionary<string, Element>()
         {
-            //{ "AllOn",          new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x02 } } },
-            //{ "AllOff",         new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x06 } } },
-            //{ "Half1On",        new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x07 } } },
-            //{ "Half2On",        new MsgEntry { StartPos = 17, Mask = new byte[1], Data = new byte[] { 0x09 } } },
+            { "AllOn",       new Element(new Bit[] {new Bit(0,0, true), new Bit(0,1), new Bit(0,2), new Bit(0,3) }, false)},
+            { "AllOff",      new Element(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
         };
 
-        private Dictionary<char, byte[]> SpeedNumberCodes = new Dictionary<char, byte[]>()
-        {
-            { '*', new byte[] { 0x00 } },
-            { '-', new byte[] { 0x04 } },
-            { 'o', new byte[] { 0x36 } },
-            { '0', new byte[] { 0xfa } },
-            { '1', new byte[] { 0x60 } },
-            { '2', new byte[] { 0xd6 } },
-            { '3', new byte[] { 0xf4 } },
-            { '4', new byte[] { 0x6c } },
-            { '5', new byte[] { 0xbc } },
-            { '6', new byte[] { 0xbe } },
-            { '7', new byte[] { 0xe0 } },
-            { '8', new byte[] { 0xfe } },
-            { '9', new byte[] { 0xfc } },
-        };
 
-        private Dictionary<char, byte[]> GeneralNumberCodes = new Dictionary<char, byte[]>()
-        {
-            { '*', new byte[] { 0x00, 0x00 } },
-            { '-', new byte[] { 0x40, 0x00 } },
-            { 'o', new byte[] { 0x60, 0x03 } },
-            { '0', new byte[] { 0xa0, 0x0f } },
-            { '1', new byte[] { 0x00, 0x06 } },
-            { '2', new byte[] { 0x60, 0x0d } },
-            { '3', new byte[] { 0x40, 0x0f } },
-            { '4', new byte[] { 0xc0, 0x06 } },
-            { '5', new byte[] { 0xc0, 0x0b } },
-            { '6', new byte[] { 0xe0, 0x0b } },
-            { '7', new byte[] { 0x00, 0x0e } },
-            { '8', new byte[] { 0xe0, 0x0f } },
-            { '9', new byte[] { 0xc0, 0x0f } },
-        };
-
-                                                      
-        private Dictionary<string, MsgEntry> DisplaySetValuesData = new Dictionary<string, MsgEntry>()
-        {                     
-            //{ "SpeedHundreds",  new MsgEntry { StartPos = 21, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0x60 } } },
-            //{ "SpeedTens",      new MsgEntry { StartPos = 22, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0xfa } } },
-            //{ "SpeedOnes",      new MsgEntry { StartPos = 23, Mask = new byte[] { 0b00000001 }, Data = new byte[] { 0xfa } } },
-            //{ "MachDecPoint",   new MsgEntry { StartPos = 22, Mask = new byte[] { 0b11111110 }, Data = new byte[] { 0b00000001 } } },
-            //{ "MachNoDecPoint", new MsgEntry { StartPos = 22, Mask = new byte[] { 0b11111110 }, Data = new byte[] { 0b00000000 } } },
-            //{ "NoLabel",        new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00000000 } } },
-            //{ "MachLabel",      new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00000100 } } },
-            //{ "SpeedLabel",     new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11110011 }, Data = new byte[] { 0b00001000 } } },
-            //{ "SpeedDot",       new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11111100 }, Data = new byte[] { 0b00000010 } } },
-            //{ "SpeedNoDot",     new MsgEntry { StartPos = 24, Mask = new byte[] { 0b11111100 }, Data = new byte[] { 0b00000001 } } },
-            //{ "HdgHundreds",    new MsgEntry { StartPos = 24, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "HdgTens",        new MsgEntry { StartPos = 25, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "HdgOnes",        new MsgEntry { StartPos = 26, Mask = new byte[] { 0b00001111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "HdgDot",         new MsgEntry { StartPos = 27, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
-            //{ "HdgNoDot",       new MsgEntry { StartPos = 27, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },           
-            //{ "NoLateralMode",  new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b00000000, 0b00000000 } } },
-            //{ "TrackMode",      new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b01100000, 0b00000010 } } },
-            //{ "HeadingMode",    new MsgEntry { StartPos = 27, Mask = new byte[] { 0b00011111, 0b11110101  }, Data = new byte[] { 0b10100000, 0b00001000 } } },
-            //{ "NoVertMode1",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000000 } } },
-            //{ "FpaMode1",       new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000001 } } },
-            //{ "VsMode1",        new MsgEntry { StartPos = 28, Mask = new byte[] { 0b11111010  }, Data = new byte[] { 0b00000100 } } },
-            //{ "NoVertMode2",    new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b00000000 } } },
-            //{ "FpaMode2",       new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b10000000 } } },
-            //{ "VsMode2",        new MsgEntry { StartPos = 37, Mask = new byte[] { 0b00011111 }, Data = new byte[] { 0b01000000 } } },
-            //{ "NoAlt",          new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x00 } } },
-            //{ "Alt",            new MsgEntry { StartPos = 29, Mask = new byte[] { 0xef }, Data = new byte[] { 0x10 } } },
-            //{ "NoLvlCh",        new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x00, 0x00, 0x00 } } },
-            //{ "LvlCh",          new MsgEntry { StartPos = 30, Mask = new byte[] { 0xef, 0xef, 0xef }, Data = new byte[] { 0x10, 0x10, 0x10 } } },
-            //{ "AltTenthsds",    new MsgEntry { StartPos = 28, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "AltThousands",   new MsgEntry { StartPos = 29, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "AltHundreds",    new MsgEntry { StartPos = 30, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x00, 0x06 } } },
-            //{ "AltTens",        new MsgEntry { StartPos = 31, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "AltOnes",        new MsgEntry { StartPos = 32, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "VsMinus",        new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00000000 } } },
-            //{ "VsPlus",         new MsgEntry { StartPos = 33, Mask = new byte[] { 0b11101111, 0xff, 0b11101111 }, Data = new byte[] { 0b00010000, 0x00, 0b00010000 } } },
-            //{ "FpaDecPoint",    new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
-            //{ "FpaNoDecPoint",  new MsgEntry { StartPos = 34, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } },
-            //{ "VsThousands",    new MsgEntry { StartPos = 33, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //{ "VsHundreds",     new MsgEntry { StartPos = 34, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0xa0, 0x0f } } },
-            //// Intentionally set initial VS to '00oo'
-            //{ "VsTens",         new MsgEntry { StartPos = 35, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },                                                   
-            //{ "VsOnes",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b00011111, 0b11110000 }, Data = new byte[] { 0x60, 0x03 } } },
-            //{ "AltDot",         new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00010000 } } },
-            //{ "AltNoDot",       new MsgEntry { StartPos = 36, Mask = new byte[] { 0b11101111 }, Data = new byte[] { 0b00000000 } } }, 
-            //{ "ZeroEndBlock",   new MsgEntry { StartPos = 38, Mask = new byte[11], Data = new byte[11] } },
-        };      
+        private Dictionary<string, Element> DisplaySetValueElements = new Dictionary<string, Element>()
+        {                                   
+            { "CoLHundreds",  new Element(32, 7)}, // PAP3 topByte, BitNumber
+            { "CoLTens",      new Element(32, 6)},
+            { "CoLOnes",      new Element(new Bit[] { new Bit(32,5), new Bit(28,5), new Bit(24,5), new Bit(20,5), new Bit(16,5), new Bit(12,5), new Bit(8,5) }, true)},                   
+            { "SpdThousands", new Element(32, 3)},
+            { "SpdHundreds",  new Element(32, 2)},
+            { "SpdTens",      new Element(32, 1)},
+            { "SpdOnes",      new Element(32, 0)},
+            { "HdgHundreds",  new Element(33, 6, '-')},
+            { "HdgTens",      new Element(33, 5, '-')},
+            { "HdgOnes",      new Element(33, 4, '-')},
+            { "AltTenthsds",  new Element(33, 2, '{')},
+            { "AltThousands", new Element(33, 1, '}')},
+            { "AltHundreds",  new Element(33, 0, 'o')},
+            { "AltTens",      new Element(34, 7, 'b')},
+            { "AltOnes",      new Element(34, 6, 'l')},
+            { "VsThousands",  new Element(34, 3, '-')},
+            { "VsHundreds",   new Element(34, 2, '-')},
+            { "VsTens",       new Element(34, 1)},
+            { "VsOnes",       new Element(34, 0)},
+            { "CoRHundreds",  new Element(35, 6)},
+            { "CoRTens",      new Element(35, 5)},
+            { "CoROnes",      new Element(35, 4)},
+            { "CoLDot",       new Element(new Bit(4,5))},
+            { "IasLabel",     new Element(new Bit(33,7))},
+            { "MachLabel",    new Element(new Bit(29,7))},
+            { "SpdPlusVert",  new Element(new Bit[] {new Bit(13,7), new Bit(9,7) }, false)},
+            { "SpdPlusHoriz", new Element(new Bit(8,3))},
+            { "MachDot",      new Element(new Bit(4,2))},
+            { "HdgLabel",     new Element(new Bit(33,3))},
+            { "TrkLabel",     new Element(new Bit(25,3))},
+            { "HdgDot",       new Element(new Bit(17,3))},
+            { "AltDot",       new Element(new Bit(5,0))},
+            { "VsLabel",      new Element(new Bit(35,7))},
+            { "FpaLabel",     new Element(new Bit(31,7))},
+            { "VsPlusVert",   new Element(new Bit[] {new Bit(23,7), new Bit(19,7) }, false)},
+            { "VsPlusHoriz",  new Element(new Bit(10,4, true))},
+            { "VsDot",        new Element(new Bit(6,2))},
+            { "CoRDot",       new Element(new Bit(7,4))},
+        };   
 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
         {
@@ -117,6 +104,7 @@ namespace MobiFlightWwFcu
             { "SPEED",  0x04 },
             { "VNAV",   0x05 },
             { "LVL_CHG",0x06 },
+            { "HDG_SEL",0x07 },            
             { "LNAV",   0x08 },
             { "VOR_LOC",0x09 },
             { "APP",    0x0a },
@@ -128,21 +116,49 @@ namespace MobiFlightWwFcu
             { "B_CWS",  0x10 },
             { "AT_ARM", 0x11 },
             { "L_MA",   0x12 },
-            { "R_MA",   0x13 },            
+            { "R_MA",   0x13 },
+            { "Solenoid", 0x1e },            
         };
 
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();        
 
         private byte[] DisplayTestCommand = new byte[0x12];
-        private byte[] RefreshCommand = new byte[0x11];
-        private byte[] SetValuesCommand = new byte[0x31];   
+        private byte[] RefreshCommand = new byte[0x11];       
+        private byte[] SetValuesCommand = new byte[0x3C];  // 3C equals 60, max of a content message 4 + 13 + 43 data
 
         public WinwingPap3Device(WinwingMessageSender sender)
         {
             MessageSender = sender;
-            DisplayNameToActionMapping.Add(TEST1, SetSpeed);
-            DisplayNameToActionMapping.Add(TEST2, SetMachSpeed);
+
+            // Add display options
+            DisplayNameToActionMapping.Add(COURSE_LEFT, SetCourseLeft);
+            DisplayNameToActionMapping.Add(COURSE_RIGHT, SetCourseRight);
+
+            DisplayNameToActionMapping.Add(SPEED, SetSpeed);       
+            DisplayNameToActionMapping.Add(MACH, SetMachSpeed);     
+            DisplayNameToActionMapping.Add(IAS_LABEL, SetIasLabel);
+            DisplayNameToActionMapping.Add(MACH_LABEL, SetMachLabel);
+            DisplayNameToActionMapping.Add(SPEED_A, SetSpeedA);
+            DisplayNameToActionMapping.Add(SPEED_B, SetSpeedB);
+
+            DisplayNameToActionMapping.Add(HEADING, SetHeading);
+            DisplayNameToActionMapping.Add(TRK, SetTrack);
+            DisplayNameToActionMapping.Add(HDG_LABEL, SetHdgLabel);
+            DisplayNameToActionMapping.Add(TRK_LABEL, SetTrkLabel);
+
+            DisplayNameToActionMapping.Add(ALTITUDE, SetAltitude);
+
+            DisplayNameToActionMapping.Add(VS, SetVs);
+            DisplayNameToActionMapping.Add(FPA, SetFpa);
+            DisplayNameToActionMapping.Add(VS_SHOWN, SetVsShown);
+            DisplayNameToActionMapping.Add(VS_LABEL, SetVsLabel);
+            DisplayNameToActionMapping.Add(FPA_LABEL, SetFpaLabel);
+
+            DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
+            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
+            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
+            DisplayNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
 
             foreach (var displayName in GetDisplayNames())
             {
@@ -158,35 +174,53 @@ namespace MobiFlightWwFcu
         }
 
         private void PrepareCommands()
-        {        
-            //var initDisplayTest = new List<byte>(DestinationAddress);
-            //initDisplayTest.AddRange(new byte[2]);
-            //initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
-            //initDisplayTest.CopyTo(DisplayTestCommand, 0);
-        
-            //var initSetValues = new List<byte>(DestinationAddress);
-            //initSetValues.AddRange(new byte[2]);
-            //initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201"]);
-            //initSetValues.CopyTo(SetValuesCommand, 0);
+        {
+            var initDisplayTest = new List<byte>(DestinationAddress);
+            initDisplayTest.AddRange(new byte[2]);
+            initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
+            initDisplayTest.CopyTo(DisplayTestCommand, 0);
 
-            //var initRefresh = new List<byte>(DestinationAddress);
-            //initRefresh.AddRange(new byte[2]);
-            //initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
-            //initRefresh.CopyTo(RefreshCommand, 0);
+            // 4 + 13
+            var initSetValues = new List<byte>(DestinationAddress);
+            initSetValues.AddRange(new byte[2]);
+            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_P"]);
+            initSetValues.CopyTo(SetValuesCommand, 0);
 
-            //foreach (var entry in DisplaySetValuesData.Values)
-            //{
-            //    SetBytesDisplayCommand(entry, SetValuesCommand);
-            //}
+            var initRefresh = new List<byte>(DestinationAddress);
+            initRefresh.AddRange(new byte[2]);
+            initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
+            initRefresh.CopyTo(RefreshCommand, 0);
+
+            foreach (var element in DisplaySetValueElements.Values)
+            {
+                SetElementDisplayCommand(element, SetValuesCommand);
+            }
         }
 
         public void Connect()
         {            
             SendDisplayCommand(SetValuesCommand); // Init display
-            SetBacklightBrightness("20");
+            SetBacklightBrightness("80");
             SetLcdBrightness("100");
+            //SetLedBrightness("100");
 
-            // LcdTest("AllOn"); // used for testing
+            //LcdTest("AllOn"); // used for testing
+
+            //-------------------------------
+            ////SetSpeed("360");
+            //SetMachSpeed("0.4989");
+            ////SetSpeedB("1");
+            //SetSpeedA("0");
+            //SetIasLabel("1");
+            //SetMachLabel("0.2");
+            //SetCourseLeft("234");
+            //SetCourseRight("11");
+            //SetHeading("233");
+            //SetHdgLabel("1");
+            //SetAltitude("1200");
+            //SetVsShown("1");
+            //SetVs("2500");
+            ////SetFpa("-1.88");     
         }
 
         public void Shutdown()
@@ -235,7 +269,7 @@ namespace MobiFlightWwFcu
             int myAnnLight = (int)Convert.ToDouble(annLight, CultureInfo.InvariantCulture);
             if (myAnnLight == 1)
             {
-                PrepareAndSendDisplayTestCommand(DisplayTestCommands["AllOn"]);
+                LcdTest("AllOn");
             }
             else
             {
@@ -244,389 +278,366 @@ namespace MobiFlightWwFcu
         }
         private void SetLedBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x11, brightness);
+            MessageSender.SetBrightness(DestinationAddress, 0x02, brightness);
         }
 
         private void SetBacklightBrightness(string brightness)
         {
-            //MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
-            //MessageSender.SetBrightness(DestinationAddress, 0x1e, brightness); // EXPED
+            MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
         }
 
         private void SetLcdBrightness(string brightness)
         {
-            //MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
+            MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
         }
 
-        private void PrepareAndSendDisplayTestCommand(MsgEntry entry)
+        private void PrepareAndSendDisplayTestCommand(Element element)
         {
-            //SetBytesDisplayCommand(entry, DisplayTestCommand);
-            //SendDisplayCommand(DisplayTestCommand);
+            SetElementDisplayCommand(element, DisplayTestCommand);
+            SendDisplayCommand(DisplayTestCommand);
         }
+
 
         private void EmptyDisplay()
         {
+            LcdTest("AllOff");
+
             //var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[18], Data = new byte[18] };
             //SetBytesDisplayCommand(resetMsg, SetValuesCommand);
             //SendDisplayCommand(SetValuesCommand);
         }
 
-        private void ResetSpeedCache()
+        private void SetBoolInternal(string isSetString, string elementName)
         {
-            //LcdCurrentValuesCache[SPEED] = string.Empty;
-            //LcdCurrentValuesCache[MACH] = string.Empty;
+            int isSet = (int)Convert.ToDouble(isSetString, CultureInfo.InvariantCulture);
+            var element = DisplaySetValueElements[elementName];
+            element.SetValue(Convert.ToBoolean(isSet));
+            SetElementDisplayCommand(element, SetValuesCommand);
+            SendDisplayCommand(SetValuesCommand);
         }
 
-        private void ResetHeadingCache()
+
+        private void SetDigitsInternal(char[] chars, string[] elementNames)
         {
-            //LcdCurrentValuesCache[HEADING] = string.Empty;
-            //LcdCurrentValuesCache[TRK] = string.Empty;
+            for (int i = 0; i < chars.Length; i++)
+            {
+                var element = DisplaySetValueElements[elementNames[i]];
+                element.SetCharacter(chars[i]);
+                SetElementDisplayCommand(element, SetValuesCommand);
+            }
+
+            SendDisplayCommand(SetValuesCommand);
         }
 
-        private void ResetVSCache()
+        private void SetCourseLeft(string course)
         {
-            //LcdCurrentValuesCache[VS] = string.Empty;
-            //LcdCurrentValuesCache[FPA] = string.Empty;
+            int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
+            char[] chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();         
+            SetDigitsInternal(chars, new string[] { "CoLHundreds", "CoLTens", "CoLOnes" });            
         }
 
-        private void SetSpeedInternal(char[] speedChars)
+        private void SetCourseRight(string course)
         {
-            //var speedHundreds = DisplaySetValuesData["SpeedHundreds"];
-            //var speedTens = DisplaySetValuesData["SpeedTens"];
-            //var speedOnes = DisplaySetValuesData["SpeedOnes"];
-            //speedHundreds.Data = SpeedNumberCodes[speedChars[0]];
-            //speedTens.Data = SpeedNumberCodes[speedChars[1]];
-            //speedOnes.Data = SpeedNumberCodes[speedChars[2]];
+            int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
+            char[] chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            SetDigitsInternal(chars, new string[] { "CoRHundreds", "CoRTens", "CoROnes" });
+        }
 
-            //SetBytesDisplayCommand(speedHundreds, SetValuesCommand);
-            //SetBytesDisplayCommand(speedTens, SetValuesCommand);
-            //SetBytesDisplayCommand(speedOnes, SetValuesCommand);
+        private void SetMachDot(bool isDotSet)
+        {
+            var machDot = DisplaySetValueElements["MachDot"];
+            machDot.SetValue(isDotSet);
+            SetElementDisplayCommand(machDot, SetValuesCommand);
+        }
 
-            //SendDisplayCommand(SetValuesCommand);
+        private void RefreshOnMachModeChange()
+        {
+            var spdThousands = DisplaySetValueElements["SpdThousands"];
+            spdThousands.SetCharacter('*');
+            SetElementDisplayCommand(spdThousands, SetValuesCommand);
+            var spdHundreds = DisplaySetValueElements["SpdHundreds"];
+            spdHundreds.SetCharacter('*');
+            SetElementDisplayCommand(spdHundreds, SetValuesCommand);
+            LcdCurrentValuesCache[SPEED_A] = string.Empty;
+            LcdCurrentValuesCache[SPEED_B] = string.Empty;
         }
 
         private void SetSpeed(string speed)
-        {
-            //int mySpeed = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
-            //char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            //SetSpeedInternal(speedChars);
-        }
-
-        private void SetMachSpeed(string speed)
-        {
-            //int mySpeed = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
-            //char[] speedChars = mySpeed.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            //SetSpeedInternal(speedChars);
-        }
-
-        private void SetSpeedDotOnOff(string speedDot)
-        {
-            int myDot = (int)Convert.ToDouble(speedDot, CultureInfo.InvariantCulture);
-            if (myDot == 0)
+        {            
+            var machDot = DisplaySetValueElements["MachDot"];
+            bool isMachModeChange = machDot.Bits[0].Value == true;
+            SetMachDot(false); // update beforehand!
+            if (isMachModeChange)
             {
-                SetBytesDisplayCommand(DisplaySetValuesData["SpeedNoDot"], SetValuesCommand);
+                RefreshOnMachModeChange();
+            }
+
+            int value = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
+            char[] chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();          
+            if (value == 999) chars = new char[] { '-', '-', '-' };            
+            SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
+            LcdCurrentValuesCache[MACH] = string.Empty; // Reset for Speed/Mach change
+        }
+        
+        private void SetMachSpeed(string speed)
+        {                        
+            var machDot = DisplaySetValueElements["MachDot"];
+            bool isMachModeChange = machDot.Bits[0].Value == false;
+            SetMachDot(true); // update beforehand!
+            if (isMachModeChange )
+            {
+                RefreshOnMachModeChange();
+            }
+
+            int value = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
+            char[] chars;
+
+            if (value == 999)
+            {
+                chars = new char[] { '-', '-', '-' };
+            }
+            else if (IsSpeedA || IsSpeedB)
+            {
+                // A or B is shown at the hundreds position
+                chars = value.ToString("D2", CultureInfo.InvariantCulture).ToCharArray();
+                SetDigitsInternal(chars, new string[] { "SpdTens", "SpdOnes" });
             }
             else
             {
-                SetBytesDisplayCommand(DisplaySetValuesData["SpeedDot"], SetValuesCommand);
+                chars = value.ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*').ToCharArray();
+                SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
             }
-            SendDisplayCommand(SetValuesCommand);
+                                       
+            LcdCurrentValuesCache[SPEED] = string.Empty; // Reset for Speed/Mach change
         }
 
-        private void SetSpeedDashes(string speedDashes)
+        private void SetIasLabel(string isLabel)        
         {
-            int myDashes = (int)Convert.ToDouble(speedDashes, CultureInfo.InvariantCulture);            
-            if (myDashes == 1)
+            SetBoolInternal(isLabel, "IasLabel");
+        }
+
+        private void SetMachLabel(string isLabel)
+        {
+            SetBoolInternal(isLabel, "MachLabel");
+        }
+
+        private void SetSpeedA(string isSpeedA)
+        {
+            int value = (int)Convert.ToDouble(isSpeedA, CultureInfo.InvariantCulture);
+            bool isA = Convert.ToBoolean(value);
+            IsSpeedA = isA;
+
+            var machDot = DisplaySetValueElements["MachDot"];
+            string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
+
+            if (isA)
             {
-                SetSpeedInternal(new char[] { '-', '-', '-' });
+                SetDigitsInternal(new char[] {'A'}, new string[] { elementName });
             }
-            else if (myDashes == 0)
+            else
             {
-                ResetSpeedCache();
+                SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
             }
         }
 
-        private void SetMachModeOnOff(string machMode)
+        private void SetSpeedB(string isSpeedB)
         {
-            int myMachMode = (int)Convert.ToDouble(machMode, CultureInfo.InvariantCulture);
-            if (myMachMode == 1)
+            int value = (int)Convert.ToDouble(isSpeedB, CultureInfo.InvariantCulture);
+            bool isB = Convert.ToBoolean(value);
+            IsSpeedB = isB;
+
+            var machDot = DisplaySetValueElements["MachDot"];
+            string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
+
+            if (isB)
             {
-                SetBytesDisplayCommand(DisplaySetValuesData["MachLabel"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["MachDecPoint"], SetValuesCommand);
+                SetDigitsInternal(new char[] { 'B' }, new string[] { elementName });
             }
-            else if (myMachMode == 0)
+            else
             {
-                SetBytesDisplayCommand(DisplaySetValuesData["SpeedLabel"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["MachNoDecPoint"], SetValuesCommand);
+                SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
             }
-            else if (myMachMode == 2)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["NoLabel"], SetValuesCommand);
-            }
-            ResetSpeedCache();
-            SendDisplayCommand(SetValuesCommand);
-        }
-
-
-        private void SetHeadingInternal(char[] hdgChars)
-        {
-            //var hdgHundreds = DisplaySetValuesData["HdgHundreds"];
-            //var hdgTens = DisplaySetValuesData["HdgTens"];
-            //var hdgOnes = DisplaySetValuesData["HdgOnes"];
-            //hdgHundreds.Data = GeneralNumberCodes[hdgChars[0]];
-            //hdgTens.Data = GeneralNumberCodes[hdgChars[1]];
-            //hdgOnes.Data = GeneralNumberCodes[hdgChars[2]];
-
-            //SetBytesDisplayCommand(hdgHundreds, SetValuesCommand);
-            //SetBytesDisplayCommand(hdgTens, SetValuesCommand);
-            //SetBytesDisplayCommand(hdgOnes, SetValuesCommand);
-
-            //SendDisplayCommand(SetValuesCommand);
         }
 
         private void SetTrack(string track)
         {
-            int myHeading = (int)Convert.ToDouble(track, CultureInfo.InvariantCulture);
-            char[] hdgChars = myHeading.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            SetHeadingInternal(hdgChars);
+            int value = (int)Convert.ToDouble(track, CultureInfo.InvariantCulture);
+            char[] chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            if (value == 999) chars = new char[] { '-', '-', '-' };
+            SetDigitsInternal(chars, new string[] { "HdgHundreds", "HdgTens", "HdgOnes" });
+            LcdCurrentValuesCache[HEADING] = string.Empty; // Reset for Heading/Track change
         }
 
         private void SetHeading(string heading)
         {
-            int myHeading = (int)Convert.ToDouble(heading, CultureInfo.InvariantCulture);
-            char[] hdgChars = myHeading.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            SetHeadingInternal(hdgChars);
+            int value = (int)Convert.ToDouble(heading, CultureInfo.InvariantCulture);
+            char[] chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            if (value == 999) chars = new char[] { '-', '-', '-' };
+            SetDigitsInternal(chars, new string[] { "HdgHundreds", "HdgTens", "HdgOnes" });
+            LcdCurrentValuesCache[TRK] = string.Empty; // Reset for Heading/Track change
+        }
+
+        private void SetHdgLabel(string isLabel)
+        {
+            SetBoolInternal(isLabel, "HdgLabel");
+        }
+
+        private void SetTrkLabel(string isLabel)
+        {
+            SetBoolInternal(isLabel, "TrkLabel");
         }
 
 
-        private void SetHeadingDashes(string headingDashes)
-        {
-            int myDashes = (int)Convert.ToDouble(headingDashes, CultureInfo.InvariantCulture);
-            if (myDashes == 1)
+        private void SetAltitude(string altitude)
+        {            
+            int value = (int)Convert.ToDouble(altitude, CultureInfo.InvariantCulture);
+            char[] chars;
+            if (value == 0)
             {
-                SetHeadingInternal(new char[] { '-', '-', '-' });
-            }
-            else if (myDashes == 0)
-            {
-                ResetHeadingCache();
-            }
-        }
-
-
-        private void SetHeadingDotOnOff(string headingDot)
-        {
-            int myDot = (int)Convert.ToDouble(headingDot, CultureInfo.InvariantCulture);
-            if (myDot == 0)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["HdgNoDot"], SetValuesCommand);
+                chars = new char[] {'*', '0', '0', '0', '0' };
             }
             else
             {
-                SetBytesDisplayCommand(DisplaySetValuesData["HdgDot"], SetValuesCommand);
+                chars = value.ToString().PadLeft(5, '*').ToCharArray();
             }
-            SendDisplayCommand(SetValuesCommand);
+                     
+            SetDigitsInternal(chars, new string[] { "AltTenthsds", "AltThousands", "AltHundreds", "AltTens", "AltOnes" });           
         }
 
-        private void SetTrackFpaModeOnOff(string trackFpaMode)
+        private void SetVsDot(bool isDotSet)
         {
-            int myTrackFpaMode = (int)Convert.ToDouble(trackFpaMode, CultureInfo.InvariantCulture);                        
-            if (myTrackFpaMode == 1)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["TrackMode"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["FpaMode1"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["FpaMode2"], SetValuesCommand);
-            }
-            else if (myTrackFpaMode == 0)// myFpaMode == 0
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["HeadingMode"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["VsMode1"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["VsMode2"], SetValuesCommand);
-            }
-            else if (myTrackFpaMode == 2)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["NoLateralMode"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["NoVertMode1"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["NoVertMode2"], SetValuesCommand);
-            }
-            else if (trackFpaMode.Length == 3)
-            {                              
-                char tens = trackFpaMode[1];
-                char ones = trackFpaMode[2];
-                if (tens == '0') 
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["HeadingMode"], SetValuesCommand);
-                }
-                else if (tens == '1') 
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["TrackMode"], SetValuesCommand);
-                }
-                else if (tens == '2')
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["NoLateralMode"], SetValuesCommand);
-                }
-
-                if (ones == '0')
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["VsMode1"], SetValuesCommand);
-                    SetBytesDisplayCommand(DisplaySetValuesData["VsMode2"], SetValuesCommand);
-                }
-                else if (ones == '1') 
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["FpaMode1"], SetValuesCommand);
-                    SetBytesDisplayCommand(DisplaySetValuesData["FpaMode2"], SetValuesCommand);
-                }
-                else if (ones == '2')
-                {
-                    SetBytesDisplayCommand(DisplaySetValuesData["NoVertMode1"], SetValuesCommand);
-                    SetBytesDisplayCommand(DisplaySetValuesData["NoVertMode2"], SetValuesCommand);
-                }
-            }
-
-            ResetHeadingCache();
-            ResetVSCache();
-            SendDisplayCommand(SetValuesCommand);
+            var vsDot = DisplaySetValueElements["VsDot"];
+            vsDot.SetValue(isDotSet);
+            SetElementDisplayCommand(vsDot, SetValuesCommand);
         }
 
-        private void SetAltitude(string altitude)
+        private void SetVsSign(bool isPlus, bool isMinus)
         {
-            int myAlt = (int)Convert.ToDouble(altitude, CultureInfo.InvariantCulture);
-            char[] altChars = myAlt.ToString("D5", CultureInfo.InvariantCulture).ToCharArray();
+            var vsPlusHoriz = DisplaySetValueElements["VsPlusHoriz"];
+            var vsPlusVert = DisplaySetValueElements["VsPlusVert"];
+            
+            if (isPlus)
+            {
+                vsPlusHoriz.SetValue(true);
+                vsPlusVert.SetValue(true);
+            }
+            else if (isMinus)
+            {
+                vsPlusHoriz.SetValue(true);
+                vsPlusVert.SetValue(false);
+            }
+            else
+            {
+                vsPlusHoriz.SetValue(false);
+                vsPlusVert.SetValue(false);
+            }
 
-            var altTenthsds = DisplaySetValuesData["AltTenthsds"];
-            var altThousands = DisplaySetValuesData["AltThousands"];
-            var altHundreds = DisplaySetValuesData["AltHundreds"];
-            var altTens = DisplaySetValuesData["AltTens"];
-            var altOnes = DisplaySetValuesData["AltOnes"];
-            altTenthsds.Data = GeneralNumberCodes[altChars[0]];
-            altThousands.Data = GeneralNumberCodes[altChars[1]];
-            altHundreds.Data = GeneralNumberCodes[altChars[2]];
-            altTens.Data = GeneralNumberCodes[altChars[3]];
-            altOnes.Data = GeneralNumberCodes[altChars[4]];
-
-            SetBytesDisplayCommand(altTenthsds, SetValuesCommand);
-            SetBytesDisplayCommand(altThousands, SetValuesCommand);
-            SetBytesDisplayCommand(altHundreds, SetValuesCommand);
-            SetBytesDisplayCommand(altTens, SetValuesCommand);
-            SetBytesDisplayCommand(altOnes, SetValuesCommand);
-
-            SendDisplayCommand(SetValuesCommand);
+            SetElementDisplayCommand(vsPlusHoriz, SetValuesCommand);
+            SetElementDisplayCommand(vsPlusVert, SetValuesCommand);
         }
-
-        private void SetAltitudeDotOnOff(string altitudeDot)
-        {
-            int myDot = (int)Convert.ToDouble(altitudeDot, CultureInfo.InvariantCulture);
-            if (myDot == 0)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["Alt"], SetValuesCommand);                
-                SetBytesDisplayCommand(DisplaySetValuesData["AltNoDot"], SetValuesCommand);
-            }
-            else if (myDot == 1)            
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["Alt"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["AltDot"], SetValuesCommand);
-            }
-            else if (myDot == 20)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["NoAlt"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["AltNoDot"], SetValuesCommand);
-            }
-            else if (myDot == 21)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["NoAlt"], SetValuesCommand);
-                SetBytesDisplayCommand(DisplaySetValuesData["AltDot"], SetValuesCommand);
-            }
-
-            SendDisplayCommand(SetValuesCommand);
-        }
-
-
-        private void SetFpa(string vs)
-        {
-            int myFpa = (int)(Convert.ToDouble(vs, CultureInfo.InvariantCulture) * 10);
-            string stringFpa = Math.Abs(myFpa).ToString("D2", CultureInfo.InvariantCulture) + "**";
-            char[] fpaChars = stringFpa.ToCharArray();
-            SetVSInternal(fpaChars, (myFpa < 0), true);
-        }
-
 
         private void SetVs(string vs)
         {
-            int myVs = (int)Convert.ToDouble(vs, CultureInfo.InvariantCulture);
-            char[] vsChars = Math.Abs(myVs).ToString("D4", CultureInfo.InvariantCulture).ToCharArray();
-            if (vsChars[2] == '0' && vsChars[3] == '0')
-            {
-                // Do airbus style and set the last two digits to 'o'
-                vsChars[2] = 'o';
-                vsChars[3] = 'o';
+            int value = (int)Convert.ToDouble(vs, CultureInfo.InvariantCulture);
+            char[] chars;
+
+            if (IsVsShown)
+            {                
+                if (value == 0)
+                {
+                    chars = new char[] { '*', '*', '*', '*' };
+                    SetVsSign(false, false);
+                }
+                else if (value == 9999)
+                {
+                    chars = new char[] { '-', '-', '-', '-' };
+                    SetVsSign(false, true);
+                }
+                else if (value < 0)
+                {
+                    chars = Math.Abs(value).ToString().PadLeft(4, '*').ToCharArray();
+                    SetVsSign(false, true);
+                }
+                else
+                {
+                    chars = Math.Abs(value).ToString().PadLeft(4, '*').ToCharArray();
+                    SetVsSign(true, false);
+                }
+                SetVsDot(false);
             }
-            SetVSInternal(vsChars, (myVs < 0), false);
+            else
+            {
+                chars = new char[] { '*', '*', '*', '*' };
+                SetVsSign(false, false);
+                SetVsDot(false);
+            }
+
+            SetDigitsInternal(chars, new string[] { "VsThousands", "VsHundreds", "VsTens", "VsOnes" });
+            LcdCurrentValuesCache[FPA] = string.Empty; // Reset for Vs/Fpa change
         }
 
-        private void SetVSInternal(char[] vsChars, bool isMinus, bool isFpa)
+        private void SetFpa(string vs)
         {
-            //var vsThousands = DisplaySetValuesData["VsThousands"];
-            //var vsHundreds = DisplaySetValuesData["VsHundreds"];
-            //var vsTens = DisplaySetValuesData["VsTens"];
-            //var vsOnes = DisplaySetValuesData["VsOnes"];
-            //vsThousands.Data = GeneralNumberCodes[vsChars[0]];
-            //vsHundreds.Data = GeneralNumberCodes[vsChars[1]];
-            //vsTens.Data = GeneralNumberCodes[vsChars[2]];
-            //vsOnes.Data = GeneralNumberCodes[vsChars[3]];
+            int value = (int)(Convert.ToDouble(vs, CultureInfo.InvariantCulture) * 10);
+            char[] chars;
 
-            //if (isMinus)
-            //{
-            //    SetBytesDisplayCommand(DisplaySetValuesData["VsMinus"], SetValuesCommand);
-            //}
-            //else
-            //{
-            //    SetBytesDisplayCommand(DisplaySetValuesData["VsPlus"], SetValuesCommand);
-            //}
-
-            //if (isFpa)
-            //{
-            //    SetBytesDisplayCommand(DisplaySetValuesData["FpaDecPoint"], SetValuesCommand);
-            //}
-            //else
-            //{
-            //    SetBytesDisplayCommand(DisplaySetValuesData["FpaNoDecPoint"], SetValuesCommand);
-            //}
-            //SetBytesDisplayCommand(vsThousands, SetValuesCommand);
-            //SetBytesDisplayCommand(vsHundreds, SetValuesCommand);
-            //SetBytesDisplayCommand(vsTens, SetValuesCommand);
-            //SetBytesDisplayCommand(vsOnes, SetValuesCommand);
-
-            //SendDisplayCommand(SetValuesCommand);
-
+            if (IsVsShown)
+            {
+                if (value == 0)
+                {
+                    chars = new char[] { '*', '0', '0', '*' };
+                    SetVsSign(false, false);
+                }
+                else if (value == 999)
+                {
+                    chars = new char[] { '-', '-', '-', '-' };
+                    SetVsSign(false, true);
+                }
+                else if (value < 0)
+                {
+                    string valueString = (Math.Abs(value).ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*')).PadRight(4, '*');
+                    chars = valueString.ToCharArray();
+                    SetVsSign(false, true);
+                }
+                else
+                {
+                    string valueString = (Math.Abs(value).ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*')).PadRight(4, '*');
+                    chars = valueString.ToCharArray();
+                    SetVsSign(true, false);
+                }
+                SetVsDot(true);
+            }
+            else
+            {
+                chars = new char[] { '*', '*', '*', '*' };
+                SetVsSign(false, false);
+                SetVsDot(false);
+            }
+            SetDigitsInternal(chars, new string[] { "VsThousands", "VsHundreds", "VsTens", "VsOnes" });
+            LcdCurrentValuesCache[VS] = string.Empty; // Reset for Vs/Fpa change,
         }
 
-        private void SetVSDashes(string vsDashes)
+        private void SetVsLabel(string isLabel)
         {
-            int myDashes = (int)Convert.ToDouble(vsDashes, CultureInfo.InvariantCulture);
-            if (myDashes == 1)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["LvlCh"], SetValuesCommand);
-                SetVSInternal(new char[] { '-', '-', '-', '-' }, true, false);                
-            }
-            else if (myDashes == 0)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["LvlCh"], SetValuesCommand);
-                ResetVSCache();
-                SendDisplayCommand(SetValuesCommand);
-            }
-            else if (myDashes == 21)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["NoLvlCh"], SetValuesCommand);
-                SetVSInternal(new char[] { '-', '-', '-', '-' }, true, false);                            
-            }
-            else if (myDashes == 20)
-            {
-                SetBytesDisplayCommand(DisplaySetValuesData["NoLvlCh"], SetValuesCommand);
-                ResetVSCache();
-                SendDisplayCommand(SetValuesCommand);
-            }
+            SetBoolInternal(isLabel, "VsLabel");
         }
 
-        // "AllOn", "AllOff", "Half1On", "Half2On"        
+        private void SetFpaLabel(string isLabel)
+        {
+            SetBoolInternal(isLabel, "FpaLabel");
+        }
+
+        private void SetVsShown(string isShown)
+        {
+            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+            IsVsShown = Convert.ToBoolean(value);
+
+            // Reset cache
+            LcdCurrentValuesCache[VS] = string.Empty;
+            LcdCurrentValuesCache[FPA] = string.Empty;
+        }
+
+        // "AllOn", "AllOff"      
         private void LcdTest(string command)
         {
             PrepareAndSendDisplayTestCommand(DisplayTestCommands[command]);
@@ -635,17 +646,16 @@ namespace MobiFlightWwFcu
 
         private void SendDisplayCommand(byte[] message)
         {        
-            //MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
+            MessageSender.SendDisplayCommands(new byte[][] { message, RefreshCommand });
         }
 
-        private void SetBytesDisplayCommand(MsgEntry msgEntry, byte[] message)
+        private void SetElementDisplayCommand(Element e, byte[] mes)
         {
-            byte setPos = msgEntry.StartPos;
-            for (int i = 0; i < msgEntry.Data.Length; i++)
+            foreach (Bit b in e.Bits)
             {
-                message[setPos] &= msgEntry.Mask[i];
-                message[setPos] |= msgEntry.Data[i];
-                setPos++;
+                int index = b.ByteNumber + 17; // with header
+                mes[index] = b.Value ? (byte)(mes[index] | (1 << b.BitPosition))
+                                     : (byte)(mes[index] & ~(1 << b.BitPosition));
             }
         }
     }
