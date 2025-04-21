@@ -53,7 +53,7 @@
     },
     "Cell": {
       "Drag" : {
-        "Multiple": "Du verschiebst gerade {{count}} selektierte Zeilen"
+        "Multiple": "Du verschiebst {{count}} selektierte Zeilen"
       },
       "Waiting": "Warten",
       "Controller": {
