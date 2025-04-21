@@ -15,8 +15,8 @@ namespace MobiFlightWwFcu
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
 
-        private const string COURSE_LEFT = "Course left value";
-        private const string COURSE_RIGHT = "Course right value";
+        private const string COURSE_LEFT = "Course Left Value";
+        private const string COURSE_RIGHT = "Course Right Value";
 
         private const string SPEED = "Speed Value";
         private const string MACH = "Mach Value";
