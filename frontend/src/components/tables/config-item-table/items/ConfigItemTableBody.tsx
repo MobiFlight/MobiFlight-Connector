@@ -6,7 +6,6 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
 import { IConfigItem } from "@/types/config"
-import { Badge } from "@/components/ui/badge"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>
@@ -28,7 +27,6 @@ const ConfigItemTableBody = <TData,>({
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const selectedRows = table.getSelectedRowModel().rows
       const selectedConfigs = selectedRows.map(
         (row) => row.original,
       ) as IConfigItem[]
@@ -71,9 +69,11 @@ const ConfigItemTableBody = <TData,>({
           const isDragging = dragItemId !== undefined
           const isDragItem = dragItemId === row.id
           const dragClassName =
-            isDragging && isSelected && !isDragItem
-              ? "is-dragging"
-              : "is-first-drag-item"
+            isDragging && isSelected ?
+              !isDragItem
+                ? "is-dragging"
+                : "is-first-drag-item"
+              : "" 
           return (
             <DndTableRow
               className={dragClassName}
@@ -113,7 +113,7 @@ const ConfigItemTableBody = <TData,>({
                 })
               }}
             >
-              {row.getVisibleCells().map((cell, idx, arr) => {
+              {row.getVisibleCells().map((cell) => {
                 const className =
                   (
                     cell.column.columnDef.meta as {
@@ -128,9 +128,6 @@ const ConfigItemTableBody = <TData,>({
                     }
                   )?.cellClassName ?? ""
 
-                // Render badge inside the last cell if this is the first drag item
-                const isLastCell = idx === arr.length - 1
-
                 return (
                   <TableCell
                     key={cell.id}
@@ -141,11 +138,7 @@ const ConfigItemTableBody = <TData,>({
                       "group-[.is-dragging]/row:hidden",
                     )}
                   >
-                    {!isLastCell &&
-                      flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    {isDragItem && isLastCell && (
-                      <Badge>{selectedRows.length}</Badge>
-                    )}
+                    {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
                   </TableCell>
                 )
               })}
