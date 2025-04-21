@@ -133,7 +133,7 @@ export function ConfigItemTable<TData, TValue>({
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {}),
+    // useSensor(KeyboardSensor, {}),
   )
 
   const handleDragStart = useCallback(
@@ -180,12 +180,14 @@ export function ConfigItemTable<TData, TValue>({
       // we determine drag direction
       const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
 
+      const draggedData = (data as IConfigItem[]).filter((item) =>
+        selectedIds.includes(item.GUID)
+      )
+
       // Insert dragged items at drop index
       newData = [
         ...newData.slice(0, newIndex + dragDirectionOffset),
-        ...(data as IConfigItem[]).filter((item) =>
-          selectedIds.includes(item.GUID),
-        ),
+        ...draggedData,
         ...newData.slice(newIndex + dragDirectionOffset),
       ]
 
@@ -194,7 +196,7 @@ export function ConfigItemTable<TData, TValue>({
       publishOnMessageExchange().publish({
         key: "CommandResortConfigItem",
         payload: {
-          items: selectedRows,
+          items: draggedData,
           newIndex: newIndex + dragDirectionOffset,
         },
       } as CommandResortConfigItem)
