@@ -16,7 +16,6 @@ import { Table } from "@/components/ui/table"
 import {
   DndContext,
   closestCenter,
-  KeyboardSensor,
   useSensor,
   useSensors,
   DragEndEvent,
