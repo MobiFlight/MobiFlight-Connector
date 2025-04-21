@@ -97,6 +97,7 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
+        private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
@@ -494,6 +495,7 @@ namespace MobiFlight
         {
             if (timer.Enabled) return;
 
+            InitInputEventExecutor();
             simConnectCache.Start();
             xplaneCache.Start();
 
@@ -510,6 +512,25 @@ namespace MobiFlight
 
             // Force all the modules awake whenver run is activated
             mobiFlightCache.KeepConnectedModulesAwake(true);
+        }
+
+        private void InitInputEventExecutor()
+        {
+            _inputEventExecutors.Clear();
+
+            foreach (var configFile in Project.ConfigFiles)
+            {
+                _inputEventExecutors[configFile] = new InputEventExecutor(
+                    configFile.ConfigItems,
+                    inputActionExecutionCache,
+                    fsuipcCache,
+                    simConnectCache,
+                    xplaneCache,
+                    mobiFlightCache,
+                    joystickManager,
+                    arcazeCache
+                );
+            }
         }
 
         public void Stop()
@@ -1012,150 +1033,29 @@ namespace MobiFlight
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, InputEventArgs e)
         {
-            String inputKey = e.Serial + e.Type + e.DeviceId;
-            String eventAction = "n/a";
+            var msgEventLabel = $"{e.Name} => {e.DeviceLabel}";
 
-            if (e.Type == DeviceType.Button)
-            {
-                eventAction = MobiFlightButton.InputEventIdToString(e.Value);
-            }
-            else if (e.Type == DeviceType.Encoder)
-            {
-                eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
-            }
-            else if (e.Type == DeviceType.InputShiftRegister)
-            {
-                eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
-                // The inputKey gets the shifter external pin added to it if the input came from a shift register
-                // This ensures caching works correctly when there are multiple channels on the same physical device
-                inputKey = inputKey + e.ExtPin;
-            }
-            else if (e.Type == DeviceType.InputMultiplexer)
-            {
-                eventAction = MobiFlightInputMultiplexer.InputEventIdToString(e.Value);
-                //GCC CHECK
-                // The inputKey gets the external pin no. added to it if the input came from a shift register
-                // xThis ensures caching works correctly when there are multiple pins on the same physical device
-                inputKey = inputKey + e.ExtPin;
-            }
-            else if (e.Type == DeviceType.AnalogInput)
-            {
-                eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + " => " + e.Value;
-            }
-
-            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
-
-            lock (inputCache)
-            {
-                if (!inputCache.ContainsKey(inputKey))
-                {
-                    inputCache[inputKey] = new List<InputConfigItem>();
-                    // check if we have configs for this button
-                    // and store it      
-
-                    foreach (var cfg in ConfigItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
-                    {
-                        try
-                        {
-                            // item currently created and not saved yet.
-                            if (cfg == null) continue;
-
-                            if (cfg.ModuleSerial != null &&
-                                cfg.ModuleSerial.Contains("/ " + e.Serial) &&
-                               (cfg.DeviceName == e.DeviceId ||
-                               // for backward compatibility we have to make this check
-                               // because we used to have the label in the config
-                               // but now we want to store the internal button identifier
-                               // so that the label can change any time without breaking the config
-                               (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
-                            {
-                                // Input shift registers have an additional check to see if the pin that changed matches the pin
-                                // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
-                                // would get added to the input cache and fired even though the pins don't match.
-                                //GCC CHECK
-                                if (e.Type == DeviceType.InputShiftRegister && cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
-                                {
-                                    continue;
-                                }
-                                // similarly also for digital input Multiplexer
-                                if (e.Type == DeviceType.InputMultiplexer && cfg.inputMultiplexer != null && cfg.inputMultiplexer.DataPin != e.ExtPin)
-                                {
-                                    continue;
-                                }
-                                inputCache[inputKey].Add(cfg);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // probably the last row with no settings object 
-                            continue;
-                        }
-                    }
-                }
-
-                // no config for this button found
-                if (inputCache[inputKey].Count == 0)
-                {
-                    if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                        Log.Instance.log($"{msgEventLabel} =>  No config found.", LogSeverity.Warn);
-                    return;
-                }
-            }
-
-            // Skip execution if not started
             if (!IsStarted())
             {
-                Log.Instance.log($"{msgEventLabel} => Config not executed, MobiFlight not running", LogSeverity.Warn);
+                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Debug);
                 return;
             }
 
-            ConnectorValue currentValue = new ConnectorValue();
-            CacheCollection cacheCollection = new CacheCollection()
+            var updatedInputValues = new Dictionary<string, IConfigItem>();
+
+            foreach (var executor in _inputEventExecutors.Values)
             {
-                fsuipcCache = fsuipcCache,
-                simConnectCache = simConnectCache,
-                xplaneCache = xplaneCache,
-                moduleCache = mobiFlightCache,
-                joystickManager = joystickManager
-            };
-
-            foreach (var cfg in inputCache[inputKey])
-            {
-                if (!cfg.Active)
-                {
-                    Log.Instance.log($"{msgEventLabel} => skipping \"{cfg.Name}\", config not active.", LogSeverity.Warn);
-                    continue;
-                }
-
-                try
-                {
-                    // if there are preconditions check and skip if necessary
-                    if (cfg.Preconditions.Count > 0)
-                    {
-                        if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, arcazeCache, mobiFlightCache))
-                        {
-                            Log.Instance.log($"{msgEventLabel} => skipping \"{cfg.Name}\", precondition not satisfied.", LogSeverity.Debug);
-                            continue;
-                        }
-                    }
-
-                    Log.Instance.log($"{msgEventLabel} => executing \"{cfg.Name}\"", LogSeverity.Info);
-
-                    cfg.RawValue = eventAction;
-                    cfg.Value = " ";
-                    updatedValues[cfg.GUID] = cfg;
-
-                    var references = Project.ConfigFiles[0].ResolveReferences(cfg.ConfigRefs);
-
-                    cfg.execute(cacheCollection, e, references);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Error excuting \"{cfg.Name}\": {ex.Message}", LogSeverity.Error);
-                    cfg.Status[ConfigItemStatusType.Device] = "DEVICE_ERROR";
-                }
+                var updatedValues = executor.Execute(e);
+                updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
             }
-            //fsuipcCache.ForceUpdate();
+
+            if (!updatedInputValues.Any())
+            {
+                Log.Instance.log($"{msgEventLabel} => No matching input config found.", LogSeverity.Warn);
+                return;
+            }
+
+            updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
         }
 
         private void UpdateInputPreconditions()

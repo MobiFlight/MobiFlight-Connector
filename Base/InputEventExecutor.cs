@@ -1,0 +1,172 @@
+using MobiFlight.Base;
+using MobiFlight.FSUIPC;
+using MobiFlight.InputConfig;
+using MobiFlight.SimConnectMSFS;
+using MobiFlight.xplane;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MobiFlight.Execution
+{
+    public class InputEventExecutor
+    {
+        private readonly List<IConfigItem> _configItems;
+        private readonly InputActionExecutionCache _inputActionExecutionCache;
+        private readonly Fsuipc2Cache _fsuipcCache;
+        private readonly SimConnectCache _simConnectCache;
+        private readonly XplaneCache _xplaneCache;
+        private readonly MobiFlightCache _mobiFlightCache;
+        private readonly JoystickManager _joystickManager;
+        private readonly ArcazeCache _arcazeCache;
+        private readonly Dictionary<string, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
+
+        public InputEventExecutor(
+            List<IConfigItem> configItems,
+            InputActionExecutionCache inputActionExecutionCache,
+            Fsuipc2Cache fsuipcCache,
+            SimConnectCache simConnectCache,
+            XplaneCache xplaneCache,
+            MobiFlightCache mobiFlightCache,
+            JoystickManager joystickManager,
+            ArcazeCache arcazeCache)
+        {
+            _configItems = configItems;
+            _inputActionExecutionCache = inputActionExecutionCache;
+            _fsuipcCache = fsuipcCache;
+            _simConnectCache = simConnectCache;
+            _xplaneCache = xplaneCache;
+            _mobiFlightCache = mobiFlightCache;
+            _joystickManager = joystickManager;
+            _arcazeCache = arcazeCache;
+        }
+
+        public Dictionary<string, IConfigItem> Execute(InputEventArgs e)
+        {
+            var updatedValues = new Dictionary<string, IConfigItem>();
+            string inputKey = CreateInputKey(e);
+            string eventAction = GetEventAction(e);
+            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
+
+            if (!inputCache.ContainsKey(inputKey))
+            {
+                inputCache[inputKey] = GetMatchingInputConfigs(e);
+            }
+
+            if (inputCache[inputKey].Count == 0)
+            {
+                return updatedValues;
+            }
+
+            var cacheCollection = CreateCacheCollection();
+
+            foreach (var cfg in inputCache[inputKey])
+            {
+                if (!cfg.Active)
+                {
+                    Log.Instance.log($"{msgEventLabel} => Skipping inactive config \"{cfg.Name}\".", LogSeverity.Warn);
+                    continue;
+                }
+
+                try
+                {
+                    if (!CheckPreconditions(cfg))
+                    {
+                        Log.Instance.log($"{msgEventLabel} => Preconditions not satisfied for \"{cfg.Name}\".", LogSeverity.Debug);
+                        continue;
+                    }
+
+                    Log.Instance.log($"{e.Name} => Executing \"{cfg.Name}\".", LogSeverity.Info);
+
+                    cfg.RawValue = eventAction;
+                    cfg.Value = " ";
+                    updatedValues[cfg.GUID] = cfg;
+                    var references = ResolveReferences(cfg.ConfigRefs);
+                    cfg.execute(cacheCollection, e, references);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Error executing \"{cfg.Name}\": {ex.Message}", LogSeverity.Error);
+                    cfg.Status[ConfigItemStatusType.Device] = "DEVICE_ERROR";
+                }
+            }
+
+            return updatedValues;
+        }
+
+        private string CreateInputKey(InputEventArgs e)
+        {
+            var result = e.Serial + e.Type + e.DeviceId;
+            if (e.ExtPin.HasValue)
+            {
+                result += e.ExtPin.Value.ToString();
+            }
+            return result;
+        }
+
+        private string GetEventAction(InputEventArgs e)
+        {
+            switch (e.Type)
+            {
+                case DeviceType.Button:
+                    return MobiFlightButton.InputEventIdToString(e.Value);
+                case DeviceType.Encoder:
+                    return MobiFlightEncoder.InputEventIdToString(e.Value);
+                case DeviceType.InputShiftRegister:
+                    return MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
+                case DeviceType.InputMultiplexer:
+                    return MobiFlightInputMultiplexer.InputEventIdToString(e.Value);
+                case DeviceType.AnalogInput:
+                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {e.Value}";
+                default:
+                    return "n/a";
+            }
+        }
+
+        private List<InputConfigItem> GetMatchingInputConfigs(InputEventArgs e)
+        {
+            return _configItems
+                .OfType<InputConfigItem>()
+                .Where(cfg =>
+                    cfg.ModuleSerial != null &&
+                    cfg.ModuleSerial.Contains("/ " + e.Serial) &&
+                    (cfg.DeviceName == e.DeviceId ||
+                     (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
+                .ToList();
+        }
+
+        private bool CheckPreconditions(InputConfigItem cfg)
+        {
+            var currentValue = new ConnectorValue();
+            return PreconditionChecker.CheckPrecondition(cfg, currentValue, _configItems, _arcazeCache, _mobiFlightCache);
+        }
+
+        private List<ConfigRefValue> ResolveReferences(ConfigRefList configRefs)
+        {
+            var result = new List<ConfigRefValue>();
+
+            foreach (var cfg in _configItems)
+            {
+                if (cfg.ConfigRefs == null) continue;
+
+                result.AddRange(cfg.ConfigRefs
+                    .Where(c => c.Active)
+                    .Select(c => new ConfigRefValue(c, cfg.Value)));
+            }
+
+            return result;
+        }
+
+        private CacheCollection CreateCacheCollection()
+        {
+            return new CacheCollection
+            {
+                fsuipcCache = _fsuipcCache,
+                simConnectCache = _simConnectCache,
+                xplaneCache = _xplaneCache,
+                moduleCache = _mobiFlightCache,
+                joystickManager = _joystickManager
+            };
+        }
+    }
+}

@@ -240,6 +240,7 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\IConfigFile.cs" />
+    <Compile Include="Base\InputEventExecutor.cs" />
     <Compile Include="Base\LruCache.cs" />
     <Compile Include="Base\Project.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
