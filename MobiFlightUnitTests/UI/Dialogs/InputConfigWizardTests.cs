@@ -28,14 +28,15 @@ namespace MobiFlight.UI.Dialogs.Tests
                 { "var1", new MobiFlightVariable { Name = "Variable 1" } },
                 { "var2", new MobiFlightVariable { Name = "Variable 2" } }
             };
-            executionManagerMock.Setup(em => em.GetAvailableVariables()).Returns(availableVariables);
-
+            
             // Act
             var wizard = new InputConfigWizard(executionManagerMock.Object, 
                 inputConfigItem, 
                 null, 
                 null,
-                outputConfigItems);
+                outputConfigItems,
+                availableVariables
+                );
 
             // Assert
             var expectedList = new List<ListItem>

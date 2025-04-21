@@ -425,32 +425,7 @@ namespace MobiFlight
         {
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
 
-            ConfigItems.Where(i =>
-            {
-                return i?.GetType() == typeof(OutputConfigItem) &&
-                        (i as OutputConfigItem).Source is VariableSource;
-            }).ToList().ForEach(i =>
-            {
-                var source = (i as OutputConfigItem).Source as VariableSource;
-                if (variables.ContainsKey(source.MobiFlightVariable.Name)) return;
-                variables[source.MobiFlightVariable.Name] = source.MobiFlightVariable;
-            });
-
-            ConfigItems.Where(i => i?.GetType() == typeof(InputConfigItem)).ToList().ForEach(i =>
-            {
-                var cfg = i as InputConfigItem;
-                List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
-                if (actions == null) return;
-
-                actions.ForEach(action =>
-                {
-                    VariableInputAction a = (VariableInputAction)action;
-                    if (variables.ContainsKey(a.Variable.Name)) return;
-                    variables[a.Variable.Name] = a.Variable;
-                });
-            });
-
-            return variables;
+            return Project.ConfigFiles[0].GetAvailableVariables();
         }
 
         public void HandleWndProc(ref Message m)
@@ -737,68 +712,32 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.clearGetValues();
 #endif
-
-            var executor = new ConfigItemExecutor(ConfigItems, 
-                                                  arcazeCache, 
-                                                  fsuipcCache, 
-                                                  simConnectCache, 
-                                                  xplaneCache, 
-                                                  mobiFlightCache, 
-                                                  joystickManager, 
-                                                  midiBoardManager, 
+            foreach (var configFile in _project.ConfigFiles)
+            {
+                var executor = new ConfigItemExecutor(
+                                                  configFile.ConfigItems,
+                                                  arcazeCache,
+                                                  fsuipcCache,
+                                                  simConnectCache,
+                                                  xplaneCache,
+                                                  mobiFlightCache,
+                                                  joystickManager,
+                                                  midiBoardManager,
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
 
-            foreach (var item in ConfigItems)
-            {
-                var cfg = item as OutputConfigItem;
-                if (cfg == null || !cfg.Active) continue;
+                foreach (var item in ConfigItems)
+                {
+                    var cfg = item as OutputConfigItem;
+                    if (cfg == null || !cfg.Active) continue;
 
-                executor.Execute(cfg, updatedValues);
+                    executor.Execute(cfg, updatedValues);
+                }
             }
 
             isExecuting = false;
         }
-
-        private List<ConfigRefValue> GetRefs(ConfigRefList configRefs)
-        {
-            List<ConfigRefValue> result = new List<ConfigRefValue>();
-            foreach (ConfigRef c in configRefs)
-            {
-                if (!c.Active) continue;
-                String s = FindValueForRef(c.Ref);
-                if (s == null) continue;
-                result.Add(new ConfigRefValue(c, s));
-            }
-            return result;
-        }
-
-        private String FindValueForRef(String refId)
-        {
-            String result = null;
-            // iterate over the config row by row
-            foreach (var cfg in ConfigItems)
-            {
-                // here we just don't have a match
-                if (cfg.GUID != refId) continue;
-
-                // if inactive ignore?
-                if (!cfg.Active) break;
-
-                // was there an error on reading the value?
-                if (cfg.Value == null) break;
-
-                // read the value
-                string value = cfg.Value;
-
-                // if there hasn't been determined any value yet
-                // we cannot compare
-                if (value == "") break;
-                result = value;
-            }
-            return result;
-        }
-
+        
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
@@ -1205,11 +1144,10 @@ namespace MobiFlight
                     cfg.RawValue = eventAction;
                     cfg.Value = " ";
                     updatedValues[cfg.GUID] = cfg;
-                    cfg.execute(
-                        cacheCollection,
-                        e,
-                        GetRefs(cfg.ConfigRefs))
-                        ;
+
+                    var references = Project.ConfigFiles[0].ResolveReferences(cfg.ConfigRefs);
+
+                    cfg.execute(cacheCollection, e, references);
                 }
                 catch (Exception ex)
                 {
@@ -1333,20 +1271,5 @@ namespace MobiFlight
         {
             updateFrontend = !minimized;
         }
-    }
-
-    public class ConfigRefValue
-    {
-
-        public ConfigRefValue() { }
-        public ConfigRefValue(ConfigRef c, string value)
-        {
-            this.Value = value;
-            this.ConfigRef = c.Clone() as ConfigRef;
-        }
-
-        public string Value { get; set; }
-        public ConfigRef ConfigRef { get; set; }
-
     }
 }

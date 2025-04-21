@@ -217,7 +217,8 @@ namespace MobiFlight.UI
                                             execManager.getModuleCache(),
                                             execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
-                                            execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList()
+                                            execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
+                                            execManager.GetAvailableVariables()
                                           )
             {
                 StartPosition = FormStartPosition.CenterParent
@@ -267,7 +268,8 @@ namespace MobiFlight.UI
                                 execManager.getModuleCache(),
                                 execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
-                                execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList()
+                                execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
+                                execManager.GetAvailableVariables()
                                 )
             {
                 StartPosition = FormStartPosition.CenterParent
