@@ -155,9 +155,10 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   }
 })
 
-test("Confirm drag n drop is working", async ({ configListPage, page }) => {
+test("Confirm single drag n drop is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
   await page.getByRole("row").nth(1).getByRole("button").first().hover()
   await page.mouse.down()
   await page
@@ -167,6 +168,47 @@ test("Confirm drag n drop is working", async ({ configListPage, page }) => {
     .hover()
   await page.mouse.up()
   await expect(page.getByRole("row").nth(6)).toContainText("7-Segment")
+
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const lastCommand = postedCommands!.pop()
+  expect (lastCommand.key).toEqual('CommandResortConfigItem')
+  expect (lastCommand.payload.items.length).toEqual(1)
+  expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect (lastCommand.payload.newIndex).toEqual(5)
+})
+
+test("Confirm multi drag n drop is working", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+  const firstRow = page.getByRole("row").nth(1)
+  const thirdRow = page.getByRole("row").nth(3)
+  const fifthRow = page.getByRole("row").nth(5)
+  
+  // select the first row
+  firstRow.click()
+  await page.keyboard.down("Control")
+  // add the third row to the selection
+  await thirdRow.click()
+    
+  // activate drag and drop after fifth
+  const dragHandle = thirdRow.getByRole("button").first()
+  await dragHandle.hover()
+  await page.mouse.down()
+  await fifthRow.getByRole("button").first().hover()
+  await page.mouse.up()
+
+  await expect(page.getByRole("row").nth(4)).toContainText("7-Segment")
+  await expect(page.getByRole("row").nth(5)).toContainText("Servo")
+
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const lastCommand = postedCommands!.pop()
+  expect (lastCommand.key).toEqual('CommandResortConfigItem')
+  expect (lastCommand.payload.items.length).toEqual(2)
+  expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect (lastCommand.payload.items[1].Name).toEqual("Servo")
+  expect (lastCommand.payload.newIndex).toEqual(3)
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {

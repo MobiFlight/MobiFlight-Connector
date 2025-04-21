@@ -26,7 +26,7 @@ const ConfigItemTableActiveCell = React.memo(({ row }: ConfigItemTableActiveCell
       >
         <IconGripVertical className="stroke-2" />
       </div>
-      <div className="text-center">
+      <div className="flex flex-row items-center">
         <Switch
           checked={row.getValue("Active") as boolean}
           onClick={() => {

@@ -8,25 +8,30 @@ import { useState, useEffect } from "react"
 import { IConfigItem } from "@/types/config"
 
 interface ConfigItemTableBodyProps<TData> {
-  table: Table<TData>,
+  table: Table<TData>
+  dragItemId: string | undefined
   onDeleteSelected?: () => void
   onToggleSelected?: () => void
 }
 const ConfigItemTableBody = <TData,>({
   table,
+  dragItemId,
   onDeleteSelected,
-  onToggleSelected
+  onToggleSelected,
 }: ConfigItemTableBodyProps<TData>) => {
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
   const [lastSelected, setLastSelected] = useState<Row<TData> | null>(null)
 
+  const selectedRows = table.getSelectedRowModel().rows
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      const selectedRows = table.getSelectedRowModel().rows
-      const selectedConfigs = selectedRows.map((row) => row.original) as IConfigItem[]
+      const selectedConfigs = selectedRows.map(
+        (row) => row.original,
+      ) as IConfigItem[]
 
-      const supportedKeyPress = [ "Delete", " ", "Enter", "Escape", "Backspace" ]	
+      const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
 
       if (!supportedKeyPress.includes(e.key)) return
 
@@ -42,7 +47,7 @@ const ConfigItemTableBody = <TData,>({
         case " ":
           if (onToggleSelected) onToggleSelected()
           break
-        
+
         case "Escape":
           table.resetRowSelection()
           break
@@ -60,8 +65,18 @@ const ConfigItemTableBody = <TData,>({
         strategy={verticalListSortingStrategy}
       >
         {rows.map((row) => {
+          const isSelected = row.getIsSelected()
+          const isDragging = dragItemId !== undefined
+          const isDragItem = dragItemId === row.id
+          const dragClassName =
+            isDragging && isSelected ?
+              !isDragItem
+                ? "is-dragging"
+                : "is-first-drag-item"
+              : "" 
           return (
             <DndTableRow
+              className={dragClassName}
               key={row.id}
               data-state={row.getIsSelected() && "selected"}
               dnd-itemid={row.id}
@@ -87,8 +102,7 @@ const ConfigItemTableBody = <TData,>({
                 } else if (e.ctrlKey || e.metaKey) {
                   row.toggleSelected()
                 } else {
-                  table.resetRowSelection()
-                  row.toggleSelected()
+                  table.setRowSelection({ [row.id]: true })
                 }
                 setLastSelected(row)
               }}
@@ -117,9 +131,14 @@ const ConfigItemTableBody = <TData,>({
                 return (
                   <TableCell
                     key={cell.id}
-                    className={cn("p-1", className, cellClassName)}
+                    className={cn(
+                      "p-1",
+                      className,
+                      cellClassName,
+                      "group-[.is-dragging]/row:hidden",
+                    )}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
                   </TableCell>
                 )
               })}
