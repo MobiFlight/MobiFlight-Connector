@@ -726,7 +726,7 @@ namespace MobiFlight
                                                   inputActionExecutionCache,
                                                   ConfigItemInTestMode);
 
-                foreach (var item in ConfigItems)
+                foreach (var item in configFile.ConfigItems)
                 {
                     var cfg = item as OutputConfigItem;
                     if (cfg == null || !cfg.Active) continue;
