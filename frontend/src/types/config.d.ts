@@ -42,3 +42,9 @@ export interface IDeviceConfig {
   Type: string
   Name: string
 }
+
+export interface ConfigFile {
+  Label: string
+  FileName: string
+  ConfigItems: IConfigItem[]
+}

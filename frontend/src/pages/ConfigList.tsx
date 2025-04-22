@@ -1,25 +1,45 @@
 import { useConfigStore } from "@/stores/configFileStore"
+import { useProjectStore } from "@/stores/projectStore"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useCallback, useEffect } from "react"
+import { SyntheticEvent, useCallback, useEffect, useState } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
-import { ConfigValueFullUpdate, ConfigValuePartialUpdate, ConfigValueRawAndFinalUpdate } from "@/types/messages"
+import {
+  ConfigValueFullUpdate,
+  ConfigValuePartialUpdate,
+  ConfigValueRawAndFinalUpdate,
+} from "@/types/messages"
 import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
 import { IConfigItem } from "@/types"
+import { Button } from "@/components/ui/button"
 
 const ConfigListPage = () => {
   const {
     items: configItems,
     setItems,
     updateItem,
-    updateItems
+    updateItems,
   } = useConfigStore()
 
-  const mySetItems = useCallback((items: IConfigItem[]) => {
-    setItems(items)
-  }, [setItems])
-    
+  const mySetItems = useCallback(
+    (items: IConfigItem[]) => {
+      setItems(items)
+    },
+    [setItems],
+  )
+
+  const { project } = useProjectStore()
+  const [ activeConfigFile, setActiveConfigFile ] = useState(0)
+
+  useEffect(() => {
+    if (project === undefined) return
+    if (project!.ConfigFiles.length === 0) return
+
+    setItems(project?.ConfigFiles[activeConfigFile].ConfigItems)
+  }, [project, activeConfigFile, setItems])
+
+  const configFiles = project?.ConfigFiles
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
     console.log("ConfigValuePartialUpdate", message.payload)
@@ -33,7 +53,10 @@ const ConfigListPage = () => {
   })
 
   useAppMessage("ConfigValueRawAndFinalUpdate", (message) => {
-    console.log("ConfigValueRawAndFinalUpdate", (message.payload as ConfigValueRawAndFinalUpdate))
+    console.log(
+      "ConfigValueRawAndFinalUpdate",
+      message.payload as ConfigValueRawAndFinalUpdate,
+    )
     const update = message.payload as ConfigValueRawAndFinalUpdate
     // update raw and final values for the store items
     const newItems = update.ConfigItems.map((newItem) => {
@@ -48,7 +71,7 @@ const ConfigListPage = () => {
       }
     }) as IConfigItem[]
     updateItems(newItems)
-  })  
+  })
 
   useAppMessage("ConfigValueFullUpdate", (message) => {
     console.log("ConfigValueFullUpdate", message)
@@ -62,23 +85,36 @@ const ConfigListPage = () => {
     if (process.env.NODE_ENV === "development" && configItems.length === 0) {
       setItems(testdata)
     }
-  },[setItems])
+  }, [setItems])
+
+  const selectActiveFile = (index:number) => {
+    setActiveConfigFile(index)
+  }
 
   return (
-    // <div className='flex flex-col gap-4 overflow-y-auto'>
-    //   <Tabs defaultValue="config-1" className='grow flex flex-col overflow-y-auto'>
-    //     <div>
-    //       <TabsList className='mb-4 mt-0'>
-    //         <TabsTrigger value="config-1">Config one</TabsTrigger>
-    //       </TabsList>
-    //     </div>
-    //     <TabsContent value="config-1" className='mt-0 flex flex-col grow overflow-y-auto'>
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <ConfigItemTable columns={columns} data={configItems} setItems={mySetItems}/>
+        <div>
+          <div className="flex flex-row gap-2">
+            {configFiles?.map((file, index) => {
+              return (
+                <Button variant={index === activeConfigFile ? "default" : "outline"} key={file.FileName} value={file.FileName} className="h-8" onClick={(e) => selectActiveFile(index)}> 
+                  {file.Label ?? file.FileName}
+                </Button>
+              )
+            })}
+            <Button variant="ghost" className="h-8">Add new config</Button>
+          </div>
+        </div>
+        {
+        <div className="flex flex-col gap-4 overflow-y-auto">
+          <ConfigItemTable
+            columns={columns}
+            data={configItems}
+            setItems={mySetItems}
+          />
+        </div>
+        }
     </div>
-    //     </TabsContent>
-    //   </Tabs>
-    // </div>
   )
 }
 
