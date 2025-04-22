@@ -14,6 +14,7 @@ export type CommandMessage =
   | CommandUpdateConfigItem
   | CommandAddConfigItem
   | CommandResortConfigItem
+  | CommandActiveConfigFile
 
 
 export interface CommandMessageBase {
@@ -69,5 +70,12 @@ export interface CommandResortConfigItem extends CommandMessageBase {
   payload: { 
     items: IConfigItem[],
     newIndex: number
+  }
+}
+
+export interface CommandActiveConfigFile extends CommandMessageBase {
+  key: "CommandActiveConfigFile"
+  payload: { 
+    index: number
   }
 }

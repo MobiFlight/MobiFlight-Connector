@@ -116,6 +116,8 @@ namespace MobiFlight
             }
         }
 
+        public int ActiveConfigIndex { get; private set; } = 0;
+
         Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
 
         private bool _autoConnectTimerRunning = false;
@@ -197,6 +199,7 @@ namespace MobiFlight
 
             OnProjectChanged += (s, p) =>
             {
+                ActiveConfigIndex = 0;
                 MessageExchange.Instance.Publish(p);
             };
 
@@ -397,6 +400,11 @@ namespace MobiFlight
 
                 MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
+            });
+
+            MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message)=>
+            {
+                ActiveConfigIndex = message.index;
             });
         }
 

@@ -3,8 +3,8 @@ import { useProjectStore } from "@/stores/projectStore"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { SyntheticEvent, useCallback, useEffect, useState } from "react"
-import { useAppMessage } from "@/lib/hooks/appMessage"
+import { useCallback, useEffect, useState } from "react"
+import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
   ConfigValuePartialUpdate,
@@ -33,7 +33,7 @@ const ConfigListPage = () => {
   const [ activeConfigFile, setActiveConfigFile ] = useState(0)
 
   useEffect(() => {
-    if (project === undefined) return
+    if (project === null) return
     if (project!.ConfigFiles.length === 0) return
 
     setItems(project?.ConfigFiles[activeConfigFile].ConfigItems)
@@ -91,13 +91,22 @@ const ConfigListPage = () => {
     setActiveConfigFile(index)
   }
 
+  useEffect(() => {
+    publishOnMessageExchange().publish({
+      key: "CommandActiveConfigFile",
+      payload:{
+        index: activeConfigFile,
+      }}
+    )
+  },[activeConfigFile])
+
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
         <div>
           <div className="flex flex-row gap-2">
             {configFiles?.map((file, index) => {
               return (
-                <Button variant={index === activeConfigFile ? "default" : "outline"} key={file.FileName} value={file.FileName} className="h-8" onClick={(e) => selectActiveFile(index)}> 
+                <Button variant={index === activeConfigFile ? "default" : "outline"} key={file.FileName} value={file.FileName} className="h-8" onClick={() => selectActiveFile(index)}> 
                   {file.Label ?? file.FileName}
                 </Button>
               )
