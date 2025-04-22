@@ -22,6 +22,9 @@ namespace MobiFlight
         [XmlIgnore]
         public String FileName { get; set; }
 
+        [XmlIgnore]
+        public String Label { get; set; } = "Config File";
+
         // create read only property to get the output config items
         [XmlIgnore]
         public List<IConfigItem> ConfigItems

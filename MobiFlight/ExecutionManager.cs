@@ -51,6 +51,7 @@ namespace MobiFlight
         public event EventHandler OnMidiBoardConnectedFinished;
 
         public event EventHandler SettingsDialogRequested;
+        public event EventHandler<Project> OnProjectChanged;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -109,7 +110,9 @@ namespace MobiFlight
             get { return _project; }
             set
             {
+                if (_project == value) return;
                 _project = value;
+                OnProjectChanged?.Invoke(this, Project);
             }
         }
 
@@ -190,6 +193,11 @@ namespace MobiFlight
             {
                 midiBoardManager.Startup();
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
+            };
+
+            OnProjectChanged += (s, p) =>
+            {
+                MessageExchange.Instance.Publish(p);
             };
 
             frontendUpdateTimer.Interval = 200;

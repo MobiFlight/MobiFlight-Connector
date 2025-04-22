@@ -6,6 +6,7 @@ namespace MobiFlight
     public interface IConfigFile
     {
         List<IConfigItem> ConfigItems { get; set; }
+        string Label { get; set; }
         string FileName { get; set; }
         bool ReferenceOnly { get; }
         bool EmbedContent { get; }

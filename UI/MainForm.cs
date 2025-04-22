@@ -316,7 +316,7 @@ namespace MobiFlight.UI
                     configFile = project.ConfigFiles[0];
                 }
                    
-                MessageExchange.Instance.Publish(configFile);
+                MessageExchange.Instance.Publish(project);
             };
         }
 
@@ -1719,7 +1719,7 @@ namespace MobiFlight.UI
                     // this will have to be changed in the future
                     var additionalProject = new Project() { FilePath = fileName };
                     additionalProject.OpenFile();
-                    execManager.Project.ConfigFiles[0].Merge(additionalProject.ConfigFiles[0]);
+                    execManager.Project.ConfigFiles.Add(additionalProject.ConfigFiles.First());
                 }
             }
             catch (InvalidExpressionException)
@@ -2074,7 +2074,11 @@ namespace MobiFlight.UI
                 CurrentFileName = null;
                 _setFilenameInTitle(i18n._tr("DefaultFileName"));
                 var project = new Project() { Name = i18n._tr("DefaultFileName") };
-                project.ConfigFiles.Add(new ConfigFile() { EmbedContent = true }); 
+                var newConfigFile = new ConfigFile() { 
+                    Label="New file",
+                    EmbedContent = true 
+                };
+                project.ConfigFiles.Add(newConfigFile); 
                 execManager.Project = project;
                 ProjectLoaded?.Invoke(this, project);
             };

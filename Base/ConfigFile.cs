@@ -7,6 +7,7 @@ namespace MobiFlight.Base
 {
     public class ConfigFile : IConfigFile
     {
+        public string Label { get; set; }
         public string FileName { get; set; }
         public bool ReferenceOnly { get; set; } = false;
         public bool EmbedContent { get; set; } = false;
@@ -29,7 +30,7 @@ namespace MobiFlight.Base
 
             var json = File.ReadAllText(FileName);
             var configFile = JsonConvert.DeserializeObject<ConfigFile>(json);
-            FileName = configFile.FileName;
+            FileName = configFile.FileName ?? Path.GetFileName(FileName);
             ReferenceOnly = configFile.ReferenceOnly;
             EmbedContent = configFile.EmbedContent;
             ConfigItems = configFile.ConfigItems;
