@@ -17,9 +17,12 @@ namespace MobiFlightWwFcu
 
         private const string COURSE_LEFT = "Course Left Value";
         private const string COURSE_RIGHT = "Course Right Value";
+        private const string COL_SHOWN = "Course Left Shown On/Off";
+        private const string COR_SHOWN = "Course Right Shown On/Off";
 
         private const string SPEED = "Speed Value";
         private const string MACH = "Mach Value";
+        private const string SPEED_SHOWN = "Speed Shown On/Off";
         private const string MACH_LABEL = "MACH Label On/Off";
         private const string IAS_LABEL = "IAS Label On/Off";        
         private const string SPEED_A = "Speed A On/Off";           
@@ -44,6 +47,9 @@ namespace MobiFlightWwFcu
         private const string LCD_BRIGHTNESS = "LCD Percentage";
         private const string LED_BRIGHTNESS = "LED Percentage";
 
+        private bool IsCourseLeftShown = true;
+        private bool IsCourseRightShown = true;
+        private bool IsSpeedShown = true;
         private bool IsVsShown = true;
         private bool IsSpeedA = false;
         private bool IsSpeedB = false;
@@ -134,9 +140,12 @@ namespace MobiFlightWwFcu
             // Add display options
             DisplayNameToActionMapping.Add(COURSE_LEFT, SetCourseLeft);
             DisplayNameToActionMapping.Add(COURSE_RIGHT, SetCourseRight);
+            DisplayNameToActionMapping.Add(COL_SHOWN, SetCourseLeftShown);
+            DisplayNameToActionMapping.Add(COR_SHOWN, SetCourseRightShown);
 
             DisplayNameToActionMapping.Add(SPEED, SetSpeed);       
-            DisplayNameToActionMapping.Add(MACH, SetMachSpeed);     
+            DisplayNameToActionMapping.Add(MACH, SetMachSpeed);
+            DisplayNameToActionMapping.Add(SPEED_SHOWN, SetSpeedShown);
             DisplayNameToActionMapping.Add(IAS_LABEL, SetIasLabel);
             DisplayNameToActionMapping.Add(MACH_LABEL, SetMachLabel);
             DisplayNameToActionMapping.Add(SPEED_A, SetSpeedA);
@@ -331,16 +340,51 @@ namespace MobiFlightWwFcu
 
         private void SetCourseLeft(string course)
         {
-            int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
-            char[] chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();         
+            char[] chars;
+            if (IsCourseLeftShown)
+            {
+                int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
+                chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            }
+            else
+            {
+                chars = new char[] { '*', '*', '*' };
+            }
+
             SetDigitsInternal(chars, new string[] { "CoLHundreds", "CoLTens", "CoLOnes" });            
         }
 
         private void SetCourseRight(string course)
         {
-            int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
-            char[] chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            char[] chars;
+            if (IsCourseRightShown)
+            {
+                int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
+                chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
+            }
+            else
+            {
+                chars = new char[] { '*', '*', '*' };
+            }
             SetDigitsInternal(chars, new string[] { "CoRHundreds", "CoRTens", "CoROnes" });
+        }
+
+        private void SetCourseLeftShown(string isShown)
+        {
+            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+            IsCourseLeftShown = Convert.ToBoolean(value);
+
+            // Reset cache
+            LcdCurrentValuesCache[COURSE_LEFT] = string.Empty;     
+        }
+
+        private void SetCourseRightShown(string isShown)
+        {
+            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+            IsCourseRightShown = Convert.ToBoolean(value);
+
+            // Reset cache
+            LcdCurrentValuesCache[COURSE_RIGHT] = string.Empty;
         }
 
         private void SetMachDot(bool isDotSet)
@@ -373,8 +417,24 @@ namespace MobiFlightWwFcu
             }
 
             int value = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
-            char[] chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();          
-            if (value == 999) chars = new char[] { '-', '-', '-' };            
+            char[] chars;    
+            
+            if (IsSpeedShown)
+            {                
+                if (value == 999)
+                {
+                    chars = new char[] { '-', '-', '-' };
+                }
+                else
+                {
+                    chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();                   
+                }
+            }
+            else
+            {
+                chars = new char[] { '*', '*', '*' };                
+            }
+
             SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
             LcdCurrentValuesCache[MACH] = string.Empty; // Reset for Speed/Mach change
         }
@@ -392,23 +452,45 @@ namespace MobiFlightWwFcu
             int value = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
             char[] chars;
 
-            if (value == 999)
+            if (IsSpeedShown)
             {
-                chars = new char[] { '-', '-', '-' };
-            }
-            else if (IsSpeedA || IsSpeedB)
-            {
-                // A or B is shown at the hundreds position
-                chars = value.ToString("D2", CultureInfo.InvariantCulture).ToCharArray();
-                SetDigitsInternal(chars, new string[] { "SpdTens", "SpdOnes" });
+                if (value == 999)
+                {
+                    chars = new char[] { '-', '-', '-' };
+                    SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
+                }
+                else if (IsSpeedA || IsSpeedB)
+                {
+                    // A or B is shown at the hundreds position
+                    chars = value.ToString("D2", CultureInfo.InvariantCulture).ToCharArray();
+                    SetDigitsInternal(chars, new string[] { "SpdTens", "SpdOnes" });
+                }
+                else
+                {
+                    chars = value.ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*').ToCharArray();
+                    SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
+                }
             }
             else
             {
-                chars = value.ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*').ToCharArray();
+                SetMachDot(false);
+                chars = new char[] { '*', '*', '*' };
                 SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
             }
                                        
             LcdCurrentValuesCache[SPEED] = string.Empty; // Reset for Speed/Mach change
+        }
+
+        private void SetSpeedShown(string isShown)
+        {
+            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
+            IsSpeedShown = Convert.ToBoolean(value);
+
+            // Reset cache
+            LcdCurrentValuesCache[MACH] = string.Empty;
+            LcdCurrentValuesCache[SPEED] = string.Empty;
+            LcdCurrentValuesCache[SPEED_A] = string.Empty;
+            LcdCurrentValuesCache[SPEED_B] = string.Empty;
         }
 
         private void SetIasLabel(string isLabel)        
@@ -427,16 +509,23 @@ namespace MobiFlightWwFcu
             bool isA = Convert.ToBoolean(value);
             IsSpeedA = isA;
 
-            var machDot = DisplaySetValueElements["MachDot"];
-            string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
-
-            if (isA)
+            if (IsSpeedShown)
             {
-                SetDigitsInternal(new char[] {'A'}, new string[] { elementName });
+                var machDot = DisplaySetValueElements["MachDot"];
+                string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
+
+                if (isA)
+                {
+                    SetDigitsInternal(new char[] { 'A' }, new string[] { elementName });
+                }
+                else
+                {
+                    SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
+                }
             }
             else
             {
-                SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
+                SetDigitsInternal(new char[] { '*', '*' }, new string[] { "SpdThousands", "SpdHundreds" });
             }
         }
 
@@ -446,16 +535,23 @@ namespace MobiFlightWwFcu
             bool isB = Convert.ToBoolean(value);
             IsSpeedB = isB;
 
-            var machDot = DisplaySetValueElements["MachDot"];
-            string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
-
-            if (isB)
+            if (IsSpeedShown)
             {
-                SetDigitsInternal(new char[] { 'B' }, new string[] { elementName });
+                var machDot = DisplaySetValueElements["MachDot"];
+                string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
+
+                if (isB)
+                {
+                    SetDigitsInternal(new char[] { 'B' }, new string[] { elementName });
+                }
+                else
+                {
+                    SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
+                }
             }
             else
             {
-                SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
+                SetDigitsInternal(new char[] { '*', '*' }, new string[] { "SpdThousands", "SpdHundreds" });
             }
         }
 
