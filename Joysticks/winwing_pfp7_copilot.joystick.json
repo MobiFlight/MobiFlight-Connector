@@ -77,17 +77,17 @@
     {
       "Id": 15,
       "Type": "Button",
-      "Label": "CLB Button"
+      "Label": "DEP/ARR Button"
     },
     {
       "Id": 16,
       "Type": "Button",
-      "Label": "CRZ Button"
+      "Label": "ALTN Button"
     },
     {
       "Id": 17,
       "Type": "Button",
-      "Label": "DES Button"
+      "Label": "VNAV Button"
     },
     {
       "Id": 18,
@@ -102,7 +102,7 @@
     {
       "Id": 20,
       "Type": "Button",
-      "Label": "MENU Button"
+      "Label": "FIX Button"
     },
     {
       "Id": 21,
@@ -112,12 +112,12 @@
     {
       "Id": 22,
       "Type": "Button",
-      "Label": "DEP/ARR Button"
+      "Label": "HOLD Button"
     },
     {
       "Id": 23,
       "Type": "Button",
-      "Label": "HOLD Button"
+      "Label": "FMC/COMM Button"
     },
     {
       "Id": 24,
@@ -132,12 +132,12 @@
     {
       "Id": 26,
       "Type": "Button",
-      "Label": "N1/LIMIT Button"
+      "Label": "MENU Button"
     },
     {
       "Id": 27,
       "Type": "Button",
-      "Label": "FIX Button"
+      "Label": "NAV/RAD Button"
     },
     {
       "Id": 28,
