@@ -266,6 +266,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigFile.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigBulkAction.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />

@@ -4,7 +4,6 @@ using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
-using MobiFlight.OutputConfig;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -402,9 +401,38 @@ namespace MobiFlight
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
-            MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message)=>
+            MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message) =>
             {
                 ActiveConfigIndex = message.index;
+            });
+
+            MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
+            {
+                var file = Project.ConfigFiles.Find(i => i.FileName == message.File.FileName);
+                if (file == null)
+                {
+                    Log.Instance.log($"Command {message.Action} - File not found: {message.File.FileName}", LogSeverity.Error);
+                    return;
+                }
+
+                switch (message.Action)
+                {
+                    case CommandFileContextMenuAction.remove:
+                        Project.ConfigFiles.Remove(file);
+                        break;
+                    case CommandFileContextMenuAction.rename:
+                        file.Label = message.File.Label;
+                        break;
+                    case CommandFileContextMenuAction.export:
+                        // this is not subscribed here
+                        // see MainForm.cs for the subscription there.
+                        break;
+                    default:
+                        return;
+                }
+
+                MessageExchange.Instance.Publish(Project);
+                OnConfigHasChanged?.Invoke(this, null);
             });
         }
 

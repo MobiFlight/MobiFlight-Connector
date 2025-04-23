@@ -15,6 +15,7 @@ import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { useSearchParams } from "react-router"
 import { IconFolderPlus, IconPlus } from "@tabler/icons-react"
+import FileButton from "@/components/FileButton"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
@@ -129,20 +130,20 @@ const ConfigListPage = () => {
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
       <div>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 items-center">
+          <div className="text-sm">Project files:</div>
+          <div className="flex flex-row gap-2 overflow-x-auto">
           {configFiles?.map((file, index) => {
             return (
-              <Button
+              <FileButton
                 variant={index === activeConfigFile ? "default" : "outline"}
-                key={file.FileName}
-                value={file.FileName}
-                className="h-8"
-                onClick={() => selectActiveFile(index)}
-              >
-                {file.Label ?? file.FileName}
-              </Button>
+                file={file}
+                index={index}
+                selectActiveFile={selectActiveFile}
+              ></FileButton>
             )
           })}
+          </div>
           <Button variant="ghost" className="h-8" onClick={addConfigFile}>
             <IconPlus />
             Add new

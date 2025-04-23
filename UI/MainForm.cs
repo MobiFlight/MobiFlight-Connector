@@ -192,7 +192,7 @@ namespace MobiFlight.UI
             {
                 if (message.Type == CommandAddConfigFileType.create)
                 {
-                    addNewFile();
+                    addNewFileToProject();
                 } else if (message.Type == CommandAddConfigFileType.merge)
                 {
                     mergeToolStripMenuItem_Click(null, null);
@@ -2083,11 +2083,11 @@ namespace MobiFlight.UI
             {
                 var project = new Project() { Name = i18n._tr("DefaultFileName") };
                 execManager.Project = project;
-                addNewFile();
+                addNewFileToProject();
             };
         } //toolStripMenuItem3_Click()
 
-        private void addNewFile()
+        private void addNewFileToProject()
         {
             execManager.Stop();
             CurrentFileName = null;
