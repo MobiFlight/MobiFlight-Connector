@@ -1,10 +1,16 @@
 import FileButton from "./FileButton"
 import { Button } from "../ui/button"
-import { IconFolderPlus, IconPlus } from "@tabler/icons-react"
+import { IconCirclePlus, IconFolderPlus, IconPlus } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
 import { useEffect, useState } from "react"
 import { useConfigStore } from "@/stores/configFileStore"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
 
 const ProjectPanel = () => {
   const { publish } = publishOnMessageExchange()
@@ -55,7 +61,7 @@ const ProjectPanel = () => {
   }
 
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className="flex h-10 flex-row items-center gap-2">
       <div className="text-sm">Project files:</div>
       <div className="flex flex-row gap-2 overflow-x-auto">
         {configFiles?.map((file, index) => {
@@ -69,14 +75,27 @@ const ProjectPanel = () => {
           )
         })}
       </div>
-      <Button variant="ghost" className="h-8" onClick={addConfigFile}>
-        <IconPlus />
-        Add new
-      </Button>
-      <Button variant="ghost" className="h-8" onClick={mergeConfigFile}>
-        <IconFolderPlus />
-        Add existing
-      </Button>
+      <div className="relative">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant={"ghost"} className="h-8">
+              <span className="sr-only">Add file</span>
+              <IconCirclePlus />
+              Add file
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onClick={addConfigFile}>
+              <IconPlus />
+              Add new
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={mergeConfigFile}>
+              <IconFolderPlus />
+              Add existing
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   )
 }
