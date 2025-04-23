@@ -31,7 +31,7 @@ namespace MobiFlight.Base
 
                     if (configFile.Label==null)
                     {
-                        configFile.Label = Path.GetFileName(FilePath);
+                        configFile.Label = Path.GetFileName(FilePath).Replace(".mfproj", "").Replace(".mcc", "");
                     }
                 }
             }
@@ -42,7 +42,7 @@ namespace MobiFlight.Base
                 deprecatedConfigFile.OpenFile();
 
                 var configFile = new ConfigFile {
-                    Label = Path.GetFileName(FilePath),
+                    Label = Path.GetFileName(FilePath).Replace(".mfproj", "").Replace(".mcc", ""),
                     FileName = FilePath,
                     EmbedContent = true,
                     ReferenceOnly = false,
