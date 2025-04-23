@@ -1,11 +1,21 @@
 import { ConfigFile } from "@/types"
-import { Button } from "./ui/button"
 import { VariantProps } from "class-variance-authority"
-import { buttonVariants } from "./ui/variants"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { IconChevronDown, IconEdit, IconFileExport, IconTrash } from "@tabler/icons-react"
+import {
+  IconChevronDown,
+  IconEdit,
+  IconFileExport,
+  IconTrash,
+} from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandFileContextMenu } from "@/types/commands"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { buttonVariants } from "@/components/ui/variants"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -23,15 +33,15 @@ const FileButton = ({
 
   return (
     <div className="flex justify-center">
-    <Button
-      variant={variant}
-      value={file.FileName}
-      className="h-8 rounded-r-none border-r-0"
-      onClick={() => onSelectActiveFile(index)}
-    >
-      {file.Label ?? file.FileName}
-    </Button>
-    <div className="relative">
+      <Button
+        variant={variant}
+        value={file.FileName}
+        className="h-8 rounded-r-none border-r-0"
+        onClick={() => onSelectActiveFile(index)}
+      >
+        {file.Label ?? file.FileName}
+      </Button>
+      <div className="relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={variant} className="h-8 w-8 rounded-l-none p-0">
@@ -44,38 +54,47 @@ const FileButton = ({
               onClick={() => {
                 publish({
                   key: "CommandFileContextMenu",
-                  payload: {  
+                  payload: {
                     action: "rename",
                     file: file,
                   },
                 } as CommandFileContextMenu)
               }}
-            ><IconEdit/>Rename</DropdownMenuItem>
+            >
+              <IconEdit />
+              Rename
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
                 publish({
                   key: "CommandFileContextMenu",
-                  payload: {  
+                  payload: {
                     action: "remove",
                     file: file,
                   },
                 } as CommandFileContextMenu)
               }}
-            ><IconTrash />Remove</DropdownMenuItem>
+            >
+              <IconTrash />
+              Remove
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
                 publish({
                   key: "CommandFileContextMenu",
-                  payload: {  
+                  payload: {
                     action: "export",
                     file: file,
                   },
                 } as CommandFileContextMenu)
               }}
-            ><IconFileExport />Export</DropdownMenuItem>
+            >
+              <IconFileExport />
+              Export
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-    </div>
+      </div>
     </div>
   )
 }
