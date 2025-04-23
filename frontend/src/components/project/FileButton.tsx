@@ -16,6 +16,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { buttonVariants } from "@/components/ui/variants"
+import { Input } from "../ui/input"
+import { useEffect, useRef, useState } from "react"
+import { set } from "lodash-es"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -29,7 +32,18 @@ const FileButton = ({
   variant,
   selectActiveFile: onSelectActiveFile,
 }: FileButtonProps) => {
+
   const { publish } = publishOnMessageExchange()
+  const [ isEditing, setIsEditing ] = useState(false)
+  const [ label, setLabel ] = useState(file.Label ?? file.FileName)
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      console.log("focusing")
+      setTimeout(() => { inputRef?.current?.focus() }, 200)
+    }
+  }, [isEditing, label])
 
   return (
     <div className="flex justify-center">
@@ -39,7 +53,28 @@ const FileButton = ({
         className="h-8 rounded-r-none border-r-0"
         onClick={() => onSelectActiveFile(index)}
       >
-        {file.Label ?? file.FileName}
+        { !isEditing 
+          ? 
+          (label)
+          :
+          <Input
+            ref={inputRef}
+            className="w-auto bg-transparent border-none h-6 focus-visible:ring-0 focus-visible:border-none focus-visible:ring-offset-0 rounded-0"
+            value={label}
+            onChange={(e) => {
+              setLabel(e.target.value)
+            }}
+            onBlur={() => {
+              setIsEditing(false)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                setIsEditing(false)
+                setLabel(e.currentTarget.value)
+              }
+            }}
+          />
+        }
       </Button>
       <div className="relative">
         <DropdownMenu>
@@ -52,13 +87,7 @@ const FileButton = ({
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
-                publish({
-                  key: "CommandFileContextMenu",
-                  payload: {
-                    action: "rename",
-                    file: file,
-                  },
-                } as CommandFileContextMenu)
+                setIsEditing(true)
               }}
             >
               <IconEdit />
@@ -90,7 +119,7 @@ const FileButton = ({
               }}
             >
               <IconFileExport />
-              Export
+              Save
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
