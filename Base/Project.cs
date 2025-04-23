@@ -28,6 +28,11 @@ namespace MobiFlight.Base
                     {
                         configFile.OpenFile();
                     }
+
+                    if (configFile.Label==null)
+                    {
+                        configFile.Label = Path.GetFileName(FilePath);
+                    }
                 }
             }
             else if (IsXml(FilePath))
@@ -36,11 +41,12 @@ namespace MobiFlight.Base
                 var deprecatedConfigFile = ConfigFileFactory.CreateConfigFile(FilePath);
                 deprecatedConfigFile.OpenFile();
 
-                var configFile = new ConfigFile { 
-                    FileName = Path.GetFileName(FilePath), 
-                    EmbedContent = true, 
-                    ReferenceOnly = false, 
-                    ConfigItems = deprecatedConfigFile.ConfigItems 
+                var configFile = new ConfigFile {
+                    Label = Path.GetFileName(FilePath),
+                    FileName = FilePath,
+                    EmbedContent = true,
+                    ReferenceOnly = false,
+                    ConfigItems = deprecatedConfigFile.ConfigItems
                 };
 
                 Name = "MobiFlight Project";

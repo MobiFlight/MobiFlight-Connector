@@ -39,9 +39,9 @@ const ConfigListPage = () => {
 
   useEffect(() => {
     if (project === null) return
-    if (project!.ConfigFiles.length === 0) return
-
-    setItems(project?.ConfigFiles[activeConfigFile].ConfigItems)
+    if (project.ConfigFiles === null || project.ConfigFiles.length === 0) return
+    if (activeConfigFile >= project.ConfigFiles.length) return
+    setItems(project.ConfigFiles[activeConfigFile].ConfigItems ?? [])
   }, [project, activeConfigFile, setItems])
 
   const configFiles = project?.ConfigFiles
@@ -130,19 +130,19 @@ const ConfigListPage = () => {
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
       <div>
-        <div className="flex flex-row gap-2 items-center">
+        <div className="flex flex-row items-center gap-2">
           <div className="text-sm">Project files:</div>
           <div className="flex flex-row gap-2 overflow-x-auto">
-          {configFiles?.map((file, index) => {
-            return (
-              <FileButton
-                variant={index === activeConfigFile ? "default" : "outline"}
-                file={file}
-                index={index}
-                selectActiveFile={selectActiveFile}
-              ></FileButton>
-            )
-          })}
+            {configFiles?.map((file, index) => {
+              return (
+                <FileButton
+                  variant={index === activeConfigFile ? "default" : "outline"}
+                  file={file}
+                  index={index}
+                  selectActiveFile={selectActiveFile}
+                ></FileButton>
+              )
+            })}
           </div>
           <Button variant="ghost" className="h-8" onClick={addConfigFile}>
             <IconPlus />
