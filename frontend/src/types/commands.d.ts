@@ -7,6 +7,7 @@ export type CommandMessageKey =
   | "CommandUpdateConfigItem"
   | "CommandAddConfigItem"
   | "CommandResortConfigItem"
+  | "CommandAddConfigFile"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -15,6 +16,8 @@ export type CommandMessage =
   | CommandAddConfigItem
   | CommandResortConfigItem
   | CommandActiveConfigFile
+  | CommandAddConfigFile
+
 
 
 export interface CommandMessageBase {
@@ -77,5 +80,14 @@ export interface CommandActiveConfigFile extends CommandMessageBase {
   key: "CommandActiveConfigFile"
   payload: { 
     index: number
+  }
+}
+
+// CommandAddConfigFile
+// Add a new or existing config file to the project
+export interface CommandAddConfigFile extends CommandMessageBase {
+  key: "CommandAddConfigFile"
+  payload: { 
+    type: "create" | "merge"
   }
 }

@@ -13,8 +13,12 @@ import {
 import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
+import { useSearchParams } from "react-router"
+import { IconFolderPlus, IconPlus } from "@tabler/icons-react"
 
 const ConfigListPage = () => {
+  const [queryParameters] = useSearchParams()
+
   const {
     items: configItems,
     setItems,
@@ -30,7 +34,7 @@ const ConfigListPage = () => {
   )
 
   const { project } = useProjectStore()
-  const [ activeConfigFile, setActiveConfigFile ] = useState(0)
+  const [activeConfigFile, setActiveConfigFile] = useState(0)
 
   useEffect(() => {
     if (project === null) return
@@ -82,39 +86,74 @@ const ConfigListPage = () => {
   // this is only for easier UI testing
   // while developing the UI
   useEffect(() => {
-    if (process.env.NODE_ENV === "development" && configItems.length === 0) {
+    if (
+      process.env.NODE_ENV === "development" &&
+      configItems.length === 0 &&
+      queryParameters.get("testdata") === "true"
+    ) {
       setItems(testdata)
     }
   }, [setItems])
 
-  const selectActiveFile = (index:number) => {
+  const selectActiveFile = (index: number) => {
     setActiveConfigFile(index)
   }
 
   useEffect(() => {
     publishOnMessageExchange().publish({
       key: "CommandActiveConfigFile",
-      payload:{
+      payload: {
         index: activeConfigFile,
-      }}
-    )
-  },[activeConfigFile])
+      },
+    })
+  }, [activeConfigFile])
+
+  const addConfigFile = () => {
+    publishOnMessageExchange().publish({
+      key: "CommandAddConfigFile",
+      payload: {
+        type: "create",
+      },
+    })
+  }
+
+  const mergeConfigFile = () => {
+    publishOnMessageExchange().publish({
+      key: "CommandAddConfigFile",
+      payload: {
+        type: "merge",
+      },
+    })
+  }
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
-        <div>
-          <div className="flex flex-row gap-2">
-            {configFiles?.map((file, index) => {
-              return (
-                <Button variant={index === activeConfigFile ? "default" : "outline"} key={file.FileName} value={file.FileName} className="h-8" onClick={() => selectActiveFile(index)}> 
-                  {file.Label ?? file.FileName}
-                </Button>
-              )
-            })}
-            <Button variant="ghost" className="h-8">Add new config</Button>
-          </div>
+      <div>
+        <div className="flex flex-row gap-2">
+          {configFiles?.map((file, index) => {
+            return (
+              <Button
+                variant={index === activeConfigFile ? "default" : "outline"}
+                key={file.FileName}
+                value={file.FileName}
+                className="h-8"
+                onClick={() => selectActiveFile(index)}
+              >
+                {file.Label ?? file.FileName}
+              </Button>
+            )
+          })}
+          <Button variant="ghost" className="h-8" onClick={addConfigFile}>
+            <IconPlus />
+            Add new
+          </Button>
+          <Button variant="ghost" className="h-8" onClick={mergeConfigFile}>
+            <IconFolderPlus />
+            Add existing
+          </Button>
         </div>
-        {
+      </div>
+      {
         <div className="flex flex-col gap-4 overflow-y-auto">
           <ConfigItemTable
             columns={columns}
@@ -122,7 +161,7 @@ const ConfigListPage = () => {
             setItems={mySetItems}
           />
         </div>
-        }
+      }
     </div>
   )
 }

@@ -187,6 +187,17 @@ namespace MobiFlight.UI
                     OpenInputConfigWizardForId(message.Item.GUID);
                 }
             });
+
+            MessageExchange.Instance.Subscribe<CommandAddConfigFile>((message) =>
+            {
+                if (message.Type == CommandAddConfigFileType.create)
+                {
+                    addNewFile();
+                } else if (message.Type == CommandAddConfigFileType.merge)
+                {
+                    mergeToolStripMenuItem_Click(null, null);
+                }
+            });
         }
 
         private void OpenOutputConfigWizardForId(string guid)
@@ -2070,19 +2081,25 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageConfirmNewConfigTitle"),
                        MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                execManager.Stop();
-                CurrentFileName = null;
-                _setFilenameInTitle(i18n._tr("DefaultFileName"));
                 var project = new Project() { Name = i18n._tr("DefaultFileName") };
-                var newConfigFile = new ConfigFile() { 
-                    Label="New file",
-                    EmbedContent = true 
-                };
-                project.ConfigFiles.Add(newConfigFile); 
                 execManager.Project = project;
-                ProjectLoaded?.Invoke(this, project);
+                addNewFile();
             };
         } //toolStripMenuItem3_Click()
+
+        private void addNewFile()
+        {
+            execManager.Stop();
+            CurrentFileName = null;
+            _setFilenameInTitle(i18n._tr("DefaultFileName"));
+            var newConfigFile = new ConfigFile()
+            {
+                Label = "New file",
+                EmbedContent = true
+            };
+            execManager.Project.ConfigFiles.Add(newConfigFile);
+            ProjectLoaded?.Invoke(this, execManager.Project);
+        }
 
         /// <summary>
         /// gets triggered if user uses quick save button from toolbar
