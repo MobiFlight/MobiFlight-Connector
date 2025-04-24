@@ -35,7 +35,6 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mergeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.konfigurationSpeichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AfterFileActionsToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.recentDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,7 +154,6 @@
             this.toolStripMenuItem3,
             this.toolStripMenuItem2,
             this.openToolStripMenuItem,
-            this.mergeToolStripMenuItem,
             this.konfigurationSpeichernToolStripMenuItem,
             this.AfterFileActionsToolStripMenuItem,
             this.recentDocumentsToolStripMenuItem,
@@ -180,12 +178,6 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
             this.openToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // mergeToolStripMenuItem
-            // 
-            this.mergeToolStripMenuItem.Name = "mergeToolStripMenuItem";
-            resources.ApplyResources(this.mergeToolStripMenuItem, "mergeToolStripMenuItem");
-            this.mergeToolStripMenuItem.Click += new System.EventHandler(this.mergeToolStripMenuItem_Click);
             // 
             // konfigurationSpeichernToolStripMenuItem
             // 
@@ -936,7 +928,6 @@
         private System.Windows.Forms.ToolStripMenuItem mSFS2020ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem installWASMModuleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem downloadLatestEventsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mergeToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripMenuItem openDiscordServerToolStripMenuItem;
