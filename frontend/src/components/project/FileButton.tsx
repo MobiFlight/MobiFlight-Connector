@@ -18,7 +18,6 @@ import {
 import { buttonVariants } from "@/components/ui/variants"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
-import { set } from "lodash-es"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -52,6 +51,10 @@ const FileButton = ({
         value={file.FileName}
         className="h-8 rounded-r-none border-r-0"
         onClick={() => onSelectActiveFile(index)}
+        onDoubleClick={(e) => {
+          e.stopPropagation()
+          setIsEditing(true)
+        }}
       >
         { !isEditing 
           ? 
@@ -67,7 +70,12 @@ const FileButton = ({
             onBlur={() => {
               setIsEditing(false)
             }}
+            
             onKeyDown={(e) => {
+              if (e.key === "Escape") {
+                setIsEditing(false)
+                setLabel(file.Label ?? file.FileName)
+              }
               if (e.key === "Enter") {
                 setIsEditing(false)
                 setLabel(e.currentTarget.value)
