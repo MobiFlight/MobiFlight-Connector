@@ -101,7 +101,12 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
-        public List<IConfigItem> ConfigItems { get { return _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>(); } }
+        public List<IConfigItem> ConfigItems { 
+            get { 
+                return _project.ConfigFiles.Count > ActiveConfigIndex 
+                    ? _project.ConfigFiles[ActiveConfigIndex].ConfigItems 
+                    : new List<IConfigItem>(); } 
+        }
 
         private Project _project = new Project();
         public Project Project
@@ -124,7 +129,7 @@ namespace MobiFlight
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
         OutputConfigItem ConfigItemInTestMode = null;
-        Dictionary<string, IConfigItem>  updatedValues = new Dictionary<string, IConfigItem>();
+        Dictionary<string, IConfigItem> updatedValues = new Dictionary<string, IConfigItem>();
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
@@ -802,7 +807,7 @@ namespace MobiFlight
 
             isExecuting = false;
         }
-        
+
         /// <summary>
         /// updates the UI with appropriate icon states
         /// </summary>
