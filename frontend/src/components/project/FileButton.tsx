@@ -127,7 +127,7 @@ const FileButton = ({
               }}
             >
               <IconFileExport />
-              Save
+              Export
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -61,9 +61,9 @@ const ProjectPanel = () => {
   }
 
   return (
-    <div className="flex h-10 flex-row items-center gap-2">
-      <div className="text-sm">Project files:</div>
-      <div className="flex flex-row gap-2 overflow-x-auto">
+    <div className="flex flex-row gap-2 bg-muted p-2">
+      <div className="flex flex-row items-center gap-2 overflow-x-auto rounded-md">
+        <div className="">Project settings</div>
         {configFiles?.map((file, index) => {
           return (
             <FileButton
