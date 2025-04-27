@@ -43,6 +43,7 @@ export interface StatusBarUpdate {
 }
 
 export interface ConfigValueFullUpdate {
+  ConfigIndex: number
   ConfigItems: IConfigItem[]
 }
 

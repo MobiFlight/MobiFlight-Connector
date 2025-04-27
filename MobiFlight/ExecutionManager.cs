@@ -268,7 +268,7 @@ namespace MobiFlight
                 item.Active = true;
                 ConfigItems.Add(item);
 
-                MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(item, null);
             });
 
@@ -292,7 +292,7 @@ namespace MobiFlight
                         cfg.Active = toggleValue;
                     });
                 }
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
@@ -378,7 +378,7 @@ namespace MobiFlight
                         return;
                 }
 
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
@@ -402,7 +402,7 @@ namespace MobiFlight
                     currentIndex++;
                 });
 
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
@@ -1076,7 +1076,7 @@ namespace MobiFlight
 
         private void ClearErrorMessages()
         {
-            MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+            MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
         }
 
 #if MOBIFLIGHT

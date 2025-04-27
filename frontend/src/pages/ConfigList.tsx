@@ -13,6 +13,7 @@ import testdata from "@/../tests/data/configlist.testdata.json" with { type: "js
 import { IConfigItem } from "@/types"
 import { useSearchParams } from "react-router"
 import ProjectPanel from "@/components/project/ProjectPanel"
+import { useProjectStore } from "@/stores/projectStore"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
@@ -23,6 +24,10 @@ const ConfigListPage = () => {
     updateItem,
     updateItems,
   } = useConfigStore()
+
+  const {
+    setConfigItems
+  } = useProjectStore()
 
   const mySetItems = useCallback(
     (items: IConfigItem[]) => {
@@ -66,7 +71,7 @@ const ConfigListPage = () => {
   useAppMessage("ConfigValueFullUpdate", (message) => {
     console.log("ConfigValueFullUpdate", message)
     const update = message.payload as ConfigValueFullUpdate
-    setItems(update.ConfigItems)
+    setConfigItems(update.ConfigIndex, update.ConfigItems)
   })
 
   // this is only for easier UI testing
