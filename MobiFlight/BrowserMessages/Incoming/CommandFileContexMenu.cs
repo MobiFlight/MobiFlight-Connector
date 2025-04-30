@@ -10,7 +10,7 @@ namespace MobiFlight.BrowserMessages.Incoming
         remove,
         export
     }
-    internal class CommandFileContextMenu
+    public class CommandFileContextMenu
     {
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("action")]
