@@ -1,7 +1,7 @@
 import { ConfigFile } from "@/types"
 import { VariantProps } from "class-variance-authority"
 import {
-  IconChevronDown,
+  IconDotsVertical,
   IconEdit,
   IconFileExport,
   IconTrash,
@@ -18,6 +18,7 @@ import {
 import { buttonVariants } from "@/components/ui/variants"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
+import { cn } from "@/lib/utils"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -44,15 +45,18 @@ const FileButton = ({
     }
   }, [isEditing, label])
 
+  const groupHoverStyle = variant === "default" ? "group-hover:bg-primary/90" : "group-hover:bg-accent group-hover:text-accent-foreground"
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center group">
       <Button
         variant={variant}
         value={file.FileName}
-        className="h-8 rounded-r-none border-r-0"
+        className="rounded-r-none border-r-0 rounded-b-none border-b-0"
         onClick={() => onSelectActiveFile(index)}
         onDoubleClick={(e) => {
           e.stopPropagation()
+          e.preventDefault()
           setIsEditing(true)
         }}
       >
@@ -72,6 +76,8 @@ const FileButton = ({
             }}
             
             onKeyDown={(e) => {
+              e.stopPropagation()
+              
               if (e.key === "Escape") {
                 setIsEditing(false)
                 setLabel(file.Label ?? file.FileName)
@@ -87,9 +93,9 @@ const FileButton = ({
       <div className="relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={variant} className="h-8 w-8 rounded-l-none p-0">
+            <Button variant={variant} className={cn(groupHoverStyle, "w-8 rounded-l-none p-0 rounded-b-none pb-0 border-l-0 border-b-0")}>
               <span className="sr-only">Open menu</span>
-              <IconChevronDown className="h-4 w-4" />
+              <IconDotsVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
