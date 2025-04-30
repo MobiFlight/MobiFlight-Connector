@@ -192,7 +192,8 @@ namespace MobiFlight.UI
                 if (message.Type == CommandAddConfigFileType.create)
                 {
                     AddNewFileToProject();
-                } else if (message.Type == CommandAddConfigFileType.merge)
+                }
+                else if (message.Type == CommandAddConfigFileType.merge)
                 {
                     mergeToolStripMenuItem_Click(null, null);
                 }
@@ -864,21 +865,21 @@ namespace MobiFlight.UI
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
-                execManager.OnModuleConnected += dlg.UpdateConnectedModule;
-                execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
+            execManager.OnModuleConnected += dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
 
             switch (SelectedTab)
-                {
-                    case "mobiFlightTabPage":
-                        dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
-                        break;
-                    case "ArcazeTabPage":
-                        dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
-                        break;
-                    case "peripheralsTabPage":
-                        dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
-                        break;
-                }
+            {
+                case "mobiFlightTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
+                    break;
+                case "ArcazeTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
+                    break;
+                case "peripheralsTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
+                    break;
+            }
             if (SelectedBoard != null)
                 dlg.PreselectedBoard = SelectedBoard;
 
@@ -888,12 +889,12 @@ namespace MobiFlight.UI
             if (BoardsForUpdate != null)
                 dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
 
-                SettingsDialogActive = true;
-                var dialogResult = dlg.ShowDialog();
-                execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
-                execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
-                SettingsDialogActive = false;
-                return dialogResult;
+            SettingsDialogActive = true;
+            var dialogResult = dlg.ShowDialog();
+            execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
+            SettingsDialogActive = false;
+            return dialogResult;
         }
 
         // this performs the update of the existing user settings 
@@ -1597,13 +1598,22 @@ namespace MobiFlight.UI
 
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = fileFilter;
+            OpenMergeDialog();
+        }
 
-            if (DialogResult.OK == fd.ShowDialog())
+        private void OpenMergeDialog()
+        {
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
             {
-                LoadConfig(fd.FileName, true);
-            }
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.Filter = fileFilter;
+
+                if (DialogResult.OK == fd.ShowDialog())
+                {
+                    LoadConfig(fd.FileName, true);
+                }
+            }, null);
         }
 
         /// <summary>
@@ -1722,10 +1732,12 @@ namespace MobiFlight.UI
 
             try
             {
-                if (!merge) {
+                if (!merge)
+                {
                     execManager.Project = new Project() { FilePath = fileName };
                     execManager.Project.OpenFile();
-                } else
+                }
+                else
                 {
                     // this is the old logic
                     // we simply add the second file to the first file
@@ -2097,10 +2109,10 @@ namespace MobiFlight.UI
         private void AddNewFileToProject()
         {
             execManager.Stop();
-            
+
             ConfigFile newConfigFile = CreateDefaultConfigFile();
             execManager.Project.ConfigFiles.Add(newConfigFile);
-            
+
             ProjectOrConfigFileHasChanged();
 
 
