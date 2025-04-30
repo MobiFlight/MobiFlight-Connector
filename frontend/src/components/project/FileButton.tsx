@@ -44,7 +44,11 @@ const FileButton = ({
     if (isEditing && inputRef.current) {
       setTimeout(() => { inputRef?.current?.focus() }, 300)
     }
-  }, [isEditing, label])
+  }, [isEditing])
+
+  useEffect(() => {
+    setLabel(file.Label ?? file.FileName)
+  }, [file.Label, file.FileName])
 
   const groupHoverStyle = variant === "default" ? "group-hover:bg-primary/90" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
@@ -67,7 +71,7 @@ const FileButton = ({
           :
           <Input
             ref={inputRef}
-            className="w-auto bg-transparent border-none h-6 focus-visible:ring-0 focus-visible:border-none focus-visible:ring-offset-0 rounded-0"
+            className="bg-transparent border-none h-6 focus-visible:ring-0 focus-visible:border-none focus-visible:ring-offset-0 rounded-0"
             value={label}
             onChange={(e) => {
               setLabel(e.target.value)
@@ -86,6 +90,17 @@ const FileButton = ({
               if (e.key === "Enter") {
                 setIsEditing(false)
                 setLabel(e.currentTarget.value)
+                publish({
+                  key: "CommandFileContextMenu",
+                  payload: {
+                    action: "rename",
+                    index: index,
+                    file: {
+                      ...file,
+                      Label: e.currentTarget.value,
+                    }
+                  },
+                } as CommandFileContextMenu)
               }
             }}
           />
@@ -114,6 +129,7 @@ const FileButton = ({
                   key: "CommandFileContextMenu",
                   payload: {
                     action: "remove",
+                    index: index,
                     file: file,
                   },
                 } as CommandFileContextMenu)
@@ -128,6 +144,7 @@ const FileButton = ({
                   key: "CommandFileContextMenu",
                   payload: {
                     action: "export",
+                    index: index,
                     file: file,
                   },
                 } as CommandFileContextMenu)

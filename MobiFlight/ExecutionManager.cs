@@ -413,7 +413,14 @@ namespace MobiFlight
 
             MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
             {
-                var file = Project.ConfigFiles.Find(i => i.FileName == message.File.FileName);
+                if (message.Index>=Project.ConfigFiles.Count)
+                {
+                    Log.Instance.log($"Command {message.Action} - Index not found: {message.Index}", LogSeverity.Error);
+                    return;
+                }
+
+                var file = Project.ConfigFiles[message.Index];
+
                 if (file == null)
                 {
                     Log.Instance.log($"Command {message.Action} - File not found: {message.File.FileName}", LogSeverity.Error);
@@ -423,7 +430,7 @@ namespace MobiFlight
                 switch (message.Action)
                 {
                     case CommandFileContextMenuAction.remove:
-                        Project.ConfigFiles.Remove(file);
+                        Project.ConfigFiles.RemoveAt(message.Index);
                         break;
                     case CommandFileContextMenuAction.rename:
                         file.Label = message.File.Label;

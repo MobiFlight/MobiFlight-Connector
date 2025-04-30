@@ -24,15 +24,17 @@ const ProjectPanel = () => {
   const { setItems } = useConfigStore()
 
   const [activeConfigFile, setActiveConfigFile] = useState(0)
+  const configFiles = project?.ConfigFiles ?? []
 
   useEffect(() => {
     if (project === null) return
+
     if (project.ConfigFiles === null || project.ConfigFiles.length === 0) return
+
     if (activeConfigFile >= project.ConfigFiles.length) return
+
     setItems(project.ConfigFiles[activeConfigFile].ConfigItems ?? [])
   }, [project, activeConfigFile, setItems])
-
-  const configFiles = project?.ConfigFiles
 
   const selectActiveFile = (index: number) => {
     setActiveConfigFile(index)
@@ -69,6 +71,7 @@ const ProjectPanel = () => {
     <div className="flex flex-row gap-2 pl-0 pr-2 pt-1 pb-0 border-b-solid border-b border-b-muted-foreground/50">
       <div className="flex flex-row items-end gap-0 rounded-md">
         {configFiles?.map((file, index) => {
+          console.log("ProjectPanel file", file, index)
           return (
             <FileButton
               variant={index === activeConfigFile ? "default" : "outline"}

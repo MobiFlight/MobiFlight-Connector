@@ -77,7 +77,6 @@ namespace MobiFlight.UI
         public bool InitialLookupFinished { get; private set; } = false;
         public bool SettingsDialogActive { get; private set; }
 
-        public event EventHandler<IConfigFile> ConfigLoaded;
         public event EventHandler<Project> ProjectLoaded;
 
         private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
@@ -192,7 +191,7 @@ namespace MobiFlight.UI
             {
                 if (message.Type == CommandAddConfigFileType.create)
                 {
-                    addNewFileToProject();
+                    AddNewFileToProject();
                 } else if (message.Type == CommandAddConfigFileType.merge)
                 {
                     mergeToolStripMenuItem_Click(null, null);
@@ -313,20 +312,9 @@ namespace MobiFlight.UI
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
 
-            ConfigLoaded += (s, config) =>
-            {
-                MessageExchange.Instance.Publish(config);
-            };
-
             ProjectLoaded += (s, project) =>
             {
                 testModeTimer_Stop();
-                var configFile = new ConfigFile();
-                if (project.ConfigFiles.Count > 0)
-                {
-                    configFile = project.ConfigFiles[0];
-                }
-                   
                 MessageExchange.Instance.Publish(project);
             };
         }
@@ -355,6 +343,7 @@ namespace MobiFlight.UI
 
             execManager = new ExecutionManager(this.Handle);
             execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
+            execManager.OnProjectChanged += ExecManager_OnProjectChanged;
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
@@ -434,6 +423,17 @@ namespace MobiFlight.UI
                 var msg = message;
                 MessageBox.Show(msg.Message);
             });
+        }
+
+        private void ExecManager_OnProjectChanged(object sender, Project e)
+        {
+            ProjectOrConfigFileHasChanged();
+        }
+
+        private void ProjectOrConfigFileHasChanged()
+        {
+            saveToolStripButton.Enabled = true;
+            UpdateAllConnectionIcons();
         }
 
         private void ExecManager_SettingsDialogRequested(object sender, EventArgs e)
@@ -660,8 +660,7 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnConfigHasChanged(object sender, EventArgs e)
         {
-            saveToolStripButton.Enabled = true;
-            UpdateAllConnectionIcons();
+            ProjectOrConfigFileHasChanged();
         }
 
         /// <summary>
@@ -1766,7 +1765,7 @@ namespace MobiFlight.UI
             {
                 // indicate that the merge changed
                 // the current config and that the user
-                saveToolStripButton.Enabled = true;
+                ProjectOrConfigFileHasChanged();
             }
 
             // always put this after "normal" initialization
@@ -2091,22 +2090,30 @@ namespace MobiFlight.UI
         private void CreateNewProject()
         {
             var project = new Project() { Name = i18n._tr("DefaultFileName") };
+            project.ConfigFiles.Add(CreateDefaultConfigFile());
             execManager.Project = project;
-            addNewFileToProject();
         }
 
-        private void addNewFileToProject()
+        private void AddNewFileToProject()
         {
             execManager.Stop();
-            CurrentFileName = null;
-            _setFilenameInTitle(i18n._tr("DefaultFileName"));
-            var newConfigFile = new ConfigFile()
+            
+            ConfigFile newConfigFile = CreateDefaultConfigFile();
+            execManager.Project.ConfigFiles.Add(newConfigFile);
+            
+            ProjectOrConfigFileHasChanged();
+
+
+            ProjectLoaded?.Invoke(this, execManager.Project);
+        }
+
+        private static ConfigFile CreateDefaultConfigFile()
+        {
+            return new ConfigFile()
             {
                 Label = "New file",
                 EmbedContent = true
             };
-            execManager.Project.ConfigFiles.Add(newConfigFile);
-            ProjectLoaded?.Invoke(this, execManager.Project);
         }
 
         /// <summary>

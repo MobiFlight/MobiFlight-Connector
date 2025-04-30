@@ -99,6 +99,7 @@ export interface CommandFileContextMenu extends CommandMessageBase{
   key: "CommandFileContextMenu"
   payload: { 
     action: "rename" | "remove" | "export",
+    index: number,
     file: ConfigFile
   }
 }
