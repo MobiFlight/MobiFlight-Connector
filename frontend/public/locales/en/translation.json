@@ -1,4 +1,9 @@
 {
+  "General" : {
+    "Action" : {
+      "OpenMenu": "Open menu"
+    }
+  },
   "Types": {
     "Output": "Output",
     "LedModule": "7-Segment Display",
@@ -15,6 +20,16 @@
     "OutputConfigItem": "Output Configuration",
     "InputConfigItem": "Input Configuration",
     "InputAction": "Input Action"
+  },
+  "Project" : {
+    "File.Action" : {
+      "Add": "Add file",
+      "New": "Add new file",
+      "Merge": "From existing project",
+      "Rename": "Rename",
+      "Remove": "Remove",
+      "Export": "Export"
+    }
   },
   "ConfigList": {
     "Toolbar": {

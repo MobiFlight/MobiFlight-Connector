@@ -14,8 +14,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
+import { useTranslation } from "react-i18next"
 
 const ProjectPanel = () => {
+  const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
 
   const { project } = useProjectStore()
@@ -82,7 +84,7 @@ const ProjectPanel = () => {
           <DropdownMenuTrigger asChild>
             <div className="py-1">
             <Button variant={"ghost"} className="px-2 h-8">
-              <span className="sr-only">Add file</span>
+              <span className="sr-only">{t("General.Action.OpenMenu")}</span>
               <IconPlus />
             </Button>
             </div>
@@ -90,11 +92,11 @@ const ProjectPanel = () => {
           <DropdownMenuContent align="start">
             <DropdownMenuItem onClick={addConfigFile}>
               <IconPlus />
-              Add new config
+              {t("Project.File.Action.New")}
             </DropdownMenuItem>
             <DropdownMenuItem onClick={mergeConfigFile}>
               <IconFolderPlus />
-              Add existing config
+              {t("Project.File.Action.Merge")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

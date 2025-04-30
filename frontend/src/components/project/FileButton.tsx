@@ -19,6 +19,7 @@ import { buttonVariants } from "@/components/ui/variants"
 import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -33,6 +34,7 @@ const FileButton = ({
   selectActiveFile: onSelectActiveFile,
 }: FileButtonProps) => {
 
+  const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
   const [ isEditing, setIsEditing ] = useState(false)
   const [ label, setLabel ] = useState(file.Label ?? file.FileName)
@@ -40,8 +42,7 @@ const FileButton = ({
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
-      console.log("focusing")
-      setTimeout(() => { inputRef?.current?.focus() }, 200)
+      setTimeout(() => { inputRef?.current?.focus() }, 300)
     }
   }, [isEditing, label])
 
@@ -77,7 +78,7 @@ const FileButton = ({
             
             onKeyDown={(e) => {
               e.stopPropagation()
-              
+
               if (e.key === "Escape") {
                 setIsEditing(false)
                 setLabel(file.Label ?? file.FileName)
@@ -94,7 +95,7 @@ const FileButton = ({
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant={variant} className={cn(groupHoverStyle, "w-8 rounded-l-none p-0 rounded-b-none pb-0 border-l-0 border-b-0")}>
-              <span className="sr-only">Open menu</span>
+              <span className="sr-only">{t("General.Action.OpenMenu")}</span>
               <IconDotsVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -105,7 +106,7 @@ const FileButton = ({
               }}
             >
               <IconEdit />
-              Rename
+              {t("Project.File.Action.Rename")}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -119,7 +120,7 @@ const FileButton = ({
               }}
             >
               <IconTrash />
-              Remove
+              {t("Project.File.Action.Remove")}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
@@ -133,7 +134,7 @@ const FileButton = ({
               }}
             >
               <IconFileExport />
-              Export
+              {t("Project.File.Action.Export")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
