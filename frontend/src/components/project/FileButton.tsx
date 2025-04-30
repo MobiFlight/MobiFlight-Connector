@@ -53,7 +53,7 @@ const FileButton = ({
   const groupHoverStyle = variant === "default" ? "group-hover:bg-primary/90" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
   return (
-    <div className="flex justify-center group">
+    <div className="flex justify-center group" role="tab">
       <Button
         variant={variant}
         value={file.FileName}

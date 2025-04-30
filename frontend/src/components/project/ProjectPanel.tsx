@@ -69,11 +69,10 @@ const ProjectPanel = () => {
 
   return (
     <div className="flex flex-row gap-2 pl-0 pr-2 pt-1 pb-0 border-b-solid border-b border-b-muted-foreground/50">
-      <div className="flex flex-row items-end gap-0 rounded-md">
+      <div className="flex flex-row items-end gap-0 rounded-md" role="tablist">
         {configFiles?.map((file, index) => {
-          console.log("ProjectPanel file", file, index)
           return (
-            <FileButton
+            <FileButton              
               variant={index === activeConfigFile ? "default" : "outline"}
               file={file}
               index={index}
