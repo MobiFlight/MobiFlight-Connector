@@ -80,19 +80,21 @@ const ProjectPanel = () => {
       <div className="relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={"ghost"} className="px-2">
+            <div className="py-1">
+            <Button variant={"ghost"} className="px-2 h-8">
               <span className="sr-only">Add file</span>
               <IconPlus />
             </Button>
+            </div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
+          <DropdownMenuContent align="start">
             <DropdownMenuItem onClick={addConfigFile}>
               <IconPlus />
-              Add new
+              Add new config
             </DropdownMenuItem>
             <DropdownMenuItem onClick={mergeConfigFile}>
               <IconFolderPlus />
-              Add existing
+              Add existing config
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

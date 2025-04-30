@@ -408,6 +408,9 @@ namespace MobiFlight.UI
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
 
+            // Initialize properly the empty project state.
+            CreateNewProject();
+
             _updateRecentFilesMenuItems();
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
@@ -2081,11 +2084,16 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageConfirmNewConfigTitle"),
                        MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                var project = new Project() { Name = i18n._tr("DefaultFileName") };
-                execManager.Project = project;
-                addNewFileToProject();
+                CreateNewProject();
             };
         } //toolStripMenuItem3_Click()
+
+        private void CreateNewProject()
+        {
+            var project = new Project() { Name = i18n._tr("DefaultFileName") };
+            execManager.Project = project;
+            addNewFileToProject();
+        }
 
         private void addNewFileToProject()
         {
