@@ -16,6 +16,16 @@
     "InputConfigItem": "Configuración de entrada",
     "InputAction": "Acción de entrada"
   },
+  "Project" : {
+    "File.Action" : {
+      "Add": "Añadir nuevo archivo",
+      "New": "Nuevo archivo",
+      "Merge": "Utilisar archivo existente",
+      "Rename": "Renombrar",
+      "Remove": "Remover",
+      "Export": "Exportar"
+    }
+  },
   "ConfigList": {
     "Toolbar": {
       "Search": {

@@ -16,6 +16,16 @@
     "InputConfigItem": "Eingabe Konfiguration",
     "InputAction": "Input Action"
   },
+  "Project" : {
+    "File.Action" : {
+      "Add": "Datei hinzufügen",
+      "New": "Neue Datei",
+      "Merge": "Verwende vorhandene Datei",
+      "Rename": "Umbennenn",
+      "Remove": "Entfernen",
+      "Export": "Exportieren"
+    }
+  },
   "ConfigList": {
     "Toolbar": {
       "Search": {
