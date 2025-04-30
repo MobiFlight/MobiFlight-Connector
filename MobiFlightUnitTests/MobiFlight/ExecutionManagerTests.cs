@@ -20,6 +20,10 @@ namespace MobiFlight.Tests
         [TestInitialize]
         public void Setup()
         {
+            // disable schema validation to not exceed 1,000 limit per hour
+            // https://www.newtonsoft.com/jsonschema
+            JsonBackedObject.SkipSchemaValidation = true;
+
             _executionManager = new ExecutionManager(IntPtr.Zero);
             _mockMessagePublisher = new Mock<IMessagePublisher>();
 
@@ -187,13 +191,15 @@ namespace MobiFlight.Tests
             var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
             var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
             var project = new Project();
-            project.ConfigFiles.Add(new ConfigFile() { 
+            project.ConfigFiles.Add(new ConfigFile()
+            {
                 Label = "First Config",
-                ConfigItems = { configItem1, configItem2 } 
+                ConfigItems = { configItem1, configItem2 }
             });
-            project.ConfigFiles.Add(new ConfigFile() { 
+            project.ConfigFiles.Add(new ConfigFile()
+            {
                 Label = "Second Config",
-                ConfigItems = { configItem1, configItem2 } 
+                ConfigItems = { configItem1, configItem2 }
             });
 
             _executionManager.Project = project;
@@ -245,7 +251,7 @@ namespace MobiFlight.Tests
                 {
                     Label = "Renamed Config",
                     ConfigItems = { configItem1, configItem2 }
-                }   
+                }
             };
 
             // Act
