@@ -31,7 +31,10 @@ const ProjectPanel = () => {
 
     if (project.ConfigFiles === null || project.ConfigFiles.length === 0) return
 
-    if (activeConfigFile >= project.ConfigFiles.length) return
+    if (activeConfigFile >= project.ConfigFiles.length) {
+      setActiveConfigFile(project.ConfigFiles.length - 1)
+      return
+    }
 
     setItems(project.ConfigFiles[activeConfigFile].ConfigItems ?? [])
   }, [project, activeConfigFile, setItems])
@@ -56,6 +59,8 @@ const ProjectPanel = () => {
         type: "create",
       },
     })
+
+    setTimeout(() => selectActiveFile(configFiles.length), 200)
   }
 
   const mergeConfigFile = () => {
@@ -65,6 +70,8 @@ const ProjectPanel = () => {
         type: "merge",
       },
     })
+
+    setTimeout(() => selectActiveFile(configFiles.length), 200)
   }
 
   return (
@@ -72,7 +79,8 @@ const ProjectPanel = () => {
       <div className="flex flex-row items-end gap-0 rounded-md" role="tablist">
         {configFiles?.map((file, index) => {
           return (
-            <FileButton              
+            <FileButton
+              key={index}
               variant={index === activeConfigFile ? "default" : "outline"}
               file={file}
               index={index}

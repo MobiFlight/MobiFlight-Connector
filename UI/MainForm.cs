@@ -1734,8 +1734,9 @@ namespace MobiFlight.UI
             {
                 if (!merge)
                 {
-                    execManager.Project = new Project() { FilePath = fileName };
-                    execManager.Project.OpenFile();
+                    var newProject = new Project() { FilePath = fileName };
+                    newProject.OpenFile();
+                    execManager.Project = newProject;
                 }
                 else
                 {
