@@ -102,9 +102,15 @@ export function ConfigItemTable<TData, TValue>({
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
   const prevDataLength = useRef(data.length)
+  const addedItem = useRef(false)
 
   useEffect(() => {
-    if (data.length === prevDataLength.current + 1) {
+    console.log("added item", addedItem.current) 
+  }, [addedItem])
+  
+  useEffect(() => {
+    if (addedItem.current && data.length === prevDataLength.current + 1) {
+      addedItem.current = false
       const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(
         `[dnd-itemid="${lastItem.GUID}"]`,
@@ -204,6 +210,7 @@ export function ConfigItemTable<TData, TValue>({
   )
 
   const handleAddOutputConfig = useCallback(() => {
+    addedItem.current = true
     publish({
       key: "CommandAddConfigItem",
       payload: {
@@ -214,6 +221,7 @@ export function ConfigItemTable<TData, TValue>({
   }, [publish, t])
 
   const handleAddInputConfig = useCallback(() => {
+    addedItem.current = true
     publish({
       key: "CommandAddConfigItem",
       payload: {
