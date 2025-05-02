@@ -1808,9 +1808,9 @@ namespace MobiFlight.UI
 
             if (execManager.Project == null) return;
 
+            var allConfigItems = execManager.Project.ConfigFiles.SelectMany(file => file.ConfigItems).ToList();
 
-
-            foreach (IConfigItem item in execManager.Project.ConfigFiles[0].ConfigItems)
+            foreach (IConfigItem item in allConfigItems)
             {
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
@@ -1850,7 +1850,9 @@ namespace MobiFlight.UI
 
             if (execManager.Project == null) return;
 
-            foreach (IConfigItem item in execManager.Project.ConfigFiles[0].ConfigItems)
+            var allConfigItems = execManager.Project.ConfigFiles.SelectMany(file => file.ConfigItems).ToList();
+
+            foreach (IConfigItem item in allConfigItems)
             {
                 if (item.ModuleSerial.Contains(MidiBoard.SerialPrefix) &&
                     !serials.Contains(item.ModuleSerial) &&
