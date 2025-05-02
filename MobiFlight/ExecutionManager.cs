@@ -409,6 +409,7 @@ namespace MobiFlight
             MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message) =>
             {
                 ActiveConfigIndex = message.index;
+                ClearConfigItemStatus();
             });
 
             MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
@@ -606,14 +607,19 @@ namespace MobiFlight
             inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
+            ClearConfigItemStatus();
+
+            ClearErrorMessages();
+        }
+
+        private void ClearConfigItemStatus()
+        {
             ConfigItems.ForEach(cfg =>
             {
                 cfg?.Status?.Clear();
                 cfg.Value = "";
                 cfg.RawValue = "";
             });
-
-            ClearErrorMessages();
         }
 
         public void AutoConnectStart()
