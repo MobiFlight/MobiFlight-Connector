@@ -1,4 +1,9 @@
 {
+  "General" : {
+    "Action" : {
+      "OpenMenu": "Abrir menú"
+    }
+  },
   "Types": {
     "Output": "Output",
     "LedModule": "7-Segment Display",
