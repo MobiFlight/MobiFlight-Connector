@@ -228,6 +228,7 @@
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
     <Compile Include="Base\ConfigFile.cs" />
+    <Compile Include="Base\ConfigFileExtensions.cs" />
     <Compile Include="Base\ConfigFileFactory.cs" />
     <Compile Include="Base\ConfigFileUtils.cs" />
     <Compile Include="Base\ConfigFileWrapperXML.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\IConfigFile.cs" />
+    <Compile Include="Base\InputEventExecutor.cs" />
     <Compile Include="Base\LruCache.cs" />
     <Compile Include="Base\Project.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
@@ -260,8 +262,11 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandActiveConfigFile.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigFile.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigBulkAction.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
@@ -281,6 +286,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
+    <Compile Include="MobiFlight\ConfigRefValue.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Config\IBaseDevice.cs" />

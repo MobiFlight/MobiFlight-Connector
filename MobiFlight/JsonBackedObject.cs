@@ -14,6 +14,9 @@ namespace MobiFlight
 
     public class JsonBackedObject
     {
+        // Static flag to control schema validation
+        public static bool SkipSchemaValidation { get; set; } = false;
+
         /// <summary>
         /// Loads objects from a list of JSON files on disk, migrating each one and validating against the provided schema.
         /// </summary>
@@ -86,6 +89,11 @@ namespace MobiFlight
             // The NullValueHandling must be set to ignore otherwise the converted JObject will have a bunch of
             // null values that cause schema validation to fail as invalid values.
             var rawJson = JObject.FromObject(definition, new JsonSerializer { NullValueHandling = NullValueHandling.Ignore });
+
+            // Schema validation is optional.
+            // we need to skip it for our unit tests
+            // otherwise we would exceed the 1,000 limit per hour
+            if (SkipSchemaValidation) return definition;
 
             // Actually validate against the schema. If the schema validation fails then continue
             // to the next file, otherwise add the board to the list of known board definitions.

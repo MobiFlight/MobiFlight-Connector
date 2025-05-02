@@ -1,11 +1,12 @@
 import {
   AppMessage,
-  ConfigLoadedEvent,
+  Project,
   ConfigValuePartialUpdate,
   IConfigItem,
 } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
+import testProject from "../data/project.testdata.json" with { type: "json" }
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
@@ -22,22 +23,20 @@ export class ConfigListPage {
 
   async initWithEmptyData() {
     const message: AppMessage = {
-      key: "ConfigFile",
+      key: "Project",
       payload: {
-        FileName: "empty-config.json",
-        ConfigItems: [],
-      } as ConfigLoadedEvent,
+        Name: "Test Project",
+        FilePath: "SomeFilePath.mfproj",
+        ConfigFiles: [],
+      } as Project,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
 
   async initWithTestData() {
     const message: AppMessage = {
-      key: "ConfigFile",
-      payload: {
-        FileName: "empty-config.json",
-        ConfigItems: testdata,
-      } as ConfigLoadedEvent,
+      key: "Project",
+      payload: testProject
     }
     await this.mobiFlightPage.publishMessage(message)
   }

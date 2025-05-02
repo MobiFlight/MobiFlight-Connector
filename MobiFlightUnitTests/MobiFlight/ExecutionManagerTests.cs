@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
@@ -19,6 +20,10 @@ namespace MobiFlight.Tests
         [TestInitialize]
         public void Setup()
         {
+            // disable schema validation to not exceed 1,000 limit per hour
+            // https://www.newtonsoft.com/jsonschema
+            JsonBackedObject.SkipSchemaValidation = true;
+
             _executionManager = new ExecutionManager(IntPtr.Zero);
             _mockMessagePublisher = new Mock<IMessagePublisher>();
 
@@ -84,7 +89,7 @@ namespace MobiFlight.Tests
             /// ---
             // Case 1: toggle false to true
             /// ----
-            
+
             // Arrange
             var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
             var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
@@ -108,7 +113,7 @@ namespace MobiFlight.Tests
             /// ---
             // Case 2: toggle true to false
             /// ----
-        
+
             // Arrange
             configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
             configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
@@ -128,11 +133,11 @@ namespace MobiFlight.Tests
             /// ---
             // Case 3: toggle true to false
             /// ----
-            
+
             // Assert
             Assert.IsFalse(configItem1.Active);
             Assert.IsFalse(configItem2.Active);
-        
+
             // Arrange
             configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true };
             configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
@@ -152,6 +157,109 @@ namespace MobiFlight.Tests
             // Assert
             Assert.IsFalse(configItem1.Active);
             Assert.IsFalse(configItem2.Active);
+        }
+
+        [TestMethod]
+        public void CommandActiveConfigFile_Test()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem1, configItem2 } });
+            _executionManager.Project = project;
+
+            Assert.AreEqual(_executionManager.ActiveConfigIndex, 0);
+
+            var message = new CommandActiveConfigFile
+            {
+                index = 1
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.AreEqual(_executionManager.ActiveConfigIndex, 1);
+        }
+
+        [TestMethod]
+        public void CommandFileContextMenu_Remove_RemovesConfig()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "First Config",
+                ConfigItems = { configItem1, configItem2 }
+            });
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "Second Config",
+                ConfigItems = { configItem1, configItem2 }
+            });
+
+            _executionManager.Project = project;
+
+            Assert.AreEqual(_executionManager.ActiveConfigIndex, 0);
+
+            var message = new CommandFileContextMenu
+            {
+                Action = CommandFileContextMenuAction.remove,
+                Index = 1,
+                File = project.ConfigFiles[1]
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.AreEqual(project.ConfigFiles.Count, 1);
+            Assert.AreEqual(project.ConfigFiles[0].Label, "First Config");
+        }
+
+        [TestMethod]
+        public void CommandFileContextMenu_Rename_RenamesConfig()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Active = false };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "First Config",
+                ConfigItems = { configItem1, configItem2 }
+            });
+            project.ConfigFiles.Add(new ConfigFile()
+            {
+                Label = "Second Config",
+                ConfigItems = { configItem1, configItem2 }
+            });
+
+            _executionManager.Project = project;
+
+            Assert.AreEqual(_executionManager.ActiveConfigIndex, 0);
+
+            var message = new CommandFileContextMenu
+            {
+                Action = CommandFileContextMenuAction.rename,
+                Index = 1,
+                File = new ConfigFile
+                {
+                    Label = "Renamed Config",
+                    ConfigItems = { configItem1, configItem2 }
+                }
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.AreEqual(project.ConfigFiles.Count, 2);
+            Assert.AreEqual(project.ConfigFiles[1].Label, "Renamed Config");
         }
     }
 }

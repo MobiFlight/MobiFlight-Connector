@@ -81,9 +81,19 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
             value={label}
             className="m-0 h-6 px-2 text-sm lg:h-8"
             onChange={(e) => setLabel(e.target.value)}
-            onKeyDown={(e) =>
-              e.key === "Enter" && (saveChanges(), toggleEdit())
-            }
+            onKeyDown={(e) => {
+              e.stopPropagation()
+              if (e.key === "Enter") {
+                saveChanges()
+                toggleEdit()
+              }  
+
+              if (e.key === "Escape") {
+                setLabel(realLabel)
+                toggleEdit()
+              }
+            }}
+            
             autoFocus
           />
           <IconCircleCheck

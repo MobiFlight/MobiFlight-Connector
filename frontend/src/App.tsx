@@ -2,16 +2,18 @@ import { Outlet, useNavigate, useOutlet, useSearchParams } from "react-router"
 import StartupProgress from "./components/StartupProgress"
 import { useEffect, useState } from "react"
 import { useAppMessage } from "./lib/hooks/appMessage"
-import { ConfigLoadedEvent, StatusBarUpdate } from "./types"
+import { ConfigLoadedEvent, Project, StatusBarUpdate } from "./types"
 import { useConfigStore } from "./stores/configFileStore"
 import i18next from "i18next"
 import Settings from "./types/settings"
 import _ from "lodash"
+import { useProjectStore } from "./stores/projectStore"
 
 function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
   const { setItems } = useConfigStore()
+  const { setProject } = useProjectStore()
 
   const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>({
     Value: 0,
@@ -25,6 +27,12 @@ function App() {
   useAppMessage("ConfigFile", (message) => {
     console.log("ConfigFile message received", message.payload)
     setItems((message.payload as ConfigLoadedEvent).ConfigItems)
+  })
+
+  useAppMessage("Project", (message) => {
+    const project = message.payload as Project
+    console.log("Project message received", project)
+    setProject(project)
   })
 
   useAppMessage("Settings", (message) => {

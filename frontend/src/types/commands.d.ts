@@ -3,18 +3,22 @@
 export type CommandMessageKey =
   | "ConfigEdit"
   | "CommandConfigContextMenu"
+  | "CommandFileContextMenu"
   | "CommandConfigBulkAction"
   | "CommandUpdateConfigItem"
   | "CommandAddConfigItem"
   | "CommandResortConfigItem"
+  | "CommandAddConfigFile"
 
 export type CommandMessage =
   | CommandConfigContextMenu
+  | CommandFileContextMenu
   | CommandConfigBulkAction
   | CommandUpdateConfigItem
   | CommandAddConfigItem
   | CommandResortConfigItem
-
+  | CommandActiveConfigFile
+  | CommandAddConfigFile
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -69,5 +73,33 @@ export interface CommandResortConfigItem extends CommandMessageBase {
   payload: { 
     items: IConfigItem[],
     newIndex: number
+  }
+}
+
+export interface CommandActiveConfigFile extends CommandMessageBase {
+  key: "CommandActiveConfigFile"
+  payload: { 
+    index: number
+  }
+}
+
+// CommandAddConfigFile
+// Add a new or existing config file to the project
+export interface CommandAddConfigFile extends CommandMessageBase {
+  key: "CommandAddConfigFile"
+  payload: { 
+    type: "create" | "merge"
+  }
+}
+
+// EditConfigMessage
+// is sent to the backend
+// when a config item shall be edited
+export interface CommandFileContextMenu extends CommandMessageBase{
+  key: "CommandFileContextMenu"
+  payload: { 
+    action: "rename" | "remove" | "export",
+    index: number,
+    file: ConfigFile
   }
 }

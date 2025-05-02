@@ -77,7 +77,6 @@ namespace MobiFlight.UI
         public bool InitialLookupFinished { get; private set; } = false;
         public bool SettingsDialogActive { get; private set; }
 
-        public event EventHandler<IConfigFile> ConfigLoaded;
         public event EventHandler<Project> ProjectLoaded;
 
         private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
@@ -187,6 +186,18 @@ namespace MobiFlight.UI
                     OpenInputConfigWizardForId(message.Item.GUID);
                 }
             });
+
+            MessageExchange.Instance.Subscribe<CommandAddConfigFile>((message) =>
+            {
+                if (message.Type == CommandAddConfigFileType.create)
+                {
+                    AddNewFileToProject();
+                }
+                else if (message.Type == CommandAddConfigFileType.merge)
+                {
+                    mergeToolStripMenuItem_Click(null, null);
+                }
+            });
         }
 
         private void OpenOutputConfigWizardForId(string guid)
@@ -217,7 +228,8 @@ namespace MobiFlight.UI
                                             execManager.getModuleCache(),
                                             execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
-                                            execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList()
+                                            execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
+                                            execManager.GetAvailableVariables()
                                           )
             {
                 StartPosition = FormStartPosition.CenterParent
@@ -267,7 +279,8 @@ namespace MobiFlight.UI
                                 execManager.getModuleCache(),
                                 execManager.getModuleCache().GetArcazeModuleSettings(),
 #endif
-                                execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList()
+                                execManager.ConfigItems.Where(item => item is OutputConfigItem).Cast<OutputConfigItem>().ToList(),
+                                execManager.GetAvailableVariables()
                                 )
             {
                 StartPosition = FormStartPosition.CenterParent
@@ -300,21 +313,10 @@ namespace MobiFlight.UI
             menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
 
-            ConfigLoaded += (s, config) =>
-            {
-                MessageExchange.Instance.Publish(config);
-            };
-
             ProjectLoaded += (s, project) =>
             {
                 testModeTimer_Stop();
-                var configFile = new ConfigFile();
-                if (project.ConfigFiles.Count > 0)
-                {
-                    configFile = project.ConfigFiles[0];
-                }
-                   
-                MessageExchange.Instance.Publish(configFile);
+                MessageExchange.Instance.Publish(project);
             };
         }
 
@@ -342,6 +344,7 @@ namespace MobiFlight.UI
 
             execManager = new ExecutionManager(this.Handle);
             execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
+            execManager.OnProjectChanged += ExecManager_OnProjectChanged;
             execManager.OnExecute += new EventHandler(ExecManager_Executed);
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
@@ -395,6 +398,9 @@ namespace MobiFlight.UI
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
 
+            // Initialize properly the empty project state.
+            CreateNewProject();
+
             _updateRecentFilesMenuItems();
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
@@ -418,6 +424,17 @@ namespace MobiFlight.UI
                 var msg = message;
                 MessageBox.Show(msg.Message);
             });
+        }
+
+        private void ExecManager_OnProjectChanged(object sender, Project e)
+        {
+            ProjectOrConfigFileHasChanged();
+        }
+
+        private void ProjectOrConfigFileHasChanged()
+        {
+            saveToolStripButton.Enabled = true;
+            UpdateAllConnectionIcons();
         }
 
         private void ExecManager_SettingsDialogRequested(object sender, EventArgs e)
@@ -644,8 +661,7 @@ namespace MobiFlight.UI
 
         private void ExecManager_OnConfigHasChanged(object sender, EventArgs e)
         {
-            saveToolStripButton.Enabled = true;
-            UpdateAllConnectionIcons();
+            ProjectOrConfigFileHasChanged();
         }
 
         /// <summary>
@@ -849,21 +865,21 @@ namespace MobiFlight.UI
         {
             SettingsDialog dlg = new SettingsDialog(execManager);
             dlg.StartPosition = FormStartPosition.CenterParent;
-                execManager.OnModuleConnected += dlg.UpdateConnectedModule;
-                execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
+            execManager.OnModuleConnected += dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved += dlg.UpdateRemovedModule;
 
             switch (SelectedTab)
-                {
-                    case "mobiFlightTabPage":
-                        dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
-                        break;
-                    case "ArcazeTabPage":
-                        dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
-                        break;
-                    case "peripheralsTabPage":
-                        dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
-                        break;
-                }
+            {
+                case "mobiFlightTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.mobiFlightTabPage;
+                    break;
+                case "ArcazeTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.ArcazeTabPage;
+                    break;
+                case "peripheralsTabPage":
+                    dlg.tabControl1.SelectedTab = dlg.peripheralsTabPage;
+                    break;
+            }
             if (SelectedBoard != null)
                 dlg.PreselectedBoard = SelectedBoard;
 
@@ -873,12 +889,12 @@ namespace MobiFlight.UI
             if (BoardsForUpdate != null)
                 dlg.MobiFlightModulesForUpdate = BoardsForUpdate;
 
-                SettingsDialogActive = true;
-                var dialogResult = dlg.ShowDialog();
-                execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
-                execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
-                SettingsDialogActive = false;
-                return dialogResult;
+            SettingsDialogActive = true;
+            var dialogResult = dlg.ShowDialog();
+            execManager.OnModuleConnected -= dlg.UpdateConnectedModule;
+            execManager.OnModuleRemoved -= dlg.UpdateRemovedModule;
+            SettingsDialogActive = false;
+            return dialogResult;
         }
 
         // this performs the update of the existing user settings 
@@ -1582,13 +1598,22 @@ namespace MobiFlight.UI
 
         private void mergeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = fileFilter;
+            OpenMergeDialog();
+        }
 
-            if (DialogResult.OK == fd.ShowDialog())
+        private void OpenMergeDialog()
+        {
+            // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+            System.Threading.SynchronizationContext.Current.Post((_) =>
             {
-                LoadConfig(fd.FileName, true);
-            }
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.Filter = fileFilter;
+
+                if (DialogResult.OK == fd.ShowDialog())
+                {
+                    LoadConfig(fd.FileName, true);
+                }
+            }, null);
         }
 
         /// <summary>
@@ -1707,17 +1732,20 @@ namespace MobiFlight.UI
 
             try
             {
-                if (!merge) {
-                    execManager.Project = new Project() { FilePath = fileName };
-                    execManager.Project.OpenFile();
-                } else
+                if (!merge)
+                {
+                    var newProject = new Project() { FilePath = fileName };
+                    newProject.OpenFile();
+                    execManager.Project = newProject;
+                }
+                else
                 {
                     // this is the old logic
                     // we simply add the second file to the first file
                     // this will have to be changed in the future
                     var additionalProject = new Project() { FilePath = fileName };
                     additionalProject.OpenFile();
-                    execManager.Project.ConfigFiles[0].Merge(additionalProject.ConfigFiles[0]);
+                    execManager.Project.ConfigFiles.Add(additionalProject.ConfigFiles.First());
                 }
             }
             catch (InvalidExpressionException)
@@ -1750,7 +1778,7 @@ namespace MobiFlight.UI
             {
                 // indicate that the merge changed
                 // the current config and that the user
-                saveToolStripButton.Enabled = true;
+                ProjectOrConfigFileHasChanged();
             }
 
             // always put this after "normal" initialization
@@ -1868,13 +1896,22 @@ namespace MobiFlight.UI
 
             try
             {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, execManager.Project.ConfigFiles[0].ConfigItems);
+                var allConfigItems = execManager.Project.ConfigFiles.Select(file => file.ConfigItems).ToList();
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, allConfigItems);
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
                     if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         saveToolStripButton.Enabled = opd.HasChanged();
+                        var udpatedConfigs = opd.GetUpdatedConfigs();
+
+                        for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
+                        {
+                            execManager.Project.ConfigFiles[i].ConfigItems = udpatedConfigs[i];
+                        }
+
+                        MessageExchange.Instance.Publish(execManager.Project);
                     }
                 }
                 else if (showNotNecessaryMessage)
@@ -2068,15 +2105,38 @@ namespace MobiFlight.UI
                        i18n._tr("uiMessageConfirmNewConfigTitle"),
                        MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
-                execManager.Stop();
-                CurrentFileName = null;
-                _setFilenameInTitle(i18n._tr("DefaultFileName"));
-                var project = new Project() { Name = i18n._tr("DefaultFileName") };
-                project.ConfigFiles.Add(new ConfigFile() { EmbedContent = true }); 
-                execManager.Project = project;
-                ProjectLoaded?.Invoke(this, project);
+                CreateNewProject();
             };
         } //toolStripMenuItem3_Click()
+
+        private void CreateNewProject()
+        {
+            var project = new Project() { Name = i18n._tr("DefaultFileName") };
+            project.ConfigFiles.Add(CreateDefaultConfigFile());
+            execManager.Project = project;
+        }
+
+        private void AddNewFileToProject()
+        {
+            execManager.Stop();
+
+            ConfigFile newConfigFile = CreateDefaultConfigFile();
+            execManager.Project.ConfigFiles.Add(newConfigFile);
+
+            ProjectOrConfigFileHasChanged();
+
+
+            ProjectLoaded?.Invoke(this, execManager.Project);
+        }
+
+        private static ConfigFile CreateDefaultConfigFile()
+        {
+            return new ConfigFile()
+            {
+                Label = "New file",
+                EmbedContent = true
+            };
+        }
 
         /// <summary>
         /// gets triggered if user uses quick save button from toolbar
