@@ -194,6 +194,11 @@ namespace MobiFlight
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
                     js = new WinwingCdu(diJoystick, joystickDef, productId, WSServer);
                 }
+                else if (vendorId == 0x4098 && WinwingConstants.PAP3_PRODUCTIDS.Contains(productId))
+                {
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
+                    js = new WinwingPap3(diJoystick, joystickDef, productId, WSServer);
+                }
                 else if (vendorId == 0x231D)
                 {
                     // VKB devices are highly configurable. DirectInput names can have old values cached in the registry, but HID names seem to be immune to that.
