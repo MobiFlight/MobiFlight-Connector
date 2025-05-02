@@ -1896,13 +1896,22 @@ namespace MobiFlight.UI
 
             try
             {
-                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, execManager.Project.ConfigFiles[0].ConfigItems);
+                var allConfigItems = execManager.Project.ConfigFiles.Select(file => file.ConfigItems).ToList();
+                OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, allConfigItems);
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
                     if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         saveToolStripButton.Enabled = opd.HasChanged();
+                        var udpatedConfigs = opd.GetUpdatedConfigs();
+
+                        for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
+                        {
+                            execManager.Project.ConfigFiles[i].ConfigItems = udpatedConfigs[i];
+                        }
+
+                        MessageExchange.Instance.Publish(execManager.Project);
                     }
                 }
                 else if (showNotNecessaryMessage)
