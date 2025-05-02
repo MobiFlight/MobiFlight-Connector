@@ -398,9 +398,6 @@ namespace MobiFlight.UI
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
 
-            // Initialize properly the empty project state.
-            CreateNewProject();
-
             _updateRecentFilesMenuItems();
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
@@ -992,9 +989,13 @@ namespace MobiFlight.UI
                 {
                     if (!System.IO.File.Exists(file)) continue;
                     LoadConfig(file);
-                    break;
+                    return;
                 }
             } //if 
+
+
+            // Initialize properly the empty project state.
+            CreateNewProject();
         }
 
 #if ARCAZE
