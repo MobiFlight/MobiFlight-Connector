@@ -3,7 +3,6 @@ import { VariantProps } from "class-variance-authority"
 import {
   IconDotsVertical,
   IconEdit,
-  IconFileExport,
   IconTrash,
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
@@ -138,7 +137,7 @@ const FileButton = ({
               <IconTrash />
               {t("Project.File.Action.Remove")}
             </DropdownMenuItem>
-            <DropdownMenuItem
+            {/* <DropdownMenuItem
               onClick={() => {
                 publish({
                   key: "CommandFileContextMenu",
@@ -152,7 +151,7 @@ const FileButton = ({
             >
               <IconFileExport />
               {t("Project.File.Action.Export")}
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

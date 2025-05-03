@@ -125,7 +125,7 @@
     <value>180, 22</value>
   </data>
   <data name="toolStripMenuItem3.Text" xml:space="preserve">
-    <value>New</value>
+    <value>New project</value>
   </data>
   <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 6</value>
@@ -168,7 +168,7 @@
     <value>56, 22</value>
   </data>
   <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Project</value>
+    <value>File</value>
   </data>
   <data name="downloadPresetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>199, 22</value>

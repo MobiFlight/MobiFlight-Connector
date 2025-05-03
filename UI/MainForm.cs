@@ -1748,6 +1748,13 @@ namespace MobiFlight.UI
                     additionalProject.OpenFile();
                     execManager.Project.ConfigFiles.Add(additionalProject.ConfigFiles.First());
                 }
+
+                execManager.Project.ConfigFiles.ForEach(configFile => {
+                    if (!configFile.HasDuplicateGuids()) return;
+                    Log.Instance.log($"{configFile.FileName} has duplicate GUIDs and will be fixed.", LogSeverity.Warn);
+                    configFile.RemoveDuplicateGuids();
+                    ProjectOrConfigFileHasChanged();
+                });
             }
             catch (InvalidExpressionException)
             {
