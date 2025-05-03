@@ -70,5 +70,30 @@ namespace MobiFlight.Base
                 ConfigItems.SequenceEqual(other.ConfigItems)
                 ;
         }
+
+        public bool HasDuplicateGuids()
+        {
+            var guids = new HashSet<string>();
+            foreach (var item in ConfigItems)
+            {
+                if (!guids.Add(item.GUID))
+                {
+                    return true; // Duplicate GUID found
+                }
+            }
+            return false; // No duplicates
+        }
+
+        public void RemoveDuplicateGuids()
+        {
+            var guids = new HashSet<string>();
+            foreach (var item in ConfigItems)
+            {
+                while (!guids.Add(item.GUID))
+                {
+                    item.GUID = System.Guid.NewGuid().ToString();
+                }
+            }
+        }
     }
 }
