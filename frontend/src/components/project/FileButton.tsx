@@ -138,7 +138,7 @@ const FileButton = ({
               <IconTrash />
               {t("Project.File.Action.Remove")}
             </DropdownMenuItem>
-            <DropdownMenuItem
+            {/* <DropdownMenuItem
               onClick={() => {
                 publish({
                   key: "CommandFileContextMenu",
@@ -152,7 +152,7 @@ const FileButton = ({
             >
               <IconFileExport />
               {t("Project.File.Action.Export")}
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
