@@ -71,7 +71,7 @@ namespace MobiFlight.Base
             EventTelemetry trackingEvent = new EventTelemetry("ProjectLoaded");
             trackingEvent.Metrics["ConfigFiles"] = project.ConfigFiles.Count;
             GetClient().TrackEvent(trackingEvent);
-            project.ConfigFiles.ForEach(configFile => ConfigLoaded((IConfigFile)configFile));
+            project.ConfigFiles.ToList().ForEach(configFile => ConfigLoaded((IConfigFile)configFile));
         }
 
         public void ConfigLoaded(IConfigFile configFile)
