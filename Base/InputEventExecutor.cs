@@ -3,6 +3,7 @@ using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
+using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace MobiFlight.Execution
             _arcazeCache = arcazeCache;
         }
 
-        public Dictionary<string, IConfigItem> Execute(InputEventArgs e)
+        public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
             string inputKey = CreateInputKey(e);
@@ -55,10 +56,21 @@ namespace MobiFlight.Execution
 
             if (inputCache[inputKey].Count == 0)
             {
+                if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
+                {
+                    Log.Instance.log($"{msgEventLabel} =>  No config found.", LogSeverity.Warn);
+                }
+                
                 return updatedValues;
             }
 
             var cacheCollection = CreateCacheCollection();
+
+            if (!isStarted)
+            {
+                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Debug);
+                return updatedValues;
+            }
 
             foreach (var cfg in inputCache[inputKey])
             {
@@ -125,14 +137,48 @@ namespace MobiFlight.Execution
 
         private List<InputConfigItem> GetMatchingInputConfigs(InputEventArgs e)
         {
-            return _configItems
-                .OfType<InputConfigItem>()
-                .Where(cfg =>
-                    cfg.ModuleSerial != null &&
-                    cfg.ModuleSerial.Contains("/ " + e.Serial) &&
-                    (cfg.DeviceName == e.DeviceId ||
-                     (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
-                .ToList();
+            var result = new List<InputConfigItem>();
+
+            foreach (var cfg in _configItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
+            {
+                try
+                {
+                    // item currently created and not saved yet.
+                    if (cfg == null) continue;
+
+                    if (cfg.ModuleSerial != null &&
+                        cfg.ModuleSerial.Contains("/ " + e.Serial) &&
+                       (cfg.DeviceName == e.DeviceId ||
+                       // for backward compatibility we have to make this check
+                       // because we used to have the label in the config
+                       // but now we want to store the internal button identifier
+                       // so that the label can change any time without breaking the config
+                       (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
+                    {
+                        // Input shift registers have an additional check to see if the pin that changed matches the pin
+                        // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
+                        // would get added to the input cache and fired even though the pins don't match.
+                        //GCC CHECK
+                        if (e.Type == DeviceType.InputShiftRegister && cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
+                        {
+                            continue;
+                        }
+                        // similarly also for digital input Multiplexer
+                        if (e.Type == DeviceType.InputMultiplexer && cfg.inputMultiplexer != null && cfg.inputMultiplexer.DataPin != e.ExtPin)
+                        {
+                            continue;
+                        }
+                        result.Add(cfg);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // probably the last row with no settings object 
+                    continue;
+                }
+            }
+
+            return result;
         }
 
         private bool CheckPreconditions(InputConfigItem cfg)
@@ -167,6 +213,12 @@ namespace MobiFlight.Execution
                 moduleCache = _mobiFlightCache,
                 joystickManager = _joystickManager
             };
+        }
+
+        private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
+        {
+            return !Joystick.IsJoystickSerial(Serial) ||
+                    (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
         }
     }
 }

@@ -116,6 +116,10 @@ namespace MobiFlight
             {
                 if (_project == value) return;
                 _project = value;
+                _project.ProjectChanged += (s, e) =>
+                {
+                    OnProjectChanged?.Invoke(this, Project);
+                };
                 OnProjectChanged?.Invoke(this, Project);
             }
         }
@@ -204,6 +208,7 @@ namespace MobiFlight
             OnProjectChanged += (s, p) =>
             {
                 ActiveConfigIndex = 0;
+                InitInputEventExecutor();
                 MessageExchange.Instance.Publish(p);
             };
 
@@ -1096,25 +1101,12 @@ namespace MobiFlight
         void mobiFlightCache_OnButtonPressed(object sender, InputEventArgs e)
         {
             var msgEventLabel = $"{e.Name} => {e.DeviceLabel}";
-
-            if (!IsStarted())
-            {
-                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Debug);
-                return;
-            }
-
             var updatedInputValues = new Dictionary<string, IConfigItem>();
 
             foreach (var executor in _inputEventExecutors.Values)
             {
-                var updatedValues = executor.Execute(e);
+                var updatedValues = executor.Execute(e, IsStarted());
                 updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
-            }
-
-            if (!updatedInputValues.Any())
-            {
-                Log.Instance.log($"{msgEventLabel} => No matching input config found.", LogSeverity.Warn);
-                return;
             }
 
             updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
@@ -1160,12 +1152,6 @@ namespace MobiFlight
                     continue;
                 }
             }
-        }
-
-        private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
-        {
-            return !Joystick.IsJoystickSerial(Serial) ||
-                    (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
         }
 #endif
 
