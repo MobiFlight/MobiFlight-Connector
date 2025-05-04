@@ -42,6 +42,11 @@ namespace MobiFlight.Execution
             _arcazeCache = arcazeCache;
         }
 
+        public void ClearCache()
+        {
+            inputCache.Clear();
+        }
+
         public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
@@ -88,7 +93,7 @@ namespace MobiFlight.Execution
                         continue;
                     }
 
-                    Log.Instance.log($"{e.Name} => Executing \"{cfg.Name}\".", LogSeverity.Info);
+                    Log.Instance.log($"{e.Name} => Executing \"{cfg.Name}\". ({eventAction})", LogSeverity.Info);
 
                     cfg.RawValue = eventAction;
                     cfg.Value = " ";

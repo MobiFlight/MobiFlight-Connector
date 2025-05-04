@@ -126,8 +126,6 @@ namespace MobiFlight
 
         public int ActiveConfigIndex { get; private set; } = 0;
 
-        Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
-
         private bool _autoConnectTimerRunning = false;
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
@@ -609,7 +607,6 @@ namespace MobiFlight
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
-            inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearConfigItemStatus();
@@ -642,10 +639,7 @@ namespace MobiFlight
 
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
-            lock (inputCache)
-            {
-                inputCache.Clear();
-            }
+            _inputEventExecutors.ToList().ForEach(executor => executor.Value.ClearCache());
         }
 
         public bool IsStarted()
