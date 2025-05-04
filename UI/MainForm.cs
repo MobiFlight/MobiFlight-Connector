@@ -1749,7 +1749,7 @@ namespace MobiFlight.UI
                     execManager.Project.ConfigFiles.Add(additionalProject.ConfigFiles.First());
                 }
 
-                execManager.Project.ConfigFiles.ForEach(configFile => {
+                execManager.Project.ConfigFiles.ToList().ForEach(configFile => {
                     if (!configFile.HasDuplicateGuids()) return;
                     Log.Instance.log($"{configFile.FileName} has duplicate GUIDs and will be fixed.", LogSeverity.Warn);
                     configFile.RemoveDuplicateGuids();
