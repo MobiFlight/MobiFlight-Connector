@@ -73,7 +73,7 @@ namespace MobiFlight.Execution
 
             if (!isStarted)
             {
-                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Debug);
+                Log.Instance.log($"{msgEventLabel} skipping, MobiFlight not running.", LogSeverity.Warn);
                 return updatedValues;
             }
 
