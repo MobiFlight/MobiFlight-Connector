@@ -21,6 +21,7 @@ namespace MobiFlight.Execution.Tests
         private Mock<ArcazeCache> _mockArcazeCache;
         private List<IConfigItem> _configItems;
         private InputEventExecutor _executor;
+        private Mock<ILogAppender> _mockLogAppender;
 
         [TestInitialize]
         public void SetUp()
@@ -44,6 +45,20 @@ namespace MobiFlight.Execution.Tests
                 _mockJoystickManager.Object,
                 _mockArcazeCache.Object
             );
+
+            // Create a mock log appender
+            _mockLogAppender = new Mock<ILogAppender>();
+            Log.Instance.Enabled = true; // Enable logging
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(_mockLogAppender.Object);
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            // Remove the mock appender after each test
+            Log.Instance.ClearAppenders();
+            Log.Instance.Enabled= false; // Disable logging
         }
 
         [TestMethod]
@@ -62,6 +77,11 @@ namespace MobiFlight.Execution.Tests
 
             // Assert
             Assert.AreEqual(0, result.Count);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"No config found.")), LogSeverity.Warn),
+                Times.Once
+            );
         }
 
         [TestMethod]
@@ -79,7 +99,8 @@ namespace MobiFlight.Execution.Tests
             {
                 Active = false,
                 ModuleSerial = "/ 123",
-                DeviceName = "Device1"
+                DeviceName = "Device1",
+                Name = "TestConfig"
             };
 
             _configItems.Add(inactiveConfigItem);
@@ -89,6 +110,11 @@ namespace MobiFlight.Execution.Tests
 
             // Assert
             Assert.AreEqual(0, result.Count);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Skipping inactive config ""{inactiveConfigItem.Name}""")), LogSeverity.Warn),
+                Times.Once
+            );
         }
 
         [TestMethod]
@@ -119,6 +145,11 @@ namespace MobiFlight.Execution.Tests
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.ContainsKey(activeConfigItem.GUID));
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (RELEASE)")), LogSeverity.Info),
+                Times.Once
+            );
         }
 
         [TestMethod]
@@ -158,6 +189,11 @@ namespace MobiFlight.Execution.Tests
 
             // Assert
             Assert.AreEqual(0, result.Count);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Preconditions not satisfied for ""{configItem.Name}"".")), LogSeverity.Debug),
+                Times.Once
+            );
         }
 
         [TestMethod]
@@ -187,6 +223,11 @@ namespace MobiFlight.Execution.Tests
 
             // Assert
             Assert.AreEqual(0, result.Count);
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains("skipping, MobiFlight not running.")), LogSeverity.Warn),
+                Times.Once
+            );
         }
     }
 }
