@@ -140,12 +140,18 @@ namespace MobiFlight.Execution.Tests
                 DeviceName = "Device1",
                 Name = "TestConfig",
                 Preconditions = new PreconditionList()
+                {
+                    new Precondition
+                    {
+                        PreconditionType = "variable",
+                        PreconditionActive = true,
+                        PreconditionRef = "TestRef",
+                        PreconditionValue = "OtherValue"
+                    }
+                }
             };
 
             _configItems.Add(configItem);
-
-            // Mock precondition check to return false
-            _mockArcazeCache.Setup(x => x.clearGetValues());
 
             // Act
             var result = _executor.Execute(inputEventArgs, isStarted: true);
