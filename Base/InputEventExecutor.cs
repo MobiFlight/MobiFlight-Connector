@@ -3,7 +3,6 @@ using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
-using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace MobiFlight.Execution
         private readonly List<IConfigItem> _configItems;
         private readonly InputActionExecutionCache _inputActionExecutionCache;
         private readonly Fsuipc2Cache _fsuipcCache;
-        private readonly SimConnectCache _simConnectCache;
+        private readonly SimConnectCacheInterface _simConnectCache;
         private readonly XplaneCache _xplaneCache;
         private readonly MobiFlightCache _mobiFlightCache;
         private readonly JoystickManager _joystickManager;
@@ -26,7 +25,7 @@ namespace MobiFlight.Execution
             List<IConfigItem> configItems,
             InputActionExecutionCache inputActionExecutionCache,
             Fsuipc2Cache fsuipcCache,
-            SimConnectCache simConnectCache,
+            SimConnectCacheInterface simConnectCache,
             XplaneCache xplaneCache,
             MobiFlightCache mobiFlightCache,
             JoystickManager joystickManager,
@@ -194,17 +193,33 @@ namespace MobiFlight.Execution
 
         private List<ConfigRefValue> ResolveReferences(ConfigRefList configRefs)
         {
-            var result = new List<ConfigRefValue>();
+            List<ConfigRefValue> result = new List<ConfigRefValue>();
+            foreach (ConfigRef c in configRefs)
+            {
+                if (!c.Active) continue;
+                String s = FindValueForRef(c.Ref);
+                if (s == null) continue;
+                result.Add(new ConfigRefValue(c, s));
+            }
+            return result;
+        }
 
+        private String FindValueForRef(String refId)
+        {
+            String result = null;
             foreach (var cfg in _configItems)
             {
-                if (cfg.ConfigRefs == null) continue;
+                if (cfg.GUID != refId) continue;
 
-                result.AddRange(cfg.ConfigRefs
-                    .Where(c => c.Active)
-                    .Select(c => new ConfigRefValue(c, cfg.Value)));
+                if (!cfg.Active) break;
+
+                if (cfg.Value == null) break;
+
+                string value = cfg.Value;
+
+                if (value == "") break;
+                result = value;
             }
-
             return result;
         }
 
