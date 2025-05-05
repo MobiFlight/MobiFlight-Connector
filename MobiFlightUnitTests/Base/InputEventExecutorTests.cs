@@ -14,7 +14,7 @@ namespace MobiFlight.Execution.Tests
     {
         private Mock<InputActionExecutionCache> _mockInputActionExecutionCache;
         private Mock<Fsuipc2Cache> _mockFsuipcCache;
-        private Mock<SimConnectCache> _mockSimConnectCache;
+        private Mock<SimConnectCacheInterface> _mockSimConnectCache;
         private Mock<XplaneCache> _mockXplaneCache;
         private Mock<MobiFlightCache> _mockMobiFlightCache;
         private Mock<JoystickManager> _mockJoystickManager;
@@ -28,7 +28,7 @@ namespace MobiFlight.Execution.Tests
         {
             _mockInputActionExecutionCache = new Mock<InputActionExecutionCache>();
             _mockFsuipcCache = new Mock<Fsuipc2Cache>();
-            _mockSimConnectCache = new Mock<SimConnectCache>();
+            _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             _mockXplaneCache = new Mock<XplaneCache>();
             _mockMobiFlightCache = new Mock<MobiFlightCache>();
             _mockJoystickManager = new Mock<JoystickManager>();
@@ -40,7 +40,7 @@ namespace MobiFlight.Execution.Tests
                 {
                     Active = true,
                     ModuleSerial = "OutputDevice / 1123",
-                    Name = "OutputConfigItem"
+                    Name = "OutputConfigItem",
                 },
 
                 new InputConfigItem
@@ -69,18 +69,20 @@ namespace MobiFlight.Execution.Tests
             Log.Instance.AddAppender(_mockLogAppender.Object);
         }
 
-        private InputConfigItem CreateInputConfigItemWithButton(string name, string moduleSerial, string deviceName, bool active = true)
+        private InputConfigItem CreateInputConfigItemWithButton(string name, string moduleSerial, string deviceName, bool active, string command)
         {
             return new InputConfigItem
             {
                 Active = active,
                 ModuleSerial = moduleSerial,
                 DeviceName = deviceName,
+                DeviceType = DeviceType.Button.ToString(),
                 Name = name,
                 button = new ButtonInputConfig()
                 {
-                    onPress = new MSFS2020CustomInputAction() {
-                        Command = "(A:TestCommand)",
+                    onPress = new MSFS2020CustomInputAction()
+                    {
+                        Command = command,
                         PresetId = "TestPresetId",
                     }
                 }
@@ -92,7 +94,7 @@ namespace MobiFlight.Execution.Tests
         {
             // Remove the mock appender after each test
             Log.Instance.ClearAppenders();
-            Log.Instance.Enabled= false; // Disable logging
+            Log.Instance.Enabled = false; // Disable logging
         }
 
         [TestMethod]
@@ -190,23 +192,38 @@ namespace MobiFlight.Execution.Tests
         public void Execute_ConfigItemWithConfigReference_ExecutesSuccessfully()
         {
             // Arrange
-            var inputEventArgs = new InputEventArgs
-            {
-                Serial = "123",
-                Type = DeviceType.Button,
-                DeviceId = "Device1",
-                Value = 0 // onPress
-            };
+            var buttonId = "Button1";
+
+            // Create a simple button event
+            InputEventArgs inputEventArgs = CreateButtonEventArgs("123", buttonId, true);
 
             var activeConfigItem = CreateInputConfigItemWithButton(
                 name: "TestConfig",
-                moduleSerial: "/ 123",
-                deviceName: "Device1",
-                active: true
+                moduleSerial: "testcontroller / 123",
+                deviceName: buttonId,
+                active: true,
+                command: "(>K:TestCommand:#)"
             );
 
-            activeConfigItem.DeviceType = DeviceType.Button.ToString();
+            // Set a non sense config reference
+            // This should not have any effect on the test
+            _configItems[0].ConfigRefs = new ConfigRefList()
+            {
+                new ConfigRef()
+                {
+                    Active = true,
+                    Ref = "non-existing-doesnt-matter",
+                    Placeholder = "K",
+                    TestValue = "1"
+                }
+            };
 
+            // Set a non-null value for the test
+            _configItems[0].Value = "FinalValue";
+
+            // Create a config reference 
+            // that actually uses the first config item
+            // and its value
             var configRef = new ConfigRef()
             {
                 Active = true,
@@ -216,24 +233,40 @@ namespace MobiFlight.Execution.Tests
             };
 
             activeConfigItem.ConfigRefs.Add(configRef);
+
+            // Out input config item is added to the list of configs
             _configItems.Add(activeConfigItem);
 
             // Act
             var result = _executor.Execute(inputEventArgs, isStarted: true);
 
             // Assert
-            Assert.AreEqual(1, result.Count);
-            Assert.IsTrue(result.ContainsKey(activeConfigItem.GUID));
+            Assert.AreEqual(1, result.Count, "Only one item should be executed.");
+            Assert.IsTrue(result.ContainsKey(activeConfigItem.GUID), "The wrong config item was executed.");
 
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (PRESS)")), LogSeverity.Info),
-                Times.Once
+                Times.Once,
+                "The config item should be executed with an OnPress event."
             );
 
             _mockSimConnectCache.Verify(
-                cache => cache.SetSimVar(It.IsAny<string>()),
-                Times.Once
+                cache => cache.SetSimVar(It.Is<string>(str => str == "(A:TestCommand:FinalValue)")),
+                Times.Once,
+                "A wrong command has been executed."
             );
+        }
+
+        private static InputEventArgs CreateButtonEventArgs(string serial, string deviceId, bool isOnPress)
+        {
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = serial,
+                Type = DeviceType.Button,
+                DeviceId = deviceId,
+                Value = isOnPress ? 0 : 1 // onPress else onRelease
+            };
+            return inputEventArgs;
         }
 
         [TestMethod]

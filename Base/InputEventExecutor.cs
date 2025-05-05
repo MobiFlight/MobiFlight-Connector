@@ -15,7 +15,7 @@ namespace MobiFlight.Execution
         private readonly List<IConfigItem> _configItems;
         private readonly InputActionExecutionCache _inputActionExecutionCache;
         private readonly Fsuipc2Cache _fsuipcCache;
-        private readonly SimConnectCache _simConnectCache;
+        private readonly SimConnectCacheInterface _simConnectCache;
         private readonly XplaneCache _xplaneCache;
         private readonly MobiFlightCache _mobiFlightCache;
         private readonly JoystickManager _joystickManager;
@@ -26,7 +26,7 @@ namespace MobiFlight.Execution
             List<IConfigItem> configItems,
             InputActionExecutionCache inputActionExecutionCache,
             Fsuipc2Cache fsuipcCache,
-            SimConnectCache simConnectCache,
+            SimConnectCacheInterface simConnectCache,
             XplaneCache xplaneCache,
             MobiFlightCache mobiFlightCache,
             JoystickManager joystickManager,
