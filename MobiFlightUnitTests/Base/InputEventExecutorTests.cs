@@ -34,7 +34,23 @@ namespace MobiFlight.Execution.Tests
             _mockJoystickManager = new Mock<JoystickManager>();
             _mockArcazeCache = new Mock<ArcazeCache>();
 
-            _configItems = new List<IConfigItem>();
+            _configItems = new List<IConfigItem>()
+            {
+                new OutputConfigItem
+                {
+                    Active = true,
+                    ModuleSerial = "OutputDevice / 1123",
+                    Name = "OutputConfigItem"
+                },
+
+                new InputConfigItem
+                {
+                    Active = true,
+                    ModuleSerial = "InputDevice / 2123",
+                    Name = "InputConfigItem"
+                }
+            };
+
             _executor = new InputEventExecutor(
                 _configItems,
                 _mockInputActionExecutionCache.Object,
@@ -51,6 +67,24 @@ namespace MobiFlight.Execution.Tests
             Log.Instance.Enabled = true; // Enable logging
             Log.Instance.ClearAppenders();
             Log.Instance.AddAppender(_mockLogAppender.Object);
+        }
+
+        private InputConfigItem CreateInputConfigItemWithButton(string name, string moduleSerial, string deviceName, bool active = true)
+        {
+            return new InputConfigItem
+            {
+                Active = active,
+                ModuleSerial = moduleSerial,
+                DeviceName = deviceName,
+                Name = name,
+                button = new ButtonInputConfig()
+                {
+                    onPress = new MSFS2020CustomInputAction() {
+                        Command = "(A:TestCommand)",
+                        PresetId = "TestPresetId",
+                    }
+                }
+            };
         }
 
         [TestCleanup]
@@ -148,6 +182,56 @@ namespace MobiFlight.Execution.Tests
 
             _mockLogAppender.Verify(
                 appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (RELEASE)")), LogSeverity.Info),
+                Times.Once
+            );
+        }
+
+        [TestMethod]
+        public void Execute_ConfigItemWithConfigReference_ExecutesSuccessfully()
+        {
+            // Arrange
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "123",
+                Type = DeviceType.Button,
+                DeviceId = "Device1",
+                Value = 0 // onPress
+            };
+
+            var activeConfigItem = CreateInputConfigItemWithButton(
+                name: "TestConfig",
+                moduleSerial: "/ 123",
+                deviceName: "Device1",
+                active: true
+            );
+
+            activeConfigItem.DeviceType = DeviceType.Button.ToString();
+
+            var configRef = new ConfigRef()
+            {
+                Active = true,
+                Placeholder = "#",
+                Ref = _configItems[0].GUID,
+                TestValue = "TestValue"
+            };
+
+            activeConfigItem.ConfigRefs.Add(configRef);
+            _configItems.Add(activeConfigItem);
+
+            // Act
+            var result = _executor.Execute(inputEventArgs, isStarted: true);
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.ContainsKey(activeConfigItem.GUID));
+
+            _mockLogAppender.Verify(
+                appender => appender.log(It.Is<string>(msg => msg.Contains($@"Executing ""{activeConfigItem.Name}"". (PRESS)")), LogSeverity.Info),
+                Times.Once
+            );
+
+            _mockSimConnectCache.Verify(
+                cache => cache.SetSimVar(It.IsAny<string>()),
                 Times.Once
             );
         }
