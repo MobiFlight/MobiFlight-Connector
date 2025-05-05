@@ -3,7 +3,6 @@ using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
-using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -194,17 +193,33 @@ namespace MobiFlight.Execution
 
         private List<ConfigRefValue> ResolveReferences(ConfigRefList configRefs)
         {
-            var result = new List<ConfigRefValue>();
+            List<ConfigRefValue> result = new List<ConfigRefValue>();
+            foreach (ConfigRef c in configRefs)
+            {
+                if (!c.Active) continue;
+                String s = FindValueForRef(c.Ref);
+                if (s == null) continue;
+                result.Add(new ConfigRefValue(c, s));
+            }
+            return result;
+        }
 
+        private String FindValueForRef(String refId)
+        {
+            String result = null;
             foreach (var cfg in _configItems)
             {
-                if (cfg.ConfigRefs == null) continue;
+                if (cfg.GUID != refId) continue;
 
-                result.AddRange(cfg.ConfigRefs
-                    .Where(c => c.Active)
-                    .Select(c => new ConfigRefValue(c, cfg.Value)));
+                if (!cfg.Active) break;
+
+                if (cfg.Value == null) break;
+
+                string value = cfg.Value;
+
+                if (value == "") break;
+                result = value;
             }
-
             return result;
         }
 

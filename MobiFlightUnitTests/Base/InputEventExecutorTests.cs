@@ -193,6 +193,7 @@ namespace MobiFlight.Execution.Tests
         {
             // Arrange
             var buttonId = "Button1";
+            var baseCommand = "(>K:TestCommand:#)";
 
             // Create a simple button event
             InputEventArgs inputEventArgs = CreateButtonEventArgs("123", buttonId, true);
@@ -202,7 +203,7 @@ namespace MobiFlight.Execution.Tests
                 moduleSerial: "testcontroller / 123",
                 deviceName: buttonId,
                 active: true,
-                command: "(>K:TestCommand:#)"
+                command: baseCommand
             );
 
             // Set a non sense config reference
@@ -251,7 +252,7 @@ namespace MobiFlight.Execution.Tests
             );
 
             _mockSimConnectCache.Verify(
-                cache => cache.SetSimVar(It.Is<string>(str => str == "(A:TestCommand:FinalValue)")),
+                cache => cache.SetSimVar(It.Is<string>(str => str == baseCommand.Replace("#", _configItems[0].Value))),
                 Times.Once,
                 "A wrong command has been executed."
             );
