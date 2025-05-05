@@ -37,6 +37,7 @@ namespace MobiFlight.InputConfig
 
         public virtual string Replace(string expression, List<Tuple<string, string>> replacements) {
             if (replacements.Count == 0) return expression;
+            if (expression is null) return expression;
 
             foreach (Tuple<string, string> replacement in replacements)
             {
