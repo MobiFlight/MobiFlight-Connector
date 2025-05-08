@@ -1099,8 +1099,15 @@ namespace MobiFlight
 
             foreach (var executor in _inputEventExecutors.Values)
             {
-                var updatedValues = executor.Execute(e, IsStarted());
-                updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
+                try
+                {
+                    var updatedValues = executor.Execute(e, IsStarted());
+                    updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
+                }
+                catch(Exception ex)
+                {
+                    Log.Instance.log($"Error during input event execution: {ex.Message} - {e.DeviceId} => {e.DeviceLabel} ({e.Type})", LogSeverity.Error);
+                }
             }
 
             updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
