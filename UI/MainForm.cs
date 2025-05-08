@@ -344,37 +344,7 @@ namespace MobiFlight.UI
 
 
             cmdLineParams = new CmdLineParams(Environment.GetCommandLineArgs());
-
-            execManager = new ExecutionManager(this.Handle);
-            execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
-            execManager.OnProjectChanged += ExecManager_OnProjectChanged;
-            execManager.OnExecute += new EventHandler(ExecManager_Executed);
-            execManager.OnStopped += new EventHandler(ExecManager_Stopped);
-            execManager.OnStarted += new EventHandler(ExecManager_Started);
-            execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
-
-            execManager.OnSimAvailable += ExecManager_OnSimAvailable;
-            execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
-            execManager.OnSimCacheConnectionLost += new EventHandler(SimCache_ConnectionLost);
-            execManager.OnSimCacheConnected += new EventHandler(SimCache_Connected);
-            execManager.OnSimCacheClosed += new EventHandler(SimCache_Closed);
-            execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
-
-            // working hypothesis: we don't need this at all.
-            // execManager.OnModuleCacheAvailable += new EventHandler(ModuleCache_Available);
-
-            execManager.OnModuleConnected += new EventHandler(Module_Connected);
-            execManager.OnModuleRemoved += new EventHandler(Module_Removed);
-            execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
-            execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
-            execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
-            execManager.OnMidiBoardConnectedFinished += ExecManager_OnMidiBoardConnectedFinished;
-
-            // Now that the joystick and midi handlers are configured it's ok to start them
-            execManager.StartJoystickManager();
-            execManager.StartMidiBoardManager();
-
-            execManager.SettingsDialogRequested += ExecManager_SettingsDialogRequested;
+            InitializeExecutionManager();
 
             connectedDevicesToolStripDropDownButton.DropDownDirection = ToolStripDropDownDirection.AboveRight;
             simStatusToolStripDropDownButton1.DropDownDirection = ToolStripDropDownDirection.AboveRight;
@@ -424,6 +394,39 @@ namespace MobiFlight.UI
                 var msg = message;
                 MessageBox.Show(msg.Message);
             });
+        }
+        private void InitializeExecutionManager()
+        {
+            execManager = new ExecutionManager(this.Handle);
+            execManager.OnConfigHasChanged += ExecManager_OnConfigHasChanged;
+            execManager.OnProjectChanged += ExecManager_OnProjectChanged;
+            execManager.OnExecute += new EventHandler(ExecManager_Executed);
+            execManager.OnStopped += new EventHandler(ExecManager_Stopped);
+            execManager.OnStarted += new EventHandler(ExecManager_Started);
+            execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
+
+            execManager.OnSimAvailable += ExecManager_OnSimAvailable;
+            execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
+            execManager.OnSimCacheConnectionLost += new EventHandler(SimCache_ConnectionLost);
+            execManager.OnSimCacheConnected += new EventHandler(SimCache_Connected);
+            execManager.OnSimCacheClosed += new EventHandler(SimCache_Closed);
+            execManager.OnSimAircraftChanged += ExecManager_OnSimAircraftChanged;
+
+            // working hypothesis: we don't need this at all.
+            // execManager.OnModuleCacheAvailable += new EventHandler(ModuleCache_Available);
+
+            execManager.OnModuleConnected += new EventHandler(Module_Connected);
+            execManager.OnModuleRemoved += new EventHandler(Module_Removed);
+            execManager.OnInitialModuleLookupFinished += new EventHandler(ExecManager_OnInitialModuleLookupFinished);
+            execManager.OnTestModeException += new EventHandler(execManager_OnTestModeException);
+            execManager.OnJoystickConnectedFinished += ExecManager_OnJoystickConnectedFinished;
+            execManager.OnMidiBoardConnectedFinished += ExecManager_OnMidiBoardConnectedFinished;
+
+            // Now that the joystick and midi handlers are configured it's ok to start them
+            execManager.StartJoystickManager();
+            execManager.StartMidiBoardManager();
+
+            execManager.SettingsDialogRequested += ExecManager_SettingsDialogRequested;
         }
 
         private void ExecManager_OnProjectChanged(object sender, Project e)
@@ -2128,7 +2131,7 @@ namespace MobiFlight.UI
             };
         } //toolStripMenuItem3_Click()
 
-        private void CreateNewProject()
+        public void CreateNewProject()
         {
             var project = new Project() { Name = i18n._tr("DefaultFileName") };
             project.ConfigFiles.Add(CreateDefaultConfigFile());
@@ -2137,7 +2140,7 @@ namespace MobiFlight.UI
             ResetProjectAndConfigChanges();
         }
 
-        private void AddNewFileToProject()
+        public void AddNewFileToProject()
         {
             execManager.Stop();
 
