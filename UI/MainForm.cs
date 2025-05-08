@@ -129,7 +129,10 @@ namespace MobiFlight.UI
 
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
-            CurrentFilenameChanged += (s, e) => { UpdateAutoLoadMenu(); };
+            CurrentFilenameChanged += (s, e) => { 
+                SetFileNameInTitle(e);
+                UpdateAutoLoadMenu(); 
+            };
 
             // we trigger this once:
             // because on a full fresh start
@@ -1775,12 +1778,12 @@ namespace MobiFlight.UI
                 // We want to ensure that we use the new file extension
                 // if users saves the next time
                 CurrentFileName = fileName.Replace(".mcc", ".mfproj");
-                _setFilenameInTitle(CurrentFileName);
+                SetFileNameInTitle(CurrentFileName);
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
                 // it will automatically gets enabled
-                saveToolStripButton.Enabled = false;
+                ResetProjectAndConfigChanges();
             }
             else
             {
@@ -1803,6 +1806,12 @@ namespace MobiFlight.UI
 
             ProjectLoaded?.Invoke(this, execManager.Project);
         }
+
+        private void ResetProjectAndConfigChanges()
+        {
+            saveToolStripButton.Enabled = false;
+        }
+
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
         {
             List<string> serials = new List<string>();
@@ -1969,7 +1978,7 @@ namespace MobiFlight.UI
             return Version;
         }
 
-        private void _setFilenameInTitle(string fileName)
+        private void SetFileNameInTitle(string fileName)
         {
             SetTitle(fileName.Substring(fileName.LastIndexOf('\\') + 1));
         }
@@ -1994,8 +2003,8 @@ namespace MobiFlight.UI
 
             CurrentFileName = fileName;
             _storeAsRecentFile(fileName);
-            _setFilenameInTitle(fileName);
-            saveToolStripButton.Enabled = false;
+            SetFileNameInTitle(fileName);
+            ResetProjectAndConfigChanges();
         }
 
         private void UpdateSimConnectStatusIcon()
@@ -2124,6 +2133,8 @@ namespace MobiFlight.UI
             var project = new Project() { Name = i18n._tr("DefaultFileName") };
             project.ConfigFiles.Add(CreateDefaultConfigFile());
             execManager.Project = project;
+            currentFileName = null;
+            ResetProjectAndConfigChanges();
         }
 
         private void AddNewFileToProject()
