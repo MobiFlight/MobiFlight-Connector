@@ -22,6 +22,7 @@ namespace MobiFlight.Execution.Tests
         private List<IConfigItem> _configItems;
         private InputEventExecutor _executor;
         private Mock<ILogAppender> _mockLogAppender;
+        private LogSeverity _logSeverity = LogSeverity.Error;
 
         [TestInitialize]
         public void SetUp()
@@ -65,6 +66,8 @@ namespace MobiFlight.Execution.Tests
             // Create a mock log appender
             _mockLogAppender = new Mock<ILogAppender>();
             Log.Instance.Enabled = true; // Enable logging
+            _logSeverity = Log.Instance.Severity; // Store the current log severity
+            Log.Instance.Severity = LogSeverity.Debug; // Set the log severity to Debug
             Log.Instance.ClearAppenders();
             Log.Instance.AddAppender(_mockLogAppender.Object);
         }
@@ -94,6 +97,7 @@ namespace MobiFlight.Execution.Tests
         {
             // Remove the mock appender after each test
             Log.Instance.ClearAppenders();
+            Log.Instance.Severity = _logSeverity; // Restore the original log severity
             Log.Instance.Enabled = false; // Disable logging
         }
 
