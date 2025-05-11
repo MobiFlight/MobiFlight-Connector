@@ -45,6 +45,11 @@ namespace MobiFlight
 
         }
 
+        public void ClearAppenders()
+        {
+            appenderList.Clear();
+        }
+
         public void log(String message, LogSeverity severity)
         {
             if (!Enabled) return;

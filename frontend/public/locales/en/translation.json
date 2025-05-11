@@ -1,4 +1,9 @@
 {
+  "General" : {
+    "Action" : {
+      "OpenMenu": "Open menu"
+    }
+  },
   "Types": {
     "Output": "Output",
     "LedModule": "7-Segment Display",
@@ -16,6 +21,16 @@
     "InputConfigItem": "Input Configuration",
     "InputAction": "Input Action"
   },
+  "Project" : {
+    "File.Action" : {
+      "Add": "Add file",
+      "New": "Add new file",
+      "Merge": "From existing project",
+      "Rename": "Rename",
+      "Remove": "Remove",
+      "Export": "Export"
+    }
+  },
   "ConfigList": {
     "Toolbar": {
       "Search": {
@@ -31,7 +46,15 @@
         "NoResultsFound": "No results found."
       },
       "NotSet": "not set",
-      "Reset": "Reset filters"
+      "Reset": "Reset filters",
+      "SelectedRows": {
+        "Commands" : {
+          "Label": "{{count}} rows selected",
+          "Delete": "Delete selected",
+          "Toggle": "Toggle selected",
+          "Clear": "Clear selection"
+        }
+      }
     },
     "Header": {
       "Active": "Active",
@@ -44,6 +67,9 @@
       "Actions": "Actions"
     },
     "Cell": {
+      "Drag" : {
+        "Multiple": "You are moving {{count}} selected items"
+      },
       "Waiting": "Waiting",
       "Controller": {
         "openInSettings": "Open controller settings",

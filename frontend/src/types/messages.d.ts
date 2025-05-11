@@ -4,6 +4,7 @@ import { IConfigValueOnlyItem } from "./config"
 export type AppMessageKey =
   | "StatusBarUpdate"
   | "ConfigFile"
+  | "Project"
   | "ConfigValueFullUpdate"
   | "ConfigValuePartialUpdate"
   | "ConfigValueRawAndFinalUpdate"
@@ -11,7 +12,7 @@ export type AppMessageKey =
 
 export type AppMessagePayload =
   | StatusBarUpdate
-  | ConfigLoadedEvent
+  | ConfigLoadedEvent  
   | ConfigValueFullUpdate
   | ConfigValuePartialUpdate
   | ConfigValueRawAndFinalUpdate
@@ -20,7 +21,7 @@ export type AppMessagePayload =
 // when receiving messages from the backend
 export type AppMessage = {
   key: AppMessageKey
-  payload: AppMessagePayload | Settings
+  payload: AppMessagePayload | Settings | Project
 }
 
 // ConfigLoadedEvent
@@ -42,6 +43,7 @@ export interface StatusBarUpdate {
 }
 
 export interface ConfigValueFullUpdate {
+  ConfigIndex: number
   ConfigItems: IConfigItem[]
 }
 

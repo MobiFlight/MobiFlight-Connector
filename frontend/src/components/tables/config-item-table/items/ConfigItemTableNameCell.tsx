@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { IconCircleCheck, IconEdit, IconX } from "@tabler/icons-react"
+import { IconCircleCheck, IconCircleX, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import React from "react"
 import { useCallback, useEffect, useState } from "react"
@@ -34,7 +34,6 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
 
   const saveChanges = useCallback(() => {
     item.Name = label
-    console.log(item)
     publish({
       key: "CommandUpdateConfigItem",
       payload: { item: item },
@@ -44,6 +43,9 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
   useEffect(() => {
     setLabel(realLabel)
   }, [realLabel])
+
+  const selectedRows = row.getVisibleCells()[0].getContext().table.getSelectedRowModel().rows.length
+  const dragLabel = selectedRows > 1 ? t("ConfigList.Cell.Drag.Multiple", { count: selectedRows}) : label
 
   return (
     <div className="group flex cursor-pointer flex-row items-center gap-1">
@@ -59,7 +61,8 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
           }
         >
           <div className="flex flex-row items-center gap-0 w-full">
-            <p className="px-0 font-semibold truncate">{label}</p>
+            <p className="px-0 font-semibold truncate group-[.is-first-drag-item]/row:hidden">{label}</p>
+            <p className="px-0 font-semibold truncate hidden group-[.is-first-drag-item]/row:block">{dragLabel}</p>
             <IconEdit
               role="button"
               aria-label="Edit"
@@ -78,9 +81,19 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
             value={label}
             className="m-0 h-6 px-2 text-sm lg:h-8"
             onChange={(e) => setLabel(e.target.value)}
-            onKeyDown={(e) =>
-              e.key === "Enter" && (saveChanges(), toggleEdit())
-            }
+            onKeyDown={(e) => {
+              e.stopPropagation()
+              if (e.key === "Enter") {
+                saveChanges()
+                toggleEdit()
+              }  
+
+              if (e.key === "Escape") {
+                setLabel(realLabel)
+                toggleEdit()
+              }
+            }}
+            
             autoFocus
           />
           <IconCircleCheck
@@ -92,7 +105,8 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
               toggleEdit()
             }}
           />
-          <IconX
+          <IconCircleX
+            className="stroke-red-700"
             role="button"
             aria-label="Discard"
             onClick={() => {

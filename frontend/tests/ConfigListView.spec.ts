@@ -155,9 +155,10 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   }
 })
 
-test("Confirm drag n drop is working", async ({ configListPage, page }) => {
+test("Confirm single drag n drop is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
   await page.getByRole("row").nth(1).getByRole("button").first().hover()
   await page.mouse.down()
   await page
@@ -167,6 +168,47 @@ test("Confirm drag n drop is working", async ({ configListPage, page }) => {
     .hover()
   await page.mouse.up()
   await expect(page.getByRole("row").nth(6)).toContainText("7-Segment")
+
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const lastCommand = postedCommands!.pop()
+  expect (lastCommand.key).toEqual('CommandResortConfigItem')
+  expect (lastCommand.payload.items.length).toEqual(1)
+  expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect (lastCommand.payload.newIndex).toEqual(5)
+})
+
+test("Confirm multi drag n drop is working", async ({ configListPage, page }) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+  const firstRow = page.getByRole("row").nth(1)
+  const thirdRow = page.getByRole("row").nth(3)
+  const fifthRow = page.getByRole("row").nth(5)
+  
+  // select the first row
+  firstRow.click()
+  await page.keyboard.down("Control")
+  // add the third row to the selection
+  await thirdRow.click()
+    
+  // activate drag and drop after fifth
+  const dragHandle = thirdRow.getByRole("button").first()
+  await dragHandle.hover()
+  await page.mouse.down()
+  await fifthRow.getByRole("button").first().hover()
+  await page.mouse.up()
+
+  await expect(page.getByRole("row").nth(4)).toContainText("7-Segment")
+  await expect(page.getByRole("row").nth(5)).toContainText("Servo")
+
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const lastCommand = postedCommands!.pop()
+  expect (lastCommand.key).toEqual('CommandResortConfigItem')
+  expect (lastCommand.payload.items.length).toEqual(2)
+  expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect (lastCommand.payload.items[1].Name).toEqual("Servo")
+  expect (lastCommand.payload.newIndex).toEqual(3)
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
@@ -179,185 +221,213 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await expect(page.locator("html")).toHaveAttribute("class", "light")
 })
 
-test("Confirm `Search text` filter toolbar is working", async ({
-  configListPage,
-  page,
-}) => {
+test("Confirm add output config is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
-  const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
-  const rows = page.locator("tbody tr")
-  await expect(rows).toHaveCount(10)
+  const addOutputConfigButton = page.getByRole("button", { name: "Add Output Config" })
+  await addOutputConfigButton.click()
 
-  await searchTextBox.fill("A")
-  await expect(rows).toHaveCount(2)
-
-  await searchTextBox.fill("Ana")
-  await expect(rows).toHaveCount(1)
-
-  await searchTextBox.fill("Anaz")
-  await expect(rows).toHaveCount(0)
-
-  const clearButton = page.getByRole("button", { name: "Reset filters" })
-  await expect(clearButton).not.toHaveCount(0)
-
-  await clearButton.first().click()
-  await expect(rows).toHaveCount(10)
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const lastCommand = postedCommands!.pop()
+  expect (lastCommand.key).toEqual('CommandAddConfigItem')
+  expect (lastCommand.payload.type).toEqual('OutputConfig')
 })
 
-test("Confirm `Config Type` filter toolbar is working", async ({
-  configListPage,
-  page,
-}) => {
+test("Confirm add input config is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
-  const configTypeFilterButton = page.getByRole("button", {
-    name: "Config Type",
+  const addOutputConfigButton = page.getByRole("button", { name: "Add Input Config" })
+  await addOutputConfigButton.click()
+
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const lastCommand = postedCommands!.pop()
+  expect (lastCommand.key).toEqual('CommandAddConfigItem')
+  expect (lastCommand.payload.type).toEqual('InputConfig')
+})
+
+test.describe('Filter toolbar tests', () => {
+  test("Confirm `Search text` filter toolbar is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+
+    const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
+    const rows = page.locator("tbody tr")
+    await expect(rows).toHaveCount(10)
+
+    await searchTextBox.fill("A")
+    await expect(rows).toHaveCount(2)
+
+    await searchTextBox.fill("Ana")
+    await expect(rows).toHaveCount(1)
+
+    await searchTextBox.fill("Anaz")
+    await expect(rows).toHaveCount(0)
+
+    const clearButton = page.getByRole("button", { name: "Reset filters" })
+    await expect(clearButton).not.toHaveCount(0)
+
+    await clearButton.first().click()
+    await expect(rows).toHaveCount(10)
   })
-  const outputOption = page
-    .getByRole("option", { name: "Output" })
-    .locator("div")
-  const inputOption = page.getByRole("option", { name: "Input" }).locator("div")
-  const visibleRows = page.locator("tbody tr")
-  const clearFiltersOption = page.getByRole("option", { name: "Clear filters" })
 
-  await configTypeFilterButton.click()
-  await outputOption.click()
-  await expect(visibleRows).toHaveCount(7)
+  test("Confirm `Config Type` filter toolbar is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
 
-  await inputOption.click()
-  await outputOption.click()
-  await expect(visibleRows).toHaveCount(3)
+    const configTypeFilterButton = page.getByRole("button", {
+      name: "Config Type",
+    })
+    const outputOption = page
+      .getByRole("option", { name: "Output" })
+      .locator("div")
+    const inputOption = page.getByRole("option", { name: "Input" }).locator("div")
+    const visibleRows = page.locator("tbody tr")
+    const clearFiltersOption = page.getByRole("option", { name: "Clear filters" })
 
-  await clearFiltersOption.click()
-  await expect(visibleRows).toHaveCount(10)
+    await configTypeFilterButton.click()
+    await outputOption.click()
+    await expect(visibleRows).toHaveCount(7)
 
-  const inputField = page.getByPlaceholder("Config Type")
-  await inputField.click()
-  await inputField.fill("In")
-  await inputField.press("Enter")
-  await expect(visibleRows).toHaveCount(3)
-  await page.locator("#root").click()
-  await page.waitForTimeout(500)
+    await inputOption.click()
+    await outputOption.click()
+    await expect(visibleRows).toHaveCount(3)
 
-  await configTypeFilterButton.click()
-  await clearFiltersOption.click()
-  await inputField.click()
-  await inputField.fill("Out")
-  await inputField.press("Enter")
-  await expect(visibleRows).toHaveCount(7)
-})
+    await clearFiltersOption.click()
+    await expect(visibleRows).toHaveCount(10)
 
-test("Confirm `Controller` filter toolbar is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.initWithTestData()
-  const rows = page.locator("tbody tr")
-  const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+    const inputField = page.getByPlaceholder("Config Type")
+    await inputField.click()
+    await inputField.fill("In")
+    await inputField.press("Enter")
+    await expect(visibleRows).toHaveCount(3)
+    await page.locator("#root").click()
+    await page.waitForTimeout(500)
 
-  await page.getByRole("button", { name: "Controller" }).click()
-  await page
-    .getByRole("option", { name: "WINWING Orion Joystick Base 2" })
-    .locator("div")
-    .click()
-  await expect(rows).toHaveCount(1)
-  await clearFilterOption.click()
-  await expect(rows).toHaveCount(10)
+    await configTypeFilterButton.click()
+    await clearFiltersOption.click()
+    await inputField.click()
+    await inputField.fill("Out")
+    await inputField.press("Enter")
+    await expect(visibleRows).toHaveCount(7)
+  })
 
-  await page.getByRole("option", { name: "ProtoBoard" }).locator("div").click()
-  await expect(rows).toHaveCount(8)
-  await clearFilterOption.click()
+  test("Confirm `Controller` filter toolbar is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const rows = page.locator("tbody tr")
+    const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
 
-  await page
-    .getByRole("option", { name: "not set" })
-    .locator("div")
-    .first()
-    .click()
-  await expect(rows).toHaveCount(1)
-  await clearFilterOption.click()
-
-  await page.getByPlaceholder("Controller").click()
-  await page.getByPlaceholder("Controller").fill("Proto")
-  await page.getByPlaceholder("Controller").press("Enter")
-  await expect(rows).toHaveCount(8)
-})
-
-test("Confirm `Devices` filter toolbar is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.initWithTestData()
-  const rows = page.locator("tbody tr")
-  const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
-
-  await page.getByRole("button", { name: "Devices" }).click()
-  
-  // Inline function to test device type filters
-  const testDeviceTypeFilter = async (deviceType: string, expectedCount: number) => {
-    await page.getByRole("option", { name: deviceType }).first().click()
-    await expect(rows).toHaveCount(expectedCount)
+    await page.getByRole("button", { name: "Controller" }).click()
+    await page
+      .getByRole("option", { name: "WINWING Orion Joystick Base 2" })
+      .locator("div")
+      .click()
+    await expect(rows).toHaveCount(1)
     await clearFilterOption.click()
     await expect(rows).toHaveCount(10)
-  }
 
-  const deviceTypes = [
-    "Analog Input",
-    "Encoder",
-    "Button",
-    "Output",
-    "Output Shift Register",
-    "LCD Display",
-    "Servo",
-    "Stepper",
-    "7-Segment",
-    "not set",
-  ]
-
-  for (const deviceType of deviceTypes) {
-    await testDeviceTypeFilter(deviceType, 1)
-  }
-
-})
-
-test("Confirm `Names` filter toolbar is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.initWithTestData()
-  const rows = page.locator("tbody tr")
-  const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
-
-  await page.getByRole("button", { name: "Names" }).click()
-
-  // Inline function to test device type filters
-  const testDeviceNameFilter = async (deviceType: string, expectedCount: number) => {
-    await page.getByRole("option", { name: deviceType }).first().click()
-    await expect(rows).toHaveCount(expectedCount)
+    await page.getByRole("option", { name: "ProtoBoard" }).locator("div").click()
+    await expect(rows).toHaveCount(8)
     await clearFilterOption.click()
-    await expect(rows).toHaveCount(10)
-  }
 
-  const deviceNames = [
-    "POT 1",
-    "Button 4",
-    "ShiftRegister 1",
-    "LED 2",
-    "LCD 1",
-    "Servo 1",
-    "Stepper 1",
-    "7-Segment",
-    "not set",
-  ]
+    await page
+      .getByRole("option", { name: "not set" })
+      .locator("div")
+      .first()
+      .click()
+    await expect(rows).toHaveCount(1)
+    await clearFilterOption.click()
 
-  for (const deviceName of deviceNames) {
-    await testDeviceNameFilter(deviceName, 1)
-  }
+    await page.getByPlaceholder("Controller").click()
+    await page.getByPlaceholder("Controller").fill("Proto")
+    await page.getByPlaceholder("Controller").press("Enter")
+    await expect(rows).toHaveCount(8)
+  })
+
+  test("Confirm `Devices` filter toolbar is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const rows = page.locator("tbody tr")
+    const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+
+    await page.getByRole("button", { name: "Devices" }).click()
+    
+    // Inline function to test device type filters
+    const testDeviceTypeFilter = async (deviceType: string, expectedCount: number) => {
+      await page.getByRole("option", { name: deviceType }).first().click()
+      await expect(rows).toHaveCount(expectedCount)
+      await clearFilterOption.click()
+      await expect(rows).toHaveCount(10)
+    }
+
+    const deviceTypes = [
+      "Analog Input",
+      "Encoder",
+      "Button",
+      "Output",
+      "Output Shift Register",
+      "LCD Display",
+      "Servo",
+      "Stepper",
+      "7-Segment",
+      "not set",
+    ]
+
+    for (const deviceType of deviceTypes) {
+      await testDeviceTypeFilter(deviceType, 1)
+    }
+
+  })
+
+  test("Confirm `Names` filter toolbar is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const rows = page.locator("tbody tr")
+    const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+
+    await page.getByRole("button", { name: "Names" }).click()
+
+    // Inline function to test device type filters
+    const testDeviceNameFilter = async (deviceType: string, expectedCount: number) => {
+      await page.getByRole("option", { name: deviceType }).first().click()
+      await expect(rows).toHaveCount(expectedCount)
+      await clearFilterOption.click()
+      await expect(rows).toHaveCount(10)
+    }
+
+    const deviceNames = [
+      "POT 1",
+      "Button 4",
+      "ShiftRegister 1",
+      "LED 2",
+      "LCD 1",
+      "Servo 1",
+      "Stepper 1",
+      "7-Segment",
+      "not set",
+    ]
+
+    for (const deviceName of deviceNames) {
+      await testDeviceNameFilter(deviceName, 1)
+    }
+  })
 })
 
 test("Confirm `Controller Settings` link is working", async ({
@@ -378,7 +448,7 @@ test("Confirm `Controller Settings` link is working", async ({
   expect (postedCommands!.pop().key).toEqual('CommandConfigContextMenu')
 })
 
-test("Confirm Raw and Final Value update cprrectly", async ({
+test("Confirm Raw and Final Value update correctly", async ({
   configListPage,
   page,
 }) => {
@@ -478,5 +548,123 @@ test.describe('Responsiveness: Small Screen', () => {
     await expect(rawValueColumn).toBeVisible()
     await expect(finalValueColumn).toBeVisible()
     await expect(actionsColumn).toBeVisible()
+  })
+})
+
+test.describe('Selection: Select / Deselect actions', () => {
+  test.use({ viewport: { width: 1024, height: 800 } });
+  test("Confirm `selection` of single item is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    
+    await firstRow.click()
+    await expect(selectionButton).toHaveText('1 rows selected')
+  })
+
+  test("Confirm `selection` of multiple items is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    
+    await firstRow.click()
+    await expect(selectionButton).toHaveText('1 rows selected')
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await expect(selectionButton).toHaveText('4 rows selected')
+  })
+
+  test("Confirm `selection` context menu is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    const selectionDeleteButton = page.getByRole('option', { name: 'Delete selected' })
+    const selectionToggleButton = page.getByRole('option', { name: 'Toggle selected' })
+    const selectionClearButton = page.getByRole('option', { name: 'Clear selection' })
+
+    await firstRow.click()
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await selectionButton.click()
+    
+    await expect(selectionDeleteButton).toBeVisible()
+    await expect(selectionToggleButton).toBeVisible()
+    await expect(selectionClearButton).toBeVisible()
+  })
+
+  test("Confirm `delete` of multiple items is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    const selectionDeleteButton = page.getByRole('option', { name: 'Delete selected' })
+    
+    await firstRow.click()
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await selectionButton.click()
+    
+    await selectionDeleteButton.click()
+    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    const lastCommand = postedCommands!.pop()
+    expect (lastCommand.key).toEqual('CommandConfigBulkAction')
+    expect (lastCommand.payload.action).toEqual('delete')
+
+    await expect(selectionButton).not.toBeVisible()
+  })
+
+  test("Confirm `toggle` of multiple items is working", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const fourthRow = page.getByRole("row").nth(4)
+    const selectionButton = page.getByRole('button', { name: 'rows selected' })
+    const selectionToggleButton = page.getByRole('option', { name: 'Toggle selected' })
+    
+    await firstRow.click()
+    await page.keyboard.down('Shift');
+    await fourthRow.click()
+    await page.keyboard.up('Shift');
+    await selectionButton.click()
+    
+    await selectionToggleButton.click()
+    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    const lastCommand = postedCommands!.pop()
+    expect (lastCommand.key).toEqual('CommandConfigBulkAction')
+    expect (lastCommand.payload.action).toEqual('toggle')
   })
 })
