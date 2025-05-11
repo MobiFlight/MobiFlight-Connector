@@ -1043,6 +1043,10 @@
     <Content Include="Scripts\Winwing\pmdg_777_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    </Content>
+    <Content Include="Scripts\Winwing\headwind_a33_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
