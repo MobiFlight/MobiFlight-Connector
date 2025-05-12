@@ -3,6 +3,7 @@ using MobiFlight.Base;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.Modifier;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
@@ -83,6 +84,17 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual("FSUIPC_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            // Arrange
+            mockFsuipcCache.Setup(c => c.IsConnected()).Returns(true);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
         }
 
         [TestMethod]
@@ -98,6 +110,17 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual("SIMCONNECT_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            // Arrange
+            mockSimConnectCache.Setup(c => c.IsConnected()).Returns(true);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
         }
 
         [TestMethod]
@@ -112,7 +135,54 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
+            Assert.AreEqual(1, updatedValues.Count);
             Assert.AreEqual("XPLANE_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            
+            // Arrange
+            mockXplaneCache.Setup(c => c.IsConnected()).Returns(true);
+            
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
+        }
+
+        [TestMethod]
+        public void Execute_ShouldUpdateStatus_WhenModifierHasIssue()
+        {
+            // Arrange
+            var variable = new MobiFlightVariable() { Number = 1, Text = "Test" };
+            var cfg = new OutputConfigItem
+            {
+                Active = true,
+                Source = new VariableSource()
+                {
+                    MobiFlightVariable = variable
+                }
+            };
+            cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "$+_1" });
+            var updatedValues = new Dictionary<string, IConfigItem>();
+            mockMobiFlightCache.Setup(m => m.GetMobiFlightVariable(It.IsAny<string>())).Returns(variable);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.IsTrue(cfg.Status[ConfigItemStatusType.Modifier].Contains("error occurred on parsing your value formula"));
+
+            cfg.Modifiers.Items.Clear();
+            cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "$+1" });
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
         }
 
         [TestMethod]
@@ -132,7 +202,7 @@ namespace MobiFlight.Tests
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address="1", Max="180", MaxRotationPercent="100", Name="TestServo" } };
+            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
 
             // Act
             executor.ExecuteTestOff(cfg);

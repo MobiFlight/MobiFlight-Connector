@@ -96,6 +96,7 @@ namespace MobiFlight.Execution
             cfg.Value = processedValue.ToString();
 
             List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
+            cfg.Status.Remove(ConfigItemStatusType.Modifier);
 
             try
             {
