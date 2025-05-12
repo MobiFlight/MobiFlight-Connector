@@ -84,6 +84,17 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual("FSUIPC_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            // Arrange
+            mockFsuipcCache.Setup(c => c.IsConnected()).Returns(true);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
         }
 
         [TestMethod]
@@ -99,6 +110,17 @@ namespace MobiFlight.Tests
 
             // Assert
             Assert.AreEqual("SIMCONNECT_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            // Arrange
+            mockSimConnectCache.Setup(c => c.IsConnected()).Returns(true);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
         }
 
         [TestMethod]
@@ -113,7 +135,20 @@ namespace MobiFlight.Tests
             executor.Execute(cfg, updatedValues);
 
             // Assert
+            Assert.AreEqual(1, updatedValues.Count);
             Assert.AreEqual("XPLANE_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            
+            // Arrange
+            mockXplaneCache.Setup(c => c.IsConnected()).Returns(true);
+            
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
         }
 
         [TestMethod]
