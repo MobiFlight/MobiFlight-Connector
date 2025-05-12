@@ -178,6 +178,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetListTests.cs" />
     <Compile Include="UI\Dialogs\InputConfigWizardTests.cs" />
+    <Compile Include="UI\MainFormTests.cs" />
     <Compile Include="UI\Panels\Config\FsuipcConfigPanelTests.cs" />
   </ItemGroup>
   <ItemGroup>
