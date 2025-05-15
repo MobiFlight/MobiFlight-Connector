@@ -23,6 +23,7 @@ import {
   TouchSensor,
   DragStartEvent,
   Active,
+  PointerSensor,
 } from "@dnd-kit/core"
 
 import {
@@ -139,6 +140,12 @@ export function ConfigItemTable<TData, TValue>({
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
     // useSensor(KeyboardSensor, {}),
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 1000, 
+        tolerance: 5,
+      }
+    })
   )
 
   const handleDragStart = useCallback(
