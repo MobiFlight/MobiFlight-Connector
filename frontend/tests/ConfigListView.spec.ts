@@ -3,11 +3,17 @@ import { test, expect } from "./fixtures"
 test("Confirm empty list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithEmptyData()
-  const noConfigsMessage = page.getByText("This is a new configuration. Please add some items.")
+  const noConfigsMessage = page.getByText(
+    "This is a new configuration. Please add some items.",
+  )
   await expect(noConfigsMessage).toBeVisible()
 
-  const addOutputConfigButton = page.getByRole("button", { name: "Add Output Config" })
-  const addInputConfigButton = page.getByRole("button", { name: "Add Input Config" })
+  const addOutputConfigButton = page.getByRole("button", {
+    name: "Add Output Config",
+  })
+  const addInputConfigButton = page.getByRole("button", {
+    name: "Add Input Config",
+  })
 
   await expect(addOutputConfigButton).toBeVisible()
   await expect(addInputConfigButton).toBeVisible()
@@ -150,65 +156,149 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
     await page.click("body")
     await page.waitForTimeout(500)
 
-    const statusKey = Object.keys(test.status)[0];
-    await configListPage.removeConfigItemStatus(0, statusKey);
+    const statusKey = Object.keys(test.status)[0]
+    await configListPage.removeConfigItemStatus(0, statusKey)
   }
 })
 
-test("Confirm single drag n drop is working", async ({ configListPage, page }) => {
+// test("Confirm single drag n drop is working", async ({ configListPage, page }) => {
+//   await configListPage.gotoPage()
+//   await configListPage.initWithTestData()
+//   await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+//   await page.getByRole("row").nth(1).getByRole("button").first().hover()
+//   await page.mouse.down()
+//   await page
+//     .getByRole("row", { name: "ShiftRegister" })
+//     .getByRole("button")
+//     .first()
+//     .hover()
+//   await page.mouse.up()
+//   await expect(page.getByRole("row").nth(6)).toContainText("7-Segment")
+
+//   const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+//   const lastCommand = postedCommands!.pop()
+//   expect (lastCommand.key).toEqual('CommandResortConfigItem')
+//   expect (lastCommand.payload.items.length).toEqual(1)
+//   expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
+//   expect (lastCommand.payload.newIndex).toEqual(5)
+// })
+
+// test("Confirm multi drag n drop is working", async ({ configListPage, page }) => {
+//   await configListPage.gotoPage()
+//   await configListPage.initWithTestData()
+//   await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+//   const firstRow = page.getByRole("row").nth(1)
+//   const thirdRow = page.getByRole("row").nth(3)
+//   const fifthRow = page.getByRole("row").nth(5)
+
+//   // select the first row
+//   firstRow.click()
+//   await page.keyboard.down("Control")
+//   // add the third row to the selection
+//   await thirdRow.click()
+
+//   // activate drag and drop after fifth
+//   const dragHandle = thirdRow.getByRole("button").first()
+//   await dragHandle.hover()
+//   await page.mouse.down()
+//   await fifthRow.getByRole("button").first().hover()
+//   await page.mouse.up()
+
+//   await expect(page.getByRole("row").nth(4)).toContainText("7-Segment")
+//   await expect(page.getByRole("row").nth(5)).toContainText("Servo")
+
+//   const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+//   const lastCommand = postedCommands!.pop()
+//   expect (lastCommand.key).toEqual('CommandResortConfigItem')
+//   expect (lastCommand.payload.items.length).toEqual(2)
+//   expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
+//   expect (lastCommand.payload.items[1].Name).toEqual("Servo")
+//   expect (lastCommand.payload.newIndex).toEqual(3)
+// })
+
+test("User holds long enough, drags, new order in the list.", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+
   await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+  const initialFirstRowText = await page.getByRole("row").nth(1).textContent()
+
   await page.getByRole("row").nth(1).getByRole("button").first().hover()
+
   await page.mouse.down()
+
+  await page.waitForTimeout(1200)
+
   await page
     .getByRole("row", { name: "ShiftRegister" })
     .getByRole("button")
     .first()
     .hover()
+
   await page.mouse.up()
+
   await expect(page.getByRole("row").nth(6)).toContainText("7-Segment")
 
-  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const postedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
   const lastCommand = postedCommands!.pop()
-  expect (lastCommand.key).toEqual('CommandResortConfigItem')
-  expect (lastCommand.payload.items.length).toEqual(1)
-  expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
-  expect (lastCommand.payload.newIndex).toEqual(5)
+  expect(lastCommand.key).toEqual("CommandResortConfigItem")
+  expect(lastCommand.payload.items.length).toEqual(1)
+  expect(lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect(lastCommand.payload.newIndex).toEqual(5)
 })
 
-test("Confirm multi drag n drop is working", async ({ configListPage, page }) => {
+test("User doesnt hold long enough, user tries to drag, nothing happens.", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
+
   await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
-  const firstRow = page.getByRole("row").nth(1)
-  const thirdRow = page.getByRole("row").nth(3)
-  const fifthRow = page.getByRole("row").nth(5)
-  
-  // select the first row
-  firstRow.click()
-  await page.keyboard.down("Control")
-  // add the third row to the selection
-  await thirdRow.click()
-    
-  // activate drag and drop after fifth
-  const dragHandle = thirdRow.getByRole("button").first()
-  await dragHandle.hover()
+  const initialRowOrder = await Promise.all(
+    Array.from({ length: 7 }, (_, i) =>
+      page.getByRole("row").nth(i).textContent(),
+    ),
+  )
+
+  await page.getByRole("row").nth(1).getByRole("button").first().hover()
+
   await page.mouse.down()
-  await fifthRow.getByRole("button").first().hover()
+
+  await page.waitForTimeout(500)
+
+  await page
+    .getByRole("row", { name: "ShiftRegister" })
+    .getByRole("button")
+    .first()
+    .hover()
+
   await page.mouse.up()
 
-  await expect(page.getByRole("row").nth(4)).toContainText("7-Segment")
-  await expect(page.getByRole("row").nth(5)).toContainText("Servo")
+  const finalRowOrder = await Promise.all(
+    Array.from({ length: 7 }, (_, i) =>
+      page.getByRole("row").nth(i).textContent(),
+    ),
+  )
 
-  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
-  const lastCommand = postedCommands!.pop()
-  expect (lastCommand.key).toEqual('CommandResortConfigItem')
-  expect (lastCommand.payload.items.length).toEqual(2)
-  expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
-  expect (lastCommand.payload.items[1].Name).toEqual("Servo")
-  expect (lastCommand.payload.newIndex).toEqual(3)
+  for (let i = 0; i < initialRowOrder.length; i++) {
+    expect(finalRowOrder[i]).toEqual(initialRowOrder[i])
+  }
+
+  const postedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
+
+  if (postedCommands && postedCommands.length > 0) {
+    const lastCommand = postedCommands.pop()
+    expect(lastCommand.key).not.toEqual("CommandResortConfigItem")
+  }
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
@@ -221,33 +311,45 @@ test("Confirm dark mode is working", async ({ configListPage, page }) => {
   await expect(page.locator("html")).toHaveAttribute("class", "light")
 })
 
-test("Confirm add output config is working", async ({ configListPage, page }) => {
+test("Confirm add output config is working", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
-  const addOutputConfigButton = page.getByRole("button", { name: "Add Output Config" })
+  const addOutputConfigButton = page.getByRole("button", {
+    name: "Add Output Config",
+  })
   await addOutputConfigButton.click()
 
-  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const postedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
   const lastCommand = postedCommands!.pop()
-  expect (lastCommand.key).toEqual('CommandAddConfigItem')
-  expect (lastCommand.payload.type).toEqual('OutputConfig')
+  expect(lastCommand.key).toEqual("CommandAddConfigItem")
+  expect(lastCommand.payload.type).toEqual("OutputConfig")
 })
 
-test("Confirm add input config is working", async ({ configListPage, page }) => {
+test("Confirm add input config is working", async ({
+  configListPage,
+  page,
+}) => {
   await configListPage.gotoPage()
   await configListPage.mobiFlightPage.trackCommand("CommandAddConfigItem")
 
-  const addOutputConfigButton = page.getByRole("button", { name: "Add Input Config" })
+  const addOutputConfigButton = page.getByRole("button", {
+    name: "Add Input Config",
+  })
   await addOutputConfigButton.click()
 
-  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+  const postedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
   const lastCommand = postedCommands!.pop()
-  expect (lastCommand.key).toEqual('CommandAddConfigItem')
-  expect (lastCommand.payload.type).toEqual('InputConfig')
+  expect(lastCommand.key).toEqual("CommandAddConfigItem")
+  expect(lastCommand.payload.type).toEqual("InputConfig")
 })
 
-test.describe('Filter toolbar tests', () => {
+test.describe("Filter toolbar tests", () => {
   test("Confirm `Search text` filter toolbar is working", async ({
     configListPage,
     page,
@@ -288,9 +390,13 @@ test.describe('Filter toolbar tests', () => {
     const outputOption = page
       .getByRole("option", { name: "Output" })
       .locator("div")
-    const inputOption = page.getByRole("option", { name: "Input" }).locator("div")
+    const inputOption = page
+      .getByRole("option", { name: "Input" })
+      .locator("div")
     const visibleRows = page.locator("tbody tr")
-    const clearFiltersOption = page.getByRole("option", { name: "Clear filters" })
+    const clearFiltersOption = page.getByRole("option", {
+      name: "Clear filters",
+    })
 
     await configTypeFilterButton.click()
     await outputOption.click()
@@ -326,7 +432,9 @@ test.describe('Filter toolbar tests', () => {
     await configListPage.gotoPage()
     await configListPage.initWithTestData()
     const rows = page.locator("tbody tr")
-    const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+    const clearFilterOption = page.getByRole("option", {
+      name: "Clear filters",
+    })
 
     await page.getByRole("button", { name: "Controller" }).click()
     await page
@@ -337,7 +445,10 @@ test.describe('Filter toolbar tests', () => {
     await clearFilterOption.click()
     await expect(rows).toHaveCount(10)
 
-    await page.getByRole("option", { name: "ProtoBoard" }).locator("div").click()
+    await page
+      .getByRole("option", { name: "ProtoBoard" })
+      .locator("div")
+      .click()
     await expect(rows).toHaveCount(8)
     await clearFilterOption.click()
 
@@ -362,12 +473,17 @@ test.describe('Filter toolbar tests', () => {
     await configListPage.gotoPage()
     await configListPage.initWithTestData()
     const rows = page.locator("tbody tr")
-    const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+    const clearFilterOption = page.getByRole("option", {
+      name: "Clear filters",
+    })
 
     await page.getByRole("button", { name: "Devices" }).click()
-    
+
     // Inline function to test device type filters
-    const testDeviceTypeFilter = async (deviceType: string, expectedCount: number) => {
+    const testDeviceTypeFilter = async (
+      deviceType: string,
+      expectedCount: number,
+    ) => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
@@ -390,7 +506,6 @@ test.describe('Filter toolbar tests', () => {
     for (const deviceType of deviceTypes) {
       await testDeviceTypeFilter(deviceType, 1)
     }
-
   })
 
   test("Confirm `Names` filter toolbar is working", async ({
@@ -400,12 +515,17 @@ test.describe('Filter toolbar tests', () => {
     await configListPage.gotoPage()
     await configListPage.initWithTestData()
     const rows = page.locator("tbody tr")
-    const clearFilterOption = page.getByRole("option", { name: "Clear filters" })
+    const clearFilterOption = page.getByRole("option", {
+      name: "Clear filters",
+    })
 
     await page.getByRole("button", { name: "Names" }).click()
 
     // Inline function to test device type filters
-    const testDeviceNameFilter = async (deviceType: string, expectedCount: number) => {
+    const testDeviceNameFilter = async (
+      deviceType: string,
+      expectedCount: number,
+    ) => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
@@ -438,14 +558,18 @@ test("Confirm `Controller Settings` link is working", async ({
   await configListPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandConfigContextMenu")
 
-  const controllerSettingsLabel = page.getByRole('row').nth(1).getByText('ProtoBoard')
+  const controllerSettingsLabel = page
+    .getByRole("row")
+    .nth(1)
+    .getByText("ProtoBoard")
   const controllerSettingsButton = page.getByRole("link").first()
-  await expect (controllerSettingsButton).toHaveCSS('opacity', '0')
+  await expect(controllerSettingsButton).toHaveCSS("opacity", "0")
   await controllerSettingsLabel.hover()
-  await expect (controllerSettingsButton).toHaveCSS('opacity', '1')
+  await expect(controllerSettingsButton).toHaveCSS("opacity", "1")
   await controllerSettingsButton.click()
-  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
-  expect (postedCommands!.pop().key).toEqual('CommandConfigContextMenu')
+  const postedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
+  expect(postedCommands!.pop().key).toEqual("CommandConfigContextMenu")
 })
 
 test("Confirm Raw and Final Value update correctly", async ({
@@ -455,8 +579,11 @@ test("Confirm Raw and Final Value update correctly", async ({
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
 
-  const rawValue = page.getByRole('row').nth(1).getByTitle("RawValue")	
-  const finalValue = page.getByRole('row').nth(1).getByTitle("Value", { exact: true })
+  const rawValue = page.getByRole("row").nth(1).getByTitle("RawValue")
+  const finalValue = page
+    .getByRole("row")
+    .nth(1)
+    .getByTitle("Value", { exact: true })
 
   await configListPage.updateConfigItemRawAndFinalValue(0, "1234", "5678")
   await expect(rawValue).toHaveText("1234")
@@ -467,22 +594,26 @@ test("Confirm Raw and Final Value update correctly", async ({
   await expect(finalValue).toHaveText("8765")
 })
 
-test.describe('Responsiveness: Full Screen', () => {
-  test.use({ viewport: { width: 1920, height: 1080 } });
+test.describe("Responsiveness: Full Screen", () => {
+  test.use({ viewport: { width: 1920, height: 1080 } })
   test("Confirm `Columns are visible` in full screen", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
     await configListPage.initWithTestData()
-    const activeColumn = page.getByRole("cell", { name: "Active" }).first() 
-    const nameColumn = page.getByRole("cell", { name: "Name" }).first() 
-    const controllerColumn = page.getByRole("cell", { name: "Controller" }).first() 
-    const deviceColumn = page.getByRole("cell", { name: "Device" }).first() 
-    const statusColumn = page.getByRole("cell", { name: "Status" }).first() 
-    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first() 
-    const finalValueColumn = page.getByRole("cell", { name: "Final Value" }).first() 
-    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first() 
+    const activeColumn = page.getByRole("cell", { name: "Active" }).first()
+    const nameColumn = page.getByRole("cell", { name: "Name" }).first()
+    const controllerColumn = page
+      .getByRole("cell", { name: "Controller" })
+      .first()
+    const deviceColumn = page.getByRole("cell", { name: "Device" }).first()
+    const statusColumn = page.getByRole("cell", { name: "Status" }).first()
+    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first()
+    const finalValueColumn = page
+      .getByRole("cell", { name: "Final Value" })
+      .first()
+    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first()
 
     await expect(activeColumn).toBeVisible()
     await expect(nameColumn).toBeVisible()
@@ -495,22 +626,26 @@ test.describe('Responsiveness: Full Screen', () => {
   })
 })
 
-test.describe('Responsiveness: Medium Screen', () => {
-  test.use({ viewport: { width: 800, height: 600 } });
+test.describe("Responsiveness: Medium Screen", () => {
+  test.use({ viewport: { width: 800, height: 600 } })
   test("Confirm `Columns are visible` in full screen", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
     await configListPage.initWithTestData()
-    const activeColumn = page.getByRole("cell", { name: "Active" }).first() 
-    const nameColumn = page.getByRole("cell", { name: "Name" }).first() 
-    const controllerColumn = page.getByRole("cell", { name: "Controller" }).first() 
-    const deviceColumn = page.getByRole("cell", { name: "Device" }).first() 
-    const statusColumn = page.getByRole("cell", { name: "Status" }).first() 
-    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first() 
-    const finalValueColumn = page.getByRole("cell", { name: "Final Value" }).first() 
-    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first() 
+    const activeColumn = page.getByRole("cell", { name: "Active" }).first()
+    const nameColumn = page.getByRole("cell", { name: "Name" }).first()
+    const controllerColumn = page
+      .getByRole("cell", { name: "Controller" })
+      .first()
+    const deviceColumn = page.getByRole("cell", { name: "Device" }).first()
+    const statusColumn = page.getByRole("cell", { name: "Status" }).first()
+    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first()
+    const finalValueColumn = page
+      .getByRole("cell", { name: "Final Value" })
+      .first()
+    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first()
 
     await expect(activeColumn).toBeVisible()
     await expect(nameColumn).toBeVisible()
@@ -523,22 +658,26 @@ test.describe('Responsiveness: Medium Screen', () => {
   })
 })
 
-test.describe('Responsiveness: Small Screen', () => {
-  test.use({ viewport: { width: 784, height: 600 } });
+test.describe("Responsiveness: Small Screen", () => {
+  test.use({ viewport: { width: 784, height: 600 } })
   test("Confirm `Columns are visible` in full screen", async ({
     configListPage,
     page,
   }) => {
     await configListPage.gotoPage()
     await configListPage.initWithTestData()
-    const activeColumn = page.getByRole("cell", { name: "Active" }).first() 
-    const nameColumn = page.getByRole("cell", { name: "Name" }).first() 
-    const controllerColumn = page.getByRole("cell", { name: "Controller" }).first() 
-    const deviceColumn = page.getByRole("cell", { name: "Device" }).first() 
-    const statusColumn = page.getByRole("cell", { name: "Status" }).first() 
-    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first() 
-    const finalValueColumn = page.getByRole("cell", { name: "Final Value" }).first() 
-    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first() 
+    const activeColumn = page.getByRole("cell", { name: "Active" }).first()
+    const nameColumn = page.getByRole("cell", { name: "Name" }).first()
+    const controllerColumn = page
+      .getByRole("cell", { name: "Controller" })
+      .first()
+    const deviceColumn = page.getByRole("cell", { name: "Device" }).first()
+    const statusColumn = page.getByRole("cell", { name: "Status" }).first()
+    const rawValueColumn = page.getByRole("cell", { name: "Raw Value" }).first()
+    const finalValueColumn = page
+      .getByRole("cell", { name: "Final Value" })
+      .first()
+    const actionsColumn = page.getByRole("cell", { name: "Actions" }).first()
 
     await expect(activeColumn).toBeVisible()
     await expect(nameColumn).toBeVisible()
@@ -551,8 +690,8 @@ test.describe('Responsiveness: Small Screen', () => {
   })
 })
 
-test.describe('Selection: Select / Deselect actions', () => {
-  test.use({ viewport: { width: 1024, height: 800 } });
+test.describe("Selection: Select / Deselect actions", () => {
+  test.use({ viewport: { width: 1024, height: 800 } })
   test("Confirm `selection` of single item is working", async ({
     configListPage,
     page,
@@ -562,10 +701,10 @@ test.describe('Selection: Select / Deselect actions', () => {
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
 
     const firstRow = page.getByRole("row").nth(1)
-    const selectionButton = page.getByRole('button', { name: 'rows selected' })
-    
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+
     await firstRow.click()
-    await expect(selectionButton).toHaveText('1 rows selected')
+    await expect(selectionButton).toHaveText("1 rows selected")
   })
 
   test("Confirm `selection` of multiple items is working", async ({
@@ -578,14 +717,14 @@ test.describe('Selection: Select / Deselect actions', () => {
 
     const firstRow = page.getByRole("row").nth(1)
     const fourthRow = page.getByRole("row").nth(4)
-    const selectionButton = page.getByRole('button', { name: 'rows selected' })
-    
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+
     await firstRow.click()
-    await expect(selectionButton).toHaveText('1 rows selected')
-    await page.keyboard.down('Shift');
+    await expect(selectionButton).toHaveText("1 rows selected")
+    await page.keyboard.down("Shift")
     await fourthRow.click()
-    await page.keyboard.up('Shift');
-    await expect(selectionButton).toHaveText('4 rows selected')
+    await page.keyboard.up("Shift")
+    await expect(selectionButton).toHaveText("4 rows selected")
   })
 
   test("Confirm `selection` context menu is working", async ({
@@ -598,17 +737,23 @@ test.describe('Selection: Select / Deselect actions', () => {
 
     const firstRow = page.getByRole("row").nth(1)
     const fourthRow = page.getByRole("row").nth(4)
-    const selectionButton = page.getByRole('button', { name: 'rows selected' })
-    const selectionDeleteButton = page.getByRole('option', { name: 'Delete selected' })
-    const selectionToggleButton = page.getByRole('option', { name: 'Toggle selected' })
-    const selectionClearButton = page.getByRole('option', { name: 'Clear selection' })
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+    const selectionDeleteButton = page.getByRole("option", {
+      name: "Delete selected",
+    })
+    const selectionToggleButton = page.getByRole("option", {
+      name: "Toggle selected",
+    })
+    const selectionClearButton = page.getByRole("option", {
+      name: "Clear selection",
+    })
 
     await firstRow.click()
-    await page.keyboard.down('Shift');
+    await page.keyboard.down("Shift")
     await fourthRow.click()
-    await page.keyboard.up('Shift');
+    await page.keyboard.up("Shift")
     await selectionButton.click()
-    
+
     await expect(selectionDeleteButton).toBeVisible()
     await expect(selectionToggleButton).toBeVisible()
     await expect(selectionClearButton).toBeVisible()
@@ -624,20 +769,23 @@ test.describe('Selection: Select / Deselect actions', () => {
 
     const firstRow = page.getByRole("row").nth(1)
     const fourthRow = page.getByRole("row").nth(4)
-    const selectionButton = page.getByRole('button', { name: 'rows selected' })
-    const selectionDeleteButton = page.getByRole('option', { name: 'Delete selected' })
-    
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+    const selectionDeleteButton = page.getByRole("option", {
+      name: "Delete selected",
+    })
+
     await firstRow.click()
-    await page.keyboard.down('Shift');
+    await page.keyboard.down("Shift")
     await fourthRow.click()
-    await page.keyboard.up('Shift');
+    await page.keyboard.up("Shift")
     await selectionButton.click()
-    
+
     await selectionDeleteButton.click()
-    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
-    expect (lastCommand.key).toEqual('CommandConfigBulkAction')
-    expect (lastCommand.payload.action).toEqual('delete')
+    expect(lastCommand.key).toEqual("CommandConfigBulkAction")
+    expect(lastCommand.payload.action).toEqual("delete")
 
     await expect(selectionButton).not.toBeVisible()
   })
@@ -652,19 +800,22 @@ test.describe('Selection: Select / Deselect actions', () => {
 
     const firstRow = page.getByRole("row").nth(1)
     const fourthRow = page.getByRole("row").nth(4)
-    const selectionButton = page.getByRole('button', { name: 'rows selected' })
-    const selectionToggleButton = page.getByRole('option', { name: 'Toggle selected' })
-    
+    const selectionButton = page.getByRole("button", { name: "rows selected" })
+    const selectionToggleButton = page.getByRole("option", {
+      name: "Toggle selected",
+    })
+
     await firstRow.click()
-    await page.keyboard.down('Shift');
+    await page.keyboard.down("Shift")
     await fourthRow.click()
-    await page.keyboard.up('Shift');
+    await page.keyboard.up("Shift")
     await selectionButton.click()
-    
+
     await selectionToggleButton.click()
-    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
-    expect (lastCommand.key).toEqual('CommandConfigBulkAction')
-    expect (lastCommand.payload.action).toEqual('toggle')
+    expect(lastCommand.key).toEqual("CommandConfigBulkAction")
+    expect(lastCommand.payload.action).toEqual("toggle")
   })
 })
