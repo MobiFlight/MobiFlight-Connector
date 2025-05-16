@@ -250,6 +250,7 @@ test("User holds long enough, drags, new order in the list.", async ({
   expect(lastCommand.key).toEqual("CommandResortConfigItem")
   expect(lastCommand.payload.items.length).toEqual(1)
   expect(lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect(initialFirstRowText).toContain("7-Segment")
   expect(lastCommand.payload.newIndex).toEqual(5)
 })
 
