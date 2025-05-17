@@ -4,7 +4,7 @@ import json
 import logging
 import asyncio
 from typing import Dict, List, Optional, Union
-from websockets.client import connect
+from websockets.asyncio.client import connect
 import mmap
 
 # WebSocket URLs
