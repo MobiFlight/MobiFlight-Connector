@@ -45,7 +45,6 @@ data_queue = asyncio.Queue()  # Thread-safe async queue for MCDU updates
 
 async def fetch_fsl_mcdu():
     """Fetch MCDU data using a persistent HTTP connection, avoiding redundant updates."""
-    global last_mcdu_data
     last_fetched_data = None
 
     conn = http.client.HTTPConnection("localhost", 8080, timeout=1)  # Persistent connection
@@ -80,8 +79,6 @@ async def fetch_fsl_mcdu():
 
 async def run_fsl_http_client():
     """Measure the time it takes to send updates to MobiFlight."""
-    global mobi_websocket_connection
-
     while True:
         mobi_json = await data_queue.get()
 
