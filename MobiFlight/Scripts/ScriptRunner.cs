@@ -160,7 +160,7 @@ namespace MobiFlight.Scripts
                         Log.Instance.log($"Python version: {outputParts[1]}.", LogSeverity.Info);
                         if (Version.TryParse(outputParts[1], out Version version))
                         {
-                            if (version.CompareTo(new Version(3, 10, 0)) >= 0)
+                            if (version.CompareTo(new Version(3, 11, 0)) >= 0)
                             {
                                 return true;
                             }
