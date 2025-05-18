@@ -253,7 +253,16 @@ namespace MobiFlight.Scripts
                             var v = parts[1].Split('.');
                             if (v.Length > 1)
                             {
-                                installedPackages.Add(parts[0], new Tuple<int, int>(int.Parse(v[0]), int.Parse(v[1])));
+                                var majorSuccess = int.TryParse(v[0], out int major);
+                                var minorSuccess = int.TryParse(v[1], out int minor);
+                                if (majorSuccess && minorSuccess)
+                                {
+                                    installedPackages.Add(parts[0], new Tuple<int, int>(major, minor));
+                                }
+                                else
+                                {
+                                    Log.Instance.log($"ScriptRunner - Package version cannot be parsed: '{parts[1]}'", LogSeverity.Info);
+                                }
                             }
                             else
                             {
