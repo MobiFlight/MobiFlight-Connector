@@ -93,7 +93,7 @@ MDX_CDU_0_ID: int = 85
 MDX_CDU_0_DEFINITION: int = 802
 MDX_CDU_1_NAME: str = "MaddogX CDU2 Data Atrb"
 MDX_CDU_1_ID: int = 86
-MDX_CDU_1_DEFINITION: int = 802
+MDX_CDU_1_DEFINITION: int = 801
 
 class MobiFlightClient:
     def __init__(self, websocket_uri: str, max_retries: int = 3) -> None:
@@ -228,7 +228,7 @@ class MDXCDUClient:
                 self.cdu_id,
                 self.cdu_id,
                 self.cdu_definition,
-                Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_ON_SET,
+                Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_VISUAL_FRAME,
                 Enum.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG_CHANGED,
                 0, 0, 0
             )
