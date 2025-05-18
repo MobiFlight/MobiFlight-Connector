@@ -1,4 +1,4 @@
-name: Check Scripts
+name: Python Script Checks
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
       - 'Scripts/**/*.py'
 
 jobs:
-  check-scripts:
+  python-script-checks:
     name: Python ${{ matrix.python-version }} Syntax Check
     runs-on: ubuntu-latest
 
