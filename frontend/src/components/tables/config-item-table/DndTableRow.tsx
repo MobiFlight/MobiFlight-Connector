@@ -12,6 +12,7 @@ export const DndTableRow : React.FC<DndTableRowProps> = (({ className, ...props 
     setNodeRef,
     transform,
     transition,
+    listeners,
   } = useSortable({ id: props["dnd-itemid"] })
 
   const dndStyle: CSSProperties = {
@@ -24,6 +25,7 @@ export const DndTableRow : React.FC<DndTableRowProps> = (({ className, ...props 
     <tr
       style={dndStyle}
       ref={setNodeRef}
+      {...listeners}
       className={cn(
         "group/row border-b transition-colors hover:bg-muted/80 data-[state=selected]:bg-muted",
         className
