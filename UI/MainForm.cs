@@ -23,7 +23,6 @@ using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
-using System.Threading;
 
 namespace MobiFlight.UI
 {
@@ -33,7 +32,8 @@ namespace MobiFlight.UI
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
 
-        private const string fileFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+        private const string fileExtensionLoadFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+        private const string fileExtensionSaveFilter = "MobiFlight Project (*.mfproj)|*.mfproj";
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
@@ -1573,7 +1573,7 @@ namespace MobiFlight.UI
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = fileFilter;
+            fd.Filter = fileExtensionLoadFilter;
 
             if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
@@ -1600,7 +1600,7 @@ namespace MobiFlight.UI
             System.Threading.SynchronizationContext.Current.Post((_) =>
             {
                 OpenFileDialog fd = new OpenFileDialog();
-                fd.Filter = fileFilter;
+                fd.Filter = fileExtensionLoadFilter;
 
                 if (DialogResult.OK == fd.ShowDialog())
                 {
@@ -2158,7 +2158,7 @@ namespace MobiFlight.UI
                 fd.FileName = Path.GetFileNameWithoutExtension(execManager.Project.FilePath);
             }
             
-            fd.Filter = "MobiFlight Project (*.mfproj)|*.mfproj";
+            fd.Filter = fileExtensionSaveFilter;
             if (DialogResult.OK == fd.ShowDialog())
             {
                 SaveConfig(fd.FileName);
