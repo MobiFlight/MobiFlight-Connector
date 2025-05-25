@@ -273,6 +273,12 @@ test.describe('Filter toolbar tests', () => {
 
     await clearButton.first().click()
     await expect(rows).toHaveCount(10)
+
+    await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
+    await rows.first().click()
+    await searchTextBox.press("Backspace")
+    const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
+    await expect(postedCommands?.length).toBeUndefined()
   })
 
   test("Confirm `Config Type` filter toolbar is working", async ({

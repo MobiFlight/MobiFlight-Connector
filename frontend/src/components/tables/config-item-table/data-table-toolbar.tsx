@@ -44,7 +44,7 @@ export function DataTableToolbar<TData>({
   items,
   onDeleteSelected,
   onToggleSelected,
-  onClearSelected
+  onClearSelected,
 }: DataTableToolbarProps<TData>) {
   const { t } = useTranslation()
 
@@ -126,15 +126,22 @@ export function DataTableToolbar<TData>({
     .sort((a) => (a.label === t(`ConfigList.Toolbar.NotSet`) ? 1 : -1))
 
   return (
-    <div className="flex items-center justify-between">
+    <div
+      className="flex items-center justify-between"
+      // prevent the bubbling of keydown events
+      // this is needed to prevent the table from handling the keydown events
+      onKeyDown={(event) => {
+        event.stopPropagation()
+      }}
+    >
       <div className="-ml-3 flex flex-1 items-center space-x-2 md:ml-0">
         <IconFilter className="hidden stroke-primary md:flex" />
         <Input
           placeholder={t("ConfigList.Toolbar.Search.Placeholder")}
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
+          onChange={(event) => {
             table.getColumn("Name")?.setFilterValue(event.target.value)
-          }
+          }}
           className="h-8 w-[150px] lg:w-[250px]"
         />
         {table.getColumn("ConfigType") && (
