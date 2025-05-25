@@ -1795,6 +1795,7 @@ namespace MobiFlight.UI
         private void ResetProjectAndConfigChanges()
         {
             saveToolStripButton.Enabled = false;
+            SetProjectNameInTitle();
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
@@ -1933,13 +1934,15 @@ namespace MobiFlight.UI
         private void SetTitle(string title)
         {
             string NewTitle = "MobiFlight Connector (" + Version + ")";
+            var saveStatus = saveToolStripButton.Enabled ? "*" : string.Empty;
+
             if (VersionBeta.Split('.')[3] != "0")
             {
                 NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
             }
             if (title != null && title != "")
             {
-                NewTitle = title + " - " + NewTitle;
+                NewTitle = $"{title}{saveStatus} - {NewTitle}";
             }
 
             Text = NewTitle;
