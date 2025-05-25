@@ -23,7 +23,6 @@ using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
-using System.Threading;
 
 namespace MobiFlight.UI
 {
@@ -33,15 +32,12 @@ namespace MobiFlight.UI
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
         private delegate void VoidDelegate();
 
-        private const string fileFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+        private const string fileExtensionLoadFilter = "MobiFlight Files|*.mfproj;*.mcc|MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc|ArcazeUSB Interface Config (*.aic) |*.aic";
+        private const string fileExtensionSaveFilter = "MobiFlight Project (*.mfproj)|*.mfproj";
         public static String Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
 
-        /// <summary>
-        /// the currently used filename of the loaded config file
-        /// </summary>
-        private string currentFileName = null;
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
@@ -54,17 +50,6 @@ namespace MobiFlight.UI
         private bool hasConnectedModules = false;
 
         private bool IsMSFSRunning = false;
-
-        public string CurrentFileName
-        {
-            get { return currentFileName; }
-            set
-            {
-                if (currentFileName == value) return;
-                currentFileName = value;
-                CurrentFilenameChanged?.Invoke(this, value);
-            }
-        }
 
         private void InitializeUILanguage()
         {
@@ -130,8 +115,7 @@ namespace MobiFlight.UI
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
             CurrentFilenameChanged += (s, e) => { 
-                SetFileNameInTitle(e);
-                UpdateAutoLoadMenu(); 
+                
             };
 
             // we trigger this once:
@@ -437,6 +421,8 @@ namespace MobiFlight.UI
         private void ProjectOrConfigFileHasChanged()
         {
             saveToolStripButton.Enabled = true;
+            SetProjectNameInTitle();
+            UpdateAutoLoadMenu();
             UpdateAllConnectionIcons();
         }
 
@@ -570,7 +556,7 @@ namespace MobiFlight.UI
             // especially because we get two events sometimes:
             //      one coming from FSUIPC and
             //      one coming from SimConnect
-            if (CurrentFileName == filename)
+            if (execManager.Project.FilePath == filename)
             {
                 // we still have to update the menu correctly.
                 UpdateAutoLoadMenu();
@@ -1587,7 +1573,7 @@ namespace MobiFlight.UI
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
-            fd.Filter = fileFilter;
+            fd.Filter = fileExtensionLoadFilter;
 
             if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
@@ -1614,7 +1600,7 @@ namespace MobiFlight.UI
             System.Threading.SynchronizationContext.Current.Post((_) =>
             {
                 OpenFileDialog fd = new OpenFileDialog();
-                fd.Filter = fileFilter;
+                fd.Filter = fileExtensionLoadFilter;
 
                 if (DialogResult.OK == fd.ShowDialog())
                 {
@@ -1777,11 +1763,7 @@ namespace MobiFlight.UI
             {
                 // the original file name has to be stored
                 // in the list of recent files.
-                _storeAsRecentFile(fileName);
-                // We want to ensure that we use the new file extension
-                // if users saves the next time
-                CurrentFileName = fileName.Replace(".mcc", ".mfproj");
-                SetFileNameInTitle(CurrentFileName);
+                _storeAsRecentFile(execManager.Project.FilePath);
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -1813,6 +1795,7 @@ namespace MobiFlight.UI
         private void ResetProjectAndConfigChanges()
         {
             saveToolStripButton.Enabled = false;
+            SetProjectNameInTitle();
         }
 
         private void _checkForOrphanedJoysticks(bool showNotNecessaryMessage)
@@ -1950,14 +1933,12 @@ namespace MobiFlight.UI
 
         private void SetTitle(string title)
         {
-            string NewTitle = "MobiFlight Connector (" + Version + ")";
-            if (VersionBeta.Split('.')[3] != "0")
-            {
-                NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
-            }
+            string NewTitle = $"MobiFlight Connector - {DisplayVersion()}";
+            var saveStatus = saveToolStripButton.Enabled ? "*" : string.Empty;
+
             if (title != null && title != "")
             {
-                NewTitle = title + " - " + NewTitle;
+                NewTitle = $"{title}{saveStatus} - {NewTitle}";
             }
 
             Text = NewTitle;
@@ -1981,9 +1962,9 @@ namespace MobiFlight.UI
             return Version;
         }
 
-        private void SetFileNameInTitle(string fileName)
+        private void SetProjectNameInTitle()
         {
-            SetTitle(fileName.Substring(fileName.LastIndexOf('\\') + 1));
+            SetTitle(execManager.Project.Name);
         }
 
         /// <summary>
@@ -2003,10 +1984,8 @@ namespace MobiFlight.UI
                 MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            CurrentFileName = fileName;
-            _storeAsRecentFile(fileName);
-            SetFileNameInTitle(fileName);
+            
+            _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
         }
 
@@ -2095,19 +2074,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// triggers the save dialog if user clicks on according buttons
-        /// </summary>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog fd = new SaveFileDialog();
-            fd.Filter = "MobiFlight Project (*.mfproj)|*.mfproj|MobiFlight Connector Config (*.mcc)|*.mcc";
-            if (DialogResult.OK == fd.ShowDialog())
-            {
-                SaveConfig(fd.FileName);
-            }
-        } //saveToolStripMenuItem_Click()
-
-        /// <summary>
         /// shows the about form
         /// </summary>
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2122,21 +2088,22 @@ namespace MobiFlight.UI
         /// </summary>
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
+            if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmNewConfig"),
                        i18n._tr("uiMessageConfirmNewConfigTitle"),
-                       MessageBoxButtons.OKCancel) == DialogResult.OK)
+                       MessageBoxButtons.OKCancel) == DialogResult.Cancel)
             {
-                CreateNewProject();
-            };
+                return;
+            }
+
+            CreateNewProject();
         } //toolStripMenuItem3_Click()
 
         public void CreateNewProject()
         {
-            var project = new Project() { Name = i18n._tr("DefaultFileName") };
+            var project = new Project() { Name = i18n._tr("DefaultProjectName") };
             project.ConfigFiles.Add(CreateDefaultConfigFile());
             execManager.Project = project;
-            currentFileName = null;
             ResetProjectAndConfigChanges();
         }
 
@@ -2168,14 +2135,35 @@ namespace MobiFlight.UI
         private void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // if filename of loaded file is known use it
-            if (CurrentFileName != null)
+            if (execManager.Project.FilePath != null)
             {
-                SaveConfig(CurrentFileName);
+                SaveConfig(execManager.Project.FilePath);
                 return;
             }
             // otherwise trigger normal open file dialog
             saveToolStripMenuItem_Click(sender, e);
         } //saveToolStripButton_Click()
+
+        /// <summary>
+        /// triggers the save dialog if user clicks on according buttons
+        /// </summary>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fd = new SaveFileDialog();
+            fd.FileName = execManager.Project.Name;
+
+            if (execManager.Project.FilePath != null)
+            {
+                fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
+                fd.FileName = Path.GetFileNameWithoutExtension(execManager.Project.FilePath);
+            }
+            
+            fd.Filter = fileExtensionSaveFilter;
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                SaveConfig(fd.FileName);
+            }
+        } //saveToolStripMenuItem_Click()
 
         /// <summary>
         /// gets triggered when test mode is started via button, all states
@@ -2263,7 +2251,7 @@ namespace MobiFlight.UI
             {
                 // only cancel closing if not saved before
                 // which is indicated by empty CurrentFilename
-                e.Cancel = (CurrentFileName == null);
+                e.Cancel = (execManager.Project.FilePath == null);
                 saveToolStripButton_Click(saveToolStripButton, new EventArgs());
             };
         }
@@ -2624,7 +2612,7 @@ namespace MobiFlight.UI
             var aircraftName = toolStripAircraftDropDownButton.Text ?? string.Empty;
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
-            AutoLoadConfigs[key] = CurrentFileName;
+            AutoLoadConfigs[key] = execManager.Project.FilePath;
 
             SaveAutoLoadConfig();
         }
@@ -2647,7 +2635,7 @@ namespace MobiFlight.UI
 
             toolStripAircraftDropDownButton.Image = null;
 
-            linkCurrentConfigToolStripMenuItem.Enabled = (CurrentFileName != null);
+            linkCurrentConfigToolStripMenuItem.Enabled = (execManager?.Project?.FilePath != null);
             openLinkedConfigToolStripMenuItem.Enabled = false;
             removeLinkConfigToolStripMenuItem.Enabled = false;
 
@@ -2660,7 +2648,7 @@ namespace MobiFlight.UI
             openLinkFilenameToolStripMenuItem.Text = linkedFile;
             toolStripAircraftDropDownButton.Image = Properties.Resources.warning;
 
-            if (linkedFile != CurrentFileName) return;
+            if (linkedFile != execManager.Project.FilePath) return;
 
             linkCurrentConfigToolStripMenuItem.Enabled = false;
             openLinkedConfigToolStripMenuItem.Enabled = false;

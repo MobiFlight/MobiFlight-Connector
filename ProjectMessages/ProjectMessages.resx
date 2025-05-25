@@ -198,8 +198,8 @@ All unsaved changes will get lost.</value>
   <data name="Label_Precondition_ConfigItem" xml:space="preserve">
     <value>Config item</value>
   </data>
-  <data name="DefaultFileName" xml:space="preserve">
-    <value>unsaved</value>
+  <data name="DefaultProjectName" xml:space="preserve">
+    <value>New Project</value>
   </data>
   <data name="uiMessageConfirmDiscardUnsaved" xml:space="preserve">
     <value>There are unsaved changes in your configuration.

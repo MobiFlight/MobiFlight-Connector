@@ -71,6 +71,7 @@ namespace MobiFlight.Base
         public Project()
         {
             ConfigFiles.CollectionChanged += ConfigFiles_CollectionChanged;
+            Name = "New MobiFlight Project";
         }
 
         private void ConfigFiles_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -124,7 +125,7 @@ namespace MobiFlight.Base
                     ConfigItems = deprecatedConfigFile.ConfigItems
                 };
 
-                Name = "MobiFlight Project";
+                Name = Path.GetFileNameWithoutExtension(FilePath);
                 FilePath = FilePath;
                 ConfigFiles.Add(configFile);
             }
