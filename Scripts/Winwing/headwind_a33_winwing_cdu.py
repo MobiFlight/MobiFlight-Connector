@@ -60,7 +60,7 @@ REPLACED_CHARS = {
 
 class MobiFlightClient:
     def __init__(self, websocket_uri: str, max_retries: int = 3) -> None:
-        self.websocket: Optional[ws_client.WebSocketClientProtocol] = None
+        self.websocket: Optional[ws_client.ClientConnection] = None
         self.connected: asyncio.Event = asyncio.Event()
         self.websocket_uri: str = websocket_uri
         self.retries: int = 0
@@ -419,50 +419,6 @@ class FbwMcduClient:
                 self.fbw_websocket = None
                 await asyncio.sleep(5)  # Wait before retry
         return False
-
-    async def run(self):
-        """Main processing loop"""
-        logging.info("Starting FlyByWire SimBridge client")
-        while True:
-            try:
-                # Wait for messages from the MCDU
-                if self.fbw_websocket is None:
-                    if not await self.connect_to_mcdu():
-                        logging.info("Max SimBridge attempts reached. Waiting for new attempts.")
-                        await asyncio.sleep(
-                            10
-                        )  # Wait longer between retries if we can't connect
-                        continue
-
-                msg = await self.fbw_websocket.recv()
-
-                # Process any update messages
-                if msg.startswith("update:"):
-                    data_json = json.loads(msg[msg.index(":") + 1:])
-
-                    for side in ("left", "right"):
-                        mobiflight = self.mobiflight.get(side)
-                        mcdu_data = data_json.get(side)
-                        if mobiflight is not None and mobiflight.is_connected():
-                            # only update if there is new data to display
-                            if (
-                                mcdu_data is not None
-                                and self.last_mcdu_data.get(side) != mcdu_data
-                            ):
-                                self.last_mcdu_data[side] = mcdu_data
-                                await mobiflight.send(create_mobi_json(mcdu_data))
-                            elif mcdu_data is None:
-                                self.last_mcdu_data[side] = None
-                                # clear the display
-                                await mobiflight.send(create_mobi_json(dict()))
-                        else:
-                            # make sure we get a refresh if we later connect
-                            self.last_mcdu_data[side] = None
-
-            except Exception as e:
-                logging.error(f"Error processing MCDU data: {e}")
-                self.fbw_websocket = None
-                await asyncio.sleep(5)
 
     async def request_update(self):
         if self.fbw_websocket is not None:

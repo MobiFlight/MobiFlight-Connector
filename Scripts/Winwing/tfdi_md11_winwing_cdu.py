@@ -78,7 +78,7 @@ class SimConnectMobiFlight(SimConnect):
 
 class MobiFlightClient:
     def __init__(self, websocket_uri: str, max_retries: int = 3) -> None:
-        self.websocket: Optional[ws_client.WebSocketClientProtocol] = None
+        self.websocket: Optional[ws_client.ClientConnection] = None
         self.connected: asyncio.Event = asyncio.Event()
         self.websocket_uri: str = websocket_uri
         self.retries: int = 0
