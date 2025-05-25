@@ -2092,13 +2092,15 @@ namespace MobiFlight.UI
         /// </summary>
         private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(
+            if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmNewConfig"),
                        i18n._tr("uiMessageConfirmNewConfigTitle"),
-                       MessageBoxButtons.OKCancel) == DialogResult.OK)
+                       MessageBoxButtons.OKCancel) == DialogResult.Cancel)
             {
-                CreateNewProject();
-            };
+                return;
+            }
+
+            CreateNewProject();
         } //toolStripMenuItem3_Click()
 
         public void CreateNewProject()
