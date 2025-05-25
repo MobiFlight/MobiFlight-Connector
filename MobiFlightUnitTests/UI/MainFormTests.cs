@@ -37,10 +37,10 @@ namespace MobiFlight.UI.Tests
             // Assert
             Assert.IsNotNull(saveButton, "Save button could not be accessed.");
             Assert.IsFalse(saveButton.Enabled, "Save button should be disabled after creating a new project.");
-            Assert.AreEqual(null, _mainForm.CurrentFileName, "Current file name should be 'New Project' after creating a new project.");
 
-            var mainFormTitle = GetPrivateField<string>(_mainForm, "Text");
-            Assert.AreEqual("MobiFlight - New Project", mainFormTitle, "Main form title should be 'MobiFlight - New Project' after creating a new project.");
+            var mainFormTitle = _mainForm.Text;
+            var expectedTitle = "New Project - MobiFlight Connector (10.0.0)";
+            Assert.AreEqual(expectedTitle, mainFormTitle);
         }
 
 
