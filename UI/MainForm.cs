@@ -38,10 +38,6 @@ namespace MobiFlight.UI
         public static String VersionBeta = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(4);
         public static String Build = new System.IO.FileInfo(System.Reflection.Assembly.GetExecutingAssembly().Location).LastWriteTime.ToString("yyyyMMdd");
 
-        /// <summary>
-        /// the currently used filename of the loaded config file
-        /// </summary>
-        private string currentFileName = null;
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
         private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
@@ -54,17 +50,6 @@ namespace MobiFlight.UI
         private bool hasConnectedModules = false;
 
         private bool IsMSFSRunning = false;
-
-        public string CurrentFileName
-        {
-            get { return currentFileName; }
-            set
-            {
-                if (currentFileName == value) return;
-                currentFileName = value;
-                CurrentFilenameChanged?.Invoke(this, value);
-            }
-        }
 
         private void InitializeUILanguage()
         {
@@ -1779,9 +1764,6 @@ namespace MobiFlight.UI
                 // the original file name has to be stored
                 // in the list of recent files.
                 _storeAsRecentFile(execManager.Project.FilePath);
-                // We want to ensure that we use the new file extension
-                // if users saves the next time
-                CurrentFileName = execManager.Project.FilePath.Replace(".mcc", ".mfproj");
 
                 // set the button back to "disabled"
                 // since due to initiliazing the dataSet
@@ -2003,8 +1985,7 @@ namespace MobiFlight.UI
                 MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            CurrentFileName = execManager.Project.FilePath;
+            
             _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
         }
@@ -2094,20 +2075,6 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// triggers the save dialog if user clicks on according buttons
-        /// </summary>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog fd = new SaveFileDialog();
-            fd.FileName = execManager.Project.Name;
-            fd.Filter = "MobiFlight Project (*.mfproj)|*.mfproj";
-            if (DialogResult.OK == fd.ShowDialog())
-            {
-                SaveConfig(fd.FileName);
-            }
-        } //saveToolStripMenuItem_Click()
-
-        /// <summary>
         /// shows the about form
         /// </summary>
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2136,7 +2103,6 @@ namespace MobiFlight.UI
             var project = new Project() { Name = i18n._tr("DefaultProjectName") };
             project.ConfigFiles.Add(CreateDefaultConfigFile());
             execManager.Project = project;
-            CurrentFileName = execManager.Project.FilePath;
             ResetProjectAndConfigChanges();
         }
 
@@ -2176,6 +2142,27 @@ namespace MobiFlight.UI
             // otherwise trigger normal open file dialog
             saveToolStripMenuItem_Click(sender, e);
         } //saveToolStripButton_Click()
+
+        /// <summary>
+        /// triggers the save dialog if user clicks on according buttons
+        /// </summary>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog fd = new SaveFileDialog();
+            fd.FileName = execManager.Project.Name;
+
+            if (execManager.Project.FilePath != null)
+            {
+                fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
+                fd.FileName = Path.GetFileNameWithoutExtension(execManager.Project.FilePath);
+            }
+            
+            fd.Filter = "MobiFlight Project (*.mfproj)|*.mfproj";
+            if (DialogResult.OK == fd.ShowDialog())
+            {
+                SaveConfig(fd.FileName);
+            }
+        } //saveToolStripMenuItem_Click()
 
         /// <summary>
         /// gets triggered when test mode is started via button, all states
