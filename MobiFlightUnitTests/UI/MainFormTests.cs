@@ -39,7 +39,7 @@ namespace MobiFlight.UI.Tests
             Assert.IsFalse(saveButton.Enabled, "Save button should be disabled after creating a new project.");
 
             var mainFormTitle = _mainForm.Text;
-            var expectedTitle = "New Project - MobiFlight Connector (10.0.0)";
+            var expectedTitle = $"New Project - MobiFlight Connector - {MainForm.DisplayVersion()}";
             Assert.AreEqual(expectedTitle, mainFormTitle);
         }
 

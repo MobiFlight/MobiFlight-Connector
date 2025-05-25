@@ -1933,13 +1933,9 @@ namespace MobiFlight.UI
 
         private void SetTitle(string title)
         {
-            string NewTitle = "MobiFlight Connector (" + Version + ")";
+            string NewTitle = $"MobiFlight Connector - {DisplayVersion()}";
             var saveStatus = saveToolStripButton.Enabled ? "*" : string.Empty;
 
-            if (VersionBeta.Split('.')[3] != "0")
-            {
-                NewTitle = "MobiFlight Connector BETA (" + VersionBeta + ")";
-            }
             if (title != null && title != "")
             {
                 NewTitle = $"{title}{saveStatus} - {NewTitle}";
