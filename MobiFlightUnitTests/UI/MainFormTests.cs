@@ -28,9 +28,11 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             var saveButton = GetPrivateField<ToolStripButton>(_mainForm, "saveToolStripButton");
+
+            // bring it into dirty state
             _mainForm.AddNewFileToProject();
             Assert.IsTrue(saveButton.Enabled, "Save button should be enabled after adding a new file to project.");
-
+            
             // Act
             _mainForm.CreateNewProject();
 
@@ -49,12 +51,16 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             var saveButton = GetPrivateField<ToolStripButton>(_mainForm, "saveToolStripButton");
+            Assert.IsNotNull(saveButton, "Save button could not be accessed.");
 
             // Act
             _mainForm.AddNewFileToProject();
+
             // Assert
+            var mainFormTitle = _mainForm.Text;
             Assert.IsNotNull(saveButton, "Save button could not be accessed.");
             Assert.IsTrue(saveButton.Enabled, "Save button should be enabled after adding a new file.");
+            Assert.IsTrue(mainFormTitle.Contains("*"), "Project title should indicate that there are unsaved changes.");
         }
     }
 }
