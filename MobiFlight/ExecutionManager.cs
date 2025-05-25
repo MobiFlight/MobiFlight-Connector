@@ -485,8 +485,12 @@ namespace MobiFlight
         public Dictionary<String, MobiFlightVariable> GetAvailableVariables()
         {
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
+            if (Project.ConfigFiles.Count == 0 || ActiveConfigIndex >= Project.ConfigFiles.Count)
+            {
+                return variables;
+            }
 
-            return Project.ConfigFiles[0].GetAvailableVariables();
+            return Project.ConfigFiles[ActiveConfigIndex].GetAvailableVariables();
         }
 
         public void HandleWndProc(ref Message m)
