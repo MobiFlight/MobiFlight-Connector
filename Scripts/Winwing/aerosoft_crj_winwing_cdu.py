@@ -247,8 +247,7 @@ class CRJCDUClient:
                 return
 
             # Initialize SimConnect
-            if self.setup_simconnect():
-                await asyncio.sleep(0.4)
+            if self.setup_simconnect():               
                 await asyncio.gather(mobiflight_task)
             else:
                 logging.error("Failed to start - SimConnect initialization failed")
