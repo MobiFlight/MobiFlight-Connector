@@ -97,11 +97,11 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unsaved.
+        ///   Looks up a localized string similar to New Project.
         /// </summary>
-        internal static string DefaultFileName {
+        internal static string DefaultProjectName {
             get {
-                return ResourceManager.GetString("DefaultFileName", resourceCulture);
+                return ResourceManager.GetString("DefaultProjectName", resourceCulture);
             }
         }
         
