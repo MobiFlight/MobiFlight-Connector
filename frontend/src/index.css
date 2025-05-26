@@ -67,3 +67,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  :root {
+    --selected: 220 0% 80%;
+    --selected-foreground: 0 0% 85%;
+  }
+
+  .dark {
+    --selected: 0 0% 20%;
+    --selected-foreground: 0 0% 16%;
+  }
+}

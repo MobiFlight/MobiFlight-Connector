@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
     darkMode: ["class"],
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
@@ -59,7 +60,11 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+        selected: {
+  				DEFAULT: 'hsl(var(--selected))',
+  				foreground: 'hsl(var(--selected-foreground))'
+  			},
   		},
       keyframes: {
         "accordion-down": {
