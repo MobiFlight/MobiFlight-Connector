@@ -17,7 +17,7 @@ class MfCharSize(IntEnum):
 
 class MfColour(StrEnum):
     Amber = "a"
-    Brown = "o"
+    Blue = "o"
     Cyan = "c"
     Green = "g"
     Grey = "e"

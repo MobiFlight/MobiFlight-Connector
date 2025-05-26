@@ -58,6 +58,7 @@ CO_PILOT_CDU_URL: str = "ws://localhost:8320/winwing/cdu-co-pilot"
 CDU_COLUMNS: int = 24
 CDU_ROWS: int = 14
 CDU_CELLS: int = CDU_COLUMNS * CDU_ROWS
+CDU_CELL_BYTE_COUNT = 2
 
 # CDU Color constants
 CDU_COLOR_BLACK: int = 0
@@ -68,8 +69,6 @@ CDU_COLOR_BLUE: int = 4
 CDU_COLOR_CYAN: int = 5
 CDU_COLOR_MAGENTA: int = 6
 CDU_COLOR_YELLOW: int = 7
-
-ENTRY_BYTE_COUNT = 2
 
 # CRJ CDU Client Data Area Names and IDs
 CRJ_CDU_0_NAME: str = "ASCRJ CDU1 Data"
@@ -130,7 +129,7 @@ def create_mobi_json(data: bytes) -> str:
     for y in range(CDU_ROWS):
         for x in range(CDU_COLUMNS):
             # Convert from row-major to array index
-            src_idx = (y * CDU_COLUMNS + x) * ENTRY_BYTE_COUNT
+            src_idx = (y * CDU_COLUMNS + x) * CDU_CELL_BYTE_COUNT
             dst_idx = y * CDU_COLUMNS + x 
             
             try:
@@ -194,7 +193,7 @@ class CRJCDUClient:
                 self.sc_mobiflight.hSimConnect,
                 self.cdu_definition,
                 0, # offset to start
-                CDU_COLUMNS * CDU_ROWS * ENTRY_BYTE_COUNT, # size client data in bytes
+                CDU_COLUMNS * CDU_ROWS * CDU_CELL_BYTE_COUNT, # size client data in bytes
                 0,
                 0
             )
@@ -222,7 +221,7 @@ class CRJCDUClient:
     def handle_cdu_data(self, client_data: Any) -> None:
         try:
             if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):                
-                int_count : int = int(CDU_COLUMNS * CDU_ROWS * ENTRY_BYTE_COUNT / 4)              
+                int_count : int = int(CDU_COLUMNS * CDU_ROWS * CDU_CELL_BYTE_COUNT / 4)              
                 if len(client_data.dwData) >= int_count:
                     data_list : bytearray = bytearray()                  
                     for i in range(int_count): 

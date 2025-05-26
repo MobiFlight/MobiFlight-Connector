@@ -5,6 +5,7 @@ import json
 import logging
 import asyncio
 import os
+import struct
 import websockets.asyncio.client as ws_client
 from typing import Optional, List, Dict, Union, Any
 from SimConnect import SimConnect, Enum
@@ -47,10 +48,12 @@ class SimConnectMobiFlight(SimConnect):
 CAPTAIN_CDU_URL: str = "ws://localhost:8320/winwing/cdu-captain"
 CO_PILOT_CDU_URL: str = "ws://localhost:8320/winwing/cdu-co-pilot"
 OBSERVER_CDU_URL: str = "ws://localhost:8320/winwing/cdu-observer"
+
 # Constants from PMDG_NG3_SDK.h
 CDU_COLUMNS: int = 24
 CDU_ROWS: int = 14
 CDU_CELLS: int = CDU_COLUMNS * CDU_ROWS
+CDU_CELL_BYTE_COUNT: int = 3
 
 # CDU Color constants
 CDU_COLOR_WHITE: int = 0
@@ -124,7 +127,7 @@ def create_mobi_json(data: bytes) -> str:
     # Process data in column-major order as received from PMDG
     for x in range(CDU_COLUMNS):
         for y in range(CDU_ROWS):
-            src_idx: int = (x * CDU_ROWS + y) * 3
+            src_idx: int = (x * CDU_ROWS + y) * CDU_CELL_BYTE_COUNT
             dst_idx: int = y * CDU_COLUMNS + x
             
             if src_idx + 2 >= len(data):
@@ -223,9 +226,14 @@ class PMDGCDUClient:
 
     def handle_cdu_data(self, client_data: Any) -> None:
         try:
-            if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):
-                data: bytes = bytes(client_data.dwData)
-                if len(data) >= CDU_COLUMNS * CDU_ROWS * 3:
+            if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):                
+                int_count : int = int(CDU_COLUMNS * CDU_ROWS * CDU_CELL_BYTE_COUNT / 4)              
+                if len(client_data.dwData) >= int_count:
+                    data_list : bytearray = bytearray()                  
+                    for i in range(int_count): 
+                        my_bytes : bytes = struct.pack("I", client_data.dwData[i])
+                        data_list.extend(my_bytes)                
+                    data: bytes = bytes(data_list)                                       
                     asyncio.run_coroutine_threadsafe(self.mobiflight.send(create_mobi_json(data)), self.event_loop)
         except Exception as e:
             logging.error(f"Error handling CDU data: {e}")
