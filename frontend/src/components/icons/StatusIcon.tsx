@@ -8,13 +8,22 @@ type StatusIconProps = {
   IconComponent: React.ElementType
 }
 
-const StatusIcon = ({ status, condition, title, IconComponent }: StatusIconProps) => (
+const StatusIcon = ({
+  status,
+  condition,
+  title,
+  IconComponent,
+}: StatusIconProps) => (
   <ToolTip content={title}>
     <IconComponent
       role="status"
       aria-label={status}
       aria-disabled={!condition}
-      className={!condition ? "stroke-slate-100" : "stroke-red-700"}
+      className={
+        !condition
+          ? "stroke-slate-100 group-hover/row:stroke-gray-300/50 group-data-[state=selected]/row:stroke-slate-300/20 dark:stroke-slate-500/5 dark:group-hover/row:dark:stroke-slate-500/5 dark:group-data-[state=selected]/row:dark:stroke-slate-500/5"
+          : "stroke-purple-800"
+      }
     />
   </ToolTip>
 )
