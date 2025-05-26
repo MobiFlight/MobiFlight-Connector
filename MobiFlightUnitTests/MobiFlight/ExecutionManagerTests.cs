@@ -1,5 +1,4 @@
-﻿using MobiFlight;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
@@ -260,6 +259,87 @@ namespace MobiFlight.Tests
             // Assert
             Assert.AreEqual(project.ConfigFiles.Count, 2);
             Assert.AreEqual(project.ConfigFiles[1].Label, "Renamed Config");
+        }
+
+        [TestMethod]
+        public void GetAvailableVariables_ReturnsVariablesFromActiveConfigFile()
+        {
+            // Arrange
+            var variables1 = new Dictionary<string, MobiFlightVariable>
+            {
+                { "varA", new MobiFlightVariable() }
+            };
+            var variables2 = new Dictionary<string, MobiFlightVariable>
+            {
+                { "varB", new MobiFlightVariable() }
+            };
+
+            var ConfigItems1 = new List<IConfigItem>()
+                {
+                    new OutputConfigItem {
+                        GUID = "1",
+                        Active = true,
+                        Name = "Output1",
+                        Source = new VariableSource() {
+                            MobiFlightVariable = new MobiFlightVariable() {
+                                Name = "varA"
+                            }
+                        }
+                    }
+                };
+
+            var ConfigItems2 = new List<IConfigItem>()
+                {
+                    new OutputConfigItem {
+                        GUID = "1",
+                        Active = true,
+                        Name = "Output1",
+                        Source = new VariableSource() {
+                            MobiFlightVariable = new MobiFlightVariable() {
+                                Name = "varB"
+                            }
+                        }
+                    }
+                };
+
+            var configFile1 = new ConfigFile() {
+                ConfigItems =  ConfigItems1              
+            };
+
+            var configFile2 = new ConfigFile()
+            {
+                ConfigItems = ConfigItems2
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(configFile1);
+            project.ConfigFiles.Add(configFile2);
+
+            var manager = new ExecutionManager(System.IntPtr.Zero)
+            {
+                Project = project
+            };
+
+            // Act
+            var result = manager.GetAvailableVariables();
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.ContainsKey("varA"));
+
+            var message = new CommandActiveConfigFile
+            {
+                index = 1
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            result = manager.GetAvailableVariables();
+
+            // Assert
+            Assert.AreEqual(1, result.Count);
+            Assert.IsTrue(result.ContainsKey("varB"));
         }
     }
 }
