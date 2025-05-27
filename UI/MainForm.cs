@@ -23,6 +23,7 @@ using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
+using System.Drawing;
 
 namespace MobiFlight.UI
 {
@@ -679,10 +680,19 @@ namespace MobiFlight.UI
             {
                 Properties.Settings.Default.WindowLocation = this.RestoreBounds.Location;
                 Properties.Settings.Default.WindowSize = this.RestoreBounds.Size;
+            }            
+
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                Properties.Settings.Default.WindowState = this.WindowState;
             }
         }
 
         private void RestoreWindowsPositionAndZoomLevel() {
+            var proposedBounds = new Rectangle(Properties.Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
+
+            if (!IsOnScreen(proposedBounds)) return;
+
             // Restore window position and size
             if (Properties.Settings.Default.WindowSize.Width > 0 && Properties.Settings.Default.WindowSize.Height > 0)
             {
@@ -690,6 +700,13 @@ namespace MobiFlight.UI
                 this.Size = Properties.Settings.Default.WindowSize;
                 this.Location = Properties.Settings.Default.WindowLocation;
             }
+
+            this.WindowState = Properties.Settings.Default.WindowState;
+        }
+
+        private bool IsOnScreen(Rectangle rect)
+        {
+            return Screen.AllScreens.Any(s => s.WorkingArea.IntersectsWith(rect));
         }
 
         void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
