@@ -305,6 +305,8 @@ namespace MobiFlight.UI
                 testModeTimer_Stop();
                 MessageExchange.Instance.Publish(project);
             };
+
+            RestoreWindowsPositionAndZoomLevel();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -660,9 +662,35 @@ namespace MobiFlight.UI
         {
             AppTelemetry.Instance.TrackShutdown();
             execManager.Shutdown();
+            SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             logPanel1.Shutdown();
         } //Form1_FormClosed
+
+        private void SaveWindowPositionAndZoomLevel()
+        {
+            // Only save if not minimized or maximized, otherwise save RestoreBounds
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.WindowLocation = this.Location;
+                Properties.Settings.Default.WindowSize = this.Size;
+            }
+            else
+            {
+                Properties.Settings.Default.WindowLocation = this.RestoreBounds.Location;
+                Properties.Settings.Default.WindowSize = this.RestoreBounds.Size;
+            }
+        }
+
+        private void RestoreWindowsPositionAndZoomLevel() {
+            // Restore window position and size
+            if (Properties.Settings.Default.WindowSize.Width > 0 && Properties.Settings.Default.WindowSize.Height > 0)
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                this.Size = Properties.Settings.Default.WindowSize;
+                this.Location = Properties.Settings.Default.WindowLocation;
+            }
+        }
 
         void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
         {
