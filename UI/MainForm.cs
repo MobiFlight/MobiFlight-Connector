@@ -23,6 +23,7 @@ using System.IO;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
+using System.Drawing;
 
 namespace MobiFlight.UI
 {
@@ -114,8 +115,8 @@ namespace MobiFlight.UI
 
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
-            CurrentFilenameChanged += (s, e) => { 
-                
+            CurrentFilenameChanged += (s, e) => {
+
             };
 
             // we trigger this once:
@@ -305,6 +306,10 @@ namespace MobiFlight.UI
                 testModeTimer_Stop();
                 MessageExchange.Instance.Publish(project);
             };
+
+            RestoreWindowsPositionAndZoomLevel();
+
+            frontendPanel1.WebViewKeyUp += MainForm_KeyUp;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -660,9 +665,58 @@ namespace MobiFlight.UI
         {
             AppTelemetry.Instance.TrackShutdown();
             execManager.Shutdown();
+            SaveWindowPositionAndZoomLevel();
             Properties.Settings.Default.Save();
             logPanel1.Shutdown();
         } //Form1_FormClosed
+
+        private void SaveWindowPositionAndZoomLevel()
+        {
+            // Only save if not minimized or maximized, otherwise save RestoreBounds
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                Properties.Settings.Default.WindowLocation = this.Location;
+                Properties.Settings.Default.WindowSize = this.Size;
+            }
+            else
+            {
+                Properties.Settings.Default.WindowLocation = this.RestoreBounds.Location;
+                Properties.Settings.Default.WindowSize = this.RestoreBounds.Size;
+            }
+
+            if (this.WindowState != FormWindowState.Minimized)
+            {
+                Properties.Settings.Default.WindowState = this.WindowState;
+            }
+
+            Properties.Settings.Default.WindowZoomFactor = frontendPanel1.GetZoomFactor();
+        }
+
+        private void RestoreWindowsPositionAndZoomLevel() {
+            if (Properties.Settings.Default.WindowZoomFactor >= 0.0)
+            {
+                frontendPanel1.SetZoomFactor(Properties.Settings.Default.WindowZoomFactor);
+            }
+
+            var proposedBounds = new Rectangle(Properties.Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
+
+            if (!IsOnScreen(proposedBounds)) return;
+
+            // Restore window position and size
+            if (Properties.Settings.Default.WindowSize.Width > 0 && Properties.Settings.Default.WindowSize.Height > 0)
+            {
+                this.StartPosition = FormStartPosition.Manual;
+                this.Size = Properties.Settings.Default.WindowSize;
+                this.Location = Properties.Settings.Default.WindowLocation;
+            }
+
+            this.WindowState = Properties.Settings.Default.WindowState;
+        }
+
+        private bool IsOnScreen(Rectangle rect)
+        {
+            return Screen.AllScreens.Any(s => s.WorkingArea.IntersectsWith(rect));
+        }
 
         void ExecManager_OnInitialModuleLookupFinished(object sender, EventArgs e)
         {
@@ -1984,7 +2038,7 @@ namespace MobiFlight.UI
                 MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
         }
@@ -2157,7 +2211,7 @@ namespace MobiFlight.UI
                 fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
                 fd.FileName = Path.GetFileNameWithoutExtension(execManager.Project.FilePath);
             }
-            
+
             fd.Filter = fileExtensionSaveFilter;
             if (DialogResult.OK == fd.ShowDialog())
             {
@@ -2279,6 +2333,11 @@ namespace MobiFlight.UI
                 e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
                 if (saveToolStripButton.Enabled)
                     saveToolStripButton_Click(null, null);
+            }
+
+            if (e.Control && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))
+            {
+                frontendPanel1.SetZoomFactor(1.0f);
             }
         }
 

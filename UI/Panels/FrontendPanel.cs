@@ -8,6 +8,7 @@ namespace MobiFlight.UI.Panels
 {
     public partial class FrontendPanel : UserControl
     {
+        public event KeyEventHandler WebViewKeyUp;
         public new bool DesignMode
         {
             get
@@ -15,6 +16,8 @@ namespace MobiFlight.UI.Panels
                 return (System.Diagnostics.Process.GetCurrentProcess().ProcessName == "devenv");
             }
         }
+
+        double _desiredZoomFactor = 0.0;
 
         public FrontendPanel()
         {
@@ -46,8 +49,37 @@ namespace MobiFlight.UI.Panels
             FrontendWebView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             FrontendWebView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             FrontendWebView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
+            FrontendWebView.KeyUp += (s, e) =>
+            {
+                WebViewKeyUp?.Invoke(s, e);
+            };
+
+            if (_desiredZoomFactor != 0.0)
+            {
+                FrontendWebView.ZoomFactor = _desiredZoomFactor;
+            }
 
             MessageExchange.Instance.SetPublisher(new PostMessagePublisher(FrontendWebView));
+        }
+
+        public  void SetZoomFactor(double zoomFactor)
+        {
+            if (FrontendWebView.CoreWebView2 != null)
+            {
+                FrontendWebView.ZoomFactor = zoomFactor;
+            } else
+            {
+                _desiredZoomFactor = zoomFactor;
+            }
+        }
+
+        public double GetZoomFactor()
+        {
+            if (FrontendWebView.CoreWebView2 != null)
+            {
+                return FrontendWebView.ZoomFactor;
+            }
+            return 0.0;
         }
 
         private void CoreWebView2_DOMContentLoaded(object sender, CoreWebView2DOMContentLoadedEventArgs e)
