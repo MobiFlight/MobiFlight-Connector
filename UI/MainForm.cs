@@ -115,8 +115,8 @@ namespace MobiFlight.UI
 
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
-            CurrentFilenameChanged += (s, e) => { 
-                
+            CurrentFilenameChanged += (s, e) => {
+
             };
 
             // we trigger this once:
@@ -308,6 +308,8 @@ namespace MobiFlight.UI
             };
 
             RestoreWindowsPositionAndZoomLevel();
+
+            frontendPanel1.WebViewKeyUp += MainForm_KeyUp;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -680,15 +682,22 @@ namespace MobiFlight.UI
             {
                 Properties.Settings.Default.WindowLocation = this.RestoreBounds.Location;
                 Properties.Settings.Default.WindowSize = this.RestoreBounds.Size;
-            }            
+            }
 
             if (this.WindowState != FormWindowState.Minimized)
             {
                 Properties.Settings.Default.WindowState = this.WindowState;
             }
+
+            Properties.Settings.Default.WindowZoomFactor = frontendPanel1.GetZoomFactor();
         }
 
         private void RestoreWindowsPositionAndZoomLevel() {
+            if (Properties.Settings.Default.WindowZoomFactor >= 0.0)
+            {
+                frontendPanel1.SetZoomFactor(Properties.Settings.Default.WindowZoomFactor);
+            }
+
             var proposedBounds = new Rectangle(Properties.Settings.Default.WindowLocation, Properties.Settings.Default.WindowSize);
 
             if (!IsOnScreen(proposedBounds)) return;
@@ -2029,7 +2038,7 @@ namespace MobiFlight.UI
                 MessageBox.Show($"Unable to save: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            
+
             _storeAsRecentFile(execManager.Project.FilePath);
             ResetProjectAndConfigChanges();
         }
@@ -2202,7 +2211,7 @@ namespace MobiFlight.UI
                 fd.InitialDirectory = Path.GetDirectoryName(execManager.Project.FilePath);
                 fd.FileName = Path.GetFileNameWithoutExtension(execManager.Project.FilePath);
             }
-            
+
             fd.Filter = fileExtensionSaveFilter;
             if (DialogResult.OK == fd.ShowDialog())
             {
@@ -2324,6 +2333,11 @@ namespace MobiFlight.UI
                 e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
                 if (saveToolStripButton.Enabled)
                     saveToolStripButton_Click(null, null);
+            }
+
+            if (e.Control && (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0))
+            {
+                frontendPanel1.SetZoomFactor(1.0f);
             }
         }
 

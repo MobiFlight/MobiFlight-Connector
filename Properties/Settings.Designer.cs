@@ -578,13 +578,13 @@ namespace MobiFlight.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int WindowZoomLevel {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double WindowZoomFactor {
             get {
-                return ((int)(this["WindowZoomLevel"]));
+                return ((double)(this["WindowZoomFactor"]));
             }
             set {
-                this["WindowZoomLevel"] = value;
+                this["WindowZoomFactor"] = value;
             }
         }
         
