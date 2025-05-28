@@ -8,6 +8,8 @@ import i18next from "i18next"
 import Settings from "./types/settings"
 import _ from "lodash"
 import { useProjectStore } from "./stores/projectStore"
+import { MainMenu } from "./components/MainMenu"
+import { CommunityMenu } from "./components/CommunityMenu"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -73,11 +75,16 @@ function App() {
   return (
     <>
       {outlet ? (
-        <div className="flex h-svh flex-row p-2 select-none">
+        <div className="flex h-svh flex-row p-0 select-none">
           {/* <Sidebar /> */}
           <div className="flex grow flex-col">
+            <div className="flex flex-row justify-between">
+            <MainMenu />
+            <CommunityMenu />
+            </div>
+            {/* Uncomment the Navbar if needed */}
             {/* <Navbar /> */}
-            <div className="flex grow flex-col overflow-hidden">
+            <div className="flex grow flex-col overflow-hidden p-2">
               <Outlet />
             </div>
             <div className="flex flex-row justify-end gap-2  px-5">
