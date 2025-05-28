@@ -363,12 +363,6 @@ namespace MobiFlight.UI
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
 
-            if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
-            {
-                // change ui icon to english
-                donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
-            }
-
             StartupProgressValue = 0;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Start Connecting" });
 

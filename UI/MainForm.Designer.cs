@@ -51,13 +51,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.donateToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.HubHopToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.YouTubeToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.statusStripPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.connectedDevicesToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -182,14 +175,7 @@
             this.autoRunToolStripButton,
             this.toolStripSeparator2,
             this.settingsToolStripButton,
-            this.toolStripSeparator3,
-            this.donateToolStripButton,
-            this.toolStripSeparator5,
-            this.toolStripButton1,
-            this.HubHopToolStripButton,
-            this.YouTubeToolStripButton,
-            this.toolStripSeparator4,
-            this.exitToolStripButton});
+            this.toolStripSeparator3});
             resources.ApplyResources(this.toolStrip1, "toolStrip1");
             this.toolStrip1.Name = "toolStrip1";
             // 
@@ -261,49 +247,6 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
-            // 
-            // donateToolStripButton
-            // 
-            this.donateToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.donateToolStripButton.Image = global::MobiFlight.Properties.Resources.btn_donate_SM;
-            resources.ApplyResources(this.donateToolStripButton, "donateToolStripButton");
-            this.donateToolStripButton.Name = "donateToolStripButton";
-            this.donateToolStripButton.Click += new System.EventHandler(this.donateToolStripButton_Click);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            resources.ApplyResources(this.toolStripSeparator5, "toolStripSeparator5");
-            // 
-            // toolStripButton1
-            // 
-            resources.ApplyResources(this.toolStripButton1, "toolStripButton1");
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.openDiscordServer_Click);
-            // 
-            // HubHopToolStripButton
-            // 
-            resources.ApplyResources(this.HubHopToolStripButton, "HubHopToolStripButton");
-            this.HubHopToolStripButton.Name = "HubHopToolStripButton";
-            this.HubHopToolStripButton.Click += new System.EventHandler(this.HubHopToolStripButton_Click);
-            // 
-            // YouTubeToolStripButton
-            // 
-            resources.ApplyResources(this.YouTubeToolStripButton, "YouTubeToolStripButton");
-            this.YouTubeToolStripButton.Name = "YouTubeToolStripButton";
-            this.YouTubeToolStripButton.Click += new System.EventHandler(this.YouTubeToolStripButton_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            resources.ApplyResources(this.toolStripSeparator4, "toolStripSeparator4");
-            // 
-            // exitToolStripButton
-            // 
-            this.exitToolStripButton.Image = global::MobiFlight.Properties.Resources.door2;
-            resources.ApplyResources(this.exitToolStripButton, "exitToolStripButton");
-            this.exitToolStripButton.Name = "exitToolStripButton";
-            this.exitToolStripButton.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // statusStripPanel
             // 
@@ -647,14 +590,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton stopToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton exitToolStripButton;
         private System.Windows.Forms.ToolStripButton runToolStripButton;
         private System.Windows.Forms.ToolStripButton stopTestToolStripButton;
         private System.Windows.Forms.ToolStripButton runTestToolStripButton;
         private System.Windows.Forms.ToolStripButton autoRunToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton donateToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
@@ -668,8 +608,6 @@
         private System.Windows.Forms.Splitter logSplitter;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripStatusLabel SimStatusToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripDropDownButton simStatusToolStripDropDownButton1;
@@ -679,9 +617,7 @@
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
-        private System.Windows.Forms.ToolStripButton YouTubeToolStripButton;
         private Panels.LogPanel logPanel1;
-        private System.Windows.Forms.ToolStripButton HubHopToolStripButton;
         private System.Windows.Forms.ImageList tabPageImageList;
         private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
