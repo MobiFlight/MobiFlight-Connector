@@ -24,6 +24,7 @@ using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
 using System.Drawing;
+using MobiFlight.BrowserMessages.Incoming.Handler;
 
 namespace MobiFlight.UI
 {
@@ -182,6 +183,12 @@ namespace MobiFlight.UI
                 {
                     mergeToolStripMenuItem_Click(null, null);
                 }
+            });
+
+            var commandMainMenuHandler = new CommandMainMenuHandler(this);
+
+            MessageExchange.Instance.Subscribe<CommandMainMenu>((message) => {
+                commandMainMenuHandler.Handle(message);
             });
         }
 
@@ -969,7 +976,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        public void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AutoUpdateChecker.CheckForUpdate();
         }
@@ -1623,7 +1630,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// exits when user selects according menu item in notify icon's context menu
         /// </summary>
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        public void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         } //exitToolStripMenuItem_Click()
@@ -1631,7 +1638,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// opens file dialog when clicking on according button
         /// </summary>
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        public void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = fileExtensionLoadFilter;
@@ -1727,7 +1734,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// loads the according config given by filename
         /// </summary>        
-        private void LoadConfig(string fileName, bool merge = false)
+        public void LoadConfig(string fileName, bool merge = false)
         {
             if (!System.IO.File.Exists(fileName))
             {
@@ -2137,7 +2144,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows the about form
         /// </summary>
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        public void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm ab = new AboutForm();
             ab.StartPosition = FormStartPosition.CenterParent;
@@ -2147,7 +2154,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
-        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        public void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (saveToolStripButton.Enabled && MessageBox.Show(
                        i18n._tr("uiMessageConfirmNewConfig"),
@@ -2202,13 +2209,13 @@ namespace MobiFlight.UI
                 return;
             }
             // otherwise trigger normal open file dialog
-            saveToolStripMenuItem_Click(sender, e);
+            saveAsToolStripMenuItem_Click(sender, e);
         } //saveToolStripButton_Click()
 
         /// <summary>
         /// triggers the save dialog if user clicks on according buttons
         /// </summary>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        public void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog fd = new SaveFileDialog();
             fd.FileName = execManager.Project.Name;
@@ -2317,12 +2324,12 @@ namespace MobiFlight.UI
             };
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(i18n._tr("WebsiteUrlHelp"));
         }
 
-        private void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
+        public void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _checkForOrphanedSerials(true);
         }
@@ -2364,7 +2371,7 @@ namespace MobiFlight.UI
             minimizeMainForm(false);
         }
 
-        private void installWasmModuleToolStripMenuItem_Click(object sender, EventArgs e)
+        public void installWasmModuleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InstallWasmModule();
         }
@@ -2568,7 +2575,7 @@ namespace MobiFlight.UI
             progressForm.Dispose();
         }
 
-        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DownloadHubHopPresets();
         }
@@ -2579,7 +2586,7 @@ namespace MobiFlight.UI
             toolStripStatusLabelHubHop.ToolTipText = lastModification.ToLocalTime().ToString();
         }
 
-        private void openDiscordServer_Click(object sender, EventArgs e)
+        public void openDiscordServer_Click(object sender, EventArgs e)
         {
             Process.Start("https://discord.gg/U28QeEJpBV");
         }
@@ -2589,17 +2596,17 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
-        private void YouTubeToolStripButton_Click(object sender, EventArgs e)
+        public void YouTubeToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
 
-        private void HubHopToolStripButton_Click(object sender, EventArgs e)
+        public void HubHopToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://hubhop.mobiflight.com/");
         }
 
-        private void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        public void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
         }
@@ -2740,7 +2747,7 @@ namespace MobiFlight.UI
             LoadConfig(linkedFile);
         }
 
-        private void copyLogsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        public void copyLogsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
