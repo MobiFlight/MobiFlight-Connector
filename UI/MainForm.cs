@@ -108,6 +108,10 @@ namespace MobiFlight.UI
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
+            Properties.Settings.Default.PropertyChanged += (s, e) =>
+            {
+                PublishSettings();
+            };
 
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
@@ -189,6 +193,11 @@ namespace MobiFlight.UI
 
             MessageExchange.Instance.Subscribe<CommandMainMenu>((message) => {
                 commandMainMenuHandler.Handle(message);
+            });
+    
+            var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
+            MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) => {
+                commandProjectToolbarHandler.Handle(message);
             });
         }
 
@@ -396,6 +405,8 @@ namespace MobiFlight.UI
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
             execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
+            execManager.OnTestModeStarted += (s, e) => UpdateExecutionState();
+            execManager.OnTestModeStopped += (s, e) => UpdateExecutionState();
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
@@ -1000,8 +1011,6 @@ namespace MobiFlight.UI
                 logPanel1.Visible = (bool)e.NewValue;
                 logSplitter.Visible = (bool)e.NewValue;
             }
-
-            PublishSettings();
         }
 
         private void _autoloadConfig()
@@ -1424,7 +1433,19 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = true;
             updateNotifyContextMenu(execManager.IsStarted());
+            UpdateExecutionState();
         } //timer_Started()
+
+        private void UpdateExecutionState()
+        {
+            MessageExchange.Instance.Publish(new ExecutionState()
+            {
+                IsRunning = execManager.IsStarted(),
+                IsTesting = execManager.TestModeIsStarted(),
+                RunAvailable = RunIsAvailable(),
+                TestAvailable = TestRunIsAvailable(),
+            });
+        }
 
         /// <summary>
         /// handler which sets the states of UI elements when timer gets stopped
@@ -1441,6 +1462,8 @@ namespace MobiFlight.UI
             runTestToolStripButton.Enabled = TestRunIsAvailable();
             stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
+
+            UpdateExecutionState();
         } //timer_Stopped
 
         private bool TestRunIsAvailable()
@@ -1522,10 +1545,11 @@ namespace MobiFlight.UI
         /// <summary>
         /// toggles the current timer when user clicks on respective run/stop buttons
         /// </summary>
-        private void ButtonToggleStart_Click(object sender, EventArgs e)
+        public void startToolStripButton_Click(object sender, EventArgs e)
         {
-            if (execManager.IsStarted()) execManager.Stop();
-            else execManager.Start();
+            if (execManager.IsStarted()) return;
+            
+            execManager.Start();
         } //buttonToggleStart_Click()
 
         /// <summary>
@@ -2210,7 +2234,7 @@ namespace MobiFlight.UI
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void runTestToolStripLabel_Click(object sender, EventArgs e)
+        public void runTestToolStripLabel_Click(object sender, EventArgs e)
         {
             testModeTimer_Start();
         }
@@ -2231,9 +2255,14 @@ namespace MobiFlight.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void stopTestToolStripButton_Click(object sender, EventArgs e)
+        public void stopTestToolStripButton_Click(object sender, EventArgs e)
         {
             testModeTimer_Stop();
+        }
+
+        public void stopToolStripButton_Click(object sender, EventArgs e)
+        {
+            execManager.Stop();
         }
 
         /// <summary>
@@ -2259,7 +2288,7 @@ namespace MobiFlight.UI
             }
         }
 
-        private void AutoRunToolStripButton_Click(object sender, EventArgs e)
+        public void AutoRunToolStripButton_Click(object sender, EventArgs e)
         {
             setAutoRunValue(!Properties.Settings.Default.AutoRun);
         }

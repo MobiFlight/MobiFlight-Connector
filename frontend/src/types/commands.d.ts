@@ -10,6 +10,7 @@ export type CommandMessageKey =
   | "CommandResortConfigItem"
   | "CommandAddConfigFile"
   | "CommandMainMenu"
+  | "CommandProjectToolbar"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -21,6 +22,7 @@ export type CommandMessage =
   | CommandActiveConfigFile
   | CommandAddConfigFile
   | CommandMainMenu
+  | CommandProjectToolbar
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -131,4 +133,17 @@ export type CommandMainMenuPayload = {
 export interface CommandMainMenu extends CommandMessageBase {
   key: "CommandMainMenu"
   payload: CommandMainMenuPayload
+}
+
+export type CommandProjectToolbarPayload = {
+  action:
+    | "run"
+    | "test"
+    | "stop"
+    | "toggleAutoRun"
+}
+
+export interface CommandProjectToolbar extends CommandMessageBase {
+  key: "CommandProjectToolbar"
+  payload: CommandProjectToolbarPayload
 }
