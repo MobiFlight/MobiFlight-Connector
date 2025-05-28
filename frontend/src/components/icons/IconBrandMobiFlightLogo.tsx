@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils"
 
-type IconMobiFlightLogoProps = {
+type IconBrandMobiFlightLogoProps = {
   className?: string
 }
 
-const IconMobiFlightLogo = (props: IconMobiFlightLogoProps) => {
+const IconBrandMobiFlightLogo = (props: IconBrandMobiFlightLogoProps) => {
   const className = cn("stroke-current fill-current ", props.className)
 
   return (
@@ -28,4 +28,4 @@ const IconMobiFlightLogo = (props: IconMobiFlightLogoProps) => {
   )
 }
 
-export default IconMobiFlightLogo
+export default IconBrandMobiFlightLogo

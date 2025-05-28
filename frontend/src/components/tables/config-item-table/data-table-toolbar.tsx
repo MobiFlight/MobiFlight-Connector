@@ -16,7 +16,6 @@ import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 import { IConfigItem } from "@/types"
 import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
-import DarkModeToggle from "@/components/DarkModeToggle"
 import ToolTip from "@/components/ToolTip"
 import {
   Popover,
@@ -253,7 +252,6 @@ export function DataTableToolbar<TData>({
           </div>
         )}
       </div>
-      <DarkModeToggle />
     </div>
   )
 }
