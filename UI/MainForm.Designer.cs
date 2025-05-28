@@ -39,18 +39,6 @@
             this.toolStripMenuItemDivider = new System.Windows.Forms.ToolStripSeparator();
             this.wiederherstellenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.runToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.runTestToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.stopToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.stopTestToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.autoRunToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.settingsToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStripPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
             this.connectedDevicesToolStripLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -95,7 +83,6 @@
             this.frontendPanel1 = new MobiFlight.UI.Panels.FrontendPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
             this.contextMenuStripNotifyIcon.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.statusStripPanel.SuspendLayout();
             this.statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
@@ -161,92 +148,6 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveToolStripButton,
-            this.toolStripSeparator1,
-            this.runToolStripButton,
-            this.runTestToolStripButton,
-            this.stopToolStripButton,
-            this.stopTestToolStripButton,
-            this.toolStripSeparator6,
-            this.autoRunToolStripButton,
-            this.toolStripSeparator2,
-            this.settingsToolStripButton,
-            this.toolStripSeparator3});
-            resources.ApplyResources(this.toolStrip1, "toolStrip1");
-            this.toolStrip1.Name = "toolStrip1";
-            // 
-            // saveToolStripButton
-            // 
-            resources.ApplyResources(this.saveToolStripButton, "saveToolStripButton");
-            this.saveToolStripButton.Image = global::MobiFlight.Properties.Resources.disk_blue;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
-            // 
-            // runToolStripButton
-            // 
-            this.runToolStripButton.Image = global::MobiFlight.Properties.Resources.media_play_green;
-            resources.ApplyResources(this.runToolStripButton, "runToolStripButton");
-            this.runToolStripButton.Name = "runToolStripButton";
-            this.runToolStripButton.Click += new System.EventHandler(this.startToolStripButton_Click);
-            // 
-            // runTestToolStripButton
-            // 
-            this.runTestToolStripButton.Image = global::MobiFlight.Properties.Resources.media_play;
-            this.runTestToolStripButton.Name = "runTestToolStripButton";
-            resources.ApplyResources(this.runTestToolStripButton, "runTestToolStripButton");
-            this.runTestToolStripButton.Click += new System.EventHandler(this.runTestToolStripLabel_Click);
-            // 
-            // stopToolStripButton
-            // 
-            resources.ApplyResources(this.stopToolStripButton, "stopToolStripButton");
-            this.stopToolStripButton.Image = global::MobiFlight.Properties.Resources.media_stop_red;
-            this.stopToolStripButton.Name = "stopToolStripButton";
-            this.stopToolStripButton.Click += new System.EventHandler(this.stopToolStripButton_Click);
-            // 
-            // stopTestToolStripButton
-            // 
-            resources.ApplyResources(this.stopTestToolStripButton, "stopTestToolStripButton");
-            this.stopTestToolStripButton.Image = global::MobiFlight.Properties.Resources.media_stop;
-            this.stopTestToolStripButton.Name = "stopTestToolStripButton";
-            this.stopTestToolStripButton.Click += new System.EventHandler(this.stopTestToolStripButton_Click);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            resources.ApplyResources(this.toolStripSeparator6, "toolStripSeparator6");
-            // 
-            // autoRunToolStripButton
-            // 
-            this.autoRunToolStripButton.Image = global::MobiFlight.Properties.Resources.lightbulb;
-            resources.ApplyResources(this.autoRunToolStripButton, "autoRunToolStripButton");
-            this.autoRunToolStripButton.Name = "autoRunToolStripButton";
-            this.autoRunToolStripButton.Click += new System.EventHandler(this.AutoRunToolStripButton_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
-            // 
-            // settingsToolStripButton
-            // 
-            this.settingsToolStripButton.Image = global::MobiFlight.Properties.Resources.module_mobiflight;
-            resources.ApplyResources(this.settingsToolStripButton, "settingsToolStripButton");
-            this.settingsToolStripButton.Name = "settingsToolStripButton";
-            this.settingsToolStripButton.Click += new System.EventHandler(this.StatusBarToolStripButton_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // statusStripPanel
             // 
@@ -547,7 +448,6 @@
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.logPanel1);
             this.Controls.Add(this.statusStripPanel);
-            this.Controls.Add(this.toolStrip1);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
             this.Name = "MainForm";
@@ -558,8 +458,6 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.contextMenuStripNotifyIcon.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.statusStripPanel.ResumeLayout(false);
             this.statusStripPanel.PerformLayout();
             this.statusStrip2.ResumeLayout(false);
@@ -578,7 +476,6 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItemDivider;
         private System.Windows.Forms.ToolStripMenuItem wiederherstellenToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel statusStripPanel;
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel SimConnectionIconStatusToolStripStatusLabel;
@@ -586,15 +483,6 @@
         private System.Windows.Forms.ToolStripDropDownButton connectedDevicesToolStripDropDownButton;
         private System.Windows.Forms.ToolStripStatusLabel dividerToolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
-        private System.Windows.Forms.ToolStripButton saveToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton stopToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripButton runToolStripButton;
-        private System.Windows.Forms.ToolStripButton stopTestToolStripButton;
-        private System.Windows.Forms.ToolStripButton runTestToolStripButton;
-        private System.Windows.Forms.ToolStripButton autoRunToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
@@ -615,8 +503,6 @@
         private System.Windows.Forms.ToolStripMenuItem simConnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem SimProcessDetectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator separatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripButton settingsToolStripButton;
         private Panels.LogPanel logPanel1;
         private System.Windows.Forms.ImageList tabPageImageList;
         private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;

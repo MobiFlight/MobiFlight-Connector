@@ -130,10 +130,13 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="panelMain.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 25</value>
+    <value>0, 0</value>
+  </data>
+  <data name="panelMain.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="panelMain.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 526</value>
+    <value>1512, 850</value>
   </data>
   <data name="panelMain.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -161,7 +164,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABm
-        PgAAAk1TRnQBSQFMAgEBBAEAAZgBAQGYAQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
+        PgAAAk1TRnQBSQFMAgEBBAEAAaABAQGgAQEBGAEAARgBAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFg
         AwABMAMAAQEBAAEgBgABSP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A
         /wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/ADYAAcwBZgEzAf8BzAFmATMB/wHMAWYBMwH/AcwBZgEz
         Af8BzAFmATMB/wHMAWYBMwH/AcwBZgEzAf8BzAFmATMB/wHMAWYBMwH/AcwBZgEzAf8BzAFmATMB/wHM
@@ -437,34 +440,34 @@
     <value>518, 17</value>
   </metadata>
   <data name="startToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>234, 32</value>
   </data>
   <data name="startToolStripMenuItem.Text" xml:space="preserve">
     <value>Start</value>
   </data>
   <data name="stopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>234, 32</value>
   </data>
   <data name="stopToolStripMenuItem.Text" xml:space="preserve">
     <value>Stop</value>
   </data>
   <data name="toolStripMenuItemDivider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>171, 6</value>
+    <value>231, 6</value>
   </data>
   <data name="wiederherstellenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>234, 32</value>
   </data>
   <data name="wiederherstellenToolStripMenuItem.Text" xml:space="preserve">
     <value>Restore MobiFlight</value>
   </data>
   <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>234, 32</value>
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>
   </data>
   <data name="contextMenuStripNotifyIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 98</value>
+    <value>235, 138</value>
   </data>
   <data name="&gt;&gt;contextMenuStripNotifyIcon.Name" xml:space="preserve">
     <value>contextMenuStripNotifyIcon</value>
@@ -6647,126 +6650,6 @@
   <data name="notifyIcon.Text" xml:space="preserve">
     <value>MobiFlight Connector</value>
   </data>
-  <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>146, 56</value>
-  </metadata>
-  <data name="saveToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="saveToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="saveToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 22</value>
-  </data>
-  <data name="saveToolStripButton.Text" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="runToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="runToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>48, 22</value>
-  </data>
-  <data name="runToolStripButton.Text" xml:space="preserve">
-    <value>Run</value>
-  </data>
-  <data name="runTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>47, 22</value>
-  </data>
-  <data name="runTestToolStripButton.Text" xml:space="preserve">
-    <value>Test</value>
-  </data>
-  <data name="runTestToolStripButton.ToolTipText" xml:space="preserve">
-    <value>Run test mode to check if all display settings are correct.</value>
-  </data>
-  <data name="stopToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="stopToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="stopToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 22</value>
-  </data>
-  <data name="stopToolStripButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="stopTestToolStripButton.Enabled" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="stopTestToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="stopTestToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>51, 22</value>
-  </data>
-  <data name="stopTestToolStripButton.Text" xml:space="preserve">
-    <value>Stop</value>
-  </data>
-  <data name="stopTestToolStripButton.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="toolStripSeparator6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="autoRunToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="autoRunToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 22</value>
-  </data>
-  <data name="autoRunToolStripButton.Text" xml:space="preserve">
-    <value>AutoRun</value>
-  </data>
-  <data name="autoRunToolStripButton.ToolTipText" xml:space="preserve">
-    <value>If activated the last loaded config will be run automatically on next start-up</value>
-  </data>
-  <data name="toolStripSeparator2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="settingsToolStripButton.ImageTransparentColor" type="System.Drawing.Color, System.Drawing">
-    <value>Magenta</value>
-  </data>
-  <data name="settingsToolStripButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>134, 22</value>
-  </data>
-  <data name="settingsToolStripButton.Text" xml:space="preserve">
-    <value>MobiFlight Modules</value>
-  </data>
-  <data name="toolStripSeparator3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>6, 25</value>
-  </data>
-  <data name="toolStrip1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="toolStrip1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>0, 0, 2, 0</value>
-  </data>
-  <data name="toolStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 25</value>
-  </data>
-  <data name="toolStrip1.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="toolStrip1.Text" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Name" xml:space="preserve">
-    <value>toolStrip1</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;toolStrip1.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
   <data name="statusStripPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -6777,13 +6660,13 @@
     <value>Fill</value>
   </data>
   <data name="connectedDevicesToolStripLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>107, 17</value>
+    <value>160, 25</value>
   </data>
   <data name="connectedDevicesToolStripLabel.Text" xml:space="preserve">
     <value>Connected devices</value>
   </data>
   <data name="toolStripConnectedDevicesIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 17</value>
+    <value>24, 25</value>
   </data>
   <data name="toolStripConnectedDevicesIcon.Text" xml:space="preserve">
     <value>Not Found</value>
@@ -6792,13 +6675,13 @@
     <value>False</value>
   </data>
   <data name="noneToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
+    <value>157, 34</value>
   </data>
   <data name="noneToolStripMenuItem1.Text" xml:space="preserve">
     <value>None</value>
   </data>
   <data name="joysticksToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>216, 34</value>
   </data>
   <data name="joysticksToolStripMenuItem.Text" xml:space="preserve">
     <value>Joysticks</value>
@@ -6807,13 +6690,13 @@
     <value>False</value>
   </data>
   <data name="noneToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
+    <value>157, 34</value>
   </data>
   <data name="noneToolStripMenuItem.Text" xml:space="preserve">
     <value>None</value>
   </data>
   <data name="MIDIDevicesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>216, 34</value>
   </data>
   <data name="MIDIDevicesToolStripMenuItem.Text" xml:space="preserve">
     <value>MIDI devices</value>
@@ -6822,13 +6705,13 @@
     <value>False</value>
   </data>
   <data name="noneToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>103, 22</value>
+    <value>157, 34</value>
   </data>
   <data name="noneToolStripMenuItem2.Text" xml:space="preserve">
     <value>None</value>
   </data>
   <data name="modulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>141, 22</value>
+    <value>216, 34</value>
   </data>
   <data name="modulesToolStripMenuItem.Text" xml:space="preserve">
     <value>Modules</value>
@@ -6836,7 +6719,7 @@
   <data name="connectedDevicesToolStripDropDownButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
         YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
         0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
         bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
@@ -6852,49 +6735,49 @@
     <value>Magenta</value>
   </data>
   <data name="connectedDevicesToolStripDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 20</value>
+    <value>18, 29</value>
   </data>
   <data name="dividerToolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
+    <value>4, 25</value>
   </data>
   <data name="SimStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 17</value>
+    <value>94, 25</value>
   </data>
   <data name="SimStatusToolStripStatusLabel.Text" xml:space="preserve">
     <value>Sim status</value>
   </data>
   <data name="toolStripStatusLabel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>0, 17</value>
+    <value>0, 25</value>
   </data>
   <data name="SimConnectionIconStatusToolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>16, 17</value>
+    <value>24, 25</value>
   </data>
   <data name="SimConnectionIconStatusToolStripStatusLabel.Text" xml:space="preserve">
     <value>Not Found</value>
   </data>
   <data name="SimProcessDetectedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>244, 34</value>
   </data>
   <data name="SimProcessDetectedToolStripMenuItem.Text" xml:space="preserve">
     <value>No Sim Running</value>
   </data>
   <data name="separatorToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 6</value>
+    <value>241, 6</value>
   </data>
   <data name="FsuipcToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>244, 34</value>
   </data>
   <data name="FsuipcToolStripMenuItem.Text" xml:space="preserve">
     <value>FSUIPC</value>
   </data>
   <data name="simConnectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>244, 34</value>
   </data>
   <data name="simConnectToolStripMenuItem.Text" xml:space="preserve">
     <value>SimConnect</value>
   </data>
   <data name="xPlaneDirectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>161, 22</value>
+    <value>244, 34</value>
   </data>
   <data name="xPlaneDirectToolStripMenuItem.Text" xml:space="preserve">
     <value>X-Plane (direct)</value>
@@ -6902,7 +6785,7 @@
   <data name="simStatusToolStripDropDownButton1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAIDSURBVDhPpZLrS5NhGMb3j4SWh0oRQVExD4gonkDpg4hG
         YKxG6WBogkMZKgPNCEVJFBGdGETEvgwyO9DJE5syZw3PIlPEE9pgBCLZ5XvdMB8Ew8gXbl54nuf63dd9
         0OGSnwCahxbPRNPAPMw9Xpg6ZmF46kZZ0xSKzJPIrhpDWsVnpBhGkKx3nAX8Pv7z1zg8OoY/cITdn4fw
         bf/C0kYAN3Ma/w3gWfZL5kzTKBxjWyK2DftwI9tyMYCZKXbNHaD91bLYJrDXsYbrWfUKwJrPE9M2M1Oc
@@ -6918,19 +6801,19 @@
     <value>Magenta</value>
   </data>
   <data name="simStatusToolStripDropDownButton1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>13, 20</value>
+    <value>18, 29</value>
   </data>
   <data name="simStatusToolStripDropDownButton1.Text" xml:space="preserve">
     <value>Show Flight Sim Connections</value>
   </data>
   <data name="toolStripStatusLabel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
+    <value>4, 25</value>
   </data>
   <data name="toolStripStatusLabel1.Text" xml:space="preserve">
     <value>|</value>
   </data>
   <data name="linkCurrentConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
+    <value>302, 34</value>
   </data>
   <data name="linkCurrentConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Link current config</value>
@@ -6939,13 +6822,13 @@
     <value>Use the current config when this aircraft is detected.</value>
   </data>
   <data name="openLinkFilenameToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 22</value>
+    <value>236, 34</value>
   </data>
   <data name="openLinkFilenameToolStripMenuItem.Text" xml:space="preserve">
     <value>LinkPlaceholder</value>
   </data>
   <data name="openLinkedConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
+    <value>302, 34</value>
   </data>
   <data name="openLinkedConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Open linked config</value>
@@ -6954,7 +6837,7 @@
     <value>Open the linked config for the detected aircraft.</value>
   </data>
   <data name="removeLinkConfigToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
+    <value>302, 34</value>
   </data>
   <data name="removeLinkConfigToolStripMenuItem.Text" xml:space="preserve">
     <value>Remove link</value>
@@ -6963,10 +6846,10 @@
     <value>Remove the link of the config that was linked with this aircraft.</value>
   </data>
   <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>197, 6</value>
+    <value>299, 6</value>
   </data>
   <data name="autoloadToggleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 22</value>
+    <value>302, 34</value>
   </data>
   <data name="autoloadToggleToolStripMenuItem.Text" xml:space="preserve">
     <value>Auto-load linked config</value>
@@ -6978,7 +6861,7 @@
     <value>Magenta</value>
   </data>
   <data name="toolStripAircraftDropDownButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>125, 20</value>
+    <value>187, 29</value>
   </data>
   <data name="toolStripAircraftDropDownButton.Text" xml:space="preserve">
     <value>No aircraft detected</value>
@@ -6987,13 +6870,13 @@
     <value>TextBeforeImage</value>
   </data>
   <data name="toolStripStatusLabel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
+    <value>4, 25</value>
   </data>
   <data name="toolStripStatusLabel2.Text" xml:space="preserve">
     <value>|</value>
   </data>
   <data name="toolStripStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>557, 17</value>
+    <value>843, 25</value>
   </data>
   <data name="toolStripStatusLabel.Text" xml:space="preserve">
     <value>Status Info...</value>
@@ -7002,7 +6885,7 @@
     <value>MiddleRight</value>
   </data>
   <data name="toolStripStatusLabel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
+    <value>4, 25</value>
   </data>
   <data name="toolStripStatusLabel4.Text" xml:space="preserve">
     <value>|</value>
@@ -7020,7 +6903,7 @@
 </value>
   </data>
   <data name="toolStripStatusLabelHubHop.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 17</value>
+    <value>105, 25</value>
   </data>
   <data name="toolStripStatusLabelHubHop.Text" xml:space="preserve">
     <value>HubHop</value>
@@ -7031,8 +6914,11 @@
   <data name="statusStrip2.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="statusStrip2.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>2, 0, 21, 0</value>
+  </data>
   <data name="statusStrip2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 22</value>
+    <value>1512, 32</value>
   </data>
   <data name="statusStrip2.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -7056,13 +6942,13 @@
     <value>Bottom</value>
   </data>
   <data name="statusStripPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 707</value>
+    <value>0, 1090</value>
   </data>
   <data name="statusStripPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
   <data name="statusStripPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 22</value>
+    <value>1512, 32</value>
   </data>
   <data name="statusStripPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -7155,13 +7041,16 @@
     <value>NoControl</value>
   </data>
   <data name="logSplitter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 548</value>
+    <value>0, 845</value>
+  </data>
+  <data name="logSplitter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="logSplitter.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="logSplitter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 3</value>
+    <value>1512, 5</value>
   </data>
   <data name="logSplitter.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -7182,10 +7071,13 @@
     <value>Fill</value>
   </data>
   <data name="frontendPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 25</value>
+    <value>0, 0</value>
+  </data>
+  <data name="frontendPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 8, 6, 8</value>
   </data>
   <data name="frontendPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 526</value>
+    <value>1512, 850</value>
   </data>
   <data name="frontendPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -7206,10 +7098,13 @@
     <value>Bottom</value>
   </data>
   <data name="logPanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 551</value>
+    <value>0, 850</value>
+  </data>
+  <data name="logPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>6, 8, 6, 8</value>
   </data>
   <data name="logPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 156</value>
+    <value>1512, 240</value>
   </data>
   <data name="logPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -7233,10 +7128,10 @@
     <value>44</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>1008, 729</value>
+    <value>1512, 1122</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -7382,8 +7277,11 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
   </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
+  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 600</value>
+    <value>1189, 893</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>
@@ -7432,72 +7330,6 @@
   </data>
   <data name="&gt;&gt;exitToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Name" xml:space="preserve">
-    <value>saveToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;saveToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;runToolStripButton.Name" xml:space="preserve">
-    <value>runToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;runToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;runTestToolStripButton.Name" xml:space="preserve">
-    <value>runTestToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;runTestToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopToolStripButton.Name" xml:space="preserve">
-    <value>stopToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;stopToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;stopTestToolStripButton.Name" xml:space="preserve">
-    <value>stopTestToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;stopTestToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator6.Name" xml:space="preserve">
-    <value>toolStripSeparator6</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator6.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;autoRunToolStripButton.Name" xml:space="preserve">
-    <value>autoRunToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;autoRunToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Name" xml:space="preserve">
-    <value>toolStripSeparator2</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;settingsToolStripButton.Name" xml:space="preserve">
-    <value>settingsToolStripButton</value>
-  </data>
-  <data name="&gt;&gt;settingsToolStripButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Name" xml:space="preserve">
-    <value>toolStripSeparator3</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;connectedDevicesToolStripLabel.Name" xml:space="preserve">
     <value>connectedDevicesToolStripLabel</value>
