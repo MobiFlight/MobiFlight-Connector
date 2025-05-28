@@ -80,7 +80,12 @@ namespace MobiFlight.BrowserMessages
                 var deserializedPayload = JsonConvert.DeserializeObject(eventToPublish.payload.ToString(), eventType);
                 foreach (var subscriber in subscribers)
                 {
-                    subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+
+                    // Show a modal dialog after the current event handler is completed, to avoid potential reentrancy caused by running a nested message loop in the WebView2 event handler.
+                    System.Threading.SynchronizationContext.Current.Post((_) =>
+                    {
+                        subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+                    }, null);
                 }
             }
             catch (Exception e)
