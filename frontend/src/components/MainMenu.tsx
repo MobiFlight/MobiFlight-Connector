@@ -11,7 +11,6 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "./ui/menubar"
-import IconBrandMobiFlightLogo from "./icons/IconBrandMobiFlightLogo"
 import { CommunityMenu } from "./CommunityMenu"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandMainMenuPayload } from "@/types/commands"
@@ -29,7 +28,6 @@ export const MainMenu = () => {
   return (
     <Menubar className="justify-between bg-muted/20">
       <div className="flex items-center">
-        <IconBrandMobiFlightLogo />
         <MenubarMenu>
           <MenubarTrigger>File</MenubarTrigger>
           <MenubarContent>
