@@ -9,13 +9,14 @@ import Settings from "./types/settings"
 import _ from "lodash"
 import { useProjectStore } from "./stores/projectStore"
 import { MainMenu } from "./components/MainMenu"
-import { CommunityMenu } from "./components/CommunityMenu"
+import { useSettingsStore } from "./stores/settingsStore"
 
 function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
   const { setItems } = useConfigStore()
   const { setProject } = useProjectStore()
+  const { setSettings } = useSettingsStore()
 
   const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>({
     Value: 0,
@@ -40,12 +41,11 @@ function App() {
   useAppMessage("Settings", (message) => {
     const settings = message.payload as Settings
     console.log("Settings message received", settings)
+    setSettings(settings)
 
     const language = settings.Language.split("-")[0]
-    if (!_.isEmpty(language))
-      i18next.changeLanguage(settings.Language)
-    else
-      i18next.changeLanguage()
+    if (!_.isEmpty(language)) i18next.changeLanguage(settings.Language)
+    else i18next.changeLanguage()
   })
 
   // this allows to get beyond the startup screen
@@ -70,26 +70,28 @@ function App() {
 
   const outlet = useOutlet()
 
-  const windowSize = { x : window.innerWidth, y : window.innerHeight }
+  const windowSize = { x: window.innerWidth, y: window.innerHeight }
 
   return (
     <>
       {outlet ? (
-        <div className="flex h-svh flex-row p-0 select-none">
+        <div className="flex h-svh select-none flex-row p-0">
           {/* <Sidebar /> */}
           <div className="flex grow flex-col">
-            <div className="flex flex-row justify-between">
             <MainMenu />
-            <CommunityMenu />
-            </div>
+
             {/* Uncomment the Navbar if needed */}
             {/* <Navbar /> */}
             <div className="flex grow flex-col overflow-hidden p-2">
               <Outlet />
             </div>
-            <div className="flex flex-row justify-end gap-2  px-5">
-              <div className="text-xs text-muted-foreground">{windowSize.x}x{windowSize.y}</div>
-              <div className="text-xs text-muted-foreground">MobiFlight 2025</div>
+            <div className="flex flex-row justify-end gap-2 px-5">
+              <div className="text-xs text-muted-foreground">
+                {windowSize.x}x{windowSize.y}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                MobiFlight 2025
+              </div>
               <div className="text-xs text-muted-foreground">Version 1.0.0</div>
             </div>
           </div>

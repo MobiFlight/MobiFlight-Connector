@@ -1,3 +1,4 @@
+import { useSettingsStore } from "@/stores/settingsStore"
 import {
   Menubar,
   MenubarContent,
@@ -10,10 +11,15 @@ import {
   MenubarSubTrigger,
   MenubarTrigger,
 } from "./ui/menubar"
+import IconMobiFlightLogo from "./icons/IconMobiFlightLogo"
+import { CommunityMenu } from "./CommunityMenu"
 
 export const MainMenu = () => {
+  const { settings } = useSettingsStore()
   return (
-    <Menubar>
+    <Menubar className="justify-between bg-muted/20">
+      <div className="flex">
+      <IconMobiFlightLogo />
       <MenubarMenu>
         <MenubarTrigger>File</MenubarTrigger>
         <MenubarContent>
@@ -31,9 +37,13 @@ export const MainMenu = () => {
           <MenubarSub>
             <MenubarSubTrigger>Recent projects</MenubarSubTrigger>
             <MenubarSubContent>
-              <MenubarItem>Dummy project 1</MenubarItem>
-              <MenubarItem>Dummy project 2</MenubarItem>
-              <MenubarItem>Dummy project 3</MenubarItem>
+              {settings && settings.RecentFiles.length > 0 ? (
+                settings.RecentFiles.map((file, index) => (
+                  <MenubarItem key={index}>{file}</MenubarItem>
+                ))
+              ) : (
+                <MenubarItem disabled>No recent projects</MenubarItem>
+              )}
             </MenubarSubContent>
           </MenubarSub>
           <MenubarSeparator />
@@ -76,6 +86,10 @@ export const MainMenu = () => {
           <MenubarItem>Release notes</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
+      </div>
+      <div>
+      <CommunityMenu />
+      </div>
     </Menubar>
   )
 }

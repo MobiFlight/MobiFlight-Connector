@@ -110,7 +110,7 @@ namespace MobiFlight.UI
 
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
-                MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
+                PublishSettings();
             };
 
             UpdateAutoLoadConfig();
@@ -124,9 +124,6 @@ namespace MobiFlight.UI
             // there are no recent files which
             // could lead to a filename change
             UpdateAutoLoadMenu();
-
-            // Send the current settings to the UI
-            MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
         }
 
         public MainForm()
@@ -383,7 +380,15 @@ namespace MobiFlight.UI
                 var msg = message;
                 MessageBox.Show(msg.Message);
             });
+
+            PublishSettings();
         }
+
+        private void PublishSettings()
+        {
+            MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
+        }
+
         private void InitializeExecutionManager()
         {
             execManager = new ExecutionManager(this.Handle);
@@ -998,6 +1003,8 @@ namespace MobiFlight.UI
                 logPanel1.Visible = (bool)e.NewValue;
                 logSplitter.Visible = (bool)e.NewValue;
             }
+
+            PublishSettings();
         }
 
         private void _autoloadConfig()

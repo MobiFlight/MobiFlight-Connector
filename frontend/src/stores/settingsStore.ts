@@ -6,7 +6,7 @@ interface SettingsState {
   setSettings: (Settings: Settings) => void
 }
 
-export const useProjectStore = create<SettingsState>((set) => ({
+export const useSettingsStore = create<SettingsState>((set) => ({
   settings: null,
   setSettings: (settings) => set({ settings: settings })
 }))
