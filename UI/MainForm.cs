@@ -70,7 +70,7 @@ namespace MobiFlight.UI
 
         private int StartupProgressValue = 0;
 
-        private bool ProjectHasUnsavedChanges = false;
+        public bool ProjectHasUnsavedChanges = false;
 
         private void InitializeLogging()
         {
