@@ -30,36 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.konfigurationSpeichernToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AfterFileActionsToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
-            this.recentDocumentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recentDocsToolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hubHopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadPresetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mSFS2020ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.installWASMModuleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.downloadLatestEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyLogsToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.orphanedSerialsFinderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
-            this.openDiscordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openHubHopWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openYoutubeChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.releaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMain = new System.Windows.Forms.Panel();
             this.tabPageImageList = new System.Windows.Forms.ImageList(this.components);
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -131,215 +101,12 @@
             this.logSplitter = new System.Windows.Forms.Splitter();
             this.frontendPanel1 = new MobiFlight.UI.Panels.FrontendPanel();
             this.logPanel1 = new MobiFlight.UI.Panels.LogPanel();
-            this.menuStrip.SuspendLayout();
             this.contextMenuStripNotifyIcon.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStripPanel.SuspendLayout();
             this.statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // menuStrip
-            // 
-            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.extrasToolStripMenuItem,
-            this.hilfeToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip, "menuStrip");
-            this.menuStrip.Name = "menuStrip";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem3,
-            this.toolStripMenuItem2,
-            this.openToolStripMenuItem,
-            this.konfigurationSpeichernToolStripMenuItem,
-            this.AfterFileActionsToolStripMenuItem,
-            this.recentDocumentsToolStripMenuItem,
-            this.recentDocsToolStripSeparator,
-            this.beendenToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            resources.ApplyResources(this.toolStripMenuItem3, "toolStripMenuItem3");
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.newFileToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            resources.ApplyResources(this.toolStripMenuItem2, "toolStripMenuItem2");
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            resources.ApplyResources(this.openToolStripMenuItem, "openToolStripMenuItem");
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
-            // 
-            // konfigurationSpeichernToolStripMenuItem
-            // 
-            this.konfigurationSpeichernToolStripMenuItem.Name = "konfigurationSpeichernToolStripMenuItem";
-            resources.ApplyResources(this.konfigurationSpeichernToolStripMenuItem, "konfigurationSpeichernToolStripMenuItem");
-            this.konfigurationSpeichernToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            // 
-            // AfterFileActionsToolStripMenuItem
-            // 
-            this.AfterFileActionsToolStripMenuItem.Name = "AfterFileActionsToolStripMenuItem";
-            resources.ApplyResources(this.AfterFileActionsToolStripMenuItem, "AfterFileActionsToolStripMenuItem");
-            // 
-            // recentDocumentsToolStripMenuItem
-            // 
-            this.recentDocumentsToolStripMenuItem.Name = "recentDocumentsToolStripMenuItem";
-            resources.ApplyResources(this.recentDocumentsToolStripMenuItem, "recentDocumentsToolStripMenuItem");
-            // 
-            // recentDocsToolStripSeparator
-            // 
-            this.recentDocsToolStripSeparator.Name = "recentDocsToolStripSeparator";
-            resources.ApplyResources(this.recentDocsToolStripSeparator, "recentDocsToolStripSeparator");
-            // 
-            // beendenToolStripMenuItem
-            // 
-            this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            resources.ApplyResources(this.beendenToolStripMenuItem, "beendenToolStripMenuItem");
-            this.beendenToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // extrasToolStripMenuItem
-            // 
-            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hubHopToolStripMenuItem,
-            this.mSFS2020ToolStripMenuItem,
-            this.copyLogsToClipboardToolStripMenuItem,
-            this.orphanedSerialsFinderToolStripMenuItem,
-            this.toolStripMenuItem4,
-            this.settingsToolStripMenuItem});
-            this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
-            resources.ApplyResources(this.extrasToolStripMenuItem, "extrasToolStripMenuItem");
-            // 
-            // hubHopToolStripMenuItem
-            // 
-            this.hubHopToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.downloadPresetsToolStripMenuItem});
-            this.hubHopToolStripMenuItem.Name = "hubHopToolStripMenuItem";
-            resources.ApplyResources(this.hubHopToolStripMenuItem, "hubHopToolStripMenuItem");
-            // 
-            // downloadPresetsToolStripMenuItem
-            // 
-            this.downloadPresetsToolStripMenuItem.Name = "downloadPresetsToolStripMenuItem";
-            resources.ApplyResources(this.downloadPresetsToolStripMenuItem, "downloadPresetsToolStripMenuItem");
-            this.downloadPresetsToolStripMenuItem.Click += new System.EventHandler(this.downloadHubHopPresetsToolStripMenuItem_Click);
-            // 
-            // mSFS2020ToolStripMenuItem
-            // 
-            this.mSFS2020ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.installWASMModuleToolStripMenuItem,
-            this.downloadLatestEventsToolStripMenuItem});
-            this.mSFS2020ToolStripMenuItem.Name = "mSFS2020ToolStripMenuItem";
-            resources.ApplyResources(this.mSFS2020ToolStripMenuItem, "mSFS2020ToolStripMenuItem");
-            // 
-            // installWASMModuleToolStripMenuItem
-            // 
-            this.installWASMModuleToolStripMenuItem.Name = "installWASMModuleToolStripMenuItem";
-            resources.ApplyResources(this.installWASMModuleToolStripMenuItem, "installWASMModuleToolStripMenuItem");
-            this.installWASMModuleToolStripMenuItem.Click += new System.EventHandler(this.installWasmModuleToolStripMenuItem_Click);
-            // 
-            // downloadLatestEventsToolStripMenuItem
-            // 
-            this.downloadLatestEventsToolStripMenuItem.Name = "downloadLatestEventsToolStripMenuItem";
-            resources.ApplyResources(this.downloadLatestEventsToolStripMenuItem, "downloadLatestEventsToolStripMenuItem");
-            this.downloadLatestEventsToolStripMenuItem.Click += new System.EventHandler(this.downloadLatestEventsToolStripMenuItem_Click);
-            // 
-            // copyLogsToClipboardToolStripMenuItem
-            // 
-            this.copyLogsToClipboardToolStripMenuItem.Name = "copyLogsToClipboardToolStripMenuItem";
-            resources.ApplyResources(this.copyLogsToClipboardToolStripMenuItem, "copyLogsToClipboardToolStripMenuItem");
-            this.copyLogsToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyLogsToClipboardToolStripMenuItem_Click);
-            // 
-            // orphanedSerialsFinderToolStripMenuItem
-            // 
-            this.orphanedSerialsFinderToolStripMenuItem.Name = "orphanedSerialsFinderToolStripMenuItem";
-            resources.ApplyResources(this.orphanedSerialsFinderToolStripMenuItem, "orphanedSerialsFinderToolStripMenuItem");
-            this.orphanedSerialsFinderToolStripMenuItem.Click += new System.EventHandler(this.orphanedSerialsFinderToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            resources.ApplyResources(this.toolStripMenuItem4, "toolStripMenuItem4");
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
-            // 
-            // hilfeToolStripMenuItem
-            // 
-            this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem,
-            this.checkForUpdateToolStripMenuItem,
-            this.toolStripSeparator7,
-            this.openDiscordServerToolStripMenuItem,
-            this.openHubHopWebsiteToolStripMenuItem,
-            this.openYoutubeChannelToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.überToolStripMenuItem,
-            this.releaseNotesToolStripMenuItem});
-            this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
-            resources.ApplyResources(this.hilfeToolStripMenuItem, "hilfeToolStripMenuItem");
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            resources.ApplyResources(this.helpToolStripMenuItem, "helpToolStripMenuItem");
-            this.helpToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
-            // 
-            // checkForUpdateToolStripMenuItem
-            // 
-            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            resources.ApplyResources(this.checkForUpdateToolStripMenuItem, "checkForUpdateToolStripMenuItem");
-            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            resources.ApplyResources(this.toolStripSeparator7, "toolStripSeparator7");
-            // 
-            // openDiscordServerToolStripMenuItem
-            // 
-            this.openDiscordServerToolStripMenuItem.Name = "openDiscordServerToolStripMenuItem";
-            resources.ApplyResources(this.openDiscordServerToolStripMenuItem, "openDiscordServerToolStripMenuItem");
-            this.openDiscordServerToolStripMenuItem.Click += new System.EventHandler(this.openDiscordServer_Click);
-            // 
-            // openHubHopWebsiteToolStripMenuItem
-            // 
-            this.openHubHopWebsiteToolStripMenuItem.Name = "openHubHopWebsiteToolStripMenuItem";
-            resources.ApplyResources(this.openHubHopWebsiteToolStripMenuItem, "openHubHopWebsiteToolStripMenuItem");
-            this.openHubHopWebsiteToolStripMenuItem.Click += new System.EventHandler(this.HubHopToolStripButton_Click);
-            // 
-            // openYoutubeChannelToolStripMenuItem
-            // 
-            this.openYoutubeChannelToolStripMenuItem.Name = "openYoutubeChannelToolStripMenuItem";
-            resources.ApplyResources(this.openYoutubeChannelToolStripMenuItem, "openYoutubeChannelToolStripMenuItem");
-            this.openYoutubeChannelToolStripMenuItem.Click += new System.EventHandler(this.YouTubeToolStripButton_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
-            // 
-            // überToolStripMenuItem
-            // 
-            this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            resources.ApplyResources(this.überToolStripMenuItem, "überToolStripMenuItem");
-            this.überToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
-            // 
-            // releaseNotesToolStripMenuItem
-            // 
-            this.releaseNotesToolStripMenuItem.Name = "releaseNotesToolStripMenuItem";
-            resources.ApplyResources(this.releaseNotesToolStripMenuItem, "releaseNotesToolStripMenuItem");
-            this.releaseNotesToolStripMenuItem.Click += new System.EventHandler(this.releaseNotesToolStripMenuItem_Click);
             // 
             // panelMain
             // 
@@ -838,10 +605,8 @@
             this.Controls.Add(this.logPanel1);
             this.Controls.Add(this.statusStripPanel);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.menuStrip);
             this.DoubleBuffered = true;
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip;
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -849,8 +614,6 @@
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyUp);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            this.menuStrip.ResumeLayout(false);
-            this.menuStrip.PerformLayout();
             this.contextMenuStripNotifyIcon.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
@@ -865,15 +628,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem konfigurationSpeichernToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator AfterFileActionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem beendenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
         private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripNotifyIcon;
@@ -881,8 +635,6 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItemDivider;
         private System.Windows.Forms.ToolStripMenuItem wiederherstellenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.Panel statusStripPanel;
         private System.Windows.Forms.StatusStrip statusStrip2;
@@ -896,19 +648,11 @@
         private System.Windows.Forms.ToolStripButton stopToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton exitToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator recentDocsToolStripSeparator;
-        private System.Windows.Forms.ToolStripMenuItem recentDocumentsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton runToolStripButton;
         private System.Windows.Forms.ToolStripButton stopTestToolStripButton;
         private System.Windows.Forms.ToolStripButton runTestToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem extrasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton autoRunToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem orphanedSerialsFinderToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripButton donateToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.DataGridViewCheckBoxColumn activeDataGridViewCheckBoxColumn;
@@ -921,16 +665,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
         private System.Windows.Forms.Splitter logSplitter;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mSFS2020ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem installWASMModuleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem downloadLatestEventsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripMenuItem openDiscordServerToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel SimStatusToolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripDropDownButton simStatusToolStripDropDownButton1;
@@ -941,15 +680,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton settingsToolStripButton;
         private System.Windows.Forms.ToolStripButton YouTubeToolStripButton;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripMenuItem openYoutubeChannelToolStripMenuItem;
         private Panels.LogPanel logPanel1;
         private System.Windows.Forms.ToolStripButton HubHopToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem openHubHopWebsiteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem releaseNotesToolStripMenuItem;
         private System.Windows.Forms.ImageList tabPageImageList;
-        private System.Windows.Forms.ToolStripMenuItem hubHopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem downloadPresetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xPlaneDirectToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripAircraftDropDownButton;
@@ -961,7 +694,6 @@
         private System.Windows.Forms.ToolStripMenuItem openLinkFilenameToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelHubHop;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripMenuItem copyLogsToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem joysticksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MIDIDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modulesToolStripMenuItem;

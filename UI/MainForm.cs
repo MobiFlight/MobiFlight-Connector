@@ -302,7 +302,6 @@ namespace MobiFlight.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            menuStrip.Enabled = false;
             toolStrip1.Enabled = false;
 
             ProjectLoaded += (s, project) =>
@@ -363,8 +362,6 @@ namespace MobiFlight.UI
 
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
-
-            _updateRecentFilesMenuItems();
 
             if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
             {
@@ -748,7 +745,6 @@ namespace MobiFlight.UI
             StartupProgressValue = 100;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Finished." });
 
-            menuStrip.Enabled = true;
             toolStrip1.Enabled = true;
 
             settingsToolStripButton.Enabled = true;
@@ -1689,29 +1685,7 @@ namespace MobiFlight.UI
             }
             Properties.Settings.Default.RecentFiles.Insert(0, fileName);
             Properties.Settings.Default.Save();
-
-            _updateRecentFilesMenuItems();
         }
-
-        /// <summary>
-        /// updates the list of the recent used files in the menu list
-        /// </summary>
-        private void _updateRecentFilesMenuItems()
-        {
-            recentDocumentsToolStripMenuItem.DropDownItems.Clear();
-            int limit = 0;
-            // update Menu
-            foreach (string filename in Properties.Settings.Default.RecentFiles)
-            {
-                if (limit++ == Properties.Settings.Default.RecentFilesMaxCount) break;
-
-                ToolStripItem current = new ToolStripMenuItem(filename);
-                current.Click += new EventHandler(recentMenuItem_Click);
-                recentDocumentsToolStripMenuItem.DropDownItems.Add(current);
-            }
-
-            recentDocumentsToolStripMenuItem.Enabled = recentDocumentsToolStripMenuItem.DropDownItems.Count > 0;
-        } //_updateRecentFilesMenuItems()
 
         /// <summary>
         /// gets triggered when user clicks on recent used file entry
