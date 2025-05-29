@@ -187,7 +187,7 @@ test("Confirm multi drag n drop is working", async ({ configListPage, page }) =>
   const fifthRow = page.getByRole("row").nth(5)
   
   // select the first row
-  firstRow.click()
+  await firstRow.click()
   await page.keyboard.down("Control")
   // add the third row to the selection
   await thirdRow.click()

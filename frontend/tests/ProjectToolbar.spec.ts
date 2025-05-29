@@ -14,19 +14,22 @@ test("Confirm file tab actions work", async ({ configListPage, page }) => {
   await configListPage.mobiFlightPage.trackCommand("CommandActiveConfigFile")
 
   // Select the second tab
-  const secondTab = page.getByRole('tablist').getByRole('tab', { name: 'Config'}).nth(1)
+  const secondTab = page.getByRole('tablist').getByRole('tab').nth(1)
   await secondTab.click()
   let postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
   let lastCommand = postedCommands!.pop()
   expect (lastCommand.key).toEqual('CommandActiveConfigFile')
   expect (lastCommand.payload.index).toEqual(1)
-
+  
   // Rename the second tab
   await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
-  await page.getByRole('button', { name: 'Open menu' }).nth(1).click();
+  const secondTabContextMenu = page.getByRole('tablist').getByRole('tab').nth(1).getByRole('button').nth(1)
+  await secondTabContextMenu.click();
+  // the overlay is not nested in the dom
+  // we have to use the page locator to find it
   await page.getByRole('menuitem', { name: 'Rename' }).click();
-  await page.getByRole('button', { name: 'Config 2' }).getByRole('textbox').fill('Config 2 Renamed');
-  await page.getByRole('button', { name: 'Config 2' }).getByRole('textbox').press('Enter');
+  await secondTab.getByRole('button', { name: 'Config 2' }).getByRole('textbox').fill('Config 2 Renamed');
+  await secondTab.getByRole('button', { name: 'Config 2' }).getByRole('textbox').press('Enter');
 
   postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
   lastCommand = postedCommands!.pop()
@@ -37,7 +40,8 @@ test("Confirm file tab actions work", async ({ configListPage, page }) => {
   
   // Remove the second tab
   await configListPage.mobiFlightPage.trackCommand("CommandFileContextMenu")
-  await page.getByRole('button', { name: 'Open menu' }).nth(1).click();
+  
+  await secondTabContextMenu.click();
   await page.getByRole('menuitem', { name: 'Remove' }).click();
   postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
   lastCommand = postedCommands!.pop()
