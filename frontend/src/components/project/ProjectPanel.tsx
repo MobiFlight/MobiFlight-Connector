@@ -17,6 +17,7 @@ import {
 } from "../ui/dropdown-menu"
 import { useTranslation } from "react-i18next"
 import ExecutionToolbar from "../ExecutionToolbar"
+import ProjectNameLabel from "../ProjectNameLabel"
 
 const ProjectPanel = () => {
   const { t } = useTranslation()
@@ -78,8 +79,8 @@ const ProjectPanel = () => {
 
   return (
     <div className="border-b-solid flex flex-row gap-2 border-b border-b-muted-foreground/50 pb-0 pl-0 pr-2 pt-1">
-      <div className="flex flex-row items-center rounded-md rounded-bl-none border-muted-foreground/50 rounded-br-none border border-b-0 border-solid px-4">
-        {project?.Name ?? t("Project.Panel.Title")}
+      <div className="flex flex-row items-center rounded-md rounded-bl-none border-muted-foreground/50 rounded-br-none border border-b-0 border-solid px-2">
+        <ProjectNameLabel />
         <IconMinusVertical className="stroke-muted-foreground/50" />
         <ExecutionToolbar />
       </div>

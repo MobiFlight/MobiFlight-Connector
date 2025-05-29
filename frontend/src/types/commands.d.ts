@@ -141,6 +141,8 @@ export type CommandProjectToolbarPayload = {
     | "test"
     | "stop"
     | "toggleAutoRun"
+    | "rename"
+  value?: string
 }
 
 export interface CommandProjectToolbar extends CommandMessageBase {

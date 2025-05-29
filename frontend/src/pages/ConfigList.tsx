@@ -88,9 +88,7 @@ const ConfigListPage = () => {
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <div>
-        <ProjectPanel />
-      </div>
+      <ProjectPanel />
       {
         <div className="flex flex-col gap-4 overflow-y-auto">
           <ConfigItemTable
