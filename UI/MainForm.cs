@@ -53,6 +53,11 @@ namespace MobiFlight.UI
 
         private bool IsMSFSRunning = false;
 
+        public ExecutionManager ExecutionManager
+        {
+            get { return execManager; }
+        }
+
         private void InitializeUILanguage()
         {
             if (Properties.Settings.Default.Language != "")

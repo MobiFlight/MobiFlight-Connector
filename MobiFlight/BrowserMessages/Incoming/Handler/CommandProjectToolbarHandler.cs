@@ -5,6 +5,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
     public class CommandProjectToolbarHandler
     {
         private readonly MainForm _mainForm;
+        
         public CommandProjectToolbarHandler(MainForm mainForm)
         {
             _mainForm = mainForm;
@@ -34,7 +35,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
 
                 case CommandProjectToolbarAction.rename:
                     if (string.IsNullOrEmpty(message.Value)) return;
-                    
+                    _mainForm.ExecutionManager.Project.Name = message.Value;
                     break;
             }
         }
