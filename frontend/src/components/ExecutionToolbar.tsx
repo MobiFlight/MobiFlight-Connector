@@ -41,7 +41,7 @@ export const ExecutionToolbar = () => {
         onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
       >
         {settings?.AutoRun ? (
-          <IconBulbFilled className="stroke-yellow-500" />
+          <IconBulbFilled className="stroke-yellow-500 fill-yellow-500" />
         ) : (
           <IconBulb className="stroke-gray-500" />
         )}
