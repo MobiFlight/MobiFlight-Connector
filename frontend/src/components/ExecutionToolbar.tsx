@@ -1,5 +1,6 @@
 import {
   IconBulb,
+  IconBulbFilled,
   IconPlayerPlay,
   IconPlayerPlayFilled,
   IconPlayerStop,
@@ -36,11 +37,11 @@ export const ExecutionToolbar = () => {
     <div className="flex items-center gap-2">
       <Button
         variant="ghost"
-        className="text-md h-8 px-2 py-1 [&_svg]:size-6"
+        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
         onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
       >
         {settings?.AutoRun ? (
-          <IconBulb className="stroke-yellow-500" />
+          <IconBulbFilled className="stroke-yellow-500" />
         ) : (
           <IconBulb className="stroke-gray-500" />
         )}
@@ -48,7 +49,7 @@ export const ExecutionToolbar = () => {
       </Button>
       <Button
         variant="ghost"
-        className="text-md h-8 px-2 py-1 [&_svg]:size-6"
+        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
         disabled={isRunning || isTesting}
         onClick={() => handleMenuItemClick({ action: "run" })}
       >
@@ -61,16 +62,20 @@ export const ExecutionToolbar = () => {
       </Button>
       <Button
         variant="ghost"
-        className="text-md h-8 px-2 py-1 [&_svg]:size-6"
+        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
         disabled={isRunning || isTesting}
         onClick={() => handleMenuItemClick({ action: "test" })}
       >
-        <IconPlayerPlay className="stroke-sky-600" />
+        {isTesting ? (
+          <IconPlayerPlayFilled className="fill-sky-600 stroke-sky-600" />
+        ) : (
+          <IconPlayerPlay className="stroke-sky-600" />
+        )}
         Test
       </Button>
       <Button
         variant="ghost"
-        className="text-md h-8 px-2 py-1 [&_svg]:size-6"
+        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
         disabled={!isRunning && !isTesting}
         onClick={() => handleMenuItemClick({ action: "stop" })}
       >
