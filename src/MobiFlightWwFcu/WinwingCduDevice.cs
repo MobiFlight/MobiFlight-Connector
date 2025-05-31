@@ -2,8 +2,10 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MobiFlightWwFcu
 {
@@ -20,6 +22,8 @@ namespace MobiFlightWwFcu
         private const string BACK_BRIGHTNESS = "Backlight Percentage";
         private const string LCD_BRIGHTNESS = "LCD Percentage";
         private const string LED_BRIGHTNESS = "LED Percentage";
+
+        private WinwingFontConverter FontConverter = new WinwingFontConverter();
 
 
         private Dictionary<char, byte> FormatTable = new Dictionary<char, byte>()
@@ -69,8 +73,8 @@ namespace MobiFlightWwFcu
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
-                           [""\u2192"",""w"",0], [""M"",""c"",0],[""o"",""w"",0],[""b"",""c"",0],[""i"",""w"",0],[""F"",""c"",0],[""l"",""w"",0],
-                           [""i"",""c"",0],[""g"",""w"",0],[""h"",""c"",0],[""t"",""w"",0],[""\u2190"",""c"",0],[],[],[],[],[],[],[],[],[],[],[],[],
+                           [""\u2192"",""w"",0], [""M"",""c"",0],[""O"",""w"",0],[""B"",""c"",0],[""I"",""w"",0],[""F"",""c"",0],[""L"",""w"",0],
+                           [""I"",""c"",0],[""G"",""w"",0],[""H"",""c"",0],[""T"",""w"",0],[""\u2190"",""c"",0],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
@@ -82,8 +86,8 @@ namespace MobiFlightWwFcu
         private List<Tuple<string, byte[]>> InitCommandHeaderMcdu = new List<Tuple<string, byte[]>>()
         {
             new Tuple<string, byte[]>("1e01", new byte[0]), // clear feature info
-            // orig new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x25, 0x00, 0x0e, 0x00, 0x18, 0x00}),
-            new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x25, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            //new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
             new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
             new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
         };
@@ -269,12 +273,42 @@ namespace MobiFlightWwFcu
             }
         }
 
+        private void SetFont(string filePath)
+        {
+            string myJson = File.ReadAllText(filePath);
+            var fontCommands = FontConverter.FontJsonToDisplayCommands(myJson, DestinationAddress);
+
+            MessageSender.SendDisplayCommands(fontCommands.LargeFontHead);
+            MessageSender.SendDisplayCommands(fontCommands.LargeFont);
+
+            MessageSender.SendDisplayCommands(fontCommands.SmallFontHead);
+            MessageSender.SendDisplayCommands(fontCommands.SmallFont);
+        }
+
+        private void DemoFont(string filePath, int milliseconds)
+        {
+            Thread.Sleep(milliseconds);
+            SetFont(filePath);
+            MessageSender.SendDisplayCommands(InitCommands);
+            ConvertAndSendCduData(InitialDisplayJson);            
+        }
+
         public void Connect()
         {
-            MessageSender.SendDisplayCommands(InitCommands);
+            InitialDisplayJson = File.ReadAllText("./CduPages/FlightPlan2.json");
             SetBacklightBrightness("80");
             SetLcdBrightness("100");
+
+            SetFont("./Fonts/BoeingLarge.json");
+            MessageSender.SendDisplayCommands(InitCommands);                        
             ConvertAndSendCduData(InitialDisplayJson);
+
+            int milliseconds = 1000;
+            DemoFont("./Fonts/Oldengl.json", milliseconds);
+            DemoFont("./Fonts/Freestyle.json", milliseconds);
+            DemoFont("./Fonts/Mistral.json", milliseconds);
+            DemoFont("./Fonts/WinwingFont.json", milliseconds);
+            DemoFont("./Fonts/Comic.json", milliseconds);
         }
 
         public void Shutdown()
@@ -313,6 +347,8 @@ namespace MobiFlightWwFcu
         {         
             if (!string.IsNullOrWhiteSpace(value))
             {
+                // TODO if name == Font -> Download Font
+
                 if (name == WinwingConstants.CDU_DATA)
                 {
                     ConvertAndSendCduData(value);

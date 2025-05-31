@@ -98,9 +98,9 @@ namespace MobiFlightWwFcu
                         message[indexHeaderEnd] = (byte)(currentMessageIndex - indexHeaderEnd);
                         WriteStream(message, 0, 64);
                         message = GetNewMessage();
-                        currentMessageIndex = indexHeaderEnd;
-                    }
-                }
+                        currentMessageIndex = indexHeaderEnd;                      
+                    }                    
+                }                
             }
         }
 
@@ -180,14 +180,14 @@ namespace MobiFlightWwFcu
             }
             lock (StreamLock)
             {
-                Stream.Write(buffer, offset, count);
+                Stream.Write(buffer, offset, count);                   
             }
         }
 
         private byte[] GetTimeAsBytes()
         {
             DateTime time = DateTime.Now;
-            byte[] timeBytes = new byte[3];
+            byte[] timeBytes = new byte[3];           
             timeBytes[0] = (byte)(time.Millisecond / 4);
             timeBytes[1] = (byte)(time.Second * 3);
             timeBytes[2] = (byte)time.Minute;
