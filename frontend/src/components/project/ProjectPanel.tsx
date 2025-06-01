@@ -78,8 +78,11 @@ const ProjectPanel = () => {
   }
 
   return (
-    <div className="border-b-solid flex flex-row gap-2 border-b border-b-muted-foreground/50 pb-0 pl-0 pr-2 pt-1">
-      <div className="flex flex-row items-center rounded-md rounded-bl-none border-muted-foreground/50 rounded-br-none border border-b-0 border-solid px-2">
+    <div
+      className="border-b-solid flex flex-row gap-2 border-b border-b-muted-foreground/50 pb-0 pl-0 pr-2 pt-1"
+      data-testid="project-panel"
+    >
+      <div className="flex flex-row items-center rounded-md rounded-bl-none rounded-br-none border border-b-0 border-solid border-muted-foreground/50 px-2">
         <ProjectNameLabel />
         <IconMinusVertical className="stroke-muted-foreground/50" />
         <ExecutionToolbar />

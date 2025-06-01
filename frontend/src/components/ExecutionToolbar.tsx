@@ -34,7 +34,7 @@ export const ExecutionToolbar = () => {
   })
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" role="toolbar">
       <Button
         variant="ghost"
         className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
@@ -45,7 +45,7 @@ export const ExecutionToolbar = () => {
         ) : (
           <IconBulb className="stroke-gray-500" />
         )}
-        AutoStart
+        AutoRun
       </Button>
       <Button
         variant="ghost"

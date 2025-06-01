@@ -22,11 +22,19 @@ const ProjectNameLabel = () => {
   const { project } = useProjectStore()
   const { publish } = publishOnMessageExchange()
 
-  const intialProjectName = project?.Name ?? "Dummy Project Name"
-  const [projectName, setProjectName] = useState(intialProjectName)
+  const [projectName, setProjectName] = useState<string>(project?.Name || "")
+  const [tempProjectName, setTempProjectName] = useState(projectName)
   const [isEditing, setIsEditing] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // if the project updates, 
+  // we want to update the project name
+  useEffect(() => {
+    if (project) {
+      setProjectName(project.Name)
+    }
+  }, [project])
 
   useEffect(() => {
     if (isEditing && inputRef.current) {
@@ -37,22 +45,22 @@ const ProjectNameLabel = () => {
   }, [isEditing])
 
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className="flex flex-row items-center gap-2" data-testid="project-name-label">
       <IconBriefcaseFilled size={18} className="min-w-8 max-w-8 fill-primary" />
       {isEditing ? (
         <Input
           ref={inputRef}
           className="rounded-0 text-md md:text-md flex h-6 border-none p-1 focus-visible:ring-1"
           type="text"
-          value={projectName}
-          onChange={(e) => setProjectName(e.target.value)}
+          value={tempProjectName}
+          onChange={(e) => setTempProjectName(e.target.value)}
           onBlur={() => setIsEditing(false)}
           onKeyDown={(e) => {
             e.stopPropagation()
 
             if (e.key === "Escape") {
               setIsEditing(false)
-              setProjectName(intialProjectName)
+              setTempProjectName(projectName)
             }
             if (e.key === "Enter") {
               setIsEditing(false)
