@@ -9,6 +9,7 @@ export type AppMessageKey =
   | "ConfigValuePartialUpdate"
   | "ConfigValueRawAndFinalUpdate"
   | "Settings"
+  | "ExecutionState"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -16,12 +17,13 @@ export type AppMessagePayload =
   | ConfigValueFullUpdate
   | ConfigValuePartialUpdate
   | ConfigValueRawAndFinalUpdate
+  | ExecutionState
   
 // AppMessage is the message format
 // when receiving messages from the backend
 export type AppMessage = {
   key: AppMessageKey
-  payload: AppMessagePayload | Settings | Project
+  payload: AppMessagePayload | Settings | Project | ExecutionState
 }
 
 // ConfigLoadedEvent
@@ -53,6 +55,13 @@ export interface ConfigValuePartialUpdate {
 
 export interface ConfigValueRawAndFinalUpdate {
   ConfigItems: IConfigValueOnlyItem[]
+}
+
+export interface ExecutionState {
+  IsRunning: boolean
+  IsTesting: boolean
+  RunAvailable: boolean
+  TestAvailable: boolean
 }
 
 // Not sure what this is for

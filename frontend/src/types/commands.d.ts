@@ -9,6 +9,8 @@ export type CommandMessageKey =
   | "CommandAddConfigItem"
   | "CommandResortConfigItem"
   | "CommandAddConfigFile"
+  | "CommandMainMenu"
+  | "CommandProjectToolbar"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -19,6 +21,8 @@ export type CommandMessage =
   | CommandResortConfigItem
   | CommandActiveConfigFile
   | CommandAddConfigFile
+  | CommandMainMenu
+  | CommandProjectToolbar
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -27,10 +31,10 @@ export interface CommandMessageBase {
 // EditConfigMessage
 // is sent to the backend
 // when a config item shall be edited
-export interface CommandConfigContextMenu extends CommandMessageBase{
+export interface CommandConfigContextMenu extends CommandMessageBase {
   key: "CommandConfigContextMenu"
-  payload: { 
-    action: "edit" | "delete" | "duplicate" | "test" | "settings" | "toggle",
+  payload: {
+    action: "edit" | "delete" | "duplicate" | "test" | "settings" | "toggle"
     item: IConfigItem
   }
 }
@@ -38,10 +42,10 @@ export interface CommandConfigContextMenu extends CommandMessageBase{
 // EditConfigMessage
 // is sent to the backend
 // when a config item shall be edited
-export interface CommandConfigBulkAction extends CommandMessageBase{
+export interface CommandConfigBulkAction extends CommandMessageBase {
   key: "CommandConfigBulkAction"
-  payload: { 
-    action: "delete" | "toggle",
+  payload: {
+    action: "delete" | "toggle"
     items: IConfigItem[]
   }
 }
@@ -49,9 +53,9 @@ export interface CommandConfigBulkAction extends CommandMessageBase{
 // CommandUpdateConfigItem
 // Update basic properties of a config item
 // Active, Name
-export interface CommandUpdateConfigItem extends CommandMessageBase { 
+export interface CommandUpdateConfigItem extends CommandMessageBase {
   key: "CommandUpdateConfigItem"
-  payload: { 
+  payload: {
     item: IConfigItem
   }
 }
@@ -61,24 +65,23 @@ export interface CommandUpdateConfigItem extends CommandMessageBase {
 // Active, Name
 export interface CommandAddConfigItem extends CommandMessageBase {
   key: "CommandAddConfigItem"
-  payload: { 
-    name: string,
+  payload: {
+    name: string
     type: ConfigItemType
   }
 }
 
-
 export interface CommandResortConfigItem extends CommandMessageBase {
   key: "CommandResortConfigItem"
-  payload: { 
-    items: IConfigItem[],
+  payload: {
+    items: IConfigItem[]
     newIndex: number
   }
 }
 
 export interface CommandActiveConfigFile extends CommandMessageBase {
   key: "CommandActiveConfigFile"
-  payload: { 
+  payload: {
     index: number
   }
 }
@@ -87,7 +90,7 @@ export interface CommandActiveConfigFile extends CommandMessageBase {
 // Add a new or existing config file to the project
 export interface CommandAddConfigFile extends CommandMessageBase {
   key: "CommandAddConfigFile"
-  payload: { 
+  payload: {
     type: "create" | "merge"
   }
 }
@@ -95,11 +98,54 @@ export interface CommandAddConfigFile extends CommandMessageBase {
 // EditConfigMessage
 // is sent to the backend
 // when a config item shall be edited
-export interface CommandFileContextMenu extends CommandMessageBase{
+export interface CommandFileContextMenu extends CommandMessageBase {
   key: "CommandFileContextMenu"
-  payload: { 
-    action: "rename" | "remove" | "export",
-    index: number,
+  payload: {
+    action: "rename" | "remove" | "export"
+    index: number
     file: ConfigFile
   }
+}
+
+export type CommandMainMenuPayload = {
+  action:
+    | "file.new"
+    | "file.open"
+    | "file.save"
+    | "file.saveas"
+    | "file.exit"
+    | "file.recent"
+    | "extras.hubhop.download"
+    | "extras.msfs.reinstall"
+    | "extras.copylogs"
+    | "extras.serials"
+    | "extras.settings"
+    | "help.docs"
+    | "help.checkforupdate"
+    | "help.discord"
+    | "help.youtube"
+    | "help.hubhop"
+    | "help.about"
+    | "help.releasenotes"
+  index?: number
+}
+
+export interface CommandMainMenu extends CommandMessageBase {
+  key: "CommandMainMenu"
+  payload: CommandMainMenuPayload
+}
+
+export type CommandProjectToolbarPayload = {
+  action:
+    | "run"
+    | "test"
+    | "stop"
+    | "toggleAutoRun"
+    | "rename"
+  value?: string
+}
+
+export interface CommandProjectToolbar extends CommandMessageBase {
+  key: "CommandProjectToolbar"
+  payload: CommandProjectToolbarPayload
 }

@@ -10,7 +10,7 @@ import testProject from "../data/project.testdata.json" with { type: "json" }
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
-import { ConfigValueRawAndFinalUpdate } from "@/types/messages"
+import { ConfigValueRawAndFinalUpdate, ExecutionState } from "@/types/messages"
 
 export class ConfigListPage {
   constructor(public readonly mobiFlightPage: MobiFlightPage) {}
@@ -118,5 +118,13 @@ export class ConfigListPage {
 
   getStatusIconInRow(status: ConfigItemStatusType, row: number) : Locator {
     return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status",{name: status})
+  }
+
+  async updateExecutionState (executionState: ExecutionState) {
+    const message: AppMessage = {
+      key: "ExecutionState",
+      payload: executionState,
+    }
+    await this.mobiFlightPage.publishMessage(message)
   }
 }

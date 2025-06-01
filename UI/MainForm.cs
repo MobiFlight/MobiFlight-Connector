@@ -24,10 +24,11 @@ using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
 using System.Drawing;
+using MobiFlight.BrowserMessages.Incoming.Handler;
 
 namespace MobiFlight.UI
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IProjectToolbar
     {
         private delegate void UpdateAircraftCallback(string aircraftName);
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
@@ -52,6 +53,11 @@ namespace MobiFlight.UI
 
         private bool IsMSFSRunning = false;
 
+        public ExecutionManager ExecutionManager
+        {
+            get { return execManager; }
+        }
+
         private void InitializeUILanguage()
         {
             if (Properties.Settings.Default.Language != "")
@@ -68,6 +74,8 @@ namespace MobiFlight.UI
         private readonly LogAppenderFile logAppenderFile = new LogAppenderFile();
 
         private int StartupProgressValue = 0;
+
+        public bool ProjectHasUnsavedChanges = false;
 
         private void InitializeLogging()
         {
@@ -107,10 +115,14 @@ namespace MobiFlight.UI
         {
             UpgradeSettingsFromPreviousInstallation();
             Properties.Settings.Default.SettingChanging += new System.Configuration.SettingChangingEventHandler(Default_SettingChanging);
+            Properties.Settings.Default.PropertyChanged += (s, e) =>
+            {
+                PublishSettings();
+            };
 
             Properties.Settings.Default.SettingsSaving += (s, e) =>
             {
-                MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
+                PublishSettings();
             };
 
             UpdateAutoLoadConfig();
@@ -124,9 +136,6 @@ namespace MobiFlight.UI
             // there are no recent files which
             // could lead to a filename change
             UpdateAutoLoadMenu();
-
-            // Send the current settings to the UI
-            MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
         }
 
         public MainForm()
@@ -185,6 +194,17 @@ namespace MobiFlight.UI
                 {
                     mergeToolStripMenuItem_Click(null, null);
                 }
+            });
+
+            var commandMainMenuHandler = new CommandMainMenuHandler(this);
+
+            MessageExchange.Instance.Subscribe<CommandMainMenu>((message) => {
+                commandMainMenuHandler.Handle(message);
+            });
+    
+            var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
+            MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) => {
+                commandProjectToolbarHandler.Handle(message);
             });
         }
 
@@ -298,12 +318,9 @@ namespace MobiFlight.UI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            menuStrip.Enabled = false;
-            toolStrip1.Enabled = false;
-
             ProjectLoaded += (s, project) =>
             {
-                testModeTimer_Stop();
+                StopExecution();
                 MessageExchange.Instance.Publish(project);
             };
 
@@ -352,21 +369,10 @@ namespace MobiFlight.UI
             // on the program
             setAutoRunValue(Properties.Settings.Default.AutoRun);
 
-            runToolStripButton.Enabled = false;
-            runTestToolStripButton.Enabled = false;
-            settingsToolStripButton.Enabled = false;
             updateNotifyContextMenu(false);
 
             // Reset the Title of the Main Window so that it displays the Version too.
             SetTitle("");
-
-            _updateRecentFilesMenuItems();
-
-            if (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName != "de")
-            {
-                // change ui icon to english
-                donateToolStripButton.Image = Properties.Resources.btn_donate_uk_SM;
-            }
 
             StartupProgressValue = 0;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Start Connecting" });
@@ -383,7 +389,15 @@ namespace MobiFlight.UI
                 var msg = message;
                 MessageBox.Show(msg.Message);
             });
+
+            PublishSettings();
         }
+
+        private void PublishSettings()
+        {
+            MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
+        }
+
         private void InitializeExecutionManager()
         {
             execManager = new ExecutionManager(this.Handle);
@@ -393,6 +407,8 @@ namespace MobiFlight.UI
             execManager.OnStopped += new EventHandler(ExecManager_Stopped);
             execManager.OnStarted += new EventHandler(ExecManager_Started);
             execManager.OnShutdown += new EventHandler(ExecManager_OnShutdown);
+            execManager.OnTestModeStarted += (s, e) => UpdateExecutionState();
+            execManager.OnTestModeStopped += (s, e) => UpdateExecutionState();
 
             execManager.OnSimAvailable += ExecManager_OnSimAvailable;
             execManager.OnSimUnavailable += ExecManager_OnSimUnavailable;
@@ -425,7 +441,7 @@ namespace MobiFlight.UI
 
         private void ProjectOrConfigFileHasChanged()
         {
-            saveToolStripButton.Enabled = true;
+            ProjectHasUnsavedChanges = true;
             SetProjectNameInTitle();
             UpdateAutoLoadMenu();
             UpdateAllConnectionIcons();
@@ -568,12 +584,12 @@ namespace MobiFlight.UI
                 return;
             }
 
-            if (saveToolStripButton.Enabled && MessageBox.Show(
+            if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+                saveToolStripButton_Click(this, new EventArgs());
             }
 
             Log.Instance.log($"Auto loading config for {aircraftName}", LogSeverity.Info);
@@ -735,13 +751,6 @@ namespace MobiFlight.UI
 
             StartupProgressValue = 100;
             MessageExchange.Instance.Publish(new StatusBarUpdate { Value = StartupProgressValue, Text = "Finished." });
-
-            menuStrip.Enabled = true;
-            toolStrip1.Enabled = true;
-
-            settingsToolStripButton.Enabled = true;
-            runToolStripButton.Enabled = RunIsAvailable();
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
 
             CheckForWasmModuleUpdate();
             CheckForHubhopUpdate();
@@ -964,14 +973,14 @@ namespace MobiFlight.UI
             }
         }
 
-        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        public void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AutoUpdateChecker.CheckForUpdate();
         }
 
         void execManager_OnTestModeException(object sender, EventArgs e)
         {
-            stopTestToolStripButton_Click(null, null);
+            StopExecution();
             _showError((sender as Exception).Message);
         }
 
@@ -1089,8 +1098,7 @@ namespace MobiFlight.UI
                 return;
             }
             UpdateStatusBarModuleInformation();
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-
+            
             // During initial lookup we are showing the panel
             // and we would like to display some progress information
             if (!InitialLookupFinished)
@@ -1168,7 +1176,6 @@ namespace MobiFlight.UI
                 return;
             }
             UpdateStatusBarModuleInformation();
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
         }
 
         /// <summary>
@@ -1203,7 +1210,7 @@ namespace MobiFlight.UI
 
             SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
 
-            runToolStripButton.Enabled = RunIsAvailable();
+            // Stop execution manager?
         }
 
         private void ExecManager_OnSimAvailable(object sender, EventArgs e)
@@ -1277,8 +1284,6 @@ namespace MobiFlight.UI
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
                 Log.Instance.log($"Connected to {FlightSim.SimNames[CurrentFlightSimType]}. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info);
             }
-
-            runToolStripButton.Enabled = RunIsAvailable();
 
             if (sender.GetType() == typeof(SimConnectCache) && FlightSim.FlightSimType == FlightSimType.MSFS2020)
             {
@@ -1416,11 +1421,20 @@ namespace MobiFlight.UI
                 return;
             }
 
-            runToolStripButton.Enabled = RunIsAvailable();
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-            stopToolStripButton.Enabled = true;
             updateNotifyContextMenu(execManager.IsStarted());
+            UpdateExecutionState();
         } //timer_Started()
+
+        private void UpdateExecutionState()
+        {
+            MessageExchange.Instance.Publish(new ExecutionState()
+            {
+                IsRunning = execManager.IsStarted(),
+                IsTesting = execManager.TestModeIsStarted(),
+                RunAvailable = RunIsAvailable(),
+                TestAvailable = TestRunIsAvailable(),
+            });
+        }
 
         /// <summary>
         /// handler which sets the states of UI elements when timer gets stopped
@@ -1433,10 +1447,9 @@ namespace MobiFlight.UI
                 return;
             }
 
-            runToolStripButton.Enabled = RunIsAvailable();
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-            stopToolStripButton.Enabled = false;
             updateNotifyContextMenu(execManager.IsStarted());
+
+            UpdateExecutionState();
         } //timer_Stopped
 
         private bool TestRunIsAvailable()
@@ -1515,14 +1528,7 @@ namespace MobiFlight.UI
             ShowSettingsDialog("peripheralsTabPage", null, null, null);
         }
 
-        /// <summary>
-        /// toggles the current timer when user clicks on respective run/stop buttons
-        /// </summary>
-        private void ButtonToggleStart_Click(object sender, EventArgs e)
-        {
-            if (execManager.IsStarted()) execManager.Stop();
-            else execManager.Start();
-        } //buttonToggleStart_Click()
+
 
         /// <summary>
         /// updates the context menu entries for start and stop depending
@@ -1616,7 +1622,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// exits when user selects according menu item in notify icon's context menu
         /// </summary>
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        public void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         } //exitToolStripMenuItem_Click()
@@ -1624,17 +1630,17 @@ namespace MobiFlight.UI
         /// <summary>
         /// opens file dialog when clicking on according button
         /// </summary>
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        public void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = fileExtensionLoadFilter;
 
-            if (saveToolStripButton.Enabled && MessageBox.Show(
+            if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+                saveToolStripButton_Click(this, new EventArgs());
             }
 
             if (DialogResult.OK == fd.ShowDialog())
@@ -1675,29 +1681,7 @@ namespace MobiFlight.UI
             }
             Properties.Settings.Default.RecentFiles.Insert(0, fileName);
             Properties.Settings.Default.Save();
-
-            _updateRecentFilesMenuItems();
         }
-
-        /// <summary>
-        /// updates the list of the recent used files in the menu list
-        /// </summary>
-        private void _updateRecentFilesMenuItems()
-        {
-            recentDocumentsToolStripMenuItem.DropDownItems.Clear();
-            int limit = 0;
-            // update Menu
-            foreach (string filename in Properties.Settings.Default.RecentFiles)
-            {
-                if (limit++ == Properties.Settings.Default.RecentFilesMaxCount) break;
-
-                ToolStripItem current = new ToolStripMenuItem(filename);
-                current.Click += new EventHandler(recentMenuItem_Click);
-                recentDocumentsToolStripMenuItem.DropDownItems.Add(current);
-            }
-
-            recentDocumentsToolStripMenuItem.Enabled = recentDocumentsToolStripMenuItem.DropDownItems.Count > 0;
-        } //_updateRecentFilesMenuItems()
 
         /// <summary>
         /// gets triggered when user clicks on recent used file entry
@@ -1707,12 +1691,12 @@ namespace MobiFlight.UI
         /// <param name="e"></param>
         void recentMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveToolStripButton.Enabled && MessageBox.Show(
+            if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+                saveToolStripButton_Click(this, new EventArgs());
             };
             LoadConfig((sender as ToolStripMenuItem).Text);
         } //recentMenuItem_Click()
@@ -1720,7 +1704,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// loads the according config given by filename
         /// </summary>        
-        private void LoadConfig(string fileName, bool merge = false)
+        public void LoadConfig(string fileName, bool merge = false)
         {
             if (!System.IO.File.Exists(fileName))
             {
@@ -1848,7 +1832,7 @@ namespace MobiFlight.UI
 
         private void ResetProjectAndConfigChanges()
         {
-            saveToolStripButton.Enabled = false;
+            ProjectHasUnsavedChanges = false;
             SetProjectNameInTitle();
         }
 
@@ -1962,7 +1946,7 @@ namespace MobiFlight.UI
                 {
                     if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        saveToolStripButton.Enabled = opd.HasChanged();
+                        ProjectHasUnsavedChanges = opd.HasChanged();
                         var udpatedConfigs = opd.GetUpdatedConfigs();
 
                         for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
@@ -1988,7 +1972,7 @@ namespace MobiFlight.UI
         private void SetTitle(string title)
         {
             string NewTitle = $"MobiFlight Connector - {DisplayVersion()}";
-            var saveStatus = saveToolStripButton.Enabled ? "*" : string.Empty;
+            var saveStatus = ProjectHasUnsavedChanges ? "*" : string.Empty;
 
             if (title != null && title != "")
             {
@@ -2130,7 +2114,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// shows the about form
         /// </summary>
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        public void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutForm ab = new AboutForm();
             ab.StartPosition = FormStartPosition.CenterParent;
@@ -2140,9 +2124,9 @@ namespace MobiFlight.UI
         /// <summary>
         /// resets the config after presenting a message box where user hast to confirm the reset first
         /// </summary>
-        private void newFileToolStripMenuItem_Click(object sender, EventArgs e)
+        public void newFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (saveToolStripButton.Enabled && MessageBox.Show(
+            if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmNewConfig"),
                        i18n._tr("uiMessageConfirmNewConfigTitle"),
                        MessageBoxButtons.OKCancel) == DialogResult.Cancel)
@@ -2195,13 +2179,13 @@ namespace MobiFlight.UI
                 return;
             }
             // otherwise trigger normal open file dialog
-            saveToolStripMenuItem_Click(sender, e);
+            saveAsToolStripMenuItem_Click(sender, e);
         } //saveToolStripButton_Click()
 
         /// <summary>
         /// triggers the save dialog if user clicks on according buttons
         /// </summary>
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        public void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog fd = new SaveFileDialog();
             fd.FileName = execManager.Project.Name;
@@ -2219,52 +2203,51 @@ namespace MobiFlight.UI
             }
         } //saveToolStripMenuItem_Click()
 
-        /// <summary>
-        /// gets triggered when test mode is started via button, all states
-        /// are set for the other buttons accordingly.
-        /// </summary>
-        /// <remarks>
-        /// Why does this differ from normal run-Button handling?
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void runTestToolStripLabel_Click(object sender, EventArgs e)
+        private void TaskBar_StartProjectExecution(object sender, EventArgs e)
         {
-            testModeTimer_Start();
+            StartProjectExecution();
         }
 
-        private void testModeTimer_Start()
+        private void TaskBar_StopExecution(object sender, EventArgs e)
+        {
+            StopExecution();
+        }
+
+        /// <summary>
+        /// toggles the current timer when user clicks on respective run/stop buttons
+        /// </summary>
+        public void StartProjectExecution()
+        {
+            if (execManager.IsStarted()) return;
+
+            execManager.Start();
+        } //buttonToggleStart_Click()
+
+        public void StartTestModeExecution()
         {
             execManager.TestModeStart();
-            stopToolStripButton.Visible = false;
-            stopTestToolStripButton.Visible = true;
-            stopTestToolStripButton.Enabled = true;
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-            runToolStripButton.Enabled = RunIsAvailable();
         }
 
-        /// <summary>
-        /// gets triggered when test mode is ended via stop button, all states
-        /// are set for the other buttons accordingly.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void stopTestToolStripButton_Click(object sender, EventArgs e)
+        public void StopExecution()
         {
-            testModeTimer_Stop();
-        }
-
-        /// <summary>
-        /// synchronize toolbaritems and other components with current testmodetimer state
-        /// </summary>
-        private void testModeTimer_Stop()
-        {
+            execManager.Stop();
             execManager.TestModeStop();
-            stopToolStripButton.Visible = true;
-            stopTestToolStripButton.Visible = false;
-            stopTestToolStripButton.Enabled = false;
-            runTestToolStripButton.Enabled = TestRunIsAvailable();
-            runToolStripButton.Enabled = RunIsAvailable();
+        }
+
+        public void ToggleAutoRunSetting()
+        {
+            setAutoRunValue(!Properties.Settings.Default.AutoRun);
+        }
+
+        public void RenameProject(string newName)
+        {
+            if (string.IsNullOrEmpty(newName)) return;
+            execManager.Project.Name = newName;
+        }
+
+        private void setAutoRunValue(bool value)
+        {
+            Properties.Settings.Default.AutoRun = value;
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2277,28 +2260,10 @@ namespace MobiFlight.UI
             }
         }
 
-        private void AutoRunToolStripButton_Click(object sender, EventArgs e)
-        {
-            setAutoRunValue(!Properties.Settings.Default.AutoRun);
-        }
-
-        private void setAutoRunValue(bool value)
-        {
-            Properties.Settings.Default.AutoRun = value;
-            if (value)
-            {
-                autoRunToolStripButton.Image = MobiFlight.Properties.Resources.lightbulb_on;
-            }
-            else
-            {
-                autoRunToolStripButton.Image = MobiFlight.Properties.Resources.lightbulb;
-            }
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             execManager.Stop();
-            if (saveToolStripButton.Enabled && MessageBox.Show(
+            if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -2306,16 +2271,16 @@ namespace MobiFlight.UI
                 // only cancel closing if not saved before
                 // which is indicated by empty CurrentFilename
                 e.Cancel = (execManager.Project.FilePath == null);
-                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+                saveToolStripButton_Click(this, new EventArgs());
             };
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        public void documentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(i18n._tr("WebsiteUrlHelp"));
         }
 
-        private void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
+        public void orphanedSerialsFinderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             _checkForOrphanedSerials(true);
         }
@@ -2331,7 +2296,7 @@ namespace MobiFlight.UI
             {
                 // Do what you want here
                 e.SuppressKeyPress = true;  // Stops bing! Also sets handled which stop event bubbling
-                if (saveToolStripButton.Enabled)
+                if (ProjectHasUnsavedChanges)
                     saveToolStripButton_Click(null, null);
             }
 
@@ -2357,7 +2322,7 @@ namespace MobiFlight.UI
             minimizeMainForm(false);
         }
 
-        private void installWasmModuleToolStripMenuItem_Click(object sender, EventArgs e)
+        public void installWasmModuleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InstallWasmModule();
         }
@@ -2561,7 +2526,7 @@ namespace MobiFlight.UI
             progressForm.Dispose();
         }
 
-        private void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void downloadHubHopPresetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DownloadHubHopPresets();
         }
@@ -2572,7 +2537,7 @@ namespace MobiFlight.UI
             toolStripStatusLabelHubHop.ToolTipText = lastModification.ToLocalTime().ToString();
         }
 
-        private void openDiscordServer_Click(object sender, EventArgs e)
+        public void openDiscordServer_Click(object sender, EventArgs e)
         {
             Process.Start("https://discord.gg/U28QeEJpBV");
         }
@@ -2582,17 +2547,17 @@ namespace MobiFlight.UI
             ShowSettingsDialog("mobiFlightTabPage", null, null, null);
         }
 
-        private void YouTubeToolStripButton_Click(object sender, EventArgs e)
+        public void YouTubeToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.youtube.com/channel/UCxsoCWDKRyu3MpQKNZEXUYA");
         }
 
-        private void HubHopToolStripButton_Click(object sender, EventArgs e)
+        public void HubHopToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://hubhop.mobiflight.com/");
         }
 
-        private void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        public void releaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start($"https://github.com/MobiFlight/MobiFlight-Connector/releases/tag/{CurrentVersion()}");
         }
@@ -2722,18 +2687,18 @@ namespace MobiFlight.UI
 
             var linkedFile = AutoLoadConfigs[key];
 
-            if (saveToolStripButton.Enabled && MessageBox.Show(
+            if (ProjectHasUnsavedChanges && MessageBox.Show(
                        i18n._tr("uiMessageConfirmDiscardUnsaved"),
                        i18n._tr("uiMessageConfirmDiscardUnsavedTitle"),
                        MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                saveToolStripButton_Click(saveToolStripButton, new EventArgs());
+                saveToolStripButton_Click(this, new EventArgs());
             };
 
             LoadConfig(linkedFile);
         }
 
-        private void copyLogsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        public void copyLogsToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {

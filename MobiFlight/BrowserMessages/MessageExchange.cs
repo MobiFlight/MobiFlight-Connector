@@ -76,11 +76,29 @@ namespace MobiFlight.BrowserMessages
 
             try
             {
-
                 var deserializedPayload = JsonConvert.DeserializeObject(eventToPublish.payload.ToString(), eventType);
+                var synchronizationContext = System.Threading.SynchronizationContext.Current;
+                
                 foreach (var subscriber in subscribers)
                 {
-                    subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+                    Action invokeSubscriber = () =>
+                    {
+                        subscriber.GetType().GetMethod("Invoke")?.Invoke(subscriber, new[] { deserializedPayload });
+                    };
+
+                    if (synchronizationContext == null)
+                    {
+                        // If no synchronization context is available, invoke the subscriber directly.
+                        invokeSubscriber();
+                        continue;
+                    }
+
+                    // if synchronization context is available
+                    // post the deserialized payload to the subscriber on the synchronization context thread
+                    synchronizationContext.Post((_) =>
+                    {
+                        invokeSubscriber();
+                    }, null);
                 }
             }
             catch (Exception e)

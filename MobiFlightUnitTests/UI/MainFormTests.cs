@@ -8,11 +8,6 @@ namespace MobiFlight.UI.Tests
     public class MainFormTests
     {
         private MainForm _mainForm;
-        private T GetPrivateField<T>(object obj, string fieldName)
-        {
-            var field = obj.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-            return (T)field?.GetValue(obj);
-        }
 
         [TestInitialize]
         public void SetUp()
@@ -27,18 +22,17 @@ namespace MobiFlight.UI.Tests
         public void CreateNewProjectTest()
         {
             // Arrange
-            var saveButton = GetPrivateField<ToolStripButton>(_mainForm, "saveToolStripButton");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be false when starting with a fresh project.");
 
             // bring it into dirty state
             _mainForm.AddNewFileToProject();
-            Assert.IsTrue(saveButton.Enabled, "Save button should be enabled after adding a new file to project.");
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be True after adding a new file to project.");
             
             // Act
             _mainForm.CreateNewProject();
 
             // Assert
-            Assert.IsNotNull(saveButton, "Save button could not be accessed.");
-            Assert.IsFalse(saveButton.Enabled, "Save button should be disabled after creating a new project.");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be false when starting with a fresh project.");
 
             var mainFormTitle = _mainForm.Text;
             var expectedTitle = $"New Project - MobiFlight Connector - {MainForm.DisplayVersion()}";
@@ -50,16 +44,14 @@ namespace MobiFlight.UI.Tests
         public void AddNewFileToProjectTest()
         {
             // Arrange
-            var saveButton = GetPrivateField<ToolStripButton>(_mainForm, "saveToolStripButton");
-            Assert.IsNotNull(saveButton, "Save button could not be accessed.");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
 
             // Act
             _mainForm.AddNewFileToProject();
 
             // Assert
             var mainFormTitle = _mainForm.Text;
-            Assert.IsNotNull(saveButton, "Save button could not be accessed.");
-            Assert.IsTrue(saveButton.Enabled, "Save button should be enabled after adding a new file.");
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true after adding a new file.");
             Assert.IsTrue(mainFormTitle.Contains("*"), "Project title should indicate that there are unsaved changes.");
         }
     }

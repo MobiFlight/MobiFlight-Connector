@@ -9,8 +9,8 @@ import {
   ConfigValuePartialUpdate,
   ConfigValueRawAndFinalUpdate,
 } from "@/types/messages"
-import testdata from "@/../tests/data/configlist.testdata.json" with { type: "json" }
-import { IConfigItem } from "@/types"
+import testProject from "@/../tests/data/project.testdata.json" with { type: "json" }
+import { IConfigItem, Project } from "@/types"
 import { useSearchParams } from "react-router"
 import ProjectPanel from "@/components/project/ProjectPanel"
 import { useProjectStore } from "@/stores/projectStore"
@@ -26,6 +26,7 @@ const ConfigListPage = () => {
   } = useConfigStore()
 
   const {
+    setProject,
     setConfigItems
   } = useProjectStore()
 
@@ -82,15 +83,13 @@ const ConfigListPage = () => {
       configItems.length === 0 &&
       queryParameters.get("testdata") === "true"
     ) {
-      setItems(testdata)
+      setProject(testProject as Project)
     }
-  }, [setItems])
+  })
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <div>
-        <ProjectPanel />
-      </div>
+      <ProjectPanel />
       {
         <div className="flex flex-col gap-4 overflow-y-auto">
           <ConfigItemTable

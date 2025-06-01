@@ -266,6 +266,8 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigFile.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigBulkAction.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandProjectToolbar.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandMainMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
@@ -273,6 +275,8 @@
     <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandProjectToolbarHandler.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandMainMenuHandler.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
@@ -281,6 +285,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
@@ -1011,6 +1016,7 @@
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SimConnectMSFS\SimConnectCache.cs" />
+    <Compile Include="UI\IProjectToolbar.cs" />
     <Compile Include="VJoy\VJoyExceptions.cs" />
     <Compile Include="VJoy\VJoyHelper.cs" />
     <Compile Include="UI\Panels\Action\VJoyInputPanel.cs">
