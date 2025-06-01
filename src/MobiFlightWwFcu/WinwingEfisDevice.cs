@@ -182,6 +182,11 @@ namespace MobiFlightWwFcu
             return DisplayNameToActionMapping.Keys.ToList();
         }
 
+        public List<string> GetInternalDisplayNames()
+        {
+            return new List<string>();
+        }
+
         public void SetLed(string led, byte state)
         {
             if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)

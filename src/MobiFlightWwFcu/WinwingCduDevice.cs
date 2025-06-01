@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace MobiFlightWwFcu
 {
@@ -273,42 +272,30 @@ namespace MobiFlightWwFcu
             }
         }
 
-        private void SetFont(string filePath)
+        private void SetFontAndInitDisplay(string fontData)
         {
-            string myJson = File.ReadAllText(filePath);
-            var fontCommands = FontConverter.FontJsonToDisplayCommands(myJson, DestinationAddress);
-
+            var fontCommands = FontConverter.FontJsonToDisplayCommands(fontData, DestinationAddress);
             MessageSender.SendDisplayCommands(fontCommands.LargeFontHead);
             MessageSender.SendDisplayCommands(fontCommands.LargeFont);
-
             MessageSender.SendDisplayCommands(fontCommands.SmallFontHead);
             MessageSender.SendDisplayCommands(fontCommands.SmallFont);
+            MessageSender.SendDisplayCommands(InitCommands);
         }
 
-        private void DemoFont(string filePath, int milliseconds)
+
+        private void SetFontFromFileAndInitDisplay(string filePath)
         {
-            Thread.Sleep(milliseconds);
-            SetFont(filePath);
-            MessageSender.SendDisplayCommands(InitCommands);
-            ConvertAndSendCduData(InitialDisplayJson);            
+            string myJson = File.ReadAllText(filePath);
+            SetFontAndInitDisplay(myJson);
         }
 
         public void Connect()
-        {
-            InitialDisplayJson = File.ReadAllText("./CduPages/FlightPlan2.json");
+        {            
             SetBacklightBrightness("80");
             SetLcdBrightness("100");
 
-            SetFont("./Fonts/BoeingLarge.json");
-            MessageSender.SendDisplayCommands(InitCommands);                        
+            SetFontFromFileAndInitDisplay("./Fonts/BoeingLarge.json");                                    
             ConvertAndSendCduData(InitialDisplayJson);
-
-            int milliseconds = 1000;
-            DemoFont("./Fonts/Oldengl.json", milliseconds);
-            DemoFont("./Fonts/Freestyle.json", milliseconds);
-            DemoFont("./Fonts/Mistral.json", milliseconds);
-            DemoFont("./Fonts/WinwingFont.json", milliseconds);
-            DemoFont("./Fonts/Comic.json", milliseconds);
         }
 
         public void Shutdown()
@@ -333,6 +320,11 @@ namespace MobiFlightWwFcu
             return DisplayNameToActionMapping.Keys.ToList();
         }
 
+        public List<string> GetInternalDisplayNames()
+        {
+            return new List<string>(new string[] { WinwingConstants.FONT_DATA, WinwingConstants.CDU_DATA });
+        }
+
         public void SetLed(string led, byte state)
         {
             if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)
@@ -347,16 +339,21 @@ namespace MobiFlightWwFcu
         {         
             if (!string.IsNullOrWhiteSpace(value))
             {
-                // TODO if name == Font -> Download Font
-
-                if (name == WinwingConstants.CDU_DATA)
+                if (LcdCurrentValuesCache.TryGetValue(name, out string currentValue)) // check cache
+                {
+                    if (currentValue != value)
+                    {
+                        LcdCurrentValuesCache[name] = value;
+                        DisplayNameToActionMapping[name](value); // Execute Action
+                    }
+                }
+                else if (name == WinwingConstants.CDU_DATA)
                 {
                     ConvertAndSendCduData(value);
                 }
-                else if (LcdCurrentValuesCache[name] != value) // check cache
+                else if (name == WinwingConstants.FONT_DATA)
                 {
-                    LcdCurrentValuesCache[name] = value;
-                    DisplayNameToActionMapping[name](value); // Execute Action
+                    SetFontAndInitDisplay(value);
                 }
             }
         }

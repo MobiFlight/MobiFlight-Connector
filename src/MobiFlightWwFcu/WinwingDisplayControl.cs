@@ -48,6 +48,17 @@ namespace MobiFlightWwFcu
                     DisplayNameToDeviceMapping[displayName].Add(device);
                 }
             }
+            foreach (var internalDisplayName in device.GetInternalDisplayNames())
+            {
+                if (!DisplayNameToDeviceMapping.ContainsKey(internalDisplayName))
+                {
+                    DisplayNameToDeviceMapping.Add(internalDisplayName, new List<IWinwingDevice>() { device });
+                }
+                else
+                {
+                    DisplayNameToDeviceMapping[internalDisplayName].Add(device);
+                }
+            }
         }
 
         private void ErrorMessageHandler(string message)

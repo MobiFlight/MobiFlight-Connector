@@ -2,7 +2,7 @@
 
 namespace MobiFlightWwFcu
 {
-    public interface IWinwingDevice
+    internal interface IWinwingDevice
     {
         string Name { get; }
 
@@ -13,6 +13,8 @@ namespace MobiFlightWwFcu
         List<string> GetLedNames();
 
         List<string> GetDisplayNames();
+
+        List<string> GetInternalDisplayNames();
 
         void SetLed(string led, byte state);
 

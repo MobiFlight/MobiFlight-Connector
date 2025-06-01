@@ -40,6 +40,7 @@ namespace MobiFlightWwFcu
                                                           PRODUCT_ID_PFP7_CPT, PRODUCT_ID_PFP7_OBS, PRODUCT_ID_PFP7_FO };
 
         internal const string CDU_DATA = "Cdu Data";
+        internal const string FONT_DATA = "Font Data";
 
 
         // Renaming would be a breaking change, since this names are used in mobi configuration.
