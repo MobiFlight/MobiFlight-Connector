@@ -28,7 +28,7 @@ using MobiFlight.BrowserMessages.Incoming.Handler;
 
 namespace MobiFlight.UI
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IProjectToolbar
     {
         private delegate void UpdateAircraftCallback(string aircraftName);
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
@@ -320,7 +320,7 @@ namespace MobiFlight.UI
         {
             ProjectLoaded += (s, project) =>
             {
-                testModeTimer_Stop();
+                StopExecution();
                 MessageExchange.Instance.Publish(project);
             };
 
@@ -980,7 +980,7 @@ namespace MobiFlight.UI
 
         void execManager_OnTestModeException(object sender, EventArgs e)
         {
-            stopTestToolStripButton_Click(null, null);
+            StopExecution();
             _showError((sender as Exception).Message);
         }
 
@@ -1528,15 +1528,7 @@ namespace MobiFlight.UI
             ShowSettingsDialog("peripheralsTabPage", null, null, null);
         }
 
-        /// <summary>
-        /// toggles the current timer when user clicks on respective run/stop buttons
-        /// </summary>
-        public void startToolStripButton_Click(object sender, EventArgs e)
-        {
-            if (execManager.IsStarted()) return;
-            
-            execManager.Start();
-        } //buttonToggleStart_Click()
+
 
         /// <summary>
         /// updates the context menu entries for start and stop depending
@@ -2211,47 +2203,51 @@ namespace MobiFlight.UI
             }
         } //saveToolStripMenuItem_Click()
 
-        /// <summary>
-        /// gets triggered when test mode is started via button, all states
-        /// are set for the other buttons accordingly.
-        /// </summary>
-        /// <remarks>
-        /// Why does this differ from normal run-Button handling?
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void runTestToolStripLabel_Click(object sender, EventArgs e)
+        private void TaskBar_StartProjectExecution(object sender, EventArgs e)
         {
-            testModeTimer_Start();
+            StartProjectExecution();
         }
 
-        private void testModeTimer_Start()
+        private void TaskBar_StopExecution(object sender, EventArgs e)
+        {
+            StopExecution();
+        }
+
+        /// <summary>
+        /// toggles the current timer when user clicks on respective run/stop buttons
+        /// </summary>
+        public void StartProjectExecution()
+        {
+            if (execManager.IsStarted()) return;
+
+            execManager.Start();
+        } //buttonToggleStart_Click()
+
+        public void StartTestModeExecution()
         {
             execManager.TestModeStart();
         }
 
-        /// <summary>
-        /// gets triggered when test mode is ended via stop button, all states
-        /// are set for the other buttons accordingly.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void stopTestToolStripButton_Click(object sender, EventArgs e)
-        {
-            testModeTimer_Stop();
-        }
-
-        public void stopToolStripButton_Click(object sender, EventArgs e)
+        public void StopExecution()
         {
             execManager.Stop();
+            execManager.TestModeStop();
         }
 
-        /// <summary>
-        /// synchronize toolbaritems and other components with current testmodetimer state
-        /// </summary>
-        private void testModeTimer_Stop()
+        public void ToggleAutoRunSetting()
         {
-            execManager.TestModeStop();
+            setAutoRunValue(!Properties.Settings.Default.AutoRun);
+        }
+
+        public void RenameProject(string newName)
+        {
+            if (string.IsNullOrEmpty(newName)) return;
+            execManager.Project.Name = newName;
+        }
+
+        private void setAutoRunValue(bool value)
+        {
+            Properties.Settings.Default.AutoRun = value;
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2262,16 +2258,6 @@ namespace MobiFlight.UI
                 execManager.updateModuleSettings(execManager.getModuleCache().GetArcazeModuleSettings());
 #endif
             }
-        }
-
-        public void AutoRunToolStripButton_Click(object sender, EventArgs e)
-        {
-            setAutoRunValue(!Properties.Settings.Default.AutoRun);
-        }
-
-        private void setAutoRunValue(bool value)
-        {
-            Properties.Settings.Default.AutoRun = value;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

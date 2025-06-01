@@ -124,13 +124,13 @@
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             resources.ApplyResources(this.startToolStripMenuItem, "startToolStripMenuItem");
-            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripButton_Click);
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.TaskBar_StartProjectExecution);
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             resources.ApplyResources(this.stopToolStripMenuItem, "stopToolStripMenuItem");
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.startToolStripButton_Click);
+            this.stopToolStripMenuItem.Click += new System.EventHandler(this.TaskBar_StopExecution);
             // 
             // toolStripMenuItemDivider
             // 

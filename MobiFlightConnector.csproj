@@ -1016,6 +1016,7 @@
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SimConnectMSFS\SimConnectCache.cs" />
+    <Compile Include="UI\IProjectToolbar.cs" />
     <Compile Include="VJoy\VJoyExceptions.cs" />
     <Compile Include="VJoy\VJoyHelper.cs" />
     <Compile Include="UI\Panels\Action\VJoyInputPanel.cs">

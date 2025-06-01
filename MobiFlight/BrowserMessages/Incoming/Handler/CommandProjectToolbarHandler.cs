@@ -1,14 +1,15 @@
 ﻿using MobiFlight.UI;
+using System;
 
 namespace MobiFlight.BrowserMessages.Incoming.Handler
 {
     public class CommandProjectToolbarHandler
     {
-        private readonly MainForm _mainForm;
+        private readonly IProjectToolbar _form;
         
-        public CommandProjectToolbarHandler(MainForm mainForm)
+        public CommandProjectToolbarHandler(IProjectToolbar form)
         {
-            _mainForm = mainForm;
+            _form = form;
         }
 
         public void Handle(CommandProjectToolbar message)
@@ -17,25 +18,23 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
             {
                 // File Menu Actions
                 case CommandProjectToolbarAction.run:
-                    _mainForm.startToolStripButton_Click(null, null);
+                    _form.StartProjectExecution();
                     break;
 
                 case CommandProjectToolbarAction.stop:
-                    _mainForm.stopToolStripButton_Click(null, null);
-                    _mainForm.stopTestToolStripButton_Click(null, null);
+                    _form.StopExecution();
                     break;
 
                 case CommandProjectToolbarAction.test:
-                    _mainForm.runTestToolStripLabel_Click(null, null);
+                    _form.StartTestModeExecution();
                     break;
 
                 case CommandProjectToolbarAction.toggleAutoRun:
-                    _mainForm.AutoRunToolStripButton_Click(null, null);
+                    _form.ToggleAutoRunSetting();
                     break;
 
                 case CommandProjectToolbarAction.rename:
-                    if (string.IsNullOrEmpty(message.Value)) return;
-                    _mainForm.ExecutionManager.Project.Name = message.Value;
+                    _form.RenameProject(message.Value);
                     break;
             }
         }

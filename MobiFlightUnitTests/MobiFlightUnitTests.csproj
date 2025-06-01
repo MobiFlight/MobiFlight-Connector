@@ -122,6 +122,7 @@
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ConfigItemConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverterTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverterTests.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandProjectToolbarHandlerTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchangeTests.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
     <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
