@@ -139,8 +139,8 @@ def create_mobi_json(data: bytes) -> str:
                 color: int = format & 0b01111111
                      
                 is_small: bool = (format & 0b10000000) == 128               
-                # Heading lines should be small as well
-                is_small = is_small or (y % 2 == 1)       
+                # Heading lines should be small as well, except input line
+                is_small = is_small or ((y % 2 == 1) and not (y == 13))    
 
                 color_str = {
                     CDU_COLOR_BLACK: "e",  # use grey instead
