@@ -3,6 +3,7 @@ import ctypes
 import json
 import logging
 import asyncio
+import struct
 import websockets.asyncio.client as ws_client
 from typing import Optional, List, Dict, Union, Any
 from SimConnect import SimConnect, Enum
@@ -240,12 +241,17 @@ class MDXCDUClient:
         except Exception as e:
             logging.error(f"SimConnect setup failed for {self.cdu_name}: {e}")
             return False
-
+        
     def handle_cdu_data(self, client_data: Any) -> None:
         try:
-            if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):
-                data: bytes = bytes(client_data.dwData)
-                if len(data) >= CDU_SC_DATA_SIZE:
+            if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):                
+                int_count : int = int(CDU_SC_DATA_SIZE/ 4)              
+                if len(client_data.dwData) >= int_count:
+                    data_list : bytearray = bytearray()                  
+                    for i in range(int_count): 
+                        my_bytes : bytes = struct.pack("I", client_data.dwData[i])
+                        data_list.extend(my_bytes)                
+                    data: bytes = bytes(data_list)                                       
                     asyncio.run_coroutine_threadsafe(self.mobiflight.send(create_mobi_json(data)), self.event_loop)
         except Exception as e:
             logging.error(f"Error handling CDU data: {e}")
