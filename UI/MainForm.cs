@@ -2252,7 +2252,7 @@ namespace MobiFlight.UI
             Properties.Settings.Default.AutoRun = value;
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
             {
