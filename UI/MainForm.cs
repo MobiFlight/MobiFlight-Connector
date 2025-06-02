@@ -42,7 +42,9 @@ namespace MobiFlight.UI
 
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
-        private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
+
+        protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
+        
         public event EventHandler<string> CurrentFilenameChanged;
 
         // Track whether there are any connected devices of the different types, to avoid unnecessary
@@ -2652,7 +2654,7 @@ namespace MobiFlight.UI
             SaveAutoLoadConfig();
         }
 
-        private void UpdateAutoLoadMenu()
+        protected void UpdateAutoLoadMenu()
         {
             var aircraftName = toolStripAircraftDropDownButton.Text;
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
