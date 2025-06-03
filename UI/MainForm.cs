@@ -42,7 +42,9 @@ namespace MobiFlight.UI
 
         private CmdLineParams cmdLineParams;
         private ExecutionManager execManager;
-        private Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
+
+        protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
+        
         public event EventHandler<string> CurrentFilenameChanged;
 
         // Track whether there are any connected devices of the different types, to avoid unnecessary
@@ -2250,7 +2252,7 @@ namespace MobiFlight.UI
             Properties.Settings.Default.AutoRun = value;
         }
 
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        public void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (ShowSettingsDialog("GeneralTabPage", null, null, null) == System.Windows.Forms.DialogResult.OK)
             {
@@ -2652,31 +2654,44 @@ namespace MobiFlight.UI
             SaveAutoLoadConfig();
         }
 
-        private void UpdateAutoLoadMenu()
+        protected void UpdateAutoLoadMenu()
         {
             var aircraftName = toolStripAircraftDropDownButton.Text;
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
-            toolStripAircraftDropDownButton.Image = null;
-
-            linkCurrentConfigToolStripMenuItem.Enabled = (execManager?.Project?.FilePath != null);
-            openLinkedConfigToolStripMenuItem.Enabled = false;
-            removeLinkConfigToolStripMenuItem.Enabled = false;
-
+            ResetAutoLoadMenu();
+            
             if (!AutoLoadConfigs.ContainsKey(key)) return;
-
             var linkedFile = AutoLoadConfigs[key];
 
+            UpdateAutoLoadMenuWithLinkedFile(linkedFile);
+        }
+        
+        private void UpdateAutoLoadMenuWithLinkedFile(string linkedFile)
+        {
+
+            if (string.IsNullOrEmpty(linkedFile)) return;
+
+            toolStripAircraftDropDownButton.Image = Properties.Resources.warning;
+            linkCurrentConfigToolStripMenuItem.Enabled = (execManager?.Project?.FilePath != null);
             removeLinkConfigToolStripMenuItem.Enabled = true;
             openLinkedConfigToolStripMenuItem.Enabled = true;
             openLinkFilenameToolStripMenuItem.Text = linkedFile;
-            toolStripAircraftDropDownButton.Image = Properties.Resources.warning;
 
-            if (linkedFile != execManager.Project.FilePath) return;
+            if (linkedFile != execManager?.Project?.FilePath) return;
 
             linkCurrentConfigToolStripMenuItem.Enabled = false;
             openLinkedConfigToolStripMenuItem.Enabled = false;
             toolStripAircraftDropDownButton.Image = Properties.Resources.check;
+        }
+
+        private void ResetAutoLoadMenu()
+        {
+            toolStripAircraftDropDownButton.Image = null;
+            linkCurrentConfigToolStripMenuItem.Enabled = false;
+            removeLinkConfigToolStripMenuItem.Enabled = false;
+            openLinkedConfigToolStripMenuItem.Enabled = false;
+            openLinkFilenameToolStripMenuItem.Text = "";
         }
 
         private void openLinkedConfigToolStripMenuItem_Click(object sender, EventArgs e)
