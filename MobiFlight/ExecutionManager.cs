@@ -472,6 +472,11 @@ namespace MobiFlight
 
         private void sim_AirCraftChanged(object sender, string e)
         {
+            if (sender is Fsuipc2Cache && (xplaneCache.IsConnected() || simConnectCache.IsConnected())) {
+                Log.Instance.log($"Aircraft change detected from {sender} but X-Plane or SimConnect are connected. Ignoring name change", LogSeverity.Info);
+                return;
+            }
+
             Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
             OnSimAircraftChanged?.Invoke(sender, e);
         }
