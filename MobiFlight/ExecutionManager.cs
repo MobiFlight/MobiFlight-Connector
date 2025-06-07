@@ -934,53 +934,51 @@ namespace MobiFlight
 #endif
 
             // Check only for available sims if not in Offline mode.
-            if (true)
+            if (SimAvailable())
             {
-
-                if (SimAvailable())
+                if (LastDetectedSim != FlightSim.FlightSimType)
                 {
-                    if (LastDetectedSim != FlightSim.FlightSimType)
-                    {
-                        LastDetectedSim = FlightSim.FlightSimType;
-                        OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
-                    }
-
-                    if (!fsuipcCache.IsConnected())
-                    {
-                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
-                        {
-                            // we don't want to spam the log
-                            // in case we have an active connection
-                            // through a different type
-                            Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
-                        }
-
-                        fsuipcCache.Connect();
-                    }
-#if SIMCONNECT
-                    if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
-                    {
-                        Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
-                        simConnectCache.Connect();
-                    }
-#endif
-                    if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
-                    {
-                        Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
-                        xplaneCache.Connect();
-                    }
-                    // we return here to prevent the disabling of the timer
-                    // so that autostart-feature can work properly
-                    _autoConnectTimerRunning = false;
-                    return;
+                    LastDetectedSim = FlightSim.FlightSimType;
+                    OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
                 }
-                else
+
+#if SIMCONNECT
+                if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
                 {
-                    if (LastDetectedSim != FlightSimType.NONE)
+                    Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
+                    simConnectCache.Connect();
+                }
+#endif
+                if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
+                {
+                    Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
+                    xplaneCache.Connect();
+                }
+
+                if (!fsuipcCache.IsConnected())
+                {
+                    if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
                     {
-                        OnSimUnavailable?.Invoke(LastDetectedSim, null);
-                        LastDetectedSim = FlightSimType.NONE;
+                        // we don't want to spam the log
+                        // in case we have an active connection
+                        // through a different type
+                        Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
                     }
+
+                    fsuipcCache.Connect();
+                }
+
+                // we return here to prevent the disabling of the timer
+                // so that autostart-feature can work properly
+                _autoConnectTimerRunning = false;
+                return;
+            }
+            else
+            {
+                if (LastDetectedSim != FlightSimType.NONE)
+                {
+                    OnSimUnavailable?.Invoke(LastDetectedSim, null);
+                    LastDetectedSim = FlightSimType.NONE;
                 }
             }
 
