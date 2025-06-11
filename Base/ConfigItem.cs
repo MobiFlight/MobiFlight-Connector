@@ -7,10 +7,36 @@ using System.Linq;
 
 namespace MobiFlight.Base
 {
-    [JsonConverter(typeof(ConfigItemConverter))]
-    public interface IConfigItem
+    [JsonConverter(typeof(ConfigValueOnlyItemConverter))]
+    public interface IConfigValueOnlyItem
     {
         string GUID { get; set; }
+        string RawValue { get; set; }
+        string Value { get; set; }
+        Dictionary<ConfigItemStatusType, string> Status { get; set; }
+    }
+
+    public class ConfigValueOnlyItem : IConfigValueOnlyItem
+    {
+        public string GUID { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string RawValue { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string Value { get; set; }
+        public  Dictionary<ConfigItemStatusType, string> Status { get; set; }
+        public ConfigValueOnlyItem() { }
+        public ConfigValueOnlyItem(IConfigValueOnlyItem item)
+        {
+            GUID = item.GUID.Clone() as string;
+            RawValue = item.RawValue?.Clone() as string;
+            Value = item.Value?.Clone() as string;
+            Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
+        }
+    }
+
+    [JsonConverter(typeof(ConfigItemConverter))]
+    public interface IConfigItem : IConfigValueOnlyItem
+    {
         bool Active { get; set; }
         string Type { get; }
         string Name { get; set; }
@@ -18,13 +44,8 @@ namespace MobiFlight.Base
         PreconditionList Preconditions { get; set; }
         ModifierList Modifiers { get; set; }
         ConfigRefList ConfigRefs { get; set; }
-        string RawValue { get; set; }
-        string Value { get; set; }
         IDeviceConfig Device { get; }
-        Dictionary<ConfigItemStatusType, string> Status { get; set; }
-
         object Clone();
-
         IConfigItem Duplicate();
     }
 

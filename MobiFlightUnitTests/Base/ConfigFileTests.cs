@@ -176,5 +176,33 @@ namespace MobiFlight.Base.Tests
             Assert.IsTrue(configFile.Equals(configFile2));
             Assert.AreEqual(configFile, configFile2);
         }
+
+        [TestMethod()]
+        public void HasDuplicateGuidsTest()
+        {
+            var cfgItem1 = CreateOutputConfigItem();
+            var cfgItem2 = CreateOutputConfigItem();
+
+            var cfgFile = new ConfigFile() { ConfigItems = new List<IConfigItem>() { cfgItem1, cfgItem2 } };
+            Assert.IsFalse(cfgFile.HasDuplicateGuids());
+
+            cfgItem2 = cfgItem1.Clone() as OutputConfigItem;
+            cfgFile = new ConfigFile() { ConfigItems = new List<IConfigItem>() { cfgItem1, cfgItem2 } };
+            Assert.IsTrue(cfgFile.HasDuplicateGuids());
+        }
+
+        [TestMethod()]
+        public void RemoveDuplicateGuidsTest()
+        {
+            var cfgItem1 = CreateOutputConfigItem();
+            var cfgItem2 = cfgItem1.Clone() as OutputConfigItem;
+            var cfgFile = new ConfigFile() { ConfigItems = new List<IConfigItem>() { cfgItem1, cfgItem2 } };
+            
+            Assert.IsTrue(cfgFile.HasDuplicateGuids());
+            
+            cfgFile.RemoveDuplicateGuids();
+
+            Assert.IsFalse(cfgFile.HasDuplicateGuids());
+        }
     }
 }

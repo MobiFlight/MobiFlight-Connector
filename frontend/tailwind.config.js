@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
     darkMode: ["class"],
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
       screens: {
-        md: "50rem",
-        lg: "62rem",
-        "3xl": "100rem"
+        md: "49rem",
+        lg: "63rem",
+        "xl": "74rem",
+        "3xl": "99rem",
+        "4xl": "119rem"
       },
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -54,7 +57,11 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+        selected: {
+  				DEFAULT: 'hsl(var(--selected))',
+  				foreground: 'hsl(var(--selected-foreground))'
+  			},
   		},
       keyframes: {
         "accordion-down": {

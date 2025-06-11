@@ -6,12 +6,13 @@ import { useSortable } from "@dnd-kit/sortable"
 import { IconGripVertical } from "@tabler/icons-react"
 
 import { Row } from "@tanstack/react-table"
+import React from "react"
 
 interface ConfigItemTableActiveCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
+const ConfigItemTableActiveCell = React.memo(({ row }: ConfigItemTableActiveCellProps) => {
   const { publish } = publishOnMessageExchange()
   const item = row.original as IConfigItem
   const { attributes, listeners } = useSortable({ id: item.GUID })
@@ -25,7 +26,7 @@ const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
       >
         <IconGripVertical className="stroke-2" />
       </div>
-      <div className="text-center">
+      <div className="flex flex-row items-center">
         <Switch
           checked={row.getValue("Active") as boolean}
           onClick={() => {
@@ -39,6 +40,6 @@ const ConfigItemTableActiveCell = ({ row }: ConfigItemTableActiveCellProps) => {
       </div>
     </div>
   )
-}
+})
 
 export default ConfigItemTableActiveCell

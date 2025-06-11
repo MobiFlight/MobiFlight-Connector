@@ -48,15 +48,16 @@ namespace MobiFlight.UI.Dialogs
 
         bool IsShown = false;
 
-        public InputConfigWizard(ExecutionManager mainForm,
+        public InputConfigWizard(IExecutionManager executionManager,
                              InputConfigItem cfg,
 #if ARCAZE
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             List<OutputConfigItem> outputConfigItems)
+                             List<OutputConfigItem> outputConfigItems,
+                             Dictionary<string, MobiFlightVariable> scopedVariables)
         {
-            Init(mainForm, cfg);
+            Init(executionManager, cfg);
 #if ARCAZE
             this.moduleSettings = moduleSettings;
             initWithArcazeCache(arcazeCache);
@@ -72,7 +73,7 @@ namespace MobiFlight.UI.Dialogs
                                      .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }) as List<ListItem>;
 
             preconditionPanel.SetAvailableConfigs(list);
-            preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
+            preconditionPanel.SetAvailableVariables(scopedVariables);
             initConfigRefDropDowns(this.outputConfigItems, cfg.GUID);
             _loadPresets();
 
@@ -103,9 +104,9 @@ namespace MobiFlight.UI.Dialogs
             return !originalConfig.Equals(config);
         }
 
-        protected void Init(ExecutionManager mainForm, InputConfigItem cfg)
+        protected void Init(IExecutionManager executionManager, InputConfigItem cfg)
         {
-            this._execManager = mainForm;
+            this._execManager = executionManager;
             // create a clone so that we don't edit 
             // the original item
             config = cfg.Clone() as InputConfigItem;

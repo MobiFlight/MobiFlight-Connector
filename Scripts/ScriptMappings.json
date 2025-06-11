@@ -39,14 +39,26 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "prosim-a322",
-      "ScriptName": "prosim_a320_winwing_cdu.py"
+      "AircraftIdSnippet": "flybywire_a32",
+      "ScriptName": "fbw_a32nx_winwing_cdu.py"
     },
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "prosim-b73",
-      "ScriptName": "prosim_737_winwing_cdu.py"
+      "AircraftIdSnippet": "maddog",
+      "ScriptName": "maddogx_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "headwind_a33x",
+      "ScriptName": "headwind_a33_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "aerosoft_crj",
+      "ScriptName": "aerosoft_crj_winwing_cdu.py"
     }
   ]
 }

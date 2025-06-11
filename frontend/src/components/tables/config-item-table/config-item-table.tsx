@@ -16,29 +16,36 @@ import { Table } from "@/components/ui/table"
 import {
   DndContext,
   closestCenter,
-  KeyboardSensor,
   useSensor,
   useSensors,
   DragEndEvent,
   MouseSensor,
   TouchSensor,
+  DragStartEvent,
+  Active,
 } from "@dnd-kit/core"
 
-import { arrayMove } from "@dnd-kit/sortable"
-
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
+import {
+  restrictToParentElement,
+  restrictToVerticalAxis,
+} from "@dnd-kit/modifiers"
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { CommandAddConfigItem, CommandResortConfigItem } from "@/types/commands"
+import {
+  CommandAddConfigItem,
+  CommandConfigContextMenu,
+  CommandResortConfigItem,
+} from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
+import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -82,89 +89,223 @@ export function ConfigItemTable<TData, TValue>({
     },
   })
 
+  const parentRef = useRef<HTMLDivElement>(null)
+  // const { rows } = table.getRowModel()
+  // Virtualization setup
+  // const virtualizer = useVirtualizer({
+  //   count: rows.length,
+  //   getScrollElement: () => parentRef.current,
+  //   estimateSize: () => 50,
+  //   overscan: 5
+  // });
+
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
   const prevDataLength = useRef(data.length)
+  const addedItem = useRef(false)
 
   useEffect(() => {
-    if (data.length === prevDataLength.current + 1) {
+    console.log("added item", addedItem.current) 
+  }, [addedItem])
+  
+  useEffect(() => {
+    if (addedItem.current && data.length === prevDataLength.current + 1) {
+      addedItem.current = false
       const lastItem = data[data.length - 1] as IConfigItem
       const rowElement = tableRef.current?.querySelector(
         `[dnd-itemid="${lastItem.GUID}"]`,
       )
       if (rowElement) {
         rowElement.scrollIntoView({ behavior: "smooth", block: "center" })
+        const row = table.getRowModel().rows.find((r) => r.id === lastItem.GUID)
+        if (row) {
+          table.setRowSelection({ [row.id]: true })
+        }
+        publish({
+          key: "CommandConfigContextMenu",
+          payload: { action: "edit", item: lastItem },
+        } as CommandConfigContextMenu)
       }
     }
     prevDataLength.current = data.length
-  }, [data])
+  }, [publish, table, data])
 
   const { t } = useTranslation()
+  const [dragItem, setDragItem] = useState<Active | undefined>(
+    undefined,
+  )
 
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {}),
+    // useSensor(KeyboardSensor, {}),
+  )
+
+  const handleDragStart = useCallback(
+    (event: DragStartEvent) => {
+      const { active } = event
+      setDragItem(active)
+
+      const draggedRow = table
+        .getRowModel()
+        .rows.find((row) => row.id === active.id)
+      if (!draggedRow) return
+      if (!draggedRow.getIsSelected()) {
+        table.setRowSelection({ [active.id]: true })
+      }
+    },
+    [setDragItem, table],
   )
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
       const { active, over } = event
 
-      if (active.id !== over?.id) {
-        // sort the data items first
-        const oldIndex = data.findIndex(
-          (item) => (item as IConfigItem).GUID === active?.id,
-        )
-        const newIndex = data.findIndex(
-          (item) => (item as IConfigItem).GUID === over?.id,
-        )
-        const arrayWithNewOrder = arrayMove(data, oldIndex, newIndex)
-        // store them in a local array
-        // then set the items
+      setDragItem(undefined)
 
-        setItems(arrayWithNewOrder as IConfigItem[])
+      if (!over?.id || !active.id) return
 
-        publishOnMessageExchange().publish({
-          key: "CommandResortConfigItem",
-          payload: {
-            items: [
-              data.find(
-                (item) => (item as IConfigItem).GUID === active.id,
-              ) as IConfigItem,
-            ],
-            newIndex: newIndex,
-          },
-        } as CommandResortConfigItem)
-      }
+      // we didn't really move anything
+      if (active.id === over.id) return
+
+      // Get all selected row GUIDs, or just the dragged one if nothing selected
+      const selectedRows = table.getSelectedRowModel().rows
+      const selectedIds = selectedRows.map(
+        (row) => (row.original as IConfigItem).GUID,
+      )
+      const originalIndex = (data as IConfigItem[]).findIndex((item) => item.GUID === active.id)
+
+      // Remove dragged items from data
+      let newData = (data as IConfigItem[]).filter(
+        (item) => !selectedIds.includes(item.GUID),
+      )
+      // Find drop index
+      const newIndex = newData.findIndex((item) => item.GUID === over.id)
+
+      // we determine drag direction
+      const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
+
+      const draggedData = (data as IConfigItem[]).filter((item) =>
+        selectedIds.includes(item.GUID)
+      )
+
+      // Insert dragged items at drop index
+      newData = [
+        ...newData.slice(0, newIndex + dragDirectionOffset),
+        ...draggedData,
+        ...newData.slice(newIndex + dragDirectionOffset),
+      ]
+
+      setItems(newData)
+
+      publishOnMessageExchange().publish({
+        key: "CommandResortConfigItem",
+        payload: {
+          items: draggedData,
+          newIndex: newIndex + dragDirectionOffset,
+        },
+      } as CommandResortConfigItem)
     },
-    [data, setItems],
+    [data, setItems, table],
   )
+
+  const handleAddOutputConfig = useCallback(() => {
+    addedItem.current = true
+    publish({
+      key: "CommandAddConfigItem",
+      payload: {
+        name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
+        type: "OutputConfig",
+      },
+    } as CommandAddConfigItem)
+  }, [publish, t])
+
+  const handleAddInputConfig = useCallback(() => {
+    addedItem.current = true
+    publish({
+      key: "CommandAddConfigItem",
+      payload: {
+        name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
+        type: "InputConfig",
+      },
+    } as CommandAddConfigItem)
+  }, [publish, t])
+
+  const deleteSelected = useCallback(() => {
+    const action = "delete"
+    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
+      return row.original as IConfigItem
+    })
+    if (selectedConfigs.length === 0) return
+
+    publish({
+      key: "CommandConfigBulkAction",
+      payload: {
+        action: action,
+        items: selectedConfigs,
+      },
+    })
+    // Clear selection after deletion
+    table.setRowSelection({})
+  }, [table, publish])
+
+  const toggleSelected = useCallback(() => {
+    const action = "toggle"
+    const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
+      return row.original as IConfigItem
+    })
+    if (selectedConfigs.length === 0) return
+
+    publish({
+      key: "CommandConfigBulkAction",
+      payload: {
+        action: action,
+        items: selectedConfigs,
+      },
+    })
+  }, [table, publish])
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
       {data.length > 0 ? (
         <div className="flex grow flex-col gap-2 overflow-y-auto">
           <div className="p-1">
-            <DataTableToolbar table={table} items={data as IConfigItem[]} />
+            <DataTableToolbar
+              table={table}
+              items={data as IConfigItem[]}
+              onDeleteSelected={deleteSelected}
+              onToggleSelected={toggleSelected}
+              onClearSelected={() => table.setRowSelection({})}
+            />
           </div>
           {table.getRowModel().rows?.length ? (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
-              modifiers={[restrictToVerticalAxis]}
+              modifiers={[ snapToCursor, restrictToVerticalAxis, restrictToParentElement ]}
               onDragEnd={handleDragEnd}
+              onDragStart={handleDragStart}
             >
-              <div className="flex flex-col overflow-y-auto rounded-lg border border-primary">
+              <div
+                className="flex flex-col overflow-y-auto rounded-lg border border-primary"
+                ref={parentRef}
+              >
                 <Table ref={tableRef} className="table-fixed">
-                  <ConfigItemTableHeader table={table} />
-                  <ConfigItemTableBody table={table} />
+                  <ConfigItemTableHeader
+                    headerGroups={table.getHeaderGroups()}
+                  />
+                  <ConfigItemTableBody
+                    table={table}
+                    dragItemId={dragItem?.id as string}
+                    onDeleteSelected={deleteSelected}
+                    onToggleSelected={toggleSelected}
+                  />
                 </Table>
               </div>
             </DndContext>
           ) : (
             <div className="flex flex-col gap-2 rounded-lg border-2 border-solid border-primary pb-6">
-              <div className="h-12 bg-primary mb-4"></div>
+              <div className="mb-4 h-12 bg-primary"></div>
               <div className="text-center" role="alert">
                 {t("ConfigList.Table.NoResultsMatchingFilter")}
               </div>
@@ -199,30 +340,14 @@ export function ConfigItemTable<TData, TValue>({
         <Button
           variant={"outline"}
           className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
-          onClick={() =>
-            publish({
-              key: "CommandAddConfigItem",
-              payload: {
-                name: t("ConfigList.Actions.OutputConfigItem.DefaultName"),
-                type: "OutputConfig",
-              },
-            } as CommandAddConfigItem)
-          }
+          onClick={handleAddOutputConfig}
         >
           {t("ConfigList.Actions.OutputConfigItem.Add")}
         </Button>
         <Button
           variant={"outline"}
           className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-          onClick={() =>
-            publish({
-              key: "CommandAddConfigItem",
-              payload: {
-                name: t("ConfigList.Actions.InputConfigItem.DefaultName"),
-                type: "InputConfig",
-              },
-            } as CommandAddConfigItem)
-          }
+          onClick={handleAddInputConfig}
         >
           {t("ConfigList.Actions.InputConfigItem.Add")}
         </Button>

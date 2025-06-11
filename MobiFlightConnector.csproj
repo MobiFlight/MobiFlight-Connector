@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -88,35 +88,6 @@
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug-Mobiflight\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;MOBIFLIGHT DEBUG SIMCONNECT</DefineConstants>
-    <DocumentationFile>bin\Debug-Mobiflight\MFConnector.xml</DocumentationFile>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
-    <OutputPath>bin\x64\Release-Mobiflight\</OutputPath>
-    <DefineConstants>TRACE;MOBIFLIGHT RELEASE SIMCONNECT</DefineConstants>
-    <Optimize>true</Optimize>
-    <WarningLevel>2</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
@@ -135,8 +106,24 @@
     <Reference Include="Device.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Device.Net.4.2.1\lib\net45\Device.Net.dll</HintPath>
     </Reference>
-    <Reference Include="fsuipcClient, Version=3.3.3.403, Culture=neutral, PublicKeyToken=7e7559b53e380b17, processorArchitecture=MSIL">
-      <HintPath>packages\FSUIPCClientDLL.3.3.3\lib\net462\fsuipcClient.dll</HintPath>
+    <Reference Include="fsuipcClient, Version=3.3.16.420, Culture=neutral, PublicKeyToken=b8cb6f8a387dcef2">
+      <HintPath>packages\FSUIPCClientDLL.3.3.16\lib\net462\fsuipcClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GraphQL.Client, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL.Client.6.1.0\lib\net461\GraphQL.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphQL.Client.Abstractions, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL.Client.Abstractions.6.1.0\lib\netstandard2.0\GraphQL.Client.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphQL.Client.Abstractions.Websocket, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL.Client.Abstractions.Websocket.6.1.0\lib\netstandard2.0\GraphQL.Client.Abstractions.Websocket.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphQL.Client.Serializer.Newtonsoft, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL.Client.Serializer.Newtonsoft.6.1.0\lib\netstandard2.0\GraphQL.Client.Serializer.Newtonsoft.dll</HintPath>
+    </Reference>
+    <Reference Include="GraphQL.Primitives, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GraphQL.Primitives.6.1.0\lib\netstandard2.0\GraphQL.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="GraphQL.Client, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\GraphQL.Client.6.1.0\lib\net461\GraphQL.Client.dll</HintPath>
@@ -162,20 +149,21 @@
     <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.2.21.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.23.0.29, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>packages\Microsoft.ApplicationInsights.2.23.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.61259.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
       <HintPath>SimConnectFSX\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3124.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3124.44\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3124.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3124.44\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1518.46, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.Web.WebView2.1.0.1518.46\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3124.44, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.WebView2.1.0.3124.44\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Midi">
       <HintPath>lib\Midi.dll</HintPath>
@@ -192,11 +180,13 @@
     <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.Schema.3.0.15\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
     </Reference>
-    <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>packages\protobuf-net.3.1.33\lib\net462\protobuf-net.dll</HintPath>
+    <Reference Include="protobuf-net, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
+      <HintPath>packages\protobuf-net.3.2.46\lib\net462\protobuf-net.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>packages\protobuf-net.Core.3.1.33\lib\net462\protobuf-net.Core.dll</HintPath>
+    <Reference Include="protobuf-net.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
+      <HintPath>packages\protobuf-net.Core.3.2.46\lib\net462\protobuf-net.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>packages\SharpDX.4.2.0\lib\net45\SharpDX.dll</HintPath>
@@ -205,11 +195,13 @@
       <HintPath>packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="System.CodeDom, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.CodeDom.7.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    <Reference Include="System.CodeDom, Version=9.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>packages\System.CodeDom.9.0.4\lib\net462\System.CodeDom.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Collections.Immutable, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Collections.Immutable.7.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
@@ -276,6 +268,7 @@
     <Compile Include="Base\AutoUpdateChecker.cs" />
     <Compile Include="Base\CacheInterface.cs" />
     <Compile Include="Base\ConfigFile.cs" />
+    <Compile Include="Base\ConfigFileExtensions.cs" />
     <Compile Include="Base\ConfigFileFactory.cs" />
     <Compile Include="Base\ConfigFileUtils.cs" />
     <Compile Include="Base\ConfigFileWrapperXML.cs" />
@@ -287,8 +280,11 @@
     <Compile Include="Base\Extensions.cs" />
     <Compile Include="Base\FullCacheInterface.cs" />
     <Compile Include="Base\IConfigFile.cs" />
+    <Compile Include="Base\InputEventExecutor.cs" />
+    <Compile Include="Base\LruCache.cs" />
     <Compile Include="Base\Project.cs" />
     <Compile Include="Base\Serialization\Json\DeviceConfigConverter.cs" />
+    <Compile Include="Base\Serialization\Json\ConfigValueOnlyItemConverter.cs" />
     <Compile Include="Base\Serialization\Json\SourceConverter.cs" />
     <Compile Include="Base\Settings.cs" />
     <Compile Include="Base\i18n.cs" />
@@ -306,25 +302,36 @@
     <Compile Include="MobiFlight\BoardDefinitions.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\IMessagePublisher.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandActiveConfigFile.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigFile.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandAddConfigItem.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigBulkAction.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandProjectToolbar.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandMainMenu.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandFileContexMenu.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandResortConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandUpdateConfigItem.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\CommandConfigContexMenu.cs" />
     <Compile Include="Base\Serialization\Json\ConfigItemConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\InputActionConverter.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Converter\ModifierBaseConverter.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandProjectToolbarHandler.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Incoming\Handler\CommandMainMenuHandler.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Message.cs" />
     <Compile Include="MobiFlight\BrowserMessages\MessageExchange.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueFullUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueRawAndFinalUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\StatusBarUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\PostMessagePublisher.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Publisher\WebsocketPublisher.cs" />
     <Compile Include="MobiFlight\Clipboard.cs" />
     <Compile Include="MobiFlight\ConfigExtensions.cs" />
+    <Compile Include="MobiFlight\ConfigRefValue.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\LedModuleDeprecated.cs" />
     <Compile Include="MobiFlight\Config\Compatibility\StepperDeprecatedV2.cs" />
     <Compile Include="MobiFlight\Config\IBaseDevice.cs" />
@@ -338,6 +345,8 @@
     <Compile Include="MobiFlight\CustomDevices\CustomDevice.cs" />
     <Compile Include="MobiFlight\CustomDevices\CustomDeviceDefinitions.cs" />
     <Compile Include="MobiFlight\DeviceType.cs" />
+    <Compile Include="MobiFlight\Execution\ConfigItemExecutor.cs" />
+    <Compile Include="MobiFlight\Execution\PreconditionChecker.cs" />
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
@@ -363,6 +372,8 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBHidReport.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLed.cs" />
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3Report.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingConstants.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcu.cs" />
@@ -1063,6 +1074,7 @@
       <DependentUpon>WelcomeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="SimConnectMSFS\SimConnectCache.cs" />
+    <Compile Include="UI\IProjectToolbar.cs" />
     <Compile Include="UI\Panels\Settings\ProSimPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1086,6 +1098,15 @@
     <Compile Include="xplane\XplaneCacheInterface.cs" />
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
+    <Content Include="Scripts\Winwing\aerosoft_crj_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\maddogx_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\fbw_a32nx_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Winwing\fenix_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1113,6 +1134,9 @@
     <EmbeddedResource Include="UI\Panels\Settings\ProSimPanel.resx">
       <DependentUpon>ProSimPanel.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Scripts\Winwing\headwind_a33_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="ApplicationInsights.config" />
     <None Include="Boards\arduino_mega.board.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1359,10 +1383,19 @@
     <None Include="Joysticks\winwing_fcu_efisr.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\winwing_pfp7_captain.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\winwing_pfp3n_captain.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\winwing_pfp7_copilot.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\winwing_pfp3n_copilot.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_pfp7_observer.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing_pfp3n_observer.joystick.json">
@@ -1375,6 +1408,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing_mcdu_observer.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing_pap3.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">
@@ -2576,15 +2612,15 @@ xcopy /R /E /Y /I "$(ProjectDir)Arduino" "$(TargetDir)Arduino"
 del "$(TargetDir)\log.txt"
 del "$(TargetDir)MSFS2020-module\mobiflight-event-module\modules\events.user.txt"</PreBuildEvent>
   </PropertyGroup>
-  <Import Project="packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.1518.46\build\Microsoft.Web.WebView2.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <Import Project="packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3124.44\build\Microsoft.Web.WebView2.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

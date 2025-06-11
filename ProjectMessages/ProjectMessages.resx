@@ -198,8 +198,8 @@ All unsaved changes will get lost.</value>
   <data name="Label_Precondition_ConfigItem" xml:space="preserve">
     <value>Config item</value>
   </data>
-  <data name="DefaultFileName" xml:space="preserve">
-    <value>unsaved</value>
+  <data name="DefaultProjectName" xml:space="preserve">
+    <value>New Project</value>
   </data>
   <data name="uiMessageConfirmDiscardUnsaved" xml:space="preserve">
     <value>There are unsaved changes in your configuration.
@@ -656,7 +656,7 @@ Close MSFS and install the WASM module via menu "Extras" &gt; "Microsoft Flight 
   <data name="uiMessagePythonInstructions" xml:space="preserve">
     <value>Please follow instructions on:
 	
-https://github.com/MobiFlight/MobiFlight-Connector/wiki/Installing-Python
+https://docs.mobiflight.com/guides/installing-python/
 	
 Page will be opened, when pressing OK.</value>
   </data>

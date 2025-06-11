@@ -119,7 +119,7 @@ class Mobiflight_Client:
                     # Break and stop for that CDU
                     break
                 else:
-                    logging.error(f"Error on trying to connect to MobiFlight websocket interface for {self.id}. Will retry: {ex}")    
+                    logging.error(f"Error on trying to connect to MobiFlight websocket interface for {self.id}. Will retry: {invalid}")    
             except Exception as ex:            
                 logging.error(f"Error on trying to connect to MobiFlight websocket interface for {self.id}. Will retry: {ex}")                  
                 self.websocket_connection = None                                        

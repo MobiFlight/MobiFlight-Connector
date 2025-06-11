@@ -1,9 +1,9 @@
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
-using MobiFlight.OutputConfig;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -42,6 +42,7 @@ namespace MobiFlight
         public event EventHandler OnMidiBoardConnectedFinished;
 
         public event EventHandler SettingsDialogRequested;
+        public event EventHandler<Project> OnProjectChanged;
 
         /// <summary>
         /// a semaphore to prevent multiple execution of timer callback
@@ -63,6 +64,8 @@ namespace MobiFlight
         /// </summary>
         private readonly Timer testModeTimer = new Timer();
         int testModeIndex = 0;
+
+        private readonly Timer frontendUpdateTimer = new Timer();
 
         /// Window handle
         private IntPtr handle = new IntPtr(0);
@@ -87,28 +90,42 @@ namespace MobiFlight
 #endif
         readonly JoystickManager joystickManager = new JoystickManager();
         readonly MidiBoardManager midiBoardManager = new MidiBoardManager();
+        private readonly Dictionary<ConfigFile, InputEventExecutor> _inputEventExecutors = new Dictionary<ConfigFile, InputEventExecutor>();
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
-        public List<IConfigItem> ConfigItems { get { return _project.ConfigFiles.Count > 0 ? _project.ConfigFiles[0].ConfigItems : new List<IConfigItem>(); }}
-
-        private Project _project = new Project();
-        public Project Project { 
-            get { return _project;  } 
-            set {
-                _project = value;
-            } 
+        public List<IConfigItem> ConfigItems { 
+            get { 
+                return _project.ConfigFiles.Count > ActiveConfigIndex 
+                    ? _project.ConfigFiles[ActiveConfigIndex].ConfigItems 
+                    : new List<IConfigItem>(); } 
         }
 
-        Dictionary<String, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
+        private Project _project = new Project();
+        public Project Project
+        {
+            get { return _project; }
+            set
+            {
+                if (_project == value) return;
+                _project = value;
+                _project.ProjectChanged += (s, e) =>
+                {
+                    OnProjectChanged?.Invoke(this, Project);
+                };
+                OnProjectChanged?.Invoke(this, Project);
+            }
+        }
+
+        public int ActiveConfigIndex { get; private set; } = 0;
 
         private bool _autoConnectTimerRunning = false;
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
         OutputConfigItem ConfigItemInTestMode = null;
-
-        Dictionary<string, IConfigItem> lastUpdatedValues = new Dictionary<string, IConfigItem>();
+        Dictionary<string, IConfigItem> updatedValues = new Dictionary<string, IConfigItem>();
+        bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
         {
@@ -184,6 +201,34 @@ namespace MobiFlight
                 OnMidiBoardConnectedFinished?.Invoke(sender, e);
             };
 
+            OnProjectChanged += (s, p) =>
+            {
+                ActiveConfigIndex = 0;
+                InitInputEventExecutor();
+                MessageExchange.Instance.Publish(p);
+            };
+
+            frontendUpdateTimer.Interval = 200;
+            frontendUpdateTimer.Tick += (s, e) =>
+            {
+                if (!updateFrontend) return;
+
+                UpdateInputPreconditions();
+
+                if (updatedValues.Count > 0)
+                {
+                    var list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
+                    // Replace the line causing the error with the following line
+                    var update = new ConfigValueRawAndFinalUpdate(list);
+                    MessageExchange.Instance.Publish(update);
+                }
+
+                lock (updatedValues)
+                {
+                    updatedValues.Clear();
+                }
+            };
+
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
         }
@@ -224,9 +269,34 @@ namespace MobiFlight
                 item.Active = true;
                 ConfigItems.Add(item);
 
-                MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(item));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(item, null);
             });
+
+            MessageExchange.Instance.Subscribe<CommandConfigBulkAction>((message) =>
+            {
+                if (message.Action == "delete")
+                {
+                    message.Items.ForEach(item =>
+                    {
+                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
+                        ConfigItems.Remove(cfg);
+                    });
+                }
+                else if (message.Action == "toggle")
+                {
+                    var toggleValue = !message.Items.First().Active;
+                    message.Items.ForEach(item =>
+                    {
+                        var cfg = ConfigItems.Find(i => i.GUID == item.GUID);
+                        if (cfg == null) return;
+                        cfg.Active = toggleValue;
+                    });
+                }
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
+                OnConfigHasChanged?.Invoke(ConfigItems, null);
+            });
+
 
             MessageExchange.Instance.Subscribe<CommandConfigContextMenu>((message) =>
             {
@@ -235,6 +305,12 @@ namespace MobiFlight
                 {
                     case "delete":
                         ConfigItems.RemoveAll(i => i.GUID == message.Item.GUID);
+                        break;
+
+                    case "toggle":
+                        cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
+                        if (cfg == null) break;
+                        cfg.Active = !cfg.Active;
                         break;
 
                     case "duplicate":
@@ -302,7 +378,7 @@ namespace MobiFlight
                         return;
                 }
 
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
@@ -325,9 +401,51 @@ namespace MobiFlight
                     ConfigItems.Insert(currentIndex, item);
                     currentIndex++;
                 });
-                
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
+            });
+
+            MessageExchange.Instance.Subscribe<CommandActiveConfigFile>((message) =>
+            {
+                ActiveConfigIndex = message.index;
+                ClearConfigItemStatus();
+            });
+
+            MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
+            {
+                if (message.Index>=Project.ConfigFiles.Count)
+                {
+                    Log.Instance.log($"Command {message.Action} - Index not found: {message.Index}", LogSeverity.Error);
+                    return;
+                }
+
+                var file = Project.ConfigFiles[message.Index];
+
+                if (file == null)
+                {
+                    Log.Instance.log($"Command {message.Action} - File not found: {message.File.FileName}", LogSeverity.Error);
+                    return;
+                }
+
+                switch (message.Action)
+                {
+                    case CommandFileContextMenuAction.remove:
+                        Project.ConfigFiles.RemoveAt(message.Index);
+                        break;
+                    case CommandFileContextMenuAction.rename:
+                        file.Label = message.File.Label;
+                        break;
+                    case CommandFileContextMenuAction.export:
+                        // this is not subscribed here
+                        // see MainForm.cs for the subscription there.
+                        break;
+                    default:
+                        return;
+                }
+
+                MessageExchange.Instance.Publish(Project);
+                OnConfigHasChanged?.Invoke(this, null);
             });
         }
 
@@ -364,32 +482,12 @@ namespace MobiFlight
         internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
         {
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
-
-            ConfigItems.Where(i =>
+            if (Project.ConfigFiles.Count == 0 || ActiveConfigIndex >= Project.ConfigFiles.Count)
             {
-                return i?.GetType() == typeof(OutputConfigItem) &&
-                        (i as OutputConfigItem).Source is VariableSource;
-            }).ToList().ForEach(i => {
-                var source = (i as OutputConfigItem).Source as VariableSource;
-                if (variables.ContainsKey(source.MobiFlightVariable.Name)) return;
-                variables[source.MobiFlightVariable.Name] = source.MobiFlightVariable;
-            });
+                return variables;
+            }
 
-            ConfigItems.Where(i => i?.GetType() == typeof(InputConfigItem)).ToList().ForEach(i =>
-            {
-                var cfg = i as InputConfigItem;
-                List<InputAction> actions = cfg.GetInputActionsByType(typeof(VariableInputAction));
-                if (actions == null) return;
-                
-                actions.ForEach(action =>
-                {
-                    VariableInputAction a = (VariableInputAction)action;
-                    if (variables.ContainsKey(a.Variable.Name)) return;
-                    variables[a.Variable.Name] = a.Variable;
-                });
-            });
-
-            return variables;
+            return Project.ConfigFiles[ActiveConfigIndex].GetAvailableVariables();
         }
 
         public void HandleWndProc(ref Message m)
@@ -459,6 +557,7 @@ namespace MobiFlight
         {
             if (timer.Enabled) return;
 
+            InitInputEventExecutor();
             simConnectCache.Start();
             xplaneCache.Start();
 
@@ -468,6 +567,7 @@ namespace MobiFlight
             // on start actions are executed
             // otherwise the input events will not be executed.
             timer.Enabled = true;
+            frontendUpdateTimer.Enabled = true;
 
             // Now we can execute the on start actions
             OnStartActions();
@@ -476,9 +576,29 @@ namespace MobiFlight
             mobiFlightCache.KeepConnectedModulesAwake(true);
         }
 
+        private void InitInputEventExecutor()
+        {
+            _inputEventExecutors.Clear();
+
+            foreach (var configFile in Project.ConfigFiles)
+            {
+                _inputEventExecutors[configFile] = new InputEventExecutor(
+                    configFile.ConfigItems,
+                    inputActionExecutionCache,
+                    fsuipcCache,
+                    simConnectCache,
+                    xplaneCache,
+                    mobiFlightCache,
+                    joystickManager,
+                    arcazeCache
+                );
+            }
+        }
+
         public void Stop()
         {
             timer.Enabled = false;
+            frontendUpdateTimer.Enabled = false;
             isExecuting = false;
 #if ARCAZE
             arcazeCache.Clear();
@@ -489,12 +609,21 @@ namespace MobiFlight
             xplaneCache.Stop();
             joystickManager.Stop();
             midiBoardManager.Stop();
-            inputCache.Clear();
             inputActionExecutionCache.Clear();
             mobiFlightCache.ActivateConnectedModulePowerSave();
-            ConfigItems.ForEach(cfg => cfg?.Status?.Clear());
-            
+            ClearConfigItemStatus();
+
             ClearErrorMessages();
+        }
+
+        private void ClearConfigItemStatus()
+        {
+            ConfigItems.ForEach(cfg =>
+            {
+                cfg?.Status?.Clear();
+                cfg.Value = "";
+                cfg.RawValue = "";
+            });
         }
 
         public void AutoConnectStart()
@@ -512,10 +641,7 @@ namespace MobiFlight
 
         internal void OnInputConfigSettingsChanged(object sender, EventArgs e)
         {
-            lock (inputCache)
-            {
-                inputCache.Clear();
-            }
+            _inputEventExecutors.ToList().ForEach(executor => executor.Value.ClearCache());
         }
 
         public bool IsStarted()
@@ -670,559 +796,30 @@ namespace MobiFlight
 #if ARCAZE
             arcazeCache.clearGetValues();
 #endif
-
-            var updatedValues = new Dictionary<string, IConfigItem>();
-
-            // iterate over the config row by row
-            foreach (var item in ConfigItems.Where(i=>i?.GetType()==typeof(OutputConfigItem)))
+            foreach (var configFile in _project.ConfigFiles)
             {
-                var cfg = item as OutputConfigItem;
+                var executor = new ConfigItemExecutor(
+                                                  configFile.ConfigItems,
+                                                  arcazeCache,
+                                                  fsuipcCache,
+                                                  simConnectCache,
+                                                  xplaneCache,
+                                                  mobiFlightCache,
+                                                  joystickManager,
+                                                  midiBoardManager,
+                                                  inputActionExecutionCache,
+                                                  ConfigItemInTestMode);
 
-                if (!cfg.Active) continue;
+                foreach (var item in configFile.ConfigItems)
+                {
+                    var cfg = item as OutputConfigItem;
+                    if (cfg == null || !cfg.Active) continue;
 
-                if (cfg == null)
-                {
-                    // this can happen if a user activates (checkbox) a newly created config
-                    continue;
-                }
-
-                // Don't execute a config that we are currently manually testing.
-                var currentGuid = cfg.GUID;
-                var originalCfg = cfg.Clone() as ConfigItem;
-                cfg.Status.Clear();
-
-                if (ConfigItemInTestMode != null && ConfigItemInTestMode.GUID == currentGuid)
-                {
-                    cfg.Status[ConfigItemStatusType.Test] = "TESTING";
-                    if (!cfg.Equals(originalCfg))
-                    {
-                        updatedValues[cfg.GUID] = cfg;
-                    }
-                    continue;
-                }
-
-                // If not connected to FSUIPC show an error message
-                if (cfg.Source is FsuipcSource && !fsuipcCache.IsConnected())
-                {
-                    cfg.Status[ConfigItemStatusType.Source] = "FSUIPC_NOT_AVAILABLE";
-                }
-                else
-#if SIMCONNECT
-                // If not connected to SimConnect show an error message
-                if (cfg.Source is SimConnectSource && !simConnectCache.IsConnected())
-                {
-                    cfg.Status[ConfigItemStatusType.Source] = "SIMCONNECT_NOT_AVAILABLE";
-                }
-                else
-#endif
-                // If not connected to X-Plane show an error message
-                if (cfg.Source is XplaneSource && !xplaneCache.IsConnected())
-                {
-                    // TODO: REDESIGN: Review
-                    cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
-                }
-                // In any other case remove the error message
-                else
-                {
-                    cfg.Status.Remove(ConfigItemStatusType.Source);
-                }
-
-                ConnectorValue value = ExecuteRead(cfg);
-                ConnectorValue processedValue = value;
-
-                cfg.RawValue = value.ToString();
-                cfg.Value = processedValue.ToString();
-
-                List<ConfigRefValue> configRefs = GetRefs(cfg.ConfigRefs);
-
-                try
-                {
-                    processedValue = value;
-                    foreach (var modifier in cfg.Modifiers.Items.Where(m => m.Active))
-                    {
-                        processedValue = modifier.Apply(processedValue, configRefs);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"Transform error ({cfg.Name}): {ex.Message}", LogSeverity.Error);
-                    cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
-                    if (!cfg.Equals(originalCfg))
-                    {
-                        updatedValues[cfg.GUID] = cfg;
-                    }
-                    continue;
-                }
-
-                cfg.Status.Remove(ConfigItemStatusType.Modifier);
-                cfg.Value = processedValue.ToString();
-
-                try
-                {
-                    // check preconditions
-                    if (!CheckPrecondition(cfg, processedValue))
-                    {
-                        if (!cfg.Preconditions.ExecuteOnFalse)
-                        {
-                            if (!cfg.Status.ContainsKey(ConfigItemStatusType.Precondition) || cfg.Status[ConfigItemStatusType.Precondition] != "not satisfied")
-                            {
-                                cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
-                            }
-                            if (!cfg.Equals(originalCfg))
-                            {
-                                updatedValues[cfg.GUID] = cfg;
-                            }
-                            continue;
-                        }
-                        else
-                        {
-                            processedValue.type = FSUIPCOffsetType.String;
-                            processedValue.String = cfg.Preconditions.FalseCaseValue;
-                        }
-                    }
-                    else
-                    {
-                        // TODO: REDESIGN: Review
-                        //if (row.ErrorText == i18n._tr("uiMessagePreconditionNotSatisfied"))
-                        //    row.ErrorText = "";
-                    }
-                    ExecuteDisplay(processedValue.ToString(), cfg);
-                }
-                catch (JoystickNotConnectedException jEx)
-                {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = jEx.Message;
-                }
-                catch (MidiBoardNotConnectedException mEx)
-                {
-                    // TODO: REDESIGN: Review
-                    // row.ErrorText = mEx.Message;
-                }
-                catch (Exception exc)
-                {
-                    // TODO: REDESIGN: Review
-                    String RowDescription = cfg.Name;
-                    Exception resultExc = new ConfigErrorException(cfg.Name + ". " + exc.Message, exc);
-                    // row.ErrorText = exc.Message;
-                    throw resultExc;
-                }
-
-                if (!originalCfg.Equals(cfg))
-                {
-                    updatedValues[cfg.GUID] = cfg;
+                    executor.Execute(cfg, updatedValues);
                 }
             }
-
-            if (updatedValues.Count > 0)
-            {
-                var update = new ConfigValuePartialUpdate(updatedValues.Values.ToList());
-                MessageExchange.Instance.Publish(update);
-            }
-
-            UpdateInputPreconditions();
 
             isExecuting = false;
-        }
-
-        private bool CheckPrecondition(ConfigItem cfg, ConnectorValue currentValue)
-        {
-            bool finalResult = true;
-            bool result = true;
-            bool logicOr = false; // false:and true:or
-            ConnectorValue connectorValue = new ConnectorValue();
-
-            foreach (Precondition p in cfg.Preconditions)
-            {
-                if (!p.PreconditionActive)
-                {
-                    continue;
-                }
-
-                OutputConfigItem tmp = new OutputConfigItem();
-
-                switch (p.PreconditionType)
-                {
-#if ARCAZE
-                    case "pin":
-                        string serial = SerialNumber.ExtractSerial(p.PreconditionSerial);
-                        string val = arcazeCache.getValue(serial, p.PreconditionPin, "repeat");
-
-                        result = p.Evaluate(val, currentValue);
-                        break;
-#endif
-                    case "variable":
-                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.PreconditionRef);
-                        if (variableValue == null) break;
-
-                        result = p.Evaluate(variableValue);
-                        break;
-                    case "config":
-                        // iterate over the config row by row
-                        foreach (var outputConfig in ConfigItems)
-                        {
-                            // here we just don't have a match
-                            if (outputConfig.GUID != p.PreconditionRef) continue;
-
-                            // if inactive ignore?
-                            if (!outputConfig.Active) break;
-
-                            // was there an error on reading the value?
-                            if (outputConfig.Value == null) break;
-
-                            // read the value
-                            string value = outputConfig.Value;
-
-                            // if there hasn't been determined any value yet
-                            // we cannot compare
-                            if (value == "") break;
-
-                            result = p.Evaluate(value, currentValue);
-                            break;
-                        }
-                        break;
-                } // switch
-
-                if (logicOr)
-                {
-                    finalResult |= result;
-                }
-                else
-                {
-                    finalResult &= result;
-                }
-
-                logicOr = (p.PreconditionLogic == "or");
-            } // foreach
-
-            return finalResult;
-        }
-
-        private ConnectorValue ExecuteRead(OutputConfigItem cfg)
-        {
-            ConnectorValue result = new ConnectorValue();
-
-            if (cfg.Source is FsuipcSource)
-            {
-                result = FsuipcHelper.executeRead((cfg.Source as FsuipcSource).FSUIPC, fsuipcCache);
-            }
-            else if (cfg.Source is VariableSource)
-            {
-                var source = cfg.Source as VariableSource;
-                if (source.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_NUMBER)
-                {
-                    result.type = FSUIPCOffsetType.Float;
-                    result.Float64 = mobiFlightCache.GetMobiFlightVariable(source.MobiFlightVariable.Name).Number;
-                }
-                else if (source.MobiFlightVariable.TYPE == MobiFlightVariable.TYPE_STRING)
-                {
-                    result.type = FSUIPCOffsetType.String;
-                    result.String = mobiFlightCache.GetMobiFlightVariable(source.MobiFlightVariable.Name).Text;
-                }
-            }
-            else if (cfg.Source is XplaneSource)
-            {
-                var source = cfg.Source as XplaneSource;
-                result.type = FSUIPCOffsetType.Float;
-                result.Float64 = xplaneCache.readDataRef(source.XplaneDataRef.Path);
-            }
-            else if (cfg.Source is ProSimSource)
-            {
-                var source = cfg.Source as ProSimSource;
-                result.Float64 = proSimCache.readDataref(source.ProSimDataRef.Path);
-            }
-            else if (cfg.Source is SimConnectSource)
-            {
-                var source = cfg.Source as SimConnectSource;
-                result.type = simConnectCache.GetSimVar(source.SimConnectValue.Value, out result.String, out result.Float64);
-            }
-            else
-            {
-                Log.Instance.log("Unknown source type: " + cfg.Source.SourceType, LogSeverity.Error);
-            }
-
-            return result;
-        }
-
-        private string ExecuteDisplay(string value, OutputConfigItem cfg)
-        {
-            string serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
-
-            if (serial == "" && cfg.DeviceType != "InputAction")
-                return value.ToString();
-
-            if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
-            {
-                Joystick joystick = joystickManager.GetJoystickBySerial(serial);
-                if (joystick != null)
-                {
-                    switch (cfg.DeviceType)
-                    {
-                        case OutputConfig.LcdDisplay.DeprecatedType:
-                            var lcdDisplay = cfg.Device as LcdDisplay;
-                            joystick.SetLcdDisplay(lcdDisplay.Address, value);
-                            break;
-
-                        case "-":
-                            // do nothing
-                            break;
-
-                        default: // LED Output                          
-                            byte state = 0;
-                            if (value != "0") state = 1;
-                            joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
-                            joystick.UpdateOutputDeviceStates();
-                            joystick.Update();
-                            break;
-                    }
-                }
-                else
-                {
-                    var joystickName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
-                    throw new JoystickNotConnectedException(i18n._tr($"{joystickName} not connected"));
-                }
-            }
-            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DeviceType != "InputAction")
-            {
-                MidiBoard midiBoard = midiBoardManager.GetMidiBoardBySerial(serial);
-                if (midiBoard != null)
-                {
-                    byte state = 0;
-                    if (value != "0") state = 1;
-                    midiBoard.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
-                }
-                else
-                {
-                    var midiBoardName = SerialNumber.ExtractDeviceName(cfg.ModuleSerial);
-                    throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
-                }
-            }
-            else if (serial.IndexOf("SN") != 0 && cfg.DeviceType != "InputAction")
-            {
-#if ARCAZE
-                switch (cfg.DeviceType)
-                {
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
-                        var val = value.PadRight(device.DisplayLedDigits.Count, device.DisplayLedPaddingChar[0]);
-                        if (device.DisplayLedPadding) val = value.PadLeft(device.DisplayLedPadding ? device.DisplayLedDigits.Count : 0, device.DisplayLedPaddingChar[0]);
-                        arcazeCache.setDisplay(
-                            serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
-                            device.DisplayLedDigits,
-                            device.DisplayLedDecimalPoints,
-                            val);
-                        break;
-
-                    default:
-                        arcazeCache.setValue(serial,
-                            (cfg.Device as Output).DisplayPin,
-                            (value != "0" ? (cfg.Device as Output).DisplayPinBrightness.ToString() : "0"));
-                        break;
-                }
-#endif
-            }
-            else
-            {
-                switch (cfg.DeviceType)
-                {
-                    case ArcazeLedDigit.TYPE:
-                        var device = cfg.Device as LedModule;
-
-                        var decimalCount = value.Count(c => c == '.');
-
-                        var val = value.PadRight(device.DisplayLedDigits.Count + decimalCount, device.DisplayLedPaddingChar[0]);
-                        var decimalPoints = new List<string>(device.DisplayLedDecimalPoints);
-
-                        if (device.DisplayLedPadding)
-                        {
-                            val = value.PadLeft(device.DisplayLedPadding
-                                    ? device.DisplayLedDigits.Count + decimalCount
-                                    : 0, device.DisplayLedPaddingChar[0]);
-                        }
-
-                        if (!string.IsNullOrEmpty(device.DisplayLedBrightnessReference))
-                        {
-                            string refValue = FindValueForRef(device.DisplayLedBrightnessReference);
-
-                            mobiFlightCache.SetDisplayBrightness(
-                                serial,
-                                device.DisplayLedAddress,
-                                device.DisplayLedConnector,
-                                refValue
-                                );
-                        }
-
-                        var reverse = device.DisplayLedReverseDigits;
-
-                        mobiFlightCache.SetDisplay(
-                            serial,
-                            device.DisplayLedAddress,
-                            device.DisplayLedConnector,
-                            device.DisplayLedDigits,
-                            decimalPoints,
-                            val,
-                            reverse);
-
-                        break;
-
-                    //case ArcazeBcd4056.TYPE:
-                    //    mobiFlightCache.setBcd4056(serial,
-                    //        cfg.BcdPins,
-                    //        value);
-                    //    break;
-
-                    case MobiFlightStepper.TYPE:
-                        var stepper = cfg.Device as OutputConfig.Stepper;
-                        mobiFlightCache.SetStepper(
-                            serial,
-                            stepper.Address,
-                            value,
-                            stepper.InputRev,
-                            stepper.OutputRev,
-                            stepper.CompassMode,
-                            stepper.Speed,
-                            stepper.Acceleration
-                        );
-                        break;
-
-                    case MobiFlightServo.TYPE:
-                        var servo = cfg.Device as OutputConfig.Servo;
-                        mobiFlightCache.SetServo(
-                            serial,
-                            servo.Address,
-                            value,
-                            int.Parse(servo.Min),
-                            int.Parse(servo.Max),
-                            Byte.Parse(servo.MaxRotationPercent)
-                        );
-                        break;
-
-                    case OutputConfig.LcdDisplay.DeprecatedType:
-                        var lcdDisplay = cfg.Device as LcdDisplay;
-                        mobiFlightCache.SetLcdDisplay(
-                            serial,
-                            lcdDisplay,
-                            value,
-                            GetRefs(cfg.ConfigRefs)
-                            );
-                        break;
-
-                    case MobiFlightShiftRegister.TYPE:
-                        if (serial != null)
-                        {
-                            string outputValueShiftRegister = value;
-                            var shiftRegister = cfg.Device as ShiftRegister;
-
-                            // in case PWM supported update the value
-                            if (outputValueShiftRegister != "0" && shiftRegister.PWM)
-                            {
-                                outputValueShiftRegister = shiftRegister.Brightness.ToString();
-                            }
-                                
-                            mobiFlightCache.SetShiftRegisterOutput(
-                                serial,
-                                shiftRegister.Address,
-                                shiftRegister.Pin,
-                                outputValueShiftRegister);
-                        }
-                        break;
-
-                    case OutputConfig.CustomDevice.DeprecatedType:
-                        var customDevice = cfg.Device as OutputConfig.CustomDevice;
-                        mobiFlightCache.Set(serial, customDevice, value);
-                        break;
-
-                    case "InputAction":
-                        int iValue = 0;
-                        int.TryParse(value, out iValue);
-
-                        List<ConfigRefValue> cfgRefs = GetRefs(cfg.ConfigRefs);
-                        CacheCollection cacheCollection = new CacheCollection()
-                        {
-                            fsuipcCache = fsuipcCache,
-                            simConnectCache = simConnectCache,
-                            moduleCache = mobiFlightCache,
-                            xplaneCache = xplaneCache,
-                            proSimCache = proSimCache,
-                            joystickManager = joystickManager
-                        };
-
-                        if (cfg.ButtonInputConfig != null)
-                            inputActionExecutionCache.Execute(
-                                cfg.ButtonInputConfig,
-                                cacheCollection,
-                                new InputEventArgs() { Value = iValue, StrValue = value },
-                                cfgRefs
-                            );
-                        else
-                        {
-                            inputActionExecutionCache.Execute(
-                                cfg.AnalogInputConfig,
-                                cacheCollection,
-                                new InputEventArgs() { Value = iValue, StrValue = value },
-                                cfgRefs
-                            );
-                        }
-                        break;
-
-                    case MobiFlightOutput.TYPE:
-                        string outputValue = value;
-
-                        // so in case the pin is not explicily treated as PWM pin and 
-                        // we have a value other than 0 (which is output OFF) 
-                        // we will set the full brightness.
-                        // This ensures backward compatibility.
-                        if (outputValue != "0" && !(cfg.Device as Output).DisplayPinPWM)
-                            outputValue = (cfg.Device as Output).DisplayPinBrightness.ToString();
-
-                        mobiFlightCache.SetValue(serial,
-                            (cfg.Device as Output).DisplayPin,
-                            outputValue);
-                        break;
-                }
-            }
-
-            return value.ToString();
-        }
-
-        private List<ConfigRefValue> GetRefs(ConfigRefList configRefs)
-        {
-            List<ConfigRefValue> result = new List<ConfigRefValue>();
-            foreach (ConfigRef c in configRefs)
-            {
-                if (!c.Active) continue;
-                String s = FindValueForRef(c.Ref);
-                if (s == null) continue;
-                result.Add(new ConfigRefValue(c, s));
-            }
-            return result;
-        }
-
-        private String FindValueForRef(String refId)
-        {
-            String result = null;
-            // iterate over the config row by row
-            foreach (var cfg in ConfigItems)
-            {
-                // here we just don't have a match
-                if (cfg.GUID != refId) continue;
-
-                // if inactive ignore?
-                if (!cfg.Active) break;
-
-                // was there an error on reading the value?
-                if (cfg.Value == null) break;
-
-                // read the value
-                string value = cfg.Value;
-
-                // if there hasn't been determined any value yet
-                // we cannot compare
-                if (value == "") break;
-                result = value;
-            }
-            return result;
         }
 
         /// <summary>
@@ -1471,292 +1068,97 @@ namespace MobiFlight
 
         public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
-            if (cfg == null) return;
-
             if (ResetConfigItemInTest)
                 ConfigItemInTestMode = null;
 
-            OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
-
-            if (offCfg.DeviceType == null) return;
-
-            switch (offCfg.DeviceType)
-            {
-                case MobiFlightServo.TYPE:
-                    var servo = offCfg.Device as Servo;
-                    ExecuteDisplay(servo.Min, offCfg);
-                    break;
-
-                case OutputConfig.LcdDisplay.DeprecatedType:
-                    var lcdDisplay = offCfg.Device as LcdDisplay;
-                    lcdDisplay.Lines.Clear();
-                    lcdDisplay.Lines.Add(new string(' ', 20 * 4));
-                    ExecuteDisplay(new string(' ', 20 * 4), offCfg);
-                    break;
-
-                case MobiFlightShiftRegister.TYPE:
-                    // Needs to be called as othewise the default catches it which does not make sense. May be there should not be a default :-)
-                    ExecuteDisplay("0", offCfg);
-                    break;
-
-                case "InputAction":
-                    // Do nothing for the InputAction
-                    break;
-
-
-                case MobiFlightOutput.TYPE:
-                    ExecuteDisplay("0", offCfg);
-                    break;
-
-                // case ArcazeLedDigit.TYPE:
-                case MobiFlightLedModule.TYPE:
-                    var ledModule = offCfg.Device as LedModule;
-                    ledModule.DisplayLedDecimalPoints = new List<string>();
-                    ExecuteDisplay("        ", offCfg);
-                    break;
-
-            }
-
-            cfg.Status.Remove(ConfigItemStatusType.Test);
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
+            var executor = new ConfigItemExecutor(ConfigItems,
+                                                  arcazeCache,
+                                                  fsuipcCache,
+                                                  simConnectCache,
+                                                  xplaneCache,
+                                                  mobiFlightCache,
+                                                  joystickManager,
+                                                  midiBoardManager,
+                                                  inputActionExecutionCache,
+                                                  ConfigItemInTestMode);
+            executor.ExecuteTestOff(cfg);
         }
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
+            var executor = new ConfigItemExecutor(ConfigItems,
+                                                  arcazeCache,
+                                                  fsuipcCache,
+                                                  simConnectCache,
+                                                  xplaneCache,
+                                                  mobiFlightCache,
+                                                  joystickManager,
+                                                  midiBoardManager,
+                                                  inputActionExecutionCache,
+                                                  ConfigItemInTestMode);
+            executor.ExecuteTestOn(cfg, value);
             ConfigItemInTestMode = cfg;
-
-            if (cfg.DeviceType == null) return;
-
-            switch (cfg.DeviceType)
-            {
-                // the following execute displays assume that
-                //
-                // case 1) inside the config wizard, when we hit the test button
-                // we will have an actual connector value, we use it - even if it is the empty string.
-                //
-                // case 2) when we trigger the global test mode
-                // we won't have an actual connector value, and then
-                // we will use a static test string, that is specific to the device.
-                case MobiFlightStepper.TYPE:
-                    var stepper = cfg.Device as OutputConfig.Stepper;
-                    ExecuteDisplay(value?.ToString() ?? stepper.TestValue.ToString(), cfg);
-                    break;
-
-                case MobiFlightServo.TYPE:
-                    var servo = cfg.Device as OutputConfig.Servo;
-                    ExecuteDisplay(value?.ToString() ?? servo.Max, cfg);
-                    break;
-
-                case ArcazeLedDigit.TYPE:
-                case OutputConfig.LcdDisplay.DeprecatedType:
-                    ExecuteDisplay(value?.ToString() ?? "1234567890", cfg);
-                    break;
-
-                case MobiFlightShiftRegister.TYPE:
-                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
-                    break;
-
-                case MobiFlightCustomDevice.TYPE:
-                    ExecuteDisplay(value?.ToString() ?? "1", cfg);
-                    break;
-
-                case "InputAction":
-                    // Do nothing for the InputAction
-                    break;
-
-                default:
-                    ExecuteDisplay(value?.ToString() ?? "255", cfg);
-                    break;
-            }
-
-            cfg.Status[ConfigItemStatusType.Test] = "TEST_EXECUTION";
-            MessageExchange.Instance.Publish(new ConfigValuePartialUpdate(cfg));
         }
 
 
         private void ClearErrorMessages()
         {
-            MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ConfigItems));
+            MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
         }
 
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, InputEventArgs e)
         {
-            String inputKey = e.Serial + e.Type + e.DeviceId;
-            String eventAction = "n/a";
+            var msgEventLabel = $"{e.Name} => {e.DeviceLabel}";
+            var updatedInputValues = new Dictionary<string, IConfigItem>();
 
-            if (e.Type == DeviceType.Button)
+            foreach (var executor in _inputEventExecutors.Values)
             {
-                eventAction = MobiFlightButton.InputEventIdToString(e.Value);
-            }
-            else if (e.Type == DeviceType.Encoder)
-            {
-                eventAction = MobiFlightEncoder.InputEventIdToString(e.Value);
-            }
-            else if (e.Type == DeviceType.InputShiftRegister)
-            {
-                eventAction = MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
-                // The inputKey gets the shifter external pin added to it if the input came from a shift register
-                // This ensures caching works correctly when there are multiple channels on the same physical device
-                inputKey = inputKey + e.ExtPin;
-            }
-            else if (e.Type == DeviceType.InputMultiplexer)
-            {
-                eventAction = MobiFlightInputMultiplexer.InputEventIdToString(e.Value);
-                //GCC CHECK
-                // The inputKey gets the external pin no. added to it if the input came from a shift register
-                // xThis ensures caching works correctly when there are multiple pins on the same physical device
-                inputKey = inputKey + e.ExtPin;
-            }
-            else if (e.Type == DeviceType.AnalogInput)
-            {
-                eventAction = MobiFlightAnalogInput.InputEventIdToString(0) + " => " + e.Value;
-            }
-
-            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
-
-            lock (inputCache)
-            {
-                if (!inputCache.ContainsKey(inputKey))
-                {
-                    inputCache[inputKey] = new List<InputConfigItem>();
-                    // check if we have configs for this button
-                    // and store it      
-
-                    foreach (var cfg in ConfigItems.Where(c=>c is InputConfigItem).Cast<InputConfigItem>())
-                    {
-                        try
-                        {
-                            // item currently created and not saved yet.
-                            if (cfg == null) continue;
-
-                            if (cfg.ModuleSerial != null &&
-                                cfg.ModuleSerial.Contains("/ " + e.Serial) &&
-                               (cfg.DeviceName == e.DeviceId ||
-                               // for backward compatibility we have to make this check
-                               // because we used to have the label in the config
-                               // but now we want to store the internal button identifier
-                               // so that the label can change any time without breaking the config
-                               (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
-                            {
-                                // Input shift registers have an additional check to see if the pin that changed matches the pin
-                                // assigned to the row. If not just skip this row. Without this every row that uses the input shift register
-                                // would get added to the input cache and fired even though the pins don't match.
-                                //GCC CHECK
-                                if (e.Type == DeviceType.InputShiftRegister && cfg.inputShiftRegister != null && cfg.inputShiftRegister.ExtPin != e.ExtPin)
-                                {
-                                    continue;
-                                }
-                                // similarly also for digital input Multiplexer
-                                if (e.Type == DeviceType.InputMultiplexer && cfg.inputMultiplexer != null && cfg.inputMultiplexer.DataPin != e.ExtPin)
-                                {
-                                    continue;
-                                }
-                                inputCache[inputKey].Add(cfg);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // probably the last row with no settings object 
-                            continue;
-                        }
-                    }
-                }
-
-                // no config for this button found
-                if (inputCache[inputKey].Count == 0)
-                {
-                    if (LogIfNotJoystickOrJoystickAxisEnabled(e.Serial, e.Type))
-                        Log.Instance.log($"{msgEventLabel} =>  No config found.", LogSeverity.Warn);
-                    return;
-                }
-            }
-
-            // Skip execution if not started
-            if (!IsStarted())
-            {
-                Log.Instance.log($"{msgEventLabel} => Config not executed, MobiFlight not running", LogSeverity.Warn);
-                return;
-            }
-
-            ConnectorValue currentValue = new ConnectorValue();
-            CacheCollection cacheCollection = new CacheCollection()
-            {
-                fsuipcCache = fsuipcCache,
-                simConnectCache = simConnectCache,
-                xplaneCache = xplaneCache,
-                proSimCache = proSimCache,
-                moduleCache = mobiFlightCache,
-                joystickManager = joystickManager
-            };
-
-            foreach (var cfg in inputCache[inputKey])
-            {
-                if (!cfg.Active)
-                {
-                    Log.Instance.log($"{msgEventLabel} => skipping \"{cfg.Name}\", config not active.", LogSeverity.Warn);
-                    continue;
-                }
-
                 try
                 {
-                    // if there are preconditions check and skip if necessary
-                    if (cfg.Preconditions.Count > 0)
-                    {
-                        if (!CheckPrecondition(cfg, currentValue))
-                        {
-                            // REDSIGN: Review if needed
-                            // tuple.Item2.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                            continue;
-                        }
-                        else
-                        {
-                            // REDSIGN: Review if needed
-                            // tuple.Item2.ErrorText = "";
-                        }
-                    }
-                    Log.Instance.log($"{msgEventLabel} => executing \"{cfg.Name}\"", LogSeverity.Info);
-
-                    cfg.execute(
-                        cacheCollection,
-                        e,
-                        GetRefs(cfg.ConfigRefs))
-                        ;
+                    var updatedValues = executor.Execute(e, IsStarted());
+                    updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
-                    Log.Instance.log($"Error excuting \"{cfg.Name}\": {ex.Message}", LogSeverity.Error);
+                    Log.Instance.log($"Error during input event execution: {ex.Message} - {e.DeviceId} => {e.DeviceLabel} ({e.Type})", LogSeverity.Error);
                 }
             }
 
-            //fsuipcCache.ForceUpdate();
+            updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
         }
 
         private void UpdateInputPreconditions()
         {
-            foreach (var cfg in ConfigItems.Where(c => c is InputConfigItem).Cast<InputConfigItem>())
+            foreach (var cfgItem in ConfigItems)
             {
                 try
                 {
-                    if (!cfg.Active) continue;
+                    if (!cfgItem.Active) continue;
 
-                    // item currently created and not saved yet.
+                    var cfg = cfgItem as InputConfigItem;
+                    // this is not a input config item
                     if (cfg == null) continue;
+
+                    var originalCfg = cfgItem.Clone() as InputConfigItem;
 
                     // if there are preconditions check and skip if necessary
                     if (cfg.Preconditions.Count > 0)
                     {
                         ConnectorValue currentValue = new ConnectorValue();
-                        if (!CheckPrecondition(cfg, currentValue))
+
+                        if (!PreconditionChecker.CheckPrecondition(cfg, currentValue, ConfigItems, arcazeCache, mobiFlightCache))
                         {
-                            // REDSIGN: Review if needed
-                            // gridViewRow.ErrorText = i18n._tr("uiMessagePreconditionNotSatisfied");
-                            continue;
+                            cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
                         }
                         else
                         {
-                            // REDSIGN: Review if needed
-                            // gridViewRow.ErrorText = "";
+                            cfg.Status.Remove(ConfigItemStatusType.Precondition);
+                        }
+
+                        if (!cfg.Status.SequenceEqual(originalCfg.Status))
+                        {
+                            updatedValues[cfg.GUID] = cfg;
                         }
                     }
                 }
@@ -1766,12 +1168,6 @@ namespace MobiFlight
                     continue;
                 }
             }
-        }
-
-        private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
-        {
-            return !Joystick.IsJoystickSerial(Serial) ||
-                    (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
         }
 #endif
 
@@ -1839,20 +1235,10 @@ namespace MobiFlight
                 }, null, null);
             }
         }
-    }
 
-    public class ConfigRefValue
-    {
-
-        public ConfigRefValue() { }
-        public ConfigRefValue(ConfigRef c, string value)
+        internal void OnMinimize(bool minimized)
         {
-            this.Value = value;
-            this.ConfigRef = c.Clone() as ConfigRef;
+            updateFrontend = !minimized;
         }
-
-        public string Value { get; set; }
-        public ConfigRef ConfigRef { get; set; }
-
     }
 }
