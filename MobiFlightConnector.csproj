@@ -1346,6 +1346,9 @@
     <None Include="MidiBoards\BoardEditorConfigs\mpd218\mpd218mobi.mpd218">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="MidiBoards\akai.mpkmini.mk3.midiboard.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="MidiBoards\BoardEditorConfigs\nanokontrol2\nanoKontrol2Mobi.nktrl2_data">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
