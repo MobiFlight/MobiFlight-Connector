@@ -80,6 +80,12 @@ namespace MobiFlight
             );
         }
 
+        public string MapDeviceNameToLabel(string boardName, string deviceName)
+        {
+            var definition = Definitions.Find(def => def.InstanceName == boardName);
+            return definition?.MapDeviceNameToLabel(deviceName) ?? deviceName;
+        }
+
         public bool JoysticksConnected()
         {
             return Joysticks.Count > 0;

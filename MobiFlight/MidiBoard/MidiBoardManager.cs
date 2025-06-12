@@ -284,14 +284,11 @@ namespace MobiFlight
 
         public string MapDeviceNameToLabel(string boardName, string deviceName)
         {
-            if (Definitions.ContainsKey(boardName))
-            {
-                var def = Definitions[boardName];   
-                if (def.InputNameToLabelDictionary.ContainsKey(deviceName))
-                {
-                    return def.InputNameToLabelDictionary[deviceName];
-                }
+            if (Definitions.TryGetValue(boardName, out MidiBoardDefinition definition)) 
+            { 
+                return definition.MapDeviceNameToLabel(deviceName);
             }
+
             return deviceName;
         }
 
