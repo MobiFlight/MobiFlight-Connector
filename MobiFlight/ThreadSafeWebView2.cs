@@ -13,7 +13,7 @@ namespace MobiFlight
             }
             else
             {
-                CoreWebView2.PostWebMessageAsJson(jsonMessage);
+                CoreWebView2?.PostWebMessageAsJson(jsonMessage);
             }
         }
     }
