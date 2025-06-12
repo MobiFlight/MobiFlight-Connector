@@ -28,6 +28,7 @@ namespace MobiFlight
         public MobiFlightInputMultiplexer()
         {
             ModuleNumber = 0;
+            _type = TYPE;
         }
 
         public MobiFlightInputMultiplexer(MobiFlightInputMultiplexer copyFrom)

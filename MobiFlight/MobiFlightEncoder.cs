@@ -16,6 +16,7 @@ namespace MobiFlight
         public MobiFlightEncoder()
         {
             Name = "Encoder";
+            _type = TYPE;
         }
 
         public MobiFlightEncoder(MobiFlightEncoder copyFrom)

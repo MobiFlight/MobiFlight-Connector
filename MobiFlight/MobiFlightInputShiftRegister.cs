@@ -28,6 +28,7 @@ namespace MobiFlight
         public MobiFlightInputShiftRegister()
         {
             Name = "InputShiftRegister";
+            _type = TYPE;
             NumberOfShifters = 1; // Default to 1 shifter
             ModuleNumber = 0; // Default module number
         }

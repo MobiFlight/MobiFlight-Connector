@@ -185,37 +185,37 @@ namespace MobiFlight
 
             writer.WriteAttributeString("serial", this.ModuleSerial);
             writer.WriteAttributeString("name", this.DeviceName);
-            writer.WriteAttributeString("type", this.Device.Type);
+            writer.WriteAttributeString("type", this.Device?.OldType ?? InputConfigItem.TYPE_NOTSET);
 
-            if (this.Device.Type == MobiFlightButton.TYPE && button != null)
+            if (this.Device?.OldType == MobiFlightButton.TYPE && button != null)
             {
                 writer.WriteStartElement("button");
                 button.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Device.Type == MobiFlightEncoder.TYPE && encoder != null)
+            if (this.Device?.OldType == MobiFlightEncoder.TYPE && encoder != null)
             {
                 writer.WriteStartElement("encoder");
                 encoder.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Device.Type == MobiFlightInputShiftRegister.TYPE && inputShiftRegister != null)
+            if (this.Device?.OldType == MobiFlightInputShiftRegister.TYPE && inputShiftRegister != null)
             {
                 writer.WriteStartElement("inputShiftRegister");
                 inputShiftRegister.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Device.Type == MobiFlightInputMultiplexer.TYPE && inputMultiplexer != null)
+            if (this.Device?.OldType == MobiFlightInputMultiplexer.TYPE && inputMultiplexer != null)
             {
                 writer.WriteStartElement("inputMultiplexer");
                 inputMultiplexer.WriteXml(writer);
                 writer.WriteEndElement();
             }
 
-            if (this.Device.Type == MobiFlightAnalogInput.TYPE && analog != null)
+            if (this.Device?.OldType == MobiFlightAnalogInput.TYPE && analog != null)
             {
                 writer.WriteStartElement("analog");
                 analog.WriteXml(writer);
@@ -263,7 +263,7 @@ namespace MobiFlight
             InputEventArgs e,
             List<ConfigRefValue> configRefs)
         {
-            switch (Device.Type)
+            switch (Device?.OldType)
             {
                 case MobiFlightButton.TYPE:
                     if (button != null)
@@ -295,7 +295,7 @@ namespace MobiFlight
         {
             Dictionary<String, int> result = new Dictionary<string, int>();
 
-            switch (Device.Type)
+            switch (Device?.OldType)
             {
                 case MobiFlightButton.TYPE:
                     if (button != null)
@@ -340,7 +340,7 @@ namespace MobiFlight
 
         protected override IDeviceConfig GetDeviceConfig()
         { 
-            return null;
+            return _deviceConfig;
         }
     }
 }

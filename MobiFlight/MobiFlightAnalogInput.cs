@@ -17,6 +17,7 @@ namespace MobiFlight
         public MobiFlightAnalogInput()
         {
             Name = "AnalogInput";
+            _type = TYPE;
         }
 
         public MobiFlightAnalogInput(MobiFlightAnalogInput copyFrom)

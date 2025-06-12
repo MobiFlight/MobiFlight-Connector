@@ -64,8 +64,10 @@ namespace MobiFlight.Base
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
 
+
+        protected IDeviceConfig _deviceConfig = null;
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { new NotImplementedException(); } }
+        public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { _deviceConfig = value; } }
 
         public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();
 
