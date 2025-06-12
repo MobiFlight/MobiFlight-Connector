@@ -200,7 +200,7 @@ namespace MobiFlight
             {
                 joystickManager.Startup();
                 OnJoystickConnectedFinished?.Invoke(sender, e);
-            };            
+            };
 
             midiBoardManager.OnButtonPressed += new ButtonEventHandler(mobiFlightCache_OnButtonPressed);
             midiBoardManager.Connected += (sender, e) =>
@@ -347,14 +347,15 @@ namespace MobiFlight
                             return;
                         }
 
-                        try {
+                        try
+                        {
                             ExecuteTestOn(cfg as OutputConfigItem);
                         }
                         catch (Exception e)
                         {
                             Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
                         }
-                        
+
                         return;
 
                     case "settings":

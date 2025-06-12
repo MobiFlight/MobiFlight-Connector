@@ -192,7 +192,6 @@ namespace MobiFlight.Base.Tests
             for (int i = 0; i < originalList.Count; i++)
             {
                 Assert.AreEqual(originalArray[i].PreconditionType, deserializedArray[i].PreconditionType);
-
                 // labels are not serialized
                 Assert.AreNotEqual(originalArray[i].PreconditionLabel, deserializedArray[i].PreconditionLabel);
                 // labels are using specifc format
