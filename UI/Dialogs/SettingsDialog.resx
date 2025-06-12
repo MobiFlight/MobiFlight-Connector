@@ -393,19 +393,31 @@
   <data name="&gt;&gt;mfModuleSettingsContextMenuStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="mobiFlightPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="generalPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="mobiFlightPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="generalPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="mobiFlightPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>1, 1, 1, 1</value>
+  <data name="generalPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 5, 4, 5</value>
   </data>
   <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>557, 579</value>
   </data>
-  <data name="mobiFlightPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Name" xml:space="preserve">
+    <value>generalPanel</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
+    <value>generalTabPage</value>
+  </data>
+  <data name="&gt;&gt;generalPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="generalTabPage.Location" type="System.Drawing.Point, System.Drawing">
@@ -435,31 +447,19 @@
   <data name="&gt;&gt;generalTabPage.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="generalPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="mobiFlightPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
-  <data name="generalPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="mobiFlightPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="generalPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 5, 4, 5</value>
+  <data name="mobiFlightPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>1, 1, 1, 1</value>
   </data>
-  <data name="generalPanel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="mobiFlightPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>557, 579</value>
   </data>
-  <data name="generalPanel.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;generalPanel.Name" xml:space="preserve">
-    <value>generalPanel</value>
-  </data>
-  <data name="&gt;&gt;generalPanel.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Settings.GeneralPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;generalPanel.Parent" xml:space="preserve">
-    <value>generalTabPage</value>
-  </data>
-  <data name="&gt;&gt;generalPanel.ZOrder" xml:space="preserve">
+  <data name="mobiFlightPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="&gt;&gt;mobiFlightPanel.Name" xml:space="preserve">
