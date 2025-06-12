@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandMessenger;
+﻿using CommandMessenger;
+using MobiFlight.Base;
 
 namespace MobiFlight
 {
-    public class MobiFlightInputShiftRegister : IConnectedDevice
+    public class MobiFlightInputShiftRegister : DeviceConfig, IConnectedDevice
     {
         public enum InputEvent
         {
@@ -24,18 +21,27 @@ namespace MobiFlight
 
         public int ModuleNumber { get; set; }
 
-        private String _name = "InputShifter";
-
-        public String Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public override string Name { get => "InputShiftRegister"; }
 
         protected bool _initialized = false;
 
         public MobiFlightInputShiftRegister()
         {
+            Name = "InputShiftRegister";
+            NumberOfShifters = 1; // Default to 1 shifter
+            ModuleNumber = 0; // Default module number
+        }
+
+        public MobiFlightInputShiftRegister(MobiFlightInputShiftRegister copyFrom)
+        {
+            Name = copyFrom.Name;
+            NumberOfShifters = copyFrom.NumberOfShifters;
+            ModuleNumber = copyFrom.ModuleNumber;
+        }
+
+        public override object Clone()
+        {
+            return new MobiFlightInputShiftRegister(this);
         }
 
         private DeviceType _type = DeviceType.InputShiftRegister;

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MobiFlight.Base;
 
 namespace MobiFlight
 {
-    class MobiFlightEncoder : IConnectedDevice
+    class MobiFlightEncoder : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "Encoder";
         public enum InputEvent
@@ -17,7 +13,20 @@ namespace MobiFlight
             RIGHT_FAST
         }
 
-        public string Name { get; set; }
+        public MobiFlightEncoder()
+        {
+            Name = "Encoder";
+        }
+
+        public MobiFlightEncoder(MobiFlightEncoder copyFrom)
+        {
+            Name = copyFrom.Name;
+        }
+
+        public override object Clone()
+        {
+            return new MobiFlightEncoder(this);
+        }
 
         public DeviceType TypeDeprecated { get { return DeviceType.Encoder; } }
 

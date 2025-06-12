@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MobiFlight.Base;
 
 namespace MobiFlight 
 {
-    class MobiFlightAnalogInput : IConnectedDevice
+    class MobiFlightAnalogInput : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "AnalogInput";
         public enum InputEvent
@@ -14,9 +10,22 @@ namespace MobiFlight
             CHANGE
         }
 
-        public string Name { get; set; }
-
         public DeviceType TypeDeprecated { get { return DeviceType.AnalogInput; } }
+
+        public MobiFlightAnalogInput()
+        {
+            Name = "AnalogInput";
+        }
+
+        public MobiFlightAnalogInput(MobiFlightAnalogInput copyFrom)
+        {
+            Name = copyFrom.Name;
+        }
+
+        public override object Clone()
+        {
+            return new MobiFlightAnalogInput(this);
+        }
 
         public static string InputEventIdToString(int enumId) {
             string eventAction = "n/a";

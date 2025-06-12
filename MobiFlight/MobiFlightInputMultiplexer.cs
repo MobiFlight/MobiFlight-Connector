@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandMessenger;
+﻿using CommandMessenger;
+using MobiFlight.Base;
 
 namespace MobiFlight
 {
-    public class MobiFlightInputMultiplexer : IConnectedDevice
+    public class MobiFlightInputMultiplexer : DeviceConfig, IConnectedDevice
     {
         public enum InputEvent
         {
@@ -22,19 +19,25 @@ namespace MobiFlight
 
 
         private DeviceType _type = DeviceType.InputMultiplexer;
-        private String _name = "Multiplexer";
         public int ModuleNumber { get; set; }
 
-        public String Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public override string Name { get { return "Multiplexer"; } }
 
         protected bool _initialized = false;
 
         public MobiFlightInputMultiplexer()
         {
+            ModuleNumber = 0;
+        }
+
+        public MobiFlightInputMultiplexer(MobiFlightInputMultiplexer copyFrom)
+        {
+            ModuleNumber = copyFrom.ModuleNumber;
+        }
+
+        public override object Clone()
+        {
+            return new MobiFlightInputMultiplexer(this);
         }
 
         public void Stop() {}

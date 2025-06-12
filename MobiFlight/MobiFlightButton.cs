@@ -1,6 +1,8 @@
-﻿namespace MobiFlight
+﻿using MobiFlight.Base;
+
+namespace MobiFlight
 {
-    class MobiFlightButton : IConnectedDevice
+    class MobiFlightButton : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "Button";
         public enum InputEvent
@@ -11,7 +13,20 @@
             HOLD = 3
         }
 
-        public string Name { get; set; }
+        public MobiFlightButton()
+        {
+            Name = "Button";
+        }
+
+        public MobiFlightButton(MobiFlightButton copyFrom)
+        {
+            Name = copyFrom.Name;
+        }
+
+        public override object Clone()
+        {
+            return new MobiFlightButton(this);
+        }
 
         public DeviceType TypeDeprecated { get { return DeviceType.Button; } }
 
