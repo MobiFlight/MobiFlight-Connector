@@ -297,7 +297,7 @@
             // 
             resources.ApplyResources(this.testValuePanel1, "testValuePanel1");
             this.testValuePanel1.Name = "testValuePanel1";
-            this.testValuePanel1.Result = "\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'\'";
+            this.testValuePanel1.Result = "\'\'";
             // 
             // ConfigWizard
             // 

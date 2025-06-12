@@ -187,7 +187,7 @@ namespace MobiFlight.UI.Dialogs
             }
             catch (Exception e)
             {
-                Log.Instance.log("Error starting test mode: " + e.Message, LogSeverity.Error);
+                Log.Instance.log($"Error starting test mode: {e.Message}", LogSeverity.Error);
             }
         }
 
