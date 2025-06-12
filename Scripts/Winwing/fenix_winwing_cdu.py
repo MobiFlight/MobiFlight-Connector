@@ -115,7 +115,7 @@ class Mobiflight_Client:
             except websockets.exceptions.InvalidStatus as invalid:      
                 self.websocket_connection = None
                 if invalid.response.status_code == 501:
-                    logging.error(f"MobiFlight websocket interface for {self.id} not active. Stop trying.")
+                    logging.info(f"MobiFlight websocket interface for {self.id} not active. Stop trying.")
                     # Break and stop for that CDU
                     break
                 else:

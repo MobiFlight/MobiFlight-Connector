@@ -205,7 +205,7 @@ class MD11CDUClient:
             self.sc_mobiflight.dll.RequestClientData(
                 self.sc_mobiflight.hSimConnect,
                 MD11_MCDU_CLIENT_DATA_ID,
-                0,
+                self.cdu_definition,
                 self.cdu_definition,
                 Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_VISUAL_FRAME,
                 Enum.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG_CHANGED,
