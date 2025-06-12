@@ -1,11 +1,8 @@
-using GraphQL.Client.Http;
-using GraphQL.Client.Serializer.Newtonsoft;
 using MobiFlight.ProSim;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -15,6 +12,7 @@ namespace MobiFlight.UI.Panels.Config
         public event EventHandler ModifyTabLink;
 
         private Dictionary<string, DataRefDescription> _dataRefDescriptions;
+        private ExecutionManager _executionManager;
 
         [Description("ProSim DataRef Path"), Category("Data")]
         public string Path
@@ -27,6 +25,11 @@ namespace MobiFlight.UI.Panels.Config
         {
             InitializeComponent();
             transformOptionsGroup1.setMode(true);
+        }
+
+        public void Init(ExecutionManager executionManager)
+        {
+            _executionManager = executionManager;
         }
 
         internal void syncToConfig(OutputConfigItem config)
@@ -115,46 +118,51 @@ namespace MobiFlight.UI.Panels.Config
             DatarefPathTextBox.Text = dataRefDescriptionsComboBox.SelectedItem.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void LoadDataRefDescriptions()
         {
-            var host = Properties.Settings.Default.ProSimHost;
-            var port = Properties.Settings.Default.ProSimPort;
-            var _connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
-            Task.Run(() =>
+            if (_executionManager == null)
             {
-                var dataRefDescriptions = _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
+                return; // Silently return if not initialized
+            }
+
+            var proSimCache = _executionManager.GetProSimCache();
+            if (!proSimCache.IsConnected())
+            {
+                return; // Silently return if not connected
+            }
+
+            try
+            {
+                // Get the dataref descriptions from the already-connected ProSimCache
+                _dataRefDescriptions = proSimCache.GetDataRefDescriptions();
+                
+                if (_dataRefDescriptions.Count > 0)
                 {
-                    Query = @"
-                {
-                    dataRef {
-                    dataRefDescriptions: list {
-                    		name
-                    		description
-                    		canRead
-                    		canWrite
-                    		dataType
-                    		dataUnit
-                        __typename
+                    // Marshal the UI update to the main thread
+                    if (this.InvokeRequired)
+                    {
+                        this.Invoke(new System.Action(() =>
+                        {
+                            dataRefDescriptionsComboBox.Items.Clear();
+                            dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
+                        }));
                     }
-                    __typename
+                    else
+                    {
+                        dataRefDescriptionsComboBox.Items.Clear();
+                        dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                     }
                 }
-                "
-                }).Result;
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error retrieving ProSim dataref descriptions: {ex.Message}", LogSeverity.Error);
+            }
+        }
 
-                _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
-                dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
-            });
-
-
-            //var proSimConnection = new GraphQLHttpClient();
-            //var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
-            //    ? Properties.Settings.Default.ProSimHost
-            //    : "localhost";
-            //proSimConnection.Connect(host);
-
-            //_dataRefDescriptions = proSimConnection.getDataRefDescriptions().ToDictionary(drd => drd.Name);
-            //dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadDataRefDescriptions();
         }
     }
 

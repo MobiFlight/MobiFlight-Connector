@@ -356,5 +356,10 @@ mutation {{
                 Log.Instance.log($"Error writing to dataref {datarefPath}: {ex.Message}", LogSeverity.Error);     
             }
         }
+
+        public Dictionary<string, DataRefDescription> GetDataRefDescriptions()
+        {
+            return new Dictionary<string, DataRefDescription>(_dataRefDescriptions);
+        }
     }
 } 

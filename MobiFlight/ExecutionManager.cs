@@ -598,6 +598,7 @@ namespace MobiFlight
                     simConnectCache,
                     xplaneCache,
                     mobiFlightCache,
+                    proSimCache,
                     joystickManager,
                     arcazeCache
                 );
@@ -814,6 +815,7 @@ namespace MobiFlight
                                                   simConnectCache,
                                                   xplaneCache,
                                                   mobiFlightCache,
+                                                  proSimCache,
                                                   joystickManager,
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
@@ -938,6 +940,20 @@ namespace MobiFlight
             // Check only for available sims if not in Offline mode.
             if (true)
             {
+                // Try to connect to ProSim regardless of the sim availability, might need a max retry
+                // or disable-default if this is noisy to users
+                if (!proSimCache.IsConnected())
+                {
+                    if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !fsuipcCache.IsConnected())
+                    {
+                        // we don't want to spam the log
+                        // in case we have an active connection
+                        // through a different type
+                        Log.Instance.log("Trying auto connect to sim via ProSim", LogSeverity.Debug);
+                    }
+
+                    proSimCache.Connect();
+                }
 
                 if (SimAvailable())
                 {
@@ -960,18 +976,6 @@ namespace MobiFlight
                         fsuipcCache.Connect();
                     }
 
-                    if (!proSimCache.IsConnected())
-                    {
-                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !fsuipcCache.IsConnected())
-                        {
-                            // we don't want to spam the log
-                            // in case we have an active connection
-                            // through a different type
-                            Log.Instance.log("Trying auto connect to sim via ProSim", LogSeverity.Debug);
-                        }
-
-                        proSimCache.Connect();
-                    }
 #if SIMCONNECT
                     if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
                     {
@@ -1086,6 +1090,7 @@ namespace MobiFlight
                                                   simConnectCache,
                                                   xplaneCache,
                                                   mobiFlightCache,
+                                                  proSimCache,
                                                   joystickManager,
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
@@ -1101,6 +1106,7 @@ namespace MobiFlight
                                                   simConnectCache,
                                                   xplaneCache,
                                                   mobiFlightCache,
+                                                  proSimCache,
                                                   joystickManager,
                                                   midiBoardManager,
                                                   inputActionExecutionCache,

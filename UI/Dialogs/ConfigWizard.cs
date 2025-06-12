@@ -121,6 +121,7 @@ namespace MobiFlight.UI.Dialogs
             xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             proSimDatarefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            proSimDatarefPanel1.Init(_execManager);
 
             testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
@@ -480,6 +481,12 @@ namespace MobiFlight.UI.Dialogs
             variablePanel1.Visible = (sender as RadioButton) == OffsetTypeVariableRadioButton;
             xplaneDataRefPanel1.Visible = (sender as RadioButton) == OffsetTypeXplaneRadioButton;
             proSimDatarefPanel1.Visible = (sender as RadioButton) == OffsetTypeProSimRadioButton;
+            
+            // Auto-load dataref descriptions when ProSim panel becomes visible
+            if (proSimDatarefPanel1.Visible)
+            {
+                proSimDatarefPanel1.LoadDataRefDescriptions();
+            }
         }
 
         private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)

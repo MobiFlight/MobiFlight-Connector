@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
+using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 
@@ -20,6 +22,7 @@ namespace MobiFlight.Execution
         private readonly SimConnectCacheInterface simConnectCache;
         private readonly XplaneCacheInterface xplaneCache;
         private readonly MobiFlightCacheInterface mobiFlightCache;
+        private readonly ProSimCacheInterface proSimCache;
         private readonly JoystickManager joystickManager;
         private readonly MidiBoardManager midiBoardManager;
         private readonly InputActionExecutionCache inputActionExecutionCache;
@@ -35,6 +38,7 @@ namespace MobiFlight.Execution
             SimConnectCacheInterface simConnectCache,
             XplaneCacheInterface xplaneCache,
             MobiFlightCacheInterface mobiFlightCache,
+            ProSimCacheInterface proSimCache,
             JoystickManager joystickManager,
             MidiBoardManager midiBoardManager,
             InputActionExecutionCache inputActionExecutionCache,
@@ -47,6 +51,7 @@ namespace MobiFlight.Execution
             this.fsuipcCache = fsuipcCache;
             this.simConnectCache = simConnectCache;
             this.xplaneCache = xplaneCache;
+            this.proSimCache = proSimCache;
             this.mobiFlightCache = mobiFlightCache;
             this.joystickManager = joystickManager;
             this.midiBoardManager = midiBoardManager;
@@ -495,7 +500,8 @@ namespace MobiFlight.Execution
                             simConnectCache = simConnectCache,
                             moduleCache = mobiFlightCache,
                             xplaneCache = xplaneCache,
-                            joystickManager = joystickManager
+                            proSimCache = proSimCache,
+                            joystickManager = joystickManager,
                         };
 
                         if (cfg.ButtonInputConfig != null)

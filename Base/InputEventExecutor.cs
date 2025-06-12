@@ -1,6 +1,7 @@
 using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
@@ -17,6 +18,7 @@ namespace MobiFlight.Execution
         private readonly SimConnectCacheInterface _simConnectCache;
         private readonly XplaneCache _xplaneCache;
         private readonly MobiFlightCache _mobiFlightCache;
+        private readonly ProSimCache _proSimCache;
         private readonly JoystickManager _joystickManager;
         private readonly ArcazeCache _arcazeCache;
         private readonly Dictionary<string, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
@@ -28,6 +30,7 @@ namespace MobiFlight.Execution
             SimConnectCacheInterface simConnectCache,
             XplaneCache xplaneCache,
             MobiFlightCache mobiFlightCache,
+            ProSimCache proSimCache,
             JoystickManager joystickManager,
             ArcazeCache arcazeCache)
         {
@@ -39,6 +42,7 @@ namespace MobiFlight.Execution
             _mobiFlightCache = mobiFlightCache;
             _joystickManager = joystickManager;
             _arcazeCache = arcazeCache;
+            _proSimCache = proSimCache;
         }
 
         public void ClearCache()
@@ -231,6 +235,7 @@ namespace MobiFlight.Execution
                 simConnectCache = _simConnectCache,
                 xplaneCache = _xplaneCache,
                 moduleCache = _mobiFlightCache,
+                proSimCache = _proSimCache,
                 joystickManager = _joystickManager
             };
         }
