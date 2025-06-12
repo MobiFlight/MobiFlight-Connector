@@ -16,6 +16,7 @@ namespace MobiFlight
         public MobiFlightButton()
         {
             Name = "Button";
+            _type = TYPE;
         }
 
         public MobiFlightButton(MobiFlightButton copyFrom)

@@ -2,7 +2,7 @@
 
 namespace MobiFlight
 {
-    class MobiFlightEncoder : DeviceConfig, IConnectedDevice
+    public class MobiFlightEncoder : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "Encoder";
         public enum InputEvent
