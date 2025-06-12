@@ -15,7 +15,15 @@ using System.Windows.Forms;
 
 namespace MobiFlight
 {
-    public class ExecutionManager
+    public interface IExecutionManager
+    {
+        Dictionary<String, MobiFlightVariable> GetAvailableVariables();
+        JoystickManager GetJoystickManager();
+        MobiFlightCache getMobiFlightModuleCache();
+        MidiBoardManager GetMidiBoardManager();
+        // Add other methods and properties as needed
+    }
+    public class ExecutionManager : IExecutionManager
     {
         public event EventHandler OnConfigHasChanged;
         public event EventHandler OnExecute;
@@ -342,7 +350,7 @@ namespace MobiFlight
                         try {
                             ExecuteTestOn(cfg as OutputConfigItem);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             Log.Instance.log($"Error during test mode execution: {cfg.Name}. {e.Message}", LogSeverity.Error);
                         }
@@ -351,7 +359,7 @@ namespace MobiFlight
 
                     case "settings":
                         cfg = ConfigItems.Find(i => i.GUID == message.Item.GUID);
-                        if (cfg==null) return;
+                        if (cfg == null) return;
 
                         var serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
 
@@ -474,12 +482,12 @@ namespace MobiFlight
         }
 
         private void simConnect_AirCraftPathChanged(object sender, string e)
-        {        
+        {
             Log.Instance.log($"Aircraft path changed: [{e}]", LogSeverity.Info);
             OnSimAircraftPathChanged?.Invoke(sender, e);
         }
 
-        internal Dictionary<String, MobiFlightVariable> GetAvailableVariables()
+        public Dictionary<String, MobiFlightVariable> GetAvailableVariables()
         {
             Dictionary<String, MobiFlightVariable> variables = new Dictionary<string, MobiFlightVariable>();
             if (Project.ConfigFiles.Count == 0 || ActiveConfigIndex >= Project.ConfigFiles.Count)
@@ -1119,7 +1127,7 @@ namespace MobiFlight
                     var updatedValues = executor.Execute(e, IsStarted());
                     updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Log.Instance.log($"Error during input event execution: {ex.Message} - {e.DeviceId} => {e.DeviceLabel} ({e.Type})", LogSeverity.Error);
                 }

@@ -139,7 +139,7 @@ namespace MobiFlight.ProSim
             }
         }
 
-        Dictionary<string, string> mutationLookup = new Dictionary<string, string>
+        private readonly Dictionary<string, string> mutationLookup = new Dictionary<string, string>
         {
             { "System.Int32", "writeInt" },
             { "System.Double", "writeFloat" },
@@ -158,8 +158,7 @@ mutation {{
 	dataRef {{
 		{method}(name: ""{datarefPath}"", value: {value})
 	}}
-}}
-";
+}}";
                         await _connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
                         {
                             Query = query
@@ -293,6 +292,7 @@ mutation {{
 
                 if (!_subscribedDataRefs.ContainsKey(datarefPath))
                 {
+                    // Wait for data to be returned by the subscription
                     return 0;
                 }
                 
@@ -353,8 +353,7 @@ mutation {{
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error writing to dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
-                
+                Log.Instance.log($"Error writing to dataref {datarefPath}: {ex.Message}", LogSeverity.Error);     
             }
         }
     }
