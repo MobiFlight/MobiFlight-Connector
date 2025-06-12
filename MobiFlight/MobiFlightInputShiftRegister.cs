@@ -44,7 +44,7 @@ namespace MobiFlight
             return new MobiFlightInputShiftRegister(this);
         }
 
-        private DeviceType _type = DeviceType.InputShiftRegister;
+        private DeviceType _typeDeprecated = DeviceType.InputShiftRegister;
 
         public static string InputEventIdToString(int enumId)
         {
@@ -69,8 +69,8 @@ namespace MobiFlight
 
         public DeviceType TypeDeprecated
         {
-            get { return _type; }
-            set { _type = value; }
+            get { return _typeDeprecated; }
+            set { _typeDeprecated = value; }
         }
 
         protected void Initialize()

@@ -79,7 +79,7 @@ namespace MobiFlight.Execution.Tests
                 Active = active,
                 ModuleSerial = moduleSerial,
                 DeviceName = deviceName,
-                DeviceType = DeviceType.Button.ToString(),
+                Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE),
                 Name = name,
                 button = new ButtonInputConfig()
                 {

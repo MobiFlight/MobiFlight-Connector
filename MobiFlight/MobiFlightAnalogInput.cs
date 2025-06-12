@@ -2,9 +2,11 @@
 
 namespace MobiFlight 
 {
-    class MobiFlightAnalogInput : DeviceConfig, IConnectedDevice
+    public class MobiFlightAnalogInput : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "AnalogInput";
+        public const string TYPE_OLD = "Analog"; // Deprecated type for backward compatibility
+
         public enum InputEvent
         {
             CHANGE

@@ -23,11 +23,11 @@ namespace MobiFlight
             set { _name = value; }
         }
         
-        private DeviceType _type = DeviceType.LcdDisplay;
+        private DeviceType _typeDeprecated = DeviceType.LcdDisplay;
         public DeviceType TypeDeprecated
         {
-            get { return _type; }
-            set { _type = value; }
+            get { return _typeDeprecated; }
+            set { _typeDeprecated = value; }
         }
         
         protected bool _initialized = false;

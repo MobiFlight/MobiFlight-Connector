@@ -14,7 +14,8 @@ namespace MobiFlight.Base
 
     public abstract class DeviceConfig : IDeviceConfig
     {
-        public virtual string Type { get { return GetType().Name.ToString(); } }
+        protected string _type = "NOTSET";
+        public virtual string Type { get { return _type; } }
         public virtual string Name { get; set; }
 
         abstract public object Clone();

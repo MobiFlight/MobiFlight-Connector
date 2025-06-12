@@ -344,21 +344,18 @@ namespace MobiFlight.UI.Dialogs
             switch (currentInputType)
             {
                 case DeviceType.Button:
-                    config.DeviceType = InputConfigItem.TYPE_BUTTON;
                     if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
                     break;
 
                 case DeviceType.Encoder:
-                    config.DeviceType = InputConfigItem.TYPE_ENCODER;
                     if (config.encoder == null) config.encoder = new InputConfig.EncoderInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as EncoderPanel).ToConfig(config.encoder);
                     break;
 
                 case DeviceType.InputShiftRegister:
-                    config.DeviceType = InputConfigItem.TYPE_INPUT_SHIFT_REGISTER;
                     if (config.inputShiftRegister == null) config.inputShiftRegister = new InputConfig.InputShiftRegisterConfig();
                     config.inputShiftRegister.ExtPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
@@ -366,7 +363,6 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.InputMultiplexer:
-                    config.DeviceType = InputConfigItem.TYPE_INPUT_MULTIPLEXER;
                     if (config.inputMultiplexer == null) config.inputMultiplexer = new InputConfig.InputMultiplexerConfig();
                     config.inputMultiplexer.DataPin = (int)inputPinDropDown.SelectedItem;
                     if (groupBoxInputSettings.Controls[0] != null)
@@ -374,14 +370,12 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.AnalogInput:
-                    config.DeviceType = InputConfigItem.TYPE_ANALOG;
                     if (config.analog == null) config.analog = new InputConfig.AnalogInputConfig();
                     if (groupBoxInputSettings.Controls[0] != null)
                         (groupBoxInputSettings.Controls[0] as AnalogPanel).ToConfig(config.analog);
                     break;
 
                 case DeviceType.NotSet:
-                    config.DeviceType = InputConfigItem.TYPE_NOTSET;
                     config.DeviceName = InputConfigItem.TYPE_NOTSET;
                     break;
             }

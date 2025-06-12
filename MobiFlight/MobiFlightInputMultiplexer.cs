@@ -18,7 +18,7 @@ namespace MobiFlight
         public CmdMessenger CmdMessenger { get; set; }
 
 
-        private DeviceType _type = DeviceType.InputMultiplexer;
+        private DeviceType _typeDeprecated = DeviceType.InputMultiplexer;
         public int ModuleNumber { get; set; }
 
         public override string Name { get { return "Multiplexer"; } }
@@ -65,8 +65,8 @@ namespace MobiFlight
 
         public DeviceType TypeDeprecated
         {
-            get { return _type; }
-            set { _type = value; }
+            get { return _typeDeprecated; }
+            set { _typeDeprecated = value; }
         }
 
         protected void Initialize()
@@ -74,7 +74,5 @@ namespace MobiFlight
             if (_initialized) return;
             _initialized = true;
         }
-
-
     }
 }

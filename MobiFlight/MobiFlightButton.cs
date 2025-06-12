@@ -2,7 +2,7 @@
 
 namespace MobiFlight
 {
-    class MobiFlightButton : DeviceConfig, IConnectedDevice
+    public class MobiFlightButton : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "Button";
         public enum InputEvent

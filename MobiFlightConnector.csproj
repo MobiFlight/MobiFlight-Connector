@@ -310,6 +310,7 @@
     <Compile Include="MobiFlight\I2CPinInUseException.cs" />
     <Compile Include="MobiFlight\I2CPinsNotDefinedException.cs" />
     <Compile Include="MobiFlight\InputConfig\AnalogInputConfig.cs" />
+    <Compile Include="MobiFlight\InputConfig\InputDeviceConfigFactory.cs" />
     <Compile Include="MobiFlight\InputConfig\InputMultiplexerConfig.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionExecutionCache.cs" />
     <Compile Include="MobiFlight\InputConfig\InputActionFactory.cs" />

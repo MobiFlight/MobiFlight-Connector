@@ -94,7 +94,7 @@ namespace MobiFlight.Base
 
             foreach (InputConfigItem item in inputConfigs)
             {
-                String key = "input." + item.DeviceType;
+                String key = "input." + item.Device.Type;
                 if (item.ModuleSerial.Contains(Joystick.SerialPrefix))
                 {
                     key += ".joystick";
