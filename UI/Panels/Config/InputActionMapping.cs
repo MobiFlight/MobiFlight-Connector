@@ -39,7 +39,6 @@ namespace MobiFlight.UI.Panels.Config
             { VariableInputAction.Label, typeof(VariableInputPanel) },
             { XplaneInputAction.Label, typeof(XplaneInputPanel) },
             { ProSimInputAction.Label, typeof(ProSimInputPanel) },
-            //{ ProSimInputPanel }
         };
     }
 }
