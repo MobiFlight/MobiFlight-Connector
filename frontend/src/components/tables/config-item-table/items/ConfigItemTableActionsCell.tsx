@@ -26,7 +26,7 @@ const ConfigItemTableActionsCell = React.memo(({
   const { publish } = publishOnMessageExchange()
 
   return (
-    <div className="flex items-center">
+    <div className="flex justify-center">
       <Button
         variant="outline"
         className="h-8 w-8 rounded-r-none border-r-0 p-0"
