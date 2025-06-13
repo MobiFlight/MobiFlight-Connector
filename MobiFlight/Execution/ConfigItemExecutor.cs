@@ -296,6 +296,11 @@ namespace MobiFlight.Execution
                 var source = cfg.Source as SimConnectSource;
                 result.type = simConnectCache.GetSimVar(source.SimConnectValue.Value, out result.String, out result.Float64);
             }
+            else if (cfg.Source is ProSimSource)
+            {
+                var source = cfg.Source as ProSimSource;
+                result.Float64 = proSimCache.readDataref(source.ProSimDataRef.Path);
+            }
             else
             {
                 Log.Instance.log("Unknown source type: " + cfg.Source.SourceType, LogSeverity.Error);

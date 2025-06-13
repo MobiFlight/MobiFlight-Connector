@@ -143,12 +143,14 @@ namespace MobiFlight.UI.Panels.Config
                     {
                         this.Invoke(new System.Action(() =>
                         {
+                            dataGridView1.DataSource = _dataRefDescriptions;
                             dataRefDescriptionsComboBox.Items.Clear();
                             dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                         }));
                     }
                     else
                     {
+                        dataGridView1.DataSource = _dataRefDescriptions;
                         dataRefDescriptionsComboBox.Items.Clear();
                         dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                     }

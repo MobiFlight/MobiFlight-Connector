@@ -109,6 +109,7 @@
             // 
             resources.ApplyResources(this.proSimDatarefPanel1, "proSimDatarefPanel1");
             this.proSimDatarefPanel1.Name = "proSimDatarefPanel1";
+            this.proSimDatarefPanel1.Path = "";
             // 
             // xplaneDataRefPanel1
             // 
@@ -297,7 +298,7 @@
             // 
             resources.ApplyResources(this.testValuePanel1, "testValuePanel1");
             this.testValuePanel1.Name = "testValuePanel1";
-            this.testValuePanel1.Result = "\'\'";
+            this.testValuePanel1.Result = "\'\'\'\'\'\'";
             // 
             // ConfigWizard
             // 

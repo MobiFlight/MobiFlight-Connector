@@ -65,13 +65,13 @@
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
             this.peripheralsTabPage = new System.Windows.Forms.TabPage();
             this.peripheralsPanel = new MobiFlight.UI.Panels.Settings.PeripheralsPanel();
+            this.ProSimTab = new System.Windows.Forms.TabPage();
+            this.proSimPanel = new MobiFlight.UI.Panels.Settings.ProSimPanel();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.firmwareUpdateBackgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.ProSimTab = new System.Windows.Forms.TabPage();
-            this.proSimPanel = new MobiFlight.UI.Panels.Settings.ProSimPanel();
             this.panel1.SuspendLayout();
             this.ArcazeTabPage.SuspendLayout();
             this.mfModuleSettingsContextMenuStrip.SuspendLayout();
@@ -306,6 +306,18 @@
             resources.ApplyResources(this.peripheralsPanel, "peripheralsPanel");
             this.peripheralsPanel.Name = "peripheralsPanel";
             // 
+            // ProSimTab
+            // 
+            this.ProSimTab.Controls.Add(this.proSimPanel);
+            resources.ApplyResources(this.ProSimTab, "ProSimTab");
+            this.ProSimTab.Name = "ProSimTab";
+            this.ProSimTab.UseVisualStyleBackColor = true;
+            // 
+            // proSimPanel
+            // 
+            resources.ApplyResources(this.proSimPanel, "proSimPanel");
+            this.proSimPanel.Name = "proSimPanel";
+            // 
             // firmwareSettingsToolStripMenuItem
             // 
             this.firmwareSettingsToolStripMenuItem.Name = "firmwareSettingsToolStripMenuItem";
@@ -325,18 +337,6 @@
             // 
             this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.toolTip1.ToolTipTitle = "Hint";
-            // 
-            // ProSimTab
-            // 
-            this.ProSimTab.Controls.Add(this.proSimPanel);
-            resources.ApplyResources(this.ProSimTab, "ProSimTab");
-            this.ProSimTab.Name = "ProSimTab";
-            this.ProSimTab.UseVisualStyleBackColor = true;
-            // 
-            // proSimPanel1
-            // 
-            resources.ApplyResources(this.proSimPanel, "proSimPanel1");
-            this.proSimPanel.Name = "proSimPanel1";
             // 
             // SettingsDialog
             // 

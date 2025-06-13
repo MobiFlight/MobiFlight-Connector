@@ -555,31 +555,31 @@
   <data name="&gt;&gt;peripheralsTabPage.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="proSimPanel1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="proSimPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="proSimPanel1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+  <data name="proSimPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="proSimPanel1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="proSimPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>2, 3</value>
   </data>
-  <data name="proSimPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>558, 140</value>
+  <data name="proSimPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 82</value>
   </data>
-  <data name="proSimPanel1.TabIndex" type="System.Int32, mscorlib">
+  <data name="proSimPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;proSimPanel1.Name" xml:space="preserve">
-    <value>proSimPanel1</value>
+  <data name="&gt;&gt;proSimPanel.Name" xml:space="preserve">
+    <value>proSimPanel</value>
   </data>
-  <data name="&gt;&gt;proSimPanel1.Type" xml:space="preserve">
+  <data name="&gt;&gt;proSimPanel.Type" xml:space="preserve">
     <value>MobiFlight.UI.Panels.Settings.ProSimPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;proSimPanel1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;proSimPanel.Parent" xml:space="preserve">
     <value>ProSimTab</value>
   </data>
-  <data name="&gt;&gt;proSimPanel1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;proSimPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="ProSimTab.Location" type="System.Drawing.Point, System.Drawing">
