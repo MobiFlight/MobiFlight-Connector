@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using WebSocketSharp;
 
 namespace MobiFlight.UI.Panels.Config
 {
@@ -12,6 +13,9 @@ namespace MobiFlight.UI.Panels.Config
         public event EventHandler ModifyTabLink;
 
         private Dictionary<string, DataRefDescription> _dataRefDescriptions;
+        private List<DataRefDescription> _canReadDataRefDescriptions;
+        private List<DataRefDescription> _canReadDataRefDescriptionsFiltered;
+
         private ExecutionManager _executionManager;
 
         [Description("ProSim DataRef Path"), Category("Data")]
@@ -25,6 +29,9 @@ namespace MobiFlight.UI.Panels.Config
         {
             InitializeComponent();
             transformOptionsGroup1.setMode(true);
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+
         }
 
         public void Init(ExecutionManager executionManager)
@@ -135,7 +142,8 @@ namespace MobiFlight.UI.Panels.Config
             {
                 // Get the dataref descriptions from the already-connected ProSimCache
                 _dataRefDescriptions = proSimCache.GetDataRefDescriptions();
-                
+                _canReadDataRefDescriptions = _dataRefDescriptions.Values.Where(drd => drd.CanRead).ToList();
+
                 if (_dataRefDescriptions.Count > 0)
                 {
                     // Marshal the UI update to the main thread
@@ -143,14 +151,14 @@ namespace MobiFlight.UI.Panels.Config
                     {
                         this.Invoke(new System.Action(() =>
                         {
-                            dataGridView1.DataSource = _dataRefDescriptions;
+                            dataGridView1.DataSource = _canReadDataRefDescriptions;
                             dataRefDescriptionsComboBox.Items.Clear();
                             dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                         }));
                     }
                     else
                     {
-                        dataGridView1.DataSource = _dataRefDescriptions;
+                        dataGridView1.DataSource = _canReadDataRefDescriptions;
                         dataRefDescriptionsComboBox.Items.Clear();
                         dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                     }
@@ -165,6 +173,27 @@ namespace MobiFlight.UI.Panels.Config
         private void button1_Click(object sender, EventArgs e)
         {
             LoadDataRefDescriptions();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (!textBox1.Text.IsNullOrEmpty()) {
+                var words = textBox1.Text.Split(' ').Select(w => w.ToLower()).ToArray();
+                _canReadDataRefDescriptionsFiltered = _canReadDataRefDescriptions
+                    .Where(drd => words.All(drd.Name.ToLower().Contains)
+                    || words.All(drd.Description.ToLower().Contains)
+                    || (words.Length > 1 && drd.Name.ToLower().Contains(words[0]) && words.Skip(1).All(drd.Description.ToLower().Contains))).ToList();
+                dataGridView1.DataSource = _canReadDataRefDescriptionsFiltered;
+            } else
+            {
+                dataGridView1.DataSource = _canReadDataRefDescriptions;
+            }
+        }
+
+        private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            var drd = dataGridView1.Rows[e.RowIndex].DataBoundItem as DataRefDescription;
+            DatarefPathTextBox.Text = drd.Name;
         }
     }
 
