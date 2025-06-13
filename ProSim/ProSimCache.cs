@@ -200,8 +200,27 @@ mutation {{
                     //}
                 });
 
-                Task.Run(() =>
-                {
+                RefreshDataDefinitions();
+
+                _connected = true;
+                _aircraftNameTimer.Start();
+                Connected?.Invoke(this, new EventArgs());
+                
+                Log.Instance.log("Connected to ProSim", LogSeverity.Info);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Failed to connect to ProSim: {ex.Message}", LogSeverity.Error);
+                _connected = false;
+                return false;
+            }
+        }
+
+        private void RefreshDataDefinitions()
+        {
+            Task.Run(() =>
+            {
                     var dataRefDescriptions =  _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
                     {
                         Query = @"
@@ -224,21 +243,7 @@ mutation {{
 
                     _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
 
-                });
-
-                _connected = true;
-                _aircraftNameTimer.Start();
-                Connected?.Invoke(this, new EventArgs());
-                
-                Log.Instance.log("Connected to ProSim", LogSeverity.Info);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Failed to connect to ProSim: {ex.Message}", LogSeverity.Error);
-                _connected = false;
-                return false;
-            }
+            });
         }
 
         public bool Disconnect()
@@ -327,6 +332,8 @@ mutation {{
                 if (!_dataRefDescriptions.ContainsKey(datarefPath))
                 {
                     // Probably an error, unsure
+                    // Maybe reconnected, should attempt to refetch data defs
+                    RefreshDataDefinitions();
                     return;
                 }
                 

@@ -125,21 +125,6 @@
     <Reference Include="GraphQL.Primitives, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\GraphQL.Primitives.6.1.0\lib\netstandard2.0\GraphQL.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="GraphQL.Client, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GraphQL.Client.6.1.0\lib\net461\GraphQL.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="GraphQL.Client.Abstractions, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GraphQL.Client.Abstractions.6.1.0\lib\netstandard2.0\GraphQL.Client.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="GraphQL.Client.Abstractions.Websocket, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GraphQL.Client.Abstractions.Websocket.6.1.0\lib\netstandard2.0\GraphQL.Client.Abstractions.Websocket.dll</HintPath>
-    </Reference>
-    <Reference Include="GraphQL.Client.Serializer.Newtonsoft, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GraphQL.Client.Serializer.Newtonsoft.6.1.0\lib\netstandard2.0\GraphQL.Client.Serializer.Newtonsoft.dll</HintPath>
-    </Reference>
-    <Reference Include="GraphQL.Primitives, Version=6.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\GraphQL.Primitives.6.1.0\lib\netstandard2.0\GraphQL.Primitives.dll</HintPath>
-    </Reference>
     <Reference Include="Hid.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Hid.Net.4.2.1\lib\net45\Hid.Net.dll</HintPath>
     </Reference>
