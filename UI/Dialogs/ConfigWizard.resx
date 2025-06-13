@@ -118,11 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="proSimDatarefPanel1.AutoSize" type="System.Boolean, mscorlib">
+  <data name="xplaneDataRefPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="proSimDatarefPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="xplaneDataRefPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
@@ -253,7 +253,7 @@
     <value>550, 0</value>
   </data>
   <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 47</value>
+    <value>652, 237</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -571,7 +571,7 @@
     <value>650, 0</value>
   </data>
   <data name="modifierPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 753</value>
+    <value>652, 382</value>
   </data>
   <data name="modifierPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -685,7 +685,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="displayPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>681, 964</value>
+    <value>681, 593</value>
   </data>
   <data name="displayPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -955,7 +955,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>672, 771</value>
+    <value>672, 711</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
