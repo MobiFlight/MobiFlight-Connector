@@ -53,6 +53,16 @@ namespace MobiFlight.UI.Panels.Config
             fsuipcValueTextBox.Text = config.Value;
         }
 
+        internal void syncFromConfig(ProSimInputAction config)
+        {
+            fsuipcValueTextBox.Text = config.Expression;
+        }
+
+        internal void syncToConfig(ProSimInputAction config)
+        {
+            config.Expression = fsuipcValueTextBox.Text;
+        }
+
         internal void syncToConfig(IConfigItem config)
         {
             config.Value = fsuipcValueTextBox.Text;

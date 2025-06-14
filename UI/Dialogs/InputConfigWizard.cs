@@ -602,6 +602,7 @@ namespace MobiFlight.UI.Dialogs
                         {
                             Enabled = (serial != "")
                         };
+                        (panel as Panels.Input.AnalogPanel).Init(_execManager);
                         (panel as Panels.Input.AnalogPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;

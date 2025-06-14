@@ -310,6 +310,7 @@ namespace MobiFlight.UI.Panels.Input
 
                 case ProSimInputAction.Label:
                     panel = new ProSimInputPanel();
+                    (panel as ProSimInputPanel).Init(executionManager);
                     if (isLeft && !isFast && config != null && config.onLeft != null)
                         (panel as ProSimInputPanel).syncFromConfig(config.onLeft as ProSimInputAction);
                     else if (isLeft && isFast && config != null && config.onLeftFast != null)

@@ -30,24 +30,23 @@ namespace MobiFlight.UI.Panels.Config
         {
             this.DatarefPathTextBox = new System.Windows.Forms.TextBox();
             this.DataRef = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.simProGroupBox1 = new System.Windows.Forms.GroupBox();
-            this.searchLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DataType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataRefDescriptionsComboBox = new MobiFlight.UI.Panels.Config.AutoCompleteComboBox();
+            this.searchLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.transformOptionsGroup1 = new MobiFlight.UI.Panels.Config.TransformOptionsGroup();
             this.simProGroupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // DatarefPathTextBox
             // 
-            this.DatarefPathTextBox.Location = new System.Drawing.Point(62, 17);
+            this.DatarefPathTextBox.Location = new System.Drawing.Point(59, 14);
             this.DatarefPathTextBox.Name = "DatarefPathTextBox";
             this.DatarefPathTextBox.Size = new System.Drawing.Size(240, 20);
             this.DatarefPathTextBox.TabIndex = 1;
@@ -61,60 +60,30 @@ namespace MobiFlight.UI.Panels.Config
             this.DataRef.TabIndex = 3;
             this.DataRef.Text = "DataRef:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Preset:";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(308, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Refresh";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // simProGroupBox1
             // 
             this.simProGroupBox1.AutoSize = true;
+            this.simProGroupBox1.Controls.Add(this.panel1);
             this.simProGroupBox1.Controls.Add(this.searchLabel);
             this.simProGroupBox1.Controls.Add(this.textBox1);
-            this.simProGroupBox1.Controls.Add(this.dataGridView1);
             this.simProGroupBox1.Controls.Add(this.DataRef);
-            this.simProGroupBox1.Controls.Add(this.button1);
             this.simProGroupBox1.Controls.Add(this.DatarefPathTextBox);
-            this.simProGroupBox1.Controls.Add(this.dataRefDescriptionsComboBox);
-            this.simProGroupBox1.Controls.Add(this.label2);
             this.simProGroupBox1.Location = new System.Drawing.Point(3, 3);
             this.simProGroupBox1.Name = "simProGroupBox1";
             this.simProGroupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.simProGroupBox1.Size = new System.Drawing.Size(650, 328);
+            this.simProGroupBox1.Size = new System.Drawing.Size(612, 347);
             this.simProGroupBox1.TabIndex = 7;
             this.simProGroupBox1.TabStop = false;
             this.simProGroupBox1.Text = "SimPro";
             // 
-            // searchLabel
+            // panel1
             // 
-            this.searchLabel.AutoSize = true;
-            this.searchLabel.Location = new System.Drawing.Point(6, 57);
-            this.searchLabel.Name = "searchLabel";
-            this.searchLabel.Size = new System.Drawing.Size(44, 13);
-            this.searchLabel.TabIndex = 9;
-            this.searchLabel.Text = "Search:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(9, 76);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(635, 20);
-            this.textBox1.TabIndex = 8;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.panel1.AutoSize = true;
+            this.panel1.Controls.Add(this.dataGridView1);
+            this.panel1.Location = new System.Drawing.Point(6, 83);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(603, 248);
+            this.panel1.TabIndex = 10;
             // 
             // dataGridView1
             // 
@@ -125,8 +94,9 @@ namespace MobiFlight.UI.Panels.Config
             this.NameColumn,
             this.Description,
             this.DataType});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 101);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(0);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -135,7 +105,7 @@ namespace MobiFlight.UI.Panels.Config
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(644, 214);
+            this.dataGridView1.Size = new System.Drawing.Size(603, 248);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
             // 
@@ -162,15 +132,22 @@ namespace MobiFlight.UI.Panels.Config
             this.DataType.Name = "DataType";
             this.DataType.ReadOnly = true;
             // 
-            // dataRefDescriptionsComboBox
+            // searchLabel
             // 
-            this.dataRefDescriptionsComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.dataRefDescriptionsComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.dataRefDescriptionsComboBox.FormattingEnabled = true;
-            this.dataRefDescriptionsComboBox.Location = new System.Drawing.Point(62, 44);
-            this.dataRefDescriptionsComboBox.Name = "dataRefDescriptionsComboBox";
-            this.dataRefDescriptionsComboBox.Size = new System.Drawing.Size(240, 21);
-            this.dataRefDescriptionsComboBox.TabIndex = 5;
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.Location = new System.Drawing.Point(3, 37);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(44, 13);
+            this.searchLabel.TabIndex = 9;
+            this.searchLabel.Text = "Search:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 56);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(603, 20);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // transformOptionsGroup1
             // 
@@ -180,20 +157,21 @@ namespace MobiFlight.UI.Panels.Config
             this.transformOptionsGroup1.Location = new System.Drawing.Point(0, 337);
             this.transformOptionsGroup1.MinimumSize = new System.Drawing.Size(350, 0);
             this.transformOptionsGroup1.Name = "transformOptionsGroup1";
-            this.transformOptionsGroup1.Size = new System.Drawing.Size(650, 81);
+            this.transformOptionsGroup1.Size = new System.Drawing.Size(618, 81);
             this.transformOptionsGroup1.TabIndex = 2;
             // 
             // ProSimDatarefPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.simProGroupBox1);
             this.Controls.Add(this.transformOptionsGroup1);
             this.Name = "ProSimDatarefPanel";
-            this.Size = new System.Drawing.Size(650, 418);
-            this.Load += new System.EventHandler(this.ProSimDatarefPanel_Load);
+            this.Size = new System.Drawing.Size(618, 418);
             this.simProGroupBox1.ResumeLayout(false);
             this.simProGroupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -204,9 +182,6 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.TextBox DatarefPathTextBox;
         private TransformOptionsGroup transformOptionsGroup1;
         private System.Windows.Forms.Label DataRef;
-        private System.Windows.Forms.Label label2;
-        private AutoCompleteComboBox dataRefDescriptionsComboBox;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox simProGroupBox1;
         private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.TextBox textBox1;
@@ -214,5 +189,6 @@ namespace MobiFlight.UI.Panels.Config
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn DataType;
+        private System.Windows.Forms.Panel panel1;
     }
 } 

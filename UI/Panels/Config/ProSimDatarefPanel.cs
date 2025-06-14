@@ -25,6 +25,13 @@ namespace MobiFlight.UI.Panels.Config
             set => DatarefPathTextBox.Text = value;
         }
 
+        [Description("ProSim Transform Group"), Category("Data")]
+        public TransformOptionsGroup TransformOptionsGroup
+        {
+            get => transformOptionsGroup1;
+            set => transformOptionsGroup1 = value;
+        }
+
         public ProSimDatarefPanel()
         {
             InitializeComponent();
@@ -56,13 +63,6 @@ namespace MobiFlight.UI.Panels.Config
             
             DatarefPathTextBox.Text = (config.Source as Base.ProSimSource).ProSimDataRef.Path;
             transformOptionsGroup1.syncFromConfig(config);
-        }
-
-        private void ProSimDatarefPanel_Load(object sender, EventArgs e)
-        {
-            dataRefDescriptionsComboBox.SelectedValueChanged += DataRefDescriptionsComboBox_SelectedValueChanged;
-            dataRefDescriptionsComboBox.KeyDown += DataRefDescriptionsComboBox_KeyDown;
-            dataRefDescriptionsComboBox.KeyUp += DataRefDescriptionsComboBox_KeyUp;
         }
 
         private void DataRefDescriptionsComboBox_KeyDown(object sender, KeyEventArgs e)
@@ -120,10 +120,6 @@ namespace MobiFlight.UI.Panels.Config
                 }
             }
         }
-        private void DataRefDescriptionsComboBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-            DatarefPathTextBox.Text = dataRefDescriptionsComboBox.SelectedItem.ToString();
-        }
 
         public void LoadDataRefDescriptions()
         {
@@ -152,15 +148,11 @@ namespace MobiFlight.UI.Panels.Config
                         this.Invoke(new System.Action(() =>
                         {
                             dataGridView1.DataSource = _canReadDataRefDescriptions;
-                            dataRefDescriptionsComboBox.Items.Clear();
-                            dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                         }));
                     }
                     else
                     {
                         dataGridView1.DataSource = _canReadDataRefDescriptions;
-                        dataRefDescriptionsComboBox.Items.Clear();
-                        dataRefDescriptionsComboBox.Items.AddRange(_dataRefDescriptions.Keys.ToArray());
                     }
                 }
             }

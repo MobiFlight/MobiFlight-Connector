@@ -156,9 +156,9 @@ namespace MobiFlight
             xplaneCache.Closed += new EventHandler(simConnect_Closed);
             xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
-            proSimCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
-            proSimCache.Connected += new EventHandler(simConnect_Connected);
-            proSimCache.Closed += new EventHandler(simConnect_Closed);
+            proSimCache.ConnectionLost += new EventHandler(proSim_ConnectionLost);
+            proSimCache.Connected += new EventHandler(proSim_Connected);
+            proSimCache.Closed += new EventHandler(proSim_Closed);
             proSimCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
@@ -520,6 +520,21 @@ namespace MobiFlight
         }
 
         private void simConnect_ConnectionLost(object sender, EventArgs e)
+        {
+            this.OnSimCacheConnectionLost(sender, e);
+        }
+
+        private void proSim_Closed(object sender, EventArgs e)
+        {
+            this.OnSimCacheClosed(sender, e);
+        }
+
+        private void proSim_Connected(object sender, EventArgs e)
+        {
+            this.OnSimCacheConnected(sender, e);
+        }
+
+        private void proSim_ConnectionLost(object sender, EventArgs e)
         {
             this.OnSimCacheConnectionLost(sender, e);
         }

@@ -20,8 +20,6 @@ namespace MobiFlight.ProSim
         public event EventHandler<string> AircraftChanged;
 
         private bool _connected = false;
-        private string _detectedAircraft = string.Empty;
-        private System.Timers.Timer _aircraftNameTimer;
 
         private readonly object _cacheLock = new object();
 
@@ -46,37 +44,54 @@ namespace MobiFlight.ProSim
             public DataRefDescription DataRefDescription { get; set; }
         }
 
-        public ProSimCache()
-        {
-            _aircraftNameTimer = new System.Timers.Timer(5000);
-            _aircraftNameTimer.Elapsed += (s, e) => { CheckForAircraftName(); };
-        }
 
-        private void CheckForAircraftName()
+        public bool Connect()
         {
             try
             {
-                if (!IsConnected()) return;
-                
-                // TODO: Finish aircraft connection event
+                // Initialize ProSim SDK connection
 
-                // Use our new subscription mechanism to get aircraft type
-                //string aircraft = Convert.ToString(readDataref("aircraft.type"));
-                
-                //if (aircraft == _detectedAircraft) return;
+                var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
+                    ? Properties.Settings.Default.ProSimHost
+                    : "localhost";
 
-                //_detectedAircraft = aircraft;
-                //AircraftChanged?.Invoke(this, _detectedAircraft);
+                var port = Properties.Settings.Default.ProSimPort;
+
+                _connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
+                _connection.InitializeWebsocketConnection();
+
+                _connection.WebsocketConnectionState.Subscribe(state =>
+                {
+                    if (state == GraphQLWebsocketConnectionState.Connected)
+                    {
+                        Log.Instance.log("Connected to ProSim GraphQL WebSocket!", LogSeverity.Debug);
+                        _connected = true;
+                        Connected?.Invoke(this, new EventArgs());
+                    }
+                    else if (state == GraphQLWebsocketConnectionState.Disconnected)
+                    {
+                        _connected = false;
+                        ConnectionLost?.Invoke(this, new EventArgs());
+                    }
+                });
+
+                RefreshDataDefinitions();
+
+                Log.Instance.log("Connected to ProSim", LogSeverity.Info);
+                return true;
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error checking aircraft name: {ex.Message}", LogSeverity.Error);
+                Log.Instance.log($"Failed to connect to ProSim: {ex.Message}", LogSeverity.Error);
+                _connected = false;
+                return false;
             }
         }
 
+
         public void Clear()
         {
-            // Clear the cache if needed
+            _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
         }
 
         private void SubscribeToDataRef(string datarefPath)
@@ -171,87 +186,37 @@ mutation {{
 
         }
 
-        public bool Connect()
-        {
-            try
-            {
-                // Initialize ProSim SDK connection
-                
-                var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
-                    ? Properties.Settings.Default.ProSimHost
-                    : "localhost";
-
-                var port = Properties.Settings.Default.ProSimPort;
-
-                _connection = new GraphQLHttpClient($"http://{host}:{port}/graphql", new NewtonsoftJsonSerializer());
-                _connection.InitializeWebsocketConnection();
-
-                _connection.WebsocketConnectionState.Subscribe(state =>
-                {
-                    if (state == GraphQLWebsocketConnectionState.Connected)
-                    {
-                        Log.Instance.log("Connected to ProSim GraphQL WebSocket!", LogSeverity.Debug);
-                        _connected = true;
-                    }
-                    //else if (state == GraphQLWebsocketConnectionState.Disconnected)
-                    //{
-                    //    _connected = false;
-                    //    ConnectionLost?.Invoke(this, new EventArgs());
-                    //}
-                });
-
-                RefreshDataDefinitions();
-
-                _connected = true;
-                _aircraftNameTimer.Start();
-                Connected?.Invoke(this, new EventArgs());
-                
-                Log.Instance.log("Connected to ProSim", LogSeverity.Info);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Instance.log($"Failed to connect to ProSim: {ex.Message}", LogSeverity.Error);
-                _connected = false;
-                return false;
-            }
-        }
-
         private void RefreshDataDefinitions()
         {
             Task.Run(() =>
             {
-                    var dataRefDescriptions =  _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
-                    {
-                        Query = @"
+                var dataRefDescriptions =  _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
                 {
-                    dataRef {
-                    dataRefDescriptions: list {
-                    		name
-                    		description
-                    		canRead
-                    		canWrite
-                    		dataType
-                    		dataUnit
+                    Query = @"
+                    {
+                        dataRef {
+                        dataRefDescriptions: list {
+                    		    name
+                    		    description
+                    		    canRead
+                    		    canWrite
+                    		    dataType
+                    		    dataUnit
+                            __typename
+                        }
                         __typename
-                    }
-                    __typename
-                    }
-                }
-                "
-                    }).Result;
+                        }
+                    }"
+                }).Result;
 
-                    _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
-
+                _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
             });
         }
 
         public bool Disconnect()
         {
             if (_connected)
-            {
-                _aircraftNameTimer.Stop();
-                
+            {                
                 // Clear all DataRefs
                 lock (_subscribedDataRefs)
                 {
@@ -286,9 +251,6 @@ mutation {{
 
             try
             {
-                // Check if we already have this DataRef subscribed
-
-                
                 if (!_subscriptions.ContainsKey(datarefPath))
                 {
                     SubscribeToDataRef(datarefPath);
@@ -304,7 +266,6 @@ mutation {{
                 // Return the cached value (continuously updated by the subscription)
                 var value = _subscribedDataRefs[datarefPath].Value;
                 var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
-
 
                 return returnValue;
             }

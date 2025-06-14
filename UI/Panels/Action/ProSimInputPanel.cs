@@ -23,18 +23,26 @@ namespace MobiFlight.UI.Panels.Action
         {
             ProSimInputAction inputAction = config as ProSimInputAction;
             proSimDatarefPanel1.Path = inputAction.Path;
-            textBox2.Text = inputAction.Expression;
+            proSimDatarefPanel1.TransformOptionsGroup.syncFromConfig(inputAction);
+            proSimDatarefPanel1.TransformOptionsGroup.ShowValuePanel(true);
+        }
 
+        public void Init(ExecutionManager executionManager)
+        {
+            proSimDatarefPanel1.Init(executionManager);
         }
 
         public InputAction ToConfig()
         {
-            return new ProSimInputAction
+            var action = new ProSimInputAction
             {
 
-                Path = proSimDatarefPanel1.Path.Trim(),
-                Expression = textBox2.Text.Trim(),
+                Path = proSimDatarefPanel1.Path.Trim()
             };
+
+            proSimDatarefPanel1.TransformOptionsGroup.syncToConfig(action);
+
+            return action;
         }
     }
 }
