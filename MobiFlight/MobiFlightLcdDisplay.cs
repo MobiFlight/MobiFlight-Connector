@@ -1,6 +1,7 @@
 ﻿using CommandMessenger;
 using MobiFlight.Base;
 using MobiFlight.OutputConfig;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace MobiFlight
         }
         
         private DeviceType _typeDeprecated = DeviceType.LcdDisplay;
+
+        [JsonIgnore]
         public DeviceType TypeDeprecated
         {
             get { return _typeDeprecated; }

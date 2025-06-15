@@ -9,6 +9,7 @@ namespace MobiFlight.Base
     public interface IDeviceConfig
     {
         string Type { get; }
+        [JsonIgnore]
         string OldType { get; }
         string Name { get; set; }
 
@@ -28,6 +29,7 @@ namespace MobiFlight.Base
         protected string _type = "NOTSET";
         public virtual string Type { get { return GetType().Name.ToString(); } }
 
+        [JsonIgnore]
         public virtual string OldType { get { return _type; } }
         public virtual string Name { get; set; }
 

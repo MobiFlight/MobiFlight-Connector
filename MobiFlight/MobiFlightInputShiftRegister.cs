@@ -1,5 +1,6 @@
 ﻿using CommandMessenger;
 using MobiFlight.Base;
+using Newtonsoft.Json;
 
 namespace MobiFlight
 {
@@ -68,6 +69,7 @@ namespace MobiFlight
             return eventAction;
         }
 
+        [JsonIgnore]
         public DeviceType TypeDeprecated
         {
             get { return _typeDeprecated; }

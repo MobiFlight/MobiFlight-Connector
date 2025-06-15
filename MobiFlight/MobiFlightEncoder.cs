@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using Newtonsoft.Json;
 
 namespace MobiFlight
 {
@@ -28,7 +29,7 @@ namespace MobiFlight
         {
             return new MobiFlightEncoder(this);
         }
-
+        [JsonIgnore]
         public DeviceType TypeDeprecated { get { return DeviceType.Encoder; } }
 
         public static string InputEventIdToString(int enumId)

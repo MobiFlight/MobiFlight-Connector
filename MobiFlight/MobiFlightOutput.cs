@@ -1,4 +1,5 @@
 ﻿using CommandMessenger;
+using Newtonsoft.Json;
 using System;
 
 namespace MobiFlight
@@ -16,6 +17,8 @@ namespace MobiFlight
 
 
         private DeviceType _type = DeviceType.Output;
+
+        [JsonIgnore]
         public DeviceType TypeDeprecated
         {
             get { return _type; }

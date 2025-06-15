@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using Newtonsoft.Json;
 
 namespace MobiFlight
 {
@@ -29,6 +30,7 @@ namespace MobiFlight
             return new MobiFlightButton(this);
         }
 
+        [JsonIgnore]
         public DeviceType TypeDeprecated { get { return DeviceType.Button; } }
 
         public static string InputEventIdToString(int enumId) {

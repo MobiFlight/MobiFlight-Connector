@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using Newtonsoft.Json;
 
 namespace MobiFlight 
 {
@@ -12,6 +13,7 @@ namespace MobiFlight
             CHANGE
         }
 
+        [JsonIgnore]
         public DeviceType TypeDeprecated { get { return DeviceType.AnalogInput; } }
 
         public MobiFlightAnalogInput()

@@ -1,8 +1,9 @@
-﻿using System;
+﻿using CommandMessenger;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CommandMessenger;
 
 namespace MobiFlight
 {
@@ -33,6 +34,7 @@ namespace MobiFlight
 
         private DeviceType _type = DeviceType.ShiftRegister;
 
+        [JsonIgnore]
         public DeviceType TypeDeprecated
         {
             get { return _type; }

@@ -1,12 +1,12 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Config;
 using MobiFlight.InputConfig;
-using System.Collections.Generic;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Reflection;
-using Newtonsoft.Json;
 
 namespace MobiFlight
 {
@@ -346,11 +346,6 @@ namespace MobiFlight
                     inputMultiplexer.AreEqual(item.inputMultiplexer) &&
                     Preconditions.Equals(item.Preconditions) &&
                     ConfigRefs.Equals(item.ConfigRefs);
-        }
-
-        protected override IDeviceConfig GetDeviceConfig()
-        { 
-            return _deviceConfig;
         }
     }
 }
