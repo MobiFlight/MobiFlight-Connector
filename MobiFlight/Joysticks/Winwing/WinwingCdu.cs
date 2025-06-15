@@ -175,7 +175,7 @@ namespace MobiFlight.Joysticks.Winwing
             int emptyLineCount = (ROWS - Math.Min(lines.Count, ROWS)) / 2;
             var linesToDisplay = Enumerable.Repeat(string.Empty, emptyLineCount).Concat(lines).ToList();          
 
-            var cduData = new CduChar[COLUMNS]; 
+            var cduData = new CduChar[CELLS]; 
             int currentIndex = 0;
 
             // Fill CduChar array
