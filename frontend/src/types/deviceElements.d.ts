@@ -1,24 +1,24 @@
 export type DeviceElementType =
-  | "Button"
+  | "MobiFlightButton"
   | "Output"
-  | "Encoder"
+  | "MobiFlightEncoder"
   | "LedModule"
   | "Display Module"
   | "Stepper"
   | "Servo"
   | "LcdDisplay"
   | "ShiftRegister"
-  | "AnalogInput"
-  | "InputShiftRegister"
-  | "InputMultiplexer"
+  | "MobiFlightAnalogInput"
+  | "MobiFlightInputShiftRegister"
+  | "MobiFlightInputMultiplexer"
   | "CustomDevice"
 
 export const DeviceElementTypes: DeviceElementType[] = [
-  "Button",
-  "Encoder",
-  "AnalogInput",
-  "InputShiftRegister",
-  "InputMultiplexer",
+  "MobiFlightButton",
+  "MobiFlightEncoder",
+  "MobiFlightAnalogInput",
+  "MobiFlightInputShiftRegister",
+  "MobiFlightInputMultiplexer",
   "Output",
   "LedModule",
   "Stepper",

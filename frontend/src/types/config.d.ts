@@ -39,7 +39,7 @@ export type ControllerType = "MobiFlight" | "Joystick" | "Midi" | "Unknown"
 export type ConfigItemType = "InputConfig" | "OutputConfig"
 
 export interface IDeviceConfig {
-  Type: string
+  Type: DeviceElementType | string
   Name: string
 }
 

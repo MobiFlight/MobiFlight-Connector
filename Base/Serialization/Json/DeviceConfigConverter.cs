@@ -14,9 +14,15 @@ namespace MobiFlight.Base.Serialization.Json
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var jsonObject = JObject.Load(reader);
-            var typeName = $"MobiFlight.OutputConfig.{(string)jsonObject["Type"]}";
+            var typeName = (string)jsonObject["Type"];
+
+            if (!typeName.StartsWith("MobiFlight."))
+            {
+                typeName = $"MobiFlight.{typeName}";
+            }
 
             var type = Type.GetType(typeName);
+
             if (type == null)
             {
                 throw new NotSupportedException($"Unknown type: {typeName}");

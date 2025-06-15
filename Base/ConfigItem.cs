@@ -64,14 +64,10 @@ namespace MobiFlight.Base
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Value { get; set; }
 
-
-        protected IDeviceConfig _deviceConfig = null;
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public virtual IDeviceConfig Device { get { return GetDeviceConfig(); } set { _deviceConfig = value; } }
+        public virtual IDeviceConfig Device { get; set; }
 
         public Dictionary<ConfigItemStatusType, string> Status { get; set; } = new Dictionary<ConfigItemStatusType, string>();
-
-        protected abstract IDeviceConfig GetDeviceConfig();
 
         protected virtual string GetConfigItemType()
         {
@@ -104,6 +100,7 @@ namespace MobiFlight.Base
             RawValue = item.RawValue?.Clone() as string;
             Value = item.Value?.Clone() as string;
             Status = new Dictionary<ConfigItemStatusType, string>(item.Status);
+            Device = item.Device?.Clone() as IDeviceConfig;
         }
 
         public virtual object Clone()
@@ -124,7 +121,8 @@ namespace MobiFlight.Base
                    ConfigRefs.Equals(item.ConfigRefs) &&
                    RawValue == item.RawValue &&
                    Value == item.Value &&
-                   Status.SequenceEqual(item.Status);
+                   Status.SequenceEqual(item.Status) &&
+                   Device.AreEqual(item.Device);
         }
     }
 }

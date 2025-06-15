@@ -22,8 +22,6 @@ namespace MobiFlight
         public Source Source { get; set; }
         public ConnectorValue       TestValue                   { get; set; }
 
-        public override IDeviceConfig Device { get; set; }
-
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputConfig.ButtonInputConfig ButtonInputConfig { get; set; }
 
@@ -48,10 +46,8 @@ namespace MobiFlight
             if (!base.Equals(obj)) return false;
 
             return (
-                Device.AreEqual(item.Device) &&
                 Source.AreEqual(item.Source) &&
                 TestValue.AreEqual(item.TestValue) &&
-                Device.AreEqual(item.Device) &&
                 ButtonInputConfig.AreEqual(item.ButtonInputConfig) &&
                 AnalogInputConfig.AreEqual(item.AnalogInputConfig)
             );
@@ -340,11 +336,6 @@ namespace MobiFlight
         public override Base.IConfigItem Duplicate()
         {
             return new OutputConfigItem(this) { GUID = System.Guid.NewGuid().ToString() };
-        }
-
-        protected override IDeviceConfig GetDeviceConfig()
-        {
-            return Device;
         }
     }
 }

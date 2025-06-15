@@ -40,15 +40,15 @@ const DeviceIcon = (props: DeviceIconProps) => {
     icon = <IconGauge className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
   } else if (shortType === "Servo") {
     icon = <IconDashboard className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
-  }else if (shortType === "Button") {
+  }else if (shortType === "MobiFlightButton") {
     icon = <IconPower className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) }/>;
-  } else if (shortType === "Encoder") {
+  } else if (shortType === "MobiFlightEncoder") {
     icon = <IconRefreshDot className={cn("stroke-teal-600", disabled?"stroke-slate-400":"", className) }/>;
-  } else if (shortType === "AnalogInput") {
+  } else if (shortType === "MobiFlightAnalogInput") {
     icon = <IconDeviceAnalog className={cn("stroke-teal-600 fill-teal-600 stroke-2", disabled?"stroke-slate-400 fill-slate-400":"", className) }/>;
-  } else if (shortType === "InputShiftRegister") {
+  } else if (shortType === "MobiFlightInputShiftRegister") {
     icon = <IconDeviceInputShifter className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
-  } else if (shortType === "InputMultiplexer") {
+  } else if (shortType === "MobiFlightInputMultiplexer") {
     icon = <IconDeviceInputMultiplexer className={cn("stroke-teal-600 fill-teal-600", disabled?"stroke-slate-400 fill-slate-400":"", className) } />;
   } else if (shortType === "CustomDevice") {
     icon = <IconBox className={cn("stroke-pink-600", disabled?"stroke-slate-400":"", className) } />;
