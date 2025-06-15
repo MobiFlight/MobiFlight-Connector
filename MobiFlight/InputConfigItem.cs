@@ -29,7 +29,6 @@ namespace MobiFlight
         public InputMultiplexerConfig inputMultiplexer { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnalogInputConfig analog { get; set; }
-        public string DeviceName { get; set; }
 
         public InputConfigItem()
         {
@@ -252,13 +251,12 @@ namespace MobiFlight
 
         public InputConfigItem(InputConfigItem config) : base(config)
         {
-            this.button = (ButtonInputConfig)config.button?.Clone();
-            this.encoder = (EncoderInputConfig)config.encoder?.Clone();
-            this.inputShiftRegister = (InputShiftRegisterConfig)config.inputShiftRegister?.Clone();
-            this.inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
-            this.analog = (AnalogInputConfig)config.analog?.Clone();
-            this.DeviceName = config.DeviceName?.Clone() as string;
-            this.Device = config.Device?.Clone() as IDeviceConfig;
+            button = (ButtonInputConfig)config.button?.Clone();
+            encoder = (EncoderInputConfig)config.encoder?.Clone();
+            inputShiftRegister = (InputShiftRegisterConfig)config.inputShiftRegister?.Clone();
+            inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
+            analog = (AnalogInputConfig)config.analog?.Clone();
+            Device = config.Device?.Clone() as IDeviceConfig;
         }
 
         public override object Clone()

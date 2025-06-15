@@ -152,12 +152,12 @@ namespace MobiFlight.Execution
 
                     if (cfg.ModuleSerial != null &&
                         cfg.ModuleSerial.Contains("/ " + e.Serial) &&
-                       (cfg.DeviceName == e.DeviceId ||
+                       (cfg.Device?.Name == e.DeviceId ||
                        // for backward compatibility we have to make this check
                        // because we used to have the label in the config
                        // but now we want to store the internal button identifier
                        // so that the label can change any time without breaking the config
-                       (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.DeviceName == e.DeviceLabel)))
+                       (Joystick.IsJoystickSerial(cfg.ModuleSerial) && cfg.Device?.Name == e.DeviceLabel)))
                     {
                         // Input shift registers have an additional check to see if the pin that changed matches the pin
                         // assigned to the row. If not just skip this row. Without this every row that uses the input shift register

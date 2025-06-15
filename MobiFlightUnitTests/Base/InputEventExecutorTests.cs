@@ -74,12 +74,13 @@ namespace MobiFlight.Execution.Tests
 
         private InputConfigItem CreateInputConfigItemWithButton(string name, string moduleSerial, string deviceName, bool active, string command)
         {
+            var device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
+            device.Name = deviceName; // Set the device name
             return new InputConfigItem
             {
                 Active = active,
                 ModuleSerial = moduleSerial,
-                DeviceName = deviceName,
-                Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE),
+                Device = device,
                 Name = name,
                 button = new ButtonInputConfig()
                 {
@@ -135,11 +136,16 @@ namespace MobiFlight.Execution.Tests
                 DeviceId = "Device1"
             };
 
+            var button = new MobiFlightButton
+            {
+                Name = "Device1"
+            };
+
             var inactiveConfigItem = new InputConfigItem
             {
                 Active = false,
                 ModuleSerial = "/ 123",
-                DeviceName = "Device1",
+                Device = button,
                 Name = "TestConfig"
             };
 
@@ -169,11 +175,16 @@ namespace MobiFlight.Execution.Tests
                 Value = 1
             };
 
+            var button = new MobiFlightButton
+            {
+                Name = "Device1"
+            };
+
             var activeConfigItem = new InputConfigItem
             {
                 Active = true,
                 ModuleSerial = "/ 123",
-                DeviceName = "Device1",
+                Device = button,
                 Name = "TestConfig"
             };
 
@@ -285,12 +296,17 @@ namespace MobiFlight.Execution.Tests
                 DeviceId = "Device1",
                 Value = 1
             };
+            
+            var button = new MobiFlightButton
+            {
+                Name = "Device1"
+            };
 
             var configItem = new InputConfigItem
             {
                 Active = true,
                 ModuleSerial = "/ 123",
-                DeviceName = "Device1",
+                Device = button,
                 Name = "TestConfig",
                 Preconditions = new PreconditionList()
                 {
@@ -330,11 +346,16 @@ namespace MobiFlight.Execution.Tests
                 Value = 1
             };
 
+            var button = new MobiFlightButton
+            {
+                Name = "Device1"
+            };
+
             var activeConfigItem = new InputConfigItem
             {
                 Active = true,
                 ModuleSerial = "/ 123",
-                DeviceName = "Device1",
+                Device = button,
                 Name = "TestConfig"
             };
 

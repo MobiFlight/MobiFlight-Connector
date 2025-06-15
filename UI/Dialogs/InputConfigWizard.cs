@@ -288,10 +288,10 @@ namespace MobiFlight.UI.Dialogs
             }
 
             // second tab
-            if (config.DeviceName != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.DeviceName))
+            if (config.Device?.Name != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.Device.Name))
             {
                 // TODO: provide error message
-                Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.DeviceName}", LogSeverity.Error);
+                Log.Instance.log($"Exception on selecting item in input type ComboBox. {config.Device.Name}", LogSeverity.Error);
             }
 
             preconditionPanel.syncFromConfig(config);
@@ -335,7 +335,7 @@ namespace MobiFlight.UI.Dialogs
 
             IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
             if (device.Label != InputConfigItem.TYPE_NOTSET)
-                config.DeviceName = device.Name;
+                config.Device.Name = device.Name;
 
             DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
 
@@ -376,7 +376,7 @@ namespace MobiFlight.UI.Dialogs
                     break;
 
                 case DeviceType.NotSet:
-                    config.DeviceName = InputConfigItem.TYPE_NOTSET;
+                    config.Device.Name = InputConfigItem.TYPE_NOTSET;
                     break;
             }
 
@@ -447,7 +447,7 @@ namespace MobiFlight.UI.Dialogs
 
                     if (device != null)
                     {
-                        device.Name = config.DeviceName;
+                        device.Name = config.Device.Name;
                         inputTypeComboBox.Items.Add(new ListItem<IBaseDevice>() { Label = device.Label, Value = device });
                     }
                     inputTypeComboBox.Enabled = false;
@@ -511,9 +511,9 @@ namespace MobiFlight.UI.Dialogs
                 }
 
                 // third tab
-                if (config.DeviceName != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.DeviceName))
+                if (config.Device?.Name != null && !ComboBoxHelper.SetSelectedDeviceByDeviceName(inputTypeComboBox, config.Device.Name))
                 {
-                    Log.Instance.log($"Problem setting input type ComboBox. {config.DeviceName}", LogSeverity.Error);
+                    Log.Instance.log($"Problem setting input type ComboBox. {config.Device.Name}", LogSeverity.Error);
                 }
             }
             catch (Exception ex)
