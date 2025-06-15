@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MobiFlight
 {
-    public class MobiFlightLcdDisplay : DeviceConfig, IConnectedDevice
+    public class MobiFlightLcdDisplay : IConnectedDevice
     {
         public const string TYPE = "LcdDisplay";
         
@@ -17,7 +17,7 @@ namespace MobiFlight
         public int Lines    { get; set; }
 
         private String _name = "Lcd Display";
-        public override String Name
+        public String Name
         {
             get { return _name; }
             set { _name = value; }
@@ -132,7 +132,7 @@ namespace MobiFlight
             return;
         }
 
-        public override object Clone()
+        public object Clone()
         {
             return new MobiFlightLcdDisplay
             {
