@@ -278,27 +278,31 @@ namespace MobiFlight
             Modifiers.WriteXml(writer);
 
             writer.WriteStartElement("display");
-                writer.WriteAttributeString("type", Device.OldType);
-                writer.WriteAttributeString("serial", ModuleSerial);
 
-            if (Device != null)
-            {
-                Device.WriteXml(writer);
-            } else
-            {
-                if (ButtonInputConfig != null)
+                if (Device != null)
                 {
-                    writer.WriteStartElement("button");
-                    ButtonInputConfig.WriteXml(writer);
-                    writer.WriteEndElement();
-                }
-                else if (AnalogInputConfig != null)
+                    writer.WriteAttributeString("type", Device.OldType);
+                    writer.WriteAttributeString("serial", ModuleSerial);
+                    Device.WriteXml(writer);
+                } else
                 {
-                    writer.WriteStartElement("analog");
-                    AnalogInputConfig.WriteXml(writer);
-                    writer.WriteEndElement();
+                    writer.WriteAttributeString("type", DeviceConfig.TYPE_OUTPUT_NOTSET);
+                    writer.WriteAttributeString("serial", ModuleSerial);
+
+                    if (ButtonInputConfig != null)
+                    {
+                        writer.WriteStartElement("button");
+                        ButtonInputConfig.WriteXml(writer);
+                        writer.WriteEndElement();
+                    }
+                    else if (AnalogInputConfig != null)
+                    {
+                        writer.WriteStartElement("analog");
+                        AnalogInputConfig.WriteXml(writer);
+                        writer.WriteEndElement();
+                    }
                 }
-            }
+                
                     
             writer.WriteEndElement(); // end of display
 

@@ -20,6 +20,11 @@ namespace MobiFlight.Base
 
     public abstract class DeviceConfig : IDeviceConfig
     {
+        // part of temporary refactoring
+        // was originally in InputConfigItem
+        public const string TYPE_INPUT_NOTSET = "-";
+        public const string TYPE_OUTPUT_NOTSET = "";
+
         protected string _type = "NOTSET";
         public virtual string Type { get { return GetType().Name.ToString(); } }
 
@@ -42,6 +47,14 @@ namespace MobiFlight.Base
             {
                 writer.WriteAttributeString("name", Name);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is DeviceConfig)) return false;
+            DeviceConfig other = obj as DeviceConfig;
+            return this.Type == other.Type &&
+                   this.Name == other.Name;
         }
     }
 }

@@ -222,6 +222,7 @@ namespace MobiFlight
                 }
             } else
             {
+                writer.WriteAttributeString("name", "");
                 writer.WriteAttributeString("type", InputConfigItem.TYPE_NOTSET);
             }
 
