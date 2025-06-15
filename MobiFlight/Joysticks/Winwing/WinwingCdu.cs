@@ -16,7 +16,9 @@ namespace MobiFlight.Joysticks.Winwing
         private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
         private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
 
-        private const int LINE_LENGTH = 24;
+        private const int COLUMNS = 24;
+        private const int ROWS = 14;
+        private const int CELLS = COLUMNS * ROWS;
 
         public WinwingCdu(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
@@ -129,10 +131,10 @@ namespace MobiFlight.Joysticks.Winwing
                 for (int i = 1; i < tokens.Length; i++)
                 {
                     string token = tokens[i];
-                    token = token.Length > LINE_LENGTH ? token.Substring(0, LINE_LENGTH) : token;
+                    token = token.Length > COLUMNS ? token.Substring(0, COLUMNS) : token;
 
                     // Does not fit
-                    if (currentLine.Length + token.Length + 1 > LINE_LENGTH)
+                    if (currentLine.Length + token.Length + 1 > COLUMNS)
                     {
                         lines.Add(currentLine.ToString());
                         currentLine.Clear();
@@ -170,18 +172,18 @@ namespace MobiFlight.Joysticks.Winwing
         private void SendToDisplay(IList<string> lines)
         {
             // Center vertically          
-            int emptyLineCount = (14 - Math.Min(lines.Count, 14)) / 2;
+            int emptyLineCount = (ROWS - Math.Min(lines.Count, ROWS)) / 2;
             var linesToDisplay = Enumerable.Repeat(string.Empty, emptyLineCount).Concat(lines).ToList();          
 
-            var cduData = new CduChar[336]; // 14 * 24
+            var cduData = new CduChar[COLUMNS]; 
             int currentIndex = 0;
 
             // Fill CduChar array
             for (int i = 0; i < linesToDisplay.Count; i++)
             {
                 string currentLine = linesToDisplay[i];
-                int padLeft = (LINE_LENGTH - currentLine.Length) / 2 + currentLine.Length;
-                string paddedLine = currentLine.PadLeft(padLeft).PadRight(LINE_LENGTH); ;                
+                int padLeft = (COLUMNS - currentLine.Length) / 2 + currentLine.Length;
+                string paddedLine = currentLine.PadLeft(padLeft).PadRight(COLUMNS); ;                
 
                 for (int j = 0; j < paddedLine.Length; j++)
                 {
