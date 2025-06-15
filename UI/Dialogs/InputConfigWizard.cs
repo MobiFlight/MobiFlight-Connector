@@ -1,5 +1,6 @@
 ﻿using MobiFlight.Base;
 using MobiFlight.Config;
+using MobiFlight.InputConfig;
 using MobiFlight.UI.Panels.Config;
 using MobiFlight.UI.Panels.Input;
 using System;
@@ -334,8 +335,9 @@ namespace MobiFlight.UI.Dialogs
             if (config.ModuleSerial == "-") return true;
 
             IBaseDevice device = ((ListItem<IBaseDevice>)inputTypeComboBox.SelectedItem).Value;
-            if (device.Label != InputConfigItem.TYPE_NOTSET)
-                config.Device.Name = device.Name;
+            var inputDevice = InputDeviceConfigFactory.CreateFromType(device.Type.ToString());
+            inputDevice.Name = device.Name;
+            config.Device = inputDevice;
 
             DeviceType currentInputType = determineCurrentDeviceType(SerialNumber.ExtractSerial(config.ModuleSerial));
 
