@@ -14,6 +14,7 @@ namespace MobiFlight.UI.Panels.Input
         public event EventHandler<EventArgs> OnPanelChanged;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         ButtonInputConfig _config;
+        private IExecutionManager _executionManager;
 
         Dictionary<ActionTypePanel, string> ActionTypePanelsToActionNames = new Dictionary<ActionTypePanel, string>();
         Dictionary<ActionTypePanel, Panel> ActionTypePanelsToOwnerPanels = new Dictionary<ActionTypePanel, Panel>();
@@ -80,6 +81,11 @@ namespace MobiFlight.UI.Panels.Input
             }
         }
 
+        public void Init(IExecutionManager executionManager)
+        {
+            _executionManager = executionManager;
+        }
+
         private void Action_CopyButtonPressed(object sender, EventArgs e)
         {
             ButtonInputConfig config = new ButtonInputConfig();
@@ -129,6 +135,10 @@ namespace MobiFlight.UI.Panels.Input
                 else if (inputLabel == VariableInputAction.Label)
                 {
                     ((dynamic)panel).SetVariableReferences(Variables);
+                }
+                else if (inputLabel == ProSimInputAction.Label)
+                {
+                    (panel as ProSimInputPanel).Init(_executionManager);
                 }
 
                 // Sync data from config for inputAction

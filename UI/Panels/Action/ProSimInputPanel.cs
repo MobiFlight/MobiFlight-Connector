@@ -27,7 +27,7 @@ namespace MobiFlight.UI.Panels.Action
             proSimDatarefPanel1.TransformOptionsGroup.ShowValuePanel(true);
         }
 
-        public void Init(ExecutionManager executionManager)
+        public void Init(IExecutionManager executionManager)
         {
             proSimDatarefPanel1.Init(executionManager);
         }
@@ -43,6 +43,11 @@ namespace MobiFlight.UI.Panels.Action
             proSimDatarefPanel1.TransformOptionsGroup.syncToConfig(action);
 
             return action;
+        }
+
+        private void proSimDatarefPanel1_Load(object sender, EventArgs e)
+        {
+            proSimDatarefPanel1.LoadDataRefDescriptions();
         }
     }
 }

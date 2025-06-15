@@ -15,8 +15,9 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class EncoderPanel : UserControl
     {
-        InputConfig.EncoderInputConfig _config;
-        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
+        private InputConfig.EncoderInputConfig _config;
+        private IExecutionManager _executionManager;
+        private Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         public new bool Enabled
         {
             get { return onLeftActionTypePanel.Enabled; }
@@ -69,6 +70,11 @@ namespace MobiFlight.UI.Panels.Input
             {
                 clipBoardActionChanged(Clipboard.Instance.InputAction);
             }
+        }
+
+        public void Init(IExecutionManager executionManager)
+        {
+            _executionManager = executionManager;
         }
 
         private void Action_PasteButtonPressed(object sender, EventArgs e)
@@ -310,7 +316,7 @@ namespace MobiFlight.UI.Panels.Input
 
                 case ProSimInputAction.Label:
                     panel = new ProSimInputPanel();
-                    (panel as ProSimInputPanel).Init(executionManager);
+                    (panel as ProSimInputPanel).Init(_executionManager);
                     if (isLeft && !isFast && config != null && config.onLeft != null)
                         (panel as ProSimInputPanel).syncFromConfig(config.onLeft as ProSimInputAction);
                     else if (isLeft && isFast && config != null && config.onLeftFast != null)

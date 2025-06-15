@@ -4,6 +4,7 @@ using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.ProSim;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -20,6 +21,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
+        ProSimCache GetProSimCache();
         MidiBoardManager GetMidiBoardManager();
         // Add other methods and properties as needed
     }

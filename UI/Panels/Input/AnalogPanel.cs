@@ -16,7 +16,7 @@ namespace MobiFlight.UI.Panels.Input
         public event EventHandler<EventArgs> OnPanelChanged;
         InputConfig.AnalogInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
-        private ExecutionManager _executionManager;
+        private IExecutionManager _executionManager;
 
         public new bool Enabled
         {
@@ -36,7 +36,7 @@ namespace MobiFlight.UI.Panels.Input
             onChangeActionTypePanel.CopyPasteFeatureActive(false);
         }
 
-        public void Init(ExecutionManager executionManager)
+        public void Init(IExecutionManager executionManager)
         {
             _executionManager = executionManager;
         }

@@ -16,7 +16,7 @@ namespace MobiFlight.UI.Panels.Config
         private List<DataRefDescription> _canReadDataRefDescriptions;
         private List<DataRefDescription> _canReadDataRefDescriptionsFiltered;
 
-        private ExecutionManager _executionManager;
+        private IExecutionManager _executionManager;
 
         [Description("ProSim DataRef Path"), Category("Data")]
         public string Path
@@ -41,7 +41,7 @@ namespace MobiFlight.UI.Panels.Config
 
         }
 
-        public void Init(ExecutionManager executionManager)
+        public void Init(IExecutionManager executionManager)
         {
             _executionManager = executionManager;
         }

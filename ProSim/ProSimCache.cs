@@ -77,7 +77,6 @@ namespace MobiFlight.ProSim
 
                 RefreshDataDefinitions();
 
-                Log.Instance.log("Connected to ProSim", LogSeverity.Info);
                 return true;
             }
             catch (Exception ex)

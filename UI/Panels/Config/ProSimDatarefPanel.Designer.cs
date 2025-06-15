@@ -71,7 +71,7 @@ namespace MobiFlight.UI.Panels.Config
             this.simProGroupBox1.Location = new System.Drawing.Point(3, 3);
             this.simProGroupBox1.Name = "simProGroupBox1";
             this.simProGroupBox1.Padding = new System.Windows.Forms.Padding(0);
-            this.simProGroupBox1.Size = new System.Drawing.Size(612, 347);
+            this.simProGroupBox1.Size = new System.Drawing.Size(612, 302);
             this.simProGroupBox1.TabIndex = 7;
             this.simProGroupBox1.TabStop = false;
             this.simProGroupBox1.Text = "SimPro";
@@ -82,7 +82,7 @@ namespace MobiFlight.UI.Panels.Config
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Location = new System.Drawing.Point(6, 83);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(603, 248);
+            this.panel1.Size = new System.Drawing.Size(603, 203);
             this.panel1.TabIndex = 10;
             // 
             // dataGridView1
@@ -105,7 +105,7 @@ namespace MobiFlight.UI.Panels.Config
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(603, 248);
+            this.dataGridView1.Size = new System.Drawing.Size(603, 203);
             this.dataGridView1.TabIndex = 7;
             this.dataGridView1.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_RowEnter);
             // 
@@ -154,7 +154,7 @@ namespace MobiFlight.UI.Panels.Config
             this.transformOptionsGroup1.AutoSize = true;
             this.transformOptionsGroup1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.transformOptionsGroup1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.transformOptionsGroup1.Location = new System.Drawing.Point(0, 337);
+            this.transformOptionsGroup1.Location = new System.Drawing.Point(0, 306);
             this.transformOptionsGroup1.MinimumSize = new System.Drawing.Size(350, 0);
             this.transformOptionsGroup1.Name = "transformOptionsGroup1";
             this.transformOptionsGroup1.Size = new System.Drawing.Size(618, 81);
@@ -168,7 +168,7 @@ namespace MobiFlight.UI.Panels.Config
             this.Controls.Add(this.simProGroupBox1);
             this.Controls.Add(this.transformOptionsGroup1);
             this.Name = "ProSimDatarefPanel";
-            this.Size = new System.Drawing.Size(618, 418);
+            this.Size = new System.Drawing.Size(618, 387);
             this.simProGroupBox1.ResumeLayout(false);
             this.simProGroupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);

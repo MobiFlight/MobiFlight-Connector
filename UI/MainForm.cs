@@ -657,6 +657,15 @@ namespace MobiFlight.UI
 
         private void UpdateAllConnectionIcons()
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(UpdateAllConnectionIconsAction));
+            }
+            UpdateAllConnectionIconsAction();
+        }
+
+        private void UpdateAllConnectionIconsAction()
+        {
             UpdateSimStatusIcon();
             UpdateSimConnectStatusIcon();
             UpdateXplaneDirectConnectStatusIcon();

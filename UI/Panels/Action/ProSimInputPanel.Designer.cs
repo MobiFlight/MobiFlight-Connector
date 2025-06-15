@@ -40,6 +40,7 @@
             this.proSimDatarefPanel1.Path = "";
             this.proSimDatarefPanel1.Size = new System.Drawing.Size(602, 385);
             this.proSimDatarefPanel1.TabIndex = 0;
+            this.proSimDatarefPanel1.Load += new System.EventHandler(this.proSimDatarefPanel1_Load);
             // 
             // ProSimInputPanel
             // 
