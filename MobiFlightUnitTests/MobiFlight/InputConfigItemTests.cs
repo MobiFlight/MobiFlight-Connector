@@ -43,9 +43,9 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
-            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
+            Assert.AreEqual(o.Device.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.Device.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.Device.OldType, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
@@ -63,8 +63,8 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
-            Assert.AreEqual(o.Device.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.Device.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.Device.OldType, "Button", "Type not the same");
             Assert.IsNull(o.button.onPress, "button onpress not null");
             Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
             Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
@@ -86,8 +86,8 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
-            Assert.AreEqual(o.Device.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.Device.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.Device.OldType, "Button", "Type not the same");
             Assert.IsNull(o.inputShiftRegister.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputShiftRegister.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -104,8 +104,8 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual(o.ModuleSerial, "TestSerial", "ModuleSerial not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
-            Assert.AreEqual(o.DeviceName, "TestName", "Name not the same");
-            Assert.AreEqual(o.Device.Type, "Button", "Type not the same");
+            Assert.AreEqual(o.Device.Name, "TestName", "Name not the same");
+            Assert.AreEqual(o.Device.OldType, "Button", "Type not the same");
             Assert.IsNull(o.inputMultiplexer.onPress, "button onpress not null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.inputMultiplexer.onRelease as JeehellInputAction, "OnRelease is not of type JeehellInputAction");
@@ -121,7 +121,7 @@ namespace MobiFlight.Tests
             o.ReadXml(xmlReader);
 
             Assert.AreEqual(o.ModuleSerial, "737PEDESTAL1/ SN-769-a6a", "ModuleSerial not the same");
-            Assert.AreEqual(o.DeviceName, "Analog 67 A13", "Name not the same");
+            Assert.AreEqual(o.Device.Name, "Analog 67 A13", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 1, "Preconditions Count not the same");
             Assert.AreEqual(o.ConfigRefs.Count, 1, "Config ref count is not correct");
         }

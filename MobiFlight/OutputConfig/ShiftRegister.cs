@@ -14,6 +14,7 @@ namespace MobiFlight.OutputConfig
 
         public ShiftRegister()
         {
+            _type = MobiFlightShiftRegister.TYPE; // set the type to MobiFlightShiftRegister.TYPE for backward compatibility
             Address = "";
             Pin = "";
         }
@@ -31,7 +32,7 @@ namespace MobiFlight.OutputConfig
                 ;
         }
 
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
 
             if (reader["registerOutputPin"] != null && reader["registerOutputPin"] != "")
@@ -57,7 +58,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("shiftRegister", Address);
             writer.WriteAttributeString("registerOutputPin", Pin);

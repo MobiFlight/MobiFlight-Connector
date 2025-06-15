@@ -1,5 +1,7 @@
-﻿using MobiFlight.Base.Serialization.Json;
+﻿using Device.Net;
+using MobiFlight.Base.Serialization.Json;
 using Newtonsoft.Json;
+using System.Xml;
 
 namespace MobiFlight.Base
 {
@@ -11,6 +13,9 @@ namespace MobiFlight.Base
         string Name { get; }
 
         object Clone();
+
+        void ReadXml(XmlReader reader);
+        void WriteXml(XmlWriter writer);
     }
 
     public abstract class DeviceConfig : IDeviceConfig
@@ -22,5 +27,21 @@ namespace MobiFlight.Base
         public virtual string Name { get; set; }
 
         abstract public object Clone();
+
+        public virtual void ReadXml(XmlReader reader) {
+            // This name is only present with input devices
+            // and it is in the wrong place.
+            Name = reader["name"];
+        }
+
+        public virtual void WriteXml(XmlWriter writer)
+        {
+            // This name is only present with input devices
+            // and it is in the wrong place.
+            if (!string.IsNullOrEmpty(Name))
+            {
+                writer.WriteAttributeString("name", Name);
+            }
+        }
     }
 }

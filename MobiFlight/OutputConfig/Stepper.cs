@@ -10,7 +10,7 @@ namespace MobiFlight.OutputConfig
     {
         public override string Name { get { return Address; } }
 
-        // public const string Type = "Stepper";
+        public const string DeprecatedType = "Stepper";
         public String Address { get; set; }
         public Int16 InputRev { get; set; }
         public Int16 TestValue { get; set; }
@@ -21,6 +21,7 @@ namespace MobiFlight.OutputConfig
 
         public Stepper()
         {
+            _type = DeprecatedType;
             Address = "";
             InputRev = 0;
             OutputRev = 0;
@@ -62,7 +63,7 @@ namespace MobiFlight.OutputConfig
             return null;
         }
 
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             // ignore empty values
             if (reader["stepperAddress"] != null && reader["stepperAddress"] != "")
@@ -102,7 +103,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("stepperAddress", Address);
             writer.WriteAttributeString("stepperInputRev", InputRev.ToString());

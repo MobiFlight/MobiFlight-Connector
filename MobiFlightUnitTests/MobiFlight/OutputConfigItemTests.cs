@@ -135,7 +135,7 @@ namespace MobiFlight.Tests
             xmlReader = System.Xml.XmlReader.Create(sr, settings);
             oci = new OutputConfigItem();
             oci.ReadXml(xmlReader);
-            Assert.AreEqual("Display Module", oci.DeviceType, "Display Type not Display Module");
+            Assert.AreEqual("Display Module", oci.Device.OldType, "Display Type not Display Module");
             Assert.AreEqual(true, oci.Modifiers.Interpolation.Active, "AnalogInputConfig.onPress null");
             Assert.AreEqual(5, oci.Modifiers.Interpolation.Count, "Interpolation Count is not 5");
         }
@@ -208,10 +208,10 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Modifiers.Comparison.ElseValue, c.Modifiers.Comparison.ElseValue, "clone: ComparisonElseValue not the same");
             Assert.AreEqual(o.Modifiers.Interpolation.Count, c.Modifiers.Interpolation.Count, "clone: Interpolation count not right");
 
-            Assert.AreEqual(o.DeviceType, c.DeviceType, "clone: DisplayType not the same");
+            Assert.AreEqual(o.Device.OldType, c.Device.OldType, "clone: DisplayType not the same");
             Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "clone: DisplaySerial not the same");
 
-            if (o.DeviceType == MobiFlight.DeviceType.Output.ToString("F"))
+            if (o.Device.OldType == MobiFlight.DeviceType.Output.ToString("F"))
             {
                 Assert.AreEqual((o.Device as Output).DisplayPin, (c.Device as Output).DisplayPin, "clone: DisplayPin not the same");
                 Assert.AreEqual((o.Device as Output).DisplayPinBrightness, (c.Device as Output).DisplayPinBrightness, "clone: DisplayPinBrightness not the same");
@@ -311,13 +311,11 @@ namespace MobiFlight.Tests
             o.Modifiers.Comparison.IfValue = "2";
             o.Modifiers.Comparison.ElseValue = "3";
 
-            o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
             o.ModuleSerial = "Ser123";
 
             switch (deviceType)
             {
                 case "Display":
-                    o.DeviceType = MobiFlight.DeviceType.Output.ToString("F");
                     o.Device = new Output()
                     {
                         DisplayPin = "A01",
@@ -327,7 +325,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "LedModule":
-                    o.DeviceType = MobiFlight.DeviceType.LedModule.ToString("F");
                     o.Device = new LedModule()
                     {
                         DisplayLedConnector = 2,
@@ -343,7 +340,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "Servo":
-                    o.DeviceType = MobiFlight.DeviceType.Servo.ToString("F");
                     o.Device = new Servo()
                     {
                         Address = "A2",
@@ -354,7 +350,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "ShiftRegister":
-                    o.DeviceType = MobiFlight.DeviceType.ShiftRegister.ToString("F");
                     o.Device = new ShiftRegister()
                     {
                         Address = "ShiftRegister",
@@ -363,7 +358,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "Stepper":
-                    o.DeviceType = MobiFlight.DeviceType.Stepper.ToString("F");
                     o.Device = new Stepper()
                     {
                         Address = "S22",
@@ -375,7 +369,6 @@ namespace MobiFlight.Tests
                     break;
 
                 case "CustomDevice":
-                    o.DeviceType = MobiFlight.DeviceType.CustomDevice.ToString("F");
                     o.Device = new CustomDevice()
                     {
                         CustomType = "TestCustomType",
@@ -449,7 +442,7 @@ namespace MobiFlight.Tests
 
             o2 = _generateConfigItem("Servo");
             Assert.IsTrue(o1.Equals(o2));
-            o2.DeviceType = "nonsense";
+            o1.Device = null;
             Assert.IsFalse(o1.Equals(o2));
 
 

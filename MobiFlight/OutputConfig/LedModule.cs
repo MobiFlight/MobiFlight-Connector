@@ -22,6 +22,7 @@ namespace MobiFlight.OutputConfig
 
         public LedModule()
         {
+            _type = MobiFlightLedModule.TYPE; // set the type to MobiFlightLedModule.TYPE for backward compatibility
             DisplayLedConnector = 1;
             DisplayLedAddress = "0";
             DisplayLedPadding = false;
@@ -77,7 +78,7 @@ namespace MobiFlight.OutputConfig
                 (pointsAreEqual);
         }
 
-        internal void XmlRead(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             if (reader["ledAddress"] != null && reader["ledAddress"] != "")
             {
@@ -126,7 +127,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        internal void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("ledAddress", DisplayLedAddress);
             writer.WriteAttributeString("ledConnector", DisplayLedConnector.ToString());

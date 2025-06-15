@@ -75,13 +75,11 @@ namespace MobiFlight
         public virtual void ReadXml(XmlReader reader)
         {
             ModuleSerial = reader["serial"];
-            // This name is only present with input devices
-            // and it is in the wrong place.
-            DeviceName = reader["name"];
             
             if (reader["type"] != null && reader["type"] != "")
             {
                 Device = InputDeviceConfigFactory.CreateFromType(reader["type"]);
+                Device.ReadXml(reader);
             }
 
             reader.Read(); // this should be the button or encoder
@@ -184,43 +182,50 @@ namespace MobiFlight
             }
 
             writer.WriteAttributeString("serial", this.ModuleSerial);
-            writer.WriteAttributeString("name", this.DeviceName);
-            writer.WriteAttributeString("type", this.Device?.OldType ?? InputConfigItem.TYPE_NOTSET);
 
-            if (this.Device?.OldType == MobiFlightButton.TYPE && button != null)
+            if (this.Device != null) { 
+                writer.WriteAttributeString("name", this.Device.Name);
+                writer.WriteAttributeString("type", this.Device.OldType);
+                if (this.Device.OldType == MobiFlightButton.TYPE && button != null)
+                {
+                    writer.WriteStartElement("button");
+                    button.WriteXml(writer);
+                    writer.WriteEndElement();
+                }
+
+                if (this.Device.OldType == MobiFlightEncoder.TYPE && encoder != null)
+                {
+                    writer.WriteStartElement("encoder");
+                    encoder.WriteXml(writer);
+                    writer.WriteEndElement();
+                }
+
+                if (this.Device.OldType == MobiFlightInputShiftRegister.TYPE && inputShiftRegister != null)
+                {
+                    writer.WriteStartElement("inputShiftRegister");
+                    inputShiftRegister.WriteXml(writer);
+                    writer.WriteEndElement();
+                }
+
+                if (this.Device.OldType == MobiFlightInputMultiplexer.TYPE && inputMultiplexer != null)
+                {
+                    writer.WriteStartElement("inputMultiplexer");
+                    inputMultiplexer.WriteXml(writer);
+                    writer.WriteEndElement();
+                }
+
+                if (this.Device.OldType == MobiFlightAnalogInput.TYPE && analog != null)
+                {
+                    writer.WriteStartElement("analog");
+                    analog.WriteXml(writer);
+                    writer.WriteEndElement();
+                }
+            } else
             {
-                writer.WriteStartElement("button");
-                button.WriteXml(writer);
-                writer.WriteEndElement();
+                writer.WriteAttributeString("type", InputConfigItem.TYPE_NOTSET);
             }
 
-            if (this.Device?.OldType == MobiFlightEncoder.TYPE && encoder != null)
-            {
-                writer.WriteStartElement("encoder");
-                encoder.WriteXml(writer);
-                writer.WriteEndElement();
-            }
-
-            if (this.Device?.OldType == MobiFlightInputShiftRegister.TYPE && inputShiftRegister != null)
-            {
-                writer.WriteStartElement("inputShiftRegister");
-                inputShiftRegister.WriteXml(writer);
-                writer.WriteEndElement();
-            }
-
-            if (this.Device?.OldType == MobiFlightInputMultiplexer.TYPE && inputMultiplexer != null)
-            {
-                writer.WriteStartElement("inputMultiplexer");
-                inputMultiplexer.WriteXml(writer);
-                writer.WriteEndElement();
-            }
-
-            if (this.Device?.OldType == MobiFlightAnalogInput.TYPE && analog != null)
-            {
-                writer.WriteStartElement("analog");
-                analog.WriteXml(writer);
-                writer.WriteEndElement();
-            }
+            
 
             writer.WriteStartElement("preconditions");
             foreach (Precondition p in Preconditions)
@@ -327,8 +332,7 @@ namespace MobiFlight
             if (obj == null || !(obj is InputConfigItem item)) return false;
             if (!base.Equals(obj)) return false;
 
-            return  DeviceName == item.DeviceName &&
-                    Device.AreEqual(item.Device) &&
+            return  Device.AreEqual(item.Device) &&
                     button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&
                     analog.AreEqual(item.analog) &&

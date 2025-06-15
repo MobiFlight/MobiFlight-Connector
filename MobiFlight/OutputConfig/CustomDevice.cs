@@ -21,6 +21,7 @@ namespace MobiFlight.OutputConfig
 
         public CustomDevice()
         {
+            _type = DeprecatedType; // set the type to CustomDevice for backward compatibility
         }
 
         public override bool Equals(object obj)
@@ -50,7 +51,7 @@ namespace MobiFlight.OutputConfig
             return null;
         }
 
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             if (reader["customType"] != null && reader["customType"] != "")
             {
@@ -76,7 +77,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("customType", CustomType);
             writer.WriteAttributeString("customName", CustomName);

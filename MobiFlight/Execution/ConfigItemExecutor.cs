@@ -175,9 +175,9 @@ namespace MobiFlight.Execution
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
-            if (cfg.DeviceType == null) return;
+            if (cfg.Device?.OldType == null) return;
 
-            switch (cfg.DeviceType)
+            switch (cfg.Device?.OldType)
             {
                 case MobiFlightStepper.TYPE:
                     var stepper = cfg.Device as OutputConfig.Stepper;
@@ -217,11 +217,11 @@ namespace MobiFlight.Execution
 
         public void ExecuteTestOff(OutputConfigItem cfg)
         {
-            if (cfg == null || cfg.DeviceType == null) return;
+            if (cfg == null || cfg.Device?.OldType == null) return;
 
             OutputConfigItem offCfg = (OutputConfigItem)cfg.Clone();
 
-            switch (offCfg.DeviceType)
+            switch (offCfg.Device?.OldType)
             {
                 case MobiFlightServo.TYPE:
                     var servo = offCfg.Device as Servo;
@@ -303,15 +303,15 @@ namespace MobiFlight.Execution
         {
             string serial = SerialNumber.ExtractSerial(cfg.ModuleSerial);
 
-            if (serial == "" && cfg.DeviceType != "InputAction")
+            if (serial == "" && cfg.Device?.OldType != "InputAction")
                 return value.ToString();
 
-            if (SerialNumber.IsJoystickSerial(serial) && cfg.DeviceType != "InputAction")
+            if (SerialNumber.IsJoystickSerial(serial) && cfg.Device?.OldType != "InputAction")
             {
                 Joystick joystick = joystickManager.GetJoystickBySerial(serial);
                 if (joystick != null)
                 {
-                    switch (cfg.DeviceType)
+                    switch (cfg.Device?.OldType)
                     {
                         case OutputConfig.LcdDisplay.DeprecatedType:
                             var lcdDisplay = cfg.Device as LcdDisplay;
@@ -338,7 +338,7 @@ namespace MobiFlight.Execution
                     return i18n._tr($"{joystickName} not connected");
                 }
             }
-            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.DeviceType != "InputAction")
+            else if (SerialNumber.IsMidiBoardSerial(serial) && cfg.Device?.OldType != "InputAction")
             {
                 MidiBoard midiBoard = midiBoardManager.GetMidiBoardBySerial(serial);
                 if (midiBoard != null)
@@ -354,10 +354,10 @@ namespace MobiFlight.Execution
                     // throw new MidiBoardNotConnectedException(i18n._tr($"{midiBoardName} not connected"));
                 }
             }
-            else if (serial.IndexOf("SN") != 0 && cfg.DeviceType != "InputAction")
+            else if (serial.IndexOf("SN") != 0 && cfg.Device?.OldType != "InputAction")
             {
 #if ARCAZE
-                switch (cfg.DeviceType)
+                switch (cfg.Device?.OldType)
                 {
                     case ArcazeLedDigit.TYPE:
                         var device = cfg.Device as LedModule;
@@ -382,7 +382,7 @@ namespace MobiFlight.Execution
             }
             else
             {
-                switch (cfg.DeviceType)
+                switch (cfg.Device?.OldType)
                 {
                     case ArcazeLedDigit.TYPE:
                         var device = cfg.Device as LedModule;

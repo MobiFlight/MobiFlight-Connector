@@ -18,10 +18,10 @@ namespace MobiFlight.OutputConfig
 
         public Servo ()
         {
-
+            _type = MobiFlightServo.TYPE; // set the type to MobiFlightServo.TYPE for backward compatibility
         }
 
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             // ignore empty values
             if (reader["servoAddress"] != null && reader["servoAddress"] != "")
@@ -43,7 +43,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("servoAddress", Address);
             writer.WriteAttributeString("servoMin", Min);

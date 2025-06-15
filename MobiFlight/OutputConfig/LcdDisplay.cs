@@ -17,6 +17,7 @@ namespace MobiFlight.OutputConfig
         public LcdDisplay ()
         {
             Lines = new List<string>();
+            _type = DeprecatedType; // set the type to LcdDisplay for backward compatibility
         }
 
         public override bool Equals(object obj)
@@ -52,7 +53,7 @@ namespace MobiFlight.OutputConfig
             return null;
         }
 
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
             if (reader["address"] != null && reader["address"] != "")
             {
@@ -81,7 +82,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("address", Address);
 

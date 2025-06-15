@@ -374,6 +374,7 @@
     <Compile Include="MobiFlight\OutputConfig\FsuipcOffset.cs" />
     <Compile Include="MobiFlight\OutputConfig\CustomDevice.cs" />
     <Compile Include="MobiFlight\OutputConfig\LedModule.cs" />
+    <Compile Include="MobiFlight\OutputConfig\OutputDeviceConfigFactory.cs" />
     <Compile Include="MobiFlight\OutputConfig\ShiftRegister.cs" />
     <Compile Include="MobiFlight\OutputConfig\Output.cs" />
     <Compile Include="MobiFlight\OutputConfig\Servo.cs" />

@@ -14,6 +14,7 @@ namespace MobiFlight.OutputConfig
 
         public Output ()
         {
+            _type = MobiFlightOutput.TYPE; // set the type to MobiFlightOutput.TYPE for backward compatibility
             DisplayPin = ""; // not initialized anymore
             DisplayPinBrightness = byte.MaxValue;
             DisplayPinPWM = false;
@@ -28,7 +29,7 @@ namespace MobiFlight.OutputConfig
                 (this.DisplayPinPWM         == (obj as Output).DisplayPinPWM);
         }
 
-        public void ReadXml(XmlReader reader)
+        public override void ReadXml(XmlReader reader)
         {
 
             if (reader["pin"] != null && reader["pin"] != "")
@@ -45,7 +46,7 @@ namespace MobiFlight.OutputConfig
             }
         }
 
-        public void WriteXml(XmlWriter writer)
+        public override void WriteXml(XmlWriter writer)
         {
             writer.WriteAttributeString("pin", DisplayPin);
             writer.WriteAttributeString("pinBrightness", DisplayPinBrightness.ToString());

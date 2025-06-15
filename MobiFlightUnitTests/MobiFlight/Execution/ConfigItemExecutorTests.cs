@@ -4,6 +4,7 @@ using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.Modifier;
+using MobiFlight.OutputConfig;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
@@ -138,10 +139,10 @@ namespace MobiFlight.Tests
             Assert.AreEqual(1, updatedValues.Count);
             Assert.AreEqual("XPLANE_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
 
-            
+
             // Arrange
             mockXplaneCache.Setup(c => c.IsConnected()).Returns(true);
-            
+
             // Act
             executor.Execute(cfg, updatedValues);
 
@@ -189,7 +190,7 @@ namespace MobiFlight.Tests
         public void ExecuteTestOn_ShouldExecuteDisplay_WhenDeviceTypeIsStepper()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightStepper.TYPE, Device = new OutputConfig.Stepper { TestValue = 100 } };
+            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", Device = new OutputConfig.Stepper { TestValue = 100 } };
 
             // Act
             executor.ExecuteTestOn(cfg);
@@ -202,7 +203,7 @@ namespace MobiFlight.Tests
         public void ExecuteTestOff_ShouldExecuteDisplay_WhenDeviceTypeIsServo()
         {
             // Arrange
-            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", DeviceType = MobiFlightServo.TYPE, Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
+            var cfg = new OutputConfigItem { ModuleSerial = "Test / SN-123", Device = new OutputConfig.Servo { Min = "0", Address = "1", Max = "180", MaxRotationPercent = "100", Name = "TestServo" } };
 
             // Act
             executor.ExecuteTestOff(cfg);

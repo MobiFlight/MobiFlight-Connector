@@ -83,7 +83,7 @@ namespace MobiFlight.Base
 
             foreach (OutputConfigItem item in outputConfigs)
             {
-                String key = "output." + item.DeviceType;
+                String key = "output." + item.Device?.OldType;
                 if (!trackingEvent.Metrics.ContainsKey(key)) trackingEvent.Metrics[key] = 0;
                 trackingEvent.Metrics[key] += 1;
 
