@@ -161,13 +161,12 @@ namespace MobiFlight
 
                     // read to the end of the InputAction
                     reader.Read();
-                } else
+                } else if (reader["type"]!=DeviceConfig.TYPE_OUTPUT_NOTSET)
+                
                 {
                     Device = OutputDeviceConfigFactory.CreateFromType(outputType);
-                    Device.ReadXml(reader);
-                }
-
-                
+                    Device?.ReadXml(reader);
+                }              
                 
                 // Actually interpolation is in he wrong spot. :(
                 // it should not be nested

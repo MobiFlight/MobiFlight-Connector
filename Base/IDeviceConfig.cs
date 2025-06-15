@@ -10,7 +10,7 @@ namespace MobiFlight.Base
     {
         string Type { get; }
         string OldType { get; }
-        string Name { get; }
+        string Name { get; set; }
 
         object Clone();
 

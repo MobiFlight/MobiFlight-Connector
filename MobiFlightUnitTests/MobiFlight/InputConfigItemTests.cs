@@ -209,8 +209,8 @@ namespace MobiFlight.Tests
 
             result.encoder = null;
             result.ModuleSerial = "TestSerial";
-            result.DeviceName = "TestName";
             result.Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
+            result.Device.Name = "TestName";
             result.Preconditions.Add(new Precondition() { PreconditionSerial = "PreConTestSerial" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = true, Placeholder = "@", Ref = "0b1c877f-baf3-4c69-99e6-6c31429fe3bd" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = false, Placeholder = "%", Ref = "7d1370d3-56e9-497a-8abb-63ecc169defe" });

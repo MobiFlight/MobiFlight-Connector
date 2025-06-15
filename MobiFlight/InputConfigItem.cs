@@ -75,8 +75,14 @@ namespace MobiFlight
         public virtual void ReadXml(XmlReader reader)
         {
             ModuleSerial = reader["serial"];
-            
-            if (reader["type"] != null && reader["type"] != "")
+
+            // every item has a name
+            var deviceName = reader["name"];
+
+            // some already have the correct type
+            // see special case further down
+            // where the type is determined by the input config (button or encoder)
+            if (!string.IsNullOrEmpty(reader["type"]))
             {
                 Device = InputDeviceConfigFactory.CreateFromType(reader["type"]);
                 Device.ReadXml(reader);
@@ -126,6 +132,7 @@ namespace MobiFlight
                 {
                     Device = InputDeviceConfigFactory.CreateFromType(MobiFlightEncoder.TYPE);
                 }
+                Device.Name = deviceName;
             }
 
             if (reader.LocalName == "preconditions")
