@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Timers;
 using System.Collections.Generic;
+using System.Timers;
 using System.Xml.Serialization;
-using MobiFlight.Base;
 
 namespace MobiFlight.InputConfig
 {

@@ -1,4 +1,5 @@
 ﻿using MobiFlight.Base;
+using MobiFlight.InputConfig;
 using Newtonsoft.Json;
 
 namespace MobiFlight
@@ -6,6 +7,8 @@ namespace MobiFlight
     public class MobiFlightButton : DeviceConfig, IConnectedDevice
     {
         public const string TYPE = "Button";
+        public ButtonInputConfig Config { get; set; } = new ButtonInputConfig();
+
         public enum InputEvent
         {
             PRESS = 0,
@@ -23,6 +26,7 @@ namespace MobiFlight
         public MobiFlightButton(MobiFlightButton copyFrom)
         {
             Name = copyFrom.Name;
+            Config = copyFrom.Config.Clone() as ButtonInputConfig;
         }
 
         public override object Clone()

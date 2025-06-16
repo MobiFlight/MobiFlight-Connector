@@ -346,9 +346,9 @@ namespace MobiFlight.UI.Dialogs
             switch (currentInputType)
             {
                 case DeviceType.Button:
-                    if (config.button == null) config.button = new InputConfig.ButtonInputConfig();
+                    var button = config.Device as MobiFlightButton;
                     if (groupBoxInputSettings.Controls[0] != null)
-                        (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(config.button);
+                        (groupBoxInputSettings.Controls[0] as ButtonPanel).ToConfig(button.Config);
                     break;
 
                 case DeviceType.Encoder:
@@ -426,7 +426,7 @@ namespace MobiFlight.UI.Dialogs
                 {
                     BaseDevice device = null;
 
-                    if (config.button != null)
+                    if (Config.Device is MobiFlightButton)
                     {
                         device = new Config.Button();
                     }
@@ -554,12 +554,13 @@ namespace MobiFlight.UI.Dialogs
                 switch (currentInputType)
                 {
                     case DeviceType.Button:
+                        var button = config.Device as MobiFlightButton;
                         panel = new Panels.Input.ButtonPanel()
                         {
                             Enabled = (serial != "")
                         };
                         (panel as Panels.Input.ButtonPanel).SetVariableReferences(_execManager.GetAvailableVariables());
-                        (panel as Panels.Input.ButtonPanel).syncFromConfig(config.button);
+                        (panel as Panels.Input.ButtonPanel).syncFromConfig(button.Config);
                         break;
 
                     case DeviceType.Encoder:

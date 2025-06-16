@@ -46,8 +46,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Device.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
             Assert.AreEqual(o.Device.OldType, "Button", "Type not the same");
-            Assert.IsNull(o.button.onPress, "button onpress not null");
-            Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNull((o.Device as MobiFlightButton).Config.onPress, "button onpress not null");
+            Assert.IsNotNull((o.Device as MobiFlightButton).Config.onRelease, "button onRelease is null");
             Assert.IsNotNull(o.ConfigRefs, "ConfigRefs is null");
             Assert.AreEqual(o.ConfigRefs.Count, 2, "ConfigRefs.Count is not 2");
 
@@ -65,8 +65,8 @@ namespace MobiFlight.Tests
             Assert.AreEqual(o.Preconditions.Count, 0, "Preconditions Count not the same");
             Assert.AreEqual(o.Device.Name, "TestName", "Name not the same");
             Assert.AreEqual(o.Device.OldType, "Button", "Type not the same");
-            Assert.IsNull(o.button.onPress, "button onpress not null");
-            Assert.IsNotNull(o.button.onRelease, "button onRelease is null");
+            Assert.IsNull((o.Device as MobiFlightButton).Config.onPress, "button onpress not null");
+            Assert.IsNotNull((o.Device as MobiFlightButton).Config.onRelease, "button onRelease is null");
             Assert.IsNull(o.encoder.onLeft, "encoder onLeft not null");
             Assert.IsNotNull(o.encoder.onLeftFast, "encoder onLeftFast is null");
             Assert.IsNull(o.encoder.onRight, "encoder onRight not null");
@@ -180,7 +180,7 @@ namespace MobiFlight.Tests
             InputConfigItem o = generateTestObject();
             InputConfigItem c = (InputConfigItem)o.Clone();
 
-            Assert.IsNotNull(c.button, "Button is null");
+            Assert.IsNotNull((c.Device as MobiFlightButton).Config, "Button is null");
             Assert.IsNull(c.encoder, "Encoder is not null");
             Assert.AreEqual(o.ModuleSerial, c.ModuleSerial, "Module Serial not the same");
             Assert.AreEqual(o.Name, c.Name, "Name not the same");
@@ -194,8 +194,11 @@ namespace MobiFlight.Tests
             result.Active = false;
             result.GUID = "123-input";
 
-            result.button = new InputConfig.ButtonInputConfig();
-            result.button.onRelease = new InputConfig.FsuipcOffsetInputAction()
+            result.encoder = null;
+            result.ModuleSerial = "TestSerial";
+            result.Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
+            result.Device.Name = "TestName";
+            (result.Device as MobiFlightButton).Config.onRelease = new InputConfig.FsuipcOffsetInputAction()
             {
                 FSUIPC = new FsuipcOffset()
                 {
@@ -207,10 +210,6 @@ namespace MobiFlight.Tests
                 Value = "1"
             };
 
-            result.encoder = null;
-            result.ModuleSerial = "TestSerial";
-            result.Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
-            result.Device.Name = "TestName";
             result.Preconditions.Add(new Precondition() { PreconditionSerial = "PreConTestSerial" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = true, Placeholder = "@", Ref = "0b1c877f-baf3-4c69-99e6-6c31429fe3bd" });
             result.ConfigRefs.Add(new Base.ConfigRef() { Active = false, Placeholder = "%", Ref = "7d1370d3-56e9-497a-8abb-63ecc169defe" });
@@ -279,8 +278,9 @@ namespace MobiFlight.Tests
             result = o.GetInputActionsByType(typeof(VariableInputAction));
             Assert.AreEqual(result.Count, 2);
 
-            o.button = new InputConfig.ButtonInputConfig();
-            o.button.onPress = new VariableInputAction();
+            o.Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
+            (o.Device as MobiFlightButton).Config = new InputConfig.ButtonInputConfig();
+            (o.Device as MobiFlightButton).Config.onPress = new VariableInputAction();
 
             result = o.GetInputActionsByType(typeof(VariableInputAction));
             Assert.AreEqual(result.Count, 3);

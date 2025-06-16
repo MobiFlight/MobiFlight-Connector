@@ -76,20 +76,21 @@ namespace MobiFlight.Execution.Tests
         {
             var device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
             device.Name = deviceName; // Set the device name
+            (device as MobiFlightButton).Config = new ButtonInputConfig()
+            {
+                onPress = new MSFS2020CustomInputAction()
+                {
+                    Command = command,
+                    PresetId = "TestPresetId",
+                }
+            };
+
             return new InputConfigItem
             {
                 Active = active,
                 ModuleSerial = moduleSerial,
                 Device = device,
                 Name = name,
-                button = new ButtonInputConfig()
-                {
-                    onPress = new MSFS2020CustomInputAction()
-                    {
-                        Command = command,
-                        PresetId = "TestPresetId",
-                    }
-                }
             };
         }
 

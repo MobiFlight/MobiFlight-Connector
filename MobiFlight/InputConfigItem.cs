@@ -20,8 +20,6 @@ namespace MobiFlight
         private System.Globalization.CultureInfo serializationCulture = new System.Globalization.CultureInfo("de");
                 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public ButtonInputConfig button { get; set; }
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public EncoderInputConfig encoder { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public InputShiftRegisterConfig inputShiftRegister { get; set; }
@@ -40,11 +38,11 @@ namespace MobiFlight
         public List<InputAction> GetInputActionsByType(System.Type type)
         {
             List<InputAction> result = new List<InputAction>();
-            if (button != null)
+            if (Device is MobiFlightButton)
             {
-                result.AddRange(button.GetInputActionsByType(type));
+                result.AddRange((Device as MobiFlightButton).Config.GetInputActionsByType(type));
             }
-
+            
             if (encoder != null)
             {
                 result.AddRange(encoder.GetInputActionsByType(type));
@@ -73,6 +71,9 @@ namespace MobiFlight
 
         public virtual void ReadXml(XmlReader reader)
         {
+            ButtonInputConfig button = null;
+            // EncoderInputConfig encoder = null;
+
             ModuleSerial = reader["serial"];
 
             // every item has a name
@@ -93,6 +94,8 @@ namespace MobiFlight
             {
                 button = new ButtonInputConfig();
                 button.ReadXml(reader);
+                if (Device != null && Device is MobiFlightButton)
+                    (Device as MobiFlightButton).Config = button;
             }
 
             if (reader.LocalName == "encoder")
@@ -125,6 +128,7 @@ namespace MobiFlight
                 if (button != null)
                 {
                     Device = InputDeviceConfigFactory.CreateFromType(MobiFlightButton.TYPE);
+                    (Device as MobiFlightButton).Config = button;
                 }
 
                 if (encoder != null)
@@ -192,10 +196,12 @@ namespace MobiFlight
             if (this.Device != null) { 
                 writer.WriteAttributeString("name", this.Device.Name);
                 writer.WriteAttributeString("type", this.Device.OldType);
-                if (this.Device.OldType == MobiFlightButton.TYPE && button != null)
+
+                var buttonDevice = this.Device as MobiFlightButton;
+                if (buttonDevice != null)
                 {
                     writer.WriteStartElement("button");
-                    button.WriteXml(writer);
+                    buttonDevice.Config.WriteXml(writer);
                     writer.WriteEndElement();
                 }
 
@@ -251,7 +257,7 @@ namespace MobiFlight
 
         public InputConfigItem(InputConfigItem config) : base(config)
         {
-            button = (ButtonInputConfig)config.button?.Clone();
+            // button = (ButtonInputConfig)config.button?.Clone();
             encoder = (EncoderInputConfig)config.encoder?.Clone();
             inputShiftRegister = (InputShiftRegisterConfig)config.inputShiftRegister?.Clone();
             inputMultiplexer = (InputMultiplexerConfig)config.inputMultiplexer?.Clone();
@@ -277,8 +283,9 @@ namespace MobiFlight
             switch (Device?.OldType)
             {
                 case MobiFlightButton.TYPE:
+                    var button= Device as MobiFlightButton;
                     if (button != null)
-                        button.execute(cacheCollection, e, configRefs);
+                        button.Config.execute(cacheCollection, e, configRefs);
                     break;
                 case MobiFlightEncoder.TYPE:
                     if (encoder != null)
@@ -309,8 +316,9 @@ namespace MobiFlight
             switch (Device?.OldType)
             {
                 case MobiFlightButton.TYPE:
+                    var button = Device as MobiFlightButton;
                     if (button != null)
-                        result = button.GetStatistics();
+                        result = button.Config.GetStatistics();
                     break;
                 case MobiFlightEncoder.TYPE:
                     if (encoder != null)
@@ -339,7 +347,6 @@ namespace MobiFlight
             if (!base.Equals(obj)) return false;
 
             return  Device.AreEqual(item.Device) &&
-                    button.AreEqual(item.button) &&
                     encoder.AreEqual(item.encoder) &&
                     analog.AreEqual(item.analog) &&
                     inputShiftRegister.AreEqual(item.inputShiftRegister) &&
