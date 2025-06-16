@@ -554,6 +554,7 @@ namespace MobiFlight.UI.Dialogs
                 switch (currentInputType)
                 {
                     case DeviceType.Button:
+                        if (config.Device == null) config.Device = new MobiFlightButton();
                         var button = config.Device as MobiFlightButton;
                         panel = new Panels.Input.ButtonPanel()
                         {

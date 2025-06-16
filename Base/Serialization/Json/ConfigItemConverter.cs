@@ -26,6 +26,12 @@ namespace MobiFlight.Base.Serialization.Json
                 };
             }
 
+            if (jsonObject["Device"]?["Type"]?.ToString() == typeof(MobiFlightButton).Name && 
+                jsonObject["button"] != null) {
+                jsonObject["Device"]["Config"] = jsonObject["button"];
+                jsonObject.Remove("button");
+            }
+
             return jsonObject;
         }
 
