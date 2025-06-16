@@ -8,13 +8,15 @@ using WebSocketSharp;
 
 namespace MobiFlight.UI.Panels.Config
 {
-    public partial class ProSimDatarefPanel : UserControl
+    public partial class ProSimDataRefPanel : UserControl
     {
         public event EventHandler ModifyTabLink;
 
         private Dictionary<string, DataRefDescription> _dataRefDescriptions;
         private List<DataRefDescription> _canReadDataRefDescriptions;
         private List<DataRefDescription> _canReadDataRefDescriptionsFiltered;
+        private bool _isLoading = true;
+        private bool _isOutputMode = true;
 
         private IExecutionManager _executionManager;
 
@@ -32,13 +34,23 @@ namespace MobiFlight.UI.Panels.Config
             set => transformOptionsGroup1 = value;
         }
 
-        public ProSimDatarefPanel()
+        public ProSimDataRefPanel()
         {
             InitializeComponent();
-            transformOptionsGroup1.setMode(true);
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.DataBindingComplete += DataGridView1_DataBindingComplete;
+        }
 
+        private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            _isLoading = false;
+        }
+
+        public void SetMode(bool isOutputPanel)
+        {
+            _isOutputMode = isOutputPanel;
+            transformOptionsGroup1.setMode(isOutputPanel);
         }
 
         public void Init(IExecutionManager executionManager)
@@ -65,62 +77,6 @@ namespace MobiFlight.UI.Panels.Config
             transformOptionsGroup1.syncFromConfig(config);
         }
 
-        private void DataRefDescriptionsComboBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            ComboBox cb = (ComboBox)sender;
-
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (cb.DroppedDown && cb.SelectedIndex >= 0)
-                {
-                    // Accept the selected item from dropdown
-                    cb.Text = cb.SelectedItem.ToString();
-                }
-
-                if (!string.IsNullOrEmpty(cb.Text))
-                {
-                    int index = cb.FindStringExact(cb.Text);
-                    if (index >= 0)
-                    {
-                        cb.SelectedIndex = index;
-                    }
-                    else
-                    {
-                        // Handle new item
-                        cb.Items.Add(cb.Text);
-                        cb.SelectedIndex = cb.Items.Count - 1;
-                    }
-
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
-                    cb.DroppedDown = false; // Close the dropdown
-                }
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                // Ensure dropdown is visible when navigating
-                if (!cb.DroppedDown)
-                {
-                    cb.DroppedDown = true;
-                }
-            }
-        }
-
-        private void DataRefDescriptionsComboBox_KeyUp(object sender, KeyEventArgs e)
-        {
-            ComboBox cb = (ComboBox)sender;
-
-            if (e.KeyCode == Keys.Down && cb.DroppedDown)
-            {
-                // Update text with the currently highlighted item
-                if (cb.SelectedIndex >= 0)
-                {
-                    cb.Text = cb.Items[cb.SelectedIndex].ToString();
-                    cb.SelectionStart = cb.Text.Length; // Move cursor to end
-                }
-            }
-        }
-
         public void LoadDataRefDescriptions()
         {
             if (_executionManager == null)
@@ -136,9 +92,12 @@ namespace MobiFlight.UI.Panels.Config
 
             try
             {
+                _isLoading = true;
                 // Get the dataref descriptions from the already-connected ProSimCache
                 _dataRefDescriptions = proSimCache.GetDataRefDescriptions();
-                _canReadDataRefDescriptions = _dataRefDescriptions.Values.Where(drd => drd.CanRead).ToList();
+                _canReadDataRefDescriptions = _dataRefDescriptions.Values
+                    .Where(drd => _isOutputMode ? drd.CanRead : drd.CanWrite)
+                    .ToList();
 
                 if (_dataRefDescriptions.Count > 0)
                 {
@@ -147,11 +106,15 @@ namespace MobiFlight.UI.Panels.Config
                     {
                         this.Invoke(new System.Action(() =>
                         {
+                            _canReadDataRefDescriptions.Sort((drd1, drd2) => drd2.Name.CompareTo(drd1.Name));
+                            dataGridView1.DataSource = null;
                             dataGridView1.DataSource = _canReadDataRefDescriptions;
                         }));
                     }
                     else
                     {
+                        _canReadDataRefDescriptions.Sort((drd1, drd2) => drd2.Name.CompareTo(drd1.Name));
+                        dataGridView1.DataSource = null;
                         dataGridView1.DataSource = _canReadDataRefDescriptions;
                     }
                 }
@@ -160,11 +123,6 @@ namespace MobiFlight.UI.Panels.Config
             {
                 Log.Instance.log($"Error retrieving ProSim dataref descriptions: {ex.Message}", LogSeverity.Error);
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            LoadDataRefDescriptions();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -184,27 +142,11 @@ namespace MobiFlight.UI.Panels.Config
 
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            var drd = dataGridView1.Rows[e.RowIndex].DataBoundItem as DataRefDescription;
-            DatarefPathTextBox.Text = drd.Name;
-        }
-    }
-
-    public class AutoCompleteComboBox : ComboBox
-    {
-        protected override bool IsInputKey(Keys keyData)
-        {
-            switch ((keyData & (Keys.Alt | Keys.KeyCode)))
+            if (!_isLoading && dataGridView1.SelectedRows.Count > 0) 
             {
-                case Keys.Enter:
-                case Keys.Escape:
-                    if (this.DroppedDown)
-                    {
-                        this.DroppedDown = false;
-                        return false;
-                    }
-                    break;
+                var drd = dataGridView1.Rows[e.RowIndex].DataBoundItem as DataRefDescription;
+                DatarefPathTextBox.Text = drd.Name;
             }
-            return base.IsInputKey(keyData);
         }
     }
 } 

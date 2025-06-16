@@ -70,8 +70,11 @@ namespace MobiFlight.ProSim
                     }
                     else if (state == GraphQLWebsocketConnectionState.Disconnected)
                     {
-                        _connected = false;
-                        ConnectionLost?.Invoke(this, new EventArgs());
+                        if (_connected)
+                        {
+                            _connected = false;
+                            ConnectionLost?.Invoke(this, new EventArgs());
+                        }
                     }
                 });
 

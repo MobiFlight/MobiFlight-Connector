@@ -17,6 +17,7 @@ namespace MobiFlight.UI.Panels.Action
         public ProSimInputPanel()
         {
             InitializeComponent();
+            proSimDatarefPanel1.SetMode(false);
         }
 
         public void syncFromConfig(object config)

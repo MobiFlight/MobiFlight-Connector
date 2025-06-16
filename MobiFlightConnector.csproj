@@ -179,7 +179,9 @@
     <Reference Include="SharpDX.DirectInput, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>packages\SharpDX.DirectInput.4.2.0\lib\net45\SharpDX.DirectInput.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
       <HintPath>packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
       <Private>True</Private>
@@ -562,11 +564,11 @@
     <Compile Include="UI\Panels\Config\PreconditionPanel.Designer.cs">
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\Config\ProSimDatarefPanel.cs">
+    <Compile Include="UI\Panels\Config\ProSimDataRefPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Panels\Config\ProSimDatarefPanel.Designer.cs">
-      <DependentUpon>ProSimDatarefPanel.cs</DependentUpon>
+    <Compile Include="UI\Panels\Config\ProSimDataRefPanel.Designer.cs">
+      <DependentUpon>ProSimDataRefPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\Config\TestValuePanel.cs">
       <SubType>UserControl</SubType>
@@ -1605,8 +1607,8 @@
       <DependentUpon>PreconditionPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Panels\Config\ProSimDatarefPanel.resx">
-      <DependentUpon>ProSimDatarefPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Panels\Config\ProSimDataRefPanel.resx">
+      <DependentUpon>ProSimDataRefPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Panels\Config\SimConnectPanel.resx">
       <DependentUpon>SimConnectPanel.cs</DependentUpon>

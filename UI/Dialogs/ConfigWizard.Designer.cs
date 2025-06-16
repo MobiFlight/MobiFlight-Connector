@@ -32,7 +32,7 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
-            this.proSimDatarefPanel1 = new MobiFlight.UI.Panels.Config.ProSimDatarefPanel();
+            this.proSimDatarefPanel1 = new MobiFlight.UI.Panels.Config.ProSimDataRefPanel();
             this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.variablePanel1 = new MobiFlight.UI.Panels.Config.VariablePanel();
             this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
@@ -367,6 +367,6 @@
         private Panels.OutputWizard.ModifierPanel modifierPanel1;
         private Panels.Config.TestValuePanel testValuePanel1;
         private System.Windows.Forms.RadioButton OffsetTypeProSimRadioButton;
-        private Panels.Config.ProSimDatarefPanel proSimDatarefPanel1;
+        private Panels.Config.ProSimDataRefPanel proSimDatarefPanel1;
     }
 }

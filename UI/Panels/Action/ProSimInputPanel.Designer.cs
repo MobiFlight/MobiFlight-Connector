@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.proSimDatarefPanel1 = new MobiFlight.UI.Panels.Config.ProSimDatarefPanel();
+            this.proSimDatarefPanel1 = new MobiFlight.UI.Panels.Config.ProSimDataRefPanel();
             this.SuspendLayout();
             // 
             // proSimDatarefPanel1
@@ -56,6 +56,6 @@
 
         #endregion
 
-        private Config.ProSimDatarefPanel proSimDatarefPanel1;
+        private Config.ProSimDataRefPanel proSimDatarefPanel1;
     }
 }

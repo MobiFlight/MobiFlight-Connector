@@ -661,7 +661,10 @@ namespace MobiFlight.UI
             {
                 this.Invoke(new Action(UpdateAllConnectionIconsAction));
             }
-            UpdateAllConnectionIconsAction();
+            else
+            {
+                UpdateAllConnectionIconsAction();
+            }
         }
 
         private void UpdateAllConnectionIconsAction()
@@ -2151,7 +2154,6 @@ namespace MobiFlight.UI
             proSimToolStripMenuItem.Image = Properties.Resources.warning;
             proSimToolStripMenuItem.Visible = true;
             proSimToolStripMenuItem.Enabled = true;
-            proSimToolStripMenuItem.ToolTipText = "Connected directly to ProSim";
 
 
             if (execManager.GetProSimCache().IsConnected())
