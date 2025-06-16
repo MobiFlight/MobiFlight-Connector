@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.Modifier;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MobiFlight.Modifier.Tests
 {
@@ -37,6 +38,22 @@ namespace MobiFlight.Modifier.Tests
 
             blink2.OffDurationInMs = 1;
             Assert.AreEqual(blink1, blink2);
+        }
+
+        [TestMethod()]
+        public void CloneTest()
+        {
+            // Check for equality between two Blink objects
+            var blink1 = new Blink();
+            blink1.BlinkValue = "1";
+            blink1.OnOffSequence.Add(200);
+            blink1.OnOffSequence.Add(500);
+            blink1.FirstExecutionTime = 1;
+            blink1.OffDurationInMs = 1;
+            var blink2 = blink1.Clone() as Blink;
+            Assert.IsNotNull(blink2);
+            Assert.AreEqual(blink1, blink2);
+            Assert.AreNotSame(blink1, blink2);
         }
     }
 }

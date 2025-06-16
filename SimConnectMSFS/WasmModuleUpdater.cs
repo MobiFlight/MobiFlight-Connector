@@ -1,12 +1,8 @@
 ﻿using MobiFlight.Base;
 using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.IO;
-using System.Linq;
-using System.Net;
+using System.Net.Http;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MobiFlight.SimConnectMSFS
@@ -62,9 +58,12 @@ namespace MobiFlight.SimConnectMSFS
 
             while ((line = file.ReadLine()) != null)
             {
-                if (line.Contains("InstalledPackagesPath"))
+                // Issue #2061: The space at the end is intentional, to ensure it only matches the whole string InstalledPackagesPath
+                // and not the InstalledPackagesPathNextBoot property added in MSFS2024 SU2.
+                if (line.Contains("InstalledPackagesPath "))
                 {
                     InstalledPackagesPath = line;
+                    break;
                 }
             }
 
@@ -76,13 +75,24 @@ namespace MobiFlight.SimConnectMSFS
 
             InstalledPackagesPath = InstalledPackagesPath.TrimEnd(charsToTrim);
 
-            string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
-
-            Log.Instance.log($"Detected community folder path from UserCfg.opt: {targetPath}", LogSeverity.Debug);
-
-            if (Directory.Exists(targetPath))
+            try
             {
-                CommunityFolder = targetPath;
+                string targetPath = Path.Combine(Path.Combine(InstalledPackagesPath, @"Community"));
+
+                Log.Instance.log($"Detected community folder path from UserCfg.opt: {targetPath}", LogSeverity.Debug);
+
+                if (Directory.Exists(targetPath))
+                {
+                    CommunityFolder = targetPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error while trying to build community folder path using \"{InstalledPackagesPath}\": {ex.Message}", LogSeverity.Error);
+            }
+            finally
+            {
+                file.Close();
             }
 
             return CommunityFolder;
@@ -116,16 +126,25 @@ namespace MobiFlight.SimConnectMSFS
         {
             foreach (string basePath in basePaths)
             {
-                string userCfgPath = Path.Combine(basePath, "UserCfg.opt");
-                if (!File.Exists(userCfgPath))
+                try
                 {
-                    Log.Instance.log($"No UserCfg found at {userCfgPath}", LogSeverity.Debug);
-                    continue;
-                }
+                    string userCfgPath = Path.Combine(basePath, "UserCfg.opt");
+                    if (!File.Exists(userCfgPath))
+                    {
+                        Log.Instance.log($"No UserCfg found at {userCfgPath}", LogSeverity.Debug);
+                        continue;
+                    }
 
-                return ExtractCommunityFolderFromUserCfg(userCfgPath);
+                    return ExtractCommunityFolderFromUserCfg(userCfgPath);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception but continue searching other paths
+                    Log.Instance.log($"Error while trying to locate UserCfg.opt in \"{basePath}\": {ex.Message}", LogSeverity.Error);
+                }
             }
 
+            // If we reach here, none of the provided paths contained a valid UserCfg.opt file or community folder
             return null;
         }
 
@@ -210,7 +229,7 @@ namespace MobiFlight.SimConnectMSFS
             return installedWASM != mobiflightWASM;
         }
 
-        public bool InstallWasmEvents()
+        public async Task<bool> InstallWasmEvents()
         {
             String destFolder = Path.Combine(CommunityFolder, WasmEventsTxtFolder);
 
@@ -235,7 +254,7 @@ namespace MobiFlight.SimConnectMSFS
                     return false;
                 }
 
-                if (!DownloadWasmEvents())
+                if (!await DownloadWasmEvents())
                 {
                     Log.Instance.log($"WASM events cannot be installed. Download to {CommunityFolder} was not successful.", LogSeverity.Error);
                     return false;
@@ -268,7 +287,7 @@ namespace MobiFlight.SimConnectMSFS
             System.IO.File.Copy(sourceFile, destFile);
         }
 
-        public bool DownloadWasmEvents()
+        public async Task<bool> DownloadWasmEvents()
         {
             ProgressUpdateEvent progress = new ProgressUpdateEvent();
 
@@ -276,19 +295,19 @@ namespace MobiFlight.SimConnectMSFS
             progress.Current = 5;
             DownloadAndInstallProgress?.Invoke(this, progress);
 
-            if (!DownloadSingleFile(new Uri(WasmEventsTxtUrl), WasmEventsTxtFile, WasmModuleFolder + @"\modules")) return false;
+            if (!await DownloadSingleFile(new Uri(WasmEventsTxtUrl), WasmEventsTxtFile, WasmModuleFolder + @"\modules")) return false;
             Log.Instance.log("WASM events.txt has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading EventIDs (legacy)";
             progress.Current = 33;
             DownloadAndInstallProgress?.Invoke(this, progress);
-            if (!DownloadSingleFile(new Uri(WasmEventsCipUrl), WasmEventsCipFileName, WasmEventsCipFolder)) return false;
+            if (!await DownloadSingleFile(new Uri(WasmEventsCipUrl), WasmEventsCipFileName, WasmEventsCipFolder)) return false;
             Log.Instance.log("WASM msfs2020_eventids.cip has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading SimVars (legacy)";
             progress.Current = 66;
             DownloadAndInstallProgress?.Invoke(this, progress);
-            if (!DownloadSingleFile(new Uri(WasmEventsSimVarsUrl), WasmEventsSimVarsFileName, WasmEventsSimVarsFolder)) return false;
+            if (!await DownloadSingleFile(new Uri(WasmEventsSimVarsUrl), WasmEventsSimVarsFileName, WasmEventsSimVarsFolder)) return false;
             Log.Instance.log("WASM msfs2020_simvars.cip has been downloaded and installed successfully.", LogSeverity.Debug);
 
             progress.ProgressMessage = "Downloading done";
@@ -297,20 +316,20 @@ namespace MobiFlight.SimConnectMSFS
             return true;
         }
 
-        public bool DownloadHubHopPresets()
+        public async Task<bool> DownloadHubHopPresets()
         {
             ProgressUpdateEvent progress = new ProgressUpdateEvent();
 
             progress.ProgressMessage = "Downloading HubHop Presets (MSFS2020)";
             progress.Current = 33;
             DownloadAndInstallProgress?.Invoke(this, progress);
-            if (!DownloadSingleFile(new Uri(WasmEventHubHHopUrl), WasmEventsHubHopFileName, WasmEventsHubHopFolder)) return false;
+            if (!await DownloadSingleFile(new Uri(WasmEventHubHHopUrl), WasmEventsHubHopFileName, WasmEventsHubHopFolder)) return false;
             Log.Instance.log($"WASM {WasmEventsHubHopFileName} has been downloaded and installed successfully.", LogSeverity.Info);
 
             progress.ProgressMessage = "Downloading HubHop Presets (XPlane)";
             progress.Current = 66;
             DownloadAndInstallProgress?.Invoke(this, progress);
-            if (!DownloadSingleFile(new Uri(WasmEventsXplaneHubHHopUrl), WasmEventsXplaneHubHopFileName, WasmEventsHubHopFolder)) return false;
+            if (!await DownloadSingleFile(new Uri(WasmEventsXplaneHubHHopUrl), WasmEventsXplaneHubHopFileName, WasmEventsHubHopFolder)) return false;
             Log.Instance.log($"WASM {WasmEventsXplaneHubHopFileName} has been downloaded and installed successfully.", LogSeverity.Info);
 
             progress.ProgressMessage = "Downloading done";
@@ -339,22 +358,51 @@ namespace MobiFlight.SimConnectMSFS
                    System.IO.File.Exists(Path.Combine(WasmEventsHubHopFolder, WasmEventsXplaneHubHopFileName));
         }
 
-        private bool DownloadSingleFile(Uri uri, String filename, String targetPath)
+        private static async Task<bool> DownloadSingleFile(Uri uri, string fileName, string targetPath)
         {
-            SecurityProtocolType oldType = System.Net.ServicePointManager.SecurityProtocol;
+            var targetFilePath = Path.Combine(targetPath, fileName);
 
-            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            WebClient webClient = new WebClient();
-            string tmpFile = Directory.GetCurrentDirectory() + targetPath + @"\" + filename + ".tmp";
+            const int maxAttempts = 3;
+            var attempt = 0;
 
-            webClient.DownloadFile(uri, tmpFile);
-            webClient.Dispose();
+            while (attempt++ < maxAttempts)
+            {
+                try
+                {
+                    using (var httpClient = new HttpClient())
+                    using (var memoryStream = new MemoryStream())
+                    using (var targetFileStream = File.OpenWrite(targetFilePath))
+                    {
+                        // download the contents and buffer it in a MemoryStream
+                        var stream = await httpClient.GetStreamAsync(uri);
+                        await stream.CopyToAsync(memoryStream);
+                        memoryStream.Seek(0, SeekOrigin.Begin);
 
-            System.IO.File.Delete($@"{targetPath}\{filename}");
-            System.IO.File.Move(tmpFile, $@"{targetPath}\{filename}");
+                        // write the file to disk and set the length
+                        await memoryStream.CopyToAsync(targetFileStream);
+                        targetFileStream.SetLength(memoryStream.Length);
+                    }
 
-            System.Net.ServicePointManager.SecurityProtocol = oldType;
-            return true;
+                    return true;
+                }
+                catch (HttpRequestException ex)
+                {
+                    Log.Instance.log($"HTTP request failed while downloading file from {uri} (attempt {attempt}): {ex.Message}", LogSeverity.Error);
+                }
+                catch (IOException ex)
+                {
+                    Log.Instance.log($"I/O error occurred while writing the downloaded file {targetFilePath} (attempt {attempt}): {ex.Message}", LogSeverity.Error);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"Unexpected error during HTTP request from {uri} (attempt {attempt}): {ex.Message}", LogSeverity.Error);
+                }
+
+                if (attempt < maxAttempts)
+                    await Task.Delay(2000);
+            }
+
+            return false;
         }
     }
 }

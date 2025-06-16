@@ -1,5 +1,6 @@
 ﻿using FSUIPC;
 using MobiFlight.Base;
+using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.OutputConfig;
 using MobiFlight.UI.Forms;
@@ -37,7 +38,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             OutputPanelMode = isOutputPanel;
             transformOptionsGroup1.setMode(OutputPanelMode);
-            
+
             AutoSize = isOutputPanel;
 
             if (!OutputPanelMode)
@@ -106,10 +107,14 @@ namespace MobiFlight.UI.Panels.Config
                 DataRow[] rows = presetDataTable.Select("description = '" + fsuipcPresetComboBox.Text + "'");
                 if (rows.Length > 0)
                 {
-                    var config = rows[0]["settings"] as IFsuipcConfigItem;
-                    syncFromConfig(config);                 
+                    var config = rows[0]["settings"] as OutputConfigItem;
+                    syncFromConfig(config);
                     panelModifierHint.Visible = (config?.Modifiers.Items.Count > 0) && OutputPanelMode;
-                    PresetChanged?.Invoke(this, config);
+                    PresetChanged?.Invoke(this, new FSUIPCConfigItem()
+                    {
+                        FSUIPC = (config.Source as FsuipcSource)?.FSUIPC,
+                        Modifiers = config.Modifiers
+                    });
                 }
             }
         }
@@ -166,7 +171,7 @@ namespace MobiFlight.UI.Panels.Config
         {
             updateByteSizeComboBox();
         }
-        
+
         private void updateByteSizeComboBox()
         {
             string selectedText = fsuipcSizeComboBox.Text;
@@ -221,20 +226,39 @@ namespace MobiFlight.UI.Panels.Config
         public void syncFromConfig(object config)
         {
             var conf = config as IFsuipcConfigItem;
-            
+
+            // this part is for backward compatibilty
+            // we want to refactor this as soon as possible
+            if (conf == null && config is OutputConfigItem)
+            {
+                conf = new FSUIPCConfigItem()
+                {
+                    FSUIPC = ((config as OutputConfigItem).Source as FsuipcSource)?.FSUIPC,
+                    Modifiers = (config as OutputConfigItem).Modifiers
+                };
+            }
+
             if (conf == null)
             {
                 // this happens when casting badly
                 return;
             }
-            
+
+            syncFromFsuipcConfig(conf.FSUIPC);
+            transformOptionsGroup1.syncFromConfig(conf);
+            UpdatePresetComboBox(conf);
+        }
+
+        private void syncFromFsuipcConfig(FsuipcOffset fsuipc)
+        {
+            if (fsuipc == null) return;
             // first tab                        
-            fsuipcOffsetTextBox.Text = "0x" + conf.FSUIPC.Offset.ToString("X4");
+            fsuipcOffsetTextBox.Text = "0x" + fsuipc.Offset.ToString("X4");
 
             // preselect fsuipc offset type
             try
             {
-                fsuipcOffsetTypeComboBox.SelectedValue = conf.FSUIPC.OffsetType.ToString();
+                fsuipcOffsetTypeComboBox.SelectedValue = fsuipc.OffsetType.ToString();
             }
             catch (Exception ex)
             {
@@ -242,7 +266,7 @@ namespace MobiFlight.UI.Panels.Config
                 Log.Instance.log($"Exception on FSUIPCOffsetType.ToString: {ex.Message}", LogSeverity.Error);
             }
 
-            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, conf.FSUIPC.Size.ToString()))
+            if (!ComboBoxHelper.SetSelectedItem(fsuipcSizeComboBox, fsuipc.Size.ToString()))
             {
                 // TODO: provide error message
                 Log.Instance.log("Exception on selecting item in ComboBox.", LogSeverity.Error);
@@ -250,20 +274,24 @@ namespace MobiFlight.UI.Panels.Config
 
             // mask
             fsuipcMaskTextBox.Text = "0xFF";
-            if (conf.FSUIPC.OffsetType != FSUIPCOffsetType.String)
-                fsuipcMaskTextBox.Text = "0x" + conf.FSUIPC.Mask.ToString("X" + conf.FSUIPC.Size.ToString());
-            
-            fsuipcBcdModeCheckBox.Checked = conf.FSUIPC.BcdMode;
-            transformOptionsGroup1.syncFromConfig(conf);
+            if (fsuipc.OffsetType != FSUIPCOffsetType.String)
+                fsuipcMaskTextBox.Text = "0x" + fsuipc.Mask.ToString("X" + fsuipc.Size.ToString());
+
+            fsuipcBcdModeCheckBox.Checked = fsuipc.BcdMode;
+        }
+
+        private void UpdatePresetComboBox(IFsuipcConfigItem conf)
+        {
+            if (conf == null) return;
 
             foreach (DataRow row in presetDataTable.Rows)
             {
                 var preset = row["settings"] as IFsuipcConfigItem;
                 if (preset == null) continue;
 
-                if (preset.FSUIPC.Equals(conf.FSUIPC)) 
+                if (preset.FSUIPC.Equals(conf.FSUIPC))
                 {
-                    if (!preset.Modifiers.Items.FindAll(m=>m.Active).TrueForAll(m => conf.Modifiers.ContainsModifier(m))) continue;
+                    if (!preset.Modifiers.Items.FindAll(m => m.Active).TrueForAll(m => conf.Modifiers.ContainsModifier(m))) continue;
                     // we found the preset
                     fsuipcPresetComboBox.Text = row["description"].ToString();
                     panelModifierHint.Visible = (row["settings"] as IFsuipcConfigItem).Modifiers.Items.Count > 0;
@@ -290,7 +318,7 @@ namespace MobiFlight.UI.Panels.Config
                 // the mask has only meaning for values other than strings
                 offset.Mask = Int64.Parse(fsuipcMaskTextBox.Text.Replace("0x", "").ToLower(), System.Globalization.NumberStyles.HexNumber);
                 offset.Size = Byte.Parse(fsuipcSizeComboBox.Text);
-            }   
+            }
             else
             {
                 // by default we set the string length to 255
@@ -313,8 +341,8 @@ namespace MobiFlight.UI.Panels.Config
         {
             // we always set the mask according to the set bytes
             fsuipcMaskTextBox.Text = "0x" + (
-                                        new String ('F', 
-                                                    UInt16.Parse((sender as ComboBox).Text)* 2
+                                        new String('F',
+                                                    UInt16.Parse((sender as ComboBox).Text) * 2
                                                    ));
         }
 

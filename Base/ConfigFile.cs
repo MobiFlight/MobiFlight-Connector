@@ -7,6 +7,7 @@ namespace MobiFlight.Base
 {
     public class ConfigFile : IConfigFile
     {
+        public string Label { get; set; }
         public string FileName { get; set; }
         public bool ReferenceOnly { get; set; } = false;
         public bool EmbedContent { get; set; } = false;
@@ -29,7 +30,7 @@ namespace MobiFlight.Base
 
             var json = File.ReadAllText(FileName);
             var configFile = JsonConvert.DeserializeObject<ConfigFile>(json);
-            FileName = configFile.FileName;
+            FileName = configFile.FileName ?? Path.GetFileName(FileName);
             ReferenceOnly = configFile.ReferenceOnly;
             EmbedContent = configFile.EmbedContent;
             ConfigItems = configFile.ConfigItems;
@@ -68,6 +69,31 @@ namespace MobiFlight.Base
                 EmbedContent == other.EmbedContent &&
                 ConfigItems.SequenceEqual(other.ConfigItems)
                 ;
+        }
+
+        public bool HasDuplicateGuids()
+        {
+            var guids = new HashSet<string>();
+            foreach (var item in ConfigItems)
+            {
+                if (!guids.Add(item.GUID))
+                {
+                    return true; // Duplicate GUID found
+                }
+            }
+            return false; // No duplicates
+        }
+
+        public void RemoveDuplicateGuids()
+        {
+            var guids = new HashSet<string>();
+            foreach (var item in ConfigItems)
+            {
+                while (!guids.Add(item.GUID))
+                {
+                    item.GUID = System.Guid.NewGuid().ToString();
+                }
+            }
         }
     }
 }

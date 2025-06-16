@@ -13,19 +13,20 @@ import { IConfigItem } from "@/types/config"
 import { IconCopy, IconDots, IconEdit, IconFlask, IconTrash } from "@tabler/icons-react"
 
 import { Row } from "@tanstack/react-table"
+import React from "react"
 
 interface ConfigItemTableActionsCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableActionsCell = ({
+const ConfigItemTableActionsCell = React.memo(({
   row,
 }: ConfigItemTableActionsCellProps) => {
   const item = row.original
   const { publish } = publishOnMessageExchange()
 
   return (
-    <div className="flex items-center">
+    <div className="flex justify-center">
       <Button
         variant="outline"
         className="h-8 w-8 rounded-r-none border-r-0 p-0"
@@ -110,6 +111,6 @@ const ConfigItemTableActionsCell = ({
       </div>
     </div>
   )
-}
+})
 
 export default ConfigItemTableActionsCell

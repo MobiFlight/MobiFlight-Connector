@@ -1,9 +1,5 @@
 import { IConfigItem } from "@/types"
 import { ColumnDef } from "@tanstack/react-table"
-import {
-  IconBuildingBroadcastTower,
-  IconMathSymbols,
-} from "@tabler/icons-react"
 import { IDeviceConfig } from "@/types/config"
 import { isEmpty } from "lodash"
 import { useTranslation } from "react-i18next"
@@ -15,7 +11,9 @@ import {
   ConfigItemTableStatusCell,
   ConfigItemTableControllerCell,
   ConfigItemTableDeviceCell,
+  ConfigItemTableRawValueCell,
 } from "./items"
+import ConfigItemTableFinalValueCell from "./items/ConfigItemTableFinalValueCell"
 
 export const columns: ColumnDef<IConfigItem>[] = [
   {
@@ -59,13 +57,14 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     meta: {
-      className: "hidden w-40 3xl:w-72 xl:table-cell",
+      className: "hidden w-44 2xl:w-1/6 lg:table-cell",
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5 pl-2",
     },
     accessorKey: "ModuleSerial",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="">{t("ConfigList.Header.Device")}</div>
+      return <div className="text-center">{t("ConfigList.Header.Device")}</div>
     },
     cell: ConfigItemTableControllerCell,
     filterFn: (row, id, value) => {
@@ -74,13 +73,14 @@ export const columns: ColumnDef<IConfigItem>[] = [
   },
   {
     meta: {
-      className: "w-12 lg:w-40",
+      className: "w-12 lg:w-44 2xl:w-1/6",
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5"
     },
     accessorKey: "Device",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="truncate">{t("ConfigList.Header.Component")}</div>
+      return <div className="text-center truncate">{t("ConfigList.Header.Component")}</div>
     },
     cell: ConfigItemTableDeviceCell,
     filterFn: (row, _, value) => {
@@ -136,82 +136,54 @@ export const columns: ColumnDef<IConfigItem>[] = [
   // },
   {
     meta: {
-      className: "w-32",
+      className: "w-24",
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5"
     },
     size: 100,
     accessorKey: "Status",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="">{t("ConfigList.Header.Status")}</div>
+      return <div className="text-center">{t("ConfigList.Header.Status")}</div>
     },
     cell: ConfigItemTableStatusCell,
   },
   {
     meta: {
       className: "w-16 lg:w-24 xl:w-32",
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5"
     },
     accessorKey: "RawValue",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="">{t("ConfigList.Header.RawValue")}</div>
+      return <div className="text-center">{t("ConfigList.Header.RawValue")}</div>
     },
-    cell: ({ row }) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { t } = useTranslation()
-      const label = row.getValue("RawValue") as string
-      return (
-        <div className="text-md truncate">
-          {!isEmpty(label) ? (
-            label
-          ) : (
-            <div className="item-center flex flex-row gap-2 text-slate-300">
-              <IconBuildingBroadcastTower className="animate-pulse" />
-              <span className="truncate">{t("ConfigList.Cell.Waiting")}</span>
-            </div>
-          )}
-        </div>
-      )
-    },
+    cell: ConfigItemTableRawValueCell,
   },
   {
     meta: {
       className: "w-16 lg:w-24 xl:w-32",
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5"
     },
     accessorKey: "Value",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="">{t("ConfigList.Header.FinalValue")}</div>
+      return <div className="text-center">{t("ConfigList.Header.FinalValue")}</div>
     },
-    cell: ({ row }) => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { t } = useTranslation()
-      const label = row.getValue("Value") as string
-      return (
-        <div className="text-md truncate">
-          {!isEmpty(label) ? (
-            label
-          ) : (
-            <div className="item-center flex flex-row gap-2 text-slate-300">
-              <IconMathSymbols className="animate-pulse" />
-              <span className="truncate">{t("ConfigList.Cell.Waiting")}</span>
-            </div>
-          )}
-        </div>
-      )
-    },
+    cell: ConfigItemTableFinalValueCell,
   },
   {
     meta: {
-      className: "w-24",
+      className: "w-20",
+      cellClassName: "bg-slate-500/5 dark:bg-gray-400/5"
     },
     id: "actions",
     header: () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { t } = useTranslation()
-      return <div className="truncate">{t("ConfigList.Header.Actions")}</div>
+      return <div className="text-center truncate">{t("ConfigList.Header.Actions")}</div>
     },
     cell: ConfigItemTableActionsCell,
   },

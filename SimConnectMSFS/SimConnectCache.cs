@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using HidSharp.Utility;
-using Microsoft.FlightSimulator.SimConnect;
-using System.Text.RegularExpressions;
+﻿using Microsoft.FlightSimulator.SimConnect;
 using MobiFlight.Base;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace MobiFlight.SimConnectMSFS
 {

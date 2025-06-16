@@ -1,8 +1,14 @@
-export type { IConfigItem, ControllerType } from "./config"
-// export type { IDeviceElement, DeviceElementType } from "./deviceElements"
-// export type { default as IGlobalSettings } from "./globalsettings"
-export type { LogLevel, ILogMessage } from "./log"
-// export type { Project } from "./project"
+export type { 
+  IConfigItem, 
+  ControllerType, 
+  ConfigFile 
+} from "./config"
+
+export type { 
+  LogLevel, 
+  ILogMessage 
+} from "./log"
+
 export type {
   ConfigLoadedEvent,
   AppMessage,
@@ -13,3 +19,7 @@ export type {
   ConfigValuePartialUpdate,
   Message,
 } from "./messages"
+
+export type { 
+  Project 
+} from "./project"

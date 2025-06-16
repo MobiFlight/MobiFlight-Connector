@@ -3,6 +3,7 @@ import ctypes
 import json
 import logging
 import asyncio
+import struct
 import websockets.asyncio.client as ws_client
 from typing import Optional, List, Dict, Union, Any
 from SimConnect import SimConnect, Enum
@@ -35,7 +36,8 @@ MCDU_ROWS: int = 14
 MCDU_CHARS: int = MCDU_COLUMNS * MCDU_ROWS
 
 # Calculate MCDU_DATA_SIZE just like in the C++ code
-MCDU_DATA_SIZE: int = (ctypes.sizeof(MCDUChar) * MCDU_CHARS) + (ctypes.sizeof(c_bool) * 4)
+MCDU_CHAR_SIZE = ctypes.sizeof(MCDUChar)
+MCDU_DATA_SIZE: int = (MCDU_CHAR_SIZE * MCDU_CHARS) + (ctypes.sizeof(c_bool) * 4)
 
 # MD11 Client Data Area Names and IDs
 MD11_MCDU_NAME: str = "MD11MCDU"
@@ -78,7 +80,7 @@ class SimConnectMobiFlight(SimConnect):
 
 class MobiFlightClient:
     def __init__(self, websocket_uri: str, max_retries: int = 3) -> None:
-        self.websocket: Optional[ws_client.WebSocketClientProtocol] = None
+        self.websocket: Optional[ws_client.ClientConnection] = None
         self.connected: asyncio.Event = asyncio.Event()
         self.websocket_uri: str = websocket_uri
         self.retries: int = 0
@@ -132,18 +134,14 @@ def create_mobi_json(data: bytes) -> str:
     }
     
     # We know exactly how many characters we should have - it's MCDU_CHARS
-    # The data includes MCDU_CHARS number of MCDUChar structures plus 4 bools at the end
-    char_size = ctypes.sizeof(MCDUChar)
-    
+    # The data includes MCDU_CHARS number of MCDUChar structures plus 4 bools at the end    
     if len(data) < MCDU_DATA_SIZE:
         logging.error(f"Received data size {len(data)} is smaller than expected {MCDU_DATA_SIZE}")
         return json.dumps(message)
     
-
     # Now get the character array that follows the status lights
-    char_data_start = ctypes.sizeof(MCDUStatus)
-    char_size = ctypes.sizeof(MCDUChar)
-    mcdu_chars = (MCDUChar * MCDU_CHARS).from_buffer_copy(data[char_data_start:char_data_start + (MCDU_CHARS * char_size)])
+    char_data_start = ctypes.sizeof(MCDUStatus) 
+    mcdu_chars = (MCDUChar * MCDU_CHARS).from_buffer_copy(data[char_data_start:char_data_start + (MCDU_CHARS * MCDU_CHAR_SIZE)])
     
     # Process each character - note we're using row-major order here since that's how the display expects it
     for y in range(MCDU_ROWS):
@@ -207,7 +205,7 @@ class MD11CDUClient:
             self.sc_mobiflight.dll.RequestClientData(
                 self.sc_mobiflight.hSimConnect,
                 MD11_MCDU_CLIENT_DATA_ID,
-                0,
+                self.cdu_definition,
                 self.cdu_definition,
                 Enum.SIMCONNECT_CLIENT_DATA_PERIOD.SIMCONNECT_CLIENT_DATA_PERIOD_VISUAL_FRAME,
                 Enum.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG.SIMCONNECT_CLIENT_DATA_REQUEST_FLAG_CHANGED,
@@ -221,16 +219,22 @@ class MD11CDUClient:
         except Exception as e:
             logging.error(f"SimConnect setup failed: {e}")
             return False
-
+                
     def handle_cdu_data(self, client_data: Any) -> None:
         try:
-            if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):
-                data: bytes = bytes(client_data.dwData)
-                # Only send if data has changed
-                if data != self.last_data:
-                    self.last_data = data
-                    json_data = create_mobi_json(data)
-                    asyncio.run_coroutine_threadsafe(self.mobiflight.send(json_data), self.event_loop)
+            if client_data.dwDefineID == self.cdu_definition and hasattr(client_data, 'dwData'):                
+                int_count : int = int(MCDU_DATA_SIZE / 4)              
+                if len(client_data.dwData) >= int_count:
+                    data_list : bytearray = bytearray()                  
+                    for i in range(int_count): 
+                        my_bytes : bytes = struct.pack("I", client_data.dwData[i])
+                        data_list.extend(my_bytes)                
+                    data: bytes = bytes(data_list) 
+                    # Only send if data has changed
+                    if data != self.last_data:
+                        self.last_data = data
+                        json_data = create_mobi_json(data)
+                        asyncio.run_coroutine_threadsafe(self.mobiflight.send(json_data), self.event_loop)                                              
         except Exception as e:
             logging.error(f"Error handling MCDU data: {e}")
 

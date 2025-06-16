@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 
@@ -7,11 +10,84 @@ namespace MobiFlight.Base
 {
     public class Project
     {
-        public string Name { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler ProjectChanged;
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged(nameof(Name));
+                    OnProjectChanged();
+                }
+            }
+        }
+        private string _filePath;
         [JsonIgnore]
-        public string FilePath { get; set; }
+        public string FilePath
+        {
+            get => _filePath;
+            set
+            {
+                if (_filePath != value)
+                {
+                    _filePath = value;
+                    OnPropertyChanged(nameof(FilePath));
+                    OnProjectChanged();
+                }
+            }
+        }
 
-        public List<ConfigFile> ConfigFiles { get; set; } = new List<ConfigFile>();
+        private ObservableCollection<ConfigFile> _configFiles = new ObservableCollection<ConfigFile>();
+        public ObservableCollection<ConfigFile> ConfigFiles
+        {
+            get => _configFiles;
+            set
+            {
+                if (_configFiles != value)
+                {
+                    if (_configFiles != null)
+                    {
+                        _configFiles.CollectionChanged -= ConfigFiles_CollectionChanged;
+                    }
+
+                    _configFiles = value;
+
+                    if (_configFiles != null)
+                    {
+                        _configFiles.CollectionChanged += ConfigFiles_CollectionChanged;
+                    }
+
+                    OnPropertyChanged(nameof(ConfigFiles));
+                    OnProjectChanged();
+                }
+            }
+        }
+
+        public Project()
+        {
+            ConfigFiles.CollectionChanged += ConfigFiles_CollectionChanged;
+            Name = "New MobiFlight Project";
+        }
+
+        private void ConfigFiles_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            OnProjectChanged();
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void OnProjectChanged()
+        {
+            ProjectChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public void OpenFile()
         {
@@ -28,6 +104,11 @@ namespace MobiFlight.Base
                     {
                         configFile.OpenFile();
                     }
+
+                    if (configFile.Label==null)
+                    {
+                        configFile.Label = Path.GetFileName(FilePath).Replace(".mfproj", "").Replace(".mcc", "");
+                    }
                 }
             }
             else if (IsXml(FilePath))
@@ -36,14 +117,15 @@ namespace MobiFlight.Base
                 var deprecatedConfigFile = ConfigFileFactory.CreateConfigFile(FilePath);
                 deprecatedConfigFile.OpenFile();
 
-                var configFile = new ConfigFile { 
-                    FileName = Path.GetFileName(FilePath), 
-                    EmbedContent = true, 
-                    ReferenceOnly = false, 
-                    ConfigItems = deprecatedConfigFile.ConfigItems 
+                var configFile = new ConfigFile {
+                    Label = Path.GetFileName(FilePath).Replace(".mfproj", "").Replace(".mcc", ""),
+                    FileName = FilePath,
+                    EmbedContent = true,
+                    ReferenceOnly = false,
+                    ConfigItems = deprecatedConfigFile.ConfigItems
                 };
 
-                Name = "MobiFlight Project";
+                Name = Path.GetFileNameWithoutExtension(FilePath);
                 FilePath = FilePath;
                 ConfigFiles.Add(configFile);
             }

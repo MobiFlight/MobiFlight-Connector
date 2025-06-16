@@ -29,15 +29,17 @@ namespace MobiFlight.UI.Dialogs
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
 
-        public ConfigWizard(ExecutionManager mainForm,
+        public ConfigWizard(ExecutionManager executionManager,
                              OutputConfigItem cfg,
 #if ARCAZE
                              ArcazeCache arcazeCache,
                              Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             List<OutputConfigItem> outputConfigs)
+                             List<OutputConfigItem> outputConfigs,
+                             Dictionary<string, MobiFlightVariable> scopedVariables
+            )
         {
-            Init(mainForm, cfg);
+            Init(executionManager, cfg);
 #if ARCAZE
             this.moduleSettings = moduleSettings;
             initWithArcazeCache(arcazeCache);
@@ -52,7 +54,7 @@ namespace MobiFlight.UI.Dialogs
                                      .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }).ToList();
 
             preconditionPanel.SetAvailableConfigs(list);
-            preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
+            preconditionPanel.SetAvailableVariables(scopedVariables);
             initConfigRefDropDowns(this.outputConfigs, cfg.GUID);
 
             // Append the row description to the window title if one was provided.
@@ -190,7 +192,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void FsuipcConfigPanel_PresetChanged(object sender, IFsuipcConfigItem newPreset)
         {
-            modifierPanel1.ReplaceModifiers((newPreset as IFsuipcConfigItem)?.Modifiers);
+            modifierPanel1.ReplaceModifiers((newPreset)?.Modifiers);
         }
 
         private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)

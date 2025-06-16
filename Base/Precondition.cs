@@ -1,9 +1,8 @@
-﻿using MobiFlight.Modifier;
-using SharpDX;
+﻿using MobiFlight.Base;
+using MobiFlight.Modifier;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -17,6 +16,9 @@ namespace MobiFlight
         
         private string preconditionLabel = null;
 
+        private static readonly LRUCache<string, bool> evaluationCache = new LRUCache<string, bool>(1000); // Set cache size limit to 1000
+
+        [JsonIgnore]
         public string PreconditionLabel { 
             get {
                 if (preconditionLabel != null) return preconditionLabel;
@@ -168,78 +170,83 @@ namespace MobiFlight
 
         public bool Evaluate(MobiFlightVariable value)
         {
-            var result = false;
-
-            var comparison = new Comparison();
-            comparison.Active = true;
-            comparison.Value = PreconditionValue;
-            comparison.Operand = PreconditionOperand;
-            comparison.IfValue = "True";
-            comparison.ElseValue = "False";
-
-            var connectorValue = new ConnectorValue();
-            if (value.TYPE == MobiFlightVariable.TYPE_NUMBER)
+            var cacheKey = $"{value.TYPE}:{value.Number}:{value.Text}:{PreconditionValue}:{PreconditionOperand}";
+            if (evaluationCache.TryGetValue(cacheKey, out bool cachedResult))
             {
-                connectorValue.type = FSUIPCOffsetType.Float;
-                connectorValue.Float64 = value.Number;
-
-            } else
-            {
-                connectorValue.type = FSUIPCOffsetType.String;
-                connectorValue.String = value.Text;
+                return cachedResult;
             }
 
-            var compResult = comparison.Apply(connectorValue, new List<ConfigRefValue>());
+            var comparison = new Comparison
+            {
+                Active = true,
+                Value = PreconditionValue,
+                Operand = PreconditionOperand,
+                IfValue = "1",
+                ElseValue = "0"
+            };
 
-            return compResult.ToString() == "True";
+            var connectorValue = new ConnectorValue
+            {
+                type = value.TYPE == MobiFlightVariable.TYPE_NUMBER ? FSUIPCOffsetType.Float : FSUIPCOffsetType.String,
+                Float64 = value.TYPE == MobiFlightVariable.TYPE_NUMBER ? value.Number : 0,
+                String = value.TYPE == MobiFlightVariable.TYPE_NUMBER ? null : value.Text
+            };
+
+            var compResult = comparison.Apply(connectorValue, new List<ConfigRefValue>());
+            var result = compResult.ToString() == "1";
+
+            evaluationCache[cacheKey] = result;
+            return result;
         }
 
         internal bool Evaluate(string value, ConnectorValue currentValue)
         {
-            var result = true;
-            var comparison = new Comparison();
-            comparison.Active = true;
-            comparison.Value = PreconditionValue.Replace("$", currentValue.ToString());
+            var cacheKey = $"{value}:{currentValue}:{PreconditionValue}:{PreconditionOperand}";
+            if (evaluationCache.TryGetValue(cacheKey, out bool cachedResult))
+            {
+                return cachedResult;
+            }
+
+            var comparison = new Comparison
+            {
+                Active = true,
+                Value = PreconditionValue.Replace("$", currentValue.ToString()),
+                Operand = PreconditionOperand,
+                IfValue = "1",
+                ElseValue = "0"
+            };
 
             if (comparison.Value != PreconditionValue)
             {
-                var ce = new NCalc.Expression(comparison.Value);
                 try
                 {
-                    comparison.Value = (ce.Evaluate()).ToString();
+                    var ce = new NCalc.Expression(comparison.Value);
+                    comparison.Value = ce.Evaluate().ToString();
                 }
                 catch (Exception ex)
                 {
-                    //argh!
                     Log.Instance.log($"Exception on eval of comparison value: {ex.Message}", LogSeverity.Error);
                 }
             }
 
-            comparison.Operand = PreconditionOperand;
-            comparison.IfValue = "1";
-            comparison.ElseValue = "0";
-
-            var connectorValue = new ConnectorValue();
-            connectorValue.type = FSUIPCOffsetType.Float;
-            if (!Double.TryParse(value, out connectorValue.Float64))
+            var connectorValue = new ConnectorValue
             {
-                // likely to be a string
-                connectorValue.type = FSUIPCOffsetType.String;
-                connectorValue.String = value;
-            }
+                type = double.TryParse(value, out double floatValue) ? FSUIPCOffsetType.Float : FSUIPCOffsetType.String,
+                Float64 = floatValue,
+                String = floatValue == 0 ? value : null
+            };
 
             try
             {
-                result = (comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString() == "1");
+                var result = comparison.Apply(connectorValue, new List<ConfigRefValue>()).ToString() == "1";
+                evaluationCache[cacheKey] = result;
+                return result;
             }
             catch (FormatException ex)
             {
-                // maybe it is a text string
-                // @todo do something in the future here
                 Log.Instance.log($"Exception on comparison execution, wrong format: {ex.Message}", LogSeverity.Error);
+                return false;
             }
-
-            return result;
         }
     }
 }

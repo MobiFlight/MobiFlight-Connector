@@ -1,18 +1,17 @@
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
-import { flexRender } from "@tanstack/react-table"
-import { Table } from "@tanstack/react-table"
+import { flexRender, HeaderGroup } from "@tanstack/react-table"
 
 interface ConfigItemTableHeaderProps<TData> {
-  table: Table<TData>
+  headerGroups: HeaderGroup<TData>[]
 }
 
 const ConfigItemTableHeader = <TData,>({
-  table,
+  headerGroups,
 }: ConfigItemTableHeaderProps<TData>) => {
   return (
-    <TableHeader className="group/header bg-slate-500 text-white dark:bg-zinc-800">
-      {table.getHeaderGroups().map((headerGroup) => (
+    <TableHeader className="group/header bg-slate-500 text-white">
+      {headerGroups.map((headerGroup) => (
         <TableRow key={headerGroup.id} className="hover:bg-zinc-800">
           {headerGroup.headers.map((header) => {
             const className =
@@ -25,7 +24,7 @@ const ConfigItemTableHeader = <TData,>({
               <TableHead
                 key={header.id}
                 className={cn(
-                  "sticky top-0 z-50 bg-primary px-1 text-white dark:bg-zinc-800",
+                  "sticky top-0 z-50 bg-primary px-1 text-white dark:bg-blue-950",
                   className,
                 )}
               >

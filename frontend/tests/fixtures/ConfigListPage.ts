@@ -1,14 +1,16 @@
 import {
   AppMessage,
-  ConfigLoadedEvent,
+  Project,
   ConfigValuePartialUpdate,
   IConfigItem,
 } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
+import testProject from "../data/project.testdata.json" with { type: "json" }
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
+import { ConfigValueRawAndFinalUpdate, ExecutionState } from "@/types/messages"
 
 export class ConfigListPage {
   constructor(public readonly mobiFlightPage: MobiFlightPage) {}
@@ -21,22 +23,20 @@ export class ConfigListPage {
 
   async initWithEmptyData() {
     const message: AppMessage = {
-      key: "ConfigFile",
+      key: "Project",
       payload: {
-        FileName: "empty-config.json",
-        ConfigItems: [],
-      } as ConfigLoadedEvent,
+        Name: "Test Project",
+        FilePath: "SomeFilePath.mfproj",
+        ConfigFiles: [],
+      } as Project,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
 
   async initWithTestData() {
     const message: AppMessage = {
-      key: "ConfigFile",
-      payload: {
-        FileName: "empty-config.json",
-        ConfigItems: testdata,
-      } as ConfigLoadedEvent,
+      key: "Project",
+      payload: testProject
     }
     await this.mobiFlightPage.publishMessage(message)
   }
@@ -77,15 +77,54 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  getStatusIconInRow(iconName: string, row: number) : Locator {
-    const iconIndex : Record<string, number> = {
-      "Precondition": 0,
-      "Source": 1,
-      "Device": 2,
-      "Modifier": 3,
-      "Test": 4,
-      "ConfigRef": 5,
+  async updateConfigItemRawAndFinalValue (itemIndex: number, RawValue: string, FinalValue: string) {
+    const item = testdata[itemIndex]
+    const message: AppMessage = {
+      key: "ConfigValueRawAndFinalUpdate",
+      payload: {
+        ConfigItems: [
+          {
+            ...item,
+            RawValue: RawValue,
+            Value: FinalValue,
+          }
+        ],
+      } as ConfigValueRawAndFinalUpdate,
     }
-    return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status").nth(iconIndex[iconName]!)
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
+  async removeConfigItemStatus(itemIndex: number, keyToRemove: string) {
+    const item = testdata[itemIndex];
+    const updatedStatus: IDictionary<string, ConfigItemStatusType> = { ...item.Status };
+  
+    // Remove the specified key
+    delete updatedStatus[keyToRemove];
+  
+    const message: AppMessage = {
+      key: "ConfigValuePartialUpdate",
+      payload: {
+        ConfigItems: [
+          {
+            ...item,
+            Status: updatedStatus,
+          },
+        ],
+      } as ConfigValuePartialUpdate,
+    };
+  
+    await this.mobiFlightPage.publishMessage(message);
+  }
+
+  getStatusIconInRow(status: ConfigItemStatusType, row: number) : Locator {
+    return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status",{name: status})
+  }
+
+  async updateExecutionState (executionState: ExecutionState) {
+    const message: AppMessage = {
+      key: "ExecutionState",
+      payload: executionState,
+    }
+    await this.mobiFlightPage.publishMessage(message)
   }
 }

@@ -2,45 +2,50 @@ import ToolTip from "@/components/ToolTip"
 import { Input } from "@/components/ui/input"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
-import { IConfigItem, IDeviceConfig } from "@/types/config"
-import { IconCircleCheck, IconEdit, IconX } from "@tabler/icons-react"
+import { IConfigItem } from "@/types/config"
+import { IconCircleCheck, IconCircleX, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
+import React from "react"
 import { useCallback, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
+const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProps) => {
+  const { t } = useTranslation()
+
   const { publish } = publishOnMessageExchange()
   const [isEditing, setIsEditing] = useState(false)
-  const [label, setLabel] = useState(row.getValue("Name") as string)
-  const realLabel = row.getValue("Name") as string
-  const { t } = useTranslation()
+  
   const item = row.original as IConfigItem
+  const realLabel = item.Name
   const typeLabel = t(`Types.${item.Type}`)
+  
+  const [label, setLabel] = useState(item.Name)
 
   const toggleEdit = () => {
     setIsEditing(!isEditing)
   }
 
   const moduleName =
-    (row.getValue("ModuleSerial") as string).split("/")[0] ?? "not set"
-  const deviceName = (row.getValue("Device") as IDeviceConfig)?.Name ?? "-"
+    (item.ModuleSerial).split("/")[0] ?? "not set"
+  const deviceName = (item.Device)?.Name ?? "-"
 
   const saveChanges = useCallback(() => {
-    const item = row.original as IConfigItem
     item.Name = label
-    console.log(item)
     publish({
       key: "CommandUpdateConfigItem",
       payload: { item: item },
     } as CommandUpdateConfigItem)
-  }, [label, row, publish])
+  }, [label, item, publish])
 
   useEffect(() => {
     setLabel(realLabel)
   }, [realLabel])
+
+  const selectedRows = row.getVisibleCells()[0].getContext().table.getSelectedRowModel().rows.length
+  const dragLabel = selectedRows > 1 ? t("ConfigList.Cell.Drag.Multiple", { count: selectedRows}) : label
 
   return (
     <div className="group flex cursor-pointer flex-row items-center gap-1">
@@ -56,7 +61,8 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
           }
         >
           <div className="flex flex-row items-center gap-0 w-full">
-            <p className="px-0 font-semibold truncate">{label}</p>
+            <p className="px-0 font-semibold truncate group-[.is-first-drag-item]/row:hidden">{label}</p>
+            <p className="px-0 font-semibold truncate hidden group-[.is-first-drag-item]/row:block">{dragLabel}</p>
             <IconEdit
               role="button"
               aria-label="Edit"
@@ -75,9 +81,19 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
             value={label}
             className="m-0 h-6 px-2 text-sm lg:h-8"
             onChange={(e) => setLabel(e.target.value)}
-            onKeyDown={(e) =>
-              e.key === "Enter" && (saveChanges(), toggleEdit())
-            }
+            onKeyDown={(e) => {
+              e.stopPropagation()
+              if (e.key === "Enter") {
+                saveChanges()
+                toggleEdit()
+              }  
+
+              if (e.key === "Escape") {
+                setLabel(realLabel)
+                toggleEdit()
+              }
+            }}
+            
             autoFocus
           />
           <IconCircleCheck
@@ -89,11 +105,12 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
               toggleEdit()
             }}
           />
-          <IconX
+          <IconCircleX
+            className="stroke-red-700"
             role="button"
             aria-label="Discard"
             onClick={() => {
-              setLabel(row.getValue("Name") as string)
+              setLabel(item.Name)
               toggleEdit()
             }}
           />
@@ -101,6 +118,6 @@ const ConfigItemTableNameCell = ({ row }: ConfigItemTableNameCellProps) => {
       )}
     </div>
   )
-}
+})
 
 export default ConfigItemTableNameCell

@@ -31,7 +31,7 @@
     --radius: 0.5rem;
   }
   .dark {
-    --background: 0 0% 3.9%;
+    --background: 220 25% 6%;
     --foreground: 0 0% 98%;
     --card: 0 0% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -60,9 +60,22 @@
 
 @layer base {
   * {
+    font-size: 10.5pt;
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  :root {
+    --selected: 220 0% 80%;
+    --selected-foreground: 0 0% 85%;
+  }
+
+  .dark {
+    --selected: 0 0% 20%;
+    --selected-foreground: 0 0% 16%;
   }
 }
