@@ -71,6 +71,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "aerosoft_crj",
       "ScriptName": "aerosoft_crj_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 737-800x",
+      "ScriptName": "zibo_737_800x.py"
     }
   ]
 }
