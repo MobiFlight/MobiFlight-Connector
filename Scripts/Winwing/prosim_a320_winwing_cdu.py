@@ -100,9 +100,7 @@ def create_mobi_json(xml_string):
                 if char != ' ':
                     entry = [char, formatting, size]
                 message["Data"].append(entry)
-        logging.debug(child.text)   
-    logging.debug(message)
-    return json.dumps(message, separators=(',', ':')) 
+    return json.dumps(message, separators=(',', ':'))
 
 class ProSimGraphQLClient:
     """
