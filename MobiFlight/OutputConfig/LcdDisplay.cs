@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class LcdDisplay : DeviceConfig, IXmlSerializable, ICloneable
+    public class LcdDisplay : DeviceConfig
     {
         public const string DeprecatedType = "LcdDisplay";
         public override string Name { get { return Address; } }
@@ -48,11 +47,7 @@ namespace MobiFlight.OutputConfig
             return clone;
         }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
+        
         public override void ReadXml(XmlReader reader)
         {
             if (reader["address"] != null && reader["address"] != "")

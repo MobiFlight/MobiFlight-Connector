@@ -1,15 +1,11 @@
 ﻿using MobiFlight.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class CustomDevice : DeviceConfig, IXmlSerializable, ICloneable
+    public class CustomDevice : DeviceConfig, ICloneable
     {
         public override string Name { get { return CustomName; } }
 
@@ -46,7 +42,7 @@ namespace MobiFlight.OutputConfig
             };
         }
 
-        public XmlSchema GetSchema()
+        public override XmlSchema GetSchema()
         {
             return null;
         }

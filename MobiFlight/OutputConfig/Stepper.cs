@@ -2,11 +2,10 @@
 using System;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class Stepper : DeviceConfig, IXmlSerializable, ICloneable
+    public class Stepper : DeviceConfig
     {
         public override string Name { get { return Address; } }
 
@@ -58,7 +57,7 @@ namespace MobiFlight.OutputConfig
                 ;
         }
 
-        public XmlSchema GetSchema()
+        public override XmlSchema GetSchema()
         {
             return null;
         }

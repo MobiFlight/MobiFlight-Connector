@@ -1,22 +1,21 @@
-﻿using Device.Net;
-using MobiFlight.Base.Serialization.Json;
+﻿using MobiFlight.Base.Serialization.Json;
 using Newtonsoft.Json;
+using System;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace MobiFlight.Base
 {
     [JsonConverter(typeof(DeviceConfigConverter))]
-    public interface IDeviceConfig
+    public interface IDeviceConfig : IXmlSerializable, ICloneable
     {
         string Type { get; }
         [JsonIgnore]
         string OldType { get; }
         string Name { get; set; }
 
-        object Clone();
-
-        void ReadXml(XmlReader reader);
-        void WriteXml(XmlWriter writer);
+        string Label { get; set; }
     }
 
     public abstract class DeviceConfig : IDeviceConfig
@@ -32,6 +31,7 @@ namespace MobiFlight.Base
         [JsonIgnore]
         public virtual string OldType { get { return _type; } }
         public virtual string Name { get; set; }
+        public virtual string Label { get; set; }
 
         abstract public object Clone();
 
@@ -49,6 +49,11 @@ namespace MobiFlight.Base
             {
                 writer.WriteAttributeString("name", Name);
             }
+        }
+
+        public virtual XmlSchema GetSchema()
+        {
+            return null; // No schema is defined for this class
         }
 
         public override bool Equals(object obj)
