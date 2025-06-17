@@ -11,7 +11,7 @@ from gql.transport.websockets import WebsocketsTransport
 from gql.transport.websockets import log as websockets_logger
 
 # Connection settings for ProSim GraphQL
-GRAPHQL_URL = "gql://localhost:5000/"
+GRAPHQL_URL = "ws://localhost:5000/graphql"
 
 subs = {'#': '\u2610',    # ballot box
         '¤': '\u2191',    # up arrow
@@ -113,6 +113,7 @@ class ProSimGraphQLClient:
         self.client = Client(transport=self.transport)
         self.session = None
         self.connected = False
+        self._callback_tasks = set()  # Keep track of callback tasks
 
     async def connect(self) -> bool:
         """
@@ -148,13 +149,13 @@ class ProSimGraphQLClient:
             logging.error(f"Error disconnecting from ProSim GraphQL: {e}")
             return False
 
-    async def subscribe_to_datarefs(self, dataref_names: list[str], callback: Callable) -> None:
+    async def subscribe_to_datarefs(self, dataref_names: list[str], callback: Callable[[str, str], None]) -> None:
         """
         Subscribe to ProSim datarefs using GraphQL subscription
         
         Args:
             dataref_names: List of dataref names to subscribe to
-            callback: Callback function to handle dataref updates
+            callback: Async callback function to handle dataref updates
         """
         if not self.connected:
             logging.error("Not connected to ProSim GraphQL")
@@ -175,7 +176,12 @@ class ProSimGraphQLClient:
         try:
             async for result in self.session.subscribe(subscription, params, "OnDataRefChanged"):
                 if "dataRefs" in result:
-                    callback(result["dataRefs"]["name"], result["dataRefs"]["value"])
+                    # Create a task for the callback to handle it asynchronously
+                    task = asyncio.create_task(callback(result["dataRefs"]["name"], result["dataRefs"]["value"]))
+                    # Add task to the set of tracked tasks
+                    self._callback_tasks.add(task)
+                    # Remove task from set when done
+                    task.add_done_callback(self._callback_tasks.discard)
         except Exception as e:
             logging.error(f"Error in GraphQL subscription: {e}")
             self.connected = False
@@ -188,6 +194,7 @@ class ProSimCDUClient:
         self.cdu_name: str = cdu_name
         self.cdu_dataref_name: str = cdu_dataref_name
         self.last_cdu_data = None
+        self._callback_tasks = set()  # Keep track of callback tasks
 
     def failed_to_connect(self) -> bool:
         return self.mobiflight.retries >= self.mobiflight.max_retries
@@ -248,6 +255,10 @@ class ProSimCDUClient:
         except Exception as e:
             logging.error(f"Error in {self.cdu_name} CDU client: {e}")
         finally:
+            # Cancel any pending callback tasks
+            for task in self._callback_tasks:
+                task.cancel()
+            self._callback_tasks.clear()
             await self.mobiflight.close()
 
 if __name__ == "__main__":
