@@ -22,9 +22,15 @@ namespace MobiFlight.UI.Panels.Action
 
         public void syncFromConfig(object config)
         {
-            ProSimInputAction inputAction = config as ProSimInputAction;
-            proSimDatarefPanel1.Path = inputAction.Path;
-            proSimDatarefPanel1.TransformOptionsGroup.syncFromConfig(inputAction);
+            if ((config is ProSimInputAction proSimInputAction))
+            {
+                proSimDatarefPanel1.Path = proSimInputAction.Path;
+                proSimDatarefPanel1.TransformOptionsGroup.syncFromConfig(proSimInputAction);
+            }
+            else if (config is FsuipcOffsetInputAction fsuipcOffsetInputAction)
+            {
+                proSimDatarefPanel1.TransformOptionsGroup.syncFromConfig(fsuipcOffsetInputAction);
+            }
             proSimDatarefPanel1.TransformOptionsGroup.ShowValuePanel(true);
         }
 
