@@ -1,10 +1,9 @@
-import clr
 from pathlib import Path
 from typing import Callable, Optional
 import json
 import logging
 import asyncio
-import websockets.asyncio.client as ws_client
+import websockets
 import xml.etree.ElementTree as ET
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
@@ -31,10 +30,9 @@ CO_PILOT_CDU_URL: str = "ws://localhost:8320/winwing/cdu-co-pilot"
 CDU_COLUMNS: int = 24
 CDU_ROWS: int = 14
 
-
 class MobiFlightClient:
     def __init__(self, websocket_uri: str, max_retries: int = 3) -> None:
-        self.websocket: Optional[ws_client.WebSocketClientProtocol] = None
+        self.websocket: Optional[websockets.WebSocketClientProtocol] = None
         self.connected: asyncio.Event = asyncio.Event()
         self.websocket_uri: str = websocket_uri
         self.retries: int = 0
@@ -45,7 +43,7 @@ class MobiFlightClient:
             try:
                 if self.websocket is None:
                     logging.info("Connecting to MobiFlight at %s", self.websocket_uri)
-                    self.websocket = await ws_client.connect(self.websocket_uri, ping_interval=None)
+                    self.websocket = await websockets.connect(self.websocket_uri, ping_interval=None)
                     logging.info("MobiFlight connected")
                     self.connected.set()
                 await self.websocket.recv()
