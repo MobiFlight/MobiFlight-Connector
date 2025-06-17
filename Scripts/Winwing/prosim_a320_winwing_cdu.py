@@ -6,11 +6,12 @@ import logging
 import asyncio
 import websockets.asyncio.client as ws_client
 import xml.etree.ElementTree as ET
+from gql import Client, gql
+from gql.transport.websockets import WebsocketsTransport
+from gql.transport.websockets import log as websockets_logger
 
-# Connection settings for ProSim SDK
-host = "localhost"
-port = 8082
-url = f"net.tcp://{host}:{port}/SDK"
+# Connection settings for ProSim GraphQL
+GRAPHQL_URL = "gql://localhost:5000/"
 
 subs = {'#': '\u2610',    # ballot box
         '¤': '\u2191',    # up arrow
@@ -21,6 +22,7 @@ subs = {'#': '\u2610',    # ballot box
         
 replace_chars =  ['£', '¢', '¥', '¤', '#', '&' ]
 format_chars = ['s', 'l', 'a', 'c', 'y', 'w', 'g', 'm']
+
 # URLs
 CAPTAIN_CDU_URL: str = "ws://localhost:8320/winwing/cdu-captain"
 CO_PILOT_CDU_URL: str = "ws://localhost:8320/winwing/cdu-co-pilot"
@@ -28,160 +30,6 @@ CO_PILOT_CDU_URL: str = "ws://localhost:8320/winwing/cdu-co-pilot"
 # Constants from PMDG_NG3_SDK.h
 CDU_COLUMNS: int = 24
 CDU_ROWS: int = 14
-
-class PyProsimDLLException(Exception):
-    pass
-
-
-class PyProsimImportException(Exception):
-    pass
-
-
-class PyProsim:
-    def __init__(
-        self,
-        prosimsdk_path: Path,
-        on_connect_callback: Callable = None,
-        on_disconnect_callback: Callable = None,
-    ):
-        """Py prosim class init
-        Attributes:
-        prosimsdk_path -- Path to prosim SDK DLL library
-        on_connect_callback -- Callable object which will be called once we
-                               are connected to prosim
-        on_disconnect_callback -- Callable object which will be called once
-                                  prosim disconnects
-        """
-        # Load CLR namespace
-        try:
-            clr.AddReference(str(prosimsdk_path))
-        except Exception as e:
-            raise PyProsimDLLException(e)
-
-        # Finally import the required classes
-        # Note the global definition is to make DataRef import available
-        # to the rest of this implementation
-        try:
-            global DataRef
-            from ProSimSDK import ProSimConnect, DataRef
-        except Exception as e:
-            raise PyProsimImportException(e)
-
-        # Create Prosim SDK class
-        self.sdk = ProSimConnect()
-
-        # Set callbacks if required
-        if on_connect_callback is not None:
-            self.sdk.onConnect += on_connect_callback
-        if on_disconnect_callback is not None:
-            self.sdk.onDisconnect += on_disconnect_callback
-
-        # Init main dictionary which will hold Prosim datarefs objects
-        self.datarefs = {}
-
-    def connect(self, ip_addr: str, synchronous: bool = True) -> None:
-        """Simply connect to Prosim
-        Attributes:
-        ip_addr -- Host IP address when ProSim is running
-        synchronous -- Blocking when True
-
-        Return:
-        None
-        """
-        self.sdk.Connect(ip_addr, synchronous)
-
-    def add_dataref(
-        self, dataref_name: str, interval: int, on_change_callback: Callable = None
-    ) -> None:
-        """Add a dataref request to ProSim. Then prosim can periodically send
-        this value back.
-        This dataref object is then accesible through this class datarfes dictionary,
-        or getter method.
-        Attributes:
-        dataref_name -- Prosim dataref name
-        interval -- How frequent prosim should send this dataref in miliseconds
-        on_change_callback -- Callable object which will be called when dataref
-                              changes.
-        Return:
-        None
-        """
-        # Create Prosim dataref object
-        dr = DataRef(dataref_name, interval, self.sdk)
-
-        # Set callback on change if needed
-        if on_change_callback is not None:
-            dr.onDataChange += on_change_callback
-
-        # Store dataref object
-        self.datarefs[dataref_name] = dr
-
-    def get_dataref_value(self, dataref_name: str):
-        """Get dataref value.
-        Attributes:
-        dataref_name -- Prosim dataref name
-        Return:
-        Prosim dataref value or None if dataref has not been
-        added yet.
-        """
-        dataref = self.datarefs.get(dataref_name, None)
-        if dataref is None:
-            logging.warning(f"Dataref '{dataref_name}' not found in the dictionary, make sure you added it first")
-            return None
-        return dataref.value
-
-    def get_all_avail_datarefs(self) -> list:
-        """Request the full list of avaiable datarefs from ProSim
-        Attributes:
-        None
-        Return:
-        list -- List of dictionaries containing all info about the
-                datarefs
-        """
-        dataref_list = []
-        for dr in self.sdk.getDataRefDescriptions():
-            dataref_list.append(
-                {
-                    "name": dr.Name,
-                    "description": dr.Description,
-                    "can_read": dr.CanRead,
-                    "can_write": dr.CanWrite,
-                    "data_type": dr.DataType,
-                    "date_unit": dr.DataUnit,
-                }
-            )
-        return dataref_list
-
-    def get_info(self) -> dict:
-        """Get simulator information
-        Attributes:
-        None
-        Return:
-        dict -- Dictionary with sim information
-        """
-        info = self.sdk.getLicensingInfo()
-        features = []
-        for f in info.Features:
-            features.append(str(f))
-        return {
-            "mode": info.Mode,
-            "features": features,
-            "licensee": info.Licensee,
-        }
-
-    def set_dataref_value(self, dataref_name:str, dataref_value) -> None:
-        """Set dataref value ** Only works if it's been added previously
-        Attributes:
-        dataref_name -- Prosim dataref name
-        dataref_value -- New value for Prosim dataref
-        Return:
-        None
-        """
-        dataref = self.datarefs.get(dataref_name)
-        if dataref is None:
-            logging.error(f"Cannot set value for '{dataref_name}': dataref not found. Add it first with add_dataref().")
-            raise Exception(f"Value '{dataref_name}' has not been added prior to setting it")
-        
-        dataref.value = dataref_value
 
 
 class MobiFlightClient:
@@ -256,108 +104,151 @@ def create_mobi_json(xml_string):
     logging.debug(message)
     return json.dumps(message, separators=(',', ':')) 
 
-class ProSimClient:
-    pyprosim: PyProsim = None
-
+class ProSimGraphQLClient:
+    """
+    Client for handling GraphQL communication with ProSim
+    """
     def __init__(self) -> None:
-        try:
-            self.pyprosim = PyProsim(Path("ProSimSDK.dll").absolute())
-            self.connected = False
-        except Exception as e:
-            logging.error(f"Failed to initialize ProSim SDK: {e}")
-            raise
+        self.transport = WebsocketsTransport(url=GRAPHQL_URL)
+        self.client = Client(transport=self.transport)
+        self.session = None
+        self.connected = False
 
-    def connect(self) -> bool:
+    async def connect(self) -> bool:
+        """
+        Connect to ProSim GraphQL server
+        
+        Returns:
+            bool: True if connection was successful, False otherwise
+        """
         try:
-            logging.info(f"Connecting to ProSim at {host}")
-            self.pyprosim.connect(host, synchronous=True)
+            logging.info(f"Connecting to ProSim GraphQL at {GRAPHQL_URL}")
+            self.session = await self.client.connect_async(reconnecting=True)
             self.connected = True
-            logging.info("Successfully connected to ProSim")
+            logging.info("Successfully connected to ProSim GraphQL")
             return True
         except Exception as e:
-            logging.error(f"Failed to connect to ProSim: {e}")
+            logging.error(f"Failed to connect to ProSim GraphQL: {e}")
             self.connected = False
             return False
 
-    def add_callback(self, dataref_name: str, callback: Callable) -> bool:
+    async def disconnect(self) -> bool:
+        """
+        Disconnect from ProSim GraphQL server
+        
+        Returns:
+            bool: True if disconnect was successful, False otherwise
+        """
         try:
-            self.pyprosim.add_dataref(dataref_name, 50, callback)
+            if self.session:
+                await self.session.close()
+            self.connected = False
             return True
         except Exception as e:
-            logging.error(f"Failed to add callback for {dataref_name}: {e}")
+            logging.error(f"Error disconnecting from ProSim GraphQL: {e}")
             return False
 
-    def get_dataref_value(self, dataref_name: str):
-        try:
-            return self.pyprosim.get_dataref_value(dataref_name)
-        except Exception as e:
-            logging.error(f"Error getting dataref value for {dataref_name}: {e}")
-            return None
+    async def subscribe_to_datarefs(self, dataref_names: list[str], callback: Callable) -> None:
+        """
+        Subscribe to ProSim datarefs using GraphQL subscription
+        
+        Args:
+            dataref_names: List of dataref names to subscribe to
+            callback: Callback function to handle dataref updates
+        """
+        if not self.connected:
+            logging.error("Not connected to ProSim GraphQL")
+            return
 
+        subscription = gql(
+            """
+            subscription OnDataRefChanged($names: [String!]!) {
+                dataRefs(names: $names) {
+                    name
+                    value
+                }
+            }
+            """
+        )
+        params = {"names": dataref_names}
+
+        try:
+            async for result in self.session.subscribe(subscription, params, "OnDataRefChanged"):
+                if "dataRefs" in result:
+                    callback(result["dataRefs"]["name"], result["dataRefs"]["value"])
+        except Exception as e:
+            logging.error(f"Error in GraphQL subscription: {e}")
+            self.connected = False
 
 class ProSimCDUClient:
-    def __init__(self, prosim_client: ProSimClient, websocket_uri: str, cdu_name: str, cdu_dataref_name: str) -> None:
-        self.prosim_client: ProSimClient = prosim_client
+    def __init__(self, prosim_client: ProSimGraphQLClient, websocket_uri: str, cdu_name: str, cdu_dataref_name: str) -> None:
+        self.prosim_client: ProSimGraphQLClient = prosim_client
         self.mobiflight: MobiFlightClient = MobiFlightClient(websocket_uri)
         self.event_loop: Optional[asyncio.AbstractEventLoop] = None
         self.cdu_name: str = cdu_name
         self.cdu_dataref_name: str = cdu_dataref_name
+        self.last_cdu_data = None
 
     def failed_to_connect(self) -> bool:
         return self.mobiflight.retries >= self.mobiflight.max_retries
 
-    def setup_prosim(self) -> bool:
+    async def setup_prosim(self) -> bool:
         try:
-            self.prosim_client.connect()
-                    
-            # Check that we can access datarefs
-            datarefs = self.prosim_client.pyprosim.get_all_avail_datarefs()
-            if not datarefs:
-                logging.error(f"No datarefs found in ProSim for {self.cdu_name}")
+            if not self.prosim_client.connected and not await self.prosim_client.connect():
+                logging.error(f"Failed to connect to ProSim GraphQL for {self.cdu_name}")
                 return False
-                
-            self.prosim_client.add_callback(self.cdu_dataref_name, None)
 
-            logging.info(f"ProSim connection initialized for {self.cdu_name}")
+            logging.info(f"ProSim GraphQL connection initialized for {self.cdu_name} CDU")
             return True
         except Exception as e:
-            logging.error(f"ProSim setup failed for {self.cdu_name}: {e}")
+            logging.error(f"ProSim GraphQL setup failed for {self.cdu_name}: {e}")
             return False
 
-    async def process_prosim(self) -> None:
-        while True:
-            dataref = self.prosim_client.get_dataref_value(self.cdu_dataref_name)
-            if dataref:
-                asyncio.run_coroutine_threadsafe(self.mobiflight.send(create_mobi_json(dataref)), self.event_loop)
-
-            #     pass
-            await asyncio.sleep(0.1)
+    async def handle_dataref_update(self, dataref_name: str, value: str) -> None:
+        """
+        Handle dataref updates from ProSim GraphQL
+        
+        Args:
+            dataref_name: Name of the dataref that was updated
+            value: New value of the dataref
+        """
+        if dataref_name == self.cdu_dataref_name and value != self.last_cdu_data:
+            try:
+                json_data = create_mobi_json(value)
+                await self.mobiflight.send(json_data)
+                self.last_cdu_data = value
+            except Exception as e:
+                logging.error(f"Error processing CDU data for {self.cdu_name}: {e}")
 
     async def run(self) -> None:
         self.event_loop = asyncio.get_running_loop()
-        logging.info("Starting CDU client")
+        logging.info(f"Starting {self.cdu_name} CDU client")
         
         try:
             # Start MobiFlight connection
             mobiflight_task: asyncio.Task = asyncio.create_task(self.mobiflight.run())
             await self.mobiflight.connected.wait()
+            
             if self.failed_to_connect():
-                logging.error("Failed to connect to MobiFlight for %s", self.cdu_name)
+                logging.error(f"Failed to connect to MobiFlight for {self.cdu_name}")
                 return
-            # Initialize SimConnect
-            if self.setup_prosim():
-                simconnect_task: asyncio.Task = asyncio.create_task(self.process_prosim())
-                await asyncio.gather(mobiflight_task, simconnect_task)
+                
+            # Initialize ProSim GraphQL connection
+            if await self.setup_prosim():
+                # Start processing ProSim data
+                await self.prosim_client.subscribe_to_datarefs(
+                    [self.cdu_dataref_name],
+                    self.handle_dataref_update
+                )
             else:
-                logging.error("Failed to start - SimConnect initialization failed")
-        except KeyboardInterrupt:
-            logging.info("Shutting down")
+                logging.error(f"Failed to start {self.cdu_name} - ProSim GraphQL initialization failed")
+                
+        except asyncio.CancelledError:
+            logging.info(f"Shutting down {self.cdu_name} CDU client")
         except Exception as e:
-            logging.error(f"Error: {e}")
+            logging.error(f"Error in {self.cdu_name} CDU client: {e}")
         finally:
             await self.mobiflight.close()
-
-
 
 if __name__ == "__main__":
     logging.basicConfig(
@@ -365,20 +256,50 @@ if __name__ == "__main__":
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
     
-    sc_prosim: ProSimClient = ProSimClient()
-    captain_client: ProSimCDUClient = ProSimCDUClient(sc_prosim, CAPTAIN_CDU_URL, "PILOT", "aircraft.mcdu1.display")
-    co_pilot_client: ProSimCDUClient = ProSimCDUClient(sc_prosim, CO_PILOT_CDU_URL, "COPILOT", "aircraft.mcdu2.display")
+    async def cleanup(prosim_client):
+        """Clean up resources"""
+        logging.info("Cleaning up resources")
+        try:
+            if prosim_client:
+                await prosim_client.disconnect()
+        except Exception as e:
+            logging.error(f"Error during cleanup: {e}")
     
-    async def run_clients():
-        await asyncio.gather(
-            captain_client.run(), 
-            co_pilot_client.run(),
-            return_exceptions=True
-        )
-    # this will not work
     try:
+        # Initialize the ProSim GraphQL client
+        logging.info("Initializing ProSim GraphQL client")
+        prosim_client = ProSimGraphQLClient()
+        
+        # Create the CDU clients
+        logging.info("Creating CDU clients")
+        captain_client = ProSimCDUClient(prosim_client, CAPTAIN_CDU_URL, "PILOT", "aircraft.mcdu1.display")
+        co_pilot_client = ProSimCDUClient(prosim_client, CO_PILOT_CDU_URL, "COPILOT", "aircraft.mcdu2.display")
+        
+        # Run the clients
+        async def run_clients():
+            # Connect to ProSim first
+            if not await prosim_client.connect():
+                logging.error("Failed to connect to ProSim GraphQL. Please check if ProSim is running.")
+                return
+                
+            logging.info("Starting CDU clients")
+            await asyncio.gather(
+                captain_client.run(), 
+                co_pilot_client.run(),
+                return_exceptions=True
+            )
+            
+        # Run the async loop
         asyncio.run(run_clients())
+        
     except KeyboardInterrupt:
-        logging.info("Shutting down")
+        logging.info("Shutting down due to keyboard interrupt")
     except Exception as e:
-        logging.error(f"Error: {e}")
+        logging.error(f"Error in main: {e}")
+        import traceback
+        logging.error(traceback.format_exc())
+    finally:
+        # Clean up resources
+        asyncio.run(cleanup(prosim_client if 'prosim_client' in locals() else None))
+        
+        logging.info("Application terminated")
