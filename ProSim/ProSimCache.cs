@@ -49,8 +49,6 @@ namespace MobiFlight.ProSim
         {
             try
             {
-                // Initialize ProSim SDK connection
-
                 var host = !string.IsNullOrWhiteSpace(Properties.Settings.Default.ProSimHost)
                     ? Properties.Settings.Default.ProSimHost
                     : "localhost";
