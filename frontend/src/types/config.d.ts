@@ -20,10 +20,6 @@ export interface IConfigItem extends IConfigValueOnlyItem {
   // name / serial of the device
   ModuleSerial: string
   Device?: IDeviceConfig | null 
-  // this is the type of the Device
-  // Type: DeviceElementType;
-  DeviceName?: string | null
-  DeviceType: DeviceElementType | string
   // Tags: string[];
   Status: IDictionary<string, ConfigItemStatusType>
 }
