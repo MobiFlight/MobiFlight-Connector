@@ -21,7 +21,7 @@ namespace MobiFlight
         private readonly List<MidiBoard> MidiBoards = new List<MidiBoard>();
         private readonly List<MidiBoard> ExcludedMidiBoards = new List<MidiBoard>();        
         private readonly List<MidiBoard> BoardsToBeRemoved = new List<MidiBoard>();
-        private readonly Dictionary<string, MidiBoardDefinition> Definitions = new Dictionary<string, MidiBoardDefinition>();
+        public readonly Dictionary<string, MidiBoardDefinition> Definitions = new Dictionary<string, MidiBoardDefinition>();
         private readonly Timer ProcessTimer = new System.Windows.Forms.Timer();
         private int CheckAttachedRemovedCounter = 0;
 
