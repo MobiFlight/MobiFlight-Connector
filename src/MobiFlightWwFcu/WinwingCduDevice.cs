@@ -23,6 +23,11 @@ namespace MobiFlightWwFcu
         private const string LED_BRIGHTNESS = "LED Percentage";
 
         private WinwingFontConverter FontConverter = new WinwingFontConverter();
+        private AesCtrHelper CryptoHelper = new AesCtrHelper();
+
+        private const string KEY_STRING = @"MY6JFI/baxXX0dyOV1c8Bw==";
+        private const string NONCE_STRING = @"CcwLDBJBtVe2JUHDnMhWtw==";
+
 
 
         private Dictionary<char, byte> FormatTable = new Dictionary<char, byte>()
@@ -68,7 +73,9 @@ namespace MobiFlightWwFcu
         };
 
         private string InitialDisplayJson =
-            @"{ ""Data"": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
+            @"{ 
+                ""Target"": ""Display"",
+                ""Data"": [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
                            [],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],
@@ -85,22 +92,22 @@ namespace MobiFlightWwFcu
         private List<Tuple<string, byte[]>> InitCommandHeaderMcdu = new List<Tuple<string, byte[]>>()
         {
             new Tuple<string, byte[]>("1e01", new byte[0]), // clear feature info
-            new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x25, 0x00, 0x0e, 0x00, 0x18, 0x00}),
-            //new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            // orig use with fonts new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x25, 0x00, 0x0e, 0x00, 0x18, 0x00}),
+            new Tuple<string, byte[]>("1801", new byte[] {0x34, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
             new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
             new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
         };
 
         private List<Tuple<string, byte[]>> InitCommandHeaderPfp3n = new List<Tuple<string, byte[]>>()
         {
-            new Tuple<string, byte[]>("1e01", new byte[0]),
-            // use same as for MCDU with font 5 and 6. Otherwise last line is missing.
-            //new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x13, 0x00, 0x0e, 0x00, 0x18, 0x00}),
-            //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
-            //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
-            new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}),
-            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
-            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+            new Tuple<string, byte[]>("1e01", new byte[0]),            
+            new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x13, 0x00, 0x0e, 0x00, 0x18, 0x00}),            
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+            new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}),
+            // use same as for MCDU with font 5 and 6. Otherwise last line is missing.            
+            //new Tuple<string, byte[]>("1801", new byte[] {0x32, 0x00, 0x18, 0x00, 0x0e, 0x00, 0x18, 0x00}), // without fonts 
+            //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // without fonts 
+            //new Tuple<string, byte[]>("1901", new byte[] {0x01, 0x00, 0x06, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}), // without fonts 
         };
 
         private List<Tuple<string, byte[]>> InitCommandData = new List<Tuple<string, byte[]>>()
@@ -274,7 +281,16 @@ namespace MobiFlightWwFcu
 
         private void SetFontAndInitDisplay(string fontData)
         {
-            var fontCommands = FontConverter.FontJsonToDisplayCommands(fontData, DestinationAddress);
+            string plainFontJson = fontData;
+            // Check and decrypt
+            if (!fontData.Contains('{'))
+            {
+                byte[] key = Convert.FromBase64String(KEY_STRING);
+                byte[] nonce = Convert.FromBase64String(NONCE_STRING);
+                byte[] decrypted = CryptoHelper.Decrypt(Convert.FromBase64String(fontData), key, nonce);
+                plainFontJson = Encoding.UTF8.GetString(decrypted);
+            }
+            var fontCommands = FontConverter.FontJsonToDisplayCommands(plainFontJson, DestinationAddress);
             MessageSender.SendDisplayCommands(fontCommands.LargeFontHead);
             MessageSender.SendDisplayCommands(fontCommands.LargeFont);
             MessageSender.SendDisplayCommands(fontCommands.SmallFontHead);
@@ -282,19 +298,15 @@ namespace MobiFlightWwFcu
             MessageSender.SendDisplayCommands(InitCommands);
         }
 
-
-        private void SetFontFromFileAndInitDisplay(string filePath)
-        {
-            string myJson = File.ReadAllText(filePath);
-            SetFontAndInitDisplay(myJson);
-        }
-
         public void Connect()
-        {            
+        {
+            // MessageSender.SendDisplayCommands(InitCommands); // Remove if font is set and used
             SetBacklightBrightness("80");
             SetLcdBrightness("100");
 
-            SetFontFromFileAndInitDisplay("./Fonts/BoeingLarge.json");                                    
+            // Load font as default            
+            FontLoader fontLoader = new FontLoader();           
+            fontLoader.LoadFont(this, @"{ ""Target"": ""Font"", ""Data"": ""Boeing"" }");                                 
             ConvertAndSendCduData(InitialDisplayJson);
         }
 

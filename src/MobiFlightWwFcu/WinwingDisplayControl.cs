@@ -24,7 +24,6 @@ namespace MobiFlightWwFcu
         private WebSocketServer Server;
         private string WebSocketPath = string.Empty;
 
-
         public WinwingDisplayControl(int productId, WebSocketServer server)
         {
             Init(productId, server);
@@ -75,6 +74,7 @@ namespace MobiFlightWwFcu
                 {
                     s.Device = device;
                     s.ErrorMessageHandler = this.ErrorMessageHandler;
+                    s.Loader = new FontLoader();
                 });
                 WebSocketPath = path;
             }
