@@ -44,11 +44,11 @@ class SimConnectMobiFlight(SimConnect):
             super().my_dispatch_proc(pData, cbData, pContext)
 
 
-subs = {'@': '\u2610',    # ballot box
-        'a': '\u2191',    # up arrow
-        'b': '\u2193',    # down arrow
-        'c': '\u2190',    # left arrow
-        'd': '\u2192',    # right arrow        
+subs = {'@': '☐',    # ballot box \u2610
+        'a': '↑',    # up arrow    \u2191
+        'b': '↓',    # down arrow  \u2193
+        'c': '→',    # left arrow  \u2190
+        'd': '←',    # right arrow \u2192       
         'e': '°',}   
 
 # URLs
@@ -96,6 +96,10 @@ class MobiFlightClient:
                     logging.info("Connecting to MobiFlight at %s", self.websocket_uri)
                     self.websocket = await ws_client.connect(self.websocket_uri, ping_interval=None)
                     logging.info("MobiFlight connected at %s", self.websocket_uri)
+                    # Load font                                        
+                    fontName = "Collins"
+                    await self.websocket.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
+                    logging.info(f"Setting font: {fontName}")
                     self.connected.set()
                 await self.websocket.recv()
             except Exception as e: 
