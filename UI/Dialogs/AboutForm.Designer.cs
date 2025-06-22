@@ -39,8 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.licenseReferenceControl10 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl9 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl8 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
@@ -51,6 +49,9 @@
             this.licenseReferenceControl4 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl3 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl1 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -117,6 +118,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.licenseReferenceControl10);
             this.panel2.Controls.Add(this.licenseReferenceControl9);
             this.panel2.Controls.Add(this.licenseReferenceControl8);
@@ -130,17 +132,6 @@
             this.panel2.Controls.Add(this.label5);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            // 
-            // label5
-            // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.button1);
-            resources.ApplyResources(this.panel3, "panel3");
-            this.panel3.Name = "panel3";
             // 
             // licenseReferenceControl10
             // 
@@ -223,6 +214,22 @@
             this.licenseReferenceControl1.LicenseLink = "https://github.com/MobiFlight/Arduino-CmdMessenger/blob/master/LICENSE.md";
             this.licenseReferenceControl1.Name = "licenseReferenceControl1";
             // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.button1);
+            resources.ApplyResources(this.panel3, "panel3");
+            this.panel3.Name = "panel3";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
             // AboutForm
             // 
             resources.ApplyResources(this, "$this");
@@ -235,6 +242,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -264,5 +272,6 @@
         private Panels.About.LicenseReferenceControl licenseReferenceControl9;
         private Panels.About.LicenseReferenceControl licenseReferenceControl8;
         private Panels.About.LicenseReferenceControl licenseReferenceControl10;
+        private System.Windows.Forms.Label label6;
     }
 }
