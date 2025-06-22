@@ -2,7 +2,6 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -27,8 +26,6 @@ namespace MobiFlightWwFcu
 
         private const string KEY_STRING = @"MY6JFI/baxXX0dyOV1c8Bw==";
         private const string NONCE_STRING = @"CcwLDBJBtVe2JUHDnMhWtw==";
-
-
 
         private Dictionary<char, byte> FormatTable = new Dictionary<char, byte>()
         {
@@ -280,7 +277,7 @@ namespace MobiFlightWwFcu
         }
 
         private void SetFontAndInitDisplay(string fontData)
-        {
+        {            
             string plainFontJson = fontData;
             // Check and decrypt
             if (!fontData.Contains('{'))
@@ -305,8 +302,8 @@ namespace MobiFlightWwFcu
             SetLcdBrightness("100");
 
             // Load font as default            
-            FontLoader fontLoader = new FontLoader();           
-            fontLoader.LoadFont(this, @"{ ""Target"": ""Font"", ""Data"": ""Boeing"" }");                                 
+            FontLoader fontLoader = new FontLoader();
+            fontLoader.LoadFont(this, @"{ ""Target"": ""Font"", ""Data"": ""Boeing"" }");
             ConvertAndSendCduData(InitialDisplayJson);
         }
 
