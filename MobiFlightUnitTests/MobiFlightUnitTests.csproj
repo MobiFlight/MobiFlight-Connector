@@ -127,6 +127,7 @@
     <Compile Include="MobiFlight\BrowserMessages\MessageTests.cs" />
     <Compile Include="MobiFlight\ExecutionManagerTests.cs" />
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\JoystickDefinitionTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinitionTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
