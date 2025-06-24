@@ -95,6 +95,12 @@ namespace MobiFlight
             return Inputs.Find(input => input.Name == name);
         }
 
+        public string MapDeviceNameToLabel(string deviceName)
+        {
+            var input = Inputs.Find(Inputs => Inputs.Name == deviceName);
+            return input?.Label ?? deviceName;
+        }
+
         /// <summary>
         /// Migrates values from a prior version of the JSON schema to the newest version.
         /// </summary>

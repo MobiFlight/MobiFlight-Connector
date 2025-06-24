@@ -61,6 +61,16 @@ namespace MobiFlight
             }
         }
 
+        public string MapDeviceNameToLabel(string deviceName)
+        {
+            if (InputNameToLabelDictionary.TryGetValue(deviceName, out string label))
+            {
+                return label;
+            }
+
+            return deviceName; // Return the device name if no label is found
+        }
+
         // Nothing to migrate currently but the method implementation is required
         // when using JsonBoardObject to load definitions from JSON.
         public void Migrate() { }
