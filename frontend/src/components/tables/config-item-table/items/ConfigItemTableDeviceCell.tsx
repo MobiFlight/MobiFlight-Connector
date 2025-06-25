@@ -8,6 +8,8 @@ import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import StackedIcons from "@/components/icons/StackedIcons"
 import React from "react"
+import { useControllerDefinitionsStore } from "@/stores/definitionStore"
+import { mapJoystickDeviceNameToLabel } from "@/types/definitions"
 
 interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
@@ -15,23 +17,35 @@ interface ConfigItemTableDeviceCellProps {
 const ConfigItemTableDeviceCell = React.memo(
   ({ row }: ConfigItemTableDeviceCellProps) => {
     const { t } = useTranslation()
+    const { JoystickDefinitions } = useControllerDefinitionsStore()
     const item = row.original as IConfigItem
     const Status = item.Status
     const Device = Status && !isEmpty(Status["Device"])
 
-    const deviceLabel =
+    const controllerName = item.ModuleSerial.split("/")[0].trim() ?? "not set"
+
+    const JoystickDefinition = JoystickDefinitions.find(
+      (i) => i.InstanceName == controllerName,
+    )
+
+    const deviceName =
       (item.Device as IDeviceConfig)?.Name ??
       (!isEmpty(item.DeviceName) ? item.DeviceName : "-")
-    const type =
+
+    const deviceType =
       (item.Device as IDeviceConfig)?.Type ??
       (!isEmpty(item.DeviceType) ? item.DeviceType : "-")
+
     const icon = (
       <DeviceIcon
         disabled={!item.Active}
-        variant={(type ?? "default") as DeviceElementType}
+        variant={(deviceType ?? "default") as DeviceElementType}
       />
     )
-
+    const mappedLabel =
+      JoystickDefinition != null
+        ? (mapJoystickDeviceNameToLabel(JoystickDefinition, deviceName) ?? deviceName)
+        : deviceName
     const statusIcon = Device ? (
       <StackedIcons
         bottomIcon={icon}
@@ -43,19 +57,19 @@ const ConfigItemTableDeviceCell = React.memo(
       icon
     )
     const typeLabel = t(
-      `Types.${type?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
+      `Types.${deviceType?.replace("MobiFlight.OutputConfigItem", "").replace("MobiFlight.InputConfigItem", "")}`,
     )
 
     const tooltipLabel = Device
       ? t(`ConfigList.Status.Device.${Status["Device"]}`)
       : typeLabel
 
-    return type != "-" ? (
+    return deviceType != "-" ? (
       <ToolTip content={tooltipLabel}>
         <div className="flex flex-row items-center gap-2">
           {statusIcon}
           <span className="text-md hidden truncate lg:inline">
-            {deviceLabel}
+            {mappedLabel}
           </span>
         </div>
       </ToolTip>

@@ -10,6 +10,7 @@ export type AppMessageKey =
   | "ConfigValueRawAndFinalUpdate"
   | "Settings"
   | "ExecutionState"
+  | "JoystickDefinitions"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -18,12 +19,13 @@ export type AppMessagePayload =
   | ConfigValuePartialUpdate
   | ConfigValueRawAndFinalUpdate
   | ExecutionState
+  | JoystickDefinitions
   
 // AppMessage is the message format
 // when receiving messages from the backend
 export type AppMessage = {
   key: AppMessageKey
-  payload: AppMessagePayload | Settings | Project | ExecutionState
+  payload: AppMessagePayload | Settings | Project | ExecutionState | JoystickDefinitions
 }
 
 // ConfigLoadedEvent
@@ -62,6 +64,10 @@ export interface ExecutionState {
   IsTesting: boolean
   RunAvailable: boolean
   TestAvailable: boolean
+}
+
+export interface JoystickDefinitions {
+  Definitions: JoystickDefinition[]
 }
 
 // Not sure what this is for
