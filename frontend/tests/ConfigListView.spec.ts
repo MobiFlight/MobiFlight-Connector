@@ -436,6 +436,18 @@ test.describe('Filter toolbar tests', () => {
   })
 })
 
+test.describe('Controller device labels are displayed correctly', () => {
+  test("Confirm Joystick device labels are displayed correctly", async ({
+    configListPage,
+    page
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.initWithTestData()
+    await expect(page.getByRole("cell", { name: "Line-Select-Key 1L" })).toBeVisible()
+  })
+})
+
 test("Confirm `Controller Settings` link is working", async ({
   configListPage,
   page,

@@ -1,12 +1,13 @@
 import {
   AppMessage,
   Project,
-  ConfigValuePartialUpdate,
   IConfigItem,
 } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
+import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
+import { ConfigValuePartialUpdate } from "@/types/messages"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
@@ -37,6 +38,16 @@ export class ConfigListPage {
     const message: AppMessage = {
       key: "Project",
       payload: testProject
+    }
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
+  async initControllerDefinitions() {
+    const message: AppMessage = {
+      key: "JoystickDefinitions",
+      payload: {
+        Definitions: [joystickDefinition]
+      },
     }
     await this.mobiFlightPage.publishMessage(message)
   }
