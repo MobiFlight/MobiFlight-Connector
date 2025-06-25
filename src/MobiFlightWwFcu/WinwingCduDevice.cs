@@ -293,6 +293,7 @@ namespace MobiFlightWwFcu
             MessageSender.SendDisplayCommands(fontCommands.SmallFontHead);
             MessageSender.SendDisplayCommands(fontCommands.SmallFont);
             MessageSender.SendDisplayCommands(InitCommands);
+            EmptyDisplay();
         }
 
         public void Connect()
