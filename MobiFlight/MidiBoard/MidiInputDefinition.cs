@@ -19,6 +19,7 @@ namespace MobiFlight
         /// <summary>
         /// Associated layer for the input. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Layer;
 
         /// <summary>

@@ -65,6 +65,8 @@ export interface MidiControllerDefinition {
   InitialLayer?: string
   Inputs?: MidiControllerInput[]
   Outputs?: MidiControllerOutput[]
+  // these are enriched on the frontend side
+  // see the definition store for the logic
   ProcessedLabels?: Record<string, string>
 }
 
