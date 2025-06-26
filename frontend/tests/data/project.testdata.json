@@ -434,7 +434,7 @@
             "Items": []
           },
           "ModuleSerial": "Intech Studio: AC   / MI-2222",
-          "Name": "Encoder",
+          "Name": "Midi Encoder Input",
           "Preconditions": [],
           "Status": {},
           "Type": "InputConfigItem",
@@ -459,7 +459,7 @@
             "Items": []
           },
           "ModuleSerial": "Intech Studio: AC   / MI-2222",
-          "Name": "AnalogInput",
+          "Name": "Midi Slider Input",
           "Preconditions": [],
           "Status": {},
           "Type": "InputConfigItem",
