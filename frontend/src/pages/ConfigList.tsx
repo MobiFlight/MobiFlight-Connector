@@ -10,10 +10,14 @@ import {
   ConfigValueRawAndFinalUpdate,
 } from "@/types/messages"
 import testProject from "@/../tests/data/project.testdata.json" with { type: "json" }
+import testJsDefinition from "@/../tests/data/joystick.definition.json" with { type: "json" }
+import testMidiDefinition from "@/../tests/data/midicontroller.definition.json" with { type: "json" }
 import { IConfigItem, Project } from "@/types"
 import { useSearchParams } from "react-router"
 import ProjectPanel from "@/components/project/ProjectPanel"
 import { useProjectStore } from "@/stores/projectStore"
+import { useControllerDefinitionsStore } from "@/stores/definitionStore"
+import { JoystickDefinition, MidiControllerDefinition } from "@/types/definitions"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
@@ -29,6 +33,11 @@ const ConfigListPage = () => {
     setProject,
     setConfigItems
   } = useProjectStore()
+
+  const {
+    setJoystickDefinitions,
+    setMidiControllerDefinitions
+  } = useControllerDefinitionsStore()
 
   const mySetItems = useCallback(
     (items: IConfigItem[]) => {
@@ -84,6 +93,12 @@ const ConfigListPage = () => {
       queryParameters.get("testdata") === "true"
     ) {
       setProject(testProject as Project)
+      setJoystickDefinitions(
+        [testJsDefinition as JoystickDefinition])
+
+      setMidiControllerDefinitions(
+        [testMidiDefinition as MidiControllerDefinition]
+      )
     }
   })
 

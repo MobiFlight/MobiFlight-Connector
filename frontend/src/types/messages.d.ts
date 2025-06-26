@@ -1,5 +1,6 @@
 import { Settings } from "http2"
 import { IConfigValueOnlyItem } from "./config"
+import { JoystickDefinition, MidiControllerDefinition } from "./definitions"
 
 export type AppMessageKey =
   | "StatusBarUpdate"
@@ -10,6 +11,8 @@ export type AppMessageKey =
   | "ConfigValueRawAndFinalUpdate"
   | "Settings"
   | "ExecutionState"
+  | "JoystickDefinitions"
+  | "MidiControllerDefinitions"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -18,12 +21,14 @@ export type AppMessagePayload =
   | ConfigValuePartialUpdate
   | ConfigValueRawAndFinalUpdate
   | ExecutionState
+  | JoystickDefinitions
+  | MidiControllerDefinitions
   
 // AppMessage is the message format
 // when receiving messages from the backend
 export type AppMessage = {
   key: AppMessageKey
-  payload: AppMessagePayload | Settings | Project | ExecutionState
+  payload: AppMessagePayload | Settings | Project | ExecutionState | JoystickDefinitions
 }
 
 // ConfigLoadedEvent
@@ -62,6 +67,14 @@ export interface ExecutionState {
   IsTesting: boolean
   RunAvailable: boolean
   TestAvailable: boolean
+}
+
+export interface JoystickDefinitions {
+  Definitions: JoystickDefinition[]
+}
+
+export interface MidiControllerDefinitions {
+  Definitions: MidiControllerDefinition[]
 }
 
 // Not sure what this is for

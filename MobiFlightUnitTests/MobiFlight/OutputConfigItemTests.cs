@@ -88,8 +88,8 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(oci.ButtonInputConfig, "ButtonInputConfig null");
             Assert.IsNotNull(oci.ButtonInputConfig.onPress, "ButtonInputConfig.onPress null");
             Assert.IsNotNull(oci.ButtonInputConfig.onRelease, "ButtonInputConfig.onRelease null");
-            Assert.IsNotNull(oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
-            Assert.AreEqual("Test", (oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction).Command, "Not correct Command.");
+            Assert.IsNotNull(oci.ButtonInputConfig.onPress as InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
+            Assert.AreEqual("Test", (oci.ButtonInputConfig.onPress as InputConfig.MSFS2020CustomInputAction).Command, "Not correct Command.");
             // read analoginputaction
 
             // read buttoninputaction
@@ -102,7 +102,7 @@ namespace MobiFlight.Tests
             Assert.IsNotNull(oci.ButtonInputConfig, "ButtonInputConfig null");
             Assert.IsNotNull(oci.ButtonInputConfig.onPress, "ButtonInputConfig.onPress null");
             Assert.IsNull(oci.ButtonInputConfig.onRelease, "ButtonInputConfig.onRelease is not null");
-            Assert.IsNotNull(oci.ButtonInputConfig.onPress as MobiFlight.InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
+            Assert.IsNotNull(oci.ButtonInputConfig.onPress as InputConfig.MSFS2020CustomInputAction, "Not of type MobiFlight.InputConfig.MSFS2020CustomInputAction");
             Assert.AreEqual(1, oci.ConfigRefs.Count, "Count is not 1");
 
             // read buttoninputaction

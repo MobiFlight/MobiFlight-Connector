@@ -13,6 +13,7 @@ namespace MobiFlight
         /// <summary>
         /// Name of the midi output port, if different from input name. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string DifferingOutputName;
 
         /// <summary>
@@ -23,16 +24,19 @@ namespace MobiFlight
         /// <summary>
         /// When layer property is used, initial active layer on startup. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string InitialLayer;
 
         /// <summary>
         /// List of inputs supported by the device. Required.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<MidiInputDefinition> Inputs;
 
         /// <summary>
         /// List of LED outputs supported by the device. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)] 
         public List<MidiOutputDefinition> Outputs;
 
         private Dictionary<string, string> inputNameToLabelDictionary;

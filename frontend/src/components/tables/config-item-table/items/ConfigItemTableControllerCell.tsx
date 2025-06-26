@@ -28,7 +28,7 @@ const ConfigItemTableControllerCell = React.memo(({
     } as CommandConfigContextMenu)
   }, [publish, item])
 
-  return !isEmpty(label) ? (
+  return !isEmpty(label) && label!="-" ? (
     <div className="group flex flex-row items-center">
       <ToolTip
         content={

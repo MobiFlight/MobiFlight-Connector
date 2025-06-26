@@ -257,7 +257,7 @@ test.describe('Filter toolbar tests', () => {
 
     const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
     const rows = page.locator("tbody tr")
-    await expect(rows).toHaveCount(10)
+    await expect(rows).toHaveCount(14)
 
     await searchTextBox.fill("A")
     await expect(rows).toHaveCount(2)
@@ -272,7 +272,7 @@ test.describe('Filter toolbar tests', () => {
     await expect(clearButton).not.toHaveCount(0)
 
     await clearButton.first().click()
-    await expect(rows).toHaveCount(10)
+    await expect(rows).toHaveCount(14)
 
     await configListPage.mobiFlightPage.trackCommand("CommandConfigBulkAction")
     await rows.first().click()
@@ -304,16 +304,16 @@ test.describe('Filter toolbar tests', () => {
 
     await inputOption.click()
     await outputOption.click()
-    await expect(visibleRows).toHaveCount(3)
+    await expect(visibleRows).toHaveCount(7)
 
     await clearFiltersOption.click()
-    await expect(visibleRows).toHaveCount(10)
+    await expect(visibleRows).toHaveCount(14)
 
     const inputField = page.getByPlaceholder("Config Type")
     await inputField.click()
     await inputField.fill("In")
     await inputField.press("Enter")
-    await expect(visibleRows).toHaveCount(3)
+    await expect(visibleRows).toHaveCount(7)
     await page.locator("#root").click()
     await page.waitForTimeout(500)
 
@@ -341,7 +341,7 @@ test.describe('Filter toolbar tests', () => {
       .click()
     await expect(rows).toHaveCount(1)
     await clearFilterOption.click()
-    await expect(rows).toHaveCount(10)
+    await expect(rows).toHaveCount(14)
 
     await page.getByRole("option", { name: "ProtoBoard" }).locator("div").click()
     await expect(rows).toHaveCount(8)
@@ -377,24 +377,24 @@ test.describe('Filter toolbar tests', () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(10)
+      await expect(rows).toHaveCount(14)
     }
 
     const deviceTypes = [
-      "Analog Input",
-      "Encoder",
-      "Button",
-      "Output",
-      "Output Shift Register",
-      "LCD Display",
-      "Servo",
-      "Stepper",
-      "7-Segment",
-      "not set",
-    ]
+      ["Analog Input", 2],
+      ["Encoder", 2],
+      ["Button", 3],
+      ["Output", 1],
+      ["Output Shift Register", 1],
+      ["LCD Display", 1],
+      ["Servo", 1],
+      ["Stepper", 1],
+      ["7-Segment", 1],
+      ["not set", 1],
+    ] as Array<[string, number]>
 
-    for (const deviceType of deviceTypes) {
-      await testDeviceTypeFilter(deviceType, 1)
+    for (const [deviceTypeName, expectedCount] of deviceTypes) {
+      await testDeviceTypeFilter(deviceTypeName, expectedCount)
     }
 
   })
@@ -415,7 +415,7 @@ test.describe('Filter toolbar tests', () => {
       await page.getByRole("option", { name: deviceType }).first().click()
       await expect(rows).toHaveCount(expectedCount)
       await clearFilterOption.click()
-      await expect(rows).toHaveCount(10)
+      await expect(rows).toHaveCount(14)
     }
 
     const deviceNames = [
@@ -433,6 +433,36 @@ test.describe('Filter toolbar tests', () => {
     for (const deviceName of deviceNames) {
       await testDeviceNameFilter(deviceName, 1)
     }
+  })
+})
+
+test.describe('Controller device labels are displayed correctly', () => {
+  test("Confirm Joystick device labels are displayed correctly", async ({
+    configListPage,
+    page
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.initWithTestData()
+    await expect(page.getByRole("cell", { name: "Line-Select-Key 1L" })).toBeVisible()
+  })
+
+  test("Confirm Midi controller device labels are displayed correctly", async ({
+    configListPage,
+    page
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.initWithTestData()
+
+    const midiButtonRow = page.getByRole("row").filter({ hasText: "Intech Studio: AC" }).first()
+    await expect(midiButtonRow.getByRole("cell", { name: "Button 1" })).toBeVisible()
+
+    const midiKnobRow = page.getByRole("row").filter({ hasText: "Intech Studio: AC" }).nth(1)
+    await expect(midiKnobRow.getByRole("cell", { name: "Knob 1" })).toBeVisible()
+
+    const midiSliderRow = page.getByRole("row").filter({ hasText: "Intech Studio: AC" }).nth(2)
+    await expect(midiSliderRow.getByRole("cell", { name: "Slider 1" })).toBeVisible()
   })
 })
 
