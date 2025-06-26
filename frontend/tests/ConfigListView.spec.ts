@@ -446,6 +446,24 @@ test.describe('Controller device labels are displayed correctly', () => {
     await configListPage.initWithTestData()
     await expect(page.getByRole("cell", { name: "Line-Select-Key 1L" })).toBeVisible()
   })
+
+  test("Confirm Midi controller device labels are displayed correctly", async ({
+    configListPage,
+    page
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initControllerDefinitions()
+    await configListPage.initWithTestData()
+
+    const midiButtonRow = page.getByRole("row").filter({ hasText: "Intech Studio: AC" }).first()
+    await expect(midiButtonRow.getByRole("cell", { name: "Button 1" })).toBeVisible()
+
+    const midiKnobRow = page.getByRole("row").filter({ hasText: "Intech Studio: AC" }).nth(1)
+    await expect(midiKnobRow.getByRole("cell", { name: "Knob 1" })).toBeVisible()
+
+    const midiSliderRow = page.getByRole("row").filter({ hasText: "Intech Studio: AC" }).nth(2)
+    await expect(midiSliderRow.getByRole("cell", { name: "Slider 1" })).toBeVisible()
+  })
 })
 
 test("Confirm `Controller Settings` link is working", async ({

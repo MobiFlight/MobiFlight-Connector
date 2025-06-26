@@ -6,4 +6,9 @@ namespace MobiFlight.BrowserMessages.Outgoing
     {
         public List<JoystickDefinition> Definitions;
     }
+
+    public class MidiControllerDefinitions
+    {
+        public List<MidiBoardDefinition> Definitions;
+    }
 }

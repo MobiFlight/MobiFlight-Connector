@@ -400,8 +400,9 @@ namespace MobiFlight.UI
             MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
 
             if (execManager == null) return;
+
             MessageExchange.Instance.Publish(new JoystickDefinitions() { Definitions = execManager.GetJoystickManager().Definitions });
-            MessageExchange.Instance.Publish(execManager.GetMidiBoardManager().Definitions);
+            MessageExchange.Instance.Publish(new MidiControllerDefinitions() { Definitions = execManager.GetMidiBoardManager().Definitions.Values.ToList() });
         }
 
         private void InitializeExecutionManager()

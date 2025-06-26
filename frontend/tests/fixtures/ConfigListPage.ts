@@ -7,6 +7,7 @@ import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
+import midiControllerDefinition from "../data/midicontroller.definition.json" with { type: "json" }
 import { ConfigValuePartialUpdate } from "@/types/messages"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
@@ -50,6 +51,14 @@ export class ConfigListPage {
       },
     }
     await this.mobiFlightPage.publishMessage(message)
+
+    const midiMessage : AppMessage = {
+      key: "MidiControllerDefinitions",
+      payload: {
+        Definitions: [midiControllerDefinition],
+      },
+    }
+    await this.mobiFlightPage.publishMessage(midiMessage)
   }
 
   async setupConfigItemEditConfirmationResponse() {

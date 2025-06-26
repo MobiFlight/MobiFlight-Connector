@@ -1,0 +1,63 @@
+{
+    "EncoderNeutralPosition": 0,
+    "Inputs": [
+        {
+            "InputType": "EndlessKnob",
+            "Label": "Knob %",
+            "LabelIds": [
+                "1",
+                "2",
+                "3",
+                "4"
+            ],
+            "Layer": null,
+            "MessageChannel": 1,
+            "MessageIds": [
+                32,
+                33,
+                34,
+                35
+            ],
+            "MessageType": "CC"
+        },
+        {
+            "InputType": "Button",
+            "Label": "Button %",
+            "LabelIds": [
+                "1",
+                "2",
+                "3",
+                "4"
+            ],
+            "Layer": null,
+            "MessageChannel": 1,
+            "MessageIds": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "MessageType": "CC"
+        },
+        {
+            "InputType": "Fader",
+            "Label": "Slider %",
+            "LabelIds": [
+                "1",
+                "2",
+                "3",
+                "4"
+            ],
+            "Layer": null,
+            "MessageChannel": 1,
+            "MessageIds": [
+                36,
+                37,
+                38,
+                39
+            ],
+            "MessageType": "CC"
+        }
+    ],
+    "InstanceName": "Intech Studio: AC  "
+}

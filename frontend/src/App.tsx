@@ -11,7 +11,7 @@ import { useProjectStore } from "./stores/projectStore"
 import { MainMenu } from "./components/MainMenu"
 import { useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
-import { JoystickDefinitions } from "./types/messages"
+import { JoystickDefinitions, MidiControllerDefinitions } from "./types/messages"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -19,7 +19,7 @@ function App() {
   const { setItems } = useConfigStore()
   const { setProject } = useProjectStore()
   const { setSettings } = useSettingsStore()
-  const { setJoystickDefinitions } = useControllerDefinitionsStore()
+  const { setJoystickDefinitions, setMidiControllerDefinitions } = useControllerDefinitionsStore()
 
   const [startupProgress, setStartupProgress] = useState<StatusBarUpdate>({
     Value: 0,
@@ -55,6 +55,12 @@ function App() {
     const joystickDefinitions = message.payload as JoystickDefinitions
     console.log("JoystickDefinitions message received", joystickDefinitions.Definitions)
     setJoystickDefinitions(joystickDefinitions.Definitions)
+  })
+
+  useAppMessage("MidiControllerDefinitions", (message) => {
+    const definitions = message.payload as MidiControllerDefinitions
+    console.log("MidiControllerDefinitions message received", definitions.Definitions)
+    setMidiControllerDefinitions(definitions.Definitions)
   })
 
   // this allows to get beyond the startup screen

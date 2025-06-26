@@ -388,6 +388,86 @@
           "RawValue": "",
           "Value": "",
           "Status": {}
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "VariableInputAction",
+              "Variable": {
+                "TYPE": "number",
+                "Name": "COM2 MIC",
+                "Number": 0.0,
+                "Text": "",
+                "Expression": "1-$"
+              }
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "DeviceType": "Button",
+          "DeviceName": "CC 1_0",
+          "GUID": "39563d2e-9845-4c48-9b49-b024057181aa",
+          "Active": true,
+          "Name": "COM2 MIC",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "Intech Studio: AC   / MI-2222",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "RawValue": "",
+          "Value": "",
+          "Status": {}
+        },
+        {
+          "Active": true,
+          "ConfigRefs": [],
+          "DeviceName": "CC 1_32",
+          "DeviceType": "Encoder",
+          "GUID": "68285201-23d5-40ea-b81f-dbd3ffe7328e",
+          "Modifiers": {
+            "Items": []
+          },
+          "ModuleSerial": "Intech Studio: AC   / MI-2222",
+          "Name": "Encoder",
+          "Preconditions": [],
+          "Status": {},
+          "Type": "InputConfigItem",
+          "encoder": {
+            "onLeft": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onLeftFast": null,
+            "onRight": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRightFast": null
+          }
+        },
+        {
+          "Active": true,
+          "ConfigRefs": [],
+          "DeviceName": "CC 1_36",
+          "DeviceType": "AnalogInput",
+          "GUID": "be1ffab3-4252-4001-a090-4b98c7cd126b",
+          "Modifiers": {
+            "Items": []
+          },
+          "ModuleSerial": "Intech Studio: AC   / MI-2222",
+          "Name": "AnalogInput",
+          "Preconditions": [],
+          "Status": {},
+          "Type": "InputConfigItem",
+          "analog": {
+            "onChange": {
+              "Type": "MSFS2020CustomInputAction"
+            }
+          }
         }
       ],
       "EmbedContent": true,

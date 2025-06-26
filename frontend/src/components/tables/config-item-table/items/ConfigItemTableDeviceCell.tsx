@@ -17,14 +17,18 @@ interface ConfigItemTableDeviceCellProps {
 const ConfigItemTableDeviceCell = React.memo(
   ({ row }: ConfigItemTableDeviceCellProps) => {
     const { t } = useTranslation()
-    const { JoystickDefinitions } = useControllerDefinitionsStore()
+    const { JoystickDefinitions, MidiControllerDefinitions } = useControllerDefinitionsStore()
     const item = row.original as IConfigItem
     const Status = item.Status
     const Device = Status && !isEmpty(Status["Device"])
 
-    const controllerName = item.ModuleSerial.split("/")[0].trim() ?? "not set"
+    const controllerName = item.ModuleSerial.split(" / ")[0] ?? "not set"
 
     const JoystickDefinition = JoystickDefinitions.find(
+      (i) => i.InstanceName == controllerName,
+    )
+
+    const MidiControllerDefinition = MidiControllerDefinitions.find(
       (i) => i.InstanceName == controllerName,
     )
 
@@ -42,10 +46,15 @@ const ConfigItemTableDeviceCell = React.memo(
         variant={(deviceType ?? "default") as DeviceElementType}
       />
     )
-    const mappedLabel =
+    const mappedLabel = 
       JoystickDefinition != null
         ? (mapJoystickDeviceNameToLabel(JoystickDefinition, deviceName) ?? deviceName)
-        : deviceName
+        : 
+      MidiControllerDefinition != null 
+      ? (MidiControllerDefinition.ProcessedLabels?.[deviceName] ?? deviceName)
+      : deviceName
+
+
     const statusIcon = Device ? (
       <StackedIcons
         bottomIcon={icon}
