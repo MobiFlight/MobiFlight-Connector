@@ -2,7 +2,7 @@
 
 namespace MobiFlight.BrowserMessages.Outgoing
 {
-    public class  JoystickDefinitions
+    public class JoystickDefinitions
     {
         public List<JoystickDefinition> Definitions;
     }

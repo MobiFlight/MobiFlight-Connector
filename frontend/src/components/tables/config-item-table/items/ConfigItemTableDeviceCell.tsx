@@ -24,11 +24,11 @@ const ConfigItemTableDeviceCell = React.memo(
 
     const controllerName = item.ModuleSerial.split(" / ")[0] ?? "not set"
 
-    const JoystickDefinition = JoystickDefinitions.find(
+    const joystickDefinition = JoystickDefinitions.find(
       (i) => i.InstanceName == controllerName,
     )
 
-    const MidiControllerDefinition = MidiControllerDefinitions.find(
+    const midiControllerDefinition = MidiControllerDefinitions.find(
       (i) => i.InstanceName == controllerName,
     )
 
@@ -47,11 +47,11 @@ const ConfigItemTableDeviceCell = React.memo(
       />
     )
     const mappedLabel = 
-      JoystickDefinition != null
-        ? (mapJoystickDeviceNameToLabel(JoystickDefinition, deviceName) ?? deviceName)
+      joystickDefinition != null
+        ? (mapJoystickDeviceNameToLabel(joystickDefinition, deviceName) ?? deviceName)
         : 
-      MidiControllerDefinition != null 
-      ? (MidiControllerDefinition.ProcessedLabels?.[deviceName] ?? deviceName)
+      midiControllerDefinition != null 
+      ? (midiControllerDefinition.ProcessedLabels?.[deviceName] ?? deviceName)
       : deviceName
 
 
