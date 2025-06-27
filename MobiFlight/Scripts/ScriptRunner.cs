@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MobiFlight.Scripts
@@ -19,14 +20,19 @@ namespace MobiFlight.Scripts
 
         private Dictionary<string, List<ScriptMapping>> MappingDictionary = new Dictionary<string, List<ScriptMapping>>();
         private Dictionary<string, string> ScriptDictionary = new Dictionary<string, string>();
-
-        private List<string> ExecutionList = new List<string>();
+      
         private List<Process> ActiveProcesses = new List<Process>();
+        private Dictionary<int, string> ProcessTable = new Dictionary<int, string>();
 
         private IChildProcessMonitor ChildProcMon;
 
-        private bool IsInPlayMode = false;
-        private bool PythonCheckCompleted = false;
+        private volatile bool IsInPlayMode = false;
+        private volatile bool PythonCheckCompleted = false; 
+        private object ProcessLock = new object();    
+
+        private const int LINE_LENGTH = 24; // 24 characters per line on CDU
+
+        private List<Joystick> GameControllersWithScripts = new List<Joystick>();
 
         private Dictionary<string, Tuple<int, int>> RequiredPackages = new Dictionary<string, Tuple<int, int>>()
         {
@@ -108,7 +114,7 @@ namespace MobiFlight.Scripts
 
         private void CheckForRestart()
         {
-            if (IsInPlayMode)
+            if (IsInPlayMode && PythonCheckCompleted)
             {
                 StopActiveProcesses();
                 CheckAndExecuteScripts();
@@ -335,82 +341,110 @@ namespace MobiFlight.Scripts
             return true;
         }
 
-        private void ExecuteScripts()
-        {           
-            if (!PythonCheckCompleted)
+        private void SendUserMessage(int messageCode, params string[] parameters)
+        {
+            foreach (var gameController in GameControllersWithScripts)
             {
-                if (!IsPythonReady())
+                gameController.ShowUserMessage(messageCode, parameters);
+            }
+        }
+
+        private void ExecuteScripts(List<string> executionList)
+        {
+            lock (ProcessLock)
+            {
+                SendUserMessage(UserMessageCodes.STARTING_SCRIPT, string.Join(" ", executionList));
+
+                if (!PythonCheckCompleted)
                 {
-                    Log.Instance.log($"ScriptRunner - Python not ready!", LogSeverity.Error);
-                    return;
+                    if (!IsPythonReady())
+                    {
+                        Log.Instance.log($"ScriptRunner - Python not ready!", LogSeverity.Error);
+                        SendUserMessage(UserMessageCodes.PYTHON_NOT_READY);
+                        return;
+                    }
+                    else
+                    {
+                        PythonCheckCompleted = true;
+                    }
                 }
-                else
+                                      
+                foreach (var script in executionList)
                 {
-                    PythonCheckCompleted = true;
+                    ProcessStartInfo psi = new ProcessStartInfo
+                    {
+                        FileName = @"python",
+                        Arguments = ($"\"{ScriptDictionary[script]}\""),
+                        CreateNoWindow = true,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                    };
+
+                    Process process = new Process
+                    {
+                        StartInfo = psi
+                    };
+
+                    process.EnableRaisingEvents = true;
+                    process.OutputDataReceived += Process_OutputDataReceived;
+                    process.ErrorDataReceived += Process_ErrorDataReceived;
+                    process.Exited += Process_Exited;
+
+                    Log.Instance.log($"ScriptRunner - Start Process: {script}", LogSeverity.Info);
+                    Log.Instance.log($"ScriptRunner - Start Process FullPath: {psi.Arguments}", LogSeverity.Debug);
+                    process.Start();
+
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+
+                    ProcessTable.Add(process.Id, script);
+                    ActiveProcesses.Add(process);
+
+                    try
+                    {
+                        ChildProcMon.AddChildProcess(process);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
+                    }
                 }
             }
+        }
 
-            foreach (var script in ExecutionList)
-            {
-                ProcessStartInfo psi = new ProcessStartInfo
-                {                                       
-                    FileName = @"python",                    
-                    Arguments = ($"\"{ScriptDictionary[script]}\""),
-                    CreateNoWindow = true,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                };
-
-                Process process = new Process
-                {
-                    StartInfo = psi
-                };
-
-                process.OutputDataReceived += Process_OutputDataReceived;
-                process.ErrorDataReceived += Process_ErrorDataReceived;
-
-                Log.Instance.log($"ScriptRunner - Start Process: {script}", LogSeverity.Info);
-                Log.Instance.log($"ScriptRunner - Start Process FullPath: {psi.Arguments}", LogSeverity.Debug);
-                process.Start();
-               
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();              
-
-                ActiveProcesses.Add(process);
-
-                try
-                {
-                    ChildProcMon.AddChildProcess(process);
-                }
-                catch (Exception ex)
-                {
-                    Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
-                }
-            }
+        private void Process_Exited(object sender, EventArgs e)
+        {
+            Process process = (Process)sender;   
+            string processName = string.Empty;
+            ProcessTable.TryGetValue(process.Id, out processName);            
+            Log.Instance.log($"ScriptRunner - ExitCode: {process.ExitCode}, Name: {processName}", LogSeverity.Error);
+            SendUserMessage(UserMessageCodes.PROCESS_TERMINATED, processName);
         }
 
         private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {           
-            Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);          
+            Log.Instance.log($"ScriptRunner - Output: {e.Data}", LogSeverity.Info);          
         }
 
         private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Log.Instance.log($"ScriptRunner - StandardError: {e.Data}", LogSeverity.Info);       
+            Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);       
         }
 
         private void CheckAndExecuteScripts()
         {
             string aircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
-            ExecutionList.Clear();
             Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
 
-            // Get all joysticks
-            List<Joystick> joysticks = JsManager.GetJoysticks();
-            foreach (Joystick joystick in joysticks)
+            var executionList = new List<string>();
+            GameControllersWithScripts.Clear();
+
+            // Get all game controllers
+            var gameControllers = JsManager.GetJoysticks();
+            foreach (var gameController in gameControllers)
             {
-                var jsDef = joystick.GetJoystickDefinition();
+                var jsDef = gameController.GetJoystickDefinition();
                 if (jsDef != null)
                 {
                     string hardwareId = jsDef.VendorId.ToString() + jsDef.ProductId.ToString();
@@ -421,11 +455,16 @@ namespace MobiFlight.Scripts
                         {
                             if (aircraftDescription.Contains(config.AircraftIdSnippet))
                             {
-                                // Only add if not already there
-                                if (!ExecutionList.Contains(config.ScriptName))
+                                if (!GameControllersWithScripts.Contains(gameController))
                                 {
+                                    GameControllersWithScripts.Add(gameController);
+                                }
+                                
+                                // Only add if not already there
+                                if (!executionList.Contains(config.ScriptName))
+                                {                                   
                                     Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
-                                    ExecutionList.Add(config.ScriptName);
+                                    executionList.Add(config.ScriptName);
                                 }
                             }
                         }
@@ -433,12 +472,15 @@ namespace MobiFlight.Scripts
                 }
             }
 
-            if (ExecutionList.Count > 0)
+            if (executionList.Count > 0)
             {
-                ExecuteScripts();
+                var task = Task.Run(() =>
+                {
+                    ExecuteScripts(executionList);
+                });
             }
         }
-
+        
 
         public void Start()
         {
@@ -450,16 +492,21 @@ namespace MobiFlight.Scripts
 
         private void StopActiveProcesses()
         {
-            foreach (var process in ActiveProcesses)
+            lock (ProcessLock)
             {
-                if (!process.HasExited)
+                foreach (var process in ActiveProcesses)
                 {
-                    process.OutputDataReceived -= Process_OutputDataReceived;
-                    process.ErrorDataReceived -= Process_ErrorDataReceived;                
-                    process.Kill();                   
-                }                
+                    if (!process.HasExited)
+                    {
+                        process.OutputDataReceived -= Process_OutputDataReceived;
+                        process.ErrorDataReceived -= Process_ErrorDataReceived;  
+                        process.Exited -= Process_Exited;
+                        process.Kill();
+                    }
+                }
+                ActiveProcesses.Clear();
+                ProcessTable.Clear();
             }
-            ActiveProcesses.Clear();
         }
 
 

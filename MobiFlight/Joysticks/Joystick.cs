@@ -527,6 +527,13 @@ namespace MobiFlight
             }
         }
 
+        public virtual void ShowUserMessage(int messageCode, params string[] parameters)
+        {
+            // nothing to do
+            // only relevant for game controllers which have a 
+            // means to show a message to an user.
+        }
+
         public virtual void Stop()
         {
             foreach(var light in Lights)
