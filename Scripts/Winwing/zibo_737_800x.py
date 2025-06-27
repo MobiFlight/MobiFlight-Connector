@@ -1,10 +1,9 @@
 import asyncio
 import base64
-import copy
 import json
 import urllib.request
 import websockets
-from enum import Enum
+from enum import StrEnum
 
 CDU_COLUMNS = 24
 CDU_ROWS = 14
@@ -23,22 +22,7 @@ CHARACTER_MAPPING = {"`": "\u00b0", "*": "\u2610", "=": "\u002a"}
 COLOR_MAPPING = {"G": "g", "C": "c", "I": "e", "M": "m"}
 
 
-class FanoutExchange:
-    def __init__(self):
-        self.__consumer_queues: list[asyncio.Queue] = []
-
-    def add_consumer(self):
-        queue = asyncio.Queue()
-        self.__consumer_queues.append(queue)
-
-        return queue
-
-    async def put(self, message):
-        for queue in self.__consumer_queues:
-            await queue.put(message)
-
-
-class CduDevice(Enum):
+class CduDevice(StrEnum):
     Captain = "fmc1"
     CoPilot = "fmc2"
 
@@ -52,16 +36,13 @@ class CduDevice(Enum):
                 raise KeyError(f"Invalid device specified {self}")
 
 
-def fetch_dataref_mapping(available_devices: list[CduDevice]):
+def fetch_dataref_mapping(device: CduDevice):
     with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
         response_json = json.load(response)
 
         data = list(response_json["data"])
         dataref_map = filter(
-            lambda x: any(
-                str(x["name"]).startswith(f"laminar/B738/{device.value}")
-                for device in available_devices
-            ),
+            lambda x: str(x["name"]).startswith(f"laminar/B738/{device}"),
             data,
         )
 
@@ -129,7 +110,7 @@ def group_datarefs_by_line(values: dict[str, str]) -> dict[int, dict[str, str]]:
     return grouped_datarefs
 
 
-def get_display_json(values: dict[str, str]) -> str:
+def generate_display_json(values: dict[str, str]) -> str:
     display_data = [[] for _ in range(CDU_CELLS)]
 
     grouped_datarefs = group_datarefs_by_line(values)
@@ -152,27 +133,23 @@ def get_display_json(values: dict[str, str]) -> str:
     return json.dumps({"Target": "Display", "Data": display_data})
 
 
-async def handle_device_update(device: CduDevice, queue: asyncio.Queue):
-    async for device_connection in websockets.connect(device.get_endpoint()):
+async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
+    endpoint = device.get_endpoint()
+    async for websocket in websockets.connect(endpoint):
         while True:
-            target_device, values = await queue.get()
-            if target_device != device:
-                continue
-
-            display_json = get_display_json(values)
+            values = await queue.get()
+            display_json = generate_display_json(values)
             try:
-                await device_connection.send(display_json)
-            except websockets.ConnectionClosedError:
-                await queue.put((target_device, values))
+                await websocket.send(display_json)
+            except websockets.exceptions.ConnectionClosed:
+                await queue.put(values)
                 break
 
 
-async def handle_dataref_updates(
-    exchange: FanoutExchange, available_devices: list[CduDevice]
-):
-    last_known_values = {device: {} for device in available_devices}
+async def handle_dataref_updates(queue: asyncio.Queue, device: CduDevice):
+    last_known_values = {}
 
-    dataref_map = fetch_dataref_mapping(available_devices)
+    dataref_map = fetch_dataref_mapping(device)
     async for websocket in websockets.connect(
         BASE_WEBSOCKET_URI,
     ):
@@ -197,7 +174,7 @@ async def handle_dataref_updates(
                 if "data" not in data:
                     continue
 
-                new_values = copy.deepcopy(last_known_values)
+                new_values = dict(last_known_values)
 
                 for dataref_id, value in data["data"].items():
                     dataref_id = int(dataref_id)
@@ -205,22 +182,16 @@ async def handle_dataref_updates(
                         continue
 
                     dataref_name = dataref_map[dataref_id]
-                    device = (
-                        CduDevice.Captain
-                        if CduDevice.Captain.value in dataref_name
-                        else CduDevice.CoPilot
-                    )
 
-                    new_values[device][dataref_name] = (
+                    new_values[dataref_name] = (
                         base64.b64decode(value).decode().replace("\x00", " ")
                     )
 
-                for device, values in new_values.items():
-                    if values == last_known_values[device]:
-                        continue
+                if new_values == last_known_values:
+                    continue
 
-                    last_known_values[device] = values
-                    await exchange.put((device, values))
+                last_known_values = new_values
+                await queue.put(new_values)
         except websockets.exceptions.ConnectionClosed:
             continue
 
@@ -241,15 +212,14 @@ async def get_available_devices() -> list[CduDevice]:
 
 
 async def main():
-    exchange = FanoutExchange()
     available_devices = await get_available_devices()
 
-    tasks = [asyncio.create_task(handle_dataref_updates(exchange, available_devices))]
-
+    tasks = []
     for device in available_devices:
-        tasks.append(
-            asyncio.create_task(handle_device_update(device, exchange.add_consumer()))
-        )
+        queue = asyncio.Queue()
+
+        tasks.append(asyncio.create_task(handle_dataref_updates(queue, device)))
+        tasks.append(asyncio.create_task(handle_device_update(queue, device)))
 
     await asyncio.gather(*tasks)
 
