@@ -47,6 +47,10 @@ class MobiFlightClient:
             self.websocket = await connect(self.url)
             self._was_connected = True
             logging.info(f"Connected to WebSocket at {self.url}")
+            # Load font           
+            fontName: str = "Boeing"
+            await self.websocket.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
+            logging.info(f"Setting font: {fontName}")
         except Exception as e:
             logging.error(f"Failed to connect to WebSocket: {e}")
             self._was_connected = False
