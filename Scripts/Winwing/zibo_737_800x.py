@@ -22,6 +22,10 @@ CHARACTER_MAPPING = {"`": "\u00b0", "*": "\u2610", "=": "\u002a"}
 COLOR_MAPPING = {"G": "g", "C": "c", "I": "e", "M": "m"}
 
 
+FONT = "Boeing"
+FONT_REQUEST = json.dumps({"Target": "Font", "Data": FONT})
+
+
 class CduDevice(StrEnum):
     Captain = "fmc1"
     CoPilot = "fmc2"
@@ -203,8 +207,9 @@ async def get_available_devices() -> list[CduDevice]:
 
     for device in device_candidates:
         try:
-            async with websockets.connect(device.get_endpoint()) as _:
+            async with websockets.connect(device.get_endpoint()) as socket:
                 available_devices.append(device)
+                await socket.send(FONT_REQUEST)
         except websockets.WebSocketException:
             continue
 
