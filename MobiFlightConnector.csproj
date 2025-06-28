@@ -1987,22 +1987,22 @@
     <None Include="Scripts\ScriptMappings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\Default\MCDU\AirbusThales">
+    <None Include="Scripts\Winwing\Fonts\Default\MCDU\AirbusThales.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\Default\MCDU\Boeing">
+    <None Include="Scripts\Winwing\Fonts\Default\MCDU\Boeing.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\Default\MCDU\Collins">
+    <None Include="Scripts\Winwing\Fonts\Default\MCDU\Collins.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\Default\PFP\AirbusThales">
+    <None Include="Scripts\Winwing\Fonts\Default\PFP\AirbusThales.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\Default\PFP\Boeing">
+    <None Include="Scripts\Winwing\Fonts\Default\PFP\Boeing.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Fonts\Default\PFP\Collins">
+    <None Include="Scripts\Winwing\Fonts\Default\PFP\Collins.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
