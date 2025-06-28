@@ -175,7 +175,7 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
       </div>
-      <div className="flex items-center gap-16 px-2">
+      <div className="flex items-center gap-8 px-2">
         <CommunityMenu />
         <DarkModeToggle />
       </div>
