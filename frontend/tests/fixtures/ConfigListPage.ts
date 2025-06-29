@@ -8,7 +8,7 @@ import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
 import midiControllerDefinition from "../data/midicontroller.definition.json" with { type: "json" }
-import { ConfigValuePartialUpdate } from "@/types/messages"
+import { ConfigValuePartialUpdate, ProjectStatus } from "@/types/messages"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { ConfigItemStatusType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
@@ -144,6 +144,14 @@ export class ConfigListPage {
     const message: AppMessage = {
       key: "ExecutionState",
       payload: executionState,
+    }
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
+  async updateProjectState (projectStatus: ProjectStatus) {
+    const message: AppMessage = {
+      key: "ProjectStatus",
+      payload: projectStatus,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
