@@ -17,7 +17,7 @@ function App() {
   const [queryParameters] = useSearchParams()
   const navigate = useNavigate()
   const { setItems } = useConfigStore()
-  const { setProject } = useProjectStore()
+  const { setProject, setHasChanged } = useProjectStore()
   const { setSettings } = useSettingsStore()
   const { setJoystickDefinitions, setMidiControllerDefinitions } = useControllerDefinitionsStore()
 
@@ -61,6 +61,12 @@ function App() {
     const definitions = message.payload as MidiControllerDefinitions
     console.log("MidiControllerDefinitions message received", definitions.Definitions)
     setMidiControllerDefinitions(definitions.Definitions)
+  })
+
+  useAppMessage("ProjectStatus", (message) => {
+    const projectStatus = message.payload as { HasChanged: boolean }
+    console.log("ProjectStatus message received", projectStatus)
+    setHasChanged(projectStatus.HasChanged)
   })
 
   // this allows to get beyond the startup screen

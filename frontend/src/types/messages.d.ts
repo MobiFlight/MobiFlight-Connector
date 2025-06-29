@@ -13,6 +13,7 @@ export type AppMessageKey =
   | "ExecutionState"
   | "JoystickDefinitions"
   | "MidiControllerDefinitions"
+  | "ProjectStatus"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -23,12 +24,13 @@ export type AppMessagePayload =
   | ExecutionState
   | JoystickDefinitions
   | MidiControllerDefinitions
+  | ProjectStatus
   
 // AppMessage is the message format
 // when receiving messages from the backend
 export type AppMessage = {
   key: AppMessageKey
-  payload: AppMessagePayload | Settings | Project | ExecutionState | JoystickDefinitions
+  payload: AppMessagePayload | Settings | Project 
 }
 
 // ConfigLoadedEvent
@@ -75,6 +77,10 @@ export interface JoystickDefinitions {
 
 export interface MidiControllerDefinitions {
   Definitions: MidiControllerDefinition[]
+}
+
+export interface ProjectStatus {
+  HasChanged: boolean
 }
 
 // Not sure what this is for
