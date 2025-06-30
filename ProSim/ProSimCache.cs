@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
-using GraphQL.Client.Abstractions;
 using GraphQL.Client.Abstractions.Websocket;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
-using MobiFlight.Base;
 
 namespace MobiFlight.ProSim
 {
@@ -22,10 +19,9 @@ namespace MobiFlight.ProSim
         private bool _connected = false;
 
         private readonly object _cacheLock = new object();
-
+        private readonly object _refreshLock = new object();
 
         private readonly Dictionary<string, IDisposable> _subscriptions = new Dictionary<string, IDisposable>();
-
 
         // ProSim SDK object
         private GraphQLHttpClient _connection;
@@ -33,6 +29,12 @@ namespace MobiFlight.ProSim
         // Cache of subscribed DataRefs
         private Dictionary<string, CachedDataRef> _subscribedDataRefs = new Dictionary<string, CachedDataRef>();
         private Dictionary<string, DataRefDescription> _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
+
+        // Queue for writes that need to wait for data definitions refresh
+        private readonly ConcurrentQueue<(string datarefPath, object value)> _pendingWrites = new ConcurrentQueue<(string, object)>();
+        
+        // Flag to track if refresh is in progress
+        private volatile bool _refreshInProgress = false;
 
         // Helper class to store cached values
         private class CachedDataRef
@@ -43,7 +45,6 @@ namespace MobiFlight.ProSim
             public int UpdateInterval { get; set; }
             public DataRefDescription DataRefDescription { get; set; }
         }
-
 
         public bool Connect()
         {
@@ -64,6 +65,16 @@ namespace MobiFlight.ProSim
                     {
                         Log.Instance.log("Connected to ProSim GraphQL WebSocket!", LogSeverity.Debug);
                         _connected = true;
+                        
+                        // Refresh data definitions on connection
+                        RefreshDataDefinitionsAsync().ContinueWith(task =>
+                        {
+                            if (task.IsFaulted)
+                            {
+                                Log.Instance.log($"Failed to refresh data definitions: {task.Exception?.GetBaseException().Message}", LogSeverity.Error);
+                            }
+                        });
+                        
                         Connected?.Invoke(this, new EventArgs());
                     }
                     else if (state == GraphQLWebsocketConnectionState.Disconnected)
@@ -71,12 +82,15 @@ namespace MobiFlight.ProSim
                         if (_connected)
                         {
                             _connected = false;
+                            // Clear data definitions on disconnection
+                            lock (_cacheLock)
+                            {
+                                _dataRefDescriptions.Clear();
+                            }
                             ConnectionLost?.Invoke(this, new EventArgs());
                         }
                     }
                 });
-
-                RefreshDataDefinitions();
 
                 return true;
             }
@@ -87,7 +101,6 @@ namespace MobiFlight.ProSim
                 return false;
             }
         }
-
 
         public void Clear()
         {
@@ -163,34 +176,90 @@ namespace MobiFlight.ProSim
 
         private void WriteOutValue(string datarefPath, object value)
         {
-            if (_dataRefDescriptions.TryGetValue(datarefPath, out var description))
+            // Check if refresh is in progress
+            if (_refreshInProgress)
             {
-                if (mutationLookup.TryGetValue(description.DataType, out var method)) {
+                // Queue the write for later processing
+                _pendingWrites.Enqueue((datarefPath, value));
+                Log.Instance.log($"Queued write for {datarefPath} during data definitions refresh", LogSeverity.Debug);
+                return;
+            }
 
-                    Task.Run(async () => {
+            WriteOutValueInternal(datarefPath, value);
+        }
+
+        private void WriteOutValueInternal(string datarefPath, object value)
+        {
+            try
+            {
+                if (!IsConnected() || _connection == null)
+                {
+                    return;
+                }
+
+                if (!_dataRefDescriptions.TryGetValue(datarefPath, out var description))
+                {
+                    return;
+                }
+
+                if (!description.CanWrite)
+                {
+                    return;
+                }
+
+                if (!mutationLookup.TryGetValue(description.DataType, out var method))
+                {
+                    return;
+                }
+
+                Task.Run(async () => {
+                    try
+                    {
                         var query = $@"
 mutation {{
 	dataRef {{
 		{method}(name: ""{datarefPath}"", value: {value})
 	}}
 }}";
+                        
                         await _connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
                         {
                             Query = query
                         });
-                    });
-
-                }
+                    }
+                    catch
+                    {
+                        // Ignore all errors
+                    }
+                });
             }
-
-
+            catch
+            {
+                // Ignore all errors
+            }
         }
 
-        private void RefreshDataDefinitions()
+        private async Task RefreshDataDefinitionsAsync()
         {
-            Task.Run(() =>
+            lock (_refreshLock)
             {
-                var dataRefDescriptions =  _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
+                if (_refreshInProgress)
+                {
+                    return;
+                }
+                _refreshInProgress = true;
+            }
+
+            try
+            {
+                if (!IsConnected() || _connection == null)
+                {
+                    return;
+                }
+
+                Log.Instance.log("Refreshing ProSim data definitions...", LogSeverity.Debug);
+                
+                var dataRefDescriptions = await _connection.SendQueryAsync<DataRefData>(new GraphQL.GraphQLRequest
                 {
                     Query = @"
                     {
@@ -207,20 +276,96 @@ mutation {{
                         __typename
                         }
                     }"
-                }).Result;
+                });
 
-                _dataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
-            });
+                if (dataRefDescriptions?.Data?.DataRef?.DataRefDescriptions == null)
+                {
+                    return;
+                }
+
+                var newDataRefDescriptions = dataRefDescriptions.Data.DataRef.DataRefDescriptions.ToDictionary(drd => drd.Name);
+
+                lock (_cacheLock)
+                {
+                    _dataRefDescriptions = newDataRefDescriptions;
+                }
+
+                Log.Instance.log($"Refreshed {_dataRefDescriptions.Count} data definitions", LogSeverity.Debug);
+
+                ProcessPendingWrites();
+            }
+            catch
+            {
+                // Ignore all errors
+            }
+            finally
+            {
+                lock (_refreshLock)
+                {
+                    _refreshInProgress = false;
+                }
+            }
+        }
+
+        private void ProcessPendingWrites()
+        {
+            if (!IsConnected())
+            {
+                return;
+            }
+
+            var totalPending = _pendingWrites.Count;
+
+            if (totalPending == 0)
+            {
+                return;
+            }
+
+            Log.Instance.log($"Processing {totalPending} pending writes after data definitions refresh", LogSeverity.Debug);
+
+            while (_pendingWrites.TryDequeue(out var pendingWrite))
+            {
+                try
+                {
+                    if (_dataRefDescriptions.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    if (!_dataRefDescriptions.ContainsKey(pendingWrite.datarefPath))
+                    {
+                        continue;
+                    }
+
+                    WriteOutValueInternal(pendingWrite.datarefPath, pendingWrite.value);
+                }
+                catch
+                {
+                    // Ignore all errors
+                }
+            }
         }
 
         public bool Disconnect()
         {
             if (_connected)
             {                
-                // Clear all DataRefs
                 lock (_subscribedDataRefs)
                 {
                     _subscribedDataRefs.Clear();
+                }
+
+                lock (_cacheLock)
+                {
+                    _dataRefDescriptions.Clear();
+                }
+
+                // Clear pending writes
+                while (_pendingWrites.TryDequeue(out _)) { }
+
+                lock (_refreshLock)
+                {
+                    _refreshInProgress = false;
                 }
 
                 foreach (var subscription in _subscriptions.Values)
@@ -234,8 +379,6 @@ mutation {{
             }
             return !_connected;
         }
-
-        
 
         public bool IsConnected()
         {
@@ -272,8 +415,6 @@ mutation {{
             catch (Exception ex)
             {
                 Log.Instance.log($"Error reading dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
-                
-                
                 return 0;
             }
         }
@@ -287,41 +428,59 @@ mutation {{
 
             try
             {
-                // For writes, we can use either a cached DataRef or create a temporary one
-                CachedDataRef dataRef;
+                if (_dataRefDescriptions.Count == 0)
+                {
+                    if (_refreshInProgress)
+                    {
+                        _pendingWrites.Enqueue((datarefPath, value));
+                        return;
+                    }
+
+                    _pendingWrites.Enqueue((datarefPath, value));
+                    RefreshDataDefinitionsAsync().ConfigureAwait(false);
+                    return;
+                }
 
                 if (!_dataRefDescriptions.ContainsKey(datarefPath))
                 {
-                    // Probably an error, unsure
-                    // Maybe reconnected, should attempt to refetch data defs
-                    RefreshDataDefinitions();
                     return;
                 }
                 
                 var description = _dataRefDescriptions[datarefPath];
 
+                if (!description.CanWrite)
+                {
+                    return;
+                }
+
                 var transformedValue = value;
                 var targetDataType = description.DataType;
 
-                if (targetDataType == "System.Int32")
+                try
                 {
-                    transformedValue = Convert.ToInt32(value);
+                    if (targetDataType == "System.Int32")
+                    {
+                        transformedValue = Convert.ToInt32(value);
+                    }
+                    else if (targetDataType == "System.Double")
+                    {
+                        transformedValue = Convert.ToDouble(value);
+                    }
+                    else if (targetDataType == "System.Boolean")
+                    {
+                        transformedValue = Convert.ToInt32(value) > 0;
+                    }
                 }
-                else if (targetDataType == "System.Double")
+                catch
                 {
-                    transformedValue = Convert.ToDouble(value);
-                }
-                else if (targetDataType == "System.Boolean")
-                {
-                    transformedValue = Convert.ToInt32(value) > 0;
+                    return;
                 }
 
                 WriteOutValue(datarefPath, transformedValue);
-                Log.Instance.log($"Written value to {datarefPath}: {transformedValue}", LogSeverity.Debug);
             }
-            catch (Exception ex)
+            catch
             {
-                Log.Instance.log($"Error writing to dataref {datarefPath}: {ex.Message}", LogSeverity.Error);     
+                // Ignore all errors
             }
         }
 
