@@ -9,13 +9,13 @@ from gql.transport.websockets import WebsocketsTransport
 from gql.transport.websockets import log as websockets_logger
 from inspect import getsourcefile
 
-subs = {'#': '\u2610',    # ballot box
-        '¤': '\u2191',    # up arrow
-        '¥': '\u2193',    # down arrow
-        '¢': '\u2192',    # right arrow
-        '£': '\u2190',    # left arrow
-        '&': '\u0394',}   # greek delta for overfly
-        
+subs = {'#': '☐',    # ballot box \u2610
+        '¤': '↑',    # up arrow    \u2191
+        '¥': '↓',    # down arrow  \u2193
+        '¢': '→',    # right arrow \u2192
+        '£': '←',    # left arrow  \u2190
+        '&': 'Δ',}   # greek delta for overfly \u0394
+
 replace_chars =  ['£', '¢', '¥', '¤', '#', '&' ]
 format_chars = ['s', 'l', 'a', 'c', 'y', 'w', 'g', 'm']
 
@@ -66,7 +66,7 @@ def create_mobi_json(xml_string):
 
 
 async def run_fenix_graphql_client(mobi_client1, mobi_client2):
-    await asyncio.sleep(0.5)
+    await asyncio.sleep(1)
     transport = WebsocketsTransport(url="ws://localhost:8083/graphql/")
     client = Client(transport=transport)
     op_name = "OnDataRefChanged"
@@ -109,7 +109,11 @@ class Mobiflight_Client:
             try:
                 if self.websocket_connection == None:                                
                     self.websocket_connection = await ws_client.connect(self.uri)  
-                    logging.info(f"Established connection to MobiFlight websocket interface for {self.id}.")   
+                    logging.info(f"Established connection to MobiFlight websocket interface for {self.id}.")                       
+                    # Load font                                        
+                    fontName = "AirbusThales"
+                    await self.websocket_connection.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
+                    logging.info(f"Setting font: {fontName}")
                 # Wait for disconnection or data
                 await self.websocket_connection.recv()    
             except websockets.exceptions.InvalidStatus as invalid:      

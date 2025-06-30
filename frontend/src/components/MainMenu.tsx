@@ -15,9 +15,11 @@ import { CommunityMenu } from "./CommunityMenu"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandMainMenuPayload } from "@/types/commands"
 import DarkModeToggle from "./DarkModeToggle"
+import { useProjectStore } from "@/stores/projectStore"
 
 export const MainMenu = () => {
   const { settings } = useSettingsStore()
+  const { hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
@@ -41,6 +43,12 @@ export const MainMenu = () => {
               onSelect={() => handleMenuItemClick({ action: "file.open" })}
             >
               Open...<MenubarShortcut>Ctrl+O</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem
+              onSelect={() => handleMenuItemClick({ action: "file.save" })}
+              disabled={!hasChanged}
+            >
+              Save<MenubarShortcut>Ctrl+S</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.saveas" })}
@@ -175,7 +183,7 @@ export const MainMenu = () => {
           </MenubarContent>
         </MenubarMenu>
       </div>
-      <div className="flex items-center gap-16 px-2">
+      <div className="flex items-center gap-8 px-2">
         <CommunityMenu />
         <DarkModeToggle />
       </div>

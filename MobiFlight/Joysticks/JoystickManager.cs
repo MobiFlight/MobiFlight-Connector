@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using WebSocketSharp.Server;
+using MobiFlight.BrowserMessages;
 
 namespace MobiFlight
 {
@@ -30,7 +31,7 @@ namespace MobiFlight
             SharpDX.DirectInput.DeviceType.Supplemental
         };
 
-        private List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
+        public readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
         private readonly Timer PollTimer = new Timer(); 
@@ -74,10 +75,22 @@ namespace MobiFlight
         /// </summary>
         public void LoadDefinitions()
         {
-            Definitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
                 onError: () => LoadingError = true
             );
+
+            // now we have a symmetry with the MidiBoardManager
+            Definitions.Clear();
+            Definitions.AddRange(rawDefinitions);
+
+            MessageExchange.Instance.Publish(Definitions);
+        }
+
+        public string MapDeviceNameToLabel(string boardName, string deviceName)
+        {
+            var definition = Definitions.Find(def => def.InstanceName == boardName);
+            return definition?.MapDeviceNameToLabel(deviceName) ?? deviceName;
         }
 
         public bool JoysticksConnected()

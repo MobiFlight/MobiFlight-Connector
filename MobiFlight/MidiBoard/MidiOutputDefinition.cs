@@ -19,6 +19,7 @@ namespace MobiFlight
         /// <summary>
         /// Associated layer for the output. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Layer;
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace MobiFlight
         /// <summary>
         /// Midi message value for putting LED to blink mode. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public byte? ValueBlinkOn;
 
         /// <summary>
@@ -55,11 +57,13 @@ namespace MobiFlight
         /// <summary>
         /// Label of related input. When related input is triggered, output is auto refreshed. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string RelatedInputLabel;
 
         /// <summary>
         /// Label ids of related input, replacing the % in the related input label. Optional.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string[] RelatedIds;
 
         public string GetLabelWithIndex(int index)

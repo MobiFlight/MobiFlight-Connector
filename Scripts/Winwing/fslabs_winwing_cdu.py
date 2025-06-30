@@ -4,8 +4,6 @@ import json
 import logging
 import logging.handlers
 import websockets.asyncio.client as ws_client
-import urllib.request
-import time
 import http.client
 
 # FSL Color Mapping
@@ -98,6 +96,10 @@ async def run_mobiflight_websocket_client():
                 logging.warning("Connecting to MobiFlight WebSocket...")
                 mobi_websocket_connection = await ws_client.connect(MOBIFLIGHT_WS_URI)
                 logging.warning("Connected to MobiFlight WebSocket.")
+                # Load font                                        
+                fontName = "AirbusThales"
+                await mobi_websocket_connection.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
+                logging.info(f"Setting font: {fontName}")
 
             await asyncio.sleep(0.05)
 

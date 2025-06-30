@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -309,7 +309,9 @@
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValuePartialUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueFullUpdate.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ConfigValueRawAndFinalUpdate.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ControllerDefinitions.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\LogEntry.cs" />
+    <Compile Include="MobiFlight\BrowserMessages\Outgoing\ProjectStatus.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\Notification.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Incoming\Test.cs" />
     <Compile Include="MobiFlight\BrowserMessages\Outgoing\ExecutionState.cs" />
@@ -408,6 +410,8 @@
     <Compile Include="MobiFlight\OutputConfig\SimConnectValue.cs" />
     <Compile Include="HubHop\Msfs2020HubhopPresetList.cs" />
     <Compile Include="MobiFlight\PortDetails.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\CduChar.cs" />
+    <Compile Include="MobiFlight\Scripts\UserMessageCodes.cs" />
     <Compile Include="MobiFlight\ThreadSafeWebView2.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1103,6 +1107,12 @@
     <Content Include="Scripts\Winwing\ifly_737_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Winwing\prosim_737_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\prosim_a320_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\Winwing\tfdi_md11_winwing_cdu.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1398,6 +1408,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\mpd218\mpd218mobi.mpd218">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MidiBoards\akai.mpkmini.mk3.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\nanokontrol2\nanoKontrol2Mobi.nktrl2_data">
@@ -2039,6 +2052,24 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Scripts\ScriptMappings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\Fonts\Default\MCDU\AirbusThales.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\Fonts\Default\MCDU\Boeing.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\Fonts\Default\MCDU\Collins.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\Fonts\Default\PFP\AirbusThales.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\Fonts\Default\PFP\Boeing.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Winwing\Fonts\Default\PFP\Collins.dat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

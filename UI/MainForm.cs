@@ -25,12 +25,11 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Outgoing;
 using System.Drawing;
 using MobiFlight.BrowserMessages.Incoming.Handler;
-using MobiFlight.ProSim;
-using System.Management.Instrumentation;
+using System.ComponentModel;
 
 namespace MobiFlight.UI
 {
-    public partial class MainForm : Form, IProjectToolbar
+    public partial class MainForm : Form, IProjectToolbar, INotifyPropertyChanged
     {
         private delegate void UpdateAircraftCallback(string aircraftName);
         private delegate DialogResult MessageBoxDelegate(string msg, string title, MessageBoxButtons buttons, MessageBoxIcon icon);
@@ -46,7 +45,7 @@ namespace MobiFlight.UI
         private ExecutionManager execManager;
 
         protected Dictionary<string, string> AutoLoadConfigs = new Dictionary<string, string>();
-        
+
         public event EventHandler<string> CurrentFilenameChanged;
 
         // Track whether there are any connected devices of the different types, to avoid unnecessary
@@ -79,7 +78,20 @@ namespace MobiFlight.UI
 
         private int StartupProgressValue = 0;
 
-        public bool ProjectHasUnsavedChanges = false;
+        private bool projectHasUnsavedChanges = false;
+        public bool ProjectHasUnsavedChanges
+        {
+            get { return projectHasUnsavedChanges; }
+            set
+            {
+                if (value == projectHasUnsavedChanges) return;
+                projectHasUnsavedChanges = value;
+                PropertyChanged?.Invoke(
+                    this,
+                    new PropertyChangedEventArgs(nameof(ProjectHasUnsavedChanges))
+                );
+            }
+        }
 
         private void InitializeLogging()
         {
@@ -131,7 +143,8 @@ namespace MobiFlight.UI
 
             UpdateAutoLoadConfig();
             RestoreAutoLoadConfig();
-            CurrentFilenameChanged += (s, e) => {
+            CurrentFilenameChanged += (s, e) =>
+            {
 
             };
 
@@ -202,12 +215,14 @@ namespace MobiFlight.UI
 
             var commandMainMenuHandler = new CommandMainMenuHandler(this);
 
-            MessageExchange.Instance.Subscribe<CommandMainMenu>((message) => {
+            MessageExchange.Instance.Subscribe<CommandMainMenu>((message) =>
+            {
                 commandMainMenuHandler.Handle(message);
             });
-    
+
             var commandProjectToolbarHandler = new CommandProjectToolbarHandler(this);
-            MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) => {
+            MessageExchange.Instance.Subscribe<CommandProjectToolbar>((message) =>
+            {
                 commandProjectToolbarHandler.Handle(message);
             });
         }
@@ -320,12 +335,21 @@ namespace MobiFlight.UI
             AppTelemetry.Instance.Enabled = Properties.Settings.Default.CommunityFeedback;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs _)
         {
             ProjectLoaded += (s, project) =>
             {
                 StopExecution();
                 MessageExchange.Instance.Publish(project);
+            };
+
+            PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(ProjectHasUnsavedChanges))
+                {
+                    MessageExchange.Instance
+                                   .Publish(new ProjectStatus { HasChanged = ProjectHasUnsavedChanges });
+                }
             };
 
             RestoreWindowsPositionAndZoomLevel();
@@ -401,6 +425,11 @@ namespace MobiFlight.UI
         private void PublishSettings()
         {
             MessageExchange.Instance.Publish(new Settings(Properties.Settings.Default));
+
+            if (execManager == null) return;
+
+            MessageExchange.Instance.Publish(new JoystickDefinitions() { Definitions = execManager.GetJoystickManager().Definitions });
+            MessageExchange.Instance.Publish(new MidiControllerDefinitions() { Definitions = execManager.GetMidiBoardManager().Definitions.Values.ToList() });
         }
 
         private void InitializeExecutionManager()
@@ -726,7 +755,8 @@ namespace MobiFlight.UI
             Properties.Settings.Default.WindowZoomFactor = frontendPanel1.GetZoomFactor();
         }
 
-        private void RestoreWindowsPositionAndZoomLevel() {
+        private void RestoreWindowsPositionAndZoomLevel()
+        {
             if (Properties.Settings.Default.WindowZoomFactor >= 0.0)
             {
                 frontendPanel1.SetZoomFactor(Properties.Settings.Default.WindowZoomFactor);
@@ -1116,7 +1146,7 @@ namespace MobiFlight.UI
                 return;
             }
             UpdateStatusBarModuleInformation();
-            
+
             // During initial lookup we are showing the panel
             // and we would like to display some progress information
             if (!InitialLookupFinished)
@@ -1824,7 +1854,8 @@ namespace MobiFlight.UI
                     execManager.Project.ConfigFiles.Add(additionalProject.ConfigFiles.First());
                 }
 
-                execManager.Project.ConfigFiles.ToList().ForEach(configFile => {
+                execManager.Project.ConfigFiles.ToList().ForEach(configFile =>
+                {
                     if (!configFile.HasDuplicateGuids()) return;
                     Log.Instance.log($"{configFile.FileName} has duplicate GUIDs and will be fixed.", LogSeverity.Warn);
                     configFile.RemoveDuplicateGuids();
@@ -2231,7 +2262,7 @@ namespace MobiFlight.UI
         /// <summary>
         /// gets triggered if user uses quick save button from toolbar
         /// </summary>
-        private void saveToolStripButton_Click(object sender, EventArgs e)
+        public void saveToolStripButton_Click(object sender, EventArgs e)
         {
             // if filename of loaded file is known use it
             if (execManager.Project.FilePath != null)
@@ -2726,13 +2757,13 @@ namespace MobiFlight.UI
             var key = $"{FlightSim.FlightSimType}:{aircraftName}";
 
             ResetAutoLoadMenu();
-            
+
             if (!AutoLoadConfigs.ContainsKey(key)) return;
             var linkedFile = AutoLoadConfigs[key];
 
             UpdateAutoLoadMenuWithLinkedFile(linkedFile);
         }
-        
+
         private void UpdateAutoLoadMenuWithLinkedFile(string linkedFile)
         {
 
@@ -2798,6 +2829,8 @@ namespace MobiFlight.UI
 
             MessageBox.Show("Logs successfully copied to the clipboard.", "Copy to clipboard");
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     internal static class Helper

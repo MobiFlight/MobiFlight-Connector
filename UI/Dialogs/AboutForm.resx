@@ -401,6 +401,36 @@ Copyright 2014-2025 - Sebastian Moebius</value>
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="label6.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label6.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 281</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 13</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Thanks to Gijs de Rooij for providing the BoeingCDULarge font.</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>panel2</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="licenseReferenceControl10.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -423,7 +453,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl10.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="licenseReferenceControl9.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -450,7 +480,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl9.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="licenseReferenceControl8.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -477,7 +507,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl8.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="licenseReferenceControl6.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -504,7 +534,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl6.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="licenseReferenceControl5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -531,7 +561,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl5.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="licenseReferenceControl2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -558,7 +588,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl2.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="licenseReferenceControl7.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -585,7 +615,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl7.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="licenseReferenceControl4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -612,7 +642,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl4.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="licenseReferenceControl3.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -639,7 +669,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl3.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="licenseReferenceControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -666,7 +696,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;licenseReferenceControl1.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
   <data name="label5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -699,7 +729,7 @@ Copyright 2014-2025 - Sebastian Moebius</value>
     <value>panel2</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>11</value>
   </data>
   <data name="panel2.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -904,9 +934,6 @@ Copyright 2014-2025 - Sebastian Moebius</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
 </value>
-  </data>
-  <data name="$this.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>About MF Connector</value>

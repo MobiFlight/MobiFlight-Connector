@@ -33,7 +33,7 @@ export default defineConfig({
     trace: "on-first-retry",
 
     // Emulates `'prefers-colors-scheme'` media feature.
-    colorScheme: "light",
+    colorScheme: "light"
   },
 
   /* Configure projects for major browsers */
@@ -49,6 +49,6 @@ export default defineConfig({
     command: "npm run dev",
     url: "http://localhost:5173/",
     reuseExistingServer: !process.env.CI,
-    timeout: 10 * 1000,
+    timeout: 20 * 1000,
   },
 })

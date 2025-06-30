@@ -22,6 +22,9 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                 case CommandMainMenuAction.file_open:
                     _mainForm.loadToolStripMenuItem_Click(null, null);
                     break;
+                case CommandMainMenuAction.file_save:
+                    _mainForm.saveToolStripButton_Click(null, null);
+                    break;
                 case CommandMainMenuAction.file_saveas:
                     _mainForm.saveAsToolStripMenuItem_Click(null, null);
                     break;
