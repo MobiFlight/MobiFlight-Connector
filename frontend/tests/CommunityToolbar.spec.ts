@@ -1,6 +1,6 @@
 import { test, expect } from "./fixtures"
 
-test("Confirm save menu item behaves as expected", async ({
+test("Confirm community buttons in toolbar behave as expected", async ({
   configListPage,
   page,
 }) => {
