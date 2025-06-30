@@ -41,7 +41,9 @@ namespace MobiFlight.BrowserMessages.Incoming
         [EnumMember(Value = "help.about")]
         help_about,
         [EnumMember(Value = "help.releasenotes")]
-        help_releasenotes
+        help_releasenotes,
+        [EnumMember(Value = "help.donate")]
+        help_donate
     }
 
     public class CommandMainMenu
