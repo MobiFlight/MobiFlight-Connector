@@ -1,9 +1,11 @@
+import { CommandMessage } from "@/types/commands"
+
 export interface KeyAccelerator {
   key: string
   ctrlKey?: boolean
   altKey?: boolean
   shiftKey?: boolean
   metaKey?: boolean
-  action: CommandMainMenuPayload["action"]
+  message: CommandMessage
   description?: string
 }
