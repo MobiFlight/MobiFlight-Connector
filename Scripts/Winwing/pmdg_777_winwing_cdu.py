@@ -138,8 +138,10 @@ def create_mobi_json(data: bytes) -> str:
                 message["Data"][dst_idx] = []
                 continue
                 
-            try:
+            try:                
                 symbol: str = chr(data[src_idx])
+                is_lowercase: bool = symbol.islower()
+                symbol = symbol.upper()
                 color: int = data[src_idx + 1]
                 flags: int = data[src_idx + 2]
 
@@ -171,7 +173,7 @@ def create_mobi_json(data: bytes) -> str:
                     message["Data"][dst_idx] = [
                         symbol,
                         color_str,
-                        1 if (flags & CDU_FLAG_SMALL_FONT) else 0
+                        1 if (is_lowercase) or (flags & CDU_FLAG_SMALL_FONT) else 0
                     ]
             except (ValueError, TypeError, IndexError) as e:
                 message["Data"][dst_idx] = []
