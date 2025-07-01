@@ -41,7 +41,8 @@ namespace MobiFlightWwFcu
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
-                                                          PRODUCT_ID_PFP7_CPT, PRODUCT_ID_PFP7_OBS, PRODUCT_ID_PFP7_FO };
+                                                          PRODUCT_ID_PFP7_CPT, PRODUCT_ID_PFP7_OBS, PRODUCT_ID_PFP7_FO,
+                                                          PRODUCT_ID_PFP4_CPT, PRODUCT_ID_PFP4_OBS, PRODUCT_ID_PFP4_FO };
 
         internal const string CDU_DATA = "Cdu Data";
         internal const string FONT_DATA = "Font Data";
