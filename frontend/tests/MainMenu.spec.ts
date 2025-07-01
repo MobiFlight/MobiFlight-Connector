@@ -43,9 +43,10 @@ test("Confirm accelerator keys are working correctly", async ({
 
     const trackedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
 
-    if (trackedCommands == undefined || trackedCommands!.length === 0) {
+    if (trackedCommands == undefined) {
       throw new Error(`No commands tracked after pressing ${key}`)
     }
+    expect(trackedCommands.length).toBeGreaterThan(0)
 
     const lastCommand = trackedCommands.pop() as CommandMessage
     expect(lastCommand).toEqual(accelerator.message)
