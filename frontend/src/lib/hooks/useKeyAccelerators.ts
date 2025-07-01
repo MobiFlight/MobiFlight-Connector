@@ -97,12 +97,16 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
   },
 ]
 
-export function ConvertKeyAcceleratorToString(accelerator: KeyAccelerator): string {
-  let key = accelerator.key
-  if (accelerator.ctrlKey) key = `Control+${key}`
-  if (accelerator.altKey) key = `Alt+${key}`
-  if (accelerator.shiftKey) key = `Shift+${key}`
-  if (accelerator.metaKey) key = `Meta+${key}`
+export function ConvertKeyAcceleratorToString(
+  accelerator: KeyAccelerator,
+): string {
+  const key = [] as string[]
+  if (accelerator.ctrlKey) key.push("Control")
+  if (accelerator.shiftKey) key.push("Shift")
+  if (accelerator.altKey) key.push("Alt")
+  if (accelerator.metaKey) key.push("Meta")
 
-  return key
+  key.push(accelerator.key)
+
+  return key.join("+")
 }
