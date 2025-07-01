@@ -45,9 +45,9 @@ export const GlobalKeyAccelerators: KeyAccelerator[] = [
     key: "F1",
     message: {
       key: "CommandMainMenu",
-      payload: { action: "help.discord" },
+      payload: { action: "help.docs" },
     },
-    description: "Open Discord",
+    description: "Open Documentation",
   },
   {
     key: "S",
