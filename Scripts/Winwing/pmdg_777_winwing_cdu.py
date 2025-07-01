@@ -138,7 +138,7 @@ def create_mobi_json(data: bytes) -> str:
                 message["Data"][dst_idx] = []
                 continue
                 
-            try:                
+            try:
                 symbol: str = chr(data[src_idx])
                 is_lowercase: bool = symbol.islower()
                 symbol = symbol.upper()
@@ -153,7 +153,7 @@ def create_mobi_json(data: bytes) -> str:
                     elif symbol == '\xA2': symbol = "\u2192"  # right arrow
                     elif symbol == '\xA3': symbol = "\u2191"  # up arrow
                     elif symbol == '\xA4': symbol = "\u2193"  # down arrow
-                    elif symbol == '\u00EA': symbol = "\u2610"  # box
+                    elif symbol == '\u00CA': symbol = "\u2610"  # box
                     
                     # Handle color based on flags
                     if flags & CDU_FLAG_UNUSED:
