@@ -13,8 +13,8 @@ namespace MobiFlightWwFcu
         private Dictionary<string, string> AvailablePfpFonts = new Dictionary<string, string>();
         private Dictionary<string, string> CurrentlyLoadedFontForDevices = new Dictionary<string, string>();
 
-        private const string DefaultMcduFolder = @"Fonts\Default\MCDU\";
-        private const string DefaultPfpFolder = @"Fonts\Default\PFP\";
+        private const string DefaultMcduFolder = @"Scripts\Winwing\Fonts\Default\MCDU\";
+        private const string DefaultPfpFolder = @"Scripts\Winwing\Fonts\Default\PFP\";
 
         public FontLoader()
         {        
@@ -23,9 +23,9 @@ namespace MobiFlightWwFcu
             {
                 var filesMcduFullPath = Directory.GetFiles(Path.Combine(baseDirectory, DefaultMcduFolder)).ToList();
                 var filesPfpFullPath = Directory.GetFiles(Path.Combine(baseDirectory, DefaultPfpFolder)).ToList();
-
-                filesMcduFullPath.ForEach(f => AvailableMcduFonts.Add(Path.GetFileName(f), f));
-                filesPfpFullPath.ForEach(f => AvailablePfpFonts.Add(Path.GetFileName(f), f));
+                
+                filesMcduFullPath.ForEach(f => AvailableMcduFonts.Add(Path.GetFileNameWithoutExtension(f), f));
+                filesPfpFullPath.ForEach(f => AvailablePfpFonts.Add(Path.GetFileNameWithoutExtension(f), f));
             }
         }
 

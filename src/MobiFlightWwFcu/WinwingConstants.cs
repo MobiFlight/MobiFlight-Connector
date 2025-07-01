@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace MobiFlightWwFcu
 {
@@ -12,6 +11,7 @@ namespace MobiFlightWwFcu
         internal static readonly byte[] DEST_MCDU = new byte[] { 0x32, 0xbb };
         internal static readonly byte[] DEST_PFP3N = new byte[] { 0x31, 0xbb };
         internal static readonly byte[] DEST_PFP7 = new byte[] { 0x33, 0xbb };
+        internal static readonly byte[] DEST_PFP4 = new byte[] { 0x34, 0xbb };
 
         internal static readonly byte[] DEST_PAP3 = new byte[] { 0x0f, 0xbf };
 
@@ -20,17 +20,21 @@ namespace MobiFlightWwFcu
         internal const int PRODUCT_ID_FCU_EFISR = 0xBC1E;
         internal const int PRODUCT_ID_FCU_EFISL_EFISR = 0xBA01;
 
-        internal const int PRODUCT_ID_MCDU_CPT = 0xBB36;
-        internal const int PRODUCT_ID_MCDU_OBS = 0xBB3A;
-        internal const int PRODUCT_ID_MCDU_FO = 0xBB3E;
-
         internal const int PRODUCT_ID_PFP3N_CPT = 0xBB35;
         internal const int PRODUCT_ID_PFP3N_OBS = 0xBB39;
         internal const int PRODUCT_ID_PFP3N_FO = 0xBB3D;
 
+        internal const int PRODUCT_ID_MCDU_CPT = 0xBB36;
+        internal const int PRODUCT_ID_MCDU_OBS = 0xBB3A;
+        internal const int PRODUCT_ID_MCDU_FO = 0xBB3E;
+
         internal const int PRODUCT_ID_PFP7_CPT = 0xBB37;
         internal const int PRODUCT_ID_PFP7_OBS = 0xBB3B;
         internal const int PRODUCT_ID_PFP7_FO = 0xBB3F;
+
+        internal const int PRODUCT_ID_PFP4_CPT = 0xBB38;
+        internal const int PRODUCT_ID_PFP4_OBS = 0xBB3C;
+        internal const int PRODUCT_ID_PFP4_FO = 0xBB40;
 
         internal const int PRODUCT_ID_PAP3 = 0xBF0F;
 

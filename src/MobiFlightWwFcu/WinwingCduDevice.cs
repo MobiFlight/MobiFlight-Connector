@@ -235,6 +235,20 @@ namespace MobiFlightWwFcu
                     { $"EXEC", 0x07 },
                 };
             }
+            else if (CduType == WinwingCduType.PFP4)
+            {
+                InitCommandSequence.AddRange(InitCommandHeaderPfp3n);
+                InitCommandSequence.AddRange(InitCommandData);
+                DestinationAddress = WinwingConstants.DEST_PFP4;
+                LedIdentifiers = new Dictionary<string, byte>()
+                {
+                    { $"DSPY",   0x03 },
+                    { $"FAIL",   0x04 },
+                    { $"MSG", 0x05 },
+                    { $"OFST",  0x06 },
+                    { $"EXEC", 0x07 },
+                };
+            }
 
             DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
             DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
