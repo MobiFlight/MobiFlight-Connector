@@ -22,8 +22,7 @@ CHARACTER_MAPPING = {"`": "\u00b0", "*": "\u2610", "=": "\u002a"}
 COLOR_MAPPING = {"G": "g", "C": "c", "I": "e", "M": "m"}
 
 
-FONT = "Boeing"
-FONT_REQUEST = json.dumps({"Target": "Font", "Data": FONT})
+FONT_REQUEST = json.dumps({"Target": "Font", "Data": "Boeing"})
 
 
 class CduDevice(StrEnum):
@@ -138,13 +137,24 @@ def generate_display_json(values: dict[str, str]) -> str:
 
 
 async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
+    last_run_time = 0
+    rate_limit_time = 0.1
+
     endpoint = device.get_endpoint()
     async for websocket in websockets.connect(endpoint):
         while True:
             values = await queue.get()
-            display_json = generate_display_json(values)
+
             try:
+                elapsed = asyncio.get_event_loop().time() - last_run_time
+
+                if elapsed < rate_limit_time:
+                    await asyncio.sleep(rate_limit_time - elapsed)
+
+                display_json = generate_display_json(values)
                 await websocket.send(display_json)
+                last_run_time = asyncio.get_event_loop().time()
+
             except websockets.exceptions.ConnectionClosed:
                 await queue.put(values)
                 break
