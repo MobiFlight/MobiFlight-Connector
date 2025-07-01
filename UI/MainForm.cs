@@ -353,8 +353,6 @@ namespace MobiFlight.UI
             };
 
             RestoreWindowsPositionAndZoomLevel();
-
-            frontendPanel1.WebViewKeyUp += MainForm_KeyUp;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
