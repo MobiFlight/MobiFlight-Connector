@@ -3,17 +3,83 @@ on:
   workflow_run:
     workflows: [RunTests]
     types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number'
+        required: true
+        type: number
 
 jobs:
   artifacts-url-comments:
     name: Add artifact links to pull request
     runs-on: windows-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
-      - uses: tonyhallett/artifacts-url-comments@v1.1.0
+      - name: Checkout latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Add artifact links to PR comment
+        uses: actions/github-script@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          prefix: "Build for this pull request:"
-          format: "[MobiFlightConnector.zip]({url})"
-          addTo: pull
+          script: |
+            const fs = require('fs');
+            
+            // Get PR number from input or workflow_run event
+            const prNumber = process.env.PR_NUMBER || 
+                            (context.payload.workflow_run && context.payload.workflow_run.pull_requests.length > 0 
+                             ? context.payload.workflow_run.pull_requests[0].number 
+                             : null);
+            
+            if (!prNumber) {
+              console.log('No PR number found, skipping artifact comment');
+              return;
+            }
+            
+            // Get the workflow run ID
+            const runId = context.payload.workflow_run?.id || 
+                         (process.env.WORKFLOW_RUN_ID ? parseInt(process.env.WORKFLOW_RUN_ID) : null);
+            
+            if (!runId) {
+              console.log('No workflow run ID found');
+              return;
+            }
+            
+            // Get artifacts from the workflow run
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: runId,
+            });
+            
+            if (artifacts.data.artifacts.length === 0) {
+              console.log('No artifacts found for this workflow run');
+              return;
+            }
+            
+            // Create comment body with artifact links
+            let commentBody = "## 🚀 Build for this pull request:\n\n";
+            
+            for (const artifact of artifacts.data.artifacts) {
+              const downloadUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}/artifacts/${artifact.id}`;
+              commentBody += `- [${artifact.name}](${downloadUrl})\n`;
+            }
+            
+            commentBody += `\n*Generated from workflow run [#${runId}](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId})*`;
+            
+            // Post comment to PR
+            await github.rest.issues.createComment({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: commentBody
+            });
+            
+            console.log(`Posted artifact links to PR #${prNumber}`);
+        env:
+          PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          WORKFLOW_RUN_ID: ${{ github.event.workflow_run.id }}
