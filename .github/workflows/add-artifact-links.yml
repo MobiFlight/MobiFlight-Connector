@@ -12,7 +12,7 @@ on:
         required: false
         type: number
       workflow_names:
-        description: 'Comma-separated list of workflow names to search for artifacts (e.g., "RunTests,Build")'
+        description: 'Comma-separated list of workflow names to search for artifacts (e.g., "RunTests,Build"), leave empty for all workflows'
         required: false
         type: string
         default: ''
@@ -86,7 +86,9 @@ jobs:
               
               // Parse workflow names to search for
               const workflowNames = '${{ inputs.workflow_names }}'.split(',').map(name => name.trim()).filter(name => name);
-              console.log(`Searching for artifacts in workflows: ${workflowNames.length > 0 ? workflowNames.join(', ') : 'all workflows'}`);
+              const searchAllWorkflows = workflowNames.length === 0;
+              
+              console.log(`Searching for artifacts in: ${searchAllWorkflows ? 'all workflows' : workflowNames.join(', ')}`);
               
               // Find workflow runs for this commit
               const workflowRuns = await github.rest.actions.listWorkflowRunsForRepo({
@@ -105,8 +107,8 @@ jobs:
               const workflowRunsWithArtifacts = [];
               
               for (const run of workflowRuns.data.workflow_runs) {
-                // Skip if workflow names are specified and this run doesn't match
-                if (workflowNames.length > 0 && !workflowNames.includes(run.name)) {
+                // Skip if specific workflow names are specified and this run doesn't match
+                if (!searchAllWorkflows && !workflowNames.includes(run.name)) {
                   console.log(`Skipping run ${run.id} (${run.name}) - not in specified workflows`);
                   continue;
                 }
