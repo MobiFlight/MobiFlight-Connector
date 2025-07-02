@@ -52,10 +52,15 @@ jobs:
                        context.payload.workflow_run?.id || 
                        context.runId;
             
+            console.log(`Initial runId: ${runId}`);
+            
             // Treat 0 as "no ID provided"
             if (runId === 0) {
+              console.log('Converting runId 0 to null');
               runId = null;
             }
+            
+            console.log(`Final runId before search: ${runId}`);
             
             // If no run ID and we have a PR number, find the most recent successful workflow run
             if (!runId && prNumber) {
@@ -78,17 +83,21 @@ jobs:
                 head_sha: headSha,
                 status: 'completed',
                 conclusion: 'success',
-                per_page: 10
+                per_page: 20
               });
+              
+              console.log(`Found ${workflowRuns.data.workflow_runs.length} completed successful runs for SHA ${headSha}`);
               
               // Find the most recent run that has artifacts
               for (const run of workflowRuns.data.workflow_runs) {
+                console.log(`Checking run ${run.id} (${run.name})`);
                 const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   run_id: run.id,
                 });
                 
+                console.log(`Run ${run.id} has ${artifacts.data.artifacts.length} artifacts`);
                 if (artifacts.data.artifacts.length > 0) {
                   runId = run.id;
                   console.log(`Found workflow run ${runId} with artifacts`);
