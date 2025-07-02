@@ -52,6 +52,11 @@ jobs:
                        context.payload.workflow_run?.id || 
                        context.runId;
             
+            // Treat 0 as "no ID provided"
+            if (runId === 0) {
+              runId = null;
+            }
+            
             // If no run ID and we have a PR number, find the most recent successful workflow run
             if (!runId && prNumber) {
               console.log('No workflow run ID provided, searching for recent successful runs...');
