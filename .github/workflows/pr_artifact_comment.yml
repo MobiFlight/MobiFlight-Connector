@@ -20,4 +20,4 @@ jobs:
       workflow_run_id: ${{ github.event.workflow_run.id || null }}
       comment_title: 'Build for this pull request'
     secrets:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
+      token: ${{ secrets.GITHUB_TOKEN }}

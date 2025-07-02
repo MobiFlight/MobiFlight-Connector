@@ -22,7 +22,7 @@ on:
         type: boolean
         default: true
     secrets:
-      github_token:
+      token:
         description: 'GitHub token with repo permissions'
         required: false
 
@@ -34,7 +34,7 @@ jobs:
       - name: Add artifact links to PR comment
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.github_token || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.token || secrets.GITHUB_TOKEN }}
           script: |
             // Get PR number from input, workflow_run event, or context
             const prNumber = ${{ inputs.pr_number }} || 
