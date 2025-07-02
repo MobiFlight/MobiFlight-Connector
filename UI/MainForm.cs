@@ -15,6 +15,7 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using MobiFlight.xplane;
+using MobiFlight.ProSim;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
