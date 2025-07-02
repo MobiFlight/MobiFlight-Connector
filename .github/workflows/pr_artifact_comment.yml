@@ -3,17 +3,20 @@ on:
   workflow_run:
     workflows: [RunTests]
     types: [completed]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number'
+        required: true
+        type: number
 
 jobs:
-  artifacts-url-comments:
+  call-artifact-links:
     name: Add artifact links to pull request
-    runs-on: windows-2019
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - uses: tonyhallett/artifacts-url-comments@v1.1.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          prefix: "Build for this pull request:"
-          format: "[MobiFlightConnector.zip]({url})"
-          addTo: pull
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    uses: ./.github/workflows/add-artifact-links.yml
+    with:
+      pr_number: ${{ fromJSON(github.event.inputs.pr_number || github.event.workflow_run.pull_requests[0].number) }}
+      workflow_run_id: ${{ github.event.workflow_run.id || 0 }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}

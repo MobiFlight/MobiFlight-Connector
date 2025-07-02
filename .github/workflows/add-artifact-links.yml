@@ -1,0 +1,267 @@
+name: Add Artifact Links to PR
+
+on:
+  workflow_call:
+    inputs:
+      pr_number:
+        description: 'Pull request number (optional if triggered from workflow_run)'
+        required: true
+        type: number
+      workflow_run_id:
+        description: 'Workflow run ID to get artifacts from (optional if triggered from workflow_run)'
+        required: false
+        type: number
+      workflow_names:
+        description: 'Comma-separated list of workflow names to search for artifacts (e.g., "RunTests,Build"), leave empty for all workflows'
+        required: false
+        type: string
+        default: ''
+      comment_title:
+        description: 'Title for the comment'
+        required: false
+        type: string
+        default: '🚀 Build for this pull request 🚀'
+      include_workflow_link:
+        description: 'Include link to workflow run in comment'
+        required: false
+        type: boolean
+        default: true
+    secrets:
+      token:
+        description: 'GitHub token with repo permissions'
+        required: false
+
+jobs:
+  add-artifact-links:
+    name: Add artifact links to pull request
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add artifact links to PR comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.token || secrets.GITHUB_TOKEN }}
+          script: |
+            // Get PR number from input, workflow_run event, or context
+            const prNumber = ${{ inputs.pr_number }} || 
+                            (context.payload.workflow_run && context.payload.workflow_run.pull_requests.length > 0 
+                             ? context.payload.workflow_run.pull_requests[0].number 
+                             : context.payload.pull_request?.number);
+            
+            console.log(`PR Number: ${prNumber}`);
+            console.log(`Input PR Number: ${{ inputs.pr_number }}`);
+            console.log(`Input Workflow Run ID: ${{ inputs.workflow_run_id }}`);
+            
+            if (!prNumber) {
+              console.log('No PR number found, skipping artifact comment');
+              return;
+            }
+            
+            // Get the workflow run ID
+            let runId = ${{ inputs.workflow_run_id }} !== undefined ? ${{ inputs.workflow_run_id }} : 
+                       (context.payload.workflow_run?.id || context.runId);
+            
+            console.log(`Initial runId: ${runId}`);
+            
+            // Treat 0 as "no ID provided"
+            if (runId === 0) {
+              console.log('Converting runId 0 to null');
+              runId = null;
+            }
+            
+            console.log(`Final runId before search: ${runId}`);
+            
+            // If no run ID and we have a PR number, find artifacts from specified workflows
+            if (!runId && prNumber) {
+              console.log('No workflow run ID provided, searching for recent successful runs...');
+              
+              // Get the PR to find the head SHA
+              const pr = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber,
+              });
+              
+              const headSha = pr.data.head.sha;
+              console.log(`PR #${prNumber} head SHA: ${headSha}`);
+              
+              // Parse workflow names to search for
+              const workflowNames = '${{ inputs.workflow_names }}'.split(',').map(name => name.trim()).filter(name => name);
+              const searchAllWorkflows = workflowNames.length === 0;
+              
+              console.log(`Searching for artifacts in: ${searchAllWorkflows ? 'all workflows' : workflowNames.join(', ')}`);
+              
+              // Find workflow runs for this commit
+              const workflowRuns = await github.rest.actions.listWorkflowRunsForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                head_sha: headSha,
+                status: 'completed',
+                conclusion: 'success',
+                per_page: 50
+              });
+              
+              console.log(`Found ${workflowRuns.data.workflow_runs.length} completed successful runs for SHA ${headSha}`);
+              
+              // Collect all artifacts from matching workflows
+              const allArtifacts = [];
+              const workflowRunsWithArtifacts = [];
+              
+              for (const run of workflowRuns.data.workflow_runs) {
+                // Skip if specific workflow names are specified and this run doesn't match
+                if (!searchAllWorkflows && !workflowNames.includes(run.name)) {
+                  console.log(`Skipping run ${run.id} (${run.name}) - not in specified workflows`);
+                  continue;
+                }
+                
+                console.log(`Checking run ${run.id} (${run.name})`);
+                const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  run_id: run.id,
+                });
+                
+                console.log(`Run ${run.id} has ${artifacts.data.artifacts.length} artifacts`);
+                if (artifacts.data.artifacts.length > 0) {
+                  // Add workflow info to each artifact
+                  artifacts.data.artifacts.forEach(artifact => {
+                    artifact.workflow_name = run.name;
+                    artifact.workflow_run_id = run.id;
+                  });
+                  allArtifacts.push(...artifacts.data.artifacts);
+                  workflowRunsWithArtifacts.push(run.id);
+                }
+              }
+              
+              console.log(`Found ${allArtifacts.length} total artifacts across ${workflowRunsWithArtifacts.length} workflow runs`);
+              
+              if (allArtifacts.length === 0) {
+                console.log('No artifacts found in any matching workflow runs');
+                return;
+              }
+              
+              // Create comment body with artifacts grouped by workflow
+              const commentTitle = '${{ inputs.comment_title }}';
+              let commentBody = `## ${commentTitle}:\n\n`;
+              
+              // Group artifacts by workflow
+              const artifactsByWorkflow = {};
+              allArtifacts.forEach(artifact => {
+                if (!artifactsByWorkflow[artifact.workflow_name]) {
+                  artifactsByWorkflow[artifact.workflow_name] = [];
+                }
+                artifactsByWorkflow[artifact.workflow_name].push(artifact);
+              });
+              
+              // Add artifacts grouped by workflow
+              for (const [workflowName, artifacts] of Object.entries(artifactsByWorkflow)) {
+                commentBody += `### ${workflowName}\n`;
+                artifacts.forEach(artifact => {
+                  const downloadUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${artifact.workflow_run_id}/artifacts/${artifact.id}`;
+                  commentBody += `- [${artifact.name}](${downloadUrl})\n`;
+                });
+                commentBody += '\n';
+              }
+              
+              // Add workflow run links if enabled
+              if (${{ inputs.include_workflow_link }}) {
+                commentBody += '*Generated from workflow runs: ';
+                const runLinks = workflowRunsWithArtifacts.map(runId => 
+                  `[#${runId}](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId})`
+                );
+                commentBody += runLinks.join(', ') + '*';
+              }
+              
+              // Check if a comment already exists with our headline
+              const comments = await github.rest.issues.listComments({
+                issue_number: prNumber,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+              });
+              
+              const existingComment = comments.data.find(comment => 
+                comment.body.includes('${{ inputs.comment_title }}')
+              );
+              
+              if (existingComment) {
+                // Update existing comment
+                await github.rest.issues.updateComment({
+                  comment_id: existingComment.id,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: commentBody
+                });
+                console.log(`Updated existing artifact comment for PR #${prNumber}`);
+              } else {
+                // Create new comment
+                await github.rest.issues.createComment({
+                  issue_number: prNumber,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: commentBody
+                });
+                console.log(`Posted new artifact links comment to PR #${prNumber} with ${allArtifacts.length} artifacts`);
+              }
+              return;
+            }
+            
+            if (!runId) {
+              console.log('No workflow run ID found');
+              return;
+            }
+            
+            // Get artifacts from the workflow run
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: runId,
+            });
+            
+            if (artifacts.data.artifacts.length === 0) {
+              console.log('No artifacts found for this workflow run');
+              return;
+            }
+            
+            // Create comment body with artifact links
+            const commentTitle = '${{ inputs.comment_title }}';
+            let commentBody = `## ${commentTitle}:\n\n`;
+            
+            for (const artifact of artifacts.data.artifacts) {
+              const downloadUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId}/artifacts/${artifact.id}`;
+              commentBody += `- [${artifact.name}](${downloadUrl})\n`;
+            }
+            
+            // Add workflow run link if enabled
+            if (${{ inputs.include_workflow_link }}) {
+              commentBody += `\n*Generated from workflow run [#${runId}](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${runId})*`;
+            }
+            
+            // Check if a comment already exists for this workflow run
+            const comments = await github.rest.issues.listComments({
+              issue_number: prNumber,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            
+            const existingComment = comments.data.find(comment => 
+              comment.body.includes('${{ inputs.comment_title }}')
+            );
+            
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                comment_id: existingComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+              console.log(`Updated existing comment for PR #${prNumber}`);
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                issue_number: prNumber,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+              console.log(`Posted new artifact links comment to PR #${prNumber}`);
+            }
