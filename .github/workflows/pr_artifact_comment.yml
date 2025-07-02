@@ -21,13 +21,18 @@ jobs:
     steps:
       - name: Set inputs
         id: set-inputs
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_PR_NUMBER: ${{ github.event.inputs.pr_number }}
+          WR_PR_NUMBER: ${{ github.event.workflow_run.pull_requests[0].number || '' }}
+          WR_ID: ${{ github.event.workflow_run.id || '' }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
-            echo "workflow_run_id=" >> $GITHUB_OUTPUT
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "pr_number=$INPUT_PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "workflow_run_id=null" >> $GITHUB_OUTPUT
           else
-            echo "pr_number=${{ github.event.workflow_run.pull_requests[0].number }}" >> $GITHUB_OUTPUT
-            echo "workflow_run_id=${{ github.event.workflow_run.id }}" >> $GITHUB_OUTPUT
+            echo "pr_number=$WR_PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "workflow_run_id=$WR_ID" >> $GITHUB_OUTPUT
           fi
 
   call-artifact-links:
@@ -35,8 +40,8 @@ jobs:
     needs: prepare-inputs
     uses: ./.github/workflows/add-artifact-links.yml
     with:
-      pr_number: ${{ needs.prepare-inputs.outputs.pr_number }}
-      workflow_run_id: ${{ needs.prepare-inputs.outputs.workflow_run_id }}
+      pr_number: ${{ fromJSON(needs.prepare-inputs.outputs.pr_number) }}
+      workflow_run_id: ${{ needs.prepare-inputs.outputs.workflow_run_id != 'null' && fromJSON(needs.prepare-inputs.outputs.workflow_run_id) || null }}
       comment_title: 'Build for this pull request'
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
