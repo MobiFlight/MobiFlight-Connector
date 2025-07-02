@@ -171,15 +171,36 @@ jobs:
                 commentBody += runLinks.join(', ') + '*';
               }
               
-              // Post comment
-              await github.rest.issues.createComment({
+              // Check if a comment already exists with our headline
+              const comments = await github.rest.issues.listComments({
                 issue_number: prNumber,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: commentBody
               });
               
-              console.log(`Posted artifact links comment to PR #${prNumber} with ${allArtifacts.length} artifacts`);
+              const existingComment = comments.data.find(comment => 
+                comment.body.includes('${{ inputs.comment_title }}')
+              );
+              
+              if (existingComment) {
+                // Update existing comment
+                await github.rest.issues.updateComment({
+                  comment_id: existingComment.id,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: commentBody
+                });
+                console.log(`Updated existing artifact comment for PR #${prNumber}`);
+              } else {
+                // Create new comment
+                await github.rest.issues.createComment({
+                  issue_number: prNumber,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: commentBody
+                });
+                console.log(`Posted new artifact links comment to PR #${prNumber} with ${allArtifacts.length} artifacts`);
+              }
               return;
             }
             
@@ -222,8 +243,7 @@ jobs:
             });
             
             const existingComment = comments.data.find(comment => 
-              comment.body.includes(`workflow run [#${runId}]`) || 
-              comment.body.includes(`Generated from workflow run #${runId}`)
+              comment.body.includes('${{ inputs.comment_title }}')
             );
             
             if (existingComment) {
