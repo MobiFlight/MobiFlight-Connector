@@ -29,25 +29,73 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.proSimMaxRetryNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.proSimAutoConnectCheckBox = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.proSimHostTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.proSimPortTextBox = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.proSimMaxRetryNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.proSimMaxRetryNumericUpDown);
+            this.groupBox1.Controls.Add(this.proSimAutoConnectCheckBox);
+            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.proSimPortTextBox);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.proSimHostTextBox);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(551, 75);
+            this.groupBox1.Size = new System.Drawing.Size(551, 120);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ProSim Settings";
+            // 
+            // proSimMaxRetryNumericUpDown
+            // 
+            this.proSimMaxRetryNumericUpDown.Location = new System.Drawing.Point(120, 95);
+            this.proSimMaxRetryNumericUpDown.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.proSimMaxRetryNumericUpDown.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.proSimMaxRetryNumericUpDown.Name = "proSimMaxRetryNumericUpDown";
+            this.proSimMaxRetryNumericUpDown.Size = new System.Drawing.Size(83, 20);
+            this.proSimMaxRetryNumericUpDown.TabIndex = 6;
+            this.proSimMaxRetryNumericUpDown.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // proSimAutoConnectCheckBox
+            // 
+            this.proSimAutoConnectCheckBox.AutoSize = true;
+            this.proSimAutoConnectCheckBox.Location = new System.Drawing.Point(9, 69);
+            this.proSimAutoConnectCheckBox.Name = "proSimAutoConnectCheckBox";
+            this.proSimAutoConnectCheckBox.Size = new System.Drawing.Size(194, 17);
+            this.proSimAutoConnectCheckBox.TabIndex = 5;
+            this.proSimAutoConnectCheckBox.Text = "Enable automatic ProSim connection";
+            this.proSimAutoConnectCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 97);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(108, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Max retry attempts:";
             // 
             // proSimHostTextBox
             // 
@@ -90,6 +138,7 @@
             this.Size = new System.Drawing.Size(558, 524);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.proSimMaxRetryNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -101,5 +150,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox proSimPortTextBox;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox proSimAutoConnectCheckBox;
+        private System.Windows.Forms.NumericUpDown proSimMaxRetryNumericUpDown;
     }
 }

@@ -133,6 +133,10 @@ namespace MobiFlight
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
+        // ProSim connection retry tracking
+        private int _proSimConnectionAttempts = 0;
+        private bool _proSimConnectionDisabled = false;
+
         OutputConfigItem ConfigItemInTestMode = null;
         Dictionary<string, IConfigItem> updatedValues = new Dictionary<string, IConfigItem>();
         bool updateFrontend = true;
@@ -533,11 +537,15 @@ namespace MobiFlight
 
         private void proSim_Connected(object sender, EventArgs e)
         {
+            // Reset retry state on successful connection
+            _proSimConnectionAttempts = 0;
+            _proSimConnectionDisabled = false;
             this.OnSimCacheConnected(sender, e);
         }
 
         private void proSim_ConnectionLost(object sender, EventArgs e)
         {
+            Log.Instance.log("ProSim connection lost.", LogSeverity.Warn);
             this.OnSimCacheConnectionLost(sender, e);
         }
 
@@ -936,6 +944,50 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Attempts to connect to ProSim with retry limits and user settings
+        /// </summary>
+        private void TryConnectToProSim()
+        {
+            // Skip if already connected, auto-connect disabled, or connection disabled for this session
+            if (proSimCache.IsConnected() || !Properties.Settings.Default.ProSimAutoConnectEnabled || _proSimConnectionDisabled)
+            {
+                return;
+            }
+
+            var maxRetries = Properties.Settings.Default.ProSimMaxRetryAttempts;
+            
+            if (_proSimConnectionAttempts < maxRetries)
+            {
+                // Only log if no other sim connections are active to avoid spam
+                if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !fsuipcCache.IsConnected())
+                {
+                    Log.Instance.log($"Trying auto connect to sim via ProSim (attempt {_proSimConnectionAttempts + 1}/{maxRetries})", LogSeverity.Debug);
+                }
+
+                _proSimConnectionAttempts++;
+                proSimCache.Connect();
+            }
+            else if (_proSimConnectionAttempts == maxRetries)
+            {
+                Log.Instance.log($"ProSim connection failed after {maxRetries} attempts. Disabling auto-connect for this session.", LogSeverity.Warn);
+                _proSimConnectionDisabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Resets ProSim retry state when connection is successful
+        /// </summary>
+        private void ResetProSimRetryStateOnSuccess()
+        {
+            if (proSimCache.IsConnected() && _proSimConnectionAttempts > 0)
+            {
+                Log.Instance.log("ProSim connection successful. Resetting retry counter.", LogSeverity.Debug);
+                _proSimConnectionAttempts = 0;
+                _proSimConnectionDisabled = false;
+            }
+        }
+
+        /// <summary>
         /// auto connect timer handler which tries to automagically connect to FSUIPC and Arcaze Modules        
         /// </summary>
         /// <remarks>
@@ -957,20 +1009,11 @@ namespace MobiFlight
             // Check only for available sims if not in Offline mode.
             if (true)
             {
-                // Try to connect to ProSim regardless of the sim availability, might need a max retry
-                // or disable-default if this is noisy to users
-                if (!proSimCache.IsConnected())
-                {
-                    if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !fsuipcCache.IsConnected())
-                    {
-                        // we don't want to spam the log
-                        // in case we have an active connection
-                        // through a different type
-                        Log.Instance.log("Trying auto connect to sim via ProSim", LogSeverity.Debug);
-                    }
-
-                    proSimCache.Connect();
-                }
+                // Try to connect to ProSim with retry limits and user settings
+                TryConnectToProSim();
+                
+                // Reset retry counter if ProSim is connected
+                ResetProSimRetryStateOnSuccess();
 
                 if (SimAvailable())
                 {
@@ -1271,6 +1314,20 @@ namespace MobiFlight
         internal void OnMinimize(bool minimized)
         {
             updateFrontend = !minimized;
+        }
+
+        public void ResetProSimConnectionState()
+        {
+            _proSimConnectionAttempts = 0;
+            _proSimConnectionDisabled = false;
+            Log.Instance.log("ProSim connection retry state reset.", LogSeverity.Debug);
+        }
+
+        public void ConnectToProSim()
+        {
+            ResetProSimConnectionState();
+            Log.Instance.log("Manual ProSim connection attempt.", LogSeverity.Info);
+            proSimCache.Connect();
         }
     }
 }

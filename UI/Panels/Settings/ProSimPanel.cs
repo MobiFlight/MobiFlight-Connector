@@ -21,6 +21,8 @@ namespace MobiFlight.UI.Panels.Settings
         {
             proSimHostTextBox.Text = Properties.Settings.Default.ProSimHost;
             proSimPortTextBox.Text = Properties.Settings.Default.ProSimPort.ToString();
+            proSimAutoConnectCheckBox.Checked = Properties.Settings.Default.ProSimAutoConnectEnabled;
+            proSimMaxRetryNumericUpDown.Value = Properties.Settings.Default.ProSimMaxRetryAttempts;
         }
 
         public void SaveSettings()
@@ -33,6 +35,9 @@ namespace MobiFlight.UI.Panels.Settings
                 port = result;
             }
             Properties.Settings.Default.ProSimPort = port;
+            
+            Properties.Settings.Default.ProSimAutoConnectEnabled = proSimAutoConnectCheckBox.Checked;
+            Properties.Settings.Default.ProSimMaxRetryAttempts = (int)proSimMaxRetryNumericUpDown.Value;
         }
     }
 }

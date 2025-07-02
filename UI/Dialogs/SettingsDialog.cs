@@ -113,6 +113,12 @@ namespace MobiFlight.UI.Dialogs
 
             // ProSim Tab
             proSimPanel.SaveSettings();
+            
+            // Reset ProSim connection state when settings change
+            if (execManager != null)
+            {
+                execManager.ResetProSimConnectionState();
+            }
 
             // Save all Settings
             Properties.Settings.Default.Save();
