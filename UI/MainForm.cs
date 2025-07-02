@@ -2378,7 +2378,7 @@ namespace MobiFlight.UI
             _checkForOrphanedSerials(true);
         }
 
-        private void donateToolStripButton_Click(object sender, EventArgs e)
+        public void donateToolStripButton_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=7GV3DCC7BXWLY");
         }

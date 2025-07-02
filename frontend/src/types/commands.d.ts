@@ -127,6 +127,7 @@ export type CommandMainMenuPayload = {
     | "help.hubhop"
     | "help.about"
     | "help.releasenotes"
+    | "help.donate"
   index?: number
 }
 

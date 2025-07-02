@@ -89,6 +89,10 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                 case CommandMainMenuAction.help_releasenotes:
                     _mainForm.releaseNotesToolStripMenuItem_Click(null, null);
                     break;
+
+                case CommandMainMenuAction.help_donate:
+                    _mainForm.donateToolStripButton_Click(null, null);
+                    break;
             }
         }
     }

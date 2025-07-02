@@ -9,11 +9,11 @@ namespace MobiFlight
         {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => CoreWebView2.PostWebMessageAsJson(jsonMessage)));
+                this.Invoke(new Action(() => CoreWebView2?.PostWebMessageAsJson(jsonMessage)));
             }
             else
             {
-                CoreWebView2.PostWebMessageAsJson(jsonMessage);
+                CoreWebView2?.PostWebMessageAsJson(jsonMessage);
             }
         }
     }
