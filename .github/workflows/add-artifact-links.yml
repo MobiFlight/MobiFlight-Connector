@@ -5,7 +5,7 @@ on:
     inputs:
       pr_number:
         description: 'Pull request number (optional if triggered from workflow_run)'
-        required: false
+        required: true
         type: number
       workflow_run_id:
         description: 'Workflow run ID to get artifacts from (optional if triggered from workflow_run)'
