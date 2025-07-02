@@ -13,7 +13,7 @@ on:
 jobs:
   call-artifact-links:
     name: Add artifact links to pull request
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     uses: ./.github/workflows/add-artifact-links.yml
     with:
       pr_number: ${{ fromJSON(github.event.inputs.pr_number || github.event.workflow_run.pull_requests[0].number) }}
