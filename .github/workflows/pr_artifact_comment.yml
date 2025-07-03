@@ -21,9 +21,13 @@ jobs:
       - name: Determine PR number
         id: pr-number
         run: |
+          echo "Event name: ${{ github.event_name }}"
+          
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
           else
+            echo "Pull requests array: ${{ toJson(github.event.workflow_run.pull_requests) }}"
+            echo "PR number: ${{ github.event.workflow_run.pull_requests[0].number }}"
             echo "pr_number=${{ github.event.workflow_run.pull_requests[0].number }}" >> $GITHUB_OUTPUT
           fi
 
