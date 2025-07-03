@@ -182,5 +182,5 @@ jobs:
                 repo: context.repo.repo,
                 body: commentBody
               });
-              console.log(`Posted new artifact links comment to PR #${prNumber} with ${allArtifacts.length} artifacts`);
+              console.log(`Posted new artifact links comment to PR #${prNumber}`);
             }
