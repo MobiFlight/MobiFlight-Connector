@@ -24,8 +24,7 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
           else
-            PR_NUM="${{ github.event.workflow_run.pull_requests[0].number || 0 }}"
-            echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
+            echo "pr_number=${{ github.event.workflow_run.pull_requests[0].number }}" >> $GITHUB_OUTPUT
           fi
 
   call-artifact-links:
