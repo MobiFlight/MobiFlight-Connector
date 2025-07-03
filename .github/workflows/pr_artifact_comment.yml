@@ -11,24 +11,28 @@ on:
         type: number
 
 jobs:
-  call-artifact-links:
-    name: Add artifact links to pull request
+  determine-pr:
+    name: Determine PR number
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      pr_number: ${{ steps.pr-number.outputs.pr_number }}
     steps:
       - name: Determine PR number
         id: pr-number
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "PR_NUMBER=${{ github.event.inputs.pr_number }}" >> $GITHUB_ENV
+            echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
           else
             PR_NUM="${{ github.event.workflow_run.pull_requests[0].number || 0 }}"
-            echo "PR_NUMBER=$PR_NUM" >> $GITHUB_ENV
+            echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
           fi
-          
-      - name: Call artifact links workflow
-        uses: ./.github/workflows/add-artifact-links.yml
-        with:
-          pr_number: ${{ fromJSON(env.PR_NUMBER) }}
-        secrets:
-          token: ${{ secrets.GITHUB_TOKEN }}
+
+  call-artifact-links:
+    name: Add artifact links to pull request
+    needs: determine-pr
+    uses: ./.github/workflows/add-artifact-links.yml
+    with:
+      pr_number: ${{ fromJSON(needs.determine-pr.outputs.pr_number) }}
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
