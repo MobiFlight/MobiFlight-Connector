@@ -11,7 +11,7 @@ export const useKeyAccelerators = (
   useEffect(() => {
     if (!enabled) return
 
-    const handleKeyUp = (event: KeyboardEvent) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       // Find matching accelerator
       const accelerator = accelerators.find(
         (acc) =>
@@ -30,9 +30,9 @@ export const useKeyAccelerators = (
       }
     }
 
-    document.addEventListener("keyup", handleKeyUp)
+    document.addEventListener("keydown", handleKeyDown)
     return () => {
-      document.removeEventListener("keyup", handleKeyUp)
+      document.removeEventListener("keydown", handleKeyDown)
     }
   }, [accelerators, enabled, publish])
 
