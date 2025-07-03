@@ -1,7 +1,7 @@
-name: Add artifact links to pull request
+name: Add PR Artifact Links As Comment
 on:
   workflow_run:
-    workflows: [RunTests]
+    workflows: [CI Pipeline, Playwright Tests]
     types: [completed]
   workflow_dispatch:
     inputs:
@@ -11,12 +11,28 @@ on:
         type: number
 
 jobs:
+  determine-pr:
+    name: Determine PR number
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      pr_number: ${{ steps.pr-number.outputs.pr_number }}
+    steps:
+      - name: Determine PR number
+        id: pr-number
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
+          else
+            PR_NUM="${{ github.event.workflow_run.pull_requests[0].number || 0 }}"
+            echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
+          fi
+
   call-artifact-links:
     name: Add artifact links to pull request
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    needs: determine-pr
     uses: ./.github/workflows/add-artifact-links.yml
     with:
-      pr_number: ${{ fromJSON(github.event.inputs.pr_number || github.event.workflow_run.pull_requests[0].number) }}
-      workflow_run_id: ${{ github.event.workflow_run.id || 0 }}
+      pr_number: ${{ fromJSON(needs.determine-pr.outputs.pr_number) }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
