@@ -17,10 +17,11 @@ jobs:
     uses: ./.github/workflows/add-artifact-links.yml
     with:
       pr_number: |
-        ${{
-          (github.event_name == 'workflow_dispatch' && fromJSON(github.event.inputs.pr_number))
-          ||
-          (github.event.workflow_run.pull_requests[0].number || 0)
+        ${{ fromJSON(
+            (github.event_name == 'workflow_dispatch' && github.event.inputs.pr_number)
+            ||
+            (github.event.workflow_run.pull_requests[0].number || 0)
+            )
         }}
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
