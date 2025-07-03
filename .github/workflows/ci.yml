@@ -1,4 +1,4 @@
-name: RunTests
+name: CI Pipeline
 
 on:
   workflow_dispatch:

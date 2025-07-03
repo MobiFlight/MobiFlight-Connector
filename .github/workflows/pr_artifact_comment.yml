@@ -1,7 +1,7 @@
-name: Add artifact links to pull request
+name: Add PR Artifact Links As Comment
 on:
   workflow_run:
-    workflows: [RunTests]
+    workflows: [CI Pipeline, Playwright Tests]
     types: [completed]
   workflow_dispatch:
     inputs:
