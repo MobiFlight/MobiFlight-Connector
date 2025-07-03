@@ -12,6 +12,7 @@ import { MainMenu } from "./components/MainMenu"
 import { useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
 import { JoystickDefinitions, MidiControllerDefinitions } from "./types/messages"
+import { useKeyAccelerators, GlobalKeyAccelerators } from "./lib/hooks/useKeyAccelerators"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -88,6 +89,8 @@ function App() {
       navigate("/config")
     }
   }, [startupProgress.Value, navigate])
+
+  useKeyAccelerators(GlobalKeyAccelerators, true)
 
   const outlet = useOutlet()
 
