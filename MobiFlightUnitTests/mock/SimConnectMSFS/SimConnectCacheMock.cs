@@ -13,6 +13,7 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
         public List<String> Writes = new List<String>();
         public List<String> Reads = new List<String>();
 
+        public event EventHandler LVarListUpdated { add { } remove { } }
         public event EventHandler Closed { add { } remove { } }
         public event EventHandler Connected { add { } remove { } }
         public event EventHandler ConnectionLost { add { } remove { } }
@@ -140,6 +141,18 @@ namespace MobiFlightUnitTests.mock.SimConnectMSFS
         public void ReceiveSimConnectMessage() { }
 
         public void SetHandle(IntPtr handle) { }
+
+        public void Start()
+        {
+        }
+
+        public void Stop()
+        {
+        }
+
+        public void RefreshLVarsList()
+        {
+        }
     }
 
     class FSUIPCMockOffset

@@ -13,7 +13,7 @@ namespace MobiFlight.Scripts
     internal class ScriptRunner
     {
         private JoystickManager JsManager;
-        private SimConnectCache MsfsCache;
+        private SimConnectCacheInterface MsfsCache;
         private string AircraftName = string.Empty;
         private string AircraftPath = string.Empty;
 
@@ -36,7 +36,7 @@ namespace MobiFlight.Scripts
         };
 
 
-        public ScriptRunner(JoystickManager joystickManager, SimConnectCache msfsCache, IChildProcessMonitor childProcMon)
+        public ScriptRunner(JoystickManager joystickManager, SimConnectCacheInterface msfsCache, IChildProcessMonitor childProcMon)
         {
             JsManager = joystickManager;
             MsfsCache = msfsCache;  
