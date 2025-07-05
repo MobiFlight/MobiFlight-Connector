@@ -114,7 +114,7 @@ namespace MobiFlight.Scripts
 
         private void CheckForRestart()
         {
-            if (IsInPlayMode && PythonCheckCompleted)
+            if (IsInPlayMode)
             {
                 StopActiveProcesses();
                 CheckAndExecuteScripts();
@@ -410,7 +410,7 @@ namespace MobiFlight.Scripts
                         Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
                     }
                 }
-            }
+            } // end lock
         }
 
         private void Process_Exited(object sender, EventArgs e)
@@ -434,43 +434,46 @@ namespace MobiFlight.Scripts
 
         private void CheckAndExecuteScripts()
         {
-            string aircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
-            Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
-
             var executionList = new List<string>();
-            GameControllersWithScripts.Clear();
 
-            // Get all game controllers
-            var gameControllers = JsManager.GetJoysticks();
-            foreach (var gameController in gameControllers)
+            lock (ProcessLock)
             {
-                var jsDef = gameController.GetJoystickDefinition();
-                if (jsDef != null)
+                string aircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
+                Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);                
+                GameControllersWithScripts.Clear();
+
+                // Get all game controllers
+                var gameControllers = JsManager.GetJoysticks();
+                foreach (var gameController in gameControllers)
                 {
-                    string hardwareId = jsDef.VendorId.ToString() + jsDef.ProductId.ToString();
-                    if (MappingDictionary.ContainsKey(hardwareId))
+                    var jsDef = gameController.GetJoystickDefinition();
+                    if (jsDef != null)
                     {
-                        // Hardware found, now compare aircraft 
-                        foreach (var config in MappingDictionary[hardwareId])
+                        string hardwareId = jsDef.VendorId.ToString() + jsDef.ProductId.ToString();
+                        if (MappingDictionary.ContainsKey(hardwareId))
                         {
-                            if (aircraftDescription.Contains(config.AircraftIdSnippet))
+                            // Hardware found, now compare aircraft 
+                            foreach (var config in MappingDictionary[hardwareId])
                             {
-                                if (!GameControllersWithScripts.Contains(gameController))
+                                if (aircraftDescription.Contains(config.AircraftIdSnippet))
                                 {
-                                    GameControllersWithScripts.Add(gameController);
-                                }
-                                
-                                // Only add if not already there
-                                if (!executionList.Contains(config.ScriptName))
-                                {                                   
-                                    Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
-                                    executionList.Add(config.ScriptName);
+                                    if (!GameControllersWithScripts.Contains(gameController))
+                                    {
+                                        GameControllersWithScripts.Add(gameController);
+                                    }
+
+                                    // Only add if not already there
+                                    if (!executionList.Contains(config.ScriptName))
+                                    {
+                                        Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
+                                        executionList.Add(config.ScriptName);
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
+            } // end lock
 
             if (executionList.Count > 0)
             {
