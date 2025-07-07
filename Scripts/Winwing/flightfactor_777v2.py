@@ -98,7 +98,7 @@ def generate_display_json(device: CduDevice, values: dict[str, str]):
             index = row * CDU_COLUMNS + col
 
             char, size, color, effect = cdu_lines[index]
-            if char == 0:
+            if char == " ":
                 continue
 
             display_data[index] = [
