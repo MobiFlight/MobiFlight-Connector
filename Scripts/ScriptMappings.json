@@ -71,6 +71,30 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "aerosoft_crj",
       "ScriptName": "aerosoft_crj_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 757",
+      "ScriptName": "flightfactor_75_76.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 767",
+      "ScriptName": "flightfactor_75_76.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 777",
+      "ScriptName": "flightfactor_777v2.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "toliss a3",
+      "ScriptName": "toliss_a3xx.py"
     }
   ]
 }

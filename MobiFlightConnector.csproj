@@ -223,6 +223,9 @@
     <Content Include="frontend\dist\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\Winwing\toliss_a3xx.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\AutoUpdateChecker.cs" />
@@ -1039,6 +1042,12 @@
     <Compile Include="xplane\XplaneCache.cs" />
     <Compile Include="xplane\XplaneDataRef.cs" />
     <Content Include="Scripts\Winwing\aerosoft_crj_winwing_cdu.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\flightfactor_75_76.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\Winwing\flightfactor_777v2.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Scripts\Winwing\maddogx_winwing_cdu.py">
