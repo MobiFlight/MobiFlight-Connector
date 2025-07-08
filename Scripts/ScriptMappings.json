@@ -93,7 +93,7 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "toliss a3",
+      "AircraftIdSnippet": "toliss",
       "ScriptName": "toliss_a3xx.py"
     }
   ]
