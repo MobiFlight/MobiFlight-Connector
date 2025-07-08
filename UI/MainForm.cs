@@ -2105,7 +2105,7 @@ namespace MobiFlight.UI
                 return;
             }
 
-            if (execManager.GetXlpaneConnectCache().IsConnected())
+            if (execManager.GetXPlaneConnectCache().IsConnected())
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.check;
             else
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;
