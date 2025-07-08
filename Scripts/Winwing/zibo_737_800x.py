@@ -7,16 +7,16 @@ In order to support multiple CDU devices seamlessly, a dynamic approach is taken
 A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
 Each enum member is assigned a value that represents the X-Plane dataref identifier. Example: fmc1 of laminar/B738/fmc1/Line04_I.
 
-Upon script start, Mobiflight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
+Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
 
 Two tasks are started independently for each avialable CDU device.
 1. handle_dataref_updates -> Listens to X-Plane's WebSocket server for dataref updates for that specific CDU and pushes an event to a queue
-2. handle_device_update   -> Listens to the queue and dispatches updates to Mobiflight to update that CDU
+2. handle_device_update   -> Listens to the queue and dispatches updates to MobiFlight to update that CDU
 
 Tasks are started independently for each CDU device to ensure each device can update quickly, particularly when players might be performing shared cockpit flights.
 
-Upon a failed connection while dispatching updates to Mobiflight, the handle_device_update function use `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
-The failed message is picked back up and dispatched to Mobiflight. This ensures a user's device eventually receives the updated display contents and doesn't hang which would require the user to cycle the page again.
+Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function use `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
+The failed message is picked back up and dispatched to MobiFlight. This ensures a user's device eventually receives the updated display contents and doesn't hang which would require the user to cycle the page again.
 """
 
 import asyncio
@@ -160,7 +160,7 @@ def generate_display_json(values: dict[str, str]) -> str:
 
 async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
     """
-    Translates and sends dataref updates to Mobiflight.
+    Translates and sends dataref updates to MobiFlight.
     """
     last_run_time = 0
     rate_limit_time = 0.1
@@ -176,7 +176,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
                 elapsed = asyncio.get_event_loop().time() - last_run_time
 
                 # Weaker CPUs may experience performance issues when a websocket connection is saturated with requests, such as when pages are frequently changed.
-                # This rate limits the number of active websocket requests to Mobiflight.
+                # This rate limits the number of active websocket requests to MobiFlight.
                 # The delay should not be noticeable unless a user heavily spams page changes, but it should be enough that too many messages won't be pushed at once.
                 if elapsed < rate_limit_time:
                     await asyncio.sleep(rate_limit_time - elapsed)
@@ -187,7 +187,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
 
             except websockets.exceptions.ConnectionClosed:
                 logging.error(
-                    "Mobiflight websocket connection was closed... Attempting to reconnect"
+                    "MobiFlight websocket connection was closed... Attempting to reconnect"
                 )
                 await queue.put(values)
                 break
@@ -253,7 +253,7 @@ async def get_available_devices() -> list[CduDevice]:
 
     available_devices = []
 
-    logging.info("Checking Mobiflight for available CDU devices")
+    logging.info("Checking MobiFlight for available CDU devices")
     for device in device_candidates:
         device_endpoint = device.get_endpoint()
         try:
