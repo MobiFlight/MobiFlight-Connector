@@ -102,7 +102,8 @@
         "available": "La fuente está disponible.",
         "SIMCONNECT_NOT_AVAILABLE": "Esta configuración usa SimConnect, falta la conexión.",
         "FSUIPC_NOT_AVAILABLE": "Esta configuración usa FSUIPC, falta la conexión.",
-        "XPLANE_NOT_AVAILABLE": "Esta configuración usa X-Plane, falta la conexión."
+        "XPLANE_NOT_AVAILABLE": "Esta configuración usa X-Plane, falta la conexión.",
+        "PROSIM_NOT_AVAILABLE": "Esta configuración usa ProSim, falta la conexión."
       },
       "Modifier": {
         "Error": "Se aplica un modificador que tiene un error.",

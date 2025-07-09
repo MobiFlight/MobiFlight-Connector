@@ -102,7 +102,8 @@
         "available": "Source is available.",
         "SIMCONNECT_NOT_AVAILABLE": "This config uses SimConnect, connection is missing.",
         "FSUIPC_NOT_AVAILABLE": "This config uses FSUIPC, connection is missing.",
-        "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing."
+        "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing.",
+        "PROSIM_NOT_AVAILABLE": "This config uses ProSim, connection is missing."
       },
       "Modifier" : {
         "Error": "A modifier is applied which has an error.",
