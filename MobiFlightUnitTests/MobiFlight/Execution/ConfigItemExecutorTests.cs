@@ -156,6 +156,32 @@ namespace MobiFlight.Tests
         }
 
         [TestMethod]
+        public void Execute_ShouldUpdateStatus_WhenProSimNotConnected()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem { Active = true, Source = new ProSimSource() };
+            var updatedValues = new Dictionary<string, IConfigItem>();
+            mockProSimCache.Setup(c => c.IsConnected()).Returns(false);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.AreEqual("PROSIM_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            // Arrange
+            mockProSimCache.Setup(c => c.IsConnected()).Returns(true);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
+        }
+
+        [TestMethod]
         public void Execute_ShouldUpdateStatus_WhenModifierHasIssue()
         {
             // Arrange

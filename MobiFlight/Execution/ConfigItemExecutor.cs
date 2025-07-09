@@ -89,6 +89,10 @@ namespace MobiFlight.Execution
             {
                 cfg.Status[ConfigItemStatusType.Source] = "XPLANE_NOT_AVAILABLE";
             }
+            else if (cfg.Source is ProSimSource && !proSimCache.IsConnected())
+            {
+                cfg.Status[ConfigItemStatusType.Source] = "PROSIM_NOT_AVAILABLE";
+            }
             else
             {
                 cfg.Status.Remove(ConfigItemStatusType.Source);

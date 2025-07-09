@@ -107,6 +107,12 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
       alwaysVisible: false,
     },
     {
+      status: { Source: "PROSIM_NOT_AVAILABLE" },
+      icon: SourceIcon,
+      toolTipText: "This config uses ProSim,",
+      alwaysVisible: false,
+    },
+    {
       status: { Device: "NotConnected" },
       icon: DeviceIcon,
       toolTipText: "The device used in this config is not connected.",
