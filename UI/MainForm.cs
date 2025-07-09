@@ -1252,7 +1252,7 @@ namespace MobiFlight.UI
             {
                 UpdateFsuipcStatusIcon();
             }
-            else if (sender.GetType() == typeof(ProSimCache))
+            else if (sender is ProSim.ProSimCacheInterface)
             {
                 UpdateProSimStatusIcon();
             }
@@ -1419,7 +1419,7 @@ namespace MobiFlight.UI
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
             } 
-            else if (sender.GetType() == typeof(ProSimCache))
+            else if (sender is ProSim.ProSimCacheInterface)
             {
                 proSimToolStripMenuItem.Text = "ProSim";
                 proSimToolStripMenuItem.Image = Properties.Resources.check;
@@ -1470,7 +1470,7 @@ namespace MobiFlight.UI
                 _showError(i18n._tr("uiMessageXplaneConnectionLost"));
                 UpdateXplaneDirectConnectStatusIcon();
             }
-            else if (sender.GetType() == typeof(ProSimCache))
+            else if (sender is ProSim.ProSimCacheInterface)
             {
                 UpdateProSimStatusIcon();
             }

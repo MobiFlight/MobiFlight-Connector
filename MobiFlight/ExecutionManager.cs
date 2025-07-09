@@ -21,7 +21,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
-        ProSimCache GetProSimCache();
+        ProSim.ProSimCacheInterface GetProSimCache();
         MidiBoardManager GetMidiBoardManager();
         // Add other methods and properties as needed
     }
@@ -83,7 +83,7 @@ namespace MobiFlight
         readonly FSUIPCCacheInterface fsuipcCache;
 
         readonly SimConnectCacheInterface simConnectCache;
-        readonly ProSim.ProSimCache proSimCache;
+        readonly ProSim.ProSimCacheInterface proSimCache;
 
         readonly XplaneCacheInterface xplaneCache;
 
@@ -138,7 +138,7 @@ namespace MobiFlight
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
-            : this(handle, new XplaneCache(), new SimConnectCache(), new Fsuipc2Cache())
+            : this(handle, new XplaneCache(), new SimConnectCache(), new Fsuipc2Cache(), new ProSimCache())
         {
         }
 
@@ -146,11 +146,13 @@ namespace MobiFlight
             IntPtr handle,
             XplaneCacheInterface xplaneCache,
             SimConnectCacheInterface simConnectCache,
-            FSUIPCCacheInterface fsuipcCache)
+            FSUIPCCacheInterface fsuipcCache,
+            ProSimCacheInterface proSimCache)
         {
             this.xplaneCache = xplaneCache;
             this.simConnectCache = simConnectCache;
             this.fsuipcCache = fsuipcCache;
+            this.proSimCache = proSimCache;
 
             this.fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             this.fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
@@ -1292,7 +1294,7 @@ namespace MobiFlight
             return xplaneCache;
         }
 
-        public ProSim.ProSimCache GetProSimCache()
+        public ProSim.ProSimCacheInterface GetProSimCache()
         {
             return proSimCache;
         }

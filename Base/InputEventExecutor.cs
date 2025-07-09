@@ -18,7 +18,7 @@ namespace MobiFlight.Execution
         private readonly SimConnectCacheInterface _simConnectCache;
         private readonly XplaneCacheInterface _xplaneCache;
         private readonly MobiFlightCache _mobiFlightCache;
-        private readonly ProSimCache _proSimCache;
+        private readonly ProSim.ProSimCacheInterface _proSimCache;
         private readonly JoystickManager _joystickManager;
         private readonly ArcazeCache _arcazeCache;
         private readonly Dictionary<string, List<InputConfigItem>> inputCache = new Dictionary<string, List<InputConfigItem>>();
@@ -30,7 +30,7 @@ namespace MobiFlight.Execution
             SimConnectCacheInterface simConnectCache,
             XplaneCacheInterface xplaneCache,
             MobiFlightCache mobiFlightCache,
-            ProSimCache proSimCache,
+            ProSim.ProSimCacheInterface proSimCache,
             JoystickManager joystickManager,
             ArcazeCache arcazeCache)
         {

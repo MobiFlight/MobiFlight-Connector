@@ -3,6 +3,7 @@ using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.FSUIPC;
+using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
@@ -19,6 +20,7 @@ namespace MobiFlight.Tests
         private Mock<XplaneCacheInterface> _mockXplaneCache;
         private Mock<SimConnectCacheInterface> _mockSimConnectCache;
         private Mock<FSUIPCCacheInterface> _mockFsuipcCache;
+        private Mock<ProSimCacheInterface> _mockProSimCache;
         private Mock<IMessagePublisher> _mockMessagePublisher;
         private Action<string> _OnMessageReceivedCallback;
 
@@ -32,12 +34,14 @@ namespace MobiFlight.Tests
             _mockXplaneCache = new Mock<XplaneCacheInterface>();
             _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             _mockFsuipcCache = new Mock<FSUIPCCacheInterface>();
+            _mockProSimCache = new Mock<ProSimCacheInterface>();
 
             _executionManager = new ExecutionManager(
                 IntPtr.Zero,
                 _mockXplaneCache.Object,
                 _mockSimConnectCache.Object,
-                _mockFsuipcCache.Object);
+                _mockFsuipcCache.Object,
+                _mockProSimCache.Object);
 
             _mockMessagePublisher = new Mock<IMessagePublisher>();
 
