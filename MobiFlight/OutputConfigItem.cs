@@ -299,28 +299,28 @@ namespace MobiFlight
             }
 
             writer.WriteStartElement("source");
-            if (Source is FsuipcSource)
-                (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);
-            else if (Source is VariableSource)
-                (this.Source as VariableSource).MobiFlightVariable.WriteXml(writer);
-            else if (Source is XplaneSource)
-                (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
-            else if (Source is SimConnectSource)
-                (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
-            else
-                (this.Source as ProSimSource).ProSimDataRef.WriteXml(writer);
+                if (Source is FsuipcSource)
+                    (this.Source as FsuipcSource).FSUIPC.WriteXml(writer);
+                else if (Source is VariableSource)
+                    (this.Source as VariableSource).MobiFlightVariable.WriteXml(writer);
+                else if (Source is XplaneSource)
+                    (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
+                else if (Source is SimConnectSource)
+                    (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
+                else
+                    (this.Source as ProSimSource).ProSimDataRef.WriteXml(writer);
             writer.WriteEndElement();
 
             writer.WriteStartElement("test");
-            writer.WriteAttributeString("type", TestValue.type.ToString());
-            writer.WriteAttributeString("value", TestValue.ToString());
+                writer.WriteAttributeString("type", TestValue.type.ToString());
+                writer.WriteAttributeString("value", TestValue.ToString());
             writer.WriteEndElement();
 
             Modifiers.WriteXml(writer);
 
             writer.WriteStartElement("display");
-            writer.WriteAttributeString("type", DeviceType);
-            writer.WriteAttributeString("serial", ModuleSerial);
+                writer.WriteAttributeString("type", DeviceType);
+                writer.WriteAttributeString("serial", ModuleSerial);
 
             if (Device is LedModule)
             {
