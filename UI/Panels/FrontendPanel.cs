@@ -8,7 +8,6 @@ namespace MobiFlight.UI.Panels
 {
     public partial class FrontendPanel : UserControl
     {
-        public event KeyEventHandler WebViewKeyUp;
         public new bool DesignMode
         {
             get
@@ -49,10 +48,6 @@ namespace MobiFlight.UI.Panels
             FrontendWebView.CoreWebView2.Settings.IsStatusBarEnabled = false;
             FrontendWebView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
             FrontendWebView.CoreWebView2.DOMContentLoaded += CoreWebView2_DOMContentLoaded;
-            FrontendWebView.KeyUp += (s, e) =>
-            {
-                WebViewKeyUp?.Invoke(s, e);
-            };
 
             if (_desiredZoomFactor != 0.0)
             {

@@ -73,23 +73,19 @@ namespace MobiFlight
         /// the timer used for execution of test mode
         /// </summary>
         private readonly Timer testModeTimer = new Timer();
-        int testModeIndex = 0;
 
         private readonly Timer frontendUpdateTimer = new Timer();
 
-        /// Window handle
-        private IntPtr handle = new IntPtr(0);
 
         /// <summary>
         /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
         /// </summary>
-        readonly Fsuipc2Cache fsuipcCache = new Fsuipc2Cache();
+        readonly FSUIPCCacheInterface fsuipcCache;
 
-#if SIMCONNECT
-        readonly SimConnectCache simConnectCache = new SimConnectCache();
-#endif
-        readonly XplaneCache xplaneCache = new XplaneCache();
-        readonly ProSim.ProSimCache proSimCache = new ProSim.ProSimCache();
+        readonly SimConnectCacheInterface simConnectCache;
+        readonly ProSim.ProSimCache proSimCache;
+
+        readonly XplaneCacheInterface xplaneCache;
 
 #if ARCAZE
         readonly ArcazeCache arcazeCache = new ArcazeCache();
@@ -142,30 +138,41 @@ namespace MobiFlight
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
+            : this(handle, new XplaneCache(), new SimConnectCache(), new Fsuipc2Cache())
         {
-            fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
-            fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
-            fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
-            fsuipcCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
+        }
 
-#if SIMCONNECT
-            simConnectCache.SetHandle(handle);
-            simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
-            simConnectCache.Connected += new EventHandler(simConnect_Connected);
-            simConnectCache.Closed += new EventHandler(simConnect_Closed);
-            simConnectCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
-            simConnectCache.AircraftPathChanged += new EventHandler<string>(simConnect_AirCraftPathChanged);
-#endif
+        public ExecutionManager(
+            IntPtr handle,
+            XplaneCacheInterface xplaneCache,
+            SimConnectCacheInterface simConnectCache,
+            FSUIPCCacheInterface fsuipcCache)
+        {
+            this.xplaneCache = xplaneCache;
+            this.simConnectCache = simConnectCache;
+            this.fsuipcCache = fsuipcCache;
 
-            xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
-            xplaneCache.Connected += new EventHandler(simConnect_Connected);
-            xplaneCache.Closed += new EventHandler(simConnect_Closed);
-            xplaneCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
+            this.fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
+            this.fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
+            this.fsuipcCache.Closed += new EventHandler(FsuipcCache_Closed);
+            this.fsuipcCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
 
-            proSimCache.ConnectionLost += new EventHandler(proSim_ConnectionLost);
-            proSimCache.Connected += new EventHandler(proSim_Connected);
-            proSimCache.Closed += new EventHandler(proSim_Closed);
-            proSimCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
+            this.simConnectCache.SetHandle(handle);
+            this.simConnectCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
+            this.simConnectCache.Connected += new EventHandler(simConnect_Connected);
+            this.simConnectCache.Closed += new EventHandler(simConnect_Closed);
+            this.simConnectCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
+            this.simConnectCache.AircraftPathChanged += new EventHandler<string>(simConnect_AircraftPathChanged);
+
+            this.xplaneCache.ConnectionLost += new EventHandler(simConnect_ConnectionLost);
+            this.xplaneCache.Connected += new EventHandler(simConnect_Connected);
+            this.xplaneCache.Closed += new EventHandler(simConnect_Closed);
+            this.xplaneCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
+            
+            this.proSimCache.ConnectionLost += new EventHandler(proSim_ConnectionLost);
+            this.proSimCache.Connected += new EventHandler(proSim_Connected);
+            this.proSimCache.Closed += new EventHandler(proSim_Closed);
+            this.proSimCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
 
 #if ARCAZE
             arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
@@ -182,7 +189,7 @@ namespace MobiFlight
             mobiFlightCache.LookupFinished += new EventHandler(mobiFlightCache_LookupFinished);
 
             // ChildProcessMonitor necessary, that in case of MobiFlight crash, all child processes are terminated
-            scriptRunner = new ScriptRunner(joystickManager, simConnectCache, new ChildProcessMonitor());
+            scriptRunner = new ScriptRunner(joystickManager, this.simConnectCache, new ChildProcessMonitor());
             OnSimAircraftChanged += scriptRunner.OnSimAircraftChanged;
             OnSimAircraftPathChanged += scriptRunner.OnSimAircraftPathChanged;
 
@@ -482,13 +489,18 @@ namespace MobiFlight
             this.OnModuleConnected?.Invoke(sender, e);
         }
 
-        private void sim_AirCraftChanged(object sender, string e)
+        private void sim_AircraftChanged(object sender, string e)
         {
+            if (sender is FSUIPCCacheInterface && (xplaneCache.IsConnected() || simConnectCache.IsConnected())) {
+                Log.Instance.log($"Aircraft change detected from {sender} but X-Plane or SimConnect are connected. Ignoring name change", LogSeverity.Info);
+                return;
+            }
+
             Log.Instance.log($"Aircraft change detected: [{e}] ({sender.ToString()})", LogSeverity.Info);
             OnSimAircraftChanged?.Invoke(sender, e);
         }
 
-        private void simConnect_AirCraftPathChanged(object sender, string e)
+        private void simConnect_AircraftPathChanged(object sender, string e)
         {
             Log.Instance.log($"Aircraft path changed: [{e}]", LogSeverity.Info);
             OnSimAircraftPathChanged?.Invoke(sender, e);
@@ -507,12 +519,10 @@ namespace MobiFlight
 
         public void HandleWndProc(ref Message m)
         {
-#if SIMCONNECT
             if (m.Msg == SimConnectMSFS.SimConnectCache.WM_USER_SIMCONNECT)
             {
                 simConnectCache.ReceiveSimConnectMessage();
             }
-#endif
         }
 
         private void simConnect_Closed(object sender, EventArgs e)
@@ -568,9 +578,7 @@ namespace MobiFlight
         public bool SimConnected()
         {
             return fsuipcCache.IsConnected()
-#if SIMCONNECT
                 || simConnectCache.IsConnected()
-#endif
                 || xplaneCache.IsConnected()
                 || proSimCache.IsConnected()
                 ;
@@ -769,9 +777,8 @@ namespace MobiFlight
 #endif
             fsuipcCache.Disconnect();
 
-#if SIMCONNECT
             simConnectCache.Disconnect();
-#endif            
+            
             if (Properties.Settings.Default.EnableJoystickSupport)
             {
                 joystickManager.Shutdown();
@@ -1006,60 +1013,57 @@ namespace MobiFlight
             }
 #endif
 
+            // Try to connect to ProSim with retry limits and user settings
+            TryConnectToProSim();
+
+            // Reset retry counter if ProSim is connected
+            ResetProSimRetryStateOnSuccess();
+
             // Check only for available sims if not in Offline mode.
-            if (true)
+            if (SimAvailable())
             {
-                // Try to connect to ProSim with retry limits and user settings
-                TryConnectToProSim();
-                
-                // Reset retry counter if ProSim is connected
-                ResetProSimRetryStateOnSuccess();
-
-                if (SimAvailable())
+                if (LastDetectedSim != FlightSim.FlightSimType)
                 {
-                    if (LastDetectedSim != FlightSim.FlightSimType)
-                    {
-                        LastDetectedSim = FlightSim.FlightSimType;
-                        OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
-                    }
-
-                    if (!fsuipcCache.IsConnected())
-                    {
-                        if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !proSimCache.IsConnected())
-                        {
-                            // we don't want to spam the log
-                            // in case we have an active connection
-                            // through a different type
-                            Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
-                        }
-
-                        fsuipcCache.Connect();
-                    }
-
-#if SIMCONNECT
-                    if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
-                    {
-                        Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
-                        simConnectCache.Connect();
-                    }
-#endif
-                    if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
-                    {
-                        Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
-                        xplaneCache.Connect();
-                    }
-                    // we return here to prevent the disabling of the timer
-                    // so that autostart-feature can work properly
-                    _autoConnectTimerRunning = false;
-                    return;
+                    LastDetectedSim = FlightSim.FlightSimType;
+                    OnSimAvailable?.Invoke(FlightSim.FlightSimType, null);
                 }
-                else
+
+                if (FlightSim.FlightSimType == FlightSimType.MSFS2020 && !simConnectCache.IsConnected())
                 {
-                    if (LastDetectedSim != FlightSimType.NONE)
+                    Log.Instance.log("Trying auto connect to sim via SimConnect (WASM)", LogSeverity.Debug);
+                    simConnectCache.Connect();
+                }
+
+                if (FlightSim.FlightSimType == FlightSimType.XPLANE && !xplaneCache.IsConnected())
+                {
+                    Log.Instance.log("Trying auto connect to sim via XPlane", LogSeverity.Debug);
+                    xplaneCache.Connect();
+                }
+
+                if (!fsuipcCache.IsConnected())
+                {
+                    if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected())
                     {
-                        OnSimUnavailable?.Invoke(LastDetectedSim, null);
-                        LastDetectedSim = FlightSimType.NONE;
+                        // we don't want to spam the log
+                        // in case we have an active connection
+                        // through a different type
+                        Log.Instance.log("Trying auto connect to sim via FSUIPC", LogSeverity.Debug);
                     }
+
+                    fsuipcCache.Connect();
+                }
+
+                // we return here to prevent the disabling of the timer
+                // so that autostart-feature can work properly
+                _autoConnectTimerRunning = false;
+                return;
+            }
+            else
+            {
+                if (LastDetectedSim != FlightSimType.NONE)
+                {
+                    OnSimUnavailable?.Invoke(LastDetectedSim, null);
+                    LastDetectedSim = FlightSimType.NONE;
                 }
             }
 
@@ -1273,18 +1277,17 @@ namespace MobiFlight
             return result;
         }
 
-        public SimConnectCache GetSimConnectCache()
+        public SimConnectCacheInterface GetSimConnectCache()
         {
             return simConnectCache;
         }
 
-
-        public Fsuipc2Cache GetFsuipcConnectCache()
+        public FSUIPCCacheInterface GetFsuipcConnectCache()
         {
             return fsuipcCache;
         }
 
-        public XplaneCache GetXlpaneConnectCache()
+        public XplaneCacheInterface GetXPlaneConnectCache()
         {
             return xplaneCache;
         }

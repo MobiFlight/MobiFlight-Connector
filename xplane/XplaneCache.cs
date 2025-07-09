@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Caching;
 using XPlaneConnector;
 
 namespace MobiFlight.xplane
@@ -16,7 +12,6 @@ namespace MobiFlight.xplane
         public event EventHandler OnUpdateFrequencyPerSecondChanged;
         public event EventHandler<string> AircraftChanged;
 
-        private bool _simConnectConnected = false;
         private bool _connected = false;
         private int _updateFrequencyPerSecond = 10;
         private string _detectedAircraft = string.Empty;

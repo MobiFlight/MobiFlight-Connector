@@ -354,8 +354,6 @@ namespace MobiFlight.UI
             };
 
             RestoreWindowsPositionAndZoomLevel();
-
-            frontendPanel1.WebViewKeyUp += MainForm_KeyUp;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -2149,7 +2147,7 @@ namespace MobiFlight.UI
                 return;
             }
 
-            if (execManager.GetXlpaneConnectCache().IsConnected())
+            if (execManager.GetXPlaneConnectCache().IsConnected())
                 xPlaneDirectToolStripMenuItem.Image = Properties.Resources.check;
             else
                 SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.warning;

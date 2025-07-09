@@ -171,7 +171,7 @@ namespace MobiFlight.SimConnectMSFS
             }
         }
 
-        internal void RefreshLVarsList()
+        public void RefreshLVarsList()
         {
             if (m_oSimConnect == null) return;
             WasmModuleClient.GetLVarList(m_oSimConnect, WasmRuntimeClientData);
@@ -314,7 +314,7 @@ namespace MobiFlight.SimConnectMSFS
             );
         }
 
-        internal void Start()
+        public void Start()
         {
             WasmModuleClient.SetConfig(m_oSimConnect, "MAX_VARS_PER_FRAME", "30", WasmInitClientData);
         }
@@ -396,7 +396,7 @@ namespace MobiFlight.SimConnectMSFS
             }
         }
 
-        internal void Stop()
+        public void Stop()
         {
             try
             {

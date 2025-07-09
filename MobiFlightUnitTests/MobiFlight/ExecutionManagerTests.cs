@@ -2,6 +2,9 @@
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.BrowserMessages.Incoming;
+using MobiFlight.FSUIPC;
+using MobiFlight.SimConnectMSFS;
+using MobiFlight.xplane;
 using Moq;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +16,9 @@ namespace MobiFlight.Tests
     public class ExecutionManagerTests
     {
         private ExecutionManager _executionManager;
+        private Mock<XplaneCacheInterface> _mockXplaneCache;
+        private Mock<SimConnectCacheInterface> _mockSimConnectCache;
+        private Mock<FSUIPCCacheInterface> _mockFsuipcCache;
         private Mock<IMessagePublisher> _mockMessagePublisher;
         private Action<string> _OnMessageReceivedCallback;
 
@@ -23,7 +29,16 @@ namespace MobiFlight.Tests
             // https://www.newtonsoft.com/jsonschema
             JsonBackedObject.SkipSchemaValidation = true;
 
-            _executionManager = new ExecutionManager(IntPtr.Zero);
+            _mockXplaneCache = new Mock<XplaneCacheInterface>();
+            _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
+            _mockFsuipcCache = new Mock<FSUIPCCacheInterface>();
+
+            _executionManager = new ExecutionManager(
+                IntPtr.Zero,
+                _mockXplaneCache.Object,
+                _mockSimConnectCache.Object,
+                _mockFsuipcCache.Object);
+
             _mockMessagePublisher = new Mock<IMessagePublisher>();
 
             // Capture the callback passed to OnMessageReceived
@@ -55,7 +70,6 @@ namespace MobiFlight.Tests
             _executionManager.Shutdown();
             _executionManager = null;
         }
-
 
         [TestMethod]
         public void CommandConfigBulkAction_Delete_RemovesItems()
@@ -315,13 +329,10 @@ namespace MobiFlight.Tests
             project.ConfigFiles.Add(configFile1);
             project.ConfigFiles.Add(configFile2);
 
-            var manager = new ExecutionManager(System.IntPtr.Zero)
-            {
-                Project = project
-            };
+            _executionManager.Project = project;
 
             // Act
-            var result = manager.GetAvailableVariables();
+            var result = _executionManager.GetAvailableVariables();
 
             // Assert
             Assert.AreEqual(1, result.Count);
@@ -335,11 +346,105 @@ namespace MobiFlight.Tests
             // Act
             MessageExchange.Instance.Publish(message);
 
-            result = manager.GetAvailableVariables();
+            result = _executionManager.GetAvailableVariables();
 
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.ContainsKey("varB"));
+        }
+
+        [TestMethod]
+        public void OnAircraftChanged_SimConnectCache_InvokesOnSimAircraftChanged()
+        {
+            const string aircraftName = "Cessna 172";
+
+            _mockXplaneCache.Setup(x => x.IsConnected()).Returns(false);
+            _mockFsuipcCache.Setup(x => x.IsConnected()).Returns(false);
+            _mockSimConnectCache.Setup(x => x.IsConnected()).Returns(true);
+
+            string eventAircraftName = "";
+
+            _executionManager.OnSimAircraftChanged += (_, name) => eventAircraftName = name;
+
+            _mockSimConnectCache.Raise(x => x.AircraftChanged += null, _mockSimConnectCache.Object, aircraftName);
+
+            Assert.AreEqual(aircraftName, eventAircraftName);
+        }
+
+        [TestMethod]
+        public void OnAircraftChanged_XPlaneCache_InvokesOnSimAircraftChanged()
+        {
+            const string aircraftName = "Airbus A330";
+
+            _mockXplaneCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockFsuipcCache.Setup(x => x.IsConnected()).Returns(false);
+            _mockSimConnectCache.Setup(x => x.IsConnected()).Returns(false);
+
+            string eventAircraftName = "";
+
+            _executionManager.OnSimAircraftChanged += (_, name) => eventAircraftName = name;
+
+            _mockXplaneCache.Raise(x => x.AircraftChanged += null, _mockXplaneCache.Object, aircraftName);
+
+            Assert.AreEqual(aircraftName, eventAircraftName);
+        }
+
+        [TestMethod]
+        public void OnAircraftChanged_FSUIPCCache_InvokesOnSimAircraftChanged()
+        {
+            const string aircraftName = "Lockheed F-35";
+
+            _mockXplaneCache.Setup(x => x.IsConnected()).Returns(false);
+            _mockFsuipcCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockSimConnectCache.Setup(x => x.IsConnected()).Returns(false);
+
+            string eventAircraftName = "";
+
+            _executionManager.OnSimAircraftChanged += (_, name) => eventAircraftName = name;
+
+            _mockFsuipcCache.Raise(x => x.AircraftChanged += null, _mockFsuipcCache.Object, aircraftName);
+
+            Assert.AreEqual(aircraftName, eventAircraftName);
+        }
+
+        [TestMethod]
+        public void OnAircraftChanged_FSUIPCAndXPlane_IgnoresFSUIPCAircraftName()
+        {
+            const string xPlaneAircraftName = "Airbus A320";
+            const string fsuipcAircraftName = "A320";
+
+            _mockXplaneCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockFsuipcCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockSimConnectCache.Setup(x => x.IsConnected()).Returns(false);
+
+            string eventAircraftName = "";
+
+            _executionManager.OnSimAircraftChanged += (_, name) => eventAircraftName = name;
+
+            _mockXplaneCache.Raise(x => x.AircraftChanged += null, _mockXplaneCache.Object, xPlaneAircraftName);
+            _mockFsuipcCache.Raise(x => x.AircraftChanged += null, _mockFsuipcCache.Object, fsuipcAircraftName);
+
+            Assert.AreEqual(xPlaneAircraftName, eventAircraftName);
+        }
+
+        [TestMethod]
+        public void OnAircraftChanged_FSUIPCAndSimConnect_IgnoresFSUIPCAircraftName()
+        {
+            const string simConnectAircraftName = "Airbus A320";
+            const string fsuipcAircraftName = "A320";
+
+            _mockXplaneCache.Setup(x => x.IsConnected()).Returns(false);
+            _mockFsuipcCache.Setup(x => x.IsConnected()).Returns(true);
+            _mockSimConnectCache.Setup(x => x.IsConnected()).Returns(true);
+
+            string eventAircraftName = "";
+
+            _executionManager.OnSimAircraftChanged += (_, name) => eventAircraftName = name;
+
+            _mockSimConnectCache.Raise(x => x.AircraftChanged += null, _mockSimConnectCache.Object, simConnectAircraftName);
+            _mockFsuipcCache.Raise(x => x.AircraftChanged += null, _mockFsuipcCache.Object, fsuipcAircraftName);
+
+            Assert.AreEqual(simConnectAircraftName, eventAircraftName);
         }
     }
 }

@@ -82,7 +82,7 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "file.exit" })}
             >
-              Exit
+              Exit<MenubarShortcut>Ctrl+Q</MenubarShortcut>
             </MenubarItem>
           </MenubarContent>
         </MenubarMenu>
@@ -142,7 +142,7 @@ export const MainMenu = () => {
             <MenubarItem
               onSelect={() => handleMenuItemClick({ action: "help.docs" })}
             >
-              Documentation
+              Documentation<MenubarShortcut>F1</MenubarShortcut>
             </MenubarItem>
             <MenubarItem
               onSelect={() =>
