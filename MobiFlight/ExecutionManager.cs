@@ -172,7 +172,7 @@ namespace MobiFlight
             this.proSimCache.ConnectionLost += new EventHandler(proSim_ConnectionLost);
             this.proSimCache.Connected += new EventHandler(proSim_Connected);
             this.proSimCache.Closed += new EventHandler(proSim_Closed);
-            this.proSimCache.AircraftChanged += new EventHandler<string>(sim_AirCraftChanged);
+            this.proSimCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
 
 #if ARCAZE
             arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
