@@ -1,4 +1,5 @@
 using MobiFlight.ProSim;
+using MobiFlight.UI.Panels.Settings.Device;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,6 +41,8 @@ namespace MobiFlight.UI.Panels.Config
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.DataBindingComplete += DataGridView1_DataBindingComplete;
+
+            SetMode(_isOutputMode);
         }
 
         private void DataGridView1_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
