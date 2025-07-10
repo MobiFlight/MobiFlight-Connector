@@ -21,11 +21,16 @@
         internal const int PRODUCT_ID_PFP7_OBS = 0xBB3B;
         internal const int PRODUCT_ID_PFP7_FO  = 0xBB3F;
 
+        internal const int PRODUCT_ID_PFP4_CPT = 0xBB38;
+        internal const int PRODUCT_ID_PFP4_OBS = 0xBB3C;
+        internal const int PRODUCT_ID_PFP4_FO = 0xBB40;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] PAP3_PRODUCTIDS = { PRODUCT_ID_PAP3_ONLY };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
-                                                          PRODUCT_ID_PFP7_CPT, PRODUCT_ID_PFP7_OBS, PRODUCT_ID_PFP7_FO };
+                                                          PRODUCT_ID_PFP7_CPT, PRODUCT_ID_PFP7_OBS, PRODUCT_ID_PFP7_FO,
+                                                          PRODUCT_ID_PFP4_CPT, PRODUCT_ID_PFP4_OBS, PRODUCT_ID_PFP4_FO };
 
         internal const string CDU_DATA = "Cdu Data";
         internal const string FONT_DATA = "Font Data";

@@ -63,7 +63,7 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "headwind_a33x",
+      "AircraftIdSnippet": "headwind_a33",
       "ScriptName": "headwind_a33_winwing_cdu.py"
     },
     {
@@ -95,6 +95,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "toliss",
       "ScriptName": "toliss_a3xx.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 737-",
+      "ScriptName": "zibo_737_800x.py"
     }
   ]
 }

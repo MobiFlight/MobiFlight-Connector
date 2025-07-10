@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using XPlaneConnector;
-
-namespace MobiFlight.xplane
+﻿namespace MobiFlight.xplane
 {
     public interface XplaneCacheInterface : Base.CacheInterface
     {
+        int UpdateFrequencyPerSecond { get; set; }
+
         void Start();
 
         void Stop();

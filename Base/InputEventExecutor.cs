@@ -13,9 +13,9 @@ namespace MobiFlight.Execution
     {
         private readonly List<IConfigItem> _configItems;
         private readonly InputActionExecutionCache _inputActionExecutionCache;
-        private readonly Fsuipc2Cache _fsuipcCache;
+        private readonly FSUIPCCacheInterface _fsuipcCache;
         private readonly SimConnectCacheInterface _simConnectCache;
-        private readonly XplaneCache _xplaneCache;
+        private readonly XplaneCacheInterface _xplaneCache;
         private readonly MobiFlightCache _mobiFlightCache;
         private readonly JoystickManager _joystickManager;
         private readonly ArcazeCache _arcazeCache;
@@ -24,9 +24,9 @@ namespace MobiFlight.Execution
         public InputEventExecutor(
             List<IConfigItem> configItems,
             InputActionExecutionCache inputActionExecutionCache,
-            Fsuipc2Cache fsuipcCache,
+            FSUIPCCacheInterface fsuipcCache,
             SimConnectCacheInterface simConnectCache,
-            XplaneCache xplaneCache,
+            XplaneCacheInterface xplaneCache,
             MobiFlightCache mobiFlightCache,
             JoystickManager joystickManager,
             ArcazeCache arcazeCache)
