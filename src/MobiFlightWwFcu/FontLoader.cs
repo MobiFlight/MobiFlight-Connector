@@ -21,8 +21,8 @@ namespace MobiFlightWwFcu
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             if (Directory.Exists(baseDirectory))
             {
-                var filesMcduFullPath = Directory.GetFiles(Path.Combine(baseDirectory, DefaultMcduFolder)).ToList();
-                var filesPfpFullPath = Directory.GetFiles(Path.Combine(baseDirectory, DefaultPfpFolder)).ToList();
+                var filesMcduFullPath = Directory.GetFiles(Path.Combine(baseDirectory, DefaultMcduFolder), "*.dat").ToList();
+                var filesPfpFullPath = Directory.GetFiles(Path.Combine(baseDirectory, DefaultPfpFolder), "*.dat").ToList();
                 
                 filesMcduFullPath.ForEach(f => AvailableMcduFonts.Add(Path.GetFileNameWithoutExtension(f), f));
                 filesPfpFullPath.ForEach(f => AvailablePfpFonts.Add(Path.GetFileNameWithoutExtension(f), f));
