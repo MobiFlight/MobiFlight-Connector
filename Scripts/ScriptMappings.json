@@ -75,6 +75,30 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 757",
+      "ScriptName": "flightfactor_75_76.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 767",
+      "ScriptName": "flightfactor_75_76.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "boeing 777",
+      "ScriptName": "flightfactor_777v2.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "toliss",
+      "ScriptName": "toliss_a3xx.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "boeing 737-",
       "ScriptName": "zibo_737_800x.py"
     }
