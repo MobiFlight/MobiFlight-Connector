@@ -117,24 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="proSimDatarefPanel1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="proSimDatarefPanel1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
   <data name="proSimDatarefPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Top</value>
+    <value>Fill</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="proSimDatarefPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 803</value>
   </data>
-  <data name="proSimDatarefPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>683, 102</value>
+  <data name="proSimDatarefPanel1.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1000, 1000</value>
   </data>
+  <data name="proSimDatarefPanel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>620, 400</value>
+  </data>
+  <data name="proSimDatarefPanel1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="proSimDatarefPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>683, 400</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="proSimDatarefPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
@@ -142,7 +145,7 @@
     <value>proSimDatarefPanel1</value>
   </data>
   <data name="&gt;&gt;proSimDatarefPanel1.Type" xml:space="preserve">
-    <value>MobiFlight.UI.Panels.Config.ProSimDatarefPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>MobiFlight.UI.Panels.Config.ProSimDataRefPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;proSimDatarefPanel1.Parent" xml:space="preserve">
     <value>fsuipcTabPage</value>
@@ -574,7 +577,7 @@
     <value>650, 0</value>
   </data>
   <data name="modifierPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>683, 359</value>
+    <value>683, 378</value>
   </data>
   <data name="modifierPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -658,7 +661,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>695, 582</value>
+    <value>695, 601</value>
   </data>
   <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -688,7 +691,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="displayPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>683, 570</value>
+    <value>683, 589</value>
   </data>
   <data name="displayPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -712,7 +715,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>695, 582</value>
+    <value>695, 601</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -742,7 +745,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>683, 570</value>
+    <value>683, 589</value>
   </data>
   <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -766,7 +769,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>695, 582</value>
+    <value>695, 601</value>
   </data>
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>

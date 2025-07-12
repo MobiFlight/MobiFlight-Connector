@@ -33,12 +33,14 @@
             // 
             // proSimDatarefPanel1
             // 
-            this.proSimDatarefPanel1.AutoSize = true;
             this.proSimDatarefPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.proSimDatarefPanel1.Location = new System.Drawing.Point(0, 0);
+            this.proSimDatarefPanel1.MaximumSize = new System.Drawing.Size(1000, 1000);
+            this.proSimDatarefPanel1.MinimumSize = new System.Drawing.Size(620, 400);
             this.proSimDatarefPanel1.Name = "proSimDatarefPanel1";
+            this.proSimDatarefPanel1.Padding = new System.Windows.Forms.Padding(3);
             this.proSimDatarefPanel1.Path = "";
-            this.proSimDatarefPanel1.Size = new System.Drawing.Size(602, 385);
+            this.proSimDatarefPanel1.Size = new System.Drawing.Size(636, 400);
             this.proSimDatarefPanel1.TabIndex = 0;
             this.proSimDatarefPanel1.Load += new System.EventHandler(this.proSimDatarefPanel1_Load);
             // 
@@ -48,9 +50,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.proSimDatarefPanel1);
             this.Name = "ProSimInputPanel";
-            this.Size = new System.Drawing.Size(602, 385);
+            this.Size = new System.Drawing.Size(636, 400);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
