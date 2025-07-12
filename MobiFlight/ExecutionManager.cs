@@ -4,6 +4,7 @@ using MobiFlight.BrowserMessages.Incoming;
 using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.ProSim;
 using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
@@ -20,6 +21,7 @@ namespace MobiFlight
         Dictionary<String, MobiFlightVariable> GetAvailableVariables();
         JoystickManager GetJoystickManager();
         MobiFlightCache getMobiFlightModuleCache();
+        ProSim.ProSimCacheInterface GetProSimCache();
         MidiBoardManager GetMidiBoardManager();
         // Add other methods and properties as needed
     }
@@ -81,6 +83,7 @@ namespace MobiFlight
         readonly FSUIPCCacheInterface fsuipcCache;
 
         readonly SimConnectCacheInterface simConnectCache;
+        readonly ProSim.ProSimCacheInterface proSimCache;
 
         readonly XplaneCacheInterface xplaneCache;
 
@@ -126,12 +129,16 @@ namespace MobiFlight
 
         FlightSimType LastDetectedSim = FlightSimType.NONE;
 
+        // ProSim connection retry tracking
+        private int _proSimConnectionAttempts = 0;
+        private bool _proSimConnectionDisabled = false;
+
         OutputConfigItem ConfigItemInTestMode = null;
         Dictionary<string, IConfigItem> updatedValues = new Dictionary<string, IConfigItem>();
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
-            : this(handle, new XplaneCache(), new SimConnectCache(), new Fsuipc2Cache())
+            : this(handle, new XplaneCache(), new SimConnectCache(), new Fsuipc2Cache(), new ProSimCache())
         {
         }
 
@@ -139,11 +146,13 @@ namespace MobiFlight
             IntPtr handle,
             XplaneCacheInterface xplaneCache,
             SimConnectCacheInterface simConnectCache,
-            FSUIPCCacheInterface fsuipcCache)
+            FSUIPCCacheInterface fsuipcCache,
+            ProSimCacheInterface proSimCache)
         {
             this.xplaneCache = xplaneCache;
             this.simConnectCache = simConnectCache;
             this.fsuipcCache = fsuipcCache;
+            this.proSimCache = proSimCache;
 
             this.fsuipcCache.ConnectionLost += new EventHandler(FsuipcCache_ConnectionLost);
             this.fsuipcCache.Connected += new EventHandler(FsuipcCache_Connected);
@@ -161,6 +170,12 @@ namespace MobiFlight
             this.xplaneCache.Connected += new EventHandler(simConnect_Connected);
             this.xplaneCache.Closed += new EventHandler(simConnect_Closed);
             this.xplaneCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
+            
+            this.proSimCache.ConnectionLost += new EventHandler(proSim_ConnectionLost);
+            this.proSimCache.Connected += new EventHandler(proSim_Connected);
+            this.proSimCache.Closed += new EventHandler(proSim_Closed);
+            this.proSimCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
+
 #if ARCAZE
             arcazeCache.OnAvailable += new EventHandler(ModuleCache_Available);
             arcazeCache.Closed += new EventHandler(ModuleCache_Closed);
@@ -527,6 +542,25 @@ namespace MobiFlight
             this.OnSimCacheConnectionLost(sender, e);
         }
 
+        private void proSim_Closed(object sender, EventArgs e)
+        {
+            this.OnSimCacheClosed(sender, e);
+        }
+
+        private void proSim_Connected(object sender, EventArgs e)
+        {
+            // Reset retry state on successful connection
+            _proSimConnectionAttempts = 0;
+            _proSimConnectionDisabled = false;
+            this.OnSimCacheConnected(sender, e);
+        }
+
+        private void proSim_ConnectionLost(object sender, EventArgs e)
+        {
+            Log.Instance.log("ProSim connection lost.", LogSeverity.Warn);
+            this.OnSimCacheConnectionLost(sender, e);
+        }
+
         void mobiFlightCache_LookupFinished(object sender, EventArgs e)
         {
             OnInitialModuleLookupFinished?.Invoke(sender, e);
@@ -547,7 +581,9 @@ namespace MobiFlight
         {
             return fsuipcCache.IsConnected()
                 || simConnectCache.IsConnected()
-                || xplaneCache.IsConnected();
+                || xplaneCache.IsConnected()
+                || proSimCache.IsConnected()
+                ;
         }
 
         public bool ModulesAvailable()
@@ -597,6 +633,7 @@ namespace MobiFlight
                     simConnectCache,
                     xplaneCache,
                     mobiFlightCache,
+                    proSimCache,
                     joystickManager,
                     arcazeCache
                 );
@@ -812,6 +849,7 @@ namespace MobiFlight
                                                   simConnectCache,
                                                   xplaneCache,
                                                   mobiFlightCache,
+                                                  proSimCache,
                                                   joystickManager,
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
@@ -915,6 +953,50 @@ namespace MobiFlight
         }
 
         /// <summary>
+        /// Attempts to connect to ProSim with retry limits and user settings
+        /// </summary>
+        private void TryConnectToProSim()
+        {
+            // Skip if already connected, auto-connect disabled, or connection disabled for this session
+            if (proSimCache.IsConnected() || !Properties.Settings.Default.ProSimAutoConnectEnabled || _proSimConnectionDisabled)
+            {
+                return;
+            }
+
+            var maxRetries = Properties.Settings.Default.ProSimMaxRetryAttempts;
+            
+            if (_proSimConnectionAttempts < maxRetries)
+            {
+                // Only log if no other sim connections are active to avoid spam
+                if (!simConnectCache.IsConnected() && !xplaneCache.IsConnected() && !fsuipcCache.IsConnected())
+                {
+                    Log.Instance.log($"Trying auto connect to sim via ProSim (attempt {_proSimConnectionAttempts + 1}/{maxRetries})", LogSeverity.Debug);
+                }
+
+                _proSimConnectionAttempts++;
+                proSimCache.Connect();
+            }
+            else if (_proSimConnectionAttempts == maxRetries)
+            {
+                Log.Instance.log($"ProSim connection failed after {maxRetries} attempts. Disabling auto-connect for this session.", LogSeverity.Warn);
+                _proSimConnectionDisabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Resets ProSim retry state when connection is successful
+        /// </summary>
+        private void ResetProSimRetryStateOnSuccess()
+        {
+            if (proSimCache.IsConnected() && _proSimConnectionAttempts > 0)
+            {
+                Log.Instance.log("ProSim connection successful. Resetting retry counter.", LogSeverity.Debug);
+                _proSimConnectionAttempts = 0;
+                _proSimConnectionDisabled = false;
+            }
+        }
+
+        /// <summary>
         /// auto connect timer handler which tries to automagically connect to FSUIPC and Arcaze Modules        
         /// </summary>
         /// <remarks>
@@ -932,6 +1014,12 @@ namespace MobiFlight
                 arcazeCache.connect();
             }
 #endif
+
+            // Try to connect to ProSim with retry limits and user settings
+            TryConnectToProSim();
+
+            // Reset retry counter if ProSim is connected
+            ResetProSimRetryStateOnSuccess();
 
             // Check only for available sims if not in Offline mode.
             if (SimAvailable())
@@ -1034,7 +1122,7 @@ namespace MobiFlight
                     OnTestModeException(ex, new EventArgs());
                 }
             }
-
+            
             if (!currentConfig.Status.ContainsKey(ConfigItemStatusType.Test))
             {
                 try
@@ -1068,6 +1156,7 @@ namespace MobiFlight
                                                   simConnectCache,
                                                   xplaneCache,
                                                   mobiFlightCache,
+                                                  proSimCache,
                                                   joystickManager,
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
@@ -1083,6 +1172,7 @@ namespace MobiFlight
                                                   simConnectCache,
                                                   xplaneCache,
                                                   mobiFlightCache,
+                                                  proSimCache,
                                                   joystickManager,
                                                   midiBoardManager,
                                                   inputActionExecutionCache,
@@ -1110,7 +1200,7 @@ namespace MobiFlight
                     var updatedValues = executor.Execute(e, IsStarted());
                     updatedValues.Keys.ToList().ForEach(k => updatedInputValues[k] = updatedValues[k]);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Log.Instance.log($"Error during input event execution: {ex.Message} - {e.DeviceId} => {e.DeviceLabel} ({e.Type})", LogSeverity.Error);
                 }
@@ -1204,6 +1294,10 @@ namespace MobiFlight
             return xplaneCache;
         }
 
+        public ProSim.ProSimCacheInterface GetProSimCache()
+        {
+            return proSimCache;
+        }
 
         private void OnStartActions()
         {
@@ -1215,6 +1309,7 @@ namespace MobiFlight
                     fsuipcCache = fsuipcCache,
                     simConnectCache = simConnectCache,
                     xplaneCache = xplaneCache,
+                    proSimCache = proSimCache,
                     moduleCache = mobiFlightCache,
                     joystickManager = joystickManager,
                 }, null, null);
@@ -1224,6 +1319,20 @@ namespace MobiFlight
         internal void OnMinimize(bool minimized)
         {
             updateFrontend = !minimized;
+        }
+
+        public void ResetProSimConnectionState()
+        {
+            _proSimConnectionAttempts = 0;
+            _proSimConnectionDisabled = false;
+            Log.Instance.log("ProSim connection retry state reset.", LogSeverity.Debug);
+        }
+
+        public void ConnectToProSim()
+        {
+            ResetProSimConnectionState();
+            Log.Instance.log("Manual ProSim connection attempt.", LogSeverity.Info);
+            proSimCache.Connect();
         }
     }
 }

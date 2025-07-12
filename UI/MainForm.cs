@@ -15,6 +15,7 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using MobiFlight.xplane;
+using MobiFlight.ProSim;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
@@ -386,6 +387,7 @@ namespace MobiFlight.UI
             SimProcessDetectedToolStripMenuItem.Image = Properties.Resources.warning;
             FsuipcToolStripMenuItem.Image = Properties.Resources.warning;
             simConnectToolStripMenuItem.Image = Properties.Resources.warning;
+            proSimToolStripMenuItem.Image = Properties.Resources.warning;
             xPlaneDirectToolStripMenuItem.Image = Properties.Resources.warning;
             toolStripConnectedDevicesIcon.Image = Properties.Resources.warning;
 
@@ -683,10 +685,23 @@ namespace MobiFlight.UI
 
         private void UpdateAllConnectionIcons()
         {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(UpdateAllConnectionIconsAction));
+            }
+            else
+            {
+                UpdateAllConnectionIconsAction();
+            }
+        }
+
+        private void UpdateAllConnectionIconsAction()
+        {
             UpdateSimStatusIcon();
             UpdateSimConnectStatusIcon();
             UpdateXplaneDirectConnectStatusIcon();
             UpdateFsuipcStatusIcon();
+            UpdateProSimStatusIcon();
             UpdateSeparatorInStatusMenu();
         }
 
@@ -1237,6 +1252,10 @@ namespace MobiFlight.UI
             {
                 UpdateFsuipcStatusIcon();
             }
+            else if (sender is ProSim.ProSimCacheInterface)
+            {
+                UpdateProSimStatusIcon();
+            }
 
             UpdateSeparatorInStatusMenu();
 
@@ -1313,7 +1332,19 @@ namespace MobiFlight.UI
 
             if ((sender as CacheInterface).IsConnected())
             {
-                SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                // Can be triggered from ProSim GraphQL observable subscription, so need to invoke on UI thread
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => 
+                    {
+                        SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                    }));
+                } 
+                else
+                {
+                    SimConnectionIconStatusToolStripStatusLabel.Image = Properties.Resources.check;
+                }
+
                 Log.Instance.log($"Connected to {FlightSim.SimNames[CurrentFlightSimType]}. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info);
             }
 
@@ -1387,6 +1418,13 @@ namespace MobiFlight.UI
                 AppTelemetry.Instance.TrackFlightSimConnected(FlightSim.FlightSimType.ToString(), c.FlightSimConnectionMethod.ToString());
                 Log.Instance.log($"{FlightSim.SimNames[FlightSim.FlightSimType]} detected. [{FlightSim.SimConnectionNames[CurrentConnectionMethod]}].", LogSeverity.Info
                 );
+            } 
+            else if (sender is ProSim.ProSimCacheInterface)
+            {
+                proSimToolStripMenuItem.Text = "ProSim";
+                proSimToolStripMenuItem.Image = Properties.Resources.check;
+                proSimToolStripMenuItem.Enabled = true;
+                Log.Instance.log("Connected to ProSim", LogSeverity.Info);
             }
 
             UpdateSeparatorInStatusMenu();
@@ -1431,6 +1469,10 @@ namespace MobiFlight.UI
             {
                 _showError(i18n._tr("uiMessageXplaneConnectionLost"));
                 UpdateXplaneDirectConnectStatusIcon();
+            }
+            else if (sender is ProSim.ProSimCacheInterface)
+            {
+                UpdateProSimStatusIcon();
             }
             else
             {
@@ -2086,7 +2128,7 @@ namespace MobiFlight.UI
 
         private void UpdateSeparatorInStatusMenu()
         {
-            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Enabled || xPlaneDirectToolStripMenuItem.Enabled || FsuipcToolStripMenuItem.Enabled;
+            separatorToolStripMenuItem.Visible = simConnectToolStripMenuItem.Enabled || xPlaneDirectToolStripMenuItem.Enabled || FsuipcToolStripMenuItem.Enabled || proSimToolStripMenuItem.Enabled;
         }
 
         private void UpdateXplaneDirectConnectStatusIcon()
@@ -2136,6 +2178,22 @@ namespace MobiFlight.UI
 
             UpdateSeparatorInStatusMenu();
         }
+
+        private void UpdateProSimStatusIcon()
+        {
+            proSimToolStripMenuItem.Image = Properties.Resources.warning;
+            proSimToolStripMenuItem.Visible = true;
+            proSimToolStripMenuItem.Enabled = true;
+
+
+            if (execManager.GetProSimCache().IsConnected())
+            {
+                proSimToolStripMenuItem.Image = Properties.Resources.check;
+            }
+
+            UpdateSeparatorInStatusMenu();
+        }
+
         private void UpdateSimStatusIcon()
         {
             if (execManager.SimConnected())
@@ -2633,6 +2691,13 @@ namespace MobiFlight.UI
                         .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is VariableSource) ||
                          configItems
                         .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(VariableInputAction)).Count > 0);
+            }
+            else if (type is ProSimSource)
+            {
+                result = configItems
+                        .Any(x => x is OutputConfigItem && (x as OutputConfigItem)?.Source is ProSimSource) ||
+                         configItems
+                        .Any(x => x is InputConfigItem && (x as InputConfigItem)?.GetInputActionsByType(typeof(ProSimInputAction)).Count > 0);
             }
             return result;
         }

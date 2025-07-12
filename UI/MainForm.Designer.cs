@@ -60,6 +60,7 @@
             this.FsuipcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.simConnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xPlaneDirectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.proSimToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripAircraftDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.linkCurrentConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -267,7 +268,8 @@
             this.separatorToolStripMenuItem,
             this.FsuipcToolStripMenuItem,
             this.simConnectToolStripMenuItem,
-            this.xPlaneDirectToolStripMenuItem});
+            this.xPlaneDirectToolStripMenuItem,
+            this.proSimToolStripMenuItem});
             resources.ApplyResources(this.simStatusToolStripDropDownButton1, "simStatusToolStripDropDownButton1");
             this.simStatusToolStripDropDownButton1.Name = "simStatusToolStripDropDownButton1";
             // 
@@ -295,6 +297,11 @@
             // 
             this.xPlaneDirectToolStripMenuItem.Name = "xPlaneDirectToolStripMenuItem";
             resources.ApplyResources(this.xPlaneDirectToolStripMenuItem, "xPlaneDirectToolStripMenuItem");
+            // 
+            // proSimToolStripMenuItem
+            // 
+            this.proSimToolStripMenuItem.Name = "proSimToolStripMenuItem";
+            resources.ApplyResources(this.proSimToolStripMenuItem, "proSimToolStripMenuItem");
             // 
             // toolStripStatusLabel1
             // 
@@ -524,6 +531,7 @@
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripConnectedDevicesIcon;
         private Panels.FrontendPanel frontendPanel1;
+        private System.Windows.Forms.ToolStripMenuItem proSimToolStripMenuItem;
     }
 }
 

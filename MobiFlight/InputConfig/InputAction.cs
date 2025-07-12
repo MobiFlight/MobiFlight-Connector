@@ -1,4 +1,5 @@
 ﻿using MobiFlight.BrowserMessages.Incoming.Converter;
+using MobiFlight.ProSim;
 using MobiFlight.xplane;
 using Newtonsoft.Json;
 using System;
@@ -13,6 +14,7 @@ namespace MobiFlight.InputConfig
         public SimConnectMSFS.SimConnectCacheInterface simConnectCache;
         public MobiFlightCacheInterface moduleCache;
         public XplaneCacheInterface xplaneCache;
+        public ProSimCacheInterface proSimCache;
         public JoystickManager joystickManager;
     }
 

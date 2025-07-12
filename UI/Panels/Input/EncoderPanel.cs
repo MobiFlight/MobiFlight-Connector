@@ -15,8 +15,9 @@ namespace MobiFlight.UI.Panels.Input
 {
     public partial class EncoderPanel : UserControl
     {
-        InputConfig.EncoderInputConfig _config;
-        Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
+        private InputConfig.EncoderInputConfig _config;
+        private IExecutionManager _executionManager;
+        private Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
         public new bool Enabled
         {
             get { return onLeftActionTypePanel.Enabled; }
@@ -71,6 +72,11 @@ namespace MobiFlight.UI.Panels.Input
             }
         }
 
+        public void Init(IExecutionManager executionManager)
+        {
+            _executionManager = executionManager;
+        }
+
         private void Action_PasteButtonPressed(object sender, EventArgs e)
         {
             Panel owner = onLeftActionConfigPanel;
@@ -116,8 +122,8 @@ namespace MobiFlight.UI.Panels.Input
             else if (type == "MobiFlight.InputConfig.MSFS2020CustomInputAction") value = MobiFlight.InputConfig.MSFS2020CustomInputAction.Label;
             else if (type == "MobiFlight.InputConfig.VariableInputAction") value = MobiFlight.InputConfig.VariableInputAction.Label;
             else if (type == "MobiFlight.InputConfig.XplaneInputAction") value = MobiFlight.InputConfig.XplaneInputAction.Label;
-
-            UpdatePanelWithAction(owner, config, value , isLeft, isFast);
+            else if (type == "MobiFlight.InputConfig.ProSimInputAction") value = MobiFlight.InputConfig.ProSimInputAction.Label;
+            UpdatePanelWithAction(owner, config, value, isLeft, isFast);
         }
          
         private void Action_CopyButtonPressed(object sender, EventArgs e)
@@ -307,6 +313,19 @@ namespace MobiFlight.UI.Panels.Input
                     else if (!isLeft && isFast && config != null && config.onRightFast != null)
                         (panel as XplaneInputPanel).syncFromConfig(config.onRightFast as XplaneInputAction);
                     break;
+
+                case ProSimInputAction.Label:
+                    panel = new ProSimInputPanel();
+                    (panel as ProSimInputPanel).Init(_executionManager);
+                    if (isLeft && !isFast && config != null && config.onLeft != null)
+                        (panel as ProSimInputPanel).syncFromConfig(config.onLeft as ProSimInputAction);
+                    else if (isLeft && isFast && config != null && config.onLeftFast != null)
+                        (panel as ProSimInputPanel).syncFromConfig(config.onLeftFast as ProSimInputAction);
+                    else if (!isLeft && !isFast && config != null && config.onRight != null)
+                        (panel as ProSimInputPanel).syncFromConfig(config.onRight as ProSimInputAction);
+                    else if (!isLeft && isFast && config != null && config.onRightFast != null)
+                        (panel as ProSimInputPanel).syncFromConfig(config.onRightFast as ProSimInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -386,6 +405,9 @@ namespace MobiFlight.UI.Panels.Input
                     case XplaneInputAction.Label:
                         config.onLeft = (onLeftActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
                         break;
+                    case ProSimInputAction.Label:
+                        config.onLeft = (onLeftActionConfigPanel.Controls[0] as ProSimInputPanel).ToConfig();
+                        break;
                     default:
                         config.onLeft = null;
                         break;
@@ -435,6 +457,10 @@ namespace MobiFlight.UI.Panels.Input
                         config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
                         break;
 
+                    case ProSimInputAction.Label:
+                        config.onLeftFast = (onLeftFastActionConfigPanel.Controls[0] as ProSimInputPanel).ToConfig();
+                        break;
+
                     default:
                         config.onLeftFast = null;
                         break;
@@ -477,6 +503,9 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case XplaneInputAction.Label:
                         config.onRight = (onRightActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        break;
+                    case ProSimInputAction.Label:
+                        config.onRight = (onRightActionConfigPanel.Controls[0] as ProSimInputPanel).ToConfig();
                         break;
 
                     default:
@@ -521,6 +550,9 @@ namespace MobiFlight.UI.Panels.Input
                         break;
                     case XplaneInputAction.Label:
                         config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as XplaneInputPanel).ToConfig();
+                        break;
+                    case ProSimInputAction.Label:
+                        config.onRightFast = (onRightFastActionConfigPanel.Controls[0] as ProSimInputPanel).ToConfig();
                         break;
 
                     default:

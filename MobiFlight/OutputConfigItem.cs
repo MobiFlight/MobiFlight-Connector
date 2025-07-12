@@ -81,6 +81,10 @@ namespace MobiFlight
                 {
                     Source = new XplaneSource();
                     (Source as XplaneSource).XplaneDataRef.ReadXml(reader);
+                } else if (reader["type"] == "ProSimDataRef")
+                {
+                    Source = new ProSimSource();
+                    (Source as ProSimSource).ProSimDataRef.ReadXml(reader);
                 }
                 else
                 {
@@ -301,8 +305,10 @@ namespace MobiFlight
                     (this.Source as VariableSource).MobiFlightVariable.WriteXml(writer);
                 else if (Source is XplaneSource)
                     (this.Source as XplaneSource).XplaneDataRef.WriteXml(writer);
-                else
+                else if (Source is SimConnectSource)
                     (this.Source as SimConnectSource).SimConnectValue.WriteXml(writer);
+                else
+                    (this.Source as ProSimSource).ProSimDataRef.WriteXml(writer);
             writer.WriteEndElement();
 
             writer.WriteStartElement("test");

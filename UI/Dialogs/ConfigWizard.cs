@@ -120,6 +120,8 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            proSimDatarefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            proSimDatarefPanel1.Init(_execManager);
 
             testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
@@ -355,13 +357,14 @@ namespace MobiFlight.UI.Dialogs
             OffsetTypeSimConnectRadioButton.Checked = (config.Source is SimConnectSource);
             OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource);
             OffsetTypeXplaneRadioButton.Checked = (config.Source is XplaneSource);
+            OffsetTypeProSimRadioButton.Checked = (config.Source is ProSimSource);
 
             fsuipcConfigPanel.syncFromConfig(config);
-
             simConnectPanel1.syncFromConfig(config);
             variablePanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
             xplaneDataRefPanel1.syncFromConfig(config);
+            proSimDatarefPanel1.syncFromConfig(config);
         }
 
         /// <summary>
@@ -389,6 +392,11 @@ namespace MobiFlight.UI.Dialogs
             {
                 config.Source = new XplaneSource();
                 xplaneDataRefPanel1.syncToConfig(config);
+            } else
+            if (OffsetTypeProSimRadioButton.Checked)
+            {
+                config.Source = new ProSimSource();
+                proSimDatarefPanel1.syncToConfig(config);
             }
 
             configRefPanel.syncToConfig(config);
@@ -472,6 +480,13 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
             variablePanel1.Visible = (sender as RadioButton) == OffsetTypeVariableRadioButton;
             xplaneDataRefPanel1.Visible = (sender as RadioButton) == OffsetTypeXplaneRadioButton;
+            proSimDatarefPanel1.Visible = (sender as RadioButton) == OffsetTypeProSimRadioButton;
+            
+            // Auto-load dataref descriptions when ProSim panel becomes visible
+            if (proSimDatarefPanel1.Visible)
+            {
+                proSimDatarefPanel1.LoadDataRefDescriptions();
+            }
         }
 
         private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)

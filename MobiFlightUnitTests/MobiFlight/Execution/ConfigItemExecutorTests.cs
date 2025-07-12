@@ -4,6 +4,7 @@ using MobiFlight.Execution;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
 using MobiFlight.Modifier;
+using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
@@ -20,6 +21,7 @@ namespace MobiFlight.Tests
         private Mock<SimConnectCacheInterface> mockSimConnectCache;
         private Mock<XplaneCacheInterface> mockXplaneCache;
         private Mock<MobiFlightCacheInterface> mockMobiFlightCache;
+        private Mock<ProSimCacheInterface> mockProSimCache;
         private Mock<JoystickManager> mockJoystickManager;
         private Mock<MidiBoardManager> mockMidiBoardManager;
         private Mock<InputActionExecutionCache> mockInputActionExecutionCache;
@@ -35,6 +37,7 @@ namespace MobiFlight.Tests
             mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             mockXplaneCache = new Mock<XplaneCacheInterface>();
             mockMobiFlightCache = new Mock<MobiFlightCacheInterface>();
+            mockProSimCache = new Mock<ProSimCacheInterface>();
             mockJoystickManager = new Mock<JoystickManager>();
             mockMidiBoardManager = new Mock<MidiBoardManager>();
             mockInputActionExecutionCache = new Mock<InputActionExecutionCache>();
@@ -50,6 +53,7 @@ namespace MobiFlight.Tests
                 mockSimConnectCache.Object,
                 mockXplaneCache.Object,
                 mockMobiFlightCache.Object,
+                mockProSimCache.Object,
                 mockJoystickManager.Object,
                 mockMidiBoardManager.Object,
                 mockInputActionExecutionCache.Object,
@@ -142,6 +146,32 @@ namespace MobiFlight.Tests
             // Arrange
             mockXplaneCache.Setup(c => c.IsConnected()).Returns(true);
             
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            // verify that are status is cleared
+            Assert.AreEqual(1, updatedValues.Count);
+            Assert.AreEqual(0, cfg.Status.Count);
+        }
+
+        [TestMethod]
+        public void Execute_ShouldUpdateStatus_WhenProSimNotConnected()
+        {
+            // Arrange
+            var cfg = new OutputConfigItem { Active = true, Source = new ProSimSource() };
+            var updatedValues = new Dictionary<string, IConfigItem>();
+            mockProSimCache.Setup(c => c.IsConnected()).Returns(false);
+
+            // Act
+            executor.Execute(cfg, updatedValues);
+
+            // Assert
+            Assert.AreEqual("PROSIM_NOT_AVAILABLE", cfg.Status[ConfigItemStatusType.Source]);
+
+            // Arrange
+            mockProSimCache.Setup(c => c.IsConnected()).Returns(true);
+
             // Act
             executor.Execute(cfg, updatedValues);
 

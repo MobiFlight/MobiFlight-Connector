@@ -117,15 +117,48 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="proSimDatarefPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="proSimDatarefPanel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 803</value>
+  </data>
+  <data name="proSimDatarefPanel1.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>1000, 1000</value>
+  </data>
+  <data name="proSimDatarefPanel1.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>620, 400</value>
+  </data>
+  <data name="proSimDatarefPanel1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="proSimDatarefPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>683, 400</value>
+  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="proSimDatarefPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;proSimDatarefPanel1.Name" xml:space="preserve">
+    <value>proSimDatarefPanel1</value>
+  </data>
+  <data name="&gt;&gt;proSimDatarefPanel1.Type" xml:space="preserve">
+    <value>MobiFlight.UI.Panels.Config.ProSimDataRefPanel, MFConnector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;proSimDatarefPanel1.Parent" xml:space="preserve">
+    <value>fsuipcTabPage</value>
+  </data>
+  <data name="&gt;&gt;proSimDatarefPanel1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="xplaneDataRefPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="xplaneDataRefPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="xplaneDataRefPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 617</value>
   </data>
@@ -133,7 +166,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="xplaneDataRefPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 186</value>
+    <value>683, 186</value>
   </data>
   <data name="xplaneDataRefPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -148,7 +181,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;xplaneDataRefPanel1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="variablePanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -163,7 +196,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="variablePanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 95</value>
+    <value>683, 95</value>
   </data>
   <data name="variablePanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -178,7 +211,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;variablePanel1.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="simConnectPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -193,7 +226,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="simConnectPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 231</value>
+    <value>683, 231</value>
   </data>
   <data name="simConnectPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -208,7 +241,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;simConnectPanel1.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="fsuipcConfigPanel.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -226,7 +259,7 @@
     <value>550, 0</value>
   </data>
   <data name="fsuipcConfigPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 237</value>
+    <value>683, 237</value>
   </data>
   <data name="fsuipcConfigPanel.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
@@ -253,7 +286,7 @@
     <value>0, 0</value>
   </data>
   <data name="fsuipcHintLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 23</value>
+    <value>683, 23</value>
   </data>
   <data name="fsuipcHintLabel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -283,7 +316,7 @@
     <value>6, 39</value>
   </data>
   <data name="FsuipcSettingsPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 252</value>
+    <value>683, 252</value>
   </data>
   <data name="FsuipcSettingsPanel.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
@@ -298,7 +331,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;FsuipcSettingsPanel.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -453,6 +486,33 @@
   <data name="&gt;&gt;OffsetTypeXplaneRadioButton.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <data name="OffsetTypeProSimRadioButton.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="OffsetTypeProSimRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>579, 5</value>
+  </data>
+  <data name="OffsetTypeProSimRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 17</value>
+  </data>
+  <data name="OffsetTypeProSimRadioButton.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="OffsetTypeProSimRadioButton.Text" xml:space="preserve">
+    <value>ProSim DataRef</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeProSimRadioButton.Name" xml:space="preserve">
+    <value>OffsetTypeProSimRadioButton</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeProSimRadioButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeProSimRadioButton.Parent" xml:space="preserve">
+    <value>OffsetTypePanel</value>
+  </data>
+  <data name="&gt;&gt;OffsetTypeProSimRadioButton.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
   <data name="OffsetTypePanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
   </data>
@@ -460,7 +520,7 @@
     <value>6, 6</value>
   </data>
   <data name="OffsetTypePanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 33</value>
+    <value>683, 33</value>
   </data>
   <data name="OffsetTypePanel.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
@@ -475,7 +535,7 @@
     <value>fsuipcTabPage</value>
   </data>
   <data name="&gt;&gt;OffsetTypePanel.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="fsuipcTabPage.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -484,7 +544,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="fsuipcTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>664, 605</value>
+    <value>695, 601</value>
   </data>
   <data name="fsuipcTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -517,7 +577,7 @@
     <value>650, 0</value>
   </data>
   <data name="modifierPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 382</value>
+    <value>683, 378</value>
   </data>
   <data name="modifierPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -547,7 +607,7 @@
     <value>5, 0, 5, 0</value>
   </data>
   <data name="configRefPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 192</value>
+    <value>683, 192</value>
   </data>
   <data name="configRefPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -574,7 +634,7 @@
     <value>0, 3, 0, 3</value>
   </data>
   <data name="referencesGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 211</value>
+    <value>683, 211</value>
   </data>
   <data name="referencesGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -601,7 +661,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="compareTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>664, 605</value>
+    <value>695, 601</value>
   </data>
   <data name="compareTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -631,7 +691,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="displayPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 593</value>
+    <value>683, 589</value>
   </data>
   <data name="displayPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -655,7 +715,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="displayTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>664, 605</value>
+    <value>695, 601</value>
   </data>
   <data name="displayTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -685,7 +745,7 @@
     <value>4, 5, 4, 5</value>
   </data>
   <data name="preconditionPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>652, 593</value>
+    <value>683, 589</value>
   </data>
   <data name="preconditionPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -709,7 +769,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="preconditionTabPage.Size" type="System.Drawing.Size, System.Drawing">
-    <value>664, 605</value>
+    <value>695, 601</value>
   </data>
   <data name="preconditionTabPage.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -736,7 +796,7 @@
     <value>0, 0</value>
   </data>
   <data name="tabControlFsuipc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>672, 631</value>
+    <value>703, 627</value>
   </data>
   <data name="tabControlFsuipc.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -760,7 +820,7 @@
     <value>0, 0</value>
   </data>
   <data name="MainPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>672, 631</value>
+    <value>703, 627</value>
   </data>
   <data name="MainPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -784,7 +844,7 @@
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>522, 0</value>
+    <value>553, 0</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -814,7 +874,7 @@
     <value>NoControl</value>
   </data>
   <data name="cancelButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>597, 0</value>
+    <value>628, 0</value>
   </data>
   <data name="cancelButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 28</value>
@@ -844,7 +904,7 @@
     <value>0, 683</value>
   </data>
   <data name="ButtonPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>672, 28</value>
+    <value>703, 28</value>
   </data>
   <data name="ButtonPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -868,13 +928,13 @@
     <value>Bottom</value>
   </data>
   <data name="testValuePanel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 631</value>
+    <value>0, 627</value>
   </data>
   <data name="testValuePanel1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="testValuePanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>672, 52</value>
+    <value>703, 56</value>
   </data>
   <data name="testValuePanel1.TabIndex" type="System.Int32, mscorlib">
     <value>32</value>
@@ -901,7 +961,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>672, 711</value>
+    <value>703, 711</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

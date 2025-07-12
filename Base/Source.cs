@@ -1,5 +1,6 @@
 using MobiFlight.Base.Serialization.Json;
 using MobiFlight.OutputConfig;
+using MobiFlight.ProSim;
 using MobiFlight.xplane;
 using Newtonsoft.Json;
 
@@ -91,6 +92,25 @@ namespace MobiFlight.Base
         {
             return (obj != null) && (obj is XplaneSource) &&
                 this.XplaneDataRef.Equals((obj as XplaneSource).XplaneDataRef);
+        }
+    }
+
+    public class ProSimSource : Source
+    {
+        public override string SourceType => "PROSIM";
+        public ProSimDataRef ProSimDataRef { get; set; } = new ProSimDataRef();
+
+        public override object Clone()
+        {
+            return new ProSimSource
+            {
+                ProSimDataRef = (ProSimDataRef)ProSimDataRef.Clone()
+            };
+        }
+        public override bool Equals(object obj)
+        {
+            return (obj != null) && (obj is ProSimSource) &&
+                this.ProSimDataRef.Equals((obj as ProSimSource).ProSimDataRef);
         }
     }
 }

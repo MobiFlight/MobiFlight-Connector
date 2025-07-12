@@ -2,6 +2,7 @@
 using MobiFlight.Base;
 using MobiFlight.FSUIPC;
 using MobiFlight.InputConfig;
+using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
@@ -17,6 +18,7 @@ namespace MobiFlight.Execution.Tests
         private Mock<SimConnectCacheInterface> _mockSimConnectCache;
         private Mock<XplaneCache> _mockXplaneCache;
         private Mock<MobiFlightCache> _mockMobiFlightCache;
+        private Mock<ProSimCache> _mockProSimCache;
         private Mock<JoystickManager> _mockJoystickManager;
         private Mock<ArcazeCache> _mockArcazeCache;
         private List<IConfigItem> _configItems;
@@ -32,6 +34,7 @@ namespace MobiFlight.Execution.Tests
             _mockSimConnectCache = new Mock<SimConnectCacheInterface>();
             _mockXplaneCache = new Mock<XplaneCache>();
             _mockMobiFlightCache = new Mock<MobiFlightCache>();
+            _mockProSimCache = new Mock<ProSimCache>();
             _mockJoystickManager = new Mock<JoystickManager>();
             _mockArcazeCache = new Mock<ArcazeCache>();
 
@@ -59,6 +62,7 @@ namespace MobiFlight.Execution.Tests
                 _mockSimConnectCache.Object,
                 _mockXplaneCache.Object,
                 _mockMobiFlightCache.Object,
+                _mockProSimCache.Object,
                 _mockJoystickManager.Object,
                 _mockArcazeCache.Object
             );
