@@ -11,7 +11,7 @@ using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Input
 {
-    public partial class AnalogPanel : UserControl
+    public partial class AnalogPanel : UserControl, IInputPanel
     {
         public event EventHandler<EventArgs> OnPanelChanged;
         InputConfig.AnalogInputConfig _config;

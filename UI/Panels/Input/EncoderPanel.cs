@@ -13,7 +13,7 @@ using MobiFlight.UI.Panels.Action;
 
 namespace MobiFlight.UI.Panels.Input
 {
-    public partial class EncoderPanel : UserControl
+    public partial class EncoderPanel : UserControl, IInputPanel
     {
         private InputConfig.EncoderInputConfig _config;
         private IExecutionManager _executionManager;

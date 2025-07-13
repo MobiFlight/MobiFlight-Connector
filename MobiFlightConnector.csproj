@@ -658,6 +658,7 @@
     <Compile Include="UI\Panels\Input\AnalogPanel.Designer.cs">
       <DependentUpon>AnalogPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\Input\IInputPanel.cs" />
     <Compile Include="UI\Panels\LogPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
