@@ -137,6 +137,15 @@ namespace MobiFlightWwFcu
                 case WinwingConstants.PRODUCT_ID_PFP7_OBS:
                     AddCduDevice("/winwing/cdu-observer", WinwingCduType.PFP7);
                     break;
+                case WinwingConstants.PRODUCT_ID_PFP4_CPT:
+                    AddCduDevice("/winwing/cdu-captain", WinwingCduType.PFP4);
+                    break;
+                case WinwingConstants.PRODUCT_ID_PFP4_FO:
+                    AddCduDevice("/winwing/cdu-co-pilot", WinwingCduType.PFP4);
+                    break;
+                case WinwingConstants.PRODUCT_ID_PFP4_OBS:
+                    AddCduDevice("/winwing/cdu-observer", WinwingCduType.PFP4);
+                    break;
                 default:
                     break;
             }

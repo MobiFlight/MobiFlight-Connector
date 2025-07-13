@@ -402,7 +402,7 @@ namespace MobiFlightWwFcu
             MessageSender.SendDisplayCommands(ClearCommands);
         }
 
-        private void ConvertAndSendCduData1(string json)
+        private void ConvertAndSendCduDataOld(string json)
         {
             List<byte> byteList = new List<byte>();
             JObject jsonObject = JsonConvert.DeserializeObject<JObject>(json);
