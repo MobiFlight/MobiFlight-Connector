@@ -48,6 +48,9 @@ CHAR_MAP = {"#": BALLOT_BOX, "*": DEGREES}
 COLOR_MAP = {1: "w", 2: "m", 3: "g", 4: "c", 5: "e", 6: "c"}
 
 
+FONT_REQUEST = json.dumps({"Target": "Font", "Data": "Boeing"})
+
+
 class CduDevice(StrEnum):
     Captain = "cduL"
     CoPilot = "cduR"
@@ -87,6 +90,14 @@ def get_color(color: int, effect: int) -> str:
     return COLOR_MAP.get(color, "w")
 
 
+def get_size(size: int) -> int:
+    # FlightFactor's 777v2 size starts at 1
+    # 1 = large
+    # 2 = small
+    # Subtract 1 from dataref to normalize size format
+    return size - 1
+
+
 def fetch_dataref_mapping(device: CduDevice):
     with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
         response_json = json.load(response)
@@ -123,7 +134,11 @@ def generate_display_json(device: CduDevice, values: dict[str, str]):
             if char == " ":
                 continue
 
-            display_data[index] = [get_char(char), get_color(color, effect), size]
+            display_data[index] = [
+                get_char(char),
+                get_color(color, effect),
+                get_size(size),
+            ]
 
     return json.dumps({"Target": "Display", "Data": display_data})
 
@@ -227,10 +242,12 @@ async def get_available_devices() -> list[CduDevice]:
     for device in device_candidates:
         device_endpoint = device.get_endpoint()
         try:
-            async with websockets.connect(device_endpoint) as _:
+            async with websockets.connect(device_endpoint) as socket:
                 logging.info(
                     "Discovered CDU device %s at endpoint %s", device, device_endpoint
                 )
+
+                await socket.send(FONT_REQUEST)
                 available_devices.append(device)
         except websockets.WebSocketException:
             logging.warning(
