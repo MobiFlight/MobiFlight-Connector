@@ -94,7 +94,7 @@ def get_size(size: int) -> int:
     # FlightFactor's 777v2 size starts at 1
     # 1 = large
     # 2 = small
-    return int(size == 2)
+    return 1 if size == 2 else 0
 
 
 def fetch_dataref_mapping(device: CduDevice):
