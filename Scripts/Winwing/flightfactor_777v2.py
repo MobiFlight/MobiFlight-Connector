@@ -94,8 +94,7 @@ def get_size(size: int) -> int:
     # FlightFactor's 777v2 size starts at 1
     # 1 = large
     # 2 = small
-    # Subtract 1 from dataref to normalize size format
-    return size - 1
+    return int(size == 2)
 
 
 def fetch_dataref_mapping(device: CduDevice):
@@ -247,7 +246,16 @@ async def get_available_devices() -> list[CduDevice]:
                     "Discovered CDU device %s at endpoint %s", device, device_endpoint
                 )
 
-                await socket.send(FONT_REQUEST)
+                try:
+                    await socket.send(FONT_REQUEST)
+                except websockets.ConnectionClosed as e:
+                    logging.warning(
+                        "Attempt to change font on CDU device %s but request failed: %s",
+                        device,
+                        e,
+                    )
+                    continue
+
                 available_devices.append(device)
         except websockets.WebSocketException:
             logging.warning(
