@@ -11,6 +11,12 @@ import { CommandProjectToolbarPayload } from "@/types/commands"
 import { ExecutionState } from "@/types/messages"
 import IconAutoRun from "./icons/IconAutoRun"
 import TwoStateIcon from "./icons/TwoStateIcon"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip"
 
 export const ExecutionToolbar = () => {
   const { settings } = useSettingsStore()
@@ -34,50 +40,71 @@ export const ExecutionToolbar = () => {
 
   return (
     <div className="flex items-center gap-2" role="toolbar">
-      <Button
-        variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
-      >
-        {settings?.AutoRun ? (
-          <IconAutoRun className="stroke-yellow-500" />
-        ) : (
-          <IconAutoRun className="stroke-muted-foreground" />
-        )}
-      </Button>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="ghost"
+              className="text-md h-8 gap-1 p-1 [&_svg]:size-6"
+              onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
+            >
+              <IconAutoRun
+                className={
+                  settings?.AutoRun
+                    ? "stroke-yellow-500 transition-colors"
+                    : "stroke-muted-foreground transition-colors"
+                }
+              />
+              <div className="hidden lg:inline-flex">Auto</div>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{settings?.AutoRun ? "Disable Auto Run" : "Enable Auto Run"}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+
       <Button
         disabled={isTesting}
         variant="ghost"
-        className="text-md h-8 px-1 py-1 pr-2 [&_svg]:size-6 gap-1"
-        onClick={() => handleMenuItemClick({ action: !isRunning ? "run" : "stop" })}
+        className="text-md h-8 gap-1 p-1 [&_svg]:size-6"
+        onClick={() =>
+          handleMenuItemClick({ action: !isRunning ? "run" : "stop" })
+        }
       >
-        <TwoStateIcon 
-          state={ isRunning }
+        <TwoStateIcon
+          state={isRunning}
           primaryIcon={IconPlayerPlayFilled}
           secondaryIcon={IconPlayerStopFilled}
-          primaryClassName={ !isTesting ? "fill-green-600 stroke-green-600" : "fill-none stroke-2 stroke-muted-foreground" }
+          primaryClassName={
+            !isTesting
+              ? "fill-green-600 stroke-green-600"
+              : "fill-none stroke-2 stroke-muted-foreground"
+          }
           secondaryClassName="fill-red-700 stroke-red-700"
         />
-        {
-          !isRunning ? "Run" : "Stop"
-        }
+        <div className="hidden lg:inline-flex">{!isRunning ? "Run" : "Stop"}</div>
       </Button>
       <Button
         disabled={isRunning}
         variant="ghost"
-        className="text-md h-8 px-1 py-1 pr-2 [&_svg]:size-6 gap-1"
-        onClick={() => handleMenuItemClick({ action: !isTesting ? "test" : "stop" })}
+        className="text-md h-8 gap-1 p-1 [&_svg]:size-6"
+        onClick={() =>
+          handleMenuItemClick({ action: !isTesting ? "test" : "stop" })
+        }
       >
-        <TwoStateIcon 
-          state={ isTesting }
+        <TwoStateIcon
+          state={isTesting}
           primaryIcon={IconFlask}
           secondaryIcon={IconPlayerStopFilled}
-          primaryClassName="stroke-sky-600"
+          primaryClassName={
+            !isRunning
+              ? "stroke-sky-600"
+              : "fill-none stroke-2 stroke-muted-foreground"
+          }
           secondaryClassName="fill-red-700 stroke-red-700"
         />
-        {
-          !isTesting ? "Test" : "Stop"
-        }
+        <div className="hidden lg:inline-flex">{!isTesting ? "Test" : "Stop"}</div>
       </Button>
     </div>
   )

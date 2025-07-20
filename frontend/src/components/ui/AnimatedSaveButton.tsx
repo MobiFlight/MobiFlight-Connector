@@ -86,7 +86,7 @@ export const AnimatedSaveButton = ({
   const buttonContent = (
     <Button
       variant="ghost"
-      className={cn("h-8 gap-1 px-1 py-1 [&_svg]:size-6", className)}
+      className={cn("h-8 gap-1 p-1 [&_svg]:size-6", className)}
       onClick={handleSave}
       disabled={!isEnabled}
     >
