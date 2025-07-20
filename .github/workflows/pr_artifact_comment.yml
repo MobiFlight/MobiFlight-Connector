@@ -3,36 +3,20 @@ on:
   workflow_run:
     workflows: [CI Pipeline, Playwright Tests]
     types: [completed]
-  workflow_dispatch:
-    inputs:
-      pr_number:
-        description: 'Pull request number'
-        required: true
-        type: number
 
 jobs:
-  determine-pr:
-    name: Determine PR number
-    runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
-    outputs:
-      pr_number: ${{ steps.pr-number.outputs.pr_number }}
-    steps:
-      - name: Determine PR number
-        id: pr-number
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "pr_number=${{ github.event.inputs.pr_number }}" >> $GITHUB_OUTPUT
-          else
-            PR_NUM="${{ github.event.workflow_run.pull_requests[0].number || 0 }}"
-            echo "pr_number=$PR_NUM" >> $GITHUB_OUTPUT
-          fi
-
-  call-artifact-links:
+  artifacts-url-comments:
     name: Add artifact links to pull request
-    needs: determine-pr
-    uses: ./.github/workflows/add-artifact-links.yml
-    with:
-      pr_number: ${{ fromJSON(needs.determine-pr.outputs.pr_number) }}
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 14
+      - uses: tonyhallett/artifacts-url-comments@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          prefix: "Build for this pull request:"
+          format: "[MobiFlightConnector.zip]({url})"
+          addTo: pull
