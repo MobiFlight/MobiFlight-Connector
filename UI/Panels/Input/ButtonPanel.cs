@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Input
 {
-    public partial class ButtonPanel : UserControl
+    public partial class ButtonPanel : UserControl, IInputPanel
     {
         public event EventHandler<EventArgs> OnPanelChanged;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();

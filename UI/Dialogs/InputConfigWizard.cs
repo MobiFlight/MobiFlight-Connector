@@ -562,8 +562,6 @@ namespace MobiFlight.UI.Dialogs
                         {
                             Enabled = (serial != "")
                         };
-                        (panel as Panels.Input.ButtonPanel).Init(_execManager);
-                        (panel as Panels.Input.ButtonPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.ButtonPanel).syncFromConfig(config.button);
                         break;
 
@@ -572,8 +570,6 @@ namespace MobiFlight.UI.Dialogs
                         {
                             Enabled = (serial != "")
                         };
-                        (panel as Panels.Input.EncoderPanel).Init(_execManager);
-                        (panel as Panels.Input.EncoderPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.EncoderPanel).syncFromConfig(config.encoder);
                         break;
 
@@ -604,10 +600,15 @@ namespace MobiFlight.UI.Dialogs
                         {
                             Enabled = (serial != "")
                         };
-                        (panel as Panels.Input.AnalogPanel).Init(_execManager);
-                        (panel as Panels.Input.AnalogPanel).SetVariableReferences(_execManager.GetAvailableVariables());
                         (panel as Panels.Input.AnalogPanel).syncFromConfig(config.analog);
                         break;
+                }
+
+                // Initialize panels that implement IInputPanel interface
+                if (panel is IInputPanel inputPanel)
+                {
+                    inputPanel.Init(_execManager);
+                    inputPanel.SetVariableReferences(_execManager.GetAvailableVariables());
                 }
 
                 DeviceNotAvailableWarningLabel.Visible = (serial == "") && currentInputType != DeviceType.NotSet;
