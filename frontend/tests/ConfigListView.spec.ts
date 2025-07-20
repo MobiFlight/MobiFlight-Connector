@@ -440,6 +440,22 @@ test.describe('Filter toolbar tests', () => {
       await testDeviceNameFilter(deviceName, 1)
     }
   })
+
+  test("Confirm filter toolbar reset is working on Project change", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    
+    const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
+    await searchTextBox.fill("Test")
+    await expect(searchTextBox).toHaveValue("Test")
+
+    await configListPage.initWithTestDataAndSpecificProjectName("Specific Project")
+
+    await expect(searchTextBox).toHaveValue("")
+  })
 })
 
 test.describe('Controller device labels are displayed correctly', () => {

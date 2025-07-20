@@ -34,7 +34,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
+import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import {
   CommandAddConfigItem,
   CommandConfigContextMenu,
@@ -104,6 +104,15 @@ export function ConfigItemTable<TData, TValue>({
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
 
+
+  // the useCallback hook is necessary so that playwright tests work correctly
+  const handleProjectMessage = useCallback(() => {
+    console.log("Project message received, resetting filters")
+    table.resetColumnFilters()
+  }, [table])
+
+  useAppMessage("Project", handleProjectMessage)
+  
   useEffect(() => {
     console.log("added item", addedItem.current) 
   }, [addedItem])
