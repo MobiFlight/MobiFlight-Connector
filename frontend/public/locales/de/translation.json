@@ -29,6 +29,12 @@
       "Rename": "Umbennenn",
       "Remove": "Entfernen",
       "Export": "Exportieren"
+    },
+    "Toolbar" : {
+      "Save" : {
+        "HasChanges": "Änderungen speichern",
+        "NoChanges": "Keine Änderungen zum Speichern"
+      }
     }
   },
   "ConfigList": {

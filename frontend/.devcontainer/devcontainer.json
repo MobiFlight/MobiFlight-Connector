@@ -19,7 +19,8 @@
 			"extensions": [
         "bradlc.vscode-tailwindcss",
         "esbenp.prettier-vscode",
-				"ms-playwright.playwright"
+				"ms-playwright.playwright",
+        "zainzafar90.shadcn-colors"
 			]
 		}
 	},
