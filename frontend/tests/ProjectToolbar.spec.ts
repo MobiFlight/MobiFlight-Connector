@@ -11,7 +11,7 @@ test("Confirm project name can be renamed", async ({
   const projectNameLabel = page.getByTestId("project-name-label")
   await expect(projectNameLabel.getByText("Test Project")).toBeVisible()
 
-  const projectContextMenu = projectNameLabel.getByRole("button")
+  const projectContextMenu = projectNameLabel.getByRole('button', { name: 'Open menu' })
   await projectContextMenu.click()
   await page.getByRole("menuitem", { name: "Rename" }).click()
   await expect(projectNameLabel.getByRole("textbox")).toBeVisible()
