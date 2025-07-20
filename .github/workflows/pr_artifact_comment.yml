@@ -1,7 +1,7 @@
 name: Add PR Artifact Links As Comment
 on:
   workflow_run:
-    workflows: [CI Pipeline, Playwright Tests]
+    workflows: [CI Pipeline]
     types: [completed]
 
 jobs:
