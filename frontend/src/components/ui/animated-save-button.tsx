@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { IconCheck, IconDeviceFloppy } from "@tabler/icons-react"
 import { Button } from "./button"
+import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
 import { cn } from "@/lib/utils"
 
-interface AnimatedSaveButtonProps {
+interface AnimatedSaveButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick' | 'disabled'> {
   /**
    * Whether there are unsaved changes
    */
@@ -17,10 +18,6 @@ interface AnimatedSaveButtonProps {
    */
   successDuration?: number
   /**
-   * Additional CSS classes for the button
-   */
-  className?: string
-  /**
    * Whether the button is disabled
    */
   disabled?: boolean
@@ -32,6 +29,10 @@ interface AnimatedSaveButtonProps {
    * Icon to show for the success state (default: IconCheck)
    */
   successIcon?: React.ComponentType<{ className?: string }>
+  /**
+   * Tooltip content to show on hover
+   */
+  tooltip?: string | React.ReactNode
 }
 
 export const AnimatedSaveButton = ({
@@ -42,6 +43,8 @@ export const AnimatedSaveButton = ({
   disabled,
   saveIcon: SaveIcon = IconDeviceFloppy,
   successIcon: SuccessIcon = IconCheck,
+  tooltip,
+  ...props
 }: AnimatedSaveButtonProps) => {
   const [showSuccess, setShowSuccess] = useState(false)
   const [prevHasChanges, setPrevHasChanges] = useState(hasChanges)
@@ -60,12 +63,13 @@ export const AnimatedSaveButton = ({
 
   const isButtonDisabled = disabled || (!hasChanges && !showSuccess)
 
-  return (
+  const button = (
     <Button
       variant="ghost"
       className={cn("h-8 gap-1 px-1 py-1 [&_svg]:size-6", className)}
       disabled={isButtonDisabled}
       onClick={onSave}
+      {...props}
     >
       <div className="relative">
         <SaveIcon
@@ -85,4 +89,28 @@ export const AnimatedSaveButton = ({
       </div>
     </Button>
   )
+
+  // Always wrap in a container for consistent behavior
+  const container = <div className="inline-flex">{button}</div>
+
+  if (!tooltip) {
+    return container
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        {container}
+      </TooltipTrigger>
+      <TooltipContent align="start" side="bottom" className="rounded-none">
+        {typeof tooltip === "string" ? (
+          <div className="text-sm">{tooltip}</div>
+        ) : (
+          tooltip
+        )}
+      </TooltipContent>
+    </Tooltip>
+  )
 }
+
+export default AnimatedSaveButton
