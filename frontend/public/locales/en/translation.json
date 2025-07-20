@@ -33,7 +33,8 @@
     "Toolbar" : {
       "Save" : {
         "HasChanges": "Save changes",
-        "NoChanges": "No changes to save"
+        "NoChanges": "No changes to save",
+        "Success": "Saved successfully"
       }
     }
   },

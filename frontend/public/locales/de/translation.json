@@ -33,7 +33,8 @@
     "Toolbar" : {
       "Save" : {
         "HasChanges": "Änderungen speichern",
-        "NoChanges": "Keine Änderungen zum Speichern"
+        "NoChanges": "Keine Änderungen zum Speichern",
+        "Success": "Erfolgreich gespeichert"
       }
     }
   },
