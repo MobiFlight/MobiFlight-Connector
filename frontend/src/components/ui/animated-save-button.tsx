@@ -73,17 +73,17 @@ export const AnimatedSaveButton = ({
     >
       <div className="relative">
         <SaveIcon
-          className={`transition-opacity duration-300 ${
+          className={`transition-all duration-300 ${
             showSuccess
-              ? "opacity-0"
+              ? "opacity-0 scale-0 -rotate-90"
               : hasChanges
-              ? "stroke-primary opacity-100"
+              ? "stroke-primary opacity-100 scale-100 rotate-0"
               : "stroke-muted-foreground opacity-100"
           }`}
         />
         <SuccessIcon
-          className={`absolute inset-0 stroke-green-500 transition-opacity duration-300 ${
-            showSuccess ? "opacity-100" : "opacity-0"
+          className={`absolute inset-0 stroke-green-500 transition-all duration-300 ${
+            showSuccess ? "opacity-100 scale-100 -rotate-0" : "opacity-100 scale-0 rotate-180"
           }`}
         />
       </div>
