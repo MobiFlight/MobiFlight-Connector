@@ -4,7 +4,11 @@ import { Button } from "./button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./tooltip"
 import { cn } from "@/lib/utils"
 
-interface AnimatedSaveButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onClick' | 'disabled'> {
+interface AnimatedSaveButtonProps
+  extends Omit<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    "onClick" | "disabled"
+  > {
   /**
    * Whether there are unsaved changes
    */
@@ -72,18 +76,20 @@ export const AnimatedSaveButton = ({
       {...props}
     >
       <div className="relative">
+        <SuccessIcon
+          className={`absolute inset-0 stroke-green-500 transition-all duration-300 ${
+            showSuccess
+              ? "rotate-0 scale-100 opacity-100"
+              : "rotate-180 scale-0 opacity-0"
+          }`}
+        />
         <SaveIcon
           className={`transition-all duration-300 ${
             showSuccess
-              ? "opacity-0 scale-0 -rotate-90"
+              ? "-rotate-90 scale-0 opacity-0"
               : hasChanges
-              ? "stroke-primary opacity-100 scale-100 rotate-0"
-              : "stroke-muted-foreground opacity-100"
-          }`}
-        />
-        <SuccessIcon
-          className={`absolute inset-0 stroke-green-500 transition-all duration-300 ${
-            showSuccess ? "opacity-100 scale-100 -rotate-0" : "opacity-100 scale-0 rotate-180"
+                ? "scale-100 stroke-primary opacity-100"
+                : "scale-100 stroke-muted-foreground opacity-100"
           }`}
         />
       </div>
@@ -99,9 +105,7 @@ export const AnimatedSaveButton = ({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        {container}
-      </TooltipTrigger>
+      <TooltipTrigger asChild>{container}</TooltipTrigger>
       <TooltipContent align="start" side="bottom" className="rounded-none">
         {typeof tooltip === "string" ? (
           <div className="text-sm">{tooltip}</div>
