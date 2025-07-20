@@ -53,7 +53,7 @@ const ProjectNameLabel = () => {
 
   return (
     <div
-      className="flex flex-row items-center gap-2"
+      className="flex flex-row items-center gap-1 pl-1"
       data-testid="project-name-label"
     >
       {isEditing ? (
@@ -87,7 +87,7 @@ const ProjectNameLabel = () => {
       ) : (
         <span
           onClick={() => setIsEditing(true)}
-          className="cursor-pointer font-semibold"
+          className="cursor-pointer font-semibold px-2"
         >
           {projectName}
         </span>
@@ -101,7 +101,7 @@ const ProjectNameLabel = () => {
       <div className="relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 px-2">
+            <Button variant="ghost" className="h-8 w-4 px-2">
               <span className="sr-only">{t("General.Action.OpenMenu")}</span>
               <IconDotsVertical className="h-4 w-4" />
             </Button>
