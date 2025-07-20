@@ -1,6 +1,5 @@
 import { useProjectStore } from "@/stores/projectStore"
 import {
-  IconBriefcaseFilled,
   IconDotsVertical,
   IconEdit,
 } from "@tabler/icons-react"
@@ -8,7 +7,7 @@ import { useTranslation } from "react-i18next"
 import { Button } from "./ui/button"
 import { useEffect, useRef, useState } from "react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { CommandProjectToolbar } from "@/types/commands"
+import { CommandMainMenuPayload, CommandProjectToolbar } from "@/types/commands"
 import { Input } from "./ui/input"
 import {
   DropdownMenu,
@@ -16,10 +15,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
+import { AnimatedSaveButton } from "./ui/animated-save-button"
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
-  const { project } = useProjectStore()
+  const { project, hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
 
   const [projectName, setProjectName] = useState<string>(project?.Name || "")
@@ -28,7 +28,7 @@ const ProjectNameLabel = () => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // if the project updates, 
+  // if the project updates,
   // we want to update the project name
   useEffect(() => {
     if (project) {
@@ -44,9 +44,18 @@ const ProjectNameLabel = () => {
     }
   }, [isEditing])
 
+  const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
+    publish({
+      key: "CommandMainMenu",
+      payload: payload,
+    })
+  }
+
   return (
-    <div className="flex flex-row items-center gap-2" data-testid="project-name-label">
-      <IconBriefcaseFilled size={18} className="min-w-8 max-w-8 fill-primary" />
+    <div
+      className="flex flex-row items-center gap-2"
+      data-testid="project-name-label"
+    >
       {isEditing ? (
         <Input
           ref={inputRef}
@@ -76,10 +85,19 @@ const ProjectNameLabel = () => {
           }}
         />
       ) : (
-        <span onClick={() => setIsEditing(true)} className="cursor-pointer">
+        <span
+          onClick={() => setIsEditing(true)}
+          className="cursor-pointer font-semibold"
+        >
           {projectName}
         </span>
       )}
+      <AnimatedSaveButton
+        hasChanges={hasChanged}
+        onSave={() => handleMenuItemClick({ action: "file.save" })}
+        className="text-md"
+      />
+
       <div className="relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
