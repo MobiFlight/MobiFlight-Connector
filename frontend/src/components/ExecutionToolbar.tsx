@@ -1,8 +1,6 @@
 import {
   IconFlask,
-  IconPlayerPlay,
   IconPlayerPlayFilled,
-  IconPlayerStop,
   IconPlayerStopFilled,
 } from "@tabler/icons-react"
 import { Button } from "./ui/button"
@@ -12,6 +10,7 @@ import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import { CommandProjectToolbarPayload } from "@/types/commands"
 import { ExecutionState } from "@/types/messages"
 import IconAutoRun from "./icons/IconAutoRun"
+import TwoStateIcon from "./icons/TwoStateIcon"
 
 export const ExecutionToolbar = () => {
   const { settings } = useSettingsStore()
@@ -47,52 +46,38 @@ export const ExecutionToolbar = () => {
         )}
       </Button>
       <Button
+        disabled={isTesting}
         variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        disabled={isRunning || isTesting}
-        onClick={() => handleMenuItemClick({ action: "run" })}
+        className="text-md h-8 px-1 py-1 pr-2 [&_svg]:size-6 gap-1"
+        onClick={() => handleMenuItemClick({ action: !isRunning ? "run" : "stop" })}
       >
-        {isRunning ? (
-          <IconPlayerPlayFilled className="fill-green-600 stroke-green-600" />
-        ) : (
-          <IconPlayerPlay className="stroke-green-600" />
-        )}
-        Run
+        <TwoStateIcon 
+          state={ isRunning }
+          primaryIcon={IconPlayerPlayFilled}
+          secondaryIcon={IconPlayerStopFilled}
+          primaryClassName={ !isTesting ? "fill-green-600 stroke-green-600" : "fill-none stroke-2 stroke-muted-foreground" }
+          secondaryClassName="fill-red-700 stroke-red-700"
+        />
+        {
+          !isRunning ? "Run" : "Stop"
+        }
       </Button>
       <Button
+        disabled={isRunning}
         variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        disabled={isRunning || isTesting}
-        onClick={() => handleMenuItemClick({ action: "test" })}
+        className="text-md h-8 px-1 py-1 pr-2 [&_svg]:size-6 gap-1"
+        onClick={() => handleMenuItemClick({ action: !isTesting ? "test" : "stop" })}
       >
-        {isTesting ? (
-          <>
-          <IconPlayerStopFilled className="transition-scale transition-opacity fill-red-700 stroke-red-700" />
-          Stop
-          </>
-        ) : (
-          <>
-          <IconPlayerStopFilled className="transition-scale transition-opacity fill-red-700 stroke-red-700" />
-          <IconFlask className="stroke-sky-600" />
-          Test
-          </>
-        )}
-        
-      </Button>
-      <Button
-        variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        disabled={!isRunning && !isTesting}
-        onClick={() => handleMenuItemClick({ action: "stop" })}
-      >
-        {isRunning || isTesting ? (
-          <IconPlayerStopFilled className="fill-red-700 stroke-red-700" />
-        ) : (
-          <IconPlayerStop className="stroke-muted-foreground" />
-        )}
-        <div className={isRunning || isTesting ? "" : "text-muted-foreground"}>
-          Stop
-        </div>
+        <TwoStateIcon 
+          state={ isTesting }
+          primaryIcon={IconFlask}
+          secondaryIcon={IconPlayerStopFilled}
+          primaryClassName="stroke-sky-600"
+          secondaryClassName="fill-red-700 stroke-red-700"
+        />
+        {
+          !isTesting ? "Test" : "Stop"
+        }
       </Button>
     </div>
   )
