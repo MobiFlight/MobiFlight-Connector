@@ -1,6 +1,5 @@
 import {
-  IconBulb,
-  IconBulbFilled,
+  IconFlask,
   IconPlayerPlay,
   IconPlayerPlayFilled,
   IconPlayerStop,
@@ -12,6 +11,7 @@ import { useSettingsStore } from "@/stores/settingsStore"
 import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import { CommandProjectToolbarPayload } from "@/types/commands"
 import { ExecutionState } from "@/types/messages"
+import IconAutoRun from "./icons/IconAutoRun"
 
 export const ExecutionToolbar = () => {
   const { settings } = useSettingsStore()
@@ -41,11 +41,10 @@ export const ExecutionToolbar = () => {
         onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
       >
         {settings?.AutoRun ? (
-          <IconBulbFilled className="stroke-yellow-500 fill-yellow-500" />
+          <IconAutoRun className="stroke-yellow-500" />
         ) : (
-          <IconBulb className="stroke-gray-500" />
+          <IconAutoRun className="stroke-muted-foreground" />
         )}
-        AutoRun
       </Button>
       <Button
         variant="ghost"
@@ -67,11 +66,18 @@ export const ExecutionToolbar = () => {
         onClick={() => handleMenuItemClick({ action: "test" })}
       >
         {isTesting ? (
-          <IconPlayerPlayFilled className="fill-sky-600 stroke-sky-600" />
+          <>
+          <IconPlayerStopFilled className="transition-scale transition-opacity fill-red-700 stroke-red-700" />
+          Stop
+          </>
         ) : (
-          <IconPlayerPlay className="stroke-sky-600" />
+          <>
+          <IconPlayerStopFilled className="transition-scale transition-opacity fill-red-700 stroke-red-700" />
+          <IconFlask className="stroke-sky-600" />
+          Test
+          </>
         )}
-        Test
+        
       </Button>
       <Button
         variant="ghost"
