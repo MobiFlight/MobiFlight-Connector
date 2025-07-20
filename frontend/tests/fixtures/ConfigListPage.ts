@@ -43,6 +43,19 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
+  async initWithTestDataAndSpecificProjectName(name: string) {
+    const testProjectWithName = {
+      ...testProject,
+      Name: name,
+    }
+
+    const message: AppMessage = {
+      key: "Project",
+      payload: testProjectWithName
+    }
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
   async initControllerDefinitions() {
     const message: AppMessage = {
       key: "JoystickDefinitions",

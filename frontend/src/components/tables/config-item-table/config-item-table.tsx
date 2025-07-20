@@ -104,10 +104,15 @@ export function ConfigItemTable<TData, TValue>({
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
 
-  useAppMessage("Project", () => {
-    table.getColumn("Name")?.setFilterValue("")
-  })
 
+  // the useCallback hook is necessary so that playwright tests work correctly
+  const handleProjectMessage = useCallback(() => {
+    console.log("Project message received, resetting filters")
+    table.resetColumnFilters()
+  }, [table])
+
+  useAppMessage("Project", handleProjectMessage)
+  
   useEffect(() => {
     console.log("added item", addedItem.current) 
   }, [addedItem])
