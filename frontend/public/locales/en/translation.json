@@ -29,6 +29,12 @@
       "Rename": "Rename",
       "Remove": "Remove",
       "Export": "Export"
+    },
+    "Toolbar" : {
+      "Save" : {
+        "HasChanges": "Save changes",
+        "NoChanges": "No changes to save"
+      }
     }
   },
   "ConfigList": {

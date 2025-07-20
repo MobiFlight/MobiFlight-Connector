@@ -96,7 +96,7 @@ const ProjectNameLabel = () => {
         hasChanges={hasChanged}
         onSave={() => handleMenuItemClick({ action: "file.save" })}
         className="text-md"
-        tooltip={hasChanged ? t("Project.File.Action.Save") : t("Project.File.Action.NoChanges")}
+        tooltip={hasChanged ? t("Project.Toolbar.Save.HasChanges") : t("Project.Toolbar.Save.NoChanges")}
       />
 
       <div className="relative">

@@ -29,6 +29,12 @@
       "Rename": "Renombrar",
       "Remove": "Remover",
       "Export": "Exportar"
+    },
+    "Toolbar" : {
+      "Save" : {
+        "HasChanges": "Guardar cambios",
+        "NoChanges": "No hay cambios para guardar"
+      }
     }
   },
   "ConfigList": {
