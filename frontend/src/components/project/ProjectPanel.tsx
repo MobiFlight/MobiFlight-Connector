@@ -88,7 +88,7 @@ const ProjectPanel = () => {
         <ExecutionToolbar />
       </div>
 
-      <div className="flex flex-row items-end gap-0 rounded-md" role="tablist">
+      <div className="flex flex-row items-center gap-0 rounded-md" role="tablist">
         {configFiles?.map((file, index) => {
           return (
             <FileButton
