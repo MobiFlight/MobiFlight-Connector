@@ -450,5 +450,46 @@ namespace MobiFlight.Tests
 
             Assert.AreEqual(simConnectAircraftName, eventAircraftName);
         }
+
+        [TestMethod]
+        public void mobiFlightCache_OnButtonPressed_LogMessageForInputEventPresent()
+        {
+            // Arrange
+            var mockLogAppender = new Mock<ILogAppender>();
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(mockLogAppender.Object);
+            Log.Instance.Enabled = true;
+            Log.Instance.Severity = LogSeverity.Info;
+
+            // Create test input event args
+            var inputEventArgs = new InputEventArgs
+            {
+                Serial = "SN-000-001",
+                DeviceId = "TestDevice",
+                DeviceLabel = "Test Button",
+                Name = "TestButton",
+                Type = DeviceType.Button,
+                ExtPin = 1,
+                Value = 1
+            };
+
+            var expectedLogMessage = $"{inputEventArgs.GetMsgEventLabel()}";
+
+            // Use reflection to get the private method
+            var methodInfo = typeof(ExecutionManager).GetMethod("mobiFlightCache_OnButtonPressed",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            Assert.IsNotNull(methodInfo, "mobiFlightCache_OnButtonPressed method should exist");
+
+            // Act
+            methodInfo.Invoke(_executionManager, new object[] { _mockXplaneCache.Object, inputEventArgs });
+
+            // Assert
+            mockLogAppender.Verify(
+                appender => appender.log(expectedLogMessage, LogSeverity.Info),
+                Times.Once,
+                "Expected log message should be logged once with Info severity"
+            );
+        }
     }
 }

@@ -1201,7 +1201,7 @@ namespace MobiFlight
 
             if (LogIfNotJoystickAxisOrJoystickAxisEnabled(e.Serial, e.Type))
             {
-                Log.Instance.log(msgEventLabel, LogSeverity.Debug);
+                Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
                 
             foreach (var executor in _inputEventExecutors.Values)
