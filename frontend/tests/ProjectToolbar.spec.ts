@@ -51,7 +51,7 @@ test.describe("Test execution toolbar", () => {
     configListPage
   }) => {
     await configListPage.mobiFlightPage.trackCommand("CommandProjectToolbar")
-    const autoRunButton = toolbar.getByRole("button", { name: "AutoRun" })
+    const autoRunButton = toolbar.getByRole("button", { name: "Auto" })
     await expect(autoRunButton).toBeVisible()
     await autoRunButton.click()
     const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
@@ -67,6 +67,7 @@ test.describe("Test execution toolbar", () => {
     const runButton = toolbar.getByRole("button", { name: "Run", exact: true })
     await expect(runButton).toBeVisible()
     await runButton.click()
+    
     const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandProjectToolbar")
@@ -79,10 +80,13 @@ test.describe("Test execution toolbar", () => {
       RunAvailable: false,
       TestAvailable: false,
     })
-
-    await expect(runButton).toBeDisabled()
+    await expect(runButton).not.toBeVisible()
+    
     const stopButton = toolbar.getByRole("button", { name: "Stop" })
-    await expect(stopButton).toBeEnabled()
+    await expect(stopButton).toBeVisible()
+
+    const testButton = toolbar.getByRole("button", { name: "Test" })
+    await expect(testButton).toBeDisabled()
   })
 
   test("Confirm Test works correctly", async ({
@@ -105,9 +109,12 @@ test.describe("Test execution toolbar", () => {
       TestAvailable: false,
     })
 
-    await expect(testButton).toBeDisabled()
+    await expect(testButton).not.toBeVisible()
     const stopButton = toolbar.getByRole("button", { name: "Stop" })
-    await expect(stopButton).toBeEnabled()
+    await expect(stopButton).toBeVisible()
+
+    const runButton = toolbar.getByRole("button", { name: "Run" })
+    await expect(runButton).toBeDisabled()
   })
 
   test("Confirm Stop works correctly", async ({
@@ -115,9 +122,8 @@ test.describe("Test execution toolbar", () => {
   }) => {
     await configListPage.mobiFlightPage.trackCommand("CommandProjectToolbar")
     const stopButton = toolbar.getByRole("button", { name: "Stop" })
-    await expect(stopButton).toBeVisible()
-    await expect(stopButton).toBeDisabled()
-
+    await expect(stopButton).not.toBeVisible()
+    
     // Simulate that the config is running
     await configListPage.updateExecutionState({
       IsRunning: true,
@@ -125,8 +131,8 @@ test.describe("Test execution toolbar", () => {
       RunAvailable: false,
       TestAvailable: false,
     })
-
-    await expect(stopButton).toBeEnabled()
+    
+    await expect(stopButton).toBeVisible()
     await stopButton.click()
     const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
     const lastCommand = postedCommands!.pop()

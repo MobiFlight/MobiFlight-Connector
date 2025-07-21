@@ -15,7 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
-import { AnimatedSaveButton } from "./ui/animated-save-button"
+import { AnimatedSaveButton } from "./ui/AnimatedSaveButton"
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
@@ -93,10 +93,12 @@ const ProjectNameLabel = () => {
         </span>
       )}
       <AnimatedSaveButton
-        hasChanges={hasChanged}
+        hasChanged={hasChanged}
         onSave={() => handleMenuItemClick({ action: "file.save" })}
         className="text-md"
-        tooltip={hasChanged ? t("Project.Toolbar.Save.HasChanges") : t("Project.Toolbar.Save.NoChanges")}
+        saveTooltip={t("Project.Toolbar.Save.HasChanges")}
+        successTooltip={t("Project.Toolbar.Save.Success")}
+        noChangesTooltip={t("Project.Toolbar.Save.NoChanges")}
       />
 
       <div className="relative">

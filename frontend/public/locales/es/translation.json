@@ -33,7 +33,29 @@
     "Toolbar" : {
       "Save" : {
         "HasChanges": "Guardar cambios",
-        "NoChanges": "No hay cambios para guardar"
+        "NoChanges": "No hay cambios para guardar",
+        "Success": "Cambios guardados con éxito"
+      }
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Activar ejecución automática",
+        "Disable": "Desactivar ejecución automática"
+      },
+      "Run": {
+        "Label": "Ejecutar",
+        "Stop": "Parar",
+        "Start": "Iniciar modo de ejecución y procesar todas las configuraciones",
+        "StopMode": "Parar modo de ejecución",
+        "BlockedByTest": "Modo de prueba activo. Páralo primero."
+      },
+      "Test": {
+        "Label": "Probar",
+        "Stop": "Parar",
+        "Start": "Iniciar modo de prueba y probar todas las configuraciones", 
+        "StopMode": "Parar ejecución del modo de prueba",
+        "BlockedByRun": "Modo de ejecución activo. Páralo primero."
       }
     }
   },

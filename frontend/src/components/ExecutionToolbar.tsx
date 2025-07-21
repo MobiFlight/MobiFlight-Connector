@@ -1,9 +1,6 @@
 import {
-  IconBulb,
-  IconBulbFilled,
-  IconPlayerPlay,
+  IconFlask,
   IconPlayerPlayFilled,
-  IconPlayerStop,
   IconPlayerStopFilled,
 } from "@tabler/icons-react"
 import { Button } from "./ui/button"
@@ -12,8 +9,13 @@ import { useSettingsStore } from "@/stores/settingsStore"
 import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import { CommandProjectToolbarPayload } from "@/types/commands"
 import { ExecutionState } from "@/types/messages"
+import IconAutoRun from "./icons/IconAutoRun"
+import TwoStateIcon from "./icons/TwoStateIcon"
+import ToolTip from "./ToolTip"
+import { useTranslation } from "react-i18next"
 
 export const ExecutionToolbar = () => {
+  const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { isRunning, isTesting, setIsRunning, setIsTesting } =
     useExecutionStateStore()
@@ -35,59 +37,93 @@ export const ExecutionToolbar = () => {
 
   return (
     <div className="flex items-center gap-2" role="toolbar">
-      <Button
-        variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
+      <ToolTip
+        content={settings?.AutoRun ? t("Project.Execution.AutoRun.Disable") : t("Project.Execution.AutoRun.Enable")}
       >
-        {settings?.AutoRun ? (
-          <IconBulbFilled className="stroke-yellow-500 fill-yellow-500" />
-        ) : (
-          <IconBulb className="stroke-gray-500" />
-        )}
-        AutoRun
-      </Button>
-      <Button
-        variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        disabled={isRunning || isTesting}
-        onClick={() => handleMenuItemClick({ action: "run" })}
+        <Button
+          variant="ghost"
+          className="text-md h-8 gap-1 p-1 [&_svg]:size-6"
+          onClick={() => handleMenuItemClick({ action: "toggleAutoRun" })}
+        >
+          <IconAutoRun
+            className={
+              settings?.AutoRun
+                ? "stroke-yellow-500 transition-colors"
+                : "stroke-muted-foreground transition-colors"
+            }
+          />
+          <div className="hidden lg:inline-flex pr-1">{t("Project.Execution.AutoRun.Label")}</div>
+        </Button>
+      </ToolTip>
+
+      <ToolTip
+        content={
+          isRunning
+            ? t("Project.Execution.Run.StopMode")
+            : isTesting
+              ? t("Project.Execution.Run.BlockedByTest")
+              : t("Project.Execution.Run.Start")
+        }
       >
-        {isRunning ? (
-          <IconPlayerPlayFilled className="fill-green-600 stroke-green-600" />
-        ) : (
-          <IconPlayerPlay className="stroke-green-600" />
-        )}
-        Run
-      </Button>
-      <Button
-        variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        disabled={isRunning || isTesting}
-        onClick={() => handleMenuItemClick({ action: "test" })}
-      >
-        {isTesting ? (
-          <IconPlayerPlayFilled className="fill-sky-600 stroke-sky-600" />
-        ) : (
-          <IconPlayerPlay className="stroke-sky-600" />
-        )}
-        Test
-      </Button>
-      <Button
-        variant="ghost"
-        className="text-md h-8 px-1 py-1 [&_svg]:size-6 gap-1"
-        disabled={!isRunning && !isTesting}
-        onClick={() => handleMenuItemClick({ action: "stop" })}
-      >
-        {isRunning || isTesting ? (
-          <IconPlayerStopFilled className="fill-red-700 stroke-red-700" />
-        ) : (
-          <IconPlayerStop className="stroke-muted-foreground" />
-        )}
-        <div className={isRunning || isTesting ? "" : "text-muted-foreground"}>
-          Stop
+        <div className="inline-flex">
+          <Button
+            disabled={isTesting}
+            variant="ghost"
+            className="text-md h-8 gap-1 p-1 [&_svg]:size-6"
+            onClick={() =>
+              handleMenuItemClick({ action: !isRunning ? "run" : "stop" })
+            }
+          >
+            <TwoStateIcon
+              state={isRunning}
+              primaryIcon={IconPlayerPlayFilled}
+              secondaryIcon={IconPlayerStopFilled}
+              primaryClassName={
+                !isTesting
+                  ? "fill-green-600 stroke-green-600"
+                  : "fill-none stroke-2 stroke-muted-foreground"
+              }
+              secondaryClassName="fill-red-700 stroke-red-700"
+            />
+            <div className="hidden lg:inline-flex pr-1">
+              {!isRunning ? t("Project.Execution.Run.Label") : t("Project.Execution.Run.Stop")}
+            </div>
+          </Button>
         </div>
-      </Button>
+      </ToolTip>
+
+      <ToolTip
+        content={isTesting
+              ? t("Project.Execution.Test.StopMode")
+              : isRunning
+                ? t("Project.Execution.Test.BlockedByRun")
+                : t("Project.Execution.Test.Start")}>
+          <div className="inline-flex">
+            <Button
+              disabled={isRunning}
+              variant="ghost"
+              className="text-md h-8 gap-1 p-1 [&_svg]:size-6"
+              onClick={() =>
+                handleMenuItemClick({ action: !isTesting ? "test" : "stop" })
+              }
+            >
+              <TwoStateIcon
+                state={isTesting}
+                primaryIcon={IconFlask}
+                secondaryIcon={IconPlayerStopFilled}
+                primaryClassName={
+                  !isRunning
+                    ? "stroke-sky-600"
+                    : "fill-none stroke-2 stroke-muted-foreground"
+                }
+                secondaryClassName="fill-red-700 stroke-red-700"
+              />
+              <div className="hidden lg:inline-flex pr-1">
+                {!isTesting ? t("Project.Execution.Test.Label") : t("Project.Execution.Test.Stop")}
+              </div>
+            </Button>
+          </div>
+      </ToolTip>
     </div>
   )
 }

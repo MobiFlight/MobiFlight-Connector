@@ -33,7 +33,29 @@
     "Toolbar" : {
       "Save" : {
         "HasChanges": "Änderungen speichern",
-        "NoChanges": "Keine Änderungen zum Speichern"
+        "NoChanges": "Keine Änderungen zum Speichern",
+        "Success": "Erfolgreich gespeichert"
+      }
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Automatischen Lauf aktivieren",
+        "Disable": "Automatischen Lauf deaktivieren"
+      },
+      "Run": {
+        "Label": "Start",
+        "Stop": "Stopp",
+        "Start": "Starten und alle Konfigurationen ausführen",
+        "StopMode": "Ausführungsmodus stoppen",
+        "BlockedByTest": "Testmodus ist aktiv. Stoppe ihn zuerst."
+      },
+      "Test": {
+        "Label": "Test",
+        "Stop": "Stopp", 
+        "Start": "Testmodus starten und alle Konfigurationen testen",
+        "StopMode": "Testmodus-Ausführung stoppen",
+        "BlockedByRun": "Ausführungsmodus ist aktiv. Stoppe ihn zuerst."
       }
     }
   },
