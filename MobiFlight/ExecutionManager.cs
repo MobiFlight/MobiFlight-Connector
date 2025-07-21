@@ -100,11 +100,11 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
-        public List<IConfigItem> ConfigItems { 
-            get { 
-                return _project.ConfigFiles.Count > ActiveConfigIndex 
-                    ? _project.ConfigFiles[ActiveConfigIndex].ConfigItems 
-                    : new List<IConfigItem>(); } 
+        public List<IConfigItem> ConfigItems {
+            get {
+                return _project.ConfigFiles.Count > ActiveConfigIndex
+                    ? _project.ConfigFiles[ActiveConfigIndex].ConfigItems
+                    : new List<IConfigItem>(); }
         }
 
         private Project _project = new Project();
@@ -170,7 +170,7 @@ namespace MobiFlight
             this.xplaneCache.Connected += new EventHandler(simConnect_Connected);
             this.xplaneCache.Closed += new EventHandler(simConnect_Closed);
             this.xplaneCache.AircraftChanged += new EventHandler<string>(sim_AircraftChanged);
-            
+
             this.proSimCache.ConnectionLost += new EventHandler(proSim_ConnectionLost);
             this.proSimCache.Connected += new EventHandler(proSim_Connected);
             this.proSimCache.Closed += new EventHandler(proSim_Closed);
@@ -438,7 +438,7 @@ namespace MobiFlight
 
             MessageExchange.Instance.Subscribe<CommandFileContextMenu>((message) =>
             {
-                if (message.Index>=Project.ConfigFiles.Count)
+                if (message.Index >= Project.ConfigFiles.Count)
                 {
                     Log.Instance.log($"Command {message.Action} - Index not found: {message.Index}", LogSeverity.Error);
                     return;
@@ -780,7 +780,7 @@ namespace MobiFlight
             fsuipcCache.Disconnect();
 
             simConnectCache.Disconnect();
-            
+
             if (Properties.Settings.Default.EnableJoystickSupport)
             {
                 joystickManager.Shutdown();
@@ -964,7 +964,7 @@ namespace MobiFlight
             }
 
             var maxRetries = Properties.Settings.Default.ProSimMaxRetryAttempts;
-            
+
             if (_proSimConnectionAttempts < maxRetries)
             {
                 // Only log if no other sim connections are active to avoid spam
@@ -1122,7 +1122,7 @@ namespace MobiFlight
                     OnTestModeException(ex, new EventArgs());
                 }
             }
-            
+
             if (!currentConfig.Status.ContainsKey(ConfigItemStatusType.Test))
             {
                 try
@@ -1187,12 +1187,23 @@ namespace MobiFlight
             MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
         }
 
+        private bool LogIfNotJoystickAxisOrJoystickAxisEnabled(String Serial, DeviceType type)
+        {
+            return (!Joystick.IsJoystickSerial(Serial) || 
+                     (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis)));
+        }
+
 #if MOBIFLIGHT
         void mobiFlightCache_OnButtonPressed(object sender, InputEventArgs e)
         {
-            var msgEventLabel = $"{e.Name} => {e.DeviceLabel}";
             var updatedInputValues = new Dictionary<string, IConfigItem>();
+            var msgEventLabel = e.GetMsgEventLabel();
 
+            if (LogIfNotJoystickAxisOrJoystickAxisEnabled(e.Serial, e.Type))
+            {
+                Log.Instance.log(msgEventLabel, LogSeverity.Info);
+            }
+                
             foreach (var executor in _inputEventExecutors.Values)
             {
                 try
@@ -1202,7 +1213,7 @@ namespace MobiFlight
                 }
                 catch (Exception ex)
                 {
-                    Log.Instance.log($"Error during input event execution: {ex.Message} - {e.DeviceId} => {e.DeviceLabel} ({e.Type})", LogSeverity.Error);
+                    Log.Instance.log($"Error during input event execution: {ex.Message} - {msgEventLabel}", LogSeverity.Error);
                 }
             }
 

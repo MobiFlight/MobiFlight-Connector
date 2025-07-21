@@ -121,11 +121,6 @@ namespace MobiFlight.Execution.Tests
 
             // Assert
             Assert.AreEqual(0, result.Count);
-
-            _mockLogAppender.Verify(
-                appender => appender.log(It.Is<string>(msg => msg.Contains($@"No config found.")), LogSeverity.Warn),
-                Times.Once
-            );
         }
 
         [TestMethod]

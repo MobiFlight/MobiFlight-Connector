@@ -16,6 +16,31 @@ namespace MobiFlight
 
         public readonly DateTime Time = DateTime.Now;
 
+        public string GetEventActionLabel()
+        {
+            switch (Type)
+            {
+                case DeviceType.Button:
+                    return MobiFlightButton.InputEventIdToString(Value);
+                case DeviceType.Encoder:
+                    return MobiFlightEncoder.InputEventIdToString(Value);
+                case DeviceType.InputShiftRegister:
+                    return MobiFlightInputShiftRegister.InputEventIdToString(Value);
+                case DeviceType.InputMultiplexer:
+                    return MobiFlightInputMultiplexer.InputEventIdToString(Value);
+                case DeviceType.AnalogInput:
+                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {Value}";
+                default:
+                    return "n/a";
+            }
+        }
+
+        public string GetMsgEventLabel()
+        {
+            var eventAction = GetEventActionLabel();
+            return $"{Name} => {DeviceLabel} {(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
+        }
+
         public object Clone()
         {
             InputEventArgs clone = new InputEventArgs();
