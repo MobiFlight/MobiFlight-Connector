@@ -12,8 +12,10 @@ import { ExecutionState } from "@/types/messages"
 import IconAutoRun from "./icons/IconAutoRun"
 import TwoStateIcon from "./icons/TwoStateIcon"
 import ToolTip from "./ToolTip"
+import { useTranslation } from "react-i18next"
 
 export const ExecutionToolbar = () => {
+  const { t } = useTranslation()
   const { settings } = useSettingsStore()
   const { isRunning, isTesting, setIsRunning, setIsTesting } =
     useExecutionStateStore()
@@ -36,7 +38,7 @@ export const ExecutionToolbar = () => {
   return (
     <div className="flex items-center gap-2" role="toolbar">
       <ToolTip
-        content={settings?.AutoRun ? "Disable Auto Run" : "Enable Auto Run"}
+        content={settings?.AutoRun ? t("Project.Execution.AutoRun.Disable") : t("Project.Execution.AutoRun.Enable")}
       >
         <Button
           variant="ghost"
@@ -50,17 +52,17 @@ export const ExecutionToolbar = () => {
                 : "stroke-muted-foreground transition-colors"
             }
           />
-          <div className="hidden lg:inline-flex pr-1">Auto</div>
+          <div className="hidden lg:inline-flex pr-1">{t("Project.Execution.AutoRun.Label")}</div>
         </Button>
       </ToolTip>
 
       <ToolTip
         content={
           isRunning
-            ? "Stop run mode"
+            ? t("Project.Execution.Run.StopMode")
             : isTesting
-              ? "Test mode active. Stop it first."
-              : "Start run mode and process all configs"
+              ? t("Project.Execution.Run.BlockedByTest")
+              : t("Project.Execution.Run.Start")
         }
       >
         <div className="inline-flex">
@@ -84,7 +86,7 @@ export const ExecutionToolbar = () => {
               secondaryClassName="fill-red-700 stroke-red-700"
             />
             <div className="hidden lg:inline-flex pr-1">
-              {!isRunning ? "Run" : "Stop"}
+              {!isRunning ? t("Project.Execution.Run.Label") : t("Project.Execution.Run.Stop")}
             </div>
           </Button>
         </div>
@@ -92,10 +94,10 @@ export const ExecutionToolbar = () => {
 
       <ToolTip
         content={isTesting
-              ? "Stop test mode execution"
+              ? t("Project.Execution.Test.StopMode")
               : isRunning
-                ? "Run mode active. Stop it first."
-                : "Start test mode and test all configs"}>
+                ? t("Project.Execution.Test.BlockedByRun")
+                : t("Project.Execution.Test.Start")}>
           <div className="inline-flex">
             <Button
               disabled={isRunning}
@@ -117,7 +119,7 @@ export const ExecutionToolbar = () => {
                 secondaryClassName="fill-red-700 stroke-red-700"
               />
               <div className="hidden lg:inline-flex pr-1">
-                {!isTesting ? "Test" : "Stop"}
+                {!isTesting ? t("Project.Execution.Test.Label") : t("Project.Execution.Test.Stop")}
               </div>
             </Button>
           </div>

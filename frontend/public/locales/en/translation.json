@@ -36,6 +36,27 @@
         "NoChanges": "No changes to save",
         "Success": "Saved successfully"
       }
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Enable Auto Run",
+        "Disable": "Disable Auto Run"
+      },
+      "Run": {
+        "Label": "Run",
+        "Stop": "Stop",
+        "Start": "Start run mode and process all configs",
+        "StopMode": "Stop run mode",
+        "BlockedByTest": "Test mode active. Stop it first."
+      },
+      "Test": {
+        "Label": "Test", 
+        "Stop": "Stop",
+        "Start": "Start test mode and test all configs",
+        "StopMode": "Stop test mode execution",
+        "BlockedByRun": "Run mode active. Stop it first."
+      }
     }
   },
   "ConfigList": {
