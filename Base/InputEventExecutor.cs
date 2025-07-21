@@ -53,9 +53,8 @@ namespace MobiFlight.Execution
         public Dictionary<string, IConfigItem> Execute(InputEventArgs e, bool isStarted)
         {
             var updatedValues = new Dictionary<string, IConfigItem>();
-            string inputKey = CreateInputKey(e);
-            string eventAction = GetEventAction(e);
-            var msgEventLabel = $"{e.Name} => {e.DeviceLabel} {(e.ExtPin.HasValue ? $":{e.ExtPin}" : "")} => {eventAction}";
+            string inputKey = CreateInputKey(e);            
+            var msgEventLabel = e.GetMsgEventLabel();
 
             if (!inputCache.ContainsKey(inputKey))
             {
@@ -63,7 +62,7 @@ namespace MobiFlight.Execution
             }
 
             if (inputCache[inputKey].Count == 0)
-            {               
+            {                
                 return updatedValues;
             }
 
@@ -91,9 +90,9 @@ namespace MobiFlight.Execution
                         continue;
                     }
 
-                    Log.Instance.log($"{e.Name} => Executing \"{cfg.Name}\". ({eventAction})", LogSeverity.Info);
+                    Log.Instance.log($"{e.Name} => Executing \"{cfg.Name}\". ({e.GetEventActionLabel()})", LogSeverity.Info);
 
-                    cfg.RawValue = eventAction;
+                    cfg.RawValue = e.GetEventActionLabel();
                     cfg.Value = " ";
                     updatedValues[cfg.GUID] = cfg;
                     var references = ResolveReferences(cfg.ConfigRefs);
@@ -117,25 +116,6 @@ namespace MobiFlight.Execution
                 result += e.ExtPin.Value.ToString();
             }
             return result;
-        }
-
-        private string GetEventAction(InputEventArgs e)
-        {
-            switch (e.Type)
-            {
-                case DeviceType.Button:
-                    return MobiFlightButton.InputEventIdToString(e.Value);
-                case DeviceType.Encoder:
-                    return MobiFlightEncoder.InputEventIdToString(e.Value);
-                case DeviceType.InputShiftRegister:
-                    return MobiFlightInputShiftRegister.InputEventIdToString(e.Value);
-                case DeviceType.InputMultiplexer:
-                    return MobiFlightInputMultiplexer.InputEventIdToString(e.Value);
-                case DeviceType.AnalogInput:
-                    return $"{MobiFlightAnalogInput.InputEventIdToString(0)} => {e.Value}";
-                default:
-                    return "n/a";
-            }
         }
 
         private List<InputConfigItem> GetMatchingInputConfigs(InputEventArgs e)
@@ -233,12 +213,6 @@ namespace MobiFlight.Execution
                 proSimCache = _proSimCache,
                 joystickManager = _joystickManager
             };
-        }
-
-        private bool LogIfNotJoystickOrJoystickAxisEnabled(String Serial, DeviceType type)
-        {
-            return !Joystick.IsJoystickSerial(Serial) ||
-                    (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis));
         }
     }
 }
