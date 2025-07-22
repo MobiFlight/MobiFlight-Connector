@@ -79,16 +79,16 @@ const ProjectPanel = () => {
 
   return (
     <div
-      className="flex flex-row gap-2 pb-0 pl-0 pr-2 pt-1"
+      className="border-b-solid flex flex-row gap-2 border-b border-b-muted-foreground/50 pb-0 pl-0 pr-2 pt-1"
       data-testid="project-panel"
     >
-      <div className="flex flex-row items-center rounded-md border border-solid border-muted-foreground/50 px-2">
+      <div className="flex flex-row items-center rounded-md rounded-bl-none rounded-br-none border border-b-0 border-solid border-muted-foreground/50 px-2">
         <ProjectNameLabel />
         <IconMinusVertical className="stroke-muted-foreground/50" />
         <ExecutionToolbar />
       </div>
 
-      <div className="flex flex-row items-end gap-0 rounded-md border-b border-muted-foreground/50" role="tablist">
+      <div className="flex flex-row items-end gap-0 rounded-md" role="tablist">
         {configFiles?.map((file, index) => {
           return (
             <FileButton
