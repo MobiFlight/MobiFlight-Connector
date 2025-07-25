@@ -10,8 +10,8 @@
     "Config": {
       "Pins": [
         "Data",
-        "CS",
-        "CLK"
+        "CLK",
+        "CS"
       ],
       "isI2C": false
     },
