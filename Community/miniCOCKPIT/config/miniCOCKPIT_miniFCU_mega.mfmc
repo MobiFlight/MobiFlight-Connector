@@ -5,38 +5,76 @@
   <PowerSavingTime>600</PowerSavingTime>
   <Output Name="AP1" Pin="58" />
   <Output Name="AP2" Pin="59" />
-  <Button Name="AP1 Button" Pin="40" />
-  <Button Name="AP2 Button" Pin="42" />
   <Output Name="LOC" Pin="57" />
   <Output Name="ATHR" Pin="60" />
   <Output Name="EXPED" Pin="61" />
   <Output Name="APPR" Pin="62" />
+  <Button Name="AP1 Button" Pin="40" />
+  <Button Name="AP2 Button" Pin="42" />
+  <Button Name="LOC Button" Pin="34" />
+  <Button Name="ATHR Button" Pin="46" />
+  <Button Name="EXPED Button" Pin="44" />
+  <Button Name="APPR Button" Pin="39" />
   <Button Name="MACH Button" Pin="43" />
   <Button Name="TRK Button" Pin="36" />
   <Button Name="METRIC Button" Pin="38" />
-  <Button Name="APPR Button" Pin="39" />
-  <Button Name="EXPED Button" Pin="44" />
-  <Button Name="ATHR Button" Pin="46" />
-  <Button Name="LOC Button" Pin="34" />
   <Button Name="SPD PUSH" Pin="22" />
   <Button Name="SPD PULL" Pin="23" />
   <Button Name="HDG PUSH" Pin="25" />
   <Button Name="HDG PULL" Pin="24" />
   <Button Name="ALT PUSH" Pin="68" />
   <Button Name="ALT PULL" Pin="69" />
-  <Button Name="ALTINC" Pin="67" />
   <Button Name="VS PUSH" Pin="66" />
   <Button Name="VS PULL" Pin="45" />
+  <Button Name="EFIS-PUSH" Pin="96" />
+  <Button Name="EFIS-PULL" Pin="95" />
+  <Button Name="ALTINC" Pin="67" />
   <Encoder Name="SPD Encoder" PinLeft="28" PinRight="29" EncoderType="4" />
   <Encoder Name="HDG Encoder" PinLeft="27" PinRight="26" EncoderType="4" />
   <Encoder Name="ALT Encoder" PinLeft="33" PinRight="32" EncoderType="4" />
   <Encoder Name="VS Encoder" PinLeft="37" PinRight="35" EncoderType="4" />
+  <Encoder Name="EFIS-BARO Encoder" PinLeft="9" PinRight="8" EncoderType="4" />
+  <Button Name="EFIS-1_ADF" Pin="72" />
+  <Button Name="EFIS-1_NULL" Pin="73" />
+  <Button Name="EFIS-1_VOR" Pin="74" />
+  <Button Name="EFIS-2_ADF" Pin="75" />
+  <Button Name="EFIS-2_NULL" Pin="76" />
+  <Button Name="EFIS-2_VOR" Pin="77" />
+  <Button Name="EFIS-ROSE_LS" Pin="78" />
+  <Button Name="EFIS-ROSE_VOR" Pin="79" />
+  <Button Name="EFIS-ROSE_NAV" Pin="80" />
+  <Button Name="EFIS-ROSE_ARC" Pin="81" />
+  <Button Name="EFIS-ROSE_PLAN" Pin="82" />
+  <Button Name="EFIS-ROSE_HIDDEN" Pin="83" />
+  <Button Name="EFIS-RANGE_10" Pin="84" />
+  <Button Name="EFIS-RANGE_20" Pin="85" />
+  <Button Name="EFIS-RANGE_40" Pin="86" />
+  <Button Name="EFIS-RANGE_80" Pin="87" />
+  <Button Name="EFIS-RANGE_160" Pin="88" />
+  <Button Name="EFIS-RANGE_320" Pin="89" />
+  <Button Name="EFIS-FD" Pin="70" />
+  <Button Name="EFIS-LS" Pin="71" />
+  <Button Name="EFIS-CSTR" Pin="90" />
+  <Button Name="EFIS-WPT" Pin="91" />
+  <Button Name="EFIS-VORD" Pin="92" />
+  <Button Name="EFIS-NDB" Pin="93" />
+  <Button Name="EFIS-ARPT" Pin="94" />
+  <Button Name="EFIS-inHg" Pin="97" />
+  <Button Name="EFIS-hPa" Pin="98" />
+  <Button Name="EFIS-CHRONO" Pin="99" />
   <CustomDevice Name="miniFCU LCD" CustomType="miniCOCKPIT_miniFCU" Pins="2|5|4|3" Config="">
     <ConfiguredPins>
       <string>2</string>
       <string>5</string>
       <string>4</string>
       <string>3</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="miniEFIS LED and LCD" CustomType="miniCOCKPIT_miniEFIS" Pins="20|21|7" Config="">
+    <ConfiguredPins>
+      <string>20</string>
+      <string>21</string>
+      <string>7</string>
     </ConfiguredPins>
   </CustomDevice>
 </Config>

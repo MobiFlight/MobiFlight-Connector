@@ -80,8 +80,8 @@ namespace System
             // Deep-clone list as 'Used' list
             List<MobiFlightPin> UsablePins = Pins.ConvertAll(pin => new MobiFlightPin(pin));
             // Mark current pin (if any specified) as free
-            if (CurrentPin != "" && UsablePins.Exists(x => x.Pin == byte.Parse(CurrentPin))) {
-                UsablePins.Find(x => x.Pin == byte.Parse(CurrentPin)).Used = false;
+            if (CurrentPin != "" && UsablePins.Exists(x => x.Pin == uint.Parse(CurrentPin))) {
+                UsablePins.Find(x => x.Pin == uint.Parse(CurrentPin)).Used = false;
             }
 
             if (analogOnly == true) 
@@ -96,7 +96,7 @@ namespace System
 
             // Restore the original item selection (if any)
             if (CurrentPin != "") {
-                var pinNo = byte.Parse(CurrentPin);
+                var pinNo = uint.Parse(CurrentPin);
                 try {
                     comboBox.SelectedValue = pinNo;
                 }
@@ -126,7 +126,7 @@ namespace System
         }
         static public void freePin(List<MobiFlightPin> pinList, string currentPin)
         {
-            byte nBefore = byte.Parse(currentPin);
+            uint nBefore = uint.Parse(currentPin);
             try {
                 MobiFlightPin p;
                 p = pinList.Find(x => x.Pin == nBefore);
@@ -145,7 +145,7 @@ namespace System
                 MobiFlightPin p = null;
                 if (newPin != "") {
                     // A desired pin is specified: seek it
-                    byte newPinNo = byte.Parse(newPin);
+                    uint newPinNo = uint.Parse(newPin);
                     p = pinList.Find(x => x.Pin == newPinNo);
                     if (p == null) throw new Exception("Nonexistent pin number");
                 }

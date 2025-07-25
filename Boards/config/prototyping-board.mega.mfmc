@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleType>MobiFlight Mega</ModuleType>
+  <ModuleName>ProtoBoard-v2</ModuleName>
+  <PowerSavingTime>600</PowerSavingTime>
+  <Button Name="Button 1" Pin="2" />
+  <Button Name="Button 2" Pin="3" />
+  <Button Name="Button 3" Pin="4" />
+  <Button Name="Button 4" Pin="5" />
+  <Button Name="Button 5" Pin="6" />
+  <Button Name="Button 6" Pin="26" />
+  <Output Name="LED 1" Pin="7" />
+  <Output Name="LED 2" Pin="8" />
+  <Output Name="LED 3" Pin="9" />
+  <Output Name="LED 4" Pin="10" />
+  <Output Name="LED 5" Pin="11" />
+  <Output Name="LED 6" Pin="12" />
+  <Button Name="Switch 1-1" Pin="22" />
+  <Button Name="Switch 1-3" Pin="24" />
+  <Button Name="Switch 2-1" Pin="14" />
+  <Button Name="Switch 2-3" Pin="15" />
+  <Button Name="Switch 3-1" Pin="16" />
+  <Button Name="Switch 3-3" Pin="17" />
+  <Button Name="Switch 4-1" Pin="18" />
+  <Button Name="Switch 4-3" Pin="19" />
+  <Button Name="Switch 5-1" Pin="48" />
+  <Button Name="Switch 5-3" Pin="50" />
+  <Button Name="Switch 6-1" Pin="58" />
+  <Button Name="Switch 6-3" Pin="57" />
+  <Button Name="Switch 7-1" Pin="60" />
+  <Button Name="Switch 7-3" Pin="59" />
+  <Button Name="Switch 8-1" Pin="62" />
+  <Button Name="Switch 8-3" Pin="61" />
+  <Button Name="Switch 9-1" Pin="64" />
+  <Button Name="Switch 9-3" Pin="63" />
+  <Button Name="Switch 10-1" Pin="66" />
+  <Button Name="Switch 10-3" Pin="65" />
+  <LcdDisplay Name="LCD 1" Address="39" Cols="16" Lines="2" />
+  <LcdDisplay Name="LCD 2" Address="38" Cols="16" Lines="2" />
+  <LedModule Name="7-Segment" DinPin="23" ClsPin="25" ClkPin="27" Brightness="15" NumModules="1" />
+  <Encoder Name="Encoder 1" PinLeft="28" PinRight="30" EncoderType="2" />
+  <Button Name="Encoder 1 Push" Pin="32" />
+  <Encoder Name="Encoder 2" PinLeft="29" PinRight="31" EncoderType="2" />
+  <Button Name="Encoder 2 Push" Pin="33" />
+  <Encoder Name="Encoder 3" PinLeft="44" PinRight="46" EncoderType="2" />
+  <Button Name="Encoder 3 Push" Pin="67" />
+  <Servo Name="Servo 1" DataPin="35" />
+  <Servo Name="Servo 2" DataPin="34" />
+  <Stepper Name="Stepper 1" Pin1="36" Pin2="38" Pin3="40" Pin4="42" BtnPin="0" Mode="1" Backlash="6" Deactivate="false" Profile="1" />
+  <Stepper Name="Stepper 2" Pin1="37" Pin2="39" Pin3="41" Pin4="43" BtnPin="0" Mode="1" Backlash="6" Deactivate="false" Profile="1" />
+  <ShiftRegister Name="ShiftRegister 1" LatchPin="45" ClockPin="47" DataPin="49" NumModules="1" />
+  <ShiftRegister Name="ShiftRegister 2" LatchPin="51" ClockPin="52" DataPin="53" NumModules="1" />
+  <AnalogInput Name="POT 1" Pin="54" Sensitivity="5" />
+  <AnalogInput Name="POT 2" Pin="55" Sensitivity="5" />
+  <AnalogInput Name="POT 3" Pin="56" Sensitivity="5" />
+</Config>

@@ -19,7 +19,7 @@ namespace MobiFlight
 
 
         private DeviceType _type = DeviceType.Output;
-        public DeviceType Type
+        public DeviceType TypeDeprecated
         {
             get { return _type; }
             set { _type = value; }
@@ -27,23 +27,39 @@ namespace MobiFlight
 
         public CmdMessenger CmdMessenger { get; set; }
         public int Pin { get; set; }
-        
-        public MobiFlightOutput() { }
 
-        public void Set(int value)
+        public virtual void Set(int value)
         {
             var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
+
+            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{Pin},{value};>.", LogSeverity.Debug);
+
             command.AddArgument(Pin);
             command.AddArgument(value);
             // Send command
-            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{Pin},{value};>.", LogSeverity.Debug);
-
             CmdMessenger.SendCommand(command);
         }
 
         public void Stop()
         {
             Set(0);
+        }
+    }
+
+    public class MobiFlightOutputV3 : MobiFlightOutput
+    {
+        public int DeviceIndex { get; set; }
+
+        public override void Set(int value)
+        {
+            var command = new SendCommand((int)MobiFlightModule.Command.SetPin);
+
+            Log.Instance.log($"Command: SetPin <{(int)MobiFlightModule.Command.SetPin},{DeviceIndex},{value};>.", LogSeverity.Debug);
+
+            command.AddArgument(DeviceIndex);
+            command.AddArgument(value);
+            // Send command
+            CmdMessenger.SendCommand(command);
         }
     }
 }

@@ -1,18 +1,16 @@
 ﻿using MobiFlight.Base;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace MobiFlight.Modifier
 {
     public class Comparison : ModifierBase
     {
+        private static readonly LRUCache<string, ConnectorValue> evaluationCache = new LRUCache<string, ConnectorValue>(1000); // Set cache size limit to 1000
+
         public const string OPERAND_EQUAL = "=";
         public const string OPERAND_NOT_EQUAL = "!=";
         public const string OPERAND_GREATER_THAN = ">";
@@ -36,13 +34,15 @@ namespace MobiFlight.Modifier
 
         override public bool Equals(Object obj)
         {
+            if (obj == null || !(obj is Comparison)) return false;
+            var other = obj as Comparison;
+
             return (
-                obj != null && (obj is Comparison) &&
-                this.Active     == (obj as Comparison).Active &&
-                this.Operand    == (obj as Comparison).Operand &&
-                this.Value      == (obj as Comparison).Value &&
-                this.IfValue    == (obj as Comparison).IfValue &&
-                this.ElseValue  == (obj as Comparison).ElseValue
+                Active     == other.Active &&
+                Operand    == other.Operand &&
+                Value      == other.Value &&
+                IfValue    == other.IfValue &&
+                ElseValue  == other.ElseValue
             );
         }
 
@@ -87,24 +87,34 @@ namespace MobiFlight.Modifier
         }
         public override ConnectorValue Apply(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)
         {
+            var cacheKey = $"{connectorValue}:{Value}:{Operand}:{IfValue}:{ElseValue}";
+            if (evaluationCache.TryGetValue(cacheKey, out ConnectorValue cachedResult))
+            {
+                return cachedResult;
+            }
+
             var result = connectorValue.Clone() as ConnectorValue;
 
             if (connectorValue.type == FSUIPCOffsetType.String)
             {
                 result.String = ExecuteStringComparison(connectorValue, configRefs);
+                evaluationCache[cacheKey] = result;
                 return result;
             }
 
-            Double value = connectorValue.Float64;
-            
-            if (Value == "")
+            if (string.IsNullOrEmpty(Value))
             {
                 return result;
             }
 
-            Double comparisonValue = Double.Parse(Value);
-            string comparisonIfValue = IfValue != "" ? IfValue : value.ToString();
-            string comparisonElseValue = ElseValue != "" ? ElseValue : value.ToString();
+            if (!double.TryParse(Value, out double comparisonValue))
+            {
+                return result;
+            }
+
+            double value = connectorValue.Float64;
+            string comparisonIfValue = !string.IsNullOrEmpty(IfValue) ? IfValue : value.ToString();
+            string comparisonElseValue = !string.IsNullOrEmpty(ElseValue) ? ElseValue : value.ToString();
             string comparisonResult = "";
 
             switch (Operand)
@@ -134,7 +144,7 @@ namespace MobiFlight.Modifier
 
             comparisonResult = comparisonResult.Replace("$", value.ToString());
 
-            foreach (ConfigRefValue configRef in configRefs)
+            foreach (var configRef in configRefs)
             {
                 comparisonResult = comparisonResult.Replace(configRef.ConfigRef.Placeholder, configRef.Value);
             }
@@ -142,28 +152,30 @@ namespace MobiFlight.Modifier
             try
             {
                 var ce = new NCalc.Expression(comparisonResult);
-                comparisonResult = (ce.Evaluate()).ToString();
+                comparisonResult = ce.Evaluate().ToString();
             }
             catch
             {
                 if (Log.LooksLikeExpression(comparisonResult))
-                    Log.Instance.log($"Exception on NCalc evaluate => {result}.", LogSeverity.Warn);
+                    Log.Instance.log($"Exception on NCalc evaluate => {comparisonResult}.", LogSeverity.Warn);
             }
 
-            try
+            if (double.TryParse(comparisonResult, out double parsedResult))
             {
-                result.Float64 = Double.Parse(comparisonResult);
-                if (result.Float64.ToString()!=comparisonResult.ToString())
+                result.Float64 = parsedResult;
+                if (result.Float64.ToString() != comparisonResult)
                 {
                     result.String = comparisonResult;
                     result.type = FSUIPCOffsetType.String;
                 }
-            } catch(FormatException e)
+            }
+            else
             {
                 result.type = FSUIPCOffsetType.String;
                 result.String = comparisonResult;
             }
 
+            evaluationCache[cacheKey] = result;
             return result;
         }
         private string ExecuteStringComparison(ConnectorValue connectorValue, List<ConfigRefValue> configRefs)

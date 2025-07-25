@@ -1,15 +1,18 @@
-name: Add artifact links to pull request
+name: Add PR Artifact Links As Comment
 on:
   workflow_run:
-    workflows: [RunTests]
+    workflows: [CI Pipeline]
     types: [completed]
 
 jobs:
   artifacts-url-comments:
     name: Add artifact links to pull request
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 14
       - uses: tonyhallett/artifacts-url-comments@v1.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

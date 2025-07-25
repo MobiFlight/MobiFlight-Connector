@@ -11,11 +11,12 @@ using MobiFlight.InputConfig;
 
 namespace MobiFlight.UI.Panels.Input
 {
-    public partial class AnalogPanel : UserControl
+    public partial class AnalogPanel : UserControl, IInputPanel
     {
         public event EventHandler<EventArgs> OnPanelChanged;
         InputConfig.AnalogInputConfig _config;
         Dictionary<String, MobiFlightVariable> Variables = new Dictionary<String, MobiFlightVariable>();
+        private IExecutionManager _executionManager;
 
         public new bool Enabled
         {
@@ -33,6 +34,11 @@ namespace MobiFlight.UI.Panels.Input
 
             onChangeActionTypePanel.ActionTypeChanged += new MobiFlight.UI.Panels.Config.ActionTypePanel.ActionTypePanelSelectHandler(onChangeActionTypePanel_ActionTypeChanged);
             onChangeActionTypePanel.CopyPasteFeatureActive(false);
+        }
+
+        public void Init(IExecutionManager executionManager)
+        {
+            _executionManager = executionManager;
         }
 
         // On Press Action
@@ -127,6 +133,13 @@ namespace MobiFlight.UI.Panels.Input
                         (panel as MobiFlight.UI.Panels.Action.XplaneInputPanel).syncFromConfig(_config.onChange as XplaneInputAction);
 
                     break;
+
+                case MobiFlight.InputConfig.ProSimInputAction.Label:
+                    panel = new Action.ProSimInputPanel();
+                    (panel as Action.ProSimInputPanel).Init(_executionManager);
+                    if (_config != null && _config.onChange != null)
+                        (panel as Action.ProSimInputPanel).syncFromConfig(_config.onChange as ProSimInputAction);
+                    break;
             }
 
             if (panel != null)
@@ -203,6 +216,10 @@ namespace MobiFlight.UI.Panels.Input
 
                     case MobiFlight.InputConfig.XplaneInputAction.Label:
                         config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.XplaneInputPanel).ToConfig();
+                        break;
+
+                    case MobiFlight.InputConfig.ProSimInputAction.Label:
+                        config.onChange = (onChangeActionConfigPanel.Controls[0] as MobiFlight.UI.Panels.Action.ProSimInputPanel).ToConfig();
                         break;
 
                     default:

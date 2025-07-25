@@ -14,11 +14,11 @@ namespace MobiFlight.InputConfig
         new public const string Label = "MobiFlight - Virtual Joystick input (vJoy)";
         public const String TYPE = "vJoyInputAction";
 
-        public uint vJoyID;
-        public int buttonNr;
-        public String axisString;
-        public bool buttonComand;
-        public String sendValue;
+        public uint vJoyID { get; set; }
+        public int buttonNr { get; set; }
+        public String axisString { get; set; }
+        public bool buttonComand { get; set; }
+        public String sendValue { get; set; }
 
         public override object Clone()
         {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Base
 {
@@ -20,6 +16,7 @@ namespace MobiFlight.Base
         /// Gets raised whenever connection is lost
         /// </summary>
         event EventHandler ConnectionLost;
+        event EventHandler<string> AircraftChanged;
 
         void Clear();
 

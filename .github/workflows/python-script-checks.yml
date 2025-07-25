@@ -1,0 +1,38 @@
+name: Python Script Checks
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [ main, mf2025/main ]
+    paths:
+      - 'Scripts/**/*.py'
+
+jobs:
+  python-script-checks:
+    name: Python ${{ matrix.python-version }} Syntax Check
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version:
+          - '3.11'
+          - '3.12'
+          - '3.13'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pylint gql websockets simconnect
+
+      - name: Run linter on the Scripts folder
+        run: pylint Scripts --disable=all --enable=F,E

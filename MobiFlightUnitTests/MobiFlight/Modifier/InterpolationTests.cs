@@ -1,10 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Xml;
-using MobiFlight;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
-using System.Data;
-using MobiFlight.Modifier;
+using System.Xml;
 
 namespace MobiFlight.Modifier.Tests
 {

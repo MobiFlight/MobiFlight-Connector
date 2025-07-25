@@ -39,6 +39,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.licenseReferenceControl10 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.licenseReferenceControl9 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.licenseReferenceControl8 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl6 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl5 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.licenseReferenceControl2 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
@@ -48,8 +51,7 @@
             this.licenseReferenceControl1 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
             this.label5 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.licenseReferenceControl8 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
-            this.licenseReferenceControl9 = new MobiFlight.UI.Panels.About.LicenseReferenceControl();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -116,6 +118,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.licenseReferenceControl10);
             this.panel2.Controls.Add(this.licenseReferenceControl9);
             this.panel2.Controls.Add(this.licenseReferenceControl8);
             this.panel2.Controls.Add(this.licenseReferenceControl6);
@@ -128,6 +132,30 @@
             this.panel2.Controls.Add(this.label5);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
+            // 
+            // licenseReferenceControl10
+            // 
+            resources.ApplyResources(this.licenseReferenceControl10, "licenseReferenceControl10");
+            this.licenseReferenceControl10.Library = "websocket-sharp";
+            this.licenseReferenceControl10.LibraryLink = "https://github.com/PingmanTools/websocket-sharp/";
+            this.licenseReferenceControl10.LicenseLink = "https://github.com/PingmanTools/websocket-sharp/blob/master/LICENSE.txt";
+            this.licenseReferenceControl10.Name = "licenseReferenceControl10";
+            // 
+            // licenseReferenceControl9
+            // 
+            resources.ApplyResources(this.licenseReferenceControl9, "licenseReferenceControl9");
+            this.licenseReferenceControl9.Library = "Device.Net";
+            this.licenseReferenceControl9.LibraryLink = "https://www.nuget.org/packages/Device.Net";
+            this.licenseReferenceControl9.LicenseLink = "https://github.com/MelbourneDeveloper/Device.Net/blob/main/LICENSE";
+            this.licenseReferenceControl9.Name = "licenseReferenceControl9";
+            // 
+            // licenseReferenceControl8
+            // 
+            resources.ApplyResources(this.licenseReferenceControl8, "licenseReferenceControl8");
+            this.licenseReferenceControl8.Library = "HidSharp";
+            this.licenseReferenceControl8.LibraryLink = "https://www.nuget.org/packages/HidSharp";
+            this.licenseReferenceControl8.LicenseLink = "https://www.zer7.com/files/oss/hidsharp/LICENSE.txt";
+            this.licenseReferenceControl8.Name = "licenseReferenceControl8";
             // 
             // licenseReferenceControl6
             // 
@@ -197,21 +225,10 @@
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
             // 
-            // licenseReferenceControl8
+            // label6
             // 
-            resources.ApplyResources(this.licenseReferenceControl8, "licenseReferenceControl8");
-            this.licenseReferenceControl8.Library = "HidSharp";
-            this.licenseReferenceControl8.LibraryLink = "https://www.nuget.org/packages/HidSharp";
-            this.licenseReferenceControl8.LicenseLink = "https://www.zer7.com/files/oss/hidsharp/LICENSE.txt";
-            this.licenseReferenceControl8.Name = "licenseReferenceControl8";
-            // 
-            // licenseReferenceControl9
-            // 
-            resources.ApplyResources(this.licenseReferenceControl9, "licenseReferenceControl9");
-            this.licenseReferenceControl9.Library = "Device.Net";
-            this.licenseReferenceControl9.LibraryLink = "https://www.nuget.org/packages/Device.Net";
-            this.licenseReferenceControl9.LicenseLink = "https://github.com/MelbourneDeveloper/Device.Net/blob/main/LICENSE";
-            this.licenseReferenceControl9.Name = "licenseReferenceControl9";
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
             // 
             // AboutForm
             // 
@@ -225,6 +242,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -253,5 +271,7 @@
         private Panels.About.LicenseReferenceControl licenseReferenceControl7;
         private Panels.About.LicenseReferenceControl licenseReferenceControl9;
         private Panels.About.LicenseReferenceControl licenseReferenceControl8;
+        private Panels.About.LicenseReferenceControl licenseReferenceControl10;
+        private System.Windows.Forms.Label label6;
     }
 }

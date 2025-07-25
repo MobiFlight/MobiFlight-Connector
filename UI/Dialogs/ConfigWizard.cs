@@ -1,18 +1,12 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MobiFlight;
-using MobiFlight.Base;
-using MobiFlight.Properties;
-using MobiFlight.UI.Forms;
-using MobiFlight.UI.Panels.Config;
-using MobiFlight.UI.Panels.OutputWizard;
-using Newtonsoft.Json.Linq;
 
 namespace MobiFlight.UI.Dialogs
 {
@@ -26,9 +20,8 @@ namespace MobiFlight.UI.Dialogs
         OutputConfigItem config = null;
         OutputConfigItem originalConfig = null;
         ErrorProvider errorProvider = new ErrorProvider();
-        DataSet _dataSetConfig = null;
+        List<OutputConfigItem> outputConfigs = null;
         Timer TestTimer = new Timer();
-        String CurrentGuid = null;
         public OutputConfigItem Config { get { return config; } }
 
 #if ARCAZE
@@ -36,17 +29,17 @@ namespace MobiFlight.UI.Dialogs
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
 
-        public ConfigWizard( ExecutionManager mainForm, 
+        public ConfigWizard(ExecutionManager executionManager,
                              OutputConfigItem cfg,
 #if ARCAZE
-                             ArcazeCache arcazeCache, 
-                             Dictionary<string, ArcazeModuleSettings> moduleSettings, 
+                             ArcazeCache arcazeCache,
+                             Dictionary<string, ArcazeModuleSettings> moduleSettings,
 #endif
-                             DataSet dataSetConfig, 
-                             String filterGuid,
-                             String description)
+                             List<OutputConfigItem> outputConfigs,
+                             Dictionary<string, MobiFlightVariable> scopedVariables
+            )
         {
-            Init(mainForm, cfg);
+            Init(executionManager, cfg);
 #if ARCAZE
             this.moduleSettings = moduleSettings;
             initWithArcazeCache(arcazeCache);
@@ -56,33 +49,25 @@ namespace MobiFlight.UI.Dialogs
             // copy this so that no filtering will 
             // impact the list of displayed items
             // https://github.com/MobiFlight/MobiFlight-Connector/issues/1447
-            _dataSetConfig = dataSetConfig.Copy();
-            var list = _dataSetConfig.GetConfigsWithGuidAndLabel(filterGuid);
-
-            // store the current guid
-            CurrentGuid = filterGuid;
+            this.outputConfigs = outputConfigs.ToArray().ToList();
+            var list = this.outputConfigs.Where(c => c.GUID != cfg.GUID)
+                                     .Select(c => new ListItem() { Label = c.Name, Value = c.GUID }).ToList();
 
             preconditionPanel.SetAvailableConfigs(list);
-            preconditionPanel.SetAvailableVariables(mainForm.GetAvailableVariables());
-            initConfigRefDropDowns(_dataSetConfig, filterGuid);
+            preconditionPanel.SetAvailableVariables(scopedVariables);
+            initConfigRefDropDowns(this.outputConfigs, cfg.GUID);
 
             // Append the row description to the window title if one was provided.
-            if (!String.IsNullOrEmpty(description))
+            if (!String.IsNullOrEmpty(cfg.Name))
             {
-                this.Text = $"{this.Text} - {description}";
+                this.Text = $"{this.Text} - {cfg.Name}";
             }
         }
 
-        private void initConfigRefDropDowns(DataSet dataSetConfig, string filterGuid)
+        private void initConfigRefDropDowns(List<OutputConfigItem> outputConfigs, string filterGuid)
         {
-            DataRow[] rows = dataSetConfig.Tables["config"].Select("guid <> '" + filterGuid + "'");
-
-            // this filters the current config
-            DataView dv = new DataView(dataSetConfig.Tables["config"]);
-            dv.RowFilter = "guid <> '" + filterGuid + "'";
-
-            configRefPanel.SetConfigRefsDataView(dv, filterGuid);
-            displayPanel1.SetConfigRefsDataView(dv, filterGuid);
+            configRefPanel.SetConfigRefsDataView(outputConfigs, filterGuid);
+            displayPanel1.SetConfigRefsDataView(outputConfigs, filterGuid);
         }
 
         public bool ConfigHasChanged()
@@ -135,12 +120,14 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             xplaneDataRefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
             variablePanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            proSimDatarefPanel1.ModifyTabLink += ConfigPanel_ModifyTabLink;
+            proSimDatarefPanel1.Init(_execManager);
 
             testValuePanel1.FromConfig(config);
             testValuePanel1.TestModeStart += TestValuePanel_TestModeStart;
             testValuePanel1.TestModeStop += TestValuePanel_TestModeEnd;
             testValuePanel1.TestValueChanged += ModifierPanel1_ModifierChanged;
-            TestTimer.Interval = Settings.Default.TestTimerInterval;
+            TestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             TestTimer.Tick += TestTimer_Tick;
             modifierPanel1.ModifierChanged += ModifierPanel1_ModifierChanged;
         }
@@ -153,7 +140,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void TestTimer_Tick(object sender, EventArgs e)
         {
-            TestTimer.Interval = Settings.Default.TestTimerInterval;
+            TestTimer.Interval = Properties.Settings.Default.TestTimerInterval;
             var value = config.TestValue.Clone() as ConnectorValue;
             if (value == null) value = new ConnectorValue();
 
@@ -163,14 +150,15 @@ namespace MobiFlight.UI.Dialogs
                 // Apply all modifiers to the test value
                 // so that the test value yields the final value
                 config.Modifiers.Items.FindAll(x => x.Active).ForEach(y => value = y.Apply(value, configRefs));
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 // ShowError? Or don't do anything?
             }
-            
+
             testValuePanel1.Result = value.ToString();
 
-            _execManager.ExecuteTestOn(config, CurrentGuid, value);
+            _execManager.ExecuteTestOn(config, value);
         }
 
         private List<ConfigRefValue> CreateTestConfigRefs(ConfigRefList configRefs)
@@ -206,7 +194,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void FsuipcConfigPanel_PresetChanged(object sender, IFsuipcConfigItem newPreset)
         {
-            modifierPanel1.ReplaceModifiers((newPreset as IFsuipcConfigItem)?.Modifiers);
+            modifierPanel1.ReplaceModifiers((newPreset)?.Modifiers);
         }
 
         private void ConfigPanel_ModifyTabLink(object sender, EventArgs e)
@@ -219,7 +207,7 @@ namespace MobiFlight.UI.Dialogs
             // by default always the first tab is activated.
             // if one opens the dialog for an existing config,
             // then we use the lastTabActive
-            if (cfg?.DisplaySerial != null && cfg?.DisplaySerial != SerialNumber.NOT_SET)
+            if (cfg?.ModuleSerial != null && cfg?.ModuleSerial != SerialNumber.NOT_SET)
             {
                 tabControlFsuipc.SelectedIndex = lastTabActive;
             }
@@ -227,7 +215,7 @@ namespace MobiFlight.UI.Dialogs
 
         private void SimConnectPanel1_OnGetLVarListRequested(object sender, EventArgs e)
         {
-            if(_execManager.GetSimConnectCache().IsConnected())
+            if (_execManager.GetSimConnectCache().IsConnected())
             {
                 _execManager.GetSimConnectCache().RefreshLVarsList();
             }
@@ -238,19 +226,19 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.HubHopPresetPanel.LVars = (sender as List<String>);
         }
 
-                
+
 
 #if ARCAZE
         /// <summary>
         /// sync the config wizard with the provided settings from arcaze cache such as available modules, ports, etc.
         /// </summary>
         /// <param name="arcazeCache"></param>
-        public void initWithArcazeCache (ArcazeCache arcazeCache)
+        public void initWithArcazeCache(ArcazeCache arcazeCache)
         {
             List<ListItem> PreconditionModuleList = new List<ListItem>();
             List<ListItem> DisplayModuleList = new List<ListItem>();
 
-            
+
             foreach (IModuleInfo module in arcazeCache.getModuleInfo())
             {
                 arcazeFirmware[module.Serial] = module.Version;
@@ -283,7 +271,7 @@ namespace MobiFlight.UI.Dialogs
         public void initWithoutArcazeCache()
         {
             var DisplayModuleList = new List<ListItem>();
-            
+
             _AddMobiFlightModules(DisplayModuleList);
             _AddJoysticks(DisplayModuleList);
             _AddMidiBoards(DisplayModuleList);
@@ -327,7 +315,7 @@ namespace MobiFlight.UI.Dialogs
         protected void _AddMidiBoards(List<ListItem> DisplayModuleList)
         {
             foreach (MidiBoard midiBoard in _execManager.GetMidiBoardManager().GetMidiBoards())
-            {               
+            {
                 if (midiBoard.GetAvailableOutputDevices().Count == 0) continue;
 
                 DisplayModuleList.Add(new ListItem()
@@ -351,7 +339,7 @@ namespace MobiFlight.UI.Dialogs
             if (config == null) throw new Exception(i18n._tr("uiException_ConfigItemNotFound"));
 
             _syncFsuipcTabFromConfig(config);
-            
+
             displayPanel1.syncFromConfig(config);
 
             modifierPanel1.fromConfig(config);
@@ -365,46 +353,56 @@ namespace MobiFlight.UI.Dialogs
 
         private void _syncFsuipcTabFromConfig(OutputConfigItem config)
         {
-            OffsetTypeFsuipRadioButton.Checked = (config.SourceType == SourceType.FSUIPC);
-            OffsetTypeSimConnectRadioButton.Checked = (config.SourceType == SourceType.SIMCONNECT);
-            OffsetTypeVariableRadioButton.Checked = (config.SourceType == SourceType.VARIABLE);
-            OffsetTypeXplaneRadioButton.Checked = (config.SourceType == SourceType.XPLANE);
+            OffsetTypeFsuipRadioButton.Checked = (config.Source is FsuipcSource);
+            OffsetTypeSimConnectRadioButton.Checked = (config.Source is SimConnectSource);
+            OffsetTypeVariableRadioButton.Checked = (config.Source is VariableSource);
+            OffsetTypeXplaneRadioButton.Checked = (config.Source is XplaneSource);
+            OffsetTypeProSimRadioButton.Checked = (config.Source is ProSimSource);
 
             fsuipcConfigPanel.syncFromConfig(config);
-
             simConnectPanel1.syncFromConfig(config);
             variablePanel1.syncFromConfig(config);
             configRefPanel.syncFromConfig(config);
             xplaneDataRefPanel1.syncFromConfig(config);
+            proSimDatarefPanel1.syncFromConfig(config);
         }
-        
+
         /// <summary>
         /// sync current status of form values to config
         /// </summary>
         /// <returns></returns>
         protected bool _syncFormToConfig()
         {
-            config.SourceType = SourceType.FSUIPC;
-            if (OffsetTypeSimConnectRadioButton.Checked) config.SourceType = SourceType.SIMCONNECT;
-            if (OffsetTypeVariableRadioButton.Checked) config.SourceType = SourceType.VARIABLE;
-            if (OffsetTypeXplaneRadioButton.Checked) config.SourceType = SourceType.XPLANE;
-
-            if (config.SourceType == SourceType.FSUIPC)
+            if (OffsetTypeFsuipRadioButton.Checked)
+            {
+                config.Source = new FsuipcSource();
                 fsuipcConfigPanel.syncToConfig(config);
-            else if (config.SourceType == SourceType.SIMCONNECT)
+            } else
+            if (OffsetTypeSimConnectRadioButton.Checked)
+            {
+                config.Source = new SimConnectSource();
                 simConnectPanel1.syncToConfig(config);
-            else if (config.SourceType == SourceType.VARIABLE)
+            } else
+            if (OffsetTypeVariableRadioButton.Checked)
+            {
+                config.Source = new VariableSource();
                 variablePanel1.syncToConfig(config);
-            else if (config.SourceType == SourceType.XPLANE)
+            } else
+            if (OffsetTypeXplaneRadioButton.Checked)
+            {
+                config.Source = new XplaneSource();
                 xplaneDataRefPanel1.syncToConfig(config);
+            } else
+            if (OffsetTypeProSimRadioButton.Checked)
+            {
+                config.Source = new ProSimSource();
+                proSimDatarefPanel1.syncToConfig(config);
+            }
 
             configRefPanel.syncToConfig(config);
-
             modifierPanel1.toConfig(config);
-
             displayPanel1.syncToConfig();
             preconditionPanel.syncToConfig(config);
-
             testValuePanel1.ToConfig(config);
 
             return true;
@@ -413,13 +411,15 @@ namespace MobiFlight.UI.Dialogs
         private void button1_Click(object sender, EventArgs e)
         {
             _testModeStop(true);
-            try {
+            try
+            {
                 if (!ValidateChildren())
                 {
                     Log.Instance.log("The dialog cannot be closed. There are invalid values on some tab.", LogSeverity.Error);
                     return;
                 }
-            } catch (System.InvalidOperationException ex)
+            }
+            catch (System.InvalidOperationException ex)
             {
                 Log.Instance.log(ex.Message, LogSeverity.Error);
             }
@@ -437,7 +437,7 @@ namespace MobiFlight.UI.Dialogs
         {
             _syncConfigToForm(config);
         }
-        
+
         private void _validatingHexFields(object sender, CancelEventArgs e, int length)
         {
             try
@@ -446,7 +446,7 @@ namespace MobiFlight.UI.Dialogs
                 (sender as TextBox).Text = "0x" + Int64.Parse(tmp, System.Globalization.NumberStyles.HexNumber).ToString("X" + length.ToString());
             }
             catch (Exception ex)
-            {                
+            {
                 e.Cancel = true;
                 Log.Instance.log($"Parsing problem: {ex.Message}", LogSeverity.Debug);
                 MessageBox.Show(i18n._tr("uiMessageConfigWizard_ValidHexFormat"), i18n._tr("Hint"));
@@ -466,7 +466,7 @@ namespace MobiFlight.UI.Dialogs
             errorProvider.SetError(
                     control,
                     "");
-        } 
+        }
 
         private void tabControlFsuipc_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -480,6 +480,13 @@ namespace MobiFlight.UI.Dialogs
             simConnectPanel1.Visible = (sender as RadioButton) == OffsetTypeSimConnectRadioButton;
             variablePanel1.Visible = (sender as RadioButton) == OffsetTypeVariableRadioButton;
             xplaneDataRefPanel1.Visible = (sender as RadioButton) == OffsetTypeXplaneRadioButton;
+            proSimDatarefPanel1.Visible = (sender as RadioButton) == OffsetTypeProSimRadioButton;
+            
+            // Auto-load dataref descriptions when ProSim panel becomes visible
+            if (proSimDatarefPanel1.Visible)
+            {
+                proSimDatarefPanel1.LoadDataRefDescriptions();
+            }
         }
 
         private void ConfigWizard_FormClosing(object sender, FormClosingEventArgs e)

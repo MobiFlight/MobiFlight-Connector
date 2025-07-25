@@ -21,6 +21,13 @@ del %RELEASE_DIR%\%INSTALLER_NAME%.exe /Q
 echo OK
 
 echo -----------------------------------------------------------
+echo REMOVE hubhop json presets from release
+echo -----------------------------------------------------------
+del %TARGET_DIR%\Presets\msfs2020_hubhop_presets.json /Q
+del %TARGET_DIR%\Presets\xplane_hubhop_presets.json /Q
+echo OK
+
+echo -----------------------------------------------------------
 echo Building MobiFlight-Connector ZIP package
 echo -----------------------------------------------------------
 %BUILD_TOOLS_DIR%%CMD_RAR% a %RELEASE_DIR%\MobiFlightConnector-%VERSION%.zip %TARGET_DIR%*.* -r

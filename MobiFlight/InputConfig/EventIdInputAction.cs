@@ -12,8 +12,8 @@ namespace MobiFlight.InputConfig
         const Int16 ParamOffset = 0x3114;
         public new const String Label = "FSUIPC - EventID";
         public const String TYPE = "EventIdInputAction";
-        public Int32 EventId;
-        public String Param = "0";
+        public Int32 EventId { get; set; }
+        public String Param { get; set; } = "0";
         
         override public object Clone()
         {

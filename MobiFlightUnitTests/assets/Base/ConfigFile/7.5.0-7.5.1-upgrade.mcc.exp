@@ -11,7 +11,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR NOSE rt" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="GEAR NOSE rt" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -26,7 +26,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR NOSE gn" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="GEAR NOSE gn" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -41,7 +41,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR RIGHT rt" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="GEAR RIGHT rt" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -56,7 +56,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR RIGHT gn" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="GEAR RIGHT gn" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -71,7 +71,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR LEFT rt" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="GEAR LEFT rt" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -86,7 +86,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="GEAR LEFT gn" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="GEAR LEFT gn" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -101,7 +101,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="PARKINGBRAKE rt" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="PARKINGBRAKE rt" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -116,7 +116,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AUTOBRAKE DISARM ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="AUTOBRAKE DISARM ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -131,7 +131,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="ANTI-SKID INOP ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="ANTI-SKID INOP ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -146,7 +146,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="LE FLAPS TRANSIT ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="LE FLAPS TRANSIT ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -161,7 +161,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="LE FLAPS EXT gn" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="LE FLAPS EXT gn" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -176,7 +176,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="SPEED BRAKE ARMED gn" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="SPEED BRAKE ARMED gn" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -191,7 +191,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="SPEED BRAKE DO NOT ARM ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="SPEED BRAKE DO NOT ARM ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -206,7 +206,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AP PRST ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="AP PRST ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -221,7 +221,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AP PRST rt" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="AP PRST rt" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -236,7 +236,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AT PRST ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="AT PRST ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -251,7 +251,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="AT PRST rt" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="AT PRST rt" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -266,7 +266,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FMC PRST ge1" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="FMC PRST ge1" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -281,7 +281,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FLT CONT 6-PACK CP" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="FLT CONT 6-PACK CP" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -296,7 +296,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="IRS 6-PACK CP" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="IRS 6-PACK CP" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -311,7 +311,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="FUEL 6-PACK CP" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="FUEL 6-PACK CP" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -326,7 +326,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="ELEC 6-PACK CP" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="ELEC 6-PACK CP" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -341,7 +341,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="APU 6-PACK CP" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="APU 6-PACK CP" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -356,7 +356,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="OVHT DET 6-PACK CP" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="OVHT DET 6-PACK CP" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -371,7 +371,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="MASTER CAUTION ge" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="MASTER CAUTION ge" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -386,7 +386,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="STAB_OUT_OF_TRIM" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="STAB_OUT_OF_TRIM" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -401,7 +401,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 01/ SN-b59-4d4" trigger="normal" pin="BELOW_GS" pinBrightness="255" />
+        <display type="Output" serial="FSX 01/ SN-b59-4d4" pin="BELOW_GS" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -416,7 +416,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="OUTERMARKER" pinBrightness="255" />
+        <display type="Output" serial="FSX02/ SN-cef-d2a" pin="OUTERMARKER" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -431,7 +431,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="MIDDLEMARKER" pinBrightness="255" />
+        <display type="Output" serial="FSX02/ SN-cef-d2a" pin="MIDDLEMARKER" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -446,7 +446,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -461,7 +461,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -476,7 +476,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -491,7 +491,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -506,7 +506,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -521,7 +521,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -536,7 +536,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="7" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="7" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -551,7 +551,7 @@
           <transformation active="True" expression="$+10000" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="COM_NAV" ledConnector="8" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="COM_NAV" ledConnector="8" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="2" />
         <preconditions />
         <configrefs />
       </settings>
@@ -566,7 +566,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="1" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
         <preconditions />
         <configrefs />
       </settings>
@@ -581,7 +581,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="2" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3,4" ledDecimalPoints="1" />
         <preconditions />
         <configrefs />
       </settings>
@@ -596,7 +596,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="1,2,3" ledDecimalPoints="1" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="1,2,3" ledDecimalPoints="1" />
         <preconditions />
         <configrefs />
       </settings>
@@ -611,7 +611,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="4" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -626,7 +626,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="0" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="4" ledModuleSize="5" ledPadding="False" ledPaddingChar="0" ledDigits="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -641,7 +641,7 @@
           <transformation active="True" expression="$/100" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="1,4" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="6" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="1,4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -656,7 +656,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,3" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="5" ledModuleSize="5" ledPadding="True" ledPaddingChar="0" ledDigits="0,3" />
         <preconditions />
         <configrefs />
       </settings>
@@ -682,7 +682,7 @@
             <value x="40000" y="2690" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="FSX 03/ SN-4fa-532" trigger="normal" stepperAddress="Stepper" stepperInputRev="3600" stepperOutputRev="2040" stepperTestValue="2730" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="FSX 03/ SN-4fa-532" stepperAddress="Stepper" stepperInputRev="3600" stepperOutputRev="2040" stepperTestValue="2730" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -697,7 +697,7 @@
           <transformation active="False" expression="$/16" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Display Module" serial="FSX02/ SN-cef-d2a" trigger="normal" ledAddress="DME ADF XPDR" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3" />
+        <display type="Display Module" serial="FSX02/ SN-cef-d2a" ledAddress="DME ADF XPDR" ledConnector="3" ledModuleSize="5" ledPadding="True" ledPaddingChar=" " ledDigits="0,1,2,3" />
         <preconditions />
         <configrefs />
       </settings>
@@ -712,7 +712,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="ANTI_ICE 6P" pinBrightness="255" />
+        <display type="Output" serial="FSX 03/ SN-4fa-532" pin="ANTI_ICE 6P" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -727,7 +727,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="HYD 6P" pinBrightness="255" />
+        <display type="Output" serial="FSX 03/ SN-4fa-532" pin="HYD 6P" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -742,7 +742,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="DOORS 6P" pinBrightness="255" />
+        <display type="Output" serial="FSX 03/ SN-4fa-532" pin="DOORS 6P" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -757,7 +757,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="ENG 6P" pinBrightness="255" />
+        <display type="Output" serial="FSX 03/ SN-4fa-532" pin="ENG 6P" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -772,7 +772,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="OVERHEAD 6P" pinBrightness="255" />
+        <display type="Output" serial="FSX 03/ SN-4fa-532" pin="OVERHEAD 6P" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -787,7 +787,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX 03/ SN-4fa-532" trigger="normal" pin="AIR_COND 6P" pinBrightness="255" />
+        <display type="Output" serial="FSX 03/ SN-4fa-532" pin="AIR_COND 6P" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -802,7 +802,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="EXEC LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="EXEC LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -817,7 +817,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="DISPLAY1 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="DISPLAY1 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -832,7 +832,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="DISPLAY2 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="DISPLAY2 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -847,7 +847,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="FAIL1 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="FAIL1 LED" pinBrightness="255" />
         <preconditions>
           <precondition type="config" active="false" ref="0de0dc1c-65e0-4b71-9a6e-4ee372188863" operand="=" value="0" logic="and" />
         </preconditions>
@@ -864,7 +864,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="FAIL2 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="FAIL2 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -879,7 +879,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="MSG1 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="MSG1 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -894,7 +894,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="MSG2 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="MSG2 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -909,7 +909,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="OFST1 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="OFST1 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -924,7 +924,7 @@
           <transformation active="False" expression="$" />
           <comparison active="True" value="0" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="FMC2/ SN-db3-033" trigger="normal" pin="OFST2 LED" pinBrightness="255" />
+        <display type="Output" serial="FMC2/ SN-db3-033" pin="OFST2 LED" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -939,7 +939,7 @@
           <transformation active="False" expression="$" />
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="Output" serial="FSX02/ SN-cef-d2a" trigger="normal" pin="INNERMARKER" pinBrightness="255" />
+        <display type="Output" serial="FSX02/ SN-cef-d2a" pin="INNERMARKER" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>

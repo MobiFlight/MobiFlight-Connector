@@ -65,6 +65,8 @@
             this.mobiFlightPanel = new MobiFlight.UI.Panels.Settings.MobiFlightPanel();
             this.peripheralsTabPage = new System.Windows.Forms.TabPage();
             this.peripheralsPanel = new MobiFlight.UI.Panels.Settings.PeripheralsPanel();
+            this.ProSimTab = new System.Windows.Forms.TabPage();
+            this.proSimPanel = new MobiFlight.UI.Panels.Settings.ProSimPanel();
             this.firmwareSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.firmwareUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +79,7 @@
             this.tabControl1.SuspendLayout();
             this.mobiFlightTabPage.SuspendLayout();
             this.peripheralsTabPage.SuspendLayout();
+            this.ProSimTab.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -274,6 +277,7 @@
             this.tabControl1.Controls.Add(this.mobiFlightTabPage);
             this.tabControl1.Controls.Add(this.peripheralsTabPage);
             this.tabControl1.Controls.Add(this.ArcazeTabPage);
+            this.tabControl1.Controls.Add(this.ProSimTab);
             resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -301,6 +305,18 @@
             // 
             resources.ApplyResources(this.peripheralsPanel, "peripheralsPanel");
             this.peripheralsPanel.Name = "peripheralsPanel";
+            // 
+            // ProSimTab
+            // 
+            this.ProSimTab.Controls.Add(this.proSimPanel);
+            resources.ApplyResources(this.ProSimTab, "ProSimTab");
+            this.ProSimTab.Name = "ProSimTab";
+            this.ProSimTab.UseVisualStyleBackColor = true;
+            // 
+            // proSimPanel
+            // 
+            resources.ApplyResources(this.proSimPanel, "proSimPanel");
+            this.proSimPanel.Name = "proSimPanel";
             // 
             // firmwareSettingsToolStripMenuItem
             // 
@@ -340,6 +356,8 @@
             this.tabControl1.ResumeLayout(false);
             this.mobiFlightTabPage.ResumeLayout(false);
             this.peripheralsTabPage.ResumeLayout(false);
+            this.ProSimTab.ResumeLayout(false);
+            this.ProSimTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -385,7 +403,9 @@
         private Panels.Settings.ArcazePanel arcazePanel;
         private Panels.Settings.MobiFlightPanel mobiFlightPanel;
         private System.Windows.Forms.ToolStripMenuItem analogDeviceToolStripMenuItem;
-        private System.Windows.Forms.TabPage peripheralsTabPage;
+        public System.Windows.Forms.TabPage peripheralsTabPage;
         private Panels.Settings.PeripheralsPanel peripheralsPanel;
+        private System.Windows.Forms.TabPage ProSimTab;
+        private Panels.Settings.ProSimPanel proSimPanel;
     }
 }

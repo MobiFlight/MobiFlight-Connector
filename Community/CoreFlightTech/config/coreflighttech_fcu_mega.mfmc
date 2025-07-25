@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ModuleName>CoreFlightTech FCU</ModuleName>
+  <ModuleType>CoreFlightTech FCU</ModuleType>
+  <PowerSavingTime>600</PowerSavingTime>
+  <LcdDisplay Name="DISPLAY_1" Address="39" Cols="16" Lines="1" />
+  <LcdDisplay Name="DISPLAY_2" Address="32" Cols="16" Lines="2" />
+  <Encoder Name="SPEED_ENC" PinLeft="22" PinRight="23" EncoderType="1" />
+  <Encoder Name="HEADING_ENC" PinLeft="18" PinRight="19" EncoderType="1" />
+  <Encoder Name="ALT_ENC" PinLeft="36" PinRight="37" EncoderType="1" />
+  <Encoder Name="VS_ENC" PinLeft="38" PinRight="39" EncoderType="1" />
+  <Output Name="LCD_BRIGHTNESS" Pin="13" />
+  <Output Name="PANEL_BRIGHTNESS" Pin="12" />
+  <Output Name="AP1_LED" Pin="2" />
+  <Output Name="LOC_LED" Pin="6" />
+  <Output Name="AP2_LED" Pin="4" />
+  <Output Name="A_THR_LED" Pin="8" />
+  <Output Name="EXPED_LED" Pin="9" />
+  <Output Name="APPR_LED" Pin="10" />
+  <Button Name="SPEED_PUSH_BTN" Pin="29" />
+  <Button Name="SPEED_PULL_BTN" Pin="31" />
+  <Button Name="HEADING_PUSH_BTN" Pin="24" />
+  <Button Name="HEADING_PULL_BTN" Pin="7" />
+  <Button Name="ALT_PUSH_BTN" Pin="34" />
+  <Button Name="VS_PULL_BTN" Pin="43" />
+  <Button Name="VS_PUSH_BTN" Pin="41" />
+  <Button Name="ALT_PULL_BTN" Pin="35" />
+  <Button Name="LOC_BUTTON" Pin="3" />
+  <Button Name="AP1_BUTTON" Pin="11" />
+  <Button Name="AP2_BUTTON" Pin="14" />
+  <Button Name="A_THR_BUTTON" Pin="5" />
+  <Button Name="APPR_BUTTON" Pin="42" />
+  <Button Name="EXPED_BUTTON" Pin="15" />
+  <Button Name="SPD_MACH_BUTTON" Pin="30" />
+  <Button Name="HDG_TRK_BUTTON" Pin="51" />
+  <Button Name="METRIC_ALT_BUTTN" Pin="40" />
+  <Button Name="ALT_SELECTOR_BTN" Pin="32" />
+</Config>

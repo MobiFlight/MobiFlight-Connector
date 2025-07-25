@@ -671,7 +671,7 @@ namespace MobiFlight
                 MobiFlightLcdDisplay display = null;
                 foreach (IConnectedDevice dev in module.GetConnectedDevices(LcdConfig.Address))
                 {
-                    if (dev.Type == DeviceType.LcdDisplay)
+                    if (dev.TypeDeprecated == DeviceType.LcdDisplay)
                     {
                         display = dev as MobiFlightLcdDisplay;
                     }
@@ -800,7 +800,7 @@ namespace MobiFlight
         {
             if (!variables.Keys.Contains(name))
             {
-                variables[name] = new MobiFlightVariable();
+                variables[name] = new MobiFlightVariable() { Name = name };
             }
 
             return variables[name];
@@ -847,7 +847,7 @@ namespace MobiFlight
             return result;
         }
 
-        internal void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
+        public void Set(string serial, OutputConfig.CustomDevice deviceConfig, string value)
         {
             if (serial == null)
             {

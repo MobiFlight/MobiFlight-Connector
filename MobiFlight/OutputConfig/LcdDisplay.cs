@@ -1,16 +1,16 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace MobiFlight.OutputConfig
 {
-    public class LcdDisplay : IXmlSerializable, ICloneable
+    public class LcdDisplay : DeviceConfig, IXmlSerializable, ICloneable
     {
-        public const string Type = "LcdDisplay";
+        public const string DeprecatedType = "LcdDisplay";
+        public override string Name { get { return Address; } }
         public String Address { get; set; }
         public List<String> Lines { get; set; }
 
@@ -21,7 +21,7 @@ namespace MobiFlight.OutputConfig
 
         public override bool Equals(object obj)
         {
-            bool linesAreEqual = true && Lines.Count == (obj as LcdDisplay).Lines.Count;
+            bool linesAreEqual = true && Lines.Count == (obj as LcdDisplay)?.Lines.Count;
             if (linesAreEqual)
             for(int i=0; i!=Lines.Count; i++)
             {
@@ -35,7 +35,7 @@ namespace MobiFlight.OutputConfig
             );
         }
 
-        public object Clone()
+        public override object Clone()
         {
             LcdDisplay clone = new LcdDisplay();
             clone.Address = Address;

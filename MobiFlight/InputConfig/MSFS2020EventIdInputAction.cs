@@ -10,7 +10,7 @@ namespace MobiFlight.InputConfig
         public new const String Label = "MSFS2020 - Events";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020EventIdInputAction";
-        public String EventId;
+        public String EventId { get; set; }
         
         override public object Clone()
         {

@@ -2,6 +2,7 @@ changelog:
   exclude:
     labels:
       - ignore-for-release-notes
+      - dependencies
   categories:
     - title: New Feature 🎉
       labels:

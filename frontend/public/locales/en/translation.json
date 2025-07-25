@@ -1,0 +1,155 @@
+{
+  "General" : {
+    "Action" : {
+      "OpenMenu": "Open menu"
+    }
+  },
+  "Types": {
+    "Output": "Output",
+    "LedModule": "7-Segment Display",
+    "Stepper": "Stepper",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Output Shift Register",
+    "CustomDevice": "Custom Device",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Button",
+    "Encoder": "Encoder",
+    "AnalogInput": "Analog Input",
+    "-": "not set",
+    "OutputConfigItem": "Output Configuration",
+    "InputConfigItem": "Input Configuration",
+    "InputAction": "Input Action"
+  },
+  "Project" : {
+    "File.Action" : {
+      "Add": "Add file",
+      "New": "Add new file",
+      "Merge": "From existing project",
+      "Rename": "Rename",
+      "Remove": "Remove",
+      "Export": "Export"
+    },
+    "Toolbar" : {
+      "Save" : {
+        "HasChanges": "Save changes",
+        "NoChanges": "No changes to save",
+        "Success": "Saved successfully"
+      }
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Enable Auto Run",
+        "Disable": "Disable Auto Run"
+      },
+      "Run": {
+        "Label": "Run",
+        "Stop": "Stop",
+        "Start": "Start run mode and process all configs",
+        "StopMode": "Stop run mode",
+        "BlockedByTest": "Test mode active. Stop it first."
+      },
+      "Test": {
+        "Label": "Test", 
+        "Stop": "Stop",
+        "Start": "Start test mode and test all configs",
+        "StopMode": "Stop test mode execution",
+        "BlockedByRun": "Run mode active. Stop it first."
+      }
+    }
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Filter items..."
+      },
+      "Filter": {
+        "ConfigType": "Config Type",
+        "Device": "Controller",
+        "Type": "Devices",
+        "Name": "Names",
+        "Selected": "{{items}} selected",
+        "Clear": "Clear filters",
+        "NoResultsFound": "No results found."
+      },
+      "NotSet": "not set",
+      "Reset": "Reset filters",
+      "SelectedRows": {
+        "Commands" : {
+          "Label": "{{count}} rows selected",
+          "Delete": "Delete selected",
+          "Toggle": "Toggle selected",
+          "Clear": "Clear selection"
+        }
+      }
+    },
+    "Header": {
+      "Active": "Active",
+      "Name": "Name / Description",
+      "Device": "Controller",
+      "Component": "Device",
+      "Status": "Status",
+      "RawValue": "Raw Value",
+      "FinalValue": "Final Value",
+      "Actions": "Actions"
+    },
+    "Cell": {
+      "Drag" : {
+        "Multiple": "You are moving {{count}} selected items"
+      },
+      "Waiting": "Waiting",
+      "Controller": {
+        "openInSettings": "Open controller settings",
+        "not set": "No controller used in this config."
+      },
+      "Device": {
+        "not set": "No device used in this config."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "This is a new configuration. Please add some items.",
+      "NoResultsMatchingFilter": "No results matching the filter."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Add Output Config",
+        "DefaultName": "New Output Config"
+      },
+      "InputConfigItem": {
+        "Add": "Add Input Config",
+        "DefaultName": "New Input Config"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "Precondition is not satisfied."
+      },
+      "Source": {
+        "available": "Source is available.",
+        "SIMCONNECT_NOT_AVAILABLE": "This config uses SimConnect, connection is missing.",
+        "FSUIPC_NOT_AVAILABLE": "This config uses FSUIPC, connection is missing.",
+        "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing.",
+        "PROSIM_NOT_AVAILABLE": "This config uses ProSim, connection is missing."
+      },
+      "Modifier" : {
+        "Error": "A modifier is applied which has an error.",
+        "OK": "A modifier is applied."
+      },
+      "Device": {
+        "NotConnected": "The device used in this config is not connected.",
+        "Connected": "The device used in this config is connected."
+      },
+      "Test": {
+        "Executing": "This config is currently being tested.",
+        "NotExecuting": "This config is not being tested."
+      },
+      "ConfigRef": {
+        "Missing": "One or more referenced configs are missing.",
+        "OK": "All referenced configs are available."
+      }
+    }
+
+  }
+}

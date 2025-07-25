@@ -70,12 +70,37 @@ namespace MobiFlight.InputConfig
                 case MSFS2020CustomInputAction.TYPE:
                     action = new MSFS2020CustomInputAction();
                     break;
+
                 case XplaneInputAction.TYPE:
                     action = new XplaneInputAction();
+                    break;
+
+                case ProSimInputAction.TYPE:
+                    action = new ProSimInputAction();
                     break;
             }
 
             return action;
+        }
+
+        static public List<Type> GetAllInputActionTypes()
+        {
+            return new List<Type>
+            {
+                typeof(EventIdInputAction),
+                typeof(FsuipcOffsetInputAction),
+                typeof(JeehellInputAction),
+                typeof(KeyInputAction),
+                typeof(LuaMacroInputAction),
+                typeof(MSFS2020CustomInputAction),
+                typeof(MSFS2020EventIdInputAction),
+                typeof(PmdgEventIdInputAction),
+                typeof(ProSimInputAction),
+                typeof(RetriggerInputAction),
+                typeof(VariableInputAction),
+                typeof(VJoyInputAction),
+                typeof(XplaneInputAction)
+            };
         }
     }
 }

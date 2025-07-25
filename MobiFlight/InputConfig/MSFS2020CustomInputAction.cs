@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MobiFlight.InputConfig
 {
     public class MSFS2020CustomInputAction : InputAction, ICloneable
     {
-        public new const String Label = "Microsoft Flight Simulator 2020";
+        public new const String Label = "Microsoft Flight Simulator";
         public new const String CacheType = "SimConnect";
         public const String TYPE = "MSFS2020CustomInputAction";
-        public String Command;
-        public String PresetId;
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String Command { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public String PresetId { get; set; }
 
         override public object Clone()
         {

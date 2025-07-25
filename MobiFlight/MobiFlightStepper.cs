@@ -4,7 +4,7 @@ using System;
 
 namespace MobiFlight
 {
-    class MobiFlightStepper : IConnectedDevice
+    public class MobiFlightStepper : IConnectedDevice
     {
         public const string TYPE = "Stepper";
 
@@ -17,7 +17,7 @@ namespace MobiFlight
         }
 
         private DeviceType _type = DeviceType.Stepper;
-        public DeviceType Type
+        public DeviceType TypeDeprecated
         {
             get { return _type; }
             set { _type = value; }

@@ -176,7 +176,7 @@ namespace MobiFlight.UI.Panels.Config
             preconditionPinSerialComboBox.SelectedIndex = 0;
         }
 
-        public bool syncFromConfig(IBaseConfigItem config)
+        public bool syncFromConfig(ConfigItem config)
         {
             // Until with have the preconditions completely refactored,
             // add an empty precondition in case the current cfg doesn't have one
@@ -202,7 +202,7 @@ namespace MobiFlight.UI.Panels.Config
             return true;
         }
 
-        public bool syncToConfig(IBaseConfigItem config)
+        public bool syncToConfig(ConfigItem config)
         {
             config.Preconditions = Preconditions;
             return true;

@@ -13,6 +13,7 @@ namespace MobiFlightUnitTests.mock.FSUIPC
         public event EventHandler Closed { add { } remove { } }
         public event EventHandler Connected { add { } remove { } }
         public event EventHandler ConnectionLost { add { } remove { } }
+        public event EventHandler<string> AircraftChanged { add { } remove { } }
 
         public List<FSUIPCMockOffset> Writes = new List<FSUIPCMockOffset>();
         public List<FSUIPCMockOffset> Reads = new List<FSUIPCMockOffset>();

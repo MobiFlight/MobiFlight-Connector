@@ -89,6 +89,8 @@ namespace MobiFlight.UI.Dialogs
 
             // TAB Joystick & Midi
             peripheralsPanel.LoadSettings();
+
+            proSimPanel.LoadSettings();
         }
 
         /// <summary>
@@ -108,6 +110,15 @@ namespace MobiFlight.UI.Dialogs
 
             // TAB Joystick & Midi
             peripheralsPanel.SaveSettings();
+
+            // ProSim Tab
+            proSimPanel.SaveSettings();
+            
+            // Reset ProSim connection state when settings change
+            if (execManager != null)
+            {
+                execManager.ResetProSimConnectionState();
+            }
 
             // Save all Settings
             Properties.Settings.Default.Save();

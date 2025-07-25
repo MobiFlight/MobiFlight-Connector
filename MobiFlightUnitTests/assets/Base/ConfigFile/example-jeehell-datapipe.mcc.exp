@@ -10,7 +10,7 @@
         <modifiers>
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="---" />
         </modifiers>
-        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>
@@ -24,7 +24,7 @@
         <modifiers>
           <comparison active="True" value="129" operand="!=" ifValue="if($&lt;=80,$,$-256)" elseValue="-----" />
         </modifiers>
-        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>
@@ -38,7 +38,7 @@
         <modifiers>
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="---" />
         </modifiers>
-        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>
@@ -53,7 +53,7 @@
           <transformation active="True" expression="$*100" />
           <comparison active="True" value="129" operand="!=" ifValue="$" elseValue="-----" />
         </modifiers>
-        <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="MobiFlight Mega/ SN-849-180" />
         <preconditions />
         <configrefs />
       </settings>
@@ -67,7 +67,7 @@
         <modifiers>
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="Std" />
         </modifiers>
-        <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="MobiFlight Mega/ SN-849-180" />
         <preconditions />
         <configrefs />
       </settings>
@@ -81,7 +81,7 @@
         <modifiers>
           <comparison active="True" value="-999" operand="!=" ifValue="$" elseValue="Std" />
         </modifiers>
-        <display type="" serial="MobiFlight Mega/ SN-849-180" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="MobiFlight Mega/ SN-849-180" />
         <preconditions />
         <configrefs />
       </settings>

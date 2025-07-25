@@ -10,7 +10,7 @@
         <modifiers>
           <comparison active="False" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="-" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -24,7 +24,7 @@
         <modifiers>
           <comparison active="False" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="-" trigger="normal" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="-" ledAddress="0" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions />
         <configrefs />
       </settings>
@@ -38,7 +38,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
@@ -55,7 +55,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="        " elseValue="        " />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="1" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
@@ -72,7 +72,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
@@ -89,7 +89,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="        " elseValue="        " />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="3" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
@@ -106,7 +106,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
@@ -123,7 +123,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="     " elseValue="      " />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="2" ledModuleSize="8" ledPadding="False" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
@@ -140,7 +140,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="$+10000" elseValue="$+10000" />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" ledDecimalPoints="4" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="1" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="1" logic="and" />
@@ -157,7 +157,7 @@
         <modifiers>
           <comparison active="True" value="0" operand="=" ifValue="     " elseValue="     " />
         </modifiers>
-        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
+        <display type="Display Module" serial="C172RadioStack/ SN-c2b-a22" ledAddress="NavComLedModules" ledConnector="4" ledModuleSize="8" ledPadding="True" ledPaddingChar="0" ledDigits="2,3,4,5,6" />
         <preconditions>
           <precondition type="config" active="true" ref="fae4074b-7df7-4cd9-a054-a8ca0c7f91a4" operand="=" value="0" logic="and" />
           <precondition type="config" active="true" ref="0b9418e9-47a9-400c-9c8a-317add6e5381" operand="=" value="0" logic="and" />
@@ -174,7 +174,7 @@
         <modifiers>
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>
@@ -188,7 +188,7 @@
         <modifiers>
           <comparison active="False" value="" operand="" ifValue="" elseValue="" />
         </modifiers>
-        <display type="" serial="-" trigger="normal" pin="" pinBrightness="255" />
+        <display type="" serial="-" />
         <preconditions />
         <configrefs />
       </settings>
@@ -207,7 +207,7 @@
             <value x="16000" y="-180" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="C172Left/ SN-33a-cbd" trigger="normal" stepperAddress="TrimPosition" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="C172Left/ SN-33a-cbd" stepperAddress="TrimPosition" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-180" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -225,7 +225,7 @@
             <value x="16383" y="-143" />
           </interpolation>
         </modifiers>
-        <display type="Stepper" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-143" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
+        <display type="Stepper" serial="C172RadioStack/ SN-c2b-a22" stepperAddress="Flaps" stepperInputRev="2040" stepperOutputRev="2040" stepperTestValue="-143" stepperCompassMode="False" stepperAcceleration="0" stepperSpeed="0" />
         <preconditions />
         <configrefs />
       </settings>
@@ -239,7 +239,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftGreen" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" pin="LeftGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -253,7 +253,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightGreen" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" pin="RightGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -267,7 +267,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="LeftRed" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" pin="LeftRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -281,7 +281,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="RightRed" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" pin="RightRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -295,7 +295,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="&lt;" ifValue="if($&gt;0,$,0)" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseRed" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" pin="NoseRed" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>
@@ -309,7 +309,7 @@
         <modifiers>
           <comparison active="True" value="16383" operand="=" ifValue="1" elseValue="0" />
         </modifiers>
-        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" trigger="normal" pin="NoseGreen" pinBrightness="255" />
+        <display type="Output" serial="C172RadioStack/ SN-c2b-a22" pin="NoseGreen" pinBrightness="255" />
         <preconditions />
         <configrefs />
       </settings>

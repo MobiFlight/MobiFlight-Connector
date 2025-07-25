@@ -47,7 +47,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         private bool isPwmPin()
         {
             bool result = false;
-            byte bPin = byte.Parse(mfPinComboBox.SelectedItem.ToString());
+            uint bPin = uint.Parse(mfPinComboBox.SelectedItem.ToString());
             var pin = MobiFlightBoard.Pins.Find(x => (x.Pin == bPin));
             return pin.isPWM;
         }

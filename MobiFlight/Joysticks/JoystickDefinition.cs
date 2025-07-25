@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MobiFlight
 {
@@ -93,6 +89,12 @@ namespace MobiFlight
         public JoystickInput FindInputByName(string name)
         {
             return Inputs.Find(input => input.Name == name);
+        }
+
+        public string MapDeviceNameToLabel(string deviceName)
+        {
+            var input = Inputs.Find(Inputs => Inputs.Name == deviceName);
+            return input?.Label ?? deviceName;
         }
 
         /// <summary>

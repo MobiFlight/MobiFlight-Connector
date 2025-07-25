@@ -1,5 +1,5 @@
 ﻿using MobiFlight.Joysticks.Octavi;
-using MobiFlight.Joysticks.WinwingFcu;
+using MobiFlight.Joysticks.Winwing;
 using MobiFlight.Joysticks.VKB;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using WebSocketSharp.Server;
+using MobiFlight.BrowserMessages;
 
 namespace MobiFlight
 {
@@ -29,13 +31,16 @@ namespace MobiFlight
             SharpDX.DirectInput.DeviceType.Supplemental
         };
 
-        private List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
+        public readonly List<JoystickDefinition> Definitions = new List<JoystickDefinition>();
         public event EventHandler Connected;
         public event ButtonEventHandler OnButtonPressed;
-        private readonly Timer PollTimer = new Timer();        
+        private readonly Timer PollTimer = new Timer(); 
         private readonly System.Collections.Concurrent.ConcurrentDictionary<string, Joystick> Joysticks = new System.Collections.Concurrent.ConcurrentDictionary<string, Joystick>();
         private readonly List<Joystick> ExcludedJoysticks = new List<Joystick>();
         private IntPtr Handle;
+
+        // Websocket Server on port 8320, not yet started
+        WebSocketServer WSServer = new WebSocketServer(System.Net.IPAddress.Loopback, 8320);
 
         public JoystickManager()
         {
@@ -70,10 +75,22 @@ namespace MobiFlight
         /// </summary>
         public void LoadDefinitions()
         {
-            Definitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
                 onError: () => LoadingError = true
             );
+
+            // now we have a symmetry with the MidiBoardManager
+            Definitions.Clear();
+            Definitions.AddRange(rawDefinitions);
+
+            MessageExchange.Instance.Publish(Definitions);
+        }
+
+        public string MapDeviceNameToLabel(string boardName, string deviceName)
+        {
+            var definition = Definitions.Find(def => def.InstanceName == boardName);
+            return definition?.MapDeviceNameToLabel(deviceName) ?? deviceName;
         }
 
         public bool JoysticksConnected()
@@ -118,6 +135,10 @@ namespace MobiFlight
             }
             Joysticks.Clear();
             ExcludedJoysticks.Clear();
+            if (WSServer.IsListening)
+            {
+                WSServer.Stop();
+            }
         }
 
         public void Stop()
@@ -134,7 +155,7 @@ namespace MobiFlight
         /// <returns>List of currently connected joysticks</returns>
         public List<Joystick> GetJoysticks()
         {
-            return Joysticks.Values.OrderBy(j=>j.Name).ToList();
+            return Joysticks.Values.OrderBy(j => j.Name).ToList();
         }
 
         public List<Joystick> GetExcludedJoysticks()
@@ -155,7 +176,7 @@ namespace MobiFlight
             List<string> settingsExcludedJoysticks = JsonConvert.DeserializeObject<List<string>>(Properties.Settings.Default.ExcludedJoysticks);
 
             // make this next call async so that it doesn't block the UI
-            var devices = await Task.Run(()=> di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
+            var devices = await Task.Run(() => di.GetDevices(DeviceClass.GameControl, DeviceEnumerationFlags.AttachedOnly).ToList());
 
             foreach (var d in devices)
             {
@@ -175,11 +196,21 @@ namespace MobiFlight
                 {
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
                     js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
-                }
-                else if (vendorId == 0x4098 && productId == 0xBB10)
+                }     
+                else if (vendorId == 0x4098 && WinwingConstants.FCU_PRODUCTIDS.Contains(productId))
                 {
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
-                    js = new WinwingFcu(diJoystick, joystickDef, productId);
+                    js = new WinwingFcu(diJoystick, joystickDef, productId, WSServer);
+                }
+                else if (vendorId == 0x4098 && WinwingConstants.CDU_PRODUCTIDS.Contains(productId))
+                {
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
+                    js = new WinwingCdu(diJoystick, joystickDef, productId, WSServer);
+                }
+                else if (vendorId == 0x4098 && WinwingConstants.PAP3_PRODUCTIDS.Contains(productId))
+                {
+                    var joystickDef = GetDefinitionByProductId(vendorId, productId);
+                    js = new WinwingPap3(diJoystick, joystickDef, productId, WSServer);
                 }
                 else if (vendorId == 0x231D)
                 {
@@ -217,7 +248,7 @@ namespace MobiFlight
                     Joysticks.TryAdd(js.Serial, js);
                     js.OnButtonPressed += Js_OnButtonPressed;
                     js.OnDisconnected += Js_OnDisconnected;
-                }       
+                }
             }
 
             if (JoysticksConnected())

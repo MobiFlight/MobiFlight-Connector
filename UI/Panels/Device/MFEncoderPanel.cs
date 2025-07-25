@@ -32,8 +32,8 @@ namespace MobiFlight.UI.Panels.Settings.Device
             UpdateFreePinsInDropDowns();
 
             // Default standard selected values, next pins available
-            mfLeftPinComboBox.SelectedValue = byte.Parse(encoder.PinLeft);
-            mfRightPinComboBox.SelectedValue = byte.Parse(encoder.PinRight);
+            mfLeftPinComboBox.SelectedValue = uint.Parse(encoder.PinLeft);
+            mfRightPinComboBox.SelectedValue = uint.Parse(encoder.PinRight);
             ComboBoxHelper.SetSelectedItemByIndex(mfEncoderTypeComboBox, int.Parse(encoder.EncoderType));
             textBox1.Text = encoder.Name;
 
@@ -81,6 +81,13 @@ namespace MobiFlight.UI.Panels.Settings.Device
             setNonPinValues();
             if (Changed != null)
                 Changed(encoder, new EventArgs());
+        }
+
+        private void mfSwapButton_Click(object sender, EventArgs e)
+        {
+            (encoder.PinLeft, encoder.PinRight) = (encoder.PinRight, encoder.PinLeft);
+            UpdateFreePinsInDropDowns();
+            value_Changed(null, new EventArgs());
         }
     }
 }

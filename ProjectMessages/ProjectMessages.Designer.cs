@@ -97,11 +97,11 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to unsaved.
+        ///   Looks up a localized string similar to New Project.
         /// </summary>
-        internal static string DefaultFileName {
+        internal static string DefaultProjectName {
             get {
-                return ResourceManager.GetString("DefaultFileName", resourceCulture);
+                return ResourceManager.GetString("DefaultProjectName", resourceCulture);
             }
         }
         
@@ -1171,6 +1171,28 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Python environment not ready.
+        /// </summary>
+        internal static string uiMessagePythonHint {
+            get {
+                return ResourceManager.GetString("uiMessagePythonHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please follow instructions on:
+        ///	
+        ///https://docs.mobiflight.com/guides/installing-python/
+        ///	
+        ///Page will be opened, when pressing OK..
+        /// </summary>
+        internal static string uiMessagePythonInstructions {
+            get {
+                return ResourceManager.GetString("uiMessagePythonInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to uninstall the MobiFlight firmware? All your data will be removed from the board..
         /// </summary>
         internal static string uiMessageResetConfirm {
@@ -1426,6 +1448,17 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The WASM module cannot be installed while Microsoft Flight Simulator is running.
+        ///
+        ///Close MSFS and install the WASM module via menu &quot;Extras&quot; &gt; &quot;Microsoft Flight Simulator&quot; &gt; &quot;Install WASM module&quot;.
+        /// </summary>
+        internal static string uiMessageWasmMSFSRunning {
+            get {
+                return ResourceManager.GetString("uiMessageWasmMSFSRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MobiFlight WASM Module is already installed and up-to-date..
         /// </summary>
         internal static string uiMessageWasmUpdateAlreadyInstalled {
@@ -1435,7 +1468,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MSFS2020 Community Folder was not found. Can&apos;t install WASM Module automatically. Please copy the folder manually..
+        ///   Looks up a localized string similar to Microsoft Flight Simulator Community Folder was not found. Can&apos;t install WASM Module automatically. Please copy the folder manually..
         /// </summary>
         internal static string uiMessageWasmUpdateCommunityFolderNotFound {
             get {
@@ -1489,6 +1522,15 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        internal static string uiNone {
+            get {
+                return ResourceManager.GetString("uiNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom Param.
         /// </summary>
         internal static string uiPmdgEventIdInputPanelCustomParam {
@@ -1525,7 +1567,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.mobiflight.com/en/documentation/software.html.
+        ///   Looks up a localized string similar to https://docs.mobiflight.com/.
         /// </summary>
         internal static string WebsiteUrlHelp {
             get {

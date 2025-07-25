@@ -18,9 +18,12 @@ namespace MobiFlightUnitTests.mock.xplane
         Dictionary<String, DataRefElement> SubscribedDataRefs = new Dictionary<String, DataRefElement>();
         private bool _connected;
 
+        public int UpdateFrequencyPerSecond { get; set; }
+
         public event EventHandler Closed { add { } remove { } }
         public event EventHandler ConnectionLost { add { } remove { } }
         public event EventHandler Connected { add { } remove { } }
+        public event EventHandler<string> AircraftChanged { add { } remove { } }
 
         internal void Clear()
         {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MobiFlight.Base;
+using MobiFlight.InputConfig;
+using System;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Config
@@ -51,12 +53,22 @@ namespace MobiFlight.UI.Panels.Config
             fsuipcValueTextBox.Text = config.Value;
         }
 
-        internal void syncToConfig(OutputConfigItem config)
+        internal void syncFromConfig(ProSimInputAction config)
+        {
+            fsuipcValueTextBox.Text = config.Expression;
+        }
+
+        internal void syncToConfig(ProSimInputAction config)
+        {
+            config.Expression = fsuipcValueTextBox.Text;
+        }
+
+        internal void syncToConfig(IConfigItem config)
         {
             config.Value = fsuipcValueTextBox.Text;
         }
 
-        internal void syncToConfig(IFsuipcConfigItem config)
+        internal void syncToConfig(FsuipcOffsetInputAction config)
         {
             config.Value = fsuipcValueTextBox.Text;
         }

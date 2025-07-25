@@ -118,13 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="mfSwapButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>127, 41</value>
+  </data>
+  <data name="mfSwapButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>42, 21</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="mfSwapButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="mfSwapButton.Text" xml:space="preserve">
+    <value>Swap</value>
+  </data>
+  <data name="&gt;&gt;mfSwapButton.Name" xml:space="preserve">
+    <value>mfSwapButton</value>
+  </data>
+  <data name="&gt;&gt;mfSwapButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;mfSwapButton.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;mfSwapButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>79, 22</value>
+    <value>70, 22</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 16</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>
   </data>
@@ -141,10 +165,10 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="mfRightPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 41</value>
+    <value>73, 41</value>
   </data>
   <data name="mfRightPinComboBox.MaxLength" type="System.Int32, mscorlib">
     <value>2</value>
@@ -165,7 +189,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;mfRightPinComboBox.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="mfPinLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 22</value>
@@ -189,7 +213,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;mfPinLabel.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="mfLeftPinComboBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 41</value>
@@ -213,7 +237,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;mfLeftPinComboBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="groupBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

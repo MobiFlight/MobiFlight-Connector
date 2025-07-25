@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MFEncoderPanel));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mfSwapButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.mfRightPinComboBox = new System.Windows.Forms.ComboBox();
             this.mfPinLabel = new System.Windows.Forms.Label();
@@ -45,6 +46,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.mfSwapButton);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.mfRightPinComboBox);
             this.groupBox1.Controls.Add(this.mfPinLabel);
@@ -52,6 +54,13 @@
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
+            // 
+            // mfSwapButton
+            // 
+            resources.ApplyResources(this.mfSwapButton, "mfSwapButton");
+            this.mfSwapButton.Name = "mfSwapButton";
+            this.mfSwapButton.UseVisualStyleBackColor = true;
+            this.mfSwapButton.Click += new System.EventHandler(this.mfSwapButton_Click);
             // 
             // label1
             // 
@@ -140,5 +149,6 @@
         private System.Windows.Forms.ComboBox mfRightPinComboBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox mfEncoderTypeComboBox;
+        private System.Windows.Forms.Button mfSwapButton;
     }
 }

@@ -19,6 +19,7 @@ namespace MobiFlight
         public string Name;
         public string Description;
         public string File;
+        public bool DefaultUpload = true;
     }
 
     /// <summary>
@@ -139,7 +140,7 @@ namespace MobiFlight
         /// <summary>
         /// Number of milliseconds to wait for the firmware update to complete before attempting to call GetInfo on the board.
         /// </summary>
-        public int TimeoutForFirmwareUpdate = 15000;
+        public int TimeoutForFirmwareUpdate;
     }
 
     /// <summary>
@@ -414,6 +415,23 @@ namespace MobiFlight
                     Info.FirmwareExtension = "hex";
                 }
             }
+
+            // Issue 1838:
+            // Handle undefined TimeoutForFirmwareUpdate by setting it to the value for Timeout.
+            if (Connection.TimeoutForFirmwareUpdate == 0)
+            {
+                // This test is required to ensure AvrDudeSettings actually exists. It may not, for example when
+                // loading a board.json file for something like a Pico.
+                if (AvrDudeSettings != null)
+                {
+                    Connection.TimeoutForFirmwareUpdate = AvrDudeSettings.Timeout != 0 ? AvrDudeSettings.Timeout : 15000;
+                }
+                else
+                {
+                    Connection.TimeoutForFirmwareUpdate = 15000;
+                }
+            }
+
         }
 #pragma warning restore CS0612 // Type or member is obsolete
 
@@ -428,7 +446,7 @@ namespace MobiFlight
         /// <returns>The </returns>
         protected string GetDefaultDeviceConfigFilePath()
         {
-            return Path.Combine(BasePath, "config", $"{Info.FirmwareBaseName}.mfmc") ;
+            return Path.Combine(BasePath, "config", $"{Info.FirmwareBaseName}.mfmc");
         }
 
         public IEnumerable<DeviceConfigFile> GetExistingDeviceConfigFiles()
@@ -439,7 +457,7 @@ namespace MobiFlight
                 var DefaultDeviceConfigFile = GetDefaultDeviceConfigFilePath();
                 if (!File.Exists(DefaultDeviceConfigFile))
                     return new List<DeviceConfigFile>();
-                
+
                 return new List<DeviceConfigFile>
                 {
                     new DeviceConfigFile
@@ -450,13 +468,22 @@ namespace MobiFlight
                     }
                 };
             }
-                
+
+            var configFolder = Path.Combine(BasePath, "config");
+
+            if (PartnerLevel==BoardPartnerLevel.Core)
+            {
+                // for the built-in boards, the folder structure is not the same as for community boards
+                configFolder = Path.Combine(BasePath, "Boards/config");
+            }
+
+
             return Info.DeviceConfigs
-                    .Select(file => new DeviceConfigFile
+                    .Select(file => new DeviceConfigFile()
                     {
                         Name = file.Name,
                         Description = file.Description,
-                        File = Path.Combine(BasePath, "config", file.File)
+                        File = Path.Combine(configFolder, file.File)
                     })
                     .Where(file => File.Exists(file.File));
         }

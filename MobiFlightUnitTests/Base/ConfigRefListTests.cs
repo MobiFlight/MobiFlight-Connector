@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight.Base;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,32 @@ namespace MobiFlight.Base.Tests
             Assert.IsFalse(o1.Equals(o2));
             o2.Add(new ConfigRef() { Active = true, Placeholder = "#", Ref = "Ref" });
             Assert.IsTrue(o1.Equals(o2));
+        }
+
+        [TestMethod()]
+        public void JsonSerializationDeserializationTest()
+        {
+            ConfigRefList originalList = new ConfigRefList
+            {
+                new ConfigRef { Active = true, Placeholder = "#", Ref = "Ref1", TestValue = "1" },
+                new ConfigRef { Active = false, Placeholder = "$", Ref = "Ref2", TestValue = "2" }
+            };
+
+            string json = JsonConvert.SerializeObject(originalList);
+            ConfigRefList deserializedList = JsonConvert.DeserializeObject<ConfigRefList>(json);
+
+            Assert.IsNotNull(deserializedList);
+            Assert.AreEqual(originalList.Count, deserializedList.Count);
+
+            var originalArray = originalList.ToArray();
+            var deserializedArray = deserializedList.ToArray();
+
+            for (int i = 0; i < originalList.Count; i++)
+            {
+                Assert.AreEqual(originalArray[i].Active, deserializedArray[i].Active);
+                Assert.AreEqual(originalArray[i].Placeholder, deserializedArray[i].Placeholder);
+                Assert.AreEqual(originalArray[i].Ref, deserializedArray[i].Ref);
+            }
         }
     }
 }

@@ -1,0 +1,154 @@
+{
+  "General" : {
+    "Action" : {
+      "OpenMenu": "Menü öffnen"
+    }
+  },
+  "Types": {
+    "Output": "Ausgang",
+    "LedModule": "7-Segment Anzeige",
+    "Stepper": "Schrittmotor",
+    "Servo": "Servo",
+    "LcdDisplay": "LCD Display",
+    "ShiftRegister": "Ouptut Shift Register",
+    "CustomDevice": "Custom Device",
+    "InputShiftRegister": "Input Shift Register",
+    "Button": "Schalter",
+    "Encoder": "Enkoder",
+    "AnalogInput": "Analoger Eingang",
+    "-": "nicht verwendet",
+    "OutputConfigItem": "Ausgabe Konfiguration",
+    "InputConfigItem": "Eingabe Konfiguration",
+    "InputAction": "Input Action"
+  },
+  "Project" : {
+    "File.Action" : {
+      "Add": "Datei hinzufügen",
+      "New": "Neue Datei",
+      "Merge": "Verwende vorhandene Datei",
+      "Rename": "Umbennenn",
+      "Remove": "Entfernen",
+      "Export": "Exportieren"
+    },
+    "Toolbar" : {
+      "Save" : {
+        "HasChanges": "Änderungen speichern",
+        "NoChanges": "Keine Änderungen zum Speichern",
+        "Success": "Erfolgreich gespeichert"
+      }
+    },
+    "Execution": {
+      "AutoRun": {
+        "Label": "Auto",
+        "Enable": "Automatischen Lauf aktivieren",
+        "Disable": "Automatischen Lauf deaktivieren"
+      },
+      "Run": {
+        "Label": "Start",
+        "Stop": "Stopp",
+        "Start": "Starten und alle Konfigurationen ausführen",
+        "StopMode": "Ausführungsmodus stoppen",
+        "BlockedByTest": "Testmodus ist aktiv. Stoppe ihn zuerst."
+      },
+      "Test": {
+        "Label": "Test",
+        "Stop": "Stopp", 
+        "Start": "Testmodus starten und alle Konfigurationen testen",
+        "StopMode": "Testmodus-Ausführung stoppen",
+        "BlockedByRun": "Ausführungsmodus ist aktiv. Stoppe ihn zuerst."
+      }
+    }
+  },
+  "ConfigList": {
+    "Toolbar": {
+      "Search": {
+        "Placeholder": "Einträge filtern..."
+      },
+      "Filter": {
+        "ConfigType": "Konfiguration-Typ",
+        "Device": "Steuerung",
+        "Type": "Gerät",
+        "Name": "Namen",
+        "Selected": "{{items}} ausgewählt",
+        "Clear": "Filter zurücksetzen",
+        "NoResultsFound": "Keine Ergebnisse gefunden."
+      },
+      "NotSet": "Nicht verwendet",
+      "Reset": "Filter zurücksetzen",
+      "SelectedRows": {
+        "Commands" : {
+          "Label": "{{count}} Zeilen ausgewählt",
+          "Delete": "Ausgewählte löschen",
+          "Toggle": "Ausgewählte umschalten",
+          "Clear": "Auswahl zurücksetzen"
+        }
+      }
+    },
+    "Header": {
+      "Active": "Aktiv",
+      "Name": "Name / Beschreibung",
+      "Device": "Steuerung",
+      "Component": "Gerät",
+      "Status": "Status",
+      "RawValue": "Rohwert",
+      "FinalValue": "Endwert",
+      "Actions": "Aktionen"
+    },
+    "Cell": {
+      "Drag" : {
+        "Multiple": "Du verschiebst {{count}} selektierte Zeilen"
+      },
+      "Waiting": "Warten",
+      "Controller": {
+        "openInSettings": "Öffne Einstellungen der Steuerungs",
+        "not set": "In dieser Konfiguration ist kein Controller hinterlegt."
+      },
+      "Device": {
+        "not set": "Diese Konfiguration verwendet kein Gerät."
+      }
+    },
+    "Table": {
+      "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge.",
+      "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter."
+    },
+    "Actions": {
+      "OutputConfigItem": {
+        "Add": "Neue Ausgabe-Konfiguration",
+        "DefaultName": "Neue Ausgabe-Konfiguration"
+      },
+      "InputConfigItem": {
+        "Add": "Neue Eingabe-konfiguration",
+        "DefaultName": "Neue Eingabe-Konfiguration"
+      }
+    },
+    "Status": {
+      "Precondition": {
+        "normal": "Normal",
+        "not satisfied": "Vorbedingung nicht erfüllt."
+      },
+      "Source": {
+        "available": "Quelle ist verfügbar.",
+        "SIMCONNECT_NOT_AVAILABLE": "Diese Config verwendet SimConnect, Verbindung fehlt.",
+        "FSUIPC_NOT_AVAILABLE": "Diese Config verwendet  FSUIPC, Verbindung fehlt.",
+        "XPLANE_NOT_AVAILABLE": "Diese Config verwendet  X-Plane, Verbindung fehlt.",
+        "PROSIM_NOT_AVAILABLE": "Diese Config verwendet  ProSim, Verbindung fehlt."
+      },
+      "Modifier" : {
+        "Error": "Ein Modifikator verursacht einen Fehler.",
+        "OK": "Ein Modifikator ist angewendet."
+      },
+      "Device": {
+        "NotConnected": "Das in dieser Konfiguration verwendete Gerät ist nicht verbunden.",
+        "Connected": "Das in dieser Konfiguration verwendete Gerät ist verbunden."
+      },
+      "Test": {
+        "Executing": "Diese Konfiguration wird gerade getestet.",
+        "NotExecuting": "Diese Konfiguration wird nicht getestet."
+      },
+      "ConfigRef": {
+        "Missing": "Eine oder mehrere referenzierte Konfigurationen fehlen.",
+        "OK": "Alle referenzierten Konfigurationen sind verfügbar."
+      }
+    }
+  }
+}

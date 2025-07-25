@@ -32,6 +32,7 @@
             this.MainPanel = new System.Windows.Forms.Panel();
             this.tabControlFsuipc = new System.Windows.Forms.TabControl();
             this.fsuipcTabPage = new System.Windows.Forms.TabPage();
+            this.proSimDatarefPanel1 = new MobiFlight.UI.Panels.Config.ProSimDataRefPanel();
             this.xplaneDataRefPanel1 = new MobiFlight.UI.Panels.Config.XplaneDataRefPanel();
             this.variablePanel1 = new MobiFlight.UI.Panels.Config.VariablePanel();
             this.simConnectPanel1 = new MobiFlight.UI.Panels.Config.SimConnectPanel();
@@ -44,6 +45,7 @@
             this.OffsetTypeSimConnectRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeFsuipRadioButton = new System.Windows.Forms.RadioButton();
             this.OffsetTypeXplaneRadioButton = new System.Windows.Forms.RadioButton();
+            this.OffsetTypeProSimRadioButton = new System.Windows.Forms.RadioButton();
             this.compareTabPage = new System.Windows.Forms.TabPage();
             this.modifierPanel1 = new MobiFlight.UI.Panels.OutputWizard.ModifierPanel();
             this.referencesGroupBox = new System.Windows.Forms.GroupBox();
@@ -93,6 +95,7 @@
             // 
             // fsuipcTabPage
             // 
+            this.fsuipcTabPage.Controls.Add(this.proSimDatarefPanel1);
             this.fsuipcTabPage.Controls.Add(this.xplaneDataRefPanel1);
             this.fsuipcTabPage.Controls.Add(this.variablePanel1);
             this.fsuipcTabPage.Controls.Add(this.simConnectPanel1);
@@ -101,6 +104,12 @@
             resources.ApplyResources(this.fsuipcTabPage, "fsuipcTabPage");
             this.fsuipcTabPage.Name = "fsuipcTabPage";
             this.fsuipcTabPage.UseVisualStyleBackColor = true;
+            // 
+            // proSimDatarefPanel1
+            // 
+            resources.ApplyResources(this.proSimDatarefPanel1, "proSimDatarefPanel1");
+            this.proSimDatarefPanel1.Name = "proSimDatarefPanel1";
+            this.proSimDatarefPanel1.Path = "";
             // 
             // xplaneDataRefPanel1
             // 
@@ -142,6 +151,7 @@
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeSimConnectRadioButton);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeFsuipRadioButton);
             this.OffsetTypePanel.Controls.Add(this.OffsetTypeXplaneRadioButton);
+            this.OffsetTypePanel.Controls.Add(this.OffsetTypeProSimRadioButton);
             resources.ApplyResources(this.OffsetTypePanel, "OffsetTypePanel");
             this.OffsetTypePanel.Name = "OffsetTypePanel";
             // 
@@ -181,6 +191,14 @@
             this.OffsetTypeXplaneRadioButton.TabStop = true;
             this.OffsetTypeXplaneRadioButton.UseVisualStyleBackColor = true;
             this.OffsetTypeXplaneRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
+            // 
+            // OffsetTypeProSimRadioButton
+            // 
+            resources.ApplyResources(this.OffsetTypeProSimRadioButton, "OffsetTypeProSimRadioButton");
+            this.OffsetTypeProSimRadioButton.Name = "OffsetTypeProSimRadioButton";
+            this.OffsetTypeProSimRadioButton.TabStop = true;
+            this.OffsetTypeProSimRadioButton.UseVisualStyleBackColor = true;
+            this.OffsetTypeProSimRadioButton.CheckedChanged += new System.EventHandler(this.OffsetTypeFsuipRadioButton_CheckedChanged);
             // 
             // compareTabPage
             // 
@@ -280,7 +298,7 @@
             // 
             resources.ApplyResources(this.testValuePanel1, "testValuePanel1");
             this.testValuePanel1.Name = "testValuePanel1";
-            this.testValuePanel1.Result = "\'\'";
+            this.testValuePanel1.Result = "\'\'\'\'\'\'\'\'\'\'";
             // 
             // ConfigWizard
             // 
@@ -348,5 +366,7 @@
         private Panels.Config.XplaneDataRefPanel xplaneDataRefPanel1;
         private Panels.OutputWizard.ModifierPanel modifierPanel1;
         private Panels.Config.TestValuePanel testValuePanel1;
+        private System.Windows.Forms.RadioButton OffsetTypeProSimRadioButton;
+        private Panels.Config.ProSimDataRefPanel proSimDatarefPanel1;
     }
 }

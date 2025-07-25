@@ -21,13 +21,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Add MSBuild to PATH
-        uses: microsoft/setup-msbuild@v1.3.1
+        uses: microsoft/setup-msbuild@v2.0.0
 
       - name: Add VSTest to Path
-        uses: darenm/Setup-VSTest@v1.2
+        uses: darenm/Setup-VSTest@v1.3
 
       - name: Downgrade NSIS
         shell: pwsh
@@ -40,6 +40,10 @@ jobs:
       - name: Dump AssemblyInfo.cs
         run: "type Properties/AssemblyInfo.cs"
         shell: pwsh
+
+      - name: Build frontend
+        working-directory: ${{env.GITHUB_WORKSPACE}}
+        run: cd frontend; npm install; npm run build
 
       - name: Restore NuGet packages
         working-directory: ${{env.GITHUB_WORKSPACE}}
@@ -71,7 +75,7 @@ jobs:
           arguments: "/V3"
 
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -80,7 +84,7 @@ jobs:
             Release/*.sha1
 
       - name: store latest setup file
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MobiFlight-Setup
           path: |
