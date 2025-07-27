@@ -25,15 +25,13 @@ namespace MobiFlight.Scripts
       
         private ConcurrentStack<Process> ActiveProcesses = new ConcurrentStack<Process>();
         private ConcurrentDictionary<int, string> ProcessTable = new ConcurrentDictionary<int, string>();
-        private ConcurrentStack<string> NewAircraftRequestQueue = new ConcurrentStack<string>();
+        private ConcurrentQueue<string> NewAircraftRequestQueue = new ConcurrentQueue<string>();
         private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         private IChildProcessMonitor ChildProcMon;
 
         private volatile bool IsInPlayMode = false;
         private volatile bool PythonCheckCompleted = false; 
-
-        private const int LINE_LENGTH = 24; // 24 characters per line on CDU
 
         private ConcurrentStack<Joystick> GameControllersWithScripts = new ConcurrentStack<Joystick>();
 
@@ -121,7 +119,7 @@ namespace MobiFlight.Scripts
             AircraftName = aircraftName.ToLower();
             if (!MsfsCache.IsConnected() && IsInPlayMode)
             {
-                NewAircraftRequestQueue.Push(AircraftName);
+                NewAircraftRequestQueue.Enqueue(AircraftName);
             }
         }
 
@@ -131,7 +129,7 @@ namespace MobiFlight.Scripts
 
             if (MsfsCache.IsConnected() && IsInPlayMode)
             {
-                NewAircraftRequestQueue.Push(AircraftPath);
+                NewAircraftRequestQueue.Enqueue(AircraftPath);
             }            
         }
 
@@ -299,15 +297,32 @@ namespace MobiFlight.Scripts
             return necessaryPackagesAvailable;
         }
 
+        private void ShowMessageBoxInternal()
+        {
+            if (MessageBox.Show(i18n._tr("uiMessagePythonInstructions"),
+                                i18n._tr("uiMessagePythonHint"),
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning) == DialogResult.OK)
+            {
+                Process.Start("https://docs.mobiflight.com/guides/installing-python/");
+            }
+        }
+
         private void ShowPythonInstructionsMessageBox()
         {
             Log.Instance.log($"ShowPythonInstructionsMessageBox", LogSeverity.Debug);
-            if (MessageBox.Show(i18n._tr("uiMessagePythonInstructions"),
-                    i18n._tr("uiMessagePythonHint"),
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning) == DialogResult.OK) ;
+            
+            Form mainForm = Application.OpenForms.Count > 0 ? Application.OpenForms[0] : null;
+            if (mainForm != null && mainForm.InvokeRequired)
             {
-                Process.Start("https://docs.mobiflight.com/guides/installing-python/");
+                mainForm.Invoke(new Action(() =>
+                {
+                    ShowMessageBoxInternal();
+                }));
+            }
+            else
+            {
+                ShowMessageBoxInternal();
             }
         }
 
@@ -344,7 +359,6 @@ namespace MobiFlight.Scripts
 
         private void ExecuteScripts(List<string> executionList)
         {
-
             SendUserMessage(UserMessageCodes.STARTING_SCRIPT, string.Join(" ", executionList));
 
             if (!PythonCheckCompleted)
@@ -484,7 +498,7 @@ namespace MobiFlight.Scripts
             Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
             IsInPlayMode = true;           
             string currentAircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
-            NewAircraftRequestQueue.Push(currentAircraftDescription);            
+            NewAircraftRequestQueue.Enqueue(currentAircraftDescription);            
             Task myTask = Task.Run(() => {ProcessAircraftRequests(CancellationTokenSource.Token); });            
         }
 
@@ -516,7 +530,6 @@ namespace MobiFlight.Scripts
             StopActiveProcesses();                    
         }
 
-
         public void Shutdown()
         {
             Stop();
@@ -527,16 +540,21 @@ namespace MobiFlight.Scripts
             Log.Instance.log($"ScriptRunner - Start processing thread.", LogSeverity.Debug);
             while (!token.IsCancellationRequested)
             {
-                if (NewAircraftRequestQueue.TryPop(out string aircraftString))
+                string aircraftString = null;
+
+                while (NewAircraftRequestQueue.TryDequeue(out string nextAircraft))
+                {
+                    aircraftString = nextAircraft;
+                }
+
+                if (aircraftString != null)
                 {
                     Console.WriteLine($"ProcessAircraftRequest: {aircraftString}");
-
-                    // Only take most recent one
-                    NewAircraftRequestQueue.Clear();                    
                     StopActiveProcesses();
-                    CheckAndExecuteScripts(aircraftString);                    
+                    CheckAndExecuteScripts(aircraftString);
                 }
-                await Task.Delay(300);               
+
+                await Task.Delay(300);
             }
             Log.Instance.log($"ScriptRunner - Stop processing thread.", LogSeverity.Debug);
         }
