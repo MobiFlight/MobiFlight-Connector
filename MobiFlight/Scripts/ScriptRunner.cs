@@ -2,10 +2,12 @@
 using MobiFlight.SimConnectMSFS;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,18 +23,19 @@ namespace MobiFlight.Scripts
         private Dictionary<string, List<ScriptMapping>> MappingDictionary = new Dictionary<string, List<ScriptMapping>>();
         private Dictionary<string, string> ScriptDictionary = new Dictionary<string, string>();
       
-        private List<Process> ActiveProcesses = new List<Process>();
-        private Dictionary<int, string> ProcessTable = new Dictionary<int, string>();
+        private ConcurrentStack<Process> ActiveProcesses = new ConcurrentStack<Process>();
+        private ConcurrentDictionary<int, string> ProcessTable = new ConcurrentDictionary<int, string>();
+        private ConcurrentStack<string> NewAircraftRequestQueue = new ConcurrentStack<string>();
+        private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
         private IChildProcessMonitor ChildProcMon;
 
         private volatile bool IsInPlayMode = false;
         private volatile bool PythonCheckCompleted = false; 
-        private object ProcessLock = new object();    
 
         private const int LINE_LENGTH = 24; // 24 characters per line on CDU
 
-        private List<Joystick> GameControllersWithScripts = new List<Joystick>();
+        private ConcurrentStack<Joystick> GameControllersWithScripts = new ConcurrentStack<Joystick>();
 
         private Dictionary<string, Tuple<int, int>> RequiredPackages = new Dictionary<string, Tuple<int, int>>()
         {
@@ -112,33 +115,23 @@ namespace MobiFlight.Scripts
         }
 
 
-        private void CheckForRestart()
-        {
-            if (IsInPlayMode)
-            {
-                StopActiveProcesses();
-                CheckAndExecuteScripts();
-            }
-        }
-
         
         public void OnSimAircraftChanged(object sender, string aircraftName)
         {
             AircraftName = aircraftName.ToLower();
-            if (!MsfsCache.IsConnected())
+            if (!MsfsCache.IsConnected() && IsInPlayMode)
             {
-                CheckForRestart();
+                NewAircraftRequestQueue.Push(AircraftName);
             }
         }
-
 
         public void OnSimAircraftPathChanged(object sender, string aircraftPath)
         {
             AircraftPath = aircraftPath.ToLower();
 
-            if (MsfsCache.IsConnected())
+            if (MsfsCache.IsConnected() && IsInPlayMode)
             {
-                CheckForRestart();
+                NewAircraftRequestQueue.Push(AircraftPath);
             }            
         }
 
@@ -351,66 +344,64 @@ namespace MobiFlight.Scripts
 
         private void ExecuteScripts(List<string> executionList)
         {
-            lock (ProcessLock)
+
+            SendUserMessage(UserMessageCodes.STARTING_SCRIPT, string.Join(" ", executionList));
+
+            if (!PythonCheckCompleted)
             {
-                SendUserMessage(UserMessageCodes.STARTING_SCRIPT, string.Join(" ", executionList));
-
-                if (!PythonCheckCompleted)
+                if (!IsPythonReady())
                 {
-                    if (!IsPythonReady())
-                    {
-                        Log.Instance.log($"ScriptRunner - Python not ready!", LogSeverity.Error);
-                        SendUserMessage(UserMessageCodes.PYTHON_NOT_READY);
-                        return;
-                    }
-                    else
-                    {
-                        PythonCheckCompleted = true;
-                    }
+                    Log.Instance.log($"ScriptRunner - Python not ready!", LogSeverity.Error);
+                    SendUserMessage(UserMessageCodes.PYTHON_NOT_READY);
+                    return;
                 }
-                                      
-                foreach (var script in executionList)
+                else
                 {
-                    ProcessStartInfo psi = new ProcessStartInfo
-                    {
-                        FileName = @"python",
-                        Arguments = ($"\"{ScriptDictionary[script]}\""),
-                        CreateNoWindow = true,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                    };
-
-                    Process process = new Process
-                    {
-                        StartInfo = psi
-                    };
-
-                    process.EnableRaisingEvents = true;
-                    process.OutputDataReceived += Process_OutputDataReceived;
-                    process.ErrorDataReceived += Process_ErrorDataReceived;
-                    process.Exited += Process_Exited;
-
-                    Log.Instance.log($"ScriptRunner - Start Process: {script}", LogSeverity.Info);
-                    Log.Instance.log($"ScriptRunner - Start Process FullPath: {psi.Arguments}", LogSeverity.Debug);
-                    process.Start();
-
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-
-                    ProcessTable.Add(process.Id, script);
-                    ActiveProcesses.Add(process);
-
-                    try
-                    {
-                        ChildProcMon.AddChildProcess(process);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
-                    }
+                    PythonCheckCompleted = true;
                 }
-            } // end lock
+            }
+
+            foreach (var script in executionList)
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = @"python",
+                    Arguments = ($"\"{ScriptDictionary[script]}\""),
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                };
+
+                Process process = new Process
+                {
+                    StartInfo = psi
+                };
+
+                process.EnableRaisingEvents = true;
+                process.OutputDataReceived += Process_OutputDataReceived;
+                process.ErrorDataReceived += Process_ErrorDataReceived;
+                process.Exited += Process_Exited;
+
+                Log.Instance.log($"ScriptRunner - Start Process: {script}", LogSeverity.Info);
+                Log.Instance.log($"ScriptRunner - Start Process FullPath: {psi.Arguments}", LogSeverity.Debug);
+                process.Start();
+
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+
+                ProcessTable[process.Id] = script;
+                ActiveProcesses.Push(process);
+
+                try
+                {
+                    ChildProcMon.AddChildProcess(process);
+                }
+                catch (Exception ex)
+                {
+                    Log.Instance.log($"ScriptRunner - Exception in ChildProcessMonitor AddChildProcess: {ex.Message}", LogSeverity.Error);
+                }
+            }
         }
 
         private void Process_Exited(object sender, EventArgs e)
@@ -432,92 +423,97 @@ namespace MobiFlight.Scripts
             Log.Instance.log($"ScriptRunner - StandardOutput: {e.Data}", LogSeverity.Info);       
         }
 
-        private void CheckAndExecuteScripts()
+        private void CheckAndExecuteScripts(string aircraftDescription)
         {
             var executionList = new List<string>();
 
-            lock (ProcessLock)
+            Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
+            GameControllersWithScripts.Clear();
+
+            // Get all game controllers. GetJoysticks is ThreadSafe
+            var gameControllers = JsManager.GetJoysticks();
+            foreach (var gameController in gameControllers)
             {
-                string aircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
-                Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);                
-                GameControllersWithScripts.Clear();
-
-                // Get all game controllers
-                var gameControllers = JsManager.GetJoysticks();
-                foreach (var gameController in gameControllers)
+                var jsDef = gameController.GetJoystickDefinition();
+                if (jsDef != null)
                 {
-                    var jsDef = gameController.GetJoystickDefinition();
-                    if (jsDef != null)
+                    string hardwareId = jsDef.VendorId.ToString() + jsDef.ProductId.ToString();
+                    if (MappingDictionary.ContainsKey(hardwareId))
                     {
-                        string hardwareId = jsDef.VendorId.ToString() + jsDef.ProductId.ToString();
-                        if (MappingDictionary.ContainsKey(hardwareId))
+                        // Hardware found, now compare aircraft 
+                        foreach (var config in MappingDictionary[hardwareId])
                         {
-                            // Hardware found, now compare aircraft 
-                            foreach (var config in MappingDictionary[hardwareId])
+                            if (aircraftDescription.Contains(config.AircraftIdSnippet))
                             {
-                                if (aircraftDescription.Contains(config.AircraftIdSnippet))
+                                if (!GameControllersWithScripts.Contains(gameController))
                                 {
-                                    if (!GameControllersWithScripts.Contains(gameController))
-                                    {
-                                        GameControllersWithScripts.Add(gameController);
-                                    }
+                                    GameControllersWithScripts.Push(gameController);
+                                }
 
-                                    // Only add if not already there
-                                    if (!executionList.Contains(config.ScriptName))
-                                    {
-                                        Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
-                                        executionList.Add(config.ScriptName);
-                                    }
+                                // Only add if not already there
+                                if (!executionList.Contains(config.ScriptName))
+                                {
+                                    Log.Instance.log($"ScriptRunner - Add {config.ScriptName} to execution list.", LogSeverity.Info);
+                                    executionList.Add(config.ScriptName);
                                 }
                             }
                         }
                     }
                 }
-            } // end lock
+            }
 
             if (executionList.Count > 0)
             {
-                var task = Task.Run(() =>
-                {
-                    ExecuteScripts(executionList);
-                });
+                ExecuteScripts(executionList);
             }
         }
-        
 
-        public void Start()
+        public void StartUp()
         {
+            Log.Instance.log($"ScriptRunner - StartUp().", LogSeverity.Debug);
+            // Delay because establishing MsfsCache connection state does need some time.           
+            Task.Run(async () => 
+            {
+                await Task.Delay(2000);
+                Start();
+            });
+        }
+        
+        public void Start()
+        {            
             Log.Instance.log($"ScriptRunner - Start().", LogSeverity.Debug);
-            IsInPlayMode = true;
-            CheckAndExecuteScripts();
+            IsInPlayMode = true;           
+            string currentAircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
+            NewAircraftRequestQueue.Push(currentAircraftDescription);            
+            Task myTask = Task.Run(() => {ProcessAircraftRequests(CancellationTokenSource.Token); });            
         }
 
 
         private void StopActiveProcesses()
         {
-            lock (ProcessLock)
+            foreach (var process in ActiveProcesses)
             {
-                foreach (var process in ActiveProcesses)
+                if (!process.HasExited)
                 {
-                    if (!process.HasExited)
-                    {
-                        process.OutputDataReceived -= Process_OutputDataReceived;
-                        process.ErrorDataReceived -= Process_ErrorDataReceived;  
-                        process.Exited -= Process_Exited;
-                        process.Kill();
-                    }
+                    process.OutputDataReceived -= Process_OutputDataReceived;
+                    process.ErrorDataReceived -= Process_ErrorDataReceived;  
+                    process.Exited -= Process_Exited;
+                    process.Kill();
                 }
-                ActiveProcesses.Clear();
-                ProcessTable.Clear();
             }
+          
+            ActiveProcesses.Clear();
+            ProcessTable.Clear();            
         }
 
 
         public void Stop()
         {
-            Log.Instance.log($"ScriptRunner - Stop().", LogSeverity.Debug);
+            Log.Instance.log($"ScriptRunner - Stop().", LogSeverity.Debug);            
             IsInPlayMode = false;
-            StopActiveProcesses();          
+            CancellationTokenSource.Cancel(); // Stop the current processing queue
+            CancellationTokenSource = new CancellationTokenSource();
+            StopActiveProcesses();                    
         }
 
 
@@ -526,5 +522,23 @@ namespace MobiFlight.Scripts
             Stop();
         }
 
+        private async void ProcessAircraftRequests(CancellationToken token)
+        {
+            Log.Instance.log($"ScriptRunner - Start processing thread.", LogSeverity.Debug);
+            while (!token.IsCancellationRequested)
+            {
+                if (NewAircraftRequestQueue.TryPop(out string aircraftString))
+                {
+                    Console.WriteLine($"ProcessAircraftRequest: {aircraftString}");
+
+                    // Only take most recent one
+                    NewAircraftRequestQueue.Clear();                    
+                    StopActiveProcesses();
+                    CheckAndExecuteScripts(aircraftString);                    
+                }
+                await Task.Delay(300);               
+            }
+            Log.Instance.log($"ScriptRunner - Stop processing thread.", LogSeverity.Debug);
+        }
     }
 }

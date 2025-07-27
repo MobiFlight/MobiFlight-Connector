@@ -605,7 +605,7 @@ namespace MobiFlight
             simConnectCache.Start();
             xplaneCache.Start();
 
-            scriptRunner.Start();
+            scriptRunner.StartUp();
 
             // the timer has to be enabled before the 
             // on start actions are executed
