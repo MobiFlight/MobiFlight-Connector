@@ -23,7 +23,7 @@ namespace MobiFlight.Scripts
         private Dictionary<string, List<ScriptMapping>> MappingDictionary = new Dictionary<string, List<ScriptMapping>>();
         private Dictionary<string, string> ScriptDictionary = new Dictionary<string, string>();
       
-        private ConcurrentStack<Process> ActiveProcesses = new ConcurrentStack<Process>();
+        private ConcurrentBag<Process> ActiveProcesses = new ConcurrentBag<Process>();
         private ConcurrentDictionary<int, string> ProcessTable = new ConcurrentDictionary<int, string>();
         private ConcurrentQueue<string> NewAircraftRequestQueue = new ConcurrentQueue<string>();
         private CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
@@ -33,7 +33,7 @@ namespace MobiFlight.Scripts
         private volatile bool IsInPlayMode = false;
         private volatile bool PythonCheckCompleted = false; 
 
-        private ConcurrentStack<Joystick> GameControllersWithScripts = new ConcurrentStack<Joystick>();
+        private ConcurrentBag<Joystick> GameControllersWithScripts = new ConcurrentBag<Joystick>();
 
         private Dictionary<string, Tuple<int, int>> RequiredPackages = new Dictionary<string, Tuple<int, int>>()
         {
@@ -405,7 +405,7 @@ namespace MobiFlight.Scripts
                 process.BeginErrorReadLine();
 
                 ProcessTable[process.Id] = script;
-                ActiveProcesses.Push(process);
+                ActiveProcesses.Add(process);
 
                 try
                 {
@@ -442,7 +442,9 @@ namespace MobiFlight.Scripts
             var executionList = new List<string>();
 
             Log.Instance.log($"ScriptRunner - Current aircraft description: {aircraftDescription}.", LogSeverity.Debug);
-            GameControllersWithScripts.Clear();
+
+            // Emtpy bag
+            while (GameControllersWithScripts.TryTake(out _)) { }       
 
             // Get all game controllers. GetJoysticks is ThreadSafe
             var gameControllers = JsManager.GetJoysticks();
@@ -461,7 +463,7 @@ namespace MobiFlight.Scripts
                             {
                                 if (!GameControllersWithScripts.Contains(gameController))
                                 {
-                                    GameControllersWithScripts.Push(gameController);
+                                    GameControllersWithScripts.Add(gameController);
                                 }
 
                                 // Only add if not already there
@@ -499,7 +501,7 @@ namespace MobiFlight.Scripts
             IsInPlayMode = true;           
             string currentAircraftDescription = MsfsCache.IsConnected() ? AircraftPath : AircraftName;
             NewAircraftRequestQueue.Enqueue(currentAircraftDescription);            
-            Task myTask = Task.Run(() => {ProcessAircraftRequests(CancellationTokenSource.Token); });            
+            Task myTask = Task.Run(async () => { await ProcessAircraftRequests(CancellationTokenSource.Token); });            
         }
 
 
@@ -515,8 +517,9 @@ namespace MobiFlight.Scripts
                     process.Kill();
                 }
             }
-          
-            ActiveProcesses.Clear();
+
+            // Emtpy bag
+            while (ActiveProcesses.TryTake(out _)) { }            
             ProcessTable.Clear();            
         }
 
@@ -535,7 +538,7 @@ namespace MobiFlight.Scripts
             Stop();
         }
 
-        private async void ProcessAircraftRequests(CancellationToken token)
+        private async Task ProcessAircraftRequests(CancellationToken token)
         {
             Log.Instance.log($"ScriptRunner - Start processing thread.", LogSeverity.Debug);
             while (!token.IsCancellationRequested)
@@ -549,7 +552,7 @@ namespace MobiFlight.Scripts
 
                 if (aircraftString != null)
                 {
-                    Console.WriteLine($"ProcessAircraftRequest: {aircraftString}");
+                    Log.Instance.log($"ProcessAircraftRequest: {aircraftString}", LogSeverity.Info);
                     StopActiveProcesses();
                     CheckAndExecuteScripts(aircraftString);
                 }
