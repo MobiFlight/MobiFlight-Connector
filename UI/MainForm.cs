@@ -485,7 +485,7 @@ namespace MobiFlight.UI
         private async Task CleanRecentFilesAsync()
         {
             var recentSnapshot = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
-            
+
             var missingFiles = await Task.Run(() => CheckForMissingFiles(recentSnapshot)).ConfigureAwait(false);
 
             if (missingFiles.Count == 0) return;
@@ -2159,21 +2159,32 @@ namespace MobiFlight.UI
             {
                 var allConfigItems = execManager.Project.ConfigFiles.Select(file => file.ConfigItems).ToList();
                 OrphanedSerialsDialog opd = new OrphanedSerialsDialog(serials, allConfigItems);
+
+                void UpdateProject()
+                {
+                    ProjectHasUnsavedChanges = opd.HasChanged();
+                    var updatedConfigs = opd.GetUpdatedConfigs();
+
+                    for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
+                    {
+                        execManager.Project.ConfigFiles[i].ConfigItems = updatedConfigs[i];
+                    }
+
+                    MessageExchange.Instance.Publish(execManager.Project);
+                }
+
                 opd.StartPosition = FormStartPosition.CenterParent;
                 if (opd.HasOrphanedSerials())
                 {
-                    if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    if (opd.ShowDialog() == DialogResult.OK)
                     {
-                        ProjectHasUnsavedChanges = opd.HasChanged();
-                        var udpatedConfigs = opd.GetUpdatedConfigs();
-
-                        for (int i = 0; i < execManager.Project.ConfigFiles.Count; i++)
-                        {
-                            execManager.Project.ConfigFiles[i].ConfigItems = udpatedConfigs[i];
-                        }
-
-                        MessageExchange.Instance.Publish(execManager.Project);
+                        UpdateProject();
                     }
+                }
+                else if (opd.HasChanged())
+                {
+                    // If there are no orphaned serials, serials can still be changed automatically
+                    UpdateProject();
                 }
                 else
                 {
