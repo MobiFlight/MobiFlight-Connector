@@ -33,10 +33,10 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
   const deviceName = (item.Device)?.Name ?? "-"
 
   const saveChanges = useCallback(() => {
-    item.Name = label
+    const updatedItem = { ...item, Name: label }
     publish({
       key: "CommandUpdateConfigItem",
-      payload: { item: item },
+      payload: { item: updatedItem },
     } as CommandUpdateConfigItem)
   }, [label, item, publish])
 

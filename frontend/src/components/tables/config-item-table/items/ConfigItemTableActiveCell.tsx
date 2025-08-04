@@ -30,10 +30,10 @@ const ConfigItemTableActiveCell = React.memo(({ row }: ConfigItemTableActiveCell
         <Switch
           checked={row.getValue("Active") as boolean}
           onClick={() => {
-            item.Active = !item.Active
+            const updatedItem = { ...item, Active: !item.Active }
             publish({
               key: "CommandUpdateConfigItem",
-              payload: { item: item },
+              payload: { item: updatedItem },
             } as CommandUpdateConfigItem)
           }}
         />
