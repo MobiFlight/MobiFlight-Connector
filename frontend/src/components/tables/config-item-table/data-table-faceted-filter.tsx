@@ -37,6 +37,9 @@ export function DataTableFacetedFilter<TData, TValue>({
   title,
   options,
 }: DataTableFacetedFilterProps<TData, TValue>) {
+  // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
+  "use no memo"
+
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
 

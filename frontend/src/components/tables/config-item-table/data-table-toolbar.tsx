@@ -45,6 +45,9 @@ export function DataTableToolbar<TData>({
   onToggleSelected,
   onClearSelected,
 }: DataTableToolbarProps<TData>) {
+  // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
+  "use no memo"
+
   const { t } = useTranslation()
 
   const isFiltered = table.getState().columnFilters.length > 0
