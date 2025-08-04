@@ -5,14 +5,13 @@ import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { IconCircleCheck, IconCircleX, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
-import React from "react"
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProps) => {
+function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
   const { t } = useTranslation()
 
   const { publish } = publishOnMessageExchange()
@@ -32,13 +31,13 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
     (item.ModuleSerial).split("/")[0] ?? "not set"
   const deviceName = (item.Device)?.Name ?? "-"
 
-  const saveChanges = useCallback(() => {
+  const saveChanges = () => {
     const updatedItem = { ...item, Name: label }
     publish({
       key: "CommandUpdateConfigItem",
       payload: { item: updatedItem },
     } as CommandUpdateConfigItem)
-  }, [label, item, publish])
+  }
 
   useEffect(() => {
     setLabel(realLabel)
@@ -118,6 +117,6 @@ const ConfigItemTableNameCell = React.memo(({ row }: ConfigItemTableNameCellProp
       )}
     </div>
   )
-})
+}
 
 export default ConfigItemTableNameCell

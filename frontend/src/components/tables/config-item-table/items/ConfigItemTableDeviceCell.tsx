@@ -7,15 +7,15 @@ import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
 import { useTranslation } from "react-i18next"
 import StackedIcons from "@/components/icons/StackedIcons"
-import React from "react"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import { mapJoystickDeviceNameToLabel } from "@/types/definitions"
 
 interface ConfigItemTableDeviceCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableDeviceCell = React.memo(
-  ({ row }: ConfigItemTableDeviceCellProps) => {
+function ConfigItemTableDeviceCell({
+  row,
+}: ConfigItemTableDeviceCellProps) {
     const { t } = useTranslation()
     const { JoystickDefinitions, MidiControllerDefinitions } = useControllerDefinitionsStore()
     const item = row.original as IConfigItem
@@ -90,7 +90,6 @@ const ConfigItemTableDeviceCell = React.memo(
         </div>
       </ToolTip>
     )
-  },
-)
+}
 
 export default ConfigItemTableDeviceCell

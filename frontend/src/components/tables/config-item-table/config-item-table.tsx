@@ -150,75 +150,69 @@ export function ConfigItemTable<TData, TValue>({
     // useSensor(KeyboardSensor, {}),
   )
 
-  const handleDragStart = useCallback(
-    (event: DragStartEvent) => {
-      const { active } = event
-      setDragItem(active)
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event
+    setDragItem(active)
 
-      const draggedRow = table
-        .getRowModel()
-        .rows.find((row) => row.id === active.id)
-      if (!draggedRow) return
-      if (!draggedRow.getIsSelected()) {
-        table.setRowSelection({ [active.id]: true })
-      }
-    },
-    [setDragItem, table],
-  )
+    const draggedRow = table
+      .getRowModel()
+      .rows.find((row) => row.id === active.id)
+    if (!draggedRow) return
+    if (!draggedRow.getIsSelected()) {
+      table.setRowSelection({ [active.id]: true })
+    }
+  }
 
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
 
-      setDragItem(undefined)
+    setDragItem(undefined)
 
-      if (!over?.id || !active.id) return
+    if (!over?.id || !active.id) return
 
-      // we didn't really move anything
-      if (active.id === over.id) return
+    // we didn't really move anything
+    if (active.id === over.id) return
 
-      // Get all selected row GUIDs, or just the dragged one if nothing selected
-      const selectedRows = table.getSelectedRowModel().rows
-      const selectedIds = selectedRows.map(
-        (row) => (row.original as IConfigItem).GUID,
-      )
-      const originalIndex = (data as IConfigItem[]).findIndex((item) => item.GUID === active.id)
+    // Get all selected row GUIDs, or just the dragged one if nothing selected
+    const selectedRows = table.getSelectedRowModel().rows
+    const selectedIds = selectedRows.map(
+      (row) => (row.original as IConfigItem).GUID,
+    )
+    const originalIndex = (data as IConfigItem[]).findIndex((item) => item.GUID === active.id)
 
-      // Remove dragged items from data
-      let newData = (data as IConfigItem[]).filter(
-        (item) => !selectedIds.includes(item.GUID),
-      )
-      // Find drop index
-      const newIndex = newData.findIndex((item) => item.GUID === over.id)
+    // Remove dragged items from data
+    let newData = (data as IConfigItem[]).filter(
+      (item) => !selectedIds.includes(item.GUID),
+    )
+    // Find drop index
+    const newIndex = newData.findIndex((item) => item.GUID === over.id)
 
-      // we determine drag direction
-      const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
+    // we determine drag direction
+    const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
 
-      const draggedData = (data as IConfigItem[]).filter((item) =>
-        selectedIds.includes(item.GUID)
-      )
+    const draggedData = (data as IConfigItem[]).filter((item) =>
+      selectedIds.includes(item.GUID)
+    )
 
-      // Insert dragged items at drop index
-      newData = [
-        ...newData.slice(0, newIndex + dragDirectionOffset),
-        ...draggedData,
-        ...newData.slice(newIndex + dragDirectionOffset),
-      ]
+    // Insert dragged items at drop index
+    newData = [
+      ...newData.slice(0, newIndex + dragDirectionOffset),
+      ...draggedData,
+      ...newData.slice(newIndex + dragDirectionOffset),
+    ]
 
-      setItems(newData)
+    setItems(newData)
 
-      publishOnMessageExchange().publish({
-        key: "CommandResortConfigItem",
-        payload: {
-          items: draggedData,
-          newIndex: newIndex + dragDirectionOffset,
-        },
-      } as CommandResortConfigItem)
-    },
-    [data, setItems, table],
-  )
+    publishOnMessageExchange().publish({
+      key: "CommandResortConfigItem",
+      payload: {
+        items: draggedData,
+        newIndex: newIndex + dragDirectionOffset,
+      },
+    } as CommandResortConfigItem)
+  }
 
-  const handleAddOutputConfig = useCallback(() => {
+  const handleAddOutputConfig = () => {
     addedItem.current = true
     publish({
       key: "CommandAddConfigItem",
@@ -227,9 +221,9 @@ export function ConfigItemTable<TData, TValue>({
         type: "OutputConfig",
       },
     } as CommandAddConfigItem)
-  }, [publish, t])
+  }
 
-  const handleAddInputConfig = useCallback(() => {
+  const handleAddInputConfig = () => {
     addedItem.current = true
     publish({
       key: "CommandAddConfigItem",
@@ -238,9 +232,9 @@ export function ConfigItemTable<TData, TValue>({
         type: "InputConfig",
       },
     } as CommandAddConfigItem)
-  }, [publish, t])
+  }
 
-  const deleteSelected = useCallback(() => {
+  const deleteSelected = () => {
     const action = "delete"
     const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
       return row.original as IConfigItem
@@ -256,9 +250,9 @@ export function ConfigItemTable<TData, TValue>({
     })
     // Clear selection after deletion
     table.setRowSelection({})
-  }, [table, publish])
+  }
 
-  const toggleSelected = useCallback(() => {
+  const toggleSelected = () => {
     const action = "toggle"
     const selectedConfigs = table.getSelectedRowModel().rows.map((row) => {
       return row.original as IConfigItem
@@ -272,7 +266,7 @@ export function ConfigItemTable<TData, TValue>({
         items: selectedConfigs,
       },
     })
-  }, [table, publish])
+  }
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
