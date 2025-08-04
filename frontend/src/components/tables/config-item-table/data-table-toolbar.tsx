@@ -46,6 +46,7 @@ export function DataTableToolbar<TData>({
   onClearSelected,
 }: DataTableToolbarProps<TData>) {
   // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
+  // eslint-disable-next-line react-hooks/react-compiler
   "use no memo"
 
   const { t } = useTranslation()
