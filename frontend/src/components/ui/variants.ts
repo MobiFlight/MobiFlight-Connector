@@ -34,7 +34,9 @@ export const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        tabActive: "relative z-10 border border-input border-b-background border-t-primary border-t-4 bg-background text-foreground",
+        tabActive:
+          "relative z-10 border border-input border-b-0 border-t-primary border-t-4 bg-background text-foreground " +
+          "after:content-[''] after:absolute after:left-0 after:right-0 after:bottom-[-1px] after:h-px after:bg-background",
         tabDefault: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
       },
       size: {
