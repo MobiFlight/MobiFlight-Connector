@@ -49,7 +49,7 @@ const FileButton = ({
     setLabel(file.Label ?? file.FileName)
   }, [file.Label, file.FileName])
 
-  const groupHoverStyle = variant === "default" ? "group-hover:bg-primary/90" : "group-hover:bg-accent group-hover:text-accent-foreground"
+  const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary/90" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
   return (
     <div className="flex justify-center group" role="tab">
