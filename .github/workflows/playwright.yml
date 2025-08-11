@@ -2,6 +2,7 @@ name: Playwright Tests
 on:
   pull_request:
     branches: [ main, mf2025/main ]
+  workflow_dispatch:
 jobs:
   test:
     timeout-minutes: 60
@@ -13,7 +14,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
       with:
-        node-version: lts/*
+        node-version: 22.17
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
