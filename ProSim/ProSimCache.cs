@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using GraphQL.Client.Abstractions.Websocket;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
@@ -25,6 +26,9 @@ namespace MobiFlight.ProSim
 
         // ProSim SDK object
         private GraphQLHttpClient _connection;
+        
+        // Heartbeat timer to keep WebSocket connection active
+        private Timer _heartbeatTimer;
 
         // Cache of subscribed DataRefs
         private Dictionary<string, CachedDataRef> _subscribedDataRefs = new Dictionary<string, CachedDataRef>();
@@ -75,6 +79,9 @@ namespace MobiFlight.ProSim
                             }
                         });
                         
+                        // Start heartbeat timer to keep WebSocket active
+                        StartHeartbeat();
+                        
                         Connected?.Invoke(this, new EventArgs());
                     }
                     else if (state == GraphQLWebsocketConnectionState.Disconnected)
@@ -82,6 +89,8 @@ namespace MobiFlight.ProSim
                         if (_connected)
                         {
                             _connected = false;
+                            // Stop heartbeat timer
+                            StopHeartbeat();
                             // Clear data definitions on disconnection
                             lock (_cacheLock)
                             {
@@ -105,6 +114,44 @@ namespace MobiFlight.ProSim
         public void Clear()
         {
             _dataRefDescriptions = new Dictionary<string, DataRefDescription>();
+        }
+
+        private void StartHeartbeat()
+        {
+            StopHeartbeat(); // Ensure we don't have multiple timers
+            
+            _heartbeatTimer = new Timer(5000); // 5 seconds
+            _heartbeatTimer.Elapsed += async (sender, e) =>
+            {
+                if (IsConnected() && _connection != null)
+                {
+                    try
+                    {
+                        // Send a lightweight introspection query to keep WebSocket active
+                        await _connection.SendQueryAsync<object>(new GraphQL.GraphQLRequest
+                        {
+                            Query = "{ __typename }"
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Heartbeat failed: {ex.Message}", LogSeverity.Debug);
+                    }
+                }
+            };
+            _heartbeatTimer.Start();
+            Log.Instance.log("Started WebSocket heartbeat timer", LogSeverity.Debug);
+        }
+
+        private void StopHeartbeat()
+        {
+            if (_heartbeatTimer != null)
+            {
+                _heartbeatTimer.Stop();
+                _heartbeatTimer.Dispose();
+                _heartbeatTimer = null;
+                Log.Instance.log("Stopped WebSocket heartbeat timer", LogSeverity.Debug);
+            }
         }
 
         private void SubscribeToDataRef(string datarefPath)
@@ -221,7 +268,6 @@ mutation {{
 		{method}(name: ""{datarefPath}"", value: {value})
 	}}
 }}";
-                        
                         await _connection.SendMutationAsync<object>(new GraphQL.GraphQLRequest
                         {
                             Query = query
@@ -367,6 +413,9 @@ mutation {{
                 {
                     _refreshInProgress = false;
                 }
+
+                // Stop heartbeat timer
+                StopHeartbeat();
 
                 foreach (var subscription in _subscriptions.Values)
                 {
