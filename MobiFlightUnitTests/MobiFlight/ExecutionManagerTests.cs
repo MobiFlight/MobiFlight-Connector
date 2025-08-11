@@ -9,7 +9,12 @@ using MobiFlight.xplane;
 using Moq;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Tests
 {
@@ -320,8 +325,9 @@ namespace MobiFlight.Tests
                     }
                 };
 
-            var configFile1 = new ConfigFile() {
-                ConfigItems =  ConfigItems1              
+            var configFile1 = new ConfigFile()
+            {
+                ConfigItems = ConfigItems1
             };
 
             var configFile2 = new ConfigFile()
@@ -490,6 +496,142 @@ namespace MobiFlight.Tests
                 Times.Once,
                 "Expected log message should be logged once with Info severity"
             );
+        }
+
+        [TestMethod]
+        public void FrontendUpdateTimer_Execute_ConcurrentDictionaryModification_ShouldNotThrowInvalidOperationException()
+        {
+            // Arrange
+            const int numberOfConcurrentThreads = 20;
+            const int operationsPerThread = 25;
+            var exceptions = new ConcurrentBag<Exception>();
+            var tasks = new List<Task>();
+
+            // Set up a project with some config items to ensure we have data to work with
+            var configItem = new InputConfigItem { GUID = Guid.NewGuid().ToString(), Active = true, Name = "TestInput" };
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() { ConfigItems = { configItem } });
+            _executionManager.Project = project;
+
+            // Get references to private members using reflection
+            var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            var updatedValues = (Dictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+
+            var frontendUpdateMethod = typeof(ExecutionManager).GetMethod("FrontendUpdateTimer_Execute",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Act - Create the exact race condition that caused the original exception
+            for (int i = 0; i < numberOfConcurrentThreads; i++)
+            {
+                var threadId = i;
+
+                // Task 1: Simulate the frontend timer execution
+                tasks.Add(Task.Run(() =>
+                {
+                    try
+                    {
+                        for (int j = 0; j < operationsPerThread; j++)
+                        {
+                            // Add some test data to ensure the dictionary has content
+                            var testItem = new InputConfigItem
+                            {
+                                GUID = $"frontend-{threadId}-{j}",
+                                Active = true,
+                                Name = $"FrontendTest{threadId}_{j}"
+                            };
+
+                            // Simulate adding data (like what happens in mobiFlightCache_OnButtonPressed)
+                            lock (updatedValues)
+                            {
+                                updatedValues[testItem.GUID] = testItem;
+                            }
+
+                            // Execute the frontend timer method - this is where the original exception occurred
+                            frontendUpdateMethod.Invoke(_executionManager, new object[] { null, EventArgs.Empty });
+
+                            // Small delay to increase concurrency
+                            if (j % 5 == 0) Thread.Sleep(1);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Unwrap TargetInvocationException to get the actual exception
+                        var actualException = ex is TargetInvocationException tie ? tie.InnerException : ex;
+                        exceptions.Add(actualException);
+                    }
+                }));
+
+                // Task 2: Simulate other threads modifying updatedValues concurrently
+                // This represents input events, config execution, etc.
+                tasks.Add(Task.Run(() =>
+                {
+                    try
+                    {
+                        for (int j = 0; j < operationsPerThread; j++)
+                        {
+                            var testItem = new InputConfigItem
+                            {
+                                GUID = $"concurrent-{threadId}-{j}",
+                                Active = true,
+                                Name = $"ConcurrentTest{threadId}_{j}"
+                            };
+
+                            // Add items to the dictionary
+                            lock (updatedValues)
+                            {
+                                updatedValues[testItem.GUID] = testItem;
+                            }
+
+                            Thread.Sleep(1); // Small delay to increase chance of race condition
+
+                            // Modify existing items
+                            lock (updatedValues)
+                            {
+                                if (updatedValues.ContainsKey(testItem.GUID))
+                                {
+                                    updatedValues[testItem.GUID] = new InputConfigItem
+                                    {
+                                        GUID = testItem.GUID,
+                                        Active = false,
+                                        Name = $"Modified{threadId}_{j}"
+                                    };
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptions.Add(ex);
+                    }
+                }));
+            }
+
+            // Wait for all tasks to complete
+            var allTasksCompleted = Task.WaitAll(tasks.ToArray(), TimeSpan.FromSeconds(30));
+
+            // Assert
+            Assert.IsTrue(allTasksCompleted, "All tasks should complete within the timeout period");
+
+            // Check specifically for the InvalidOperationException that was originally thrown
+            var collectionModifiedExceptions = exceptions
+                .Where(ex => ex is InvalidOperationException &&
+                            ex.Message.Contains("Collection was modified"))
+                .ToList();
+
+            Assert.AreEqual(0, collectionModifiedExceptions.Count,
+                $"Should not throw 'Collection was modified' InvalidOperationException. " +
+                $"Found {collectionModifiedExceptions.Count} such exceptions. " +
+                $"This indicates the ToList() operation is not properly protected by the lock.");
+
+            // Verify no other unexpected exceptions occurred
+            if (exceptions.Any())
+            {
+                var exceptionSummary = string.Join("; ",
+                    exceptions.GroupBy(e => e.GetType().Name)
+                             .Select(g => $"{g.Key}: {g.Count()}"));
+                Assert.Fail($"Unexpected exceptions occurred: {exceptionSummary}");
+            }
         }
     }
 }
