@@ -11,6 +11,9 @@ export default defineConfig({
     react({
       // Add this line
       include: "**/*.tsx",
+      babel: {
+        plugins: ['babel-plugin-react-compiler'],
+      },
     }),
   ],
   resolve: {

@@ -5,15 +5,15 @@ import { IConfigItem } from "@/types"
 import { IconMathSymbols } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
-import React from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableFinalValueCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableFinalValueCell = React.memo(
-  ({ row }: ConfigItemTableFinalValueCellProps) => {
+function ConfigItemTableFinalValueCell({
+  row,
+}: ConfigItemTableFinalValueCellProps) {
     const item = row.original as IConfigItem
     const Status = item.Status
     const Modifier = Status && !isEmpty(Status["Modifier"])
@@ -51,7 +51,6 @@ const ConfigItemTableFinalValueCell = React.memo(
         )}
       </div>
     )
-  },
-)
+}
 
 export default ConfigItemTableFinalValueCell

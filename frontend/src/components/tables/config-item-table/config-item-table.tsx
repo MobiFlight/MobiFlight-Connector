@@ -58,6 +58,10 @@ export function ConfigItemTable<TData, TValue>({
   data,
   setItems,
 }: DataTableProps<TData, TValue>) {
+  // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
+  // eslint-disable-next-line react-hooks/react-compiler
+  "use no memo"
+
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({

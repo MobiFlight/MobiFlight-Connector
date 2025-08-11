@@ -7,15 +7,15 @@ import {
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
-import React from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableStatusCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableStatusCell = React.memo(
-  ({ row }: ConfigItemTableStatusCellProps) => {
+function ConfigItemTableStatusCell({
+  row,
+}: ConfigItemTableStatusCellProps) {
     const item = row.original as IConfigItem
     const Status = item.Status
     const Precondition = Status && !isEmpty(Status["Precondition"])
@@ -58,7 +58,6 @@ const ConfigItemTableStatusCell = React.memo(
         />
       </div>
     )
-  },
-)
+}
 
 export default ConfigItemTableStatusCell

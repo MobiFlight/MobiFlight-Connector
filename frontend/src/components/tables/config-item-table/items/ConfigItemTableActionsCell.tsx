@@ -13,15 +13,14 @@ import { IConfigItem } from "@/types/config"
 import { IconCopy, IconDots, IconEdit, IconFlask, IconTrash } from "@tabler/icons-react"
 
 import { Row } from "@tanstack/react-table"
-import React from "react"
 
 interface ConfigItemTableActionsCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableActionsCell = React.memo(({
+function ConfigItemTableActionsCell({
   row,
-}: ConfigItemTableActionsCellProps) => {
+}: ConfigItemTableActionsCellProps) {
   const item = row.original
   const { publish } = publishOnMessageExchange()
 
@@ -111,6 +110,6 @@ const ConfigItemTableActionsCell = React.memo(({
       </div>
     </div>
   )
-})
+}
 
 export default ConfigItemTableActionsCell

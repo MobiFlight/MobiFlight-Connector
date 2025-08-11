@@ -7,15 +7,15 @@ import {
 } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash-es"
-import React from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableRawValueCellProps {
   row: Row<IConfigItem>
 }
 
-const ConfigItemTableRawValueCell = React.memo(
-  ({ row }: ConfigItemTableRawValueCellProps) => {
+function ConfigItemTableRawValueCell({
+  row,
+}: ConfigItemTableRawValueCellProps) {
     const item = row.original as IConfigItem
 
     const Status = item.Status
@@ -56,7 +56,6 @@ const ConfigItemTableRawValueCell = React.memo(
         )}
       </div>
     )
-  },
-)
+}
 
 export default ConfigItemTableRawValueCell

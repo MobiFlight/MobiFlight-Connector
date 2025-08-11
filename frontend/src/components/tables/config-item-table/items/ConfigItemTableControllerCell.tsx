@@ -5,28 +5,26 @@ import { CommandConfigContextMenu } from "@/types/commands"
 import { IconBan, IconExternalLink } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { isEmpty } from "lodash"
-import React from "react"
-import { useCallback } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableControllerCellProps {
   row: Row<IConfigItem>
 }
-const ConfigItemTableControllerCell = React.memo(({
+function ConfigItemTableControllerCell({
   row,
-}: ConfigItemTableControllerCellProps) => {
+}: ConfigItemTableControllerCellProps) {
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
   const item = row.original as IConfigItem
 
   const [ label, serial ] = item.ModuleSerial.split("/")
     
-  const openControllerSettings = useCallback(() => {
+  const openControllerSettings = () => {
     publish({
       key: "CommandConfigContextMenu",
       payload: { action: "settings", item: item },
     } as CommandConfigContextMenu)
-  }, [publish, item])
+  }
 
   return !isEmpty(label) && label!="-" ? (
     <div className="group flex flex-row items-center">
@@ -63,6 +61,6 @@ const ConfigItemTableControllerCell = React.memo(({
       </span>
     </ToolTip>
   )
-})
+}
 
 export default ConfigItemTableControllerCell

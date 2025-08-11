@@ -2,7 +2,7 @@ import { useConfigStore } from "@/stores/configFileStore"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useCallback, useEffect } from "react"
+import { useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
@@ -39,12 +39,9 @@ const ConfigListPage = () => {
     setMidiControllerDefinitions
   } = useControllerDefinitionsStore()
 
-  const mySetItems = useCallback(
-    (items: IConfigItem[]) => {
-      setItems(items)
-    },
-    [setItems],
-  )
+  const mySetItems = (items: IConfigItem[]) => {
+    setItems(items)
+  }
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
     console.log("ConfigValuePartialUpdate", message.payload)
