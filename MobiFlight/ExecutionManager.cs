@@ -100,11 +100,14 @@ namespace MobiFlight
         readonly InputActionExecutionCache inputActionExecutionCache = new InputActionExecutionCache();
         private ScriptRunner scriptRunner = null;
 
-        public List<IConfigItem> ConfigItems {
-            get {
+        public List<IConfigItem> ConfigItems
+        {
+            get
+            {
                 return _project.ConfigFiles.Count > ActiveConfigIndex
                     ? _project.ConfigFiles[ActiveConfigIndex].ConfigItems
-                    : new List<IConfigItem>(); }
+                    : new List<IConfigItem>();
+            }
         }
 
         private Project _project = new Project();
@@ -232,28 +235,29 @@ namespace MobiFlight
             };
 
             frontendUpdateTimer.Interval = 200;
-            frontendUpdateTimer.Tick += (s, e) =>
-            {
-                if (!updateFrontend) return;
-
-                UpdateInputPreconditions();
-
-                if (updatedValues.Count > 0)
-                {
-                    var list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
-                    // Replace the line causing the error with the following line
-                    var update = new ConfigValueRawAndFinalUpdate(list);
-                    MessageExchange.Instance.Publish(update);
-                }
-
-                lock (updatedValues)
-                {
-                    updatedValues.Clear();
-                }
-            };
+            frontendUpdateTimer.Tick += FrontendUpdateTimer_Execute;
 
             mobiFlightCache.Start();
             InitializeFrontendSubscriptions();
+        }
+
+        private void FrontendUpdateTimer_Execute(object sender, EventArgs e)
+        {
+            if (!updateFrontend) return;
+
+            UpdateInputPreconditions();
+
+            if (updatedValues.Count == 0) return;
+
+            List<IConfigValueOnlyItem> list;
+
+            lock (updatedValues)
+            {
+                list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
+                updatedValues.Clear();
+            }
+
+            MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(list));
         }
 
         public void StartJoystickManager()
@@ -493,7 +497,8 @@ namespace MobiFlight
 
         private void sim_AircraftChanged(object sender, string e)
         {
-            if (sender is FSUIPCCacheInterface && (xplaneCache.IsConnected() || simConnectCache.IsConnected())) {
+            if (sender is FSUIPCCacheInterface && (xplaneCache.IsConnected() || simConnectCache.IsConnected()))
+            {
                 Log.Instance.log($"Aircraft change detected from {sender} but X-Plane or SimConnect are connected. Ignoring name change", LogSeverity.Info);
                 return;
             }
@@ -1189,7 +1194,7 @@ namespace MobiFlight
 
         private bool LogIfNotJoystickAxisOrJoystickAxisEnabled(String Serial, DeviceType type)
         {
-            return (!Joystick.IsJoystickSerial(Serial) || 
+            return (!Joystick.IsJoystickSerial(Serial) ||
                      (Joystick.IsJoystickSerial(Serial) && (type != DeviceType.AnalogInput || Log.Instance.LogJoystickAxis)));
         }
 
@@ -1203,7 +1208,7 @@ namespace MobiFlight
             {
                 Log.Instance.log(msgEventLabel, LogSeverity.Info);
             }
-                
+
             foreach (var executor in _inputEventExecutors.Values)
             {
                 try
