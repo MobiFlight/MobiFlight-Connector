@@ -93,7 +93,7 @@ const ProjectPanel = () => {
           return (
             <FileButton
               key={index}
-              variant={index === activeConfigFile ? "default" : "outline"}
+              variant={index === activeConfigFile ? "tabActive" : "tabDefault"}
               file={file}
               index={index}
               selectActiveFile={selectActiveFile}

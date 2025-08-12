@@ -49,14 +49,14 @@ const FileButton = ({
     setLabel(file.Label ?? file.FileName)
   }, [file.Label, file.FileName])
 
-  const groupHoverStyle = variant === "default" ? "group-hover:bg-primary/90" : "group-hover:bg-accent group-hover:text-accent-foreground"
+  const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary group-hover:text-primary-foreground" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
   return (
     <div className="flex justify-center group" role="tab">
       <Button
         variant={variant}
         value={file.FileName}
-        className="rounded-r-none border-r-0 rounded-b-none border-b-0"
+        className={cn(groupHoverStyle, "rounded-r-none border-r-0 rounded-b-none border-b-0")}
         onClick={() => onSelectActiveFile(index)}
         onDoubleClick={(e) => {
           e.stopPropagation()
