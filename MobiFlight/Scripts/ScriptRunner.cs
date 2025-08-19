@@ -35,11 +35,11 @@ namespace MobiFlight.Scripts
 
         private ConcurrentBag<Joystick> GameControllersWithScripts = new ConcurrentBag<Joystick>();
 
-        private Dictionary<string, Tuple<int, int>> RequiredPackages = new Dictionary<string, Tuple<int, int>>()
+        private Dictionary<string, Version> RequiredPackages = new Dictionary<string, Version>()
         {
-            { "websockets", new Tuple<int, int>(14,0) },
-            { "gql", new Tuple<int, int>(3,5) },
-            { "SimConnect", new Tuple<int, int>(0,4) },
+            { "websockets", new Version(14,0) },
+            { "gql", new Version(3,5) },
+            { "SimConnect", new Version(0,4) },
         };
 
 
@@ -223,7 +223,7 @@ namespace MobiFlight.Scripts
 
         private bool AreNecessaryPythonPackagesInstalled()
         {
-            var installedPackages = new Dictionary<string, Tuple<int, int>>();
+            var installedPackages = new Dictionary<string, Version>();
 
             ProcessStartInfo start = new ProcessStartInfo
             {
@@ -254,7 +254,7 @@ namespace MobiFlight.Scripts
                                 var minorSuccess = int.TryParse(v[1], out int minor);
                                 if (majorSuccess && minorSuccess)
                                 {
-                                    installedPackages.Add(parts[0], new Tuple<int, int>(major, minor));
+                                    installedPackages.Add(parts[0], new Version(major, minor));
                                 }
                                 else
                                 {
@@ -278,14 +278,10 @@ namespace MobiFlight.Scripts
 
             foreach (var package in RequiredPackages.Keys)
             {
-                if (installedPackages.ContainsKey(package))
+                if (installedPackages.ContainsKey(package) && installedPackages[package] < RequiredPackages[package])
                 {
-                    if ( !((installedPackages[package].Item1 >= RequiredPackages[package].Item1) &&
-                          (installedPackages[package].Item2 >= RequiredPackages[package].Item2)))
-                    {
-                        necessaryPackagesAvailable = false;
-                        Log.Instance.log($"ScriptRunner - Python package version too low: '{package}'", LogSeverity.Error);
-                    }
+                    necessaryPackagesAvailable = false;
+                    Log.Instance.log($"ScriptRunner - Python package version too low: '{package}'", LogSeverity.Error);
                 }
                 else
                 {
