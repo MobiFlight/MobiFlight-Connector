@@ -42,7 +42,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Converter.Tests
         public void ReadJson_UnsupportedType_ThrowsNotSupportedException()
         {
             var json = "{\"Type\":\"UnsupportedConfigItem\"}";
-            Assert.Throws< NotSupportedException>(() => JsonConvert.DeserializeObject<ConfigItem>(json));
+            Assert.Throws<NotSupportedException>(() => JsonConvert.DeserializeObject<ConfigItem>(json));
         }
 
         [TestMethod]
