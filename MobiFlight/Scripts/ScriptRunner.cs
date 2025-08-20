@@ -35,7 +35,7 @@ namespace MobiFlight.Scripts
 
         private ConcurrentBag<Joystick> GameControllersWithScripts = new ConcurrentBag<Joystick>();
 
-        private Dictionary<string, Version> RequiredPackages = new Dictionary<string, Version>()
+        private static Dictionary<string, Version> RequiredPackages = new Dictionary<string, Version>()
         {
             { "websockets", new Version(14,0) },
             { "gql", new Version(3,5) },
@@ -111,8 +111,6 @@ namespace MobiFlight.Scripts
                 ScriptDictionary.Add(Path.GetFileName(fileName), fullPath);
             }
         }
-
-
         
         public void OnSimAircraftChanged(object sender, string aircraftName)
         {
@@ -274,23 +272,7 @@ namespace MobiFlight.Scripts
                 }
             }
 
-            bool necessaryPackagesAvailable = true;
-
-            foreach (var package in RequiredPackages.Keys)
-            {
-                if (installedPackages.ContainsKey(package) && installedPackages[package] < RequiredPackages[package])
-                {
-                    necessaryPackagesAvailable = false;
-                    Log.Instance.log($"ScriptRunner - Python package version too low: '{package}'", LogSeverity.Error);
-                }
-                else
-                {
-                    necessaryPackagesAvailable = false;
-                    Log.Instance.log($"ScriptRunner - Necessary Python package not installed: '{package}'", LogSeverity.Error);
-                }
-            }
-            
-            return necessaryPackagesAvailable;
+            return ValidateNecessaryPackagesInstalled(installedPackages);
         }
 
         private void ShowMessageBoxInternal()
@@ -500,7 +482,6 @@ namespace MobiFlight.Scripts
             Task myTask = Task.Run(async () => { await ProcessAircraftRequests(CancellationTokenSource.Token); });            
         }
 
-
         private void StopActiveProcesses()
         {
             foreach (var process in ActiveProcesses)
@@ -518,7 +499,6 @@ namespace MobiFlight.Scripts
             while (ActiveProcesses.TryTake(out _)) { }            
             ProcessTable.Clear();            
         }
-
 
         public void Stop()
         {
@@ -556,6 +536,30 @@ namespace MobiFlight.Scripts
                 await Task.Delay(300);
             }
             Log.Instance.log($"ScriptRunner - Stop processing thread.", LogSeverity.Debug);
+        }
+
+        internal static bool ValidateNecessaryPackagesInstalled(Dictionary<string, Version> installedPackages)
+        {
+            bool necessaryPackagesAvailable = true;
+
+            foreach (var package in RequiredPackages)
+            {
+                if (installedPackages.TryGetValue(package.Key, out var installedPackageVersion))
+                {
+                    if (installedPackageVersion < package.Value)
+                    {
+                        necessaryPackagesAvailable = false;
+                        Log.Instance.log($"ScriptRunner - Python package version too low: '{package}'", LogSeverity.Error);
+                    }
+                }
+                else
+                {
+                    necessaryPackagesAvailable = false;
+                    Log.Instance.log($"ScriptRunner - Necessary Python package not installed: '{package}'", LogSeverity.Error);
+                }
+            }
+
+            return necessaryPackagesAvailable;
         }
     }
 }
