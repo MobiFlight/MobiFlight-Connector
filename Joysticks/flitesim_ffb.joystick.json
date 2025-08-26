@@ -5,44 +5,69 @@
   "ProductId": "0x0000",
   "Inputs": [
     {
+      "Id": 0,
+      "Type": "Button",
+      "Label": "Override pitch"
+    },
+    {
       "Id": 1,
       "Type": "Button",
-      "Label": "Mode - IAS"
+      "Label": "Override roll"
     },
     {
       "Id": 2,
       "Type": "Button",
-      "Label": "Mode - CRS"
+      "Label": "Override heading"
     },
     {
       "Id": 3,
-      "Type": "Button",
-      "Label": "Mode - HDG"
+      "Type": "Axis",
+      "Label": "Pitch ratio"
     },
     {
       "Id": 4,
-      "Type": "Button",
-      "Label": "Mode - VS"
+      "Type": "Axis",
+      "Label": "Roll ratio"
     },
     {
       "Id": 5,
-      "Type": "Button",
-      "Label": "Mode - ALT"
+      "Type": "Axis",
+      "Label": "Heading ratio"
     },
     {
       "Id": 6,
       "Type": "Button",
-      "Label": "AP - HDG"
+      "Label": "Pitch Trim Control"
     },
     {
       "Id": 7,
       "Type": "Button",
-      "Label": "AP - NAV"
+      "Label": "Roll Trim Control"
     },
     {
       "Id": 8,
       "Type": "Button",
-      "Label": "AP - APR"
+      "Label": "Yaw Trim Control"
+    },
+    {
+      "Id": 9,
+      "Type": "Axis",
+      "Label": "Elevator trim"
+    },
+    {
+      "Id": 10,
+      "Type": "Axis",
+      "Label": "Aileron trim"
+    },
+    {
+      "Id": 11,
+      "Type": "Axis",
+      "Label": "Rudder trim"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "AP Auto Disconnect"
     }
   ],
   "Outputs": [

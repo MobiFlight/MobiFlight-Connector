@@ -128,6 +128,42 @@ namespace MobiFlight.Joysticks.FliteSim
             }
         }
 
+        private void HandlebuttonChange(int channel, float newValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void HandleAxisChange(int channel, float newValue)
+        {
+            if (Axes.Count == 0) return;
+
+            var device = GetDeviceForChannel(channel) as JoystickDevice;
+            var value = GetValueForDevice(device, newValue);
+
+            TriggerButtonPressed(this, new InputEventArgs()
+            {
+                Name = Name,
+                DeviceId = device.Name, // "Axis X"
+                DeviceLabel = device.Label, // "Pitch"
+                Serial = Serial,
+                Type = device.Type,
+                Value = (int)(newValue * 32767) // Scale to joystick range
+            });
+        }
+
+        private float GetValueForDevice(JoystickDevice device, float newValue)
+        {
+            return (device.Type == DeviceType.AnalogInput ? newValue * 32000 : newValue);
+        }
+
+        private JoystickDevice GetDeviceForChannel(int channel)
+        {
+            // find it based on information in the definition
+            var deviceDefinition = Definition?.Inputs.Find(d => d.Id == channel);
+            var device = Axes.Find(a => a.Name == deviceDefinition?.Name) ?? Buttons.Find(b=>b.Name==deviceDefinition?.Name);
+            return device;
+        }
+
         protected override void SendData(byte[] data)
         {
             // This method is called by the base class to send output data

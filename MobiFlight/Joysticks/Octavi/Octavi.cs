@@ -14,11 +14,9 @@ namespace MobiFlight.Joysticks.Octavi
         protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
         private readonly OctaviHandler octaviHandler;
-        private readonly JoystickDefinition Definition;
-
+        
         public Octavi(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
         {
-            this.Definition = definition;
             octaviHandler = new OctaviHandler(this.Definition);
         }
 

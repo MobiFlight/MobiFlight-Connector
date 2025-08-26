@@ -25,8 +25,17 @@ namespace MobiFlight
             {
                 if (this.Type == JoystickDeviceType.Axis)
                 {
-                    var name = $"{Type} {Joystick.GetAxisNameForUsage(Id)}";
-                    return name;
+                    try
+                    {
+                        var axisName = Joystick.GetAxisNameForUsage(Id);
+                        return $"{Type} {axisName}";
+                    }
+                    catch (System.ArgumentOutOfRangeException)
+                    {
+                        // Log the issue for debugging/awareness, then fall through to default naming
+                        Log.Instance.log($"JoystickInput: No axis mapping found for usage ID {Id}, using fallback naming", LogSeverity.Debug);
+                        // Fall through to final return
+                    }
                 }
 
                 return $"{Type} {Id}";

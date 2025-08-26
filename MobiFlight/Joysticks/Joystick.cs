@@ -28,7 +28,7 @@ namespace MobiFlight
         protected readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
-        private readonly JoystickDefinition Definition;
+        protected readonly JoystickDefinition Definition;
 
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;

@@ -10,7 +10,6 @@ namespace MobiFlight.Joysticks.VKB
     {
         private HidStream Stream;
         private readonly HidDevice Device;
-        private readonly JoystickDefinition Definition;
         private new readonly VKBLedContainer Lights = new VKBLedContainer();
         private HidDeviceInputReceiver InputReceiver;
         private readonly byte[] InputReportBuffer = new byte[64];
@@ -19,7 +18,6 @@ namespace MobiFlight.Joysticks.VKB
 
         public VKBDevice(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
         {
-            Definition = definition;
             if (Device == null)
             {
                 Device = GetMatchingHidDevice(joystick);
