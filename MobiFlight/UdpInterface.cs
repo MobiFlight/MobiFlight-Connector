@@ -5,31 +5,18 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class UdpSettings
-    {
-        public string LocalIp { get; set; } = "127.0.0.1";
-        public int LocalPort { get; set; } = 5555;
-        public string RemoteIp { get; set; } = "127.0.0.1";
-        public int RemotePort { get; set; } = 5556;
-    }
-
     public class UdpInterface : IDisposable
     {
         private UdpClient _client;
         private IPEndPoint _remoteEndPoint;
         private bool _listening;
 
-        public event Action<float[]> DataReceived;
+        public event Action<byte[]> DataReceived; // Changed from float[] to byte[]
 
         public UdpInterface(UdpSettings settings)
-            : this(settings.LocalIp, settings.LocalPort, settings.RemoteIp, settings.RemotePort)
         {
-        }
-
-        private UdpInterface(string localIp, int localPort, string remoteIp, int remotePort)
-        {
-            _client = new UdpClient(new IPEndPoint(IPAddress.Parse(localIp), localPort));
-            _remoteEndPoint = new IPEndPoint(IPAddress.Parse(remoteIp), remotePort);
+            _client = new UdpClient(new IPEndPoint(IPAddress.Parse(settings.LocalIp), settings.LocalPort));
+            _remoteEndPoint = new IPEndPoint(IPAddress.Parse(settings.RemoteIp), settings.RemotePort);
         }
 
         public void StartListening()
@@ -39,9 +26,20 @@ namespace MobiFlight
             {
                 while (_listening)
                 {
-                    var result = await _client.ReceiveAsync();
-                    var floats = ParseFloats(result.Buffer);
-                    DataReceived?.Invoke(floats);
+                    try
+                    {
+                        var result = await _client.ReceiveAsync();
+                        DataReceived?.Invoke(result.Buffer); // Send raw bytes
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // Expected when stopping
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"UdpInterface: Error receiving data: {ex.Message}", LogSeverity.Error);
+                    }
                 }
             });
         }
@@ -51,19 +49,24 @@ namespace MobiFlight
             _listening = false;
         }
 
+        // Generic method for sending raw bytes
+        public void Send(byte[] data)
+        {
+            try
+            {
+                _client.Send(data, data.Length, _remoteEndPoint);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"UdpInterface: Error sending data: {ex.Message}", LogSeverity.Error);
+            }
+        }
+
+        // Convenience method for sending float arrays (backward compatibility)
         public void Send(float[] data)
         {
             var bytes = PackFloats(data);
-            _client.Send(bytes, bytes.Length, _remoteEndPoint);
-        }
-
-        private float[] ParseFloats(byte[] buffer)
-        {
-            int count = buffer.Length / 4;
-            float[] result = new float[count];
-            for (int i = 0; i < count; i++)
-                result[i] = BitConverter.ToSingle(buffer, i * 4);
-            return result;
+            Send(bytes);
         }
 
         private byte[] PackFloats(float[] data)

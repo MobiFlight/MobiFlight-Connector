@@ -5,31 +5,45 @@ namespace MobiFlight.Joysticks.FliteSim
     
     internal class FliteSimFfb : Joystick
     {
-        // readonly int VendorId = 0x04D8;
-        // readonly int ProductId = 0xE6D6;
-        private readonly UdpInterface _udp;
-        private float[] _lastReceivedState = new float[10]; // Store last received UDP state
+        private readonly FliteSimProtocol _protocol; // Changed from UdpInterface to FliteSimProtocol
+        private float[] _lastReceivedState = new float[13]; // Updated from 10 to 13
         private readonly object _stateLock = new object();
+        
         public override string Name => "FliteSim FFB (UDP)";
         public override string Serial => "JS-UDP-FFB";
 
         public FliteSimFfb(UdpSettings settings, JoystickDefinition definition)
             : base(null, definition) // No DIJoystick, no HID definition
         {
-            _udp = new UdpInterface(settings);
-            _udp.DataReceived += OnUdpDataReceived;
+            _protocol = new FliteSimProtocol(settings);
+            _protocol.ControlDataReceived += OnUdpDataReceived;
+            _protocol.HandshakeCompleted += OnHandshakeCompleted;
+            _protocol.ConnectionLost += OnConnectionLost;
         }
 
         public override void Connect(IntPtr handle)
         {
             EnumerateDevices();
             EnumerateOutputDevices();
-            _udp.StartListening();
+            _protocol.StartListening();
+            
+            // Initiate handshake with FFB device
+            _protocol.InitiateHandshake();
+        }
+
+        private void OnHandshakeCompleted()
+        {
+            Log.Instance.log("FliteSimFfb: Handshake completed successfully", LogSeverity.Info);
+        }
+
+        private void OnConnectionLost()
+        {
+            Log.Instance.log("FliteSimFfb: Connection lost", LogSeverity.Warn);
         }
 
         private void OnUdpDataReceived(float[] data)
         {
-            if (data.Length != 10) return; // Expect 10-float control data
+            if (data.Length != 13) return; // Expect 13-float control data (updated from 10)
 
             lock (_stateLock)
             {
@@ -97,7 +111,7 @@ namespace MobiFlight.Joysticks.FliteSim
                     }
                     break;
 
-                case 9: // Autopilot disconnect button
+                case 12: // Autopilot disconnect button (updated from 9 to 12)
                     if (Buttons.Count > 0)
                     {
                         TriggerButtonPressed(this, new InputEventArgs()
@@ -116,44 +130,61 @@ namespace MobiFlight.Joysticks.FliteSim
 
         protected override void SendData(byte[] data)
         {
+            // This method is called by the base class to send output data
+            // For now, we'll implement flight data sending here
+            // In the future, this could be expanded to handle different data types
+        }
 
+        /// <summary>
+        /// Send flight simulation data to FFB device (30 floats)
+        /// </summary>
+        /// <param name="flightData">30-element float array with flight simulation data</param>
+        public void SendFlightData(float[] flightData)
+        {
+            _protocol.SendFlightData(flightData);
         }
 
         protected void TriggerButtonPress(int i, MobiFlightButton.InputEvent inputEvent)
         {
-            TriggerButtonPressed(this, new InputEventArgs()
+            if (i < Buttons.Count)
             {
-                Name = Name,
-                DeviceId = Buttons[i].Name,
-                DeviceLabel = Buttons[i].Label,
-                Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                Type = DeviceType.Button,
-                Value = (int)inputEvent
-            });
+                TriggerButtonPressed(this, new InputEventArgs()
+                {
+                    Name = Name,
+                    DeviceId = Buttons[i].Name,
+                    DeviceLabel = Buttons[i].Label,
+                    Serial = Serial, // Use our own serial instead of DIJoystick
+                    Type = DeviceType.Button,
+                    Value = (int)inputEvent
+                });
+            }
         }
 
         public override void Update()
         {
+            // Check for handshake timeouts
+            _protocol.CheckHandshakeTimeout();
         }
 
         protected override void EnumerateDevices()
         {
-            // Manually define axes/buttons/POV as per protocol
+            // Define axes for the control channels
             Axes.Add(new JoystickDevice { Name = "Axis X", Label = "Pitch", Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
             Axes.Add(new JoystickDevice { Name = "Axis Y", Label = "Roll", Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
             Axes.Add(new JoystickDevice { Name = "Axis Z", Label = "Yaw", Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
-            // Add buttons as needed
+            
+            // Define buttons for discrete controls
+            Buttons.Add(new JoystickDevice { Name = "Button 1", Label = "Autopilot Disconnect", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
         }
 
         public override void Stop()
         {
-            // send some neutral settings to the joystick devices.
+            // Send neutral settings if needed
         }
 
         public override void Shutdown()
         {
-            _udp.StopListening();
-            _udp.Dispose();
+            _protocol?.Dispose(); // This will send quit message and stop listening
         }
     }
 }
