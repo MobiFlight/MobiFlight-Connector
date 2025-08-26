@@ -64,90 +64,49 @@ namespace MobiFlight.Joysticks.FliteSim
 
         private void HandleChannelChange(int channel, float newValue, float oldValue)
         {
-            switch (channel)
+            // Use the JSON-based device lookup instead of hardcoded mapping
+            var device = GetDeviceForChannel(channel);
+            if (device == null) return;
+
+            if (device.Type == DeviceType.AnalogInput)
             {
-                case 3: // Pitch axis (yoke_pitch_ratio)
-                    if (Axes.Count > 0)
-                    {
-                        TriggerButtonPressed(this, new InputEventArgs()
-                        {
-                            Name = Name,
-                            DeviceId = Axes[0].Name, // "Axis X"
-                            DeviceLabel = Axes[0].Label, // "Pitch"
-                            Serial = Serial,
-                            Type = DeviceType.AnalogInput,
-                            Value = (int)(newValue * 32767) // Scale to joystick range
-                        });
-                    }
-                    break;
-
-                case 4: // Roll axis (yoke_roll_ratio)
-                    if (Axes.Count > 1)
-                    {
-                        TriggerButtonPressed(this, new InputEventArgs()
-                        {
-                            Name = Name,
-                            DeviceId = Axes[1].Name,
-                            DeviceLabel = Axes[1].Label,
-                            Serial = Serial,
-                            Type = DeviceType.AnalogInput,
-                            Value = (int)(newValue * 32767)
-                        });
-                    }
-                    break;
-
-                case 5: // Yaw axis (yoke_heading_ratio)
-                    if (Axes.Count > 2)
-                    {
-                        TriggerButtonPressed(this, new InputEventArgs()
-                        {
-                            Name = Name,
-                            DeviceId = Axes[2].Name,
-                            DeviceLabel = Axes[2].Label,
-                            Serial = Serial,
-                            Type = DeviceType.AnalogInput,
-                            Value = (int)(newValue * 32767)
-                        });
-                    }
-                    break;
-
-                case 12: // Autopilot disconnect button (updated from 9 to 12)
-                    if (Buttons.Count > 0)
-                    {
-                        TriggerButtonPressed(this, new InputEventArgs()
-                        {
-                            Name = Name,
-                            DeviceId = Buttons[0].Name,
-                            DeviceLabel = Buttons[0].Label,
-                            Serial = Serial,
-                            Type = DeviceType.Button,
-                            Value = newValue > 0.5f ? 1 : 0 // Convert float to button state
-                        });
-                    }
-                    break;
+                HandleAxisChange(channel, newValue);
             }
-        }
-
-        private void HandlebuttonChange(int channel, float newValue)
-        {
-            throw new NotImplementedException();
+            else if (device.Type == DeviceType.Button)
+            {
+                HandleButtonChange(channel, newValue);
+            }
         }
 
         private void HandleAxisChange(int channel, float newValue)
         {
-            if (Axes.Count == 0) return;
-
-            var device = GetDeviceForChannel(channel) as JoystickDevice;
-            var value = GetValueForDevice(device, newValue);
+            var device = GetDeviceForChannel(channel);
+            if (device == null) return;
 
             TriggerButtonPressed(this, new InputEventArgs()
             {
                 Name = Name,
-                DeviceId = device.Name, // "Axis X"
-                DeviceLabel = device.Label, // "Pitch"
+                DeviceId = device.Name,
+                DeviceLabel = device.Label,
                 Serial = Serial,
                 Type = device.Type,
                 Value = (int)(newValue * 32767) // Scale to joystick range
+            });
+        }
+
+        private void HandleButtonChange(int channel, float newValue)
+        {
+            var device = GetDeviceForChannel(channel);
+            if (device == null) return;
+
+            TriggerButtonPressed(this, new InputEventArgs()
+            {
+                Name = Name,
+                DeviceId = device.Name,
+                DeviceLabel = device.Label,
+                Serial = Serial,
+                Type = DeviceType.Button,
+                Value = newValue > 0.5f ? 1 : 0
             });
         }
 
