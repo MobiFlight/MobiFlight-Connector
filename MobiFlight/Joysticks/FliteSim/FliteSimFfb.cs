@@ -204,13 +204,33 @@ namespace MobiFlight.Joysticks.FliteSim
 
         protected override void EnumerateDevices()
         {
-            // Define axes for the control channels
-            Axes.Add(new JoystickDevice { Name = "Axis X", Label = "Pitch", Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
-            Axes.Add(new JoystickDevice { Name = "Axis Y", Label = "Roll", Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
-            Axes.Add(new JoystickDevice { Name = "Axis Z", Label = "Yaw", Type = DeviceType.AnalogInput, JoystickDeviceType = JoystickDeviceType.Axis });
-            
-            // Define buttons for discrete controls
-            Buttons.Add(new JoystickDevice { Name = "Button 1", Label = "Autopilot Disconnect", Type = DeviceType.Button, JoystickDeviceType = JoystickDeviceType.Button });
+            // Use the JSON definition instead of hardware enumeration since this is a virtual device
+            if (Definition?.Inputs != null)
+            {
+                foreach (var input in Definition.Inputs)
+                {
+                    if (input.Type == JoystickDeviceType.Axis)
+                    {
+                        Axes.Add(new JoystickDevice 
+                        { 
+                            Name = input.Name, 
+                            Label = input.Label, 
+                            Type = DeviceType.AnalogInput, 
+                            JoystickDeviceType = JoystickDeviceType.Axis 
+                        });
+                    }
+                    else if (input.Type == JoystickDeviceType.Button)
+                    {
+                        Buttons.Add(new JoystickDevice 
+                        { 
+                            Name = input.Name, 
+                            Label = input.Label, 
+                            Type = DeviceType.Button, 
+                            JoystickDeviceType = JoystickDeviceType.Button 
+                        });
+                    }
+                }
+            }
         }
 
         public override void Stop()
