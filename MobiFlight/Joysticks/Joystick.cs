@@ -23,9 +23,9 @@ namespace MobiFlight
         public event EventHandler OnDisconnected;
 
         protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
-        private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
-        private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
-        private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
+        protected readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
+        protected readonly List<JoystickDevice> POV = new List<JoystickDevice>();
+        protected readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
         private readonly JoystickDefinition Definition;
@@ -33,7 +33,7 @@ namespace MobiFlight
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
         private object StateLock = new object();
-        private JoystickState State = null;
+        protected JoystickState State = null;
         private HidStream Stream;
 
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
@@ -64,11 +64,11 @@ namespace MobiFlight
             return (serial != null && serial.Contains(SerialPrefix));
         }
 
-        public string Name { 
+        public virtual string Name { 
             get { return DIJoystick?.Information.InstanceName; }  
         }
 
-        public string Serial
+        public virtual string Serial
         {
             get { return SerialPrefix + DIJoystick.Information.InstanceGuid;  }
         }

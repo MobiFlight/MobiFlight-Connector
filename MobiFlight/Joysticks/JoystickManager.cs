@@ -251,9 +251,36 @@ namespace MobiFlight
                 }
             }
 
+            AddVirtualControllers();
+
             if (JoysticksConnected())
             {
                 Connected?.Invoke(this, null);
+            }
+        }
+
+        private void AddVirtualControllers()
+        {
+            var definition = GetDefinitionByInstanceName("FliteSim FFB");
+            var udpSettings = new UdpSettings()
+            {
+                LocalIp = "127.0.0.1",
+                LocalPort = 49111,
+                RemoteIp = "127.0.0.1",
+                RemotePort = 49110
+            };
+
+            try
+            {
+                var FliteSimFfb = new Joysticks.FliteSim.FliteSimFfb(udpSettings, definition);
+                FliteSimFfb.Connect(Handle);
+                Joysticks.TryAdd(FliteSimFfb.Serial, FliteSimFfb);
+                FliteSimFfb.OnButtonPressed += Js_OnButtonPressed;
+                FliteSimFfb.OnDisconnected += Js_OnDisconnected;
+                Log.Instance.log($"Adding virtual joystick device: {FliteSimFfb.Name}.", LogSeverity.Info);
+            }
+            catch (Exception e) { 
+                Log.Instance.log($"Error adding virtual joystick device FliteSim FFB: {e.Message}", LogSeverity.Error);
             }
         }
 

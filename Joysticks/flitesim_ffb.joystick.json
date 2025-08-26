@@ -1,0 +1,62 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "FliteSim FFB",
+  "VendorId": "0x0000",
+  "ProductId": "0x0000",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Mode - IAS"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Mode - CRS"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Mode - HDG"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Mode - VS"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Mode - ALT"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "AP - HDG"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "AP - NAV"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "AP - APR"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Version",
+      "Id": "xplane_internal_version",
+      "Byte": 0,
+      "Bit": 0
+    },
+    {
+      "Label": "Sim Time",
+      "Id": "total_flight_time_sec",
+      "Byte": 1,
+      "Bit": 1
+    }
+  ]
+}

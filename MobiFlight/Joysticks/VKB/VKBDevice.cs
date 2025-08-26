@@ -11,7 +11,7 @@ namespace MobiFlight.Joysticks.VKB
         private HidStream Stream;
         private readonly HidDevice Device;
         private readonly JoystickDefinition Definition;
-        private readonly VKBLedContainer Lights = new VKBLedContainer();
+        private new readonly VKBLedContainer Lights = new VKBLedContainer();
         private HidDeviceInputReceiver InputReceiver;
         private readonly byte[] InputReportBuffer = new byte[64];
         private readonly SortedList<byte, VKBEncoder> Encoders = new SortedList<byte, VKBEncoder>();
