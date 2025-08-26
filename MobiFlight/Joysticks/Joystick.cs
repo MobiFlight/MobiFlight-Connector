@@ -507,11 +507,10 @@ namespace MobiFlight
                 return;
             }
 
-            if (!RequiresOutputUpdate) return;
             if (Stream == null)
             {
                 Connect();
-            };
+            }
             Stream.SetFeature(data);
 
             RequiresOutputUpdate = false;
@@ -519,6 +518,9 @@ namespace MobiFlight
 
         public virtual void UpdateOutputDeviceStates()
         {
+            // Check if update is needed before doing any processing
+            if (!RequiresOutputUpdate) return;
+
             var data = new byte[] { 0, 0, 0, 0, 0 };
 
             foreach (var light in Lights)
