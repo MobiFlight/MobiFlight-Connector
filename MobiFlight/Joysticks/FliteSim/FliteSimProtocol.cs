@@ -85,9 +85,9 @@ namespace MobiFlight.Joysticks.FliteSim
         }
 
         /// <summary>
-        /// Send flight simulation data (30 floats) to FFB device
+        /// Send flight simulation data (43 floats) to FFB device
         /// </summary>
-        /// <param name="data">30-element float array with flight data</param>
+        /// <param name="data">43-element float array with flight data</param>
         public void SendFlightData(float[] data)
         {
             if (!_handshakeCompleted)
@@ -96,9 +96,9 @@ namespace MobiFlight.Joysticks.FliteSim
                 return;
             }
 
-            if (data.Length != 30)
+            if (data.Length != 43)
             {
-                Log.Instance.log($"FliteSimProtocol: Invalid flight data size - expected 30, got {data.Length}", LogSeverity.Error);
+                Log.Instance.log($"FliteSimProtocol: Invalid flight data size - expected 43, got {data.Length}", LogSeverity.Error);
                 return;
             }
 

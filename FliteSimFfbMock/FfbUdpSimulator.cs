@@ -31,7 +31,7 @@ namespace FliteSimFfbMock
 
         // Control data simulation
         private float[] _controlData = new float[13]; // 13-float control data
-        private float[] _lastFlightData = new float[30]; // Track changes in received flight data
+        private float[] _lastFlightData = new float[43]; // Track changes in received flight data (updated from 30 to 43)
         private bool _autoControlEnabled = false;
         private DateTime _startTime = DateTime.Now;
 
@@ -218,8 +218,8 @@ namespace FliteSimFfbMock
             {
                 HandleProtocolMessage(buffer);
             }
-            // Check for flight data from MOBI (30 floats = 120 bytes)
-            else if (buffer.Length == 30 * 4)
+            // Check for flight data from MOBI (43 floats = 172 bytes)
+            else if (buffer.Length == 43 * 4)
             {
                 if (!_handshakeCompleted)
                 {

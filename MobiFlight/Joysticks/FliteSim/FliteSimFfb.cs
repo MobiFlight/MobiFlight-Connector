@@ -11,7 +11,7 @@ namespace MobiFlight.Joysticks.FliteSim
         private readonly object _stateLock = new object();
         
         // Field for storing flight data for UDP transmission
-        private float[] _flightData = new float[30];
+        private float[] _flightData = new float[43]; // Updated from 30 to 43
         private readonly object _flightDataLock = new object();
 
         public override string Name => "FliteSim FFB (UDP)";
@@ -166,9 +166,9 @@ namespace MobiFlight.Joysticks.FliteSim
         }
 
         /// <summary>
-        /// Send flight simulation data to FFB device (30 floats)
+        /// Send flight simulation data to FFB device (43 floats)
         /// </summary>
-        /// <param name="flightData">30-element float array with flight simulation data</param>
+        /// <param name="flightData">43-element float array with flight simulation data</param>
         public void SendFlightData(float[] flightData)
         {
             _protocol.SendFlightData(flightData);

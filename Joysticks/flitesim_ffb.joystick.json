@@ -145,123 +145,201 @@
       "Bit": 0
     },
     {
-      "Label": "Ground Speed",
-      "Id": "Ground Speed",
+      "Label": "Stall Warning",
+      "Id": "Stall Warning",
       "Byte": 10,
       "Bit": 0
     },
     {
-      "Label": "True Airspeed",
-      "Id": "True Airspeed",
+      "Label": "Radio Altitude",
+      "Id": "Radio Altitude",
       "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "Total Roll Input",
+      "Id": "Total Roll Input",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "Total Pitch Input",
+      "Id": "Total Pitch Input",
+      "Byte": 13,
+      "Bit": 0
+    },
+    {
+      "Label": "Autopilot Mode",
+      "Id": "Autopilot Mode",
+      "Byte": 14,
+      "Bit": 0
+    },
+    {
+      "Label": "Has Crashed",
+      "Id": "Has Crashed",
+      "Byte": 15,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine RPM 1",
+      "Id": "Engine RPM 1",
+      "Byte": 16,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine RPM 2",
+      "Id": "Engine RPM 2",
+      "Byte": 17,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine RPM 3",
+      "Id": "Engine RPM 3",
+      "Byte": 18,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine RPM 4",
+      "Id": "Engine RPM 4",
+      "Byte": 19,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear 1 On Ground",
+      "Id": "Gear 1 On Ground",
+      "Byte": 20,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear 2 On Ground",
+      "Id": "Gear 2 On Ground",
+      "Byte": 21,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear 3 On Ground",
+      "Id": "Gear 3 On Ground",
+      "Byte": 22,
+      "Bit": 0
+    },
+    {
+      "Label": "Elevator Trim",
+      "Id": "Elevator Trim",
+      "Byte": 23,
+      "Bit": 0
+    },
+    {
+      "Label": "Aileron Trim",
+      "Id": "Aileron Trim",
+      "Byte": 24,
       "Bit": 0
     },
     {
       "Label": "Indicated Airspeed",
       "Id": "Indicated Airspeed",
-      "Byte": 12,
-      "Bit": 0
-    },
-    {
-      "Label": "Engine RPM",
-      "Id": "Engine RPM",
-      "Byte": 13,
-      "Bit": 0
-    },
-    {
-      "Label": "Engine Torque",
-      "Id": "Engine Torque",
-      "Byte": 14,
-      "Bit": 0
-    },
-    {
-      "Label": "Altitude MSL",
-      "Id": "Altitude MSL",
-      "Byte": 15,
-      "Bit": 0
-    },
-    {
-      "Label": "Altitude AGL",
-      "Id": "Altitude AGL",
-      "Byte": 16,
-      "Bit": 0
-    },
-    {
-      "Label": "Barometric Pressure",
-      "Id": "Barometric Pressure",
-      "Byte": 17,
-      "Bit": 0
-    },
-    {
-      "Label": "Outside Air Temperature",
-      "Id": "Outside Air Temperature",
-      "Byte": 18,
-      "Bit": 0
-    },
-    {
-      "Label": "G-Force Vertical",
-      "Id": "G-Force Vertical",
-      "Byte": 19,
-      "Bit": 0
-    },
-    {
-      "Label": "G-Force Side",
-      "Id": "G-Force Side",
-      "Byte": 20,
-      "Bit": 0
-    },
-    {
-      "Label": "G-Force Forward",
-      "Id": "G-Force Forward",
-      "Byte": 21,
-      "Bit": 0
-    },
-    {
-      "Label": "Pitch Angle",
-      "Id": "Pitch Angle",
-      "Byte": 22,
-      "Bit": 0
-    },
-    {
-      "Label": "Roll Angle",
-      "Id": "Roll Angle",
-      "Byte": 23,
-      "Bit": 0
-    },
-    {
-      "Label": "Yaw Angle",
-      "Id": "Yaw Angle",
-      "Byte": 24,
-      "Bit": 0
-    },
-    {
-      "Label": "Pitch Rate",
-      "Id": "Pitch Rate",
       "Byte": 25,
       "Bit": 0
     },
     {
-      "Label": "Roll Rate",
-      "Id": "Roll Rate",
+      "Label": "True Airspeed",
+      "Id": "True Airspeed",
       "Byte": 26,
       "Bit": 0
     },
     {
-      "Label": "Yaw Rate",
-      "Id": "Yaw Rate",
+      "Label": "Ground Speed",
+      "Id": "Ground Speed",
       "Byte": 27,
       "Bit": 0
     },
     {
-      "Label": "Control Surface Deflection",
-      "Id": "Control Surface Deflection",
+      "Label": "Rudder Trim",
+      "Id": "Rudder Trim",
       "Byte": 28,
       "Bit": 0
     },
     {
-      "Label": "Landing Gear Status",
-      "Id": "Landing Gear Status",
+      "Label": "Total Heading Input",
+      "Id": "Total Heading Input",
       "Byte": 29,
+      "Bit": 0
+    },
+    {
+      "Label": "Flap Position",
+      "Id": "Flap Position",
+      "Byte": 30,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 1 Running",
+      "Id": "Engine 1 Running",
+      "Byte": 31,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 2 Running",
+      "Id": "Engine 2 Running",
+      "Byte": 32,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 3 Running",
+      "Id": "Engine 3 Running",
+      "Byte": 33,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 4 Running",
+      "Id": "Engine 4 Running",
+      "Byte": 34,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear 1 Deploy Ratio",
+      "Id": "Gear 1 Deploy Ratio",
+      "Byte": 35,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear 2 Deploy Ratio",
+      "Id": "Gear 2 Deploy Ratio",
+      "Byte": 36,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear 3 Deploy Ratio",
+      "Id": "Gear 3 Deploy Ratio",
+      "Byte": 37,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 1 Power",
+      "Id": "Engine 1 Power",
+      "Byte": 38,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 2 Power",
+      "Id": "Engine 2 Power",
+      "Byte": 39,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 3 Power",
+      "Id": "Engine 3 Power",
+      "Byte": 40,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine 4 Power",
+      "Id": "Engine 4 Power",
+      "Byte": 41,
+      "Bit": 0
+    },
+    {
+      "Label": "Is In Replay",
+      "Id": "Is In Replay",
+      "Byte": 42,
       "Bit": 0
     }
   ]
