@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MobiFlight.Joysticks.FliteSim
 {
@@ -9,6 +10,10 @@ namespace MobiFlight.Joysticks.FliteSim
         private float[] _lastReceivedState = new float[13]; // Updated from 10 to 13
         private readonly object _stateLock = new object();
         
+        // Field for storing flight data for UDP transmission
+        private float[] _flightData = new float[30];
+        private readonly object _flightDataLock = new object();
+
         public override string Name => "FliteSim FFB (UDP)";
         public override string Serial => "JS-UDP-FFB";
 
@@ -123,11 +128,41 @@ namespace MobiFlight.Joysticks.FliteSim
             return device;
         }
 
-        protected override void SendData(byte[] data)
+        public override void SetOutputDeviceState(string name, float value)
         {
-            // This method is called by the base class to send output data
-            // For now, we'll implement flight data sending here
-            // In the future, this could be expanded to handle different data types
+            // Handle flight data outputs for UDP transmission
+            // Map output device names to flight data array indices
+            // This will be called by ConfigItemExecutor for each flight parameter
+            
+            // For now, find the output device and store the value
+            var outputDevice = Lights.FirstOrDefault(l => l.Label == name);
+            if (outputDevice != null)
+            {
+                lock (_flightDataLock)
+                {
+                    // Map the output device to the appropriate flight data index
+                    // This is a simplified mapping - in practice you'd map based on the device definition
+                    var index = outputDevice.Byte; // Use byte as index for now
+                    if (index < _flightData.Length)
+                    {
+                        _flightData[index] = value;
+                        RequiresOutputUpdate = true;
+                    }
+                }
+            }
+        }
+
+        public override void UpdateOutputDeviceStates()
+        {
+            // Override to send flight data via UDP instead of HID
+            if (!RequiresOutputUpdate) return;
+            
+            lock (_flightDataLock)
+            {
+                // Send the current flight data array via UDP
+                _protocol.SendFlightData(_flightData);
+                RequiresOutputUpdate = false;
+            }
         }
 
         /// <summary>
