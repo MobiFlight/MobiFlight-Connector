@@ -353,6 +353,7 @@
     <Compile Include="MobiFlight\InputConfig\ProSimInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
+    <Compile Include="MobiFlight\IUdpInterface.cs" />
     <Compile Include="MobiFlight\Joysticks\FliteSim\FliteSimFfb.cs" />
     <Compile Include="MobiFlight\Joysticks\FliteSim\FliteSimProtocol.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />

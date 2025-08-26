@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MobiFlight
 {
-    public class UdpInterface : IDisposable
+    public class UdpInterface : IUdpInterface
     {
         private UdpClient _client;
         private IPEndPoint _remoteEndPoint;
@@ -19,7 +19,7 @@ namespace MobiFlight
             _remoteEndPoint = new IPEndPoint(IPAddress.Parse(settings.RemoteIp), settings.RemotePort);
         }
 
-        public void StartListening()
+        public virtual void StartListening()
         {
             _listening = true;
             Task.Run(async () =>
@@ -44,13 +44,13 @@ namespace MobiFlight
             });
         }
 
-        public void StopListening()
+        public virtual void StopListening()
         {
             _listening = false;
         }
 
         // Generic method for sending raw bytes
-        public void Send(byte[] data)
+        public virtual void Send(byte[] data)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace MobiFlight
         }
 
         // Convenience method for sending float arrays (backward compatibility)
-        public void Send(float[] data)
+        public virtual void Send(float[] data)
         {
             var bytes = PackFloats(data);
             Send(bytes);
@@ -77,7 +77,7 @@ namespace MobiFlight
             return bytes;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _listening = false;
             _client?.Dispose();

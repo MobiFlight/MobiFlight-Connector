@@ -6,7 +6,7 @@ namespace MobiFlight.Joysticks.FliteSim
     /// <summary>
     /// Handles the FliteSim FFB UDP protocol including handshake, data conversion, and connection management
     /// </summary>
-    internal class FliteSimProtocol : IDisposable
+    public class FliteSimProtocol : IDisposable // Changed from internal to public for testing
     {
         private const ushort FRAME_HEADER = 0xAA55;
         private const string INIT_FLAG = "INIT";
@@ -15,7 +15,7 @@ namespace MobiFlight.Joysticks.FliteSim
         private const string ACKQ_FLAG = "ACKQ";
         private const float PROTOCOL_VERSION = 1.0f;
 
-        private readonly UdpInterface _udpInterface;
+        private readonly IUdpInterface _udpInterface; // Changed from UdpInterface to IUdpInterface
         private bool _handshakeCompleted = false;
         private DateTime _lastHandshakeAttempt = DateTime.MinValue;
         private int _handshakeAttempts = 0;
@@ -29,9 +29,17 @@ namespace MobiFlight.Joysticks.FliteSim
 
         public bool IsConnected => _handshakeCompleted;
 
+        // Primary constructor for production use
         public FliteSimProtocol(UdpSettings settings)
         {
             _udpInterface = new UdpInterface(settings);
+            _udpInterface.DataReceived += OnRawDataReceived;
+        }
+
+        // Constructor for dependency injection (mainly for testing)
+        public FliteSimProtocol(UdpSettings settings, IUdpInterface udpInterface) // Changed parameter type
+        {
+            _udpInterface = udpInterface;
             _udpInterface.DataReceived += OnRawDataReceived;
         }
 
