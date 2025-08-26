@@ -67,7 +67,7 @@ namespace MobiFlight.Joysticks.Winwing
             DisplayControl.SetDisplay(address, value);
         }
 
-        public override void SetOutputDeviceState(string name, byte state)
+        protected override void SetOutputDeviceState(string name, byte state)
         {
             // Check for value change is done in display control
             DisplayControl.SetLed(name, state);

@@ -463,7 +463,7 @@ namespace MobiFlight
             return UsageMap[usage];
         }
 
-        public virtual void SetOutputDeviceState(string name, byte state)
+        protected virtual void SetOutputDeviceState(string name, byte state)
         {
             foreach(var light in Lights)
             {
@@ -474,6 +474,16 @@ namespace MobiFlight
                 RequiresOutputUpdate = true;
                 return;
             }
+        }
+
+        public virtual void SetOutputDeviceState(string name, float value)
+        {
+            // Default implementation: convert float to byte (0.0-1.0 → 0-255) and delegate to byte method
+            // ExecutionManager should use this method for consistency
+            // Individual joystick implementations can override this for native float handling
+            float clampedValue = Math.Max(0f, Math.Min(value, 1f)); // Clamp to 0.0-1.0 range
+            byte byteValue = (byte)Math.Round(clampedValue * 255f);
+            SetOutputDeviceState(name, byteValue);
         }
 
         public virtual void SetLcdDisplay(string address, string value)
