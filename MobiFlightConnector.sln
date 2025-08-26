@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger", "CmdMess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandMessenger.Transport.Serial", "CmdMessenger\CommandMessenger.Transport.Serial\CommandMessenger.Transport.Serial.csproj", "{00D85F0B-00A5-41FA-8A99-428C0199C663}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FliteSimFfbMock", "FliteSimFfbMock\FliteSimFfbMock.csproj", "{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,14 @@ Global
 		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|x86.ActiveCfg = Release|x86
 		{00D85F0B-00A5-41FA-8A99-428C0199C663}.Release|x86.Build.0 = Release|x86
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Debug|x86.Build.0 = Debug|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Release|x86.ActiveCfg = Release|Any CPU
+		{711F41EA-0B4B-D316-D4C1-E5B6FC9E6C58}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
