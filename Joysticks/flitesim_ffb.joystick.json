@@ -7,81 +7,262 @@
     {
       "Id": 0,
       "Type": "Button",
+      "Name": "Button 0",
       "Label": "Override pitch"
     },
     {
       "Id": 1,
       "Type": "Button",
+      "Name": "Button 1",
       "Label": "Override roll"
     },
     {
       "Id": 2,
       "Type": "Button",
+      "Name": "Button 2",
       "Label": "Override heading"
     },
     {
       "Id": 3,
       "Type": "Axis",
+      "Name": "Axis X",
       "Label": "Pitch ratio"
     },
     {
       "Id": 4,
       "Type": "Axis",
+      "Name": "Axis Y",
       "Label": "Roll ratio"
     },
     {
       "Id": 5,
       "Type": "Axis",
+      "Name": "Axis Z",
       "Label": "Heading ratio"
     },
     {
       "Id": 6,
       "Type": "Button",
+      "Name": "Button 6",
       "Label": "Pitch Trim Control"
     },
     {
       "Id": 7,
       "Type": "Button",
+      "Name": "Button 7",
       "Label": "Roll Trim Control"
     },
     {
       "Id": 8,
       "Type": "Button",
+      "Name": "Button 8",
       "Label": "Yaw Trim Control"
     },
     {
       "Id": 9,
       "Type": "Axis",
+      "Name": "Axis RotationX",
       "Label": "Elevator trim"
     },
     {
       "Id": 10,
       "Type": "Axis",
+      "Name": "Axis RotationY",
       "Label": "Aileron trim"
     },
     {
       "Id": 11,
       "Type": "Axis",
+      "Name": "Axis RotationZ",
       "Label": "Rudder trim"
     },
     {
       "Id": 12,
       "Type": "Button",
+      "Name": "Button 12",
       "Label": "AP Auto Disconnect"
     }
   ],
   "Outputs": [
     {
       "Label": "Version",
-      "Id": "xplane_internal_version",
+      "Id": "Version",
       "Byte": 0,
       "Bit": 0
     },
     {
       "Label": "Sim Time",
-      "Id": "total_flight_time_sec",
+      "Id": "Sim Time",
       "Byte": 1,
-      "Bit": 1
+      "Bit": 0
+    },
+    {
+      "Label": "Paused",
+      "Id": "Paused",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "Mach Number",
+      "Id": "Mach Number",
+      "Byte": 3,
+      "Bit": 0
+    },
+    {
+      "Label": "AoA",
+      "Id": "AoA",
+      "Byte": 4,
+      "Bit": 0
+    },
+    {
+      "Label": "Vertical Speed",
+      "Id": "Vertical Speed",
+      "Byte": 5,
+      "Bit": 0
+    },
+    {
+      "Label": "Wind Speed",
+      "Id": "Wind Speed",
+      "Byte": 6,
+      "Bit": 0
+    },
+    {
+      "Label": "Wind Direction",
+      "Id": "Wind Direction",
+      "Byte": 7,
+      "Bit": 0
+    },
+    {
+      "Label": "Magnetic Heading",
+      "Id": "Magnetic Heading",
+      "Byte": 8,
+      "Bit": 0
+    },
+    {
+      "Label": "Surface Type",
+      "Id": "Surface Type",
+      "Byte": 9,
+      "Bit": 0
+    },
+    {
+      "Label": "Ground Speed",
+      "Id": "Ground Speed",
+      "Byte": 10,
+      "Bit": 0
+    },
+    {
+      "Label": "True Airspeed",
+      "Id": "True Airspeed",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "Indicated Airspeed",
+      "Id": "Indicated Airspeed",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine RPM",
+      "Id": "Engine RPM",
+      "Byte": 13,
+      "Bit": 0
+    },
+    {
+      "Label": "Engine Torque",
+      "Id": "Engine Torque",
+      "Byte": 14,
+      "Bit": 0
+    },
+    {
+      "Label": "Altitude MSL",
+      "Id": "Altitude MSL",
+      "Byte": 15,
+      "Bit": 0
+    },
+    {
+      "Label": "Altitude AGL",
+      "Id": "Altitude AGL",
+      "Byte": 16,
+      "Bit": 0
+    },
+    {
+      "Label": "Barometric Pressure",
+      "Id": "Barometric Pressure",
+      "Byte": 17,
+      "Bit": 0
+    },
+    {
+      "Label": "Outside Air Temperature",
+      "Id": "Outside Air Temperature",
+      "Byte": 18,
+      "Bit": 0
+    },
+    {
+      "Label": "G-Force Vertical",
+      "Id": "G-Force Vertical",
+      "Byte": 19,
+      "Bit": 0
+    },
+    {
+      "Label": "G-Force Side",
+      "Id": "G-Force Side",
+      "Byte": 20,
+      "Bit": 0
+    },
+    {
+      "Label": "G-Force Forward",
+      "Id": "G-Force Forward",
+      "Byte": 21,
+      "Bit": 0
+    },
+    {
+      "Label": "Pitch Angle",
+      "Id": "Pitch Angle",
+      "Byte": 22,
+      "Bit": 0
+    },
+    {
+      "Label": "Roll Angle",
+      "Id": "Roll Angle",
+      "Byte": 23,
+      "Bit": 0
+    },
+    {
+      "Label": "Yaw Angle",
+      "Id": "Yaw Angle",
+      "Byte": 24,
+      "Bit": 0
+    },
+    {
+      "Label": "Pitch Rate",
+      "Id": "Pitch Rate",
+      "Byte": 25,
+      "Bit": 0
+    },
+    {
+      "Label": "Roll Rate",
+      "Id": "Roll Rate",
+      "Byte": 26,
+      "Bit": 0
+    },
+    {
+      "Label": "Yaw Rate",
+      "Id": "Yaw Rate",
+      "Byte": 27,
+      "Bit": 0
+    },
+    {
+      "Label": "Control Surface Deflection",
+      "Id": "Control Surface Deflection",
+      "Byte": 28,
+      "Bit": 0
+    },
+    {
+      "Label": "Landing Gear Status",
+      "Id": "Landing Gear Status",
+      "Byte": 29,
+      "Bit": 0
     }
   ]
 }
