@@ -86,259 +86,259 @@
   "Outputs": [
     {
       "Label": "Version",
-      "Id": "Version",
+      "Id": "xplane_internal_version",
       "Byte": 0,
       "Bit": 0
     },
     {
       "Label": "Sim Time",
-      "Id": "Sim Time",
+      "Id": "total_flight_time_sec",
       "Byte": 1,
       "Bit": 0
     },
     {
       "Label": "Paused",
-      "Id": "Paused",
+      "Id": "paused",
       "Byte": 2,
       "Bit": 0
     },
     {
       "Label": "Mach Number",
-      "Id": "Mach Number",
+      "Id": "machno",
       "Byte": 3,
       "Bit": 0
     },
     {
       "Label": "AoA",
-      "Id": "AoA",
+      "Id": "AoA_angle_degrees",
       "Byte": 4,
       "Bit": 0
     },
     {
       "Label": "Vertical Speed",
-      "Id": "Vertical Speed",
+      "Id": "vh_ind_fpm",
       "Byte": 5,
       "Bit": 0
     },
     {
       "Label": "Wind Speed",
-      "Id": "Wind Speed",
+      "Id": "wind_speed_kts",
       "Byte": 6,
       "Bit": 0
     },
     {
       "Label": "Wind Direction",
-      "Id": "Wind Direction",
+      "Id": "wind_direction_degt",
       "Byte": 7,
       "Bit": 0
     },
     {
       "Label": "Magnetic Heading",
-      "Id": "Magnetic Heading",
+      "Id": "mag_psi",
       "Byte": 8,
       "Bit": 0
     },
     {
       "Label": "Surface Type",
-      "Id": "Surface Type",
+      "Id": "surface_texture_type",
       "Byte": 9,
       "Bit": 0
     },
     {
       "Label": "Stall Warning",
-      "Id": "Stall Warning",
+      "Id": "stall_warning",
       "Byte": 10,
       "Bit": 0
     },
     {
       "Label": "Radio Altitude",
-      "Id": "Radio Altitude",
+      "Id": "radio_altimeter_height_ft_pilot",
       "Byte": 11,
       "Bit": 0
     },
     {
       "Label": "Total Roll Input",
-      "Id": "Total Roll Input",
+      "Id": "total_roll_ratio",
       "Byte": 12,
       "Bit": 0
     },
     {
       "Label": "Total Pitch Input",
-      "Id": "Total Pitch Input",
+      "Id": "total_pitch_ratio",
       "Byte": 13,
       "Bit": 0
     },
     {
       "Label": "Autopilot Mode",
-      "Id": "Autopilot Mode",
+      "Id": "autopilot_mode",
       "Byte": 14,
       "Bit": 0
     },
     {
       "Label": "Has Crashed",
-      "Id": "Has Crashed",
+      "Id": "has_crashed",
       "Byte": 15,
       "Bit": 0
     },
     {
       "Label": "Engine RPM 1",
-      "Id": "Engine RPM 1",
+      "Id": "engine_speed_rpm_0",
       "Byte": 16,
       "Bit": 0
     },
     {
       "Label": "Engine RPM 2",
-      "Id": "Engine RPM 2",
+      "Id": "engine_speed_rpm_1",
       "Byte": 17,
       "Bit": 0
     },
     {
       "Label": "Engine RPM 3",
-      "Id": "Engine RPM 3",
+      "Id": "engine_speed_rpm_2",
       "Byte": 18,
       "Bit": 0
     },
     {
       "Label": "Engine RPM 4",
-      "Id": "Engine RPM 4",
+      "Id": "engine_speed_rpm_3",
       "Byte": 19,
       "Bit": 0
     },
     {
       "Label": "Gear 1 On Ground",
-      "Id": "Gear 1 On Ground",
+      "Id": "on_ground_0",
       "Byte": 20,
       "Bit": 0
     },
     {
       "Label": "Gear 2 On Ground",
-      "Id": "Gear 2 On Ground",
+      "Id": "on_ground_1",
       "Byte": 21,
       "Bit": 0
     },
     {
       "Label": "Gear 3 On Ground",
-      "Id": "Gear 3 On Ground",
+      "Id": "on_ground_2",
       "Byte": 22,
       "Bit": 0
     },
     {
       "Label": "Elevator Trim",
-      "Id": "Elevator Trim",
+      "Id": "elevator_trim",
       "Byte": 23,
       "Bit": 0
     },
     {
       "Label": "Aileron Trim",
-      "Id": "Aileron Trim",
+      "Id": "aileron_trim",
       "Byte": 24,
       "Bit": 0
     },
     {
       "Label": "Indicated Airspeed",
-      "Id": "Indicated Airspeed",
+      "Id": "indicated_airspeed",
       "Byte": 25,
       "Bit": 0
     },
     {
       "Label": "True Airspeed",
-      "Id": "True Airspeed",
+      "Id": "true_airspeed",
       "Byte": 26,
       "Bit": 0
     },
     {
       "Label": "Ground Speed",
-      "Id": "Ground Speed",
+      "Id": "groundspeed",
       "Byte": 27,
       "Bit": 0
     },
     {
       "Label": "Rudder Trim",
-      "Id": "Rudder Trim",
+      "Id": "rudder_trim",
       "Byte": 28,
       "Bit": 0
     },
     {
       "Label": "Total Heading Input",
-      "Id": "Total Heading Input",
+      "Id": "total_heading_ratio",
       "Byte": 29,
       "Bit": 0
     },
     {
       "Label": "Flap Position",
-      "Id": "Flap Position",
+      "Id": "flap_handle_deploy_ratio",
       "Byte": 30,
       "Bit": 0
     },
     {
       "Label": "Engine 1 Running",
-      "Id": "Engine 1 Running",
+      "Id": "ENGN_running_0",
       "Byte": 31,
       "Bit": 0
     },
     {
       "Label": "Engine 2 Running",
-      "Id": "Engine 2 Running",
+      "Id": "ENGN_running_1",
       "Byte": 32,
       "Bit": 0
     },
     {
       "Label": "Engine 3 Running",
-      "Id": "Engine 3 Running",
+      "Id": "ENGN_running_2",
       "Byte": 33,
       "Bit": 0
     },
     {
       "Label": "Engine 4 Running",
-      "Id": "Engine 4 Running",
+      "Id": "ENGN_running_3",
       "Byte": 34,
       "Bit": 0
     },
     {
       "Label": "Gear 1 Deploy Ratio",
-      "Id": "Gear 1 Deploy Ratio",
+      "Id": "deploy_ratio_0",
       "Byte": 35,
       "Bit": 0
     },
     {
       "Label": "Gear 2 Deploy Ratio",
-      "Id": "Gear 2 Deploy Ratio",
+      "Id": "deploy_ratio_1",
       "Byte": 36,
       "Bit": 0
     },
     {
       "Label": "Gear 3 Deploy Ratio",
-      "Id": "Gear 3 Deploy Ratio",
+      "Id": "deploy_ratio_2",
       "Byte": 37,
       "Bit": 0
     },
     {
       "Label": "Engine 1 Power",
-      "Id": "Engine 1 Power",
+      "Id": "ENGN_power_0",
       "Byte": 38,
       "Bit": 0
     },
     {
       "Label": "Engine 2 Power",
-      "Id": "Engine 2 Power",
+      "Id": "ENGN_power_1",
       "Byte": 39,
       "Bit": 0
     },
     {
       "Label": "Engine 3 Power",
-      "Id": "Engine 3 Power",
+      "Id": "ENGN_power_2",
       "Byte": 40,
       "Bit": 0
     },
     {
       "Label": "Engine 4 Power",
-      "Id": "Engine 4 Power",
+      "Id": "ENGN_power_3",
       "Byte": 41,
       "Bit": 0
     },
     {
       "Label": "Is In Replay",
-      "Id": "Is In Replay",
+      "Id": "is_in_replay",
       "Byte": 42,
       "Bit": 0
     }
