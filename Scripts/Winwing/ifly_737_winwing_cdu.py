@@ -44,13 +44,14 @@ class MobiFlightClient:
 
     async def connect(self) -> None:
         try:
-            self.websocket = await connect(self.url)
-            self._was_connected = True
+            self.websocket = await connect(self.url)            
             logging.info(f"Connected to WebSocket at {self.url}")
             # Load font           
             fontName: str = "Boeing"
             await self.websocket.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
             logging.info(f"Setting font: {fontName}")
+            await asyncio.sleep(1) # wait a second for font to be set
+            self._was_connected = True
         except Exception as e:
             logging.error(f"Failed to connect to WebSocket: {e}")
             self._was_connected = False

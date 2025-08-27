@@ -101,6 +101,7 @@ class MobiFlightClient:
                     fontName: str = "Boeing"
                     await self.websocket.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
                     logging.info(f"Setting font: {fontName}")
+                    await asyncio.sleep(1) # wait a second for font to be set
                     self.connected.set()
                 await self.websocket.recv()
             except Exception as e: 

@@ -248,6 +248,7 @@ async def get_available_devices() -> list[CduDevice]:
 
                 try:
                     await socket.send(FONT_REQUEST)
+                    await asyncio.sleep(1) # wait a second for font to be set
                 except websockets.ConnectionClosed as e:
                     logging.warning(
                         "Attempt to change font on CDU device %s but request failed: %s",

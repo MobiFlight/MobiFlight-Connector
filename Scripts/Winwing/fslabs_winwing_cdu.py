@@ -100,7 +100,7 @@ async def run_mobiflight_websocket_client():
                 fontName = "AirbusThales"
                 await mobi_websocket_connection.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
                 logging.info(f"Setting font: {fontName}")
-
+                await asyncio.sleep(1) # wait a second for font to be set
             await asyncio.sleep(0.05)
 
         except Exception as ex:

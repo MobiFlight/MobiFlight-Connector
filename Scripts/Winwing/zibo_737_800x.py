@@ -263,6 +263,7 @@ async def get_available_devices() -> list[CduDevice]:
                 )
                 available_devices.append(device)
                 await socket.send(FONT_REQUEST)
+                await asyncio.sleep(1) # wait a second for font to be set
         except websockets.WebSocketException:
             logging.warning(
                 "Attempted to probe CDU device %s at endpoint %s but device wasn't available",
