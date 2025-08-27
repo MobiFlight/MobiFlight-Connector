@@ -8,7 +8,6 @@ import xml.etree.ElementTree as ET
 import re
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
-from gql.transport.websockets import log as websockets_logger
 
 # Connection settings for ProSim GraphQL
 GRAPHQL_URL = "ws://localhost:5000/graphql"
