@@ -170,7 +170,7 @@ class ProSimGraphQLClient:
         params = {"names": dataref_names}
 
         try:
-            async for result in self.session.subscribe(subscription, params, "OnDataRefChanged"):
+            async for result in self.session.subscribe(subscription, variable_values=params, operation_name="OnDataRefChanged"):
                 if "dataRefs" in result:
                     # Create a task for the callback to handle it asynchronously
                     task = asyncio.create_task(callback(result["dataRefs"]["name"], result["dataRefs"]["value"]))
