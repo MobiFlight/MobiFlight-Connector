@@ -113,7 +113,7 @@ class Mobiflight_Client:
                     # Load font                                        
                     fontName = "AirbusThales"
                     await self.websocket_connection.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
-                    logging.info(f"Setting font: {fontName}")
+                    logging.info(f"Setting font: {fontName}") 
                 # Wait for disconnection or data
                 await self.websocket_connection.recv()    
             except websockets.exceptions.InvalidStatus as invalid:      
