@@ -7,7 +7,6 @@ import websockets
 import xml.etree.ElementTree as ET
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
-from gql.transport.websockets import log as websockets_logger
 
 # Connection settings for ProSim GraphQL
 GRAPHQL_URL = "ws://localhost:5000/graphql"
@@ -170,7 +169,7 @@ class ProSimGraphQLClient:
         params = {"names": dataref_names}
 
         try:
-            async for result in self.session.subscribe(subscription, params, "OnDataRefChanged"):
+            async for result in self.session.subscribe(subscription, variable_values=params, operation_name="OnDataRefChanged"):
                 if "dataRefs" in result:
                     # Create a task for the callback to handle it asynchronously
                     task = asyncio.create_task(callback(result["dataRefs"]["name"], result["dataRefs"]["value"]))
