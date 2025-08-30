@@ -1,4 +1,4 @@
-﻿import copy
+import copy
 from ctypes import wintypes
 import ctypes
 import json
