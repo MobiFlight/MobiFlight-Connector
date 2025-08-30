@@ -1,13 +1,10 @@
-import asyncio, os, json
+import asyncio, json
 import xml.etree.ElementTree as ET
-import logging, logging.handlers
+import logging
 import websockets.asyncio.client as ws_client
 import websockets.exceptions
-
 from gql import Client, gql
 from gql.transport.websockets import WebsocketsTransport
-from gql.transport.websockets import log as websockets_logger
-from inspect import getsourcefile
 
 subs = {'#': '☐',    # ballot box \u2610
         '¤': '↑',    # up arrow    \u2191
@@ -18,22 +15,6 @@ subs = {'#': '☐',    # ballot box \u2610
 
 replace_chars =  ['£', '¢', '¥', '¤', '#', '&' ]
 format_chars = ['s', 'l', 'a', 'c', 'y', 'w', 'g', 'm']
-
-BASE_PATH = os.path.dirname(os.path.abspath(getsourcefile(lambda:0)))
-
-def setup_logging(log_level, log_file_full_path):
-    base_path = os.path.dirname(log_file_full_path)
-    if base_path: os.makedirs(base_path, exist_ok=True)
-    log_formatter = logging.Formatter("%(asctime)s [%(threadName)-12.12s] [%(levelname)-5.5s]  %(message)s")
-    root_logger = logging.getLogger()
-    root_logger.setLevel(log_level)
-    file_handler = logging.handlers.RotatingFileHandler(log_file_full_path, maxBytes=500000, backupCount=7)
-    file_handler.setFormatter(log_formatter)
-    root_logger.addHandler(file_handler)
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(log_formatter)
-    root_logger.addHandler(console_handler)
-
 
 def create_mobi_json(xml_string):   
     message =  {}
@@ -84,7 +65,7 @@ async def run_fenix_graphql_client(mobi_client1, mobi_client2):
     session = await client.connect_async(reconnecting=True) 
     while (True):
         try:
-            async for result in session.subscribe(subscription, params, op_name):
+            async for result in session.subscribe(subscription, variable_values=params, operation_name=op_name):
                 if "dataRefs" in result:
                     if (result["dataRefs"]["name"] == "aircraft.mcdu1.display"):
                         mobi_json = create_mobi_json(result["dataRefs"]["value"])
@@ -114,7 +95,7 @@ class Mobiflight_Client:
                     fontName = "AirbusThales"
                     await self.websocket_connection.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
                     logging.info(f"Setting font: {fontName}")
-                    await asyncio.sleep(1) # wait a second for font
+                    await asyncio.sleep(1) # wait a second for font to be set
                 # Wait for disconnection or data
                 await self.websocket_connection.recv()    
             except websockets.exceptions.InvalidStatus as invalid:      
@@ -137,8 +118,9 @@ class Mobiflight_Client:
     
 
 async def main():   
-    websockets_logger.setLevel(logging.WARNING)   
-    setup_logging(logging.INFO, os.path.join(BASE_PATH, 'logs/fenixMcduLogging.log'))    
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')  
+    log = logging.getLogger("gql.transport.websockets")
+    log.setLevel(logging.WARNING)   
     logging.info("----STARTED fenix_winwing_cdu.py----")   
     client1 = Mobiflight_Client("ws://localhost:8320/winwing/cdu-captain", "CDU-CAPTAIN")
     client2 = Mobiflight_Client("ws://localhost:8320/winwing/cdu-co-pilot", "CDU-CO-PILOT")  
