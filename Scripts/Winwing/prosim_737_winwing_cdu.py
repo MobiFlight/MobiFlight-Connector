@@ -36,6 +36,11 @@ class MobiFlightClient:
                     logging.info("Connecting to MobiFlight at %s", self.websocket_uri)
                     self.websocket = await websockets.connect(self.websocket_uri, ping_interval=None)
                     logging.info("MobiFlight connected")
+                    # Load font           
+                    fontName: str = "Boeing"
+                    await self.websocket.send(f'{{ "Target": "Font", "Data": "{fontName}" }}')
+                    logging.info(f"Setting font: {fontName}")
+                    await asyncio.sleep(1) # wait a second for font to be set
                     self.connected.set()
                 await self.websocket.recv()
             except Exception as e: 
