@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MobiFlight.UI.Panels.Settings.Device
@@ -26,7 +22,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
 
         public MFLcddDisplayPanel(MobiFlight.Config.LcdDisplay config, List<MobiFlightPin> Pins): this()
         {
-            //// TODO: Complete member initialization
             this.config = config;
             NameTextBox.Text = config.Name;
             AddressComboBox.SelectedItem = "0x" + config.Address.ToString("X2");
@@ -41,6 +36,7 @@ namespace MobiFlight.UI.Panels.Settings.Device
         {
             if (!initialized) return;
             setValues();
+
             if (Changed!=null)
                 Changed(config, new EventArgs());
         }
@@ -79,8 +75,6 @@ namespace MobiFlight.UI.Panels.Settings.Device
             }
 
             removeError(sender as Control);
-
-            value_Changed(sender, e);
         }
 
         private void displayError(Control control, String message)

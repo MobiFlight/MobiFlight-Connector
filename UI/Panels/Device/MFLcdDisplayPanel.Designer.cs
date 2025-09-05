@@ -109,12 +109,14 @@
             // 
             resources.ApplyResources(this.LinesTextBox, "LinesTextBox");
             this.LinesTextBox.Name = "LinesTextBox";
+            this.LinesTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             this.LinesTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.ColTextBox_Validating);
             // 
             // ColTextBox
             // 
             resources.ApplyResources(this.ColTextBox, "ColTextBox");
             this.ColTextBox.Name = "ColTextBox";
+            this.ColTextBox.TextChanged += new System.EventHandler(this.value_Changed);
             this.ColTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.ColTextBox_Validating);
             // 
             // label2
