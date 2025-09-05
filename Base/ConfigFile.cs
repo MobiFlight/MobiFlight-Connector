@@ -65,6 +65,7 @@ namespace MobiFlight.Base
 
             return
                 FileName.AreEqual(other.FileName) &&
+                Label.AreEqual(other.Label) &&
                 ReferenceOnly == other.ReferenceOnly &&
                 EmbedContent == other.EmbedContent &&
                 ConfigItems.SequenceEqual(other.ConfigItems)

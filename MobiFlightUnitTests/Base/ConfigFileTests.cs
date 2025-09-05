@@ -175,6 +175,10 @@ namespace MobiFlight.Base.Tests
 
             Assert.IsTrue(configFile.Equals(configFile2));
             Assert.AreEqual(configFile, configFile2);
+
+            configFile2.Label = "DifferentLabel";
+            Assert.IsFalse(configFile.Equals(configFile2));
+            Assert.AreNotEqual(configFile, configFile2);
         }
 
         [TestMethod()]
