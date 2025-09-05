@@ -760,7 +760,7 @@ namespace MobiFlight.UI.Dialogs
                 return;
             }
 
-            var module = inputModuleNameComboBox.Items.Cast<ListItem>().Where(i => i.Value.ToString().Contains(e.Serial)).First();
+            var module = inputModuleNameComboBox.Items.Cast<ListItem>().Where(i => i.Value.ToString().Contains(e.Serial)).FirstOrDefault();
 
             if (module == null) { return; }
             inputModuleNameComboBox.SelectedItem = module;
