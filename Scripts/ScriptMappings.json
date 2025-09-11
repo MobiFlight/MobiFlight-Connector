@@ -101,6 +101,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "boeing 737-",
       "ScriptName": "zibo_737_800x.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "rotate",
+      "ScriptName": "rotate_md11.py"
     }
   ]
 }
