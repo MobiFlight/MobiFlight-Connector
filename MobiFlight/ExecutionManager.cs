@@ -815,21 +815,6 @@ namespace MobiFlight
         /// </summary>
         private void ExecuteConfig()
         {
-            if (
-#if ARCAZE
-                !arcazeCache.Available() &&
-#endif
-#if MOBIFLIGHT
-                !mobiFlightCache.Available() &&
-
-#endif
-                !joystickManager.JoysticksConnected() &&
-
-                !midiBoardManager.AreMidiBoardsConnected()
-            ) return;
-
-
-
             // this is kind of sempahore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
