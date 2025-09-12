@@ -2784,7 +2784,7 @@ namespace MobiFlight.UI
         private void ResetAutoLoadMenu()
         {
             toolStripAircraftDropDownButton.Image = null;
-            linkCurrentConfigToolStripMenuItem.Enabled = false;
+            linkCurrentConfigToolStripMenuItem.Enabled = (execManager?.Project?.FilePath != null);
             removeLinkConfigToolStripMenuItem.Enabled = false;
             openLinkedConfigToolStripMenuItem.Enabled = false;
             openLinkFilenameToolStripMenuItem.Text = "";
