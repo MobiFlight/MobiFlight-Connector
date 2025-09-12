@@ -1207,7 +1207,10 @@ namespace MobiFlight
                 }
             }
 
-            updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
+            lock (updatedValues)
+            {
+                updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
+            }
         }
 
         private void UpdateInputPreconditions()
@@ -1240,7 +1243,10 @@ namespace MobiFlight
 
                         if (!cfg.Status.SequenceEqual(originalCfg.Status))
                         {
-                            updatedValues[cfg.GUID] = cfg;
+                            lock (updatedValues)
+                            {
+                                updatedValues[cfg.GUID] = cfg;
+                            }
                         }
                     }
                 }
