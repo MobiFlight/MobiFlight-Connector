@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CommandMessenger;
+﻿using CommandMessenger;
+using System;
+using static MobiFlight.MobiFlightButton;
 
 namespace MobiFlight
 {
     public class MobiFlightInputMultiplexer : IConnectedDevice
     {
-        public enum InputEvent
-        {
-            PRESS,
-            RELEASE,
-            REPEAT,     // For future uses, like Buttons
-        }
-
         public const string TYPE = "InputMultiplexer";
         public const string LABEL_PREFIX = "Input";
 
@@ -50,10 +41,6 @@ namespace MobiFlight
 
                 case (int)InputEvent.RELEASE:
                     eventAction = InputEvent.RELEASE.ToString();
-                    break;
-
-                case (int)InputEvent.REPEAT:
-                    eventAction = InputEvent.REPEAT.ToString();
                     break;
             }
 
