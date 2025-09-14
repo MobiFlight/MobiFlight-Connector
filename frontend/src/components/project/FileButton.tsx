@@ -2,7 +2,7 @@ import { ConfigFile } from "@/types"
 import { VariantProps } from "class-variance-authority"
 import {
   IconDotsVertical,
-  IconEdit,
+  IconPencil,
   IconTrash,
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
@@ -88,7 +88,7 @@ const FileButton = ({
                 inlineEditRef.current?.startEditing()
               }}
             >
-              <IconEdit />
+              <IconPencil />
               {t("Project.File.Action.Rename")}
             </DropdownMenuItem>
             <DropdownMenuItem

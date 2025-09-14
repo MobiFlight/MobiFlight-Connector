@@ -1,5 +1,5 @@
 import { useProjectStore } from "@/stores/projectStore"
-import { IconDotsVertical, IconEdit } from "@tabler/icons-react"
+import { IconDotsVertical, IconPencil } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
@@ -83,7 +83,7 @@ const ProjectNameLabel = () => {
                 inlineEditRef.current?.startEditing()
               }}
             >
-              <IconEdit />
+              <IconPencil />
               {t("Project.File.Action.Rename")}
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -10,7 +10,7 @@ import {
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { IconCopy, IconDots, IconEdit, IconFlask, IconTrash } from "@tabler/icons-react"
+import { IconCopy, IconDots, IconEdit, IconFlask, IconPencil, IconTrash } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
 import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 
@@ -70,7 +70,7 @@ function ConfigItemTableActionsCell({
               }}
             >
               <div className="flex items-center gap-2">
-              <IconEdit></IconEdit>
+              <IconPencil />
               <span>Rename</span>
             </div>
             </DropdownMenuItem>
