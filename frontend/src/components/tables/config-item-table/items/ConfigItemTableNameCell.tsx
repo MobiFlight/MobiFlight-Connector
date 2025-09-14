@@ -1,11 +1,9 @@
+import { InlineEditLabel } from "@/components/InlineEditLabel"
 import ToolTip from "@/components/ToolTip"
-import { Input } from "@/components/ui/input"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
-import { IconCircleCheck, IconCircleX, IconEdit } from "@tabler/icons-react"
 import { Row } from "@tanstack/react-table"
-import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 interface ConfigItemTableNameCellProps {
@@ -15,23 +13,17 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
   const { t } = useTranslation()
 
   const { publish } = publishOnMessageExchange()
-  const [isEditing, setIsEditing] = useState(false)
   
   const item = row.original as IConfigItem
-  const realLabel = item.Name
   const typeLabel = t(`Types.${item.Type}`)
-  
-  const [label, setLabel] = useState(item.Name)
 
-  const toggleEdit = () => {
-    setIsEditing(!isEditing)
-  }
+  const label = item.Name
 
   const moduleName =
     (item.ModuleSerial).split("/")[0] ?? "not set"
   const deviceName = (item.Device)?.Name ?? "-"
 
-  const saveChanges = () => {
+  const saveChanges = (label:string) => {
     const updatedItem = { ...item, Name: label }
     publish({
       key: "CommandUpdateConfigItem",
@@ -39,17 +31,12 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
     } as CommandUpdateConfigItem)
   }
 
-  useEffect(() => {
-    setLabel(realLabel)
-  }, [realLabel])
-
   const selectedRows = row.getVisibleCells()[0].getContext().table.getSelectedRowModel().rows.length
   const dragLabel = selectedRows > 1 ? t("ConfigList.Cell.Drag.Multiple", { count: selectedRows}) : label
 
   return (
     <div className="group flex cursor-pointer flex-row items-center gap-1">
-      {!isEditing ? (
-        <ToolTip
+      <ToolTip
           content={
             <div className="flex flex-col gap-1">
               <p className="text-xs font-semibold">{typeLabel}</p>
@@ -60,61 +47,15 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
           }
         >
           <div className="flex flex-row items-center gap-0 w-full">
-            <p className="px-0 font-semibold truncate group-[.is-first-drag-item]/row:hidden">{label}</p>
             <p className="px-0 font-semibold truncate hidden group-[.is-first-drag-item]/row:block">{dragLabel}</p>
-            <IconEdit
-              role="button"
-              aria-label="Edit"
-              onClick={toggleEdit}
-              className="min-w-10 ml-2 opacity-0 transition-opacity delay-300 ease-in group-hover:opacity-100 group-hover:delay-100 group-hover:ease-out"
+            <InlineEditLabel
+              labelClassName="group-[.is-first-drag-item]/row:hidden"
+              value={label}
+              onSave={saveChanges}
+              placeholder={t("ConfigList.Cell.Name.Placeholder") || "Unnamed Item"}
             />
           </div>
         </ToolTip>
-      ) : (
-        <div
-          className="flex flex-row items-center gap-1"
-          onKeyDown={(e) => e.key === "Enter" && saveChanges() && toggleEdit()}
-        >
-          <Input
-            type="text"
-            value={label}
-            className="m-0 h-6 px-2 text-sm lg:h-8"
-            onChange={(e) => setLabel(e.target.value)}
-            onKeyDown={(e) => {
-              e.stopPropagation()
-              if (e.key === "Enter") {
-                saveChanges()
-                toggleEdit()
-              }  
-
-              if (e.key === "Escape") {
-                setLabel(realLabel)
-                toggleEdit()
-              }
-            }}
-            
-            autoFocus
-          />
-          <IconCircleCheck
-            className="stroke-green-700"
-            role="button"
-            aria-label="Save"
-            onClick={() => {
-              saveChanges()
-              toggleEdit()
-            }}
-          />
-          <IconCircleX
-            className="stroke-red-700"
-            role="button"
-            aria-label="Discard"
-            onClick={() => {
-              setLabel(item.Name)
-              toggleEdit()
-            }}
-          />
-        </div>
-      )}
     </div>
   )
 }
