@@ -116,7 +116,8 @@ namespace MobiFlight.Base
                 var deprecatedConfigFile = ConfigFileFactory.CreateConfigFile(FilePath);
                 deprecatedConfigFile.OpenFile();
 
-                var configFile = new ConfigFile {
+                var configFile = new ConfigFile
+                {
                     Label = Path.GetFileName(FilePath).Replace(".mfproj", "").Replace(".mcc", ""),
                     FileName = FilePath,
                     EmbedContent = true,
@@ -186,7 +187,7 @@ namespace MobiFlight.Base
 
         public void Merge(Project project)
         {
-            if (project == null || project.ConfigFiles == null ) return;
+            if (project == null || project.ConfigFiles == null) return;
 
             project.ConfigFiles.ToList().ForEach(file => ConfigFiles.Add(file));
         }
