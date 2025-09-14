@@ -603,7 +603,7 @@ namespace MobiFlight
 
         public void Start()
         {
-            if (timer.Enabled) return;
+            if (IsStarted()) return;
 
             InitInputEventExecutor();
             simConnectCache.Start();
@@ -614,8 +614,8 @@ namespace MobiFlight
             // the timer has to be enabled before the 
             // on start actions are executed
             // otherwise the input events will not be executed.
-            timer.Enabled = true;
-            frontendUpdateTimer.Enabled = true;
+            timer.Start();
+            frontendUpdateTimer.Start();
 
             // Now we can execute the on start actions
             OnStartActions();
@@ -699,7 +699,7 @@ namespace MobiFlight
 
         public void TestModeStart()
         {
-            if (testModeTimer.Enabled) return;
+            if (TestModeIsStarted()) return;
 
             testModeTimer.Start();
             mobiFlightCache.StartKeepAwake();
