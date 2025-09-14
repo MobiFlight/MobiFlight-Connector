@@ -29,9 +29,9 @@ test("Confirm populated list view", async ({ configListPage, page }) => {
 test("Confirm active toggle is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
-  await configListPage.setupConfigItemEditConfirmationResponse()
-  const rowSelector = { name: "LED 1 Edit ProtoBoard-v2" }
-  const toggleSwitch = page.getByRole("row", rowSelector).getByRole("switch")
+  await configListPage.setupConfigItemEditConfirmationResponse()  
+  const firstRow = page.locator("tbody tr").nth(1)
+  const toggleSwitch = firstRow.getByRole("switch")
   await toggleSwitch.click()
   await expect(toggleSwitch).not.toBeChecked()
   await toggleSwitch.click()
