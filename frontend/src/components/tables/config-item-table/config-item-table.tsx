@@ -325,7 +325,7 @@ export function ConfigItemTable<TData, TValue>({
               <div className="flex justify-center">
                 <ToolTip
                   content={t("ConfigList.Toolbar.Reset")}
-                  className="z-[1000] xl:hidden"
+                  className="z-1000 xl:hidden"
                 >
                   <Button
                     onClick={() => table.resetColumnFilters()}
