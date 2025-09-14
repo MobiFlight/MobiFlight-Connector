@@ -18,7 +18,7 @@ import { buttonVariants } from "@/components/ui/variants"
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
-import { InlineEditLabel } from "../InlineEditLabel"
+import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -35,19 +35,14 @@ const FileButton = ({
 
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
-  const [ isEditing, setIsEditing ] = useState(false)
   const [ label, setLabel ] = useState(file.Label ?? file.FileName)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (isEditing && inputRef.current) {
-      setTimeout(() => { inputRef?.current?.focus() }, 300)
-    }
-  }, [isEditing])
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   useEffect(() => {
     setLabel(file.Label ?? file.FileName)
   }, [file.Label, file.FileName])
+
+  const isActiveTab = variant === "tabActive"
 
   const onSave = (newLabel: string) => {
     publish({
@@ -71,15 +66,12 @@ const FileButton = ({
         value={file.FileName}
         className={cn(groupHoverStyle, "rounded-r-none border-r-0 rounded-b-none border-b-0")}
         onClick={() => onSelectActiveFile(index)}
-        onDoubleClick={(e) => {
-          e.stopPropagation()
-          e.preventDefault()
-          setIsEditing(true)
-        }}
       >
         <InlineEditLabel 
+          ref={inlineEditRef}
           value={label}
           onSave={onSave}
+          disabled={!isActiveTab}
         />
       </Button>
       <div className="relative">
@@ -93,7 +85,7 @@ const FileButton = ({
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
-                setIsEditing(true)
+                inlineEditRef.current?.startEditing()
               }}
             >
               <IconEdit />
