@@ -15,10 +15,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { buttonVariants } from "@/components/ui/variants"
-import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
+import { InlineEditLabel } from "../InlineEditLabel"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -49,6 +49,19 @@ const FileButton = ({
     setLabel(file.Label ?? file.FileName)
   }, [file.Label, file.FileName])
 
+  const onSave = (newLabel: string) => {
+    publish({
+      key: "CommandFileContextMenu",
+      payload: {
+        action: "rename",
+        index: index,
+        file: {
+          ...file,
+          Label: newLabel,
+        }
+      },
+    } as CommandFileContextMenu)
+  }
   const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary group-hover:text-primary-foreground" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
   return (
@@ -64,46 +77,10 @@ const FileButton = ({
           setIsEditing(true)
         }}
       >
-        { !isEditing 
-          ? 
-          (label)
-          :
-          <Input
-            ref={inputRef}
-            className="bg-transparent border-none h-6 focus-visible:ring-0 focus-visible:border-none focus-visible:ring-offset-0 rounded-0"
-            value={label}
-            onChange={(e) => {
-              setLabel(e.target.value)
-            }}
-            onBlur={() => {
-              setIsEditing(false)
-            }}
-            
-            onKeyDown={(e) => {
-              e.stopPropagation()
-
-              if (e.key === "Escape") {
-                setIsEditing(false)
-                setLabel(file.Label ?? file.FileName)
-              }
-              if (e.key === "Enter") {
-                setIsEditing(false)
-                setLabel(e.currentTarget.value)
-                publish({
-                  key: "CommandFileContextMenu",
-                  payload: {
-                    action: "rename",
-                    index: index,
-                    file: {
-                      ...file,
-                      Label: e.currentTarget.value,
-                    }
-                  },
-                } as CommandFileContextMenu)
-              }
-            }}
-          />
-        }
+        <InlineEditLabel 
+          value={label}
+          onSave={onSave}
+        />
       </Button>
       <div className="relative">
         <DropdownMenu>
