@@ -1,21 +1,18 @@
 import { useProjectStore } from "@/stores/projectStore"
-import {
-  IconDotsVertical,
-  IconEdit,
-} from "@tabler/icons-react"
+import { IconDotsVertical, IconEdit } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
-import { Button } from "./ui/button"
+import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandMainMenuPayload, CommandProjectToolbar } from "@/types/commands"
-import { Input } from "./ui/input"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu"
-import { AnimatedSaveButton } from "./ui/AnimatedSaveButton"
+} from "../ui/dropdown-menu"
+import { AnimatedSaveButton } from "../ui/AnimatedSaveButton"
+import { InlineEditLabel } from "../InlineEditLabel"
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
@@ -23,7 +20,6 @@ const ProjectNameLabel = () => {
   const { publish } = publishOnMessageExchange()
 
   const [projectName, setProjectName] = useState<string>(project?.Name || "")
-  const [tempProjectName, setTempProjectName] = useState(projectName)
   const [isEditing, setIsEditing] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -51,47 +47,28 @@ const ProjectNameLabel = () => {
     })
   }
 
+  const handleProjectNameSave = (newName: string) => {
+    setProjectName(newName)
+    publish({
+      key: "CommandProjectToolbar",
+      payload: {
+        action: "rename",
+        value: newName,
+      },
+    } as CommandProjectToolbar)
+  }
+
   return (
     <div
       className="flex flex-row items-center gap-1 pl-1"
       data-testid="project-name-label"
     >
-      {isEditing ? (
-        <Input
-          ref={inputRef}
-          className="rounded-0 text-md md:text-md flex h-6 border-none p-1 focus-visible:ring-1"
-          type="text"
-          value={tempProjectName}
-          onChange={(e) => setTempProjectName(e.target.value)}
-          onBlur={() => setIsEditing(false)}
-          onKeyDown={(e) => {
-            e.stopPropagation()
+      <InlineEditLabel
+        value={projectName}
+        onSave={handleProjectNameSave}
+        placeholder={t("Project.Name.Placeholder") || "Untitled Project"}
+      />
 
-            if (e.key === "Escape") {
-              setIsEditing(false)
-              setTempProjectName(projectName)
-            }
-            if (e.key === "Enter") {
-              setIsEditing(false)
-              setProjectName(e.currentTarget.value)
-              publish({
-                key: "CommandProjectToolbar",
-                payload: {
-                  action: "rename",
-                  value: e.currentTarget.value,
-                },
-              } as CommandProjectToolbar)
-            }
-          }}
-        />
-      ) : (
-        <span
-          onClick={() => setIsEditing(true)}
-          className="cursor-pointer font-semibold px-2"
-        >
-          {projectName}
-        </span>
-      )}
       <AnimatedSaveButton
         hasChanged={hasChanged}
         onSave={() => handleMenuItemClick({ action: "file.save" })}
