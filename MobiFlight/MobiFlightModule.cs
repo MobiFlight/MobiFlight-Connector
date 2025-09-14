@@ -677,6 +677,7 @@ namespace MobiFlight
                     Name = Name,
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
+                    // This should actually be button
                     Type = DeviceType.InputMultiplexer,
                     ExtPin = channel,
                     Value = state

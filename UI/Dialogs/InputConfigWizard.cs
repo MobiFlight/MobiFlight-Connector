@@ -43,7 +43,7 @@ namespace MobiFlight.UI.Dialogs
 #if ARCAZE
         Dictionary<string, ArcazeModuleSettings> moduleSettings;
 #endif
-        
+
         ButtonStyle ScanForInputButtonDefaultStyle;
         Dictionary<string, int> ScanForInputThreshold = new Dictionary<string, int>();
 
@@ -749,7 +749,10 @@ namespace MobiFlight.UI.Dialogs
             if (!InputThresholdIsExceeded(e)) return;
 
             // For buttons, only the "positive" PRESS events matter
-            if (e.Type == DeviceType.Button && e.Value != (int)MobiFlightButton.InputEvent.PRESS)
+            // For InputMultiplexer, only the "positive" PRESS events matter (which is inverted)
+            // For InputShiftRegister, only the "positive" PRESS events matters
+            // For Joysticks, they also send a Button type event
+            if (!IsButtonDeviceTypeAndOnPress(e))
             {
                 return;
             }
@@ -793,8 +796,14 @@ namespace MobiFlight.UI.Dialogs
                 }
             }
 
-
             DeactivateScanForInputMode();
+        }
+
+        private static bool IsButtonDeviceTypeAndOnPress(InputEventArgs e)
+        {
+            var isButtonType = (e.Type == DeviceType.Button || e.Type == DeviceType.InputMultiplexer || e.Type == DeviceType.InputShiftRegister);
+            var isOnPress = (e.Value == (int)MobiFlightButton.InputEvent.PRESS);
+            return isButtonType && isOnPress;
         }
 
         private bool InputThresholdIsExceeded(InputEventArgs e)
