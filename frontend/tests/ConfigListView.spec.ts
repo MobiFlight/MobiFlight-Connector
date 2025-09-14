@@ -1,5 +1,5 @@
 import { test, expect } from "./fixtures"
-import { IConfigItem } from "../src/types/index"
+import { IConfigItem } from "../src/types"
 
 test("Confirm empty list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
