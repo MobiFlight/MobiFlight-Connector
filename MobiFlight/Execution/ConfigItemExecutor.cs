@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -59,7 +60,7 @@ namespace MobiFlight.Execution
             this.ConfigItemInTestMode = configItemInTestMode;
         }
 
-        public void Execute(OutputConfigItem cfg, Dictionary<string, IConfigItem> updatedValues)
+        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues)
         {
             if (!cfg.Active) return;
 
@@ -71,7 +72,7 @@ namespace MobiFlight.Execution
                 cfg.Status[ConfigItemStatusType.Test] = "TESTING";
                 if (!cfg.Equals(originalCfg))
                 {
-                    updatedValues[cfg.GUID] = cfg;
+                    updatedValues.AddOrUpdate(cfg.GUID, cfg, (k,o) => cfg);
                 }
                 return;
             }
@@ -122,7 +123,7 @@ namespace MobiFlight.Execution
                 cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
                 if (!cfg.Equals(originalCfg))
                 {
-                    updatedValues[cfg.GUID] = cfg;
+                    updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
                 }
 
                 // We used to `continue` here
@@ -140,7 +141,7 @@ namespace MobiFlight.Execution
                         cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
                         if (!cfg.Equals(originalCfg))
                         {
-                            updatedValues[cfg.GUID] = cfg;
+                            updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
                         }
                         precondition = false;
                     }
@@ -178,7 +179,7 @@ namespace MobiFlight.Execution
 
             if (!originalCfg.Equals(cfg))
             {
-                updatedValues[cfg.GUID] = cfg;
+                updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
             }
         }
 
