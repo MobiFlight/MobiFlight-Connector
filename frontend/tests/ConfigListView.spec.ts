@@ -1,4 +1,5 @@
 import { test, expect } from "./fixtures"
+import { IConfigItem } from "../src/types"
 
 test("Confirm empty list view", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
@@ -29,9 +30,9 @@ test("Confirm populated list view", async ({ configListPage, page }) => {
 test("Confirm active toggle is working", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
-  await configListPage.setupConfigItemEditConfirmationResponse()
-  const rowSelector = { name: "LED 1 Edit ProtoBoard-v2" }
-  const toggleSwitch = page.getByRole("row", rowSelector).getByRole("switch")
+  await configListPage.setupConfigItemEditConfirmationResponse()  
+  const firstRow = page.locator("tbody tr").nth(1)
+  const toggleSwitch = firstRow.getByRole("switch")
   await toggleSwitch.click()
   await expect(toggleSwitch).not.toBeChecked()
   await toggleSwitch.click()
@@ -45,28 +46,40 @@ test("Confirm edit function for name is working", async ({
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
   await configListPage.setupConfigItemEditConfirmationResponse()
-  await page
-    .getByRole("cell", { name: "LED 1" })
-    .getByRole("button", { name: "Edit" })
-    .click()
-  await page.locator('input[type="text"]').click()
-  await page.locator('input[type="text"]').fill("LED 1245")
-  await page
-    .getByRole("cell", { name: "LED 1245" })
-    .getByRole("button", { name: "Save" })
-    .click()
+  await configListPage.mobiFlightPage.trackCommand("CommandUpdateConfigItem")
+
+  const nameCell = page.getByRole("cell", { name: "LED 1" })
+  
+  // Click on the text span to enter edit mode
+  await nameCell.getByText("LED 1").nth(1).click()
+  
+  // Now find the textbox that appears after clicking
+  const inlineEdit = nameCell.getByRole("textbox")
+  await inlineEdit.fill("LED 1245")
+
+  // We confirm the change by pressing Enter
+  await page.keyboard.press("Enter")
+
+  // The value should now be updated
   await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
-  await page
-    .getByRole("cell", { name: "LED 1245" })
-    .getByRole("button", { name: "Edit" })
-    .click()
-  await page.locator('input[type="text"]').click()
-  await page.locator('input[type="text"]').fill("LED 9999")
-  await page
-    .getByRole("cell", { name: "LED 9999" })
-    .getByRole("button", { name: "Discard" })
-    .click()
+
+  // verify that the correct command was sent to the backend
+  let postedCommands =
+    await configListPage.mobiFlightPage.getTrackedCommands()
+  const lastCommand = postedCommands!.pop()
+  expect(lastCommand.key).toEqual("CommandUpdateConfigItem")
+  expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
+
+  // Click on the text span to enter edit mode
+  await nameCell.getByText("LED 1245").nth(1).click()
+  await inlineEdit.fill("LED 9999")
+  
+  // We cancel the change by pressing Escape
+  await page.keyboard.press("Escape")
   await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
+
+  postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+  expect(postedCommands?.length).toEqual(1)  
 })
 
 test("Confirm status icons working", async ({ configListPage, page }) => {
