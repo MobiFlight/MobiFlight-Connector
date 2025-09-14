@@ -45,27 +45,28 @@ test("Confirm edit function for name is working", async ({
   await configListPage.gotoPage()
   await configListPage.initWithTestData()
   await configListPage.setupConfigItemEditConfirmationResponse()
-  await page
-    .getByRole("cell", { name: "LED 1" })
-    .getByRole("button", { name: "Edit" })
-    .click()
-  await page.locator('input[type="text"]').click()
-  await page.locator('input[type="text"]').fill("LED 1245")
-  await page
-    .getByRole("cell", { name: "LED 1245" })
-    .getByRole("button", { name: "Save" })
-    .click()
+
+  const nameCell = page.getByRole("cell", { name: "LED 1" })
+  
+  // Click on the text span to enter edit mode
+  await nameCell.getByText("LED 1").nth(1).click()
+  
+  // Now find the textbox that appears after clicking
+  const inlineEdit = nameCell.getByRole("textbox")
+  await inlineEdit.fill("LED 1245")
+
+  // We confirm the change by pressing Enter
+  await page.keyboard.press("Enter")
+
+  // The value should now be updated
   await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
-  await page
-    .getByRole("cell", { name: "LED 1245" })
-    .getByRole("button", { name: "Edit" })
-    .click()
-  await page.locator('input[type="text"]').click()
-  await page.locator('input[type="text"]').fill("LED 9999")
-  await page
-    .getByRole("cell", { name: "LED 9999" })
-    .getByRole("button", { name: "Discard" })
-    .click()
+
+  // Click on the text span to enter edit mode
+  await nameCell.getByText("LED 1245").nth(1).click()
+  await inlineEdit.fill("LED 9999")
+  
+  // We cancel the change by pressing Escape
+  await page.keyboard.press("Escape")
   await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
 })
 
