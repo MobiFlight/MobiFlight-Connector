@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu"
 import { AnimatedSaveButton } from "../ui/AnimatedSaveButton"
-import { InlineEditLabel } from "../InlineEditLabel"
+import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
@@ -20,9 +20,7 @@ const ProjectNameLabel = () => {
   const { publish } = publishOnMessageExchange()
 
   const [projectName, setProjectName] = useState<string>(project?.Name || "")
-  const [isEditing, setIsEditing] = useState(false)
-
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   // if the project updates,
   // we want to update the project name
@@ -31,14 +29,6 @@ const ProjectNameLabel = () => {
       setProjectName(project.Name)
     }
   }, [project])
-
-  useEffect(() => {
-    if (isEditing && inputRef.current) {
-      setTimeout(() => {
-        inputRef?.current?.select()
-      }, 200)
-    }
-  }, [isEditing])
 
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
@@ -64,6 +54,7 @@ const ProjectNameLabel = () => {
       data-testid="project-name-label"
     >
       <InlineEditLabel
+        ref={inlineEditRef}
         value={projectName}
         onSave={handleProjectNameSave}
         placeholder={t("Project.Name.Placeholder") || "Untitled Project"}
@@ -89,7 +80,7 @@ const ProjectNameLabel = () => {
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
-                setIsEditing(true)
+                inlineEditRef.current?.startEditing()
               }}
             >
               <IconEdit />

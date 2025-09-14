@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react"
 import { Input } from "./ui/input"
 import { cn } from "@/lib/utils"
 
@@ -11,17 +11,30 @@ interface InlineEditLabelProps {
   disabled?: boolean
 }
 
-export const InlineEditLabel = ({
+export interface InlineEditLabelRef {
+  startEditing: () => void
+}
+
+export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelProps>(({
   value,
   onSave,
   inputClassName = "",
   labelClassName: spanClassName = "",
   placeholder,
   disabled = false,
-}: InlineEditLabelProps) => {
+}, ref) => {
   const [tempValue, setTempValue] = useState(value)
   const [isEditing, setIsEditing] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+
+  // Expose the startEditing method through the ref
+  useImperativeHandle(ref, () => ({
+    startEditing: () => {
+      if (!disabled) {
+        setIsEditing(true)
+      }
+    }
+  }))
 
   // Update temp value when prop value changes
   useEffect(() => {
@@ -101,4 +114,6 @@ export const InlineEditLabel = ({
       {value || placeholder}
     </span>
   )
-}
+})
+
+InlineEditLabel.displayName = "InlineEditLabel"
