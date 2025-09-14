@@ -1,11 +1,5 @@
-import { createContext, useContext, useRef, ReactNode } from "react"
-
-interface RowInteractionContextValue {
-  startNameEdit?: () => void
-  registerNameEdit: (editFn: () => void) => void
-}
-
-const RowInteractionContext = createContext<RowInteractionContextValue | undefined>(undefined)
+import { useRef, ReactNode } from "react"
+import { RowInteractionContext, RowInteractionContextValue } from "./RowInteractionContextDef"
 
 interface RowInteractionProviderProps {
   children: ReactNode
@@ -32,12 +26,4 @@ export const RowInteractionProvider = ({ children }: RowInteractionProviderProps
       {children}
     </RowInteractionContext.Provider>
   )
-}
-
-export const useRowInteraction = () => {
-  const context = useContext(RowInteractionContext)
-  if (context === undefined) {
-    throw new Error("useRowInteraction must be used within a RowInteractionProvider")
-  }
-  return context
 }

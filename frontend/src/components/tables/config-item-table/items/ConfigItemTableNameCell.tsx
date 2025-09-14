@@ -6,7 +6,7 @@ import { IConfigItem } from "@/types/config"
 import { Row } from "@tanstack/react-table"
 import { useTranslation } from "react-i18next"
 import { useRef, useEffect } from "react"
-import { useRowInteraction } from "../RowInteractionContext"
+import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 
 interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
