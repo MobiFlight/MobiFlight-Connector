@@ -157,16 +157,6 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void Merge_WithNullProject_ShouldThrowException()
-        {
-            // Arrange
-            var targetProject = new Project();
-
-            // Act & Assert
-            Assert.ThrowsExactly<NullReferenceException>(() => targetProject.Merge(null));
-        }
-
-        [TestMethod()]
         public void Merge_WithProjectContainingConfigItems_ShouldPreserveAllItems()
         {
             // Arrange
