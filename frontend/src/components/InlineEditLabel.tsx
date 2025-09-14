@@ -51,8 +51,8 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
   }, [isEditing])
 
   const handleClick = (e: React.MouseEvent) => {
-    e.stopPropagation()
     if (!disabled) {
+      e.stopPropagation()
       setIsEditing(true)
     }
   }
@@ -107,7 +107,6 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
       onDoubleClick={(e) => handleDoubleClick(e)}
       className={cn(
         `cursor-pointer px-2 font-semibold`,
-        disabled ? "cursor-not-allowed opacity-50" : "",
         spanClassName,
       )}
     >
