@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -105,7 +104,7 @@ namespace MobiFlight.Base
                         configFile.OpenFile();
                     }
 
-                    if (configFile.Label==null)
+                    if (configFile.Label == null)
                     {
                         configFile.Label = Path.GetFileName(FilePath).Replace(".mfproj", "").Replace(".mcc", "");
                     }
@@ -179,7 +178,7 @@ namespace MobiFlight.Base
                 }
             }
 
-            return 
+            return
                 this.Name.Equals(other.Name) &&
                 this.FilePath.Equals(other.FilePath) &&
                 this.ConfigFiles.SequenceEqual(other.ConfigFiles);
@@ -187,6 +186,8 @@ namespace MobiFlight.Base
 
         public void Merge(Project project)
         {
+            if (project == null || project.ConfigFiles == null ) return;
+
             project.ConfigFiles.ToList().ForEach(file => ConfigFiles.Add(file));
         }
 

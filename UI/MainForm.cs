@@ -1856,7 +1856,6 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-
                     execManager.Project.MergeFromProjectFile(fileName);
                 }
 
