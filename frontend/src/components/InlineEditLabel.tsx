@@ -89,7 +89,7 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
     <Input
       ref={inputRef}
       className={cn(
-        `rounded-none flex h-6 border-none p-2 focus-visible:ring-offset-0 focus-visible:ring-transparent focus-visible:ring-0 bg-transparent font-semibold`,
+        `md:text-base rounded-none flex h-6 border-none p-2 focus-visible:ring-offset-0 focus-visible:ring-transparent focus-visible:ring-0 bg-transparent font-semibold`,
         `field-sizing-content`,
         inputClassName,
       )}
