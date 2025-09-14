@@ -62,7 +62,7 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
             <p className="px-0 font-semibold truncate hidden group-[.is-first-drag-item]/row:block">{dragLabel}</p>
             <InlineEditLabel
               ref={inlineEditRef}
-              labelClassName="group-[.is-first-drag-item]/row:hidden"
+              labelClassName="truncate group-[.is-first-drag-item]/row:hidden"
               value={label}
               onSave={saveChanges}
               placeholder={t("ConfigList.Cell.Name.Placeholder") || "Unnamed Item"}
