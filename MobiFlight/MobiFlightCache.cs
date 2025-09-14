@@ -866,10 +866,7 @@ namespace MobiFlight
 
         public void StartKeepAwake()
         {
-            if (!keepAwakeTimer.Enabled)
-            {
-                keepAwakeTimer.Start();
-            }
+            keepAwakeTimer.Start();
         }
 
         public void StopKeepAwake()
