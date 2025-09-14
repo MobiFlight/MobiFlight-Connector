@@ -1,0 +1,117 @@
+{
+  "Name": "Test Project 2",
+  "ConfigFiles": [
+    {
+      "Label": "Config File 2A",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "test-uuid-2a",
+              "Value": "(A:PROP RPM:1,Rpm)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Test LED 2A",
+            "DisplayPin": "LED 2A",
+            "DisplayPinBrightness": 255,
+            "DisplayPinPWM": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "GUID": "merge-test-guid-2a",
+          "Active": true,
+          "Name": "Test Output 2A",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "Test-Module-2",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        }
+      ]
+    },
+    {
+      "Label": "Config File 2B",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "test-uuid-2b",
+              "Value": "(A:BRAKE PARKING INDICATOR,Bool)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Test LED 2B",
+            "DisplayPin": "LED 2B",
+            "DisplayPinBrightness": 255,
+            "DisplayPinPWM": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "GUID": "merge-test-guid-2b",
+          "Active": true,
+          "Name": "Test Output 2B",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "Test-Module-2",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        },
+        {
+          "button": {
+            "onPress": {
+              "Type": "MSFS2020CustomInputAction"
+            },
+            "onRelease": null,
+            "onLongRelease": null,
+            "onHold": null,
+            "LongReleaseDelay": 350,
+            "HoldDelay": 350,
+            "RepeatDelay": 0
+          },
+          "DeviceType": "Button",
+          "DeviceName": "Test Button 2B",
+          "GUID": "merge-test-guid-2b-input",
+          "Active": true,
+          "Name": "Test Button 2B",
+          "Type": "InputConfigItem",
+          "ModuleSerial": "Test-Module-2",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        }
+      ]
+    }
+  ]
+}
