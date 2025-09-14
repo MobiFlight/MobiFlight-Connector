@@ -65,7 +65,6 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
               labelClassName="truncate group-[.is-first-drag-item]/row:hidden"
               value={label}
               onSave={saveChanges}
-              placeholder={t("ConfigList.Cell.Name.Placeholder") || "Unnamed Item"}
             />
           </div>
         </ToolTip>

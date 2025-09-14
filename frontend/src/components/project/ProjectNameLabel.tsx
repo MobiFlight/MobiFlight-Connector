@@ -57,7 +57,6 @@ const ProjectNameLabel = () => {
         ref={inlineEditRef}
         value={projectName}
         onSave={handleProjectNameSave}
-        placeholder={t("Project.Name.Placeholder") || "Untitled Project"}
       />
 
       <AnimatedSaveButton

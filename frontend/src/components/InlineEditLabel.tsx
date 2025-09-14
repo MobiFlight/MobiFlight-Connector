@@ -7,7 +7,6 @@ interface InlineEditLabelProps {
   onSave: (value: string) => void
   inputClassName?: string
   labelClassName?: string
-  placeholder?: string
   disabled?: boolean
 }
 
@@ -20,7 +19,6 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
   onSave,
   inputClassName = "",
   labelClassName: spanClassName = "",
-  placeholder,
   disabled = false,
 }, ref) => {
   const [tempValue, setTempValue] = useState(value)
@@ -97,7 +95,6 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
       )}
       type="text"
       value={tempValue}
-      placeholder={placeholder}
       onChange={(e) => setTempValue(e.target.value)}
       onBlur={handleSave}
       onKeyDown={handleKeyDown}
@@ -112,7 +109,7 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
         spanClassName,
       )}
     >
-      {value || placeholder}
+      {value}
     </span>
   )
 })
