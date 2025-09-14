@@ -58,8 +58,8 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
   }
 
   const handleDoubleClick = (e: React.MouseEvent) => {
-    e.stopPropagation()
     if (!disabled) {
+      e.stopPropagation()
       setIsEditing(true)
     }
   }
@@ -101,6 +101,7 @@ export const InlineEditLabel = forwardRef<InlineEditLabelRef, InlineEditLabelPro
       onChange={(e) => setTempValue(e.target.value)}
       onBlur={handleSave}
       onKeyDown={handleKeyDown}
+      onDoubleClick={(e) => e.stopPropagation()}
     />
   ) : (
     <span
