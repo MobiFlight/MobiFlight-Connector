@@ -1,10 +1,8 @@
 ﻿using MobiFlight.Config;
 using MobiFlight.Monitors;
-using SharpDX;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -47,13 +45,9 @@ namespace MobiFlight
 #pragma warning restore IDE0044 // Add readonly modifier
         Boolean isFirstTimeLookup = true;
 
-        private bool _lookingUpModules = false;
-
+        private readonly Timer keepAwakeTimer = new Timer();
         const int KeepAwakeIntervalInMinutes = 5; // 5 Minutes
-        DateTime lastKeepAwake = DateTime.MinValue; // Initialize to the earliest possible date so the first keep awake test will always cause a wakeup event
-
-        DateTime servoTime = DateTime.Now;
-
+        
         /// <summary>
         /// list of known modules.
         /// 
@@ -67,6 +61,8 @@ namespace MobiFlight
 
         public MobiFlightCache()
         {
+            keepAwakeTimer.Interval = KeepAwakeIntervalInMinutes * 60 * 1000; // convert to milliseconds
+            keepAwakeTimer.Tick += (s, e) => DeactivateConnectedModulePowerSave();
         }
 
         public void Start()
@@ -92,25 +88,13 @@ namespace MobiFlight
                 });
         }
         
-        // Calls SetPowerSaveMode(false) on all connected modules. If the
-        // force parameter is set to true then all modules will be sent the
-        // command even if the keep awake interval hasn't passed yet.
-        public void KeepConnectedModulesAwake(bool force = false)
+        // Calls SetPowerSaveMode(false) on all connected modules.
+        protected void DeactivateConnectedModulePowerSave()
         {
-            // lastKeepAwake is initialized to the earliest possible DateTime so the first
-            // time this method is called this test will fail and the modules will be forced
-            // to set their power save mode to off.
-            if (!force && lastKeepAwake.AddMinutes(KeepAwakeIntervalInMinutes) >= DateTime.UtcNow)
-            {
-                return;
-            }
-
             foreach (var module in Modules)
             {
                 module.Value.SetPowerSaveMode(false);
             }
-
-            lastKeepAwake = DateTime.UtcNow;
         }
         
         // Calls SetPowerSaveMode(true) on all connected modules.
@@ -729,6 +713,7 @@ namespace MobiFlight
             }
             
             variables.Clear();
+            StopKeepAwake();
         }
         
         public IEnumerable<IModuleInfo> GetModuleInfo()
@@ -877,6 +862,20 @@ namespace MobiFlight
         {
             SerialPortMonitor.Stop();
             UsbDeviceMonitor.Stop();
+        }
+
+        public void StartKeepAwake()
+        {
+            if (!keepAwakeTimer.Enabled)
+            {
+                keepAwakeTimer.Start();
+            }
+        }
+
+        public void StopKeepAwake()
+        {
+            keepAwakeTimer.Stop();
+            ActivateConnectedModulePowerSave();
         }
     }
 }

@@ -76,7 +76,6 @@ namespace MobiFlight
 
         private readonly Timer frontendUpdateTimer = new Timer();
 
-
         /// <summary>
         /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
         /// </summary>
@@ -621,8 +620,7 @@ namespace MobiFlight
             // Now we can execute the on start actions
             OnStartActions();
 
-            // Force all the modules awake whenver run is activated
-            mobiFlightCache.KeepConnectedModulesAwake(true);
+            mobiFlightCache.StartKeepAwake();
         }
 
         private void InitInputEventExecutor()
@@ -647,8 +645,10 @@ namespace MobiFlight
 
         public void Stop()
         {
-            timer.Enabled = false;
-            frontendUpdateTimer.Enabled = false;
+            timer.Stop();
+            frontendUpdateTimer.Stop();
+            mobiFlightCache.StopKeepAwake();
+
             isExecuting = false;
 #if ARCAZE
             arcazeCache.Clear();
@@ -660,9 +660,7 @@ namespace MobiFlight
             joystickManager.Stop();
             midiBoardManager.Stop();
             inputActionExecutionCache.Clear();
-            mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearConfigItemStatus();
-
             ClearErrorMessages();
         }
 
@@ -703,10 +701,8 @@ namespace MobiFlight
         {
             if (testModeTimer.Enabled) return;
 
-            testModeTimer.Enabled = true;
-
-            // Force all the modules awake whenver run is activated
-            mobiFlightCache.KeepConnectedModulesAwake(true);
+            testModeTimer.Start();
+            mobiFlightCache.StartKeepAwake();
 
             OnTestModeStarted?.Invoke(this, null);
 
@@ -715,7 +711,9 @@ namespace MobiFlight
 
         public void TestModeStop()
         {
-            testModeTimer.Enabled = false;
+            testModeTimer.Stop();
+
+            mobiFlightCache.StopKeepAwake();
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
@@ -725,7 +723,6 @@ namespace MobiFlight
 
             OnTestModeStopped?.Invoke(this, null);
             Log.Instance.log("Stopped test timer.", LogSeverity.Debug);
-
         }
 
         public bool TestModeIsStarted()
@@ -912,7 +909,6 @@ namespace MobiFlight
             try
             {
                 ExecuteConfig();
-                mobiFlightCache.KeepConnectedModulesAwake();
                 this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
@@ -1090,9 +1086,6 @@ namespace MobiFlight
             var currentIndex = (lastTestedConfigIndex + 1) % OutputConfigItems.Count;
             var currentConfig = OutputConfigItems[currentIndex];
 
-            // Force all the modules awake whenver test mode is activated
-            mobiFlightCache.KeepConnectedModulesAwake();
-
             // Special case:
             // if we have only one config item and it is the same as the last tested one, we just toggle it off
             var toggleSingleConfig = (currentConfig.AreEqual(lastTestedConfig) && OutputConfigItems.Count == 1);
@@ -1146,6 +1139,14 @@ namespace MobiFlight
 
         public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
+            if (!IsStarted() && !TestModeIsStarted())
+            {
+                // for the case that this is an individual test
+                // without MobiFlight in Run-mode nor in test mode
+                // only then we need to stop the keep awake messages
+                mobiFlightCache.StopKeepAwake();
+            }
+
             if (ResetConfigItemInTest)
                 ConfigItemInTestMode = null;
 
@@ -1165,6 +1166,11 @@ namespace MobiFlight
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
+            // for the case that this is an individual test
+            // without MobiFlight in Run-mode nor in test mode
+            // in all other cases it will already be running
+            mobiFlightCache.StartKeepAwake();
+            
             var executor = new ConfigItemExecutor(ConfigItems,
                                                   arcazeCache,
                                                   fsuipcCache,
