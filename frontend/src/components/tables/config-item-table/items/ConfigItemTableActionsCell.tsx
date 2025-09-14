@@ -11,8 +11,8 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandConfigContextMenu } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { IconCopy, IconDots, IconEdit, IconFlask, IconTrash } from "@tabler/icons-react"
-
 import { Row } from "@tanstack/react-table"
+import { useRowInteraction } from "../RowInteractionContext"
 
 interface ConfigItemTableActionsCellProps {
   row: Row<IConfigItem>
@@ -23,6 +23,7 @@ function ConfigItemTableActionsCell({
 }: ConfigItemTableActionsCellProps) {
   const item = row.original
   const { publish } = publishOnMessageExchange()
+  const { startNameEdit } = useRowInteraction()
 
   return (
     <div className="flex justify-center">
@@ -63,6 +64,16 @@ function ConfigItemTableActionsCell({
             </div>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuItem
+              onClick={() => {
+                startNameEdit?.()
+              }}
+            >
+              <div className="flex items-center gap-2">
+              <IconEdit></IconEdit>
+              <span>Rename</span>
+            </div>
+            </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => {
                 publish({

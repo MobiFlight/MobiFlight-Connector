@@ -6,6 +6,7 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
 import { IConfigItem } from "@/types/config"
+import { RowInteractionProvider } from "../RowInteractionContext"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>
@@ -75,74 +76,75 @@ const ConfigItemTableBody = <TData,>({
                 : "is-first-drag-item"
               : "" 
           return (
-            <DndTableRow
-              className={dragClassName}
-              key={row.id}
-              data-state={row.getIsSelected() && "selected"}
-              dnd-itemid={row.id}
-              onClick={(e): void => {
-                e.stopPropagation()
-                if (e.shiftKey) {
-                  if (lastSelected) {
-                    const lastIndex = rows.findIndex(
-                      (r) => r.id === lastSelected.id,
-                    )
-                    const currentIndex = rows.findIndex((r) => r.id === row.id)
-                    const range = [lastIndex, currentIndex].sort(
-                      (a, b) => a - b,
-                    )
-                    for (let i = range[0]; i <= range[1]; i++) {
-                      const row = rows[i]
-                      if (row.getIsSelected()) continue
-                      rows[i].toggleSelected()
+            <RowInteractionProvider key={row.id}>
+              <DndTableRow
+                className={dragClassName}
+                data-state={row.getIsSelected() && "selected"}
+                dnd-itemid={row.id}
+                onClick={(e): void => {
+                  e.stopPropagation()
+                  if (e.shiftKey) {
+                    if (lastSelected) {
+                      const lastIndex = rows.findIndex(
+                        (r) => r.id === lastSelected.id,
+                      )
+                      const currentIndex = rows.findIndex((r) => r.id === row.id)
+                      const range = [lastIndex, currentIndex].sort(
+                        (a, b) => a - b,
+                      )
+                      for (let i = range[0]; i <= range[1]; i++) {
+                        const row = rows[i]
+                        if (row.getIsSelected()) continue
+                        rows[i].toggleSelected()
+                      }
+                    } else {
+                      row.toggleSelected()
                     }
-                  } else {
+                  } else if (e.ctrlKey || e.metaKey) {
                     row.toggleSelected()
+                  } else {
+                    table.setRowSelection({ [row.id]: true })
                   }
-                } else if (e.ctrlKey || e.metaKey) {
-                  row.toggleSelected()
-                } else {
-                  table.setRowSelection({ [row.id]: true })
-                }
-                setLastSelected(row)
-              }}
-              onDoubleClick={() => {
-                publish({
-                  key: "CommandConfigContextMenu",
-                  payload: { action: "edit", item: row.original },
-                })
-              }}
-            >
-              {row.getVisibleCells().map((cell) => {
-                const className =
-                  (
-                    cell.column.columnDef.meta as {
-                      className: string
-                    }
-                  )?.className ?? ""
+                  setLastSelected(row)
+                }}
+                onDoubleClick={() => {
+                  publish({
+                    key: "CommandConfigContextMenu",
+                    payload: { action: "edit", item: row.original },
+                  })
+                }}
+              >
+                {row.getVisibleCells().map((cell) => {
+                  const className =
+                    (
+                      cell.column.columnDef.meta as {
+                        className: string
+                      }
+                    )?.className ?? ""
 
-                const cellClassName =
-                  (
-                    cell.column.columnDef.meta as {
-                      cellClassName: string
-                    }
-                  )?.cellClassName ?? ""
+                  const cellClassName =
+                    (
+                      cell.column.columnDef.meta as {
+                        cellClassName: string
+                      }
+                    )?.cellClassName ?? ""
 
-                return (
-                  <TableCell
-                    key={cell.id}
-                    className={cn(
-                      "p-1",
-                      className,
-                      cellClassName,
-                      "group-[.is-dragging]/row:hidden",
-                    )}
-                  >
-                    {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
-                  </TableCell>
-                )
-              })}
-            </DndTableRow>
+                  return (
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "p-1",
+                        className,
+                        cellClassName,
+                        "group-[.is-dragging]/row:hidden",
+                      )}
+                    >
+                      {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
+                    </TableCell>
+                  )
+                })}
+              </DndTableRow>
+            </RowInteractionProvider>
           )
         })}
       </SortableContext>
