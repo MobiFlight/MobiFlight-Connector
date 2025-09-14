@@ -701,9 +701,15 @@ namespace MobiFlight
 
         public void TestModeStart()
         {
+            if (testModeTimer.Enabled) return;
+
             testModeTimer.Enabled = true;
 
+            // Force all the modules awake whenver run is activated
+            mobiFlightCache.KeepConnectedModulesAwake(true);
+
             OnTestModeStarted?.Invoke(this, null);
+
             Log.Instance.log("Started test timer.", LogSeverity.Debug);
         }
 
@@ -1083,6 +1089,9 @@ namespace MobiFlight
 
             var currentIndex = (lastTestedConfigIndex + 1) % OutputConfigItems.Count;
             var currentConfig = OutputConfigItems[currentIndex];
+
+            // Force all the modules awake whenver test mode is activated
+            mobiFlightCache.KeepConnectedModulesAwake();
 
             // Special case:
             // if we have only one config item and it is the same as the last tested one, we just toggle it off
