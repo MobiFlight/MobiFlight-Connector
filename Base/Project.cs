@@ -184,5 +184,18 @@ namespace MobiFlight.Base
                 this.FilePath.Equals(other.FilePath) &&
                 this.ConfigFiles.SequenceEqual(other.ConfigFiles);
         }
+
+        public void Merge(Project project)
+        {
+            project.ConfigFiles.ToList().ForEach(file => ConfigFiles.Add(file));
+        }
+
+        public void MergeFromProjectFile(string fileName)
+        {
+            // take all config files and add them to the current project
+            var additionalProject = new Project() { FilePath = fileName };
+            additionalProject.OpenFile();
+            Merge(additionalProject);
+        }
     }
 }

@@ -1856,10 +1856,8 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-                    // take all config files and add them to the current project
-                    var additionalProject = new Project() { FilePath = fileName };
-                    additionalProject.OpenFile();
-                    additionalProject.ConfigFiles.ToList().ForEach(file => execManager.Project.ConfigFiles.Add(file));
+
+                    execManager.Project.MergeFromProjectFile(fileName);
                 }
 
                 execManager.Project.ConfigFiles.ToList().ForEach(configFile =>
