@@ -1210,7 +1210,7 @@ namespace MobiFlight
                 }
             }
 
-            updatedInputValues.Keys.ToList().ForEach(k => updatedValues.AddOrUpdate(k, updatedInputValues[k], (ck,o) => updatedInputValues[ck]));
+            updatedInputValues.Keys.ToList().ForEach(k => this.updatedValues[k] = updatedInputValues[k]);
         }
 
         private void UpdateInputPreconditions()
@@ -1243,7 +1243,7 @@ namespace MobiFlight
 
                         if (!cfg.Status.SequenceEqual(originalCfg.Status))
                         {
-                            updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
+                            updatedValues[cfg.GUID] = cfg;
                         }
                     }
                 }

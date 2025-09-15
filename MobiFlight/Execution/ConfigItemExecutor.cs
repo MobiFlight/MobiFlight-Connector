@@ -72,7 +72,7 @@ namespace MobiFlight.Execution
                 cfg.Status[ConfigItemStatusType.Test] = "TESTING";
                 if (!cfg.Equals(originalCfg))
                 {
-                    updatedValues.AddOrUpdate(cfg.GUID, cfg, (k,o) => cfg);
+                    updatedValues[cfg.GUID] = cfg;
                 }
                 return;
             }
@@ -123,7 +123,7 @@ namespace MobiFlight.Execution
                 cfg.Status[ConfigItemStatusType.Modifier] = ex.Message;
                 if (!cfg.Equals(originalCfg))
                 {
-                    updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
+                    updatedValues[cfg.GUID] = cfg;
                 }
 
                 // We used to `continue` here
@@ -141,7 +141,7 @@ namespace MobiFlight.Execution
                         cfg.Status[ConfigItemStatusType.Precondition] = "not satisfied";
                         if (!cfg.Equals(originalCfg))
                         {
-                            updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
+                            updatedValues[cfg.GUID] = cfg;
                         }
                         precondition = false;
                     }
@@ -179,7 +179,7 @@ namespace MobiFlight.Execution
 
             if (!originalCfg.Equals(cfg))
             {
-                updatedValues.AddOrUpdate(cfg.GUID, cfg, (k, o) => cfg);
+                updatedValues[cfg.GUID] = cfg;
             }
         }
 
