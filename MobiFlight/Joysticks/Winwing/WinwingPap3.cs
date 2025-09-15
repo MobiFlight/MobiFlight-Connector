@@ -36,7 +36,6 @@ namespace MobiFlight.Joysticks.Winwing
         private List<int> EncoderIncDecButtons 
             = new List<int> { SPD_DEC, SPD_INC, HDG_DEC, HDG_INC, ALT_DEC, ALT_INC, VS_DEC, VS_INC, CRSL_DEC, CRSL_INC, CRSR_DEC, CRSR_INC }; 
   
-        private JoystickDefinition Definition;
         private volatile bool DoInitialize = true;
         private volatile bool DoReadHidReports = false;
         private WinwingPap3Report CurrentReport = new WinwingPap3Report();
@@ -49,7 +48,6 @@ namespace MobiFlight.Joysticks.Winwing
 
         public WinwingPap3(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
-            Definition = def;
             ProductId = productId;
             DisplayControl = new WinwingDisplayControl(productId, server);
             var displayNames = DisplayControl.GetDisplayNames();

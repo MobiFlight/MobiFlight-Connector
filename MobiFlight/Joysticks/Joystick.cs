@@ -25,15 +25,15 @@ namespace MobiFlight
         protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
         private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
         private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
-        private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
+        protected readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
-        private readonly JoystickDefinition Definition;
+        protected readonly JoystickDefinition Definition;
 
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
         private object StateLock = new object();
-        private JoystickState State = null;
+        protected JoystickState State = null;
         private HidStream Stream;
 
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
@@ -386,7 +386,7 @@ namespace MobiFlight
             }
         }
 
-        private void UpdateAxis(JoystickState newState)
+        protected void UpdateAxis(JoystickState newState)
         {            
             if (DIJoystick.Capabilities.AxeCount > 0)
             {
@@ -416,7 +416,7 @@ namespace MobiFlight
             }
         }
 
-        private void UpdateButtons(JoystickState newState)
+        protected void UpdateButtons(JoystickState newState)
         {
             if (Buttons.Count==0) return;
 
