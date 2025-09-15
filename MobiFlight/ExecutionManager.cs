@@ -252,13 +252,13 @@ namespace MobiFlight
 
             var list = new List<IConfigValueOnlyItem>();
 
-            foreach (var kvp in updatedValues)
+            updatedValues.Keys.ToList().ForEach(key =>
             {
-                if (updatedValues.TryRemove(kvp.Key, out var value))
-                {
-                    list.Add(new ConfigValueOnlyItem(value));
-                }
-            }
+                if(!updatedValues.TryRemove(key, out var value))
+                    return;
+
+                list.Add(new ConfigValueOnlyItem(value));
+            });
 
             MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(list));
         }
