@@ -178,7 +178,7 @@ export function DataTableToolbar<TData>({
         {isFiltered && (
           <ToolTip
             content={t("ConfigList.Toolbar.Reset")}
-            className="z-[1000] xl:hidden"
+            className="z-1000 xl:hidden"
           >
             <Button
               variant="ghost"

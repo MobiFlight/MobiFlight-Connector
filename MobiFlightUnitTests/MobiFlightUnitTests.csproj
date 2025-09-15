@@ -255,6 +255,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="assets\Base\ConfigFile\Json\MergeTest1.mfproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\Json\MergeTest2.mfproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="assets\Base\ConfigFile\Json\MergeTestEmpty.mfproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="assets\Base\ConfigFile\Json\OpenConfig.mfjson">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

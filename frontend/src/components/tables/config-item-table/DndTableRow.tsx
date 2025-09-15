@@ -25,7 +25,7 @@ export const DndTableRow : React.FC<DndTableRowProps> = (({ className, ...props 
       style={dndStyle}
       ref={setNodeRef}
       className={cn(
-        "group/row border-b transition-colors hover:bg-selected data-[state=selected]:bg-selected/30 data-[state=selected]:hover:bg-selected data-[state=selected]:dark:bg-selected/40 dark:data-[state=selected]:hover:bg-selected",
+        "group/row border-b transition-colors hover:bg-selected data-[state=selected]:bg-selected/30 data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected/40 dark:data-[state=selected]:hover:bg-selected",
         className
       )}
       {...props}
