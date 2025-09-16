@@ -24,51 +24,51 @@ namespace MobiFlight.Joysticks.WingFlex
         public byte[] FromOutputDeviceState(List<JoystickOutputDevice> state)
         {
             // OUTPUT DATA STRUCTURE - FCU Cube Output Report
-            // Name                         Note                                    Mask    Byte[]  Bit[]   Example
-            // Head                         Constant: 0xF2                          -       0       -       0xF2
-            // Head                         Constant: 0xE1                          -       1       -       0xE1
-            // Head                         Constant: 0x03                          -       2       -       0x03
-            // Data Type Total              Has 3 Data Type                         -       3       -       0x02
-            // Data Type                    Bit Type                                -       4       -       0x01
-            // Data Length                  Following data occupies 3 Bytes         -       5       -       0x02
-            // LOC Signal                   On:1, Off: 0                            0x01    6       0       1
-            // AP1 Signal                   On:1, Off: 0                            0x02    6       1       1
-            // AP2 Signal                   On:1, Off: 0                            0x04    6       2       1
-            // A/THR Signal                 On:1, Off: 0                            0x08    6       3       1
-            // EXPED Signal                 On:1, Off: 0                            0x10    6       4       1
-            // APPR Signal                  On:1, Off: 0                            0x20    6       5       1
-            // SPD Managed                  Circle Point, Active:1, Inactive:0      0x40    6       6       1
-            // SPD Dashed                   Active:1, Inactive:0                    0x80    6       7       1
-            // HDG Managed                  Circle Point, Active:1, Inactive:0      0x01    7       0       1
-            // HDG Dashed                   Active:1, Inactive:0                    0x02    7       1       1
-            // ALT Managed                  Active:1, Inactive:0                    0x04    7       2       1
-            // VS Dashed                    Active:1, Inactive:0                    0x08    7       3       1
-            // SPD MACH Mode                SPD:0, MACH:1                           0x10    7       4       1
-            // HDG V/S Mode                 HDG V/S:0, TRK FPA:1                    0x20    7       5       1
-            // Test Mode                    Turn On All Light And LCD               0x40    7       6       1
-            // (Reserve)                    -                                       0x80    7       7       0
-            // Power                        On:1,Off:0                              0x01    8       0       1
-            // (Reserve)                    -                                       0x02    8       1       1
-            // (Reserve)                    -                                       0x04    8       2       1
-            // (Reserve)                    -                                       -       8       3       0
-            // (Reserve)                    -                                       -       8       4       0
-            // (Reserve)                    -                                       -       8       5       0
-            // (Reserve)                    -                                       -       8       6       0
-            // (Reserve)                    -                                       -       8       7       0
-            // Data Type                    Single Byte Type                        -       9       -       0x02
-            // Data Length                  Following data occupies 2 Bytes         -       10      -       0x02
-            // Background Light Brightness  0x00(Minimum)~0xFF(Maximum)             -       11      -       0
-            // LCD Brightness               0x00(Minimum)~0xFF(Maximum)             -       12      -       0
-            // Data Type                    Double Byte Type                        -       13      -       0
-            // Data Length                  Following data occupies 8 Bytes         -       14      -       0x08
-            // SPD Number                   High 8 bit of Uint16                    -       15      -       0x00
-            // SPD Number                   Low 8 bit of Uint16                     -       16      -       0x00
-            // HDG Number                   High 8 bit of Uint16                    -       17      -       0x00
-            // HDG Number                   Low 8 bit of Uint16                     -       18      -       0x00
-            // ALT Number                   High 8 bit of Uint16                    -       19      -       0x00
-            // ALT Number                   Low 8 bit of Uint16                     -       20      -       0x00
-            // V/S Number                   High 8 bit of Uint16                    -       21      -       0x00
-            // V/S Number                   Low 8 bit of Uint16                     -       22      -       0x00
+            // Type             Name                         Note                                    Mask    Byte[]  Bit[]   Example
+            // -                Head                         Constant: 0xF2                          -       0       -       0xF2
+            // -                Head                         Constant: 0xE1                          -       1       -       0xE1
+            // -                Head                         Constant: 0x03                          -       2       -       0x03
+            // -                Data Type Total              Has 3 Data Type                         -       3       -       0x02
+            // -                Data Type                    Bit Type                                -       4       -       0x01
+            // -                Data Length                  Following data occupies 3 Bytes         -       5       -       0x02
+            // Output           LOC Signal                   On:1, Off: 0                            0x01    6       0       1
+            // Output           AP1 Signal                   On:1, Off: 0                            0x02    6       1       1
+            // Output           AP2 Signal                   On:1, Off: 0                            0x04    6       2       1
+            // Output           A/THR Signal                 On:1, Off: 0                            0x08    6       3       1
+            // Output           EXPED Signal                 On:1, Off: 0                            0x10    6       4       1
+            // Output           APPR Signal                  On:1, Off: 0                            0x20    6       5       1
+            // Output           SPD Managed                  Circle Point, Active:1, Inactive:0      0x40    6       6       1
+            // Output           SPD Dashed                   Active:1, Inactive:0                    0x80    6       7       1
+            // Output           HDG Managed                  Circle Point, Active:1, Inactive:0      0x01    7       0       1
+            // Output           HDG Dashed                   Active:1, Inactive:0                    0x02    7       1       1
+            // Output           ALT Managed                  Active:1, Inactive:0                    0x04    7       2       1
+            // Output           VS Dashed                    Active:1, Inactive:0                    0x08    7       3       1
+            // Output           SPD MACH Mode                SPD:0, MACH:1                           0x10    7       4       1
+            // Output           HDG V/S Mode                 HDG V/S:0, TRK FPA:1                    0x20    7       5       1
+            // Output           Test Mode                    Turn On All Light And LCD               0x40    7       6       1
+            // -                (Reserve)                    -                                       0x80    7       7       0
+            // Output           Power                        On:1,Off:0                              0x01    8       0       1
+            // -                (Reserve)                    -                                       0x02    8       1       1
+            // -                (Reserve)                    -                                       0x04    8       2       1
+            // -                (Reserve)                    -                                       -       8       3       0
+            // -                (Reserve)                    -                                       -       8       4       0
+            // -                (Reserve)                    -                                       -       8       5       0
+            // -                (Reserve)                    -                                       -       8       6       0
+            // -                (Reserve)                    -                                       -       8       7       0
+            // -                Data Type                    Single Byte Type                        -       9       -       0x02
+            // -                Data Length                  Following data occupies 2 Bytes         -       10      -       0x02
+            // Output           Background Light Brightness  0x00(Minimum)~0xFF(Maximum)             -       11      -       0
+            // Output           LCD Brightness               0x00(Minimum)~0xFF(Maximum)             -       12      -       0
+            //                  Data Type                    Double Byte Type                        -       13      -       0
+            //                  Data Length                  Following data occupies 8 Bytes         -       14      -       0x08
+            // LcdDisplay       SPD Number                   High 8 bit of Uint16                    -       15      -       0x00
+            // LcdDisplay       SPD Number                   Low 8 bit of Uint16                     -       16      -       0x00
+            // LcdDisplay       HDG Number                   High 8 bit of Uint16                    -       17      -       0x00
+            // LcdDisplay       HDG Number                   Low 8 bit of Uint16                     -       18      -       0x00
+            // LcdDisplay       ALT Number                   High 8 bit of Uint16                    -       19      -       0x00
+            // LcdDisplay       ALT Number                   Low 8 bit of Uint16                     -       20      -       0x00
+            // LcdDisplay       V/S Number                   High 8 bit of Uint16                    -       21      -       0x00
+            // LcdDisplay       V/S Number                   Low 8 bit of Uint16                     -       22      -       0x00
 
             state.ForEach(item => { 
                 if (item.Byte >= 6 && item.Byte <= 8)
@@ -88,17 +88,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 }
             });
 
-            return new byte[] {
-                0xF2, 0xE1, 0x03, 0x02, 0x01, 0x02,
-                0x00, 0x00, 0x00, // Buttons
-                0x02, 0x06,
-                0x00, // SPD Knob Rotate
-                0x00, // HDG Knob Rotate
-                0x00, // ALT Knob Rotate
-                0x00, // VS Knob Rotate
-                0xFF, // Background Light Brightness
-                0xFF  // LCD Light Brightness
-            };
+            return LastOutputBufferState;
         }
 
         public JoystickState ToJoystickState()
