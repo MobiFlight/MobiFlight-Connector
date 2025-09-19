@@ -24,7 +24,15 @@ namespace MobiFlight
         public byte State = 0;
         public JoystickOutputDevice()
         {
-            Type = DeviceType.LedModule;
+            Type = DeviceType.Output;
+        }
+    }
+
+    public class JoystickOutputDisplay : JoystickOutputDevice
+    {
+        JoystickOutputDisplay()
+        {
+            Type = DeviceType.LcdDisplay;
         }
     }
 }

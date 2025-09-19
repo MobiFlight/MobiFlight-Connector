@@ -222,7 +222,10 @@ namespace MobiFlight
         protected virtual void EnumerateOutputDevices()
         {
             Lights.Clear();
-            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));
+            Definition?.Outputs?.ForEach(output => {
+                if (output.Type != null && output.Type != DeviceType.Output.ToString()) return;
+                Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit });
+            });
         }
 
         public List<ListItem<IBaseDevice>> GetAvailableDevicesAsListItems()

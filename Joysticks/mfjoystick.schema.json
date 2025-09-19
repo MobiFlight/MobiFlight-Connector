@@ -4,9 +4,9 @@
   "$id": "https://mobiflight.com/hid.schema.json",
   "title": "Root",
   "type": "object",
-  "required": ["InstanceName"],
+  "required": [ "InstanceName" ],
   "dependentRequired": {
-    "Outputs": ["VendorId", "ProductId"]
+    "Outputs": [ "VendorId", "ProductId" ]
   },
   "properties": {
     "InstanceName": {
@@ -25,7 +25,7 @@
         "$id": "#root/Inputs/items",
         "title": "Items",
         "type": "object",
-        "required": [ "Id", "Label", "Type"],
+        "required": [ "Id", "Label", "Type" ],
         "properties": {
           "Id": {
             "$id": "#root/Inputs/items/Id",
@@ -59,8 +59,15 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": ["Id", "Label", "Byte", "Bit"],
+        "required": [ "Id", "Label" ],
         "properties": {
+          "Type": {
+            "$id": "#root/Outputs/items/Type",
+            "title": "Type",
+            "description": "The output's type. Supported values: Output, Display. Defaults to 'Output' if not specified.",
+            "type": "string",
+            "enum": [ "Output", "Display" ]
+          },
           "Id": {
             "$id": "#root/Outputs/items/Id",
             "title": "Id",
@@ -76,14 +83,20 @@
           "Byte": {
             "$id": "#root/Outputs/items/Byte",
             "title": "Byte",
-            "description": "Byte location of the output. Required.",
+            "description": "Byte location of the output. Required for Output type, optional for Display type.",
             "type": "number"
           },
           "Bit": {
             "$id": "#root/Outputs/items/Bit",
             "title": "Bit",
-            "description": "Bit location within the byte of the output. Required.",
+            "description": "Bit location within the byte of the output. Required for Output type, optional for Display type.",
             "type": "number"
+          },
+          "Address": {
+            "$id": "#root/Outputs/items/Address",
+            "title": "Address",
+            "description": "Display address for Display type outputs. Used for text-based displays.",
+            "type": "string"
           }
         }
       }
