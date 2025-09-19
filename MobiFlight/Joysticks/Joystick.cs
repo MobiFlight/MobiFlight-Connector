@@ -64,13 +64,14 @@ namespace MobiFlight
             return (serial != null && serial.Contains(SerialPrefix));
         }
 
-        public string Name { 
+        public virtual string Name
+        {
             get { return DIJoystick?.Information.InstanceName; }  
         }
 
-        public string Serial
+        public virtual string Serial
         {
-            get { return SerialPrefix + DIJoystick.Information.InstanceGuid;  }
+            get { return SerialPrefix + DIJoystick.Information.InstanceGuid; }
         }
 
         public SharpDX.DirectInput.DeviceType Type
@@ -214,6 +215,9 @@ namespace MobiFlight
         {
             EnumerateDevices();
             EnumerateOutputDevices();
+
+            if (DIJoystick == null) return;
+
             DIJoystick.SetCooperativeLevel(handle, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
             DIJoystick.Properties.BufferSize = 16;
             DIJoystick.Acquire();            
@@ -554,7 +558,7 @@ namespace MobiFlight
 
         protected virtual void OnDeviceRemoved()
         {
-            DIJoystick.Unacquire();
+            DIJoystick?.Unacquire();
             OnDisconnected?.Invoke(this, null);
 
         }
