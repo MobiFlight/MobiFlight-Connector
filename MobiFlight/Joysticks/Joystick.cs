@@ -389,7 +389,7 @@ namespace MobiFlight
             }
         }
 
-        protected void UpdateAxis(JoystickState newState)
+        protected virtual void UpdateAxis(JoystickState newState)
         {            
             if (DIJoystick.Capabilities.AxeCount > 0)
             {
@@ -410,7 +410,7 @@ namespace MobiFlight
                             Name = Name,
                             DeviceId = Axes[CurrentAxis].Name,
                             DeviceLabel = Axes[CurrentAxis].Label,
-                            Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
+                        Serial = Serial,
                             Type = DeviceType.AnalogInput,
                             Value = newValue
                         });
@@ -421,7 +421,7 @@ namespace MobiFlight
 
         protected void UpdateButtons(JoystickState newState)
         {
-            if (Buttons.Count==0) return;
+            if (Buttons.Count == 0) return;
 
             for (int i = 0; i < newState.Buttons.Length; i++)
             {
@@ -433,7 +433,7 @@ namespace MobiFlight
                             Name = Name,
                             DeviceId = Buttons[i].Name,
                             DeviceLabel = Buttons[i].Label,
-                            Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
+                            Serial = Serial,
                             Type = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1
                         });
