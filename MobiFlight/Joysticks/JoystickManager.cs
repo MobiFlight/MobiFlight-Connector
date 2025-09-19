@@ -1,6 +1,10 @@
-﻿using MobiFlight.Joysticks.Octavi;
-using MobiFlight.Joysticks.Winwing;
+﻿using HidSharp;
+using MobiFlight.BrowserMessages;
+using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.VKB;
+using MobiFlight.Joysticks.WingFlex;
+using MobiFlight.Joysticks.Winwing;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -10,7 +14,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using WebSocketSharp.Server;
-using MobiFlight.BrowserMessages;
 
 namespace MobiFlight
 {
@@ -257,10 +260,34 @@ namespace MobiFlight
                 }
             }
 
+            ConnectHidController();
+
             if (JoysticksConnected())
             {
                 Connected?.Invoke(this, null);
             }
+        }
+
+        private void ConnectHidController()
+        {
+            var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
+            allHidDevices.ForEach(hidDevice =>
+            {
+                var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
+                if (definition == null) return;
+
+                if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
+                {
+                    // already loaded as regular DirectInput Joystick
+                    return;
+                }
+
+                var joystick = HidControllerFactory.Create(definition);
+                joystick.Connect(new IntPtr());
+                joystick.OnButtonPressed += Js_OnButtonPressed;
+                joystick.OnDisconnected += Js_OnDisconnected;
+                Joysticks.TryAdd(joystick.Serial, joystick);
+            });
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)

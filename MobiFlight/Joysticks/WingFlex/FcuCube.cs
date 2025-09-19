@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using HidSharp.Reports;
 using HidSharp.Reports.Input;
+using SharpDX.DirectInput;
 using System;
 
 namespace MobiFlight.Joysticks.WingFlex
@@ -13,9 +14,18 @@ namespace MobiFlight.Joysticks.WingFlex
         protected HidDeviceInputReceiver inputReceiver;
         protected ReportDescriptor reportDescriptor;
 
-        private readonly FcuCubeReport FcuCubeReport;
+        private readonly FcuCubeReport FcuCubeReport = new FcuCubeReport();
+        public override string Name
+        {
+            get { return Definition?.InstanceName ?? "FcuCube"; }
+        }
 
-        public FcuCube(SharpDX.DirectInput.Joystick joystick, JoystickDefinition definition) : base(joystick, definition)
+        public override string Serial
+        {
+            get { return SerialPrefix + Device?.GetSerialNumber() ?? SerialPrefix + "FCU-Cube-Serial-Nummer-Dummy"; }
+        }
+
+        public FcuCube(JoystickDefinition definition) : base(null, definition)
         {
         }
 
@@ -57,19 +67,20 @@ namespace MobiFlight.Joysticks.WingFlex
         private void InputReceiver_Received(object sender, EventArgs e)
         {
             var inputRec = sender as HidDeviceInputReceiver;
-            var inputReportBuffer = new byte[5];
+            var inputReportBuffer = new byte[65];
 
             try
             {
-                while (inputRec.TryRead(inputReportBuffer, 0, out _))
-                {
-                    var newState = FcuCubeReport.Parse(inputReportBuffer).ToJoystickState();
-                    UpdateButtons(newState);
-                    UpdateAxis(newState);
-
-                    // Finally store the new state as last state
-                    State = newState;
+                var newState = new JoystickState();
+                while (inputRec.TryRead(inputReportBuffer, 0, out _)) {
+                    newState = FcuCubeReport.Parse(inputReportBuffer).ToJoystickState();
                 }
+
+                UpdateButtons(newState);
+                UpdateAxis(newState);
+
+                // Finally store the new state as last state
+                State = newState;
             }
             catch (Exception ex)
             {
@@ -79,7 +90,6 @@ namespace MobiFlight.Joysticks.WingFlex
 
         protected override void SendData(byte[] data)
         {
-            if (!RequiresOutputUpdate) return;
             if (Stream == null)
             {
                 Connect();
@@ -98,7 +108,10 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public override void UpdateOutputDeviceStates()
         {
-            var data = FcuCubeReport.FromOutputDeviceState(Lights);
+            // if (!RequiresOutputUpdate) return;
+            var data = FcuCubeReport?.FromOutputDeviceState(Lights);
+
+            if (data == null) return;
 
             try
             {
@@ -109,6 +122,39 @@ namespace MobiFlight.Joysticks.WingFlex
                 // this happens when the device is removed.
                 OnDeviceRemoved();
             }
+        }
+
+        protected override void EnumerateDevices()
+        {
+            Definition.Inputs.ForEach(d => { 
+                var device = new JoystickDevice() { Name = d.Name, Label = d.Label, JoystickDeviceType = d.Type };
+                switch (d.Type)
+                {
+                    case JoystickDeviceType.Axis:
+                        device.Type = DeviceType.AnalogInput;
+                        Axes.Add(device);
+                        break;
+                    case JoystickDeviceType.Button:
+                        device.Type = DeviceType.Button;
+                        Buttons.Add(device);
+                        break;
+                    case JoystickDeviceType.POV:
+                        device.Type = DeviceType.Button;
+                        POV.Add(device);
+                        break;
+                }
+            });
+        }
+
+        protected override void EnumerateOutputDevices()
+        {
+            base.EnumerateOutputDevices();
+
+            // LcdDisplays
+            Definition?.Outputs?.FindAll(d => d.Type==DeviceType.LcdDisplay.ToString()).ForEach(device =>
+            {
+                Lights.Add(new JoystickOutputDevice() { Name = device.Id, Label = device.Label, Type = DeviceType.LcdDisplay });
+            });
         }
 
         public override void Shutdown()
