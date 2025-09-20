@@ -339,7 +339,12 @@ namespace MobiFlight.Execution
 
                         default: // LED Output                          
                             byte state = 0;
-                            if (value != "0") state = 1;
+                            if (value != "0") { 
+                                if (!Byte.TryParse(value, out state))
+                                {
+                                    state = 1;
+                                }
+                            }
                             joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
                             joystick.UpdateOutputDeviceStates();
                             joystick.Update();
