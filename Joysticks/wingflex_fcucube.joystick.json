@@ -248,6 +248,18 @@
       "Bit": 0
     },
     {
+      "Label": "Panel Brightness",
+      "Id": "brightness.panel",
+      "Byte": 11,
+      "Bit": 0
+    },
+    {
+      "Label": "Display Brightness",
+      "Id": "brightness.display",
+      "Byte": 12,
+      "Bit": 0
+    },
+    {
       "Label": "SPD",
       "Id": "SPD.value",
       "Type": "LcdDisplay",

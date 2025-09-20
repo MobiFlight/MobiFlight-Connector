@@ -139,8 +139,10 @@ namespace MobiFlight.Joysticks.WingFlex
 
                     return;
                 }
+
                 var offset = 1;
                 var itemByte = offset + item.Byte;
+                
                 if (itemByte >= offset + 6 && itemByte <= offset + 8)
                 {
                     if (item.State == 1)
