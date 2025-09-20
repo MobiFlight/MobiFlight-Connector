@@ -75,7 +75,10 @@ namespace MobiFlight
         /// </summary>
         public void LoadDefinitions()
         {
-            var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
+            var jsonFiles = Directory.GetFiles("Joysticks", "*.joystick.json", SearchOption.AllDirectories);
+            var schemaFilePath = "Joysticks/mfjoystick.schema.json";
+
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(jsonFiles, schemaFilePath,
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
                 onError: () => LoadingError = true
             );
