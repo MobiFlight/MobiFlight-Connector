@@ -46,7 +46,7 @@ namespace MobiFlight
         {
             PollTimer.Interval = 20;
             PollTimer.Elapsed += PollTimer_Tick;
-            MobiFlight.Joysticks.JoystickDefinitionMigrator.MigrateDefinitions();
+            MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateJoysticks();
             LoadDefinitions();
         }
 

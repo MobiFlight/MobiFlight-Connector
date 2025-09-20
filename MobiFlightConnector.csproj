@@ -354,7 +354,7 @@
     <Compile Include="MobiFlight\InputConfig\XplaneInputAction.cs" />
     <Compile Include="MobiFlight\InputConfig\VariableInputAction.cs" />
     <Compile Include="MobiFlight\Joysticks\Joystick.cs" />
-    <Compile Include="MobiFlight\Joysticks\JoystickDefinitionMigrator.cs" />
+    <Compile Include="MobiFlight\ControllerDefinitionMigrator.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDevice.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDeviceType.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickManager.cs" />
@@ -1433,7 +1433,7 @@
     <None Include="MidiBoards\BoardEditorConfigs\mpd218\mpd218mobi.mpd218">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\akai.mpkmini.mk3.midiboard.json">
+    <None Include="MidiBoards\akai\akai.mpkmini.mk3.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\nanokontrol2\nanoKontrol2Mobi.nktrl2_data">
@@ -1445,25 +1445,25 @@
     <None Include="MidiBoards\BoardEditorConfigs\xtouchmini\LayerB.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\apckey25.midiboard.json">
+    <None Include="MidiBoards\akai\apckey25.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\intech_ef44.midiboard.json">
+    <None Include="MidiBoards\intech\intech_ef44.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\mfmidiboard.schema.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\mpd218.midiboard.json">
+    <None Include="MidiBoards\akai\mpd218.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\mpkminiplay.midiboard.json">
+    <None Include="MidiBoards\akai\mpkminiplay.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\nanokontrol2.midiboard.json">
+    <None Include="MidiBoards\korg\nanokontrol2.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MidiBoards\x_touch_mini.midiboard.json">
+    <None Include="MidiBoards\behringer\x_touch_mini.midiboard.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

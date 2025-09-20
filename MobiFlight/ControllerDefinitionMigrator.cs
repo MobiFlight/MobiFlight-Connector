@@ -7,14 +7,22 @@ namespace MobiFlight.Joysticks
     /// <summary>
     /// Handles migration of joystick definition files from old folder structure to new nested structure.
     /// </summary>
-    internal static class JoystickDefinitionMigrator
+    internal static class ControllerDefinitionMigrator
     {
         /// <summary>
         /// Remove duplicate definition files from old, flat folder structure.
         /// </summary>
-        public static void MigrateDefinitions()
+        public static void MigrateJoysticks()
         {
-            MigrateDefinitions("Joysticks");
+            MigrateDefinitions("Joysticks", "*.joystick.json");
+        }
+
+        /// <summary>
+        /// Remove duplicate definition files from old, flat folder structure.
+        /// </summary>
+        public static void MigrateMidiControllers()
+        {
+            MigrateDefinitions("MidiBoards", "*.midiboard.json");
         }
 
         /// <summary>
@@ -22,7 +30,7 @@ namespace MobiFlight.Joysticks
         /// This overload allows specifying a custom base folder for testing.
         /// </summary>
         /// <param name="baseFolder">The base folder containing the definition files</param>
-        internal static void MigrateDefinitions(string baseFolder)
+        internal static void MigrateDefinitions(string baseFolder, string pattern)
         {
             try
             {
@@ -31,8 +39,8 @@ namespace MobiFlight.Joysticks
                     return; // Nothing to migrate if folder doesn't exist
                 }
 
-                var oldFiles = Directory.GetFiles(baseFolder, "*.joystick.json", SearchOption.TopDirectoryOnly);
-                
+                var oldFiles = Directory.GetFiles(baseFolder, pattern, SearchOption.TopDirectoryOnly);
+
                 foreach (var oldFile in oldFiles)
                 {
                     ProcessOldDefinitionFile(oldFile, baseFolder);
