@@ -14,13 +14,28 @@ namespace MobiFlight.Joysticks
         /// </summary>
         public static void MigrateDefinitions()
         {
+            MigrateDefinitions("Joysticks");
+        }
+
+        /// <summary>
+        /// Remove duplicate definition files from old, flat folder structure.
+        /// This overload allows specifying a custom base folder for testing.
+        /// </summary>
+        /// <param name="baseFolder">The base folder containing the definition files</param>
+        internal static void MigrateDefinitions(string baseFolder)
+        {
             try
             {
-                var oldFiles = Directory.GetFiles("Joysticks", "*.joystick.json", SearchOption.TopDirectoryOnly);
+                if (!Directory.Exists(baseFolder))
+                {
+                    return; // Nothing to migrate if folder doesn't exist
+                }
+
+                var oldFiles = Directory.GetFiles(baseFolder, "*.joystick.json", SearchOption.TopDirectoryOnly);
                 
                 foreach (var oldFile in oldFiles)
                 {
-                    ProcessOldDefinitionFile(oldFile);
+                    ProcessOldDefinitionFile(oldFile, baseFolder);
                 }
             }
             catch (Exception ex)
@@ -31,14 +46,22 @@ namespace MobiFlight.Joysticks
 
         /// <summary>
         /// Process a single old definition file for migration.
-        /// <param name="oldFile">Path to the old definition file</param>
         /// </summary>
-        private static void ProcessOldDefinitionFile(string oldFile)
+        /// <param name="oldFile">Path to the old definition file</param>
+        /// <param name="baseFolder">The base folder containing the definition files</param>
+        private static void ProcessOldDefinitionFile(string oldFile, string baseFolder)
         {
             try
             {
+                // Skip read-only files - they should not be migrated
+                if ((File.GetAttributes(oldFile) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+                {
+                    Log.Instance.log($"Skipping read-only file {oldFile} - will not be migrated", LogSeverity.Info);
+                    return;
+                }
+
                 var fileName = Path.GetFileName(oldFile);
-                var allFilesWithSameName = Directory.GetFiles("Joysticks", fileName, SearchOption.AllDirectories);
+                var allFilesWithSameName = Directory.GetFiles(baseFolder, fileName, SearchOption.AllDirectories);
                 var duplicateFiles = allFilesWithSameName.Where(f => f != oldFile).ToArray();
                 
                 if (duplicateFiles.Length == 0)
@@ -46,7 +69,7 @@ namespace MobiFlight.Joysticks
                     // If only one file exists, we want to keep it (the old one)
                     // this might be a definition file that a user created and
                     // which does not ship with MobiFlight
-                    KeepOldFile(oldFile);
+                    KeepOldFile(oldFile, baseFolder);
                     return; // No actual duplicates found
                 }
 
@@ -59,7 +82,7 @@ namespace MobiFlight.Joysticks
                 else
                 {
                     // backup the conflicted file
-                    BackupConflictedFile(oldFile);
+                    BackupConflictedFile(oldFile, baseFolder);
                 }
             }
             catch (Exception ex)
@@ -71,13 +94,13 @@ namespace MobiFlight.Joysticks
         /// <summary>
         /// Keeps the old file and moves it to a "_migrated_" sub folder
         /// </summary>
-        /// <param name="oldFile"></param>
-        /// <exception cref="NotImplementedException"></exception>
-        private static void KeepOldFile(string oldFile)
+        /// <param name="oldFile">Path to the old file</param>
+        /// <param name="baseFolder">The base folder containing the definition files</param>
+        private static void KeepOldFile(string oldFile, string baseFolder)
         {
             try
             {
-                var migratedFolder = Path.Combine("Joysticks", "_MIGRATED_");
+                var migratedFolder = Path.Combine(baseFolder, "_MIGRATED_");
                 Directory.CreateDirectory(migratedFolder); 
                 var baseFileName = Path.GetFileName(oldFile);
                 var migrationFilePath = Path.Combine(migratedFolder, baseFileName);
@@ -132,16 +155,17 @@ namespace MobiFlight.Joysticks
         /// Backup an old definition file that differs from the new one.
         /// </summary>
         /// <param name="oldFile">Path to the old file</param>
-        private static void BackupConflictedFile(string oldFile)
+        /// <param name="baseFolder">The base folder containing the definition files</param>
+        private static void BackupConflictedFile(string oldFile, string baseFolder)
         {
             try
             {
-                var conflictFolder = Path.Combine("Joysticks", "_CONFLICT_");
+                var conflictFolder = Path.Combine(baseFolder, "_CONFLICT_");
                 Directory.CreateDirectory(conflictFolder); // Creates if doesn't exist
 
                 var timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
-                var baseFileName = Path.GetFileNameWithoutExtension(oldFile);
-                var backupFileName = $"{baseFileName}_{timestamp}.joystick.bak";
+                var fileName = Path.GetFileName(oldFile);
+                var backupFileName = $"{fileName}_{timestamp}.bak";
                 var backupFilePath = Path.Combine(conflictFolder, backupFileName);
 
                 File.Move(oldFile, backupFilePath);
