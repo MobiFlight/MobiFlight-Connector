@@ -46,9 +46,9 @@ namespace MobiFlight.Joysticks.WingFlex
         }
         private void InitLastInputBufferState()
         {
-            Buffer.BlockCopy(InputHeader, 0, LastOutputBufferState, reportIdByteOffset + 0, InputHeader.Length);
-            Buffer.BlockCopy(OutputBitSection, 0, LastOutputBufferState, reportIdByteOffset + 3, OutputBitSection.Length);
-            Buffer.BlockCopy(OutputByteSection, 0, LastOutputBufferState, reportIdByteOffset + 9, OutputByteSection.Length);
+            Buffer.BlockCopy(InputHeader, 0, LastInputBufferState, reportIdByteOffset + 0, InputHeader.Length);
+            Buffer.BlockCopy(OutputBitSection, 0, LastInputBufferState, reportIdByteOffset + 3, OutputBitSection.Length);
+            Buffer.BlockCopy(OutputByteSection, 0, LastInputBufferState, reportIdByteOffset + 9, OutputByteSection.Length);
         }
 
         private void InitLastOutputBufferState()
