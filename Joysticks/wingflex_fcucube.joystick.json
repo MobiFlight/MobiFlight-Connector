@@ -246,6 +246,38 @@
       "Id": "power",
       "Byte": 8,
       "Bit": 0
+    },
+    {
+      "Label": "SPD",
+      "Id": "SPD.value",
+      "Type": "LcdDisplay",
+      "Byte": 15,
+      "Cols": 5,
+      "Lines": 1
+    },
+    {
+      "Label": "HDG",
+      "Id": "HDG.value",
+      "Type": "LcdDisplay",
+      "Byte": 17,
+      "Cols": 3,
+      "Lines": 1
+    },
+    {
+      "Label": "ALT",
+      "Id": "ALT.value",
+      "Type": "LcdDisplay",
+      "Byte": 19,
+      "Cols": 5,
+      "Lines": 1
+    },
+    {
+      "Label": "V/S",
+      "Id": "VS.value",
+      "Type": "LcdDisplay",
+      "Byte": 21,
+      "Cols": 4,
+      "Lines": 1
     }
   ]
 }

@@ -30,7 +30,10 @@ namespace MobiFlight
 
     public class JoystickOutputDisplay : JoystickOutputDevice
     {
-        JoystickOutputDisplay()
+        public byte Cols = 0;
+        public byte Lines = 0;
+        public string Text = "";
+        public JoystickOutputDisplay()
         {
             Type = DeviceType.LcdDisplay;
         }

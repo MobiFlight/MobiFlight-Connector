@@ -3,6 +3,7 @@ using HidSharp.Reports;
 using HidSharp.Reports.Input;
 using SharpDX.DirectInput;
 using System;
+using System.Collections.Generic;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
@@ -153,8 +154,28 @@ namespace MobiFlight.Joysticks.WingFlex
             // LcdDisplays
             Definition?.Outputs?.FindAll(d => d.Type==DeviceType.LcdDisplay.ToString()).ForEach(device =>
             {
-                Lights.Add(new JoystickOutputDevice() { Name = device.Id, Label = device.Label, Type = DeviceType.LcdDisplay });
+                Lights.Add(new JoystickOutputDisplay() { Name = device.Id, Label = device.Label, Type = DeviceType.LcdDisplay, Cols = device.Cols, Lines = device.Lines, Byte = device.Byte });
             });
+        }
+
+        public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
+        {
+            List<DeviceType> result = new List<DeviceType>();
+
+            Definition?.Outputs?.ForEach(d => {
+                if (d.Type == null && !result.Contains(DeviceType.Output))
+                {
+                    result.Add(DeviceType.Output);
+                    return;
+                }
+
+                if (Enum.TryParse<DeviceType>(d.Type, out var deviceType) && !result.Contains(deviceType))
+                {
+                    result.Add(deviceType);
+                }
+            });
+
+            return result;
         }
 
         public override void Shutdown()

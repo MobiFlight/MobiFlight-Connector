@@ -38,7 +38,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
 
         private byte[] LastInputBufferState = new byte[16];
-        private byte[] LastOutputBufferState = new byte[23];
+        private byte[] LastOutputBufferState = new byte[24];
 
         public FcuCubeReport() {
             InitLastInputBufferState();
@@ -122,7 +122,23 @@ namespace MobiFlight.Joysticks.WingFlex
             // LcdDisplay       V/S Number                   High 8 bit of Uint16                    -       21      -       0x00
             // LcdDisplay       V/S Number                   Low 8 bit of Uint16                     -       22      -       0x00
 
-            state.ForEach(item => { 
+            state.ForEach(item => {
+                if (item.Type == DeviceType.LcdDisplay)
+                {
+                    var lcdDisplay = item as JoystickOutputDisplay;
+                    if (lcdDisplay == null) return;
+
+                    if (!Int16.TryParse(lcdDisplay.Text, out var value)) return;
+
+                    var byteIndex = reportIdByteOffset + lcdDisplay.Byte;
+
+                    // Copy High 8 bit from value
+                    LastOutputBufferState[byteIndex] = (byte)(value >> 8);
+                    // Copy Low 8 bit from value  
+                    LastOutputBufferState[byteIndex + 1] = (byte)(value & 0xFF);
+
+                    return;
+                }
                 var offset = 1;
                 var itemByte = offset + item.Byte;
                 if (itemByte >= offset + 6 && itemByte <= offset + 8)

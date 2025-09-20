@@ -59,14 +59,14 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": [ "Id", "Label" ],
+        "required": [ "Id", "Label", "Byte" ],
         "properties": {
           "Type": {
             "$id": "#root/Outputs/items/Type",
             "title": "Type",
             "description": "The output's type. Supported values: Output, Display. Defaults to 'Output' if not specified.",
             "type": "string",
-            "enum": [ "Output", "Display" ]
+            "enum": [ "Output", "LcdDisplay" ]
           },
           "Id": {
             "$id": "#root/Outputs/items/Id",
@@ -92,28 +92,34 @@
             "description": "Bit location within the byte of the output. Required for Output type, optional for Display type.",
             "type": "number"
           },
-          "Address": {
-            "$id": "#root/Outputs/items/Address",
-            "title": "Address",
-            "description": "Display address for Display type outputs. Used for text-based displays.",
-            "type": "string"
+          "Cols": {
+            "$id": "#root/Outputs/items/Cols",
+            "title": "Cols",
+            "description": "Number of columns for the output. Required for Display type.",
+            "type": "number"
+          },
+          "Lines": {
+            "$id": "#root/Outputs/items/Lines",
+            "title": "Lines",
+            "description": "Number of lines for the output. Required for Display type.",
+            "type": "number"
           }
         }
+      },
+      "ProductId": {
+        "$id": "#Root/VendorId",
+        "title": "VendorId",
+        "type": "string",
+        "pattern": "^0x[0-9a-fA-F]+$",
+        "description": "The device's USB VendorId as a hexadcimal, e.g. `0x123A`. Required if Outputs are provided."
+      },
+      "VendorId": {
+        "$id": "#Root/ProductId",
+        "title": "ProductId",
+        "type": "string",
+        "pattern": "^0x[0-9a-fA-F]+$",
+        "description": "The device's USB ProductId as a hexadecimal, e.g. `0x234A`. Required if Outputs are provided."
       }
-    },
-    "ProductId": {
-      "$id": "#Root/VendorId",
-      "title": "VendorId",
-      "type": "string",
-      "pattern": "^0x[0-9a-fA-F]+$",
-      "description": "The device's USB VendorId as a hexadcimal, e.g. `0x123A`. Required if Outputs are provided."
-    },
-    "VendorId": {
-      "$id": "#Root/ProductId",
-      "title": "ProductId",
-      "type": "string",
-      "pattern": "^0x[0-9a-fA-F]+$",
-      "description": "The device's USB ProductId as a hexadecimal, e.g. `0x234A`. Required if Outputs are provided."
     }
   }
 }

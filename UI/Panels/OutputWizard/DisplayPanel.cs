@@ -475,7 +475,7 @@ namespace MobiFlight.UI.Panels.OutputWizard
                         {
                             int Cols = (device as MobiFlight.Config.LcdDisplay).Cols;
                             int Lines = (device as MobiFlight.Config.LcdDisplay).Lines;
-                            lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Name });
+                            lcdDisplays.Add(new ListItem() { Value = device.Name + "," + Cols + "," + Lines, Label = device.Label });
                         }
                         break;
                 }

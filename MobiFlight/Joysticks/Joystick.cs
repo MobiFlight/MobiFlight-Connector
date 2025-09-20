@@ -230,7 +230,8 @@ namespace MobiFlight
         protected virtual void EnumerateOutputDevices()
         {
             Lights.Clear();
-            Definition?.Outputs?.ForEach(output => {
+            Definition?.Outputs?.ForEach(output =>
+            {
                 if (output.Type != null && output.Type != DeviceType.Output.ToString()) return;
                 Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit });
             });
@@ -307,7 +308,14 @@ namespace MobiFlight
 
         public virtual List<IBaseDevice> GetAvailableLcdDevices()
         {
-            return new List<IBaseDevice>();
+            var result = new List<IBaseDevice>();
+            Lights.Where(l => l.Type == DeviceType.LcdDisplay).ToList().ForEach((item) =>
+            {
+                var outputDisplay = item as JoystickOutputDisplay;
+                result.Add(new LcdDisplay() { Address = item.Byte, Cols = outputDisplay.Cols, Lines = outputDisplay.Lines, Name = outputDisplay.Name });
+            });
+
+            return result;
         }
 
         public virtual void Update()
@@ -486,7 +494,10 @@ namespace MobiFlight
 
         public virtual void SetLcdDisplay(string address, string value)
         {
-            // Do nothing in base class
+            var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
+            if (display == null) return;
+
+            display.Text = value;
         }
 
 

@@ -22,5 +22,13 @@
         /// Bit location within the byte of the output.
         /// </summary>
         public byte Bit;
+        /// <summary>
+        /// Number of columns of the output display.
+        /// </summary>
+        public byte Cols;
+        /// <summary>
+        /// Number of lines of the output display.
+        /// </summary>
+        public byte Lines;
     }
 }
