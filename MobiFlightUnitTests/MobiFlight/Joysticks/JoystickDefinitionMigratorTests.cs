@@ -42,7 +42,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(uniqueFile, uniqueContent);
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             Assert.IsFalse(File.Exists(uniqueFile), "Original file should be moved");
@@ -63,7 +63,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(file2, @"{""InstanceName"": ""Controller 2""}");
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             var migratedFolder = Path.Combine(_joysticksDirectory, "_MIGRATED_");
@@ -90,7 +90,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(newFile, content);
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             Assert.IsFalse(File.Exists(oldFile), "Old duplicate file should be deleted");
@@ -114,7 +114,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(newFile, newContent);
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             Assert.IsFalse(File.Exists(oldFile), "Old file with identical content should be deleted");
@@ -141,7 +141,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(newFile, newContent);
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             Assert.IsFalse(File.Exists(oldFile), "Old conflicted file should be moved");
@@ -166,7 +166,7 @@ namespace MobiFlight.Joysticks.Tests
             CreateConflictScenario("conflict2.joystick.json", "old content 2", "new content 2");
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             var conflictFolder = Path.Combine(_joysticksDirectory, "_CONFLICT_");
@@ -182,7 +182,7 @@ namespace MobiFlight.Joysticks.Tests
 
             // Act
             var beforeTime = DateTime.Now.ToString("yyyyMMddHHmm");
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
             var afterTime = DateTime.Now.ToString("yyyyMMddHHmm");
 
             // Assert
@@ -220,7 +220,7 @@ namespace MobiFlight.Joysticks.Tests
             CreateConflictScenario("conflict.joystick.json", "old version", "new version");
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             // Check unique file migration
@@ -250,7 +250,7 @@ namespace MobiFlight.Joysticks.Tests
             // Act & Assert - Should not throw
             try
             {
-                JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+                ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
                 Assert.IsTrue(true, "Should complete without throwing");
             }
             catch (Exception ex)
@@ -268,7 +268,7 @@ namespace MobiFlight.Joysticks.Tests
             // Act & Assert - Should not throw
             try
             {
-                JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+                ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
                 Assert.IsTrue(true, "Should complete without throwing");
             }
             catch (Exception ex)
@@ -288,7 +288,7 @@ namespace MobiFlight.Joysticks.Tests
             try
             {
                 // Act
-                JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+                ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
                 // Assert - Read-only file should be skipped, not migrated
                 Assert.IsTrue(File.Exists(readOnlyFile), "Read-only file should remain in original location");
@@ -334,7 +334,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(uniqueFile, "unique content");
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             Assert.IsTrue(Directory.Exists(Path.Combine(_joysticksDirectory, "_MIGRATED_")), 
@@ -356,7 +356,7 @@ namespace MobiFlight.Joysticks.Tests
             File.WriteAllText(subFolderFile, "subfolder content");
 
             // Act
-            JoystickDefinitionMigrator.MigrateDefinitions(_joysticksDirectory);
+            ControllerDefinitionMigrator.MigrateDefinitions(_joysticksDirectory, "*.joystick.json");
 
             // Assert
             Assert.IsFalse(File.Exists(topLevelFile), "Top level file should be processed");
