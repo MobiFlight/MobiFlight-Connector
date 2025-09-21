@@ -175,6 +175,8 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public override void Shutdown()
         {
+            DoReadHidReports = false;
+            readThread?.Join(1000);
             Device?.Dispose();
         }
     }
