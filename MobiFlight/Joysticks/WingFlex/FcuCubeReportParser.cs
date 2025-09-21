@@ -62,7 +62,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public void CopyFromInputBuffer(byte[] inputBuffer)
         {
-            if (inputBuffer == null || inputBuffer.Length != LastInputBufferState.Length)
+            if (inputBuffer == null || inputBuffer.Length < LastInputBufferState.Length)
             {
                 throw new ArgumentException($"Invalid input buffer length. Expected {LastInputBufferState.Length}, got {inputBuffer?.Length ?? 0}");
             }
