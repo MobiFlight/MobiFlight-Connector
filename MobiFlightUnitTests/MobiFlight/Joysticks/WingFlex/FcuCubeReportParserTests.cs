@@ -35,25 +35,33 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         }
 
         [TestMethod]
-        public void Parse_NullInputBuffer_DoesNotThrow()
+        public void Parse_NullInputBuffer_ThrowsArgumentException()
         {
             // Arrange
             byte[] inputBuffer = null;
 
-            // Act & Assert - Should not throw exception
-            var result = _report.Parse(inputBuffer);
-            Assert.IsNotNull(result);
+            // Act & Assert - Should throw exception
+            Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
         }
 
         [TestMethod]
-        public void Parse_EmptyInputBuffer_DoesNotThrow()
+        public void Parse_EmptyInputBuffer_ThrowsArgumentException()
         {
             // Arrange
             var inputBuffer = new byte[0];
 
-            // Act & Assert - Should not throw exception
-            var result = _report.Parse(inputBuffer);
-            Assert.IsNotNull(result);
+            // Act & Assert - Should throw exception
+            Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
+        }
+
+        [TestMethod]
+        public void Parse_WrongLengthInputBuffer_ThrowsArgumentException()
+        {
+            // Arrange
+            var inputBuffer = new byte[1];
+
+            // Act & Assert - Should throw exception
+            Assert.ThrowsExactly<ArgumentException>(() => _report.Parse(inputBuffer));
         }
 
         #endregion
@@ -172,7 +180,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue()
         {
             // Arrange
-            var lcdDisplay = new MockJoystickOutputDisplay 
+            var lcdDisplay = new JoystickOutputDisplay 
             { 
                 Type = DeviceType.LcdDisplay, 
                 Byte = 15, 
@@ -193,7 +201,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void FromOutputDeviceState_LcdDisplay_HandlesMaxValue()
         {
             // Arrange
-            var lcdDisplay = new MockJoystickOutputDisplay 
+            var lcdDisplay = new JoystickOutputDisplay
             { 
                 Type = DeviceType.LcdDisplay, 
                 Byte = 17, 
@@ -214,7 +222,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void FromOutputDeviceState_LcdDisplay_HandlesZeroValue()
         {
             // Arrange
-            var lcdDisplay = new MockJoystickOutputDisplay 
+            var lcdDisplay = new JoystickOutputDisplay
             { 
                 Type = DeviceType.LcdDisplay, 
                 Byte = 19, 
@@ -234,7 +242,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void FromOutputDeviceState_LcdDisplay_HandlesNegativeValue()
         {
             // Arrange
-            var lcdDisplay = new MockJoystickOutputDisplay 
+            var lcdDisplay = new JoystickOutputDisplay
             { 
                 Type = DeviceType.LcdDisplay, 
                 Byte = 15, 
@@ -255,7 +263,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void FromOutputDeviceState_LcdDisplay_InvalidText_SkipsProcessing()
         {
             // Arrange
-            var lcdDisplay = new MockJoystickOutputDisplay 
+            var lcdDisplay = new JoystickOutputDisplay
             { 
                 Type = DeviceType.LcdDisplay, 
                 Byte = 15, 
@@ -356,13 +364,5 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         }
 
         #endregion
-    }
-
-    /// <summary>
-    /// Mock class for LCD display testing since we need a Text property
-    /// </summary>
-    public class MockJoystickOutputDisplay : JoystickOutputDevice
-    {
-        public string Text { get; set; }
     }
 }

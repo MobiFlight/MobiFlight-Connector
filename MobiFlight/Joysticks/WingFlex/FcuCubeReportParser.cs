@@ -62,7 +62,11 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public void CopyFromInputBuffer(byte[] inputBuffer)
         {
-            LastInputBufferState = (byte[])inputBuffer.Clone();
+            if (inputBuffer == null || inputBuffer.Length != LastInputBufferState.Length)
+            {
+                throw new ArgumentException($"Invalid input buffer length. Expected {LastInputBufferState.Length}, got {inputBuffer?.Length ?? 0}");
+            }
+            LastInputBufferState = (byte[])inputBuffer?.Clone();
         }
 
         public FcuCubeReport Parse(byte[] inputBuffer)
@@ -160,7 +164,7 @@ namespace MobiFlight.Joysticks.WingFlex
                 }
             });
 
-            return LastOutputBufferState;
+            return LastOutputBufferState.Clone() as byte[];
         }
 
         public JoystickState ToJoystickState()
