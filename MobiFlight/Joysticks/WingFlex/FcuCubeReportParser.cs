@@ -1,13 +1,11 @@
 ﻿using SharpDX.DirectInput;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms.VisualStyles;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
     internal class FcuCubeReport
     {
-        private readonly byte reportIdByteOffset = 1;
         // -                Head                         Constant: 0xF2                          -       0       -       0xF2
         // -                Head                         Constant: 0xE1                          -       1       -       0xE1
         // -                Head                         Constant: 0x03                          -       2       -       0x03
@@ -37,8 +35,8 @@ namespace MobiFlight.Joysticks.WingFlex
         private readonly static byte[] OutputByteSection = new byte[] { 0x02, 0x02, 0, 0, 0, 0x08 };
 
 
-        private byte[] LastInputBufferState = new byte[16];
-        private byte[] LastOutputBufferState = new byte[24];
+        private byte[] LastInputBufferState = new byte[64];
+        private byte[] LastOutputBufferState = new byte[64];
 
         public FcuCubeReport() {
             InitLastInputBufferState();
@@ -46,18 +44,16 @@ namespace MobiFlight.Joysticks.WingFlex
         }
         private void InitLastInputBufferState()
         {
-            Buffer.BlockCopy(InputHeader, 0, LastInputBufferState, reportIdByteOffset + 0, InputHeader.Length);
-            Buffer.BlockCopy(OutputBitSection, 0, LastInputBufferState, reportIdByteOffset + 3, OutputBitSection.Length);
-            Buffer.BlockCopy(OutputByteSection, 0, LastInputBufferState, reportIdByteOffset + 9, OutputByteSection.Length);
+            Buffer.BlockCopy(InputHeader, 0, LastInputBufferState, 0, InputHeader.Length);
+            Buffer.BlockCopy(OutputBitSection, 0, LastInputBufferState, 3, OutputBitSection.Length);
+            Buffer.BlockCopy(OutputByteSection, 0, LastInputBufferState, 9, OutputByteSection.Length);
         }
 
         private void InitLastOutputBufferState()
         {
-            // Copy using Buffer.BlockCopy - fastest method
-            var outputOffset = 1;
-            Buffer.BlockCopy(OutputHeader, 0, LastOutputBufferState, outputOffset + 0, OutputHeader.Length);
-            Buffer.BlockCopy(OutputBitSection, 0, LastOutputBufferState, outputOffset + 3, OutputBitSection.Length);
-            Buffer.BlockCopy(OutputByteSection, 0, LastOutputBufferState, outputOffset + 9, OutputByteSection.Length);
+            Buffer.BlockCopy(OutputHeader, 0, LastOutputBufferState, 0, OutputHeader.Length);
+            Buffer.BlockCopy(OutputBitSection, 0, LastOutputBufferState, 3, OutputBitSection.Length);
+            Buffer.BlockCopy(OutputByteSection, 0, LastOutputBufferState, 9, OutputByteSection.Length);
         }
 
         public void CopyFromInputBuffer(byte[] inputBuffer)
@@ -134,7 +130,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
                     if (!Int16.TryParse(lcdDisplay.Text, out var value)) return;
 
-                    var byteIndex = reportIdByteOffset + lcdDisplay.Byte;
+                    var byteIndex = lcdDisplay.Byte;
 
                     // Copy High 8 bit from value
                     LastOutputBufferState[byteIndex] = (byte)(value >> 8);
@@ -144,10 +140,9 @@ namespace MobiFlight.Joysticks.WingFlex
                     return;
                 }
 
-                var offset = 1;
-                var itemByte = offset + item.Byte;
+                var itemByte = item.Byte;
                 
-                if (itemByte >= offset + 6 && itemByte <= offset + 8)
+                if (itemByte >= 6 && itemByte <= 8)
                 {
                     if (item.State == 1)
                     {
@@ -158,7 +153,7 @@ namespace MobiFlight.Joysticks.WingFlex
                         LastOutputBufferState[itemByte] &= (byte)~(1 << item.Bit);
                     }
                 }
-                else if (itemByte == offset + 11 || itemByte == offset + 12) // Brightness
+                else if (itemByte == 11 || itemByte == 12) // Brightness
                 {
                     LastOutputBufferState[itemByte] = item.State;
                 }
@@ -215,7 +210,7 @@ namespace MobiFlight.Joysticks.WingFlex
             // copy the button states from the buffer to the Buttons bit by bit starting from byte 6 to byte 8
             for (int i = 0; i < 19; i++)
             {
-                int byteIndex = reportIdByteOffset + 6 + (i / 8);
+                int byteIndex = 6 + (i / 8);
                 int bitIndex = i % 8;
                 bool isPressed = (LastInputBufferState[byteIndex] & (1 << bitIndex)) != 0;
                 state.Buttons[i] = isPressed;
@@ -223,19 +218,19 @@ namespace MobiFlight.Joysticks.WingFlex
 
             // Encoders
             // As long as we don't have proper Encoders, we will map them to buttons
-            state.Buttons[19] = ((sbyte)LastInputBufferState[reportIdByteOffset + 11]) < 0; // SPD Knob Rotate Left
-            state.Buttons[20] = ((sbyte)LastInputBufferState[reportIdByteOffset + 11]) > 0; // SPD Knob Rotate Right
-            state.Buttons[21] = ((sbyte)LastInputBufferState[reportIdByteOffset + 12]) < 0; // HDG Knob Rotate Left
-            state.Buttons[22] = ((sbyte)LastInputBufferState[reportIdByteOffset + 12]) > 0; // HDG Knob Rotate Right
-            state.Buttons[23] = ((sbyte)LastInputBufferState[reportIdByteOffset + 13]) < 0; // ALT Knob Rotate Left
-            state.Buttons[24] = ((sbyte)LastInputBufferState[reportIdByteOffset + 13]) > 0; // ALT Knob Rotate Right
-            state.Buttons[25] = ((sbyte)LastInputBufferState[reportIdByteOffset + 14]) < 0; // VS Knob Rotate Left
-            state.Buttons[26] = ((sbyte)LastInputBufferState[reportIdByteOffset + 14]) > 0; // VS Knob Rotate Right
+            state.Buttons[19] = ((sbyte)LastInputBufferState[11]) < 0; // SPD Knob Rotate Left
+            state.Buttons[20] = ((sbyte)LastInputBufferState[11]) > 0; // SPD Knob Rotate Right
+            state.Buttons[21] = ((sbyte)LastInputBufferState[12]) < 0; // HDG Knob Rotate Left
+            state.Buttons[22] = ((sbyte)LastInputBufferState[12]) > 0; // HDG Knob Rotate Right
+            state.Buttons[23] = ((sbyte)LastInputBufferState[13]) < 0; // ALT Knob Rotate Left
+            state.Buttons[24] = ((sbyte)LastInputBufferState[13]) > 0; // ALT Knob Rotate Right
+            state.Buttons[25] = ((sbyte)LastInputBufferState[14]) < 0; // VS Knob Rotate Left
+            state.Buttons[26] = ((sbyte)LastInputBufferState[14]) > 0; // VS Knob Rotate Right
 
             // Axes
             // Background Light Brightness
-            state.X = LastInputBufferState[reportIdByteOffset + 15]; // Background Light Brightness
-            state.Y = LastInputBufferState[reportIdByteOffset + 16]; // LCD Light Brightness
+            state.X = LastInputBufferState[15]; // Background Light Brightness
+            state.Y = LastInputBufferState[16]; // LCD Light Brightness
 
             return state;
         }

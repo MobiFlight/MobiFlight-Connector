@@ -82,9 +82,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             Assert.IsTrue(result.Length >= 23, "Output buffer should be at least 23 bytes");
             
             // Check header bytes (with report ID offset)
-            Assert.AreEqual(0xF2, result[1], "Header byte 0 should be 0xF2");
-            Assert.AreEqual(0xE1, result[2], "Header byte 1 should be 0xE1");
-            Assert.AreEqual(0x03, result[3], "Header byte 2 should be 0x03");
+            Assert.AreEqual(0xF2, result[0], "Header byte 0 should be 0xF2");
+            Assert.AreEqual(0xE1, result[1], "Header byte 1 should be 0xE1");
+            Assert.AreEqual(0x03, result[2], "Header byte 2 should be 0x03");
         }
 
         [TestMethod]
@@ -107,8 +107,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             var result = _report.FromOutputDeviceState(devices);
 
             // Assert
-            var expectedByteIndex = 1 + 6; // Report ID offset + byte 6
-            Assert.AreEqual(0x01, result[expectedByteIndex], "Bit 0 in byte 6 should be set");
+            Assert.AreEqual(0x01, result[6], "Bit 0 in byte 6 should be set");
         }
 
         [TestMethod]
@@ -126,8 +125,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             var result = _report.FromOutputDeviceState(devices);
 
             // Assert
-            Assert.AreEqual(0x05, result[1 + 6], "Bits 0 and 2 should be set in byte 6 (0x01 | 0x04 = 0x05)");
-            Assert.AreEqual(0x02, result[1 + 7], "Bit 1 should be set in byte 7");
+            Assert.AreEqual(0x05, result[6], "Bits 0 and 2 should be set in byte 6 (0x01 | 0x04 = 0x05)");
+            Assert.AreEqual(0x02, result[7], "Bit 1 should be set in byte 7");
         }
 
         [TestMethod]
@@ -150,8 +149,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             var result2 = report.FromOutputDeviceState(devices);
 
             // Assert
-            Assert.AreEqual(0x01, result1[1 + 6], "Bit should initially be set");
-            Assert.AreEqual(0x00, result2[1 + 6], "Bit should be cleared when state is 0");
+            Assert.AreEqual(0x01, result1[6], "Bit should initially be set");
+            Assert.AreEqual(0x00, result2[6], "Bit should be cleared when state is 0");
         }
 
         [TestMethod]
@@ -168,8 +167,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             var result = _report.FromOutputDeviceState(devices);
 
             // Assert
-            Assert.AreEqual(128, result[1 + 11], "Background brightness should be set correctly");
-            Assert.AreEqual(200, result[1 + 12], "LCD brightness should be set correctly");
+            Assert.AreEqual(128, result[11], "Background brightness should be set correctly");
+            Assert.AreEqual(200, result[12], "LCD brightness should be set correctly");
         }
 
         #endregion
@@ -193,8 +192,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert
             // 1234 = 0x04D2, so high byte = 0x04, low byte = 0xD2
-            Assert.AreEqual(0x04, result[1 + 15], "High byte should be 0x04");
-            Assert.AreEqual(0xD2, result[1 + 16], "Low byte should be 0xD2");
+            Assert.AreEqual(0x04, result[15], "High byte should be 0x04");
+            Assert.AreEqual(0xD2, result[16], "Low byte should be 0xD2");
         }
 
         [TestMethod]
@@ -214,8 +213,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert
             // 32767 = 0x7FFF
-            Assert.AreEqual(0x7F, result[1 + 17], "High byte should be 0x7F");
-            Assert.AreEqual(0xFF, result[1 + 18], "Low byte should be 0xFF");
+            Assert.AreEqual(0x7F, result[17], "High byte should be 0x7F");
+            Assert.AreEqual(0xFF, result[18], "Low byte should be 0xFF");
         }
 
         [TestMethod]
@@ -234,8 +233,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             var result = _report.FromOutputDeviceState(devices);
 
             // Assert
-            Assert.AreEqual(0x00, result[1 + 19], "High byte should be 0x00");
-            Assert.AreEqual(0x00, result[1 + 20], "Low byte should be 0x00");
+            Assert.AreEqual(0x00, result[19], "High byte should be 0x00");
+            Assert.AreEqual(0x00, result[20], "Low byte should be 0x00");
         }
 
         [TestMethod]
@@ -255,8 +254,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert
             // -1 = 0xFFFF in two's complement
-            Assert.AreEqual(0xFF, result[1 + 15], "High byte should be 0xFF");
-            Assert.AreEqual(0xFF, result[1 + 16], "Low byte should be 0xFF");
+            Assert.AreEqual(0xFF, result[15], "High byte should be 0xFF");
+            Assert.AreEqual(0xFF, result[16], "Low byte should be 0xFF");
         }
 
         [TestMethod]
@@ -276,8 +275,8 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
             // Assert
             // Should remain at initialized values (0x00)
-            Assert.AreEqual(0x00, result[1 + 15], "High byte should remain 0x00 for invalid text");
-            Assert.AreEqual(0x00, result[1 + 16], "Low byte should remain 0x00 for invalid text");
+            Assert.AreEqual(0x00, result[15], "High byte should remain 0x00 for invalid text");
+            Assert.AreEqual(0x00, result[16], "Low byte should remain 0x00 for invalid text");
         }
 
         #endregion
@@ -329,7 +328,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         /// </summary>
         private byte[] CreateValidInputBuffer()
         {
-            var buffer = new byte[17]; // Report ID + 16 data bytes
+            var buffer = new byte[65]; // Typical size for HID report including the report ID
             buffer[0] = 0x01; // Report ID
             
             // Set header

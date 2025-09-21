@@ -1,20 +1,21 @@
-﻿using HidSharp;
-using HidSharp.Reports;
-using HidSharp.Reports.Input;
-using SharpDX.DirectInput;
+﻿using Device.Net;
+using Hid.Net;
+using Hid.Net.Windows;
+using MobiFlight.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace MobiFlight.Joysticks.WingFlex
 {
     internal class FcuCube : Joystick
     {
-        HidDevice Device { get; set; }
-        HidStream Stream { get; set; }
-
-        protected HidDeviceInputReceiver inputReceiver;
-        protected ReportDescriptor reportDescriptor;
-
+        bool DoReadHidReports = false;
+        private Thread readThread;
+        IHidDevice Device { get; set; }
+        
         private readonly FcuCubeReport FcuCubeReport = new FcuCubeReport();
         public override string Name
         {
@@ -23,88 +24,82 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public override string Serial
         {
-            get { return SerialPrefix + Device?.GetSerialNumber() ?? SerialPrefix + "FCU-Cube-Serial-Nummer-Dummy"; }
+            get { return $"{Joystick.SerialPrefix}{Device?.CreateSerialFromPath()}" ?? "FCU-CUBE-1234-ABCD-12345678"; }
         }
 
         public FcuCube(JoystickDefinition definition) : base(null, definition)
         {
         }
 
-        protected bool Connect()
+        protected async Task<bool> Connect()
         {
             var VendorId = Definition.VendorId;
             var ProductId = Definition.ProductId;
 
-            var device = DeviceList.Local.GetHidDeviceOrNull(vendorID: VendorId, productID: ProductId);
+            var hidFactory = new FilterDeviceDefinition(vendorId: (uint)VendorId, productId: (uint)ProductId).CreateWindowsHidDeviceFactory();
+            var deviceDefinitions = (await hidFactory.GetConnectedDeviceDefinitionsAsync().ConfigureAwait(false)).ToList();
 
-            if (device != Device)
-            {
-                Log.Instance.log($"FcuCube found with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Info);
-                if (Stream != null)
-                {
-                    Stream.Close();
-                    Stream = null;
-                    Device = null;
-                }
-            }
-
-            if (device == null)
+            if (deviceDefinitions.Count == 0)
             {
                 Log.Instance.log($"no FcuCube found with VID:{VendorId.ToString("X4")} and PID:{ProductId.ToString("X4")}", LogSeverity.Info);
                 return false;
             }
 
-            Device = device;
+            Device = (IHidDevice)await hidFactory.GetDeviceAsync(deviceDefinitions.First()).ConfigureAwait(false);
+            await Device.InitializeAsync().ConfigureAwait(false);
 
-            Stream = device.Open();
-            var reportDescriptor = device.GetReportDescriptor();
-            inputReceiver = reportDescriptor.CreateHidDeviceInputReceiver();
-            inputReceiver.Received += InputReceiver_Received;
-            inputReceiver.Start(Stream);
+            DoReadHidReports = true;
+
+            readThread = new Thread(ReadHidReportsLoop)
+            {
+                IsBackground = true,
+                Name = "FcuCube-HID-Reader"
+            };
+            readThread.Start();
 
             return true;
         }
 
-        private void InputReceiver_Received(object sender, EventArgs e)
+        private void ReadHidReportsLoop()
         {
-            var inputRec = sender as HidDeviceInputReceiver;
-            var inputReportBuffer = new byte[65];
-
-            try
+            while (DoReadHidReports)
             {
-                var newState = new JoystickState();
-                while (inputRec.TryRead(inputReportBuffer, 0, out _)) {
-                    newState = FcuCubeReport.Parse(inputReportBuffer).ToJoystickState();
+                try
+                {
+                    var HidReport = Device.ReadReportAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+                    var data = HidReport.TransferResult.Data;
+                    ProcessInputReportBuffer(HidReport.ReportId, data);
                 }
-
-                UpdateButtons(newState);
-                UpdateAxis(newState);
-
-                // Finally store the new state as last state
-                State = newState;
+                catch
+                {
+                    // Exception when disconnecting fcu while mobiflight is running.
+                    Shutdown();
+                    break;
+                }
             }
-            catch (Exception ex)
-            {
-                Log.Instance.log(ex.Message, LogSeverity.Error);
-            }
-        }
-
-        protected override void SendData(byte[] data)
-        {
-            if (Stream == null)
-            {
-                Connect();
-            }
-
-            Stream.Write(data);
-            RequiresOutputUpdate = false;
         }
 
         public override void Update()
         {
-            if (Stream != null && inputReceiver != null) return;
-            Connect();
-            UpdateOutputDeviceStates();
+            if (Device == null || !Device.IsInitialized)
+            {
+                var connected = Connect().GetAwaiter().GetResult();
+                if (!connected) return;
+            }
+        }
+
+        protected void ProcessInputReportBuffer(byte reportId, byte[] inputReportBuffer) {
+            var newState = FcuCubeReport.Parse(inputReportBuffer).ToJoystickState();
+            UpdateButtons(newState);
+            UpdateAxis(newState);
+            // Finally store the new state as last state
+            State = newState;
+        }
+
+        protected async override void SendData(byte[] data)
+        {
+            await Device.WriteReportAsync(data, 0).ConfigureAwait(false);
+            RequiresOutputUpdate = false;
         }
 
         public override void UpdateOutputDeviceStates()
@@ -180,17 +175,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public override void Shutdown()
         {
-            if (Stream != null)
-            {
-                Stream.Close();
-                Stream = null;
-            }
-
-            if (inputReceiver != null)
-            {
-                inputReceiver.Received -= InputReceiver_Received;
-                inputReceiver = null;
-            }
+            Device?.Dispose();
         }
     }
 }

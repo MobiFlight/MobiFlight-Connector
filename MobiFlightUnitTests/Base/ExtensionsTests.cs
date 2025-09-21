@@ -1,10 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hid.Net;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace MobiFlight.Base.Tests
 {
@@ -72,6 +68,83 @@ namespace MobiFlight.Base.Tests
             Assert.IsFalse(s1.AreEqual(s2));
             s2 = "Hello";
             Assert.IsTrue(s1.AreEqual(s2));
+        }
+
+        [TestMethod()]
+        public void CreateSerialFromPathTest()
+        {
+            // Test with typical HID device path format
+            var mockDevice = new Mock<IHidDevice>();
+            mockDevice.Setup(d => d.DeviceId).Returns(@"\\?\hid#vid_a316&pid_c787#9&3a962385&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}");
+            var result = mockDevice.Object.CreateSerialFromPath();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("4d1e55b2-f16f-11cf-88cb-001111000030", result);
+
+            // Test with another valid UUID
+            mockDevice.Setup(d => d.DeviceId).Returns(@"\\?\hid#vid_1234&pid_5678#9&3a962385&0&0000#{12345678-abcd-1234-5678-123456789abc}");
+            result = mockDevice.Object.CreateSerialFromPath();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("12345678-abcd-1234-5678-123456789abc", result);
+
+            // Test with Windows style path separators
+            mockDevice.Setup(d => d.DeviceId).Returns(@"\\?\hid#vid_2468&pid_1357#6&12ab34cd&0&0000#{a1b2c3d4-e5f6-7890-abcd-ef1234567890}");
+            result = mockDevice.Object.CreateSerialFromPath();
+            Assert.IsNotNull(result);
+            Assert.AreEqual("a1b2c3d4-e5f6-7890-abcd-ef1234567890", result);
+        }
+
+        [TestMethod()]
+        public void CreateSerialFromPathTest_NullDevice()
+        {
+            // Test with null device
+            IHidDevice nullDevice = null;
+            var result = nullDevice.CreateSerialFromPath();
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void CreateSerialFromPathTest_NullDeviceId()
+        {
+            // Test with null device ID
+            var mockDevice = new Mock<IHidDevice>();
+            mockDevice.Setup(d => d.DeviceId).Returns((string)null);
+            var result = mockDevice.Object.CreateSerialFromPath();
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void CreateSerialFromPathTest_InvalidFormat_NoUuid()
+        {
+            // Test with HID device path that doesn't contain a UUID in braces
+            var mockDevice = new Mock<IHidDevice>();
+            mockDevice.Setup(d => d.DeviceId).Returns(@"\\?\hid#vid_a316&pid_c787#9&3a962385&0&0000#invalid");
+            var result = mockDevice.Object.CreateSerialFromPath();
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void CreateSerialFromPathTest_InvalidFormat_TooShort()
+        {
+            // Test with HID device path that's too short to contain a valid UUID
+            var mockDevice = new Mock<IHidDevice>();
+            mockDevice.Setup(d => d.DeviceId).Returns(@"{short}");
+            var result = mockDevice.Object.CreateSerialFromPath();
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void CreateSerialFromPathTest_JoystickSerialIntegration()
+        {
+            // Test that when combined with Joystick.SerialPrefix, it's correctly identified as a joystick serial
+            var mockDevice = new Mock<IHidDevice>();
+            mockDevice.Setup(d => d.DeviceId).Returns(@"\\?\hid#vid_a316&pid_c787#9&3a962385&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}");
+            var uuid = mockDevice.Object.CreateSerialFromPath();
+            var joystickSerial = $"{Joystick.SerialPrefix}{uuid}";
+
+            Assert.IsTrue(SerialNumber.IsJoystickSerial(joystickSerial));
+            Assert.IsFalse(SerialNumber.IsMobiFlightSerial(joystickSerial));
+            Assert.IsFalse(SerialNumber.IsMidiBoardSerial(joystickSerial));
+            Assert.IsFalse(SerialNumber.IsArcazeSerial(joystickSerial));
         }
     }
 }
