@@ -9,6 +9,7 @@ using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -136,7 +137,7 @@ namespace MobiFlight
         private bool _proSimConnectionDisabled = false;
 
         OutputConfigItem ConfigItemInTestMode = null;
-        Dictionary<string, IConfigItem> updatedValues = new Dictionary<string, IConfigItem>();
+        ConcurrentDictionary<string, IConfigItem> updatedValues = new ConcurrentDictionary<string, IConfigItem>();
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
@@ -248,13 +249,15 @@ namespace MobiFlight
 
             if (updatedValues.Count == 0) return;
 
-            List<IConfigValueOnlyItem> list;
+            var list = new List<IConfigValueOnlyItem>();
 
-            lock (updatedValues)
+            updatedValues.Keys.ToList().ForEach(key =>
             {
-                list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
-                updatedValues.Clear();
-            }
+                if(!updatedValues.TryRemove(key, out var value))
+                    return;
+
+                list.Add(new ConfigValueOnlyItem(value));
+            });
 
             MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(list));
         }

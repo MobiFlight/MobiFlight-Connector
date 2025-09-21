@@ -516,7 +516,7 @@ namespace MobiFlight.Tests
             // Get references to private members using reflection
             var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
                 BindingFlags.NonPublic | BindingFlags.Instance);
-            var updatedValues = (Dictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+            var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
 
             var frontendUpdateMethod = typeof(ExecutionManager).GetMethod("FrontendUpdateTimer_Execute",
                 BindingFlags.NonPublic | BindingFlags.Instance);
@@ -670,7 +670,7 @@ namespace MobiFlight.Tests
             // Get access to the updatedValues dictionary via reflection
             var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
                 BindingFlags.NonPublic | BindingFlags.Instance);
-            var updatedValues = (Dictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+            var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
             
             var initialUpdatedValuesCount = updatedValues.Count;
 

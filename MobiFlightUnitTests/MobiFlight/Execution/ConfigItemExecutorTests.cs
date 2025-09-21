@@ -9,6 +9,7 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using Moq;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace MobiFlight.Tests
@@ -66,7 +67,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cfg = new OutputConfigItem { Active = false };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
 
             // Act
             executor.Execute(cfg, updatedValues);
@@ -80,7 +81,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cfg = new OutputConfigItem { Active = true, Source = new FsuipcSource() };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockFsuipcCache.Setup(c => c.IsConnected()).Returns(false);
 
             // Act
@@ -106,7 +107,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cfg = new OutputConfigItem { Active = true, Source = new SimConnectSource() };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockSimConnectCache.Setup(c => c.IsConnected()).Returns(false);
 
             // Act
@@ -132,7 +133,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cfg = new OutputConfigItem { Active = true, Source = new XplaneSource() };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockXplaneCache.Setup(c => c.IsConnected()).Returns(false);
 
             // Act
@@ -160,7 +161,7 @@ namespace MobiFlight.Tests
         {
             // Arrange
             var cfg = new OutputConfigItem { Active = true, Source = new ProSimSource() };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockProSimCache.Setup(c => c.IsConnected()).Returns(false);
 
             // Act
@@ -195,7 +196,7 @@ namespace MobiFlight.Tests
                 }
             };
             cfg.Modifiers.Items.Add(new Transformation() { Active = true, Expression = "$+_1" });
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
             mockMobiFlightCache.Setup(m => m.GetMobiFlightVariable(It.IsAny<string>())).Returns(variable);
 
             // Act
@@ -253,7 +254,7 @@ namespace MobiFlight.Tests
             preconditionList.Add(precondition);
 
             var cfg = new OutputConfigItem { Active = true, Preconditions = preconditionList };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
 
             // Act
             executor.Execute(cfg, updatedValues);
@@ -286,7 +287,7 @@ namespace MobiFlight.Tests
             preconditionList.Add(precondition);
 
             var cfg = new OutputConfigItem { Active = true, Preconditions = preconditionList };
-            var updatedValues = new Dictionary<string, IConfigItem>();
+            var updatedValues = new ConcurrentDictionary<string, IConfigItem>();
 
             // Act
             try

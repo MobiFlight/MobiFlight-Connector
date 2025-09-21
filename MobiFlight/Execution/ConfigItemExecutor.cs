@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -59,7 +60,7 @@ namespace MobiFlight.Execution
             this.ConfigItemInTestMode = configItemInTestMode;
         }
 
-        public void Execute(OutputConfigItem cfg, Dictionary<string, IConfigItem> updatedValues)
+        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues)
         {
             if (!cfg.Active) return;
 
