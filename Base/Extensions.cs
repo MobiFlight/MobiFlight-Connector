@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Hid.Net;
 
 namespace MobiFlight.Base
 {
@@ -82,6 +83,29 @@ namespace MobiFlight.Base
         public static bool AreEqual<T>(this T a, T b) where T : class
         {
             return (a == null && b == null) || (a != null && a.Equals(b));
+        }
+
+        /// <summary>
+        /// Extracts the UUID from a HID device path/DeviceId
+        /// </summary>
+        /// <param name="hidDevice">The HID device instance</param>
+        /// <returns>The extracted UUID string or null if the device path is invalid</returns>
+        public static string CreateSerialFromPath(this IHidDevice hidDevice)
+        {
+            // \\?\hid#vid_a316&pid_c787#9&3a962385&0&0000#{4d1e55b2-f16f-11cf-88cb-001111000030}
+            // We extract the UUID between the { ... }
+            if (hidDevice?.DeviceId == null) return null;
+            
+            var hidDeviceId = hidDevice.DeviceId;
+            var start = hidDeviceId.IndexOf('{');
+            if (start == -1) return null;
+            
+            var uuidLength = 36;
+            if (start + 1 + uuidLength > hidDeviceId.Length) return null;
+            
+            var serial = hidDeviceId.Substring(start + 1, uuidLength);
+
+            return serial;
         }
     }
 }

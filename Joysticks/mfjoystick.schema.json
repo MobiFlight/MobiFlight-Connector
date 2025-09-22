@@ -4,9 +4,9 @@
   "$id": "https://mobiflight.com/hid.schema.json",
   "title": "Root",
   "type": "object",
-  "required": ["InstanceName"],
+  "required": [ "InstanceName" ],
   "dependentRequired": {
-    "Outputs": ["VendorId", "ProductId"]
+    "Outputs": [ "VendorId", "ProductId" ]
   },
   "properties": {
     "InstanceName": {
@@ -25,7 +25,7 @@
         "$id": "#root/Inputs/items",
         "title": "Items",
         "type": "object",
-        "required": [ "Id", "Label", "Type"],
+        "required": [ "Id", "Label", "Type" ],
         "properties": {
           "Id": {
             "$id": "#root/Inputs/items/Id",
@@ -59,8 +59,15 @@
         "$id": "#root/Outputs/items",
         "title": "Items",
         "type": "object",
-        "required": ["Id", "Label", "Byte", "Bit"],
+        "required": [ "Id", "Label", "Byte" ],
         "properties": {
+          "Type": {
+            "$id": "#root/Outputs/items/Type",
+            "title": "Type",
+            "description": "The output's type. Supported values: Output, Display. Defaults to 'Output' if not specified.",
+            "type": "string",
+            "enum": [ "Output", "LcdDisplay" ]
+          },
           "Id": {
             "$id": "#root/Outputs/items/Id",
             "title": "Id",
@@ -76,31 +83,43 @@
           "Byte": {
             "$id": "#root/Outputs/items/Byte",
             "title": "Byte",
-            "description": "Byte location of the output. Required.",
+            "description": "Byte location of the output. Required for Output type, optional for Display type.",
             "type": "number"
           },
           "Bit": {
             "$id": "#root/Outputs/items/Bit",
             "title": "Bit",
-            "description": "Bit location within the byte of the output. Required.",
+            "description": "Bit location within the byte of the output. Required for Output type, optional for Display type.",
+            "type": "number"
+          },
+          "Cols": {
+            "$id": "#root/Outputs/items/Cols",
+            "title": "Cols",
+            "description": "Number of columns for the output. Required for Display type.",
+            "type": "number"
+          },
+          "Lines": {
+            "$id": "#root/Outputs/items/Lines",
+            "title": "Lines",
+            "description": "Number of lines for the output. Required for Display type.",
             "type": "number"
           }
         }
+      },
+      "ProductId": {
+        "$id": "#Root/VendorId",
+        "title": "VendorId",
+        "type": "string",
+        "pattern": "^0x[0-9a-fA-F]+$",
+        "description": "The device's USB VendorId as a hexadcimal, e.g. `0x123A`. Required if Outputs are provided."
+      },
+      "VendorId": {
+        "$id": "#Root/ProductId",
+        "title": "ProductId",
+        "type": "string",
+        "pattern": "^0x[0-9a-fA-F]+$",
+        "description": "The device's USB ProductId as a hexadecimal, e.g. `0x234A`. Required if Outputs are provided."
       }
-    },
-    "ProductId": {
-      "$id": "#Root/VendorId",
-      "title": "VendorId",
-      "type": "string",
-      "pattern": "^0x[0-9a-fA-F]+$",
-      "description": "The device's USB VendorId as a hexadcimal, e.g. `0x123A`. Required if Outputs are provided."
-    },
-    "VendorId": {
-      "$id": "#Root/ProductId",
-      "title": "ProductId",
-      "type": "string",
-      "pattern": "^0x[0-9a-fA-F]+$",
-      "description": "The device's USB ProductId as a hexadecimal, e.g. `0x234A`. Required if Outputs are provided."
     }
   }
 }
