@@ -1430,7 +1430,7 @@
     <None Include="Joysticks\winwing\winwing_pap3.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Joysticks\wingflex_fcucube.joystick.json">
+    <None Include="Joysticks\wingflex\wingflex_fcucube.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">

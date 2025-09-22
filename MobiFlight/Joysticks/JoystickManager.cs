@@ -3,7 +3,6 @@ using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
 using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.VKB;
-using MobiFlight.Joysticks.WingFlex;
 using MobiFlight.Joysticks.Winwing;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
