@@ -269,24 +269,44 @@ namespace MobiFlight
 
         private void ConnectHidController()
         {
-            var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
-            allHidDevices.ForEach(hidDevice =>
+            try
             {
-                var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
-                if (definition == null) return;
+                var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
+                Log.Instance.log($"Found {allHidDevices.Count} HID devices, checking for supported devices", LogSeverity.Debug);
 
-                if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
+                allHidDevices.ForEach(hidDevice =>
                 {
-                    // already loaded as regular DirectInput Joystick
-                    return;
-                }
+                    try
+                    {
+                        var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
+                        if (definition == null) return;
 
-                var joystick = HidControllerFactory.Create(definition);
-                joystick.Connect(new IntPtr());
-                joystick.OnButtonPressed += Js_OnButtonPressed;
-                joystick.OnDisconnected += Js_OnDisconnected;
-                Joysticks.TryAdd(joystick.Serial, joystick);
-            });
+                        if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
+                        {
+                            // already loaded as regular DirectInput Joystick
+                            return;
+                        }
+
+                        var joystick = HidControllerFactory.Create(definition);
+
+                        if (joystick == null) return;
+
+                        joystick.Connect(new IntPtr());
+                        joystick.OnButtonPressed += Js_OnButtonPressed;
+                        joystick.OnDisconnected += Js_OnDisconnected;
+                        Joysticks.TryAdd(joystick.Serial, joystick);
+                        Log.Instance.log($"Connected HID device: {definition.InstanceName}", LogSeverity.Info);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Error connecting HID device {hidDevice.GetFriendlyName()}: {ex.Message}", LogSeverity.Error);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error enumerating HID devices: {ex.Message}", LogSeverity.Error);
+            }
         }
 
         private void Js_OnDisconnected(object sender, EventArgs e)
