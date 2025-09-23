@@ -1,13 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Joysticks.WingFlex;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.Joysticks.WingFlex.Tests
 {
     [TestClass]
-    public class FcuCubeReportParserTests
+    public class FcuCubeReportTests
     {
         private FcuCubeReport _report;
 
