@@ -331,6 +331,8 @@ namespace MobiFlight.Execution
                         case OutputConfig.LcdDisplay.DeprecatedType:
                             var lcdDisplay = cfg.Device as LcdDisplay;
                             joystick.SetLcdDisplay(lcdDisplay.Address, value);
+                            joystick.UpdateOutputDeviceStates();
+                            joystick.Update();
                             break;
 
                         case "-":

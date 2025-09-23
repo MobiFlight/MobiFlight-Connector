@@ -16,6 +16,8 @@ namespace MobiFlight.Joysticks.WingFlex
         private Thread readThread;
         IHidDevice Device { get; set; }
         
+        private List<JoystickOutputDevice> OutputState = new List<JoystickOutputDevice>();
+
         private readonly FcuCubeReport FcuCubeReport = new FcuCubeReport();
         public override string Name
         {
@@ -102,10 +104,51 @@ namespace MobiFlight.Joysticks.WingFlex
             RequiresOutputUpdate = false;
         }
 
+        public override void SetOutputDeviceState(string name, byte state)
+        {
+            var light = Lights.FirstOrDefault(l => l.Label == name);
+            if (light == null) return;
+
+            var outputState = OutputState.FirstOrDefault(l => l.Label == name);
+            if (outputState == null)
+            {
+                outputState = new JoystickOutputDevice() { Name = light.Name, Label = light.Label, Type = light.Type, Byte = light.Byte, Bit = light.Bit, State = state };
+                OutputState.Add(outputState);
+                RequiresOutputUpdate = true;
+                return;
+            }
+
+            if (outputState.State == state) return;
+
+            outputState.State = state;
+            RequiresOutputUpdate = true;
+            return;
+        }
+
+        public override void SetLcdDisplay(string address, string value)
+        {
+            var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
+            if (display == null) return;
+
+            var outputState = OutputState.FirstOrDefault(l => l.Label == display.Label) as JoystickOutputDisplay;
+            if (outputState == null)
+            {
+                outputState = new JoystickOutputDisplay() { Name = display.Name, Label = display.Label, Type = display.Type, Cols = display.Cols, Lines = display.Lines, Byte = display.Byte, Text = value };
+                OutputState.Add(outputState);
+                RequiresOutputUpdate = true;
+                return;
+            }
+
+            if (outputState.Text == value) return;
+
+            outputState.Text = value;
+            RequiresOutputUpdate = true;
+        }
+
         public override void UpdateOutputDeviceStates()
         {
             // if (!RequiresOutputUpdate) return;
-            var data = FcuCubeReport?.FromOutputDeviceState(Lights);
+            var data = FcuCubeReport?.FromOutputDeviceState(OutputState);
 
             if (data == null) return;
 
@@ -178,6 +221,18 @@ namespace MobiFlight.Joysticks.WingFlex
             DoReadHidReports = false;
             readThread?.Join(1000);
             Device?.Dispose();
+        }
+
+        public override void Stop()
+        {
+            // Reset all outputs to initial state
+            var data = FcuCubeReport?.FromOutputDeviceState(Lights);
+            SendData(data);
+
+            // then clear all output states
+            OutputState.Clear();
+
+            base.Stop();
         }
     }
 }
