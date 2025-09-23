@@ -15,7 +15,7 @@ namespace MobiFlight.Joysticks.WingFlex
         bool DoReadHidReports = false;
         private Thread readThread;
         IHidDevice Device { get; set; }
-        
+
         private List<JoystickOutputDevice> OutputState = new List<JoystickOutputDevice>();
 
         private readonly FcuCubeReport FcuCubeReport = new FcuCubeReport();
@@ -26,7 +26,7 @@ namespace MobiFlight.Joysticks.WingFlex
 
         public override string Serial
         {
-            get { return $"{Joystick.SerialPrefix}{Device?.CreateSerialFromPath()}" ?? "FCU-CUBE-1234-ABCD-12345678"; }
+            get { return $"{Joystick.SerialPrefix}{Device?.ConnectedDeviceDefinition?.SerialNumber}" ?? "FCU-CUBE-1234-ABCD-12345678"; }
         }
 
         public FcuCube(JoystickDefinition definition) : base(null, definition)
