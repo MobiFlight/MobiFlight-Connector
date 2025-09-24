@@ -47,8 +47,8 @@ import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { Toaster } from "@/components/ui/sonner"
-import { toast } from "sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
+import { toast } from "@/components/ui/ToastWrapper"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -137,11 +137,15 @@ export function ConfigItemTable<TData, TValue>({
           table.setRowSelection({ [row.id]: true })
         }
       } else {
-        toast("New config created but not visible", {
+        toast({
+          title: "New config created but not visible",
           description:
             "Your config doesn't match the current filter settings so it is not visible in the list.",
-          duration: 20000,
-          action: {
+          id: "reset-filter",
+          options: {
+            duration: 5000
+          },
+          button: {
             label: "Reset filter",
             onClick: () => {
               table.resetColumnFilters()
@@ -164,6 +168,7 @@ export function ConfigItemTable<TData, TValue>({
           },
         })
       }
+
       publish({
         key: "CommandConfigContextMenu",
         payload: { action: "edit", item: lastItem },
@@ -322,7 +327,11 @@ export function ConfigItemTable<TData, TValue>({
               onClearSelected={() => table.setRowSelection({})}
             />
           </div>
-          <Toaster position="top-center" theme={theme} />
+          <Toaster
+            position="top-center"
+            theme={theme}
+            className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
+          />
           {table.getRowModel().rows?.length ? (
             <DndContext
               sensors={sensors}
