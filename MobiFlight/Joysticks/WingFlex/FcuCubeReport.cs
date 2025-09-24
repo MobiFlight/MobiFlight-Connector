@@ -122,8 +122,13 @@ namespace MobiFlight.Joysticks.WingFlex
             // LcdDisplay       V/S Number                   High 8 bit of Uint16                    -       21      -       0x00
             // LcdDisplay       V/S Number                   Low 8 bit of Uint16                     -       22      -       0x00
 
-            // Force power On
-            // It will be set to 0 if somebody explicitly has set the state
+            // Set default power state to ON before processing device states.
+            // This may be overridden by subsequent device state logic below.
+            // This ensures that if no device state explicitly sets power off,
+            // the power will remain on by default.
+            //
+            // This is required to make test mode work correctly, as test mode
+            // requires power to be on to light up the single LED and the display.
             LastOutputBufferState[8] |= 1;
 
             state.ForEach(item => {
