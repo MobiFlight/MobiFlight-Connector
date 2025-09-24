@@ -5,7 +5,6 @@ import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
-import { IConfigItem } from "@/types/config"
 import { RowInteractionProvider } from "../RowInteractionContext"
 
 interface ConfigItemTableBodyProps<TData> {
@@ -25,36 +24,33 @@ const ConfigItemTableBody = <TData,>({
   const [lastSelected, setLastSelected] = useState<Row<TData> | null>(null)
 
   const selectedRows = table.getSelectedRowModel().rows
+  
+  const handleKeyDown = (e: KeyboardEvent) => {
+    const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
+    
+    if (!supportedKeyPress.includes(e.key)) return
+    
+    e.preventDefault() // Prevent default spacebar behavior (scrolling)
+    e.stopPropagation()
+
+    switch (e.key) {
+      case "Backspace":
+      case "Delete":
+        if (onDeleteSelected) onDeleteSelected()
+        break
+
+      // this is the space bar
+      case " ":
+        if (onToggleSelected) onToggleSelected()
+        break
+
+      case "Escape":
+        table.resetRowSelection()
+        break
+    }
+  }
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const selectedConfigs = selectedRows.map(
-        (row) => row.original,
-      ) as IConfigItem[]
-
-      const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
-
-      if (!supportedKeyPress.includes(e.key)) return
-
-      if (selectedConfigs.length === 0) return
-      e.preventDefault() // Prevent default spacebar behavior (scrolling)
-
-      switch (e.key) {
-        case "Backspace":
-        case "Delete":
-          if (onDeleteSelected) onDeleteSelected()
-          break
-
-        case " ":
-          if (onToggleSelected) onToggleSelected()
-          break
-
-        case "Escape":
-          table.resetRowSelection()
-          break
-      }
-    }
-
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   })
