@@ -497,6 +497,9 @@ namespace MobiFlight
             var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
             if (display == null) return;
 
+            if (display.Text == value) return;
+
+            RequiresOutputUpdate = true;
             display.Text = value;
         }
 

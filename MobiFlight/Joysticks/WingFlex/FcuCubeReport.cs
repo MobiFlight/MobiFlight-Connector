@@ -45,8 +45,8 @@ namespace MobiFlight.Joysticks.WingFlex
         private void InitLastInputBufferState()
         {
             Buffer.BlockCopy(InputHeader, 0, LastInputBufferState, 0, InputHeader.Length);
-            Buffer.BlockCopy(OutputBitSection, 0, LastInputBufferState, 3, OutputBitSection.Length);
-            Buffer.BlockCopy(OutputByteSection, 0, LastInputBufferState, 9, OutputByteSection.Length);
+            Buffer.BlockCopy(InputBitSection, 0, LastInputBufferState, 3, InputBitSection.Length);
+            Buffer.BlockCopy(InputByteSection, 0, LastInputBufferState, 9, InputByteSection.Length);
         }
 
         private void InitLastOutputBufferState()
@@ -122,14 +122,26 @@ namespace MobiFlight.Joysticks.WingFlex
             // LcdDisplay       V/S Number                   High 8 bit of Uint16                    -       21      -       0x00
             // LcdDisplay       V/S Number                   Low 8 bit of Uint16                     -       22      -       0x00
 
+            // Set default power state to ON before processing device states.
+            // This may be overridden by subsequent device state logic below.
+            // This ensures that if no device state explicitly sets power off,
+            // the power will remain on by default.
+            //
+            // This is required to make test mode work correctly, as test mode
+            // requires power to be on to light up the single LED and the display.
+            LastOutputBufferState[8] |= 1;
+
             state.ForEach(item => {
                 if (item.Type == DeviceType.LcdDisplay)
                 {
                     var lcdDisplay = item as JoystickOutputDisplay;
                     if (lcdDisplay == null) return;
 
-                    if (!Int16.TryParse(lcdDisplay.Text, out var value)) return;
-
+                    if (!Int16.TryParse(lcdDisplay.Text, out var value)) {
+                        if (lcdDisplay.Text.Trim().Length != 0) return;
+                        value = 0;
+                    }
+                    
                     var byteIndex = lcdDisplay.Byte;
 
                     // Copy High 8 bit from value

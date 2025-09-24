@@ -1,13 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Joysticks.WingFlex;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MobiFlight.Joysticks.WingFlex.Tests
 {
     [TestClass]
-    public class FcuCubeReportParserTests
+    public class FcuCubeReportTests
     {
         private FcuCubeReport _report;
 
@@ -80,7 +78,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             // Assert
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length >= 23, "Output buffer should be at least 23 bytes");
-            
+
             // Check header bytes (with report ID offset)
             Assert.AreEqual(0xF2, result[0], "Header byte 0 should be 0xF2");
             Assert.AreEqual(0xE1, result[1], "Header byte 1 should be 0xE1");
@@ -93,13 +91,13 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             // Arrange
             var devices = new List<JoystickOutputDevice>
             {
-                new JoystickOutputDevice 
-                { 
-                    Name = "Test LED", 
-                    Type = DeviceType.Output, 
-                    Byte = 6, 
-                    Bit = 0, 
-                    State = 1 
+                new JoystickOutputDevice
+                {
+                    Name = "Test LED",
+                    Type = DeviceType.Output,
+                    Byte = 6,
+                    Bit = 0,
+                    State = 1
                 }
             };
 
@@ -134,14 +132,14 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         {
             // Arrange - Create report instance to maintain state
             var report = new FcuCubeReport();
-            
+
             var devices = new List<JoystickOutputDevice>
             {
                 new JoystickOutputDevice { Type = DeviceType.Output, Byte = 6, Bit = 0, State = 1 }
             };
-            
+
             var result1 = report.FromOutputDeviceState(devices);
-            
+
             // Now turn it off
             devices[0].State = 0;
 
@@ -179,11 +177,11 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         public void FromOutputDeviceState_LcdDisplay_ParsesNumericValue()
         {
             // Arrange
-            var lcdDisplay = new JoystickOutputDisplay 
-            { 
-                Type = DeviceType.LcdDisplay, 
-                Byte = 15, 
-                Text = "1234" 
+            var lcdDisplay = new JoystickOutputDisplay
+            {
+                Type = DeviceType.LcdDisplay,
+                Byte = 15,
+                Text = "1234"
             };
             var devices = new List<JoystickOutputDevice> { lcdDisplay };
 
@@ -201,9 +199,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
-            { 
-                Type = DeviceType.LcdDisplay, 
-                Byte = 17, 
+            {
+                Type = DeviceType.LcdDisplay,
+                Byte = 17,
                 Text = "32767" // Max Int16 (since code uses Int16.TryParse)
             };
             var devices = new List<JoystickOutputDevice> { lcdDisplay };
@@ -222,10 +220,10 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
-            { 
-                Type = DeviceType.LcdDisplay, 
-                Byte = 19, 
-                Text = "0" 
+            {
+                Type = DeviceType.LcdDisplay,
+                Byte = 19,
+                Text = "0"
             };
             var devices = new List<JoystickOutputDevice> { lcdDisplay };
 
@@ -242,10 +240,10 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
-            { 
-                Type = DeviceType.LcdDisplay, 
-                Byte = 15, 
-                Text = "-1" 
+            {
+                Type = DeviceType.LcdDisplay,
+                Byte = 15,
+                Text = "-1"
             };
             var devices = new List<JoystickOutputDevice> { lcdDisplay };
 
@@ -263,9 +261,9 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         {
             // Arrange
             var lcdDisplay = new JoystickOutputDisplay
-            { 
-                Type = DeviceType.LcdDisplay, 
-                Byte = 15, 
+            {
+                Type = DeviceType.LcdDisplay,
+                Byte = 15,
                 Text = "ABC" // Non-numeric
             };
             var devices = new List<JoystickOutputDevice> { lcdDisplay };
@@ -281,6 +279,82 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
 
         #endregion
 
+        #region Power Management Tests
+
+        [TestMethod]
+        public void FromOutputDeviceState_EmptyList_PowerDefaultsToOn()
+        {
+            // Arrange
+            var devices = new List<JoystickOutputDevice>();
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            Assert.AreEqual(0x01, result[8] & 0x01, "Power bit should default to ON when no devices are configured");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_PowerExplicitlySetToOff_TurnsOff()
+        {
+            // Arrange - Explicit power control OFF (aircraft bus simulation)
+            var devices = new List<JoystickOutputDevice>
+            {
+                new JoystickOutputDevice
+                {
+                    Name = "Power",
+                    Type = DeviceType.Output,
+                    Byte = 8,
+                    Bit = 0,
+                    State = 0
+                },
+                new JoystickOutputDevice { Type = DeviceType.Output, Byte = 6, Bit = 1, State = 1 } // AP1 Signal
+            };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            Assert.AreEqual(0x00, result[8] & 0x01, "Power should be OFF when explicitly set to OFF");
+            Assert.AreEqual(0x02, result[6] & 0x02, "AP1 signal should still be set in buffer");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_PowerExplicitlySetToOn_RemainsOn()
+        {
+            // Arrange
+            var devices = new List<JoystickOutputDevice>
+            {
+                new JoystickOutputDevice { Name = "Power", Type = DeviceType.Output, Byte = 8, Bit = 0, State = 1 },
+                new JoystickOutputDevice { Type = DeviceType.Output, Byte = 6, Bit = 1, State = 1 }
+            };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            Assert.AreEqual(0x01, result[8] & 0x01, "Power should remain ON when explicitly set to ON");
+        }
+
+        [TestMethod]
+        public void FromOutputDeviceState_SingleTestOutput_PowerAutoEnabled()
+        {
+            // Arrange - Single LED for test mode
+            var devices = new List<JoystickOutputDevice>
+            {
+                new JoystickOutputDevice { Type = DeviceType.Output, Byte = 6, Bit = 1, State = 1 } // AP1 Signal
+            };
+
+            // Act
+            var result = _report.FromOutputDeviceState(devices);
+
+            // Assert
+            Assert.AreEqual(0x01, result[8] & 0x01, "Power should be automatically enabled for single test mode");
+            Assert.AreEqual(0x02, result[6] & 0x02, "AP1 signal should be set");
+        }
+
+        #endregion
+
         #region Two's Complement Tests
 
         [TestMethod]
@@ -289,7 +363,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             // Test positive encoder values (right rotation)
             sbyte positiveValue = 5;
             byte byteValue = (byte)positiveValue;
-            
+
             Assert.AreEqual(5, byteValue, "Positive value should remain unchanged");
             Assert.IsTrue(positiveValue > 0, "Should be detected as positive");
         }
@@ -300,7 +374,7 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             // Test negative encoder values (left rotation)
             sbyte negativeValue = -5;
             byte byteValue = (byte)negativeValue;
-            
+
             Assert.AreEqual(251, byteValue, "Negative value should be 251 in two's complement"); // 256 - 5 = 251
             Assert.IsTrue(((sbyte)byteValue) < 0, "Should be detected as negative when cast back to sbyte");
         }
@@ -311,10 +385,10 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
             // Test extreme values
             sbyte maxPositive = 127;
             sbyte maxNegative = -128;
-            
+
             Assert.AreEqual(127, (byte)maxPositive, "Max positive should be 127");
             Assert.AreEqual(128, (byte)maxNegative, "Max negative should be 128");
-            
+
             Assert.IsTrue(((sbyte)(byte)maxPositive) > 0, "Max positive should remain positive");
             Assert.IsTrue(((sbyte)(byte)maxNegative) < 0, "Max negative should remain negative");
         }
@@ -330,35 +404,35 @@ namespace MobiFlight.Joysticks.WingFlex.Tests
         {
             var buffer = new byte[65]; // Typical size for HID report including the report ID
             buffer[0] = 0x01; // Report ID
-            
+
             // Set header
             buffer[1] = 0xF2;
             buffer[2] = 0xE1;
             buffer[3] = 0x03;
-            
+
             // Set data type and length markers
             buffer[4] = 0x02; // Data type total
             buffer[5] = 0x01; // Bit type
             buffer[6] = 0x02; // Data length for buttons (2 bytes)
-            
+
             // Buttons in bytes 7-9 (mapped to 6-8 in comments)
             buffer[7] = 0x00;
             buffer[8] = 0x00;
             buffer[9] = 0x00;
-            
+
             // Encoder section header
             buffer[10] = 0x02; // Single byte type
             buffer[11] = 0x06; // 6 bytes of encoder data
-            
+
             // Encoder values (bytes 12-15 mapped to 11-14 in comments)
             buffer[12] = 0x00; // SPD encoder
             buffer[13] = 0x00; // HDG encoder
             buffer[14] = 0x00; // ALT encoder
             buffer[15] = 0x00; // VS encoder
-            
+
             // Brightness values
             buffer[16] = 0xFF; // Background brightness
-            
+
             return buffer;
         }
 

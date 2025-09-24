@@ -196,7 +196,7 @@
     <Compile Include="MobiFlight\Execution\ConfigItemExecutorTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionMigratorTests.cs" />
     <Compile Include="MobiFlight\Joysticks\JoystickDefinitionTests.cs" />
-    <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReportParserTests.cs" />
+    <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReportTests.cs" />
     <Compile Include="MobiFlight\JsonDefinitionFilesTests.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoardDefinitionTests.cs" />
     <Compile Include="MobiFlight\MobiFlightCustomDeviceTests.cs" />
@@ -639,7 +639,6 @@
     <None Include="assets\MobiFlight\Config\Config\UnitTest.mfmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="MobiFlight\Joysticks\WingFlex\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
