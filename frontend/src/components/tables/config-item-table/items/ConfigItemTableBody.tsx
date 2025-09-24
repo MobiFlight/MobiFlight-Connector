@@ -25,35 +25,35 @@ const ConfigItemTableBody = <TData,>({
 
   const selectedRows = table.getSelectedRowModel().rows
   
-  const handleKeyDown = (e: KeyboardEvent) => {
-    const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
-    
-    if (!supportedKeyPress.includes(e.key)) return
-    
-    e.preventDefault() // Prevent default spacebar behavior (scrolling)
-    e.stopPropagation()
-
-    switch (e.key) {
-      case "Backspace":
-      case "Delete":
-        if (onDeleteSelected) onDeleteSelected()
-        break
-
-      // this is the space bar
-      case " ":
-        if (onToggleSelected) onToggleSelected()
-        break
-
-      case "Escape":
-        table.resetRowSelection()
-        break
-    }
-  }
-
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const supportedKeyPress = ["Delete", " ", "Enter", "Escape", "Backspace"]
+      
+      if (!supportedKeyPress.includes(e.key)) return
+      
+      e.preventDefault() // Prevent default spacebar behavior (scrolling)
+      e.stopPropagation()
+
+      switch (e.key) {
+        case "Backspace":
+        case "Delete":
+          if (onDeleteSelected) onDeleteSelected()
+          break
+
+        // this is the space bar
+        case " ":
+          if (onToggleSelected) onToggleSelected()
+          break
+
+        case "Escape":
+          table.resetRowSelection()
+          break
+      }
+    }
+
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  })
+  }, [ table, onDeleteSelected, onToggleSelected ])
 
   return (
     <TableBody className="dark:bg-zinc-900">
