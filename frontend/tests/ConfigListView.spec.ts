@@ -469,6 +469,29 @@ test.describe('Filter toolbar tests', () => {
 
     await expect(searchTextBox).toHaveValue("")
   })
+
+  test("Confirm notification is displayed when new iteems are added while filter is active", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
+    await searchTextBox.fill("foobar")
+    const clearButton = page.getByTestId("filter-toolbar").getByRole("button", { name: "Reset filters" })
+    await expect(clearButton).toHaveCount(1)
+
+    const addOutputConfigButton = page.getByRole("button", { name: "Add Output Config" })
+    await addOutputConfigButton.click()
+
+    await configListPage.addNewConfigItem("OutputConfigItem")
+    const notification = page.getByRole("alert")
+    await expect(notification.getByText("New config created but not visible")).toBeVisible()
+    
+    await notification.getByRole("button").click()
+    await expect(searchTextBox).toHaveValue("")
+    await expect(clearButton).toHaveCount(0)
+  })
 })
 
 test.describe('Controller device labels are displayed correctly', () => {

@@ -8,9 +8,9 @@ import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
 import midiControllerDefinition from "../data/midicontroller.definition.json" with { type: "json" }
-import { ConfigValuePartialUpdate, ProjectStatus } from "@/types/messages"
+import { ConfigValueFullUpdate, ConfigValuePartialUpdate, ProjectStatus } from "@/types/messages"
 import { CommandUpdateConfigItem } from "@/types/commands"
-import { ConfigItemStatusType, IDictionary } from "@/types/config"
+import { ConfigItemStatusType, ConfigItemType, IDictionary } from "@/types/config"
 import { Locator } from "@playwright/test"
 import { ConfigValueRawAndFinalUpdate, ExecutionState } from "@/types/messages"
 
@@ -89,6 +89,26 @@ export class ConfigListPage {
         (window as Window).postMessage(response, "*")
       },
     )
+  }
+
+  async addNewConfigItem(itemType: ConfigItemType, configIndex: number = 0) {
+    const configItems = testProject.ConfigFiles[configIndex].ConfigItems
+    const newItem = configItems.find(i => i.Type === itemType)
+    if (!newItem) throw new Error(`No test data found for item type ${itemType}`)
+    
+    newItem.GUID = crypto.randomUUID()
+    newItem.Name = `New ${itemType} (created from test)`
+
+    const newTestData = [...configItems, newItem]
+
+    const message: AppMessage = {
+      key: "ConfigValueFullUpdate",
+      payload: {
+        ConfigIndex: configIndex,
+        ConfigItems: newTestData,
+      } as ConfigValueFullUpdate,
+    }
+    await this.mobiFlightPage.publishMessage(message)
   }
 
   async updateConfigItemStatus(itemIndex: number, Status: IDictionary<string, ConfigItemStatusType>) {
