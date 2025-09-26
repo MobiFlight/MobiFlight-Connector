@@ -138,15 +138,14 @@ export function ConfigItemTable<TData, TValue>({
         }
       } else {
         toast({
-          title: "New config created but not visible",
-          description:
-            "Your config doesn't match the current filter settings so it is not visible in the list.",
+          title: t("ConfigList.Notification.NewConfigNotVisible.Message") ,
+          description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
           id: "reset-filter",
           options: {
             duration: 5000
           },
           button: {
-            label: "Reset filter",
+            label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
             onClick: () => {
               table.resetColumnFilters()
               setTimeout(() => {

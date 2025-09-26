@@ -149,6 +149,13 @@
         "Missing": "Faltan una o más configuraciones referenciadas.",
         "OK": "Todas las configuraciones referenciadas están disponibles."
       }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "Nueva configuración creada pero no visible.",
+        "Description": "Tu configuración no coincide con los filtros actuales, por lo que no es visible en la lista.",
+        "Action": "Restablecer filtros"
+      }
     }
   }
 }
