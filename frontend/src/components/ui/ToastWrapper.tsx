@@ -11,6 +11,11 @@ export const toast = (props: ToastProps) => {
         button?.onClick()
         sonnerToast.dismiss(id)
       },
+
+      onCancel: () => {
+        button?.onCancel?.()
+        sonnerToast.dismiss(id)
+      },
     }
     return (<Toast {...props} button={extendedButton} />)}, { ...options })
 }

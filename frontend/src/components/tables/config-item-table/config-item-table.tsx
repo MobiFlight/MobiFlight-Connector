@@ -142,7 +142,7 @@ export function ConfigItemTable<TData, TValue>({
           description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
           id: "reset-filter",
           options: {
-            duration: 5000
+            duration: 15000
           },
           button: {
             label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
