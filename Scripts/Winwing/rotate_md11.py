@@ -18,6 +18,7 @@ BASE_WEBSOCKET_URI = f"ws://{WEBSOCKET_HOST}:8086/api/v2"
 
 WS_CAPTAIN = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-captain"
 WS_COPILOT = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-co-pilot"
+WS_OBSERVER = f"ws://{WEBSOCKET_HOST}:{WEBSOCKET_PORT}/winwing/cdu-observer"
 
 BALLOT_BOX = "☐"
 DEGREES = "°"
@@ -29,8 +30,9 @@ FONT_REQUEST = json.dumps({"Target": "Font", "Data": "Boeing"})
 
 
 class CduDevice(StrEnum):
-    Captain = "captain"
-    Copilot = "copilot"
+    Captain = "cdu_0"
+    Copilot = "cdu_1"
+    Observer = "cdu_2"
 
     def get_endpoint(self) -> str:
         match self:
@@ -38,20 +40,20 @@ class CduDevice(StrEnum):
                 return WS_CAPTAIN
             case CduDevice.Copilot:
                 return WS_COPILOT
+            case CduDevice.Observer:
+                return WS_OBSERVER
             case _:
                 raise KeyError(f"Invalid device specified {self}")
 
+    def get_dataref_base(self) -> str:
+        return f"Rotate/aircraft/controls/{self}/mcdu_line"
+
     def get_content_dataref(self, i: int) -> str:
-        if self == CduDevice.Captain:
-            return f"Rotate/aircraft/controls/cdu_0/mcdu_line_{i}_content"
-        elif self == CduDevice.Copilot:
-            return f"Rotate/aircraft/controls/cdu_1/mcdu_line_{i}_content"
+        return f"Rotate/aircraft/controls/{self}/mcdu_line_{i}_content"
 
     def get_style_dataref(self, i: int) -> str:
-        if self == CduDevice.Captain:
-            return f"Rotate/aircraft/controls/cdu_0/mcdu_line_{i}_style"
-        elif self == CduDevice.Copilot:
-            return f"Rotate/aircraft/controls/cdu_1/mcdu_line_{i}_style"
+        return f"Rotate/aircraft/controls/{self}/mcdu_line_{i}_style"
+
 
     def get_symbol_datarefs(self) -> list[str]:
         return [self.get_content_dataref(i) for i in range(16)] + [
@@ -75,12 +77,15 @@ def get_color(color: int) -> str:
 def fetch_dataref_mapping(device: CduDevice):
     with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
         response_json = json.load(response)
-        target_names = device.get_symbol_datarefs()
-        return {
-            int(dr["id"]): dr["name"]
-            for dr in response_json["data"]
-            if dr["name"] in target_names
-        }
+
+    base_prefix = device.get_dataref_base()
+    target_names = set(device.get_symbol_datarefs())
+
+    return {
+        int(dr["id"]): dr["name"]
+        for dr in response_json["data"]
+        if dr["name"].startswith(base_prefix) and dr["name"] in target_names
+    }
 
 
 def generate_display_json(values: dict[str, str], device: CduDevice):
