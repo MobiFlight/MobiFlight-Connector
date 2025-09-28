@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Hid.Net;
 
 namespace MobiFlight.Base
 {

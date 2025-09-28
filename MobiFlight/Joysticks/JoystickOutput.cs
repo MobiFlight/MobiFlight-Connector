@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MobiFlight
+﻿namespace MobiFlight
 {
     public class JoystickOutput
     {
+        /// <summary>
+        /// BitOutput | ByteOutput | LcdDisplay
+        /// </summary>
+        public string Type;
         /// <summary>
         /// Unique Id for the output.
         /// </summary>
@@ -24,5 +22,13 @@ namespace MobiFlight
         /// Bit location within the byte of the output.
         /// </summary>
         public byte Bit;
+        /// <summary>
+        /// Number of columns of the output display.
+        /// </summary>
+        public byte Cols;
+        /// <summary>
+        /// Number of lines of the output display.
+        /// </summary>
+        public byte Lines;
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -59,7 +60,7 @@ namespace MobiFlight.Execution
             this.ConfigItemInTestMode = configItemInTestMode;
         }
 
-        public void Execute(OutputConfigItem cfg, Dictionary<string, IConfigItem> updatedValues)
+        public void Execute(OutputConfigItem cfg, ConcurrentDictionary<string, IConfigItem> updatedValues)
         {
             if (!cfg.Active) return;
 
@@ -330,6 +331,8 @@ namespace MobiFlight.Execution
                         case OutputConfig.LcdDisplay.DeprecatedType:
                             var lcdDisplay = cfg.Device as LcdDisplay;
                             joystick.SetLcdDisplay(lcdDisplay.Address, value);
+                            joystick.UpdateOutputDeviceStates();
+                            joystick.Update();
                             break;
 
                         case "-":
@@ -338,7 +341,12 @@ namespace MobiFlight.Execution
 
                         default: // LED Output                          
                             byte state = 0;
-                            if (value != "0") state = 1;
+                            if (value != "0") { 
+                                if (!Byte.TryParse(value, out state))
+                                {
+                                    state = 1;
+                                }
+                            }
                             joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
                             joystick.UpdateOutputDeviceStates();
                             joystick.Update();

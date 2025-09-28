@@ -17,7 +17,7 @@ import {
 } from "../ui/dropdown-menu"
 import { useTranslation } from "react-i18next"
 import ExecutionToolbar from "../ExecutionToolbar"
-import ProjectNameLabel from "../ProjectNameLabel"
+import ProjectNameLabel from "./ProjectNameLabel"
 
 const ProjectPanel = () => {
   const { t } = useTranslation()

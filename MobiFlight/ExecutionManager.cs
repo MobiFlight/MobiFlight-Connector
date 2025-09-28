@@ -9,6 +9,7 @@ using MobiFlight.Scripts;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -76,7 +77,6 @@ namespace MobiFlight
 
         private readonly Timer frontendUpdateTimer = new Timer();
 
-
         /// <summary>
         /// This list contains preparsed informations and cached values for the supervised FSUIPC offsets
         /// </summary>
@@ -137,7 +137,7 @@ namespace MobiFlight
         private bool _proSimConnectionDisabled = false;
 
         OutputConfigItem ConfigItemInTestMode = null;
-        Dictionary<string, IConfigItem> updatedValues = new Dictionary<string, IConfigItem>();
+        ConcurrentDictionary<string, IConfigItem> updatedValues = new ConcurrentDictionary<string, IConfigItem>();
         bool updateFrontend = true;
 
         public ExecutionManager(IntPtr handle)
@@ -249,13 +249,15 @@ namespace MobiFlight
 
             if (updatedValues.Count == 0) return;
 
-            List<IConfigValueOnlyItem> list;
+            var list = new List<IConfigValueOnlyItem>();
 
-            lock (updatedValues)
+            updatedValues.Keys.ToList().ForEach(key =>
             {
-                list = updatedValues.Values.Select(cfg => new ConfigValueOnlyItem(cfg)).Cast<IConfigValueOnlyItem>().ToList();
-                updatedValues.Clear();
-            }
+                if(!updatedValues.TryRemove(key, out var value))
+                    return;
+
+                list.Add(new ConfigValueOnlyItem(value));
+            });
 
             MessageExchange.Instance.Publish(new ConfigValueRawAndFinalUpdate(list));
         }
@@ -604,7 +606,7 @@ namespace MobiFlight
 
         public void Start()
         {
-            if (timer.Enabled) return;
+            if (IsStarted()) return;
 
             InitInputEventExecutor();
             simConnectCache.Start();
@@ -615,14 +617,13 @@ namespace MobiFlight
             // the timer has to be enabled before the 
             // on start actions are executed
             // otherwise the input events will not be executed.
-            timer.Enabled = true;
-            frontendUpdateTimer.Enabled = true;
+            timer.Start();
+            frontendUpdateTimer.Start();
 
             // Now we can execute the on start actions
             OnStartActions();
 
-            // Force all the modules awake whenver run is activated
-            mobiFlightCache.KeepConnectedModulesAwake(true);
+            mobiFlightCache.StartKeepAwake();
         }
 
         private void InitInputEventExecutor()
@@ -647,8 +648,10 @@ namespace MobiFlight
 
         public void Stop()
         {
-            timer.Enabled = false;
-            frontendUpdateTimer.Enabled = false;
+            timer.Stop();
+            frontendUpdateTimer.Stop();
+            mobiFlightCache.StopKeepAwake();
+
             isExecuting = false;
 #if ARCAZE
             arcazeCache.Clear();
@@ -660,9 +663,7 @@ namespace MobiFlight
             joystickManager.Stop();
             midiBoardManager.Stop();
             inputActionExecutionCache.Clear();
-            mobiFlightCache.ActivateConnectedModulePowerSave();
             ClearConfigItemStatus();
-
             ClearErrorMessages();
         }
 
@@ -701,15 +702,21 @@ namespace MobiFlight
 
         public void TestModeStart()
         {
-            testModeTimer.Enabled = true;
+            if (TestModeIsStarted()) return;
+
+            testModeTimer.Start();
+            mobiFlightCache.StartKeepAwake();
 
             OnTestModeStarted?.Invoke(this, null);
+
             Log.Instance.log("Started test timer.", LogSeverity.Debug);
         }
 
         public void TestModeStop()
         {
-            testModeTimer.Enabled = false;
+            testModeTimer.Stop();
+
+            mobiFlightCache.StopKeepAwake();
 
             // make sure every device is turned off
             mobiFlightCache.Stop();
@@ -719,7 +726,6 @@ namespace MobiFlight
 
             OnTestModeStopped?.Invoke(this, null);
             Log.Instance.log("Stopped test timer.", LogSeverity.Debug);
-
         }
 
         public bool TestModeIsStarted()
@@ -815,21 +821,6 @@ namespace MobiFlight
         /// </summary>
         private void ExecuteConfig()
         {
-            if (
-#if ARCAZE
-                !arcazeCache.Available() &&
-#endif
-#if MOBIFLIGHT
-                !mobiFlightCache.Available() &&
-
-#endif
-                !joystickManager.JoysticksConnected() &&
-
-                !midiBoardManager.AreMidiBoardsConnected()
-            ) return;
-
-
-
             // this is kind of sempahore to prevent multiple execution
             // in fact I don't know if this needs to be done in C# 
             if (isExecuting)
@@ -921,7 +912,6 @@ namespace MobiFlight
             try
             {
                 ExecuteConfig();
-                mobiFlightCache.KeepConnectedModulesAwake();
                 this.OnExecute?.Invoke(this, new EventArgs());
             }
             catch (Exception ex)
@@ -1152,6 +1142,14 @@ namespace MobiFlight
 
         public void ExecuteTestOff(OutputConfigItem cfg, bool ResetConfigItemInTest)
         {
+            if (!IsStarted() && !TestModeIsStarted())
+            {
+                // for the case that this is an individual test
+                // without MobiFlight in Run-mode nor in test mode
+                // only then we need to stop the keep awake messages
+                mobiFlightCache.StopKeepAwake();
+            }
+
             if (ResetConfigItemInTest)
                 ConfigItemInTestMode = null;
 
@@ -1171,6 +1169,11 @@ namespace MobiFlight
 
         public void ExecuteTestOn(OutputConfigItem cfg, ConnectorValue value = null)
         {
+            // for the case that this is an individual test
+            // without MobiFlight in Run-mode nor in test mode
+            // in all other cases it will already be running
+            mobiFlightCache.StartKeepAwake();
+            
             var executor = new ConfigItemExecutor(ConfigItems,
                                                   arcazeCache,
                                                   fsuipcCache,

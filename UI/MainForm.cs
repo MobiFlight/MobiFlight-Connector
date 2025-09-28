@@ -637,7 +637,7 @@ namespace MobiFlight.UI
             {
                 // we can track the click.
             }
-            this.BringToFront();
+            this.ForceToFront();
         }
 
         private void OnFirstStart()
@@ -653,7 +653,7 @@ namespace MobiFlight.UI
             wd.StartPosition = FormStartPosition.CenterParent;
             wd.Text = String.Format(wd.Text, DisplayVersion());
             wd.ShowDialog();
-            this.BringToFront();
+            this.ForceToFront();
 
             // MSFS2020
             WasmModuleUpdater updater = new WasmModuleUpdater();
@@ -667,7 +667,7 @@ namespace MobiFlight.UI
                 {
                     InstallWasmModule();
                 }
-                this.BringToFront();
+                this.ForceToFront();
             }
 
             // if the user is not participating yet, ask for permission
@@ -679,7 +679,7 @@ namespace MobiFlight.UI
                 {
                     Properties.Settings.Default.CommunityFeedback = true;
                 }
-                this.BringToFront();
+                this.ForceToFront();
             }
         }
 
@@ -1670,11 +1670,22 @@ namespace MobiFlight.UI
                 this.Show();
                 if (this.WindowState != FormWindowState.Normal)
                     this.WindowState = FormWindowState.Normal;
-                this.BringToFront();
+                ForceToFront();
             }
 
             execManager?.OnMinimize(minimized);
         } //minimizeMainForm()
+
+        private void ForceToFront()
+        {
+            this.BringToFront();
+
+            // this is a hack to make sure that our window is really on top of all others
+            // this sequence works in all circumstances.
+            this.TopMost = false;
+            this.TopMost = true;
+            this.TopMost = false;
+        }
 
         /// <summary>
         /// restores the current main form when user clicks on "restore" menu item in notify icon context menu
@@ -1845,12 +1856,7 @@ namespace MobiFlight.UI
                 }
                 else
                 {
-                    // this is the old logic
-                    // we simply add the second file to the first file
-                    // this will have to be changed in the future
-                    var additionalProject = new Project() { FilePath = fileName };
-                    additionalProject.OpenFile();
-                    execManager.Project.ConfigFiles.Add(additionalProject.ConfigFiles.First());
+                    execManager.Project.MergeFromProjectFile(fileName);
                 }
 
                 execManager.Project.ConfigFiles.ToList().ForEach(configFile =>
@@ -2784,7 +2790,7 @@ namespace MobiFlight.UI
         private void ResetAutoLoadMenu()
         {
             toolStripAircraftDropDownButton.Image = null;
-            linkCurrentConfigToolStripMenuItem.Enabled = false;
+            linkCurrentConfigToolStripMenuItem.Enabled = (execManager?.Project?.FilePath != null);
             removeLinkConfigToolStripMenuItem.Enabled = false;
             openLinkedConfigToolStripMenuItem.Enabled = false;
             openLinkFilenameToolStripMenuItem.Text = "";

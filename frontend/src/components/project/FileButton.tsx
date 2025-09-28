@@ -2,7 +2,7 @@ import { ConfigFile } from "@/types"
 import { VariantProps } from "class-variance-authority"
 import {
   IconDotsVertical,
-  IconEdit,
+  IconPencil,
   IconTrash,
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
@@ -15,10 +15,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { buttonVariants } from "@/components/ui/variants"
-import { Input } from "../ui/input"
 import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
+import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -35,20 +35,28 @@ const FileButton = ({
 
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
-  const [ isEditing, setIsEditing ] = useState(false)
   const [ label, setLabel ] = useState(file.Label ?? file.FileName)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    if (isEditing && inputRef.current) {
-      setTimeout(() => { inputRef?.current?.focus() }, 300)
-    }
-  }, [isEditing])
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   useEffect(() => {
     setLabel(file.Label ?? file.FileName)
   }, [file.Label, file.FileName])
 
+  const isActiveTab = variant === "tabActive"
+
+  const onSave = (newLabel: string) => {
+    publish({
+      key: "CommandFileContextMenu",
+      payload: {
+        action: "rename",
+        index: index,
+        file: {
+          ...file,
+          Label: newLabel,
+        }
+      },
+    } as CommandFileContextMenu)
+  }
   const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary group-hover:text-primary-foreground" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
   return (
@@ -58,52 +66,14 @@ const FileButton = ({
         value={file.FileName}
         className={cn(groupHoverStyle, "rounded-r-none border-r-0 rounded-b-none border-b-0")}
         onClick={() => onSelectActiveFile(index)}
-        onDoubleClick={(e) => {
-          e.stopPropagation()
-          e.preventDefault()
-          setIsEditing(true)
-        }}
       >
-        { !isEditing 
-          ? 
-          (label)
-          :
-          <Input
-            ref={inputRef}
-            className="bg-transparent border-none h-6 focus-visible:ring-0 focus-visible:border-none focus-visible:ring-offset-0 rounded-0"
-            value={label}
-            onChange={(e) => {
-              setLabel(e.target.value)
-            }}
-            onBlur={() => {
-              setIsEditing(false)
-            }}
-            
-            onKeyDown={(e) => {
-              e.stopPropagation()
-
-              if (e.key === "Escape") {
-                setIsEditing(false)
-                setLabel(file.Label ?? file.FileName)
-              }
-              if (e.key === "Enter") {
-                setIsEditing(false)
-                setLabel(e.currentTarget.value)
-                publish({
-                  key: "CommandFileContextMenu",
-                  payload: {
-                    action: "rename",
-                    index: index,
-                    file: {
-                      ...file,
-                      Label: e.currentTarget.value,
-                    }
-                  },
-                } as CommandFileContextMenu)
-              }
-            }}
-          />
-        }
+        <InlineEditLabel 
+          ref={inlineEditRef}
+          value={label}
+          onSave={onSave}
+          disabled={!isActiveTab}
+          inputClassName="pt-1"
+        />
       </Button>
       <div className="relative">
         <DropdownMenu>
@@ -116,10 +86,10 @@ const FileButton = ({
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() => {
-                setIsEditing(true)
+                inlineEditRef.current?.startEditing()
               }}
             >
-              <IconEdit />
+              <IconPencil />
               {t("Project.File.Action.Rename")}
             </DropdownMenuItem>
             <DropdownMenuItem

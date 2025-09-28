@@ -1,6 +1,9 @@
-﻿using MobiFlight.Joysticks.Octavi;
-using MobiFlight.Joysticks.Winwing;
+﻿using HidSharp;
+using MobiFlight.BrowserMessages;
+using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.VKB;
+using MobiFlight.Joysticks.Winwing;
 using Newtonsoft.Json;
 using SharpDX.DirectInput;
 using System;
@@ -10,7 +13,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using WebSocketSharp.Server;
-using MobiFlight.BrowserMessages;
 
 namespace MobiFlight
 {
@@ -46,6 +48,7 @@ namespace MobiFlight
         {
             PollTimer.Interval = 20;
             PollTimer.Elapsed += PollTimer_Tick;
+            MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateJoysticks();
             LoadDefinitions();
         }
 
@@ -75,7 +78,12 @@ namespace MobiFlight
         /// </summary>
         public void LoadDefinitions()
         {
-            var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(Directory.GetFiles("Joysticks", "*.joystick.json"), "Joysticks/mfjoystick.schema.json",
+            var jsonFiles = Directory.GetFiles("Joysticks", "*.joystick.json", SearchOption.AllDirectories);
+            var schemaFilePath = "Joysticks/mfjoystick.schema.json";
+
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<JoystickDefinition>(
+                jsonFiles, 
+                schemaFilePath,
                 onSuccess: (joystick, definitionFile) => Log.Instance.log($"Loaded joystick definition for {joystick.InstanceName}", LogSeverity.Info),
                 onError: () => LoadingError = true
             );
@@ -251,9 +259,53 @@ namespace MobiFlight
                 }
             }
 
+            ConnectHidController();
+
             if (JoysticksConnected())
             {
                 Connected?.Invoke(this, null);
+            }
+        }
+
+        private void ConnectHidController()
+        {
+            try
+            {
+                var allHidDevices = DeviceList.Local.GetHidDevices().ToList();
+                Log.Instance.log($"Found {allHidDevices.Count} HID devices, checking for supported devices", LogSeverity.Debug);
+
+                allHidDevices.ForEach(hidDevice =>
+                {
+                    try
+                    {
+                        var definition = GetDefinitionByProductId(hidDevice.VendorID, hidDevice.ProductID);
+                        if (definition == null) return;
+
+                        if (Joysticks.Values.Where(j => j.Name == definition.InstanceName).Count() > 0)
+                        {
+                            // already loaded as regular DirectInput Joystick
+                            return;
+                        }
+
+                        var joystick = HidControllerFactory.Create(definition);
+
+                        if (joystick == null) return;
+
+                        joystick.Connect(new IntPtr());
+                        joystick.OnButtonPressed += Js_OnButtonPressed;
+                        joystick.OnDisconnected += Js_OnDisconnected;
+                        Joysticks.TryAdd(joystick.Serial, joystick);
+                        Log.Instance.log($"Connected HID device: {definition.InstanceName}", LogSeverity.Info);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Instance.log($"Error connecting HID device {hidDevice.GetFriendlyName()}: {ex.Message}", LogSeverity.Error);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error enumerating HID devices: {ex.Message}", LogSeverity.Error);
             }
         }
 

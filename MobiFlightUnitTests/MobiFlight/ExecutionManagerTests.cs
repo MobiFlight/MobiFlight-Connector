@@ -516,7 +516,7 @@ namespace MobiFlight.Tests
             // Get references to private members using reflection
             var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
                 BindingFlags.NonPublic | BindingFlags.Instance);
-            var updatedValues = (Dictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+            var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
 
             var frontendUpdateMethod = typeof(ExecutionManager).GetMethod("FrontendUpdateTimer_Execute",
                 BindingFlags.NonPublic | BindingFlags.Instance);
@@ -632,6 +632,68 @@ namespace MobiFlight.Tests
                              .Select(g => $"{g.Key}: {g.Count()}"));
                 Assert.Fail($"Unexpected exceptions occurred: {exceptionSummary}");
             }
+        }
+
+        [TestMethod]
+        public void ExecuteConfig_WithNoControllersConnected_ShouldStillExecuteConfigItems()
+        {
+            // Arrange
+            var outputConfigItem = new OutputConfigItem
+            {
+                GUID = Guid.NewGuid().ToString(),
+                Active = true,
+                Name = "TestOutput",
+                Source = new VariableSource()
+                {
+                    MobiFlightVariable = new MobiFlightVariable() { Name = "TestVar", Number = 123.45 }
+                },
+                Device = new OutputConfig.CustomDevice() { CustomName = "TestDevice" },
+                DeviceType = "InputAction" // Special type that doesn't require physical devices
+            };
+
+            var project = new Project();
+            project.ConfigFiles.Add(new ConfigFile() 
+            { 
+                ConfigItems = { outputConfigItem } 
+            });
+            _executionManager.Project = project;
+
+            // Verify no controllers are connected
+            Assert.IsFalse(_executionManager.ModulesAvailable(), "No MobiFlight modules and/or Arcaze Boards should be connected");
+            Assert.IsFalse(_executionManager.GetJoystickManager().JoysticksConnected(), "No joysticks should be connected");
+            Assert.IsFalse(_executionManager.GetMidiBoardManager().AreMidiBoardsConnected(), "No midi controllers should be connected.");
+            
+            // Set up the variable so the config item has data to read
+            _executionManager.getMobiFlightModuleCache().SetMobiFlightVariable(
+                new MobiFlightVariable() { Name = "TestVar", Number = 123.45 });
+
+            // Get access to the updatedValues dictionary via reflection
+            var updatedValuesField = typeof(ExecutionManager).GetField("updatedValues",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            var updatedValues = (ConcurrentDictionary<string, IConfigItem>)updatedValuesField.GetValue(_executionManager);
+            
+            var initialUpdatedValuesCount = updatedValues.Count;
+
+            // Act - Instead of relying on timer, directly call ExecuteConfig via reflection
+            _executionManager.Start(); // This sets up the execution manager state
+            
+            // Use reflection to call the private ExecuteConfig method directly
+            var executeConfigMethod = typeof(ExecutionManager).GetMethod("ExecuteConfig", 
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.IsNotNull(executeConfigMethod, "ExecuteConfig method should exist");
+
+            executeConfigMethod.Invoke(_executionManager, null);
+
+            // Assert - The config item should be processed and cloned into updatedValues
+            Assert.IsTrue(updatedValues.ContainsKey(outputConfigItem.GUID), 
+                "Config item should be cloned and added to updatedValues when processed");
+            
+            var clonedConfigItem = updatedValues[outputConfigItem.GUID] as OutputConfigItem;
+            Assert.IsNotNull(clonedConfigItem, "Updated config item should be an OutputConfigItem");
+            Assert.AreEqual("123.45", clonedConfigItem.Value, 
+                "Cloned config item should display the correct variable value");
+            Assert.AreEqual("123.45", clonedConfigItem.RawValue, 
+                "Cloned config item should have the correct raw value");
         }
     }
 }

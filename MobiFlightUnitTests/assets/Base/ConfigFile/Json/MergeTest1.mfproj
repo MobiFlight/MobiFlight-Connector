@@ -1,0 +1,48 @@
+{
+  "Name": "Test Project 1",
+  "ConfigFiles": [
+    {
+      "Label": "Config File 1",
+      "FileName": null,
+      "ReferenceOnly": false,
+      "EmbedContent": true,
+      "ConfigItems": [
+        {
+          "Source": {
+            "SourceType": "SIMCONNECT",
+            "SimConnectValue": {
+              "UUID": "test-uuid-1",
+              "Value": "(A:COM ACTIVE FREQUENCY:1,KHz)",
+              "VarType": 2
+            },
+            "Type": "SimConnectSource"
+          },
+          "TestValue": {
+            "type": 1,
+            "Float64": 1.0,
+            "String": null
+          },
+          "Device": {
+            "Name": "Test LED 1",
+            "DisplayPin": "LED 1",
+            "DisplayPinBrightness": 255,
+            "DisplayPinPWM": false,
+            "Type": "Output"
+          },
+          "DeviceType": "Output",
+          "GUID": "merge-test-guid-1",
+          "Active": true,
+          "Name": "Test Output 1",
+          "Type": "OutputConfigItem",
+          "ModuleSerial": "Test-Module-1",
+          "Preconditions": [],
+          "Modifiers": {
+            "Items": []
+          },
+          "ConfigRefs": [],
+          "Status": {}
+        }
+      ]
+    }
+  ]
+}

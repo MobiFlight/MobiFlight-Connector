@@ -1,10 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Hid.Net;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace MobiFlight.Base.Tests
 {

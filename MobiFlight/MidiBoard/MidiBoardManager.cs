@@ -27,6 +27,7 @@ namespace MobiFlight
 
         public MidiBoardManager ()
         {
+            MobiFlight.Joysticks.ControllerDefinitionMigrator.MigrateMidiControllers();
             Load();
             ProcessTimer.Interval = 50;
             ProcessTimer.Tick += ProcessTimer_Tick;

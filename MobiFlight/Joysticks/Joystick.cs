@@ -11,29 +11,29 @@ namespace MobiFlight
     {
         public JoystickNotConnectedException(string Message) : base(Message) { }
     }
-    
+
     public class Joystick
     {
         public static readonly string ButtonPrefix = "Button";
         public static readonly string AxisPrefix = "Axis";
         public static readonly string PovPrefix = "POV";
-        public static readonly string SerialPrefix = "JS-";      
+        public static readonly string SerialPrefix = "JS-";
 
-        public event ButtonEventHandler OnButtonPressed; 
+        public event ButtonEventHandler OnButtonPressed;
         public event EventHandler OnDisconnected;
 
         protected List<JoystickDevice> Buttons = new List<JoystickDevice>();
-        private readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
-        private readonly List<JoystickDevice> POV = new List<JoystickDevice>();
-        private readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
+        protected readonly List<JoystickDevice> Axes = new List<JoystickDevice>();
+        protected readonly List<JoystickDevice> POV = new List<JoystickDevice>();
+        protected readonly List<JoystickOutputDevice> Lights = new List<JoystickOutputDevice>();
 
         protected readonly SharpDX.DirectInput.Joystick DIJoystick;
-        private readonly JoystickDefinition Definition;
+        protected readonly JoystickDefinition Definition;
 
         private HidDevice Device;
         protected bool RequiresOutputUpdate = false;
         private object StateLock = new object();
-        private JoystickState State = null;
+        protected JoystickState State = null;
         private HidStream Stream;
 
         private static readonly Dictionary<int, string> UsageMap = new Dictionary<int, string>
@@ -64,13 +64,14 @@ namespace MobiFlight
             return (serial != null && serial.Contains(SerialPrefix));
         }
 
-        public string Name { 
-            get { return DIJoystick?.Information.InstanceName; }  
+        public virtual string Name
+        {
+            get { return DIJoystick?.Information.InstanceName; }
         }
 
-        public string Serial
+        public virtual string Serial
         {
-            get { return SerialPrefix + DIJoystick.Information.InstanceGuid;  }
+            get { return SerialPrefix + DIJoystick.Information.InstanceGuid; }
         }
 
         public SharpDX.DirectInput.DeviceType Type
@@ -78,8 +79,10 @@ namespace MobiFlight
             get { return DIJoystick.Information.Type; }
         }
 
-        public Capabilities Capabilities {
-            get {
+        public Capabilities Capabilities
+        {
+            get
+            {
                 return this.DIJoystick.Capabilities;
             }
         }
@@ -192,14 +195,16 @@ namespace MobiFlight
                 return input.Label;
             }
             string result = string.Empty;
-             
+
             if (deviceName.StartsWith(ButtonPrefix))
             {
                 result = Buttons.Find(b => b.Name == deviceName)?.Label ?? string.Empty;
-            } else if (deviceName.StartsWith(AxisPrefix))
+            }
+            else if (deviceName.StartsWith(AxisPrefix))
             {
                 result = Axes.Find(a => a.Name == deviceName)?.Label ?? string.Empty;
-            } else if (deviceName.StartsWith(PovPrefix))
+            }
+            else if (deviceName.StartsWith(PovPrefix))
             {
                 result = POV.Find(p => p.Name == deviceName)?.Label ?? string.Empty;
             }
@@ -214,15 +219,22 @@ namespace MobiFlight
         {
             EnumerateDevices();
             EnumerateOutputDevices();
+
+            if (DIJoystick == null) return;
+
             DIJoystick.SetCooperativeLevel(handle, CooperativeLevel.Background | CooperativeLevel.NonExclusive);
             DIJoystick.Properties.BufferSize = 16;
-            DIJoystick.Acquire();            
+            DIJoystick.Acquire();
         }
 
         protected virtual void EnumerateOutputDevices()
         {
             Lights.Clear();
-            Definition?.Outputs?.ForEach(output => Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit }));
+            Definition?.Outputs?.ForEach(output =>
+            {
+                if (output.Type != null && output.Type != DeviceType.Output.ToString()) return;
+                Lights.Add(new JoystickOutputDevice() { Label = output.Label, Name = output.Id, Byte = output.Byte, Bit = output.Bit });
+            });
         }
 
         public List<ListItem<IBaseDevice>> GetAvailableDevicesAsListItems()
@@ -266,7 +278,7 @@ namespace MobiFlight
         {
             var index = GetIndexForKey(button.Name);
             // Ensure items in definition appear first
-            if(index < 0)
+            if (index < 0)
             {
                 index = Int32.MaxValue; // force undefined stuff to the end of the list
             }
@@ -296,11 +308,18 @@ namespace MobiFlight
 
         public virtual List<IBaseDevice> GetAvailableLcdDevices()
         {
-            return new List<IBaseDevice>();
+            var result = new List<IBaseDevice>();
+            Lights.Where(l => l.Type == DeviceType.LcdDisplay).ToList().ForEach((item) =>
+            {
+                var outputDisplay = item as JoystickOutputDisplay;
+                result.Add(new LcdDisplay() { Address = item.Byte, Cols = outputDisplay.Cols, Lines = outputDisplay.Lines, Name = outputDisplay.Name });
+            });
+
+            return result;
         }
 
         public virtual void Update()
-        {           
+        {
             if (DIJoystick == null) return;
 
             try
@@ -319,9 +338,9 @@ namespace MobiFlight
                     State = newState;
                 }
             }
-            catch(SharpDX.SharpDXException ex)
+            catch (SharpDX.SharpDXException ex)
             {
-                if (ex.Descriptor.ApiCode=="InputLost")
+                if (ex.Descriptor.ApiCode == "InputLost")
                 {
                     OnDeviceRemoved();
                 }
@@ -366,7 +385,8 @@ namespace MobiFlight
                         Type = DeviceType.Button,
                         Value = (int)MobiFlightButton.InputEvent.RELEASE
                     });
-                };
+                }
+                ;
 
                 if (newValue > -1)
                 {
@@ -386,39 +406,35 @@ namespace MobiFlight
             }
         }
 
-        private void UpdateAxis(JoystickState newState)
-        {            
-            if (DIJoystick.Capabilities.AxeCount > 0)
+        protected virtual void UpdateAxis(JoystickState newState)
+        {
+            for (int CurrentAxis = 0; CurrentAxis != Axes.Count; CurrentAxis++)
             {
-                for (int CurrentAxis = 0; CurrentAxis != Axes.Count; CurrentAxis++)
+
+                int oldValue = 0;
+                if (StateExists())
                 {
-                    
-                    int oldValue = 0;
-                    if (StateExists())
-                    {
-                        oldValue = GetValueForAxisFromState(CurrentAxis, State);
-                    }
-                            
-                    int newValue = GetValueForAxisFromState(CurrentAxis, newState);
-
-                    if (!StateExists() || oldValue != newValue)
-                        OnButtonPressed?.Invoke(this, new InputEventArgs()
-                        {
-                            Name = Name,
-                            DeviceId = Axes[CurrentAxis].Name,
-                            DeviceLabel = Axes[CurrentAxis].Label,
-                            Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
-                            Type = DeviceType.AnalogInput,
-                            Value = newValue
-                        });
-
+                    oldValue = GetValueForAxisFromState(CurrentAxis, State);
                 }
+
+                int newValue = GetValueForAxisFromState(CurrentAxis, newState);
+
+                if (!StateExists() || oldValue != newValue)
+                    OnButtonPressed?.Invoke(this, new InputEventArgs()
+                    {
+                        Name = Name,
+                        DeviceId = Axes[CurrentAxis].Name,
+                        DeviceLabel = Axes[CurrentAxis].Label,
+                        Serial = Serial,
+                        Type = DeviceType.AnalogInput,
+                        Value = newValue
+                    });
             }
         }
 
-        private void UpdateButtons(JoystickState newState)
+        protected void UpdateButtons(JoystickState newState)
         {
-            if (Buttons.Count==0) return;
+            if (Buttons.Count == 0) return;
 
             for (int i = 0; i < newState.Buttons.Length; i++)
             {
@@ -430,7 +446,7 @@ namespace MobiFlight
                             Name = Name,
                             DeviceId = Buttons[i].Name,
                             DeviceLabel = Buttons[i].Label,
-                            Serial = SerialPrefix + DIJoystick.Information.InstanceGuid.ToString(),
+                            Serial = Serial,
                             Type = DeviceType.Button,
                             Value = newState.Buttons[i] ? 0 : 1
                         });
@@ -465,7 +481,7 @@ namespace MobiFlight
 
         public virtual void SetOutputDeviceState(string name, byte state)
         {
-            foreach(var light in Lights)
+            foreach (var light in Lights)
             {
                 if (light.Label != name) continue;
                 if (light.State == state) continue;
@@ -478,7 +494,13 @@ namespace MobiFlight
 
         public virtual void SetLcdDisplay(string address, string value)
         {
-            // Do nothing in base class
+            var display = Lights.Find(l => l.Name == address) as JoystickOutputDisplay;
+            if (display == null) return;
+
+            if (display.Text == value) return;
+
+            RequiresOutputUpdate = true;
+            display.Text = value;
         }
 
 
@@ -501,7 +523,8 @@ namespace MobiFlight
             if (Stream == null)
             {
                 Connect();
-            };
+            }
+            ;
             Stream.SetFeature(data);
 
             RequiresOutputUpdate = false;
@@ -536,7 +559,7 @@ namespace MobiFlight
 
         public virtual void Stop()
         {
-            foreach(var light in Lights)
+            foreach (var light in Lights)
             {
                 light.State = 0;
             }
@@ -551,7 +574,7 @@ namespace MobiFlight
 
         protected virtual void OnDeviceRemoved()
         {
-            DIJoystick.Unacquire();
+            DIJoystick?.Unacquire();
             OnDisconnected?.Invoke(this, null);
 
         }
