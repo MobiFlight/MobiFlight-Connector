@@ -105,7 +105,7 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
-      "AircraftIdSnippet": "rotate",
+      "AircraftIdSnippet": "rotate md-11",
       "ScriptName": "rotate_md11.py"
     }
   ]
