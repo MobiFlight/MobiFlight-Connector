@@ -130,6 +130,7 @@ export function DataTableToolbar<TData>({
 
   return (
     <div
+      data-testid="filter-toolbar"
       className="flex items-center justify-between"
       // prevent the bubbling of keydown events
       // this is needed to prevent the table from handling the keydown events

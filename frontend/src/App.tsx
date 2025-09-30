@@ -11,8 +11,9 @@ import { useProjectStore } from "./stores/projectStore"
 import { MainMenu } from "./components/MainMenu"
 import { useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
-import { JoystickDefinitions, MidiControllerDefinitions } from "./types/messages"
+import { JoystickDefinitions, MidiControllerDefinitions, OverlayState } from "./types/messages"
 import { useKeyAccelerators, GlobalKeyAccelerators } from "./lib/hooks/useKeyAccelerators"
+import LoaderOverlay from "./components/tables/config-item-table/LoaderOverlay"
 
 function App() {
   const [queryParameters] = useSearchParams()
@@ -70,6 +71,12 @@ function App() {
     setHasChanged(projectStatus.HasChanged)
   })
 
+  useAppMessage("OverlayState", (message) => {
+    const overlayState = message.payload as OverlayState
+    console.log("OverlayState message received", overlayState)
+    setOverlayVisible(overlayState.Visible)
+  })
+
   // this allows to get beyond the startup screen
   // by setting the progress to 100 via url parameter
   useEffect(() => {
@@ -96,8 +103,11 @@ function App() {
 
   const windowSize = { x: window.innerWidth, y: window.innerHeight }
 
+  const [overlayVisible, setOverlayVisible] = useState(false)
+
   return (
     <>
+      {overlayVisible && <LoaderOverlay open={overlayVisible} onOpenChange={setOverlayVisible} />}
       {outlet ? (
         <div className="flex h-svh select-none flex-row p-0">
           {/* <Sidebar /> */}

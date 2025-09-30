@@ -2,6 +2,9 @@
   "General" : {
     "Action" : {
       "OpenMenu": "Open menu"
+    },
+    "Overlay": {
+      "OpeningWizard": "Opening wizard..."
     }
   },
   "Types": {
@@ -149,7 +152,13 @@
         "Missing": "One or more referenced configs are missing.",
         "OK": "All referenced configs are available."
       }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "New config created but not visible.",
+        "Description": "Your config doesn't match the current filter settings so it is not visible in the list.",
+        "Action": "Reset filters"
+      }
     }
-
   }
 }

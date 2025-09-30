@@ -36,7 +36,7 @@ export interface IDictionary<T> {
 
 export type ControllerType = "MobiFlight" | "Joystick" | "Midi" | "Unknown"
 
-export type ConfigItemType = "InputConfig" | "OutputConfig"
+export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
 
 export interface IDeviceConfig {
   Type: string

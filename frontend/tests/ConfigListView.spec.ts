@@ -469,6 +469,41 @@ test.describe('Filter toolbar tests', () => {
 
     await expect(searchTextBox).toHaveValue("")
   })
+
+  test("Confirm notification is displayed when new items are added while filter is active", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    const searchTextBox = page.getByRole("textbox", { name: "Filter items" })
+    await searchTextBox.fill("foobar")
+    const clearButton = page.getByTestId("filter-toolbar").getByRole("button", { name: "Reset filters" })
+    await expect(clearButton).toHaveCount(1)
+
+    const addOutputConfigButton = page.getByRole("button", { name: "Add Output Config" })
+    await addOutputConfigButton.click()
+
+    // simulate a newly created item
+    await configListPage.addNewConfigItem("OutputConfigItem")
+
+    // the config wizard opens and triggers this state
+    await configListPage.setOverlayState({ Visible: true })
+    const loaderOverlay = page.getByTestId("loader-overlay")
+    await expect(loaderOverlay).toBeVisible()
+    await expect(page.getByText("Opening wizard...")).toBeVisible()
+
+    // the config wizard closes and triggers this state
+    await configListPage.setOverlayState({ Visible: false })
+    await expect(loaderOverlay).not.toBeVisible()
+
+    const notification = page.getByRole("alert")
+    await expect(notification.getByText("New config created but not visible.")).toBeVisible()
+    
+    await notification.getByRole("button").click()
+    await expect(searchTextBox).toHaveValue("")
+    await expect(clearButton).toHaveCount(0)
+  })
 })
 
 test.describe('Controller device labels are displayed correctly', () => {

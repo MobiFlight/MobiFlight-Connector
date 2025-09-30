@@ -14,6 +14,7 @@ export type AppMessageKey =
   | "JoystickDefinitions"
   | "MidiControllerDefinitions"
   | "ProjectStatus"
+  | "OverlayState"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -25,6 +26,7 @@ export type AppMessagePayload =
   | JoystickDefinitions
   | MidiControllerDefinitions
   | ProjectStatus
+  | OverlayState
   
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -81,6 +83,10 @@ export interface MidiControllerDefinitions {
 
 export interface ProjectStatus {
   HasChanged: boolean
+}
+
+export interface OverlayState {
+  Visible: boolean
 }
 
 // Not sure what this is for

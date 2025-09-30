@@ -46,6 +46,9 @@ import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
+import { Toaster } from "@/components/ui/sonner"
+import { useTheme } from "@/lib/hooks/useTheme"
+import { toast } from "@/components/ui/ToastWrapper"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -107,7 +110,7 @@ export function ConfigItemTable<TData, TValue>({
   const tableRef = useRef<HTMLTableElement>(null)
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
-
+  const showInvisibleToastOnDialogClose = useRef<string | null>(null)
 
   // the useCallback hook is necessary so that playwright tests work correctly
   const handleProjectMessage = useCallback(() => {
@@ -116,11 +119,49 @@ export function ConfigItemTable<TData, TValue>({
   }, [table])
 
   useAppMessage("Project", handleProjectMessage)
-  
+  useAppMessage("OverlayState", (message) => {
+    const isClosing =
+      (message.payload as { Visible: boolean }).Visible === false
+    if (!isClosing) return
+
+    if (showInvisibleToastOnDialogClose.current == null) return
+
+    const lastGuid = showInvisibleToastOnDialogClose.current
+    showInvisibleToastOnDialogClose.current = null
+
+    toast({
+      title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
+      description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
+      id: "reset-filter",
+      options: {
+        duration: 5000,
+      },
+      button: {
+        label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
+        onClick: () => {
+          table.resetColumnFilters()
+          setTimeout(() => {
+            const row = table.getRowModel().rows.find((r) => r.id === lastGuid)
+            if (row) {
+              const rowElement = tableRef.current?.querySelector(
+                `[dnd-itemid="${lastGuid}"]`,
+              )
+              rowElement?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              })
+              table.setRowSelection({ [row.id]: true })
+            }
+          }, 500)
+        },
+      },
+    })
+  })
+
   useEffect(() => {
-    console.log("added item", addedItem.current) 
+    console.log("added item", addedItem.current)
   }, [addedItem])
-  
+
   useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {
       addedItem.current = false
@@ -134,19 +175,24 @@ export function ConfigItemTable<TData, TValue>({
         if (row) {
           table.setRowSelection({ [row.id]: true })
         }
-        publish({
-          key: "CommandConfigContextMenu",
-          payload: { action: "edit", item: lastItem },
-        } as CommandConfigContextMenu)
+      } else {
+        // If the newly added item's row element is not found, 
+        // it means the item is not visible due to active filters.
+        // Store its GUID so that when the dialog closes, 
+        // we can show a toast notification to inform the user 
+        // and offer to reset the filters.
+        showInvisibleToastOnDialogClose.current = lastItem.GUID
       }
+      publish({
+        key: "CommandConfigContextMenu",
+        payload: { action: "edit", item: lastItem },
+      } as CommandConfigContextMenu)
     }
     prevDataLength.current = data.length
   }, [publish, table, data])
 
   const { t } = useTranslation()
-  const [dragItem, setDragItem] = useState<Active | undefined>(
-    undefined,
-  )
+  const [dragItem, setDragItem] = useState<Active | undefined>(undefined)
 
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
@@ -186,7 +232,9 @@ export function ConfigItemTable<TData, TValue>({
       const selectedIds = selectedRows.map(
         (row) => (row.original as IConfigItem).GUID,
       )
-      const originalIndex = (data as IConfigItem[]).findIndex((item) => item.GUID === active.id)
+      const originalIndex = (data as IConfigItem[]).findIndex(
+        (item) => item.GUID === active.id,
+      )
 
       // Remove dragged items from data
       let newData = (data as IConfigItem[]).filter(
@@ -199,7 +247,7 @@ export function ConfigItemTable<TData, TValue>({
       const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
 
       const draggedData = (data as IConfigItem[]).filter((item) =>
-        selectedIds.includes(item.GUID)
+        selectedIds.includes(item.GUID),
       )
 
       // Insert dragged items at drop index
@@ -278,6 +326,8 @@ export function ConfigItemTable<TData, TValue>({
     })
   }, [table, publish])
 
+  const { theme } = useTheme()
+
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
       {data.length > 0 ? (
@@ -291,16 +341,25 @@ export function ConfigItemTable<TData, TValue>({
               onClearSelected={() => table.setRowSelection({})}
             />
           </div>
+          <Toaster
+            position="bottom-right"
+            theme={theme}
+            className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
+          />
           {table.getRowModel().rows?.length ? (
             <DndContext
               sensors={sensors}
               collisionDetection={closestCenter}
-              modifiers={[ snapToCursor, restrictToVerticalAxis, restrictToParentElement ]}
+              modifiers={[
+                snapToCursor,
+                restrictToVerticalAxis,
+                restrictToParentElement,
+              ]}
               onDragEnd={handleDragEnd}
               onDragStart={handleDragStart}
             >
               <div
-                className="flex flex-col overflow-y-auto rounded-lg border border-primary"
+                className="border-primary flex flex-col overflow-y-auto rounded-lg border"
                 ref={parentRef}
               >
                 <Table ref={tableRef} className="table-fixed">
@@ -317,8 +376,8 @@ export function ConfigItemTable<TData, TValue>({
               </div>
             </DndContext>
           ) : (
-            <div className="flex flex-col gap-2 rounded-lg border-2 border-solid border-primary pb-6">
-              <div className="mb-4 h-12 bg-primary"></div>
+            <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
+              <div className="bg-primary mb-4 h-12"></div>
               <div className="text-center" role="alert">
                 {t("ConfigList.Table.NoResultsMatchingFilter")}
               </div>
@@ -342,8 +401,8 @@ export function ConfigItemTable<TData, TValue>({
           )}
         </div>
       ) : (
-        <div className="flex flex-col gap-2 rounded-lg border-2 border-solid border-primary">
-          <div className="h-12 bg-primary"></div>
+        <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid">
+          <div className="bg-primary h-12"></div>
           <div className="p-4 pb-6 text-center" role="alert">
             {t("ConfigList.Table.NoResultsFound")}
           </div>
