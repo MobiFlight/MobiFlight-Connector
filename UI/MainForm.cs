@@ -15,7 +15,6 @@ using MobiFlight.SimConnectMSFS;
 using MobiFlight.UpdateChecker;
 using MobiFlight.Base;
 using MobiFlight.xplane;
-using MobiFlight.ProSim;
 using MobiFlight.HubHop;
 using System.Threading.Tasks;
 using MobiFlight.InputConfig;
@@ -264,6 +263,8 @@ namespace MobiFlight.UI
             };
             wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
 
+            MessageExchange.Instance.Publish(new OverlayState() { Visible = true });
+
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (wizard.ConfigHasChanged())
@@ -277,6 +278,8 @@ namespace MobiFlight.UI
                     ExecManager_OnConfigHasChanged(wizard.Config, null);
                 }
             };
+
+            MessageExchange.Instance.Publish(new OverlayState() { Visible = false });
         }
 
         private void OpenInputConfigWizardForId(string guid)
@@ -315,6 +318,8 @@ namespace MobiFlight.UI
             };
 
             wizard.SettingsDialogRequested += ConfigPanel_SettingsDialogRequested;
+
+            MessageExchange.Instance.Publish(new OverlayState() { Visible = true });
             if (wizard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 if (wizard.ConfigHasChanged())
@@ -329,6 +334,7 @@ namespace MobiFlight.UI
                     execManager.OnInputConfigSettingsChanged(wizard.Config, null);
                 }
             };
+            MessageExchange.Instance.Publish(new OverlayState() { Visible = false });
         }
 
         private void InitializeTracking()

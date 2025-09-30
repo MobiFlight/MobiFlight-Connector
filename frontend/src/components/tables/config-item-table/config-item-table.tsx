@@ -110,7 +110,7 @@ export function ConfigItemTable<TData, TValue>({
   const tableRef = useRef<HTMLTableElement>(null)
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
-
+  
   // the useCallback hook is necessary so that playwright tests work correctly
   const handleProjectMessage = useCallback(() => {
     console.log("Project message received, resetting filters")
@@ -167,7 +167,6 @@ export function ConfigItemTable<TData, TValue>({
           },
         })
       }
-
       publish({
         key: "CommandConfigContextMenu",
         payload: { action: "edit", item: lastItem },
@@ -178,7 +177,7 @@ export function ConfigItemTable<TData, TValue>({
 
   const { t } = useTranslation()
   const [dragItem, setDragItem] = useState<Active | undefined>(undefined)
-
+  
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
