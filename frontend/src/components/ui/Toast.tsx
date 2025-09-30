@@ -11,30 +11,32 @@ export interface ToastProps {
     onClick: () => void
     onCancel?: () => void
   }
-  id: string | number,
-  options? : ExternalToast
+  id: string | number
+  options?: ExternalToast
 }
 
 export const Toast = ({ description, title, button }: ToastProps) => {
   return (
-    <Alert className="flex flex-col gap-1 p-4 pt-3 border-primary border-2 shadow-xl" onClick={button?.onCancel}>
-      <AlertTitle className="text-md flex flex-row justify-between items-center">
+    <Alert
+      className="border-primary flex flex-col gap-1 border-2 p-4 pt-3 shadow-xl"
+      onClick={button?.onCancel}
+    >
+      <AlertTitle className="text-md flex flex-row items-center justify-between">
         {title}
       </AlertTitle>
-      <AlertDescription className="flex flex-row gap-4 items-center">
+      <AlertDescription className="flex flex-row items-center gap-4">
         <div className="text-md text-muted-foreground">{description}</div>
         <div className="flex flex-col gap-2">
-        {button && (
-        <Button
-          onClick={button.onClick}
-          className="mt-2 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 h-8"
-        >
-          {button.label}
-        </Button>
-        )}
+          {button && (
+            <Button
+              onClick={button.onClick}
+              className="mt-2 h-8 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+            >
+              {button.label}
+            </Button>
+          )}
         </div>
       </AlertDescription>
-      
     </Alert>
   )
 }

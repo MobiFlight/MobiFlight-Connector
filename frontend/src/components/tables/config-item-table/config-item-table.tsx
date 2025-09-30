@@ -176,6 +176,11 @@ export function ConfigItemTable<TData, TValue>({
           table.setRowSelection({ [row.id]: true })
         }
       } else {
+        // If the newly added item's row element is not found, 
+        // it means the item is not visible due to active filters.
+        // Store its GUID so that when the dialog closes, 
+        // we can show a toast notification to inform the user 
+        // and offer to reset the filters.
         showInvisibleToastOnDialogClose.current = lastItem.GUID
       }
       publish({
