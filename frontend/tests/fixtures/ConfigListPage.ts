@@ -1,16 +1,21 @@
-import {
-  AppMessage,
-  Project,
-  IConfigItem,
-} from "@/types"
+import { AppMessage, Project, IConfigItem } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
 import joystickDefinition from "../data/joystick.definition.json" with { type: "json" }
 import midiControllerDefinition from "../data/midicontroller.definition.json" with { type: "json" }
-import { ConfigValueFullUpdate, ConfigValuePartialUpdate, ProjectStatus } from "@/types/messages"
+import {
+  ConfigValueFullUpdate,
+  ConfigValuePartialUpdate,
+  OverlayState,
+  ProjectStatus,
+} from "@/types/messages"
 import { CommandUpdateConfigItem } from "@/types/commands"
-import { ConfigItemStatusType, ConfigItemType, IDictionary } from "@/types/config"
+import {
+  ConfigItemStatusType,
+  ConfigItemType,
+  IDictionary,
+} from "@/types/config"
 import { Locator } from "@playwright/test"
 import { ConfigValueRawAndFinalUpdate, ExecutionState } from "@/types/messages"
 
@@ -38,7 +43,7 @@ export class ConfigListPage {
   async initWithTestData() {
     const message: AppMessage = {
       key: "Project",
-      payload: testProject
+      payload: testProject,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
@@ -51,7 +56,7 @@ export class ConfigListPage {
 
     const message: AppMessage = {
       key: "Project",
-      payload: testProjectWithName
+      payload: testProjectWithName,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
@@ -60,12 +65,12 @@ export class ConfigListPage {
     const message: AppMessage = {
       key: "JoystickDefinitions",
       payload: {
-        Definitions: [joystickDefinition]
+        Definitions: [joystickDefinition],
       },
     }
     await this.mobiFlightPage.publishMessage(message)
 
-    const midiMessage : AppMessage = {
+    const midiMessage: AppMessage = {
       key: "MidiControllerDefinitions",
       payload: {
         Definitions: [midiControllerDefinition],
@@ -78,24 +83,26 @@ export class ConfigListPage {
     await this.mobiFlightPage.subscribeToCommand(
       "CommandUpdateConfigItem",
       async (message) => {
-        const item = (message as CommandUpdateConfigItem).payload.item as IConfigItem
+        const item = (message as CommandUpdateConfigItem).payload
+          .item as IConfigItem
         const response = {
           key: "ConfigValuePartialUpdate",
           payload: {
-            ConfigItems: [item]
+            ConfigItems: [item],
           } as ConfigValuePartialUpdate,
-        };
-        
-        (window as Window).postMessage(response, "*")
+        }
+
+        ;(window as Window).postMessage(response, "*")
       },
     )
   }
 
   async addNewConfigItem(itemType: ConfigItemType, configIndex: number = 0) {
     const configItems = testProject.ConfigFiles[configIndex].ConfigItems
-    const newItem = configItems.find(i => i.Type === itemType)
-    if (!newItem) throw new Error(`No test data found for item type ${itemType}`)
-    
+    const newItem = configItems.find((i) => i.Type === itemType)
+    if (!newItem)
+      throw new Error(`No test data found for item type ${itemType}`)
+
     newItem.GUID = crypto.randomUUID()
     newItem.Name = `New ${itemType} (created from test)`
 
@@ -111,7 +118,10 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  async updateConfigItemStatus(itemIndex: number, Status: IDictionary<string, ConfigItemStatusType>) {
+  async updateConfigItemStatus(
+    itemIndex: number,
+    Status: IDictionary<string, ConfigItemStatusType>,
+  ) {
     const item = testdata[itemIndex]
     const message: AppMessage = {
       key: "ConfigValuePartialUpdate",
@@ -121,16 +131,20 @@ export class ConfigListPage {
             ...item,
             Status: {
               ...Status,
-              [Status.Key]: Status.Value
-            }
-          }
+              [Status.Key]: Status.Value,
+            },
+          },
         ],
       } as ConfigValuePartialUpdate,
     }
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  async updateConfigItemRawAndFinalValue (itemIndex: number, RawValue: string, FinalValue: string) {
+  async updateConfigItemRawAndFinalValue(
+    itemIndex: number,
+    RawValue: string,
+    FinalValue: string,
+  ) {
     const item = testdata[itemIndex]
     const message: AppMessage = {
       key: "ConfigValueRawAndFinalUpdate",
@@ -140,7 +154,7 @@ export class ConfigListPage {
             ...item,
             RawValue: RawValue,
             Value: FinalValue,
-          }
+          },
         ],
       } as ConfigValueRawAndFinalUpdate,
     }
@@ -148,12 +162,14 @@ export class ConfigListPage {
   }
 
   async removeConfigItemStatus(itemIndex: number, keyToRemove: string) {
-    const item = testdata[itemIndex];
-    const updatedStatus: IDictionary<string, ConfigItemStatusType> = { ...item.Status };
-  
+    const item = testdata[itemIndex]
+    const updatedStatus: IDictionary<string, ConfigItemStatusType> = {
+      ...item.Status,
+    }
+
     // Remove the specified key
-    delete updatedStatus[keyToRemove];
-  
+    delete updatedStatus[keyToRemove]
+
     const message: AppMessage = {
       key: "ConfigValuePartialUpdate",
       payload: {
@@ -164,16 +180,19 @@ export class ConfigListPage {
           },
         ],
       } as ConfigValuePartialUpdate,
-    };
-  
-    await this.mobiFlightPage.publishMessage(message);
+    }
+
+    await this.mobiFlightPage.publishMessage(message)
   }
 
-  getStatusIconInRow(status: ConfigItemStatusType, row: number) : Locator {
-    return this.mobiFlightPage.page.getByRole("row").nth(row).getByRole("status",{name: status})
+  getStatusIconInRow(status: ConfigItemStatusType, row: number): Locator {
+    return this.mobiFlightPage.page
+      .getByRole("row")
+      .nth(row)
+      .getByRole("status", { name: status })
   }
 
-  async updateExecutionState (executionState: ExecutionState) {
+  async updateExecutionState(executionState: ExecutionState) {
     const message: AppMessage = {
       key: "ExecutionState",
       payload: executionState,
@@ -181,10 +200,18 @@ export class ConfigListPage {
     await this.mobiFlightPage.publishMessage(message)
   }
 
-  async updateProjectState (projectStatus: ProjectStatus) {
+  async updateProjectState(projectStatus: ProjectStatus) {
     const message: AppMessage = {
       key: "ProjectStatus",
       payload: projectStatus,
+    }
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
+  async setOverlayState(state: OverlayState) {
+    const message: AppMessage = {
+      key: "OverlayState",
+      payload: state,
     }
     await this.mobiFlightPage.publishMessage(message)
   }

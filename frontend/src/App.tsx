@@ -11,7 +11,7 @@ import { useProjectStore } from "./stores/projectStore"
 import { MainMenu } from "./components/MainMenu"
 import { useSettingsStore } from "./stores/settingsStore"
 import { useControllerDefinitionsStore } from "./stores/definitionStore"
-import { JoystickDefinitions, MidiControllerDefinitions } from "./types/messages"
+import { JoystickDefinitions, MidiControllerDefinitions, OverlayState } from "./types/messages"
 import { useKeyAccelerators, GlobalKeyAccelerators } from "./lib/hooks/useKeyAccelerators"
 import LoaderOverlay from "./components/tables/config-item-table/LoaderOverlay"
 
@@ -72,9 +72,9 @@ function App() {
   })
 
   useAppMessage("OverlayState", (message) => {
-    const overlayStatus = message.payload as { Visible: boolean }
-    console.log("OverlayState message received", overlayStatus)
-    setOverlayVisible(overlayStatus.Visible)
+    const overlayState = message.payload as OverlayState
+    console.log("OverlayState message received", overlayState)
+    setOverlayVisible(overlayState.Visible)
   })
 
   // this allows to get beyond the startup screen
