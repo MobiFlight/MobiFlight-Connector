@@ -2,6 +2,9 @@
   "General" : {
     "Action" : {
       "OpenMenu": "Menü öffnen"
+    },
+    "Overlay": {
+      "OpeningWizard": "Öffne Wizard..."
     }
   },
   "Types": {
