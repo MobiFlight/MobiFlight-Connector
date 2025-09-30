@@ -8,12 +8,12 @@ export const toast = (props: ToastProps) => {
     const extendedButton = {
       ...button!,
       onClick: () => {
-        button?.onClick()
+        button!.onClick()
         sonnerToast.dismiss(id)
       },
 
       onCancel: () => {
-        button?.onCancel?.()
+        button!.onCancel?.()
         sonnerToast.dismiss(id)
       },
     }

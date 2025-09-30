@@ -470,7 +470,7 @@ test.describe('Filter toolbar tests', () => {
     await expect(searchTextBox).toHaveValue("")
   })
 
-  test("Confirm notification is displayed when new iteems are added while filter is active", async ({
+  test("Confirm notification is displayed when new items are added while filter is active", async ({
     configListPage,
     page,
   }) => {

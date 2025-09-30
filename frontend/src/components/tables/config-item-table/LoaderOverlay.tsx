@@ -24,7 +24,7 @@ const LoaderOverlay = (props: LoaderOverlayProps) => {
               onOpenChange(false)
             }}
           />
-          <DialogPrimitive.Content className="fixed left-[50%] top-[50%] z-51 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4">
+          <DialogPrimitive.Content className="fixed left-[50%] top-[50%] z-51 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 focus:outline-none">
             <div className="h-full w-full flex items-center justify-center flex-col gap-2">
               <LoaderIcon className="animate-spin text-background dark:text-foreground" />
               <p className="text-background dark:text-foreground">Showing wizard...</p>
