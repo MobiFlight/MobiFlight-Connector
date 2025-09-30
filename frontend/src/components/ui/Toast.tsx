@@ -2,7 +2,6 @@ import React from "react"
 import { Alert, AlertDescription, AlertTitle } from "./alert"
 import { Button } from "./button"
 import { ExternalToast } from "sonner"
-import { IconX } from "@tabler/icons-react"
 
 export interface ToastProps {
   description?: React.ReactNode
@@ -18,10 +17,9 @@ export interface ToastProps {
 
 export const Toast = ({ description, title, button }: ToastProps) => {
   return (
-    <Alert className="p-6 border-primary border-2 shadow-xl">
-      <AlertTitle className="text-lg flex flex-row justify-between items-center">
+    <Alert className="flex flex-col gap-1 p-4 pt-3 border-primary border-2 shadow-xl" onClick={button?.onCancel}>
+      <AlertTitle className="text-md flex flex-row justify-between items-center">
         {title}
-        <Button onClick={button!.onCancel} variant={"ghost"} className="p-2 py-2 h-8"><IconX /></Button>
       </AlertTitle>
       <AlertDescription className="flex flex-row gap-4 items-center">
         <div className="text-md text-muted-foreground">{description}</div>
@@ -29,7 +27,7 @@ export const Toast = ({ description, title, button }: ToastProps) => {
         {button && (
         <Button
           onClick={button.onClick}
-          className="mt-2 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600"
+          className="mt-2 rounded bg-blue-500 px-3 py-1 text-sm text-white hover:bg-blue-600 h-8"
         >
           {button.label}
         </Button>

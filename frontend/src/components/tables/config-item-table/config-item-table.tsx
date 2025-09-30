@@ -111,7 +111,7 @@ export function ConfigItemTable<TData, TValue>({
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
-  
+
   // the useCallback hook is necessary so that playwright tests work correctly
   const handleProjectMessage = useCallback(() => {
     console.log("Project message received, resetting filters")
@@ -120,7 +120,8 @@ export function ConfigItemTable<TData, TValue>({
 
   useAppMessage("Project", handleProjectMessage)
   useAppMessage("OverlayState", (message) => {
-    const isClosing = (message.payload as { Visible: boolean }).Visible === false
+    const isClosing =
+      (message.payload as { Visible: boolean }).Visible === false
     if (!isClosing) return
 
     if (showInvisibleToastOnDialogClose.current == null) return
@@ -128,37 +129,33 @@ export function ConfigItemTable<TData, TValue>({
     const lastGuid = showInvisibleToastOnDialogClose.current
     showInvisibleToastOnDialogClose.current = null
 
-
     toast({
-          title: t("ConfigList.Notification.NewConfigNotVisible.Message") ,
-          description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
-          id: "reset-filter",
-          options: {
-            duration: 5000
-          },
-          button: {
-            label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
-            onClick: () => {
-              table.resetColumnFilters()
-              setTimeout(() => {
-                const row = table
-                  .getRowModel()
-                  .rows.find((r) => r.id === lastGuid)
-                if (row) {
-                  const rowElement = tableRef.current?.querySelector(
-                    `[dnd-itemid="${lastGuid}"]`,
-                  )
-                  rowElement?.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center",
-                  })
-                  table.setRowSelection({ [row.id]: true })
-                }
-              }, 500)
-            },
-          },
-        })
-
+      title: t("ConfigList.Notification.NewConfigNotVisible.Message"),
+      description: t("ConfigList.Notification.NewConfigNotVisible.Description"),
+      id: "reset-filter",
+      options: {
+        duration: 5000,
+      },
+      button: {
+        label: t("ConfigList.Notification.NewConfigNotVisible.Action"),
+        onClick: () => {
+          table.resetColumnFilters()
+          setTimeout(() => {
+            const row = table.getRowModel().rows.find((r) => r.id === lastGuid)
+            if (row) {
+              const rowElement = tableRef.current?.querySelector(
+                `[dnd-itemid="${lastGuid}"]`,
+              )
+              rowElement?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              })
+              table.setRowSelection({ [row.id]: true })
+            }
+          }, 500)
+        },
+      },
+    })
   })
 
   useEffect(() => {
@@ -191,7 +188,7 @@ export function ConfigItemTable<TData, TValue>({
 
   const { t } = useTranslation()
   const [dragItem, setDragItem] = useState<Active | undefined>(undefined)
-  
+
   const sensors = useSensors(
     useSensor(MouseSensor, {}),
     useSensor(TouchSensor, {}),
@@ -340,7 +337,7 @@ export function ConfigItemTable<TData, TValue>({
             />
           </div>
           <Toaster
-            position="top-center"
+            position="bottom-right"
             theme={theme}
             className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
           />
