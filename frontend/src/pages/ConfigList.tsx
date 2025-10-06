@@ -85,7 +85,7 @@ const ConfigListPage = () => {
   // while developing the UI
   useEffect(() => {
     const configItems =
-      project?.ConfigFiles[activeConfigFileIndex].ConfigItems ?? []
+      project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
 
     if (
       process.env.NODE_ENV === "development" &&
@@ -102,7 +102,7 @@ const ConfigListPage = () => {
   })
 
   const configItems =
-    project?.ConfigFiles[activeConfigFileIndex].ConfigItems ?? []
+    project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
