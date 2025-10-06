@@ -1,7 +1,7 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
@@ -20,6 +20,8 @@ import {
   JoystickDefinition,
   MidiControllerDefinition,
 } from "@/types/definitions"
+import { DragDropProvider } from "@/components/providers/DragDropProvider"
+import { Table } from "@tanstack/react-table"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
@@ -104,8 +106,16 @@ const ConfigListPage = () => {
   const configItems =
     project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
 
+  // Create a ref to hold the table instance
+  const tableRef = useRef<Table<IConfigItem> | null>(null)
+
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
+      <DragDropProvider
+        table={tableRef.current}
+        data={configItems}
+        setItems={mySetItems}
+      >
       <ProjectPanel />
       {
         <div className="flex flex-col gap-4 overflow-y-auto">
@@ -114,9 +124,11 @@ const ConfigListPage = () => {
             columns={columns}
             data={configItems}
             setItems={mySetItems}
+            dataTableRef={tableRef} // Pass the ref to the table component
           />
         </div>
       }
+      </DragDropProvider>
     </div>
   )
 }

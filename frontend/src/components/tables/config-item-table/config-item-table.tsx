@@ -2,6 +2,7 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
+  Table as ReactTable,
   VisibilityState,
   getCoreRowModel,
   getFacetedRowModel,
@@ -13,23 +14,6 @@ import {
 
 import { Table } from "@/components/ui/table"
 
-import {
-  DndContext,
-  closestCenter,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-  MouseSensor,
-  TouchSensor,
-  DragStartEvent,
-  Active,
-} from "@dnd-kit/core"
-
-import {
-  restrictToParentElement,
-  restrictToVerticalAxis,
-} from "@dnd-kit/modifiers"
-
 import { useCallback, useEffect, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
@@ -38,14 +22,12 @@ import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import {
   CommandAddConfigItem,
   CommandConfigContextMenu,
-  CommandResortConfigItem,
 } from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
-import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { Toaster } from "@/components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
@@ -55,13 +37,15 @@ interface DataTableProps<TData, TValue> {
   data: TData[]
   setItems: (items: IConfigItem[]) => void
   configIndex: number
+  dragItemId?: string // Add this prop to receive drag state from parent
+  dataTableRef?: React.RefObject<ReactTable<TData> | null> // Add this prop
 }
 
 export function ConfigItemTable<TData, TValue>({
   columns,
   data,
-  setItems,
-  configIndex
+  dragItemId,
+  dataTableRef // Add this prop
 }: DataTableProps<TData, TValue>) {
   // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
   // eslint-disable-next-line react-hooks/react-compiler
@@ -164,6 +148,14 @@ export function ConfigItemTable<TData, TValue>({
     console.log("added item", addedItem.current)
   }, [addedItem])
 
+  // Expose the table instance to the parent via ref
+  useEffect(() => {
+    if (dataTableRef) {
+      // eslint-disable-next-line react-hooks/react-compiler
+      dataTableRef.current = table as ReactTable<TData>
+    }
+  }, [table, dataTableRef])
+
   useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {
       addedItem.current = false
@@ -194,84 +186,7 @@ export function ConfigItemTable<TData, TValue>({
   }, [publish, table, data])
 
   const { t } = useTranslation()
-  const [dragItem, setDragItem] = useState<Active | undefined>(undefined)
-
-  const sensors = useSensors(
-    useSensor(MouseSensor, {}),
-    useSensor(TouchSensor, {}),
-    // useSensor(KeyboardSensor, {}),
-  )
-
-  const handleDragStart = useCallback(
-    (event: DragStartEvent) => {
-      const { active } = event
-      setDragItem(active)
-
-      const draggedRow = table
-        .getRowModel()
-        .rows.find((row) => row.id === active.id)
-      if (!draggedRow) return
-      if (!draggedRow.getIsSelected()) {
-        table.setRowSelection({ [active.id]: true })
-      }
-    },
-    [setDragItem, table],
-  )
-
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event
-
-      setDragItem(undefined)
-
-      if (!over?.id || !active.id) return
-
-      // we didn't really move anything
-      if (active.id === over.id) return
-
-      // Get all selected row GUIDs, or just the dragged one if nothing selected
-      const selectedRows = table.getSelectedRowModel().rows
-      const selectedIds = selectedRows.map(
-        (row) => (row.original as IConfigItem).GUID,
-      )
-      const originalIndex = (data as IConfigItem[]).findIndex(
-        (item) => item.GUID === active.id,
-      )
-
-      // Remove dragged items from data
-      let newData = (data as IConfigItem[]).filter(
-        (item) => !selectedIds.includes(item.GUID),
-      )
-      // Find drop index
-      const newIndex = newData.findIndex((item) => item.GUID === over.id)
-
-      // we determine drag direction
-      const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
-
-      const draggedData = (data as IConfigItem[]).filter((item) =>
-        selectedIds.includes(item.GUID),
-      )
-
-      // Insert dragged items at drop index
-      newData = [
-        ...newData.slice(0, newIndex + dragDirectionOffset),
-        ...draggedData,
-        ...newData.slice(newIndex + dragDirectionOffset),
-      ]
-
-      setItems(newData)
-
-      publishOnMessageExchange().publish({
-        key: "CommandResortConfigItem",
-        payload: {
-          items: draggedData,
-          newIndex: newIndex + dragDirectionOffset,
-        },
-      } as CommandResortConfigItem)
-    },
-    [data, setItems, table],
-  )
-
+  
   const handleAddOutputConfig = useCallback(() => {
     addedItem.current = true
     publish({
@@ -349,17 +264,6 @@ export function ConfigItemTable<TData, TValue>({
             className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
           />
           {table.getRowModel().rows?.length ? (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              modifiers={[
-                snapToCursor,
-                restrictToVerticalAxis,
-                restrictToParentElement,
-              ]}
-              onDragEnd={handleDragEnd}
-              onDragStart={handleDragStart}
-            >
               <div
                 className="border-primary flex flex-col overflow-y-auto rounded-lg border"
                 ref={parentRef}
@@ -370,13 +274,13 @@ export function ConfigItemTable<TData, TValue>({
                   />
                   <ConfigItemTableBody
                     table={table}
-                    dragItemId={dragItem?.id as string}
+                    dragItemId={dragItemId}
+                    // configIndex={configIndex}
                     onDeleteSelected={deleteSelected}
                     onToggleSelected={toggleSelected}
                   />
                 </Table>
               </div>
-            </DndContext>
           ) : (
             <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
               <div className="bg-primary mb-4 h-12"></div>
