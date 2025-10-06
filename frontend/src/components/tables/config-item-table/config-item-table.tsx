@@ -54,12 +54,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   setItems: (items: IConfigItem[]) => void
+  configIndex: number
 }
 
 export function ConfigItemTable<TData, TValue>({
   columns,
   data,
   setItems,
+  configIndex
 }: DataTableProps<TData, TValue>) {
   // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
   // eslint-disable-next-line react-hooks/react-compiler

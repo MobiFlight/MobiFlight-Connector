@@ -544,5 +544,6 @@
       "ReferenceOnly": false
     }
   ],
-  "Name": "Test Project"
+  "Name": "Test Project",
+  "FilePath": "tests/data/project.testdata.json"
 }

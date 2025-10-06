@@ -7,8 +7,7 @@ import {
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
-import { useEffect, useState } from "react"
-import { useConfigStore } from "@/stores/configFileStore"
+import { useEffect } from "react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,10 +22,12 @@ const ProjectPanel = () => {
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
 
-  const { project } = useProjectStore()
-  const { setItems } = useConfigStore()
+  const { 
+    activeConfigFileIndex,
+    setActiveConfigFileIndex,
+    project 
+  } = useProjectStore()
 
-  const [activeConfigFile, setActiveConfigFile] = useState(0)
   const configFiles = project?.ConfigFiles ?? []
 
   useEffect(() => {
@@ -34,26 +35,25 @@ const ProjectPanel = () => {
 
     if (project.ConfigFiles === null || project.ConfigFiles.length === 0) return
 
-    if (activeConfigFile >= project.ConfigFiles.length) {
-      setActiveConfigFile(project.ConfigFiles.length - 1)
+    if (activeConfigFileIndex >= project.ConfigFiles.length) {
+      setActiveConfigFileIndex(project.ConfigFiles.length - 1)
       return
     }
 
-    setItems(project.ConfigFiles[activeConfigFile].ConfigItems ?? [])
-  }, [project, activeConfigFile, setItems])
+  }, [project, activeConfigFileIndex, setActiveConfigFileIndex])
 
   const selectActiveFile = (index: number) => {
-    setActiveConfigFile(index)
+    setActiveConfigFileIndex(index)
   }
 
   useEffect(() => {
     publishOnMessageExchange().publish({
       key: "CommandActiveConfigFile",
       payload: {
-        index: activeConfigFile,
+        index: activeConfigFileIndex,
       },
     })
-  }, [activeConfigFile])
+  }, [activeConfigFileIndex])
 
   const addConfigFile = () => {
     publishOnMessageExchange().publish({
@@ -63,7 +63,7 @@ const ProjectPanel = () => {
       },
     })
 
-    setTimeout(() => selectActiveFile(configFiles.length), 200)
+    setTimeout(() => setActiveConfigFileIndex(configFiles.length), 200)
   }
 
   const mergeConfigFile = () => {
@@ -74,7 +74,7 @@ const ProjectPanel = () => {
       },
     })
 
-    setTimeout(() => selectActiveFile(configFiles.length), 200)
+    setTimeout(() => setActiveConfigFileIndex(configFiles.length), 200)
   }
 
   return (
@@ -93,7 +93,7 @@ const ProjectPanel = () => {
           return (
             <FileButton
               key={index}
-              variant={index === activeConfigFile ? "tabActive" : "tabDefault"}
+              variant={index === activeConfigFileIndex ? "tabActive" : "tabDefault"}
               file={file}
               index={index}
               selectActiveFile={selectActiveFile}

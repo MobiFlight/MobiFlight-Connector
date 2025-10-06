@@ -1,4 +1,3 @@
-import { useConfigStore } from "@/stores/configFileStore"
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
@@ -17,30 +16,28 @@ import { useSearchParams } from "react-router"
 import ProjectPanel from "@/components/project/ProjectPanel"
 import { useProjectStore } from "@/stores/projectStore"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
-import { JoystickDefinition, MidiControllerDefinition } from "@/types/definitions"
+import {
+  JoystickDefinition,
+  MidiControllerDefinition,
+} from "@/types/definitions"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
 
   const {
-    items: configItems,
-    setItems,
-    updateItem,
-    updateItems,
-  } = useConfigStore()
-
-  const {
+    project,
+    activeConfigFileIndex,
     setProject,
-    setConfigItems
+    setConfigItems,
+    updateConfigItem,
+    updateConfigItems,
   } = useProjectStore()
 
-  const {
-    setJoystickDefinitions,
-    setMidiControllerDefinitions
-  } = useControllerDefinitionsStore()
+  const { setJoystickDefinitions, setMidiControllerDefinitions } =
+    useControllerDefinitionsStore()
 
   const mySetItems = (items: IConfigItem[]) => {
-    setItems(items)
+    setConfigItems(activeConfigFileIndex, items)
   }
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
@@ -48,10 +45,10 @@ const ConfigListPage = () => {
     const update = message.payload as ConfigValuePartialUpdate
     // better performance for single updates
     if (update.ConfigItems.length === 1) {
-      updateItem(update.ConfigItems[0], true)
+      updateConfigItem(activeConfigFileIndex, update.ConfigItems[0], true)
       return
     }
-    setItems(update.ConfigItems)
+    setConfigItems(activeConfigFileIndex, update.ConfigItems)
   })
 
   useAppMessage("ConfigValueRawAndFinalUpdate", (message) => {
@@ -62,6 +59,9 @@ const ConfigListPage = () => {
     const update = message.payload as ConfigValueRawAndFinalUpdate
     // update raw and final values for the store items
     const newItems = update.ConfigItems.map((newItem) => {
+      const configItems =
+        project?.ConfigFiles[activeConfigFileIndex].ConfigItems ?? []
+
       const item = configItems.find((i) => i.GUID === newItem.GUID)
       if (item === undefined) return newItem
 
@@ -72,7 +72,7 @@ const ConfigListPage = () => {
         Status: newItem.Status,
       }
     }) as IConfigItem[]
-    updateItems(newItems)
+    updateConfigItems(activeConfigFileIndex, newItems)
   })
 
   useAppMessage("ConfigValueFullUpdate", (message) => {
@@ -84,20 +84,25 @@ const ConfigListPage = () => {
   // this is only for easier UI testing
   // while developing the UI
   useEffect(() => {
+    const configItems =
+      project?.ConfigFiles[activeConfigFileIndex].ConfigItems ?? []
+
     if (
       process.env.NODE_ENV === "development" &&
       configItems.length === 0 &&
       queryParameters.get("testdata") === "true"
     ) {
       setProject(testProject as Project)
-      setJoystickDefinitions(
-        [testJsDefinition as JoystickDefinition])
+      setJoystickDefinitions([testJsDefinition as JoystickDefinition])
 
-      setMidiControllerDefinitions(
-        [testMidiDefinition as MidiControllerDefinition]
-      )
+      setMidiControllerDefinitions([
+        testMidiDefinition as MidiControllerDefinition,
+      ])
     }
   })
+
+  const configItems =
+    project?.ConfigFiles[activeConfigFileIndex].ConfigItems ?? []
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
@@ -105,6 +110,7 @@ const ConfigListPage = () => {
       {
         <div className="flex flex-col gap-4 overflow-y-auto">
           <ConfigItemTable
+            configIndex={activeConfigFileIndex}
             columns={columns}
             data={configItems}
             setItems={mySetItems}
