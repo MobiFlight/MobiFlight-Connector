@@ -1,5 +1,4 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
 import { useEffect, useRef } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
@@ -13,7 +12,6 @@ import testJsDefinition from "@/../tests/data/joystick.definition.json" with { t
 import testMidiDefinition from "@/../tests/data/midicontroller.definition.json" with { type: "json" }
 import { IConfigItem, Project } from "@/types"
 import { useSearchParams } from "react-router"
-import ProjectPanel from "@/components/project/ProjectPanel"
 import { useProjectStore } from "@/stores/projectStore"
 import { useControllerDefinitionsStore } from "@/stores/definitionStore"
 import {
@@ -22,6 +20,7 @@ import {
 } from "@/types/definitions"
 import { DragDropProvider } from "@/components/providers/DragDropProvider"
 import { Table } from "@tanstack/react-table"
+import { ConfigTableWrapper } from "@/components/tables/config-item-table/items/ConfigTableWrapper"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
@@ -116,18 +115,13 @@ const ConfigListPage = () => {
         data={configItems}
         setItems={mySetItems}
       >
-      <ProjectPanel />
-      {
-        <div className="flex flex-col gap-4 overflow-y-auto">
-          <ConfigItemTable
-            configIndex={activeConfigFileIndex}
-            columns={columns}
-            data={configItems}
-            setItems={mySetItems}
-            dataTableRef={tableRef} // Pass the ref to the table component
-          />
-        </div>
-      }
+        <ConfigTableWrapper
+          activeConfigFileIndex={activeConfigFileIndex}
+          configItems={configItems}
+          mySetItems={mySetItems}
+          tableRef={tableRef}
+          columns={columns}
+        />
       </DragDropProvider>
     </div>
   )
