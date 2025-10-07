@@ -15,6 +15,7 @@ import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandResortConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
+import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
 
 /**
  * The drag state that persists throughout the entire drag operation
@@ -273,6 +274,7 @@ export function ConfigItemDragProvider({
         onDragEnd={handleDragEnd}                  // What happens when drag ends
       >
         {children}
+        <ConfigItemDragOverlay />
       </DndContext>
     </ConfigItemDragContext.Provider>
   )
