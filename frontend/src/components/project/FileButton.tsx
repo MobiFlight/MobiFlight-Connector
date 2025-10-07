@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
+import { useDragDropContext } from "../providers/DragDropProvider"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -37,6 +38,13 @@ const FileButton = ({
   const { publish } = publishOnMessageExchange()
   const [ label, setLabel ] = useState(file.Label ?? file.FileName)
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
+
+  // Hover timer ref
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  // Get drag state from context
+  const { dragItemId } = useDragDropContext()
+  const isDragging = dragItemId !== null
 
   useEffect(() => {
     setLabel(file.Label ?? file.FileName)
@@ -59,8 +67,29 @@ const FileButton = ({
   }
   const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary group-hover:text-primary-foreground" : "group-hover:bg-accent group-hover:text-accent-foreground"
 
+  const onTabMouseEnter = () => {
+    if(!isDragging) return
+    // Start timer to switch tabs after 800ms hover
+    hoverTimeoutRef.current = setTimeout(() => {
+      onSelectActiveFile(index)
+    }, 800)
+  }  
+
+  const onTabMouseLeave = () => {
+    if(!hoverTimeoutRef.current) return
+
+    clearTimeout(hoverTimeoutRef.current)
+    hoverTimeoutRef.current = null
+  }
+    
+
+
   return (
-    <div className="flex justify-center group" role="tab">
+    <div className="flex justify-center group" 
+         role="tab"
+         onMouseEnter={onTabMouseEnter}
+         onMouseLeave={onTabMouseLeave}
+         >
       <Button
         variant={variant}
         value={file.FileName}
