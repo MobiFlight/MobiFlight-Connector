@@ -30,13 +30,11 @@ import { IconX } from "@tabler/icons-react"
 import { Toaster } from "@/components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
-import { useDragDropContext } from "@/components/providers/DragDropProvider"
+import { useConfigItemDragContext } from "@/components/providers/DragDropProvider"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  setItems: (items: TData[]) => void
-  configIndex: number
   dragItemId?: string // Add this prop to receive drag state from parent
 }
 
@@ -96,6 +94,15 @@ export function ConfigItemTable<TValue>({
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
 
+  const { setTable } = useConfigItemDragContext()
+  // Register this table with the drag context
+  useEffect(() => {
+    setTable(table)
+    
+    // Clean up when component unmounts
+    return () => setTable(null)
+  }, [table, setTable])
+
   // the useCallback hook is necessary so that playwright tests work correctly
   const handleProjectMessage = useCallback(() => {
     console.log("Project message received, resetting filters")
@@ -145,13 +152,6 @@ export function ConfigItemTable<TValue>({
   useEffect(() => {
     console.log("added item", addedItem.current)
   }, [addedItem])
-
-  const { setTable } = useDragDropContext()
-
-  // Update context table whenever it changes
-  useEffect(() => {
-    setTable(table)
-  }, [setTable, table])
 
   useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {
@@ -272,7 +272,6 @@ export function ConfigItemTable<TValue>({
                   <ConfigItemTableBody
                     table={table}
                     dragItemId={dragItemId}
-                    // configIndex={configIndex}
                     onDeleteSelected={deleteSelected}
                     onToggleSelected={toggleSelected}
                   />

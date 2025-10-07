@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
-import { useDragDropContext } from "../providers/DragDropProvider"
+import { useConfigItemDragContext } from "../providers/DragDropProvider"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
@@ -43,8 +43,8 @@ const FileButton = ({
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   // Get drag state from context
-  const { dragItemId } = useDragDropContext()
-  const isDragging = dragItemId !== null
+  const { dragState } = useConfigItemDragContext()
+  const isDragging = dragState?.isDragging ?? false
 
   useEffect(() => {
     setLabel(file.Label ?? file.FileName)

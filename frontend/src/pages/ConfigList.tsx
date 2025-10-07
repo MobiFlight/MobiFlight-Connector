@@ -18,8 +18,9 @@ import {
   JoystickDefinition,
   MidiControllerDefinition,
 } from "@/types/definitions"
-import { DragDropProvider } from "@/components/providers/DragDropProvider"
-import { ConfigTableWrapper } from "@/components/tables/config-item-table/items/ConfigTableWrapper"
+import { ConfigItemDragProvider } from "@/components/providers/DragDropProvider"
+import ProjectPanel from "@/components/project/ProjectPanel"
+import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 
 const ConfigListPage = () => {
   const [queryParameters] = useSearchParams()
@@ -106,18 +107,18 @@ const ConfigListPage = () => {
 
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
-      <DragDropProvider
-        data={configItems}
+      <ConfigItemDragProvider
+        currentConfigIndex={activeConfigFileIndex}
         setItems={mySetItems}
-        configIndex={activeConfigFileIndex}
       >
-        <ConfigTableWrapper
-          activeConfigFileIndex={activeConfigFileIndex}
-          configItems={configItems}
-          mySetItems={mySetItems}
+        <ProjectPanel />
+      <div className="flex flex-col gap-4 overflow-y-auto">
+        <ConfigItemTable
           columns={columns}
+          data={configItems}
         />
-      </DragDropProvider>
+      </div>
+      </ConfigItemDragProvider>
     </div>
   )
 }
