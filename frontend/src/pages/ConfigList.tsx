@@ -1,6 +1,6 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
@@ -105,11 +105,17 @@ const ConfigListPage = () => {
   const configItems =
     project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
 
+  // Function to get config items from project store
+  const getConfigItems = useCallback((configIndex: number): IConfigItem[] => {
+    return project?.ConfigFiles[configIndex]?.ConfigItems ?? []
+  }, [project])
+
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
       <ConfigItemDragProvider
         currentConfigIndex={activeConfigFileIndex}
-        setItems={mySetItems}
+        updateConfigItems={setConfigItems}
+        getConfigItems={getConfigItems}
       >
         <ProjectPanel />
       <div className="flex flex-col gap-4 overflow-y-auto">
