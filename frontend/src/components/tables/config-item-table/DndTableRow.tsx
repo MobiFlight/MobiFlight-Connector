@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { useSortable } from "@dnd-kit/sortable"
 import React, { CSSProperties } from "react"
 import { CSS } from "@dnd-kit/utilities"
-import { useConfigItemDragContext } from "@/components/providers/DragDropProvider"
+import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 
 interface DndTableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
   "dnd-itemid": string

@@ -1,5 +1,5 @@
-import { DragOverlay as DndKitDragOverlay } from "@dnd-kit/core"
-import { useConfigItemDragContext } from "@/components/providers/DragDropProvider"
+import { DragOverlay } from "@dnd-kit/core"
+import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemTableDragOverlay from "./ConfigItemTableDragOverlay"
 import ConfigItemTabDragOverlay from "./ConfigItemTabDragOverlay"
 import { cn } from "@/lib/utils"
@@ -17,7 +17,7 @@ export function ConfigItemDragOverlay() {
   console.log(`🛟 Rendering DragOverlay - isDragging: ${dragState.isDragging}, itemCount: ${itemCount}, isInsideTable: ${isInsideTable}`)
 
   return isDraggingWithItems && (
-    <DndKitDragOverlay>
+    <DragOverlay className="cursor-grabbing">
       <div>
         <ConfigItemTableDragOverlay
           className={cn(
@@ -35,6 +35,6 @@ export function ConfigItemDragOverlay() {
           items={dragState.draggedItems}
         />
       </div>
-    </DndKitDragOverlay>
+    </DragOverlay>
   )
 }

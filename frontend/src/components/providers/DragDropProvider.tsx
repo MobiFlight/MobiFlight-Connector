@@ -1,14 +1,14 @@
-import React, { createContext, useContext, useCallback, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { 
   DndContext, 
   DragStartEvent, 
-  DragEndEvent, 
-  closestCenter, 
+  DragEndEvent,
   useSensors, 
   useSensor, 
   MouseSensor, 
   TouchSensor, 
-  DragMoveEvent
+  DragMoveEvent,
+  pointerWithin
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -17,12 +17,14 @@ import { CommandResortConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
+import { ConfigItemDragContext } from "./ConfigItemContext"
 
 /**
  * The drag state that persists throughout the entire drag operation
  * This data survives tab switches and component re-renders
  */
-interface DragState {
+export interface DragState {
+  dragItem: IConfigItem | null
   draggedItems: IConfigItem[]    // The actual items being dragged (full objects)
   sourceConfigIndex: number      // Which config file the drag started from
   isDragging: boolean            // Whether a drag is currently active
@@ -32,25 +34,12 @@ interface DragState {
 /**
  * Context interface - what components can access via useConfigItemDragContext()
  */
-interface ConfigItemDragContextType {
+export interface ConfigItemDragContextType {
   dragState: DragState | null
   table: Table<IConfigItem> | null                       
   setTable: (table: Table<IConfigItem> | null) => void
   setTableContainerRef: (element: Element | null) => void
 }
-
-// Create the React context with default values
-const ConfigItemDragContext = createContext<ConfigItemDragContextType>({
-  dragState: null,
-  table: null,
-  setTable: () => {},
-  setTableContainerRef: () => {}
-})
-
-/**
- * Hook for components to access the drag context
- */
-export const useConfigItemDragContext = () => useContext(ConfigItemDragContext)
 
 /**
  * Props for the drag provider component
@@ -123,10 +112,13 @@ export function ConfigItemDragProvider({
       draggedItems = [draggedRow.original]
     }
 
+    const dragItem = draggedRow ? draggedRow.original : null
+
     // Create drag state that will persist throughout the operation
     const newDragState: DragState = {
-      draggedItems,                           // The actual item objects (not just IDs)
-      sourceConfigIndex: currentConfigIndex,  // Remember where we started
+      dragItem: dragItem,
+      draggedItems: draggedItems,
+      sourceConfigIndex: currentConfigIndex,
       isDragging: true,
       isInsideTable: true,
     }
@@ -276,7 +268,8 @@ export function ConfigItemDragProvider({
     const containerRect = tableContainerRef.getBoundingClientRect()
     const isInsideTable = currentX >= containerRect.left && 
                      currentX <= containerRect.right && 
-                     currentY >= containerRect.top
+                     currentY >= containerRect.top &&
+                     currentY <= containerRect.bottom
 
 
     // console.log("📦 Table container bounds:", containerRect)
@@ -307,7 +300,7 @@ export function ConfigItemDragProvider({
       return [snapToCursor]
     } else {
       // Inside container: restrict to vertical for row reordering
-      return [restrictToVerticalAxis]
+      return [snapToCursor, restrictToVerticalAxis]
     }
   }
 
@@ -317,7 +310,7 @@ export function ConfigItemDragProvider({
       {/* The actual DnD functionality wrapper */}
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCenter}
+        collisionDetection={pointerWithin}
         modifiers={getModifiers()}
         onDragStart={handleDragStart}
         onDragMove={handleDragMove}

@@ -19,7 +19,7 @@ import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
-import { useConfigItemDragContext } from "../providers/DragDropProvider"
+import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 
 export interface FileButtonProps extends VariantProps<typeof buttonVariants> {
   file: ConfigFile
