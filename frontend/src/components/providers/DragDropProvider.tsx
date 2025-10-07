@@ -19,18 +19,21 @@ interface DragDropProviderProps {
   table: Table<IConfigItem> | null
   data: IConfigItem[]
   setItems: (items: IConfigItem[]) => void
+  configIndex: number
 }
 
 export function DragDropProvider({ 
   children, 
   table, 
   data, 
-  setItems 
+  setItems,
+  configIndex
 }: DragDropProviderProps) {
   const { dragItem, dndContextProps } = useConfigItemDragDrop({
     table: table,
     data,
-    setItems
+    setItems,
+    configIndex
   })
 
   return (

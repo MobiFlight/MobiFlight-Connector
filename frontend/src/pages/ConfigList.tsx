@@ -114,6 +114,7 @@ const ConfigListPage = () => {
         table={tableRef.current}
         data={configItems}
         setItems={mySetItems}
+        configIndex={activeConfigFileIndex}
       >
         <ConfigTableWrapper
           activeConfigFileIndex={activeConfigFileIndex}

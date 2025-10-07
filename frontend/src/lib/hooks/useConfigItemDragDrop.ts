@@ -8,6 +8,7 @@ import {
   TouchSensor,
   DragStartEvent,
   Active,
+  DataRef,
 } from "@dnd-kit/core"
 import {
   restrictToParentElement,
@@ -23,9 +24,15 @@ interface UseConfigItemDragDropProps<TData> {
   table: Table<TData> | null
   data: TData[]
   setItems: (items: TData[]) => void
+  configIndex: number
 }
 
-export function useConfigItemDragDrop({ table, data, setItems }: UseConfigItemDragDropProps<IConfigItem>) {
+export function useConfigItemDragDrop<TData>({
+  table,
+  data,
+  setItems,
+  configIndex,
+}: UseConfigItemDragDropProps<TData>) {
   const [dragItem, setDragItem] = useState<Active | undefined>(undefined)
 
   const sensors = useSensors(
@@ -36,7 +43,20 @@ export function useConfigItemDragDrop({ table, data, setItems }: UseConfigItemDr
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
       const { active } = event
-      setDragItem(active)
+
+      // Store the source config index in the drag data
+      const enhancedActive = {
+        ...active,
+        data: {
+          ...active.data,
+          current: {
+            ...active.data.current,
+            sourceConfigIndex: configIndex,
+          },
+        },
+      }
+
+      setDragItem(enhancedActive)
 
       if (!table) return
 
@@ -48,6 +68,40 @@ export function useConfigItemDragDrop({ table, data, setItems }: UseConfigItemDr
         table.setRowSelection({ [active.id]: true })
       }
     },
+    [table, configIndex],
+  )
+
+  const handleCrossConfigDrop = useCallback(
+    (
+      active: Active,
+      over: { id: string | number; data: DataRef<TData> },
+      sourceConfigIndex: number,
+      targetConfigIndex: number,
+    ) => {
+      if (!table) return
+
+      const selectedRows = table.getSelectedRowModel().rows
+      const draggedItems = selectedRows.map(
+        (row) => row.original as IConfigItem,
+      )
+
+      console.log("Cross-config drop:", {
+        draggedItems,
+        sourceConfigIndex,
+        targetConfigIndex,
+      })
+
+      // Publish command to move items between configs
+      publishOnMessageExchange().publish({
+        key: "CommandResortConfigItem",
+        payload: {
+          items: draggedItems,
+          newIndex: 0, // always add to the top of the target config
+          sourceFileIndex: sourceConfigIndex,
+          targetFileIndex: targetConfigIndex,
+        },
+      })
+    },
     [table],
   )
 
@@ -56,8 +110,30 @@ export function useConfigItemDragDrop({ table, data, setItems }: UseConfigItemDr
       const { active, over } = event
 
       setDragItem(undefined)
-      
+
       if (!over?.id || !active.id || !table) return
+
+      // Get source and target config indices
+      const sourceConfigIndex =
+        active.data.current?.sourceConfigIndex ?? configIndex
+      const targetConfigIndex = over.data.current?.configIndex ?? configIndex
+
+      console.log("Drag end:", {
+        sourceConfigIndex,
+        targetConfigIndex,
+        overId: over.id,
+      })
+
+      // Handle cross-config drops
+      if (sourceConfigIndex !== targetConfigIndex) {
+        handleCrossConfigDrop(
+          active,
+          over,
+          sourceConfigIndex,
+          targetConfigIndex,
+        )
+        return
+      }
 
       // we didn't really move anything
       if (active.id === over.id) return
@@ -102,7 +178,7 @@ export function useConfigItemDragDrop({ table, data, setItems }: UseConfigItemDr
         },
       } as CommandResortConfigItem)
     },
-    [data, setItems, table],
+    [data, setItems, table, configIndex, handleCrossConfigDrop],
   )
 
   return {
@@ -116,10 +192,10 @@ export function useConfigItemDragDrop({ table, data, setItems }: UseConfigItemDr
       modifiers: [
         snapToCursor,
         restrictToVerticalAxis,
-        restrictToParentElement,
+        // restrictToParentElement,
       ],
       onDragEnd: handleDragEnd,
       onDragStart: handleDragStart,
-    }
+    },
   }
 }
