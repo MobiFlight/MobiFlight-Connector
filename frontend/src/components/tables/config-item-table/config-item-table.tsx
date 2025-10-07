@@ -90,6 +90,7 @@ export function ConfigItemTable<TValue>({
 
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
+  const tableBodyRef = useRef<HTMLTableSectionElement>(null)
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
@@ -108,9 +109,9 @@ export function ConfigItemTable<TValue>({
   //
   // This way it is guaranteed that the ref
   // is set before we use it in the DragDropProvider
-  const handleParentRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      parentRef.current = node
+  const handleTableBodyRef = useCallback(
+    (node: HTMLTableSectionElement | null) => {
+      tableBodyRef.current = node
       if (node) {
         setTableContainerRef(node)
       }
@@ -278,11 +279,12 @@ export function ConfigItemTable<TValue>({
           {table.getRowModel().rows?.length ? (
             <div
               className="border-primary flex flex-col overflow-y-auto rounded-lg border"
-              ref={handleParentRef}
+              ref={parentRef}
             >
               <Table ref={tableRef} className="table-fixed">
                 <ConfigItemTableHeader headerGroups={table.getHeaderGroups()} />
                 <ConfigItemTableBody
+                  ref={handleTableBodyRef}
                   table={table}
                   dragItemId={dragItemId}
                   onDeleteSelected={deleteSelected}

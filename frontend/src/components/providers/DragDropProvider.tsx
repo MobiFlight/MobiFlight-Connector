@@ -265,7 +265,6 @@ export function ConfigItemDragProvider({
   }, [dragState, currentConfigIndex, updateConfigItems, getConfigItems])
 
   const handleDragMove = useCallback((event: DragMoveEvent) => {
-    console.log("🔄 Drag move - Cursor inside table?", dragState, tableContainerRef)
     if (!dragState || !tableContainerRef) return
     
     // Get the current mouse position
@@ -279,7 +278,7 @@ export function ConfigItemDragProvider({
                      currentX <= containerRect.right && 
                      currentY >= containerRect.top && 
                      currentY <= containerRect.bottom
-    console.log("🔄 Drag move - Cursor inside table?", isInsideTable)
+    
     // Update drag state if boundary crossed
     if (isInsideTable !== dragState.isInsideTable) {
       setDragState(prev => prev ? {

@@ -2,6 +2,7 @@ import { DragOverlay as DndKitDragOverlay } from "@dnd-kit/core"
 import { useConfigItemDragContext } from "@/components/providers/DragDropProvider"
 import ConfigItemTableDragOverlay from "./ConfigItemTableDragOverlay"
 import ConfigItemTabDragOverlay from "./ConfigItemTabDragOverlay"
+import { cn } from "@/lib/utils"
 
 export function ConfigItemDragOverlay() {
   const { dragState: rawDragState } = useConfigItemDragContext()
@@ -17,14 +18,23 @@ export function ConfigItemDragOverlay() {
 
   return isDraggingWithItems && (
     <DndKitDragOverlay>
-      {isInsideTable ? (
+      <div>
         <ConfigItemTableDragOverlay
+          className={cn(
+            "transition-all duration-50 ease-in-out",
+            !isInsideTable ? "opacity-0 w-0" : "opacity-100 w-full",
+          )}
           firstItem={firstItem}
           itemCount={itemCount}
         />
-      ) : (
-        <ConfigItemTabDragOverlay items={dragState.draggedItems} />
-      )}
+        <ConfigItemTabDragOverlay
+          className={cn(
+            "transition-all duration-300 ease-in-out",
+            isInsideTable ? "opacity-0 h-0 w-0" : "opacity-100",
+          )}
+          items={dragState.draggedItems}
+        />
+      </div>
     </DndKitDragOverlay>
   )
 }
