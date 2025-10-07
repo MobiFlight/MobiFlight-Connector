@@ -38,8 +38,6 @@ export const useProjectStore = create<ProjectState>((set) => ({
             : file,
         ),
       }
-
-      console.log("Set config items at index", index, items)
       return { project: newProject }
     }),
 

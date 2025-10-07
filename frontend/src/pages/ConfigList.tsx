@@ -37,10 +37,6 @@ const ConfigListPage = () => {
   const { setJoystickDefinitions, setMidiControllerDefinitions } =
     useControllerDefinitionsStore()
 
-  const mySetItems = (items: IConfigItem[]) => {
-    setConfigItems(activeConfigFileIndex, items)
-  }
-
   useAppMessage("ConfigValuePartialUpdate", (message) => {
     console.log("ConfigValuePartialUpdate", message.payload)
     const update = message.payload as ConfigValuePartialUpdate

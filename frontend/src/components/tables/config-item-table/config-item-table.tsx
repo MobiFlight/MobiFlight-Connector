@@ -41,7 +41,7 @@ interface DataTableProps<TData, TValue> {
 export function ConfigItemTable<TValue>({
   columns,
   data,
-  dragItemId
+  dragItemId,
 }: DataTableProps<IConfigItem, TValue>) {
   // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
   // eslint-disable-next-line react-hooks/react-compiler
@@ -94,14 +94,29 @@ export function ConfigItemTable<TValue>({
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
 
-  const { setTable } = useConfigItemDragContext()
+  const { setTable, setTableContainerRef } = useConfigItemDragContext()
   // Register this table with the drag context
   useEffect(() => {
     setTable(table)
-    
+
     // Clean up when component unmounts
     return () => setTable(null)
   }, [table, setTable])
+
+  // We need this indirection just so that
+  // we can store the ref in our Context correctly
+  //
+  // This way it is guaranteed that the ref
+  // is set before we use it in the DragDropProvider
+  const handleParentRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      parentRef.current = node
+      if (node) {
+        setTableContainerRef(node)
+      }
+    },
+    [setTableContainerRef],
+  )
 
   // the useCallback hook is necessary so that playwright tests work correctly
   const handleProjectMessage = useCallback(() => {
@@ -167,10 +182,10 @@ export function ConfigItemTable<TValue>({
           table.setRowSelection({ [row.id]: true })
         }
       } else {
-        // If the newly added item's row element is not found, 
+        // If the newly added item's row element is not found,
         // it means the item is not visible due to active filters.
-        // Store its GUID so that when the dialog closes, 
-        // we can show a toast notification to inform the user 
+        // Store its GUID so that when the dialog closes,
+        // we can show a toast notification to inform the user
         // and offer to reset the filters.
         showInvisibleToastOnDialogClose.current = lastItem.GUID
       }
@@ -183,7 +198,7 @@ export function ConfigItemTable<TValue>({
   }, [publish, table, data])
 
   const { t } = useTranslation()
-  
+
   const handleAddOutputConfig = useCallback(() => {
     addedItem.current = true
     publish({
@@ -261,22 +276,20 @@ export function ConfigItemTable<TValue>({
             className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
           />
           {table.getRowModel().rows?.length ? (
-              <div
-                className="border-primary flex flex-col overflow-y-auto rounded-lg border"
-                ref={parentRef}
-              >
-                <Table ref={tableRef} className="table-fixed">
-                  <ConfigItemTableHeader
-                    headerGroups={table.getHeaderGroups()}
-                  />
-                  <ConfigItemTableBody
-                    table={table}
-                    dragItemId={dragItemId}
-                    onDeleteSelected={deleteSelected}
-                    onToggleSelected={toggleSelected}
-                  />
-                </Table>
-              </div>
+            <div
+              className="border-primary flex flex-col overflow-y-auto rounded-lg border"
+              ref={handleParentRef}
+            >
+              <Table ref={tableRef} className="table-fixed">
+                <ConfigItemTableHeader headerGroups={table.getHeaderGroups()} />
+                <ConfigItemTableBody
+                  table={table}
+                  dragItemId={dragItemId}
+                  onDeleteSelected={deleteSelected}
+                  onToggleSelected={toggleSelected}
+                />
+              </Table>
+            </div>
           ) : (
             <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
               <div className="bg-primary mb-4 h-12"></div>

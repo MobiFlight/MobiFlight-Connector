@@ -7,7 +7,8 @@ import {
   useSensors, 
   useSensor, 
   MouseSensor, 
-  TouchSensor 
+  TouchSensor, 
+  DragMoveEvent
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -25,22 +26,25 @@ interface DragState {
   draggedItems: IConfigItem[]    // The actual items being dragged (full objects)
   sourceConfigIndex: number      // Which config file the drag started from
   isDragging: boolean            // Whether a drag is currently active
+  isInsideTable: boolean      // Whether the drag is currently over a valid table
 }
 
 /**
  * Context interface - what components can access via useConfigItemDragContext()
  */
 interface ConfigItemDragContextType {
-  dragState: DragState | null                            
+  dragState: DragState | null
   table: Table<IConfigItem> | null                       
-  setTable: (table: Table<IConfigItem> | null) => void   
+  setTable: (table: Table<IConfigItem> | null) => void
+  setTableContainerRef: (element: Element | null) => void
 }
 
 // Create the React context with default values
 const ConfigItemDragContext = createContext<ConfigItemDragContextType>({
   dragState: null,
   table: null,
-  setTable: () => {}
+  setTable: () => {},
+  setTableContainerRef: () => {}
 })
 
 /**
@@ -79,11 +83,18 @@ export function ConfigItemDragProvider({
   // State: Current drag operation (null when not dragging)
   const [dragState, setDragState] = useState<DragState | null>(null)
 
+  const [tableContainerRef, setTableContainerRefInternal] = useState<Element | null>(null)
+
   // Configure what input methods can trigger drag operations
   const sensors = useSensors(
     useSensor(MouseSensor, {}),     // Mouse drag support
     useSensor(TouchSensor, {})      // Touch drag support for mobile
   )
+
+  const setTableContainerRef = useCallback((element: Element | null) => {
+    console.log("🔧 setTableContainerRef called with:", element)
+    setTableContainerRefInternal(element)
+  }, [])
 
   /**
    * Called when user starts dragging an item
@@ -116,7 +127,8 @@ export function ConfigItemDragProvider({
     const newDragState: DragState = {
       draggedItems,                           // The actual item objects (not just IDs)
       sourceConfigIndex: currentConfigIndex,  // Remember where we started
-      isDragging: true
+      isDragging: true,
+      isInsideTable: true,
     }
 
     setDragState(newDragState)
@@ -168,7 +180,7 @@ export function ConfigItemDragProvider({
       targetConfig: targetConfigIndex,
       dropTargetItem: dropTargetItemId,
       draggedCount: currentDragState.draggedItems.length
-    })
+    })    
 
     // **Key insight: Universal move strategy**
     // 1. Remove items from source config
@@ -252,11 +264,48 @@ export function ConfigItemDragProvider({
 
   }, [dragState, currentConfigIndex, updateConfigItems, getConfigItems])
 
+  const handleDragMove = useCallback((event: DragMoveEvent) => {
+    console.log("🔄 Drag move - Cursor inside table?", dragState, tableContainerRef)
+    if (!dragState || !tableContainerRef) return
+    
+    // Get the current mouse position
+    const { x, y } = event.activatorEvent as MouseEvent
+    const currentX = event.delta.x + x
+    const currentY = event.delta.y + y
+
+    // Check if cursor is outside the table container
+    const containerRect = tableContainerRef.getBoundingClientRect()
+    const isInsideTable = currentX >= containerRect.left && 
+                     currentX <= containerRect.right && 
+                     currentY >= containerRect.top && 
+                     currentY <= containerRect.bottom
+    console.log("🔄 Drag move - Cursor inside table?", isInsideTable)
+    // Update drag state if boundary crossed
+    if (isInsideTable !== dragState.isInsideTable) {
+      setDragState(prev => prev ? {
+        ...prev,
+        isInsideTable: isInsideTable
+      } : null)
+    }
+  }, [dragState, tableContainerRef])
+
   // Context value that child components can access
   const contextValue: ConfigItemDragContextType = {
     dragState,    // Current drag operation state (null when not dragging)
     table,        // Current table instance
-    setTable      // Function for table to register itself
+    setTable,      // Function for table to register itself,
+    setTableContainerRef, // Function for table to register its container element
+  }
+
+  // Dynamic modifiers based on drag state
+  const getModifiers = () => {
+    if (!(dragState?.isInsideTable ?? true)) {
+      // Outside container: free movement for cross-tab dragging
+      return [snapToCursor]
+    } else {
+      // Inside container: restrict to vertical for row reordering
+      return [restrictToVerticalAxis]
+    }
   }
 
   return (
@@ -264,14 +313,12 @@ export function ConfigItemDragProvider({
     <ConfigItemDragContext.Provider value={contextValue}>
       {/* The actual DnD functionality wrapper */}
       <DndContext
-        sensors={sensors}                           // How drag is triggered
-        collisionDetection={closestCenter}         // How drop targets are detected
-        modifiers={[                               // How drag behavior is modified
-          snapToCursor,                            // Drag preview follows cursor
-          restrictToVerticalAxis                   // Only allow vertical dragging
-        ]}
-        onDragStart={handleDragStart}              // What happens when drag starts
-        onDragEnd={handleDragEnd}                  // What happens when drag ends
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        modifiers={getModifiers()}
+        onDragStart={handleDragStart}
+        onDragMove={handleDragMove}
+        onDragEnd={handleDragEnd}
       >
         {children}
         <ConfigItemDragOverlay />
