@@ -26,7 +26,9 @@ export const DndTableRow : React.FC<DndTableRowProps> = (({ className, ...props 
 
   const isDragging = dragState?.draggedItems.map(item => item.GUID).includes(props["dnd-itemid"]) ?? false
   const isActive = active?.id === props["dnd-itemid"]
-  const dragStyle = isDragging ? ( isActive ? "opacity-0" : "opacity-0 block h-0 border-0" ) : ""
+  const isInTable = dragState?.isInsideTable ?? true
+  const dragStyle = isDragging ? ( isActive ? "opacity-0" : "opacity-0 collapse" ) : ""
+  const outsideTableStyle = !isInTable && isDragging ? "opacity-0 collapse" : ""
 
   return (
     <tr
@@ -35,6 +37,7 @@ export const DndTableRow : React.FC<DndTableRowProps> = (({ className, ...props 
       className={cn(
         "group/row border-b transition-colors hover:bg-selected data-[state=selected]:bg-selected/30 data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected/40 dark:data-[state=selected]:hover:bg-selected",
         dragStyle,
+        outsideTableStyle,
         className
       )}
       {...props}

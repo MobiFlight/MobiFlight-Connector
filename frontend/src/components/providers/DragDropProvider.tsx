@@ -276,8 +276,12 @@ export function ConfigItemDragProvider({
     const containerRect = tableContainerRef.getBoundingClientRect()
     const isInsideTable = currentX >= containerRect.left && 
                      currentX <= containerRect.right && 
-                     currentY >= containerRect.top && 
-                     currentY <= containerRect.bottom
+                     currentY >= containerRect.top
+
+
+    // console.log("📦 Table container bounds:", containerRect)
+    // console.log("  Current Mouse Position:", { currentX, currentY })
+    // console.log("  Current Offset", { x: event.delta.x, y: event.delta.y })
     
     // Update drag state if boundary crossed
     if (isInsideTable !== dragState.isInsideTable) {
