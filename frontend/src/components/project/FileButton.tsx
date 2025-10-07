@@ -92,7 +92,7 @@ const FileButton = ({
          >
       <Button
         variant={variant}
-        value={file.FileName}
+        value={file.FileName || ""}
         className={cn(groupHoverStyle, "rounded-r-none border-r-0 rounded-b-none border-b-0")}
         onClick={() => onSelectActiveFile(index)}
       >

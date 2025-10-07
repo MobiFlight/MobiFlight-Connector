@@ -1,6 +1,6 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
@@ -19,7 +19,6 @@ import {
   MidiControllerDefinition,
 } from "@/types/definitions"
 import { DragDropProvider } from "@/components/providers/DragDropProvider"
-import { Table } from "@tanstack/react-table"
 import { ConfigTableWrapper } from "@/components/tables/config-item-table/items/ConfigTableWrapper"
 
 const ConfigListPage = () => {
@@ -105,13 +104,9 @@ const ConfigListPage = () => {
   const configItems =
     project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
 
-  // Create a ref to hold the table instance
-  const tableRef = useRef<Table<IConfigItem> | null>(null)
-
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
       <DragDropProvider
-        table={tableRef.current}
         data={configItems}
         setItems={mySetItems}
         configIndex={activeConfigFileIndex}
@@ -120,7 +115,6 @@ const ConfigListPage = () => {
           activeConfigFileIndex={activeConfigFileIndex}
           configItems={configItems}
           mySetItems={mySetItems}
-          tableRef={tableRef}
           columns={columns}
         />
       </DragDropProvider>

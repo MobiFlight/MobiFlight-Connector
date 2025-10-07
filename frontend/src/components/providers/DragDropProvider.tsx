@@ -1,14 +1,21 @@
-import { createContext, ReactNode, useContext } from "react"
+import { createContext, ReactNode, useCallback, useContext, useState } from "react"
 import { DndContext } from "@dnd-kit/core"
 import { useConfigItemDragDrop } from "@/lib/hooks/useConfigItemDragDrop"
 import { Table } from "@tanstack/react-table"
 import { IConfigItem } from "@/types"
 
 interface DragDropContextType {
-  dragItemId?: string
+  dragItemId?: string,
+  isDragging?: boolean
+  table: Table<IConfigItem> | null
+  setTable: (table: Table<IConfigItem> | null) => void
 }
 
-const DragDropContext = createContext<DragDropContextType>({})
+const DragDropContext = createContext<DragDropContextType>({
+  isDragging: false,
+  table: null,
+  setTable: () => {},
+})
 
 export const useDragDropContext = () => {
   return useContext(DragDropContext)
@@ -16,7 +23,6 @@ export const useDragDropContext = () => {
 
 interface DragDropProviderProps {
   children: ReactNode
-  table: Table<IConfigItem> | null
   data: IConfigItem[]
   setItems: (items: IConfigItem[]) => void
   configIndex: number
@@ -24,11 +30,12 @@ interface DragDropProviderProps {
 
 export function DragDropProvider({ 
   children, 
-  table, 
   data, 
   setItems,
   configIndex
 }: DragDropProviderProps) {
+  const [table, setTable] = useState<Table<IConfigItem> | null>(null)
+
   const { dragItem, dndContextProps } = useConfigItemDragDrop({
     table: table,
     data,
@@ -36,8 +43,18 @@ export function DragDropProvider({
     configIndex
   })
 
+  const handleSetTable = useCallback((newTable: Table<IConfigItem> | null) => {
+    console.log("Setting table in context:", newTable)
+    setTable(newTable)
+  }, [])
+
   return (
-    <DragDropContext.Provider value={{ dragItemId: dragItem?.id as string }}>
+    <DragDropContext.Provider value={{ 
+      dragItemId: dragItem?.id as string,
+      isDragging: !!dragItem,
+      table,
+      setTable: handleSetTable
+    }}>
     <DndContext {...dndContextProps}>
       {children}
     </DndContext>

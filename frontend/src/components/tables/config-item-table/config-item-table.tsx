@@ -2,7 +2,6 @@ import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
-  Table as ReactTable,
   VisibilityState,
   getCoreRowModel,
   getFacetedRowModel,
@@ -31,22 +30,21 @@ import { IconX } from "@tabler/icons-react"
 import { Toaster } from "@/components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
+import { useDragDropContext } from "@/components/providers/DragDropProvider"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  setItems: (items: IConfigItem[]) => void
+  setItems: (items: TData[]) => void
   configIndex: number
   dragItemId?: string // Add this prop to receive drag state from parent
-  dataTableRef?: React.RefObject<ReactTable<TData> | null> // Add this prop
 }
 
-export function ConfigItemTable<TData, TValue>({
+export function ConfigItemTable<TValue>({
   columns,
   data,
-  dragItemId,
-  dataTableRef // Add this prop
-}: DataTableProps<TData, TValue>) {
+  dragItemId
+}: DataTableProps<IConfigItem, TValue>) {
   // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
   // eslint-disable-next-line react-hooks/react-compiler
   "use no memo"
@@ -148,13 +146,12 @@ export function ConfigItemTable<TData, TValue>({
     console.log("added item", addedItem.current)
   }, [addedItem])
 
-  // Expose the table instance to the parent via ref
+  const { setTable } = useDragDropContext()
+
+  // Update context table whenever it changes
   useEffect(() => {
-    if (dataTableRef) {
-      // eslint-disable-next-line react-hooks/react-compiler
-      dataTableRef.current = table as ReactTable<TData>
-    }
-  }, [table, dataTableRef])
+    setTable(table)
+  }, [setTable, table])
 
   useEffect(() => {
     if (addedItem.current && data.length === prevDataLength.current + 1) {

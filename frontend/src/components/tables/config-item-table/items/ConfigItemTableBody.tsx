@@ -64,7 +64,6 @@ const ConfigItemTableBody = <TData,>({
         {rows.map((row) => {
           const isSelected = row.getIsSelected()
           const isDragging = dragItemId !== undefined
-          console.log("Is dragging", isDragging, "dragItemId", dragItemId)
           const isDragItem = dragItemId === row.id
           const dragClassName =
             isDragging && isSelected ?

@@ -8,7 +8,7 @@ import {
   TouchSensor,
   DragStartEvent,
   Active,
-  DataRef,
+  Over,
 } from "@dnd-kit/core"
 import {
   restrictToParentElement,
@@ -42,7 +42,13 @@ export function useConfigItemDragDrop<TData>({
 
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
+      console.log("Drag start. Active config index", configIndex)
       const { active } = event
+
+      // determine the ids of the items dragged
+      const draggedItemsIds = table?.getSelectedRowModel().rows.map((row) => row.id) ?? []
+
+      console.log("Dragged items IDs:", draggedItemsIds)
 
       // Store the source config index in the drag data
       const enhancedActive = {
@@ -51,6 +57,7 @@ export function useConfigItemDragDrop<TData>({
           ...active.data,
           current: {
             ...active.data.current,
+            draggedItems: draggedItemsIds,
             sourceConfigIndex: configIndex,
           },
         },
@@ -74,16 +81,15 @@ export function useConfigItemDragDrop<TData>({
   const handleCrossConfigDrop = useCallback(
     (
       active: Active,
-      over: { id: string | number; data: DataRef<TData> },
+      over: Over,
       sourceConfigIndex: number,
       targetConfigIndex: number,
     ) => {
       if (!table) return
 
-      const selectedRows = table.getSelectedRowModel().rows
-      const draggedItems = selectedRows.map(
-        (row) => row.original as IConfigItem,
-      )
+      console.log(dragItem)
+
+      const draggedItems = dragItem?.data.current?.draggedItems ?? []
 
       console.log("Cross-config drop:", {
         draggedItems,
@@ -109,14 +115,18 @@ export function useConfigItemDragDrop<TData>({
     (event: DragEndEvent) => {
       const { active, over } = event
 
-      setDragItem(undefined)
-
-      if (!over?.id || !active.id || !table) return
+      if (!over?.id || !active.id || !table) {
+        setDragItem(undefined)
+        return
+      }
 
       // Get source and target config indices
       const sourceConfigIndex =
-        active.data.current?.sourceConfigIndex ?? configIndex
+        dragItem?.data.current?.sourceConfigIndex ?? active.data.current?.sourceConfigIndex
       const targetConfigIndex = over.data.current?.configIndex ?? configIndex
+
+      // now we can reset the drag item
+      setDragItem(undefined)
 
       console.log("Drag end:", {
         sourceConfigIndex,
