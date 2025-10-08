@@ -259,19 +259,30 @@ export function ConfigItemDragProvider({
 
   const handleDragMove = useCallback((event: DragMoveEvent) => {
     if (!dragState || !tableContainerRef) return
+    
+    const tabIndex = dragState.tabIndex
 
     if (event.over?.data?.current?.type === 'tab') {
-      setDragState(prev => prev ? {
-        ...prev,
-        tabIndex: event?.over?.data?.current?.index
-      } : null)
-    } else {
-      setDragState(prev => prev ? {
-        ...prev,
-        tabIndex: -1
-      } : null)
-    }
+      const currentTabIndex = event.over?.data?.current?.index
 
+      if (currentTabIndex !== tabIndex) {
+          console.log("Entering new tab area")
+          setDragState(prev => prev ? {
+            ...prev,
+            tabIndex: currentTabIndex
+          } : null
+        )
+      }
+    } else {
+      if (tabIndex !== -1) {
+        console.log("Leaving tab area")
+        setDragState(prev => prev ? {
+          ...prev,
+          tabIndex: -1
+        } : null)
+      }
+    }
+      
     // Get the current mouse position
     const { x, y } = event.activatorEvent as MouseEvent
     const currentX = event.delta.x + x
@@ -296,7 +307,7 @@ export function ConfigItemDragProvider({
         isInsideTable: isInsideTable
       } : null)
     }
-  }, [dragState, tableContainerRef])
+  }, [dragState, setDragState, tableContainerRef])
 
   // Context value that child components can access
   const contextValue: ConfigItemDragContextType = {
