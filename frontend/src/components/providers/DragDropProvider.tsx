@@ -306,12 +306,6 @@ export function ConfigItemDragProvider({
 
         if (lastIndex !== -1 && currentIndex !== -1) {
           movementDirection = currentIndex > lastIndex ? "down" : "up"
-          console.log(`📐 Movement direction: ${movementDirection}`, {
-            from: dragState.tracking.lastOver?.id,
-            to: currentOverId,
-            fromIndex: lastIndex,
-            toIndex: currentIndex,
-          })
         }
 
         stateUpdates.tracking = { lastOver: event.over }
