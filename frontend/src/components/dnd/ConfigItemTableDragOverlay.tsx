@@ -26,7 +26,7 @@ const ConfigItemTableDragOverlay = ({
         className,
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-2 font-medium">
         <div className="text-md truncate pl-24">{nameText}</div>
         {isMultiDrag && (
           <Badge className="text-xs">

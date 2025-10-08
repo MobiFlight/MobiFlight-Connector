@@ -13,7 +13,7 @@ const ConfigItemTabDragOverlay = (props: ConfigItemTabDragOverlayProps) => {
   return (
     <Alert
       className={cn(
-        `flex w-48 items-center justify-between px-4 py-3`,
+        `flex w-48 items-center justify-between px-4 py-3 shadow-xl`,
         className,
       )}
     >
