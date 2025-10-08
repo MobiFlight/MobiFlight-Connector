@@ -30,7 +30,7 @@ import { IconX } from "@tabler/icons-react"
 import { Toaster } from "@/components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
-import { useConfigItemDragContext } from "@/components/providers/DragDropProvider"
+import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -42,9 +42,7 @@ export function ConfigItemTable<TValue>({
   columns,
   data,
   dragItemId,
-}: DataTableProps<IConfigItem, TValue>) {
-  // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
-  // eslint-disable-next-line react-hooks/react-compiler
+}: DataTableProps<IConfigItem, TValue>) {  
   "use no memo"
 
   const [sorting, setSorting] = useState<SortingState>([])

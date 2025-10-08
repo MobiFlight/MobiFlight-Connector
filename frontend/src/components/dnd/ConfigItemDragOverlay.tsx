@@ -14,15 +14,13 @@ export function ConfigItemDragOverlay() {
   const firstItem = itemCount > 0 ? dragState.draggedItems[0] : null
   const isInsideTable = dragState.isInsideTable
 
-  console.log(`🛟 Rendering DragOverlay - isDragging: ${dragState.isDragging}, itemCount: ${itemCount}, isInsideTable: ${isInsideTable}`)
-
   return isDraggingWithItems && (
     <DragOverlay className="cursor-grabbing">
       <div>
         <ConfigItemTableDragOverlay
           className={cn(
-            "transition-all duration-50 ease-in-out",
-            !isInsideTable ? "opacity-0 w-0" : "opacity-100 w-full",
+            "transition-all duration-100 ease-in-out",
+            !isInsideTable ? "opacity-0 scale-0" : "opacity-100",
           )}
           firstItem={firstItem}
           itemCount={itemCount}
@@ -30,7 +28,7 @@ export function ConfigItemDragOverlay() {
         <ConfigItemTabDragOverlay
           className={cn(
             "transition-all duration-300 ease-in-out",
-            isInsideTable ? "opacity-0 h-0 w-0" : "opacity-100",
+            isInsideTable ? "opacity-0 scale-0" : "opacity-100",
           )}
           items={dragState.draggedItems}
         />

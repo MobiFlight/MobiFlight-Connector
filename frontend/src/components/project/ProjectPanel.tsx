@@ -7,7 +7,7 @@ import {
 } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { useProjectStore } from "@/stores/projectStore"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,6 +17,7 @@ import {
 import { useTranslation } from "react-i18next"
 import ExecutionToolbar from "../ExecutionToolbar"
 import ProjectNameLabel from "./ProjectNameLabel"
+import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 
 const ProjectPanel = () => {
   const { t } = useTranslation()
@@ -76,6 +77,23 @@ const ProjectPanel = () => {
 
     setTimeout(() => setActiveConfigFileIndex(configFiles.length), 200)
   }
+  
+  const { dragState } = useConfigItemDragContext()
+  
+  // Hover timer ref
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  useEffect(() => {
+    if (dragState?.tabIndex !== undefined && dragState?.tabIndex !== -1) {
+      hoverTimeoutRef.current = setTimeout(() => {
+        selectActiveFile(dragState?.tabIndex)
+      }, 600)
+    } else {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
+        hoverTimeoutRef.current = null
+      }
+    }
+  }, [dragState?.tabIndex, selectActiveFile])
 
   return (
     <div
@@ -93,7 +111,7 @@ const ProjectPanel = () => {
           return (
             <FileButton
               key={index}
-              variant={index === activeConfigFileIndex ? "tabActive" : "tabDefault"}
+              variant={index === activeConfigFileIndex ? "tabActive" : dragState?.tabIndex === index ? "tabDragging" : "tabDefault"}
               file={file}
               index={index}
               selectActiveFile={selectActiveFile}

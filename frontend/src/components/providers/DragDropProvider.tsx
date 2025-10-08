@@ -29,6 +29,7 @@ export interface DragState {
   sourceConfigIndex: number      // Which config file the drag started from
   isDragging: boolean            // Whether a drag is currently active
   isInsideTable: boolean      // Whether the drag is currently over a valid table
+  tabIndex: number            // If dragging over a tab, which tab index
 }
 
 /**
@@ -81,7 +82,6 @@ export function ConfigItemDragProvider({
   )
 
   const setTableContainerRef = useCallback((element: Element | null) => {
-    console.log("🔧 setTableContainerRef called with:", element)
     setTableContainerRefInternal(element)
   }, [])
 
@@ -121,6 +121,7 @@ export function ConfigItemDragProvider({
       sourceConfigIndex: currentConfigIndex,
       isDragging: true,
       isInsideTable: true,
+      tabIndex: -1,
     }
 
     setDragState(newDragState)
@@ -258,7 +259,19 @@ export function ConfigItemDragProvider({
 
   const handleDragMove = useCallback((event: DragMoveEvent) => {
     if (!dragState || !tableContainerRef) return
-    
+
+    if (event.over?.data?.current?.type === 'tab') {
+      setDragState(prev => prev ? {
+        ...prev,
+        tabIndex: event?.over?.data?.current?.index
+      } : null)
+    } else {
+      setDragState(prev => prev ? {
+        ...prev,
+        tabIndex: -1
+      } : null)
+    }
+
     // Get the current mouse position
     const { x, y } = event.activatorEvent as MouseEvent
     const currentX = event.delta.x + x
@@ -310,6 +323,7 @@ export function ConfigItemDragProvider({
       {/* The actual DnD functionality wrapper */}
       <DndContext
         sensors={sensors}
+        // pointer within is needed for tab hover detection
         collisionDetection={pointerWithin}
         modifiers={getModifiers()}
         onDragStart={handleDragStart}
