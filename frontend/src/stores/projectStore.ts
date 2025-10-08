@@ -12,6 +12,16 @@ interface ProjectState {
   updateConfigItems: (index: number, items: IConfigItem[]) => void // Add this
   updateConfigItem: (index: number, item: IConfigItem, upsert: boolean) => void // Add this
   clearProject: () => void
+  actions: {
+    // Add the drag-and-drop functions
+    moveItemsBetweenConfigs: (
+      draggedItems: IConfigItem[],
+      sourceConfigIndex: number,
+      targetConfigIndex: number,
+      dropTargetItemId?: string,
+      originalDragIndex?: number,
+    ) => void
+  }
 }
 
 export const useProjectStore = create<ProjectState>((set) => ({
@@ -103,4 +113,80 @@ export const useProjectStore = create<ProjectState>((set) => ({
       return { project: newProject }
     }),
   clearProject: () => set({ project: null }),
+  actions: {
+    moveItemsBetweenConfigs: (
+      draggedItems: IConfigItem[],
+      sourceConfigIndex: number,
+      targetConfigIndex: number,
+      dropTargetItemId?: string,
+      originalDragIndex?: number,
+    ) =>
+      set((state) => {
+        if (state.project === null) return state
+
+        const configFiles = state.project?.ConfigFiles ?? []
+        const draggedItemIds = draggedItems.map((item) => item.GUID)
+
+        // Step 1: Remove items from source config
+        const sourceItems = (configFiles[sourceConfigIndex]?.ConfigItems ||
+          []) as IConfigItem[]
+        const sourceItemsWithoutDragged = sourceItems.filter(
+          (item) => !draggedItemIds.includes(item.GUID),
+        )
+
+        // Step 2: Determine target position
+        const targetItems = (configFiles[targetConfigIndex]?.ConfigItems ||
+          []) as IConfigItem[]
+        let targetItemsAfterRemoval = targetItems
+
+        // If same config, calculate positions after removal
+        if (targetConfigIndex === sourceConfigIndex) {
+          targetItemsAfterRemoval = sourceItemsWithoutDragged
+        }
+
+        let insertionIndex = 0 // Default: add to beginning
+
+        if (dropTargetItemId) {
+          const dropTargetIndex = targetItemsAfterRemoval.findIndex(
+            (item) => item.GUID === dropTargetItemId,
+          )
+
+          if (dropTargetIndex >= 0) {
+            const isCrossTabDrag = targetConfigIndex !== sourceConfigIndex
+            const adjustedOriginalIndex = isCrossTabDrag
+              ? 0
+              : originalDragIndex || 0
+            const dropDirectionOffset =
+              dropTargetIndex >= adjustedOriginalIndex ? 1 : 0
+            insertionIndex = dropTargetIndex + dropDirectionOffset
+          }
+        } else {
+          insertionIndex = targetItemsAfterRemoval.length
+        }
+
+        // Step 3: Create final target array
+        const finalTargetItems = [
+          ...targetItemsAfterRemoval.slice(0, insertionIndex),
+          ...draggedItems,
+          ...targetItemsAfterRemoval.slice(insertionIndex),
+        ]
+
+        // Create completely new Project object with new ConfigFiles array
+        const newProject: Project = {
+          ...state.project,
+          ConfigFiles: state.project.ConfigFiles.map((file, i) => {
+            if (i === sourceConfigIndex) {
+              return { ...file, ConfigItems: [...sourceItemsWithoutDragged] }
+            }
+            if (i === targetConfigIndex) {
+              return { ...file, ConfigItems: [...finalTargetItems] }
+            }
+            return file
+          }),
+        }
+        return { project: newProject }
+      }),
+  },
 }))
+
+export const useProjectStoreActions = () => useProjectStore(state => state.actions)
