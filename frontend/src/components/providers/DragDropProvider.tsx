@@ -9,6 +9,7 @@ import {
   TouchSensor,
   DragMoveEvent,
   pointerWithin,
+  Over,
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -32,6 +33,10 @@ export interface DragState {
   isDragging: boolean // Whether a drag is currently active
   isInsideTable: boolean // Whether the drag is currently over a valid table
   tabIndex: number // If dragging over a tab, which tab index
+  tracking: {
+    lastOver: Over | null // Last known "over" element
+  }
+  direction: "up" | "down" | null // Direction of drag movement, for reordering
 }
 
 /**
@@ -65,7 +70,6 @@ interface ConfigItemDragProviderProps {
 export function ConfigItemDragProvider({
   children,
   initialConfigIndex,
-  updateConfigItems,
   getConfigItems,
 }: ConfigItemDragProviderProps) {
   // State: Current table instance (set by ConfigItemTable when it mounts)
@@ -130,6 +134,10 @@ export function ConfigItemDragProvider({
         isDragging: true,
         isInsideTable: true,
         tabIndex: -1,
+        tracking: {
+          lastOver: null,
+        },
+        direction: null,
       }
 
       setDragState(newDragState)
@@ -220,7 +228,7 @@ export function ConfigItemDragProvider({
         targetConfigIndex, // source = current config
         targetConfigIndex, // target = same config (just repositioning)
         dropTargetItemId, // for positioning within config
-        
+        currentDragState.direction == "up" ? 0 : 1, // position relative to target based on direction
       )
 
       // Notify backend about the final state
@@ -239,7 +247,7 @@ export function ConfigItemDragProvider({
         targetConfigIndex,
       )
     },
-    [dragState, initialConfigIndex, updateConfigItems, getConfigItems],
+    [dragState, moveItemsBetweenConfigs],
   )
 
   // Simplified useEffect - just move items, don't update dragState
@@ -279,33 +287,50 @@ export function ConfigItemDragProvider({
     (event: DragMoveEvent) => {
       if (!dragState || !tableContainerRef) return
 
+      // Collect all state changes first
+      const stateUpdates: Partial<DragState> = {}
+
+      // Track movement direction based on over item changes
+      const currentOverId = event.over?.id as string
+      let movementDirection = dragState.direction
+
+      if (currentOverId && currentOverId !== dragState.tracking.lastOver?.id) {
+        // Get the items from current config to determine order
+        const currentItems = getConfigItems(dragState.currentConfigIndex)
+        const lastIndex = currentItems.findIndex(
+          (item) => item.GUID === dragState.tracking.lastOver?.id,
+        )
+        const currentIndex = currentItems.findIndex(
+          (item) => item.GUID === currentOverId,
+        )
+
+        if (lastIndex !== -1 && currentIndex !== -1) {
+          movementDirection = currentIndex > lastIndex ? "down" : "up"
+          console.log(`📐 Movement direction: ${movementDirection}`, {
+            from: dragState.tracking.lastOver?.id,
+            to: currentOverId,
+            fromIndex: lastIndex,
+            toIndex: currentIndex,
+          })
+        }
+
+        stateUpdates.tracking = { lastOver: event.over }
+        stateUpdates.direction = movementDirection
+      }
+
       // Only update UI state - no store operations here
       if (event.over?.data?.current?.type === "tab") {
         const hoveredTabIndex = event.over?.data?.current?.index
 
         if (hoveredTabIndex !== dragState.tabIndex) {
           console.log("🎯 Tab hover detected:", hoveredTabIndex)
-          setDragState((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  tabIndex: hoveredTabIndex,
-                }
-              : null,
-          )
+          stateUpdates.tabIndex = hoveredTabIndex
         }
       } else {
         // Left tab area
         if (dragState.tabIndex !== -1) {
           console.log("⬅️ Left tab area")
-          setDragState((prev) =>
-            prev
-              ? {
-                  ...prev,
-                  tabIndex: -1,
-                }
-              : null,
-          )
+          stateUpdates.tabIndex = -1
         }
       }
 
@@ -323,17 +348,22 @@ export function ConfigItemDragProvider({
         currentY <= containerRect.bottom
 
       if (isInsideTable !== dragState.isInsideTable) {
+        stateUpdates.isInsideTable = isInsideTable
+      }
+
+      // Single state update at the end
+      if (Object.keys(stateUpdates).length > 0) {
         setDragState((prev) =>
           prev
             ? {
                 ...prev,
-                isInsideTable: isInsideTable,
+                ...stateUpdates,
               }
             : null,
         )
       }
     },
-    [dragState, tableContainerRef],
+    [dragState, getConfigItems, tableContainerRef],
   )
 
   // Context value that child components can access

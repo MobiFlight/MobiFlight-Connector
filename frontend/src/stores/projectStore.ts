@@ -19,7 +19,7 @@ interface ProjectState {
       sourceConfigIndex: number,
       targetConfigIndex: number,
       dropTargetItemId?: string,
-      originalDragIndex?: number,
+      dropDirectionOffset?: number, // 0 for above, 1 for below
     ) => void
   }
 }
@@ -119,7 +119,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
       sourceConfigIndex: number,
       targetConfigIndex: number,
       dropTargetItemId?: string,
-      originalDragIndex?: number,
+      dropDirectionOffset?: number,
     ) =>
       set((state) => {
         if (state.project === null) return state
@@ -155,15 +155,11 @@ export const useProjectStore = create<ProjectState>((set) => ({
 
           if (dropTargetIndex >= 0) {
             const isCrossTabDrag = targetConfigIndex !== sourceConfigIndex
-            const adjustedOriginalIndex = isCrossTabDrag
-              ? 0
-              : originalDragIndex || 0
-            const dropDirectionOffset =
-              dropTargetIndex >= adjustedOriginalIndex ? 1 : 0
-            insertionIndex = dropTargetIndex + dropDirectionOffset
+            const adjustedDropIndex = isCrossTabDrag
+              ? dropTargetIndex
+              : dropTargetIndex + (dropDirectionOffset ?? 0)
+            insertionIndex = adjustedDropIndex
           }
-        } else {
-          insertionIndex = targetItemsAfterRemoval.length
         }
 
         // Step 3: Create final target array
