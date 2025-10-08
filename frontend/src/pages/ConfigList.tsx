@@ -109,7 +109,7 @@ const ConfigListPage = () => {
   return (
     <div className="flex flex-col gap-4 overflow-y-auto">
       <ConfigItemDragProvider
-        currentConfigIndex={activeConfigFileIndex}
+        initialConfigIndex={activeConfigFileIndex}
         updateConfigItems={setConfigItems}
         getConfigItems={getConfigItems}
       >

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import {
   DndContext,
   DragStartEvent,
@@ -27,7 +27,8 @@ import { useProjectStoreActions } from "@/stores/projectStore"
 export interface DragState {
   dragItem: IConfigItem | null
   draggedItems: IConfigItem[] // The actual items being dragged (full objects)
-  sourceConfigIndex: number // Which config file the drag started from
+  sourceConfigIndex: number // Which config file the drag started from, needed for restore
+  currentConfigIndex: number // Which config file the drag is currently over
   isDragging: boolean // Whether a drag is currently active
   isInsideTable: boolean // Whether the drag is currently over a valid table
   tabIndex: number // If dragging over a tab, which tab index
@@ -48,7 +49,7 @@ export interface ConfigItemDragContextType {
  */
 interface ConfigItemDragProviderProps {
   children: React.ReactNode
-  currentConfigIndex: number
+  initialConfigIndex: number
   // Function to update config items in the project store
   // This makes drag-drop independent of table implementation
   updateConfigItems: (configIndex: number, items: IConfigItem[]) => void
@@ -63,7 +64,7 @@ interface ConfigItemDragProviderProps {
  */
 export function ConfigItemDragProvider({
   children,
-  currentConfigIndex,
+  initialConfigIndex,
   updateConfigItems,
   getConfigItems,
 }: ConfigItemDragProviderProps) {
@@ -94,7 +95,7 @@ export function ConfigItemDragProvider({
    */
   const handleDragStart = useCallback(
     (event: DragStartEvent) => {
-      console.log("🚀 Drag start - Current config:", currentConfigIndex)
+      console.log("🚀 Drag start - Initial config:", initialConfigIndex)
 
       if (!table) {
         console.warn("No table available for drag start")
@@ -124,7 +125,8 @@ export function ConfigItemDragProvider({
       const newDragState: DragState = {
         dragItem: dragItem,
         draggedItems: draggedItems,
-        sourceConfigIndex: currentConfigIndex,
+        sourceConfigIndex: initialConfigIndex,
+        currentConfigIndex: initialConfigIndex,
         isDragging: true,
         isInsideTable: true,
         tabIndex: -1,
@@ -133,13 +135,43 @@ export function ConfigItemDragProvider({
       setDragState(newDragState)
 
       console.log("📋 Dragging items:", {
-        count: draggedItems.length,
-        items: draggedItems.map((item) => item.Name || item.GUID),
-        sourceConfig: currentConfigIndex,
+        count: newDragState.draggedItems.length,
+        items: newDragState.draggedItems.map((item) => item.Name || item.GUID),
+        sourceConfig: newDragState.sourceConfigIndex,
       })
     },
-    [table, currentConfigIndex],
+    [table, initialConfigIndex],
   )
+
+  /**
+   * Simplified drag cancellation - restore items to initial config
+   */
+  const handleDragCancel = useCallback(() => {
+    const currentDragState = dragState
+
+    console.log("❌ Drag cancelled")
+    setDragState(null)
+
+    if (!currentDragState) return
+
+    const isSameTab =
+      currentDragState.sourceConfigIndex === currentDragState.currentConfigIndex
+
+    if (isSameTab) return
+
+    console.log("🔄 Restoring items to initial config:", {
+      from: currentDragState.currentConfigIndex,
+      to: currentDragState.sourceConfigIndex,
+      itemCount: currentDragState.draggedItems.length,
+    })
+
+    // Move items back to where they started
+    moveItemsBetweenConfigs(
+      currentDragState.draggedItems,
+      currentDragState.currentConfigIndex,
+      currentDragState.sourceConfigIndex,
+    )
+  }, [dragState, moveItemsBetweenConfigs])
 
   /**
    * Called when user drops the dragged items
@@ -172,121 +204,87 @@ export function ConfigItemDragProvider({
         return
       }
 
-      // Determine target config from drop target data
-      // If no configIndex in drop data, assume same config
-      const targetConfigIndex =
-        over.data.current?.configIndex ?? currentConfigIndex
-      const dropTargetItemId = over.id
+      // Final drop is always within the current config (thanks to useEffect handling cross-config moves)
+      const targetConfigIndex = currentDragState.currentConfigIndex
+      const dropTargetItemId = over.id as string
 
-      console.log("📍 Drop analysis:", {
-        sourceConfig: currentDragState.sourceConfigIndex,
-        targetConfig: targetConfigIndex,
-        dropTargetItem: dropTargetItemId,
-        draggedCount: currentDragState.draggedItems.length,
+      console.log("📍 Final positioning within config:", {
+        config: targetConfigIndex,
+        dropTarget: dropTargetItemId,
+        draggedItems: currentDragState.draggedItems.map((i) => i.GUID),
       })
 
-      // **Key insight: Universal move strategy**
-      // 1. Remove items from source config
-      // 2. Add items to target config at the right position
-      // This works for both same-config reorder and cross-config moves!
-
-      const isCrossTabDrag =
-        targetConfigIndex !== currentDragState.sourceConfigIndex
-
-      const sourceItems = getConfigItems(currentDragState.sourceConfigIndex)
-      const targetItems = isCrossTabDrag
-        ? getConfigItems(targetConfigIndex) // Different config: get target items
-        : sourceItems // Same config: work with same array
-
-      // Step 0: Determine the source position of the dragged items
-      // We need this to calculate draggin up vs down
-      const originalIndex = sourceItems.findIndex(
-        (item) => item.GUID === active.id,
+      // Use store function for final positioning within the same config
+      moveItemsBetweenConfigs(
+        currentDragState.draggedItems,
+        targetConfigIndex, // source = current config
+        targetConfigIndex, // target = same config (just repositioning)
+        dropTargetItemId, // for positioning within config
+        
       )
 
-      // Step 1: Remove dragged items from source
-      const draggedItemIds = currentDragState.draggedItems.map(
-        (item) => item.GUID,
-      )
-      const sourceItemsWithoutDragged = sourceItems.filter(
-        (item) => !draggedItemIds.includes(item.GUID),
-      )
-
-      // Step 2: Find insertion point in target config
-      let targetItemsAfterRemoval = targetItems
-
-      // If same config, use the array after removal for position calculation
-      if (targetConfigIndex === currentDragState.sourceConfigIndex) {
-        targetItemsAfterRemoval = sourceItemsWithoutDragged
-      }
-
-      // Find where to insert the dragged items
-      const dropTargetIndex = targetItemsAfterRemoval.findIndex(
-        (item) => item.GUID === dropTargetItemId,
-      )
-
-      // Determine insertion position based on drag direction
-      // If dragging down: insert after the target
-      // If dragging up: insert before the target
-      // originalIndex matters only for same-config drags
-      const adjustedOriginalIndex = isCrossTabDrag ? 0 : originalIndex
-      const dropDirectionOffset =
-        dropTargetIndex >= adjustedOriginalIndex ? 1 : 0
-
-      let insertionIndex = 0 // Default: add to beginning
-      if (dropTargetIndex >= 0) {
-        // Insert after the drop target
-        insertionIndex = dropTargetIndex + dropDirectionOffset
-      }
-
-      // Step 3: Insert dragged items at the calculated position
-      const finalTargetItems = [
-        ...targetItemsAfterRemoval.slice(0, insertionIndex),
-        ...currentDragState.draggedItems,
-        ...targetItemsAfterRemoval.slice(insertionIndex),
-      ]
-
-      // Step 4: Update the project store
-      if (targetConfigIndex === currentDragState.sourceConfigIndex) {
-        // Same config: single update
-        console.log("📝 Same-config reorder - updating items in place")
-        updateConfigItems(targetConfigIndex, finalTargetItems)
-      } else {
-        // Cross-config: update both source and target
-        console.log("🔄 Cross-config move - updating both configs")
-        updateConfigItems(
-          currentDragState.sourceConfigIndex,
-          sourceItemsWithoutDragged,
-        )
-        updateConfigItems(targetConfigIndex, finalTargetItems)
-      }
-
-      // Step 5: Notify backend about the change
+      // Notify backend about the final state
       publishOnMessageExchange().publish({
         key: "CommandResortConfigItem",
         payload: {
-          items: currentDragState.draggedItems, // What items were moved
-          sourceFileIndex: currentDragState.sourceConfigIndex, // Where they came from
-          targetFileIndex: targetConfigIndex, // Where they went
-          newIndex: insertionIndex, // Their new position
+          items: currentDragState.draggedItems,
+          sourceFileIndex: currentDragState.sourceConfigIndex, // Original source for backend context
+          targetFileIndex: targetConfigIndex, // Final destination
+          newIndex: 0, // Let backend recalculate based on dropTargetItemId
         },
       } as CommandResortConfigItem)
+
+      console.log(
+        "✅ Final drop complete - items positioned in config",
+        targetConfigIndex,
+      )
     },
-    [dragState, currentConfigIndex, updateConfigItems, getConfigItems],
+    [dragState, initialConfigIndex, updateConfigItems, getConfigItems],
   )
+
+  // Simplified useEffect - just move items, don't update dragState
+  useEffect(() => {
+    if (!dragState || dragState.tabIndex === -1) return
+
+    // Only move items when tabIndex changes and it's different from current config
+    const shouldMoveItems = dragState.tabIndex !== dragState.currentConfigIndex
+
+    if (!shouldMoveItems) return
+
+    console.log("🔄 Effect triggered - moving items:", {
+      from: dragState.currentConfigIndex,
+      to: dragState.tabIndex,
+      items: dragState.draggedItems.map((i) => i.GUID),
+    })
+
+    // Execute the store operation - that's it!
+    moveItemsBetweenConfigs(
+      dragState.draggedItems,
+      dragState.currentConfigIndex,
+      dragState.tabIndex,
+    )
+
+    // Update drag state to reflect the new location
+    setDragState((prev) =>
+      prev
+        ? {
+            ...prev,
+            currentConfigIndex: dragState.tabIndex,
+          }
+        : null,
+    )
+  }, [dragState, moveItemsBetweenConfigs])
 
   const handleDragMove = useCallback(
     (event: DragMoveEvent) => {
       if (!dragState || !tableContainerRef) return
 
-      const tabIndex = dragState.tabIndex
-      const sourceConfigIndex = dragState.sourceConfigIndex
-
+      // Only update UI state - no store operations here
       if (event.over?.data?.current?.type === "tab") {
         const hoveredTabIndex = event.over?.data?.current?.index
 
-        if (hoveredTabIndex !== tabIndex) {
-          console.log("Entering new tab area")
+        if (hoveredTabIndex !== dragState.tabIndex) {
+          console.log("🎯 Tab hover detected:", hoveredTabIndex)
           setDragState((prev) =>
             prev
               ? {
@@ -295,45 +293,11 @@ export function ConfigItemDragProvider({
                 }
               : null,
           )
-          if (hoveredTabIndex !== sourceConfigIndex) {
-            console.log("➡️ Moving items to tab index:", {
-              targetTabIndex: hoveredTabIndex,
-              targetConfigIndex: hoveredTabIndex,
-              sourceConfigIndex: sourceConfigIndex,
-            })
-
-            // Move items to the target config
-            moveItemsBetweenConfigs(
-              dragState.draggedItems,
-              sourceConfigIndex,
-              hoveredTabIndex,
-            )
-
-            // Update drag state to reflect new source location
-            setDragState((prev) =>
-              prev
-                ? {
-                    ...prev,
-                    sourceConfigIndex: hoveredTabIndex,
-                  }
-                : null,
-            )
-
-            // Optionally notify backend of intermediate move
-            publishOnMessageExchange().publish({
-              key: "CommandResortConfigItem",
-              payload: {
-                items: dragState.draggedItems,
-                sourceFileIndex: sourceConfigIndex,
-                targetFileIndex: hoveredTabIndex,
-                newIndex: -1, // Indicate this is a tab switch, not a position-specific drop
-              },
-            } as CommandResortConfigItem)
-          }
         }
       } else {
-        if (tabIndex !== -1) {
-          console.log("Leaving tab area")
+        // Left tab area
+        if (dragState.tabIndex !== -1) {
+          console.log("⬅️ Left tab area")
           setDragState((prev) =>
             prev
               ? {
@@ -358,11 +322,6 @@ export function ConfigItemDragProvider({
         currentY >= containerRect.top &&
         currentY <= containerRect.bottom
 
-      // console.log("📦 Table container bounds:", containerRect)
-      // console.log("  Current Mouse Position:", { currentX, currentY })
-      // console.log("  Current Offset", { x: event.delta.x, y: event.delta.y })
-
-      // Update drag state if boundary crossed
       if (isInsideTable !== dragState.isInsideTable) {
         setDragState((prev) =>
           prev
@@ -374,7 +333,7 @@ export function ConfigItemDragProvider({
         )
       }
     },
-    [dragState, setDragState, tableContainerRef],
+    [dragState, tableContainerRef],
   )
 
   // Context value that child components can access
@@ -408,6 +367,7 @@ export function ConfigItemDragProvider({
         onDragStart={handleDragStart}
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
+        onDragCancel={handleDragCancel}
       >
         {children}
         <ConfigItemDragOverlay />

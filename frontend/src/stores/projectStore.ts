@@ -134,13 +134,15 @@ export const useProjectStore = create<ProjectState>((set) => ({
           (item) => !draggedItemIds.includes(item.GUID),
         )
 
+        const isMoveBetweenConfigs = sourceConfigIndex !== targetConfigIndex
+
         // Step 2: Determine target position
         const targetItems = (configFiles[targetConfigIndex]?.ConfigItems ||
           []) as IConfigItem[]
         let targetItemsAfterRemoval = targetItems
 
         // If same config, calculate positions after removal
-        if (targetConfigIndex === sourceConfigIndex) {
+        if (!isMoveBetweenConfigs) {
           targetItemsAfterRemoval = sourceItemsWithoutDragged
         }
 
@@ -175,7 +177,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
         const newProject: Project = {
           ...state.project,
           ConfigFiles: state.project.ConfigFiles.map((file, i) => {
-            if (i === sourceConfigIndex) {
+            if (isMoveBetweenConfigs && i === sourceConfigIndex) {
               return { ...file, ConfigItems: [...sourceItemsWithoutDragged] }
             }
             if (i === targetConfigIndex) {
@@ -184,6 +186,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
             return file
           }),
         }
+
         return { project: newProject }
       }),
   },
