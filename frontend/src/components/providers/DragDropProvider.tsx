@@ -32,6 +32,7 @@ export interface DragState {
   isDragging: boolean // Whether a drag is currently active
   isInsideTable: boolean // Whether the drag is currently over a valid table
   tabIndex: number // If dragging over a tab, which tab index
+  originalPositions: Map<string, number> // GUID -> original index
 }
 
 /**
@@ -86,7 +87,8 @@ export function ConfigItemDragProvider({
     setTableContainerRefInternal(element)
   }, [])
 
-  const { moveItemsBetweenConfigs } = useProjectStoreActions()
+  const { moveItemsBetweenConfigs, restoreItemsToOriginalPositions } =
+    useProjectStoreActions()
 
   /**
    * Called when user starts dragging an item
@@ -119,6 +121,13 @@ export function ConfigItemDragProvider({
       }
 
       const dragItem = draggedRow ? draggedRow.original : null
+      const draggedItemsIds = draggedItems.map((item) => item.GUID)
+
+      const originalPositions = new Map<string, number>()
+      table.getRowModel().rows.forEach((row, index) => {
+        if (!draggedItemsIds.includes(row.original.GUID)) return
+        originalPositions.set(row.original.GUID, index)
+      })
 
       // Create drag state that will persist throughout the operation
       const newDragState: DragState = {
@@ -129,6 +138,7 @@ export function ConfigItemDragProvider({
         isDragging: true,
         isInsideTable: true,
         tabIndex: -1,
+        originalPositions: originalPositions,
       }
 
       setDragState(newDragState)
@@ -153,26 +163,20 @@ export function ConfigItemDragProvider({
 
     if (!currentDragState) return
 
-    const isSameTab =
-      currentDragState.sourceConfigIndex === currentDragState.currentConfigIndex
-
-    if (isSameTab) return
-
-    console.log("🔄 Restoring items to initial config:", {
+    console.log("🔄 Restoring items to original positions:", {
       from: currentDragState.currentConfigIndex,
       to: currentDragState.sourceConfigIndex,
       itemCount: currentDragState.draggedItems.length,
     })
 
-    // Move items back to where they started
-    moveItemsBetweenConfigs(
+    // Single store operation that handles everything
+    restoreItemsToOriginalPositions(
       currentDragState.draggedItems,
       currentDragState.currentConfigIndex,
       currentDragState.sourceConfigIndex,
-      // this is not correct yet
-      0,
+      currentDragState.originalPositions,
     )
-  }, [dragState, moveItemsBetweenConfigs])
+  }, [dragState, restoreItemsToOriginalPositions])
 
   /**
    * Called when user drops the dragged items
@@ -194,8 +198,21 @@ export function ConfigItemDragProvider({
       setDragState(null)
 
       // Bail out if drag was cancelled or invalid
-      if (!currentDragState || !over?.id || !active.id) {
-        console.log("❌ Drag cancelled or invalid")
+      if (!currentDragState) {
+        console.log("❌ Drag cancelled or invalid (currentDragState is null)")
+        return
+      }
+
+      if (!active.id) {
+        console.log("❌ Drag cancelled or invalid (active.id is null)")
+        return
+      }
+
+      if (!over?.id) {
+        console.log(
+          "🚫 Dropped outside valid drop zone - treating as cancellation",
+        )
+        handleDragCancel()
         return
       }
 

@@ -18,7 +18,14 @@ interface ProjectState {
       draggedItems: IConfigItem[],
       sourceConfigIndex: number,
       targetConfigIndex: number,
-      dropIndex: number
+      dropIndex: number,
+    ) => void
+
+    restoreItemsToOriginalPositions: (
+      draggedItems: IConfigItem[],
+      currentConfigIndex: number,
+      sourceConfigIndex: number,
+      originalPositions: Map<string, number>,
     ) => void
   }
 }
@@ -167,7 +174,80 @@ export const useProjectStore = create<ProjectState>((set) => ({
 
         return { project: newProject }
       }),
+    // In projectStore.ts, add this action
+    restoreItemsToOriginalPositions: (
+      draggedItems: IConfigItem[],
+      currentConfigIndex: number,
+      sourceConfigIndex: number,
+      originalPositions: Map<string, number>,
+    ) =>
+      set((state) => {
+        if (state.project === null) return state
+
+        console.log("🔄 Store: Restoring items to original positions:", {
+          draggedItems: draggedItems.map((i) => i.GUID),
+          currentConfigIndex,
+          sourceConfigIndex,
+          originalPositions: Array.from(originalPositions.entries()),
+        })
+
+        const configFiles = [...state.project.ConfigFiles]
+
+        // If items are in a different config, move them back first
+        if (currentConfigIndex !== sourceConfigIndex) {
+          // Remove items from current config
+          const currentItems = [
+            ...(configFiles[currentConfigIndex]?.ConfigItems || []),
+          ]
+          const draggedItemIds = draggedItems.map((item) => item.GUID)
+          const currentItemsWithoutDragged = currentItems.filter(
+            (item) => !draggedItemIds.includes(item.GUID),
+          )
+          configFiles[currentConfigIndex] = {
+            ...configFiles[currentConfigIndex],
+            ConfigItems: currentItemsWithoutDragged,
+          }
+        }
+
+        // Get source config items and remove dragged items
+        const sourceItems = [
+          ...(configFiles[sourceConfigIndex]?.ConfigItems || []),
+        ]
+        const draggedItemIds = draggedItems.map((item) => item.GUID)
+        const workingList = sourceItems.filter(
+          (item) => !draggedItemIds.includes(item.GUID),
+        )
+
+        // Sort items by original position (descending) to avoid index shifts
+        const itemsToRestore = Array.from(originalPositions.entries())
+          .map(([guid, originalIndex]) => ({
+            item: draggedItems.find((item) => item.GUID === guid)!,
+            originalIndex,
+          }))
+          .sort((a, b) => a.originalIndex - b.originalIndex)
+
+        // Insert each item at its original position
+        itemsToRestore.forEach(({ item, originalIndex }) => {
+          workingList.splice(originalIndex, 0, item)
+        })
+
+        // Update source config with restored items
+        configFiles[sourceConfigIndex] = {
+          ...configFiles[sourceConfigIndex],
+          ConfigItems: workingList,
+        }
+
+        console.log("✅ Store: Restoration complete")
+
+        return {
+          project: {
+            ...state.project,
+            ConfigFiles: configFiles,
+          },
+        }
+      }),
   },
 }))
 
-export const useProjectStoreActions = () => useProjectStore(state => state.actions)
+export const useProjectStoreActions = () =>
+  useProjectStore((state) => state.actions)
