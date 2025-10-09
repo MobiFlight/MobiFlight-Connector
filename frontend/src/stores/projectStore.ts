@@ -18,8 +18,7 @@ interface ProjectState {
       draggedItems: IConfigItem[],
       sourceConfigIndex: number,
       targetConfigIndex: number,
-      dropTargetItemId?: string,
-      dropDirectionOffset?: number, // 0 for above, 1 for below
+      dropIndex: number
     ) => void
   }
 }
@@ -118,8 +117,7 @@ export const useProjectStore = create<ProjectState>((set) => ({
       draggedItems: IConfigItem[],
       sourceConfigIndex: number,
       targetConfigIndex: number,
-      dropTargetItemId?: string,
-      dropDirectionOffset?: number,
+      dropIndex: number,
     ) =>
       set((state) => {
         if (state.project === null) return state
@@ -146,27 +144,11 @@ export const useProjectStore = create<ProjectState>((set) => ({
           targetItemsAfterRemoval = sourceItemsWithoutDragged
         }
 
-        let insertionIndex = 0 // Default: add to beginning
-
-        if (dropTargetItemId) {
-          const dropTargetIndex = targetItemsAfterRemoval.findIndex(
-            (item) => item.GUID === dropTargetItemId,
-          )
-
-          if (dropTargetIndex >= 0) {
-            const isCrossTabDrag = targetConfigIndex !== sourceConfigIndex
-            const adjustedDropIndex = isCrossTabDrag
-              ? dropTargetIndex
-              : dropTargetIndex + (dropDirectionOffset ?? 0)
-            insertionIndex = adjustedDropIndex
-          }
-        }
-
         // Step 3: Create final target array
         const finalTargetItems = [
-          ...targetItemsAfterRemoval.slice(0, insertionIndex),
+          ...targetItemsAfterRemoval.slice(0, dropIndex),
           ...draggedItems,
-          ...targetItemsAfterRemoval.slice(insertionIndex),
+          ...targetItemsAfterRemoval.slice(dropIndex),
         ]
 
         // Create completely new Project object with new ConfigFiles array

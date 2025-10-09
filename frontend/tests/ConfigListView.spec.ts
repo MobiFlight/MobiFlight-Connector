@@ -218,8 +218,8 @@ test("Confirm multi drag n drop is working", async ({ configListPage, page }) =>
   await fifthRow.getByRole("button").first().hover()
   await page.mouse.up()
 
-  await expect(page.getByRole("row").nth(4)).toContainText("7-Segment")
-  await expect(page.getByRole("row").nth(5)).toContainText("Servo")
+  await expect(page.getByRole("row").nth(5)).toContainText("7-Segment")
+  await expect(page.getByRole("row").nth(6)).toContainText("Servo")
 
   const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands();
   const lastCommand = postedCommands!.pop()
@@ -227,7 +227,7 @@ test("Confirm multi drag n drop is working", async ({ configListPage, page }) =>
   expect (lastCommand.payload.items.length).toEqual(2)
   expect (lastCommand.payload.items[0].Name).toEqual("7-Segment")
   expect (lastCommand.payload.items[1].Name).toEqual("Servo")
-  expect (lastCommand.payload.newIndex).toEqual(3)
+  expect (lastCommand.payload.newIndex).toEqual(4)
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {

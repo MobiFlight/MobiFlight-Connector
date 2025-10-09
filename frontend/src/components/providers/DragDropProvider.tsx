@@ -9,7 +9,6 @@ import {
   TouchSensor,
   DragMoveEvent,
   pointerWithin,
-  Over,
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -33,10 +32,6 @@ export interface DragState {
   isDragging: boolean // Whether a drag is currently active
   isInsideTable: boolean // Whether the drag is currently over a valid table
   tabIndex: number // If dragging over a tab, which tab index
-  tracking: {
-    lastOver: Over | null // Last known "over" element
-  }
-  direction: "up" | "down" | null // Direction of drag movement, for reordering
 }
 
 /**
@@ -134,10 +129,6 @@ export function ConfigItemDragProvider({
         isDragging: true,
         isInsideTable: true,
         tabIndex: -1,
-        tracking: {
-          lastOver: null,
-        },
-        direction: null,
       }
 
       setDragState(newDragState)
@@ -178,6 +169,8 @@ export function ConfigItemDragProvider({
       currentDragState.draggedItems,
       currentDragState.currentConfigIndex,
       currentDragState.sourceConfigIndex,
+      // this is not correct yet
+      0,
     )
   }, [dragState, moveItemsBetweenConfigs])
 
@@ -212,23 +205,49 @@ export function ConfigItemDragProvider({
         return
       }
 
-      // Final drop is always within the current config (thanks to useEffect handling cross-config moves)
+      // Final drop is always within the current config
       const targetConfigIndex = currentDragState.currentConfigIndex
       const dropTargetItemId = over.id as string
 
-      console.log("📍 Final positioning within config:", {
-        config: targetConfigIndex,
-        dropTarget: dropTargetItemId,
-        draggedItems: currentDragState.draggedItems.map((i) => i.GUID),
-      })
+      // Get current items and filter out the ones being dragged
+      const currentItems = getConfigItems(targetConfigIndex)
+      const draggedItemIds = currentDragState.draggedItems.map(
+        (item) => item.GUID,
+      )
+      const itemsWithoutDragged = currentItems.filter(
+        (item) => !draggedItemIds.includes(item.GUID),
+      )
 
-      // Use store function for final positioning within the same config
+      // Find the target position in the filtered list
+      const dropTargetIndex = itemsWithoutDragged.findIndex(
+        (item) => item.GUID === dropTargetItemId,
+      )
+
+      if (dropTargetIndex === -1) {
+        console.error("❌ Drop target not found in filtered list")
+        return
+      }
+
+      // Get original positions to determine movement direction
+      const originalDraggedIndex = currentItems.findIndex(
+        (item) => item.GUID === currentDragState.draggedItems[0].GUID,
+      )
+      const originalTargetIndex = currentItems.findIndex(
+        (item) => item.GUID === dropTargetItemId,
+      )
+
+      // Determine insertion position like useSortable does
+      const movingUp = originalDraggedIndex > originalTargetIndex
+      const insertionIndex = movingUp
+        ? dropTargetIndex // Insert before target when moving up
+        : dropTargetIndex + 1 // Insert after target when moving down
+
+      // Use the calculated insertion index
       moveItemsBetweenConfigs(
         currentDragState.draggedItems,
-        targetConfigIndex, // source = current config
-        targetConfigIndex, // target = same config (just repositioning)
-        dropTargetItemId, // for positioning within config
-        currentDragState.direction == "up" ? 0 : 1, // position relative to target based on direction
+        targetConfigIndex,
+        targetConfigIndex,
+        insertionIndex,
       )
 
       // Notify backend about the final state
@@ -236,9 +255,9 @@ export function ConfigItemDragProvider({
         key: "CommandResortConfigItem",
         payload: {
           items: currentDragState.draggedItems,
+          newIndex: insertionIndex, // Let backend recalculate based on dropTargetItemId
           sourceFileIndex: currentDragState.sourceConfigIndex, // Original source for backend context
           targetFileIndex: targetConfigIndex, // Final destination
-          newIndex: 0, // Let backend recalculate based on dropTargetItemId
         },
       } as CommandResortConfigItem)
 
@@ -247,7 +266,7 @@ export function ConfigItemDragProvider({
         targetConfigIndex,
       )
     },
-    [dragState, moveItemsBetweenConfigs],
+    [dragState, getConfigItems, moveItemsBetweenConfigs],
   )
 
   // Simplified useEffect - just move items, don't update dragState
@@ -270,6 +289,7 @@ export function ConfigItemDragProvider({
       dragState.draggedItems,
       dragState.currentConfigIndex,
       dragState.tabIndex,
+      0,
     )
 
     // Update drag state to reflect the new location
@@ -289,28 +309,6 @@ export function ConfigItemDragProvider({
 
       // Collect all state changes first
       const stateUpdates: Partial<DragState> = {}
-
-      // Track movement direction based on over item changes
-      const currentOverId = event.over?.id as string
-      let movementDirection = dragState.direction
-
-      if (currentOverId && currentOverId !== dragState.tracking.lastOver?.id) {
-        // Get the items from current config to determine order
-        const currentItems = getConfigItems(dragState.currentConfigIndex)
-        const lastIndex = currentItems.findIndex(
-          (item) => item.GUID === dragState.tracking.lastOver?.id,
-        )
-        const currentIndex = currentItems.findIndex(
-          (item) => item.GUID === currentOverId,
-        )
-
-        if (lastIndex !== -1 && currentIndex !== -1) {
-          movementDirection = currentIndex > lastIndex ? "down" : "up"
-        }
-
-        stateUpdates.tracking = { lastOver: event.over }
-        stateUpdates.direction = movementDirection
-      }
 
       // Only update UI state - no store operations here
       if (event.over?.data?.current?.type === "tab") {
@@ -357,7 +355,7 @@ export function ConfigItemDragProvider({
         )
       }
     },
-    [dragState, getConfigItems, tableContainerRef],
+    [dragState, tableContainerRef],
   )
 
   // Context value that child components can access
