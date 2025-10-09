@@ -56,6 +56,7 @@ interface ConfigItemDragProviderProps {
   updateConfigItems: (configIndex: number, items: IConfigItem[]) => void
   // Function to get current config items from project store
   getConfigItems: (configIndex: number) => IConfigItem[]
+  selectActiveFile: (index: number) => void
 }
 
 /**
@@ -67,6 +68,7 @@ export function ConfigItemDragProvider({
   children,
   initialConfigIndex,
   getConfigItems,
+  selectActiveFile
 }: ConfigItemDragProviderProps) {
   // State: Current table instance (set by ConfigItemTable when it mounts)
   const [table, setTable] = useState<Table<IConfigItem> | null>(null)
@@ -169,6 +171,9 @@ export function ConfigItemDragProvider({
       itemCount: currentDragState.draggedItems.length,
     })
 
+    // Switch back to original tab first
+    selectActiveFile(currentDragState.sourceConfigIndex)
+
     // Single store operation that handles everything
     restoreItemsToOriginalPositions(
       currentDragState.draggedItems,
@@ -176,7 +181,9 @@ export function ConfigItemDragProvider({
       currentDragState.sourceConfigIndex,
       currentDragState.originalPositions,
     )
-  }, [dragState, restoreItemsToOriginalPositions])
+
+    
+  }, [dragState, restoreItemsToOriginalPositions, selectActiveFile])
 
   /**
    * Called when user drops the dragged items
@@ -283,7 +290,7 @@ export function ConfigItemDragProvider({
         targetConfigIndex,
       )
     },
-    [dragState, getConfigItems, moveItemsBetweenConfigs],
+    [dragState, getConfigItems, handleDragCancel, moveItemsBetweenConfigs],
   )
 
   // Simplified useEffect - just move items, don't update dragState

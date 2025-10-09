@@ -28,6 +28,7 @@ const ConfigListPage = () => {
   const {
     project,
     activeConfigFileIndex,
+    setActiveConfigFileIndex,
     setProject,
     setConfigItems,
     updateConfigItem,
@@ -112,6 +113,7 @@ const ConfigListPage = () => {
         initialConfigIndex={activeConfigFileIndex}
         updateConfigItems={setConfigItems}
         getConfigItems={getConfigItems}
+        selectActiveFile={setActiveConfigFileIndex}
       >
         <ProjectPanel />
       <div className="flex flex-col gap-4 overflow-y-auto">
