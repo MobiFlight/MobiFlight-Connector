@@ -25,11 +25,11 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
   }
 
   const isDragging =
-    dragState?.draggedItems
-      .map((item) => item.GUID)
+    dragState?.items?.draggedItems
+      ?.map((item) => item.GUID)
       .includes(props["dnd-itemid"]) ?? false
   const isActive = active?.id === props["dnd-itemid"]
-  const isInTable = dragState?.isInsideTable ?? true
+  const isInTable = dragState?.ui.isInsideTable ?? true
   const dragStyle = isDragging
     ? isActive
       ? "opacity-100"

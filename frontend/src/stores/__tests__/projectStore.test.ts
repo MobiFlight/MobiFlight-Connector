@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { useProjectStore } from '../projectStore'
-import type { IConfigItem } from '@/types'
+import type { IConfigItem, Project } from '@/types'
 
 // Simple mock config item creator
 const createMockItem = (id: string, name: string): IConfigItem => ({
@@ -29,11 +29,11 @@ describe('ProjectStore - moveItemsBetweenConfigs', () => {
     // Create a mock project with 3 configs for testing
     const mockProject = {
       ConfigFiles: [
-        { ConfigItems: [] },
-        { ConfigItems: [] },
-        { ConfigItems: [] }
+        { ConfigItems: [] as IConfigItem[] },
+        { ConfigItems: [] as IConfigItem[] },
+        { ConfigItems: [] as IConfigItem[] }
       ]
-    } as any
+    } as Project
     
     // Set the project first
     useProjectStore.getState().setProject(mockProject)
@@ -58,7 +58,7 @@ describe('ProjectStore - moveItemsBetweenConfigs', () => {
     const actions = useProjectStore.getState().actions
     if (actions?.moveItemsBetweenConfigs) {
       console.log('Calling moveItemsBetweenConfigs...')
-      actions.moveItemsBetweenConfigs([item1], 0, 1)
+      actions.moveItemsBetweenConfigs([item1], 0, 1, 0)
     } else {
       console.log('ERROR: moveItemsBetweenConfigs not found!')
     }
@@ -89,10 +89,10 @@ describe('ProjectStore - moveItemsBetweenConfigs', () => {
     
     const mockProject = {
       ConfigFiles: [
-        { ConfigItems: [] },
-        { ConfigItems: [] }
+        { ConfigItems: [] as IConfigItem[] },
+        { ConfigItems: [] as IConfigItem[] }
       ]
-    } as any
+    } as Project
     
     useProjectStore.getState().setProject(mockProject)
     useProjectStore.getState().setConfigItems(0, [item1, item2])
@@ -105,7 +105,7 @@ describe('ProjectStore - moveItemsBetweenConfigs', () => {
 
     // Act
     const actions = useProjectStore.getState().actions
-    actions.moveItemsBetweenConfigs([item1], 0, 1)
+    actions.moveItemsBetweenConfigs([item1], 0, 1, 0)
 
     // Assert - Check for duplicates across all configs
     const afterState = useProjectStore.getState()
@@ -131,9 +131,9 @@ describe('ProjectStore - moveItemsBetweenConfigs', () => {
     
     const mockProject = {
       ConfigFiles: [
-        { ConfigItems: [] }
+        { ConfigItems: [] as IConfigItem[] }
       ]
-    } as any
+    } as Project
     
     useProjectStore.getState().setProject(mockProject)
     useProjectStore.getState().setConfigItems(0, [item1, item2, item3])
@@ -144,7 +144,7 @@ describe('ProjectStore - moveItemsBetweenConfigs', () => {
 
     // Act - Move within same config
     const actions = useProjectStore.getState().actions
-    actions.moveItemsBetweenConfigs([item1], 0, 0)
+    actions.moveItemsBetweenConfigs([item1], 0, 0, 0)
 
     const afterState = useProjectStore.getState()
     const guids = afterState.project!.ConfigFiles[0].ConfigItems.map(item => item.GUID)

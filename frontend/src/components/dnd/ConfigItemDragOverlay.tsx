@@ -4,17 +4,22 @@ import ConfigItemTabDragOverlay from "./ConfigItemTabDragOverlay"
 import { cn } from "@/lib/utils"
 
 export function ConfigItemDragOverlay() {
-  const { dragState: rawDragState } = useConfigItemDragContext()
+  const { dragState } = useConfigItemDragContext()
 
-  const dragState = rawDragState ?? { isDragging: false, draggedItems: [], isInsideTable: true }
+  // Simple boolean checks instead of complex object initialization
+  const isDraggingWithItems =
+    dragState?.ui.isDragging && (dragState?.items.draggedItems?.length ?? 0) > 0
+  const isInsideTable = dragState?.ui.isInsideTable ?? true
 
-  const isDraggingWithItems = dragState?.isDragging && dragState?.draggedItems.length > 0
-  const isInsideTable = dragState.isInsideTable
+  if (!isDraggingWithItems) {
+    return null
+  }
 
-  return isDraggingWithItems && (
-    <DragOverlay className="cursor-grabbing">
-      <div>
-        {/* <ConfigItemTableDragOverlay
+  return (
+    isDraggingWithItems && (
+      <DragOverlay className="cursor-grabbing">
+        <div>
+          {/* <ConfigItemTableDragOverlay
           className={cn(
             "transition-all duration-100 ease-in-out",
             !isInsideTable ? "opacity-0 scale-0" : "opacity-100",
@@ -22,14 +27,15 @@ export function ConfigItemDragOverlay() {
           firstItem={firstItem}
           itemCount={itemCount}
         /> */}
-        <ConfigItemTabDragOverlay
-          className={cn(
-            "transition-all duration-300 ease-in-out",
-            isInsideTable ? "opacity-0 scale-0" : "opacity-100",
-          )}
-          items={dragState.draggedItems}
-        />
-      </div>
-    </DragOverlay>
+          <ConfigItemTabDragOverlay
+            className={cn(
+              "transition-all duration-300 ease-in-out",
+              isInsideTable ? "scale-0 opacity-0" : "opacity-100",
+            )}
+            items={dragState?.items.draggedItems ?? []}
+          />
+        </div>
+      </DragOverlay>
+    )
   )
 }
