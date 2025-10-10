@@ -78,11 +78,11 @@ test("Confirm edit function for name is working", async ({
   // Click on the text span to enter edit mode
   await nameCell.getByText("LED 1245").nth(1).click()
   await inlineEdit.fill("LED 9999")
-  
+
   // We cancel the change by pressing Escape
   await page.keyboard.press("Escape")
   await expect(page.getByRole("cell", { name: "LED 1245" })).toBeVisible()
-  
+
   postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
   expect(postedCommands?.length).toEqual(1)
 })
@@ -245,56 +245,57 @@ test.describe("Drag and drop tests", () => {
   })
 
   test("Confirm multi drag n drop across tabs is working", async ({
-  configListPage,
-  page,
-}) => {
-  await configListPage.gotoPage()
-  await configListPage.initWithTestData()
-  await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
-  const firstRow = page.getByRole("row").nth(1)
-  const thirdRow = page.getByRole("row").nth(3)
-  const secondTab = page.getByRole("tab").nth(1)
+    const firstRow = page.getByRole("row").nth(1)
+    const thirdRow = page.getByRole("row").nth(3)
+    const secondTab = page.getByRole("tab").nth(1)
 
-  // select the first row
-  await firstRow.click()
-  await page.keyboard.down("Control")
-  // add the third row to the selection
-  await thirdRow.click()
-  await page.keyboard.up("Control")
+    // select the first row
+    await firstRow.click()
+    await page.keyboard.down("Control")
+    // add the third row to the selection
+    await thirdRow.click()
+    await page.keyboard.up("Control")
 
-  // activate drag by hovering over drag handle
-  const dragHandle = thirdRow.getByRole("button").first()
-  await dragHandle.hover()
-  await page.mouse.down()
+    // activate drag by hovering over drag handle
+    const dragHandle = thirdRow.getByRole("button").first()
+    await dragHandle.hover()
+    await page.mouse.down()
 
-  // drag over to the second tab to trigger cross-config move
-  await secondTab.hover()
-  
-  // wait for tab switch hover timeout (600ms as per your ProjectPanel code)
-  await page.waitForTimeout(700)
+    // drag over to the second tab to trigger cross-config move
+    await secondTab.hover()
 
-  // find a target row in the second tab to drop on
-  const targetRowInSecondTab = page.getByRole("row").nth(1)
-  await targetRowInSecondTab.hover()
-  await page.mouse.up()
+    // wait for tab switch hover timeout (600ms as per your ProjectPanel code)
+    await page.waitForTimeout(700)
 
-  // verify the items moved to the second tab
-  // Note: You'll need to verify the actual items based on your test data structure
-  // This assumes the second tab now shows the moved items
-  await expect(page.getByRole("row").nth(2)).toContainText("7-Segment")
-  await expect(page.getByRole("row").nth(3)).toContainText("Servo")
+    // find a target row in the second tab to drop on
+    const targetRowInSecondTab = page.getByRole("row").nth(1)
+    await targetRowInSecondTab.hover()
+    await page.mouse.up()
 
-  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
-  const lastCommand = postedCommands!.pop()
-  expect(lastCommand.key).toEqual("CommandResortConfigItem")
-  expect(lastCommand.payload.items.length).toEqual(2)
-  expect(lastCommand.payload.items[0].Name).toEqual("7-Segment")
-  expect(lastCommand.payload.items[1].Name).toEqual("Servo")
-  expect(lastCommand.payload.sourceFileIndex).toEqual(0) // Original tab
-  expect(lastCommand.payload.targetFileIndex).toEqual(1) // Second tab
-  expect(lastCommand.payload.newIndex).toEqual(1) // Dropped at top of second tab
-})
+    // verify the items moved to the second tab
+    // Note: You'll need to verify the actual items based on your test data structure
+    // This assumes the second tab now shows the moved items
+    await expect(page.getByRole("row").nth(2)).toContainText("7-Segment")
+    await expect(page.getByRole("row").nth(3)).toContainText("Servo")
+
+    const postedCommands =
+      await configListPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandResortConfigItem")
+    expect(lastCommand.payload.items.length).toEqual(2)
+    expect(lastCommand.payload.items[0].Name).toEqual("7-Segment")
+    expect(lastCommand.payload.items[1].Name).toEqual("Servo")
+    expect(lastCommand.payload.sourceFileIndex).toEqual(0) // Original tab
+    expect(lastCommand.payload.targetFileIndex).toEqual(1) // Second tab
+    expect(lastCommand.payload.newIndex).toEqual(1) // Dropped at top of second tab
+  })
 
   test("Confirm drag cancel is working on same tab", async ({
     configListPage,
@@ -342,7 +343,7 @@ test.describe("Drag and drop tests", () => {
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
-    const thirdRow = page.getByRole("row").nth(3)    
+    const thirdRow = page.getByRole("row").nth(3)
 
     const secondTab = page.getByRole("tab").nth(1)
 
@@ -357,7 +358,6 @@ test.describe("Drag and drop tests", () => {
     await dragHandle.hover()
     await page.mouse.down()
     await secondTab.hover()
-    
     await page.waitForTimeout(500)
 
     // but cancel by pressing Escape
@@ -372,13 +372,13 @@ test.describe("Drag and drop tests", () => {
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
-    await configListPage.gotoPage()
-    await configListPage.initWithTestData()
-    await expect(page.locator("html")).toHaveAttribute("class", "light")
-    await page.getByRole("button", { name: "Toggle dark mode" }).click()
-    await expect(page.locator("html")).toHaveAttribute("class", "dark")
-    await page.getByRole("button", { name: "Toggle light mode" }).click()
-    await expect(page.locator("html")).toHaveAttribute("class", "light")
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await expect(page.locator("html")).toHaveAttribute("class", "light")
+  await page.getByRole("button", { name: "Toggle dark mode" }).click()
+  await expect(page.locator("html")).toHaveAttribute("class", "dark")
+  await page.getByRole("button", { name: "Toggle light mode" }).click()
+  await expect(page.locator("html")).toHaveAttribute("class", "light")
 })
 
 test("Confirm add output config is working", async ({

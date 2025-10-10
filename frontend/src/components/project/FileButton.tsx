@@ -61,7 +61,7 @@ const FileButton = ({
   const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary group-hover:text-primary-foreground" : "group-hover:bg-accent group-hover:text-accent-foreground"
   
   const {setNodeRef} = useDroppable({
-    id: 'file-button-' + index,
+    id: `file-button-${index}`,
     data: {
       type: `tab`,
       index: index,
