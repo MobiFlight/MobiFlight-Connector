@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useMemo, useState } from "react"
 import {
   DndContext,
   DragStartEvent,
@@ -9,6 +9,8 @@ import {
   TouchSensor,
   DragMoveEvent,
   pointerWithin,
+  Modifier,
+  closestCenter,
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -19,6 +21,7 @@ import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
 import { ConfigItemDragContext } from "./ConfigItemContext"
 import { useProjectStoreActions } from "@/stores/projectStore"
+import { restrictToBottomOfParentElement } from "../dnd/modifiers/restrictToBottomOfParentElement"
 
 /**
  * The drag state that persists throughout the entire drag operation
@@ -69,8 +72,6 @@ interface ConfigItemDragProviderProps {
 
 /**
  * Provider component that manages ALL drag-and-drop logic
- * Key insight: Works directly with project store, not table data
- * This makes it independent of table implementation, virtualization, filters, etc.
  */
 export function ConfigItemDragProvider({
   children,
@@ -403,7 +404,7 @@ export function ConfigItemDragProvider({
       if (isInsideTable !== dragState.ui.isInsideTable) {
         stateUpdates.ui = {
           ...(stateUpdates.ui || dragState.ui),
-          isInsideTable,
+          isInsideTable: isInsideTable,
         }
       }
 
@@ -430,16 +431,36 @@ export function ConfigItemDragProvider({
     setTableContainerRef, // Function for table to register its container element
   }
 
-  // Dynamic modifiers based on drag state
-  const getModifiers = () => {
-    if (!(dragState?.ui.isInsideTable ?? true)) {
-      // Outside container: free movement for cross-tab dragging
-      return [snapToCursor]
-    } else {
-      // Inside container: restrict to vertical for row reordering
-      return [snapToCursor, restrictToVerticalAxis]
-    }
-  }
+  const createDynamicModifier = useCallback(
+    (dragState: DragState | null): Modifier => {
+      return (args) => {
+        const isInsideTable = dragState?.ui.isInsideTable ?? true
+
+        let transform = snapToCursor(args)
+
+        if (isInsideTable) {
+          transform = restrictToVerticalAxis({ ...args, transform })
+          transform = restrictToBottomOfParentElement({ ...args, transform })
+        }
+
+        return transform
+      }
+    },
+    [],
+  )
+
+  const modifiers = useMemo(
+    () => [createDynamicModifier(dragState)],
+    [dragState, createDynamicModifier],
+  )
+
+  const collisionDetection = useMemo(() => {
+    return dragState?.ui.isInsideTable
+      ? // makes the rows snap to center of other rows
+        closestCenter
+      : // allows to detect when the pointer is over a tab
+        pointerWithin
+  }, [dragState])
 
   return (
     // Provide context to child components
@@ -448,8 +469,8 @@ export function ConfigItemDragProvider({
       <DndContext
         sensors={sensors}
         // pointer within is needed for tab hover detection
-        collisionDetection={pointerWithin}
-        modifiers={getModifiers()}
+        collisionDetection={collisionDetection}
+        modifiers={modifiers}
         onDragStart={handleDragStart}
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
