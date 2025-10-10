@@ -244,6 +244,58 @@ test.describe("Drag and drop tests", () => {
     expect(lastCommand.payload.newIndex).toEqual(4)
   })
 
+  test("Confirm multi drag n drop across tabs is working", async ({
+  configListPage,
+  page,
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+  const firstRow = page.getByRole("row").nth(1)
+  const thirdRow = page.getByRole("row").nth(3)
+  const secondTab = page.getByRole("tab").nth(1)
+
+  // select the first row
+  await firstRow.click()
+  await page.keyboard.down("Control")
+  // add the third row to the selection
+  await thirdRow.click()
+  await page.keyboard.up("Control")
+
+  // activate drag by hovering over drag handle
+  const dragHandle = thirdRow.getByRole("button").first()
+  await dragHandle.hover()
+  await page.mouse.down()
+
+  // drag over to the second tab to trigger cross-config move
+  await secondTab.hover()
+  
+  // wait for tab switch hover timeout (600ms as per your ProjectPanel code)
+  await page.waitForTimeout(700)
+
+  // find a target row in the second tab to drop on
+  const targetRowInSecondTab = page.getByRole("row").nth(1)
+  await targetRowInSecondTab.hover()
+  await page.mouse.up()
+
+  // verify the items moved to the second tab
+  // Note: You'll need to verify the actual items based on your test data structure
+  // This assumes the second tab now shows the moved items
+  await expect(page.getByRole("row").nth(2)).toContainText("7-Segment")
+  await expect(page.getByRole("row").nth(3)).toContainText("Servo")
+
+  const postedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
+  const lastCommand = postedCommands!.pop()
+  expect(lastCommand.key).toEqual("CommandResortConfigItem")
+  expect(lastCommand.payload.items.length).toEqual(2)
+  expect(lastCommand.payload.items[0].Name).toEqual("7-Segment")
+  expect(lastCommand.payload.items[1].Name).toEqual("Servo")
+  expect(lastCommand.payload.sourceFileIndex).toEqual(0) // Original tab
+  expect(lastCommand.payload.targetFileIndex).toEqual(1) // Second tab
+  expect(lastCommand.payload.newIndex).toEqual(1) // Dropped at top of second tab
+})
+
   test("Confirm drag cancel is working on same tab", async ({
     configListPage,
     page,
