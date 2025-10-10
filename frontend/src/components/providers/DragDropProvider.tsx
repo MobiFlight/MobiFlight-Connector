@@ -238,12 +238,16 @@ export function ConfigItemDragProvider({
       const draggedItemIds = currentDragState.draggedItems.map(
         (item) => item.GUID,
       )
+
+      
       const itemsWithoutDragged = currentItems.filter(
         (item) => !draggedItemIds.includes(item.GUID),
       )
+      
+      const hoveringOverTab = event.over?.data?.current?.type === "tab"
 
       // Find the target position in the filtered list
-      const dropTargetIndex = itemsWithoutDragged.findIndex(
+      const dropTargetIndex = hoveringOverTab ? 0 : itemsWithoutDragged.findIndex(
         (item) => item.GUID === dropTargetItemId,
       )
 
@@ -334,8 +338,10 @@ export function ConfigItemDragProvider({
       // Collect all state changes first
       const stateUpdates: Partial<DragState> = {}
 
+      const hoveringOverTab = event.over?.data?.current?.type === "tab"
+
       // Only update UI state - no store operations here
-      if (event.over?.data?.current?.type === "tab") {
+      if (hoveringOverTab) {
         const hoveredTabIndex = event.over?.data?.current?.index
 
         if (hoveredTabIndex !== dragState.tabIndex) {

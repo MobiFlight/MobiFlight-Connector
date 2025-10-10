@@ -416,6 +416,8 @@ namespace MobiFlight
             {
                 // find all items
                 var resortedItems = new List<IConfigItem>();
+                var ConfigItems = Project.ConfigFiles[message.SourceFileIndex].ConfigItems;
+
                 message.Items.ToList().ForEach(item =>
                 {
                     IConfigItem cfg = ConfigItems.Find(i => i.GUID == item.GUID);
@@ -424,15 +426,19 @@ namespace MobiFlight
                     ConfigItems.Remove(cfg);
                 });
 
+                var targetFile = Project.ConfigFiles[message.TargetFileIndex];
+
                 var currentIndex = message.NewIndex;
 
                 resortedItems.ForEach(item =>
                 {
-                    ConfigItems.Insert(currentIndex, item);
+                    targetFile.ConfigItems.Insert(currentIndex, item);
                     currentIndex++;
                 });
 
-                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(ActiveConfigIndex, ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(message.SourceFileIndex, ConfigItems));
+                MessageExchange.Instance.Publish(new ConfigValueFullUpdate(message.TargetFileIndex, targetFile.ConfigItems));
+
                 OnConfigHasChanged?.Invoke(ConfigItems, null);
             });
 
