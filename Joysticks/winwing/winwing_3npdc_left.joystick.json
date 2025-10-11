@@ -1,0 +1,243 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING 3N PDC L",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB61",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "FPV Button"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "MTRS Button"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "WXR Button"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "STA Button"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "WPT Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "ARPT Button"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "DATA Button"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "POS Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "TERR Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "VOR 1"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "OFF 1"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "ADF 1"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "VOR 2"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "OFF 2"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "ADF 2"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "RST Button"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "CTR Button"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "TFC Button"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "STD Button"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "MINS DEC Full"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "MINS INC Full"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "BARO DEC Full"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "BARO INC Full"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "MINS RADIO"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "MINS BARO"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "BARO IN"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "BARO HPA"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "APP Mode"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "VOR Mode"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "APP Mode"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "VOR Mode"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "MAP Mode"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "PLN Mode"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "RANGE 5"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "RANGE 10"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "RANGE 20"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "RANGE 40"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "RANGE 80"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "RANGE 160"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "RANGE 320"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "RANGE 640"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "MINS DEC"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "MINS NEUTRAL"
+    },
+    {
+      "Id": 42,
+      "Type": "Button",
+      "Label": "MINS INC"
+    },
+    {
+      "Id": 43,
+      "Type": "Button",
+      "Label": "BARO DEC"
+    },
+    {
+      "Id": 44,
+      "Type": "Button",
+      "Label": "BARO NEUTRAL"
+    },
+    {
+      "Id": 45,
+      "Type": "Button",
+      "Label": "BARO INC"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING PDC-3M-L",
+  "VendorId": "0x4098",
+  "ProductId": "0xBB51",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "FPV Button"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "MTRS Button"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "VSD Button"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "WXR Button"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "STA Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "WPT Button"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "ARPT Button"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "DATA Button"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "POS Button"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "TERR Button"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "VOR 1"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "OFF 1"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "ADF 1"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "VOR 2"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "OFF 2"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "ADF 2"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "RST Button"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "CTR Button"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "TFC Button"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "STD Button"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "RANGE DEC"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "RANGE INC"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "BARO DEC Full"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "BARO INC Full"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "MINS RADIO"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "MINS BARO"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "BARO IN"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "BARO HPA"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "APP Mode"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "VOR Mode"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "MAP Mode"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "PLN Mode"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "MINS DEC Full"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "MINS DEC"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "MINS NEUTRAL"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "MINS INC"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "MINS INC Full"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "BARO DEC"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "BARO NEUTRAL"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "BARO INC"
+    }
+  ]
+}

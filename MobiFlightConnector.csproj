@@ -372,6 +372,7 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\Winwing3Pdc.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3Report.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingCdu.cs" />
@@ -1374,6 +1375,15 @@
     <None Include="Joysticks\vkbsim\vkbsim_nxt_thqx3_fsm_ga.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Joysticks\winwing\winwing_3mpdc_right.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_3mpdc_left.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_3npdc_right.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Joysticks\winwing\winwing_fcu.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1387,6 +1397,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_fcu_efisl_efisr.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_3npdc_left.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\winwing\winwing_fcu_efisr.joystick.json">
