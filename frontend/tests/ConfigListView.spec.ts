@@ -189,6 +189,7 @@ test.describe("Drag and drop tests", () => {
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
     await page.getByRole("row").nth(1).getByRole("button").first().hover()
     await page.mouse.down()
+    await page.waitForTimeout(500)
     await page
       .getByRole("row", { name: "ShiftRegister" })
       .getByRole("button")
@@ -230,6 +231,8 @@ test.describe("Drag and drop tests", () => {
     const dragHandle = thirdRow.getByRole("button").first()
     await dragHandle.hover()
     await page.mouse.down()
+    await page.waitForTimeout(500)
+
     await fifthRow.getByRole("button").first().hover()
     await page.mouse.up()
 
@@ -269,8 +272,7 @@ test.describe("Drag and drop tests", () => {
     const dragHandle = thirdRow.getByRole("button").first()
     await dragHandle.hover()
     await page.mouse.down()
-
-
+    await page.waitForTimeout(500)
 
     // drag over to the second tab to trigger cross-config move
     await secondTab.hover()
@@ -396,6 +398,7 @@ test.describe("Drag and drop tests", () => {
     const dragHandle = firstRow.getByRole("button").first()
     await dragHandle.hover()
     await page.mouse.down()
+    await page.waitForTimeout(500)
     // hover on top of first tab to ensure we are not switching tabs
     await firstTab.hover()
     const placeholder = page.getByText("Drop here to add new items")
