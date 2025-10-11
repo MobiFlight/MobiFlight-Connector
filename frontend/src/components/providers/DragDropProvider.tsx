@@ -333,8 +333,6 @@ export function ConfigItemDragProvider({
         }
       }
 
-      console.log("👀 Drag move - over:", event.over?.data?.current?.type)
-
       // Only update UI state - no store operations here
       if (hoveringOverTab) {
         const hoveredTabIndex = event.over?.data?.current?.index
