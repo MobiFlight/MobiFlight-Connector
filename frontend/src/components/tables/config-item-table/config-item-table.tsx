@@ -269,15 +269,20 @@ export function ConfigItemTable<TValue>({
   const { theme } = useTheme()
 
   const showTable = useMemo(() => {
-    if (!(dragState?.ui.isDragging ?? true)) {
+    if (!(dragState?.ui.isDragging ?? false)) {
       return data.length > 0
     }
 
-    return data.length - (dragState?.items.draggedItems.length ?? 0) > 0
+    return (
+      table.getRowModel().rows?.length -
+        (dragState?.items.draggedItems.length ?? 0) >
+      0
+    )
   }, [
     data.length,
     dragState?.items.draggedItems.length,
     dragState?.ui.isDragging,
+    table,
   ])
 
   return (
@@ -300,9 +305,7 @@ export function ConfigItemTable<TValue>({
         />
         {showTable ? (
           table.getRowModel().rows?.length ? (
-            <div
-              className="border-primary flex flex-col overflow-y-auto rounded-lg border"
-            >
+            <div className="border-primary flex flex-col overflow-y-auto rounded-lg border">
               <Table ref={tableRef} className="table-fixed">
                 <ConfigItemTableHeader
                   ref={setTableHeaderRef}

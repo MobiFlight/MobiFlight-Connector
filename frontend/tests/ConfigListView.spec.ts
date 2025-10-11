@@ -369,6 +369,47 @@ test.describe("Drag and drop tests", () => {
       await configListPage.mobiFlightPage.getTrackedCommands()
     expect(postedCommands?.length ?? 0).toEqual(0)
   })
+
+  test("Confirm drag n drop is working with filter active", async ({
+    configListPage,
+    page,
+  }) => {
+    await configListPage.gotoPage()
+    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
+
+    const firstRow = page.getByRole("row").nth(1)
+    const firstTab = page.getByRole("tab").nth(0)
+    const secondTab = page.getByRole("tab").nth(1)
+
+    await configListPage.filterByText("7-Segment")
+    // only one row should be visible now
+    await expect(page.getByRole("row")).toHaveCount(2)
+
+    // select the first row
+    await firstRow.click()
+    // activate drag and drop
+    const dragHandle = firstRow.getByRole("button").first()
+    await dragHandle.hover()
+    await page.mouse.down()
+    // hover on top of first tab to ensure we are not switching tabs
+    await firstTab.hover()
+    const placeholder = page.getByText("Drop here to add new items")
+
+    await expect(placeholder).toBeVisible()
+    // move mouse away from first tab to trigger 2nd tab properly
+    await placeholder.hover()
+
+    await secondTab.hover()
+    await page.waitForTimeout(700)
+
+    await expect(placeholder).toBeVisible()
+    await placeholder.hover()
+    await page.mouse.up()
+
+    // verify the items moved to the second tab
+    await expect(page.getByRole("row").nth(1)).toContainText("7-Segment")
+  })
 })
 
 test("Confirm dark mode is working", async ({ configListPage, page }) => {
