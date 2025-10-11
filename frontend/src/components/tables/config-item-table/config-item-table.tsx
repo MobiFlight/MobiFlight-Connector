@@ -32,6 +32,7 @@ import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
 import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
+import { useDroppable } from "@dnd-kit/core"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -77,7 +78,15 @@ export function ConfigItemTable<TValue>({
     },
   })
 
-  const parentRef = useRef<HTMLDivElement>(null)
+  const { setNodeRef: setTableBodyRef } = useDroppable({
+    id: "config-item-table-body",
+    data: { type: "table" },
+  })
+
+  const { setNodeRef: setTableHeaderRef } = useDroppable({
+    id: "config-item-table-header",
+    data: { type: "header" },
+  })
   // const { rows } = table.getRowModel()
   // Virtualization setup
   // const virtualizer = useVirtualizer({
@@ -113,10 +122,11 @@ export function ConfigItemTable<TValue>({
     (node: HTMLTableSectionElement | null) => {
       tableBodyRef.current = node
       if (node) {
+        setTableBodyRef(node)
         setTableContainerRef(node)
       }
     },
-    [setTableContainerRef],
+    [setTableContainerRef, setTableBodyRef],
   )
 
   // the useCallback hook is necessary so that playwright tests work correctly
@@ -292,10 +302,12 @@ export function ConfigItemTable<TValue>({
           table.getRowModel().rows?.length ? (
             <div
               className="border-primary flex flex-col overflow-y-auto rounded-lg border"
-              ref={parentRef}
             >
               <Table ref={tableRef} className="table-fixed">
-                <ConfigItemTableHeader headerGroups={table.getHeaderGroups()} />
+                <ConfigItemTableHeader
+                  ref={setTableHeaderRef}
+                  headerGroups={table.getHeaderGroups()}
+                />
                 <ConfigItemTableBody
                   ref={handleTableBodyRef}
                   table={table}

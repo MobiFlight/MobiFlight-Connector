@@ -10,7 +10,7 @@ import {
   DragMoveEvent,
   pointerWithin,
   Modifier,
-  closestCenter,
+  closestCenter
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -404,6 +404,27 @@ export function ConfigItemDragProvider({
 
       const hoveringOverTab = event.over?.data?.current?.type === "tab"
 
+      const defaultType = event.over?.data?.current?.type ?? (Math.abs(event.delta.y) < 15 && "row")
+      const hoveringOverTable = ["table", "row"].includes(
+        event.over?.data?.current?.type ?? defaultType
+      ) 
+
+      if (hoveringOverTable && !dragState.ui.isInsideTable) {
+        console.log("➡️ Entered table area")
+        stateUpdates.ui = {
+          ...dragState.ui,
+          isInsideTable: true,
+        }
+      } else if (!hoveringOverTable && dragState.ui.isInsideTable) {
+        console.log("⬅️ Left table area")
+        stateUpdates.ui = {
+          ...dragState.ui,
+          isInsideTable: false,
+        }
+      }
+
+      console.log("👀 Drag move - over:", event.over?.data?.current?.type)
+
       // Only update UI state - no store operations here
       if (hoveringOverTab) {
         const hoveredTabIndex = event.over?.data?.current?.index
@@ -423,26 +444,6 @@ export function ConfigItemDragProvider({
             ...dragState.ui,
             hoveredTabIndex: -1,
           }
-        }
-      }
-
-      // Get the current mouse position
-      const { x, y } = event.activatorEvent as MouseEvent
-      const currentX = event.delta.x + x
-      const currentY = event.delta.y + y
-
-      // Check if cursor is outside the table container
-      const containerRect = tableContainerRef.getBoundingClientRect()
-      const isInsideTable =
-        currentX >= containerRect.left &&
-        currentX <= containerRect.right &&
-        currentY >= containerRect.top &&
-        currentY <= containerRect.bottom
-
-      if (isInsideTable !== dragState.ui.isInsideTable) {
-        stateUpdates.ui = {
-          ...(stateUpdates.ui || dragState.ui),
-          isInsideTable: isInsideTable,
         }
       }
 

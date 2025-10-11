@@ -16,6 +16,7 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
 
   const { setNodeRef, transform, transition, active } = useSortable({
     id: props["dnd-itemid"],
+    data: { type: "row" },
   })
 
   const dndStyle: CSSProperties = {
