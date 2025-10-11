@@ -20,7 +20,7 @@ import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
 import { ConfigItemDragContext } from "./ConfigItemContext"
-import { useProjectStoreActions } from "@/stores/projectStore"
+import { useProjectStore, useProjectStoreActions } from "@/stores/projectStore"
 import { restrictToBottomOfParentElement } from "../dnd/modifiers/restrictToBottomOfParentElement"
 
 /**
@@ -43,6 +43,7 @@ export interface DragState {
     isDragging: boolean // Whether a drag is currently active
     isInsideTable: boolean // Whether the drag is currently over a valid table
     hoveredTabIndex: number // If dragging over a tab, which tab index
+    activeTabIndex?: number // If drag ended over a tab, which tab index
   }
 }
 
@@ -101,6 +102,9 @@ export function ConfigItemDragProvider({
   const { moveItemsBetweenConfigs, restoreItemsToOriginalPositions } =
     useProjectStoreActions()
 
+  // Subscribe to the actual active config index from store
+  const activeConfigFileIndex = useProjectStore(state => state.activeConfigFileIndex)
+
   /**
    * Called when user starts dragging an item
    * Captures what items are being dragged and from which config
@@ -157,6 +161,7 @@ export function ConfigItemDragProvider({
           isDragging: true,
           isInsideTable: true,
           hoveredTabIndex: -1,
+          activeTabIndex: initialConfigIndex,
         },
       }
 
@@ -249,13 +254,19 @@ export function ConfigItemDragProvider({
         console.log("↩️ Item dropped on itself - no change needed")
         return
       }
+      
+      
+      // Final drop is 
+      // a) within the current config when we are over the table
+      // b) or on a tab (which means move to that config and put at end)
 
-      // Final drop is always within the current config
-      const targetConfigIndex = currentDragState.configs.current
+      const hoveringOverTab = event.over?.data?.current?.type === "tab"
+      const sourceConfigIndex = !hoveringOverTab ? currentDragState.configs.current : currentDragState.configs.source
+      const targetConfigIndex = !hoveringOverTab ? currentDragState.configs.current : currentDragState.ui.hoveredTabIndex
       const dropTargetItemId = over.id as string
 
       // Get current items and filter out the ones being dragged
-      const currentItems = getConfigItems(targetConfigIndex)
+      const currentItems = getConfigItems(sourceConfigIndex)
       const draggedItemIds = currentDragState.items.draggedItems.map(
         (item) => item.GUID,
       )
@@ -263,8 +274,6 @@ export function ConfigItemDragProvider({
       const itemsWithoutDragged = currentItems.filter(
         (item) => !draggedItemIds.includes(item.GUID),
       )
-
-      const hoveringOverTab = event.over?.data?.current?.type === "tab"
 
       // Find the target position in the filtered list
       const dropTargetIndex = hoveringOverTab
@@ -295,7 +304,7 @@ export function ConfigItemDragProvider({
       // Use the calculated insertion index
       moveItemsBetweenConfigs(
         currentDragState.items.draggedItems,
-        targetConfigIndex,
+        sourceConfigIndex,
         targetConfigIndex,
         insertionIndex,
       )
@@ -324,14 +333,13 @@ export function ConfigItemDragProvider({
     if (!dragState || dragState.ui.hoveredTabIndex === -1) return
 
     // Only move items when tabIndex changes and it's different from current config
-    const shouldMoveItems =
-      dragState.ui.hoveredTabIndex !== dragState.configs.current
+    const shouldMoveItems = activeConfigFileIndex !== dragState.configs.current
 
     if (!shouldMoveItems) return
 
     console.log("🔄 Effect triggered - moving items:", {
       from: dragState.configs.current,
-      to: dragState.ui.hoveredTabIndex,
+      to: activeConfigFileIndex,
       items: dragState.items.draggedItems.map((i) => i.GUID),
     })
 
@@ -339,7 +347,7 @@ export function ConfigItemDragProvider({
     moveItemsBetweenConfigs(
       dragState.items.draggedItems,
       dragState.configs.current,
-      dragState.ui.hoveredTabIndex,
+      activeConfigFileIndex,
       0,
     )
 
@@ -350,12 +358,12 @@ export function ConfigItemDragProvider({
             ...prev,
             configs: {
               ...prev.configs,
-              current: dragState.ui.hoveredTabIndex,
+              current: activeConfigFileIndex,
             },
           }
         : null,
     )
-  }, [dragState, moveItemsBetweenConfigs])
+  }, [activeConfigFileIndex, dragState, moveItemsBetweenConfigs])
 
   const handleDragMove = useCallback(
     (event: DragMoveEvent) => {

@@ -13,7 +13,7 @@ import {
 
 import { Table } from "@/components/ui/table"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
@@ -31,6 +31,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
 import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
+import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -42,7 +43,7 @@ export function ConfigItemTable<TValue>({
   columns,
   data,
   dragItemId,
-}: DataTableProps<IConfigItem, TValue>) {  
+}: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
 
   const [sorting, setSorting] = useState<SortingState>([])
@@ -93,7 +94,7 @@ export function ConfigItemTable<TValue>({
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
 
-  const { setTable, setTableContainerRef } = useConfigItemDragContext()
+  const { setTable, setTableContainerRef, dragState } = useConfigItemDragContext()
   // Register this table with the drag context
   useEffect(() => {
     setTable(table)
@@ -256,9 +257,17 @@ export function ConfigItemTable<TValue>({
 
   const { theme } = useTheme()
 
+  const showTable = useMemo(() => {
+    if (!(dragState?.ui.isDragging ?? true)) {
+      return data.length > 0
+    }
+
+    return data.length - (dragState?.items.draggedItems.length ?? 0) > 0
+  }, [data.length, dragState?.items.draggedItems.length, dragState?.ui.isDragging])
+
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
-      {data.length > 0 ? (
+      {showTable ? (
         <div className="flex grow flex-col gap-2 overflow-y-auto">
           <div className="p-1">
             <DataTableToolbar
@@ -316,12 +325,7 @@ export function ConfigItemTable<TValue>({
           )}
         </div>
       ) : (
-        <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid">
-          <div className="bg-primary h-12"></div>
-          <div className="p-4 pb-6 text-center" role="alert">
-            {t("ConfigList.Table.NoResultsFound")}
-          </div>
-        </div>
+        <ConfigItemNoResultsDroppable />
       )}
       <div className="flex justify-start gap-2">
         <Button
