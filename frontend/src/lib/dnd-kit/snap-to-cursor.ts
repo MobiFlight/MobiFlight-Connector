@@ -14,7 +14,6 @@ export const snapToCursor: Modifier = ({
     }
 
     const offsetY = activatorCoordinates.y - draggingNodeRect.top;
-    const offsetX = activatorCoordinates.x - draggingNodeRect.left;
 
     return {
       ...transform,
