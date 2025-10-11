@@ -103,7 +103,9 @@ export function ConfigItemDragProvider({
     useProjectStoreActions()
 
   // Subscribe to the actual active config index from store
-  const activeConfigFileIndex = useProjectStore(state => state.activeConfigFileIndex)
+  const activeConfigFileIndex = useProjectStore(
+    (state) => state.activeConfigFileIndex,
+  )
 
   /**
    * Called when user starts dragging an item
@@ -254,15 +256,24 @@ export function ConfigItemDragProvider({
         console.log("↩️ Item dropped on itself - no change needed")
         return
       }
-      
-      
-      // Final drop is 
+
+      // Final drop is
       // a) within the current config when we are over the table
       // b) or on a tab (which means move to that config and put at end)
 
       const hoveringOverTab = event.over?.data?.current?.type === "tab"
-      const sourceConfigIndex = !hoveringOverTab ? currentDragState.configs.current : currentDragState.configs.source
-      const targetConfigIndex = !hoveringOverTab ? currentDragState.configs.current : currentDragState.ui.hoveredTabIndex
+      const dropOnPlaceholder =
+        event.over?.data?.current?.type === "placeholder"
+
+      // only if we are ending over tab we have to still move between configs
+      // in all other cases source config and target config are the same
+      const sourceConfigIndex = !hoveringOverTab
+        ? currentDragState.configs.current
+        : currentDragState.configs.source
+      const targetConfigIndex = !hoveringOverTab
+        ? currentDragState.configs.current
+        : currentDragState.ui.hoveredTabIndex
+
       const dropTargetItemId = over.id as string
 
       // Get current items and filter out the ones being dragged
@@ -270,36 +281,55 @@ export function ConfigItemDragProvider({
       const draggedItemIds = currentDragState.items.draggedItems.map(
         (item) => item.GUID,
       )
-
       const itemsWithoutDragged = currentItems.filter(
         (item) => !draggedItemIds.includes(item.GUID),
       )
 
       // Find the target position in the filtered list
-      const dropTargetIndex = hoveringOverTab
-        ? 0
-        : itemsWithoutDragged.findIndex(
-            (item) => item.GUID === dropTargetItemId,
-          )
+      // insert at the beginning if dropped on a tab or placeholder
+      const dropTargetIndex =
+        hoveringOverTab || dropOnPlaceholder
+          ? 0
+          : itemsWithoutDragged.findIndex(
+              (item) => item.GUID === dropTargetItemId,
+            )
 
       if (dropTargetIndex === -1) {
         console.error("❌ Drop target not found in filtered list")
         return
       }
 
-      // Get original positions to determine movement direction
-      const originalDraggedIndex = currentItems.findIndex(
-        (item) => item.GUID === currentDragState.items.draggedItems[0].GUID,
-      )
-      const originalTargetIndex = currentItems.findIndex(
-        (item) => item.GUID === dropTargetItemId,
-      )
+      // FIXED: Handle empty list case for tab/placeholder drops
+      let insertionIndex: number
 
-      // Determine insertion position like useSortable does
-      const movingUp = originalDraggedIndex > originalTargetIndex
-      const insertionIndex = movingUp
-        ? dropTargetIndex // Insert before target when moving up
-        : dropTargetIndex + 1 // Insert after target when moving down
+      if (hoveringOverTab || dropOnPlaceholder) {
+        // Always insert at position 0 for tab/placeholder drops
+        insertionIndex = 0
+      } else if (itemsWithoutDragged.length === 0) {
+        // If no items remain after filtering, insert at position 0
+        insertionIndex = 0
+      } else {
+        // Normal case: calculate based on movement direction
+        const originalDraggedIndex = currentItems.findIndex(
+          (item) => item.GUID === currentDragState.items.draggedItems[0].GUID,
+        )
+        const originalTargetIndex = currentItems.findIndex(
+          (item) => item.GUID === dropTargetItemId,
+        )
+
+        const movingUp = originalDraggedIndex > originalTargetIndex
+        insertionIndex = movingUp
+          ? dropTargetIndex // Insert before target when moving up
+          : dropTargetIndex + 1 // Insert after target when moving down
+      }
+
+      console.log("📍 Insertion calculation:", {
+        hoveringOverTab,
+        dropOnPlaceholder,
+        itemsWithoutDraggedLength: itemsWithoutDragged.length,
+        dropTargetIndex,
+        insertionIndex,
+      })
 
       // Use the calculated insertion index
       moveItemsBetweenConfigs(

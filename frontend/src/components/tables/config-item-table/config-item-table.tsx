@@ -94,7 +94,8 @@ export function ConfigItemTable<TValue>({
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
 
-  const { setTable, setTableContainerRef, dragState } = useConfigItemDragContext()
+  const { setTable, setTableContainerRef, dragState } =
+    useConfigItemDragContext()
   // Register this table with the drag context
   useEffect(() => {
     setTable(table)
@@ -263,27 +264,32 @@ export function ConfigItemTable<TValue>({
     }
 
     return data.length - (dragState?.items.draggedItems.length ?? 0) > 0
-  }, [data.length, dragState?.items.draggedItems.length, dragState?.ui.isDragging])
+  }, [
+    data.length,
+    dragState?.items.draggedItems.length,
+    dragState?.ui.isDragging,
+  ])
 
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
-      {showTable ? (
-        <div className="flex grow flex-col gap-2 overflow-y-auto">
-          <div className="p-1">
-            <DataTableToolbar
-              table={table}
-              items={data as IConfigItem[]}
-              onDeleteSelected={deleteSelected}
-              onToggleSelected={toggleSelected}
-              onClearSelected={() => table.setRowSelection({})}
-            />
-          </div>
-          <Toaster
-            position="bottom-right"
-            theme={theme}
-            className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
+      <div className="flex grow flex-col gap-2 overflow-y-auto">
+        <div className="p-1">
+          <DataTableToolbar
+            disabled={!showTable}
+            table={table}
+            items={data as IConfigItem[]}
+            onDeleteSelected={deleteSelected}
+            onToggleSelected={toggleSelected}
+            onClearSelected={() => table.setRowSelection({})}
           />
-          {table.getRowModel().rows?.length ? (
+        </div>
+        <Toaster
+          position="bottom-right"
+          theme={theme}
+          className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
+        />
+        {showTable ? (
+          table.getRowModel().rows?.length ? (
             <div
               className="border-primary flex flex-col overflow-y-auto rounded-lg border"
               ref={parentRef}
@@ -322,26 +328,26 @@ export function ConfigItemTable<TValue>({
                 </ToolTip>
               </div>
             </div>
-          )}
+          )
+        ) : (
+          <ConfigItemNoResultsDroppable />
+        )}
+        <div className="flex justify-start gap-2">
+          <Button
+            variant={"outline"}
+            className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
+            onClick={handleAddOutputConfig}
+          >
+            {t("ConfigList.Actions.OutputConfigItem.Add")}
+          </Button>
+          <Button
+            variant={"outline"}
+            className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
+            onClick={handleAddInputConfig}
+          >
+            {t("ConfigList.Actions.InputConfigItem.Add")}
+          </Button>
         </div>
-      ) : (
-        <ConfigItemNoResultsDroppable />
-      )}
-      <div className="flex justify-start gap-2">
-        <Button
-          variant={"outline"}
-          className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
-          onClick={handleAddOutputConfig}
-        >
-          {t("ConfigList.Actions.OutputConfigItem.Add")}
-        </Button>
-        <Button
-          variant={"outline"}
-          className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-          onClick={handleAddInputConfig}
-        >
-          {t("ConfigList.Actions.InputConfigItem.Add")}
-        </Button>
       </div>
     </div>
   )
