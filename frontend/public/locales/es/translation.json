@@ -113,7 +113,10 @@
     "Table": {
       "NoResultsFound": "Esta es una nueva configuración. Por favor, añade algunos elementos.",
       "DropHereToAdd": "Suelta aquí para añadir nuevos elementos.",
-      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro."
+      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro.",
+      "Drag" : {
+        "MovingItems": "Mover elementos"
+      }
     },
     "Actions": {
       "OutputConfigItem": {

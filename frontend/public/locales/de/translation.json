@@ -98,9 +98,6 @@
       "Actions": "Aktionen"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "Du verschiebst {{count}} selektierte Zeilen"
-      },
       "Waiting": "Warten",
       "Controller": {
         "openInSettings": "Öffne Einstellungen der Steuerungs",
@@ -113,7 +110,10 @@
     "Table": {
       "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge.",
       "DropHereToAdd": "Hier ablegen, um neue Elemente hinzuzufügen.",
-      "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter."
+      "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter.",
+      "Drag" : {
+        "MovingItems": "Verschiebe Elemente"
+      }
     },
     "Actions": {
       "OutputConfigItem": {

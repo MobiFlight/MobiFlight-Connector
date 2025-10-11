@@ -2,6 +2,7 @@ import { IConfigItem } from "@/types"
 import { Alert, AlertTitle } from "../ui/alert"
 import { Badge } from "../ui/badge"
 import { cn } from "@/lib/utils"
+import { useTranslation } from "react-i18next"
 
 export type ConfigItemTabDragOverlayProps = {
   items?: IConfigItem[]
@@ -10,6 +11,8 @@ export type ConfigItemTabDragOverlayProps = {
 
 const ConfigItemTabDragOverlay = (props: ConfigItemTabDragOverlayProps) => {
   const { items, className } = props
+  const { t } = useTranslation()
+  
   return (
     <Alert
       className={cn(
@@ -17,8 +20,8 @@ const ConfigItemTabDragOverlay = (props: ConfigItemTabDragOverlayProps) => {
         className,
       )}
     >
-      <AlertTitle>Moving items</AlertTitle>
-      <Badge className="text-xs">{items?.length}</Badge>
+      <AlertTitle>{t("ConfigList.Table.Drag.MovingItems")}</AlertTitle>
+      <Badge className="text-xs py-1">{items?.length}</Badge>
     </Alert>
   )
 }

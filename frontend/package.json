@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "check:translations": "node src/scripts/check-translations.js",
+    "check:hardcoded-strings": "node src/scripts/check-hardcoded-strings.js",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },

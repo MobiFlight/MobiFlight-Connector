@@ -19,14 +19,6 @@ export function ConfigItemDragOverlay() {
     isDraggingWithItems && (
       <DragOverlay className="cursor-grabbing">
         <div>
-          {/* <ConfigItemTableDragOverlay
-          className={cn(
-            "transition-all duration-100 ease-in-out",
-            !isInsideTable ? "opacity-0 scale-0" : "opacity-100",
-          )}
-          firstItem={firstItem}
-          itemCount={itemCount}
-        /> */}
           <ConfigItemTabDragOverlay
             className={cn(
               "transition-all duration-300 ease-in-out",
