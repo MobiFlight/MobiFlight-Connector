@@ -110,6 +110,18 @@ namespace MobiFlightWwFcu
                 case WinwingConstants.PRODUCT_ID_PAP3:
                     AddToCoupledDevices(new WinwingPap3Device(MessageSender));
                     break;
+                case WinwingConstants.PRODUCT_ID_3NPDCL:
+                    AddToCoupledDevices(new Winwing3PdcDevice(MessageSender, WinwingConstants.PDC3NL_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_3NPDCR:
+                    AddToCoupledDevices(new Winwing3PdcDevice(MessageSender, WinwingConstants.PDC3NR_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_3MPDCL:
+                    AddToCoupledDevices(new Winwing3PdcDevice(MessageSender, WinwingConstants.PDC3ML_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_3MPDCR:
+                    AddToCoupledDevices(new Winwing3PdcDevice(MessageSender, WinwingConstants.PDC3MR_NAME));
+                    break;
                 case WinwingConstants.PRODUCT_ID_MCDU_CPT:
                     AddCduDevice("/winwing/cdu-captain", WinwingCduType.MCDU);
                     break;

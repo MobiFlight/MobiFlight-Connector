@@ -15,6 +15,9 @@ namespace MobiFlightWwFcu
 
         internal static readonly byte[] DEST_PAP3 = new byte[] { 0x0f, 0xbf };
 
+        internal static readonly byte[] DEST_3NPDC = new byte[] { 0x60, 0xbb };
+        internal static readonly byte[] DEST_3MPDC = new byte[] { 0x50, 0xbb };
+
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
         internal const int PRODUCT_ID_FCU_EFISR = 0xBC1E;
@@ -38,6 +41,11 @@ namespace MobiFlightWwFcu
 
         internal const int PRODUCT_ID_PAP3 = 0xBF0F;
 
+        internal const int PRODUCT_ID_3NPDCL = 0xBB61;
+        internal const int PRODUCT_ID_3NPDCR = 0xBB62;
+        internal const int PRODUCT_ID_3MPDCL = 0xBB51;
+        internal const int PRODUCT_ID_3MPDCR = 0xBB52;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
@@ -50,7 +58,14 @@ namespace MobiFlightWwFcu
 
         // Renaming would be a breaking change, since this names are used in mobi configuration.
         internal const string EFISL_NAME = "Left";
-        internal const string EFISR_NAME = "Right";  
+        internal const string EFISR_NAME = "Right";
+
+        // Renaming would be a breaking change, since this names are used in mobi configuration.
+        internal const string PDC3NL_NAME = "3N PDC Left";
+        internal const string PDC3NR_NAME = "3N PDC Right";
+        internal const string PDC3ML_NAME = "3M PDC Left";
+        internal const string PDC3MR_NAME = "3M PDC Right";
+
 
         internal static Dictionary<string, byte[]> DisplayCmdHeaders = new Dictionary<string, byte[]>()
         {
