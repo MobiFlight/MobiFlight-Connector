@@ -18,7 +18,7 @@ const ConfigItemNoResultsDroppable = () => {
       ref={setNodeRef}
       className="border-primary flex flex-col rounded-lg border-2 border-solid"
     >
-      <div className="bg-primary h-12"></div>
+      <div className="bg-primary h-12 dark:bg-blue-950"></div>
       {!dragState?.ui.isDragging ? (
         <div className="p-4 text-center" role="alert">
           {t("ConfigList.Table.NoResultsFound")}
