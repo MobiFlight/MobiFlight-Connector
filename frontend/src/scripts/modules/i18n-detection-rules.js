@@ -4,6 +4,27 @@
  */
 
 export const I18N_DETECTION_RULES = {
+    // Ignore comment patterns
+    ignoreComments: [
+        /\/\/\s*@i18n-ignore/i, // // @i18n-ignore
+        /\/\/\s*i18n-ignore/i,  // // i18n-ignore
+        /\/\*\s*@i18n-ignore\s*\*\//i, // /* @i18n-ignore */
+        /\/\*\s*i18n-ignore\s*\*\//i,  // /* i18n-ignore */
+        /\{\s*\/\*\s*@i18n-ignore\s*\*\/\s*\}/i, // {/* @i18n-ignore */}
+        /\{\s*\/\*\s*i18n-ignore\s*\*\/\s*\}/i,  // {/* i18n-ignore */}
+    ],
+
+    // Block ignore patterns
+    blockIgnoreStart: [
+        /\/\/\s*@i18n-ignore-start/i, // // @i18n-ignore-start
+        /\/\*\s*@i18n-ignore-start\s*\*\//i, // /* @i18n-ignore-start */
+    ],
+
+    blockIgnoreEnd: [
+        /\/\/\s*@i18n-ignore-end/i, // // @i18n-ignore-end
+        /\/\*\s*@i18n-ignore-end\s*\*\//i, // /* @i18n-ignore-end */
+    ],
+
     // Patterns that indicate i18n usage
     i18nPatterns: [
         /t\s*\(\s*["'`]([^"'`]+)["'`]/g, // t("key")
@@ -20,8 +41,8 @@ export const I18N_DETECTION_RULES = {
         /(?:title|placeholder|aria-label|alt|label)\s*=\s*["']([^"'{}]+)["']/g,
         // Button/Interactive element text (more specific)
         /<(?:Button|Label|span|div|p|h[1-6])[^>]*>\s*([^<>{}\n\r\t\s][^<>{}]*[a-zA-Z][^<>{}]*)\s*</g,
-        // String literals that look like user-facing text (in quotes)
-        /["']([A-Z][a-zA-Z\s]{3,}[.!?]?)["']/g,
+        // String literals that look like user-facing text (in quotes) - but exclude conditionals
+        /(?<!===\s*)(?<!!==\s*)(?<!==\s*)(?<!!=\s*)(?<!if\s*\([^)]*?)["']([A-Z][a-zA-Z\s]{3,}[.!?]?)["'](?!\s*[)};,])/g,
     ],
 
     // Strings to ignore (common non-translatable strings)
@@ -42,7 +63,7 @@ export const I18N_DETECTION_RULES = {
         /^[a-zA-Z0-9_-]+\.(jpg|jpeg|png|gif|svg|ico|css|js|ts|tsx|jsx|json|xml|html)$/i, // File names
 
         // HTTP and web
-        /^(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS)$/, // HTTP methods
+        /^(GET|POST|PUT|DELETE|PATCH|HEAD|OPTIONS|CONNECT|TRACE)$/, // HTTP methods
         /^(text|application|image|audio|video)\//, // MIME types
 
         // CSS related
@@ -60,6 +81,8 @@ export const I18N_DETECTION_RULES = {
         /forwardRef/i, // React forwardRef
         /^[A-Z][a-zA-Z]*Primitive/i, // Primitive component types
         /^[a-zA-Z]+\.[A-Z][a-zA-Z]*$/i, // Namespaced types like DropdownMenuPrimitive.Item
+        /useRef/i, // useRef with generics
+        /useState/i, // useState with generics
 
         // Naming patterns
         /^use[A-Z][a-zA-Z]*$/i, // Hook names
@@ -96,6 +119,18 @@ export const I18N_DETECTION_RULES = {
         // Short strings and acronyms
         /^[a-z]{1,4}$/i, // Very short strings (likely variable names)
         /^[A-Z]{2,}$/i, // Acronyms
+
+        // Common validation/conditional strings
+        /^(Invalid|Error|Failed|Success|Complete|Pending|Loading|Empty|None|All|Any)$/i,
+        /^(true|false|yes|no|on|off|enabled|disabled|active|inactive)$/i,
+        /^(Dropped outside valid zone|Invalid drag state|No active item)$/i, // Your specific case
+        /^(development|production|test|staging)$/i, // Environment names
+        /^(debug|info|warn|warning|error|fatal|trace)$/i, // Log levels
+
+        // Technical status/state strings
+        /^(pending|loading|success|error|idle|running|stopped|paused)$/i,
+        /^(created|updated|deleted|modified|unchanged)$/i,
+        /^(valid|invalid|expired|active|inactive|suspended)$/i,
     ],
 
     // Context patterns that indicate the string is likely not user-facing
@@ -116,8 +151,98 @@ export const I18N_DETECTION_RULES = {
         /console\.(log|warn|error|info)/i, // Console statements
         /className\s*=/i, // CSS class assignments
         /style\s*=/i, // Style assignments
+
+        // Conditional expressions and comparisons
+        /if\s*\([^)]*["'][^"']*["']/i, // if statements with string literals
+        /===\s*["'][^"']*["']/i, // strict equality comparisons
+        /!==\s*["'][^"']*["']/i, // strict inequality comparisons
+        /==\s*["'][^"']*["']/i, // loose equality comparisons  
+        /!=\s*["'][^"']*["']/i, // loose inequality comparisons
+        /switch\s*\([^)]*["'][^"']*["']/i, // switch statements
+        /case\s+["'][^"']*["']/i, // case labels
+        /\?\s*["'][^"']*["']/i, // ternary operator conditions
+        /&&\s*["'][^"']*["']/i, // logical AND with strings
+        /\|\|\s*["'][^"']*["']/i, // logical OR with strings
+
+        // Error handling and validation
+        /throw\s+.*["'][^"']*["']/i, // throw statements
+        /error\s*[=:]\s*["'][^"']*["']/i, // error assignments
+        /reason\s*[=:]\s*["'][^"']*["']/i, // reason assignments
+        /message\s*[=:]\s*["'][^"']*["']/i, // message assignments
+        /status\s*[=:]\s*["'][^"']*["']/i, // status assignments
+        /type\s*[=:]\s*["'][^"']*["']/i, // type assignments
+
+        // Object property access and method calls
+        /\.\w+\s*===\s*["'][^"']*["']/i, // property comparisons like obj.prop === "value"
+        /\.\w+\s*!==\s*["'][^"']*["']/i, // property comparisons like obj.prop !== "value"
+        /\w+\.\w+\s*\(\s*["'][^"']*["']/i, // method calls with string params
+
+        // Console and logging (additional patterns)
+        /console\.\w+\s*\(\s*["'][^"']*["']/i, // console.log("debug message")
+        /logger?\.\w+\s*\(\s*["'][^"']*["']/i, // logger.debug("debug message")
+
+        // Development and debugging
+        /\/\/.*["'][^"']*["']/i, // Comments containing strings
+        /\/\*.*["'][^"']*["'].*\*\//i, // Block comments containing strings
     ]
 };
+
+/**
+ * Parse ignore blocks and line-level ignores from file content
+ */
+function parseIgnoreDirectives(content) {
+    const lines = content.split('\n');
+    const ignoredLines = new Set();
+    const ignoredRanges = [];
+    
+    let inIgnoreBlock = false;
+    let blockStartLine = -1;
+    
+    lines.forEach((line, index) => {
+        const lineNumber = index + 1;
+        
+        // Check for line-level ignore comments
+        const hasLineIgnore = I18N_DETECTION_RULES.ignoreComments.some(pattern => 
+            pattern.test(line)
+        );
+        
+        if (hasLineIgnore) {
+            ignoredLines.add(lineNumber);
+            return;
+        }
+        
+        // Check for block start
+        const hasBlockStart = I18N_DETECTION_RULES.blockIgnoreStart.some(pattern => 
+            pattern.test(line)
+        );
+        
+        if (hasBlockStart && !inIgnoreBlock) {
+            inIgnoreBlock = true;
+            blockStartLine = lineNumber;
+            ignoredLines.add(lineNumber); // Also ignore the start line
+            return;
+        }
+        
+        // Check for block end
+        const hasBlockEnd = I18N_DETECTION_RULES.blockIgnoreEnd.some(pattern => 
+            pattern.test(line)
+        );
+        
+        if (hasBlockEnd && inIgnoreBlock) {
+            inIgnoreBlock = false;
+            ignoredLines.add(lineNumber); // Also ignore the end line
+            ignoredRanges.push({ start: blockStartLine, end: lineNumber });
+            return;
+        }
+        
+        // If we're in an ignore block, add this line to ignored
+        if (inIgnoreBlock) {
+            ignoredLines.add(lineNumber);
+        }
+    });
+    
+    return { ignoredLines, ignoredRanges };
+}
 
 /**
  * Check if a file should be ignored based on path patterns
@@ -150,6 +275,13 @@ export function shouldIgnoreContext(context) {
 }
 
 /**
+ * Check if a line should be ignored based on ignore directives
+ */
+export function shouldIgnoreLine(lineNumber, ignoredLines) {
+    return ignoredLines.has(lineNumber);
+}
+
+/**
  * Detect if file uses i18n based on content
  */
 export function detectI18nUsage(content) {
@@ -158,10 +290,12 @@ export function detectI18nUsage(content) {
 
 /**
  * Extract hardcoded strings from content using configured patterns
+ * Now respects @ignore directives and conditional contexts
  */
 export function extractHardcodedStrings(content) {
     const foundStrings = [];
     const lines = content.split('\n');
+    const { ignoredLines } = parseIgnoreDirectives(content);
     
     I18N_DETECTION_RULES.hardcodedPatterns.forEach(pattern => {
         let match;
@@ -175,6 +309,11 @@ export function extractHardcodedStrings(content) {
                 const beforeMatch = content.substring(0, match.index);
                 const lineNumber = beforeMatch.split('\n').length;
                 const lineContent = lines[lineNumber - 1]?.trim();
+                
+                // Check if this line should be ignored due to @ignore directives
+                if (shouldIgnoreLine(lineNumber, ignoredLines)) {
+                    continue;
+                }
                 
                 // Check if context suggests this is not user-facing text
                 if (!shouldIgnoreContext(lineContent)) {

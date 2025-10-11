@@ -8,8 +8,11 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "check:i18n": "npm run check:translations && npm run check:hardcoded-strings",
     "check:translations": "node src/scripts/check-translations.js",
     "check:hardcoded-strings": "node src/scripts/check-hardcoded-strings.js",
+    "check:hardcoded-strings:verbose": "node src/scripts/check-hardcoded-strings.js --verbose",
+    "check:hardcoded-strings:ci": "node src/scripts/check-hardcoded-strings.js --github --strict",
     "test": "vitest",
     "test:coverage": "vitest run --coverage"
   },

@@ -98,9 +98,6 @@
       "Actions": "Actions"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "You are moving {{count}} selected items"
-      },
       "Waiting": "Waiting",
       "Controller": {
         "openInSettings": "Open controller settings",
