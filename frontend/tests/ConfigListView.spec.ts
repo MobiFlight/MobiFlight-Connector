@@ -223,6 +223,8 @@ test.describe("Drag and drop tests", () => {
     await page.keyboard.down("Control")
     // add the third row to the selection
     await thirdRow.click()
+    // let go of Control key otherwise drag n drop does not activate
+    await page.keyboard.up("Control")
 
     // activate drag and drop after fifth
     const dragHandle = thirdRow.getByRole("button").first()
@@ -267,6 +269,8 @@ test.describe("Drag and drop tests", () => {
     const dragHandle = thirdRow.getByRole("button").first()
     await dragHandle.hover()
     await page.mouse.down()
+
+
 
     // drag over to the second tab to trigger cross-config move
     await secondTab.hover()

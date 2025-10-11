@@ -5,7 +5,6 @@ import {
   DragEndEvent,
   useSensors,
   useSensor,
-  MouseSensor,
   TouchSensor,
   DragMoveEvent,
   pointerWithin,
@@ -26,6 +25,7 @@ import {
   extractDropContext,
   validateDragEnd,
 } from "@/lib/dnd/utilities"
+import { CustomMouseSensor } from "@/lib/dnd-kit/CustomMouseSensor"
 
 /**
  * The drag state that persists throughout the entire drag operation
@@ -95,7 +95,7 @@ export function ConfigItemDragProvider({
 
   // Configure what input methods can trigger drag operations
   const sensors = useSensors(
-    useSensor(MouseSensor, {}), // Mouse drag support
+    useSensor(CustomMouseSensor, {}), // Mouse drag support
     useSensor(TouchSensor, {}), // Touch drag support for mobile
   )
 

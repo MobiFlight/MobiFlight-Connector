@@ -14,7 +14,7 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
 }) => {
   const { dragState } = useConfigItemDragContext()
 
-  const { setNodeRef, transform, transition, active } = useSortable({
+  const { setNodeRef, transform, transition, active, listeners } = useSortable({
     id: props["dnd-itemid"],
     data: { type: "row" },
   })
@@ -37,11 +37,12 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
       : "opacity-0 collapse"
     : ""
   const outsideTableStyle = !isInTable && isDragging ? "opacity-0 collapse" : ""
-  
+
   return (
     <tr
       style={dndStyle}
       ref={setNodeRef}
+      {...listeners}
       className={cn(
         "group/row hover:bg-selected data-[state=selected]:bg-selected/30 data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected/40 dark:data-[state=selected]:hover:bg-selected border-b transition-colors",
         dragStyle,
