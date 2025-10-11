@@ -19,10 +19,10 @@ test("Confirm empty list view", async ({ configListPage, page }) => {
   await expect(addOutputConfigButton).toBeVisible()
   await expect(addInputConfigButton).toBeVisible()
 
-  // the filter toolbar is not yet visible because we don't have any items
+  // the filter toolbar is disabled because we don't have any items.
   await expect(
     page.getByRole("textbox", { name: "Filter items..." }),
-  ).not.toBeVisible()
+  ).toBeDisabled()
 })
 
 test("Confirm populated list view", async ({ configListPage, page }) => {
