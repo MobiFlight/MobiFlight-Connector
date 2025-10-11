@@ -197,9 +197,6 @@ export function ConfigItemDragProvider({
       itemCount: currentDragState.items.draggedItems.length,
     })
 
-    // Switch back to original tab first
-    selectActiveFile(currentDragState.configs.source)
-
     // Single store operation that handles everything
     restoreItemsToOriginalPositions(
       currentDragState.items.draggedItems,
@@ -207,6 +204,9 @@ export function ConfigItemDragProvider({
       currentDragState.configs.source,
       currentDragState.items.originalPositions,
     )
+
+    // Switch back to original tab first
+    selectActiveFile(currentDragState.configs.source)
   }, [dragState, restoreItemsToOriginalPositions, selectActiveFile])
 
   /**
