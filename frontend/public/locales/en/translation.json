@@ -112,6 +112,7 @@
     },
     "Table": {
       "NoResultsFound": "This is a new configuration. Please add some items.",
+      "DropHereToAdd": "Drop here to add new items.",
       "NoResultsMatchingFilter": "No results matching the filter."
     },
     "Actions": {

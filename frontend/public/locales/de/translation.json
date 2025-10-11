@@ -112,6 +112,7 @@
     },
     "Table": {
       "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge.",
+      "DropHereToAdd": "Hier ablegen, um neue Elemente hinzuzufügen.",
       "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter."
     },
     "Actions": {
