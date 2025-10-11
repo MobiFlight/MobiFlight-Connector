@@ -81,14 +81,11 @@ const ConfigListPage = () => {
 
   // this is only for easier UI testing
   // while developing the UI
-  useEffect(() => {
-    const configItems =
-      project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
-
+  useEffect(() => {  
     if (
       process.env.NODE_ENV === "development" &&
-      configItems.length === 0 &&
-      queryParameters.get("testdata") === "true"
+      queryParameters.get("testdata") === "true" &&
+      !project // Only if no project loaded yet
     ) {
       setProject(testProject as Project)
       setJoystickDefinitions([testJsDefinition as JoystickDefinition])

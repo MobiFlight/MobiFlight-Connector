@@ -99,6 +99,58 @@ describe("ProjectStore - moveItemsBetweenConfigs", () => {
     expect(afterState.project!.ConfigFiles[1].ConfigItems[0].GUID).toBe("item1")
   })
 
+  it("should move all items from config 0 to config 1", () => {
+    // Arrange
+    const item1 = createMockItem("item1", "Item 1")
+    const item2 = createMockItem("item2", "Item 2")
+
+    // Create a mock project with 3 configs for testing
+    const mockProject = {
+      ConfigFiles: [
+        { ConfigItems: [] as IConfigItem[] },
+        { ConfigItems: [] as IConfigItem[] },
+        { ConfigItems: [] as IConfigItem[] },
+      ],
+    } as Project
+
+    // Set the project first
+    useProjectStore.getState().setProject(mockProject)
+
+    console.log("=== DEBUGGING STORE ===")
+    console.log("Initial project state:", useProjectStore.getState().project)
+
+    // Set up initial state using the store methods
+    useProjectStore.getState().setConfigItems(0, [item1, item2])
+    useProjectStore.getState().setConfigItems(1, [])
+
+    // Verify setup worked
+    const beforeState = useProjectStore.getState()
+    expect(beforeState.project?.ConfigFiles[0].ConfigItems).toHaveLength(2)
+    expect(beforeState.project?.ConfigFiles[1].ConfigItems).toHaveLength(0)
+
+    // Act - Move item1 from config 0 to config 1
+    const actions = useProjectStore.getState().actions
+    if (actions?.moveItemsBetweenConfigs) {
+      console.log("Calling moveItemsBetweenConfigs...")
+      actions.moveItemsBetweenConfigs([item1, item2], 0, 1, 0)
+    } else {
+      console.log("ERROR: moveItemsBetweenConfigs not found!")
+    }
+
+    // Get fresh state after the action
+    const afterState = useProjectStore.getState()
+    // Assert
+    expect(afterState.project).not.toBeNull()
+
+    // Config 0 should only have item2
+    expect(afterState.project!.ConfigFiles[0].ConfigItems).toHaveLength(0)
+    
+    // Config 1 should have item1
+    expect(afterState.project!.ConfigFiles[1].ConfigItems).toHaveLength(2)
+    expect(afterState.project!.ConfigFiles[1].ConfigItems[0].GUID).toBe("item1")
+    expect(afterState.project!.ConfigFiles[1].ConfigItems[1].GUID).toBe("item2")
+  })
+
   it("should not create duplicate items when moving between configs", () => {
     // This test specifically targets the duplicate issue you found
     const item1 = createMockItem("item1", "Item 1")
