@@ -10,7 +10,7 @@ import {
   DragMoveEvent,
   pointerWithin,
   Modifier,
-  closestCenter
+  closestCorners
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
@@ -496,7 +496,7 @@ export function ConfigItemDragProvider({
   const collisionDetection = useMemo(() => {
     return dragState?.ui.isInsideTable
       ? // makes the rows snap to center of other rows
-        closestCenter
+        closestCorners
       : // allows to detect when the pointer is over a tab
         pointerWithin
   }, [dragState])
