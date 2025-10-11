@@ -282,8 +282,8 @@ test.describe("Drag and drop tests", () => {
     // verify the items moved to the second tab
     // Note: You'll need to verify the actual items based on your test data structure
     // This assumes the second tab now shows the moved items
-    await expect(page.getByRole("row").nth(2)).toContainText("7-Segment")
-    await expect(page.getByRole("row").nth(3)).toContainText("Servo")
+    await expect(page.getByRole("row").nth(1)).toContainText("7-Segment")
+    await expect(page.getByRole("row").nth(2)).toContainText("Servo")
 
     const postedCommands =
       await configListPage.mobiFlightPage.getTrackedCommands()
@@ -294,7 +294,7 @@ test.describe("Drag and drop tests", () => {
     expect(lastCommand.payload.items[1].Name).toEqual("Servo")
     expect(lastCommand.payload.sourceFileIndex).toEqual(0) // Original tab
     expect(lastCommand.payload.targetFileIndex).toEqual(1) // Second tab
-    expect(lastCommand.payload.newIndex).toEqual(1) // Dropped at top of second tab
+    expect(lastCommand.payload.newIndex).toEqual(0) // Dropped at top of second tab
   })
 
   test("Confirm drag cancel is working on same tab", async ({

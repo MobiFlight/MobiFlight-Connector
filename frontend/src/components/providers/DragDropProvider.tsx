@@ -10,18 +10,22 @@ import {
   DragMoveEvent,
   pointerWithin,
   Modifier,
-  closestCorners
+  closestCorners,
 } from "@dnd-kit/core"
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
-import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
-import { CommandResortConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types"
 import { Table } from "@tanstack/react-table"
 import { ConfigItemDragOverlay } from "@/components/dnd/ConfigItemDragOverlay"
 import { ConfigItemDragContext } from "./ConfigItemContext"
 import { useProjectStore, useProjectStoreActions } from "@/stores/projectStore"
 import { restrictToBottomOfParentElement } from "../dnd/modifiers/restrictToBottomOfParentElement"
+import {
+  calculateInsertionIndex,
+  executeDrop,
+  extractDropContext,
+  validateDragEnd,
+} from "@/lib/dnd/utilities"
 
 /**
  * The drag state that persists throughout the entire drag operation
@@ -228,131 +232,35 @@ export function ConfigItemDragProvider({
       const currentDragState = dragState
       setDragState(null)
 
-      // Bail out if drag was cancelled or invalid
-      if (
-        !currentDragState ||
-        !currentDragState.items ||
-        !currentDragState.configs
-      ) {
-        console.log("❌ Drag cancelled or invalid (currentDragState is null)")
+      // Validate the drag operation
+      const validation = validateDragEnd(event, currentDragState)
+      if (!validation.isValid) {
+        console.log(`❌ ${validation.reason}`)
+        if (validation.reason === "Dropped outside valid zone") {
+          handleDragCancel()
+        }
         return
       }
 
-      if (!active.id) {
-        console.log("❌ Drag cancelled or invalid (active.id is null)")
-        return
-      }
+      // Extract drop context and config information
+      const { dropContext, sourceConfigIndex, targetConfigIndex } =
+        extractDropContext(event, currentDragState!, getConfigItems)
 
-      if (!over?.id) {
-        console.log(
-          "🚫 Dropped outside valid drop zone - treating as cancellation",
-        )
-        handleDragCancel()
-        return
-      }
-
-      // No-op: item dropped on itself
-      if (active.id === over.id) {
-        console.log("↩️ Item dropped on itself - no change needed")
-        return
-      }
-
-      // Final drop is
-      // a) within the current config when we are over the table
-      // b) or on a tab (which means move to that config and put at end)
-
-      const hoveringOverTab = event.over?.data?.current?.type === "tab"
-      const dropOnPlaceholder =
-        event.over?.data?.current?.type === "placeholder"
-
-      // only if we are ending over tab we have to still move between configs
-      // in all other cases source config and target config are the same
-      const sourceConfigIndex = !hoveringOverTab
-        ? currentDragState.configs.current
-        : currentDragState.configs.source
-      const targetConfigIndex = !hoveringOverTab
-        ? currentDragState.configs.current
-        : currentDragState.ui.hoveredTabIndex
-
-      const dropTargetItemId = over.id as string
-
-      // Get current items and filter out the ones being dragged
-      const currentItems = getConfigItems(sourceConfigIndex)
-      const draggedItemIds = currentDragState.items.draggedItems.map(
-        (item) => item.GUID,
-      )
-      const itemsWithoutDragged = currentItems.filter(
-        (item) => !draggedItemIds.includes(item.GUID),
-      )
-
-      // Find the target position in the filtered list
-      // insert at the beginning if dropped on a tab or placeholder
-      const dropTargetIndex =
-        hoveringOverTab || dropOnPlaceholder
-          ? 0
-          : itemsWithoutDragged.findIndex(
-              (item) => item.GUID === dropTargetItemId,
-            )
-
-      if (dropTargetIndex === -1) {
-        console.error("❌ Drop target not found in filtered list")
-        return
-      }
-
-      // FIXED: Handle empty list case for tab/placeholder drops
-      let insertionIndex: number
-
-      if (hoveringOverTab || dropOnPlaceholder) {
-        // Always insert at position 0 for tab/placeholder drops
-        insertionIndex = 0
-      } else if (itemsWithoutDragged.length === 0) {
-        // If no items remain after filtering, insert at position 0
-        insertionIndex = 0
-      } else {
-        // Normal case: calculate based on movement direction
-        const originalDraggedIndex = currentItems.findIndex(
-          (item) => item.GUID === currentDragState.items.draggedItems[0].GUID,
-        )
-        const originalTargetIndex = currentItems.findIndex(
-          (item) => item.GUID === dropTargetItemId,
-        )
-
-        const movingUp = originalDraggedIndex > originalTargetIndex
-        insertionIndex = movingUp
-          ? dropTargetIndex // Insert before target when moving up
-          : dropTargetIndex + 1 // Insert after target when moving down
-      }
+      // Calculate where to insert the items
+      const insertionIndex = calculateInsertionIndex(dropContext)
 
       console.log("📍 Insertion calculation:", {
-        hoveringOverTab,
-        dropOnPlaceholder,
-        itemsWithoutDraggedLength: itemsWithoutDragged.length,
-        dropTargetIndex,
+        hoveringOverTab: dropContext.hoveringOverTab,
+        dropOnPlaceholder: dropContext.dropOnPlaceholder,
+        itemsWithoutDraggedLength: dropContext.itemsWithoutDragged.length,
         insertionIndex,
       })
 
-      // Use the calculated insertion index
-      moveItemsBetweenConfigs(
-        currentDragState.items.draggedItems,
-        sourceConfigIndex,
-        targetConfigIndex,
-        insertionIndex,
-      )
-
-      // Notify backend about the final state
-      publishOnMessageExchange().publish({
-        key: "CommandResortConfigItem",
-        payload: {
-          items: currentDragState.items.draggedItems,
-          newIndex: insertionIndex, // Let backend recalculate based on dropTargetItemId
-          sourceFileIndex: currentDragState.configs.source, // Original source for backend context
-          targetFileIndex: targetConfigIndex, // Final destination
-        },
-      } as CommandResortConfigItem)
-
-      console.log(
-        "✅ Final drop complete - items positioned in config",
-        targetConfigIndex,
+      // Execute the drop operation
+      executeDrop(
+        currentDragState!,
+        { sourceConfigIndex, targetConfigIndex, insertionIndex },
+        moveItemsBetweenConfigs,
       )
     },
     [dragState, getConfigItems, handleDragCancel, moveItemsBetweenConfigs],
@@ -404,10 +312,12 @@ export function ConfigItemDragProvider({
 
       const hoveringOverTab = event.over?.data?.current?.type === "tab"
 
-      const defaultType = event.over?.data?.current?.type ?? (Math.abs(event.delta.y) < 15 && "row")
+      const defaultType =
+        event.over?.data?.current?.type ??
+        (Math.abs(event.delta.y) < 15 && "row")
       const hoveringOverTable = ["table", "row"].includes(
-        event.over?.data?.current?.type ?? defaultType
-      ) 
+        event.over?.data?.current?.type ?? defaultType,
+      )
 
       if (hoveringOverTable && !dragState.ui.isInsideTable) {
         console.log("➡️ Entered table area")
