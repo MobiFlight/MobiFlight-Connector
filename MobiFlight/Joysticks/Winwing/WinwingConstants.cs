@@ -25,12 +25,22 @@
         internal const int PRODUCT_ID_PFP4_OBS = 0xBB3C;
         internal const int PRODUCT_ID_PFP4_FO = 0xBB40;
 
+        internal const int PRODUCT_ID_AIRBUS_THROTTLE_L = 0xB920;
+        internal const int PRODUCT_ID_AIRBUS_THROTTLE_R = 0xB930;
+
+        internal const int PRODUCT_ID_AIRBUS_STICK_L = 0xBC27;
+        internal const int PRODUCT_ID_AIRBUS_STICK_R = 0xBC28;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] PAP3_PRODUCTIDS = { PRODUCT_ID_PAP3_ONLY };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
                                                           PRODUCT_ID_PFP7_CPT, PRODUCT_ID_PFP7_OBS, PRODUCT_ID_PFP7_FO,
                                                           PRODUCT_ID_PFP4_CPT, PRODUCT_ID_PFP4_OBS, PRODUCT_ID_PFP4_FO };
+
+        internal static readonly int[] AIRBUS_THROTTLE_PRODUCTIDS = { PRODUCT_ID_AIRBUS_THROTTLE_L, PRODUCT_ID_AIRBUS_THROTTLE_R };
+
+        internal static readonly int[] AIRBUS_STICK_PRODUCTIDS = { PRODUCT_ID_AIRBUS_STICK_L, PRODUCT_ID_AIRBUS_STICK_R };
 
         internal const string CDU_DATA = "Cdu Data";
         internal const string FONT_DATA = "Font Data";
