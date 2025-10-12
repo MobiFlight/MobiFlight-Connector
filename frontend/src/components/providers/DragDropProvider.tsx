@@ -95,7 +95,7 @@ export function ConfigItemDragProvider({
 
   // Configure what input methods can trigger drag operations
   const sensors = useSensors(
-    useSensor(CustomMouseSensor, { activationConstraint: { delay: 200, tolerance: 5 } }), // Mouse drag support
+    useSensor(CustomMouseSensor, { activationConstraint: { delay: 100, tolerance: 5 } }), // Mouse drag support
     useSensor(TouchSensor, {}), // Touch drag support for mobile
   )
 
