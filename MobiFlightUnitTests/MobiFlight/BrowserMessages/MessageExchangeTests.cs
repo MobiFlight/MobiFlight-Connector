@@ -34,6 +34,13 @@ namespace MobiFlight.BrowserMessages.Tests
             messageExchange.SetPublisher(mockPublisher.Object);
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            // Clear the singleton state between tests
+            messageExchange.ClearSubscriptions();
+        }
+
         [TestMethod()]
         public void SetPublisherTest()
         {
