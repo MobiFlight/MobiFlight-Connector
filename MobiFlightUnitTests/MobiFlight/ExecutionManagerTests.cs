@@ -78,6 +78,7 @@ namespace MobiFlight.Tests
             _executionManager.Stop();
             _executionManager.Shutdown();
             _executionManager = null;
+            MessageExchange.Instance.ClearSubscriptions();
         }
 
         [TestMethod]
@@ -694,6 +695,118 @@ namespace MobiFlight.Tests
                 "Cloned config item should display the correct variable value");
             Assert.AreEqual("123.45", clonedConfigItem.RawValue, 
                 "Cloned config item should have the correct raw value");
+        }
+
+        [TestMethod]
+        public void CommandResortConfigItem_MovesItemsBetweenFiles()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item1", Active = true };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item2", Active = true };
+            var configItem3 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item3", Active = true };
+
+            var sourceFile = new ConfigFile() { ConfigItems = { configItem1, configItem2 } };
+            var targetFile = new ConfigFile() { ConfigItems = { configItem3 } };
+            
+            var project = new Project();
+            project.ConfigFiles.Add(sourceFile);  // Index 0
+            project.ConfigFiles.Add(targetFile);  // Index 1
+            _executionManager.Project = project;
+
+            var message = new CommandResortConfigItem
+            {
+                Items = new[] { new OutputConfigItem { GUID = configItem1.GUID } },
+                SourceFileIndex = 0,
+                TargetFileIndex = 1,
+                NewIndex = 0
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.AreEqual(1, sourceFile.ConfigItems.Count, "Source file should have one less item");
+            Assert.AreEqual(2, targetFile.ConfigItems.Count, "Target file should have one more item");
+            Assert.AreEqual(configItem1.GUID, targetFile.ConfigItems[0].GUID, "Item should be moved to target file at correct index");
+            Assert.AreEqual(configItem3.GUID, targetFile.ConfigItems[1].GUID, "Existing item should be shifted down");
+            Assert.IsFalse(sourceFile.ConfigItems.Contains(configItem1), "Item should be removed from source file");
+            Assert.IsTrue(sourceFile.ConfigItems.Contains(configItem2), "Other items should remain in source file");
+        }
+
+        [TestMethod]
+        public void CommandResortConfigItem_ReordersWithinSameFile()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item1", Active = true };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item2", Active = true };
+            var configItem3 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item3", Active = true };
+
+            var configFile = new ConfigFile() { ConfigItems = { configItem1, configItem2, configItem3 } };
+            
+            var project = new Project();
+            project.ConfigFiles.Add(configFile);  // Index 0
+            _executionManager.Project = project;
+
+            // Move item2 to position 0 (before item1)
+            var message = new CommandResortConfigItem
+            {
+                Items = new[] { new OutputConfigItem { GUID = configItem2.GUID } },
+                SourceFileIndex = 0,
+                TargetFileIndex = 0,  // Same file
+                NewIndex = 0
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.AreEqual(3, configFile.ConfigItems.Count, "File should still have same number of items");
+            Assert.AreEqual(configItem2.GUID, configFile.ConfigItems[0].GUID, "Item2 should be moved to position 0");
+            Assert.AreEqual(configItem1.GUID, configFile.ConfigItems[1].GUID, "Item1 should be shifted to position 1");
+            Assert.AreEqual(configItem3.GUID, configFile.ConfigItems[2].GUID, "Item3 should remain at position 2");
+        }
+
+        [TestMethod]
+        public void CommandResortConfigItem_HandlesMultipleItems()
+        {
+            // Arrange
+            var configItem1 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item1", Active = true };
+            var configItem2 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item2", Active = true };
+            var configItem3 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item3", Active = true };
+            var configItem4 = new OutputConfigItem { GUID = Guid.NewGuid().ToString(), Name = "Item4", Active = true };
+
+            var sourceFile = new ConfigFile() { ConfigItems = { configItem1, configItem2, configItem3 } };
+            var targetFile = new ConfigFile() { ConfigItems = { configItem4 } };
+            
+            var project = new Project();
+            project.ConfigFiles.Add(sourceFile);  // Index 0
+            project.ConfigFiles.Add(targetFile);  // Index 1
+            _executionManager.Project = project;
+
+            // Move multiple items (item1 and item3) to target file
+            var message = new CommandResortConfigItem
+            {
+                Items = new[] 
+                { 
+                    new OutputConfigItem { GUID = configItem1.GUID },
+                    new OutputConfigItem { GUID = configItem3.GUID }
+                },
+                SourceFileIndex = 0,
+                TargetFileIndex = 1,
+                NewIndex = 1  // Insert after configItem4
+            };
+
+            // Act
+            MessageExchange.Instance.Publish(message);
+
+            // Assert
+            Assert.AreEqual(1, sourceFile.ConfigItems.Count, "Source file should have 2 less items");
+            Assert.AreEqual(configItem2.GUID, sourceFile.ConfigItems[0].GUID, "Only item2 should remain in source file");
+            
+            Assert.AreEqual(3, targetFile.ConfigItems.Count, "Target file should have 2 more items");
+            Assert.AreEqual(configItem4.GUID, targetFile.ConfigItems[0].GUID, "Original target item should remain at position 0");
+            Assert.AreEqual(configItem1.GUID, targetFile.ConfigItems[1].GUID, "First moved item should be at position 1");
+            Assert.AreEqual(configItem3.GUID, targetFile.ConfigItems[2].GUID, "Second moved item should be at position 2");
         }
     }
 }
