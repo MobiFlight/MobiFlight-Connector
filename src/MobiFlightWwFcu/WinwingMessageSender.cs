@@ -1,4 +1,5 @@
 ﻿using HidSharp;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -15,9 +16,10 @@ namespace MobiFlightWwFcu
         private object StreamLock = new object();
         
         private byte Counter = 0;
-        private byte[] LightControlMessage = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 3, 0x49, 3, 0, 0, 0, 0, 0, 0 };
-        private byte[] HeartBeatMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x00, 0, 0, 0, 0, 0, 0, 0 };
-        private byte[] RequestFirmwareMessage = new byte[14] { 0x02, 0x01, 0, 0, 0, 0x01, 0x02, 0, 0, 0, 0, 0, 0, 0 };
+        private byte[] LightControlMessage      = new byte[14] { 0x02, 0x10, 0xbb, 0, 0, 0x03, 0x49, 0x03, 0, 0, 0, 0, 0, 0 };
+        private byte[] HeartBeatMessage         = new byte[14] { 0x02, 0x01, 0x00, 0, 0, 0x01, 0x00, 0x00, 0, 0, 0, 0, 0, 0 };
+        private byte[] RequestFirmwareMessage   = new byte[14] { 0x02, 0x01, 0x00, 0, 0, 0x01, 0x02, 0x00, 0, 0, 0, 0, 0, 0 };
+        private byte[] PulseLightControlMessage = new byte[14] { 0x02, 0x20, 0xbb, 0, 0, 0x08, 0x06, 0xf8, 0, 0, 0, 0xff, 0xff, 0xff };
 
         public WinwingMessageSender(int productId)
         {
@@ -160,6 +162,25 @@ namespace MobiFlightWwFcu
             int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));
             byte byteValue = value >= 255 ? (byte)255 : (byte)value;
             SendLightControlMessage(destinationAddress, type, byteValue);
+        }
+
+        public void SetVibration(byte[] destinationAddress, byte type, string level)
+        {
+            // Input should be 0 to 100 percent - scale to 0..255
+            int value = (int)Math.Round((Convert.ToDouble(level, CultureInfo.InvariantCulture) * 2.55));
+            byte byteValue = value >= 255 ? (byte)255 : (byte)value;
+            SendLightControlMessage(destinationAddress, type, byteValue);
+        }
+
+        public void SetPulseLight(byte[] destinationAddress, bool isOn)
+        {
+            // Update message
+            PulseLightControlMessage[1] = destinationAddress[0];
+            PulseLightControlMessage[2] = destinationAddress[1];
+            PulseLightControlMessage[10] = Convert.ToByte(!isOn);
+
+            // Send message
+            WriteStream(PulseLightControlMessage, 0, 14);
         }
 
         public void SendHeartBeatMessage()

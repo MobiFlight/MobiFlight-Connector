@@ -1,66 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Globalization;
 using System.Linq;
 
 namespace MobiFlightWwFcu
 {
-    internal class WinwingPap3Device : IWinwingDevice
+    internal class WinwingAirbusThrottleDevice : IWinwingDevice
     {
-        public string Name { get; } = "WinWing PAP3";
+        public string Name { get => $"WinWing {ThrottleType}"; }
 
         private WinwingMessageSender MessageSender = null;
-
-        private byte[] DestinationAddress = WinwingConstants.DEST_PAP3;
+        private string ThrottleType = WinwingConstants.AIRBUS_THROTTLE_L_NAME;
+        private byte[] DestinationAddress = WinwingConstants.DEST_AIRBUS_THROTTLE;
+        private byte[] DestinationAddressPac = WinwingConstants.DEST_AIRBUS_PAC;
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
 
-        private const string COURSE_LEFT = "Course Left Value";
-        private const string COURSE_RIGHT = "Course Right Value";
-        private const string COL_SHOWN = "Course Left Shown On/Off";
-        private const string COR_SHOWN = "Course Right Shown On/Off";
+        private const string VIBRATION_1 = "Vibration 1 Percentage";
+        private const string VIBRATION_2 = "Vibration 2 Percentage";
 
-        private const string SPEED = "Speed Value";
-        private const string MACH = "Mach Value";
-        private const string SPEED_SHOWN = "Speed Shown On/Off";
-        private const string MACH_LABEL = "MACH Label On/Off";
-        private const string IAS_LABEL = "IAS Label On/Off";        
-        private const string SPEED_A = "Speed A On/Off";           
-        private const string SPEED_B = "Speed B On/Off"; 
+        private const string BACK_BRIGHTNESS = "Backlight Percentage"; // PAC + THROTTLE        
+        private const string LED_BRIGHTNESS = "LED Percentage"; // THROTTLE
+        private const string LCD_BRIGHTNESS = "LCD Percentage"; // PAC
+        private const string ANN_LIGHT = "LCD Test On/Off"; // PAC
 
+        private const string TRIM = "Trim Value"; // PAC
+        private const string TRIM_DIR_SHOWN = "Trim Direction On/Off"; // PAC
+        private const string TRIM_DIR = "Trim Direction Switch"; // PAC
 
-        private const string HEADING = "Heading Value";
-        private const string TRK = "TRK Value";       
-        private const string HDG_LABEL = "HDG Label On/Off";
-        private const string TRK_LABEL = "TRK Label On/Off";
-
-        private const string ALTITUDE = "Altitude Value";
-   
-        private const string VS = "VS Value";
-        private const string FPA = "FPA Value";    
-        private const string VS_SHOWN = "VS Shown On/Off";     
-        private const string VS_LABEL = "VS Label On/Off";
-        private const string FPA_LABEL = "FPA Label On/Off";
-
-        private const string ANN_LIGHT = "LCD Test On/Off";
-        private const string BACK_BRIGHTNESS = "Backlight Percentage";
-        private const string LCD_BRIGHTNESS = "LCD Percentage";
-        private const string LED_BRIGHTNESS = "LED Percentage";
-
-        private bool IsCourseLeftShown = true;
-        private bool IsCourseRightShown = true;
-        private bool IsSpeedShown = true;
-        private bool IsVsShown = true;
-        private bool IsSpeedA = false;
-        private bool IsSpeedB = false;
-
+        private bool IsTrimDirShown = true;
 
         private Dictionary<string, Element> DisplayTestCommands = new Dictionary<string, Element>()
         {
             { "AllOn",       new Element(new Bit[] {new Bit(0,0, true), new Bit(0,1), new Bit(0,2), new Bit(0,3) }, false)},
             { "AllOff",      new Element(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
         };
-
 
         private Dictionary<string, Element> DisplaySetValueElements = new Dictionary<string, Element>()
         {                                   
@@ -71,59 +46,24 @@ namespace MobiFlightWwFcu
             { "SpdHundreds",  new Element(32, 2)},
             { "SpdTens",      new Element(32, 1)},
             { "SpdOnes",      new Element(32, 0)},
-            { "HdgHundreds",  new Element(33, 6, '-')},
-            { "HdgTens",      new Element(33, 5, '-')},
-            { "HdgOnes",      new Element(33, 4, '-')},
-            { "AltTenthsds",  new Element(33, 2, '{')},
-            { "AltThousands", new Element(33, 1, '}')},
-            { "AltHundreds",  new Element(33, 0, 'o')},
-            { "AltTens",      new Element(34, 7, 'b')},
-            { "AltOnes",      new Element(34, 6, 'l')},
             { "VsThousands",  new Element(34, 3, '-')},
             { "VsHundreds",   new Element(34, 2, '-')},
             { "VsTens",       new Element(34, 1)},
             { "VsOnes",       new Element(34, 0)},
-            { "CoRHundreds",  new Element(35, 6)},
-            { "CoRTens",      new Element(35, 5)},
-            { "CoROnes",      new Element(35, 4)},
-            { "CoLDot",       new Element(new Bit(4,5))},
-            { "IasLabel",     new Element(new Bit(33,7))},
-            { "MachLabel",    new Element(new Bit(29,7))},
-            { "SpdPlusVert",  new Element(new Bit[] {new Bit(13,7), new Bit(9,7) }, false)},
-            { "SpdPlusHoriz", new Element(new Bit(8,3))},
-            { "MachDot",      new Element(new Bit(4,2))},
-            { "HdgLabel",     new Element(new Bit(33,3))},
-            { "TrkLabel",     new Element(new Bit(25,3))},
-            { "HdgDot",       new Element(new Bit(17,3))},
-            { "AltDot",       new Element(new Bit(5,0))},
             { "VsLabel",      new Element(new Bit(35,7))},
             { "FpaLabel",     new Element(new Bit(31,7))},
             { "VsPlusVert",   new Element(new Bit[] {new Bit(23,7), new Bit(19,7) }, false)},
             { "VsPlusHoriz",  new Element(new Bit(10,4, true))},
             { "VsDot",        new Element(new Bit(6,2))},
-            { "CoRDot",       new Element(new Bit(7,4))},
+
         };   
 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
         {
-            { "N1",     0x03 },
-            { "SPEED",  0x04 },
-            { "VNAV",   0x05 },
-            { "LVL_CHG",0x06 },
-            { "HDG_SEL",0x07 },            
-            { "LNAV",   0x08 },
-            { "VOR_LOC",0x09 },
-            { "APP",    0x0a },
-            { "ALT_HLD",0x0b },
-            { "VS",     0x0c },
-            { "A_CMD",  0x0d },
-            { "A_CWS",  0x0e },
-            { "B_CMD",  0x0f },
-            { "B_CWS",  0x10 },
-            { "AT_ARM", 0x11 },
-            { "L_MA",   0x12 },
-            { "R_MA",   0x13 },
-            { "Solenoid", 0x1e },            
+            { "FAULT_1", 0x03 },
+            { "FIRE_1",  0x04 },
+            { "FAULT_2", 0x05 },
+            { "FIRE_2",  0x06 },          
         };
 
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
@@ -133,41 +73,23 @@ namespace MobiFlightWwFcu
         private byte[] RefreshCommand = new byte[0x11];       
         private byte[] SetValuesCommand = new byte[0x3C];  // 3C equals 60, max of a content message 4 + 13 + 43 data
 
-        public WinwingPap3Device(WinwingMessageSender sender)
+        public WinwingAirbusThrottleDevice(WinwingMessageSender sender, string throttleType)
         {
             MessageSender = sender;
+            ThrottleType = throttleType;
 
-            // Add display options
-            DisplayNameToActionMapping.Add(COURSE_LEFT, SetCourseLeft);
-            DisplayNameToActionMapping.Add(COURSE_RIGHT, SetCourseRight);
-            DisplayNameToActionMapping.Add(COL_SHOWN, SetCourseLeftShown);
-            DisplayNameToActionMapping.Add(COR_SHOWN, SetCourseRightShown);
-
-            DisplayNameToActionMapping.Add(SPEED, SetSpeed);       
-            DisplayNameToActionMapping.Add(MACH, SetMachSpeed);
-            DisplayNameToActionMapping.Add(SPEED_SHOWN, SetSpeedShown);
-            DisplayNameToActionMapping.Add(IAS_LABEL, SetIasLabel);
-            DisplayNameToActionMapping.Add(MACH_LABEL, SetMachLabel);
-            DisplayNameToActionMapping.Add(SPEED_A, SetSpeedA);
-            DisplayNameToActionMapping.Add(SPEED_B, SetSpeedB);
-
-            DisplayNameToActionMapping.Add(HEADING, SetHeading);
-            DisplayNameToActionMapping.Add(TRK, SetTrack);
-            DisplayNameToActionMapping.Add(HDG_LABEL, SetHdgLabel);
-            DisplayNameToActionMapping.Add(TRK_LABEL, SetTrkLabel);
-
-            DisplayNameToActionMapping.Add(ALTITUDE, SetAltitude);
-
-            DisplayNameToActionMapping.Add(VS, SetVs);
-            DisplayNameToActionMapping.Add(FPA, SetFpa);
-            DisplayNameToActionMapping.Add(VS_SHOWN, SetVsShown);
-            DisplayNameToActionMapping.Add(VS_LABEL, SetVsLabel);
-            DisplayNameToActionMapping.Add(FPA_LABEL, SetFpaLabel);
-
-            DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
+            // Add display options            
+            DisplayNameToActionMapping.Add(VIBRATION_1, SetVibration1);
+            DisplayNameToActionMapping.Add(VIBRATION_2, SetVibration2);
+            
             DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
-            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
             DisplayNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
+            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);            
+            //DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
+
+            //DisplayNameToActionMapping.Add(TRIM, SetVs);
+            //DisplayNameToActionMapping.Add(TRIM_DIR_SHOWN, SetFpa);
+            //DisplayNameToActionMapping.Add(TRIM_DIR, SetVsShown);
 
             foreach (var displayName in GetDisplayNames())
             {
@@ -184,18 +106,18 @@ namespace MobiFlightWwFcu
 
         private void PrepareCommands()
         {
-            var initDisplayTest = new List<byte>(DestinationAddress);
+            var initDisplayTest = new List<byte>(DestinationAddressPac);
             initDisplayTest.AddRange(new byte[2]);
             initDisplayTest.AddRange(WinwingConstants.DisplayCmdHeaders["0401"]);
             initDisplayTest.CopyTo(DisplayTestCommand, 0);
 
             // 4 + 13
-            var initSetValues = new List<byte>(DestinationAddress);
+            var initSetValues = new List<byte>(DestinationAddressPac);
             initSetValues.AddRange(new byte[2]);
             initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_P"]);
             initSetValues.CopyTo(SetValuesCommand, 0);
 
-            var initRefresh = new List<byte>(DestinationAddress);
+            var initRefresh = new List<byte>(DestinationAddressPac);
             initRefresh.AddRange(new byte[2]);
             initRefresh.AddRange(WinwingConstants.DisplayCmdHeaders["0301"]);
             initRefresh.CopyTo(RefreshCommand, 0);
@@ -208,11 +130,13 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {            
-            SendDisplayCommand(SetValuesCommand); // Init display
-            SetBacklightBrightness("50");
+            // SendDisplayCommand(SetValuesCommand); // Init display TODO
+            SetBacklightBrightness("20");
             SetLcdBrightness("100");
-            //SetLedBrightness("100");
+            SetVibration1("0");
+            SetVibration2("0");
 
+            //SetLedBrightness("100");
             //LcdTest("AllOn"); // used for testing
 
             //-------------------------------
@@ -220,16 +144,7 @@ namespace MobiFlightWwFcu
             //SetMachSpeed("0.4989");
             ////SetSpeedB("1");
             //SetSpeedA("0");
-            //SetIasLabel("1");
-            //SetMachLabel("0.2");
-            //SetCourseLeft("234");
-            //SetCourseRight("11");
-            //SetHeading("233");
-            //SetHdgLabel("1");
-            //SetAltitude("1200");
-            //SetVsShown("1");
-            //SetVs("2500");
-            ////SetFpa("-1.88");     
+            //SetIasLabel("1");    
         }
 
         public void Shutdown()
@@ -237,6 +152,8 @@ namespace MobiFlightWwFcu
             EmptyDisplay();
             SetBacklightBrightness("0");
             SetLcdBrightness("0");
+            SetVibration1("0");
+            SetVibration2("0");
             foreach (var ledName in LedIdentifiers.Keys)
             {
                 SetLed(ledName, 0);
@@ -290,6 +207,17 @@ namespace MobiFlightWwFcu
                 SendDisplayCommand(SetValuesCommand);
             }
         }
+
+        private void SetVibration1(string level)
+        {
+            MessageSender.SetVibration(DestinationAddress, 0x0e, level);
+        }
+
+        private void SetVibration2(string level)
+        {
+            MessageSender.SetVibration(DestinationAddress, 0x10, level);
+        }
+
         private void SetLedBrightness(string brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x02, brightness);
@@ -298,11 +226,13 @@ namespace MobiFlightWwFcu
         private void SetBacklightBrightness(string brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
+            MessageSender.SetBrightness(DestinationAddressPac, 0x00, brightness);
         }
 
         private void SetLcdBrightness(string brightness)
         {
-            MessageSender.SetBrightness(DestinationAddress, 0x01, brightness);
+            // Yes strangely here 0x02 is used for LCD
+            MessageSender.SetBrightness(DestinationAddressPac, 0x02, brightness);
         }
 
         private void PrepareAndSendDisplayTestCommand(Element element)
@@ -343,54 +273,6 @@ namespace MobiFlightWwFcu
             SendDisplayCommand(SetValuesCommand);
         }
 
-        private void SetCourseLeft(string course)
-        {
-            char[] chars;
-            if (IsCourseLeftShown)
-            {
-                int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
-                chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            }
-            else
-            {
-                chars = new char[] { '*', '*', '*' };
-            }
-
-            SetDigitsInternal(chars, new string[] { "CoLHundreds", "CoLTens", "CoLOnes" });            
-        }
-
-        private void SetCourseRight(string course)
-        {
-            char[] chars;
-            if (IsCourseRightShown)
-            {
-                int courseInt = (int)Convert.ToDouble(course, CultureInfo.InvariantCulture);
-                chars = courseInt.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            }
-            else
-            {
-                chars = new char[] { '*', '*', '*' };
-            }
-            SetDigitsInternal(chars, new string[] { "CoRHundreds", "CoRTens", "CoROnes" });
-        }
-
-        private void SetCourseLeftShown(string isShown)
-        {
-            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsCourseLeftShown = Convert.ToBoolean(value);
-
-            // Reset cache
-            LcdCurrentValuesCache[COURSE_LEFT] = string.Empty;     
-        }
-
-        private void SetCourseRightShown(string isShown)
-        {
-            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsCourseRightShown = Convert.ToBoolean(value);
-
-            // Reset cache
-            LcdCurrentValuesCache[COURSE_RIGHT] = string.Empty;
-        }
 
         private void SetMachDot(bool isDotSet)
         {
@@ -407,8 +289,8 @@ namespace MobiFlightWwFcu
             var spdHundreds = DisplaySetValueElements["SpdHundreds"];
             spdHundreds.SetCharacter('*');
             SetElementDisplayCommand(spdHundreds, SetValuesCommand);
-            LcdCurrentValuesCache[SPEED_A] = string.Empty;
-            LcdCurrentValuesCache[SPEED_B] = string.Empty;
+            //LcdCurrentValuesCache[SPEED_A] = string.Empty;
+            //LcdCurrentValuesCache[SPEED_B] = string.Empty;
         }
 
         private void SetSpeed(string speed)
@@ -424,7 +306,7 @@ namespace MobiFlightWwFcu
             int value = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
             char[] chars;    
             
-            if (IsSpeedShown)
+            if (IsTrimDirShown)
             {                
                 if (value == 999)
                 {
@@ -441,7 +323,7 @@ namespace MobiFlightWwFcu
             }
 
             SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
-            LcdCurrentValuesCache[MACH] = string.Empty; // Reset for Speed/Mach change
+            //LcdCurrentValuesCache[MACH] = string.Empty; // Reset for Speed/Mach change
         }
         
         private void SetMachSpeed(string speed)
@@ -457,14 +339,14 @@ namespace MobiFlightWwFcu
             int value = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
             char[] chars;
 
-            if (IsSpeedShown)
+            if (IsTrimDirShown)
             {
                 if (value == 999)
                 {
                     chars = new char[] { '-', '-', '-' };
                     SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
                 }
-                else if (IsSpeedA || IsSpeedB)
+                else if (IsTrimDirShown || IsTrimDirShown)
                 {
                     // A or B is shown at the hundreds position
                     chars = value.ToString("D2", CultureInfo.InvariantCulture).ToCharArray();
@@ -483,19 +365,13 @@ namespace MobiFlightWwFcu
                 SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
             }
                                        
-            LcdCurrentValuesCache[SPEED] = string.Empty; // Reset for Speed/Mach change
+            //LcdCurrentValuesCache[SPEED] = string.Empty; // Reset for Speed/Mach change
         }
 
         private void SetSpeedShown(string isShown)
         {
             int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsSpeedShown = Convert.ToBoolean(value);
-
-            // Reset cache
-            LcdCurrentValuesCache[MACH] = string.Empty;
-            LcdCurrentValuesCache[SPEED] = string.Empty;
-            LcdCurrentValuesCache[SPEED_A] = string.Empty;
-            LcdCurrentValuesCache[SPEED_B] = string.Empty;
+            IsTrimDirShown = Convert.ToBoolean(value);
         }
 
         private void SetIasLabel(string isLabel)        
@@ -512,9 +388,9 @@ namespace MobiFlightWwFcu
         {
             int value = (int)Convert.ToDouble(isSpeedA, CultureInfo.InvariantCulture);
             bool isA = Convert.ToBoolean(value);
-            IsSpeedA = isA;
+            IsTrimDirShown = isA;
 
-            if (IsSpeedShown)
+            if (IsTrimDirShown)
             {
                 var machDot = DisplaySetValueElements["MachDot"];
                 string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
@@ -538,9 +414,9 @@ namespace MobiFlightWwFcu
         {
             int value = (int)Convert.ToDouble(isSpeedB, CultureInfo.InvariantCulture);
             bool isB = Convert.ToBoolean(value);
-            IsSpeedB = isB;
+            IsTrimDirShown = isB;
 
-            if (IsSpeedShown)
+            if (IsTrimDirShown)
             {
                 var machDot = DisplaySetValueElements["MachDot"];
                 string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
@@ -558,24 +434,6 @@ namespace MobiFlightWwFcu
             {
                 SetDigitsInternal(new char[] { '*', '*' }, new string[] { "SpdThousands", "SpdHundreds" });
             }
-        }
-
-        private void SetTrack(string track)
-        {
-            int value = (int)Convert.ToDouble(track, CultureInfo.InvariantCulture);
-            char[] chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            if (value == 999) chars = new char[] { '-', '-', '-' };
-            SetDigitsInternal(chars, new string[] { "HdgHundreds", "HdgTens", "HdgOnes" });
-            LcdCurrentValuesCache[HEADING] = string.Empty; // Reset for Heading/Track change
-        }
-
-        private void SetHeading(string heading)
-        {
-            int value = (int)Convert.ToDouble(heading, CultureInfo.InvariantCulture);
-            char[] chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();
-            if (value == 999) chars = new char[] { '-', '-', '-' };
-            SetDigitsInternal(chars, new string[] { "HdgHundreds", "HdgTens", "HdgOnes" });
-            LcdCurrentValuesCache[TRK] = string.Empty; // Reset for Heading/Track change
         }
 
         private void SetHdgLabel(string isLabel)
@@ -637,106 +495,7 @@ namespace MobiFlightWwFcu
             SetElementDisplayCommand(vsPlusVert, SetValuesCommand);
         }
 
-        private void SetVs(string vs)
-        {
-            int value = (int)Convert.ToDouble(vs, CultureInfo.InvariantCulture);
-            char[] chars;
-
-            if (IsVsShown)
-            {                
-                if (value == 0)
-                {
-                    chars = new char[] { '*', '*', '*', '*' };
-                    SetVsSign(false, false);
-                }
-                else if (value == 9999)
-                {
-                    chars = new char[] { '-', '-', '-', '-' };
-                    SetVsSign(false, true);
-                }
-                else if (value < 0)
-                {
-                    chars = Math.Abs(value).ToString().PadLeft(4, '*').ToCharArray();
-                    SetVsSign(false, true);
-                }
-                else
-                {
-                    chars = Math.Abs(value).ToString().PadLeft(4, '*').ToCharArray();
-                    SetVsSign(true, false);
-                }
-                SetVsDot(false);
-            }
-            else
-            {
-                chars = new char[] { '*', '*', '*', '*' };
-                SetVsSign(false, false);
-                SetVsDot(false);
-            }
-
-            SetDigitsInternal(chars, new string[] { "VsThousands", "VsHundreds", "VsTens", "VsOnes" });
-            LcdCurrentValuesCache[FPA] = string.Empty; // Reset for Vs/Fpa change
-        }
-
-        private void SetFpa(string vs)
-        {
-            int value = (int)(Convert.ToDouble(vs, CultureInfo.InvariantCulture) * 10);
-            char[] chars;
-
-            if (IsVsShown)
-            {
-                if (value == 0)
-                {
-                    chars = new char[] { '*', '0', '0', '*' };
-                    SetVsSign(false, false);
-                }
-                else if (value == 999)
-                {
-                    chars = new char[] { '-', '-', '-', '-' };
-                    SetVsSign(false, true);
-                }
-                else if (value < 0)
-                {
-                    string valueString = (Math.Abs(value).ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*')).PadRight(4, '*');
-                    chars = valueString.ToCharArray();
-                    SetVsSign(false, true);
-                }
-                else
-                {
-                    string valueString = (Math.Abs(value).ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*')).PadRight(4, '*');
-                    chars = valueString.ToCharArray();
-                    SetVsSign(true, false);
-                }
-                SetVsDot(true);
-            }
-            else
-            {
-                chars = new char[] { '*', '*', '*', '*' };
-                SetVsSign(false, false);
-                SetVsDot(false);
-            }
-            SetDigitsInternal(chars, new string[] { "VsThousands", "VsHundreds", "VsTens", "VsOnes" });
-            LcdCurrentValuesCache[VS] = string.Empty; // Reset for Vs/Fpa change,
-        }
-
-        private void SetVsLabel(string isLabel)
-        {
-            SetBoolInternal(isLabel, "VsLabel");
-        }
-
-        private void SetFpaLabel(string isLabel)
-        {
-            SetBoolInternal(isLabel, "FpaLabel");
-        }
-
-        private void SetVsShown(string isShown)
-        {
-            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsVsShown = Convert.ToBoolean(value);
-
-            // Reset cache
-            LcdCurrentValuesCache[VS] = string.Empty;
-            LcdCurrentValuesCache[FPA] = string.Empty;
-        }
+       
 
         // "AllOn", "AllOff"      
         private void LcdTest(string command)

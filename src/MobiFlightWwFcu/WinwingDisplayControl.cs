@@ -122,6 +122,18 @@ namespace MobiFlightWwFcu
                 case WinwingConstants.PRODUCT_ID_3MPDCR:
                     AddToCoupledDevices(new Winwing3PdcDevice(MessageSender, WinwingConstants.PDC3MR_NAME));
                     break;
+                case WinwingConstants.PRODUCT_ID_AIRBUS_THROTTLE_L:
+                    AddToCoupledDevices(new WinwingAirbusThrottleDevice(MessageSender, WinwingConstants.AIRBUS_THROTTLE_L_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_AIRBUS_THROTTLE_R:
+                    AddToCoupledDevices(new WinwingAirbusThrottleDevice(MessageSender, WinwingConstants.AIRBUS_THROTTLE_R_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_AIRBUS_STICK_L:
+                    AddToCoupledDevices(new WinwingAirbusSidestickDevice(MessageSender, WinwingConstants.AIRBUS_STICK_L_NAME));
+                    break;
+                case WinwingConstants.PRODUCT_ID_AIRBUS_STICK_R:
+                    AddToCoupledDevices(new WinwingAirbusSidestickDevice(MessageSender, WinwingConstants.AIRBUS_STICK_R_NAME));
+                    break;
                 case WinwingConstants.PRODUCT_ID_MCDU_CPT:
                     AddCduDevice("/winwing/cdu-captain", WinwingCduType.MCDU);
                     break;

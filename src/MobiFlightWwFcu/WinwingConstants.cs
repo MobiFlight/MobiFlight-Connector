@@ -18,6 +18,13 @@ namespace MobiFlightWwFcu
         internal static readonly byte[] DEST_3NPDC = new byte[] { 0x60, 0xbb };
         internal static readonly byte[] DEST_3MPDC = new byte[] { 0x50, 0xbb };
 
+        internal static readonly byte[] DEST_AIRBUS_THROTTLE = new byte[] { 0x10, 0xb9 };
+        internal static readonly byte[] DEST_AIRBUS_PAC = new byte[] { 0x01, 0xb9 };
+
+        internal static readonly byte[] DEST_AIRBUS_STICK = new byte[] { 0x20, 0xbb };
+        internal static readonly byte[] DEST_AIRBUS_STICK_VIBRATION = new byte[] { 0x08, 0xbf };
+
+
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
         internal const int PRODUCT_ID_FCU_EFISL = 0xBC1D;
         internal const int PRODUCT_ID_FCU_EFISR = 0xBC1E;
@@ -46,6 +53,12 @@ namespace MobiFlightWwFcu
         internal const int PRODUCT_ID_3MPDCL = 0xBB51;
         internal const int PRODUCT_ID_3MPDCR = 0xBB52;
 
+        internal const int PRODUCT_ID_AIRBUS_THROTTLE_L = 0xB920;
+        internal const int PRODUCT_ID_AIRBUS_THROTTLE_R = 0xB930;
+
+        internal const int PRODUCT_ID_AIRBUS_STICK_L = 0xBC27;
+        internal const int PRODUCT_ID_AIRBUS_STICK_R = 0xBC28;
+
         internal static readonly int[] FCU_PRODUCTIDS = { PRODUCT_ID_FCU_ONLY, PRODUCT_ID_FCU_EFISL, PRODUCT_ID_FCU_EFISR, PRODUCT_ID_FCU_EFISL_EFISR };
         internal static readonly int[] CDU_PRODUCTIDS = { PRODUCT_ID_MCDU_CPT, PRODUCT_ID_MCDU_OBS, PRODUCT_ID_MCDU_FO,
                                                           PRODUCT_ID_PFP3N_CPT, PRODUCT_ID_PFP3N_OBS, PRODUCT_ID_PFP3N_FO,
@@ -56,22 +69,27 @@ namespace MobiFlightWwFcu
         internal const string FONT_DATA = "Font Data";
 
 
-        // Renaming would be a breaking change, since this names are used in mobi configuration.
+        // Renaming would be a breaking change, since these names are used in mobi configuration.
+        // The name is part of the Lcd and Led descriptors.
         internal const string EFISL_NAME = "Left";
         internal const string EFISR_NAME = "Right";
-
-        // Renaming would be a breaking change, since this names are used in mobi configuration.
+  
         internal const string PDC3NL_NAME = "3N PDC Left";
         internal const string PDC3NR_NAME = "3N PDC Right";
         internal const string PDC3ML_NAME = "3M PDC Left";
         internal const string PDC3MR_NAME = "3M PDC Right";
-
+   
+        internal const string AIRBUS_THROTTLE_L_NAME = "Airbus Throttle Left";
+        internal const string AIRBUS_THROTTLE_R_NAME = "Airbus Throttle Right";
+   
+        internal const string AIRBUS_STICK_L_NAME = "Airbus Sidestick Left";
+        internal const string AIRBUS_STICK_R_NAME = "Airbus Sidestick Right";
 
         internal static Dictionary<string, byte[]> DisplayCmdHeaders = new Dictionary<string, byte[]>()
         {
-            { "0201",   new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00 } },
-            { "0201_E", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00 } },
-            { "0201_P", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x00, 0x00 } },
+            { "0201",   new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00, 0x00, 0x00 } }, // FCU
+            { "0201_E", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00 } }, // EFIS
+            { "0201_P", new byte[] { 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x00, 0x00 } }, // PAP3
             { "0301",   new byte[] { 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },
             { "0401",   new byte[] { 0x04, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00 } },
             { "0501",   new byte[] { 0x05, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } },

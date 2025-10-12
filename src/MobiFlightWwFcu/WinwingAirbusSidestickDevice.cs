@@ -1,38 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace MobiFlightWwFcu
 {
-    internal class Winwing3PdcDevice : IWinwingDevice
+    internal class WinwingAirbusSidestickDevice : IWinwingDevice
     {
-        public string Name { get => $"WinWing {PdcType}"; }
+        public string Name { get => $"WinWing {StickType}"; }
 
         private WinwingMessageSender MessageSender = null;
-        private string PdcType = WinwingConstants.PDC3NL_NAME;
+        private string StickType = WinwingConstants.AIRBUS_STICK_R_NAME;
+        private byte[] DestinationAddress = WinwingConstants.DEST_AIRBUS_STICK;
+        private byte[] DestinationAddressVibration = WinwingConstants.DEST_AIRBUS_STICK_VIBRATION;
 
-        private byte[] DestinationAddress;
-     
+        private const string VIBRATION = "Vibration Percentage";
         private const string BACK_BRIGHTNESS = "Backlight Percentage";
+        private const string LIGHT_PULSE = "Backlight Pulse On/Off";
+       
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
            
 
-        public Winwing3PdcDevice(WinwingMessageSender sender, string pdcType)
+        public WinwingAirbusSidestickDevice(WinwingMessageSender sender, string stickType)
         {
             MessageSender = sender;
-            PdcType = pdcType;
+            StickType = stickType;
 
-            if (PdcType == WinwingConstants.PDC3NL_NAME || PdcType == WinwingConstants.PDC3NR_NAME)
-            {
-                DestinationAddress = WinwingConstants.DEST_3NPDC;
-            }
-            else if (PdcType == WinwingConstants.PDC3ML_NAME || PdcType == WinwingConstants.PDC3MR_NAME)
-            {
-                DestinationAddress = WinwingConstants.DEST_3MPDC;
-            }           
-           
+            DisplayNameToActionMapping.Add(VIBRATION, SetVibration);
             DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
+            DisplayNameToActionMapping.Add(LIGHT_PULSE, SetBacklightPulse);
 
             foreach (var displayName in GetDisplayNames())
             {
@@ -43,12 +40,14 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {
-            SetBacklightBrightness("50");
+            SetBacklightBrightness("20");
+            SetVibration("0");
         }
 
         public void Shutdown()
         {
             SetBacklightBrightness("0");
+            SetVibration("0");
         }
 
         public List<string> GetDisplayNames()
@@ -78,6 +77,18 @@ namespace MobiFlightWwFcu
         private void SetBacklightBrightness(string brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);       
+        }
+
+        private void SetVibration(string level)
+        {
+            MessageSender.SetVibration(DestinationAddressVibration, 0x00, level);
+        }
+
+        private void SetBacklightPulse(string isOnString)
+        {
+            int value = (int)Convert.ToDouble(isOnString, CultureInfo.InvariantCulture);
+            bool isOn = Convert.ToBoolean(value);
+            MessageSender.SetPulseLight(DestinationAddress, isOn);
         }
 
         public List<string> GetLedNames()
