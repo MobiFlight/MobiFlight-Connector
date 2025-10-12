@@ -25,6 +25,7 @@ export function ConfigItemDragOverlay() {
         <div>
           {isInsideTable && itemCount > 1 ? (
             <div
+              data-testid="config-item-drag-overlay-inside-table"
               className={cn(
                 "border-border bg-background relative flex items-center justify-between rounded-lg border px-4 py-3",
                 // Add stacked effect for multiple items using pseudo-elements
@@ -49,6 +50,7 @@ export function ConfigItemDragOverlay() {
             </div>
           ) : (
             <ConfigItemTabDragOverlay
+              data-testid="config-item-drag-overlay-outside-table"
               className={cn(
                 "transition-all duration-300 ease-in-out",
                 isInsideTable ? "scale-0 opacity-0" : "opacity-100",

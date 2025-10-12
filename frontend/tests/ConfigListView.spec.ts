@@ -231,7 +231,7 @@ test.describe("Drag and drop tests", () => {
     const dragHandle = thirdRow.getByRole("button").first()
     await dragHandle.hover()
     await page.mouse.down()
-    await page.waitForTimeout(500)
+    await expect(page.getByTestId("config-item-drag-overlay-inside-table")).toBeVisible()
 
     await fifthRow.getByRole("button").first().hover()
     await page.mouse.up()
@@ -272,13 +272,19 @@ test.describe("Drag and drop tests", () => {
     const dragHandle = thirdRow.getByRole("button").first()
     await dragHandle.hover()
     await page.mouse.down()
-    await page.waitForTimeout(500)
+    await expect(page.getByTestId("config-item-drag-overlay-inside-table")).toBeVisible()
 
+    // leave the table area to trigger the drag overlay
+    await page.mouse.move(10, 10)
+    
     // drag over to the second tab to trigger cross-config move
     await secondTab.hover()
 
-    // wait for tab switch hover timeout (600ms as per your ProjectPanel code)
-    await page.waitForTimeout(700)
+    // wait for the overlay to appear
+    await expect(page.getByTestId("config-item-drag-overlay-outside-table")).toBeVisible()
+    
+    // ensure the tab switch has completed
+    await expect(secondTab).toHaveAttribute("aria-selected", "true")
 
     // find a target row in the second tab to drop on
     const targetRowInSecondTab = page.getByRole("row").nth(1)
@@ -394,21 +400,31 @@ test.describe("Drag and drop tests", () => {
 
     // select the first row
     await firstRow.click()
+
+
+
     // activate drag and drop
     const dragHandle = firstRow.getByRole("button").first()
+    const placeholder = page.getByText("Drop here to add new items")
+    
     await dragHandle.hover()
     await page.mouse.down()
-    await page.waitForTimeout(500)
-    // hover on top of first tab to ensure we are not switching tabs
-    await firstTab.hover()
-    const placeholder = page.getByText("Drop here to add new items")
-
+    await expect(firstRow).not.toBeVisible()
     await expect(placeholder).toBeVisible()
-    // move mouse away from first tab to trigger 2nd tab properly
-    await placeholder.hover()
 
+    // leave the table area to trigger the drag overlay
+    await page.mouse.move(10, 10)
+    
+    // drag over to the second tab to trigger cross-config move
     await secondTab.hover()
-    await page.waitForTimeout(700)
+
+    // wait for the overlay to appear
+    await expect(page.getByTestId("config-item-drag-overlay-outside-table")).toBeVisible()
+
+    await secondTab.hover({position: {x: 10, y: 10} })
+    
+    // ensure the tab switch has completed
+    await expect(secondTab).toHaveAttribute("aria-selected", "true")
 
     await expect(placeholder).toBeVisible()
     await placeholder.hover()

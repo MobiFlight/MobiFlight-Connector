@@ -141,21 +141,22 @@ export const useProjectStore = create<ProjectState>((set) => ({
 
         const isMoveBetweenConfigs = sourceConfigIndex !== targetConfigIndex
 
-        // Step 2: Determine target position
-        const targetItems = (configFiles[targetConfigIndex]?.ConfigItems ||
-          []) as IConfigItem[]
-        let targetItemsAfterRemoval = targetItems
+        // Step 2: Remove items from target config
+        // this is necessary because we can have dragMove and dragDrop
+        // which both move items, so we need to ensure no duplicates
+        const targetItems = isMoveBetweenConfigs        
+          ? ((configFiles[targetConfigIndex]?.ConfigItems ||
+              []) as IConfigItem[])
+          : sourceItemsWithoutDragged
 
-        // If same config, calculate positions after removal
-        if (!isMoveBetweenConfigs) {
-          targetItemsAfterRemoval = sourceItemsWithoutDragged
-        }
-
+        const targetItemsWithoutDragged = targetItems.filter(
+          (item) => !draggedItemIds.includes(item.GUID),
+        )
         // Step 3: Create final target array
         const finalTargetItems = [
-          ...targetItemsAfterRemoval.slice(0, dropIndex),
+          ...targetItemsWithoutDragged.slice(0, dropIndex),
           ...draggedItems,
-          ...targetItemsAfterRemoval.slice(dropIndex),
+          ...targetItemsWithoutDragged.slice(dropIndex),
         ]
 
         // Create completely new Project object with new ConfigFiles array

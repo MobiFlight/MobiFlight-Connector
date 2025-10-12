@@ -304,7 +304,7 @@
           }
         },
         {
-          "Active": true,
+          "Active": false,
           "ConfigRefs": [],
           "DeviceName": "Encoder 1",
           "DeviceType": "Encoder",
@@ -329,7 +329,7 @@
           }
         },
         {
-          "Active": true,
+          "Active": false,
           "ConfigRefs": [],
           "DeviceName": "POT 1",
           "DeviceType": "AnalogInput",
@@ -425,7 +425,7 @@
           "Status": {}
         },
         {
-          "Active": true,
+          "Active": false,
           "ConfigRefs": [],
           "DeviceName": "CC 1_32",
           "DeviceType": "Encoder",

@@ -3,14 +3,14 @@ import { Alert, AlertTitle } from "../ui/alert"
 import { Badge } from "../ui/badge"
 import { cn } from "@/lib/utils"
 import { useTranslation } from "react-i18next"
+import { HTMLAttributes } from "react"
 
-export type ConfigItemTabDragOverlayProps = {
+export type ConfigItemTabDragOverlayProps = HTMLAttributes<HTMLDivElement> & {
   items?: IConfigItem[]
-  className?: string
 }
 
 const ConfigItemTabDragOverlay = (props: ConfigItemTabDragOverlayProps) => {
-  const { items, className } = props
+  const { items, className, ...htmlProps } = props
   const { t } = useTranslation()
   
   return (
@@ -19,6 +19,7 @@ const ConfigItemTabDragOverlay = (props: ConfigItemTabDragOverlayProps) => {
         `flex w-48 items-center justify-between px-4 py-3 shadow-xl`,
         className,
       )}
+      {...htmlProps}
     >
       <AlertTitle>{t("ConfigList.Table.Drag.MovingItems")}</AlertTitle>
       <Badge className="text-xs py-1">{items?.length}</Badge>

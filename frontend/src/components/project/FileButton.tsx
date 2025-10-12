@@ -1,10 +1,6 @@
 import { ConfigFile } from "@/types"
 import { VariantProps } from "class-variance-authority"
-import {
-  IconDotsVertical,
-  IconPencil,
-  IconTrash,
-} from "@tabler/icons-react"
+import { IconDotsVertical, IconPencil, IconTrash } from "@tabler/icons-react"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandFileContextMenu } from "@/types/commands"
 import { Button } from "@/components/ui/button"
@@ -33,10 +29,9 @@ const FileButton = ({
   variant,
   selectActiveFile: onSelectActiveFile,
 }: FileButtonProps) => {
-
   const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
-  const [ label, setLabel ] = useState(file.Label ?? file.FileName)
+  const [label, setLabel] = useState(file.Label ?? file.FileName)
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   useEffect(() => {
@@ -54,31 +49,40 @@ const FileButton = ({
         file: {
           ...file,
           Label: newLabel,
-        }
+        },
       },
     } as CommandFileContextMenu)
   }
-  const groupHoverStyle = variant === "tabActive" ? "group-hover:bg-primary group-hover:text-primary-foreground" : "group-hover:bg-accent group-hover:text-accent-foreground"
-  
-  const {setNodeRef} = useDroppable({
+  const groupHoverStyle =
+    variant === "tabActive"
+      ? "group-hover:bg-primary group-hover:text-primary-foreground"
+      : "group-hover:bg-accent group-hover:text-accent-foreground"
+
+  const { setNodeRef } = useDroppable({
     id: `file-button-${index}`,
     data: {
       type: `tab`,
       index: index,
-    }
-  });
+    },
+  })
 
   return (
-    <div className="flex justify-center group" ref={setNodeRef}
-         role="tab"
-         >
+    <div
+      className="group flex justify-center"
+      ref={setNodeRef}
+      role="tab"
+      aria-selected={isActiveTab}
+    >
       <Button
         variant={variant}
         value={file.FileName || ""}
-        className={cn(groupHoverStyle, "rounded-r-none border-r-0 rounded-b-none border-b-0")}
+        className={cn(
+          groupHoverStyle,
+          "rounded-r-none rounded-b-none border-r-0 border-b-0",
+        )}
         onClick={() => onSelectActiveFile(index)}
       >
-        <InlineEditLabel 
+        <InlineEditLabel
           ref={inlineEditRef}
           value={label}
           onSave={onSave}
@@ -89,7 +93,13 @@ const FileButton = ({
       <div className="relative">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={variant} className={cn(groupHoverStyle, "w-8 rounded-l-none p-0 rounded-b-none pb-0 border-l-0 border-b-0")}>
+            <Button
+              variant={variant}
+              className={cn(
+                groupHoverStyle,
+                "w-8 rounded-l-none rounded-b-none border-b-0 border-l-0 p-0 pb-0",
+              )}
+            >
               <span className="sr-only">{t("General.Action.OpenMenu")}</span>
               <IconDotsVertical className="h-4 w-4" />
             </Button>
