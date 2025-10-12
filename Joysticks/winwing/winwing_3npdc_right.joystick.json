@@ -52,52 +52,52 @@
     {
       "Id": 10,
       "Type": "Button",
-      "Label": "VOR 1"
+      "Label": "NAV1 VOR"
     },
     {
       "Id": 11,
       "Type": "Button",
-      "Label": "OFF 1"
+      "Label": "NAV1 OFF"
     },
     {
       "Id": 12,
       "Type": "Button",
-      "Label": "ADF 1"
+      "Label": "NAV1 ADF"
     },
     {
       "Id": 13,
       "Type": "Button",
-      "Label": "VOR 2"
+      "Label": "NAV2 VOR"
     },
     {
       "Id": 14,
       "Type": "Button",
-      "Label": "OFF 2"
+      "Label": "NAV2 OFF"
     },
     {
       "Id": 15,
       "Type": "Button",
-      "Label": "ADF 2"
+      "Label": "NAV2 ADF"
     },
     {
       "Id": 16,
       "Type": "Button",
-      "Label": "RST Button"
+      "Label": "MINS RST Button"
     },
     {
       "Id": 17,
       "Type": "Button",
-      "Label": "CTR Button"
+      "Label": "ND CTR Button"
     },
     {
       "Id": 18,
       "Type": "Button",
-      "Label": "TFC Button"
+      "Label": "RANGE TFC Button"
     },
     {
       "Id": 19,
       "Type": "Button",
-      "Label": "STD Button"
+      "Label": "BARO STD Button"
     },
     {
       "Id": 20,
@@ -142,32 +142,22 @@
     {
       "Id": 28,
       "Type": "Button",
-      "Label": "APP Mode"
+      "Label": "ND APP"
     },
     {
       "Id": 29,
       "Type": "Button",
-      "Label": "VOR Mode"
-    },
-    {
-      "Id": 28,
-      "Type": "Button",
-      "Label": "APP Mode"
-    },
-    {
-      "Id": 29,
-      "Type": "Button",
-      "Label": "VOR Mode"
+      "Label": "ND VOR"
     },
     {
       "Id": 30,
       "Type": "Button",
-      "Label": "MAP Mode"
+      "Label": "ND MAP"
     },
     {
       "Id": 31,
       "Type": "Button",
-      "Label": "PLN Mode"
+      "Label": "ND PLN"
     },
     {
       "Id": 32,
