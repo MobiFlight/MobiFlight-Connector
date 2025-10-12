@@ -391,7 +391,6 @@ test.describe("Drag and drop tests", () => {
     await configListPage.mobiFlightPage.trackCommand("CommandResortConfigItem")
 
     const firstRow = page.getByRole("row").nth(1)
-    const firstTab = page.getByRole("tab").nth(0)
     const secondTab = page.getByRole("tab").nth(1)
 
     await configListPage.filterByText("7-Segment")
