@@ -88,7 +88,5 @@ namespace MobiFlight.Joysticks.Winwing
         {
             DisplayControl.Shutdown();
         }
-        
-
     }
 }
