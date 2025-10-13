@@ -25,11 +25,11 @@ namespace MobiFlight.Joysticks.Winwing
             // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames)
             {
-                LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Only the Name property is used for brightness control and value caching; Col and Lines are not needed here and default values are sufficient.
+                LcdDevices.Add(new LcdDisplay() { Name = displayName });
             }
             foreach (string ledName in ledNames)
             {
-                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
+                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem());         
             }
         }
 
