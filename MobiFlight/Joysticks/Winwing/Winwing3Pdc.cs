@@ -11,20 +11,26 @@ namespace MobiFlight.Joysticks.Winwing
         private WinwingDisplayControl DisplayControl;
 
         private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
+        private List<ListItem<IBaseDevice>> LedDevices = new List<ListItem<IBaseDevice>>();
 
         public Winwing3Pdc(SharpDX.DirectInput.Joystick joystick, JoystickDefinition def, int productId, WebSocketServer server) : base(joystick, def)
         {
             Log.Instance.log($"WinWing3Pdc - New WinWing3Pdc ProductId={productId.ToString("X")}", LogSeverity.Debug);
             DisplayControl = new WinwingDisplayControl(productId, server);
             var displayNames = DisplayControl.GetDisplayNames();
+            var ledNames = DisplayControl.GetLedNames();
 
             DisplayControl.ErrorMessageCreated += DisplayControl_ErrorMessageCreated;
 
-            // Initialize LCD for brightness setting and current value cache
+            // Initialize LCD and LED device lists and current value cache
             foreach (string displayName in displayNames)
             {
                 LcdDevices.Add(new LcdDisplay() { Name = displayName }); // Col and Lines values don't matter   
-            }         
+            }
+            foreach (string ledName in ledNames)
+            {
+                LedDevices.Add(new JoystickOutputDevice() { Label = ledName, Name = ledName }.ToListItem()); // Byte and Bit values don't matter           
+            }
         }
 
         private void DisplayControl_ErrorMessageCreated(object sender, string e)
@@ -43,8 +49,7 @@ namespace MobiFlight.Joysticks.Winwing
 
         public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
-            // Output for the led indicators, LcdDisplay to control brightness
-            return new List<DeviceType>() { DeviceType.LcdDisplay };
+            return new List<DeviceType>() { DeviceType.Output };
         }
 
         public override void SetLcdDisplay(string address, string value)
@@ -62,6 +67,11 @@ namespace MobiFlight.Joysticks.Winwing
         public override List<IBaseDevice> GetAvailableLcdDevices()
         {
             return LcdDevices;
+        }
+
+        public override List<ListItem<IBaseDevice>> GetAvailableOutputDevicesAsListItems()
+        {
+            return LedDevices;
         }
 
         public override void UpdateOutputDeviceStates()
