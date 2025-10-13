@@ -10,8 +10,6 @@ namespace MobiFlight.Joysticks.Winwing
 {
     internal class WinwingAirbusSidestick : Joystick
     {
-        // if (joystick.GetAvailableOutputDevicesAsListItems().Count
-
         private WinwingDisplayControl DisplayControl;
 
         private List<IBaseDevice> LcdDevices = new List<IBaseDevice>();
@@ -56,7 +54,7 @@ namespace MobiFlight.Joysticks.Winwing
         public override IEnumerable<DeviceType> GetConnectedOutputDeviceTypes()
         {
             // LcdDisplay to control brightness and vibration
-            return new List<DeviceType>() { DeviceType.LcdDisplay };
+            return new List<DeviceType>() { DeviceType.Output };
         }
 
         public override void SetLcdDisplay(string address, string value)
