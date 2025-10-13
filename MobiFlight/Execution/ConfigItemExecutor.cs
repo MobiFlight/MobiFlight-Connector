@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.FSUIPC;
@@ -11,6 +6,12 @@ using MobiFlight.OutputConfig;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
 
 namespace MobiFlight.Execution
 {
@@ -341,8 +342,7 @@ namespace MobiFlight.Execution
 
                         default: // LED Output
                             int intState = (int)Convert.ToDouble(value);
-                            byte state = (byte)(intState > 255 ? 255 : (intState < 0 ? 0 : intState));                            
-
+                            byte state = (byte)Math.Max(Math.Min(255, intState), 0);
                             joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
                             joystick.UpdateOutputDeviceStates();
                             joystick.Update();
