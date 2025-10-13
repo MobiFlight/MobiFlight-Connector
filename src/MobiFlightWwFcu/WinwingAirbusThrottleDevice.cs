@@ -17,14 +17,15 @@ namespace MobiFlightWwFcu
 
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
 
+        private Dictionary<string, Action<byte>> OutputNameToActionMapping = new Dictionary<string, Action<byte>>();
+
         private const string VIBRATION_1 = "Vibration 1 Percentage";
         private const string VIBRATION_2 = "Vibration 2 Percentage";
-
         private const string BACK_BRIGHTNESS = "Backlight Percentage"; // PAC + THROTTLE        
         private const string LED_BRIGHTNESS = "LED Percentage"; // THROTTLE
         private const string LCD_BRIGHTNESS = "LCD Percentage"; // PAC
-        private const string ANN_LIGHT = "LCD Test On/Off"; // PAC
 
+        private const string ANN_LIGHT = "LCD Test On/Off"; // PAC
         private const string TRIM = "Trim Value"; // PAC
         private const string TRIM_DIR_SHOWN = "Trim Direction On/Off"; // PAC
         private const string TRIM_DIR = "Trim Direction Switch"; // PAC
@@ -63,7 +64,7 @@ namespace MobiFlightWwFcu
             { "FAULT_1", 0x03 },
             { "FIRE_1",  0x04 },
             { "FAULT_2", 0x05 },
-            { "FIRE_2",  0x06 },          
+            { "FIRE_2",  0x06 }, 
         };
 
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
@@ -78,18 +79,18 @@ namespace MobiFlightWwFcu
             MessageSender = sender;
             ThrottleType = throttleType;
 
-            // Add display options            
-            DisplayNameToActionMapping.Add(VIBRATION_1, SetVibration1);
-            DisplayNameToActionMapping.Add(VIBRATION_2, SetVibration2);
-            
-            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
-            DisplayNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
-            DisplayNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);            
+            // Add display options                        
             //DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
-
             //DisplayNameToActionMapping.Add(TRIM, SetVs);
             //DisplayNameToActionMapping.Add(TRIM_DIR_SHOWN, SetFpa);
             //DisplayNameToActionMapping.Add(TRIM_DIR, SetVsShown);
+
+            // Add output options
+            OutputNameToActionMapping.Add(VIBRATION_1, SetVibration1);
+            OutputNameToActionMapping.Add(VIBRATION_2, SetVibration2);
+            OutputNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
+            OutputNameToActionMapping.Add(LED_BRIGHTNESS, SetLedBrightness);
+            OutputNameToActionMapping.Add(LCD_BRIGHTNESS, SetLcdBrightness);
 
             foreach (var displayName in GetDisplayNames())
             {
@@ -131,10 +132,10 @@ namespace MobiFlightWwFcu
         public void Connect()
         {            
             // SendDisplayCommand(SetValuesCommand); // Init display TODO
-            SetBacklightBrightness("20");
-            SetLcdBrightness("100");
-            SetVibration1("0");
-            SetVibration2("0");
+            SetBacklightBrightness(20);
+            SetLcdBrightness(100);
+            SetVibration1(0);
+            SetVibration2(0);
 
             //SetLedBrightness("100");
             //LcdTest("AllOn"); // used for testing
@@ -150,10 +151,10 @@ namespace MobiFlightWwFcu
         public void Shutdown()
         {                
             EmptyDisplay();
-            SetBacklightBrightness("0");
-            SetLcdBrightness("0");
-            SetVibration1("0");
-            SetVibration2("0");
+            SetBacklightBrightness(0);
+            SetLcdBrightness(0);
+            SetVibration1(0);
+            SetVibration2(0);
             foreach (var ledName in LedIdentifiers.Keys)
             {
                 SetLed(ledName, 0);
@@ -162,7 +163,10 @@ namespace MobiFlightWwFcu
 
         public List<string> GetLedNames()
         {
-            return LedIdentifiers.Keys.ToList();
+            List<string> ledNames = new List<string>();
+            ledNames.AddRange(LedIdentifiers.Keys.ToList());
+            ledNames.AddRange(OutputNameToActionMapping.Keys.ToList()); 
+            return ledNames;
         }
 
         public List<string> GetDisplayNames()
@@ -175,13 +179,21 @@ namespace MobiFlightWwFcu
             return new List<string>();
         }
 
+
         public void SetLed(string led, byte state)
         {
             if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)
-            {
-                LedCurrentValuesCache[led] = state;           
-                byte stateAdjusted = state == 0 ? (byte)0 : (byte)1;
-                MessageSender.SendLightControlMessage(DestinationAddress, LedIdentifiers[led], stateAdjusted);
+            {             
+                if (LedIdentifiers.TryGetValue(led, out byte ledType))
+                {
+                    LedCurrentValuesCache[led] = state;
+                    byte stateAdjusted = state == 0 ? (byte)0 : (byte)1;
+                    MessageSender.SendLightControlMessage(DestinationAddress, ledType, stateAdjusted);
+                }
+                else if (OutputNameToActionMapping.TryGetValue(led, out Action<byte> action)) 
+                {
+                    action(state);
+                }
             }
         }
 
@@ -208,28 +220,28 @@ namespace MobiFlightWwFcu
             }
         }
 
-        private void SetVibration1(string level)
+        private void SetVibration1(byte level)
         {
             MessageSender.SetVibration(DestinationAddress, 0x0e, level);
         }
 
-        private void SetVibration2(string level)
+        private void SetVibration2(byte level)
         {
             MessageSender.SetVibration(DestinationAddress, 0x10, level);
         }
 
-        private void SetLedBrightness(string brightness)
+        private void SetLedBrightness(byte brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x02, brightness);
         }
 
-        private void SetBacklightBrightness(string brightness)
+        private void SetBacklightBrightness(byte brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);
             MessageSender.SetBrightness(DestinationAddressPac, 0x00, brightness);
         }
 
-        private void SetLcdBrightness(string brightness)
+        private void SetLcdBrightness(byte brightness)
         {
             // Yes strangely here 0x02 is used for LCD
             MessageSender.SetBrightness(DestinationAddressPac, 0x02, brightness);

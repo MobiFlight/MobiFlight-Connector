@@ -155,8 +155,13 @@ namespace MobiFlightWwFcu
             WriteStream(LightControlMessage, 0, 14);
         }
 
-
         public void SetBrightness(byte[] destinationAddress, byte type, string brightness)
+        {
+            int brightnessValue = Convert.ToInt32(brightness);
+            SetBrightness(destinationAddress, type, brightnessValue);
+        }
+
+        public void SetBrightness(byte[] destinationAddress, byte type, int brightness)
         {
             // Input should be 0 to 100 percent - scale to 0..255
             int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));
@@ -164,10 +169,10 @@ namespace MobiFlightWwFcu
             SendLightControlMessage(destinationAddress, type, byteValue);
         }
 
-        public void SetVibration(byte[] destinationAddress, byte type, string level)
+        public void SetVibration(byte[] destinationAddress, byte type, byte level)
         {
             // Input should be 0 to 100 percent - scale to 0..255
-            int value = (int)Math.Round((Convert.ToDouble(level, CultureInfo.InvariantCulture) * 2.55));
+            int value = (int)Math.Round(level * 2.55);
             byte byteValue = value >= 255 ? (byte)255 : (byte)value;
             SendLightControlMessage(destinationAddress, type, byteValue);
         }

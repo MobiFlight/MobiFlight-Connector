@@ -15,8 +15,10 @@ namespace MobiFlightWwFcu
      
         private const string BACK_BRIGHTNESS = "Backlight Percentage";
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
+        private Dictionary<string, Action<byte>> OutputNameToActionMapping = new Dictionary<string, Action<byte>>();
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
-           
+        private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
+
 
         public Winwing3PdcDevice(WinwingMessageSender sender, string pdcType)
         {
@@ -30,25 +32,26 @@ namespace MobiFlightWwFcu
             else if (PdcType == WinwingConstants.PDC3ML_NAME || PdcType == WinwingConstants.PDC3MR_NAME)
             {
                 DestinationAddress = WinwingConstants.DEST_3MPDC;
-            }           
-           
-            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
+            }
 
-            foreach (var displayName in GetDisplayNames())
+            // Add output options         
+            OutputNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
+ 
+            foreach (var ledName in GetLedNames())
             {
-                LcdCurrentValuesCache.Add(displayName, string.Empty);
+                LedCurrentValuesCache.Add(ledName, 255);
             }
         }
 
 
         public void Connect()
         {
-            SetBacklightBrightness("50");
+            SetBacklightBrightness(50);
         }
 
         public void Shutdown()
         {
-            SetBacklightBrightness("0");
+            SetBacklightBrightness(0);
         }
 
         public List<string> GetDisplayNames()
@@ -63,7 +66,13 @@ namespace MobiFlightWwFcu
 
         public void SetLed(string led, byte state)
         {
-            // do nothing, there are no leds
+            if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)
+            {
+                if (OutputNameToActionMapping.TryGetValue(led, out Action<byte> action))
+                {
+                    action(state);
+                }
+            }
         }
 
         public void SetDisplay(string name, string value)
@@ -75,15 +84,16 @@ namespace MobiFlightWwFcu
             }
         }
 
-        private void SetBacklightBrightness(string brightness)
+        private void SetBacklightBrightness(byte brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);       
         }
 
         public List<string> GetLedNames()
         {
-            // do nothing, there are no leds
-            return new List<string>();
+            List<string> ledNames = new List<string>();
+            ledNames.AddRange(OutputNameToActionMapping.Keys.ToList());
+            return ledNames;
         }
     }
 }

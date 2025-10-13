@@ -19,35 +19,40 @@ namespace MobiFlightWwFcu
         private const string LIGHT_PULSE = "Backlight Pulse On/Off";
        
         private Dictionary<string, Action<string>> DisplayNameToActionMapping = new Dictionary<string, Action<string>>();
+        private Dictionary<string, Action<byte>> OutputNameToActionMapping = new Dictionary<string, Action<byte>>();
+
         private Dictionary<string, string> LcdCurrentValuesCache = new Dictionary<string, string>();
-           
+        private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();
+
 
         public WinwingAirbusSidestickDevice(WinwingMessageSender sender, string stickType)
         {
             MessageSender = sender;
             StickType = stickType;
 
-            DisplayNameToActionMapping.Add(VIBRATION, SetVibration);
-            DisplayNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
-            DisplayNameToActionMapping.Add(LIGHT_PULSE, SetBacklightPulse);
+            // Add output options
+            OutputNameToActionMapping.Add(VIBRATION, SetVibration);
+            OutputNameToActionMapping.Add(BACK_BRIGHTNESS, SetBacklightBrightness);
+            OutputNameToActionMapping.Add(LIGHT_PULSE, SetBacklightPulse);
 
-            foreach (var displayName in GetDisplayNames())
+
+            foreach (var ledName in GetLedNames())
             {
-                LcdCurrentValuesCache.Add(displayName, string.Empty);
+                LedCurrentValuesCache.Add(ledName, 255);
             }
         }
 
 
         public void Connect()
         {
-            SetBacklightBrightness("20");
-            SetVibration("0");
+            SetBacklightBrightness(20);
+            SetVibration(0);
         }
 
         public void Shutdown()
         {
-            SetBacklightBrightness("0");
-            SetVibration("0");
+            SetBacklightBrightness(0);
+            SetVibration(0);
         }
 
         public List<string> GetDisplayNames()
@@ -62,7 +67,13 @@ namespace MobiFlightWwFcu
 
         public void SetLed(string led, byte state)
         {
-            // do nothing, there are no leds
+            if (!string.IsNullOrEmpty(led) && LedCurrentValuesCache[led] != state)
+            {
+                if (OutputNameToActionMapping.TryGetValue(led, out Action<byte> action))
+                {
+                    action(state);
+                }
+            }
         }
 
         public void SetDisplay(string name, string value)
@@ -74,27 +85,27 @@ namespace MobiFlightWwFcu
             }
         }
 
-        private void SetBacklightBrightness(string brightness)
+        private void SetBacklightBrightness(byte brightness)
         {
             MessageSender.SetBrightness(DestinationAddress, 0x00, brightness);       
         }
 
-        private void SetVibration(string level)
+        private void SetVibration(byte level)
         {
             MessageSender.SetVibration(DestinationAddressVibration, 0x00, level);
         }
 
-        private void SetBacklightPulse(string isOnString)
-        {
-            int value = (int)Convert.ToDouble(isOnString, CultureInfo.InvariantCulture);
-            bool isOn = Convert.ToBoolean(value);
+        private void SetBacklightPulse(byte isOnValue)
+        {     
+            bool isOn = Convert.ToBoolean(isOnValue);
             MessageSender.SetPulseLight(DestinationAddress, isOn);
         }
 
         public List<string> GetLedNames()
         {
-            // do nothing, there are no leds
-            return new List<string>();
+            List<string> ledNames = new List<string>();     
+            ledNames.AddRange(OutputNameToActionMapping.Keys.ToList());
+            return ledNames;
         }
     }
 }
