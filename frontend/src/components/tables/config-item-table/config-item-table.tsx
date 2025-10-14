@@ -13,24 +13,7 @@ import {
 
 import { Table } from "@/components/ui/table"
 
-import {
-  DndContext,
-  closestCenter,
-  useSensor,
-  useSensors,
-  DragEndEvent,
-  MouseSensor,
-  TouchSensor,
-  DragStartEvent,
-  Active,
-} from "@dnd-kit/core"
-
-import {
-  restrictToParentElement,
-  restrictToVerticalAxis,
-} from "@dnd-kit/modifiers"
-
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { DataTableToolbar } from "./data-table-toolbar"
 import { IConfigItem } from "@/types"
 import { Button } from "@/components/ui/button"
@@ -38,31 +21,30 @@ import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
 import {
   CommandAddConfigItem,
   CommandConfigContextMenu,
-  CommandResortConfigItem,
 } from "@/types/commands"
 import { useTranslation } from "react-i18next"
 import ConfigItemTableHeader from "./items/ConfigItemTableHeader"
 import ConfigItemTableBody from "./items/ConfigItemTableBody"
 import ToolTip from "@/components/ToolTip"
 import { IconX } from "@tabler/icons-react"
-import { snapToCursor } from "@/lib/dnd-kit/snap-to-cursor"
 import { Toaster } from "@/components/ui/sonner"
 import { useTheme } from "@/lib/hooks/useTheme"
 import { toast } from "@/components/ui/ToastWrapper"
+import { useConfigItemDragContext } from "@/lib/hooks/useConfigItemDragContext"
+import ConfigItemNoResultsDroppable from "./items/ConfigItemNoResultsDroppable"
+import { useDroppable } from "@dnd-kit/core"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  setItems: (items: IConfigItem[]) => void
+  dragItemId?: string // Add this prop to receive drag state from parent
 }
 
-export function ConfigItemTable<TData, TValue>({
+export function ConfigItemTable<TValue>({
   columns,
   data,
-  setItems,
-}: DataTableProps<TData, TValue>) {
-  // useReactTable does not work with React Compiler https://github.com/TanStack/table/issues/5567
-  // eslint-disable-next-line react-hooks/react-compiler
+  dragItemId,
+}: DataTableProps<IConfigItem, TValue>) {
   "use no memo"
 
   const [sorting, setSorting] = useState<SortingState>([])
@@ -96,7 +78,15 @@ export function ConfigItemTable<TData, TValue>({
     },
   })
 
-  const parentRef = useRef<HTMLDivElement>(null)
+  const { setNodeRef: setTableBodyRef } = useDroppable({
+    id: "config-item-table-body",
+    data: { type: "table" },
+  })
+
+  const { setNodeRef: setTableHeaderRef } = useDroppable({
+    id: "config-item-table-header",
+    data: { type: "header" },
+  })
   // const { rows } = table.getRowModel()
   // Virtualization setup
   // const virtualizer = useVirtualizer({
@@ -108,9 +98,36 @@ export function ConfigItemTable<TData, TValue>({
 
   const { publish } = publishOnMessageExchange()
   const tableRef = useRef<HTMLTableElement>(null)
+  const tableBodyRef = useRef<HTMLTableSectionElement>(null)
   const prevDataLength = useRef(data.length)
   const addedItem = useRef(false)
   const showInvisibleToastOnDialogClose = useRef<string | null>(null)
+
+  const { setTable, setTableContainerRef, dragState } =
+    useConfigItemDragContext()
+  // Register this table with the drag context
+  useEffect(() => {
+    setTable(table)
+
+    // Clean up when component unmounts
+    return () => setTable(null)
+  }, [table, setTable])
+
+  // We need this indirection just so that
+  // we can store the ref in our Context correctly
+  //
+  // This way it is guaranteed that the ref
+  // is set before we use it in the DragDropProvider
+  const handleTableBodyRef = useCallback(
+    (node: HTMLTableSectionElement | null) => {
+      tableBodyRef.current = node
+      if (node) {
+        setTableBodyRef(node)
+        setTableContainerRef(node)
+      }
+    },
+    [setTableContainerRef, setTableBodyRef],
+  )
 
   // the useCallback hook is necessary so that playwright tests work correctly
   const handleProjectMessage = useCallback(() => {
@@ -176,10 +193,10 @@ export function ConfigItemTable<TData, TValue>({
           table.setRowSelection({ [row.id]: true })
         }
       } else {
-        // If the newly added item's row element is not found, 
+        // If the newly added item's row element is not found,
         // it means the item is not visible due to active filters.
-        // Store its GUID so that when the dialog closes, 
-        // we can show a toast notification to inform the user 
+        // Store its GUID so that when the dialog closes,
+        // we can show a toast notification to inform the user
         // and offer to reset the filters.
         showInvisibleToastOnDialogClose.current = lastItem.GUID
       }
@@ -192,83 +209,6 @@ export function ConfigItemTable<TData, TValue>({
   }, [publish, table, data])
 
   const { t } = useTranslation()
-  const [dragItem, setDragItem] = useState<Active | undefined>(undefined)
-
-  const sensors = useSensors(
-    useSensor(MouseSensor, {}),
-    useSensor(TouchSensor, {}),
-    // useSensor(KeyboardSensor, {}),
-  )
-
-  const handleDragStart = useCallback(
-    (event: DragStartEvent) => {
-      const { active } = event
-      setDragItem(active)
-
-      const draggedRow = table
-        .getRowModel()
-        .rows.find((row) => row.id === active.id)
-      if (!draggedRow) return
-      if (!draggedRow.getIsSelected()) {
-        table.setRowSelection({ [active.id]: true })
-      }
-    },
-    [setDragItem, table],
-  )
-
-  const handleDragEnd = useCallback(
-    (event: DragEndEvent) => {
-      const { active, over } = event
-
-      setDragItem(undefined)
-
-      if (!over?.id || !active.id) return
-
-      // we didn't really move anything
-      if (active.id === over.id) return
-
-      // Get all selected row GUIDs, or just the dragged one if nothing selected
-      const selectedRows = table.getSelectedRowModel().rows
-      const selectedIds = selectedRows.map(
-        (row) => (row.original as IConfigItem).GUID,
-      )
-      const originalIndex = (data as IConfigItem[]).findIndex(
-        (item) => item.GUID === active.id,
-      )
-
-      // Remove dragged items from data
-      let newData = (data as IConfigItem[]).filter(
-        (item) => !selectedIds.includes(item.GUID),
-      )
-      // Find drop index
-      const newIndex = newData.findIndex((item) => item.GUID === over.id)
-
-      // we determine drag direction
-      const dragDirectionOffset = newIndex >= originalIndex ? 1 : 0
-
-      const draggedData = (data as IConfigItem[]).filter((item) =>
-        selectedIds.includes(item.GUID),
-      )
-
-      // Insert dragged items at drop index
-      newData = [
-        ...newData.slice(0, newIndex + dragDirectionOffset),
-        ...draggedData,
-        ...newData.slice(newIndex + dragDirectionOffset),
-      ]
-
-      setItems(newData)
-
-      publishOnMessageExchange().publish({
-        key: "CommandResortConfigItem",
-        payload: {
-          items: draggedData,
-          newIndex: newIndex + dragDirectionOffset,
-        },
-      } as CommandResortConfigItem)
-    },
-    [data, setItems, table],
-  )
 
   const handleAddOutputConfig = useCallback(() => {
     addedItem.current = true
@@ -328,53 +268,58 @@ export function ConfigItemTable<TData, TValue>({
 
   const { theme } = useTheme()
 
+  const showTable = useMemo(() => {
+    if (!(dragState?.ui.isDragging ?? false)) {
+      return data.length > 0
+    }
+
+    return (
+      table.getRowModel().rows?.length -
+        (dragState?.items.draggedItems.length ?? 0) >
+      0
+    )
+  }, [
+    data.length,
+    dragState?.items.draggedItems.length,
+    dragState?.ui.isDragging,
+    table,
+  ])
+
   return (
     <div className="flex grow flex-col gap-2 overflow-y-auto">
-      {data.length > 0 ? (
-        <div className="flex grow flex-col gap-2 overflow-y-auto">
-          <div className="p-1">
-            <DataTableToolbar
-              table={table}
-              items={data as IConfigItem[]}
-              onDeleteSelected={deleteSelected}
-              onToggleSelected={toggleSelected}
-              onClearSelected={() => table.setRowSelection({})}
-            />
-          </div>
-          <Toaster
-            position="bottom-right"
-            theme={theme}
-            className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
+      <div className="flex grow flex-col gap-2 overflow-y-auto">
+        <div className="p-1">
+          <DataTableToolbar
+            disabled={!showTable}
+            table={table}
+            items={data as IConfigItem[]}
+            onDeleteSelected={deleteSelected}
+            onToggleSelected={toggleSelected}
+            onClearSelected={() => table.setRowSelection({})}
           />
-          {table.getRowModel().rows?.length ? (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              modifiers={[
-                snapToCursor,
-                restrictToVerticalAxis,
-                restrictToParentElement,
-              ]}
-              onDragEnd={handleDragEnd}
-              onDragStart={handleDragStart}
-            >
-              <div
-                className="border-primary flex flex-col overflow-y-auto rounded-lg border"
-                ref={parentRef}
-              >
-                <Table ref={tableRef} className="table-fixed">
-                  <ConfigItemTableHeader
-                    headerGroups={table.getHeaderGroups()}
-                  />
-                  <ConfigItemTableBody
-                    table={table}
-                    dragItemId={dragItem?.id as string}
-                    onDeleteSelected={deleteSelected}
-                    onToggleSelected={toggleSelected}
-                  />
-                </Table>
-              </div>
-            </DndContext>
+        </div>
+        <Toaster
+          position="bottom-right"
+          theme={theme}
+          className="flex w-full justify-center ![--width:540px] xl:![--width:800px]"
+        />
+        {showTable ? (
+          table.getRowModel().rows?.length ? (
+            <div className="border-primary flex flex-col overflow-y-auto rounded-lg border">
+              <Table ref={tableRef} className="table-fixed">
+                <ConfigItemTableHeader
+                  ref={setTableHeaderRef}
+                  headerGroups={table.getHeaderGroups()}
+                />
+                <ConfigItemTableBody
+                  ref={handleTableBodyRef}
+                  table={table}
+                  dragItemId={dragItemId}
+                  onDeleteSelected={deleteSelected}
+                  onToggleSelected={toggleSelected}
+                />
+              </Table>
+            </div>
           ) : (
             <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid pb-6">
               <div className="bg-primary mb-4 h-12"></div>
@@ -398,31 +343,26 @@ export function ConfigItemTable<TData, TValue>({
                 </ToolTip>
               </div>
             </div>
-          )}
+          )
+        ) : (
+          <ConfigItemNoResultsDroppable />
+        )}
+        <div className="flex justify-start gap-2">
+          <Button
+            variant={"outline"}
+            className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
+            onClick={handleAddOutputConfig}
+          >
+            {t("ConfigList.Actions.OutputConfigItem.Add")}
+          </Button>
+          <Button
+            variant={"outline"}
+            className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
+            onClick={handleAddInputConfig}
+          >
+            {t("ConfigList.Actions.InputConfigItem.Add")}
+          </Button>
         </div>
-      ) : (
-        <div className="border-primary flex flex-col gap-2 rounded-lg border-2 border-solid">
-          <div className="bg-primary h-12"></div>
-          <div className="p-4 pb-6 text-center" role="alert">
-            {t("ConfigList.Table.NoResultsFound")}
-          </div>
-        </div>
-      )}
-      <div className="flex justify-start gap-2">
-        <Button
-          variant={"outline"}
-          className="border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white"
-          onClick={handleAddOutputConfig}
-        >
-          {t("ConfigList.Actions.OutputConfigItem.Add")}
-        </Button>
-        <Button
-          variant={"outline"}
-          className="border-teal-600 text-teal-600 hover:bg-teal-600 hover:text-white"
-          onClick={handleAddInputConfig}
-        >
-          {t("ConfigList.Actions.InputConfigItem.Add")}
-        </Button>
       </div>
     </div>
   )

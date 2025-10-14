@@ -45,15 +45,6 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
     } as CommandUpdateConfigItem)
   }
 
-  const selectedRows = row
-    .getVisibleCells()[0]
-    .getContext()
-    .table.getSelectedRowModel().rows.length
-  const dragLabel =
-    selectedRows > 1
-      ? t("ConfigList.Cell.Drag.Multiple", { count: selectedRows })
-      : label
-
   return (
     <div className="group flex cursor-pointer flex-row items-center gap-1">
       <ToolTip
@@ -67,9 +58,6 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
         }
       >
         <div className="flex w-full flex-row items-center gap-0">
-          <p className="hidden truncate px-0 font-semibold group-[.is-first-drag-item]/row:block">
-            {dragLabel}
-          </p>
           <InlineEditLabel
             ref={inlineEditRef}
             labelClassName="truncate group-[.is-first-drag-item]/row:hidden"

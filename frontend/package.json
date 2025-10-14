@@ -8,7 +8,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "check:translations": "node src/scripts/check-translations.js"
+    "check:i18n": "npm run check:translations && npm run check:hardcoded-strings",
+    "check:translations": "node src/scripts/check-translations.js",
+    "check:hardcoded-strings": "node src/scripts/check-hardcoded-strings.js",
+    "check:hardcoded-strings:verbose": "node src/scripts/check-hardcoded-strings.js --verbose",
+    "check:hardcoded-strings:ci": "node src/scripts/check-hardcoded-strings.js --github --strict",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -66,6 +72,7 @@
     "tailwindcss": "^4.1.13",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
-    "vite": "^7.1.1"
+    "vite": "^7.1.1",
+    "vitest": "^3.2.4"
   }
 }

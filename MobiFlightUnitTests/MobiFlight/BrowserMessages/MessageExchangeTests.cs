@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.BrowserMessages;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Newtonsoft.Json;
 using System;
@@ -31,6 +32,13 @@ namespace MobiFlight.BrowserMessages.Tests
 
             // Act: Set the publisher, which should register the captured callback
             messageExchange.SetPublisher(mockPublisher.Object);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            // Clear the singleton state between tests
+            messageExchange.ClearSubscriptions();
         }
 
         [TestMethod()]
@@ -106,6 +114,51 @@ namespace MobiFlight.BrowserMessages.Tests
 
             // Assert
             Assert.IsFalse(isSubscriberInvoked, "Subscriber should not have been invoked after unsubscription.");
+        }
+
+        [TestMethod()]
+        public void ClearSubscriptionsTest()
+        {
+            // Arrange
+            var testEvent = new Test { Property1 = "TestValue1" };
+            var messageJson = JsonConvert.SerializeObject(new Message<object>("Test", testEvent));
+            bool isSubscriber1Invoked = false;
+            Action<Test> subscriberAction1 = receivedEvent =>
+            {
+                isSubscriber1Invoked = true;
+            };
+
+            // Subscribe multiple callbacks
+            messageExchange.Subscribe<Test>(subscriberAction1);
+            
+            // Verify subscriptions work before clearing
+            capturedCallback(messageJson);
+
+            Assert.IsTrue(isSubscriber1Invoked, "Subscriber 1 should be invoked before clearing");
+
+            // Reset flags for the actual test
+            isSubscriber1Invoked = false;
+
+            // Act
+            messageExchange.ClearSubscriptions();
+
+            // Simulate receiving a message after clearing
+            capturedCallback(messageJson);
+
+            // Assert
+            Assert.IsFalse(isSubscriber1Invoked, "Subscriber 1 should not be invoked after clearing subscriptions");
+            
+            // Verify that new subscriptions can still be added after clearing
+            bool newSubscriberInvoked = false;
+            Action<Test> newSubscriberAction = receivedEvent =>
+            {
+                newSubscriberInvoked = true;
+            };
+
+            messageExchange.Subscribe<Test>(newSubscriberAction);
+            capturedCallback(messageJson);
+
+            Assert.IsTrue(newSubscriberInvoked, "New subscriber should work after clearing subscriptions");
         }
     }
 

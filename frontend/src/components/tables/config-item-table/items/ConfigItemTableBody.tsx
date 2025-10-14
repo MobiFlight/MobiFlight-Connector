@@ -4,8 +4,9 @@ import { flexRender, Row, Table } from "@tanstack/react-table"
 import { DndTableRow } from "../DndTableRow"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { cn } from "@/lib/utils"
-import { useState, useEffect } from "react"
+import { useState, useEffect, forwardRef } from "react"
 import { RowInteractionProvider } from "../RowInteractionContext"
+import { IConfigItem } from "@/types"
 
 interface ConfigItemTableBodyProps<TData> {
   table: Table<TData>
@@ -13,15 +14,11 @@ interface ConfigItemTableBodyProps<TData> {
   onDeleteSelected?: () => void
   onToggleSelected?: () => void
 }
-const ConfigItemTableBody = <TData,>({
-  table,
-  dragItemId,
-  onDeleteSelected,
-  onToggleSelected,
-}: ConfigItemTableBodyProps<TData>) => {
+const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableBodyProps<IConfigItem>>(
+  ({ table, dragItemId, onDeleteSelected, onToggleSelected }, ref) => {
   const { publish } = publishOnMessageExchange()
   const rows = table.getRowModel().rows
-  const [lastSelected, setLastSelected] = useState<Row<TData> | null>(null)
+  const [lastSelected, setLastSelected] = useState<Row<IConfigItem> | null>(null)
 
   const selectedRows = table.getSelectedRowModel().rows
   
@@ -56,7 +53,7 @@ const ConfigItemTableBody = <TData,>({
   }, [ table, onDeleteSelected, onToggleSelected ])
 
   return (
-    <TableBody className="dark:bg-zinc-900">
+    <TableBody ref={ref}>
       <SortableContext
         items={rows.map((row) => row.id)}
         strategy={verticalListSortingStrategy}
@@ -131,8 +128,7 @@ const ConfigItemTableBody = <TData,>({
                       className={cn(
                         "p-1",
                         className,
-                        cellClassName,
-                        "group-[.is-dragging]/row:hidden",
+                        cellClassName
                       )}
                     >
                       {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
@@ -146,6 +142,6 @@ const ConfigItemTableBody = <TData,>({
       </SortableContext>
     </TableBody>
   )
-}
+})
 
 export default ConfigItemTableBody

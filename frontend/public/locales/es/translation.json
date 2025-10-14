@@ -98,9 +98,6 @@
       "Actions": "Acciones"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "Estás moviendo {{count}} elementos seleccionados"
-      },
       "Waiting": "Esperando",
       "Controller": {
         "openInSettings": "Abrir opciones de controlador.",
@@ -112,7 +109,11 @@
     },
     "Table": {
       "NoResultsFound": "Esta es una nueva configuración. Por favor, añade algunos elementos.",
-      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro."
+      "DropHereToAdd": "Suelta aquí para añadir nuevos elementos.",
+      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro.",
+      "Drag" : {
+        "MovingItems": "Mover elementos"
+      }
     },
     "Actions": {
       "OutputConfigItem": {

@@ -215,4 +215,9 @@ export class ConfigListPage {
     }
     await this.mobiFlightPage.publishMessage(message)
   }
+
+  async filterByText(text: string) {
+    const filterInput = this.mobiFlightPage.page.getByPlaceholder("Filter items...")
+    await filterInput.fill(text)
+  }
 }
