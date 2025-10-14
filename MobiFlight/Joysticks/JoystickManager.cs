@@ -204,7 +204,7 @@ namespace MobiFlight
                 {
                     // statically set this to Octavi until we might support (Octavi|IFR1) or similar
                     js = new Octavi(diJoystick, GetDefinitionByInstanceName("Octavi"));
-                }     
+                }
                 else if (vendorId == 0x4098 && WinwingConstants.FCU_PRODUCTIDS.Contains(productId))
                 {
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
@@ -229,6 +229,7 @@ namespace MobiFlight
                 {
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
                     js = new WinwingAirbusSidestick(diJoystick, joystickDef, productId, WSServer);
+                }
                 else if (vendorId == 0x4098 && WinwingConstants.PDC3_PRODUCTIDS.Contains(productId))
                 {
                     var joystickDef = GetDefinitionByProductId(vendorId, productId);
