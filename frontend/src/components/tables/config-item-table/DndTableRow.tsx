@@ -25,7 +25,6 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
     zIndex: 1000,
   }
 
-  const multiDrag = (dragState?.items?.draggedItems?.length ?? 0) > 1
   const isDragging =
     dragState?.items?.draggedItems
       ?.map((item) => item.GUID)
@@ -34,20 +33,18 @@ export const DndTableRow: React.FC<DndTableRowProps> = ({
   const isInTable = dragState?.ui.isInsideTable ?? true
   const dragStyle = isDragging
     ? isActive
-      ? !multiDrag 
-        ? "opacity-0" 
-        : "opacity-0"
+      ? "opacity-0"
       : "opacity-0 collapse"
     : ""
   const outsideTableStyle = !isInTable && isDragging ? "opacity-0 collapse" : ""
-  
+
   return (
     <tr
       style={dndStyle}
       ref={setNodeRef}
       {...listeners}
       className={cn(
-        "group/row bg-white hover:bg-selected data-[state=selected]:bg-selected data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected dark:data-[state=selected]:hover:bg-selected border-b transition-colors",
+        "group/row bg-background hover:bg-selected data-[state=selected]:bg-selected data-[state=selected]:hover:bg-selected dark:data-[state=selected]:bg-selected dark:data-[state=selected]:hover:bg-selected border-b transition-colors",
         dragStyle,
         outsideTableStyle,
         className,

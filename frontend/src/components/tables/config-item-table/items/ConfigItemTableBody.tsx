@@ -53,7 +53,7 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
   }, [ table, onDeleteSelected, onToggleSelected ])
 
   return (
-    <TableBody className="dark:bg-zinc-900" ref={ref}>
+    <TableBody ref={ref}>
       <SortableContext
         items={rows.map((row) => row.id)}
         strategy={verticalListSortingStrategy}
@@ -128,8 +128,7 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
                       className={cn(
                         "p-1",
                         className,
-                        cellClassName,
-                        "group-[.is-dragging]/row:hidden",
+                        cellClassName
                       )}
                     >
                       {flexRender(cell.column.columnDef.cell, {...cell.getContext(), selectedRows: selectedRows})}
