@@ -98,9 +98,6 @@
       "Actions": "Actions"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "You are moving {{count}} selected items"
-      },
       "Waiting": "Waiting",
       "Controller": {
         "openInSettings": "Open controller settings",
@@ -112,7 +109,11 @@
     },
     "Table": {
       "NoResultsFound": "This is a new configuration. Please add some items.",
-      "NoResultsMatchingFilter": "No results matching the filter."
+      "DropHereToAdd": "Drop here to add new items.",
+      "NoResultsMatchingFilter": "No results matching the filter.",
+      "Drag" : {
+        "MovingItems": "Moving items"
+      }
     },
     "Actions": {
       "OutputConfigItem": {

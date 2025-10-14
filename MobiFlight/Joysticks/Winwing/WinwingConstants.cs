@@ -9,6 +9,11 @@
 
         internal const int PRODUCT_ID_PAP3_ONLY = 0xBF0F;
 
+        internal const int PRODUCT_ID_3NPDCL = 0xBB61;
+        internal const int PRODUCT_ID_3NPDCR = 0xBB62;
+        internal const int PRODUCT_ID_3MPDCL = 0xBB51;
+        internal const int PRODUCT_ID_3MPDCR = 0xBB52;
+
         internal const int PRODUCT_ID_MCDU_CPT = 0xBB36;
         internal const int PRODUCT_ID_MCDU_OBS = 0xBB3A;
         internal const int PRODUCT_ID_MCDU_FO = 0xBB3E;
@@ -41,6 +46,7 @@
         internal static readonly int[] AIRBUS_THROTTLE_PRODUCTIDS = { PRODUCT_ID_AIRBUS_THROTTLE_L, PRODUCT_ID_AIRBUS_THROTTLE_R };
 
         internal static readonly int[] AIRBUS_STICK_PRODUCTIDS = { PRODUCT_ID_AIRBUS_STICK_L, PRODUCT_ID_AIRBUS_STICK_R };
+        internal static readonly int[] PDC3_PRODUCTIDS = { PRODUCT_ID_3NPDCL, PRODUCT_ID_3NPDCR, PRODUCT_ID_3MPDCL, PRODUCT_ID_3MPDCR };
 
         internal const string CDU_DATA = "Cdu Data";
         internal const string FONT_DATA = "Font Data";

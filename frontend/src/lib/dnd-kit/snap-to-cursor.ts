@@ -14,10 +14,11 @@ export const snapToCursor: Modifier = ({
     }
 
     const offsetY = activatorCoordinates.y - draggingNodeRect.top;
+    const offsetX = activatorCoordinates.x - draggingNodeRect.left;
 
     return {
       ...transform,
-      x: transform.x,
+      x: transform.x + offsetX,
       y: transform.y + offsetY - draggingNodeRect.height / 2,
     };
   }
