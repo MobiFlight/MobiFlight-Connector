@@ -87,7 +87,6 @@ const FileButton = ({
           value={label}
           onSave={onSave}
           disabled={!isActiveTab}
-          inputClassName="pt-1"
         />
       </Button>
       <div className="relative">

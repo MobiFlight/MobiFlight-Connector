@@ -2,12 +2,10 @@ import {
   InlineEditLabel,
   InlineEditLabelRef,
 } from "@/components/InlineEditLabel"
-import ToolTip from "@/components/ToolTip"
 import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandUpdateConfigItem } from "@/types/commands"
 import { IConfigItem } from "@/types/config"
 import { Row } from "@tanstack/react-table"
-import { useTranslation } from "react-i18next"
 import { useRef, useEffect } from "react"
 import { useRowInteraction } from "@/lib/hooks/useRowInteraction"
 
@@ -15,18 +13,12 @@ interface ConfigItemTableNameCellProps {
   row: Row<IConfigItem>
 }
 function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
-  const { t } = useTranslation()
   const { publish } = publishOnMessageExchange()
   const { registerNameEdit } = useRowInteraction()
   const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   const item = row.original as IConfigItem
-  const typeLabel = t(`Types.${item.Type}`)
-
   const label = item.Name
-
-  const moduleName = item.ModuleSerial.split("/")[0] ?? "not set"
-  const deviceName = item.Device?.Name ?? "-"
 
   // Register the edit function with the context
   useEffect(() => {
@@ -46,27 +38,13 @@ function ConfigItemTableNameCell({ row }: ConfigItemTableNameCellProps) {
   }
 
   return (
-    <div className="group flex cursor-pointer flex-row items-center gap-1">
-      <ToolTip
-        content={
-          <div className="flex flex-col gap-1">
-            <p className="text-xs font-semibold">{typeLabel}</p>
-            <p className="text-muted-foreground truncate text-xs xl:hidden">
-              {moduleName} - {deviceName}
-            </p>
-          </div>
-        }
-      >
-        <div className="flex w-full flex-row items-center gap-0">
-          <InlineEditLabel
-            ref={inlineEditRef}
-            labelClassName="truncate group-[.is-first-drag-item]/row:hidden"
-            value={label}
-            onSave={saveChanges}
-          />
-        </div>
-      </ToolTip>
-    </div>
+    <InlineEditLabel
+          ref={inlineEditRef}
+          labelClassName="truncate group-[.is-first-drag-item]/row:hidden py-1"
+          inputClassName="py-0"
+          value={label}
+          onSave={saveChanges}
+        />
   )
 }
 
