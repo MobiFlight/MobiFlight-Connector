@@ -372,6 +372,7 @@
     <Compile Include="MobiFlight\Joysticks\VKB\VKBLedContainer.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCube.cs" />
     <Compile Include="MobiFlight\Joysticks\WingFlex\FcuCubeReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingAirbusSidestick.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\Winwing3Pdc.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingPap3Report.cs" />
@@ -379,6 +380,7 @@
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingConstants.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcu.cs" />
     <Compile Include="MobiFlight\Joysticks\Winwing\WinwingFcuReport.cs" />
+    <Compile Include="MobiFlight\Joysticks\Winwing\WinwingAirbusThrottle.cs" />
     <Compile Include="MobiFlight\JsonBackedObject.cs" />
     <Compile Include="MobiFlight\MaximumDeviceNumberReachedMobiFlightException.cs" />
     <Compile Include="MobiFlight\MidiBoard\MidiBoard.cs" />
@@ -1445,6 +1447,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Joysticks\wingflex\wingflex_fcucube.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_airbus_throttle_left.joystick.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Joysticks\winwing\winwing_airbus_throttle_right.joystick.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MidiBoards\BoardEditorConfigs\intechf44\Mobiflight-SessionProfile.json">
