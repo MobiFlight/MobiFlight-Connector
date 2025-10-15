@@ -116,7 +116,7 @@ export const InlineEditLabel = forwardRef<
         onKeyDown={handleKeyDown}
         tabIndex={0}
         className={cn(
-          `test cursor-pointer px-2 font-semibold`,
+          `cursor-pointer px-2 font-semibold`,
           `ring-offset-background focus-visible:ring-ring focus-visible:ring-offset-muted focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden`,
           spanClassName,
         )}
