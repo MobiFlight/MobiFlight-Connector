@@ -86,7 +86,11 @@ export const InlineEditLabel = forwardRef<
         handleCancel()
       }
       if (e.key === "Enter") {
-        handleSave()
+        if (isEditing) {
+          handleSave()
+        } else {
+          setIsEditing(true)
+        }
       }
     }
 
@@ -94,7 +98,7 @@ export const InlineEditLabel = forwardRef<
       <Input
         ref={inputRef}
         className={cn(
-          `border-primary bg-background hover:text-foreground h-6 rounded-md border-2 px-2 font-semibold focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 md:text-base`,
+          `border-primary bg-background hover:text-foreground rounded-md border-2 px-2 font-semibold focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0 md:text-base`,
           `field-sizing-content h-8 w-auto`,
           inputClassName,
         )}
@@ -107,8 +111,15 @@ export const InlineEditLabel = forwardRef<
       />
     ) : (
       <span
+        role="button"
         onDoubleClick={(e) => handleDoubleClick(e)}
-        className={cn(`cursor-pointer px-2 font-semibold`, spanClassName)}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        className={cn(
+          `test cursor-pointer px-2 font-semibold`,
+          `ring-offset-background focus-visible:ring-ring focus-visible:ring-offset-muted focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden`,
+          spanClassName,
+        )}
       >
         {value}
       </span>
