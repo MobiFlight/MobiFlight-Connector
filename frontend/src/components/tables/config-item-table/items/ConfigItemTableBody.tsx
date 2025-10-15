@@ -126,7 +126,7 @@ const ConfigItemTableBody = forwardRef<HTMLTableSectionElement, ConfigItemTableB
                     <TableCell
                       key={cell.id}
                       className={cn(
-                        "p-1",
+                        "p-0",
                         className,
                         cellClassName
                       )}

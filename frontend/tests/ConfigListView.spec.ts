@@ -57,7 +57,7 @@ test("Confirm edit function for name is working", async ({
   const nameCell = page.getByRole("row", { name: "LED 1" }).first()
 
   // Click on the text span to enter edit mode
-  await nameCell.getByText("LED 1").click()
+  await nameCell.getByText("LED 1").dblclick()
 
   // Now find the textbox that appears after clicking
   const inlineEdit = nameCell.getByRole("textbox")
@@ -76,7 +76,7 @@ test("Confirm edit function for name is working", async ({
   expect((lastCommand.payload.item as IConfigItem).Name).toEqual("LED 1245")
 
   // Click on the text span to enter edit mode
-  await nameCell.getByText("LED 1245").click()
+  await nameCell.getByText("LED 1245").dblclick()
   await inlineEdit.fill("LED 9999")
 
   // We cancel the change by pressing Escape
