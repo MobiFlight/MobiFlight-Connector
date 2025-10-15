@@ -168,11 +168,7 @@ test("Confirm file tab actions work", async ({ configListPage, page }) => {
     .getByRole("tablist")
     .getByRole("tab")
     .nth(1)
-    .getByRole("button")
-    // 1st button is the tab
-    // 2nd button is the editable label
-    // 3rd button is the context menu
-    .nth(2)
+    .getByRole("button", { name: "Open menu" })
   await secondTabContextMenu.click()
   // the overlay is not nested in the dom
   // we have to use the page locator to find it
