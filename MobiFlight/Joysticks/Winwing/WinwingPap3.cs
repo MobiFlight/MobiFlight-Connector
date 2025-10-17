@@ -284,6 +284,11 @@ namespace MobiFlight.Joysticks.Winwing
             // do nothing, data is directly send in SetOutputDeviceState
         }
 
+        public override void Stop()
+        {
+            DisplayControl.Stop();
+        }
+
         public override void Shutdown()
         {
             DoReadHidReports = false;
