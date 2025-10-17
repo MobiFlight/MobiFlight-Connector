@@ -646,7 +646,7 @@ namespace MobiFlight
                     Name = Name,
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
-                    Type = DeviceType.InputShiftRegister,
+                    Type = DeviceType.Button,
                     ExtPin = channel,
                     Value = state
                 });
@@ -677,8 +677,7 @@ namespace MobiFlight
                     Name = Name,
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
-                    // This should actually be button
-                    Type = DeviceType.InputMultiplexer,
+                    Type = DeviceType.Button,
                     ExtPin = channel,
                     Value = state
                 });
