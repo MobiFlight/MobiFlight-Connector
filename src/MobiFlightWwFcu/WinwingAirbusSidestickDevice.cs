@@ -12,7 +12,7 @@ namespace MobiFlightWwFcu
         private WinwingMessageSender MessageSender = null;
         private string StickType = WinwingConstants.AIRBUS_STICK_R_NAME;
         private byte[] DestinationAddress = WinwingConstants.DEST_AIRBUS_STICK;
-        private byte[] DestinationAddressVibration = WinwingConstants.DEST_AIRBUS_STICK_VIBRATION;
+        private byte[] DestinationAddressVibration = WinwingConstants.DEST_AIRBUS_STICK_VIBRATION_R;
 
         private const string VIBRATION = "Vibration Percentage";
         private const string BACK_BRIGHTNESS = "Backlight Percentage";
@@ -29,6 +29,15 @@ namespace MobiFlightWwFcu
         {
             MessageSender = sender;
             StickType = stickType;
+
+            if (StickType == WinwingConstants.AIRBUS_STICK_L_NAME)
+            {
+                DestinationAddressVibration = WinwingConstants.DEST_AIRBUS_STICK_VIBRATION_L;
+            }
+            else
+            {
+                DestinationAddressVibration = WinwingConstants.DEST_AIRBUS_STICK_VIBRATION_R;
+            }
 
             // Add output options
             OutputNameToActionMapping.Add(VIBRATION, SetVibration);

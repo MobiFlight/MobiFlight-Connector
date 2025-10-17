@@ -22,7 +22,8 @@ namespace MobiFlightWwFcu
         internal static readonly byte[] DEST_AIRBUS_PAC = new byte[] { 0x01, 0xb9 };
 
         internal static readonly byte[] DEST_AIRBUS_STICK = new byte[] { 0x20, 0xbb };
-        internal static readonly byte[] DEST_AIRBUS_STICK_VIBRATION = new byte[] { 0x08, 0xbf };
+        internal static readonly byte[] DEST_AIRBUS_STICK_VIBRATION_R = new byte[] { 0x08, 0xbf };
+        internal static readonly byte[] DEST_AIRBUS_STICK_VIBRATION_L = new byte[] { 0x07, 0xbf };
 
 
         internal const int PRODUCT_ID_FCU_ONLY = 0xBB10;
