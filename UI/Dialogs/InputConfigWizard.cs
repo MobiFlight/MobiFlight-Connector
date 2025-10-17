@@ -748,11 +748,8 @@ namespace MobiFlight.UI.Dialogs
         {
             if (!InputThresholdIsExceeded(e)) return;
 
-            // Only the "positive" PRESS events matter for these devices
-            // - InputMultiplexer has buttons
-            // - InputShiftRegister, has buttons
-            // - Joysticks has buttons and OnPress
-            if (DeviceTypeHasPressEvent(e))
+            // Only the "positive" PRESS events matter for buttons
+            if (e.Type == DeviceType.Button)
             {
                 if (e.Value != (int)MobiFlightButton.InputEvent.PRESS)
                 return;
@@ -791,19 +788,13 @@ namespace MobiFlight.UI.Dialogs
             {
                 ComboBoxHelper.SetSelectedItem(inputTypeComboBox, e.DeviceId);
                 // if multiplexer or inputshiftregister set the sub item too
-                if (e.Type == DeviceType.InputMultiplexer || e.Type == DeviceType.InputShiftRegister)
+                if (e.ExtPin.HasValue)
                 {
                     ComboBoxHelper.SetSelectedItem(inputPinDropDown, e.ExtPin.ToString());
                 }
             }
 
             DeactivateScanForInputMode();
-        }
-
-        private static bool DeviceTypeHasPressEvent(InputEventArgs e)
-        {
-            var isButtonType = (e.Type == DeviceType.Button || e.Type == DeviceType.InputMultiplexer || e.Type == DeviceType.InputShiftRegister);
-            return isButtonType;
         }
 
         private bool InputThresholdIsExceeded(InputEventArgs e)
