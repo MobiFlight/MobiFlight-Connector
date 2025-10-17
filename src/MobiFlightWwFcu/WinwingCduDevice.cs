@@ -321,15 +321,20 @@ namespace MobiFlightWwFcu
             ConvertAndSendCduData(InitialDisplayJson);
         }
 
+        private void TurnOffAllLEDs()
+        {
+            foreach (var ledName in LedIdentifiers.Keys)
+            {
+                SetLed(ledName, 0);
+            }
+        }
+
         public void Shutdown()
         {
             EmptyDisplay();
             SetBacklightBrightness("0");
             SetLcdBrightness("0");
-            foreach (var ledName in LedIdentifiers.Keys)
-            {
-                SetLed(ledName, 0);
-            }
+            TurnOffAllLEDs();
         }
 
 
@@ -502,6 +507,11 @@ namespace MobiFlightWwFcu
             }
 
             MessageSender.SendCduDisplayBytes(byteList.ToArray());            
+        }
+
+        public void Stop()
+        {
+            TurnOffAllLEDs();
         }
     }
 }

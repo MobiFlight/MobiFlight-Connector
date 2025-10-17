@@ -10,6 +10,8 @@ namespace MobiFlightWwFcu
 
         void Shutdown();
 
+        void Stop();
+
         List<string> GetLedNames();
 
         List<string> GetDisplayNames();

@@ -213,15 +213,20 @@ namespace MobiFlightWwFcu
             // LcdTest("AllOn"); // used for testing
         }
 
+        private void TurnOffAllLEDs()
+        {
+            foreach (var ledName in LedIdentifiers.Keys)
+            {
+                SetLed(ledName, 0);
+            }
+        }
+
         public void Shutdown()
         {                
             EmptyDisplay();
             SetBacklightBrightness("0");
             SetLcdBrightness("0");
-            foreach (var ledName in LedIdentifiers.Keys)
-            {
-                SetLed(ledName, 0);
-            }         
+            TurnOffAllLEDs();         
         }
 
         public List<string> GetLedNames()
@@ -676,6 +681,11 @@ namespace MobiFlightWwFcu
                 message[setPos] |= msgEntry.Data[i];
                 setPos++;
             }
+        }
+
+        public void Stop()
+        {
+            TurnOffAllLEDs();
         }
     }
 }

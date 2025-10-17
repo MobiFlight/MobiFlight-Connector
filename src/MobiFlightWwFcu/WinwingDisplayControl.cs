@@ -192,6 +192,14 @@ namespace MobiFlightWwFcu
             }
         }
 
+        public void Stop()
+        {
+            foreach (var device in WinwingCoupledDevices)
+            {
+                device.Stop();
+            }
+        }
+
         public void Shutdown()
         {
             try

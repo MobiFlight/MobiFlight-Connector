@@ -116,5 +116,10 @@ namespace MobiFlightWwFcu
             ledNames.AddRange(OutputNameToActionMapping.Keys.ToList());
             return ledNames;
         }
+
+        public void Stop()
+        {
+            SetVibration(0);
+        }
     }
 }

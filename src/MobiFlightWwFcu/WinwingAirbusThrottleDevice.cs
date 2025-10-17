@@ -148,6 +148,14 @@ namespace MobiFlightWwFcu
             //SetIasLabel("1");    
         }
 
+        private void TurnOffAllLEDs()
+        {
+            foreach (var ledName in LedIdentifiers.Keys)
+            {
+                SetLed(ledName, 0);
+            }
+        }
+
         public void Shutdown()
         {                
             EmptyDisplay();
@@ -155,10 +163,7 @@ namespace MobiFlightWwFcu
             SetLcdBrightness(0);
             SetVibration1(0);
             SetVibration2(0);
-            foreach (var ledName in LedIdentifiers.Keys)
-            {
-                SetLed(ledName, 0);
-            }         
+            TurnOffAllLEDs();        
         }
 
         public List<string> GetLedNames()
@@ -529,6 +534,13 @@ namespace MobiFlightWwFcu
                 mes[index] = b.Value ? (byte)(mes[index] | (1 << b.BitPosition))
                                      : (byte)(mes[index] & ~(1 << b.BitPosition));
             }
+        }
+
+        public void Stop()
+        {
+            TurnOffAllLEDs();
+            SetVibration1(0);
+            SetVibration2(0);
         }
     }
 }

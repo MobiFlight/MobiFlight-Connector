@@ -232,15 +232,20 @@ namespace MobiFlightWwFcu
             ////SetFpa("-1.88");     
         }
 
+        private void TurnOffAllLEDs()
+        {
+            foreach (var ledName in LedIdentifiers.Keys)
+            {
+                SetLed(ledName, 0);
+            }
+        }
+
         public void Shutdown()
         {                
             EmptyDisplay();
             SetBacklightBrightness("0");
             SetLcdBrightness("0");
-            foreach (var ledName in LedIdentifiers.Keys)
-            {
-                SetLed(ledName, 0);
-            }         
+            TurnOffAllLEDs();        
         }
 
         public List<string> GetLedNames()
@@ -758,6 +763,11 @@ namespace MobiFlightWwFcu
                 mes[index] = b.Value ? (byte)(mes[index] | (1 << b.BitPosition))
                                      : (byte)(mes[index] & ~(1 << b.BitPosition));
             }
+        }
+
+        public void Stop()
+        {
+            TurnOffAllLEDs();
         }
     }
 }
