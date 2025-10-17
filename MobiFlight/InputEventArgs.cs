@@ -38,7 +38,7 @@ namespace MobiFlight
         public string GetMsgEventLabel()
         {
             var eventAction = GetEventActionLabel();
-            return $"{Name} => {DeviceLabel} {(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
+            return $"{Name} => {DeviceLabel}{(ExtPin.HasValue ? $":{ExtPin}" : "")} => {eventAction}";
         }
 
         public object Clone()
