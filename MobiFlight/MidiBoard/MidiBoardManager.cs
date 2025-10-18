@@ -83,10 +83,14 @@ namespace MobiFlight
         private void Load()
         {
             // Do the initial loading and validation against the schema
-            var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(Directory.GetFiles("MidiBoards", "*.midiboard.json"), "MidiBoards/mfmidiboard.schema.json",
-                onSuccess: (midiBoardDef, definitionFile) => Log.Instance.log($"Loaded midiBoard definition for {midiBoardDef.InstanceName}", LogSeverity.Info),
+            var jsonFiles = Directory.GetFiles("MidiBoards", "*.midiboard.json", SearchOption.AllDirectories);
+            var schemaFilePath = "MidiBoards/mfmidiboard.schema.json";
+            var rawDefinitions = JsonBackedObject.LoadDefinitions<MidiBoardDefinition>(
+                jsonFiles,
+                schemaFilePath,
+                onSuccess: (midiboard, definitionFile) => Log.Instance.log($"Loaded midiBoard definition for {midiboard.InstanceName}", LogSeverity.Info),
                 onError: () => LoadingError = true
-            ); ;
+            );
 
             foreach (var definition in rawDefinitions)
             {
