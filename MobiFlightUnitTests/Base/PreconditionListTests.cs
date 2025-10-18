@@ -113,13 +113,13 @@ namespace MobiFlight.Base.Tests
 
             PreconditionList o = new PreconditionList();
             o.Add(new Precondition() { 
-                PreconditionType = "config",
-                PreconditionLabel = "TestPreCon",
-                PreconditionActive = true,
-                PreconditionRef = "TestRef",
-                PreconditionOperand = "<",
-                PreconditionValue = "TestValue",
-                PreconditionLogic = "or"
+                Type = "config",
+                Label = "TestPreCon",
+                Active = true,
+                Ref = "TestRef",
+                Operand = "<",
+                Value = "TestValue",
+                Logic = "or"
             });
             o.ExecuteOnFalse = true;
             o.FalseCaseValue = "1";
@@ -160,23 +160,23 @@ namespace MobiFlight.Base.Tests
             {
                 new Precondition
                 {
-                    PreconditionType = "config",
-                    PreconditionLabel = "TestPreCon1",
-                    PreconditionActive = true,
-                    PreconditionRef = "TestRef1",
-                    PreconditionOperand = "<",
-                    PreconditionValue = "TestValue1",
-                    PreconditionLogic = "or"
+                    Type = "config",
+                    Label = "TestPreCon1",
+                    Active = true,
+                    Ref = "TestRef1",
+                    Operand = "<",
+                    Value = "TestValue1",
+                    Logic = "or"
                 },
                 new Precondition
                 {
-                    PreconditionType = "config",
-                    PreconditionLabel = "TestPreCon2",
-                    PreconditionActive = false,
-                    PreconditionRef = "TestRef2",
-                    PreconditionOperand = ">",
-                    PreconditionValue = "TestValue2",
-                    PreconditionLogic = "and"
+                    Type = "config",
+                    Label = "TestPreCon2",
+                    Active = false,
+                    Ref = "TestRef2",
+                    Operand = ">",
+                    Value = "TestValue2",
+                    Logic = "and"
                 }
             };
 
@@ -191,21 +191,21 @@ namespace MobiFlight.Base.Tests
 
             for (int i = 0; i < originalList.Count; i++)
             {
-                Assert.AreEqual(originalArray[i].PreconditionType, deserializedArray[i].PreconditionType);
+                Assert.AreEqual(originalArray[i].Type, deserializedArray[i].Type);
                 // labels are not serialized
-                Assert.AreNotEqual(originalArray[i].PreconditionLabel, deserializedArray[i].PreconditionLabel);
+                Assert.AreNotEqual(originalArray[i].Label, deserializedArray[i].Label);
                 // labels are using specifc format
-                var PreconditionRef = originalArray[i].PreconditionRef;
-                var PreconditionOperand = originalArray[i].PreconditionOperand;
-                var PreconditionValue = originalArray[i].PreconditionValue;
-                var PreconditionLogic = originalArray[i].PreconditionLogic;                
+                var PreconditionRef = originalArray[i].Ref;
+                var PreconditionOperand = originalArray[i].Operand;
+                var PreconditionValue = originalArray[i].Value;
+                var PreconditionLogic = originalArray[i].Logic;                
                 var exptectedLabel = $"Config: <Ref:{PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
-                Assert.AreEqual(deserializedArray[i].PreconditionLabel, exptectedLabel);
-                Assert.AreEqual(originalArray[i].PreconditionActive, deserializedArray[i].PreconditionActive);
-                Assert.AreEqual(originalArray[i].PreconditionRef, deserializedArray[i].PreconditionRef);
-                Assert.AreEqual(originalArray[i].PreconditionOperand, deserializedArray[i].PreconditionOperand);
-                Assert.AreEqual(originalArray[i].PreconditionValue, deserializedArray[i].PreconditionValue);
-                Assert.AreEqual(originalArray[i].PreconditionLogic, deserializedArray[i].PreconditionLogic);
+                Assert.AreEqual(deserializedArray[i].Label, exptectedLabel);
+                Assert.AreEqual(originalArray[i].Active, deserializedArray[i].Active);
+                Assert.AreEqual(originalArray[i].Ref, deserializedArray[i].Ref);
+                Assert.AreEqual(originalArray[i].Operand, deserializedArray[i].Operand);
+                Assert.AreEqual(originalArray[i].Value, deserializedArray[i].Value);
+                Assert.AreEqual(originalArray[i].Logic, deserializedArray[i].Logic);
             }
         }
     }

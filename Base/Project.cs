@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.Base.Migration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,7 +16,9 @@ namespace MobiFlight.Base
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler ProjectChanged;
-        
+
+        public readonly Version Version = new Version(1, 1);
+
         private string _name;
         /// <summary>
         /// Gets or sets the name of the project.
@@ -127,7 +131,14 @@ namespace MobiFlight.Base
             if (IsJson(FilePath))
             {
                 var json = File.ReadAllText(FilePath);
-                var project = JsonConvert.DeserializeObject<Project>(json);
+                
+                // Parse and migrate JSON document
+                var document = JObject.Parse(json);
+                var migratedDocument = ApplyMigrations(document);
+                
+                // Deserialize the clean, migrated JSON
+                var project = migratedDocument.ToObject<Project>();
+                
                 Name = project.Name;
                 ConfigFiles = project.ConfigFiles;
 
@@ -168,6 +179,76 @@ namespace MobiFlight.Base
                 throw new InvalidDataException("Unsupported file format.");
             }
         }
+        
+        /// <summary>
+        /// Apply all migrations to bring document to current version
+        /// Simple, direct approach - no registry needed
+        /// </summary>
+        private JObject ApplyMigrations(JObject document)
+        {
+            // Determine current document version with safe parsing
+            var currentVersion = GetDocumentVersion(document);
+            
+            if (currentVersion >= Version)
+            {
+                // No migration needed
+                return document;
+            }
+            
+            Log.Instance.log($"Migrating document from version {currentVersion} to {Version}", LogSeverity.Info);
+            
+            var migratedDocument = document;
+            
+            // Apply migrations step by step
+            if (currentVersion < new Version(1, 1))
+            {
+                Log.Instance.log("Applying V1 → V1.1 migrations", LogSeverity.Debug);
+                migratedDocument = Precondition_V1_1_Migration.Apply(migratedDocument);
+            }
+
+            // Update version in migrated document
+            migratedDocument["_version"] = Version.ToString();
+
+            Log.Instance.log($"Migration complete. Document is now version {Version}", LogSeverity.Info);
+
+            return migratedDocument;
+        }
+
+        /// <summary>
+        /// Safely parse the document version, defaulting to 1.0 if not present or invalid
+        /// </summary>
+        private Version GetDocumentVersion(JObject document)
+        {
+            try
+            {
+                var versionToken = document["_version"];
+                if (versionToken == null)
+                {
+                    return new Version(1, 0); // Default for documents without version
+                }
+
+                var versionString = versionToken.ToString();
+                if (string.IsNullOrEmpty(versionString))
+                {
+                    return new Version(1, 0);
+                }
+
+                // Try to parse as Version object
+                if (Version.TryParse(versionString, out Version parsedVersion))
+                {
+                    return parsedVersion;
+                }
+
+                // If parsing fails, default to 1.0
+                Log.Instance.log($"Could not parse version '{versionString}', defaulting to 1.0", LogSeverity.Warn);
+                return new Version(1, 0);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error parsing document version: {ex.Message}, defaulting to 1.0", LogSeverity.Warn);
+                return new Version(1, 0);
+            }
+        }
 
         /// <summary>
         /// Saves the project to the file specified in the FilePath property in JSON format.
@@ -183,8 +264,12 @@ namespace MobiFlight.Base
                 }
             }
 
+            // Add version when serializing
             var json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(FilePath, json);
+            var document = JObject.Parse(json);
+            document["_version"] = Version.ToString();
+            
+            File.WriteAllText(FilePath, document.ToString());
         }
 
         /// <summary>
