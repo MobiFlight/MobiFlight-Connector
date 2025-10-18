@@ -341,7 +341,7 @@ namespace MobiFlight.Execution
                             break;
 
                         default: // LED Output
-                            int intState = (int)Convert.ToDouble(value);
+                            int intState = ParseValue(value);
                             byte state = (byte)Math.Max(Math.Min(255, intState), 0);
                             joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
                             joystick.UpdateOutputDeviceStates();
@@ -581,6 +581,17 @@ namespace MobiFlight.Execution
                 result = value;
             }
             return result;
+        }
+
+        private static int ParseValue(string value)
+        {
+            if (double.TryParse(value, out var doubleResult))
+                return (int)doubleResult;
+
+            if (bool.TryParse(value, out var boolResult))
+                return boolResult ? 1 : 0;
+
+            return 0;
         }
     }
 }
