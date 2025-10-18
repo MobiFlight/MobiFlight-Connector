@@ -14,44 +14,44 @@ namespace MobiFlight
         public const string LOGIC_AND = "and";
         public const string LOGIC_OR = "or";
         
-        private string preconditionLabel = null;
+        private string _label = null;
 
         private static readonly LRUCache<string, bool> evaluationCache = new LRUCache<string, bool>(1000); // Set cache size limit to 1000
 
         [JsonIgnore]
-        public string PreconditionLabel { 
+        public string Label { 
             get {
-                if (preconditionLabel != null) return preconditionLabel;
-                if (PreconditionType=="config")
-                    return $"Config: <Ref:{PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
-                else if (PreconditionType == "variable")
-                    return $"Variable: <Variable:{PreconditionRef}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
-                else if (PreconditionType == "pin")
+                if (_label != null) return _label;
+                if (Type=="config")
+                    return $"Config: <Ref:{Ref}> {Operand} {Value} <Logic:{Logic}>";
+                else if (Type == "variable")
+                    return $"Variable: <Variable:{Ref}> {Operand} {Value} <Logic:{Logic}>";
+                else if (Type == "pin")
                 {
-                    return $"Pin: <Serial:{PreconditionSerial}><Pin:{PreconditionPin}> {PreconditionOperand} {PreconditionValue} <Logic:{PreconditionLogic}>";
+                    return $"Pin: <Serial:{Serial}><Pin:{Pin}> {Operand} {Value} <Logic:{Logic}>";
                 }
-                return $"<none><Logic:{PreconditionLogic}>";
+                return $"<none><Logic:{Logic}>";
             }
             set
             {
-                preconditionLabel = value;
+                _label = value;
             }
         }
-        public string PreconditionType { get; set; }
-        public string PreconditionRef { get; set; }
-        public string PreconditionSerial { get; set; }
-        public string PreconditionPin { get; set; }
-        public string PreconditionOperand { get; set; }
-        public string PreconditionValue { get; set; }
-        public string PreconditionLogic { get; set; }
-        public bool PreconditionActive { get; set; }
+        public string Type { get; set; }
+        public string Ref { get; set; }
+        public string Serial { get; set; }
+        public string Pin { get; set; }
+        public string Operand { get; set; }
+        public string Value { get; set; }
+        public string Logic { get; set; }
+        public bool Active { get; set; }
 
         public Precondition()
         {
-            PreconditionType = "none";
-            PreconditionActive = true;
-            PreconditionLogic = "and";
-            PreconditionOperand = "=";
+            Type = "none";
+            Active = true;
+            Logic = "and";
+            Operand = "=";
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -61,69 +61,69 @@ namespace MobiFlight
 
         public virtual void ReadXml(XmlReader reader)
         {
-            PreconditionType = reader["type"];
+            Type = reader["type"];
             if (null != reader.GetAttribute("active"))
-                PreconditionActive = bool.Parse(reader["active"]);
-            else if (PreconditionType != "none")
-                PreconditionActive = true;
+                Active = bool.Parse(reader["active"]);
+            else if (Type != "none")
+                Active = true;
 
             if (null != reader.GetAttribute("label"))
-                PreconditionLabel = reader["label"];
+                Label = reader["label"];
             else
-                PreconditionLabel = null;
+                Label = null;
 
 
-            if (PreconditionType == "config" || PreconditionType == "variable")
+            if (Type == "config" || Type == "variable")
             {
-                PreconditionRef = reader["ref"];
-                PreconditionOperand = reader["operand"];
-                if (PreconditionOperand == "")
-                    PreconditionOperand = OPERAND_DEFAULT;
+                Ref = reader["ref"];
+                Operand = reader["operand"];
+                if (Operand == "")
+                    Operand = OPERAND_DEFAULT;
 
-                PreconditionValue = reader["value"];
+                Value = reader["value"];
             }
-            else if (PreconditionType == "pin")
+            else if (Type == "pin")
             {
-                PreconditionSerial = reader["serial"];
-                PreconditionPin = reader["pin"];
-                PreconditionOperand = reader["operand"];
-                PreconditionValue = reader["value"];
+                Serial = reader["serial"];
+                Pin = reader["pin"];
+                Operand = reader["operand"];
+                Value = reader["value"];
             }
 
             if (null != reader.GetAttribute("logic"))
-                PreconditionLogic = reader["logic"];
+                Logic = reader["logic"];
 
             reader.Read();
         }
 
         public virtual void WriteXml(XmlWriter writer)
         {
-            if (PreconditionType == "none") return;
+            if (Type == "none") return;
 
             writer.WriteStartElement("precondition");
-            writer.WriteAttributeString("type", PreconditionType);
+            writer.WriteAttributeString("type", Type);
             
-            if (preconditionLabel!=null)
-                writer.WriteAttributeString("label", preconditionLabel);
+            if (_label!=null)
+                writer.WriteAttributeString("label", _label);
 
-            writer.WriteAttributeString("active", PreconditionActive ? "true" : "false");
-            switch (PreconditionType)
+            writer.WriteAttributeString("active", Active ? "true" : "false");
+            switch (Type)
             {
                 case "variable":
                 case "config":
-                    writer.WriteAttributeString("ref", PreconditionRef);
-                    writer.WriteAttributeString("operand", PreconditionOperand);
-                    writer.WriteAttributeString("value", PreconditionValue);
+                    writer.WriteAttributeString("ref", Ref);
+                    writer.WriteAttributeString("operand", Operand);
+                    writer.WriteAttributeString("value", Value);
                     break;
                 case "pin":
-                    writer.WriteAttributeString("serial", PreconditionSerial);
-                    writer.WriteAttributeString("pin", PreconditionPin);
-                    writer.WriteAttributeString("operand", PreconditionOperand);
-                    writer.WriteAttributeString("value", PreconditionValue);
+                    writer.WriteAttributeString("serial", Serial);
+                    writer.WriteAttributeString("pin", Pin);
+                    writer.WriteAttributeString("operand", Operand);
+                    writer.WriteAttributeString("value", Value);
                     break;
             }
 
-            writer.WriteAttributeString("logic", PreconditionLogic);
+            writer.WriteAttributeString("logic", Logic);
 
             writer.WriteEndElement();
         }
@@ -132,15 +132,15 @@ namespace MobiFlight
         {
             Precondition clone = new Precondition();
             // the precondition stuff
-            clone.PreconditionType = this.PreconditionType;
-            clone.PreconditionActive = this.PreconditionActive;
-            clone.PreconditionRef = this.PreconditionRef;
-            clone.PreconditionSerial = this.PreconditionSerial;
-            clone.PreconditionPin = this.PreconditionPin;
-            clone.PreconditionOperand = this.PreconditionOperand;
-            clone.PreconditionValue = this.PreconditionValue;
-            clone.PreconditionLogic = this.PreconditionLogic;
-            clone.preconditionLabel = this.preconditionLabel;
+            clone.Type = this.Type;
+            clone.Active = this.Active;
+            clone.Ref = this.Ref;
+            clone.Serial = this.Serial;
+            clone.Pin = this.Pin;
+            clone.Operand = this.Operand;
+            clone.Value = this.Value;
+            clone.Logic = this.Logic;
+            clone._label = this._label;
 
             return clone;
         }
@@ -149,28 +149,28 @@ namespace MobiFlight
         {
             return 
                 obj != null && obj is Precondition &&
-                PreconditionType ==  (obj as Precondition).PreconditionType &&
-                PreconditionActive == (obj as Precondition).PreconditionActive &&
-                PreconditionRef == (obj as Precondition).PreconditionRef &&
-                PreconditionSerial == (obj as Precondition).PreconditionSerial &&
-                PreconditionPin == (obj as Precondition).PreconditionPin &&
-                PreconditionOperand == (obj as Precondition).PreconditionOperand &&
-                PreconditionValue == (obj as Precondition).PreconditionValue &&
-                PreconditionLogic == (obj as Precondition).PreconditionLogic &&
-                PreconditionLabel == (obj as Precondition).PreconditionLabel
+                Type ==  (obj as Precondition).Type &&
+                Active == (obj as Precondition).Active &&
+                Ref == (obj as Precondition).Ref &&
+                Serial == (obj as Precondition).Serial &&
+                Pin == (obj as Precondition).Pin &&
+                Operand == (obj as Precondition).Operand &&
+                Value == (obj as Precondition).Value &&
+                Logic == (obj as Precondition).Logic &&
+                Label == (obj as Precondition).Label
             ;
         }
 
         override public string ToString()
         {
-            return this.PreconditionLabel;
+            return this.Label;
         }
 
 
 
         public bool Evaluate(MobiFlightVariable value)
         {
-            var cacheKey = $"{value.TYPE}:{value.Number}:{value.Text}:{PreconditionValue}:{PreconditionOperand}";
+            var cacheKey = $"{value.TYPE}:{value.Number}:{value.Text}:{Value}:{Operand}";
             if (evaluationCache.TryGetValue(cacheKey, out bool cachedResult))
             {
                 return cachedResult;
@@ -179,8 +179,8 @@ namespace MobiFlight
             var comparison = new Comparison
             {
                 Active = true,
-                Value = PreconditionValue,
-                Operand = PreconditionOperand,
+                Value = Value,
+                Operand = Operand,
                 IfValue = "1",
                 ElseValue = "0"
             };
@@ -201,7 +201,7 @@ namespace MobiFlight
 
         internal bool Evaluate(string value, ConnectorValue currentValue)
         {
-            var cacheKey = $"{value}:{currentValue}:{PreconditionValue}:{PreconditionOperand}";
+            var cacheKey = $"{value}:{currentValue}:{Value}:{Operand}";
             if (evaluationCache.TryGetValue(cacheKey, out bool cachedResult))
             {
                 return cachedResult;
@@ -210,13 +210,13 @@ namespace MobiFlight
             var comparison = new Comparison
             {
                 Active = true,
-                Value = PreconditionValue.Replace("$", currentValue.ToString()),
-                Operand = PreconditionOperand,
+                Value = Value.Replace("$", currentValue.ToString()),
+                Operand = Operand,
                 IfValue = "1",
                 ElseValue = "0"
             };
 
-            if (comparison.Value != PreconditionValue)
+            if (comparison.Value != Value)
             {
                 try
                 {

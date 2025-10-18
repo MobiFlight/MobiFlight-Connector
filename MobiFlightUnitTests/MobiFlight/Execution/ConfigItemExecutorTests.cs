@@ -249,7 +249,7 @@ namespace MobiFlight.Tests
             var config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
             configItems.Add(config);
 
-            var precondition = new Precondition() { PreconditionType = "config", PreconditionRef = config.GUID, PreconditionValue = "90", PreconditionOperand = "=" };
+            var precondition = new Precondition() { Type = "config", Ref = config.GUID, Value = "90", Operand = "=" };
             var preconditionList = new PreconditionList();
             preconditionList.Add(precondition);
 
@@ -262,7 +262,7 @@ namespace MobiFlight.Tests
             // Assert
             Assert.AreEqual(1, updatedValues.Count);
             Assert.AreEqual("not satisfied", cfg.Status[ConfigItemStatusType.Precondition]);
-            precondition.PreconditionValue = "100";
+            precondition.Value = "100";
 
             // Act
             updatedValues.Clear();
@@ -282,7 +282,7 @@ namespace MobiFlight.Tests
             // create another config with different GUID
             config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
 
-            var precondition = new Precondition() { PreconditionType = "config", PreconditionRef = config.GUID, PreconditionValue = "90", PreconditionOperand = "=" };
+            var precondition = new Precondition() { Type = "config", Ref = config.GUID, Value = "90", Operand = "=" };
             var preconditionList = new PreconditionList();
             preconditionList.Add(precondition);
 

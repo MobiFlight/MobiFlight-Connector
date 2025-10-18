@@ -394,7 +394,7 @@ namespace MobiFlight.Tests
             o.Modifiers.Items.Add(i);
 
             o.Preconditions = new PreconditionList();
-            o.Preconditions.Add(new Precondition() { PreconditionLabel = "Test", PreconditionType = "config", PreconditionRef = "Ref123", PreconditionOperand = "op123", PreconditionValue = "val123", PreconditionLogic = "AND" });
+            o.Preconditions.Add(new Precondition() { Label = "Test", Type = "config", Ref = "Ref123", Operand = "op123", Value = "val123", Logic = "AND" });
 
             o.ButtonInputConfig = new InputConfig.ButtonInputConfig();
             o.AnalogInputConfig = new InputConfig.AnalogInputConfig();

@@ -179,6 +179,7 @@
     <Compile Include="Base\ExtensionsTests.cs" />
     <Compile Include="Base\InputEventExecutorTests.cs" />
     <Compile Include="Base\LRUCacheTests.cs" />
+    <Compile Include="Base\Migration\ProjectMigrationTests.cs" />
     <Compile Include="Base\PreconditionListTests.cs" />
     <Compile Include="Base\PreconditionTests.cs" />
     <Compile Include="Base\ProjectTests.cs" />
