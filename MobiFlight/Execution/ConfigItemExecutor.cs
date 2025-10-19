@@ -9,8 +9,8 @@ using MobiFlight.xplane;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Windows.Forms;
 
 
 namespace MobiFlight.Execution
@@ -583,12 +583,12 @@ namespace MobiFlight.Execution
             return result;
         }
 
-        private static int ParseValue(string value)
+        internal static int ParseValue(string value)
         {
             double doubleState = 0;
             if (value != "0")
             {
-                if (!double.TryParse(value, out doubleState))
+                if (!double.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out doubleState))
                 {
                     doubleState = 1;
                 }
