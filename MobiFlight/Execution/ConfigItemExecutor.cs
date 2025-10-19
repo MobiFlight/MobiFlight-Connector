@@ -585,13 +585,16 @@ namespace MobiFlight.Execution
 
         private static int ParseValue(string value)
         {
-            if (double.TryParse(value, out var doubleResult))
-                return (int)doubleResult;
+            double doubleState = 0;
+            if (value != "0")
+            {
+                if (!double.TryParse(value, out doubleState))
+                {
+                    doubleState = 1;
+                }
+            }
 
-            if (bool.TryParse(value, out var boolResult))
-                return boolResult ? 1 : 0;
-
-            return 0;
+            return (int)doubleState;
         }
     }
 }
