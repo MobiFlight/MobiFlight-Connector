@@ -101,6 +101,12 @@
       "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "boeing 737-",
       "ScriptName": "zibo_737_800x.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "challenger 650",
+      "ScriptName": "hotstart_cl650.py"
     }
   ]
 }
