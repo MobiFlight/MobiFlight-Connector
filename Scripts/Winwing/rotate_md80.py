@@ -22,7 +22,7 @@ import logging
 import urllib.request
 import websockets
 from enum import StrEnum
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
