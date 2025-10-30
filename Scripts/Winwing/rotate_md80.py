@@ -12,9 +12,8 @@ MD80 CDU Characteristics:
 - Virtual CDU in X-Plane: 30 characters wide
 - Physical display limit: 24 characters wide (intelligently trimmed)
 - Alternating text sizes: even lines (1,3,5,7,9,11,13) are large text for data,
-  odd lines (2,4,6,8,10,12,14) are small text for headers/labels
+  odd lines (2,4,6,8,10,12) are small text for headers/labels. One exception is the last line (14) which is large text (input zone).
 - Uses $ character for ballot boxes
-- Uses ` for degree symbol
 """
 
 import asyncio
@@ -138,7 +137,8 @@ def generate_display_json(cdu_lines: List[str]) -> str:
     Generate the display JSON for MobiFlight from CDU line data
     MD80 specific: all text is green, alternating small/large text
     Even lines (1,3,5,7,9,11,13) are large text (data)
-    Odd lines (2,4,6,8,10,12,14) are small text (headers/labels)
+    Odd lines (2,4,6,8,10,12) are small text (headers/labels)
+    Line 14 (row_idx 13) is large text (input zone)
     Lines are trimmed from virtual width (30) to physical width (24)
     """
     display_data = [[] for _ in range(CDU_CELLS)]
@@ -149,11 +149,14 @@ def generate_display_json(cdu_lines: List[str]) -> str:
         line_text = trim_line_intelligently(line_text, CDU_COLUMNS)
         
         # Determine text size based on line number
-        # Line 1,3,5,7,9,11,13 (odd numbers) should be small (headers/labels)
-        # Line 2,4,6,8,10,12,14 (even numbers) should be large (data)
-        # row_idx 0 = line 1 (odd) → small
-        # row_idx 1 = line 2 (even) → large
+        # Line 1,3,5,7,9,11,13 (odd numbers) should be large (data)
+        # Line 2,4,6,8,10,12 (even numbers) should be small (headers/labels)
+        # Line 14 (row_idx 13) is large text (input zone)
+        # row_idx 0 = line 1 (odd) → large
+        # row_idx 1 = line 2 (even) → small
         text_size = 0 if (row_idx % 2 == 0) else 1
+        if row_idx == 13:  # Last line (14) is large text
+            text_size = 0
         
         # Process each character in the line
         for col_idx, char in enumerate(line_text):
