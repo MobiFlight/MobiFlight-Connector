@@ -24,7 +24,7 @@ namespace MobiFlightWwFcu
         }
 
 
-        // Constructor for PAP3 encoding
+        // Constructor for PAP3 or PAC encoding
         public Element(int topByte, int bitNumber, char initChar = '*')
         {
             List<Bit> bits = new List<Bit>();

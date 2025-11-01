@@ -26,11 +26,10 @@ namespace MobiFlightWwFcu
         private const string LCD_BRIGHTNESS = "LCD Percentage"; // PAC
 
         private const string ANN_LIGHT = "LCD Test On/Off"; // PAC
-        private const string TRIM = "Trim Value"; // PAC
-        private const string TRIM_DIR_SHOWN = "Trim Direction On/Off"; // PAC
-        private const string TRIM_DIR = "Trim Direction Switch"; // PAC
+        private const string TRIM_DASHES = "Trim Dashes On/Off"; // PAC        
+        private const string TRIM = "Trim Value"; // PAC  Negative and 0 is L, Positive R
 
-        private bool IsTrimDirShown = true;
+        private bool IsTrimDashed = false;
 
         private Dictionary<string, Element> DisplayTestCommands = new Dictionary<string, Element>()
         {
@@ -38,27 +37,25 @@ namespace MobiFlightWwFcu
             { "AllOff",      new Element(new Bit[] {new Bit(0,0), new Bit(0,1, true), new Bit(0,2), new Bit(0,3) }, false)},
         };
 
+        // Examples of Trim "L 0.0", "L 0.2", "R 0.0", "L 5.1" "L11.3"
+        // In Error case, both FAC lost: " ---"
+
+        // Center console rudder trim display.  Negative = Left, Positive = Right. Am FlyByWire A320
+        // Beim Fenix: 
+        // On the A320, the rudder trim indication becomes dashed when the Flight Augmentation Computers(FACs) are not
+        // supplying valid rudder trim data—typically due to a failure or when both FACs are lost.
+
+        // Element top byte is byte number in data section. So 0 is start of data section. Header with 17 bytes is not included.
         private Dictionary<string, Element> DisplaySetValueElements = new Dictionary<string, Element>()
-        {                                   
-            { "CoLHundreds",  new Element(32, 7)}, // PAP3 topByte, BitNumber
-            { "CoLTens",      new Element(32, 6)},
-            { "CoLOnes",      new Element(new Bit[] { new Bit(32,5), new Bit(28,5), new Bit(24,5), new Bit(20,5), new Bit(16,5), new Bit(12,5), new Bit(8,5) }, true)},                   
-            { "SpdThousands", new Element(32, 3)},
-            { "SpdHundreds",  new Element(32, 2)},
-            { "SpdTens",      new Element(32, 1)},
-            { "SpdOnes",      new Element(32, 0)},
-            { "VsThousands",  new Element(34, 3, '-')},
-            { "VsHundreds",   new Element(34, 2, '-')},
-            { "VsTens",       new Element(34, 1)},
-            { "VsOnes",       new Element(34, 0)},
-            { "VsLabel",      new Element(new Bit(35,7))},
-            { "FpaLabel",     new Element(new Bit(31,7))},
-            { "VsPlusVert",   new Element(new Bit[] {new Bit(23,7), new Bit(19,7) }, false)},
-            { "VsPlusHoriz",  new Element(new Bit(10,4, true))},
-            { "VsDot",        new Element(new Bit(6,2))},
+        {
+            { "TrimDecimal",  new Element(32, 3, 'b')},
+            { "TrimOnes",     new Element(32, 2, 'o')},  // 3 ist ones, 2 ist tenth, 1 ist hundreds, 0 ist L/R
+            { "TrimTens",     new Element(32, 1, '}')},
+            { "TrimLR",       new Element(32, 0, '{')},
+            { "TrimDot",      new Element(new Bit[] { new Bit(4,2, false) }, false)},
+        };
 
-        };   
-
+ 
         private Dictionary<string, byte> LedIdentifiers = new Dictionary<string, byte>()
         {
             { "FAULT_1", 0x03 },
@@ -71,19 +68,18 @@ namespace MobiFlightWwFcu
         private Dictionary<string, byte> LedCurrentValuesCache = new Dictionary<string, byte>();        
 
         private byte[] DisplayTestCommand = new byte[0x12];
-        private byte[] RefreshCommand = new byte[0x11];       
-        private byte[] SetValuesCommand = new byte[0x3C];  // 3C equals 60, max of a content message 4 + 13 + 43 data
+        private byte[] RefreshCommand = new byte[0x11];    
+        private byte[] SetValuesCommand = new byte[0x35];  // 35 equals 53, max of a content message 4 + 13 + 36 data
 
         public WinwingAirbusThrottleDevice(WinwingMessageSender sender, string throttleType)
         {
             MessageSender = sender;
             ThrottleType = throttleType;
 
-            // Add display options                        
-            //DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
-            //DisplayNameToActionMapping.Add(TRIM, SetVs);
-            //DisplayNameToActionMapping.Add(TRIM_DIR_SHOWN, SetFpa);
-            //DisplayNameToActionMapping.Add(TRIM_DIR, SetVsShown);
+            // Add display options                                    
+            DisplayNameToActionMapping.Add(TRIM, SetTrim);
+            DisplayNameToActionMapping.Add(TRIM_DASHES, SetTrimDashed);
+            DisplayNameToActionMapping.Add(ANN_LIGHT, SetAnnunciatorLightOnOff);
 
             // Add output options
             OutputNameToActionMapping.Add(VIBRATION_1, SetVibration1);
@@ -115,7 +111,7 @@ namespace MobiFlightWwFcu
             // 4 + 13
             var initSetValues = new List<byte>(DestinationAddressPac);
             initSetValues.AddRange(new byte[2]);
-            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_P"]);
+            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_PAC"]);
             initSetValues.CopyTo(SetValuesCommand, 0);
 
             var initRefresh = new List<byte>(DestinationAddressPac);
@@ -131,21 +127,22 @@ namespace MobiFlightWwFcu
 
         public void Connect()
         {            
-            // SendDisplayCommand(SetValuesCommand); // Init display TODO
+            SendDisplayCommand(SetValuesCommand);
             SetBacklightBrightness(20);
             SetLcdBrightness(100);
             SetVibration1(0);
             SetVibration2(0);
 
+            //--------testing-----------------------
+            //LcdTest("AllOn");
+            //LcdTest("AllOff");
             //SetLedBrightness("100");
-            //LcdTest("AllOn"); // used for testing
-
-            //-------------------------------
-            ////SetSpeed("360");
-            //SetMachSpeed("0.4989");
-            ////SetSpeedB("1");
-            //SetSpeedA("0");
-            //SetIasLabel("1");    
+            //SetTrim("5");
+            //SetTrim("0");
+            //SetTrim("-2");
+            //SetTrim("-0.3");
+            //SetTrimDashed("1");
+            //SetTrim("-24.3");
         }
 
         private void TurnOffAllLEDs()
@@ -262,19 +259,6 @@ namespace MobiFlightWwFcu
         private void EmptyDisplay()
         {
             LcdTest("AllOff");
-
-            //var resetMsg = new MsgEntry { StartPos = 21, Mask = new byte[18], Data = new byte[18] };
-            //SetBytesDisplayCommand(resetMsg, SetValuesCommand);
-            //SendDisplayCommand(SetValuesCommand);
-        }
-
-        private void SetBoolInternal(string isSetString, string elementName)
-        {
-            int isSet = (int)Convert.ToDouble(isSetString, CultureInfo.InvariantCulture);
-            var element = DisplaySetValueElements[elementName];
-            element.SetValue(Convert.ToBoolean(isSet));
-            SetElementDisplayCommand(element, SetValuesCommand);
-            SendDisplayCommand(SetValuesCommand);
         }
 
 
@@ -291,228 +275,55 @@ namespace MobiFlightWwFcu
         }
 
 
-        private void SetMachDot(bool isDotSet)
+        private void SetTrimDot(bool isDotSet)
         {
-            var machDot = DisplaySetValueElements["MachDot"];
-            machDot.SetValue(isDotSet);
-            SetElementDisplayCommand(machDot, SetValuesCommand);
+            var trimDot = DisplaySetValueElements["TrimDot"];
+            trimDot.SetValue(isDotSet);
+            SetElementDisplayCommand(trimDot, SetValuesCommand);
         }
 
-        private void RefreshOnMachModeChange()
+        private void SetTrim(string trim)
         {
-            var spdThousands = DisplaySetValueElements["SpdThousands"];
-            spdThousands.SetCharacter('*');
-            SetElementDisplayCommand(spdThousands, SetValuesCommand);
-            var spdHundreds = DisplaySetValueElements["SpdHundreds"];
-            spdHundreds.SetCharacter('*');
-            SetElementDisplayCommand(spdHundreds, SetValuesCommand);
-            //LcdCurrentValuesCache[SPEED_A] = string.Empty;
-            //LcdCurrentValuesCache[SPEED_B] = string.Empty;
-        }
+            int value = (int)(Convert.ToDouble(trim, CultureInfo.InvariantCulture) * 10);
+            char[] chars = new char[] { '*', '*', '*', '*' };
 
-        private void SetSpeed(string speed)
-        {            
-            var machDot = DisplaySetValueElements["MachDot"];
-            bool isMachModeChange = machDot.Bits[0].Value == true;
-            SetMachDot(false); // update beforehand!
-            if (isMachModeChange)
+            if (IsTrimDashed)
             {
-                RefreshOnMachModeChange();
-            }
-
-            int value = (int)Convert.ToDouble(speed, CultureInfo.InvariantCulture);
-            char[] chars;    
-            
-            if (IsTrimDirShown)
-            {                
-                if (value == 999)
-                {
-                    chars = new char[] { '-', '-', '-' };
-                }
-                else
-                {
-                    chars = value.ToString("D3", CultureInfo.InvariantCulture).ToCharArray();                   
-                }
+                chars = new char[] { '*', '-', '-', '-' };
+                SetTrimDot(false);        
             }
             else
             {
-                chars = new char[] { '*', '*', '*' };                
-            }
+                chars[0] = value <= 0 ? 'L' : 'A';
 
-            SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
-            //LcdCurrentValuesCache[MACH] = string.Empty; // Reset for Speed/Mach change
+                // D2 specifies the minimum number of digits to display. If there are fewer than 2 digits, it will be left-padded with zeros
+                // Value 0 => 00, Value 3 => 03, Value 10 => 10
+                string valueString = Math.Abs(value).ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*');
+                for (int i = 0; i < 3; i++)
+                {
+                    chars[i+1] = valueString[i];
+                }
+                SetTrimDot(true);                
+            }
+            SetDigitsInternal(chars, new string[] { "TrimLR", "TrimTens", "TrimOnes", "TrimDecimal" });
         }
+
         
-        private void SetMachSpeed(string speed)
-        {                        
-            var machDot = DisplaySetValueElements["MachDot"];
-            bool isMachModeChange = machDot.Bits[0].Value == false;
-            SetMachDot(true); // update beforehand!
-            if (isMachModeChange )
-            {
-                RefreshOnMachModeChange();
-            }
-
-            int value = (int)(Convert.ToDouble(speed, CultureInfo.InvariantCulture) * 100);
-            char[] chars;
-
-            if (IsTrimDirShown)
-            {
-                if (value == 999)
-                {
-                    chars = new char[] { '-', '-', '-' };
-                    SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
-                }
-                else if (IsTrimDirShown || IsTrimDirShown)
-                {
-                    // A or B is shown at the hundreds position
-                    chars = value.ToString("D2", CultureInfo.InvariantCulture).ToCharArray();
-                    SetDigitsInternal(chars, new string[] { "SpdTens", "SpdOnes" });
-                }
-                else
-                {
-                    chars = value.ToString("D2", CultureInfo.InvariantCulture).PadLeft(3, '*').ToCharArray();
-                    SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
-                }
-            }
-            else
-            {
-                SetMachDot(false);
-                chars = new char[] { '*', '*', '*' };
-                SetDigitsInternal(chars, new string[] { "SpdHundreds", "SpdTens", "SpdOnes" });
-            }
-                                       
-            //LcdCurrentValuesCache[SPEED] = string.Empty; // Reset for Speed/Mach change
-        }
-
-        private void SetSpeedShown(string isShown)
+        private void SetTrimDashed(string isDashed)
         {
-            int value = (int)Convert.ToDouble(isShown, CultureInfo.InvariantCulture);
-            IsTrimDirShown = Convert.ToBoolean(value);
-        }
-
-        private void SetIasLabel(string isLabel)        
-        {
-            SetBoolInternal(isLabel, "IasLabel");
-        }
-
-        private void SetMachLabel(string isLabel)
-        {
-            SetBoolInternal(isLabel, "MachLabel");
-        }
-
-        private void SetSpeedA(string isSpeedA)
-        {
-            int value = (int)Convert.ToDouble(isSpeedA, CultureInfo.InvariantCulture);
-            bool isA = Convert.ToBoolean(value);
-            IsTrimDirShown = isA;
-
-            if (IsTrimDirShown)
-            {
-                var machDot = DisplaySetValueElements["MachDot"];
-                string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
-
-                if (isA)
-                {
-                    SetDigitsInternal(new char[] { 'A' }, new string[] { elementName });
-                }
-                else
-                {
-                    SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
-                }
-            }
-            else
-            {
-                SetDigitsInternal(new char[] { '*', '*' }, new string[] { "SpdThousands", "SpdHundreds" });
-            }
-        }
-
-        private void SetSpeedB(string isSpeedB)
-        {
-            int value = (int)Convert.ToDouble(isSpeedB, CultureInfo.InvariantCulture);
-            bool isB = Convert.ToBoolean(value);
-            IsTrimDirShown = isB;
-
-            if (IsTrimDirShown)
-            {
-                var machDot = DisplaySetValueElements["MachDot"];
-                string elementName = machDot.Bits[0].Value ? "SpdHundreds" : "SpdThousands";
-
-                if (isB)
-                {
-                    SetDigitsInternal(new char[] { 'B' }, new string[] { elementName });
-                }
-                else
-                {
-                    SetDigitsInternal(new char[] { '*' }, new string[] { elementName });
-                }
-            }
-            else
-            {
-                SetDigitsInternal(new char[] { '*', '*' }, new string[] { "SpdThousands", "SpdHundreds" });
-            }
-        }
-
-        private void SetHdgLabel(string isLabel)
-        {
-            SetBoolInternal(isLabel, "HdgLabel");
-        }
-
-        private void SetTrkLabel(string isLabel)
-        {
-            SetBoolInternal(isLabel, "TrkLabel");
-        }
-
-
-        private void SetAltitude(string altitude)
-        {            
-            int value = (int)Convert.ToDouble(altitude, CultureInfo.InvariantCulture);
-            char[] chars;
-            if (value == 0)
-            {
-                chars = new char[] {'*', '0', '0', '0', '0' };
-            }
-            else
-            {
-                chars = value.ToString().PadLeft(5, '*').ToCharArray();
-            }
-                     
-            SetDigitsInternal(chars, new string[] { "AltTenthsds", "AltThousands", "AltHundreds", "AltTens", "AltOnes" });           
-        }
-
-        private void SetVsDot(bool isDotSet)
-        {
-            var vsDot = DisplaySetValueElements["VsDot"];
-            vsDot.SetValue(isDotSet);
-            SetElementDisplayCommand(vsDot, SetValuesCommand);
-        }
-
-        private void SetVsSign(bool isPlus, bool isMinus)
-        {
-            var vsPlusHoriz = DisplaySetValueElements["VsPlusHoriz"];
-            var vsPlusVert = DisplaySetValueElements["VsPlusVert"];
+            int value = (int)Convert.ToDouble(isDashed, CultureInfo.InvariantCulture);
+            IsTrimDashed = Convert.ToBoolean(value);
             
-            if (isPlus)
+            if (!string.IsNullOrEmpty(LcdCurrentValuesCache[TRIM]))
             {
-                vsPlusHoriz.SetValue(true);
-                vsPlusVert.SetValue(true);
-            }
-            else if (isMinus)
-            {
-                vsPlusHoriz.SetValue(true);
-                vsPlusVert.SetValue(false);
-            }
-            else
-            {
-                vsPlusHoriz.SetValue(false);
-                vsPlusVert.SetValue(false);
-            }
+                // Update display
+                SetTrim(LcdCurrentValuesCache[TRIM]);
 
-            SetElementDisplayCommand(vsPlusHoriz, SetValuesCommand);
-            SetElementDisplayCommand(vsPlusVert, SetValuesCommand);
+                // Reset cache
+                LcdCurrentValuesCache[TRIM] = string.Empty;
+            }
         }
 
-       
 
         // "AllOn", "AllOff"      
         private void LcdTest(string command)

@@ -157,14 +157,19 @@ namespace MobiFlightWwFcu
 
         public void SetBrightness(byte[] destinationAddress, byte type, string brightness)
         {
-            int brightnessValue = Convert.ToInt32(brightness);
-            SetBrightness(destinationAddress, type, brightnessValue);
+            double bright = Convert.ToDouble(brightness, CultureInfo.InvariantCulture);
+            SetBrightnessInternal(destinationAddress, type, bright);
         }
 
         public void SetBrightness(byte[] destinationAddress, byte type, int brightness)
+        {          
+            SetBrightnessInternal(destinationAddress, type, brightness);
+        }
+
+        private void SetBrightnessInternal(byte[] destinationAddress, byte type, double brightness)
         {
             // Input should be 0 to 100 percent - scale to 0..255
-            int value = (int)Math.Round((Convert.ToDouble(brightness, CultureInfo.InvariantCulture) * 2.55));
+            int value = (int)Math.Round(brightness * 2.55);
             byte byteValue = value >= 255 ? (byte)255 : (byte)value;
             SendLightControlMessage(destinationAddress, type, byteValue);
         }

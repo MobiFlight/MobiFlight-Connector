@@ -62,6 +62,7 @@ namespace MobiFlightWwFcu
         };
 
 
+        // Element top byte is byte number in data section. So 0 is start of data section. Header with 17 bytes is not included.
         private Dictionary<string, Element> DisplaySetValueElements = new Dictionary<string, Element>()
         {                                   
             { "CoLHundreds",  new Element(32, 7)}, // PAP3 topByte, BitNumber
@@ -192,7 +193,7 @@ namespace MobiFlightWwFcu
             // 4 + 13
             var initSetValues = new List<byte>(DestinationAddress);
             initSetValues.AddRange(new byte[2]);
-            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_P"]);
+            initSetValues.AddRange(WinwingConstants.DisplayCmdHeaders["0201_PAP"]);
             initSetValues.CopyTo(SetValuesCommand, 0);
 
             var initRefresh = new List<byte>(DestinationAddress);
