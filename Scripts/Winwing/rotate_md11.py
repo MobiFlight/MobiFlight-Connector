@@ -55,12 +55,6 @@ class CduDevice(StrEnum):
         return f"Rotate/aircraft/controls/{self}/mcdu_line_{i}_style"
 
 
-    def get_symbol_datarefs(self) -> list[str]:
-        return [self.get_content_dataref(i) for i in range(16)] + [
-            self.get_style_dataref(i) for i in range(16)
-        ]
-
-
 def get_char(char: str | int) -> str:
     if isinstance(char, str) and len(char) == 1:
         return CHAR_MAP.get(char, char)
@@ -79,12 +73,11 @@ def fetch_dataref_mapping(device: CduDevice):
         response_json = json.load(response)
 
     base_prefix = device.get_dataref_base()
-    target_names = set(device.get_symbol_datarefs())
 
     return {
         int(dr["id"]): dr["name"]
         for dr in response_json["data"]
-        if dr["name"].startswith(base_prefix) and dr["name"] in target_names
+        if dr["name"].startswith(base_prefix)
     }
 
 
