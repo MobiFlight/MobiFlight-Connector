@@ -1,3 +1,24 @@
+"""
+Adds support for the Rotate MD-11 in X-Plane
+
+Many X-Plane aircraft have similar formats for datarefs and the means of retrieving, translating and sending updates is mostly the same.
+
+In order to support multiple CDU devices seamlessly, a dynamic approach is taken whereby an enum class is defined that contains the supported devices.
+A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
+Each enum member is assigned a value that represents the X-Plane dataref identifier. Example: cdu_0 for Rotate/aircraft/controls/cdu_0/mcdu_line.
+
+Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
+
+Two tasks are started independently for each available CDU device.
+1. handle_dataref_updates -> Listens to X-Plane's WebSocket server for dataref updates for that specific CDU and pushes an event to a queue
+2. handle_device_update   -> Listens to the queue and dispatches updates to MobiFlight to update that CDU
+
+Tasks are started independently for each CDU device to ensure each device can update quickly, particularly when players might be performing shared cockpit flights.
+
+Upon a failed connection while dispatching updates to MobiFlight, the handle_device_update function uses `async for` with the websockets client. The failed message is put back in the queue, the loop continues to the next iteration which then reconnects again.
+The failed message is picked back up and dispatched to MobiFlight. This ensures a user's device eventually receives the updated display contents and doesn't hang which would require the user to cycle the page again.
+"""
+
 import asyncio
 import base64
 import json
@@ -68,7 +89,7 @@ def get_color(color: int) -> str:
     return COLOR_MAP.get(color, "w")
 
 
-def fetch_dataref_mapping(device: CduDevice):
+def fetch_dataref_mapping(device: CduDevice) -> dict[int, str]:
     with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
         response_json = json.load(response)
 
@@ -81,7 +102,7 @@ def fetch_dataref_mapping(device: CduDevice):
     }
 
 
-def generate_display_json(values: dict[str, str], device: CduDevice):
+def generate_display_json(values: dict[str, str], device: CduDevice) -> str:
     display_data = [[] for _ in range(CDU_CELLS)]
 
     content_lines = [
@@ -131,7 +152,7 @@ async def handle_device_update(queue: asyncio.Queue, device: CduDevice):
 
             except websockets.exceptions.ConnectionClosed:
                 logging.error(
-                    "MobiFlight websocket connection was closed... Attempting to reconnect"
+                    "WinWing CDU websocket connection was closed... Attempting to reconnect"
                 )
                 await queue.put(values)
                 break
