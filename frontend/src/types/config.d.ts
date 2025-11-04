@@ -36,7 +36,7 @@ export interface IDictionary<T> {
 
 export type ControllerType = "MobiFlight" | "Joystick" | "Midi" | "Unknown"
 
-export type ConfigItemType = "InputConfig" | "OutputConfig"
+export type ConfigItemType = "InputConfigItem" | "OutputConfigItem"
 
 export interface IDeviceConfig {
   Type: string
@@ -45,6 +45,6 @@ export interface IDeviceConfig {
 
 export interface ConfigFile {
   Label: string
-  FileName: string
+  FileName: string | null
   ConfigItems: IConfigItem[]
 }

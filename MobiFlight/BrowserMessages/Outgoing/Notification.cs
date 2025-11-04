@@ -1,10 +1,12 @@
-﻿namespace MobiFlight.BrowserMessages.Outgoing
+﻿using System;
+using System.Collections.Generic;
+
+namespace MobiFlight.BrowserMessages.Outgoing
 {
     internal class Notification
     {
-        public string Type { get; set; }
-
-        public string Action { get; set; }
-        public object Value { get; set; }
+        public string Event { get; set; }
+        public Guid? Id { get; set; }
+        public Dictionary<string, string> Context { get; set; }
     }
 }

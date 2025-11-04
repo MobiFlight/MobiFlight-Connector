@@ -36,6 +36,15 @@ namespace MobiFlight.BrowserMessages
         {
         }
 
+        public void ClearSubscriptions()
+        {
+            lock (_lock)
+            {
+                _subscribers.Clear();
+                _subscribedTypes.Clear();
+            }
+        }
+
         public void SetPublisher(IMessagePublisher messagePublisher)
         {
             _messagePublisher = messagePublisher;

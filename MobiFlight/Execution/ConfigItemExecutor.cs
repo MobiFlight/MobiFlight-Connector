@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
 using MobiFlight.Base;
 using MobiFlight.BrowserMessages;
 using MobiFlight.FSUIPC;
@@ -11,6 +6,12 @@ using MobiFlight.OutputConfig;
 using MobiFlight.ProSim;
 using MobiFlight.SimConnectMSFS;
 using MobiFlight.xplane;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
 
 namespace MobiFlight.Execution
 {
@@ -339,15 +340,10 @@ namespace MobiFlight.Execution
                             // do nothing
                             break;
 
-                        default: // LED Output                          
-                            byte state = 0;
-                            if (value != "0") { 
-                                if (!Byte.TryParse(value, out state))
-                                {
-                                    state = 1;
-                                }
-                            }
-                            joystick.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
+                        default: // LED Output
+                            int intState = ParseValue(value);
+                            byte state = (byte)Math.Max(Math.Min(255, intState), 0);
+                            joystick.SetOutputDeviceState((cfg.Device as Output).Pin, state);
                             joystick.UpdateOutputDeviceStates();
                             joystick.Update();
                             break;
@@ -367,7 +363,7 @@ namespace MobiFlight.Execution
                 {
                     byte state = 0;
                     if (value != "0") state = 1;
-                    midiBoard.SetOutputDeviceState((cfg.Device as Output).DisplayPin, state);
+                    midiBoard.SetOutputDeviceState((cfg.Device as Output).Pin, state);
                 }
                 else
                 {
@@ -396,8 +392,8 @@ namespace MobiFlight.Execution
 
                     default:
                         arcazeCache.setValue(serial,
-                            (cfg.Device as Output).DisplayPin,
-                            (value != "0" ? (cfg.Device as Output).DisplayPinBrightness.ToString() : "0"));
+                            (cfg.Device as Output).Pin,
+                            (value != "0" ? (cfg.Device as Output).Brightness.ToString() : "0"));
                         break;
                 }
 #endif
@@ -542,11 +538,11 @@ namespace MobiFlight.Execution
                     case MobiFlightOutput.TYPE:
                         string outputValue = value;
 
-                        if (outputValue != "0" && !(cfg.Device as Output).DisplayPinPWM)
-                            outputValue = (cfg.Device as Output).DisplayPinBrightness.ToString();
+                        if (outputValue != "0" && !(cfg.Device as Output).PwmMode)
+                            outputValue = (cfg.Device as Output).Brightness.ToString();
 
                         mobiFlightCache.SetValue(serial,
-                            (cfg.Device as Output).DisplayPin,
+                            (cfg.Device as Output).Pin,
                             outputValue);
                         break;
                 }
@@ -585,6 +581,20 @@ namespace MobiFlight.Execution
                 result = value;
             }
             return result;
+        }
+
+        internal static int ParseValue(string value)
+        {
+            double doubleState = 0;
+            if (value != "0")
+            {
+                if (!double.TryParse(value, NumberStyles.Number, CultureInfo.InvariantCulture, out doubleState))
+                {
+                    doubleState = 1;
+                }
+            }
+
+            return (int)doubleState;
         }
     }
 }

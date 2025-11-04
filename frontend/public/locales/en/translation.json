@@ -1,7 +1,17 @@
 {
-  "General" : {
-    "Action" : {
+  "General": {
+    "Action": {
       "OpenMenu": "Open menu"
+    },
+    "Overlay": {
+      "OpeningWizard": "Opening wizard..."
+    },
+    "HubHopUpdate": {
+      "Error": "HubHop update failed. Please try again later.",
+      "Success": "HubHop update completed successfully!",
+      "Title": "HubHop update available",
+      "Description": "Your HubHop database is older than {{days}} days. Would you like to update it now?",
+      "Title.Downloading": "Downloading HubHop update..."
     }
   },
   "Types": {
@@ -21,8 +31,8 @@
     "InputConfigItem": "Input Configuration",
     "InputAction": "Input Action"
   },
-  "Project" : {
-    "File.Action" : {
+  "Project": {
+    "File.Action": {
       "Add": "Add file",
       "New": "Add new file",
       "Merge": "From existing project",
@@ -30,8 +40,8 @@
       "Remove": "Remove",
       "Export": "Export"
     },
-    "Toolbar" : {
-      "Save" : {
+    "Toolbar": {
+      "Save": {
         "HasChanges": "Save changes",
         "NoChanges": "No changes to save",
         "Success": "Saved successfully"
@@ -51,7 +61,7 @@
         "BlockedByTest": "Test mode active. Stop it first."
       },
       "Test": {
-        "Label": "Test", 
+        "Label": "Test",
         "Stop": "Stop",
         "Start": "Start test mode and test all configs",
         "StopMode": "Stop test mode execution",
@@ -76,7 +86,7 @@
       "NotSet": "not set",
       "Reset": "Reset filters",
       "SelectedRows": {
-        "Commands" : {
+        "Commands": {
           "Label": "{{count}} rows selected",
           "Delete": "Delete selected",
           "Toggle": "Toggle selected",
@@ -95,9 +105,6 @@
       "Actions": "Actions"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "You are moving {{count}} selected items"
-      },
       "Waiting": "Waiting",
       "Controller": {
         "openInSettings": "Open controller settings",
@@ -109,7 +116,11 @@
     },
     "Table": {
       "NoResultsFound": "This is a new configuration. Please add some items.",
-      "NoResultsMatchingFilter": "No results matching the filter."
+      "DropHereToAdd": "Drop here to add new items.",
+      "NoResultsMatchingFilter": "No results matching the filter.",
+      "Drag": {
+        "MovingItems": "Moving items"
+      }
     },
     "Actions": {
       "OutputConfigItem": {
@@ -133,7 +144,7 @@
         "XPLANE_NOT_AVAILABLE": "This config uses X-Plane, connection is missing.",
         "PROSIM_NOT_AVAILABLE": "This config uses ProSim, connection is missing."
       },
-      "Modifier" : {
+      "Modifier": {
         "Error": "A modifier is applied which has an error.",
         "OK": "A modifier is applied."
       },
@@ -149,7 +160,13 @@
         "Missing": "One or more referenced configs are missing.",
         "OK": "All referenced configs are available."
       }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "New config created but not visible.",
+        "Description": "Your config doesn't match the current filter settings so it is not visible in the list.",
+        "Action": "Reset filters"
+      }
     }
-
   }
 }

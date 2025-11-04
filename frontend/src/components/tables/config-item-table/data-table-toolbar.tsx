@@ -29,8 +29,10 @@ import {
   CommandShortcut,
 } from "@/components/ui/command"
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 interface DataTableToolbarProps<TData> {
+  disabled?: boolean
   table: Table<TData>
   items: IConfigItem[]
   onDeleteSelected: () => void
@@ -39,6 +41,7 @@ interface DataTableToolbarProps<TData> {
 }
 
 export function DataTableToolbar<TData>({
+  disabled = false,
   table,
   items,
   onDeleteSelected,
@@ -46,7 +49,6 @@ export function DataTableToolbar<TData>({
   onClearSelected,
 }: DataTableToolbarProps<TData>) {
   // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
-  // eslint-disable-next-line react-hooks/react-compiler
   "use no memo"
 
   const { t } = useTranslation()
@@ -130,6 +132,7 @@ export function DataTableToolbar<TData>({
 
   return (
     <div
+      data-testid="filter-toolbar"
       className="flex items-center justify-between"
       // prevent the bubbling of keydown events
       // this is needed to prevent the table from handling the keydown events
@@ -138,8 +141,9 @@ export function DataTableToolbar<TData>({
       }}
     >
       <div className="-ml-3 flex flex-1 items-center space-x-2 md:ml-0">
-        <IconFilter className="hidden stroke-primary md:flex" />
+        <IconFilter className={cn("hidden md:flex", !disabled ? "stroke-primary" : "stroke-secondary")} />
         <Input
+          disabled={disabled}
           placeholder={t("ConfigList.Toolbar.Search.Placeholder")}
           value={(table.getColumn("Name")?.getFilterValue() as string) ?? ""}
           onChange={(event) => {
@@ -149,6 +153,7 @@ export function DataTableToolbar<TData>({
         />
         {table.getColumn("ConfigType") && (
           <DataTableFacetedFilter
+            disabled={disabled}
             column={table.getColumn("ConfigType")}
             title={t("ConfigList.Toolbar.Filter.ConfigType")}
             options={configTypes}
@@ -156,6 +161,7 @@ export function DataTableToolbar<TData>({
         )}
         {table.getColumn("ModuleSerial") && (
           <DataTableFacetedFilter
+            disabled={disabled}
             column={table.getColumn("ModuleSerial")}
             title={t("ConfigList.Toolbar.Filter.Device")}
             options={controller}
@@ -163,6 +169,7 @@ export function DataTableToolbar<TData>({
         )}
         {table.getColumn("Type") && (
           <DataTableFacetedFilter
+            disabled={disabled}
             column={table.getColumn("Type")}
             title={t("ConfigList.Toolbar.Filter.Type")}
             options={deviceTypes}
@@ -170,6 +177,7 @@ export function DataTableToolbar<TData>({
         )}
         {table.getColumn("Device") && (
           <DataTableFacetedFilter
+            disabled={disabled}
             column={table.getColumn("Device")}
             title={t("ConfigList.Toolbar.Filter.Name")}
             options={deviceNames}
@@ -198,9 +206,10 @@ export function DataTableToolbar<TData>({
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
+                    disabled={disabled}
                     variant="ghost"
                     size="sm"
-                    className="h-8 border-dashed"
+                    className={cn("h-8")}
                   >
                     <IconSelectAll />
                     {t("ConfigList.Toolbar.SelectedRows.Commands.Label", {

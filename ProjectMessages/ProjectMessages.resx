@@ -290,7 +290,7 @@ You should configure them now.</value>
     <value>An error occurred on parsing your value formula. Please review and correct any errors.</value>
   </data>
   <data name="uiMessageNoOrphanedSerialsFound" xml:space="preserve">
-    <value>There are no orphaned serials in the current config.</value>
+    <value>There are no missing controllers found in the current config.</value>
   </data>
   <data name="fsuipcStatus" xml:space="preserve">
     <value>FSUIPC Status</value>

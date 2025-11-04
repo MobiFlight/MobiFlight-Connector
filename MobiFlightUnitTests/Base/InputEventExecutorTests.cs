@@ -295,10 +295,10 @@ namespace MobiFlight.Execution.Tests
                 {
                     new Precondition
                     {
-                        PreconditionType = "variable",
-                        PreconditionActive = true,
-                        PreconditionRef = "TestRef",
-                        PreconditionValue = "OtherValue"
+                        Type = "variable",
+                        Active = true,
+                        Ref = "TestRef",
+                        Value = "OtherValue"
                     }
                 }
             };

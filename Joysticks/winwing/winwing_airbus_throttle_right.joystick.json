@@ -1,0 +1,223 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "WINWING URSA MINOR 32 Throttle Metal R",
+  "VendorId": "0x4098",
+  "ProductId": "0xB930",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "ENGINE MASTER1 ON"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "ENGINE MASTER1 OFF"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "ENGINE MASTER2 ON"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "ENGINE MASTER2 OFF"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "ENGINE FIRE1 Button"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "ENGINE FIRE2 Button"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "ENGINE CRANK MODE"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "ENGINE NORM MODE"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "ENGINE IGN MODE"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "THROTTLE 1 A/THR Button"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "THROTTLE 2 A/THR Button"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "THROTTLE 1 TOGA"
+    },
+    {
+      "Id": 13,
+      "Type": "Button",
+      "Label": "THROTTLE 1 FLEX"
+    },
+    {
+      "Id": 14,
+      "Type": "Button",
+      "Label": "THROTTLE 1 CL"
+    },
+    {
+      "Id": 15,
+      "Type": "Button",
+      "Label": "THROTTLE 1 IDLE"
+    },
+    {
+      "Id": 16,
+      "Type": "Button",
+      "Label": "THROTTLE 1 REV IDLE"
+    },
+    {
+      "Id": 17,
+      "Type": "Button",
+      "Label": "THROTTLE 1 FULL REV"
+    },
+    {
+      "Id": 18,
+      "Type": "Button",
+      "Label": "THROTTLE 2 TOGA"
+    },
+    {
+      "Id": 19,
+      "Type": "Button",
+      "Label": "THROTTLE 2 FLEX"
+    },
+    {
+      "Id": 20,
+      "Type": "Button",
+      "Label": "THROTTLE 2 CL"
+    },
+    {
+      "Id": 21,
+      "Type": "Button",
+      "Label": "THROTTLE 2 IDLE"
+    },
+    {
+      "Id": 22,
+      "Type": "Button",
+      "Label": "THROTTLE 2 REV IDLE"
+    },
+    {
+      "Id": 23,
+      "Type": "Button",
+      "Label": "THROTTLE 2 FULL REV"
+    },
+    {
+      "Id": 24,
+      "Type": "Button",
+      "Label": "ENGINE MODE BUTTON"
+    },
+    {
+      "Id": 25,
+      "Type": "Button",
+      "Label": "TRIM RESET BUTTON"
+    },
+    {
+      "Id": 26,
+      "Type": "Button",
+      "Label": "TRIM NOSE L"
+    },
+    {
+      "Id": 27,
+      "Type": "Button",
+      "Label": "TRIM NOSE NEUTRAL"
+    },
+    {
+      "Id": 28,
+      "Type": "Button",
+      "Label": "TRIM NOSE R"
+    },
+    {
+      "Id": 29,
+      "Type": "Button",
+      "Label": "PARKING BRK OFF"
+    },
+    {
+      "Id": 30,
+      "Type": "Button",
+      "Label": "PARKING BRK ON"
+    },
+    {
+      "Id": 31,
+      "Type": "Button",
+      "Label": "FLAPS FULL"
+    },
+    {
+      "Id": 32,
+      "Type": "Button",
+      "Label": "FLAPS 3"
+    },
+    {
+      "Id": 33,
+      "Type": "Button",
+      "Label": "FLAPS 2"
+    },
+    {
+      "Id": 34,
+      "Type": "Button",
+      "Label": "FLAPS 1"
+    },
+    {
+      "Id": 35,
+      "Type": "Button",
+      "Label": "FLAPS 0"
+    },
+    {
+      "Id": 36,
+      "Type": "Button",
+      "Label": "SPOILERS FULL"
+    },
+    {
+      "Id": 37,
+      "Type": "Button",
+      "Label": "SPOILERS HALF"
+    },
+    {
+      "Id": 38,
+      "Type": "Button",
+      "Label": "SPOILERS RET"
+    },
+    {
+      "Id": 39,
+      "Type": "Button",
+      "Label": "SPOILERS ARMED"
+    },
+    {
+      "Id": 40,
+      "Type": "Button",
+      "Label": "THROTTLE 1 REVERSE LEVER"
+    },
+    {
+      "Id": 41,
+      "Type": "Button",
+      "Label": "THROTTLE 2 REVERSE LEVER"
+    },
+    {
+      "Id": 54,
+      "Type": "Axis",
+      "Label": "SLIDER SPOILERS"
+    },
+    {
+      "Id": 55,
+      "Type": "Axis",
+      "Label": "SLIDER FLAPS"
+    }
+  ]
+}

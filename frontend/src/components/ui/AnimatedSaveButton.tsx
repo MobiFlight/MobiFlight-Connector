@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { IconCheck, IconDeviceFloppy } from "@tabler/icons-react"
 import { TwoStateIcon } from "@/components/icons/TwoStateIcon"
 import { Button } from "@/components/ui/button"
@@ -57,25 +57,23 @@ export const AnimatedSaveButton = ({
   size = 24,
   className,
 }: AnimatedSaveButtonProps) => {
-  const [saveState, setSaveState] = useState<SaveState>("inactive")
+  const [isShowingSuccess, setIsShowingSuccess] = useState(false)
 
-  // Update state based on hasChanged prop
-  useEffect(() => {
-    if (hasChanged && saveState !== "success") {
-      setSaveState("active")
-    } else if (!hasChanged && saveState !== "success") {
-      setSaveState("inactive")
-    }
-  }, [hasChanged, saveState])
+  // Derive the save state from props and internal state
+  const saveState : SaveState = isShowingSuccess 
+    ? "success" 
+    : hasChanged 
+    ? "active" 
+    : "inactive"
 
   const handleSave = () => {
     if (saveState === "active") {
-      setSaveState("success")
+      setIsShowingSuccess(true)
       onSave()
 
-      // Reset to inactive after success duration
+      // Reset success state after duration
       setTimeout(() => {
-        setSaveState("inactive")
+        setIsShowingSuccess(false)
       }, successDuration)
     }
   }

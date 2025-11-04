@@ -55,7 +55,7 @@ namespace MobiFlight.UI.Panels.Config
 
         private void PreconditionListTreeView_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            (e.Node.Tag as Precondition).PreconditionActive = e.Node.Checked;
+            (e.Node.Tag as Precondition).Active = e.Node.Checked;
         }
 
         private void FormValueChanged(object sender, EventArgs e)
@@ -68,16 +68,16 @@ namespace MobiFlight.UI.Panels.Config
         {
             suspendFormValueChanged = true;
             Precondition config = (e.Node.Tag as Precondition);
-            preConditionTypeComboBox.SelectedValue = config.PreconditionType;
+            preConditionTypeComboBox.SelectedValue = config.Type;
             preconditionSettingsPanel.Enabled = true;
 
-            switch (config.PreconditionType)
+            switch (config.Type)
             {
                 case "variable":
                 case "config":
                     try
                     {
-                        preconditionConfigComboBox.SelectedValue = config.PreconditionRef;
+                        preconditionConfigComboBox.SelectedValue = config.Ref;
                     }
                     catch (Exception ex)
                     {
@@ -85,21 +85,21 @@ namespace MobiFlight.UI.Panels.Config
                         Log.Instance.log($"Precondition could not be loaded: {ex.Message}", LogSeverity.Error);
                     }
 
-                    ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.PreconditionOperand);
-                    preconditionRefValueTextBox.Text = config.PreconditionValue;
+                    ComboBoxHelper.SetSelectedItem(preconditionRefOperandComboBox, config.Operand);
+                    preconditionRefValueTextBox.Text = config.Value;
                     break;
 
                 case "pin":
-                    ArcazeIoBasic io = new ArcazeIoBasic(config.PreconditionPin);
-                    ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.PreconditionSerial);
-                    preconditionPinValueComboBox.SelectedValue = config.PreconditionValue;
+                    ArcazeIoBasic io = new ArcazeIoBasic(config.Pin);
+                    ComboBoxHelper.SetSelectedItemByPart(preconditionPinSerialComboBox, config.Serial);
+                    preconditionPinValueComboBox.SelectedValue = config.Value;
                     preconditionPortComboBox.SelectedIndex = io.Port;
                     preconditionPinComboBox.SelectedIndex = io.Pin;
                     break;
             }
 
-            aNDToolStripMenuItem.Checked = config.PreconditionLogic == "and";
-            oRToolStripMenuItem.Checked = config.PreconditionLogic == "or";
+            aNDToolStripMenuItem.Checked = config.Logic == "and";
+            oRToolStripMenuItem.Checked = config.Logic == "or";
             suspendFormValueChanged = false;
         }
 
@@ -192,7 +192,7 @@ namespace MobiFlight.UI.Panels.Config
                 TreeNode tmpNode = new TreeNode();
                 tmpNode.Text = p.ToString();
                 tmpNode.Tag = p;
-                tmpNode.Checked = p.PreconditionActive;
+                tmpNode.Checked = p.Active;
                 preconditionListTreeView.Nodes.Add(tmpNode);
                 PreconditionTreeNodeChanged?.Invoke(tmpNode, null);
             }
@@ -250,25 +250,25 @@ namespace MobiFlight.UI.Panels.Config
 
             Precondition c = selectedNode.Tag as Precondition;
 
-            c.PreconditionType = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
-            switch (c.PreconditionType)
+            c.Type = (preConditionTypeComboBox.SelectedItem as ListItem).Value;
+            switch (c.Type)
             {
                 case "variable":
                 case "config":
                     if (sender == preconditionConfigComboBox && preconditionConfigComboBox.SelectedValue != null)
-                        c.PreconditionRef = preconditionConfigComboBox.SelectedValue.ToString();
+                        c.Ref = preconditionConfigComboBox.SelectedValue.ToString();
                     if (sender == preconditionRefOperandComboBox)
-                        c.PreconditionOperand = preconditionRefOperandComboBox.Text;
+                        c.Operand = preconditionRefOperandComboBox.Text;
                     if (sender == preconditionRefValueTextBox)
-                        c.PreconditionValue = preconditionRefValueTextBox.Text;
-                    c.PreconditionActive = selectedNode.Checked;
+                        c.Value = preconditionRefValueTextBox.Text;
+                    c.Active = selectedNode.Checked;
                     break;
 
                 case "pin":
-                    c.PreconditionSerial = preconditionPinSerialComboBox.Text;
-                    c.PreconditionValue = preconditionPinValueComboBox.SelectedValue.ToString();
-                    c.PreconditionPin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
-                    c.PreconditionActive = selectedNode.Checked;
+                    c.Serial = preconditionPinSerialComboBox.Text;
+                    c.Value = preconditionPinValueComboBox.SelectedValue.ToString();
+                    c.Pin = preconditionPortComboBox.Text + preconditionPinComboBox.Text;
+                    c.Active = selectedNode.Checked;
                     break;
             }
 
@@ -277,18 +277,18 @@ namespace MobiFlight.UI.Panels.Config
 
         private void _updateNodeWithPrecondition(TreeNode node, Precondition p)
         {
-            node.Checked = p.PreconditionActive;
+            node.Checked = p.Active;
             node.Tag = p;
 
-            aNDToolStripMenuItem.Checked = p.PreconditionLogic == "and";
-            oRToolStripMenuItem.Checked = p.PreconditionLogic == "or";
+            aNDToolStripMenuItem.Checked = p.Logic == "and";
+            oRToolStripMenuItem.Checked = p.Logic == "or";
 
             PreconditionTreeNodeChanged?.Invoke(node, EventArgs.Empty);
         }
 
         private void SetNodeImage(TreeNode node, Precondition p, bool referenceIsMissing = false)
         {
-            switch (p.PreconditionType)
+            switch (p.Type)
             {
                 case "config":
                     node.ImageKey = "config";
@@ -318,33 +318,33 @@ namespace MobiFlight.UI.Panels.Config
             foreach (TreeNode node in preconditionListTreeView.Nodes)
             {
                 var p = node.Tag as Precondition;
-                String label = p.PreconditionLabel;
+                String label = p.Label;
                 var isMissing = false;
                                    
-                if (p.PreconditionType == "config")
+                if (p.Type == "config")
                 {
                     String replaceString = "[unknown]";
-                    if (Configs != null && p.PreconditionRef != null)
+                    if (Configs != null && p.Ref != null)
                     {
-                        var config = Configs.Find(c => c.Value == p.PreconditionRef);
+                        var config = Configs.Find(c => c.Value == p.Ref);
                         if (config == null)
                         {
                             isMissing = true;
                             replaceString = "[missing]";
-                            Log.Instance.log($"Precondition: config reference missing > {p.PreconditionRef}", LogSeverity.Warn);
+                            Log.Instance.log($"Precondition: config reference missing > {p.Ref}", LogSeverity.Warn);
                         }
                         else
                             replaceString = config.Label;
                     }
-                    label = label.Replace($"<Ref:{p.PreconditionRef}>", replaceString);
+                    label = label.Replace($"<Ref:{p.Ref}>", replaceString);
                 }
-                else if (p.PreconditionType == "variable")
+                else if (p.Type == "variable")
                 {
-                    label = label.Replace($"<Variable:{p.PreconditionRef}>", p.PreconditionRef != null ? p.PreconditionRef : "");
+                    label = label.Replace($"<Variable:{p.Ref}>", p.Ref != null ? p.Ref : "");
                 }
-                else if (p.PreconditionType == "pin")
+                else if (p.Type == "pin")
                 {
-                    label = label.Replace("<Serial:" + p.PreconditionSerial + ">", SerialNumber.ExtractDeviceName(p.PreconditionSerial));
+                    label = label.Replace("<Serial:" + p.Serial + ">", SerialNumber.ExtractDeviceName(p.Serial));
                 }
                 else
                 {
@@ -385,9 +385,9 @@ namespace MobiFlight.UI.Panels.Config
             TreeNode selectedNode = preconditionListTreeView.SelectedNode;
             Precondition p = selectedNode.Tag as Precondition;
             if ((sender as ToolStripMenuItem).Text == "AND")
-                p.PreconditionLogic = "and";
+                p.Logic = "and";
             else
-                p.PreconditionLogic = "or";
+                p.Logic = "or";
 
             _updateNodeWithPrecondition(selectedNode, p);
         }

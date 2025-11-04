@@ -249,7 +249,7 @@ namespace MobiFlight.Tests
             var config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
             configItems.Add(config);
 
-            var precondition = new Precondition() { PreconditionType = "config", PreconditionRef = config.GUID, PreconditionValue = "90", PreconditionOperand = "=" };
+            var precondition = new Precondition() { Type = "config", Ref = config.GUID, Value = "90", Operand = "=" };
             var preconditionList = new PreconditionList();
             preconditionList.Add(precondition);
 
@@ -262,7 +262,7 @@ namespace MobiFlight.Tests
             // Assert
             Assert.AreEqual(1, updatedValues.Count);
             Assert.AreEqual("not satisfied", cfg.Status[ConfigItemStatusType.Precondition]);
-            precondition.PreconditionValue = "100";
+            precondition.Value = "100";
 
             // Act
             updatedValues.Clear();
@@ -282,7 +282,7 @@ namespace MobiFlight.Tests
             // create another config with different GUID
             config = new OutputConfigItem { Active = true, Preconditions = new PreconditionList(), Value = "100" };
 
-            var precondition = new Precondition() { PreconditionType = "config", PreconditionRef = config.GUID, PreconditionValue = "90", PreconditionOperand = "=" };
+            var precondition = new Precondition() { Type = "config", Ref = config.GUID, Value = "90", Operand = "=" };
             var preconditionList = new PreconditionList();
             preconditionList.Add(precondition);
 
@@ -298,6 +298,30 @@ namespace MobiFlight.Tests
             {
                 Assert.AreEqual("Config reference not found", e.Message);
             }
+        }
+
+        [TestMethod]
+        [DataRow("something", 1)]
+        [DataRow("0", 0)]
+        [DataRow("0.0", 0)]
+        [DataRow("-3", -3)]
+        [DataRow("-3.5", -3)]
+        [DataRow("22", 22)]
+        [DataRow("4.22223", 4)]
+        [DataRow("-500.8", -500)]
+        [DataRow("40,8", 408)]
+        [DataRow("10000.00", 10000)]
+        public void ExecuteDisplay_ParseValue_ParseDifferentInputStringValues(
+            string inputValue,
+            int expectedValue)
+        {
+            // Arrange
+
+            // Act
+            var actualValue = ConfigItemExecutor.ParseValue(inputValue);
+
+            // Assert
+            Assert.AreEqual(expectedValue, actualValue);
         }
     }
 }

@@ -19,6 +19,12 @@ test("Confirm community buttons in toolbar behave as expected", async ({
     const button = page.getByRole("button", { name: buttonName })
     await expect(button).toBeVisible()
     await expect(button).toBeEnabled()
+
+    // with tailwind v4, cursor pointer is not default anymore
+    // this test ensures that our custom css for pointer cursor is applied
+    await button.hover()
+    await expect(button).toHaveCSS("cursor", "pointer")
+
     await button.click()
     const trackedCommands = await configListPage.mobiFlightPage.getTrackedCommands()
 

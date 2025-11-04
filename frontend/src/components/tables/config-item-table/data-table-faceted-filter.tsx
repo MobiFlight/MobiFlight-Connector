@@ -23,6 +23,7 @@ import { Separator } from "@/components/ui/separator"
 import { useTranslation } from "react-i18next"
 
 interface DataTableFacetedFilterProps<TData, TValue> {
+  disabled?: boolean
   column?: Column<TData, TValue>
   title?: string
   options: {
@@ -33,12 +34,12 @@ interface DataTableFacetedFilterProps<TData, TValue> {
 }
 
 export function DataTableFacetedFilter<TData, TValue>({
+  disabled = false,
   column,
   title,
   options,
 }: DataTableFacetedFilterProps<TData, TValue>) {
   // TODO: Fix this to work with React Compiler, changes done to table columns does not trigger a re-render
-  // eslint-disable-next-line react-hooks/react-compiler
   "use no memo"
 
   const facets = column?.getFacetedUniqueValues()
@@ -49,7 +50,7 @@ export function DataTableFacetedFilter<TData, TValue>({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button disabled={disabled} variant="outline" size="sm" className="h-8 border-dashed">
           <IconCirclePlus className="h-4 w-4" />
           {title}
           {selectedValues?.size > 0 && (

@@ -1,7 +1,17 @@
 {
-  "General" : {
-    "Action" : {
+  "General": {
+    "Action": {
       "OpenMenu": "Abrir menú"
+    },
+    "Overlay": {
+      "OpeningWizard": "Abriendo diálogo..."
+    },
+    "HubHopUpdate": {
+      "Error": "Actualización de HubHop falló. Por favor, inténtalo de nuevo más tarde.",
+      "Success": "¡Actualización de HubHop completada con éxito!",
+      "Title": "Actualización de HubHop disponible",
+      "Description": "Tu base de datos de HubHop se descargó hace más de {{days}} días. ¿Te gustaría actualizarla ahora?",
+      "Title.Downloading": "Descargando actualización de HubHop..."
     }
   },
   "Types": {
@@ -21,8 +31,8 @@
     "InputConfigItem": "Configuración de entrada",
     "InputAction": "Acción de entrada"
   },
-  "Project" : {
-    "File.Action" : {
+  "Project": {
+    "File.Action": {
       "Add": "Añadir nuevo archivo",
       "New": "Nuevo archivo",
       "Merge": "Utilisar archivo existente",
@@ -30,8 +40,8 @@
       "Remove": "Remover",
       "Export": "Exportar"
     },
-    "Toolbar" : {
-      "Save" : {
+    "Toolbar": {
+      "Save": {
         "HasChanges": "Guardar cambios",
         "NoChanges": "No hay cambios para guardar",
         "Success": "Cambios guardados con éxito"
@@ -53,7 +63,7 @@
       "Test": {
         "Label": "Probar",
         "Stop": "Parar",
-        "Start": "Iniciar modo de prueba y probar todas las configuraciones", 
+        "Start": "Iniciar modo de prueba y probar todas las configuraciones",
         "StopMode": "Parar ejecución del modo de prueba",
         "BlockedByRun": "Modo de ejecución activo. Páralo primero."
       }
@@ -95,9 +105,6 @@
       "Actions": "Acciones"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "Estás moviendo {{count}} elementos seleccionados"
-      },
       "Waiting": "Esperando",
       "Controller": {
         "openInSettings": "Abrir opciones de controlador.",
@@ -109,7 +116,11 @@
     },
     "Table": {
       "NoResultsFound": "Esta es una nueva configuración. Por favor, añade algunos elementos.",
-      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro."
+      "DropHereToAdd": "Suelta aquí para añadir nuevos elementos.",
+      "NoResultsMatchingFilter": "No hay resultados que coincidan con el filtro.",
+      "Drag": {
+        "MovingItems": "Mover elementos"
+      }
     },
     "Actions": {
       "OutputConfigItem": {
@@ -148,6 +159,13 @@
       "ConfigRef": {
         "Missing": "Faltan una o más configuraciones referenciadas.",
         "OK": "Todas las configuraciones referenciadas están disponibles."
+      }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "Nueva configuración creada pero no visible.",
+        "Description": "Tu configuración no coincide con los filtros actuales, por lo que no es visible en la lista.",
+        "Action": "Restablecer filtros"
       }
     }
   }

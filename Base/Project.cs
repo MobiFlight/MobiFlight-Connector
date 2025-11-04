@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using MobiFlight.Base.Migration;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -14,7 +16,12 @@ namespace MobiFlight.Base
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler ProjectChanged;
-        
+
+        [JsonIgnore]
+        public readonly Version SchemaVersion = new Version(0,9);
+        [JsonIgnore]
+        public Version OriginalSchemaVersion { get; private set; } = null;
+
         private string _name;
         /// <summary>
         /// Gets or sets the name of the project.
@@ -127,7 +134,19 @@ namespace MobiFlight.Base
             if (IsJson(FilePath))
             {
                 var json = File.ReadAllText(FilePath);
-                var project = JsonConvert.DeserializeObject<Project>(json);
+                
+                // Parse and migrate JSON document
+                var document = JObject.Parse(json);
+                var migratedDocument = ApplyMigrations(document);
+                
+                // Deserialize the clean, migrated JSON
+                var project = migratedDocument.ToObject<Project>();
+                if (project == null)
+                {
+                    Log.Instance.log("Project could not be loaded", LogSeverity.Error);
+                    throw new InvalidDataException("Failed to deserialize project file.");
+                }
+
                 Name = project.Name;
                 ConfigFiles = project.ConfigFiles;
 
@@ -168,6 +187,84 @@ namespace MobiFlight.Base
                 throw new InvalidDataException("Unsupported file format.");
             }
         }
+        
+        /// <summary>
+        /// Apply all migrations to bring document to current version
+        /// Simple, direct approach - no registry needed
+        /// </summary>
+        private JObject ApplyMigrations(JObject document)
+        {
+            // Determine current document version with safe parsing
+            var currentVersion = GetDocumentSchemaVersion(document);
+            OriginalSchemaVersion = currentVersion;
+
+            if (currentVersion > SchemaVersion)
+            {
+                Log.Instance.log($"Document version {currentVersion} too new. Update MobiFlight to latest version.", LogSeverity.Info);
+                return document;
+            }
+
+            if (currentVersion == SchemaVersion)
+            {
+                // No migration needed
+                return document;
+            }
+
+            Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}", LogSeverity.Info);
+            
+            var migratedDocument = document;
+            
+            // Apply migrations step by step
+            if (currentVersion < new Version(0,9))
+            {
+                Log.Instance.log("Applying V0.9 migrations", LogSeverity.Debug);
+                migratedDocument = Precondition_V_0_9_Migration.Apply(migratedDocument);
+                migratedDocument = Output_V_0_9_Migration.Apply(migratedDocument);
+            }
+
+            // Update version in migrated document
+            migratedDocument["_version"] = SchemaVersion.ToString();
+
+            Log.Instance.log($"Migration complete. Document is now version {SchemaVersion}", LogSeverity.Info);
+
+            return migratedDocument;
+        }
+
+        /// <summary>
+        /// Safely parse the document version, defaulting to 0.1 if not present or invalid
+        /// </summary>
+        private Version GetDocumentSchemaVersion(JObject document)
+        {
+            try
+            {
+                var versionToken = document["_version"];
+                if (versionToken == null)
+                {
+                    return new Version(0, 1); // Default for documents without version
+                }
+
+                var versionString = versionToken.ToString();
+                if (string.IsNullOrEmpty(versionString))
+                {
+                    return new Version(0, 1);
+                }
+
+                // Try to parse as Version object
+                if (Version.TryParse(versionString, out Version parsedVersion))
+                {
+                    return parsedVersion;
+                }
+
+                // If parsing fails, default to 0.1
+                Log.Instance.log($"Could not parse version '{versionString}', defaulting to 0.1", LogSeverity.Warn);
+                return new Version(0, 1);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Error parsing document version: {ex.Message}, defaulting to 0.1", LogSeverity.Warn);
+                return new Version(0, 1);
+            }
+        }
 
         /// <summary>
         /// Saves the project to the file specified in the FilePath property in JSON format.
@@ -183,8 +280,10 @@ namespace MobiFlight.Base
                 }
             }
 
-            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
-            File.WriteAllText(FilePath, json);
+            // Add version when serializing
+            var document = JObject.FromObject(this); 
+            document["_version"] = SchemaVersion.ToString(); 
+            File.WriteAllText(FilePath, document.ToString(Formatting.Indented));
         }
 
         /// <summary>

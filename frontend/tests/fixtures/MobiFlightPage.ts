@@ -91,6 +91,9 @@ export class MobiFlightPage {
   }
 
   async getTrackedCommands() {
+    // Small delay to ensure commands are captured
+    // this was needed when upgrading playwright version to 1.56.1
+    await this.page.waitForTimeout(10) 
     return await this.page.evaluate(() => window.commands);
   }
 

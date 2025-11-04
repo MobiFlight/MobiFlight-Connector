@@ -81,6 +81,22 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
+        public void SaveFileTest_Should_Not_Serialize_Version()
+        {
+            string inFile = @"assets\Base\ConfigFile\Json\OpenProjectTest.mfproj";
+            var o = new Project();
+            o.FilePath = inFile;
+            o.OpenFile();
+
+            string outFile = @"assets\Base\ConfigFile\Json\SaveProjectTest.mfproj";
+            o.FilePath = outFile;
+            o.SaveFile();
+
+            string fileContent = File.ReadAllText(outFile);
+            Assert.IsFalse(fileContent.Contains("\"SchemaVersion\":"));
+        }
+
+        [TestMethod()]
         public void EqualsTest()
         {
             var o = new Project();

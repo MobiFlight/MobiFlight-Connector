@@ -17,7 +17,7 @@ function ConfigItemTableActiveCell({ row }: ConfigItemTableActiveCellProps) {
   const { attributes, listeners } = useSortable({ id: item.GUID })
 
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row py-2">
       <div
         {...attributes}
         {...listeners}

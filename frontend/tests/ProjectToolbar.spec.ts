@@ -168,8 +168,7 @@ test("Confirm file tab actions work", async ({ configListPage, page }) => {
     .getByRole("tablist")
     .getByRole("tab")
     .nth(1)
-    .getByRole("button")
-    .nth(1)
+    .getByRole("button", { name: "Open menu" })
   await secondTabContextMenu.click()
   // the overlay is not nested in the dom
   // we have to use the page locator to find it

@@ -13,22 +13,25 @@ import {
 } from "../ui/dropdown-menu"
 import { AnimatedSaveButton } from "../ui/AnimatedSaveButton"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
+import { Project } from "@/types"
+
+export type ProjectNameLabelProps = {
+  project: Project | null
+}
 
 const ProjectNameLabel = () => {
   const { t } = useTranslation()
   const { project, hasChanged } = useProjectStore()
   const { publish } = publishOnMessageExchange()
-
-  const [projectName, setProjectName] = useState<string>(project?.Name || "")
-  const inlineEditRef = useRef<InlineEditLabelRef>(null)
-
-  // if the project updates,
-  // we want to update the project name
+  const label = project?.Name ?? "Untitled Project"
+  const [ optimisticLabel, setOptimisticLabel ] = useState(label)
+  
+  // Sync optimisticLabel when label changes from backend
   useEffect(() => {
-    if (project) {
-      setProjectName(project.Name)
-    }
-  }, [project])
+    setOptimisticLabel(label)
+  }, [label])
+  
+  const inlineEditRef = useRef<InlineEditLabelRef>(null)
 
   const handleMenuItemClick = (payload: CommandMainMenuPayload) => {
     publish({
@@ -38,7 +41,7 @@ const ProjectNameLabel = () => {
   }
 
   const handleProjectNameSave = (newName: string) => {
-    setProjectName(newName)
+    setOptimisticLabel(newName)
     publish({
       key: "CommandProjectToolbar",
       payload: {
@@ -55,7 +58,7 @@ const ProjectNameLabel = () => {
     >
       <InlineEditLabel
         ref={inlineEditRef}
-        value={projectName}
+        value={optimisticLabel}
         onSave={handleProjectNameSave}
       />
 

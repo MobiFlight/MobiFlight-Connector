@@ -20,23 +20,23 @@ namespace MobiFlight.Execution
 
             foreach (Precondition p in cfg.Preconditions)
             {
-                if (!p.PreconditionActive)
+                if (!p.Active)
                 {
                     continue;
                 }
                 
-                switch (p.PreconditionType)
+                switch (p.Type)
                 {
 #if ARCAZE
                     case "pin":
-                        string serial = SerialNumber.ExtractSerial(p.PreconditionSerial);
-                        string val = arcazeCache.getValue(serial, p.PreconditionPin, "repeat");
+                        string serial = SerialNumber.ExtractSerial(p.Serial);
+                        string val = arcazeCache.getValue(serial, p.Pin, "repeat");
 
                         result = p.Evaluate(val, currentValue);
                         break;
 #endif
                     case "variable":
-                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.PreconditionRef);
+                        var variableValue = mobiFlightCache.GetMobiFlightVariable(p.Ref);
                         if (variableValue == null) break;
 
                         result = p.Evaluate(variableValue);
@@ -46,7 +46,7 @@ namespace MobiFlight.Execution
                         foreach (var outputConfig in configItems)
                         {
                             // here we just don't have a match
-                            if (outputConfig.GUID != p.PreconditionRef) continue;
+                            if (outputConfig.GUID != p.Ref) continue;
 
                             // if inactive ignore?
                             if (!outputConfig.Active) break;
@@ -76,7 +76,7 @@ namespace MobiFlight.Execution
                     finalResult &= result;
                 }
 
-                logicOr = (p.PreconditionLogic == "or");
+                logicOr = (p.Logic == "or");
             } // foreach
 
             return finalResult;

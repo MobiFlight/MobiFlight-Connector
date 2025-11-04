@@ -13,22 +13,22 @@ namespace MobiFlight.OutputConfig.Tests
         {
             Output o = new Output();
             Assert.IsNotNull(o);
-            Assert.AreEqual(byte.MaxValue, o.DisplayPinBrightness);
-            Assert.AreEqual(false, o.DisplayPinPWM);
+            Assert.AreEqual(byte.MaxValue, o.Brightness);
+            Assert.AreEqual(false, o.PwmMode);
         }
 
         [TestMethod()]
         public void CloneTest()
         {
             Output o = new Output();
-            o.DisplayPin = "DisplayPin";
-            o.DisplayPinBrightness = 128;
-            o.DisplayPinPWM = true;
+            o.Pin = "DisplayPin";
+            o.Brightness = 128;
+            o.PwmMode = true;
             Output clone = o.Clone() as Output;
 
-            Assert.AreEqual(o.DisplayPin,clone.DisplayPin);
-            Assert.AreEqual(o.DisplayPinBrightness, clone.DisplayPinBrightness);
-            Assert.AreEqual(o.DisplayPinPWM, clone.DisplayPinPWM);
+            Assert.AreEqual(o.Pin,clone.Pin);
+            Assert.AreEqual(o.Brightness, clone.Brightness);
+            Assert.AreEqual(o.PwmMode, clone.PwmMode);
         }
 
         [TestMethod()]
@@ -38,14 +38,14 @@ namespace MobiFlight.OutputConfig.Tests
             Output o2 = new Output();            
             Assert.IsTrue(o1.Equals(o2));
 
-            o1.DisplayPin = "DisplayPin";
-            o1.DisplayPinBrightness = 128;
-            o1.DisplayPinPWM = true;
+            o1.Pin = "DisplayPin";
+            o1.Brightness = 128;
+            o1.PwmMode = true;
             Assert.IsFalse(o1.Equals(o2));
 
-            o2.DisplayPin = "DisplayPin";
-            o2.DisplayPinBrightness = 128;
-            o2.DisplayPinPWM = true;
+            o2.Pin = "DisplayPin";
+            o2.Brightness = 128;
+            o2.PwmMode = true;
             Assert.IsTrue(o1.Equals(o2));
         }
 
@@ -63,9 +63,9 @@ namespace MobiFlight.OutputConfig.Tests
             xmlReader.ReadToDescendant("display");
             o.ReadXml(xmlReader);
 
-            Assert.AreEqual("Pin", o.DisplayPin);
-            Assert.AreEqual(128, o.DisplayPinBrightness);
-            Assert.AreEqual(true, o.DisplayPinPWM);
+            Assert.AreEqual("Pin", o.Pin);
+            Assert.AreEqual(128, o.Brightness);
+            Assert.AreEqual(true, o.PwmMode);
         }
 
         [TestMethod()]
@@ -79,9 +79,9 @@ namespace MobiFlight.OutputConfig.Tests
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
             Output o = new Output();
-            o.DisplayPin = "Pin";
-            o.DisplayPinBrightness = 128;
-            o.DisplayPinPWM = true;
+            o.Pin = "Pin";
+            o.Brightness = 128;
+            o.PwmMode = true;
 
             xmlWriter.WriteStartElement("display");
                 xmlWriter.WriteAttributeString("type", MobiFlightOutput.TYPE);

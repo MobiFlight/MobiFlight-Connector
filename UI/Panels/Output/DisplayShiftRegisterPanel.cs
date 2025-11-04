@@ -39,9 +39,9 @@ namespace MobiFlight.UI.Panels
                 OutputConfigItem cfg = config.Clone() as OutputConfigItem;
                 cfg.Device = new Output()
                 {
-                    DisplayPin = shiftRegister.Pin,
-                    DisplayPinBrightness = shiftRegister.Brightness,
-                    DisplayPinPWM = shiftRegister.PWM
+                    Pin = shiftRegister.Pin,
+                    Brightness = shiftRegister.Brightness,
+                    PwmMode = shiftRegister.PWM
                 };
                 displayPinPanel.syncFromConfig(cfg);
             }
@@ -89,9 +89,9 @@ namespace MobiFlight.UI.Panels
             OutputConfigItem cfg = config.Clone() as OutputConfigItem;
             cfg = displayPinPanel.syncToConfig(cfg);
 
-            shiftRegister.Pin = (cfg.Device as Output).DisplayPin;
-            shiftRegister.Brightness = (cfg.Device as Output).DisplayPinBrightness;
-            shiftRegister.PWM = (cfg.Device as Output).DisplayPinPWM;
+            shiftRegister.Pin = (cfg.Device as Output).Pin;
+            shiftRegister.Brightness = (cfg.Device as Output).Brightness;
+            shiftRegister.PWM = (cfg.Device as Output).PwmMode;
             return config;
         }
         internal void SetNumModules(int num8bitRegisters)

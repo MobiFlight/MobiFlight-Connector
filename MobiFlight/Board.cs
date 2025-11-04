@@ -410,7 +410,7 @@ namespace MobiFlight
 
                 // Older versions of boards didn't specify the firmware extension in the AvrDudeSettings. Assume it is "hex"
                 // if missing which is what was used in the old code for all AVR-based boards.
-                if (!String.IsNullOrEmpty(Info.FirmwareExtension))
+                if (String.IsNullOrEmpty(Info.FirmwareExtension))
                 {
                     Info.FirmwareExtension = "hex";
                 }

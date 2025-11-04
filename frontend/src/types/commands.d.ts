@@ -76,6 +76,8 @@ export interface CommandResortConfigItem extends CommandMessageBase {
   payload: {
     items: IConfigItem[]
     newIndex: number
+    sourceFileIndex?: number
+    targetFileIndex?: number
   }
 }
 

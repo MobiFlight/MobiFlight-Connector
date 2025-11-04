@@ -2,6 +2,16 @@
   "General" : {
     "Action" : {
       "OpenMenu": "Menü öffnen"
+    },
+    "Overlay": {
+      "OpeningWizard": "Öffne Wizard..."
+    },
+    "HubHopUpdate": {
+      "Error": "HubHop update fehlgeschlagen. Bitte versuch es später nochmal.",
+      "Success": "HubHop update erfolgreich!",
+      "Title": "HubHop update verfügbar",
+      "Description": "Deine HubHop-Datenbank ist älter als {{days}} Tage. Möchtest du sie jetzt aktualisieren?",
+      "Title.Downloading": "HubHop update wird heruntergeladen..."
     }
   },
   "Types": {
@@ -95,9 +105,6 @@
       "Actions": "Aktionen"
     },
     "Cell": {
-      "Drag" : {
-        "Multiple": "Du verschiebst {{count}} selektierte Zeilen"
-      },
       "Waiting": "Warten",
       "Controller": {
         "openInSettings": "Öffne Einstellungen der Steuerungs",
@@ -109,7 +116,11 @@
     },
     "Table": {
       "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge.",
-      "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter."
+      "DropHereToAdd": "Hier ablegen, um neue Elemente hinzuzufügen.",
+      "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter.",
+      "Drag" : {
+        "MovingItems": "Verschiebe Elemente"
+      }
     },
     "Actions": {
       "OutputConfigItem": {
@@ -148,6 +159,13 @@
       "ConfigRef": {
         "Missing": "Eine oder mehrere referenzierte Konfigurationen fehlen.",
         "OK": "Alle referenzierten Konfigurationen sind verfügbar."
+      }
+    },
+    "Notification": {
+      "NewConfigNotVisible": {
+        "Message": "Neue Konfiguration erstellt, aber nicht sichtbar.",
+        "Description": "Deine Konfiguration entspricht nicht den aktuellen Filtereinstellungen, daher ist sie in der Liste nicht sichtbar.",
+        "Action": "Filter zurücksetzen"
       }
     }
   }

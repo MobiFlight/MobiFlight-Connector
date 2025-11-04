@@ -14,6 +14,9 @@ export type AppMessageKey =
   | "JoystickDefinitions"
   | "MidiControllerDefinitions"
   | "ProjectStatus"
+  | "OverlayState"
+  | "Notification"
+  | "HubHopState"
 
 export type AppMessagePayload =
   | StatusBarUpdate
@@ -25,6 +28,9 @@ export type AppMessagePayload =
   | JoystickDefinitions
   | MidiControllerDefinitions
   | ProjectStatus
+  | OverlayState
+  | Notification
+  | HubHopState
   
 // AppMessage is the message format
 // when receiving messages from the backend
@@ -81,6 +87,23 @@ export interface MidiControllerDefinitions {
 
 export interface ProjectStatus {
   HasChanged: boolean
+}
+
+export interface OverlayState {
+  Visible: boolean
+}
+
+export interface Notification {
+  Event: string
+  Guid?: string
+  Context: Record<string, string> | null
+}
+
+export interface HubHopState {
+  LastUpdate: Date | null
+  ShouldUpdate: boolean
+  UpdateProgress: number
+  Result: "Success" | "Error" | "InProgress" | "Pending"
 }
 
 // Not sure what this is for

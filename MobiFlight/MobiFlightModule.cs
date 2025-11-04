@@ -55,6 +55,7 @@ namespace MobiFlight
 
         public const string TYPE_COMPATIBLE = "Compatible";
         public const string TYPE_UNKNOWN = "Unknown";
+        public static string SerialPrefix = "SN-";
 
         public delegate void InputDeviceEventHandler(object sender, InputEventArgs e);
         /// <summary>
@@ -646,7 +647,7 @@ namespace MobiFlight
                     Name = Name,
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
-                    Type = DeviceType.InputShiftRegister,
+                    Type = DeviceType.Button,
                     ExtPin = channel,
                     Value = state
                 });
@@ -677,8 +678,7 @@ namespace MobiFlight
                     Name = Name,
                     DeviceId = deviceId,
                     DeviceLabel = deviceId,
-                    // This should actually be button
-                    Type = DeviceType.InputMultiplexer,
+                    Type = DeviceType.Button,
                     ExtPin = channel,
                     Value = state
                 });

@@ -101,21 +101,21 @@ namespace MobiFlight.UI.Panels
 
             string port = "";
             var cfg = config.Device as Output;
-            string pin = cfg.DisplayPin;
+            string pin = cfg.Pin;
 
             if (SerialNumber.IsJoystickSerial(serial) ||
                 SerialNumber.IsMidiBoardSerial(serial))                                   
             {
                 // disable multi-select option
                 _MultiSelectOptions(false);
-                pin = cfg.DisplayPin;
+                pin = cfg.Pin;
             }
             else if (SerialNumber.IsArcazeSerial(serial))
             {
                 // these are Arcaze Boards.
                 // Arcaze Boards only have "single output"
-                port = cfg.DisplayPin.Substring(0, 1);
-                pin = cfg.DisplayPin.Substring(1);
+                port = cfg.Pin.Substring(0, 1);
+                pin = cfg.Pin.Substring(1);
 
                 // disable multi-select option
                 _MultiSelectOptions(false);
@@ -125,12 +125,12 @@ namespace MobiFlight.UI.Panels
                 _MultiSelectOptions(true);
 
                 // initialize multi-select panel
-                MultiPinSelectPanel?.SetSelectedPinsFromString(cfg.DisplayPin, config.ModuleSerial);
+                MultiPinSelectPanel?.SetSelectedPinsFromString(cfg.Pin, config.ModuleSerial);
 
                 // get the first from the multi select
-                pin = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
+                pin = cfg.Pin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR)[0];
 
-                selectMultiplePinsCheckBox.Checked = cfg.DisplayPin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
+                selectMultiplePinsCheckBox.Checked = cfg.Pin.Split(Panels.PinSelectPanel.POSITION_SEPERATOR).Length > 1;
             }
 
             // preselect normal pin drop downs
@@ -143,9 +143,9 @@ namespace MobiFlight.UI.Panels
             if (!ComboBoxHelper.SetSelectedItem(displayPinComboBox, pin)) { /* TODO: provide error message */ }
 
             int range = displayPinBrightnessTrackBar.Maximum - displayPinBrightnessTrackBar.Minimum;
-            displayPinBrightnessTrackBar.Value = (int)((cfg.DisplayPinBrightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
+            displayPinBrightnessTrackBar.Value = (int)((cfg.Brightness / (double)255) * (range)) + displayPinBrightnessTrackBar.Minimum;
 
-            displayPwmCheckBox.Checked = cfg.DisplayPinPWM;
+            displayPwmCheckBox.Checked = cfg.PwmMode;
         }
 
         private void _MultiSelectOptions(bool state)
@@ -158,14 +158,14 @@ namespace MobiFlight.UI.Panels
         {
             var cfg = new Output()
             {
-                DisplayPin = displayPortComboBox.Text + displayPinComboBox.Text,
+                Pin = displayPortComboBox.Text + displayPinComboBox.Text,
             };
 
             if (selectMultiplePinsCheckBox.Checked)
-                cfg.DisplayPin = MultiPinSelectPanel?.GetSelectedPinString();                       
+                cfg.Pin = MultiPinSelectPanel?.GetSelectedPinString();                       
 
-            cfg.DisplayPinBrightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
-            cfg.DisplayPinPWM = pwmPinPanel.Enabled && displayPwmCheckBox.Checked;
+            cfg.Brightness = (byte)(255 * ((displayPinBrightnessTrackBar.Value) / (double)(displayPinBrightnessTrackBar.Maximum)));
+            cfg.PwmMode = pwmPinPanel.Enabled && displayPwmCheckBox.Checked;
 
             config.Device = cfg;
             return config;

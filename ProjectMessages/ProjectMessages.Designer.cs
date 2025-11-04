@@ -1004,7 +1004,7 @@ namespace MobiFlight.ProjectMessages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no orphaned serials in the current config..
+        ///   Looks up a localized string similar to There are no missing controllers found in the current config..
         /// </summary>
         internal static string uiMessageNoOrphanedSerialsFound {
             get {
