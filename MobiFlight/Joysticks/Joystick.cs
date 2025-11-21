@@ -532,7 +532,7 @@ namespace MobiFlight
 
         public virtual void UpdateOutputDeviceStates()
         {
-            var data = new byte[] { 0, 0, 0, 0, 0 };
+            var data = new byte[] { 1, 0, 0, 0, 0 };
 
             foreach (var light in Lights)
             {
