@@ -1,0 +1,86 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "SIERRA",
+  "VendorId": "0x294B",
+  "ProductId": "0x190D",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Trim - Nose Down"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Trim - Nose Up"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Flaps Up"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Flaps Down"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Parking Brake Engaged"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Parking Brake Released"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Gear - Up"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Gear - Down"
+    }
+  ],
+  "Outputs": [
+    {
+      "Label": "Gear - Left Green",
+      "Id": "Gear.LeftGreen",
+      "Byte": 2,
+      "Bit": 0
+    },
+    {
+      "Label": "Gear - Left Red",
+      "Id": "Gear.LeftRed",
+      "Byte": 2,
+      "Bit": 1
+    },
+    {
+      "Label": "Gear - Center Green",
+      "Id": "Gear.CenterGreen",
+      "Byte": 2,
+      "Bit": 2
+    },
+    {
+      "Label": "Gear - Center Red",
+      "Id": "Gear.CenterRed",
+      "Byte": 2,
+      "Bit": 3
+    },
+    {
+      "Label": "Gear - Right Green",
+      "Id": "Gear.RightGreen",
+      "Byte": 2,
+      "Bit": 4
+    },
+    {
+      "Label": "Gear - Right Red",
+      "Id": "Gear.RightRed",
+      "Byte": 2,
+      "Bit": 5
+    }
+  ]
+}
