@@ -23,6 +23,11 @@ from SimConnect.Enum import (
 )
 
 class SimConnectMobiFlight(SimConnect):
+    """
+    Extends SimConnect to support MobiFlight client data handlers.
+    This class allows registration and management of client data handlers,
+    enabling custom processing of MobiFlight client data received from the simulator.
+    """
     def __init__(self, auto_connect=True, library_path=None):
         self.client_data_handlers = []
         if library_path:
