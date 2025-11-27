@@ -291,6 +291,11 @@ def as01(v) -> int:
 
 # ========================= Simple persistent WebSocket =========================
 class McduSocket:
+    """
+    Manages a persistent WebSocket connection to the WinWing MCDU hardware.
+    Handles connection establishment, reconnection, pinging to keep the connection alive,
+    and sending grid data to the MCDU device.
+    """
     def __init__(self, url: str, connect_timeout: float = 2.0):
         self.url = url
         self.ws: Optional[WebSocket] = None
