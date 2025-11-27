@@ -340,6 +340,7 @@ class McduSocket:
                 try:
                     if self.ws: self.ws.close()
                 except Exception:
+                    # Ignore errors during socket close; best effort cleanup
                     pass
                 self.ws = None
         logging.debug("MCDU send failed after retry.")
