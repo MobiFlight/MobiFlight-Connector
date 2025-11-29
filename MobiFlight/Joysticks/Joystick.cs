@@ -532,7 +532,11 @@ namespace MobiFlight
 
         public virtual void UpdateOutputDeviceStates()
         {
-            var data = new byte[] { 0, 0, 0, 0, 0 };
+            // Honeycomb LED protocol: Feature report with bits set for each lit LED and cleared for each unlit LED.
+            // Byte 0 is unused on Bravo, but used as the report ID on Sierra. Report ID for the LED command must be 1 on Sierra.
+            // Setting this byte to 1 is supported by both throttles.
+            // Other bytes initialized to zero to ensure lights are only turned on if they are set to 1 by output events.
+            var data = new byte[] { 1, 0, 0, 0, 0 };
 
             foreach (var light in Lights)
             {
