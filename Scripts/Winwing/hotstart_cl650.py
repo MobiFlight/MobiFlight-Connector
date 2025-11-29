@@ -1,5 +1,5 @@
 """
-Adds support for the Hotstart Challanger 650 in X-Plane
+Adds support for the Hotstart Challenger 650 in X-Plane
 
 Many X-Plane aircraft have similar formats for datarefs and the means of retrieving, translating and sending updates is mostly the same.
 
@@ -7,12 +7,12 @@ In order to support multiple CDU devices seamlessly, a dynamic approach is taken
 A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
 Datarefs of interest follow the pattern:
 CL650/CDU/<CDU Number>/screen/text_lineX - text lines where X is from 0 to 14
-CL650/CDU/<CDU Number>/screen/style_lineX - character styles lines where X is from 0 to 14, bytes type with 24 element, each element respresnting type for each character
+CL650/CDU/<CDU Number>/screen/style_lineX - character styles lines where X is from 0 to 14, bytes type with 24 element, each element representing type for each character
 
 
 Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
 
-Two tasks are started independently for each avialable CDU device.
+Two tasks are started independently for each available CDU device.
 1. handle_dataref_updates -> Listens to X-Plane's WebSocket server for dataref updates for that specific CDU and pushes an event to a queue
 2. handle_device_update   -> Listens to the queue and dispatches updates to MobiFlight to update that CDU
 
@@ -128,7 +128,7 @@ DATAREF_FILTER_PATTERNS = {
 
 # this allows processing datarefs and extract line number and type of data (text or style)
 DATAREF_PROCESS_PATTERN = re.compile("^(text|style)_line([0-9]{1,2})$") # regex group 1 will be "text" or "style", group 2 will be line number
-DATAREF_LINE_COUNT = 15 # total of 15 lines in dataref, 0 through 14, last line is a Message line which is not displayed on Wingwing
+DATAREF_LINE_COUNT = 15 # total of 15 lines in dataref, 0 through 14, last line is a Message line which is not displayed on Winwing
 
 def fetch_dataref_mapping(device: CduDevice):
     with urllib.request.urlopen(BASE_REST_URL, timeout=5) as response:
@@ -159,7 +159,7 @@ def generate_display_json(cdu_data: CduData) -> str:
         for character_index in range(CDU_COLUMNS):
             if len(row_text) == 0:
                 display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up empty line if text was empty
-            elif character_index <= len(row_text): # or populate text with styles
+            elif character_index < len(row_text): # or populate text with styles
                 display_data.append((row_text[character_index], CduCharacterColor.from_style(character_styles[character_index]), CduCharacterSize.from_style(character_styles[character_index])))
 
 
@@ -172,7 +172,7 @@ def process_datarefs(values: dict[str, str]) -> CduData:
     for dataref_name, dataref_value in values.items():
         short_name = dataref_name[dataref_name.rfind('/')+1:] # strip everything before last '/', CL650/CDU/1/screen/text_line0 becomes text_line0
         re_match = DATAREF_PROCESS_PATTERN.fullmatch(short_name) # applies compiled regular expression to extracts part of name
-        if re_match == None:
+        if re_match is None:
             # no match
             logging.error("error trying to extract type and line number from dataref: %s", short_name)
             continue
