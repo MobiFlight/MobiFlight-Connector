@@ -6,7 +6,7 @@ interface ProjectState {
   project: Project | null
   activeConfigFileIndex: number
   setHasChanged: (hasChanged: boolean) => void
-  setProject: (project: Project) => void
+  setProject: (project: Project | null) => void
   setConfigItems: (index: number, items: IConfigItem[]) => void
   setActiveConfigFileIndex: (index: number) => void // Add this
   updateConfigItems: (index: number, items: IConfigItem[]) => void // Add this

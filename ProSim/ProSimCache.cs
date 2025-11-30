@@ -24,8 +24,8 @@ namespace MobiFlight.ProSim
 
         private readonly Dictionary<string, IDisposable> _subscriptions = new Dictionary<string, IDisposable>();
 
-        // ProSim SDK object
-        private GraphQLHttpClient _connection;
+        // ProSim SDK object 
+        private IGraphQLWebSocketClient _connection;
         
         // Heartbeat timer to keep WebSocket connection active
         private Timer _heartbeatTimer;
@@ -434,11 +434,11 @@ mutation {{
             return _connected && _connection != null;
         }
 
-        public double readDataref(string datarefPath)
+        public object readDataref(string datarefPath)
         {
             if (!IsConnected())
             {
-                return 0;
+                return (double)0;
             }
 
             try
@@ -446,25 +446,36 @@ mutation {{
                 if (!_subscriptions.ContainsKey(datarefPath))
                 {
                     SubscribeToDataRef(datarefPath);
-                    return 0;
+                    return (double)0;
                 }
 
-                if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                lock (_subscribedDataRefs)
                 {
-                    // Wait for data to be returned by the subscription
-                    return 0;
-                }
-                
-                // Return the cached value (continuously updated by the subscription)
-                var value = _subscribedDataRefs[datarefPath].Value;
-                var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
+                    if (!_subscribedDataRefs.ContainsKey(datarefPath))
+                    {
+                        // Wait for data to be returned by the subscription
+                        return (double)0;
+                    }
 
-                return returnValue;
+                    // Cache the dictionary value to avoid redundant lookups
+                    var subscribedDataRef = _subscribedDataRefs[datarefPath];
+                    var value = subscribedDataRef.Value;
+
+                    if (subscribedDataRef.DataRefDescription.DataType == "System.String")
+                    {
+                        return value;
+                    }
+
+                    var returnValue = (value == null) ? 0 : Convert.ToDouble(value);
+
+                    return returnValue;
+                }
+
             }
             catch (Exception ex)
             {
                 Log.Instance.log($"Error reading dataref {datarefPath}: {ex.Message}", LogSeverity.Error);
-                return 0;
+                return (double)0;
             }
         }
 
@@ -517,7 +528,7 @@ mutation {{
                     }
                     else if (targetDataType == "System.Boolean")
                     {
-                        transformedValue = Convert.ToInt32(value) > 0;
+                        transformedValue = Convert.ToBoolean(value);
                     }
                 }
                 catch

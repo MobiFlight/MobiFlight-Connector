@@ -6,9 +6,8 @@ import {
 import { Button } from "./ui/button"
 import { useExecutionStateStore } from "@/stores/executionStateStore"
 import { useSettingsStore } from "@/stores/settingsStore"
-import { publishOnMessageExchange, useAppMessage } from "@/lib/hooks/appMessage"
+import { publishOnMessageExchange } from "@/lib/hooks/appMessage"
 import { CommandProjectToolbarPayload } from "@/types/commands"
-import { ExecutionState } from "@/types/messages"
 import IconAutoRun from "./icons/IconAutoRun"
 import TwoStateIcon from "./icons/TwoStateIcon"
 import ToolTip from "./ToolTip"
@@ -17,7 +16,7 @@ import { useTranslation } from "react-i18next"
 export const ExecutionToolbar = () => {
   const { t } = useTranslation()
   const { settings } = useSettingsStore()
-  const { isRunning, isTesting, setIsRunning, setIsTesting } =
+  const { isRunning, isTesting } =
     useExecutionStateStore()
   const { publish } = publishOnMessageExchange()
 
@@ -27,13 +26,6 @@ export const ExecutionToolbar = () => {
       payload: payload,
     })
   }
-
-  useAppMessage("ExecutionState", (message) => {
-    console.log("ExecutionState message received", message.payload)
-    const { IsRunning, IsTesting } = message.payload as ExecutionState
-    setIsRunning(IsRunning)
-    setIsTesting(IsTesting)
-  })
 
   return (
     <div className="flex items-center gap-2" role="toolbar">

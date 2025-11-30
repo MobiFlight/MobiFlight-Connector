@@ -1,5 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Base;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 namespace MobiFlight.UI.Tests
@@ -43,20 +46,35 @@ namespace MobiFlight.UI.Tests
         {
             // Arrange
             InitializeExecutionManager();
-            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be false when starting with a fresh project.");
+            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be False when initializing MainForm.");
 
-            // bring it into dirty state
-            _mainForm.AddNewFileToProject();
-            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be True after adding a new file to project.");
+            _mainForm.CreateNewProject(new Project());
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be True when creating a new project.");
+
+            // save it to bring it into clean state
+            var tempFilePath = Path.Combine(Path.GetTempPath(), $"test_project_{Guid.NewGuid()}.mfproj");
+            try
+            {
+                var saveMethod = typeof(MainForm).GetMethod("SaveConfig", BindingFlags.NonPublic | BindingFlags.Instance);
+                saveMethod.Invoke(_mainForm, new object[] { tempFilePath });
+                Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be false when the project has been saved.");
+            }
+            finally
+            {
+                if (File.Exists(tempFilePath))
+                {
+                    File.Delete(tempFilePath);
+                }
+            }
 
             // Act
-            _mainForm.CreateNewProject();
+            _mainForm.CreateNewProject(new Project());
 
             // Assert
-            Assert.IsFalse(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be false when starting with a fresh project.");
+            Assert.IsTrue(_mainForm.ProjectHasUnsavedChanges, "ProjectHasUnsavedChanges should be true when starting with a fresh project.");
 
             var mainFormTitle = _mainForm.Text;
-            var expectedTitle = $"New Project - MobiFlight Connector - {MainForm.DisplayVersion()}";
+            var expectedTitle = $"New MobiFlight Project* - MobiFlight Connector - {MainForm.DisplayVersion()}";
             Assert.AreEqual(expectedTitle, mainFormTitle);
         }
 

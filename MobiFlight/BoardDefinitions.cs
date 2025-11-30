@@ -1,14 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using System.Xml;
-using System.Xml.Serialization;
-using Newtonsoft.Json.Schema;
 
 namespace MobiFlight
 {
@@ -20,6 +15,11 @@ namespace MobiFlight
         public static bool LoadingError = false;
 
         private static List<Board> boards = new List<Board>();
+
+        public static List<Board> Boards
+        {
+            get { return boards; }
+        }
 
         /// <summary>
         /// Finds a board definition by matching against USB drive volume label. This does not check for the

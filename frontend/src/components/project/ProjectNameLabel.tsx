@@ -1,5 +1,5 @@
 import { useProjectStore } from "@/stores/projectStore"
-import { IconDotsVertical, IconPencil } from "@tabler/icons-react"
+import { IconDotsVertical, IconPencil, IconSettings } from "@tabler/icons-react"
 import { useTranslation } from "react-i18next"
 import { Button } from "../ui/button"
 import { useEffect, useRef, useState } from "react"
@@ -14,6 +14,8 @@ import {
 import { AnimatedSaveButton } from "../ui/AnimatedSaveButton"
 import { InlineEditLabel, InlineEditLabelRef } from "../InlineEditLabel"
 import { Project } from "@/types"
+import { useProjectModal } from "@/lib/hooks/useProjectModal"
+import { ProjectInfo } from "@/types/project"
 
 export type ProjectNameLabelProps = {
   project: Project | null
@@ -49,6 +51,11 @@ const ProjectNameLabel = () => {
         value: newName,
       },
     } as CommandProjectToolbar)
+  }
+
+  const { showOverlay } = useProjectModal()
+  const handleSettingsClick = () => {
+    showOverlay({ mode: "edit", project: project as ProjectInfo })
   }
 
   return (
@@ -87,6 +94,12 @@ const ProjectNameLabel = () => {
             >
               <IconPencil />
               {t("Project.File.Action.Rename")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={handleSettingsClick}
+            >
+              <IconSettings />
+              {t("Project.Toolbar.Settings")}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

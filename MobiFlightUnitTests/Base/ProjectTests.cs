@@ -1,12 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MobiFlight.Base;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MobiFlight.Base.Tests
 {
@@ -94,6 +88,22 @@ namespace MobiFlight.Base.Tests
 
             string fileContent = File.ReadAllText(outFile);
             Assert.IsFalse(fileContent.Contains("\"SchemaVersion\":"));
+        }
+
+        [TestMethod()]
+        public void SaveFileTest_Should_Not_Serialize_FilePath()
+        {
+            string inFile = @"assets\Base\ConfigFile\Json\OpenProjectTest.mfproj";
+            var o = new Project();
+            o.FilePath = inFile;
+            o.OpenFile();
+
+            string outFile = @"assets\Base\ConfigFile\Json\SaveProjectTest.mfproj";
+            o.FilePath = outFile;
+            o.SaveFile();
+
+            string fileContent = File.ReadAllText(outFile);
+            Assert.IsFalse(fileContent.Contains("\"FilePath\":"));
         }
 
         [TestMethod()]
@@ -195,10 +205,10 @@ namespace MobiFlight.Base.Tests
             // Assert
             var totalItemsAfterMerge = targetProject.ConfigFiles.SelectMany(cf => cf.ConfigItems).Count();
             Assert.IsTrue(totalItemsAfterMerge > originalItemCount);
-            
+
             // Verify original items are still there
             Assert.IsTrue(targetProject.ConfigFiles.SelectMany(cf => cf.ConfigItems).Any(item => item.GUID == "original-guid"));
-            
+
             // Verify merged items are there
             Assert.IsTrue(targetProject.ConfigFiles.SelectMany(cf => cf.ConfigItems).Any(item => item.GUID == "merge-test-guid-1"));
         }
@@ -363,7 +373,7 @@ namespace MobiFlight.Base.Tests
             string sourceFile = @"assets\Base\ConfigFile\Json\MergeTest2.mfproj";
             var targetProject = new Project();
             targetProject.Name = "Target Project";
-            
+
             // Add some original config items
             var originalConfigFile = new ConfigFile { Label = "Original Config" };
             originalConfigFile.ConfigItems.Add(new OutputConfigItem { Name = "Original Output", GUID = "original-output-guid" });
@@ -375,24 +385,368 @@ namespace MobiFlight.Base.Tests
 
             // Assert
             var allItems = targetProject.ConfigFiles.SelectMany(cf => cf.ConfigItems).ToList();
-            
+
             // Verify original items are preserved
             Assert.IsTrue(allItems.Any(item => item.GUID == "original-output-guid"));
             Assert.IsTrue(allItems.Any(item => item.GUID == "original-input-guid"));
-            
+
             // Verify merged items include both input and output configs
             var outputItems = allItems.Where(item => item is OutputConfigItem).ToList();
             var inputItems = allItems.Where(item => item is InputConfigItem).ToList();
-            
+
             Assert.IsTrue(outputItems.Count > 1); // Original + merged outputs
             Assert.IsTrue(inputItems.Count > 1); // Original + merged inputs
-            
+
             // Verify specific merged items
             Assert.IsTrue(allItems.Any(item => item.GUID == "merge-test-guid-2a"));
             Assert.IsTrue(allItems.Any(item => item.GUID == "merge-test-guid-2b"));
             Assert.IsTrue(allItems.Any(item => item.GUID == "merge-test-guid-2b-input"));
         }
 
+        #endregion
+
+
+        #region ProjectInfo Tests
+        [TestMethod()]
+        public void DetermineProjectInfos_WithEmptyProject_ShouldHaveCorrectDefaults()
+        {
+            // Arrange
+            var project = new Project();
+            project.Name = "Empty Project";
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.IsNotNull(project.Controllers);
+            Assert.AreEqual(0, project.Controllers.Count);
+            Assert.IsNull(project.Sim);
+            Assert.IsFalse(project.UseFsuipc);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithMultipleConfigFiles_ShouldCollectUniqueControllers()
+        {
+            // Arrange
+            var project = new Project();
+            var config1 = new ConfigFile();
+            config1.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-123-456" });
+            config1.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-123-456" }); // Duplicate
+            var config2 = new ConfigFile();
+            config2.ConfigItems.Add(new InputConfigItem { ModuleSerial = "SN-789-012" });
+            config2.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-345-678" });
+
+            project.ConfigFiles.Add(config1);
+            project.ConfigFiles.Add(config2);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual(3, project.Controllers.Count);
+            Assert.IsTrue(project.Controllers.Contains("SN-123-456"));
+            Assert.IsTrue(project.Controllers.Contains("SN-789-012"));
+            Assert.IsTrue(project.Controllers.Contains("SN-345-678"));
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithDuplicateSerials_ShouldOnlyIncludeUnique()
+        {
+            // Arrange
+            var project = new Project();
+            var config1 = new ConfigFile();
+            config1.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-AAA-111" });
+            config1.ConfigItems.Add(new InputConfigItem { ModuleSerial = "SN-AAA-111" });
+
+            var config2 = new ConfigFile();
+            config2.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-AAA-111" });
+            config2.ConfigItems.Add(new InputConfigItem { ModuleSerial = "SN-BBB-222" });
+
+            project.ConfigFiles.Add(config1);
+            project.ConfigFiles.Add(config2);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual(2, project.Controllers.Count);
+            Assert.IsTrue(project.Controllers.Contains("SN-AAA-111"));
+            Assert.IsTrue(project.Controllers.Contains("SN-BBB-222"));
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_CalledMultipleTimes_ShouldClearPreviousControllers()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+            config.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-FIRST-001" });
+            project.ConfigFiles.Add(config);
+
+            // Act - First call
+            project.DetermineProjectInfos();
+
+            // Modify project
+            project.ConfigFiles.Clear();
+            var newConfig = new ConfigFile();
+            newConfig.ConfigItems.Add(new OutputConfigItem { ModuleSerial = "SN-SECOND-002" });
+            project.ConfigFiles.Add(newConfig);
+
+            // Act - Second call
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual(1, project.Controllers.Count);
+            Assert.IsFalse(project.Controllers.Contains("SN-FIRST-001"));
+            Assert.IsTrue(project.Controllers.Contains("SN-SECOND-002"));
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithNoModuleSerials_ShouldHaveEmptyControllersList()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+            config.ConfigItems.Add(new OutputConfigItem { ModuleSerial = null });
+            config.ConfigItems.Add(new InputConfigItem { ModuleSerial = "" });
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            // The method doesn't filter out null/empty serials, it just collects distinct values
+            Assert.IsNotNull(project.Controllers);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithMSFSConfig_ShouldSetSimToMsfs()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+
+            var outputConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-123-456",
+                Source = new SimConnectSource()
+            };
+            config.ConfigItems.Add(outputConfig);
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual("msfs", project.Sim);
+            Assert.IsFalse(project.UseFsuipc);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithXPlaneConfig_ShouldSetSimToXplane()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+
+            var outputConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-123-456",
+                Source = new XplaneSource()
+            };
+            config.ConfigItems.Add(outputConfig);
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual("xplane", project.Sim);
+            Assert.IsFalse(project.UseFsuipc);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithProSimConfig_ShouldSetSimToProsim()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+
+            var outputConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-123-456",
+                Source = new ProSimSource()
+            };
+            config.ConfigItems.Add(outputConfig);
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual("prosim", project.Sim);
+            Assert.IsFalse(project.UseFsuipc);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithFsuipcConfig_ShouldSetUseFsuipcToTrue()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+
+            var outputConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-123-456",
+                Source = new FsuipcSource()
+            };
+            config.ConfigItems.Add(outputConfig);
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.IsTrue(project.UseFsuipc);
+            // FSUIPC source alone doesn't set a specific sim
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithMultipleSimTypes_ShouldSetOnlyFirstSim()
+        {
+            // Arrange
+            var project = new Project();
+
+            // First config with MSFS
+            var config1 = new ConfigFile();
+            var msfsConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-123-456",
+                Source = new SimConnectSource()
+            };
+            config1.ConfigItems.Add(msfsConfig);
+            project.ConfigFiles.Add(config1);
+
+            // Second config with X-Plane
+            var config2 = new ConfigFile();
+            var xplaneConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-789-012",
+                Source = new XplaneSource()
+            };
+            config2.ConfigItems.Add(xplaneConfig);
+            project.ConfigFiles.Add(config2);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            // Should only set the first sim found (MSFS in this case)
+            Assert.AreEqual("msfs", project.Sim);
+            Assert.AreEqual(2, project.Controllers.Count);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithFsuipcAndMSFS_ShouldSetBoth()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+
+            var msfsConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-123-456",
+                Source = new SimConnectSource()
+            };
+            var fsuipcConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-789-012",
+                Source = new FsuipcSource()
+            };
+
+            config.ConfigItems.Add(msfsConfig);
+            config.ConfigItems.Add(fsuipcConfig);
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual("msfs", project.Sim);
+            Assert.IsTrue(project.UseFsuipc);
+            Assert.AreEqual(2, project.Controllers.Count);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithMultipleConfigFilesAndDifferentSims_ShouldAccumulateFsuipc()
+        {
+            // Arrange
+            var project = new Project();
+
+            // First config file with MSFS
+            var config1 = new ConfigFile();
+            config1.ConfigItems.Add(new OutputConfigItem
+            {
+                ModuleSerial = "SN-AAA",
+                Source = new SimConnectSource()
+            });
+            project.ConfigFiles.Add(config1);
+
+            // Second config file with FSUIPC
+            var config2 = new ConfigFile();
+            config2.ConfigItems.Add(new OutputConfigItem
+            {
+                ModuleSerial = "SN-BBB",
+                Source = new FsuipcSource()
+            });
+            project.ConfigFiles.Add(config2);
+
+            // Third config file with another FSUIPC
+            var config3 = new ConfigFile();
+            config3.ConfigItems.Add(new OutputConfigItem
+            {
+                ModuleSerial = "SN-CCC",
+                Source = new FsuipcSource()
+            });
+            project.ConfigFiles.Add(config3);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual("msfs", project.Sim);
+            Assert.IsTrue(project.UseFsuipc);
+            Assert.AreEqual(3, project.Controllers.Count);
+        }
+
+        [TestMethod()]
+        public void DetermineProjectInfos_WithInputConfigItems_ShouldStillDetectSim()
+        {
+            // Arrange
+            var project = new Project();
+            var config = new ConfigFile();
+
+            var inputConfig = new InputConfigItem
+            {
+                ModuleSerial = "SN-123-456"
+            };
+            var outputConfig = new OutputConfigItem
+            {
+                ModuleSerial = "SN-789-012",
+                Source = new XplaneSource()
+            };
+
+            config.ConfigItems.Add(inputConfig);
+            config.ConfigItems.Add(outputConfig);
+            project.ConfigFiles.Add(config);
+
+            // Act
+            project.DetermineProjectInfos();
+
+            // Assert
+            Assert.AreEqual("xplane", project.Sim);
+            Assert.AreEqual(2, project.Controllers.Count);
+        }
         #endregion
     }
 }

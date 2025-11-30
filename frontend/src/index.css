@@ -7,7 +7,7 @@
 @theme {
   --ring-width-2: 1px;
 
-  --breakpoint-md: 49rem;
+  --breakpoint-md: 50rem;
   --breakpoint-lg: 63rem;
   --breakpoint-xl: 74rem;
   --breakpoint-3xl: 99rem;
@@ -199,3 +199,8 @@
     cursor: pointer;
   }
 }
+
+@custom-variant vxs (@media (min-height: 500px));
+@custom-variant vsm (@media (min-height: 650px));
+@custom-variant vlg (@media (min-height: 900px));
+@custom-variant vxl (@media (min-height: 1200px));

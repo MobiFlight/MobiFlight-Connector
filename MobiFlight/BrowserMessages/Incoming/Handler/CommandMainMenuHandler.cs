@@ -17,7 +17,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
             {
                 // File Menu Actions
                 case CommandMainMenuAction.file_new:
-                    _mainForm.newFileToolStripMenuItem_Click(null, null);
+                    _mainForm.newFileToolStripMenuItem_Click(message.Options);
                     break;
                 case CommandMainMenuAction.file_open:
                     _mainForm.loadToolStripMenuItem_Click(null, null);
@@ -29,12 +29,13 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
                     _mainForm.saveAsToolStripMenuItem_Click(null, null);
                     break;
                 case CommandMainMenuAction.file_recent:
-                    if (message.Index < 0 || message.Index >= Properties.Settings.Default.RecentFiles.Count) return;
-                    var filename = Properties.Settings.Default.RecentFiles[message.Index];
-                    if (File.Exists(filename))
-                    {
-                        _mainForm.LoadConfig(filename);
-                    }
+                    var filePath = message.Options?.FilePath != null ? message.Options.FilePath : message.Options?.Project.FilePath;
+                    if (filePath == null) return;
+
+                    _mainForm.LoadConfig(filePath);
+                    break;
+                case CommandMainMenuAction.project_edit:
+                    _mainForm.updateProjectSettings(message.Options.Project);
                     break;
                 case CommandMainMenuAction.file_exit:
                     _mainForm.exitToolStripMenuItem_Click(_mainForm, null);
@@ -80,7 +81,7 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
 
                 case CommandMainMenuAction.help_hubhop:
                     _mainForm.HubHopToolStripButton_Click(null, null);
-                    break;  
+                    break;
 
                 case CommandMainMenuAction.help_about:
                     _mainForm.AboutToolStripMenuItem_Click(null, null);
@@ -97,4 +98,4 @@ namespace MobiFlight.BrowserMessages.Incoming.Handler
         }
     }
 }
-    
+

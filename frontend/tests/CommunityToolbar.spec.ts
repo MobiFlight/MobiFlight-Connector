@@ -5,7 +5,7 @@ test("Confirm community buttons in toolbar behave as expected", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
 
   const CommunityButtons = [

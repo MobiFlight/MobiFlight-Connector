@@ -305,7 +305,15 @@ namespace MobiFlight.Execution
             else if (cfg.Source is ProSimSource)
             {
                 var source = cfg.Source as ProSimSource;
-                result.Float64 = proSimCache.readDataref(source.ProSimDataRef.Path);
+                var datarefValue = proSimCache.readDataref(source.ProSimDataRef.Path);
+                if (datarefValue is string)
+                {
+                    result.String = datarefValue as string;
+                }
+                else
+                {
+                    result.Float64 = (double)datarefValue;
+                }
             }
             else
             {

@@ -32,6 +32,7 @@
     "InputAction": "Input Action"
   },
   "Project": {
+    "Label": "Project",
     "File.Action": {
       "Add": "Add file",
       "New": "Add new file",
@@ -45,7 +46,8 @@
         "HasChanges": "Save changes",
         "NoChanges": "No changes to save",
         "Success": "Saved successfully"
-      }
+      },
+      "Settings": "Settings"
     },
     "Execution": {
       "AutoRun": {
@@ -67,6 +69,63 @@
         "StopMode": "Stop test mode execution",
         "BlockedByRun": "Run mode active. Stop it first."
       }
+    },
+    "Simulator": {
+      "msfs": "Microsoft Flight Simulator",
+      "xplane": "X-Plane",
+      "p3d": "Prepar3D",
+      "fsx": "FSX / FS2004",
+      "none": "No simulator"
+    },
+    "Card": {
+      "Main": {
+        "Title": "My Projects",
+        "Description": "Quick access to my projects.",
+        "AllProjects": "All Projects",
+        "CurrentProject": "Current project",
+        "NoActiveProject": "No project is currently loaded.",
+        "CreateFirstProject": "Create your first project to get started!"
+      },
+      "Filter": {
+        "Search": {
+          "Placeholder": "Filter projects..."
+        }
+      },
+      "NoActiveProjectHint": "Open one of your recent projects from the right, or create a new project to get started."
+    },
+    "Form": {
+      "Title": {
+        "New": "Create new project",
+        "Edit": "Edit project" 
+      },
+      "Description": "Configure your project settings, like name, simulator and aircraft.",
+      "Name": {
+        "Label": "Project Name",
+        "Placeholder": "e.g., Boeing 737 Home Cockpit",
+        "Error": {
+          "Required": "Please provide a name for your project. It is required."
+        }
+      },
+      "Simulator" : {
+        "Label": "Flight simulator",
+        "HelpText": "Select the primary simulator for this project.",
+        "UseFsuipc": "Use FSUIPC"
+      },
+      "Aircraft": {
+        "Label": "Aircraft",
+        "HelpText": "Select the aircraft for this project."
+      },
+      "Buttons": {
+        "Create": "Create project",
+        "Update": "Update project",
+        "Cancel": "Cancel"
+      }
+    },
+    "UnsavedChanges": {
+      "Title": "Unsaved changes",
+      "Description": "You have unsaved changes in your project. What would you like to do?",
+      "Save": "Save changes",
+      "Discard": "Discard changes"
     }
   },
   "ConfigList": {

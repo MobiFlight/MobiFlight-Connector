@@ -25,6 +25,9 @@ namespace MobiFlight.BrowserMessages.Publisher
                 // Ensure the call is made on the UI thread
                 _webView.PostWebMessageAsJsonThreadSafe(jsonMessage);
             }
+            else {
+                Log.Instance.log("WebView not available right now.", LogSeverity.Debug);
+            }
         }
 
         public void OnMessageReceived(Action<string> callback)

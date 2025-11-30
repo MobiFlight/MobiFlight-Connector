@@ -1,4 +1,4 @@
-import { AppMessage, Project, IConfigItem } from "@/types"
+import { AppMessage, IConfigItem } from "@/types"
 import { MobiFlightPage } from "./MobiFlightPage"
 import testdata from "../data/configlist.testdata.json" with { type: "json" }
 import testProject from "../data/project.testdata.json" with { type: "json" }
@@ -26,39 +26,6 @@ export class ConfigListPage {
     await this.mobiFlightPage.page.goto("http://localhost:5173/config", {
       waitUntil: "networkidle",
     })
-  }
-
-  async initWithEmptyData() {
-    const message: AppMessage = {
-      key: "Project",
-      payload: {
-        Name: "Test Project",
-        FilePath: "SomeFilePath.mfproj",
-        ConfigFiles: [],
-      } as Project,
-    }
-    await this.mobiFlightPage.publishMessage(message)
-  }
-
-  async initWithTestData() {
-    const message: AppMessage = {
-      key: "Project",
-      payload: testProject,
-    }
-    await this.mobiFlightPage.publishMessage(message)
-  }
-
-  async initWithTestDataAndSpecificProjectName(name: string) {
-    const testProjectWithName = {
-      ...testProject,
-      Name: name,
-    }
-
-    const message: AppMessage = {
-      key: "Project",
-      payload: testProjectWithName,
-    }
-    await this.mobiFlightPage.publishMessage(message)
   }
 
   async initControllerDefinitions() {

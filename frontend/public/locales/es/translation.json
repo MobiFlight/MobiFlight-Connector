@@ -32,6 +32,7 @@
     "InputAction": "Acción de entrada"
   },
   "Project": {
+    "Label": "Proyecto",
     "File.Action": {
       "Add": "Añadir nuevo archivo",
       "New": "Nuevo archivo",
@@ -45,7 +46,8 @@
         "HasChanges": "Guardar cambios",
         "NoChanges": "No hay cambios para guardar",
         "Success": "Cambios guardados con éxito"
-      }
+      },
+      "Settings": "Configuración"
     },
     "Execution": {
       "AutoRun": {
@@ -67,6 +69,63 @@
         "StopMode": "Parar ejecución del modo de prueba",
         "BlockedByRun": "Modo de ejecución activo. Páralo primero."
       }
+    },
+    "Simulator": {
+      "msfs": "Microsoft Flight Simulator",
+      "xplane": "X-Plane",
+      "p3d": "Prepar3D",
+      "fsx": "FSX / FS2004",
+      "none": "Ningún simulador"
+    },
+    "Card": {
+      "Main": {
+        "Title": "Mis Proyectos",
+        "Description": "Acceso rápido a mis proyectos.",
+        "AllProjects": "Todos los Proyectos",
+        "CurrentProject": "Proyecto actual",
+        "NoActiveProject": "No hay ningún proyecto cargado actualmente.",
+        "CreateFirstProject": "¡Crea tu primer proyecto para comenzar!"
+      },
+      "Filter": {
+        "Search": {
+          "Placeholder": "Filtrar proyectos..."
+        }
+      },
+      "NoActiveProjectHint": "Abre uno de tus proyectos recientes desde la derecha, o crea un nuevo proyecto para comenzar."
+    },
+    "Form": {
+      "Title": {
+        "New": "Crear nuevo proyecto",
+        "Edit": "Editar proyecto"
+      },
+      "Description": "Configurar tu proyecto, definir nombre, simulador y avión.",
+      "Name": {
+        "Label": "Nombre del proyecto",
+        "Placeholder": "ej., Boeing 737 Home Cockpit",
+        "Error": {
+          "Required": "Por favor, pon un nombre para tu proyecto. Es obligatorio."
+        }
+      },
+      "Simulator" : {
+        "Label": "Simulador de vuelo",
+        "HelpText": "Selecciona el simulador principal para este proyecto.",
+        "UseFsuipc": "Usar FSUIPC"
+      },
+      "Aircraft": {
+        "Label": "Avión",
+        "HelpText": "Selecciona el avión para este proyecto."
+      },
+      "Buttons": {
+        "Create": "Crear proyecto",
+        "Update": "Actualizar proyecto",
+        "Cancel": "Cancelar"
+      }
+    },
+    "UnsavedChanges": {
+      "Title": "Cambios pendientes",
+      "Description": "Tienes cambios pendientes en tu proyecto. ¿Qué te gustaría hacer?",
+      "Save": "Guardar cambios",
+      "Discard": "Descartar cambios"
     }
   },
   "ConfigList": {
@@ -107,7 +166,7 @@
     "Cell": {
       "Waiting": "Esperando",
       "Controller": {
-        "openInSettings": "Abrir opciones de controlador.",
+        "openInSettings": "Abrir configuración de controlador.",
         "not set": "Esta configuración no está usando ningún controlador."
       },
       "Device": {

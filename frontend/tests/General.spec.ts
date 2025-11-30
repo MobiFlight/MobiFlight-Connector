@@ -6,7 +6,7 @@ test("Confirm HubHop update notifications show correctly", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
   const hubhopToast = page.getByTestId("toast-hubhop-auto-update")
   await expect(hubhopToast).not.toBeVisible()

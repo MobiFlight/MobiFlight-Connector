@@ -1,42 +1,29 @@
 // import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { columns } from "@/components/tables/config-item-table/config-item-table-columns"
-import { useCallback, useEffect } from "react"
+import { useCallback } from "react"
 import { useAppMessage } from "@/lib/hooks/appMessage"
 import {
   ConfigValueFullUpdate,
   ConfigValuePartialUpdate,
   ConfigValueRawAndFinalUpdate,
 } from "@/types/messages"
-import testProject from "@/../tests/data/project.testdata.json" with { type: "json" }
-import testJsDefinition from "@/../tests/data/joystick.definition.json" with { type: "json" }
-import testMidiDefinition from "@/../tests/data/midicontroller.definition.json" with { type: "json" }
-import { IConfigItem, Project } from "@/types"
-import { useSearchParams } from "react-router"
+import { IConfigItem } from "@/types"
 import { useProjectStore } from "@/stores/projectStore"
-import { useControllerDefinitionsStore } from "@/stores/definitionStore"
-import {
-  JoystickDefinition,
-  MidiControllerDefinition,
-} from "@/types/definitions"
 import { ConfigItemDragProvider } from "@/components/providers/DragDropProvider"
 import ProjectPanel from "@/components/project/ProjectPanel"
 import { ConfigItemTable } from "@/components/tables/config-item-table/config-item-table"
 
 const ConfigListPage = () => {
-  const [queryParameters] = useSearchParams()
+  
 
   const {
     project,
     activeConfigFileIndex,
     setActiveConfigFileIndex,
-    setProject,
     setConfigItems,
     updateConfigItem,
     updateConfigItems,
   } = useProjectStore()
-
-  const { setJoystickDefinitions, setMidiControllerDefinitions } =
-    useControllerDefinitionsStore()
 
   useAppMessage("ConfigValuePartialUpdate", (message) => {
     console.log("ConfigValuePartialUpdate", message.payload)
@@ -79,23 +66,6 @@ const ConfigListPage = () => {
     setConfigItems(update.ConfigIndex, update.ConfigItems)
   })
 
-  // this is only for easier UI testing
-  // while developing the UI
-  useEffect(() => {  
-    if (
-      process.env.NODE_ENV === "development" &&
-      queryParameters.get("testdata") === "true" &&
-      !project // Only if no project loaded yet
-    ) {
-      setProject(testProject as Project)
-      setJoystickDefinitions([testJsDefinition as JoystickDefinition])
-
-      setMidiControllerDefinitions([
-        testMidiDefinition as MidiControllerDefinition,
-      ])
-    }
-  })
-
   const configItems =
     project?.ConfigFiles[activeConfigFileIndex]?.ConfigItems ?? []
 
@@ -105,7 +75,7 @@ const ConfigListPage = () => {
   }, [project])
 
   return (
-    <div className="flex flex-col gap-4 overflow-y-auto">
+    <div className="flex flex-col gap-2 overflow-y-auto">
       <ConfigItemDragProvider
         initialConfigIndex={activeConfigFileIndex}
         updateConfigItems={setConfigItems}

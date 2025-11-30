@@ -75,9 +75,12 @@ namespace MobiFlight.UI.Panels.Config
         internal void syncFromConfig(OutputConfigItem config)
         {
             if (!(config.Source is Base.ProSimSource)) return;
-            
+
             DatarefPathTextBox.Text = (config.Source as Base.ProSimSource).ProSimDataRef.Path;
             transformOptionsGroup1.syncFromConfig(config);
+
+            // Load datarefs when panel is shown, in case Load event fired before Init
+            LoadDataRefDescriptions();
         }
 
         public void LoadDataRefDescriptions()
@@ -130,6 +133,12 @@ namespace MobiFlight.UI.Panels.Config
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            // Return early if datarefs haven't been loaded yet
+            if (_canReadDataRefDescriptions == null)
+            {
+                return;
+            }
+
             if (!textBox1.Text.IsNullOrEmpty()) {
                 var words = textBox1.Text.Split(' ').Select(w => w.ToLower()).ToArray();
                 _canReadDataRefDescriptionsFiltered = _canReadDataRefDescriptions
@@ -145,10 +154,13 @@ namespace MobiFlight.UI.Panels.Config
 
         private void dataGridView1_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            if (!_isLoading && dataGridView1.SelectedRows.Count > 0) 
+            if (!_isLoading && dataGridView1.SelectedRows.Count > 0)
             {
                 var drd = dataGridView1.Rows[e.RowIndex].DataBoundItem as DataRefDescription;
-                DatarefPathTextBox.Text = drd.Name;
+                if (drd != null)
+                {
+                    DatarefPathTextBox.Text = drd.Name;
+                }
             }
         }
     }

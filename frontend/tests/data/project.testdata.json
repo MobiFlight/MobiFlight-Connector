@@ -545,5 +545,13 @@
     }
   ],
   "Name": "Test Project",
-  "FilePath": "tests/data/project.testdata.json"
+  "FilePath": "tests/data/project.testdata.json",
+  "Sim": "msfs",
+  "Aircraft": [],
+  "Controllers": [
+    "miniCOCKPIT miniFCU/ SN-E98-277",
+    "ProtoBoard-v2/ SN-3F1-FDD",
+    "Bravo Throttle Quadrant / JS-b0875190-3b89-11ed-8007-444553540000"
+  ],
+  "UseFsuipc": false
 }

@@ -1,5 +1,5 @@
 import i18n from "i18next"
-import Backend from "i18next-http-backend"
+import Backend, { HttpBackendOptions } from "i18next-http-backend"
 import LanguageDetector from "@/lib/languageDetector"
 import { initReactI18next } from "react-i18next"
 
@@ -7,7 +7,10 @@ export default i18n
   .use(LanguageDetector)
   .use(Backend)
   .use(initReactI18next)
-  .init({
+  .init<HttpBackendOptions>({
     fallbackLng: "en",
     debug: true,
+    maxRetries: 2,
+    retryTimeout: 100,
+    load: "languageOnly"
   })

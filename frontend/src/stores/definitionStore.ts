@@ -1,4 +1,5 @@
 import {
+  BoardDefinition,
   calculateNamesAndLabelsForMidiController,
   JoystickDefinition,
   MidiControllerDefinition,
@@ -6,8 +7,10 @@ import {
 import { create } from "zustand"
 
 interface ControllerDefinitionState {
+  BoardDefinitions: BoardDefinition[]
   JoystickDefinitions: JoystickDefinition[]
   MidiControllerDefinitions: MidiControllerDefinition[]
+  setBoardDefinitions: (definitions: BoardDefinition[]) => void
   setJoystickDefinitions: (definitions: JoystickDefinition[]) => void
   setMidiControllerDefinitions: (
     definitions: MidiControllerDefinition[],
@@ -16,8 +19,11 @@ interface ControllerDefinitionState {
 
 export const useControllerDefinitionsStore = create<ControllerDefinitionState>(
   (set) => ({
+    BoardDefinitions: [],
     JoystickDefinitions: [],
     MidiControllerDefinitions: [],
+    setBoardDefinitions: (definitions) =>
+      set({ BoardDefinitions: definitions }),
     setJoystickDefinitions: (definitions) =>
       set({ JoystickDefinitions: definitions }),
     setMidiControllerDefinitions: (definitions) => {

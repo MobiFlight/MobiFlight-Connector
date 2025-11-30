@@ -280,7 +280,7 @@ export function ConfigItemTable<TValue>({
   ])
 
   return (
-    <div className="flex grow flex-col gap-2 overflow-y-auto">
+    <div className="flex grow flex-col gap-2 overflow-y-auto px-2">
       <div className="flex grow flex-col gap-2 overflow-y-auto">
         <div className="p-1">
           <DataTableToolbar

@@ -7,7 +7,7 @@ test("Confirm save menu item behaves as expected", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
   const FileMenu = page.getByRole("menubar").getByRole("menuitem", { name: "File" })
   await expect(FileMenu).toBeVisible()
@@ -34,7 +34,7 @@ test("Confirm accelerator keys are working correctly", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandMainMenu")
 
   for(const accelerator of GlobalKeyAccelerators) {

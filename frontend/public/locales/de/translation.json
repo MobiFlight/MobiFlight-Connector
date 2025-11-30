@@ -32,6 +32,7 @@
     "InputAction": "Input Action"
   },
   "Project" : {
+    "Label": "Projekt",
     "File.Action" : {
       "Add": "Datei hinzufügen",
       "New": "Neue Datei",
@@ -45,7 +46,8 @@
         "HasChanges": "Änderungen speichern",
         "NoChanges": "Keine Änderungen zum Speichern",
         "Success": "Erfolgreich gespeichert"
-      }
+      },
+      "Settings": "Einstellungen"
     },
     "Execution": {
       "AutoRun": {
@@ -67,6 +69,63 @@
         "StopMode": "Testmodus-Ausführung stoppen",
         "BlockedByRun": "Ausführungsmodus ist aktiv. Stoppe ihn zuerst."
       }
+    },
+    "Simulator": {
+      "msfs": "Microsoft Flight Simulator",
+      "xplane": "X-Plane",
+      "p3d": "Prepar3D",
+      "fsx": "FSX / FS2004",
+      "none": "No simulator"
+    },
+    "Card": {
+      "Main": {
+        "Title": "Meine Projekte",
+        "Description": "Schnellzugriff auf meine Projekte.",
+        "AllProjects": "Alle Projekte",
+        "CurrentProject": "Aktuelles Projekt",
+        "NoActiveProject": "Derzeit ist kein Projekt geladen.",
+        "CreateFirstProject": "Erstelle mein erstes Projekt, um zu starten!"
+      },
+      "Filter": {
+        "Search": {
+          "Placeholder": "Projekte filtern..."
+        }
+      },
+      "NoActiveProjectHint": "Öffne eines meiner letzten Projekte rechts oder erstelle ein neues Projekt, um loszulegen."
+    },
+    "Form": {
+      "Title": {
+        "New": "Neues Projekt erstellen",
+        "Edit": "Projekt bearbeiten" 
+      },
+      "Description": "Konfiguriere deine Projekteinstellungen, wie Name, Simulator und Flugzeugtyp.",
+      "Name": {
+        "Label": "Projektname",
+        "Placeholder": "z.B., Boeing 737 Home Cockpit",
+        "Error": {
+          "Required": "Bitte gib einen Namen für dein Projekt an. Dieser ist erforderlich."
+        }
+      },
+      "Simulator" : {
+        "Label": "Flugsimulator",
+        "HelpText": "Wähle den primären Simulator für dieses Projekt aus.",
+        "UseFsuipc": "Verwende FSUIPC"
+      },
+      "Aircraft": {
+        "Label": "Flugzeug",
+        "HelpText": "Wähle das Flugzeug für dieses Projekt aus."
+      },
+      "Buttons": {
+        "Create": "Projekt erstellen",
+        "Update": "Projekt aktualisieren",
+        "Cancel": "Abbrechen"
+      }
+    },
+    "UnsavedChanges": {
+      "Title": "Ungespeicherte Änderungen",
+      "Description": "Du hast ungespeicherte Änderungen in deinem Projekt. Was möchtest du tun?",
+      "Save": "Jetzt speichern",
+      "Discard": "Änderungen verwerfen"
     }
   },
   "ConfigList": {

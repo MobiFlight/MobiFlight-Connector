@@ -6,7 +6,7 @@ test("Confirm project name can be renamed", async ({
   page,
 }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
   const projectNameLabel = page.getByTestId("project-name-label")
   await expect(projectNameLabel.getByText("Test Project")).toBeVisible()
@@ -42,7 +42,7 @@ test.describe("Test execution toolbar", () => {
   
   test.beforeEach(async ({ configListPage, page }) => {
     await configListPage.gotoPage()
-    await configListPage.initWithTestData()
+    await configListPage.mobiFlightPage.initWithTestData()
     toolbar = page.getByRole("toolbar").first()
     await expect(toolbar).toBeVisible()
   })
@@ -143,7 +143,7 @@ test.describe("Test execution toolbar", () => {
 
 test("Confirm file tabs count is correct", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
 
   const tabs = page.getByRole("tablist").getByRole("tab", { name: "Config" })
   await expect(tabs).toHaveCount(3)
@@ -151,7 +151,7 @@ test("Confirm file tabs count is correct", async ({ configListPage, page }) => {
 
 test("Confirm file tab actions work", async ({ configListPage, page }) => {
   await configListPage.gotoPage()
-  await configListPage.initWithTestData()
+  await configListPage.mobiFlightPage.initWithTestData()
   await configListPage.mobiFlightPage.trackCommand("CommandActiveConfigFile")
 
   // Select the second tab
