@@ -23,6 +23,7 @@ import urllib.request
 import websockets
 from enum import StrEnum
 from typing import List, Dict
+import base64
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -259,10 +260,10 @@ async def handle_dataref_updates(queue: asyncio.Queue, device: CduDevice):
                             # Decode the line text
                             if isinstance(value, str):
                                 # Handle base64 encoded strings if necessary
-                                import base64
                                 try:
                                     line_text = base64.b64decode(value).decode('utf-8', errors='ignore')
-                                except:
+                                except Exception as e:
+                                    logging.warning(f"Base64 decode failed for line {line_num + 1}: {e}")
                                     line_text = value
                             else:
                                 line_text = str(value)
