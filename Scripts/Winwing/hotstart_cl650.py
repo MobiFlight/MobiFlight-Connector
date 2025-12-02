@@ -30,7 +30,7 @@ import logging
 import urllib.request
 import websockets
 from enum import StrEnum, IntEnum
-from typing import TypedDict
+from typing import TypedDict, TypeAlias
 
 CDU_COLUMNS = 24
 CDU_ROWS = 14
@@ -53,7 +53,7 @@ class LineData(TypedDict):
     style: bytes
 
 # defines shape of dict containing all information from CDU datarefs, essentially 15 elements with indexes 0 through 14 with values being LineData
-type CduData = dict[int, LineData] 
+CduData: TypeAlias = dict[int, LineData] 
 
 class CduCharacterSize(IntEnum):
     LARGE = 0
@@ -155,13 +155,15 @@ def generate_display_json(cdu_data: CduData) -> str:
         character_styles = list(cdu_data[row]["style"])
         row_text = cdu_data[row]["text"]
 
-        
-        for character_index in range(CDU_COLUMNS):
-            if len(row_text) == 0:
+        if len(row_text) == 0:
+            for _ in range(CDU_COLUMNS):
                 display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up empty line if text was empty
-            elif character_index < len(row_text): # or populate text with styles
-                display_data.append((row_text[character_index], CduCharacterColor.from_style(character_styles[character_index]), CduCharacterSize.from_style(character_styles[character_index])))
-
+        else: 
+            for character_index in range(CDU_COLUMNS):
+                if character_index < len(row_text): # or populate text with styles
+                    display_data.append((row_text[character_index], CduCharacterColor.from_style(character_styles[character_index]), CduCharacterSize.from_style(character_styles[character_index])))
+                else:
+                    display_data.append((" ", CduCharacterColor.WHITE, CduCharacterSize.SMALL)) # fill up rest of characters, but this is very unlikely to hit as datarefs have full characters
 
     return json.dumps({"Target": "Display", "Data": display_data})
 
@@ -189,7 +191,7 @@ def process_datarefs(values: dict[str, str]) -> CduData:
             try:
                 value = base64.b64decode(dataref_value).decode().replace("\x00","")
                 results[line_number]["text"] = value
-            except:
+            except Exception:
                 logging.exception("error decoding text line dataref value from base64: %s", dataref_value)
                 continue
 
@@ -198,7 +200,7 @@ def process_datarefs(values: dict[str, str]) -> CduData:
             try:
                 value = base64.b64decode(dataref_value)
                 results[line_number]["style"] = bytes(value)
-            except:
+            except Exception:
                 logging.exception("error decoding style line dataref value from base64: %s", dataref_value)
                 continue
 
@@ -318,6 +320,7 @@ async def get_available_devices() -> list[CduDevice]:
                 )
                 available_devices.append(device)
                 await socket.send(FONT_REQUEST)
+                await asyncio.sleep(1) # wait a second for font to be set
         except websockets.WebSocketException:
             logging.warning(
                 "Attempted to probe CDU device %s at endpoint %s but device wasn't available",
