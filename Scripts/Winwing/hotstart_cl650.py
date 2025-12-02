@@ -7,7 +7,7 @@ In order to support multiple CDU devices seamlessly, a dynamic approach is taken
 A device is considered "supported" if it exists in the aircraft. Some aircraft have 3 CDUs while others have 2.
 Datarefs of interest follow the pattern:
 CL650/CDU/<CDU Number>/screen/text_lineX - text lines where X is from 0 to 14
-CL650/CDU/<CDU Number>/screen/style_lineX - character styles lines where X is from 0 to 14, bytes type with 24 element, each element representing type for each character
+CL650/CDU/<CDU Number>/screen/style_lineX - character styles lines where X is from 0 to 14, bytes type with 24 elements, each element representing type for each character
 
 
 Upon script start, MobiFlight is probed (get_available_devices()) to detect the devices connected to the PC. Any device that returns a successful response is then tracked.
