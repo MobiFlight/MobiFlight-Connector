@@ -217,6 +217,65 @@ namespace MobiFlight.Base.Migration.Tests
             Assert.AreEqual(1, configFile.ConfigItems.Count);
         }
 
+        [TestMethod]
+        public void OpenFile_ModernJsonProject_ShouldRemoveEmptyPreconditions()
+        {
+            // Arrange
+            var modernProjectJson = JsonConvert.SerializeObject(new
+            {
+                _version = "0.8",
+                Name = "Modern Project",
+                ConfigFiles = new[]
+                {
+                    new
+                    {
+                        Label = "Modern Config",
+                        EmbedContent = true,
+                        ConfigItems = new[]
+                        {
+                            new
+                            {
+                                Name = "Modern Output",
+                                Type = "OutputConfigItem",
+                                GUID = "modern-guid-456",
+                                Preconditions = new[]
+                                {
+                                    new
+                                    {
+                                        type = "none",
+                                        serial = null as string,
+                                        @ref = null as string,
+                                        pin = null as string,
+                                        operand = "=",
+                                        value = null as string,
+                                        logic = "and",
+                                        active = true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }, Formatting.Indented);
+
+            var testProjectFile = Path.Combine(_testDirectory, "modern_project.mfproj");
+            File.WriteAllText(testProjectFile, modernProjectJson);
+
+            // Act
+            var project = new Project();
+            project.FilePath = testProjectFile;
+            project.OpenFile();
+
+            // Assert
+            Assert.AreEqual("Modern Project", project.Name);
+            Assert.AreEqual(1, project.ConfigFiles.Count);
+
+            var configFile = project.ConfigFiles[0];
+            Assert.AreEqual("Modern Config", configFile.Label);
+            Assert.AreEqual(1, configFile.ConfigItems.Count);
+            Assert.AreEqual(0, configFile.ConfigItems[0].Preconditions.Count);
+        }
+
         #endregion
 
         #region OriginalVersion Tests

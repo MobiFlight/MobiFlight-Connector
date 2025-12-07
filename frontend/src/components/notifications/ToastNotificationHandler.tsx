@@ -12,7 +12,7 @@ export const ToastNotificationHandler = () => {
   useAppMessage("Notification", (message) => {
     const notification = message.payload as Notification
     const controllerType = notification.Context?.Type ?? "Board"
-
+    
     switch (notification.Event) {
       case "MissingControllerDetected":
         toast({
@@ -29,6 +29,18 @@ export const ToastNotificationHandler = () => {
             },
           },
         })
+        break
+
+      case "ProjectFileExtensionMigrated":
+        toast({
+          id: "file-extension-migrated",
+          title: "Your project just got better!",
+          description: `We have automatically migrated your project to use the new "Project" extension. You don't have to do anything. All safe and sound!`,
+        })
+        break
+
+      default:
+        console.log("Unhandled notification event:", notification.Event)
         break
     }
   })

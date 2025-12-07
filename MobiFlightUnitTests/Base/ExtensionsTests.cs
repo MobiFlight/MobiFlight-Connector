@@ -1,4 +1,5 @@
-﻿using Hid.Net;
+﻿using MobiFlight.Base;
+using Hid.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -68,6 +69,22 @@ namespace MobiFlight.Base.Tests
             Assert.IsFalse(s1.AreEqual(s2));
             s2 = "Hello";
             Assert.IsTrue(s1.AreEqual(s2));
+        }
+
+        [TestMethod()]
+        public void IsValidUrlTest()
+        {
+            var link1 = "https://www.mobiflight.com";
+            Assert.IsTrue(link1.IsValidUrl(), "The URL should be valid.");
+
+            var link2 = "invalid-url";
+            Assert.IsFalse(link2.IsValidUrl(), "The URL should be invalid.");
+
+            var link3 = "ftp://example.com";
+            Assert.IsFalse(link3.IsValidUrl(), "The URL should be invalid.");
+
+            var link4 = "http://localhost";
+            Assert.IsTrue(link4.IsValidUrl(), "The URL should be valid.");
         }
     }
 }

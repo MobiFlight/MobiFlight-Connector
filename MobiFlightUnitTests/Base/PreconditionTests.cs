@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MobiFlight;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -146,6 +147,33 @@ namespace MobiFlight.Tests
 
             o2 = _generateTestObject();
             Assert.IsTrue(o1.Equals(o2));
+        }
+
+        [TestMethod]
+        public void Empty_Precondition_ShouldSerializeAsEmptyString()
+        {
+            // Arrange
+            var p = new Precondition(); // defaults to Type == "none" and other fields null
+
+            // Act
+            var json = JsonConvert.SerializeObject(p);
+
+            // Assert
+            Assert.AreEqual("", json, "Empty Precondition must be serialized to empty when the converter is enabled.");
+        }
+
+        [TestMethod]
+        public void NonEmpty_Precondition_ShouldNotSerializeAsEmptyString()
+        {
+            // Arrange
+            var p = _generateTestObject();
+
+            // Act
+            var json = JsonConvert.SerializeObject(p);
+
+            // Assert
+            Assert.AreNotEqual("", json, "Non-empty Precondition must not be serialized to empty when the converter is enabled.");
+            Assert.IsFalse(string.IsNullOrEmpty(json), "Serialized JSON should not be empty.");
         }
     }
 }

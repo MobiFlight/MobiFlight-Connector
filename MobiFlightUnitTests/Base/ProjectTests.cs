@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.Base;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
 
@@ -29,6 +30,52 @@ namespace MobiFlight.Base.Tests
             var outputConfigs = config.ConfigItems.Where(i => i is OutputConfigItem);
             Assert.IsNotNull(outputConfigs);
             Assert.IsTrue(outputConfigs.Count() > 0);
+        }
+
+        [TestMethod()]
+        public void OpenFileTest_Single_Xml_Dont_Load_Empty_Preconditions()
+        {
+            string inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
+            var o = new Project();
+            Assert.IsNotNull(o);
+
+            o.FilePath = inFile;
+            o.OpenFile();
+
+            Assert.IsNotNull(o.ConfigFiles);
+            Assert.IsTrue(o.ConfigFiles.Count > 0);
+
+            var config = o.ConfigFiles[0];
+            var outputConfig = config.ConfigItems.Where(i => i is OutputConfigItem && i.Name == "COM1 Active").First();
+
+            Assert.IsNotNull(outputConfig);
+            Assert.IsTrue(outputConfig as OutputConfigItem != null);
+            var preconditions = (outputConfig as OutputConfigItem).Preconditions;
+
+            Assert.AreEqual(0, preconditions.Count);    
+        }
+
+        [TestMethod()]
+        public void OpenFileTest_Single_Xml_Correctly_Load_Existing_Preconditions()
+        {
+            string inFile = @"assets\Base\ConfigFile\OpenFileTest.xml";
+            var o = new Project();
+            Assert.IsNotNull(o);
+
+            o.FilePath = inFile;
+            o.OpenFile();
+
+            Assert.IsNotNull(o.ConfigFiles);
+            Assert.IsTrue(o.ConfigFiles.Count > 0);
+
+            var config = o.ConfigFiles[0];
+            var outputConfig = config.ConfigItems.Where(i => i is OutputConfigItem && i.Name == "COM1 Standby").First();
+
+            Assert.IsNotNull(outputConfig);
+            Assert.IsTrue(outputConfig as OutputConfigItem != null);
+            var preconditions = (outputConfig as OutputConfigItem).Preconditions;
+
+            Assert.AreEqual(2, preconditions.Count);
         }
 
         [TestMethod()]
@@ -748,5 +795,45 @@ namespace MobiFlight.Base.Tests
             Assert.AreEqual(2, project.Controllers.Count);
         }
         #endregion
+
+        [TestMethod()]
+        public void MigrateFileExtensionTest()
+        {
+            var project = new Project();
+
+            var testExtensions = new[]
+            {
+                "Extension.FilePath.mcc",
+                "Extension.FilePath.MCC",
+                "Extension.FilePath.aic",
+                "Extension.FilePath.AIC",
+                "Extension.FilePath.mfproj",
+            };
+           
+            var mfprojExtension = "Extension.FilePath.mfproj";
+
+            testExtensions.ToList().ForEach(ext =>
+            {
+                project.FilePath = ext;
+                var result = project.MigrateFileExtension();
+                Assert.AreEqual(mfprojExtension, project.FilePath, "Extension was not migrated to .mfproj");
+                Assert.AreEqual(project.FilePath, result, "Return value should be the same as FilePath value");
+            });
+
+            var invalidExtensions = new[]
+            {
+                "Extension.FilePath.txt",
+                "Extension.FilePath.json",
+                "Extension.FilePath.xml",
+                "Extension.FilePath.config",
+            };
+
+            invalidExtensions.ToList().ForEach(ext => {
+                project.FilePath = ext;
+                var result = project.MigrateFileExtension();
+                Assert.AreEqual(ext, project.FilePath, "Extension should not be changed for invalid extensions");
+                Assert.AreEqual(project.FilePath, result, "Return value should be the same as FilePath value");
+            });
+        }
     }
 }

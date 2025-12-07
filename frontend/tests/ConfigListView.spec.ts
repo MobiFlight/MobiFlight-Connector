@@ -179,6 +179,54 @@ test("Confirm status icons working", async ({ configListPage, page }) => {
   }
 })
 
+test("Confirm status icons are initialized correctly when status is not present", async ({
+  configListPage
+}) => {
+  await configListPage.gotoPage()
+  await configListPage.mobiFlightPage.initWithTestData()
+
+  const PreconditionIcon = configListPage.getStatusIconInRow("Precondition", 1)
+  const TestIcon = configListPage.getStatusIconInRow("Test", 1)
+  const ConfigRefIcon = configListPage.getStatusIconInRow("ConfigRef", 1)
+
+  const statusTests = [
+    {
+      status: { Precondition: "not satisfied" },
+      icon: PreconditionIcon,
+      toolTipText: "Precondition is not satisfied.",
+      alwaysVisible: true,
+    },
+    {
+      status: { Test: "Executing" },
+      icon: TestIcon,
+      toolTipText: "This config is currently being tested.",
+      alwaysVisible: true,
+    },
+    {
+      status: { ConfigRef: "Missing" },
+      icon: ConfigRefIcon,
+      toolTipText: "One or more referenced configs are missing.",
+      alwaysVisible: true,
+    },
+  ]
+
+  // enable icons one by one and verify
+  for (const test of statusTests) {
+    await configListPage.updateConfigItemStatus(0, test.status)
+    await expect(test.icon).toBeVisible()
+    await expect(test.icon).toHaveAttribute("aria-disabled", "false")
+  }
+
+  const configItem = configListPage.getConfigItemByIndex(0)
+  delete configItem.Status
+  await configListPage.configValueFullUpdate([configItem], 0)
+
+  // all icons should be disabled now
+  await expect(PreconditionIcon).toHaveAttribute("aria-disabled", "true")
+  await expect(TestIcon).toHaveAttribute("aria-disabled", "true")
+  await expect(ConfigRefIcon).toHaveAttribute("aria-disabled", "true")
+})
+
 test.describe("Drag and drop tests", () => {
   test("Confirm single drag n drop is working", async ({
     configListPage,

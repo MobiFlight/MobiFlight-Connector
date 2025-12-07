@@ -9,6 +9,7 @@ export default i18n
   .use(initReactI18next)
   .init<HttpBackendOptions>({
     fallbackLng: "en",
+    ns: ["translation", "feed"],
     debug: true,
     maxRetries: 2,
     retryTimeout: 100,

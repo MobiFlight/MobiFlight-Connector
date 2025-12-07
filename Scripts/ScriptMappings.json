@@ -9,6 +9,12 @@
     {
       "VendorId": "0x4098",
       "ProductIds": [ "WinwingCDUs" ],
+      "AircraftIdSnippet": "inibuilds-a340",
+      "ScriptName": "ini_a340_winwing_cdu.py"
+    },
+    {
+      "VendorId": "0x4098",
+      "ProductIds": [ "WinwingCDUs" ],
       "AircraftIdSnippet": "fnx_3",
       "ScriptName": "fenix_winwing_cdu.py"
     },

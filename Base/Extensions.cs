@@ -84,5 +84,11 @@ namespace MobiFlight.Base
         {
             return (a == null && b == null) || (a != null && a.Equals(b));
         }
+
+        public static bool IsValidUrl(this string url)
+        {
+            return Uri.TryCreate(url, UriKind.Absolute, out Uri uriResult)
+                   && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+        }
     }
 }

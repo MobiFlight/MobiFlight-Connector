@@ -251,6 +251,16 @@ namespace MobiFlight.UI
                 ProjectHasUnsavedChanges = false;
                 SetTitle("");
             });
+
+            MessageExchange.Instance.Subscribe<CommandOpenLinkInBrowser>((message) =>
+            {
+                if (!message.Url.IsValidUrl())
+                {
+                    Log.Instance.log($"Invalid URL: {message.Url}", LogSeverity.Warn);
+                    return;
+                }
+                Process.Start(message.Url);
+            });
         }
 
         private void OpenOutputConfigWizardForId(string guid)
@@ -2317,18 +2327,47 @@ namespace MobiFlight.UI
         }
 
         /// <summary>
-        /// gets triggered if user uses quick save button from toolbar
+        /// gets triggered if user uses clicks save button from toolbar
         /// </summary>
         public void saveToolStripButton_Click(object sender, EventArgs e)
         {
-            // if filename of loaded file is known use it
-            if (execManager.Project.FilePath != null)
+            var currentProject = execManager.Project;
+
+            // if no filename is known yet
+            // trigger save as dialog
+            if (currentProject.FilePath == null)
             {
-                SaveConfig(execManager.Project.FilePath);
+                saveAsToolStripMenuItem_Click(sender, e);
                 return;
             }
-            // otherwise trigger normal open file dialog
-            saveAsToolStripMenuItem_Click(sender, e);
+
+            // if the file extension is outdated
+            if (!currentProject.FilePath.EndsWith(Project.FileExtension))
+            {
+                // migrate the file extension
+                var newFilePath = currentProject.MigrateFileExtension();
+
+                // we can't just save
+                // if there is a file with that name already
+                if (File.Exists(newFilePath))
+                {
+
+                    // in that case show the "save as"-dialog
+                    saveAsToolStripMenuItem_Click(sender, e);
+                    return;
+                }
+
+                // if no conflict, we can show a notification 
+                // to the user to let them know we saved it with a new name
+                MessageExchange.Instance.Publish(new Notification()
+                {
+                    Event = "ProjectFileExtensionMigrated"
+                });
+            }
+
+            // if the file extension is ok, just save
+            // without any notifications or user interactions
+            SaveConfig(execManager.Project.FilePath);
         } //saveToolStripButton_Click()
 
         /// <summary>

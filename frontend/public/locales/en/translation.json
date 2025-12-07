@@ -96,7 +96,7 @@
     "Form": {
       "Title": {
         "New": "Create new project",
-        "Edit": "Edit project" 
+        "Edit": "Edit project"
       },
       "Description": "Configure your project settings, like name, simulator and aircraft.",
       "Name": {
@@ -106,7 +106,7 @@
           "Required": "Please provide a name for your project. It is required."
         }
       },
-      "Simulator" : {
+      "Simulator": {
         "Label": "Flight simulator",
         "HelpText": "Select the primary simulator for this project.",
         "UseFsuipc": "Use FSUIPC"
@@ -226,6 +226,17 @@
         "Description": "Your config doesn't match the current filter settings so it is not visible in the list.",
         "Action": "Reset filters"
       }
+    }
+  },
+  "Feed": {
+    "Title": "Community Feed",
+    "Description": "News and updates from the MobiFlight community.",
+    "NoPosts": "No posts available.",
+    "Filter": {
+      "all": "All",
+      "shop": "Offers",
+      "events": "Events",
+      "community": "Community"
     }
   }
 }

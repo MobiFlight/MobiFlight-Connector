@@ -64,6 +64,7 @@ const ProjectNameLabel = () => {
       data-testid="project-name-label"
     >
       <InlineEditLabel
+        labelClassName="max-w-72 xl:max-w-96 3xl:max-w-120 truncate"
         ref={inlineEditRef}
         value={optimisticLabel}
         onSave={handleProjectNameSave}

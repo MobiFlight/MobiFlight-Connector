@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MobiFlight.Base;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -112,7 +113,8 @@ namespace MobiFlight.Base.Tests
             System.Xml.XmlWriter xmlWriter = System.Xml.XmlWriter.Create(sw, settings);
 
             PreconditionList o = new PreconditionList();
-            o.Add(new Precondition() { 
+            o.Add(new Precondition()
+            {
                 Type = "config",
                 Label = "TestPreCon",
                 Active = true,
@@ -154,7 +156,7 @@ namespace MobiFlight.Base.Tests
         }
 
         [TestMethod()]
-        public void JsonSerializationDeserializationTest()
+        public void PreconditionList_ShouldSerializeAndDeserializeCorrectly_WithNonEmptyPreconditions()
         {
             var originalList = new PreconditionList
             {
@@ -185,7 +187,7 @@ namespace MobiFlight.Base.Tests
 
             Assert.IsNotNull(deserializedList);
             Assert.AreEqual(originalList.Count, deserializedList.Count);
-            
+
             var originalArray = originalList.ToArray();
             var deserializedArray = deserializedList.ToArray();
 
@@ -198,7 +200,7 @@ namespace MobiFlight.Base.Tests
                 var Ref = originalArray[i].Ref;
                 var Operand = originalArray[i].Operand;
                 var Value = originalArray[i].Value;
-                var Logic = originalArray[i].Logic;                
+                var Logic = originalArray[i].Logic;
                 var Label = $"Config: <Ref:{Ref}> {Operand} {Value} <Logic:{Logic}>";
                 Assert.AreEqual(Label, deserializedArray[i].Label);
                 Assert.AreEqual(originalArray[i].Active, deserializedArray[i].Active);
@@ -207,6 +209,109 @@ namespace MobiFlight.Base.Tests
                 Assert.AreEqual(originalArray[i].Value, deserializedArray[i].Value);
                 Assert.AreEqual(originalArray[i].Logic, deserializedArray[i].Logic);
             }
+        }
+
+        [TestMethod()]
+        public void PreconditionList_WithEmptyPrecondition_ShouldNotSerializeNull()
+        {
+            // Arrange
+            var list = new PreconditionList();
+            var emptyPrecondition = new Precondition(); // Type="none", all fields null
+            list.Add(emptyPrecondition);
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented, settings);
+
+            // Assert
+            Assert.IsFalse(json.Contains("null"), "Serialized JSON should not contain 'null' for empty preconditions");
+            // Should serialize as empty array or with no preconditions
+            Assert.IsTrue(json.Contains("[]") || !json.Contains("\"Preconditions\""),
+                "Empty preconditions should result in empty array or no Preconditions property");
+        }
+
+        [TestMethod()]
+        public void PreconditionList_WithMixedPreconditions_ShouldOnlySerializeNonEmpty()
+        {
+            // Arrange
+            var list = new PreconditionList();
+
+            // Add empty precondition
+            var emptyPrecondition = new Precondition();
+            list.Add(emptyPrecondition);
+
+            // Add valid precondition
+            var validPrecondition = new Precondition
+            {
+                Type = "config",
+                Ref = "TestRef",
+                Operand = "=",
+                Value = "1",
+                Active = true
+            };
+            list.Add(validPrecondition);
+
+            // Add another empty one
+            var anotherEmpty = new Precondition();
+            list.Add(anotherEmpty);
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented, settings);
+
+            // Assert
+            Assert.IsFalse(json.Contains("null"), "Serialized JSON should not contain 'null'");
+            Assert.IsTrue(json.Contains("TestRef"), "Valid precondition should be serialized");
+
+            // Count how many preconditions are in the output
+            var deserializedList = JsonConvert.DeserializeObject<PreconditionList>(json);
+            Assert.AreEqual(1, deserializedList.Count, "Only non-empty precondition should be in deserialized list");
+        }
+
+        [TestMethod()]
+        public void PreconditionList_AllEmptyPreconditions_ShouldSerializeAsEmptyArray()
+        {
+            // Arrange
+            var list = new PreconditionList();
+            list.Add(new Precondition());
+            list.Add(new Precondition());
+            list.Add(new Precondition());
+
+            // Act
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            var json = JsonConvert.SerializeObject(list, Newtonsoft.Json.Formatting.Indented, settings);
+
+            // Assert
+            Assert.IsFalse(json.Contains("null"), "Serialized JSON should not contain 'null'");
+        }
+
+        [TestMethod()]
+        public void ConfigFile_WithEmptyPreconditions_ShouldNotContainNull()
+        {
+            // Arrange
+            var configFile = new ConfigFile();
+            var configItem = new OutputConfigItem
+            {
+                Name = "Test",
+                Preconditions = new PreconditionList()
+            };
+            configItem.Preconditions.Add(new Precondition()); // Empty precondition
+            configFile.ConfigItems.Add(configItem);
+
+            // Act
+            var json = configFile.ToJson();
+
+            // Assert
+            Assert.IsFalse(json.Contains("null"), "ConfigFile JSON should not contain 'null' for empty preconditions");
         }
     }
 }

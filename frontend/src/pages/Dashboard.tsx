@@ -1,8 +1,8 @@
 // import ControllerMainCard from "@/components/controllers/ControllerMainCard"
 import CommunityMainCard from "@/components/community/CommunityMainCard"
+import DashboardNav from "@/components/DashboardNav"
 import ProjectMainCard from "@/components/project/ProjectMainCard"
-import { Button } from "@/components/ui/button"
-import { Link, useParams } from "react-router"
+import { useParams } from "react-router"
 
 const Dashboard = () => {
   const params = useParams()
@@ -15,12 +15,12 @@ const Dashboard = () => {
     <div className="flex h-full flex-col gap-2">
       <div className="flex grow flex-row gap-2">
         <div
-          className={`w-full opacity-100 transition-all duration-300 lg:w-2/3 ${isProjectActive ? "" : "max-lg:hidden opacity-0"}`}
+          className={`flex w-full flex-col opacity-100 transition-all duration-300 xl:w-2/3 2xl:w-3/4 ${isProjectActive ? "" : "opacity-0 max-xl:hidden"}`}
         >
           <ProjectMainCard />
         </div>
         <div
-          className={`w-full opacity-100 transition-all duration-300 lg:block lg:w-1/3 ${isCommunityActive ? "" : "max-lg:hidden opacity-0"}`}
+          className={`w-full opacity-100 transition-all duration-300 xl:block xl:w-1/3 2xl:w-1/4 ${isCommunityActive ? "" : "opacity-0 max-xl:hidden"}`}
         >
           <CommunityMainCard />
         </div>
@@ -28,24 +28,10 @@ const Dashboard = () => {
         <ControllerMainCard />
       </div> */}
       </div>
-      <div className="flex flex-row gap-0 px-4 lg:hidden">
-        <Link to="/home/project">
-          <Button
-            variant={isProjectActive ? "default" : "outline"}
-            className="rounded-r-none"
-          >
-            Project
-          </Button>
-        </Link>
-        <Link to="/home/community">
-          <Button
-            variant={isCommunityActive ? "default" : "outline"}
-            className="rounded-l-none"
-          >
-            Community
-          </Button>
-        </Link>
-      </div>
+      <DashboardNav
+        isProjectActive={isProjectActive}
+        isCommunityActive={isCommunityActive}
+      />
     </div>
   )
 }

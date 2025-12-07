@@ -1,6 +1,6 @@
 {
-  "General" : {
-    "Action" : {
+  "General": {
+    "Action": {
       "OpenMenu": "Menü öffnen"
     },
     "Overlay": {
@@ -31,9 +31,9 @@
     "InputConfigItem": "Eingabe Konfiguration",
     "InputAction": "Input Action"
   },
-  "Project" : {
+  "Project": {
     "Label": "Projekt",
-    "File.Action" : {
+    "File.Action": {
       "Add": "Datei hinzufügen",
       "New": "Neue Datei",
       "Merge": "Verwende vorhandene Datei",
@@ -41,8 +41,8 @@
       "Remove": "Entfernen",
       "Export": "Exportieren"
     },
-    "Toolbar" : {
-      "Save" : {
+    "Toolbar": {
+      "Save": {
         "HasChanges": "Änderungen speichern",
         "NoChanges": "Keine Änderungen zum Speichern",
         "Success": "Erfolgreich gespeichert"
@@ -64,7 +64,7 @@
       },
       "Test": {
         "Label": "Test",
-        "Stop": "Stopp", 
+        "Stop": "Stopp",
         "Start": "Testmodus starten und alle Konfigurationen testen",
         "StopMode": "Testmodus-Ausführung stoppen",
         "BlockedByRun": "Ausführungsmodus ist aktiv. Stoppe ihn zuerst."
@@ -96,7 +96,7 @@
     "Form": {
       "Title": {
         "New": "Neues Projekt erstellen",
-        "Edit": "Projekt bearbeiten" 
+        "Edit": "Projekt bearbeiten"
       },
       "Description": "Konfiguriere deine Projekteinstellungen, wie Name, Simulator und Flugzeugtyp.",
       "Name": {
@@ -106,7 +106,7 @@
           "Required": "Bitte gib einen Namen für dein Projekt an. Dieser ist erforderlich."
         }
       },
-      "Simulator" : {
+      "Simulator": {
         "Label": "Flugsimulator",
         "HelpText": "Wähle den primären Simulator für dieses Projekt aus.",
         "UseFsuipc": "Verwende FSUIPC"
@@ -145,7 +145,7 @@
       "NotSet": "Nicht verwendet",
       "Reset": "Filter zurücksetzen",
       "SelectedRows": {
-        "Commands" : {
+        "Commands": {
           "Label": "{{count}} Zeilen ausgewählt",
           "Delete": "Ausgewählte löschen",
           "Toggle": "Ausgewählte umschalten",
@@ -177,7 +177,7 @@
       "NoResultsFound": "Neue Konfiguration. Erstelle neue Einträge.",
       "DropHereToAdd": "Hier ablegen, um neue Elemente hinzuzufügen.",
       "NoResultsMatchingFilter": "Keine Ergebnisse passen zum Filter.",
-      "Drag" : {
+      "Drag": {
         "MovingItems": "Verschiebe Elemente"
       }
     },
@@ -203,7 +203,7 @@
         "XPLANE_NOT_AVAILABLE": "Diese Config verwendet  X-Plane, Verbindung fehlt.",
         "PROSIM_NOT_AVAILABLE": "Diese Config verwendet  ProSim, Verbindung fehlt."
       },
-      "Modifier" : {
+      "Modifier": {
         "Error": "Ein Modifikator verursacht einen Fehler.",
         "OK": "Ein Modifikator ist angewendet."
       },
@@ -226,6 +226,17 @@
         "Description": "Deine Konfiguration entspricht nicht den aktuellen Filtereinstellungen, daher ist sie in der Liste nicht sichtbar.",
         "Action": "Filter zurücksetzen"
       }
+    }
+  },
+  "Feed": {
+    "Title": "Community Feed",
+    "Description": "Neuigkeiten und Updates aus der MobiFlight-Community.",
+    "NoPosts": "Keine Beiträge verfügbar.",
+    "Filter": {
+      "all": "Alle",
+      "shop": "Angebote",
+      "events": "Termine",
+      "community": "Community"
     }
   }
 }

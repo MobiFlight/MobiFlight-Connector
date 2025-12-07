@@ -45,8 +45,7 @@ namespace MobiFlight.Base
                 // Content is embedded or read-only, no need to save to file
                 return;
             }
-
-            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
+            var json = ToJson();
             File.WriteAllText(FileName, json);
         }
 
@@ -57,7 +56,11 @@ namespace MobiFlight.Base
 
         public string ToJson()
         {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            };
+            return JsonConvert.SerializeObject(this, Formatting.Indented, settings);
         }
 
         public override bool Equals(object obj)

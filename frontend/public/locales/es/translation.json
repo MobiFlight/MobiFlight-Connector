@@ -106,7 +106,7 @@
           "Required": "Por favor, pon un nombre para tu proyecto. Es obligatorio."
         }
       },
-      "Simulator" : {
+      "Simulator": {
         "Label": "Simulador de vuelo",
         "HelpText": "Selecciona el simulador principal para este proyecto.",
         "UseFsuipc": "Usar FSUIPC"
@@ -226,6 +226,17 @@
         "Description": "Tu configuración no coincide con los filtros actuales, por lo que no es visible en la lista.",
         "Action": "Restablecer filtros"
       }
+    }
+  },
+  "Feed": {
+    "Title": "Community Feed",
+    "Description": "Noticias y novedades de la comunidad de MobiFlight.",
+    "NoPosts": "No hay publicaciones disponibles.",
+    "Filter": {
+      "all": "Todo",
+      "shop": "Ofertas",
+      "events": "Eventos",
+      "community": "Comunidad"
     }
   }
 }

@@ -64,6 +64,17 @@ export class ConfigListPage {
     )
   }
 
+  async configValueFullUpdate(ConfigItems: IConfigItem[], configIndex: number = 0) {
+    const message: AppMessage = {
+      key: "ConfigValueFullUpdate",
+      payload: {
+        ConfigIndex: configIndex,
+        ConfigItems: ConfigItems,
+      } as ConfigValueFullUpdate,
+    }
+    await this.mobiFlightPage.publishMessage(message)
+  }
+
   async addNewConfigItem(itemType: ConfigItemType, configIndex: number = 0) {
     const configItems = testProject.ConfigFiles[configIndex].ConfigItems
     const newItem = configItems.find((i) => i.Type === itemType)
@@ -83,6 +94,10 @@ export class ConfigListPage {
       } as ConfigValueFullUpdate,
     }
     await this.mobiFlightPage.publishMessage(message)
+  }
+
+  getConfigItemByIndex(itemIndex: number): IConfigItem {
+    return testdata[itemIndex]
   }
 
   async updateConfigItemStatus(

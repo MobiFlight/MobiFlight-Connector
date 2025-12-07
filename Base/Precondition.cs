@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 
 namespace MobiFlight
 {
+    [JsonConverter(typeof(Base.Serialization.Json.PreconditionConverter))]
     public class Precondition : IXmlSerializable, ICloneable
     {
         public const string OPERAND_DEFAULT = Comparison.OPERAND_EQUAL;

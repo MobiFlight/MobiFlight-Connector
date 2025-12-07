@@ -12,6 +12,7 @@ export type CommandMessageKey =
   | "CommandMainMenu"
   | "CommandProjectToolbar"
   | "CommandDiscardChanges"
+  | "CommandOpenLinkInBrowser"
 
 export type CommandMessage =
   | CommandConfigContextMenu
@@ -25,6 +26,7 @@ export type CommandMessage =
   | CommandMainMenu
   | CommandProjectToolbar
   | CommandDiscardChanges
+  | CommandOpenLinkInBrowser
 
 export interface CommandMessageBase {
   key: CommandMessageKey
@@ -164,5 +166,12 @@ export interface CommandDiscardChanges extends CommandMessageBase {
   key: "CommandDiscardChanges"
   payload: {
     project: Project
+  }
+}
+
+export interface CommandOpenLinkInBrowser extends CommandMessageBase {
+  key: "CommandOpenLinkInBrowser"
+  payload: {
+    url: string
   }
 }

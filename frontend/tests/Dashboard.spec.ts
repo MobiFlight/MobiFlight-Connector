@@ -86,13 +86,13 @@ test.describe("Project view tests", () => {
   }) => {
     await dashboardPage.gotoPage()
     await dashboardPage.mobiFlightPage.initWithTestData()
+    await dashboardPage.mobiFlightPage.trackCommand("CommandProjectToolbar")
     const currentProjectCard = page.getByTestId("project-card")
 
     // Verify correct start and stop messages
     await currentProjectCard
       .getByTestId("project-card-start-stop-button")
       .click()
-    await dashboardPage.mobiFlightPage.trackCommand("CommandProjectToolbar")
     let postedCommands = await dashboardPage.mobiFlightPage.getTrackedCommands()
     let lastCommand = postedCommands!.pop()
     expect(lastCommand.key).toEqual("CommandProjectToolbar")
@@ -287,5 +287,93 @@ test.describe("Project list view tests", () => {
     for (let i = 0; i < 6; i++) {
       await expect(projectItems.nth(i)).toContainText("New Project")
     }
+  })
+})
+
+test.describe("Community Feed tests", () => {
+  test("Confirm default feed items", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+
+    await expect(
+      page.getByText("Community Feed"),
+    ).toBeVisible()
+
+    const feedFilter = page.getByTestId("community-feed-filter-bar")
+    await expect(feedFilter).toBeVisible()
+
+    const allFilterButton = page.getByRole("button", { name: "All" })
+    await expect(allFilterButton).toBeVisible()
+    await expect(allFilterButton).toHaveCount(1)
+
+    const communityFilterButton = page.getByRole("button", { name: "Community" })
+    await expect(communityFilterButton).toBeVisible()
+    await expect(communityFilterButton).toHaveCount(1)
+    
+    const offersFilterButton = page.getByRole("button", { name: "Offers" })
+    await expect(offersFilterButton).toBeVisible()
+    await expect(offersFilterButton).toHaveCount(1)
+
+    const eventsFilterButton = page.getByRole("button", { name: "Events" })
+    await expect(eventsFilterButton).toBeVisible()
+    await expect(eventsFilterButton).toHaveCount(1)
+
+    const feedItems = page.getByTestId("community-feed-item")
+    await expect(feedItems).toHaveCount(4)
+
+    await communityFilterButton.click()
+    await expect(feedItems).toHaveCount(2)
+
+    await offersFilterButton.click()
+    await expect(feedItems).toHaveCount(1)
+
+    await eventsFilterButton.click()
+    await expect(feedItems).toHaveCount(1)
+  })
+
+  test("Confirm button links are working correctly", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    const feedItems = page.getByTestId("community-feed-item")
+    await expect(feedItems).toHaveCount(4)
+    const offerItem = feedItems.nth(0)
+    const offerButton = offerItem.getByRole("button", { name: "Support Us!", exact: true })
+    await expect(offerButton).toBeVisible()
+
+    await dashboardPage.mobiFlightPage.trackCommand("CommandOpenLinkInBrowser")
+    await offerButton.click()
+
+    const postedCommands =
+      await dashboardPage.mobiFlightPage.getTrackedCommands()
+    const lastCommand = postedCommands!.pop()
+    expect(lastCommand.key).toEqual("CommandOpenLinkInBrowser")
+    expect(lastCommand.payload.url).toEqual(
+      "https://mobiflight.com/donate",
+    )
+  })
+
+  test("Confirm responsiveness small window size", async ({
+    dashboardPage,
+    page,
+  }) => {
+    await dashboardPage.gotoPage()
+    await page.setViewportSize({ width: 500, height: 800 })
+
+    const feedTitle = page.getByText("Community Feed")
+    await expect(feedTitle).not.toBeVisible()
+    
+    const dashBoardNav = page.getByTestId("dashboard-nav")
+    await expect(dashBoardNav).toBeVisible()
+
+    const communityNavButton = dashBoardNav.getByRole("button", { name: "Community" })
+    await expect(communityNavButton).toBeVisible()
+    await expect(communityNavButton).toHaveCount(1)
+
+    await communityNavButton.click()
+    await expect(feedTitle).toBeVisible()
   })
 })

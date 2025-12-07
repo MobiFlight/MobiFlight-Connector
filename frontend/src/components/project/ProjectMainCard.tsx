@@ -38,33 +38,42 @@ const ProjectMainCard = () => {
 
   return (
     <Card
-      className="border-shadow-none flex flex-col border-none shadow-none"
+      className="border-shadow-none flex grow flex-col border-none shadow-none"
       data-testid="project-main-card"
     >
-      <CardHeader>
+      <CardHeader className="">
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-2">
             <CardTitle>
               <h2>{t("Project.Card.Main.Title")}</h2>
             </CardTitle>
-            <CardDescription>{t("Project.Card.Main.Description")}</CardDescription>
+            <CardDescription>
+              {t("Project.Card.Main.Description")}
+            </CardDescription>
           </div>
           {showRecentProjects && <ProjectCreateButton />}
         </div>
       </CardHeader>
-      <CardContent className="">
+      <CardContent className="flex grow flex-col">
         {showRecentProjects ? (
-          <div className="flex flex-row gap-8">
+          <div className="flex grow flex-row gap-8">
             <div className="flex min-w-96 flex-col gap-4">
               <div>
                 {activeProject ? (
-                  <h3 className="text-lg font-semibold">{t("Project.Card.Main.CurrentProject")}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {t("Project.Card.Main.CurrentProject")}
+                  </h3>
                 ) : (
-                  <h3 className="text-lg font-semibold">{t("Project.Card.Main.NoActiveProject")}</h3>
+                  <h3 className="text-lg font-semibold">
+                    {t("Project.Card.Main.NoActiveProject")}
+                  </h3>
                 )}
               </div>
               {activeProject ? (
-                <ProjectCard summary={activeProject} className="w-96 max-w-96" />
+                <ProjectCard
+                  summary={activeProject}
+                  className="w-96 max-w-96"
+                />
               ) : (
                 <div className="border-primary/25 bg-card space-y-2 rounded-xl border p-4 shadow-md transition-all duration-200 ease-in-out hover:shadow-lg">
                   <div className="flex flex-col gap-4">
@@ -76,11 +85,14 @@ const ProjectMainCard = () => {
                 </div>
               )}
             </div>
-            <div className="flex h-full grow flex-col gap-4 overflow-hidden">
-              <div className="grow-0">
-                <h3 className="text-lg font-semibold">{t("Project.Card.Main.AllProjects")}</h3>
+            <div className="flex grow flex-col gap-4">
+              <div className="">
+                <h3 className="text-lg font-semibold">
+                  {t("Project.Card.Main.AllProjects")}
+                </h3>
               </div>
               <ProjectList
+                className="grow"
                 summarys={recentProjects}
                 activeProject={activeProject as ProjectInfo}
                 onSelect={(project) => loadProject(project)}
