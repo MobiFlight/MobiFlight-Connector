@@ -62,6 +62,39 @@
   <Button Name="EFIS-inHg" Pin="97" />
   <Button Name="EFIS-hPa" Pin="98" />
   <Button Name="EFIS-CHRONO" Pin="99" />
+  <Button Name="OVHD_FLAP3" Pin="100" />
+  <Button Name="OVHD_AI_WING" Pin="101" />
+  <Button Name="OVHD_AI_ENG" Pin="102" />
+  <Button Name="OVHD_HEAT" Pin="103" />
+  <Button Name="OVHD_START" Pin="104" />
+  <Button Name="OVHD_APU_MASTER" Pin="105" />
+  <Button Name="OVHD_EXTPWR" Pin="106" />
+  <Button Name="OVHD_APU_BLEED" Pin="107" />
+  <Button Name="OVHD_CALL" Pin="108" />
+  <Button Name="OVHD_STROBE_ON" Pin="109" />
+  <Button Name="OVHD_STROBE_AUTO" Pin="110" />
+  <Button Name="OVHD_STROBE_OFF" Pin="111" />
+  <Button Name="OVHD_BEACON_ON" Pin="112" />
+  <Button Name="OVHD_BEACON_OFF" Pin="113" />
+  <Button Name="OVHD_NAVLOGO_2" Pin="114" />
+  <Button Name="OVHD_NAVLOGO_1" Pin="115" />
+  <Button Name="OVHD_NAVLOGO_OFF" Pin="116" />
+  <Button Name="OVHD_RWY_ON" Pin="117" />
+  <Button Name="OVHD_RWY_OFF" Pin="118" />
+  <Button Name="OVHD_LAND_ON" Pin="119" />
+  <Button Name="OVHD_LAND_OFF" Pin="120" />
+  <Button Name="OVHD_LAND_RET" Pin="121" />
+  <Button Name="OVHD_NOSE_TO" Pin="122" />
+  <Button Name="OVHD_NOSE_TAXI" Pin="123" />
+  <Button Name="OVHD_NOSE_OFF" Pin="124" />
+  <Button Name="OVHD_DOME_BRT" Pin="125" />
+  <Button Name="OVHD_DOME_DIM" Pin="126" />
+  <Button Name="OVHD_DOME_OFF" Pin="127" />
+  <Button Name="OVHD_BELTS_ON" Pin="128" />
+  <Button Name="OVHD_BELTS_OFF" Pin="129" />
+  <Button Name="OVHD_WIPER_OFF" Pin="130" />
+  <Button Name="OVHD_WIPER_SLOW" Pin="131" />
+  <Button Name="OVHD_WIPER_FAST" Pin="132" />
   <CustomDevice Name="miniFCU LCD" CustomType="miniCOCKPIT_miniFCU" Pins="2|5|4|3" Config="">
     <ConfiguredPins>
       <string>2</string>
@@ -75,6 +108,11 @@
       <string>20</string>
       <string>21</string>
       <string>7</string>
+    </ConfiguredPins>
+  </CustomDevice>
+  <CustomDevice Name="miniOVHD" CustomType="miniCOCKPIT_miniOVHD" Pins="6" Config="">
+    <ConfiguredPins>
+      <string>6</string>
     </ConfiguredPins>
   </CustomDevice>
 </Config>
