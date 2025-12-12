@@ -84,7 +84,7 @@ jobs:
             Release/*.sha1
 
       - name: store latest setup file
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: MobiFlight-Setup
           path: |
