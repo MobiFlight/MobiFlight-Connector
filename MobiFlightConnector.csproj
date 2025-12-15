@@ -128,8 +128,9 @@
     <Reference Include="Hid.Net, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Hid.Net.4.2.1\lib\net45\Hid.Net.dll</HintPath>
     </Reference>
-    <Reference Include="HidSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\HidSharp.2.1.0\lib\net35\HidSharp.dll</HintPath>
+    <Reference Include="HidSharp, Version=2.6.4.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>packages\HidSharp.2.6.4\lib\net35\HidSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.21.0.429, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.21.0\lib\net452\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
