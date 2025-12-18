@@ -286,7 +286,7 @@ namespace MobiFlight.Base
         /// Supports both JSON (.mfproj) and legacy XML (.mcc, .aic) formats.
         /// </summary>
         /// <exception cref="InvalidDataException">Thrown when the file format is not supported.</exception>
-        public void OpenFile()
+        public void OpenFile(bool suppressMigrationLogging = false)
         {
             if (IsJson(FilePath))
             {
@@ -294,7 +294,7 @@ namespace MobiFlight.Base
 
                 // Parse and migrate JSON document
                 var document = JObject.Parse(json);
-                var migratedDocument = ApplyMigrations(document);
+                var migratedDocument = ApplyMigrations(document, suppressMigrationLogging);
 
                 // Deserialize the clean, migrated JSON
                 var project = migratedDocument.ToObject<Project>();
@@ -356,7 +356,7 @@ namespace MobiFlight.Base
         /// Apply all migrations to bring document to current version
         /// Simple, direct approach - no registry needed
         /// </summary>
-        private JObject ApplyMigrations(JObject document)
+        private JObject ApplyMigrations(JObject document, bool suppressLogging = false)
         {
             // Determine current document version with safe parsing
             var currentVersion = GetDocumentSchemaVersion(document);
@@ -364,7 +364,10 @@ namespace MobiFlight.Base
 
             if (currentVersion > SchemaVersion)
             {
-                Log.Instance.log($"Document version {currentVersion} too new. Update MobiFlight to latest version.", LogSeverity.Info);
+                if (!suppressLogging) { 
+                    Log.Instance.log($"Document version {currentVersion} too new. Update MobiFlight to latest version. ({Name} - {FilePath})", LogSeverity.Info);
+                }
+
                 return document;
             }
 
@@ -374,14 +377,19 @@ namespace MobiFlight.Base
                 return document;
             }
 
-            Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}", LogSeverity.Info);
+            if (!suppressLogging) { 
+                Log.Instance.log($"Migrating document from version {currentVersion} to {SchemaVersion}. ({Name} - {FilePath})", LogSeverity.Debug);
+            }
 
             var migratedDocument = document;
 
             // Apply migrations step by step
             if (currentVersion < new Version(0, 9))
             {
-                Log.Instance.log("Applying V0.9 migrations", LogSeverity.Debug);
+                if (!suppressLogging)
+                {
+                    Log.Instance.log("Applying V0.9 migrations", LogSeverity.Debug);
+                }
                 migratedDocument = Precondition_V_0_9_Migration.Apply(migratedDocument);
                 migratedDocument = Output_V_0_9_Migration.Apply(migratedDocument);
             }
@@ -389,7 +397,10 @@ namespace MobiFlight.Base
             // Update version in migrated document
             migratedDocument["_version"] = SchemaVersion.ToString();
 
-            Log.Instance.log($"Migration complete. Document is now version {SchemaVersion}", LogSeverity.Info);
+            if (!suppressLogging)
+            {
+                Log.Instance.log($"Migration complete. Document is now version {SchemaVersion}", LogSeverity.Debug);
+            }
 
             return migratedDocument;
         }
@@ -420,12 +431,12 @@ namespace MobiFlight.Base
                 }
 
                 // If parsing fails, default to 0.1
-                Log.Instance.log($"Could not parse version '{versionString}', defaulting to 0.1", LogSeverity.Warn);
+                Log.Instance.log($"Could not parse version '{versionString}', defaulting to 0.1", LogSeverity.Debug);
                 return new Version(0, 1);
             }
             catch (Exception ex)
             {
-                Log.Instance.log($"Error parsing document version: {ex.Message}, defaulting to 0.1", LogSeverity.Warn);
+                Log.Instance.log($"Error parsing document version: {ex.Message}, defaulting to 0.1", LogSeverity.Debug);
                 return new Version(0, 1);
             }
         }

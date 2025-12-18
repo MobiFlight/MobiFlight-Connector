@@ -1,6 +1,7 @@
 ﻿using HidSharp;
 using MobiFlight.BrowserMessages;
 using MobiFlight.Joysticks;
+using MobiFlight.Joysticks.AuthentiKit;
 using MobiFlight.Joysticks.Octavi;
 using MobiFlight.Joysticks.VKB;
 using MobiFlight.Joysticks.Winwing;
@@ -246,6 +247,15 @@ namespace MobiFlight
                         productName = hidDevice.GetProductName();
                     }
                     js = new VKBDevice(diJoystick, GetDefinitionByInstanceName(productName.Trim()));
+                }
+                else if (d.InstanceName.Trim() == "AuthentiKit")
+                {
+                    var authentikitDefinition = GetDefinitionByInstanceName(d.InstanceName.Trim());
+                    js = new AuthentiKit(diJoystick, authentikitDefinition);
+                }
+                else if (HidControllerFactory.CanCreate(d.InstanceName)) {
+                    // skip, it will be handled later
+                    continue;
                 }
                 else
                 {

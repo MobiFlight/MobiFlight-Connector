@@ -45,7 +45,9 @@ namespace MobiFlight
             [52] = "RotationY",
             [53] = "RotationZ",
             [54] = "Slider1",
-            [55] = "Slider2"
+            [55] = "Slider2",
+            [56] = "Wheel",
+            [57] = "HatSwitch"
         };
 
         /// <summary>
@@ -454,7 +456,7 @@ namespace MobiFlight
             }
         }
 
-        private int GetValueForAxisFromState(int currentAxis, JoystickState state)
+        protected int GetValueForAxisFromState(int currentAxis, JoystickState state)
         {
             String RawAxisName = Axes[currentAxis].Name.Replace(AxisPrefix, "").TrimStart();
             if (RawAxisName.Contains("Slider"))
@@ -467,7 +469,7 @@ namespace MobiFlight
             return (int)state.GetType().GetProperty(RawAxisName).GetValue(state, null);
         }
 
-        private bool StateExists()
+        protected bool StateExists()
         {
             return State != null;
         }

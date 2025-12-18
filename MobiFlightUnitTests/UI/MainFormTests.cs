@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace MobiFlight.UI.Tests
 {
@@ -170,6 +172,65 @@ namespace MobiFlight.UI.Tests
             Assert.AreEqual("C:\\project1.mfproj", recentFiles[0]);
             Assert.AreEqual("C:\\project3.mfproj", recentFiles[1]);
             Assert.IsFalse(recentFiles.Contains("C:\\project2.mfproj"), "Removed file should not be in the list");
+        }
+
+        [TestMethod]
+        public void FindMissingFiles_ReturnsMissingAndIgnoresExisting()
+        {
+            var existing = Path.GetTempFileName();
+            var missing = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mfproj");
+            try
+            {
+                var inputs = new List<string> { existing, missing, "   " };
+                var result = MainForm.CheckForMissingFiles(inputs);
+
+                // missing path and whitespace entry are reported missing
+                Assert.IsTrue(result.Contains(missing), "Expected missing file to be reported.");
+                Assert.IsTrue(result.Any(x => string.IsNullOrWhiteSpace(x)), "Expected whitespace entry to be reported as missing.");
+                // existing file should not be reported missing
+                Assert.IsFalse(result.Contains(existing), "Existing file should not be reported missing.");
+            }
+            finally
+            {
+                File.Delete(existing);
+            }
+        }
+
+        [TestMethod]
+        public void RemoveMissingFilesFromSettings_RemovesEntriesFromSettings()
+        {
+            var existing = Path.GetTempFileName();
+            var missing = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".mfproj");
+
+            try
+            {
+                // Prepare settings recent list
+                Properties.Settings.Default.RecentFiles.Clear();
+                Properties.Settings.Default.RecentFiles.Add(existing);
+                Properties.Settings.Default.RecentFiles.Add(missing);
+                Properties.Settings.Default.Save();
+
+                // Call instance method without running ctor to avoid UI initialization
+                var mainFormInstance = FormatterServices.GetUninitializedObject(typeof(MainForm));
+                var mi = typeof(MainForm).GetMethod("RemoveMissingFilesFromSettings", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+
+                Assert.IsNotNull(mi, "RemoveMissingFilesFromSettings method not found via reflection.");
+
+                // Invoke with the missing list
+                mi.Invoke(mainFormInstance, new object[] { new List<string> { missing } });
+
+                var current = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+
+                Assert.IsTrue(current.Contains(existing), "Existing file should remain in settings.");
+                Assert.IsFalse(current.Contains(missing), "Missing file should have been removed from settings.");
+            }
+            finally
+            {
+                try { File.Delete(existing); } catch { }
+                // Cleanup settings to avoid test pollution
+                Properties.Settings.Default.RecentFiles.Clear();
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
-﻿using MobiFlight.Base;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MobiFlight.Base;
+using Moq;
 using System.IO;
 using System.Linq;
 
@@ -8,6 +9,29 @@ namespace MobiFlight.Base.Tests
     [TestClass()]
     public class ProjectTests
     {
+        private LogSeverity _logSeverity = LogSeverity.Error;
+        private Mock<ILogAppender> _mockLogAppender;
+
+        [TestInitialize]
+        public void SetUp()
+        {
+            // Create a mock log appender
+            _mockLogAppender = new Mock<ILogAppender>();
+            _logSeverity = Log.Instance.Severity; // Store the current log severity
+            Log.Instance.Severity = LogSeverity.Debug; // Set the log severity to Debug
+            Log.Instance.ClearAppenders();
+            Log.Instance.AddAppender(_mockLogAppender.Object);
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            // Remove the mock appender after each test
+            Log.Instance.ClearAppenders();
+            Log.Instance.Severity = _logSeverity; // Restore the original log severity
+            Log.Instance.Enabled = false; // Disable logging
+        }
+
         [TestMethod()]
         public void OpenFileTest_Single_Xml()
         {
@@ -52,7 +76,7 @@ namespace MobiFlight.Base.Tests
             Assert.IsTrue(outputConfig as OutputConfigItem != null);
             var preconditions = (outputConfig as OutputConfigItem).Preconditions;
 
-            Assert.AreEqual(0, preconditions.Count);    
+            Assert.AreEqual(0, preconditions.Count);
         }
 
         [TestMethod()]
@@ -809,7 +833,7 @@ namespace MobiFlight.Base.Tests
                 "Extension.FilePath.AIC",
                 "Extension.FilePath.mfproj",
             };
-           
+
             var mfprojExtension = "Extension.FilePath.mfproj";
 
             testExtensions.ToList().ForEach(ext =>
@@ -828,12 +852,97 @@ namespace MobiFlight.Base.Tests
                 "Extension.FilePath.config",
             };
 
-            invalidExtensions.ToList().ForEach(ext => {
+            invalidExtensions.ToList().ForEach(ext =>
+            {
                 project.FilePath = ext;
                 var result = project.MigrateFileExtension();
                 Assert.AreEqual(ext, project.FilePath, "Extension should not be changed for invalid extensions");
                 Assert.AreEqual(project.FilePath, result, "Return value should be the same as FilePath value");
             });
         }
+
+        #region OpenFile Log Suppression Tests
+        [TestMethod()]
+        public void OpenFile_LogSuppression_DoesNotEmitMigrationLogs()
+        {
+            var tempFile = Path.Combine(Path.GetTempPath(), $"project_test_{System.Guid.NewGuid()}.mfproj");
+            try
+            {
+                // old schema version triggers migration path
+                File.WriteAllText(tempFile, "{ \"Name\": \"TestProject\", \"ConfigFiles\": [], \"_version\": \"0.1\" }");
+
+                Log.Instance.Severity = LogSeverity.Debug;
+                Log.Instance.Enabled = true;
+
+                var p = new Project { FilePath = tempFile };
+
+                // Act - open in peek mode (suppress migration logging)
+                p.OpenFile(suppressMigrationLogging: true);
+
+                // Assert - no migration-related entries
+                // Assert - migration-related entries present
+                _mockLogAppender.Verify(
+                    appender => appender.log(It.Is<string>(msg => msg.Contains("Migrating document")), LogSeverity.Debug),
+                    Times.Never
+                );
+
+                _mockLogAppender.Verify(
+                    appender => appender.log(It.Is<string>(msg => msg.Contains("Applying V0.9 migrations")), LogSeverity.Debug),
+                    Times.Never
+                );
+
+                _mockLogAppender.Verify(
+                    appender => appender.log(It.Is<string>(msg => msg.Contains("Migration complete")), LogSeverity.Debug),
+                    Times.Never
+                );
+            }
+            finally
+            {
+                try { if (File.Exists(tempFile)) File.Delete(tempFile); } catch { }
+            }
+        }
+
+        [TestMethod()]
+        public void OpenFile_LogSuppression_WhenNotSuppressed_EmitsMigrationLogs()
+        {
+            var tempFile = Path.Combine(Path.GetTempPath(), $"project_test_{System.Guid.NewGuid()}.mfproj");
+            try
+            {
+                // old schema version triggers migration path
+                File.WriteAllText(tempFile, "{ \"Name\": \"TestProject\", \"ConfigFiles\": [], \"_version\": \"0.1\" }");
+
+                Log.Instance.Severity = LogSeverity.Debug;
+                Log.Instance.Enabled = true;
+
+                var p = new Project { FilePath = tempFile };
+
+                // Act - open normally (should emit migration logs)
+                p.OpenFile();
+
+                // Assert - migration-related entries present
+                _mockLogAppender.Verify(
+                    appender => appender.log(It.Is<string>(msg => msg.Contains("Migrating document")), LogSeverity.Debug),
+                    Times.Once
+                );
+
+                _mockLogAppender.Verify(
+                    appender => appender.log(It.Is<string>(msg => msg.Contains("Applying V0.9 migrations")), LogSeverity.Debug),
+                    Times.Once
+                );
+
+                _mockLogAppender.Verify(
+                    appender => appender.log(It.Is<string>(msg => msg.Contains("Migration complete")), LogSeverity.Debug),
+                    Times.Once
+                );
+            }
+            finally
+            {
+                try { if (File.Exists(tempFile)) File.Delete(tempFile); } catch { }
+            }
+        }
+
+        #endregion
+
+
     }
 }

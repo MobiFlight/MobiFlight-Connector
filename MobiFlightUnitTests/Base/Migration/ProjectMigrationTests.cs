@@ -47,7 +47,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act
-            var result = applyMigrationsMethod.Invoke(project, new object[] { currentSchemaVersionDocument }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { currentSchemaVersionDocument, false }) as JObject;
 
             // Assert
             Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
@@ -68,7 +68,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act
-            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithoutVersion }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithoutVersion, false }) as JObject;
 
             // Assert
             Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
@@ -468,7 +468,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act & Assert - Should not throw
-            var result = applyMigrationsMethod.Invoke(project, new object[] { corruptedDocument }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { corruptedDocument, false }) as JObject;
             
             // Verify version was still updated
             Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
@@ -489,7 +489,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act
-            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithInvalidVersion }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithInvalidVersion, false }) as JObject;
 
             // Assert
             Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
@@ -511,7 +511,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act
-            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithEmptyVersion }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithEmptyVersion, false }) as JObject;
 
             // Assert
             Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
@@ -533,7 +533,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act
-            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithNullVersion }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { documentWithNullVersion, false }) as JObject;
 
             // Assert
             Assert.AreEqual(project.SchemaVersion.ToString(), result["_version"].ToString());
@@ -615,7 +615,7 @@ namespace MobiFlight.Base.Migration.Tests
                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 
             // Act
-            var result = applyMigrationsMethod.Invoke(project, new object[] { futureDocument }) as JObject;
+            var result = applyMigrationsMethod.Invoke(project, new object[] { futureDocument, false }) as JObject;
 
             // Assert - Should not downgrade version
             Assert.AreEqual(futureVersion.ToString(), result["_version"].ToString());

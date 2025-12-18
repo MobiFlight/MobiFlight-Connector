@@ -17,6 +17,9 @@ const ControllerIconPath = {
     },
   },
   joystick: {
+    authentikit: {
+      "AuthentiKit": "/controller/authentikit/atk-orange-button-logo.png",
+    },
     honeycomb: {
       "Alpha Flight Controls": "/controller/honeycomb/alpha-yoke.jpg",
       "Bravo Throttle Quadrant": "/controller/honeycomb/bravo-throttle.jpg",

@@ -410,7 +410,7 @@ namespace MobiFlight.UI
             RestoreWindowsPositionAndZoomLevel();
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
+        private async void MainForm_Shown(object sender, EventArgs e)
         {
             // Check for updates before loading anything else
 #if (!DEBUG)
@@ -466,7 +466,87 @@ namespace MobiFlight.UI
             Refresh();
 
             PublishSettings();
+            try
+            {
+                await CleanRecentFilesAsync().ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                Log.Instance.log($"Exception in CleanRecentFilesAsync: {ex.Message}", LogSeverity.Error);
+            }
+
             PublishRecentProjectList();
+        }
+
+        // Remove non-existing recent files asynchronously but return only after UI changes persisted.
+        // Caller can await to guarantee the settings are updated before using RecentFiles.
+        private async Task CleanRecentFilesAsync()
+        {
+            var recentSnapshot = Properties.Settings.Default.RecentFiles.Cast<string>().ToList();
+            
+            var missingFiles = await Task.Run(() => CheckForMissingFiles(recentSnapshot)).ConfigureAwait(false);
+
+            if (missingFiles.Count == 0) return;
+
+            // Handle require to invoke settings update on UI thread
+            if (!IsHandleCreated) return;
+
+            var tcs = new TaskCompletionSource<bool>();
+            BeginInvoke((Action)(() =>
+            {
+                try
+                {
+                    RemoveMissingFilesFromSettings(missingFiles);
+                    tcs.SetResult(true);
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
+            }));
+            await tcs.Task.ConfigureAwait(false);
+        }
+
+        internal static List<string> CheckForMissingFiles(IEnumerable<string> recentFiles)
+        {
+            var missingFiles = new List<string>();
+            if (recentFiles == null) return missingFiles;
+
+            foreach (var f in recentFiles)
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(f) || !File.Exists(f))
+                        missingFiles.Add(f);
+                }
+                catch
+                {
+                    // Treat IO errors as missing; keep scanning
+                    missingFiles.Add(f);
+                }
+            }
+
+            return missingFiles;
+        }
+
+        internal void RemoveMissingFilesFromSettings(IEnumerable<string> missingFiles)
+        {
+            if (missingFiles == null) return;
+
+            var changed = false;
+            foreach (var f in missingFiles)
+            {
+                if (!Properties.Settings.Default.RecentFiles.Contains(f)) continue;
+
+                Properties.Settings.Default.RecentFiles.Remove(f);
+                Log.Instance.log($"Recent Project List - File doesn't exist: '{f}' removed.", LogSeverity.Info);
+                changed = true;
+            }
+
+            if (changed)
+            {
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void PublishRecentProjectList()
@@ -481,7 +561,7 @@ namespace MobiFlight.UI
                     {
                         var p = new Project();
                         p.FilePath = project;
-                        p.OpenFile();
+                        p.OpenFile(suppressMigrationLogging: true);
                         p.DetermineProjectInfos();
 
                         recentProjects.Add(p.ToProjectInfo());

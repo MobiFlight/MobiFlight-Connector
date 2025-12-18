@@ -1,0 +1,108 @@
+{
+  "$schema": "./mfjoystick.schema.json",
+  "InstanceName": "AuthentiKit",
+  "VendorId": "0x1DD2",
+  "ProductId": "0x272E",
+  "Inputs": [
+    {
+      "Id": 1,
+      "Type": "Button",
+      "Label": "Button 1"
+    },
+    {
+      "Id": 2,
+      "Type": "Button",
+      "Label": "Button 2"
+    },
+    {
+      "Id": 3,
+      "Type": "Button",
+      "Label": "Button 3"
+    },
+    {
+      "Id": 4,
+      "Type": "Button",
+      "Label": "Button 4"
+    },
+    {
+      "Id": 5,
+      "Type": "Button",
+      "Label": "Button 5"
+    },
+    {
+      "Id": 6,
+      "Type": "Button",
+      "Label": "Button 6"
+    },
+    {
+      "Id": 7,
+      "Type": "Button",
+      "Label": "Button 7"
+    },
+    {
+      "Id": 8,
+      "Type": "Button",
+      "Label": "Button 8"
+    },
+    {
+      "Id": 9,
+      "Type": "Button",
+      "Label": "Button 9"
+    },
+    {
+      "Id": 10,
+      "Type": "Button",
+      "Label": "Button 10"
+    },
+    {
+      "Id": 11,
+      "Type": "Button",
+      "Label": "Button 11"
+    },
+    {
+      "Id": 12,
+      "Type": "Button",
+      "Label": "Button 12"
+    },
+    {
+      "Id": 48,
+      "Type": "Axis",
+      "Label": "Axis 1"
+    },
+    {
+      "Id": 49,
+      "Type": "Axis",
+      "Label": "Axis 2"
+    },
+    {
+      "Id": 50,
+      "Type": "Axis",
+      "Label": "Axis 3"
+    },
+    {
+      "Id": 51,
+      "Type": "Axis",
+      "Label": "Axis 4"
+    },
+    {
+      "Id": 52,
+      "Type": "Axis",
+      "Label": "Axis 5"
+    },
+    {
+      "Id": 53,
+      "Type": "Axis",
+      "Label": "Axis 6"
+    },
+    {
+      "Id": 54,
+      "Type": "Axis",
+      "Label": "Axis 7"
+    },
+    {
+      "Id": 55,
+      "Type": "Axis",
+      "Label": "Axis 8"
+    }
+  ]
+}
